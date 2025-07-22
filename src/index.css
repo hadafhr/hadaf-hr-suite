@@ -2,41 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* تصميم نظام الألوان لشركة هدف للموارد البشرية */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* خلفيات أساسية */
+    --background: 0 0% 99%;
+    --foreground: 220 13% 13%;
 
+    /* البطاقات والمكونات */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 13%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* الألوان الأساسية - أخضر سعودي مع ذهبي */
+    --primary: 135 76% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 135 65% 45%;
+    
+    /* اللون الثانوي - ذهبي */
+    --secondary: 48 100% 67%;
+    --secondary-foreground: 220 13% 13%;
+    
+    /* ألوان الدعم */
+    --accent: 210 40% 94%;
+    --accent-foreground: 220 13% 13%;
+    
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* ألوان الحالة */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 48 96% 53%;
+    --warning-foreground: 26 83% 14%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* الحدود والمدخلات */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 135 76% 35%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* التدرجات الجميلة */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent)) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(135 65% 45%) 100%);
+    
+    /* الظلال */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 8px 40px -8px hsl(var(--primary) / 0.15);
+    --shadow-strong: 0 16px 60px -12px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* متغيرات التحريك */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --radius: 12px;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +128,97 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    direction: rtl;
+  }
+}
+
+@layer components {
+  /* مكونات مخصصة للنظام */
+  .hero-section {
+    @apply bg-gradient-to-br from-primary via-primary-glow to-secondary;
+  }
+  
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-sm border border-border/50;
+  }
+  
+  .service-card {
+    @apply bg-gradient-to-br from-card to-accent p-6 rounded-xl border border-border/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1;
+  }
+  
+  .dashboard-card {
+    @apply bg-card border border-border rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300;
+  }
+  
+  .metric-card {
+    @apply bg-gradient-to-br from-card to-accent/30 border border-border/50 rounded-lg p-4 hover:shadow-soft transition-all duration-300;
+  }
+  
+  .btn-hero {
+    @apply bg-gradient-to-r from-secondary to-warning text-secondary-foreground font-semibold px-8 py-3 rounded-xl hover:scale-105 transition-all duration-300 shadow-medium;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground font-medium px-6 py-2.5 rounded-lg hover:shadow-glow transition-all duration-300;
+  }
+  
+  .navigation-item {
+    @apply px-4 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-300;
+  }
+  
+  /* تأثيرات التحريك */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+  
+  .animate-bounce-gentle {
+    animation: bounceGentle 2s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  
+  .border-gradient {
+    @apply border border-transparent bg-gradient-to-r from-primary to-secondary bg-clip-border;
+  }
+}
+
+/* تحريكات مخصصة */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
   }
 }
