@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
 import { Login } from "@/pages/Login";
+import { Services } from "@/pages/Services";
 import { IndividualServices } from "@/pages/ServicePlatforms/IndividualServices";
 import NotFound from "./pages/NotFound";
 
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/services/individuals" element={<IndividualServices />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

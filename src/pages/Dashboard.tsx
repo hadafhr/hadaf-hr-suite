@@ -209,10 +209,12 @@ export const Dashboard: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {services.map((service, index) => (
+            {services.map((service, index) => {
+              const ServiceIcon = service.icon;
+              return (
               <div key={index} className="metric-card group cursor-pointer">
                 <div className="flex items-center justify-between mb-3">
-                  <service.icon className="h-6 w-6 text-primary" />
+                  <ServiceIcon className="h-6 w-6 text-primary" />
                   <span className={`px-2 py-1 text-xs rounded-full ${
                     service.status === 'نشط' 
                       ? 'bg-success/10 text-success' 
@@ -242,7 +244,8 @@ export const Dashboard: React.FC = () => {
                   </Button>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </Card>
 
