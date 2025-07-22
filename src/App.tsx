@@ -10,6 +10,11 @@ import { Dashboard } from "@/pages/Dashboard";
 import { Login } from "@/pages/Login";
 import { Services } from "@/pages/Services";
 import { IndividualServices } from "@/pages/ServicePlatforms/IndividualServices";
+import { EmployeeManagement } from "@/pages/ServicePlatforms/EmployeeManagement";
+import { Recruitment } from "@/pages/ServicePlatforms/Recruitment";
+import { PerformanceEvaluation } from "@/pages/ServicePlatforms/PerformanceEvaluation";
+import { Training } from "@/pages/ServicePlatforms/Training";
+import { Reports } from "@/pages/ServicePlatforms/Reports";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,7 +49,11 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/individuals" element={<IndividualServices />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="/services/employee-management" element={<EmployeeManagement />} />
+              <Route path="/services/recruitment" element={<Recruitment />} />
+              <Route path="/services/performance" element={<PerformanceEvaluation />} />
+              <Route path="/services/training" element={<Training />} />
+              <Route path="/reports" element={<Reports />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

@@ -239,6 +239,7 @@ export const Dashboard: React.FC = () => {
                     variant="ghost" 
                     size="sm"
                     className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => window.location.href = service.route}
                   >
                     الوصول
                   </Button>
@@ -253,15 +254,15 @@ export const Dashboard: React.FC = () => {
         <Card className="dashboard-card">
           <h3 className="text-lg font-semibold mb-4">التقارير السريعة</h3>
           <div className="grid md:grid-cols-3 gap-4">
-            <Button variant="outline" className="h-20 flex-col">
+            <Button variant="outline" className="h-20 flex-col" onClick={() => window.location.href = '/reports'}>
               <Calendar className="h-6 w-6 mb-2" />
               <span>تقرير الحضور</span>
             </Button>
-            <Button variant="outline" className="h-20 flex-col">
+            <Button variant="outline" className="h-20 flex-col" onClick={() => window.location.href = '/reports'}>
               <Building2 className="h-6 w-6 mb-2" />
               <span>تقرير الأقسام</span>
             </Button>
-            <Button variant="outline" className="h-20 flex-col">
+            <Button variant="outline" className="h-20 flex-col" onClick={() => window.location.href = '/reports'}>
               <TrendingUp className="h-6 w-6 mb-2" />
               <span>تقرير الأداء</span>
             </Button>
