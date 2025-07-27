@@ -15,6 +15,8 @@ import { Recruitment } from "@/pages/ServicePlatforms/Recruitment";
 import { PerformanceEvaluation } from "@/pages/ServicePlatforms/PerformanceEvaluation";
 import { Training } from "@/pages/ServicePlatforms/Training";
 import { Reports } from "@/pages/ServicePlatforms/Reports";
+import { EmployeeDashboard } from "@/pages/EmployeeDashboard";
+import { EmployerDashboard } from "@/pages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +49,8 @@ const App = () => {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
