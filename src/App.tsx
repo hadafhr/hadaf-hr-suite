@@ -15,6 +15,11 @@ import { Recruitment } from "@/pages/ServicePlatforms/Recruitment";
 import { PerformanceEvaluation } from "@/pages/ServicePlatforms/PerformanceEvaluation";
 import { Training } from "@/pages/ServicePlatforms/Training";
 import { Reports } from "@/pages/ServicePlatforms/Reports";
+import { BusinessManagement } from "@/pages/ServicePlatforms/BusinessManagement";
+import { OrganizationalDevelopment } from "@/pages/ServicePlatforms/OrganizationalDevelopment";
+import { WageProtection } from "@/pages/ServicePlatforms/WageProtection";
+import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopment";
+import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
 import { EmployeeDashboard } from "@/pages/EmployeeDashboard";
 import { EmployerDashboard } from "@/pages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
@@ -57,6 +62,11 @@ const App = () => {
               <Route path="/services/recruitment" element={<Recruitment />} />
               <Route path="/services/performance" element={<PerformanceEvaluation />} />
               <Route path="/services/training" element={<Training />} />
+              <Route path="/services/business-management" element={<BusinessManagement />} />
+              <Route path="/services/organizational-development" element={<OrganizationalDevelopment />} />
+              <Route path="/services/wage-protection" element={<WageProtection />} />
+              <Route path="/services/platform-development" element={<PlatformDevelopment />} />
+              <Route path="/services/nonprofit-services" element={<NonProfitServices />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

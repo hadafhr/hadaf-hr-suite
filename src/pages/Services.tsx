@@ -102,7 +102,7 @@ const services = [
     title: "تقييم الأداء KPIs",
     description: "أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية",
     icon: Award,
-    route: "/services/performance-evaluation",
+    route: "/services/performance",
     features: [
       "مؤشرات أداء ذكية",
       "تقارير مرئية شاملة",
@@ -114,7 +114,7 @@ const services = [
     title: "خدمات القطاع غير الربحي",
     description: "حلول متخصصة للحوكمة والاستدامة والامتثال للمنظمات غير الربحية",
     icon: Heart,
-    route: "/services/non-profit",
+    route: "/services/nonprofit-services",
     features: [
       "إدارة الحوكمة",
       "تقارير الاستدامة",
