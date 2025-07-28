@@ -27,6 +27,7 @@ import {
   Brain
 } from 'lucide-react';
 import heroImage from '@/assets/hero-image.jpg';
+const boudLogo = '/lovable-uploads/9315a174-2c21-4ec0-8554-b4936be67676.png';
 
 const services = [
   {
@@ -217,13 +218,15 @@ export const LandingPage: React.FC = () => {
               </div>
             </div>
             
-            <div className="relative">
-              <img 
-                src={heroImage} 
-                alt="إدارة الموارد البشرية"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
+            <div className="relative flex items-center justify-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+                <img 
+                  src={boudLogo} 
+                  alt="بُعد HR - منصة الموارد البشرية"
+                  className="w-64 h-64 object-contain mx-auto"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-3xl"></div>
             </div>
           </div>
         </div>
