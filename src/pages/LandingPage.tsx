@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ServiceCalculator } from '@/components/ServiceCalculator';
 import { 
   Users, 
   Building2, 
@@ -24,7 +25,8 @@ import {
   Lightbulb,
   Handshake,
   Shield,
-  Brain
+  Brain,
+  Calculator
 } from 'lucide-react';
 import heroImage from '@/assets/hero-image.jpg';
 const boudLogo = '/lovable-uploads/9315a174-2c21-4ec0-8554-b4936be67676.png';
@@ -35,7 +37,7 @@ const services = [
     description: "منصة شاملة لإدارة شؤون الموظفين الشخصية والمهنية",
     icon: Users,
     route: "/services/individuals",
-    price: "299 ريال/شهرياً",
+    monthlyPrice: 299,
     features: [
       "إدارة البيانات الشخصية",
       "طلبات الإجازات والمهام", 
@@ -48,7 +50,7 @@ const services = [
     description: "حلول متكاملة لإدارة رحلة الموظف الكاملة",
     icon: Building2,
     route: "/services/business-management",
-    price: "899 ريال/شهرياً",
+    monthlyPrice: 899,
     features: [
       "إدارة دورة حياة الموظف",
       "نظام إدارة الوقت والحضور",
@@ -62,7 +64,7 @@ const services = [
     description: "استشارات وحلول لتطوير الهيكل التنظيمي",
     icon: TrendingUp,
     route: "/services/organizational-development",
-    price: "1,299 ريال/شهرياً",
+    monthlyPrice: 1299,
     features: [
       "تحليل الهيكل التنظيمي",
       "برامج التطوير المؤسسي",
@@ -75,7 +77,7 @@ const services = [
     description: "تقنيات ذكية للبحث عن المواهب وإدارة التوظيف",
     icon: Target,
     route: "/services/recruitment",
-    price: "599 ريال/شهرياً",
+    monthlyPrice: 599,
     features: [
       "نشر الوظائف الشاغرة",
       "فلترة المتقدمين الذكية",
@@ -88,7 +90,7 @@ const services = [
     description: "برامج تدريبية متطورة لتنمية المهارات",
     icon: GraduationCap,
     route: "/services/training",
-    price: "449 ريال/شهرياً",
+    monthlyPrice: 449,
     features: [
       "مكتبة تدريبية شاملة",
       "مسارات تعليمية مخصصة",
@@ -101,7 +103,7 @@ const services = [
     description: "نظام حماية حقوق العمال والأجور",
     icon: ShieldCheck,
     route: "/services/wage-protection",
-    price: "199 ريال/شهرياً",
+    monthlyPrice: 199,
     features: [
       "مراقبة دفع الأجور",
       "تقارير الامتثال",
@@ -114,7 +116,7 @@ const services = [
     description: "تطوير وتصميم المنصات والتطبيقات الرقمية",
     icon: Globe,
     route: "/services/platform-development",
-    price: "2,499 ريال/شهرياً",
+    monthlyPrice: 2499,
     features: [
       "تطوير تطبيقات مخصصة",
       "تصميم واجهات المستخدم",
@@ -128,7 +130,7 @@ const services = [
     description: "حلول مخصصة للمؤسسات الخيرية وغير الربحية",
     icon: Heart,
     route: "/services/nonprofit-services",
-    price: "149 ريال/شهرياً",
+    monthlyPrice: 149,
     features: [
       "إدارة المتطوعين",
       "تتبع التبرعات",
@@ -171,6 +173,12 @@ const testimonials = [
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
+  const [isYearly, setIsYearly] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
+
+  if (showCalculator) {
+    return <ServiceCalculator onBack={() => setShowCalculator(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -387,6 +395,42 @@ export const LandingPage: React.FC = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               مجموعة شاملة من المنصات المتخصصة لتلبية جميع احتياجات إدارة الموارد البشرية
             </p>
+            
+            {/* حاسبة الخدمات والتحكم في الأسعار */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
+              <Button 
+                size="lg" 
+                className="btn-primary"
+                onClick={() => setShowCalculator(true)}
+              >
+                <Calculator className="ml-2 h-5 w-5" />
+                حاسبة الخدمات
+              </Button>
+              
+              <div className="flex items-center gap-4 bg-muted/50 rounded-lg p-2">
+                <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-primary' : 'text-muted-foreground'}`}>
+                  شهري
+                </span>
+                <button 
+                  onClick={() => setIsYearly(!isYearly)}
+                  className={`relative w-12 h-6 rounded-full transition-colors ${isYearly ? 'bg-primary' : 'bg-gray-300'}`}
+                >
+                  <span 
+                    className={`absolute w-4 h-4 bg-white rounded-full top-1 transition-transform ${
+                      isYearly ? 'translate-x-7' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+                <span className={`text-sm font-medium transition-colors ${isYearly ? 'text-primary' : 'text-muted-foreground'}`}>
+                  سنوي
+                </span>
+                {isYearly && (
+                  <Badge variant="secondary" className="text-xs">
+                    خصم 15%
+                  </Badge>
+                )}
+              </div>
+            </div>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -419,8 +463,15 @@ export const LandingPage: React.FC = () => {
                     
                     <div className="pt-4 border-t border-border">
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-bold text-primary">{service.price}</span>
-                        <Badge variant="outline">سنوي</Badge>
+                        <span className="text-2xl font-bold text-primary">
+                          {isYearly 
+                            ? `${Math.round(service.monthlyPrice * 12 * 0.85).toLocaleString()} ريال/سنوياً`
+                            : `${service.monthlyPrice} ريال/شهرياً`
+                          }
+                        </span>
+                        <Badge variant="outline" className={isYearly ? 'bg-primary text-primary-foreground' : ''}>
+                          {isYearly ? 'سنوي' : 'شهري'}
+                        </Badge>
                       </div>
                       
                       <Button 
