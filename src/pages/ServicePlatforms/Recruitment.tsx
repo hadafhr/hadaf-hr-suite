@@ -17,8 +17,13 @@ import {
   Calendar,
   Briefcase,
   Download,
-  Filter
+  Filter,
+  X
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const jobPostings = [
   {
@@ -100,10 +105,35 @@ export const Recruitment: React.FC = () => {
   const [activeTab, setActiveTab] = useState('jobs');
   const { toast } = useToast();
 
+  const [showJobForm, setShowJobForm] = useState(false);
+  const [jobFormData, setJobFormData] = useState({
+    title: '',
+    department: '',
+    type: 'دوام كامل',
+    location: '',
+    description: '',
+    requirements: '',
+    salary: ''
+  });
+
   const handleNewJobPost = () => {
+    setShowJobForm(true);
+  };
+
+  const handleSubmitJob = () => {
     toast({
-      title: "نشر وظيفة جديدة",
-      description: "تم فتح نموذج نشر وظيفة جديدة",
+      title: "تم نشر الوظيفة بنجاح",
+      description: `تم نشر وظيفة ${jobFormData.title}`,
+    });
+    setShowJobForm(false);
+    setJobFormData({
+      title: '',
+      department: '',
+      type: 'دوام كامل',
+      location: '',
+      description: '',
+      requirements: '',
+      salary: ''
     });
   };
 
@@ -410,6 +440,115 @@ export const Recruitment: React.FC = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Job Creation Form Dialog */}
+        <Dialog open={showJobForm} onOpenChange={setShowJobForm}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl">نشر وظيفة جديدة</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="job-title">مسمى الوظيفة</Label>
+                  <Input
+                    id="job-title"
+                    value={jobFormData.title}
+                    onChange={(e) => setJobFormData({...jobFormData, title: e.target.value})}
+                    placeholder="مثال: مطور برمجيات أول"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="department">القسم</Label>
+                  <Select value={jobFormData.department} onValueChange={(value) => setJobFormData({...jobFormData, department: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر القسم" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="it">تقنية المعلومات</SelectItem>
+                      <SelectItem value="finance">المالية</SelectItem>
+                      <SelectItem value="marketing">التسويق</SelectItem>
+                      <SelectItem value="hr">الموارد البشرية</SelectItem>
+                      <SelectItem value="sales">المبيعات</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="job-type">نوع الوظيفة</Label>
+                  <Select value={jobFormData.type} onValueChange={(value) => setJobFormData({...jobFormData, type: value})}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="دوام كامل">دوام كامل</SelectItem>
+                      <SelectItem value="دوام جزئي">دوام جزئي</SelectItem>
+                      <SelectItem value="مؤقت">مؤقت</SelectItem>
+                      <SelectItem value="تدريب">تدريب</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="location">الموقع</Label>
+                  <Input
+                    id="location"
+                    value={jobFormData.location}
+                    onChange={(e) => setJobFormData({...jobFormData, location: e.target.value})}
+                    placeholder="الرياض، جدة، الدمام..."
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="salary">الراتب (اختياري)</Label>
+                  <Input
+                    id="salary"
+                    value={jobFormData.salary}
+                    onChange={(e) => setJobFormData({...jobFormData, salary: e.target.value})}
+                    placeholder="5000 - 8000 ريال"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description">وصف الوظيفة</Label>
+                <Textarea
+                  id="description"
+                  value={jobFormData.description}
+                  onChange={(e) => setJobFormData({...jobFormData, description: e.target.value})}
+                  placeholder="اكتب وصفاً مفصلاً للوظيفة والمسؤوليات المطلوبة..."
+                  rows={4}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="requirements">المؤهلات والمتطلبات</Label>
+                <Textarea
+                  id="requirements"
+                  value={jobFormData.requirements}
+                  onChange={(e) => setJobFormData({...jobFormData, requirements: e.target.value})}
+                  placeholder="اذكر المؤهلات المطلوبة والخبرات والمهارات..."
+                  rows={4}
+                />
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <Button className="btn-primary flex-1" onClick={handleSubmitJob}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  نشر الوظيفة
+                </Button>
+                <Button variant="outline" onClick={() => setShowJobForm(false)}>
+                  <X className="h-4 w-4 mr-2" />
+                  إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

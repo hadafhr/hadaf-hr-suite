@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
-import { Building2, Users, FileText, Calendar, BarChart3, Plus, Search, Download, Eye, Edit } from 'lucide-react';
+import { Building2, Users, FileText, Calendar, BarChart3, Plus, Search, Download, Eye, Edit, X } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const establishments = [
   {
@@ -37,11 +41,35 @@ const businessStats = [
 
 export const BusinessManagement: React.FC = () => {
   const { toast } = useToast();
+  const [showEstablishmentForm, setShowEstablishmentForm] = useState(false);
+  const [establishmentFormData, setEstablishmentFormData] = useState({
+    name: '',
+    type: '',
+    location: '',
+    description: '',
+    industry: '',
+    employeeCount: '',
+    registrationNumber: ''
+  });
 
   const handleAddEstablishment = () => {
+    setShowEstablishmentForm(true);
+  };
+
+  const handleSubmitEstablishment = () => {
     toast({
-      title: "إضافة منشأة جديدة",
-      description: "تم فتح نموذج إضافة منشأة جديدة",
+      title: "تم إضافة المنشأة بنجاح",
+      description: `تم إضافة ${establishmentFormData.name} إلى النظام`,
+    });
+    setShowEstablishmentForm(false);
+    setEstablishmentFormData({
+      name: '',
+      type: '',
+      location: '',
+      description: '',
+      industry: '',
+      employeeCount: '',
+      registrationNumber: ''
     });
   };
 
@@ -185,6 +213,116 @@ export const BusinessManagement: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Add Establishment Form Dialog */}
+      <Dialog open={showEstablishmentForm} onOpenChange={setShowEstablishmentForm}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl">إضافة منشأة جديدة</DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="establishment-name">اسم المنشأة</Label>
+                <Input
+                  id="establishment-name"
+                  value={establishmentFormData.name}
+                  onChange={(e) => setEstablishmentFormData({...establishmentFormData, name: e.target.value})}
+                  placeholder="شركة الأعمال الذكية"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="establishment-type">نوع المنشأة</Label>
+                <Select value={establishmentFormData.type} onValueChange={(value) => setEstablishmentFormData({...establishmentFormData, type: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر نوع المنشأة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="limited">شركة محدودة</SelectItem>
+                    <SelectItem value="individual">مؤسسة فردية</SelectItem>
+                    <SelectItem value="partnership">شركة تضامن</SelectItem>
+                    <SelectItem value="joint_stock">شركة مساهمة</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="establishment-location">الموقع</Label>
+                <Input
+                  id="establishment-location"
+                  value={establishmentFormData.location}
+                  onChange={(e) => setEstablishmentFormData({...establishmentFormData, location: e.target.value})}
+                  placeholder="الرياض، جدة، الدمام..."
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="establishment-industry">القطاع</Label>
+                <Select value={establishmentFormData.industry} onValueChange={(value) => setEstablishmentFormData({...establishmentFormData, industry: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر القطاع" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="technology">تقنية المعلومات</SelectItem>
+                    <SelectItem value="finance">الخدمات المالية</SelectItem>
+                    <SelectItem value="manufacturing">التصنيع</SelectItem>
+                    <SelectItem value="retail">التجارة</SelectItem>
+                    <SelectItem value="healthcare">الصحة</SelectItem>
+                    <SelectItem value="education">التعليم</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="establishment-employees">عدد الموظفين</Label>
+                <Input
+                  id="establishment-employees"
+                  type="number"
+                  value={establishmentFormData.employeeCount}
+                  onChange={(e) => setEstablishmentFormData({...establishmentFormData, employeeCount: e.target.value})}
+                  placeholder="50"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="establishment-registration">رقم السجل التجاري</Label>
+              <Input
+                id="establishment-registration"
+                value={establishmentFormData.registrationNumber}
+                onChange={(e) => setEstablishmentFormData({...establishmentFormData, registrationNumber: e.target.value})}
+                placeholder="1010123456"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="establishment-description">وصف المنشأة</Label>
+              <Textarea
+                id="establishment-description"
+                value={establishmentFormData.description}
+                onChange={(e) => setEstablishmentFormData({...establishmentFormData, description: e.target.value})}
+                placeholder="اكتب وصفاً مختصراً عن المنشأة ونشاطها..."
+                rows={3}
+              />
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <Button className="bg-primary text-primary-foreground flex-1" onClick={handleSubmitEstablishment}>
+                <Plus className="h-4 w-4 mr-2" />
+                إضافة المنشأة
+              </Button>
+              <Button variant="outline" onClick={() => setShowEstablishmentForm(false)}>
+                <X className="h-4 w-4 mr-2" />
+                إلغاء
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

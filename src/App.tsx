@@ -94,6 +94,18 @@ const App = () => {
               <Route path="/services/wage-protection" element={<WageProtection />} />
               <Route path="/services/platform-development" element={<PlatformDevelopment />} />
               <Route path="/services/nonprofit-services" element={<NonProfitServices />} />
+              
+              {/* Service Platform Routes */}
+              <Route path="/service-platforms/individual-services" element={<IndividualServices />} />
+              <Route path="/service-platforms/employee-management" element={<EmployeeManagement />} />
+              <Route path="/service-platforms/recruitment" element={<Recruitment />} />
+              <Route path="/service-platforms/performance-evaluation" element={<PerformanceEvaluation />} />
+              <Route path="/service-platforms/training" element={<Training />} />
+              <Route path="/service-platforms/business-management" element={<BusinessManagement />} />
+              <Route path="/service-platforms/organizational-development" element={<OrganizationalDevelopment />} />
+              <Route path="/service-platforms/wage-protection" element={<WageProtection />} />
+              <Route path="/service-platforms/platform-development" element={<PlatformDevelopment />} />
+              <Route path="/service-platforms/nonprofit-services" element={<NonProfitServices />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/ai-hub" element={<AIHub />} />
               <Route path="/user-management" element={<UserManagement />} />

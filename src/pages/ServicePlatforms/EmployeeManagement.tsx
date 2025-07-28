@@ -5,6 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   Users, 
   Plus, 
@@ -16,7 +18,8 @@ import {
   Phone,
   Mail,
   MapPin,
-  Download
+  Download,
+  X
 } from 'lucide-react';
 
 const employees = [
@@ -63,10 +66,35 @@ export const EmployeeManagement: React.FC = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const { toast } = useToast();
 
+  const [showEmployeeForm, setShowEmployeeForm] = useState(false);
+  const [employeeFormData, setEmployeeFormData] = useState({
+    name: '',
+    position: '',
+    department: '',
+    email: '',
+    phone: '',
+    salary: '',
+    joinDate: ''
+  });
+
   const handleAddEmployee = () => {
+    setShowEmployeeForm(true);
+  };
+
+  const handleSubmitEmployee = () => {
     toast({
-      title: "إضافة موظف جديد",
-      description: "تم فتح نموذج إضافة موظف جديد",
+      title: "تم إضافة الموظف بنجاح",
+      description: `تم إضافة ${employeeFormData.name} إلى النظام`,
+    });
+    setShowEmployeeForm(false);
+    setEmployeeFormData({
+      name: '',
+      position: '',
+      department: '',
+      email: '',
+      phone: '',
+      salary: '',
+      joinDate: ''
     });
   };
 
@@ -473,6 +501,112 @@ export const EmployeeManagement: React.FC = () => {
                 </div>
               </div>
             )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Employee Form Dialog */}
+        <Dialog open={showEmployeeForm} onOpenChange={setShowEmployeeForm}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl">إضافة موظف جديد</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="employee-name">الاسم الكامل</Label>
+                  <Input
+                    id="employee-name"
+                    value={employeeFormData.name}
+                    onChange={(e) => setEmployeeFormData({...employeeFormData, name: e.target.value})}
+                    placeholder="أحمد محمد السعد"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="employee-position">المنصب</Label>
+                  <Input
+                    id="employee-position"
+                    value={employeeFormData.position}
+                    onChange={(e) => setEmployeeFormData({...employeeFormData, position: e.target.value})}
+                    placeholder="مطور برمجيات أول"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="employee-department">القسم</Label>
+                  <Select value={employeeFormData.department} onValueChange={(value) => setEmployeeFormData({...employeeFormData, department: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر القسم" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="it">تقنية المعلومات</SelectItem>
+                      <SelectItem value="finance">المالية</SelectItem>
+                      <SelectItem value="marketing">التسويق</SelectItem>
+                      <SelectItem value="hr">الموارد البشرية</SelectItem>
+                      <SelectItem value="sales">المبيعات</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="employee-email">البريد الإلكتروني</Label>
+                  <Input
+                    id="employee-email"
+                    type="email"
+                    value={employeeFormData.email}
+                    onChange={(e) => setEmployeeFormData({...employeeFormData, email: e.target.value})}
+                    placeholder="employee@company.com"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="employee-phone">رقم الهاتف</Label>
+                  <Input
+                    id="employee-phone"
+                    value={employeeFormData.phone}
+                    onChange={(e) => setEmployeeFormData({...employeeFormData, phone: e.target.value})}
+                    placeholder="+966501234567"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="employee-salary">الراتب (ريال)</Label>
+                  <Input
+                    id="employee-salary"
+                    type="number"
+                    value={employeeFormData.salary}
+                    onChange={(e) => setEmployeeFormData({...employeeFormData, salary: e.target.value})}
+                    placeholder="8000"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="employee-joinDate">تاريخ الالتحاق</Label>
+                  <Input
+                    id="employee-joinDate"
+                    type="date"
+                    value={employeeFormData.joinDate}
+                    onChange={(e) => setEmployeeFormData({...employeeFormData, joinDate: e.target.value})}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <Button className="btn-primary flex-1" onClick={handleSubmitEmployee}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  إضافة الموظف
+                </Button>
+                <Button variant="outline" onClick={() => setShowEmployeeForm(false)}>
+                  <X className="h-4 w-4 mr-2" />
+                  إلغاء
+                </Button>
+              </div>
+            </div>
           </DialogContent>
         </Dialog>
       </div>

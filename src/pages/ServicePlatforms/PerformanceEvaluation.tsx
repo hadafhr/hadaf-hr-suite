@@ -19,8 +19,14 @@ import {
   Edit,
   Eye,
   Download,
-  Brain
+  Brain,
+  X
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { 
   BarChart, 
   Bar, 
@@ -339,12 +345,36 @@ const employees = [
 
 export const PerformanceEvaluation: React.FC = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<any>(employees[0]);
+  const [showKPIForm, setShowKPIForm] = useState(false);
+  const [kpiFormData, setKpiFormData] = useState({
+    employeeName: '',
+    evaluationType: '',
+    period: '',
+    goals: '',
+    achievements: '',
+    rating: '',
+    feedback: ''
+  });
   const { toast } = useToast();
 
   const handleNewEvaluation = () => {
+    setShowKPIForm(true);
+  };
+
+  const handleSubmitKPI = () => {
     toast({
-      title: "إنشاء تقييم جديد",
-      description: "تم فتح نموذج إنشاء تقييم أداء جديد",
+      title: "تم حفظ التقييم بنجاح",
+      description: `تم حفظ تقييم ${kpiFormData.employeeName}`,
+    });
+    setShowKPIForm(false);
+    setKpiFormData({
+      employeeName: '',
+      evaluationType: '',
+      period: '',
+      goals: '',
+      achievements: '',
+      rating: '',
+      feedback: ''
     });
   };
 
@@ -646,6 +676,120 @@ export const PerformanceEvaluation: React.FC = () => {
             </div>
           </Card>
         </div>
+
+        {/* KPI Evaluation Form Dialog */}
+        <Dialog open={showKPIForm} onOpenChange={setShowKPIForm}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl">تقييم أداء جديد - KPIs</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="employee-name">اسم الموظف</Label>
+                  <Select value={kpiFormData.employeeName} onValueChange={(value) => setKpiFormData({...kpiFormData, employeeName: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر الموظف" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {employees.map(emp => (
+                        <SelectItem key={emp.id} value={emp.name}>{emp.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="evaluation-type">نوع التقييم</Label>
+                  <Select value={kpiFormData.evaluationType} onValueChange={(value) => setKpiFormData({...kpiFormData, evaluationType: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر نوع التقييم" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="quarterly">تقييم ربع سنوي</SelectItem>
+                      <SelectItem value="annual">تقييم سنوي</SelectItem>
+                      <SelectItem value="probation">تقييم فترة التجربة</SelectItem>
+                      <SelectItem value="promotion">تقييم للترقية</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="evaluation-period">فترة التقييم</Label>
+                  <Input
+                    id="evaluation-period"
+                    value={kpiFormData.period}
+                    onChange={(e) => setKpiFormData({...kpiFormData, period: e.target.value})}
+                    placeholder="يناير - مارس 2024"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="performance-rating">التقييم العام</Label>
+                  <Select value={kpiFormData.rating} onValueChange={(value) => setKpiFormData({...kpiFormData, rating: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر التقييم" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="excellent">ممتاز (90-100%)</SelectItem>
+                      <SelectItem value="very_good">جيد جداً (80-89%)</SelectItem>
+                      <SelectItem value="good">جيد (70-79%)</SelectItem>
+                      <SelectItem value="satisfactory">مرضي (60-69%)</SelectItem>
+                      <SelectItem value="needs_improvement">يحتاج تطوير (أقل من 60%)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="goals">الأهداف والمؤشرات (KPIs)</Label>
+                <Textarea
+                  id="goals"
+                  value={kpiFormData.goals}
+                  onChange={(e) => setKpiFormData({...kpiFormData, goals: e.target.value})}
+                  placeholder="اذكر الأهداف المحددة ومؤشرات الأداء الرئيسية..."
+                  rows={4}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="achievements">الإنجازات المحققة</Label>
+                <Textarea
+                  id="achievements"
+                  value={kpiFormData.achievements}
+                  onChange={(e) => setKpiFormData({...kpiFormData, achievements: e.target.value})}
+                  placeholder="اذكر الإنجازات والنتائج المحققة خلال فترة التقييم..."
+                  rows={4}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="feedback">التوصيات والتطوير</Label>
+                <Textarea
+                  id="feedback"
+                  value={kpiFormData.feedback}
+                  onChange={(e) => setKpiFormData({...kpiFormData, feedback: e.target.value})}
+                  placeholder="اكتب توصيات للتطوير والتحسين..."
+                  rows={3}
+                />
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <Button className="btn-primary flex-1" onClick={handleSubmitKPI}>
+                  <Target className="h-4 w-4 mr-2" />
+                  حفظ التقييم
+                </Button>
+                <Button variant="outline" onClick={() => setShowKPIForm(false)}>
+                  <X className="h-4 w-4 mr-2" />
+                  إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
