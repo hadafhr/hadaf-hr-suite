@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
-import { ServiceCard } from '@/components/ServiceCard';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
   Users, 
   Building2, 
@@ -13,29 +14,39 @@ import {
   Globe,
   Heart,
   ArrowLeft,
-  User
+  User,
+  CheckCircle,
+  Star,
+  Mail,
+  Phone,
+  MapPin,
+  Eye,
+  Lightbulb,
+  Handshake,
+  Shield
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import heroImage from '@/assets/hero-image.jpg';
 
 const services = [
   {
     title: "خدمات الأفراد الإلكترونية",
-    description: "منصة شاملة لإدارة شؤون الموظفين الشخصية والمهنية بطريقة رقمية متطورة",
+    description: "منصة شاملة لإدارة شؤون الموظفين الشخصية والمهنية",
     icon: Users,
     route: "/services/individuals",
+    price: "299 ريال/شهرياً",
     features: [
       "إدارة البيانات الشخصية",
-      "طلبات الإجازات والمهام",
+      "طلبات الإجازات والمهام", 
       "تتبع الأداء والتقييمات",
       "التطوير المهني"
     ]
   },
   {
     title: "إدارة المنشآت والموظفين",
-    description: "حلول متكاملة لإدارة رحلة الموظف الكاملة من التوظيف حتى التقاعد",
+    description: "حلول متكاملة لإدارة رحلة الموظف الكاملة",
     icon: Building2,
     route: "/services/business-management",
+    price: "899 ريال/شهرياً",
     features: [
       "إدارة دورة حياة الموظف",
       "نظام إدارة الوقت والحضور",
@@ -46,309 +57,518 @@ const services = [
   },
   {
     title: "التطوير والتنظيم المؤسسي",
-    description: "استشارات وحلول لتطوير الهيكل التنظيمي وتحسين الأداء المؤسسي",
+    description: "استشارات وحلول لتطوير الهيكل التنظيمي",
     icon: TrendingUp,
     route: "/services/organizational-development",
+    price: "1,299 ريال/شهرياً",
     features: [
       "تحليل الهيكل التنظيمي",
-      "تطوير السياسات واللوائح",
-      "برامج التحول الرقمي",
-      "استشارات الإدارة"
+      "برامج التطوير المؤسسي",
+      "استشارات الإدارة",
+      "قياس مؤشرات الأداء"
     ]
   },
   {
-    title: "خدمات التوظيف",
-    description: "منصة ذكية للبحث عن المواهب وإدارة عمليات التوظيف بكفاءة عالية",
+    title: "منصة التوظيف الذكي",
+    description: "تقنيات ذكية للبحث عن المواهب وإدارة التوظيف",
     icon: Target,
     route: "/services/recruitment",
+    price: "599 ريال/شهرياً",
     features: [
-      "نشر الوظائف الذكي",
-      "فلترة السير الذاتية",
+      "نشر الوظائف الشاغرة",
+      "فلترة المتقدمين الذكية",
       "إدارة المقابلات",
       "تقييم المرشحين"
     ]
   },
   {
-    title: "حماية الأجور",
-    description: "نظام آمن ومتوافق مع أنظمة العمل السعودية لضمان حماية حقوق العمال",
-    icon: ShieldCheck,
-    route: "/services/wage-protection",
+    title: "منصة التدريب والتطوير",
+    description: "برامج تدريبية متطورة لتنمية المهارات",
+    icon: GraduationCap,
+    route: "/services/training",
+    price: "449 ريال/شهرياً",
     features: [
-      "التوافق مع نظام ساند",
-      "مراقبة صرف الرواتب",
-      "تقارير الامتثال",
-      "الحماية القانونية"
+      "مكتبة تدريبية شاملة",
+      "مسارات تعليمية مخصصة",
+      "شهادات معتمدة",
+      "تقارير التقدم"
     ]
   },
   {
-    title: "منصات التدريب",
-    description: "حلول تدريبية متطورة لتنمية مهارات الموظفين وتطوير قدراتهم",
-    icon: GraduationCap,
-    route: "/services/training",
+    title: "حماية الأجور",
+    description: "نظام حماية حقوق العمال والأجور",
+    icon: ShieldCheck,
+    route: "/services/wage-protection",
+    price: "199 ريال/شهرياً",
     features: [
-      "مسارات تدريبية مخصصة",
-      "محتوى تفاعلي متقدم",
-      "تتبع التقدم والإنجاز",
-      "شهادات معتمدة"
+      "مراقبة دفع الأجور",
+      "تقارير الامتثال",
+      "إدارة الشكاوى",
+      "حماية حقوق العمال"
     ]
   },
   {
     title: "تطوير المنصات الإلكترونية",
-    description: "تصميم وتطوير منصات رقمية مخصصة لاحتياجات المنشآت المختلفة",
+    description: "تطوير وتصميم المنصات والتطبيقات الرقمية",
     icon: Globe,
     route: "/services/platform-development",
+    price: "2,499 ريال/شهرياً",
     features: [
-      "تطوير مخصص",
-      "واجهات مستخدم حديثة",
-      "تكامل مع الأنظمة الحالية",
-      "دعم فني مستمر"
-    ]
-  },
-  {
-    title: "تقييم الأداء KPIs",
-    description: "أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية",
-    icon: Award,
-    route: "/services/performance",
-    features: [
-      "مؤشرات أداء ذكية",
-      "تقارير مرئية شاملة",
-      "تحليلات متقدمة",
-      "خطط التحسين"
-    ]
+      "تطوير تطبيقات مخصصة",
+      "تصميم واجهات المستخدم",
+      "تكامل الأنظمة",
+      "الصيانة والدعم"
+    ],
+    isPremium: true
   },
   {
     title: "خدمات القطاع غير الربحي",
-    description: "حلول متخصصة للحوكمة والاستدامة والامتثال للمنظمات غير الربحية",
+    description: "حلول مخصصة للمؤسسات الخيرية وغير الربحية",
     icon: Heart,
     route: "/services/nonprofit-services",
+    price: "149 ريال/شهرياً",
     features: [
-      "إدارة الحوكمة",
-      "تقارير الاستدامة",
-      "الامتثال التنظيمي",
-      "إدارة المتطوعين"
+      "إدارة المتطوعين",
+      "تتبع التبرعات",
+      "تقارير الأثر الاجتماعي",
+      "إدارة البرامج الخيرية"
     ]
+  }
+];
+
+const stats = [
+  { number: "500+", label: "شركة تثق بنا" },
+  { number: "50,000+", label: "موظف نديرهم" },
+  { number: "99.9%", label: "وقت التشغيل" },
+  { number: "24/7", label: "دعم متواصل" }
+];
+
+const testimonials = [
+  {
+    name: "أحمد محمد السعد",
+    position: "مدير الموارد البشرية",
+    company: "شركة الرياض للتقنية",
+    text: "منصة هدف غيرت طريقة إدارتنا للموارد البشرية بالكامل. سهولة الاستخدام والمميزات المتقدمة جعلت عملنا أكثر كفاءة.",
+    rating: 5
+  },
+  {
+    name: "فاطمة علي النور", 
+    position: "الرئيسة التنفيذية",
+    company: "مؤسسة الخير الاجتماعية",
+    text: "بفضل حلول هدف، تمكنا من تطوير عملياتنا وزيادة كفاءة إدارة المتطوعين والبرامج الخيرية بشكل ملحوظ.",
+    rating: 5
+  },
+  {
+    name: "محمد خالد الشمري",
+    position: "مدير العمليات",
+    company: "شركة البناء المتقدم",
+    text: "أنظمة هدف ساعدتنا في تنظيم عمليات التوظيف والتدريب، مما وفر علينا الكثير من الوقت والجهد.",
+    rating: 4
   }
 ];
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* القسم الرئيسي */}
-      <section className="hero-section min-h-[80vh] flex items-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        
-        <div className="container relative z-10 px-4">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-gradient">
-              بُعد
-              <span className="block text-secondary text-3xl md:text-5xl mt-2">
-                مستقبل إدارة الموارد البشرية في السعودية
-              </span>
-            </h1>
+      <section className="hero-section relative overflow-hidden">
+        <div className="container mx-auto px-6 py-20 lg:py-32">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-right space-y-8">
+              <div className="space-y-4">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
+                  مستقبل إدارة
+                  <span className="block text-gradient">الموارد البشرية</span>
+                </h1>
+                <p className="text-xl text-white/90 max-w-2xl">
+                  منصة شاملة ومتطورة لإدارة جميع جوانب الموارد البشرية بأحدث التقنيات وأفضل الممارسات العالمية
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Button 
+                  size="lg" 
+                  className="btn-hero"
+                  onClick={() => navigate('/login')}
+                >
+                  ابدأ الآن مجاناً
+                  <ArrowLeft className="mr-2 h-5 w-5" />
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  onClick={() => navigate('/services')}
+                >
+                  استكشف الخدمات
+                </Button>
+              </div>
+              
+              <div className="flex items-center justify-center lg:justify-start gap-8 text-white/80">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-2xl font-bold">{stat.number}</div>
+                    <div className="text-sm">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
             
-            <p className="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed animate-slide-up">
-              منصة متكاملة تجمع جميع خدمات الموارد البشرية في مكان واحد، مصممة خصيصاً 
-              للمنشآت السعودية مع التوافق الكامل مع أنظمة العمل المحلية
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up">
-              <Button 
-                className="btn-hero text-lg px-8 py-4"
-                onClick={() => navigate('/employee-dashboard')}
-              >
-                بوابة الموظف
-                <User className="mr-2 h-5 w-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                className="text-white border-white hover:bg-white hover:text-primary text-lg px-8 py-4"
-                onClick={() => navigate('/employer-dashboard')}
-              >
-                بوابة صاحب العمل
-                <Users className="mr-2 h-5 w-5" />
-              </Button>
+            <div className="relative">
+              <img 
+                src={heroImage} 
+                alt="إدارة الموارد البشرية"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* قسم نبذة عن الشركة */}
-      <section className="py-16 bg-background">
-        <div className="container px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">
-              من نحن؟
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong>بُعد</strong> هي شركة سعودية رائدة تقدم حلولاً متكاملة وذكية 
-              لإدارة الموارد البشرية. نساعد المنشآت على تحسين كفاءتها التشغيلية وتطوير رأس المال البشري 
-              من خلال منصات رقمية متطورة تتوافق مع رؤية السعودية 2030.
+      {/* من نحن */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient mb-4">من نحن</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              نحن شركة هدف للموارد البشرية، رائدة في تقديم الحلول الرقمية المتطورة لإدارة الموارد البشرية في المملكة العربية السعودية
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="metric-card text-center">
-              <h3 className="text-2xl font-bold text-primary mb-2">رؤيتنا</h3>
-              <p className="text-muted-foreground">
-                أن نكون الخيار الأول لحلول الموارد البشرية الرقمية في المملكة
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-foreground">قصتنا</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                تأسست شركة هدف للموارد البشرية عام 2020 برؤية واضحة: تطوير أنظمة رقمية متطورة تساعد الشركات والمؤسسات 
+                على إدارة مواردها البشرية بكفاءة عالية وفقاً لأفضل المعايير العالمية ومتطلبات السوق السعودي.
               </p>
-            </div>
-            <div className="metric-card text-center">
-              <h3 className="text-2xl font-bold text-primary mb-2">رسالتنا</h3>
-              <p className="text-muted-foreground">
-                تمكين المنشآت من تحقيق أهدافها من خلال حلول مبتكرة وفعالة
+              <p className="text-muted-foreground leading-relaxed">
+                منذ انطلاقتنا، نجحنا في خدمة أكثر من 500 شركة ومؤسسة، وإدارة شؤون أكثر من 50,000 موظف، 
+                مما جعلنا الخيار الأول للشركات الساعية للتميز في إدارة مواردها البشرية.
               </p>
+              
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="text-center p-4 bg-accent/10 rounded-lg">
+                  <div className="text-3xl font-bold text-primary">4+</div>
+                  <div className="text-sm text-muted-foreground">سنوات خبرة</div>
+                </div>
+                <div className="text-center p-4 bg-accent/10 rounded-lg">
+                  <div className="text-3xl font-bold text-primary">8</div>
+                  <div className="text-sm text-muted-foreground">منصات متخصصة</div>
+                </div>
+              </div>
             </div>
-            <div className="metric-card text-center">
-              <h3 className="text-2xl font-bold text-primary mb-2">قيمنا</h3>
-              <p className="text-muted-foreground">
-                الابتكار، الجودة، الشفافية، والالتزام بالمعايير المهنية العالية
-              </p>
-            </div>
+            
+            <Card className="service-card">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold text-foreground">ما يميزنا</h3>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-primary mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-foreground">التقنيات الحديثة</h4>
+                      <p className="text-sm text-muted-foreground">استخدام أحدث التقنيات والذكاء الاصطناعي</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-primary mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-foreground">الامتثال المحلي</h4>
+                      <p className="text-sm text-muted-foreground">متوافق مع قوانين العمل والضرائب السعودية</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-primary mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-foreground">دعم 24/7</h4>
+                      <p className="text-sm text-muted-foreground">فريق دعم فني متخصص متاح على مدار الساعة</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-primary mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-foreground">التكامل السهل</h4>
+                      <p className="text-sm text-muted-foreground">تكامل سهل مع الأنظمة والمنصات الموجودة</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* قسم الخدمات */}
-      <section className="py-16 bg-accent/30">
-        <div className="container px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">
-              خدماتنا المتكاملة
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+      {/* رؤيتنا وقيمنا */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient mb-4">رؤيتنا وقيمنا</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              نؤمن بأن الموارد البشرية هي أساس نجاح أي منظمة، ونسعى لتمكين الشركات من تحقيق أهدافها من خلال حلولنا المبتكرة
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* الرؤية */}
+            <Card className="service-card text-center">
+              <div className="space-y-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                  <Eye className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">رؤيتنا</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  أن نكون الشريك الاستراتيجي الأول للشركات في المملكة العربية السعودية في مجال تطوير وإدارة 
+                  الموارد البشرية من خلال تقديم حلول رقمية مبتكرة تواكب رؤية المملكة 2030.
+                </p>
+              </div>
+            </Card>
+            
+            {/* المهمة */}
+            <Card className="service-card text-center">
+              <div className="space-y-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                  <Target className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">مهمتنا</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  تمكين الشركات والمؤسسات من إدارة مواردها البشرية بكفاءة عالية من خلال منصات رقمية متطورة 
+                  وخدمات استشارية متخصصة تساهم في تحقيق النمو المستدام والتطوير المؤسسي.
+                </p>
+              </div>
+            </Card>
+            
+            {/* القيم */}
+            <Card className="service-card text-center">
+              <div className="space-y-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                  <Lightbulb className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">قيمنا</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>الابتكار والتطوير المستمر</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>الشفافية والنزاهة</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>التميز في الخدمة</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>الشراكة طويلة المدى</span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* الخدمات والأسعار */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient mb-4">منصاتنا وخدماتنا</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               مجموعة شاملة من المنصات المتخصصة لتلبية جميع احتياجات إدارة الموارد البشرية
             </p>
           </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {services.map((service, index) => {
+              const ServiceIcon = service.icon;
+              return (
+                <Card key={index} className="service-card group cursor-pointer hover:scale-105 transition-all duration-300">
+                  <div className="space-y-4">
+                    {service.isPremium && (
+                      <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white">
+                        مميز
+                      </Badge>
+                    )}
+                    
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <ServiceIcon className="h-6 w-6 text-primary" />
+                    </div>
+                    
+                    <h3 className="text-lg font-bold text-foreground">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground">{service.description}</p>
+                    
+                    <div className="space-y-2">
+                      {service.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="h-3 w-3 text-primary" />
+                          <span className="text-muted-foreground">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="pt-4 border-t border-border">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-2xl font-bold text-primary">{service.price}</span>
+                        <Badge variant="outline">سنوي</Badge>
+                      </div>
+                      
+                      <Button 
+                        className="w-full btn-primary"
+                        onClick={() => navigate(service.route)}
+                      >
+                        تفاصيل أكثر
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                {...service}
-              />
+      {/* آراء العملاء */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gradient mb-4">ماذا يقول عملاؤنا</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              آراء وتجارب عملائنا الكرام مع منصات هدف للموارد البشرية
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="service-card">
+                <div className="space-y-4">
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`} 
+                      />
+                    ))}
+                  </div>
+                  
+                  <p className="text-muted-foreground italic">"{testimonial.text}"</p>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                    <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                    <p className="text-sm text-primary">{testimonial.company}</p>
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* قسم الإحصائيات */}
-      <section className="py-16 bg-gradient-primary">
-        <div className="container px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center text-white">
-            <div className="animate-bounce-gentle">
-              <h3 className="text-4xl font-bold mb-2">500+</h3>
-              <p className="text-white/90">منشأة تثق بنا</p>
-            </div>
-            <div className="animate-bounce-gentle" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-4xl font-bold mb-2">50,000+</h3>
-              <p className="text-white/90">موظف يستخدم منصاتنا</p>
-            </div>
-            <div className="animate-bounce-gentle" style={{ animationDelay: '0.4s' }}>
-              <h3 className="text-4xl font-bold mb-2">99.9%</h3>
-              <p className="text-white/90">نسبة الوقت التشغيلي</p>
-            </div>
-            <div className="animate-bounce-gentle" style={{ animationDelay: '0.6s' }}>
-              <h3 className="text-4xl font-bold mb-2">24/7</h3>
-              <p className="text-white/90">دعم فني مستمر</p>
+      {/* دعوة للعمل */}
+      <section className="py-20 bg-gradient-to-r from-primary to-secondary">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-3xl mx-auto space-y-8">
+            <h2 className="text-4xl font-bold text-white">
+              ابدأ رحلتك معنا اليوم
+            </h2>
+            <p className="text-xl text-white/90">
+              انضم إلى أكثر من 500 شركة تثق في هدف للموارد البشرية لإدارة مواردها البشرية بكفاءة وتميز
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-white text-primary hover:bg-white/90"
+                onClick={() => navigate('/login')}
+              >
+                جرب مجاناً لمدة 30 يوم
+                <ArrowLeft className="mr-2 h-5 w-5" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white/10"
+                onClick={() => navigate('/user-management')}
+              >
+                تواصل مع المبيعات
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* قسم البوابات */}
-      <section className="py-20 bg-background">
-        <div className="container px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-6">
-              اختر البوابة المناسبة لك
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              بوابات مخصصة لكل فئة مع خدمات متكاملة ومصممة لتلبية احتياجاتك
-            </p>
+      {/* معلومات التواصل */}
+      <section className="py-16 bg-background border-t border-border">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-2">
+              <h3 className="text-2xl font-bold text-gradient mb-4">هدف للموارد البشرية</h3>
+              <p className="text-muted-foreground mb-6">
+                شريكك الاستراتيجي في إدارة وتطوير الموارد البشرية. نقدم حلولاً رقمية متطورة تساعد منظمتك على تحقيق التميز والنمو المستدام.
+              </p>
+              
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 text-primary" />
+                  <span className="text-muted-foreground">info@hadaf-hr.sa</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 text-primary" />
+                  <span className="text-muted-foreground">+966 11 234 5678</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  <span className="text-muted-foreground">الرياض، المملكة العربية السعودية</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-foreground mb-4">الخدمات</h4>
+              <div className="space-y-2">
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary" onClick={() => navigate('/services/individuals')}>
+                  خدمات الأفراد
+                </Button>
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary" onClick={() => navigate('/services/business-management')}>
+                  إدارة المنشآت
+                </Button>
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary" onClick={() => navigate('/services/recruitment')}>
+                  التوظيف الذكي
+                </Button>
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary" onClick={() => navigate('/services/training')}>
+                  التدريب والتطوير
+                </Button>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-foreground mb-4">الشركة</h4>
+              <div className="space-y-2">
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary">
+                  من نحن
+                </Button>
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary">
+                  فريق العمل
+                </Button>
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary">
+                  الوظائف
+                </Button>
+                <Button variant="ghost" className="h-auto p-0 font-normal text-muted-foreground hover:text-primary">
+                  تواصل معنا
+                </Button>
+              </div>
+            </div>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card 
-              className="p-8 text-center hover:shadow-xl transition-all duration-300 cursor-pointer group hover:scale-105 bg-card border-border"
-              onClick={() => navigate('/employee-dashboard')}
-            >
-              <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <User className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">بوابة الموظف</h3>
-              <p className="text-muted-foreground mb-6 text-lg">
-                إدارة شاملة للشؤون الشخصية والوظيفية للموظفين
-              </p>
-              <ul className="text-sm text-muted-foreground space-y-2 mb-6 text-right">
-                <li>• ملف شخصي متكامل وآمن</li>
-                <li>• طلبات الإجازات والموافقات</li>
-                <li>• كشوف الراتب والمستحقات</li>
-                <li>• تقييم الأداء والإنجازات</li>
-                <li>• الدورات التدريبية والشهادات</li>
-                <li>• سجل الحضور والانصراف</li>
-              </ul>
-              <Button className="w-full bg-primary hover:bg-primary/90">
-                دخول بوابة الموظف
-              </Button>
-            </Card>
-
-            <Card 
-              className="p-8 text-center hover:shadow-xl transition-all duration-300 cursor-pointer group hover:scale-105 bg-card border-border"
-              onClick={() => navigate('/employer-dashboard')}
-            >
-              <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Users className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">بوابة صاحب العمل</h3>
-              <p className="text-muted-foreground mb-6 text-lg">
-                أدوات متقدمة لإدارة الموارد البشرية والشركات
-              </p>
-              <ul className="text-sm text-muted-foreground space-y-2 mb-6 text-right">
-                <li>• إدارة شاملة للموظفين</li>
-                <li>• التوظيف والاستقطاب</li>
-                <li>• تقييم الأداء ومؤشرات KPIs</li>
-                <li>• التدريب والتطوير المهني</li>
-                <li>• التقارير والتحليلات المتقدمة</li>
-                <li>• إدارة الرواتب والمزايا</li>
-              </ul>
-              <Button className="w-full bg-accent hover:bg-accent/90" variant="outline">
-                دخول بوابة صاحب العمل
-              </Button>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* قسم الدعوة للعمل */}
-      <section className="py-20 bg-gradient-to-br from-primary to-accent text-white">
-        <div className="container px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">
-            ابدأ رحلتك معنا اليوم
-          </h2>
-          <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
-            انضم إلى آلاف المنشآت التي تثق في حلولنا المتقدمة
-          </p>
-          <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center sm:space-x-reverse">
-            <Button 
-              size="lg" 
-              className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
-              onClick={() => navigate('/login')}
-            >
-              ابدأ الآن مجاناً
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-4"
-            >
-              تواصل معنا
-            </Button>
+          <div className="border-t border-border mt-12 pt-8 text-center text-muted-foreground">
+            <p>&copy; 2024 هدف للموارد البشرية. جميع الحقوق محفوظة.</p>
           </div>
         </div>
       </section>

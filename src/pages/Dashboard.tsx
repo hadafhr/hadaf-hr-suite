@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -81,6 +82,8 @@ const services = [
 ];
 
 export const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -239,7 +242,7 @@ export const Dashboard: React.FC = () => {
                     variant="ghost" 
                     size="sm"
                     className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => window.location.href = service.route}
+                    onClick={() => navigate(service.route)}
                   >
                     الوصول
                   </Button>
@@ -254,15 +257,15 @@ export const Dashboard: React.FC = () => {
         <Card className="dashboard-card">
           <h3 className="text-lg font-semibold mb-4">التقارير السريعة</h3>
           <div className="grid md:grid-cols-3 gap-4">
-            <Button variant="outline" className="h-20 flex-col" onClick={() => window.location.href = '/reports'}>
+            <Button variant="outline" className="h-20 flex-col" onClick={() => navigate('/reports')}>
               <Calendar className="h-6 w-6 mb-2" />
               <span>تقرير الحضور</span>
             </Button>
-            <Button variant="outline" className="h-20 flex-col" onClick={() => window.location.href = '/reports'}>
+            <Button variant="outline" className="h-20 flex-col" onClick={() => navigate('/reports')}>
               <Building2 className="h-6 w-6 mb-2" />
               <span>تقرير الأقسام</span>
             </Button>
-            <Button variant="outline" className="h-20 flex-col" onClick={() => window.location.href = '/reports'}>
+            <Button variant="outline" className="h-20 flex-col" onClick={() => navigate('/reports')}>
               <TrendingUp className="h-6 w-6 mb-2" />
               <span>تقرير الأداء</span>
             </Button>

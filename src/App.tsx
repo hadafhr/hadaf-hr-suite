@@ -22,6 +22,7 @@ import { AIHub } from "@/pages/AIHub";
 import { WageProtection } from "@/pages/ServicePlatforms/WageProtection";
 import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopment";
 import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
+import { UserManagement } from "@/pages/UserManagement";
 import { EmployeeDashboard } from "@/pages/EmployeeDashboard";
 import { EmployerDashboard } from "@/pages/EmployerDashboard";
 import { EmployeeProfile } from "@/pages/Employee/Profile";
@@ -95,6 +96,7 @@ const App = () => {
               <Route path="/services/nonprofit-services" element={<NonProfitServices />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/ai-hub" element={<AIHub />} />
+              <Route path="/user-management" element={<UserManagement />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
