@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -22,6 +23,13 @@ import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopmen
 import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
 import { EmployeeDashboard } from "@/pages/EmployeeDashboard";
 import { EmployerDashboard } from "@/pages/EmployerDashboard";
+import { EmployeeProfile } from "@/pages/Employee/Profile";
+import { LeaveRequest } from "@/pages/Employee/LeaveRequest";
+import { Payroll } from "@/pages/Employee/Payroll";
+import { Attendance } from "@/pages/Employee/Attendance";
+import { PayrollManagement } from "@/pages/Employer/PayrollManagement";
+import { AttendanceManagement } from "@/pages/Employer/AttendanceManagement";
+import { LeaveManagement } from "@/pages/Employer/LeaveManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +64,23 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              
+              {/* Employee Routes */}
+              <Route path="/employee/profile" element={<EmployeeProfile />} />
+              <Route path="/employee/leave-request" element={<LeaveRequest />} />
+              <Route path="/employee/payroll" element={<Payroll />} />
+              <Route path="/employee/attendance" element={<Attendance />} />
+              <Route path="/employee/performance" element={<PerformanceEvaluation />} />
+              <Route path="/employee/training" element={<Training />} />
+              <Route path="/employee/certificates" element={<PerformanceEvaluation />} />
+              <Route path="/employee/communication" element={<IndividualServices />} />
+              
+              {/* Employer Routes */}
+              <Route path="/employer/payroll" element={<PayrollManagement />} />
+              <Route path="/employer/attendance" element={<AttendanceManagement />} />
+              <Route path="/employer/leave-management" element={<LeaveManagement />} />
+              
+              {/* Service Routes */}
               <Route path="/services" element={<Services />} />
               <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
