@@ -6,36 +6,36 @@
 
 @layer base {
   :root {
-    /* خلفيات أساسية - أبيض */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    /* خلفيات أساسية - أسود */
+    --background: 0 0% 5%;
+    --foreground: 0 0% 100%;
 
     /* البطاقات والمكونات */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
 
     /* الألوان الأساسية - أخضر */
-    --primary: 120 100% 25%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 120 80% 35%;
+    --primary: 120 80% 35%;
+    --primary-foreground: 0 0% 0%;
+    --primary-glow: 120 70% 45%;
     
-    /* اللون الثانوي - أسود */
-    --secondary: 0 0% 0%;
-    --secondary-foreground: 0 0% 100%;
+    /* اللون الثانوي - فضي */
+    --secondary: 0 0% 70%;
+    --secondary-foreground: 0 0% 0%;
     
-    /* ألوان الدعم */
-    --accent: 120 100% 20%;
-    --accent-foreground: 0 0% 100%;
+    /* ألوان الدعم - أبيض */
+    --accent: 0 0% 95%;
+    --accent-foreground: 0 0% 0%;
     
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
     /* ألوان الحالة */
-    --success: 120 100% 25%;
-    --success-foreground: 0 0% 100%;
+    --success: 120 80% 35%;
+    --success-foreground: 0 0% 0%;
     
     --warning: 45 85% 50%;
     --warning-foreground: 0 0% 0%;
@@ -44,9 +44,9 @@
     --destructive-foreground: 0 0% 100%;
 
     /* الحدود والمدخلات */
-    --border: 0 0% 90%;
-    --input: 0 0% 96%;
-    --ring: 120 100% 25%;
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 120 80% 35%;
 
     /* التدرجات الجميلة */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
@@ -66,14 +66,14 @@
 
     --radius: 12px;
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 120 100% 25%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 120 100% 25%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 120 80% 35%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 120 80% 35%;
   }
 
   .dark {
