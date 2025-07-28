@@ -383,10 +383,6 @@ export const PerformanceEvaluation: React.FC = () => {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button className="btn-primary" onClick={handleNewEvaluation}>
-              <Target className="h-4 w-4 mr-2" />
-              إنشاء تقييم جديد
-            </Button>
             <Button variant="outline" onClick={handleAIAnalysis}>
               <Brain className="h-4 w-4 mr-2" />
               تحليل ذكي

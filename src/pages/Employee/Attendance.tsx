@@ -83,7 +83,13 @@ export const Attendance: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-center">
-              <Button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 text-lg">
+              <Button 
+                className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 text-lg"
+                onClick={() => {
+                  // تسجيل الانصراف
+                  console.log('تم تسجيل الانصراف');
+                }}
+              >
                 <Clock className="h-5 w-5 mr-2" />
                 تسجيل الانصراف
               </Button>

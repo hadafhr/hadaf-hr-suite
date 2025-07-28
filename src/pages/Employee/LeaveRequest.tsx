@@ -136,7 +136,14 @@ export const LeaveRequest: React.FC = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <Button className="bg-green-500 hover:bg-green-600">
+                  <Button 
+                    className="bg-green-500 hover:bg-green-600"
+                    onClick={() => {
+                      // إرسال الطلب
+                      setShowForm(false);
+                      // يمكن إضافة منطق الإرسال هنا
+                    }}
+                  >
                     إرسال الطلب
                   </Button>
                   <Button 

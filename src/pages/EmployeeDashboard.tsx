@@ -45,7 +45,7 @@ const employeeServices = [
     title: "تقييم الأداء",
     description: "متابعة تقييمات الأداء والمهام",
     icon: Target,
-    route: "/employee/performance",
+    route: "/service-platforms/performance-evaluation",
     color: "bg-accent",
     stats: "85%"
   },
@@ -61,7 +61,7 @@ const employeeServices = [
     title: "الشهادات والجوائز",
     description: "عرض الإنجازات والشهادات",
     icon: Award,
-    route: "/employee/certificates",
+    route: "/service-platforms/performance-evaluation",
     color: "bg-accent",
     stats: "7 شهادات"
   },
@@ -77,7 +77,7 @@ const employeeServices = [
     title: "التواصل الداخلي",
     description: "رسائل الإدارة والزملاء",
     icon: MessageSquare,
-    route: "/employee/communication",
+    route: "/service-platforms/individual-services",
     color: "bg-accent",
     stats: "3 رسائل جديدة"
   }
