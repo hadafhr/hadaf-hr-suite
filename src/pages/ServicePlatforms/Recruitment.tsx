@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Target, 
   Plus, 
@@ -14,7 +15,9 @@ import {
   Users,
   FileText,
   Calendar,
-  Briefcase
+  Briefcase,
+  Download,
+  Filter
 } from 'lucide-react';
 
 const jobPostings = [
@@ -95,6 +98,56 @@ const candidates = [
 export const Recruitment: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('jobs');
+  const { toast } = useToast();
+
+  const handleNewJobPost = () => {
+    toast({
+      title: "نشر وظيفة جديدة",
+      description: "تم فتح نموذج نشر وظيفة جديدة",
+    });
+  };
+
+  const handleFilter = () => {
+    toast({
+      title: "فلتر البيانات",
+      description: "تم فتح إعدادات الفلتر",
+    });
+  };
+
+  const handleExport = () => {
+    toast({
+      title: "تصدير البيانات",
+      description: "جاري تصدير البيانات...",
+    });
+  };
+
+  const handleViewJob = (job: any) => {
+    toast({
+      title: "عرض تفاصيل الوظيفة",
+      description: `عرض تفاصيل ${job.title}`,
+    });
+  };
+
+  const handleViewCandidate = (candidate: any) => {
+    toast({
+      title: "عرض تفاصيل المرشح",
+      description: `عرض تفاصيل ${candidate.name}`,
+    });
+  };
+
+  const handleApproveCandidate = (candidate: any) => {
+    toast({
+      title: "قبول المرشح",
+      description: `تم قبول ${candidate.name}`,
+    });
+  };
+
+  const handleDownloadReport = (item: any) => {
+    toast({
+      title: "تحميل التقرير",
+      description: "جاري تحميل التقرير...",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -109,7 +162,7 @@ export const Recruitment: React.FC = () => {
               أدوات ذكية للبحث عن المواهب وإدارة التوظيف
             </p>
           </div>
-          <Button className="btn-primary">
+          <Button className="btn-primary" onClick={handleNewJobPost}>
             <Plus className="h-4 w-4 mr-2" />
             نشر وظيفة جديدة
           </Button>
@@ -180,8 +233,14 @@ export const Recruitment: React.FC = () => {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline">فلتر</Button>
-                  <Button variant="outline">تصدير</Button>
+                  <Button variant="outline" onClick={handleFilter}>
+                    <Filter className="h-4 w-4 mr-2" />
+                    فلتر
+                  </Button>
+                  <Button variant="outline" onClick={handleExport}>
+                    <Download className="h-4 w-4 mr-2" />
+                    تصدير
+                  </Button>
                 </div>
               </div>
 
@@ -214,10 +273,18 @@ export const Recruitment: React.FC = () => {
                       </div>
                       
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleViewJob(job)}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleDownloadReport(job)}
+                        >
                           <FileText className="h-4 w-4" />
                         </Button>
                       </div>
@@ -240,8 +307,14 @@ export const Recruitment: React.FC = () => {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline">فلتر</Button>
-                  <Button variant="outline">تصدير</Button>
+                  <Button variant="outline" onClick={handleFilter}>
+                    <Filter className="h-4 w-4 mr-2" />
+                    فلتر
+                  </Button>
+                  <Button variant="outline" onClick={handleExport}>
+                    <Download className="h-4 w-4 mr-2" />
+                    تصدير
+                  </Button>
                 </div>
               </div>
 
@@ -278,10 +351,18 @@ export const Recruitment: React.FC = () => {
                       </div>
                       
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleViewCandidate(candidate)}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleApproveCandidate(candidate)}
+                        >
                           <CheckCircle className="h-4 w-4" />
                         </Button>
                       </div>

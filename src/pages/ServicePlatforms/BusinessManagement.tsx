@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Building2, Users, FileText, Calendar, BarChart3, Plus, Search, Download } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { Building2, Users, FileText, Calendar, BarChart3, Plus, Search, Download, Eye, Edit } from 'lucide-react';
 
 const establishments = [
   {
@@ -35,6 +36,36 @@ const businessStats = [
 ];
 
 export const BusinessManagement: React.FC = () => {
+  const { toast } = useToast();
+
+  const handleAddEstablishment = () => {
+    toast({
+      title: "إضافة منشأة جديدة",
+      description: "تم فتح نموذج إضافة منشأة جديدة",
+    });
+  };
+
+  const handleExportData = () => {
+    toast({
+      title: "تصدير البيانات",
+      description: "جاري تصدير بيانات المنشآت...",
+    });
+  };
+
+  const handleViewEstablishment = (establishment: any) => {
+    toast({
+      title: "عرض تفاصيل المنشأة",
+      description: `عرض تفاصيل ${establishment.name}`,
+    });
+  };
+
+  const handleEditEstablishment = (establishment: any) => {
+    toast({
+      title: "تعديل المنشأة",
+      description: `تعديل بيانات ${establishment.name}`,
+    });
+  };
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -42,7 +73,7 @@ export const BusinessManagement: React.FC = () => {
           <h1 className="text-3xl font-bold text-foreground">إدارة المنشآت والموظفين</h1>
           <p className="text-muted-foreground mt-2">إدارة شاملة للمنشآت وموظفيها</p>
         </div>
-        <Button className="bg-primary text-primary-foreground">
+        <Button className="bg-primary text-primary-foreground" onClick={handleAddEstablishment}>
           <Plus className="h-4 w-4 mr-2" />
           إضافة منشأة جديدة
         </Button>
@@ -78,7 +109,7 @@ export const BusinessManagement: React.FC = () => {
                 <Search className="h-4 w-4" />
               </Button>
             </div>
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleExportData}>
               <Download className="h-4 w-4 mr-2" />
               تصدير البيانات
             </Button>
@@ -107,8 +138,21 @@ export const BusinessManagement: React.FC = () => {
                       <p className="font-semibold">{establishment.created}</p>
                     </div>
                     <div className="flex space-x-2 space-x-reverse">
-                      <Button size="sm">عرض</Button>
-                      <Button size="sm" variant="outline">تعديل</Button>
+                      <Button 
+                        size="sm"
+                        onClick={() => handleViewEstablishment(establishment)}
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        عرض
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleEditEstablishment(establishment)}
+                      >
+                        <Edit className="h-4 w-4 mr-2" />
+                        تعديل
+                      </Button>
                     </div>
                   </div>
                 </CardContent>

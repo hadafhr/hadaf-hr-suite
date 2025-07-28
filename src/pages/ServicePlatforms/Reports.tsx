@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useToast } from '@/hooks/use-toast';
 import { 
   BarChart3, 
   Download, 
@@ -16,7 +17,8 @@ import {
   TrendingUp,
   Clock,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Settings
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -95,6 +97,56 @@ const recentReports = [
 export const Reports: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTab, setSelectedTab] = useState('attendance');
+  const { toast } = useToast();
+
+  const handleNewReport = () => {
+    toast({
+      title: "إنشاء تقرير جديد",
+      description: "تم فتح نموذج إنشاء تقرير جديد",
+    });
+  };
+
+  const handleExportReport = (reportType: string) => {
+    toast({
+      title: "تصدير التقرير",
+      description: `جاري تصدير ${reportType}...`,
+    });
+  };
+
+  const handleDownloadReport = (report: any) => {
+    toast({
+      title: "تحميل التقرير",
+      description: `جاري تحميل ${report.title}...`,
+    });
+  };
+
+  const handleViewReport = (report: any) => {
+    toast({
+      title: "عرض التقرير",
+      description: `تم فتح ${report.title}`,
+    });
+  };
+
+  const handleFilter = () => {
+    toast({
+      title: "فلتر التقارير",
+      description: "تم فتح إعدادات الفلتر",
+    });
+  };
+
+  const handleQuickReport = (reportName: string) => {
+    toast({
+      title: "تقرير سريع",
+      description: `جاري إنشاء ${reportName}...`,
+    });
+  };
+
+  const handleReportSettings = (setting: string) => {
+    toast({
+      title: "إعدادات التقارير",
+      description: `تم فتح ${setting}`,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -126,7 +178,7 @@ export const Reports: React.FC = () => {
                 />
               </PopoverContent>
             </Popover>
-            <Button className="btn-primary">
+            <Button className="btn-primary" onClick={handleNewReport}>
               <FileText className="h-4 w-4 mr-2" />
               إنشاء تقرير جديد
             </Button>
@@ -191,7 +243,11 @@ export const Reports: React.FC = () => {
               <Card className="dashboard-card">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold">معدل الحضور الشهري</h3>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleExportReport('تقرير الحضور الشهري')}
+                  >
                     <Download className="h-4 w-4 mr-2" />
                     تصدير
                   </Button>
@@ -237,7 +293,11 @@ export const Reports: React.FC = () => {
             <Card className="dashboard-card">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">أداء الأقسام</h3>
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => handleExportReport('تقرير أداء الأقسام')}
+                >
                   <Download className="h-4 w-4 mr-2" />
                   تصدير
                 </Button>
@@ -268,7 +328,11 @@ export const Reports: React.FC = () => {
             <Card className="dashboard-card">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">تطور الأداء</h3>
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => handleExportReport('تقرير تطور الأداء')}
+                >
                   <Download className="h-4 w-4 mr-2" />
                   تصدير
                 </Button>
@@ -297,11 +361,19 @@ export const Reports: React.FC = () => {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">التقارير الحديثة</h3>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleFilter}
+                  >
                     <Filter className="h-4 w-4 mr-2" />
                     فلتر
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleQuickReport('تحديث التقارير')}
+                  >
                     تحديث
                   </Button>
                 </div>
@@ -331,10 +403,18 @@ export const Reports: React.FC = () => {
                       </Badge>
                       
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleDownloadReport(report)}
+                        >
                           <Download className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => handleViewReport(report)}
+                        >
                           <FileText className="h-4 w-4" />
                         </Button>
                       </div>
@@ -351,15 +431,27 @@ export const Reports: React.FC = () => {
           <Card className="dashboard-card">
             <h3 className="font-semibold mb-4">تقارير سريعة</h3>
             <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickReport('تقرير الحضور اليومي')}
+              >
                 <Users className="h-4 w-4 mr-2" />
                 تقرير الحضور اليومي
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickReport('تقرير الأقسام')}
+              >
                 <Building2 className="h-4 w-4 mr-2" />
                 تقرير الأقسام
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickReport('تقرير الأداء الأسبوعي')}
+              >
                 <TrendingUp className="h-4 w-4 mr-2" />
                 تقرير الأداء الأسبوعي
               </Button>
@@ -387,13 +479,28 @@ export const Reports: React.FC = () => {
           <Card className="dashboard-card">
             <h3 className="font-semibold mb-4">إعدادات التقارير</h3>
             <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleReportSettings('إعداد تقارير تلقائية')}
+              >
+                <Settings className="h-4 w-4 mr-2" />
                 إعداد تقارير تلقائية
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleReportSettings('تخصيص قوالب التقارير')}
+              >
+                <FileText className="h-4 w-4 mr-2" />
                 تخصيص قوالب التقارير
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleReportSettings('إدارة المستلمين')}
+              >
+                <Users className="h-4 w-4 mr-2" />
                 إدارة المستلمين
               </Button>
             </div>

@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Users, 
   Plus, 
@@ -13,7 +14,8 @@ import {
   Calendar,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Download
 } from 'lucide-react';
 
 const employees = [
@@ -58,6 +60,57 @@ const employees = [
 export const EmployeeManagement: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
+  const { toast } = useToast();
+
+  const handleAddEmployee = () => {
+    toast({
+      title: "إضافة موظف جديد",
+      description: "تم فتح نموذج إضافة موظف جديد",
+    });
+  };
+
+  const handleExportData = () => {
+    toast({
+      title: "تصدير البيانات",
+      description: "جاري تصدير بيانات الموظفين...",
+    });
+  };
+
+  const handleAdvancedFilter = () => {
+    toast({
+      title: "فلتر متقدم",
+      description: "تم فتح إعدادات الفلتر المتقدم",
+    });
+  };
+
+  const handleViewEmployee = (employee: any) => {
+    setSelectedEmployee(employee);
+    toast({
+      title: "عرض تفاصيل الموظف",
+      description: `تم عرض تفاصيل ${employee.name}`,
+    });
+  };
+
+  const handleEditEmployee = (employee: any) => {
+    toast({
+      title: "تعديل بيانات الموظف",
+      description: `جاري تعديل بيانات ${employee.name}`,
+    });
+  };
+
+  const handleDownloadReport = (employee: any) => {
+    toast({
+      title: "تحميل التقرير",
+      description: `جاري تحميل تقرير ${employee.name}`,
+    });
+  };
+
+  const handleQuickAction = (action: string) => {
+    toast({
+      title: action,
+      description: `تم تنفيذ: ${action}`,
+    });
+  };
 
   const filteredEmployees = employees.filter(emp => 
     emp.name.includes(searchTerm) || 
@@ -78,7 +131,7 @@ export const EmployeeManagement: React.FC = () => {
               نظام شامل لإدارة بيانات وشؤون الموظفين
             </p>
           </div>
-          <Button className="btn-primary">
+          <Button className="btn-primary" onClick={handleAddEmployee}>
             <Plus className="h-4 w-4 mr-2" />
             إضافة موظف جديد
           </Button>
@@ -140,8 +193,11 @@ export const EmployeeManagement: React.FC = () => {
               />
             </div>
             <div className="flex gap-2">
-              <Button variant="outline">تصدير البيانات</Button>
-              <Button variant="outline">فلتر متقدم</Button>
+              <Button variant="outline" onClick={handleExportData}>
+                <Download className="h-4 w-4 mr-2" />
+                تصدير البيانات
+              </Button>
+              <Button variant="outline" onClick={handleAdvancedFilter}>فلتر متقدم</Button>
             </div>
           </div>
         </Card>
@@ -188,14 +244,22 @@ export const EmployeeManagement: React.FC = () => {
                       <Button 
                         variant="ghost" 
                         size="sm"
-                        onClick={() => setSelectedEmployee(employee)}
+                        onClick={() => handleViewEmployee(employee)}
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => handleEditEmployee(employee)}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => handleDownloadReport(employee)}
+                      >
                         <FileText className="h-4 w-4" />
                       </Button>
                     </div>
@@ -211,15 +275,27 @@ export const EmployeeManagement: React.FC = () => {
           <Card className="dashboard-card">
             <h3 className="font-semibold mb-4">إجراءات سريعة</h3>
             <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickAction('إضافة موظف جديد')}
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 إضافة موظف جديد
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickAction('تصدير قائمة الموظفين')}
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 تصدير قائمة الموظفين
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickAction('إدارة الإجازات')}
+              >
                 <Calendar className="h-4 w-4 mr-2" />
                 إدارة الإجازات
               </Button>
@@ -229,13 +305,28 @@ export const EmployeeManagement: React.FC = () => {
           <Card className="dashboard-card">
             <h3 className="font-semibold mb-4">التقارير</h3>
             <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickAction('تقرير الحضور الشهري')}
+              >
+                <FileText className="h-4 w-4 mr-2" />
                 تقرير الحضور الشهري
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickAction('تقرير الرواتب')}
+              >
+                <FileText className="h-4 w-4 mr-2" />
                 تقرير الرواتب
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => handleQuickAction('تقرير الأداء')}
+              >
+                <FileText className="h-4 w-4 mr-2" />
                 تقرير الأداء
               </Button>
             </div>
