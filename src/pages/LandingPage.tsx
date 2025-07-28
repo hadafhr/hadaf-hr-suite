@@ -157,12 +157,20 @@ export const LandingPage: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up">
-              <Button className="btn-hero text-lg px-8 py-4">
-                ابدأ رحلتك المجانية
-                <ArrowLeft className="mr-2 h-5 w-5" />
+              <Button 
+                className="btn-hero text-lg px-8 py-4"
+                onClick={() => navigate('/employee-dashboard')}
+              >
+                بوابة الموظف
+                <User className="mr-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" className="text-white border-white hover:bg-white hover:text-primary text-lg px-8 py-4">
-                شاهد العرض التوضيحي
+              <Button 
+                variant="outline" 
+                className="text-white border-white hover:bg-white hover:text-primary text-lg px-8 py-4"
+                onClick={() => navigate('/employer-dashboard')}
+              >
+                بوابة صاحب العمل
+                <Users className="mr-2 h-5 w-5" />
               </Button>
             </div>
           </div>

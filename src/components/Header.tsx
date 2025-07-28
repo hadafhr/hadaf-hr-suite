@@ -63,13 +63,17 @@ export const Header: React.FC<HeaderProps> = ({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem onClick={() => navigate('/employee-dashboard')}>
+                  <User className="ml-2 h-4 w-4" />
+                  بوابة الموظف
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/employer-dashboard')}>
+                  <Settings className="ml-2 h-4 w-4" />
+                  بوابة صاحب العمل
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                   <Settings className="ml-2 h-4 w-4" />
-                  لوحة التحكم
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('/profile')}>
-                  <User className="ml-2 h-4 w-4" />
-                  الملف الشخصي
+                  لوحة التحكم الرئيسية
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={onLogout}>
