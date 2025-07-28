@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Heart, Users, HandHeart, Gift, Target, Plus, Search, TrendingUp, Calendar } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { 
+  Heart, 
+  Users, 
+  HandHeart, 
+  Gift, 
+  Target, 
+  Plus, 
+  Search, 
+  TrendingUp, 
+  Calendar,
+  Eye,
+  Edit,
+  Send,
+  FileText,
+  Download
+} from 'lucide-react';
 
 const nonprofitPrograms = [
   {
@@ -200,6 +220,108 @@ const volunteers = [
 ];
 
 export const NonProfitServices: React.FC = () => {
+  const { toast } = useToast();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [newProgram, setNewProgram] = useState({
+    name: '',
+    description: '',
+    category: '',
+    budget: '',
+    beneficiaries: ''
+  });
+  const [newVolunteer, setNewVolunteer] = useState({
+    name: '',
+    skills: '',
+    phone: '',
+    email: ''
+  });
+  const [isNewProgramOpen, setIsNewProgramOpen] = useState(false);
+  const [isNewVolunteerOpen, setIsNewVolunteerOpen] = useState(false);
+
+  const handleNewProgram = () => {
+    if (!newProgram.name || !newProgram.description) {
+      toast({
+        title: "بيانات ناقصة",
+        description: "يرجى ملء جميع الحقول المطلوبة",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "تم إنشاء البرنامج بنجاح",
+      description: `تم إنشاء برنامج ${newProgram.name}`,
+    });
+    
+    setNewProgram({
+      name: '',
+      description: '',
+      category: '',
+      budget: '',
+      beneficiaries: ''
+    });
+    setIsNewProgramOpen(false);
+  };
+
+  const handleNewVolunteer = () => {
+    if (!newVolunteer.name || !newVolunteer.skills) {
+      toast({
+        title: "بيانات ناقصة",
+        description: "يرجى ملء جميع الحقول المطلوبة",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "تم إضافة المتطوع بنجاح",
+      description: `تم إضافة ${newVolunteer.name} كمتطوع`,
+    });
+    
+    setNewVolunteer({
+      name: '',
+      skills: '',
+      phone: '',
+      email: ''
+    });
+    setIsNewVolunteerOpen(false);
+  };
+
+  const handleViewProgram = (programName: string) => {
+    toast({
+      title: "عرض التفاصيل",
+      description: `عرض تفاصيل برنامج ${programName}`,
+    });
+  };
+
+  const handleImpactReport = (programName: string) => {
+    toast({
+      title: "تقرير الأثر",
+      description: `جاري تحميل تقرير الأثر لبرنامج ${programName}`,
+    });
+  };
+
+  const handleViewVolunteer = (volunteerName: string) => {
+    toast({
+      title: "عرض الملف الشخصي",
+      description: `عرض ملف ${volunteerName}`,
+    });
+  };
+
+  const handleSendTask = (volunteerName: string) => {
+    toast({
+      title: "إرسال مهمة",
+      description: `تم إرسال مهمة جديدة إلى ${volunteerName}`,
+    });
+  };
+
+  const handleSearch = () => {
+    toast({
+      title: "البحث",
+      description: "جاري البحث في البرامج...",
+    });
+  };
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -207,10 +329,98 @@ export const NonProfitServices: React.FC = () => {
           <h1 className="text-3xl font-bold text-foreground">خدمات القطاع غير الربحي</h1>
           <p className="text-muted-foreground mt-2">إدارة وتنظيم البرامج والخدمات الخيرية</p>
         </div>
-        <Button className="bg-primary text-primary-foreground">
-          <Plus className="h-4 w-4 mr-2" />
-          برنامج جديد
-        </Button>
+        <div>
+          <Dialog open={isNewProgramOpen} onOpenChange={setIsNewProgramOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-primary text-primary-foreground">
+                <Plus className="h-4 w-4 mr-2" />
+                برنامج جديد
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>إنشاء برنامج جديد</DialogTitle>
+                <DialogDescription>
+                  أدخل بيانات البرنامج الخيري الجديد
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="program-name" className="text-right">
+                    اسم البرنامج
+                  </Label>
+                  <Input
+                    id="program-name"
+                    value={newProgram.name}
+                    onChange={(e) => setNewProgram({...newProgram, name: e.target.value})}
+                    className="col-span-3"
+                    placeholder="اسم البرنامج"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="program-description" className="text-right">
+                    الوصف
+                  </Label>
+                  <Textarea
+                    id="program-description"
+                    value={newProgram.description}
+                    onChange={(e) => setNewProgram({...newProgram, description: e.target.value})}
+                    className="col-span-3"
+                    placeholder="وصف البرنامج"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="program-category" className="text-right">
+                    الفئة
+                  </Label>
+                  <Select value={newProgram.category} onValueChange={(value) => setNewProgram({...newProgram, category: value})}>
+                    <SelectTrigger className="col-span-3">
+                      <SelectValue placeholder="اختر الفئة" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="رعاية اجتماعية">رعاية اجتماعية</SelectItem>
+                      <SelectItem value="تعليم">تعليم</SelectItem>
+                      <SelectItem value="صحة">صحة</SelectItem>
+                      <SelectItem value="بيئة">بيئة</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="program-budget" className="text-right">
+                    الميزانية
+                  </Label>
+                  <Input
+                    id="program-budget"
+                    value={newProgram.budget}
+                    onChange={(e) => setNewProgram({...newProgram, budget: e.target.value})}
+                    className="col-span-3"
+                    placeholder="الميزانية بالريال"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="program-beneficiaries" className="text-right">
+                    عدد المستفيدين
+                  </Label>
+                  <Input
+                    id="program-beneficiaries"
+                    value={newProgram.beneficiaries}
+                    onChange={(e) => setNewProgram({...newProgram, beneficiaries: e.target.value})}
+                    className="col-span-3"
+                    placeholder="عدد المستفيدين المتوقع"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsNewProgramOpen(false)}>
+                  إلغاء
+                </Button>
+                <Button onClick={handleNewProgram}>
+                  إنشاء البرنامج
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {/* الإحصائيات */}
@@ -239,8 +449,13 @@ export const NonProfitServices: React.FC = () => {
         <TabsContent value="programs" className="space-y-4">
           <div className="flex justify-between items-center">
             <div className="flex space-x-2 space-x-reverse">
-              <Input placeholder="البحث في البرامج..." className="w-80" />
-              <Button variant="outline">
+              <Input 
+                placeholder="البحث في البرامج..." 
+                className="w-80"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Button variant="outline" onClick={handleSearch}>
                 <Search className="h-4 w-4" />
               </Button>
             </div>
@@ -279,8 +494,21 @@ export const NonProfitServices: React.FC = () => {
                       <p className="font-semibold">{program.category}</p>
                     </div>
                     <div className="flex space-x-2 space-x-reverse">
-                      <Button size="sm">عرض التفاصيل</Button>
-                      <Button size="sm" variant="outline">تقرير الأثر</Button>
+                      <Button 
+                        size="sm"
+                        onClick={() => handleViewProgram(program.name)}
+                      >
+                        <Eye className="h-4 w-4 mr-1" />
+                        عرض التفاصيل
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleImpactReport(program.name)}
+                      >
+                        <FileText className="h-4 w-4 mr-1" />
+                        تقرير الأثر
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -292,10 +520,81 @@ export const NonProfitServices: React.FC = () => {
         <TabsContent value="volunteers" className="space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">إدارة المتطوعين</h3>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              إضافة متطوع
-            </Button>
+            <Dialog open={isNewVolunteerOpen} onOpenChange={setIsNewVolunteerOpen}>
+              <DialogTrigger asChild>
+                <Button>
+                  <Plus className="h-4 w-4 mr-2" />
+                  إضافة متطوع
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>إضافة متطوع جديد</DialogTitle>
+                  <DialogDescription>
+                    أدخل بيانات المتطوع الجديد
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="volunteer-name" className="text-right">
+                      الاسم
+                    </Label>
+                    <Input
+                      id="volunteer-name"
+                      value={newVolunteer.name}
+                      onChange={(e) => setNewVolunteer({...newVolunteer, name: e.target.value})}
+                      className="col-span-3"
+                      placeholder="اسم المتطوع"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="volunteer-skills" className="text-right">
+                      المهارات
+                    </Label>
+                    <Input
+                      id="volunteer-skills"
+                      value={newVolunteer.skills}
+                      onChange={(e) => setNewVolunteer({...newVolunteer, skills: e.target.value})}
+                      className="col-span-3"
+                      placeholder="المهارات والخبرات"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="volunteer-phone" className="text-right">
+                      رقم الجوال
+                    </Label>
+                    <Input
+                      id="volunteer-phone"
+                      value={newVolunteer.phone}
+                      onChange={(e) => setNewVolunteer({...newVolunteer, phone: e.target.value})}
+                      className="col-span-3"
+                      placeholder="+966501234567"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="volunteer-email" className="text-right">
+                      البريد الإلكتروني
+                    </Label>
+                    <Input
+                      id="volunteer-email"
+                      type="email"
+                      value={newVolunteer.email}
+                      onChange={(e) => setNewVolunteer({...newVolunteer, email: e.target.value})}
+                      className="col-span-3"
+                      placeholder="email@example.com"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setIsNewVolunteerOpen(false)}>
+                    إلغاء
+                  </Button>
+                  <Button onClick={handleNewVolunteer}>
+                    إضافة المتطوع
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="grid gap-4">
@@ -324,8 +623,21 @@ export const NonProfitServices: React.FC = () => {
                       <p className="font-semibold">{volunteer.programs} برنامج</p>
                     </div>
                     <div className="flex space-x-2 space-x-reverse">
-                      <Button size="sm">عرض الملف</Button>
-                      <Button size="sm" variant="outline">إرسال مهمة</Button>
+                      <Button 
+                        size="sm"
+                        onClick={() => handleViewVolunteer(volunteer.name)}
+                      >
+                        <Eye className="h-4 w-4 mr-1" />
+                        عرض الملف
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleSendTask(volunteer.name)}
+                      >
+                        <Send className="h-4 w-4 mr-1" />
+                        إرسال مهمة
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -335,6 +647,20 @@ export const NonProfitServices: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="donations" className="space-y-4">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold">إدارة التبرعات</h3>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => toast({title: "تصدير التقارير", description: "جاري تصدير تقارير التبرعات..."})}>
+                <Download className="h-4 w-4 mr-2" />
+                تصدير التقارير
+              </Button>
+              <Button onClick={() => toast({title: "إضافة تبرع", description: "تم فتح نموذج إضافة تبرع جديد"})}>
+                <Plus className="h-4 w-4 mr-2" />
+                إضافة تبرع
+              </Button>
+            </div>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
@@ -388,6 +714,20 @@ export const NonProfitServices: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="impact" className="space-y-4">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold">قياس الأثر والتحليلات</h3>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => toast({title: "تحديث البيانات", description: "جاري تحديث بيانات الأثر..."})}>
+                <TrendingUp className="h-4 w-4 mr-2" />
+                تحديث البيانات
+              </Button>
+              <Button onClick={() => toast({title: "تقرير شامل", description: "جاري إنشاء التقرير الشامل للأثر..."})}>
+                <FileText className="h-4 w-4 mr-2" />
+                تقرير شامل
+              </Button>
+            </div>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
@@ -438,15 +778,24 @@ export const NonProfitServices: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="border-l-4 border-blue-500 pl-3">
+                  <div 
+                    className="border-l-4 border-blue-500 pl-3 cursor-pointer hover:bg-blue-50 p-2 rounded transition-colors"
+                    onClick={() => toast({title: "تفاصيل الحدث", description: "حملة توزيع الحقائب المدرسية - 15 فبراير 2024"})}
+                  >
                     <h4 className="font-semibold">حملة توزيع الحقائب المدرسية</h4>
                     <p className="text-sm text-muted-foreground">15 فبراير 2024</p>
                   </div>
-                  <div className="border-l-4 border-green-500 pl-3">
+                  <div 
+                    className="border-l-4 border-green-500 pl-3 cursor-pointer hover:bg-green-50 p-2 rounded transition-colors"
+                    onClick={() => toast({title: "تفاصيل الحدث", description: "يوم التطوع المجتمعي - 22 فبراير 2024"})}
+                  >
                     <h4 className="font-semibold">يوم التطوع المجتمعي</h4>
                     <p className="text-sm text-muted-foreground">22 فبراير 2024</p>
                   </div>
-                  <div className="border-l-4 border-purple-500 pl-3">
+                  <div 
+                    className="border-l-4 border-purple-500 pl-3 cursor-pointer hover:bg-purple-50 p-2 rounded transition-colors"
+                    onClick={() => toast({title: "تفاصيل الحدث", description: "معرض الأعمال الخيرية - 1 مارس 2024"})}
+                  >
                     <h4 className="font-semibold">معرض الأعمال الخيرية</h4>
                     <p className="text-sm text-muted-foreground">1 مارس 2024</p>
                   </div>
