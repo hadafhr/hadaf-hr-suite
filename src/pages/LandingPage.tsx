@@ -23,7 +23,8 @@ import {
   Eye,
   Lightbulb,
   Handshake,
-  Shield
+  Shield,
+  Brain
 } from 'lucide-react';
 import heroImage from '@/assets/hero-image.jpg';
 
