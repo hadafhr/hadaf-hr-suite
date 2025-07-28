@@ -29,9 +29,9 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار */}
         <Link to="/" className="flex items-center space-x-2 space-x-reverse">
-          <img src={hadafLogo} alt="شعار هدف للموارد البشرية" className="h-10 w-auto" />
+          <img src={hadafLogo} alt="شعار بُعد" className="h-10 w-auto" />
           <div className="hidden md:block">
-            <h2 className="text-xl font-bold text-gradient">هدف للموارد البشرية</h2>
+            <h2 className="text-xl font-bold text-gradient">بُعد</h2>
             <p className="text-sm text-muted-foreground">حلول شاملة للموارد البشرية</p>
           </div>
         </Link>

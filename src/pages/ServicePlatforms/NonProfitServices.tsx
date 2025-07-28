@@ -39,7 +39,7 @@ const nonprofitStats = [
 const volunteers = [
   {
     id: 1,
-    name: "سارة أحمد",
+    name: "سارة أحمد المطيري",
     skills: "تعليم، ترجمة",
     hoursContributed: 120,
     programs: 3,
@@ -47,9 +47,153 @@ const volunteers = [
   },
   {
     id: 2,
-    name: "محمد علي",
+    name: "محمد علي الغامدي",
     skills: "طب، إسعافات أولية",
     hoursContributed: 85,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 3,
+    name: "فاطمة خالد العتيبي",
+    skills: "تصميم، إدارة",
+    hoursContributed: 95,
+    programs: 4,
+    status: "نشط"
+  },
+  {
+    id: 4,
+    name: "أحمد سعد الحربي",
+    skills: "هندسة، تقنية",
+    hoursContributed: 110,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 5,
+    name: "نورا عبدالله القحطاني",
+    skills: "محاسبة، إدارة مالية",
+    hoursContributed: 75,
+    programs: 3,
+    status: "نشط"
+  },
+  {
+    id: 6,
+    name: "خالد محمد الدوسري",
+    skills: "قانون، استشارات",
+    hoursContributed: 90,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 7,
+    name: "ريم فهد الشهري",
+    skills: "تسويق، علاقات عامة",
+    hoursContributed: 105,
+    programs: 4,
+    status: "نشط"
+  },
+  {
+    id: 8,
+    name: "عبدالرحمن علي النعيمي",
+    skills: "تدريب، تطوير",
+    hoursContributed: 130,
+    programs: 5,
+    status: "نشط"
+  },
+  {
+    id: 9,
+    name: "هند سلطان الزهراني",
+    skills: "تمريض، رعاية صحية",
+    hoursContributed: 88,
+    programs: 3,
+    status: "نشط"
+  },
+  {
+    id: 10,
+    name: "طلال عبدالعزيز الشمراني",
+    skills: "طبخ، تموين",
+    hoursContributed: 65,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 11,
+    name: "لينا أحمد البقمي",
+    skills: "ترجمة، لغات",
+    hoursContributed: 115,
+    programs: 3,
+    status: "نشط"
+  },
+  {
+    id: 12,
+    name: "بدر محمد الخثعمي",
+    skills: "تصوير، إعلام",
+    hoursContributed: 70,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 13,
+    name: "منى عبدالكريم الرشيد",
+    skills: "علم نفس، إرشاد",
+    hoursContributed: 125,
+    programs: 4,
+    status: "نشط"
+  },
+  {
+    id: 14,
+    name: "يوسف فيصل الأحمدي",
+    skills: "نجارة، صيانة",
+    hoursContributed: 80,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 15,
+    name: "جود سالم الباحص",
+    skills: "تعليم أطفال، رياض",
+    hoursContributed: 100,
+    programs: 3,
+    status: "نشط"
+  },
+  {
+    id: 16,
+    name: "سلطان خالد العسيري",
+    skills: "أمن، حراسة",
+    hoursContributed: 60,
+    programs: 1,
+    status: "نشط"
+  },
+  {
+    id: 17,
+    name: "رهف عبدالله القرني",
+    skills: "موسيقى، فنون",
+    hoursContributed: 85,
+    programs: 2,
+    status: "نشط"
+  },
+  {
+    id: 18,
+    name: "عبدالعزيز أحمد الغامدي",
+    skills: "رياضة، تدريب",
+    hoursContributed: 95,
+    programs: 3,
+    status: "نشط"
+  },
+  {
+    id: 19,
+    name: "شهد محمد المطيري",
+    skills: "كتابة، تحرير",
+    hoursContributed: 110,
+    programs: 4,
+    status: "نشط"
+  },
+  {
+    id: 20,
+    name: "فهد سعد الحربي",
+    skills: "سياقة، نقل",
+    hoursContributed: 55,
     programs: 2,
     status: "نشط"
   }

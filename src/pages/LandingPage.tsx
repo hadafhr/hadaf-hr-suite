@@ -120,7 +120,7 @@ const services = [
     title: "خدمات القطاع غير الربحي",
     description: "حلول متخصصة للحوكمة والاستدامة والامتثال للمنظمات غير الربحية",
     icon: Heart,
-    route: "/services/non-profit",
+    route: "/services/nonprofit-services",
     features: [
       "إدارة الحوكمة",
       "تقارير الاستدامة",
@@ -144,10 +144,10 @@ export const LandingPage: React.FC = () => {
         
         <div className="container relative z-10 px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-              مستقبل إدارة الموارد البشرية
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in text-gradient">
+              بُعد
               <span className="block text-secondary text-3xl md:text-5xl mt-2">
-                في السعودية
+                مستقبل إدارة الموارد البشرية في السعودية
               </span>
             </h1>
             
@@ -177,7 +177,7 @@ export const LandingPage: React.FC = () => {
               من نحن؟
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong>هدف للموارد البشرية</strong> هي شركة سعودية رائدة تقدم حلولاً متكاملة وذكية 
+              <strong>بُعد</strong> هي شركة سعودية رائدة تقدم حلولاً متكاملة وذكية 
               لإدارة الموارد البشرية. نساعد المنشآت على تحسين كفاءتها التشغيلية وتطوير رأس المال البشري 
               من خلال منصات رقمية متطورة تتوافق مع رؤية السعودية 2030.
             </p>

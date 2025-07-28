@@ -89,6 +89,244 @@ const employees = [
       { title: "اكتساب 20 عميل جديد", progress: 70, status: "جاري" },
       { title: "تحسين رضا العملاء", progress: 30, status: "جاري" }
     ]
+  },
+  {
+    id: 4,
+    name: "سارة أحمد الغامدي",
+    position: "مديرة موارد بشرية",
+    department: "الموارد البشرية",
+    overallScore: 94,
+    lastEvaluation: "2024-01-20",
+    status: "مكتمل",
+    goals: [
+      { title: "تطوير سياسات الموارد البشرية", progress: 95, status: "جاري" },
+      { title: "تحسين بيئة العمل", progress: 100, status: "مكتمل" },
+      { title: "برامج تدريب الموظفين", progress: 80, status: "جاري" }
+    ]
+  },
+  {
+    id: 5,
+    name: "خالد عبدالعزيز العتيبي",
+    position: "مهندس أنظمة",
+    department: "تقنية المعلومات",
+    overallScore: 89,
+    lastEvaluation: "2024-01-18",
+    status: "مكتمل",
+    goals: [
+      { title: "ترقية البنية التحتية", progress: 75, status: "جاري" },
+      { title: "تحسين الأمان السيبراني", progress: 90, status: "جاري" },
+      { title: "تطوير النسخ الاحتياطية", progress: 100, status: "مكتمل" }
+    ]
+  },
+  {
+    id: 6,
+    name: "نورا سلطان المطيري",
+    position: "مصممة جرافيك",
+    department: "التسويق",
+    overallScore: 91,
+    lastEvaluation: "2024-01-12",
+    status: "مكتمل",
+    goals: [
+      { title: "تصميم هوية بصرية جديدة", progress: 85, status: "جاري" },
+      { title: "إنشاء محتوى إبداعي", progress: 95, status: "جاري" },
+      { title: "تطوير قوالب التسويق", progress: 100, status: "مكتمل" }
+    ]
+  },
+  {
+    id: 7,
+    name: "عبدالرحمن محمد الحربي",
+    position: "محلل مالي",
+    department: "المالية",
+    overallScore: 86,
+    lastEvaluation: "2024-01-14",
+    status: "مكتمل",
+    goals: [
+      { title: "تحليل الأداء المالي", progress: 80, status: "جاري" },
+      { title: "إعداد الميزانيات", progress: 90, status: "جاري" },
+      { title: "تطوير النماذج المالية", progress: 75, status: "جاري" }
+    ]
+  },
+  {
+    id: 8,
+    name: "ريم عبدالله القحطاني",
+    position: "منسقة مشاريع",
+    department: "إدارة المشاريع",
+    overallScore: 87,
+    lastEvaluation: "2024-01-16",
+    status: "مكتمل",
+    goals: [
+      { title: "إدارة 5 مشاريع متزامنة", progress: 85, status: "جاري" },
+      { title: "تحسين عمليات التسليم", progress: 90, status: "جاري" },
+      { title: "تدريب فرق العمل", progress: 70, status: "جاري" }
+    ]
+  },
+  {
+    id: 9,
+    name: "فهد سعد الدوسري",
+    position: "أخصائي أمن معلومات",
+    department: "الأمن السيبراني",
+    overallScore: 93,
+    lastEvaluation: "2024-01-22",
+    status: "مكتمل",
+    goals: [
+      { title: "تطبيق بروتوكولات أمنية جديدة", progress: 95, status: "جاري" },
+      { title: "إجراء اختبارات الاختراق", progress: 100, status: "مكتمل" },
+      { title: "تدريب الموظفين على الأمان", progress: 80, status: "جاري" }
+    ]
+  },
+  {
+    id: 10,
+    name: "هنا أحمد الشهري",
+    position: "مطورة تطبيقات",
+    department: "تقنية المعلومات",
+    overallScore: 90,
+    lastEvaluation: "2024-01-25",
+    status: "مكتمل",
+    goals: [
+      { title: "تطوير تطبيق الجوال الجديد", progress: 80, status: "جاري" },
+      { title: "تحسين أداء التطبيقات", progress: 95, status: "جاري" },
+      { title: "إجراء اختبارات الجودة", progress: 85, status: "جاري" }
+    ]
+  },
+  {
+    id: 11,
+    name: "طلال عبدالكريم النعيمي",
+    position: "مدير خدمة العملاء",
+    department: "خدمة العملاء",
+    overallScore: 85,
+    lastEvaluation: "2024-01-28",
+    status: "مكتمل",
+    goals: [
+      { title: "تحسين رضا العملاء إلى 95%", progress: 70, status: "جاري" },
+      { title: "تقليل زمن الاستجابة", progress: 85, status: "جاري" },
+      { title: "تدريب فريق الدعم", progress: 100, status: "مكتمل" }
+    ]
+  },
+  {
+    id: 12,
+    name: "لينا محمد الزهراني",
+    position: "محررة محتوى",
+    department: "التسويق",
+    overallScore: 88,
+    lastEvaluation: "2024-01-30",
+    status: "مكتمل",
+    goals: [
+      { title: "إنتاج 50 مقال شهرياً", progress: 90, status: "جاري" },
+      { title: "تحسين SEO للمحتوى", progress: 85, status: "جاري" },
+      { title: "تطوير استراتيجية المحتوى", progress: 75, status: "جاري" }
+    ]
+  },
+  {
+    id: 13,
+    name: "بدر علي الشمراني",
+    position: "مندوب مبيعات",
+    department: "المبيعات",
+    overallScore: 82,
+    lastEvaluation: "2024-02-01",
+    status: "مكتمل",
+    goals: [
+      { title: "تحقيق مبيعات 500 ألف ريال", progress: 65, status: "جاري" },
+      { title: "إضافة 15 عميل جديد", progress: 80, status: "جاري" },
+      { title: "تطوير العلاقات التجارية", progress: 70, status: "جاري" }
+    ]
+  },
+  {
+    id: 14,
+    name: "منى فهد البقمي",
+    position: "أخصائية تطوير أعمال",
+    department: "التطوير",
+    overallScore: 91,
+    lastEvaluation: "2024-02-03",
+    status: "مكتمل",
+    goals: [
+      { title: "دراسة 10 فرص استثمارية", progress: 85, status: "جاري" },
+      { title: "تطوير شراكات جديدة", progress: 90, status: "جاري" },
+      { title: "إعداد خطط النمو", progress: 95, status: "جاري" }
+    ]
+  },
+  {
+    id: 15,
+    name: "يوسف سالم القرني",
+    position: "مهندس شبكات",
+    department: "تقنية المعلومات",
+    overallScore: 87,
+    lastEvaluation: "2024-02-05",
+    status: "مكتمل",
+    goals: [
+      { title: "ترقية شبكة الشركة", progress: 75, status: "جاري" },
+      { title: "تحسين سرعة الاتصال", progress: 90, status: "جاري" },
+      { title: "صيانة معدات الشبكة", progress: 100, status: "مكتمل" }
+    ]
+  },
+  {
+    id: 16,
+    name: "جود خالد الخثعمي",
+    position: "منسقة فعاليات",
+    department: "التسويق",
+    overallScore: 89,
+    lastEvaluation: "2024-02-07",
+    status: "مكتمل",
+    goals: [
+      { title: "تنظيم 8 فعاليات كبرى", progress: 80, status: "جاري" },
+      { title: "زيادة حضور الفعاليات 30%", progress: 85, status: "جاري" },
+      { title: "تطوير برامج الفعاليات", progress: 75, status: "جاري" }
+    ]
+  },
+  {
+    id: 17,
+    name: "سلطان أحمد الرشيد",
+    position: "محاسب تكاليف",
+    department: "المالية",
+    overallScore: 84,
+    lastEvaluation: "2024-02-10",
+    status: "مكتمل",
+    goals: [
+      { title: "تطوير نظام حساب التكاليف", progress: 70, status: "جاري" },
+      { title: "تقليل المصروفات 15%", progress: 80, status: "جاري" },
+      { title: "تحسين دقة التقارير", progress: 90, status: "جاري" }
+    ]
+  },
+  {
+    id: 18,
+    name: "رهف عبدالله الأحمدي",
+    position: "أخصائية تدريب",
+    department: "الموارد البشرية",
+    overallScore: 92,
+    lastEvaluation: "2024-02-12",
+    status: "مكتمل",
+    goals: [
+      { title: "تصميم 15 برنامج تدريبي", progress: 85, status: "جاري" },
+      { title: "تدريب 200 موظف", progress: 90, status: "جاري" },
+      { title: "قياس فعالية التدريب", progress: 95, status: "جاري" }
+    ]
+  },
+  {
+    id: 19,
+    name: "عبدالعزيز محمد الباحص",
+    position: "مطور ويب",
+    department: "تقنية المعلومات",
+    overallScore: 88,
+    lastEvaluation: "2024-02-14",
+    status: "مكتمل",
+    goals: [
+      { title: "تطوير موقع الشركة الجديد", progress: 80, status: "جاري" },
+      { title: "تحسين سرعة التحميل 40%", progress: 85, status: "جاري" },
+      { title: "تطبيق معايير الأمان", progress: 90, status: "جاري" }
+    ]
+  },
+  {
+    id: 20,
+    name: "شهد فيصل العسيري",
+    position: "مديرة علاقات عامة",
+    department: "التسويق",
+    overallScore: 90,
+    lastEvaluation: "2024-02-16",
+    status: "مكتمل",
+    goals: [
+      { title: "بناء شراكات إعلامية", progress: 85, status: "جاري" },
+      { title: "تحسين صورة الشركة", progress: 95, status: "جاري" },
+      { title: "إدارة أزمات التواصل", progress: 80, status: "جاري" }
+    ]
   }
 ];
 
