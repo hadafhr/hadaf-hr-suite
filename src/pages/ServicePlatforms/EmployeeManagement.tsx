@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { 
   Users, 
   Plus, 
@@ -350,6 +351,130 @@ export const EmployeeManagement: React.FC = () => {
             </div>
           </Card>
         </div>
+
+        {/* Employee Details Modal */}
+        <Dialog open={!!selectedEmployee} onOpenChange={() => setSelectedEmployee(null)}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-xl">تفاصيل الموظف</DialogTitle>
+            </DialogHeader>
+            
+            {selectedEmployee && (
+              <div className="space-y-6">
+                {/* Employee Header */}
+                <div className="flex items-center space-x-4 space-x-reverse">
+                  <img 
+                    src={selectedEmployee.avatar} 
+                    alt={selectedEmployee.name}
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-foreground">{selectedEmployee.name}</h2>
+                    <p className="text-lg text-muted-foreground">{selectedEmployee.position}</p>
+                    <Badge variant={selectedEmployee.status === 'نشط' ? 'default' : 'secondary'} className="mt-2">
+                      {selectedEmployee.status}
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Employee Details Grid */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-lg border-b border-border pb-2">المعلومات الشخصية</h3>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center">
+                        <Mail className="h-4 w-4 ml-2 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground ml-2">البريد الإلكتروني:</span>
+                        <span className="font-medium">{selectedEmployee.email}</span>
+                      </div>
+                      
+                      <div className="flex items-center">
+                        <Phone className="h-4 w-4 ml-2 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground ml-2">رقم الهاتف:</span>
+                        <span className="font-medium">{selectedEmployee.phone}</span>
+                      </div>
+                      
+                      <div className="flex items-center">
+                        <Calendar className="h-4 w-4 ml-2 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground ml-2">تاريخ الالتحاق:</span>
+                        <span className="font-medium">{selectedEmployee.joinDate}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-lg border-b border-border pb-2">معلومات العمل</h3>
+                    
+                    <div className="space-y-3">
+                      <div>
+                        <span className="text-sm text-muted-foreground">القسم:</span>
+                        <p className="font-medium">{selectedEmployee.department}</p>
+                      </div>
+                      
+                      <div>
+                        <span className="text-sm text-muted-foreground">المنصب:</span>
+                        <p className="font-medium">{selectedEmployee.position}</p>
+                      </div>
+                      
+                      <div>
+                        <span className="text-sm text-muted-foreground">الراتب:</span>
+                        <p className="font-medium text-lg text-primary">{selectedEmployee.salary} ريال</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Additional Information */}
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg border-b border-border pb-2">معلومات إضافية</h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <Card className="p-4">
+                      <h4 className="font-medium text-sm text-muted-foreground">سنوات الخبرة</h4>
+                      <p className="text-lg font-bold text-primary">
+                        {Math.floor((new Date().getTime() - new Date(selectedEmployee.joinDate).getTime()) / (1000 * 60 * 60 * 24 * 365))} سنة
+                      </p>
+                    </Card>
+                    <Card className="p-4">
+                      <h4 className="font-medium text-sm text-muted-foreground">الإجازات المتبقية</h4>
+                      <p className="text-lg font-bold text-warning">21 يوم</p>
+                    </Card>
+                    <Card className="p-4">
+                      <h4 className="font-medium text-sm text-muted-foreground">تقييم الأداء</h4>
+                      <p className="text-lg font-bold text-success">ممتاز</p>
+                    </Card>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4 border-t border-border">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => handleEditEmployee(selectedEmployee)}
+                    className="flex-1"
+                  >
+                    <Edit className="h-4 w-4 mr-2" />
+                    تعديل البيانات
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => handleDownloadReport(selectedEmployee)}
+                    className="flex-1"
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    تحميل التقرير
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setSelectedEmployee(null)}
+                  >
+                    إغلاق
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
