@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
+import { AIAssistant } from '@/components/AIAssistant';
 import { 
   Award, 
   TrendingUp, 
@@ -560,44 +561,17 @@ export const PerformanceEvaluation: React.FC = () => {
             <h3 className="text-lg font-semibold">المساعد الذكي لتقييم الأداء</h3>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-4 mb-6">
-            <div className="p-4 border border-border rounded-lg text-center">
-              <BarChart3 className="h-8 w-8 text-primary mx-auto mb-2" />
-              <h4 className="font-medium mb-1">تحليل الأداء</h4>
-              <p className="text-xs text-muted-foreground">تحليل ذكي لأداء الموظفين</p>
-              <Button size="sm" variant="outline" className="mt-2 w-full" onClick={handleAIAnalysis}>
-                تحليل الآن
-              </Button>
-            </div>
-            
-            <div className="p-4 border border-border rounded-lg text-center">
-              <Target className="h-8 w-8 text-primary mx-auto mb-2" />
-              <h4 className="font-medium mb-1">اقتراح الأهداف</h4>
-              <p className="text-xs text-muted-foreground">أهداف ذكية مخصصة للموظفين</p>
-              <Button size="sm" variant="outline" className="mt-2 w-full" onClick={handleAIAnalysis}>
-                إنشاء أهداف
-              </Button>
-            </div>
-            
-            <div className="p-4 border border-border rounded-lg text-center">
-              <Users className="h-8 w-8 text-primary mx-auto mb-2" />
-              <h4 className="font-medium mb-1">خطط التطوير</h4>
-              <p className="text-xs text-muted-foreground">خطط تطوير شخصية ذكية</p>
-              <Button size="sm" variant="outline" className="mt-2 w-full" onClick={handleAIAnalysis}>
-                إنشاء خطة
-              </Button>
-            </div>
-          </div>
-          
-          <div className="bg-muted/30 p-4 rounded-lg">
+          <div className="bg-muted/30 p-4 rounded-lg mb-6">
             <div className="flex items-center gap-2 mb-2">
               <Brain className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium">نصيحة ذكية</span>
+              <span className="text-sm font-medium">نصيحة ذكية للموظف المحدد</span>
             </div>
             <p className="text-sm text-muted-foreground">
               بناءً على تحليل البيانات، يُنصح بالتركيز على تطوير مهارات {selectedEmployee.name} في مجال القيادة لتحسين الأداء العام بنسبة 15%.
             </p>
           </div>
+
+          <AIAssistant />
         </Card>
 
         {/* Quick Actions */}
