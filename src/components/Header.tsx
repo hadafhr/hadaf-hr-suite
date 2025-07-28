@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import hadafLogo from '@/assets/hadaf-logo.png';
+import budLogo from '@/assets/bud-logo.png';
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار */}
         <Link to="/" className="flex items-center space-x-2 space-x-reverse">
-          <img src={hadafLogo} alt="شعار بُعد" className="h-10 w-auto" />
+          <img src={budLogo} alt="شعار بُعد" className="h-12 w-auto" />
           <div className="hidden md:block">
             <h2 className="text-xl font-bold text-gradient">بُعد</h2>
             <p className="text-sm text-muted-foreground">حلول شاملة للموارد البشرية</p>
@@ -71,9 +71,9 @@ export const Header: React.FC<HeaderProps> = ({
                   <Settings className="ml-2 h-4 w-4" />
                   بوابة صاحب العمل
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                <DropdownMenuItem onClick={() => navigate('/ai-hub')}>
                   <Settings className="ml-2 h-4 w-4" />
-                  لوحة التحكم الرئيسية
+                  مركز الذكاء الاصطناعي
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={onLogout}>

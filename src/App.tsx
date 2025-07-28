@@ -18,6 +18,7 @@ import { Training } from "@/pages/ServicePlatforms/Training";
 import { Reports } from "@/pages/ServicePlatforms/Reports";
 import { BusinessManagement } from "@/pages/ServicePlatforms/BusinessManagement";
 import { OrganizationalDevelopment } from "@/pages/ServicePlatforms/OrganizationalDevelopment";
+import { AIHub } from "@/pages/AIHub";
 import { WageProtection } from "@/pages/ServicePlatforms/WageProtection";
 import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopment";
 import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
@@ -93,6 +94,7 @@ const App = () => {
               <Route path="/services/platform-development" element={<PlatformDevelopment />} />
               <Route path="/services/nonprofit-services" element={<NonProfitServices />} />
               <Route path="/reports" element={<Reports />} />
+              <Route path="/ai-hub" element={<AIHub />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

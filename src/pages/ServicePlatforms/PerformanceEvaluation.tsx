@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/components/ui/use-toast';
 import { 
   Award, 
   TrendingUp, 
@@ -12,7 +13,12 @@ import {
   Users,
   BarChart3,
   Star,
-  CheckCircle
+  CheckCircle,
+  Plus,
+  Edit,
+  Eye,
+  Download,
+  Brain
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -332,6 +338,35 @@ const employees = [
 
 export const PerformanceEvaluation: React.FC = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<any>(employees[0]);
+  const { toast } = useToast();
+
+  const handleNewEvaluation = () => {
+    toast({
+      title: "إنشاء تقييم جديد",
+      description: "تم فتح نموذج إنشاء تقييم أداء جديد",
+    });
+  };
+
+  const handleExportReports = () => {
+    toast({
+      title: "تصدير التقارير",
+      description: "جاري تصدير تقارير الأداء...",
+    });
+  };
+
+  const handleGroupReview = () => {
+    toast({
+      title: "مراجعة جماعية",
+      description: "تم فتح أداة المراجعة الجماعية",
+    });
+  };
+
+  const handleAIAnalysis = () => {
+    toast({
+      title: "تحليل ذكي",
+      description: "جاري تحليل الأداء باستخدام الذكاء الاصطناعي...",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -346,10 +381,16 @@ export const PerformanceEvaluation: React.FC = () => {
               أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية
             </p>
           </div>
-          <Button className="btn-primary">
-            <Target className="h-4 w-4 mr-2" />
-            إنشاء تقييم جديد
-          </Button>
+          <div className="flex gap-2">
+            <Button className="btn-primary" onClick={handleNewEvaluation}>
+              <Target className="h-4 w-4 mr-2" />
+              إنشاء تقييم جديد
+            </Button>
+            <Button variant="outline" onClick={handleAIAnalysis}>
+              <Brain className="h-4 w-4 mr-2" />
+              تحليل ذكي
+            </Button>
+          </div>
         </div>
 
         {/* Statistics Cards */}
@@ -512,22 +553,89 @@ export const PerformanceEvaluation: React.FC = () => {
           </div>
         </div>
 
+        {/* مساعد الذكاء الاصطناعي */}
+        <Card className="dashboard-card">
+          <div className="flex items-center gap-2 mb-4">
+            <Brain className="h-5 w-5 text-primary" />
+            <h3 className="text-lg font-semibold">المساعد الذكي لتقييم الأداء</h3>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            <div className="p-4 border border-border rounded-lg text-center">
+              <BarChart3 className="h-8 w-8 text-primary mx-auto mb-2" />
+              <h4 className="font-medium mb-1">تحليل الأداء</h4>
+              <p className="text-xs text-muted-foreground">تحليل ذكي لأداء الموظفين</p>
+              <Button size="sm" variant="outline" className="mt-2 w-full" onClick={handleAIAnalysis}>
+                تحليل الآن
+              </Button>
+            </div>
+            
+            <div className="p-4 border border-border rounded-lg text-center">
+              <Target className="h-8 w-8 text-primary mx-auto mb-2" />
+              <h4 className="font-medium mb-1">اقتراح الأهداف</h4>
+              <p className="text-xs text-muted-foreground">أهداف ذكية مخصصة للموظفين</p>
+              <Button size="sm" variant="outline" className="mt-2 w-full" onClick={handleAIAnalysis}>
+                إنشاء أهداف
+              </Button>
+            </div>
+            
+            <div className="p-4 border border-border rounded-lg text-center">
+              <Users className="h-8 w-8 text-primary mx-auto mb-2" />
+              <h4 className="font-medium mb-1">خطط التطوير</h4>
+              <p className="text-xs text-muted-foreground">خطط تطوير شخصية ذكية</p>
+              <Button size="sm" variant="outline" className="mt-2 w-full" onClick={handleAIAnalysis}>
+                إنشاء خطة
+              </Button>
+            </div>
+          </div>
+          
+          <div className="bg-muted/30 p-4 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <Brain className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium">نصيحة ذكية</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              بناءً على تحليل البيانات، يُنصح بالتركيز على تطوير مهارات {selectedEmployee.name} في مجال القيادة لتحسين الأداء العام بنسبة 15%.
+            </p>
+          </div>
+        </Card>
+
         {/* Quick Actions */}
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="dashboard-card">
             <h3 className="font-semibold mb-4">إجراءات سريعة</h3>
             <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={handleNewEvaluation}
+              >
                 <Target className="h-4 w-4 mr-2" />
                 إنشاء تقييم جديد
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={handleExportReports}
+              >
                 <BarChart3 className="h-4 w-4 mr-2" />
                 تصدير التقارير
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={handleGroupReview}
+              >
                 <Users className="h-4 w-4 mr-2" />
                 مراجعة جماعية
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={handleAIAnalysis}
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                تحليل ذكي بالـ AI
               </Button>
             </div>
           </Card>
