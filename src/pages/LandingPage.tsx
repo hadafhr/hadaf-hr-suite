@@ -108,7 +108,7 @@ const services = [
     title: "تقييم الأداء KPIs",
     description: "أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية",
     icon: Award,
-    route: "/services/performance-evaluation",
+    route: "/services/performance",
     features: [
       "مؤشرات أداء ذكية",
       "تقارير مرئية شاملة",
