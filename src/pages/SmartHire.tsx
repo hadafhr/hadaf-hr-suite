@@ -24,8 +24,14 @@ import {
   TrendingUp,
   UserCheck,
   MessageSquare,
-  Filter
+  Filter,
+  Shield,
+  Settings
 } from 'lucide-react';
+import { AutoMessaging } from '@/components/smartHire/AutoMessaging';
+import { InterviewScheduling } from '@/components/smartHire/InterviewScheduling';
+import { PermissionManagement } from '@/components/smartHire/PermissionManagement';
+import { ApplicationForm } from '@/components/smartHire/ApplicationForm';
 
 interface Job {
   id: string;
@@ -399,10 +405,14 @@ const SmartHire: React.FC = () => {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
             <TabsTrigger value="jobs">إدارة الوظائف</TabsTrigger>
             <TabsTrigger value="applicants">المتقدمين</TabsTrigger>
+            <TabsTrigger value="messaging">التواصل التلقائي</TabsTrigger>
+            <TabsTrigger value="interviews">المقابلات</TabsTrigger>
+            <TabsTrigger value="permissions">الصلاحيات</TabsTrigger>
+            <TabsTrigger value="application">نموذج التقديم</TabsTrigger>
             <TabsTrigger value="analytics">التقارير</TabsTrigger>
           </TabsList>
 
