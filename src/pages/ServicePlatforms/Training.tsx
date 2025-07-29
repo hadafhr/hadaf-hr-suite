@@ -126,7 +126,7 @@ const achievements = [
 
 export const Training: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState('overview');
-  const [selectedView, setSelectedView] = useState<'admin' | 'instructor' | 'student'>('admin');
+  const [selectedView, setSelectedView] = useState('admin');
   const [showCourseCreator, setShowCourseCreator] = useState(false);
   const [showLiveStream, setShowLiveStream] = useState(false);
 

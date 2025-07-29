@@ -149,7 +149,7 @@ export const LiveStreamPlayer: React.FC<LiveStreamPlayerProps> = ({
                       onClick={toggleRecording}
                       className={isRecording ? "text-red-500" : "text-white"}
                     >
-                      <Record className="h-4 w-4" />
+                      <Play className="h-4 w-4" />
                     </Button>
                   </>
                 )}
@@ -186,7 +186,7 @@ export const LiveStreamPlayer: React.FC<LiveStreamPlayerProps> = ({
             </Badge>
             {isRecording && (
               <Badge variant="secondary">
-                <Record className="h-3 w-3 mr-1" />
+                <Play className="h-3 w-3 mr-1" />
                 تسجيل
               </Badge>
             )}
