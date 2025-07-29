@@ -893,7 +893,7 @@ const BoudHRLandingPage: React.FC = () => {
         <div className="group relative">
           <Button
             size="lg"
-            className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
             title="تحدث مع خدمة العملاء"
             onClick={() => navigate("/chat-messaging")}
           >
@@ -908,7 +908,7 @@ const BoudHRLandingPage: React.FC = () => {
         <div className="group relative">
           <Button
             size="lg"
-            className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
             title="بُعد – مساعدك الذكي"
             onClick={() => navigate("/ai-hub")}
           >
@@ -923,7 +923,7 @@ const BoudHRLandingPage: React.FC = () => {
         <div className="group relative">
           <Button
             size="lg"
-            className="w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse"
             title="اتصل بنا فوراً"
             onClick={() => window.open('tel:+966551234567')}
           >
