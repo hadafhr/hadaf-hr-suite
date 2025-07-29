@@ -158,7 +158,7 @@ export const OrganizationalDevelopment: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-foreground">نظام التطوير والتنظيم المؤسسي</h1>
-          <p className="text-muted-foreground mt-2">منصة أصحاب العمل - إدارة مراحل التطوير المؤسسي</p>
+          <p className="text-muted-foreground mt-2">إدارة مراحل التطوير المؤسسي</p>
         </div>
         <Button className="bg-primary text-primary-foreground">
           <Plus className="h-4 w-4 mr-2" />
@@ -196,7 +196,7 @@ export const OrganizationalDevelopment: React.FC = () => {
                     </div>
                     <div>
                       <CardTitle className="flex items-center gap-3">
-                        <span>{phase.id}: {phase.title}</span>
+                        <span>{phase.title}</span>
                         <Badge className={getStatusColor(phase.status)}>
                           {phase.status}
                         </Badge>
