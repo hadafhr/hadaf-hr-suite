@@ -180,42 +180,51 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
-              <a href="#home" className="navigation-item text-sm font-medium">الرئيسية</a>
+              <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1">
-                  خدماتنا <ChevronDown className="w-4 h-4" />
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                  خدماتنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
                   {menuItems.services.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right">{item.name}</a>
+                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                        <Users className="w-4 h-4" />
+                        {item.name}
+                      </a>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1">
-                  من نحن <ChevronDown className="w-4 h-4" />
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                  من نحن <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
                   {menuItems.about.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right">{item.name}</a>
+                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                        <Building2 className="w-4 h-4" />
+                        {item.name}
+                      </a>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1">
-                  تواصل معنا <ChevronDown className="w-4 h-4" />
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                  تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
                   {menuItems.contact.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right">{item.name}</a>
+                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                        <MessageCircle className="w-4 h-4" />
+                        {item.name}
+                      </a>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
