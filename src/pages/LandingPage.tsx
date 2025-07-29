@@ -401,10 +401,30 @@ export const LandingPage: React.FC = () => {
               <Button 
                 size="lg" 
                 className="btn-primary"
-                onClick={() => setShowCalculator(true)}
+                onClick={() => navigate('/service-calculator')}
               >
                 <Calculator className="ml-2 h-5 w-5" />
-                حاسبة الخدمات
+                حاسبة الخدمات الذكية
+              </Button>
+              
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="flex items-center gap-2"
+                onClick={() => navigate('/wage-protection-platform')}
+              >
+                <Shield className="ml-2 h-5 w-5" />
+                منصة حماية الأجور
+              </Button>
+              
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="flex items-center gap-2"
+                onClick={() => navigate('/chat-messaging')}
+              >
+                <Brain className="ml-2 h-5 w-5" />
+                نظام المراسلة الذكي
               </Button>
               
               <div className="flex items-center gap-4 bg-muted/50 rounded-lg p-2">

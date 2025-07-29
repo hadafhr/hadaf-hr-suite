@@ -38,6 +38,9 @@ import { BusinessPlatform } from "@/pages/BusinessPlatform";
 import { LegalPlatform } from "@/pages/LegalPlatform";
 import { EmployeeManagementPlatform } from "@/pages/EmployeeManagementPlatform";
 import NotFound from "./pages/NotFound";
+import { WageProtectionPage } from './pages/WageProtectionPage';
+import { ServiceCalculatorPage } from './pages/ServiceCalculatorPage';
+import { ChatMessagingPage } from './pages/ChatMessagingPage';
 
 const queryClient = new QueryClient();
 
@@ -119,6 +122,12 @@ const App = () => {
               <Route path="/legal-platform" element={<LegalPlatform />} />
               <Route path="/employee-management-platform" element={<EmployeeManagementPlatform />} />
               <Route path="/user-management" element={<UserManagement />} />
+              
+              {/* New Platform Routes */}
+              <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
+              <Route path="/service-calculator" element={<ServiceCalculatorPage />} />
+              <Route path="/chat-messaging" element={<ChatMessagingPage />} />
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
