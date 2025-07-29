@@ -35,6 +35,7 @@ import { AttendanceManagement } from "@/pages/Employer/AttendanceManagement";
 import { LeaveManagement } from "@/pages/Employer/LeaveManagement";
 import SmartHire from "@/pages/SmartHire";
 import { BusinessPlatform } from "@/pages/BusinessPlatform";
+import { LegalPlatform } from "@/pages/LegalPlatform";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -114,6 +115,7 @@ const App = () => {
               <Route path="/ai-hub" element={<AIHub />} />
               <Route path="/smart-hire" element={<SmartHire />} />
               <Route path="/business-platform" element={<BusinessPlatform />} />
+              <Route path="/legal-platform" element={<LegalPlatform />} />
               <Route path="/user-management" element={<UserManagement />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
