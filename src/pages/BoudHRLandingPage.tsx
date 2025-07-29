@@ -41,11 +41,11 @@ const BoudHRLandingPage: React.FC = () => {
 
   const menuItems = {
     services: [
-      { name: "إدارة الموظفين", href: "#employee-management" },
-      { name: "الخدمة الذاتية", href: "#self-service" },
-      { name: "حماية الأجور", href: "#wage-protection" },
-      { name: "التقييمات الذكية", href: "#smart-evaluations" },
-      { name: "التدريب والتطوير", href: "#training" }
+      { name: "إدارة الموظفين", href: "/employee-management" },
+      { name: "الخدمة الذاتية", href: "/employee-self-service" },
+      { name: "حماية الأجور", href: "/wage-protection" },
+      { name: "التقييمات الذكية", href: "/performance-evaluation" },
+      { name: "التدريب والتطوير", href: "/training" }
     ],
     about: [
       { name: "رؤيتنا", href: "#vision" },
@@ -55,8 +55,8 @@ const BoudHRLandingPage: React.FC = () => {
     ],
     contact: [
       { name: "تواصل معنا", href: "#contact" },
-      { name: "الدعم الفني", href: "#support" },
-      { name: "طلب عرض سعر", href: "#quote" },
+      { name: "الدعم الفني", href: "/chat-messaging" },
+      { name: "طلب عرض سعر", href: "/service-calculator" },
       { name: "حجز موعد", href: "#booking" }
     ]
   };
@@ -189,10 +189,13 @@ const BoudHRLandingPage: React.FC = () => {
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
                   {menuItems.services.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                      <button 
+                        onClick={() => navigate(item.href)} 
+                        className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                      >
                         <Users className="w-4 h-4" />
                         {item.name}
-                      </a>
+                      </button>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -221,10 +224,13 @@ const BoudHRLandingPage: React.FC = () => {
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
                   {menuItems.contact.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                      <button 
+                        onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' }) : navigate(item.href)} 
+                        className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                      >
                         <MessageCircle className="w-4 h-4" />
                         {item.name}
-                      </a>
+                      </button>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -335,7 +341,7 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button size="lg" className="btn-hero group">
+                <Button size="lg" className="btn-hero group" onClick={() => navigate("/dashboard")}>
                   ابدأ الآن
                   <ArrowLeft className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -458,6 +464,14 @@ const BoudHRLandingPage: React.FC = () => {
                 key={index} 
                 className="service-card group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(index)}
+                onClick={() => {
+                  if (feature.title === "إدارة الموظفين") navigate("/employee-management");
+                  else if (feature.title === "الخدمة الذاتية") navigate("/employee-self-service");
+                  else if (feature.title === "حماية الأجور") navigate("/wage-protection");
+                  else if (feature.title === "التقييمات الذكية") navigate("/performance-evaluation");
+                  else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
+                  else if (feature.title === "الذكاء الاصطناعي") navigate("/ai-hub");
+                }}
               >
                 <CardHeader className="text-center">
                   <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
@@ -541,10 +555,10 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
               
               <div className="flex gap-4 pt-4">
-                <Button className="btn-primary">
+                <Button className="btn-primary" onClick={() => navigate("/business-platform")}>
                   تعرف على المزيد
                 </Button>
-                <Button variant="outline">
+                <Button variant="outline" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
                   تواصل معنا
                 </Button>
               </div>
@@ -616,10 +630,10 @@ const BoudHRLandingPage: React.FC = () => {
               انضم إلى أكثر من 1000 شركة تثق في بُعد HR لإدارة مواردها البشرية
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8" onClick={() => navigate("/dashboard")}>
                 ابدأ التجربة المجانية
               </Button>
-              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
                 تحدث مع خبير
               </Button>
             </div>
@@ -629,6 +643,7 @@ const BoudHRLandingPage: React.FC = () => {
               <Button 
                 size="lg" 
                 className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 flex items-center gap-2"
+                onClick={() => navigate("/ai-hub")}
               >
                 <MessageCircle className="w-5 h-5" />
                 تحدث مع المساعد الذكي
@@ -880,6 +895,7 @@ const BoudHRLandingPage: React.FC = () => {
             size="lg"
             className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
             title="تحدث مع خدمة العملاء"
+            onClick={() => navigate("/chat-messaging")}
           >
             <MessageCircle className="w-6 h-6 text-white" />
           </Button>
@@ -894,6 +910,7 @@ const BoudHRLandingPage: React.FC = () => {
             size="lg"
             className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
             title="بُعد – مساعدك الذكي"
+            onClick={() => navigate("/ai-hub")}
           >
             <Brain className="w-6 h-6 text-white" />
           </Button>
