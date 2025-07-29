@@ -18,6 +18,12 @@ import {
   Activity, PieChart, LineChart, Mail, Phone
 } from 'lucide-react';
 
+// استيراد الـ hooks والخدمات الجديدة
+import { 
+  useCompanies, useEmployees, useAiAlerts, 
+  useDashboardMetrics, useExternalApis 
+} from '@/hooks/useDatabase';
+
 // بيانات المنشآت النموذجية
 const establishments = [
   {
@@ -170,6 +176,13 @@ export const EmployeeManagementPlatform: React.FC = () => {
   const [selectedEstablishment, setSelectedEstablishment] = useState<string>('');
   const [aiQuery, setAiQuery] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // استخدام الـ hooks الجديدة
+  const { companies, loading: companiesLoading } = useCompanies();
+  const { employees: employeesData, loading: employeesLoading, searchEmployees } = useEmployees(selectedEstablishment);
+  const { alerts, unreadCount, markAsRead } = useAiAlerts(selectedEstablishment);
+  const { metrics, loading: metricsLoading } = useDashboardMetrics(selectedEstablishment);
+  const { integrations, syncPlatform } = useExternalApis(selectedEstablishment);
 
   const getStatusColor = (status: string) => {
     switch (status) {
