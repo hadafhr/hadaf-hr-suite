@@ -161,7 +161,6 @@ const BoudHRLandingPage: React.FC = () => {
     { number: "24/7", label: "دعم متواصل" }
   ];
 
-
   return (
     <div className="min-h-screen bg-background font-arabic">
       {/* Header */}
@@ -630,8 +629,153 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Contact Us Section */}
+      <section id="contact" className="py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">📬 تواصل معنا – نحن هنا لدعمك في كل خطوة</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              سواء كنت صاحب عمل أو موظفًا، يسعدنا خدمتك والرد على استفساراتك عبر أي وسيلة تفضلها.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <div className="grid sm:grid-cols-2 gap-6">
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <Phone className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">الهاتف</h3>
+                  <p className="text-2xl font-bold text-primary">+966 55 123 4567</p>
+                  <p className="text-sm text-muted-foreground mt-2">متاح 24/7</p>
+                </Card>
+
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">البريد الإلكتروني</h3>
+                  <p className="text-lg font-bold text-primary">support@boodhr.sa</p>
+                  <p className="text-sm text-muted-foreground mt-2">رد سريع خلال ساعتين</p>
+                </Card>
+
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">الموقع</h3>
+                  <p className="text-primary font-medium">الرياض</p>
+                  <p className="text-sm text-muted-foreground">المملكة العربية السعودية</p>
+                </Card>
+
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">ساعات العمل</h3>
+                  <p className="text-primary font-medium">9 صباحاً - 9 مساءً</p>
+                  <p className="text-sm text-muted-foreground">7 أيام في الأسبوع</p>
+                </Card>
+              </div>
+            </div>
+
+            {/* Social Media & Quick Actions */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-6 text-center">تابعنا على وسائل التواصل</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {/* Snapchat */}
+                  <a 
+                    href="https://snapchat.com/add/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-yellow-100 hover:bg-yellow-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-xl">S</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* Instagram */}
+                  <a 
+                    href="https://instagram.com/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-xl">📷</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* TikTok */}
+                  <a 
+                    href="https://tiktok.com/@boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-xl">T</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* X (Twitter) */}
+                  <a 
+                    href="https://x.com/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-blue-100 hover:bg-blue-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <Twitter className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* LinkedIn */}
+                  <a 
+                    href="https://linkedin.com/company/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-blue-100 hover:bg-blue-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <Linkedin className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">Bood HR</span>
+                  </a>
+
+                  {/* WhatsApp */}
+                  <a 
+                    href="https://wa.me/966551234567" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-green-100 hover:bg-green-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">راسلنا</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-muted/50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-foreground mb-4 text-center">🛡️ الخصوصية والأمان</h3>
+                <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                  نحن ملتزمون بحماية خصوصيتك وأمان بياناتك وفقاً لأعلى المعايير الدولية ولوائح حماية البيانات السعودية.
+                </p>
+                <div className="flex justify-center mt-4">
+                  <Button variant="outline" size="sm" className="text-xs">
+                    اطّلع على سياسة الخصوصية
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer id="contact" className="bg-foreground text-background py-16">
+      <footer className="bg-foreground text-background py-16">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Company Info */}
@@ -683,11 +827,11 @@ const BoudHRLandingPage: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-primary" />
-                  <span className="text-background/80">+966 11 123 4567</span>
+                  <span className="text-background/80">+966 55 123 4567</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-primary" />
-                  <span className="text-background/80">info@boud-hr.sa</span>
+                  <span className="text-background/80">support@boodhr.sa</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-4 h-4 text-primary" />
@@ -718,6 +862,52 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
+      
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        {/* Live Chat Support */}
+        <div className="group relative">
+          <Button
+            size="lg"
+            className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+            title="تحدث مع خدمة العملاء"
+          >
+            <MessageCircle className="w-6 h-6 text-white" />
+          </Button>
+          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            تحدث مع خدمة العملاء
+          </div>
+        </div>
+
+        {/* AI Assistant */}
+        <div className="group relative">
+          <Button
+            size="lg"
+            className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+            title="بُعد – مساعدك الذكي"
+          >
+            <Brain className="w-6 h-6 text-white" />
+          </Button>
+          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            بُعد – مساعدك الذكي
+          </div>
+        </div>
+
+        {/* Call Now */}
+        <div className="group relative">
+          <Button
+            size="lg"
+            className="w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse"
+            title="اتصل بنا فوراً"
+            onClick={() => window.open('tel:+966551234567')}
+          >
+            <Phone className="w-6 h-6 text-white" />
+          </Button>
+          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            اتصل بنا فوراً
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
