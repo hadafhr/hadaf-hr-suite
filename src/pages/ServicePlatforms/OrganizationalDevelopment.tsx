@@ -11,112 +11,222 @@ import {
   User, UserCheck, Building2, ClipboardCheck
 } from 'lucide-react';
 
-// البيانات الأساسية للنظام
+// البيانات الأساسية للنظام وفقاً للممارسات السعودية
 const organizationalPhases = [
   {
     id: 1,
     title: "التشخيص والتحليل الأولي",
-    description: "تقرير تشخيص أولي لحالة المؤسسة",
+    description: "تقرير تشخيص أولي لحالة المؤسسة وفقاً لمعايير رؤية 2030",
     status: "مكتمل",
     progress: 100,
     icon: Search,
+    example: "مثال: شركة تقنية ناشئة تحتاج لهيكلة إدارية تتماشى مع قوانين الاستثمار الأجنبي",
     steps: [
-      { id: 1, title: "تعبئة نموذج التقييم الذاتي", completed: true },
-      { id: 2, title: "مقابلات تشخيصية مع الإدارة العليا والموظفين", completed: true },
-      { id: 3, title: "تحليل SWOT للمؤسسة", completed: true },
-      { id: 4, title: "رفع تقرير تشخيصي للمشاكل والفرص", completed: true }
+      { 
+        id: 1, 
+        title: "تعبئة نموذج التقييم الذاتي (وفقاً لمعايير ساما/هيئة السوق المالية)", 
+        completed: true,
+        details: "يشمل تقييم الحوكمة، إدارة المخاطر، والامتثال للوائح"
+      },
+      { 
+        id: 2, 
+        title: "مقابلات تشخيصية مع الإدارة العليا والموظفين", 
+        completed: true,
+        details: "مقابلات منظمة تراعي الثقافة المحلية والتنوع في بيئة العمل السعودية"
+      },
+      { 
+        id: 3, 
+        title: "تحليل SWOT مع التركيز على فرص رؤية 2030", 
+        completed: true,
+        details: "تحليل يربط نقاط القوة بأهداف التحول الوطني والاقتصاد الرقمي"
+      },
+      { 
+        id: 4, 
+        title: "رفع تقرير تشخيصي متوافق مع المعايير المحلية", 
+        completed: true,
+        details: "تقرير يتضمن توصيات تتماشى مع نظام العمل السعودي والسعودة"
+      }
     ],
     approvals: [
-      { role: "مدير الإدارة", status: "موافق", date: "2024-01-15" },
-      { role: "مدير عام الموارد البشرية", status: "موافق", date: "2024-01-16" },
-      { role: "الرئيس التنفيذي", status: "موافق", date: "2024-01-17" }
-    ]
+      { role: "مدير الإدارة", status: "موافق", date: "2024-01-15", entity: "الإدارة التنفيذية" },
+      { role: "مدير عام الموارد البشرية", status: "موافق", date: "2024-01-16", entity: "قسم الموارد البشرية" },
+      { role: "الرئيس التنفيذي", status: "موافق", date: "2024-01-17", entity: "مجلس الإدارة" }
+    ],
+    regulations: ["نظام العمل السعودي", "لائحة الحوكمة", "معايير رؤية 2030"]
   },
   {
     id: 2,
     title: "تصميم الهيكل والعمليات",
-    description: "هيكل تنظيمي محدث + خريطة العمليات",
+    description: "هيكل تنظيمي محدت + خريطة عمليات متوافقة مع الأنظمة السعودية",
     status: "جاري",
     progress: 75,
     icon: Building2,
+    example: "مثال: إعادة هيكلة بنك محلي ليتماشى مع متطلبات ساما الجديدة للبنوك الرقمية",
     steps: [
-      { id: 1, title: "اقتراح هيكل تنظيمي مناسب", completed: true },
-      { id: 2, title: "تحديد الوحدات الإدارية ومسؤولياتها", completed: true },
-      { id: 3, title: "تصميم خريطة العمليات الرئيسية", completed: true },
-      { id: 4, title: "مراجعة الأدوار الوظيفية الحالية", completed: false }
+      { 
+        id: 1, 
+        title: "تصميم هيكل تنظيمي يراعي متطلبات السعودة (75%)", 
+        completed: true,
+        details: "هيكل يضمن نسب السعودة المطلوبة ويدعم التطوير المهني للمواطنين"
+      },
+      { 
+        id: 2, 
+        title: "تحديد الوحدات الإدارية وفقاً لمعايير الحوكمة المؤسسية", 
+        completed: true,
+        details: "فصل واضح للمسؤوليات مع لجان المراجعة والمخاطر والامتثال"
+      },
+      { 
+        id: 3, 
+        title: "تصميم خريطة العمليات الرقمية (تماشياً مع التحول الرقمي)", 
+        completed: true,
+        details: "عمليات رقمية تدعم مبادرات الحكومة الإلكترونية والذكاء الاصطناعي"
+      },
+      { 
+        id: 4, 
+        title: "مراجعة الأدوار الوظيفية لضمان التوافق مع قانون العمل", 
+        completed: false,
+        details: "مراجعة شاملة تضمن التوافق مع ساعات العمل والإجازات والحقوق"
+      }
     ],
     approvals: [
-      { role: "مدير تطوير تنظيمي", status: "موافق", date: "2024-01-20" },
-      { role: "مدير الموارد البشرية", status: "موافق", date: "2024-01-21" },
-      { role: "الإدارة القانونية", status: "قيد المراجعة", date: null },
-      { role: "الرئيس التنفيذي", status: "انتظار", date: null }
-    ]
+      { role: "مدير تطوير تنظيمي", status: "موافق", date: "2024-01-20", entity: "إدارة التطوير" },
+      { role: "مدير الموارد البشرية", status: "موافق", date: "2024-01-21", entity: "قسم الموارد البشرية" },
+      { role: "المستشار القانوني", status: "قيد المراجعة", date: null, entity: "الإدارة القانونية" },
+      { role: "الرئيس التنفيذي", status: "انتظار", date: null, entity: "مجلس الإدارة" }
+    ],
+    regulations: ["نظام الشركات السعودي", "لائحة الحوكمة", "نظام العمل", "أنظمة ساما"]
   },
   {
     id: 3,
     title: "بناء السياسات والإجراءات",
-    description: "دليل سياسات وإجراءات رسمي",
+    description: "دليل سياسات وإجراءات متوافق مع الأنظمة واللوائح السعودية",
     status: "قيد الانتظار",
     progress: 0,
     icon: FileText,
+    example: "مثال: وضع سياسات لشركة تجارة إلكترونية تتوافق مع أنظمة التجارة الإلكترونية ووزارة التجارة",
     steps: [
-      { id: 1, title: "إعداد سياسات الموارد البشرية والتشغيل والمالية", completed: false },
-      { id: 2, title: "تصميم إجراءات العمل", completed: false },
-      { id: 3, title: "اعتماد السياسات", completed: false },
-      { id: 4, title: "رفع الملفات للمنصة", completed: false }
+      { 
+        id: 1, 
+        title: "إعداد سياسات الموارد البشرية (متوافقة مع نظام العمل ونطاقات)", 
+        completed: false,
+        details: "سياسات شاملة للتوظيف، الرواتب، الإجازات، والتأديب وفقاً للنظام السعودي"
+      },
+      { 
+        id: 2, 
+        title: "تصميم إجراءات العمل التشغيلية والمالية (وفقاً لمعايير المحاسبة السعودية)", 
+        completed: false,
+        details: "إجراءات مفصلة تراعي معايير المحاسبة السعودية ومتطلبات الزكاة والضريبة"
+      },
+      { 
+        id: 3, 
+        title: "اعتماد السياسات من الجهات المختصة", 
+        completed: false,
+        details: "مراجعة واعتماد من الجهات الرقابية ذات العلاقة (ساما، CMA، CITC، إلخ)"
+      },
+      { 
+        id: 4, 
+        title: "رفع الملفات للمنصة الحكومية (ناجز/قوى/مراس)", 
+        completed: false,
+        details: "تحديث البيانات في المنصات الحكومية الإلكترونية"
+      }
     ],
     approvals: [
-      { role: "مدير الجودة", status: "انتظار", date: null },
-      { role: "مدير تطوير تنظيمي", status: "انتظار", date: null },
-      { role: "الإدارة القانونية", status: "انتظار", date: null },
-      { role: "الرئيس التنفيذي", status: "انتظار", date: null },
-      { role: "مجلس الإدارة", status: "انتظار", date: null }
-    ]
+      { role: "مدير الجودة والامتثال", status: "انتظار", date: null, entity: "إدارة الجودة" },
+      { role: "مدير تطوير تنظيمي", status: "انتظار", date: null, entity: "إدارة التطوير" },
+      { role: "المستشار القانوني", status: "انتظار", date: null, entity: "الإدارة القانونية" },
+      { role: "الرئيس التنفيذي", status: "انتظار", date: null, entity: "الإدارة العليا" },
+      { role: "مجلس الإدارة", status: "انتظار", date: null, entity: "مجلس الإدارة" }
+    ],
+    regulations: ["نظام العمل", "نظام الشركات", "معايير المحاسبة السعودية", "لوائح الزكاة والضريبة"]
   },
   {
     id: 4,
     title: "إدارة التغيير وتدريب الموظفين",
-    description: "خطة إدارة التغيير + خطة تدريبية",
+    description: "خطة إدارة التغيير + خطة تدريبية تراعي الثقافة المحلية",
     status: "قيد الانتظار",
     progress: 0,
     icon: BookOpen,
+    example: "مثال: تدريب موظفي بنك على النظام المصرفي المفتوح وفقاً لتوجهات ساما للتقنية المالية",
     steps: [
-      { id: 1, title: "إعداد خطة إدارة التغيير", completed: false },
-      { id: 2, title: "تصميم برامج التوعية", completed: false },
-      { id: 3, title: "تنفيذ الورش", completed: false },
-      { id: 4, title: "قياس الجاهزية", completed: false }
+      { 
+        id: 1, 
+        title: "إعداد خطة إدارة التغيير (تراعي الثقافة السعودية والتنوع)", 
+        completed: false,
+        details: "خطة تأخذ في الاعتبار التدرج الثقافي وإشراك المواطنين في القيادة"
+      },
+      { 
+        id: 2, 
+        title: "تصميم برامج التوعية باللغة العربية", 
+        completed: false,
+        details: "مواد تدريبية باللغة العربية تراعي المصطلحات المحلية والسياق الثقافي"
+      },
+      { 
+        id: 3, 
+        title: "تنفيذ الورش مع مراعاة أوقات الصلاة والمناسبات الدينية", 
+        completed: false,
+        details: "جدولة تراعي الأعياد والمناسبات الدينية وأوقات الصلاة"
+      },
+      { 
+        id: 4, 
+        title: "قياس الجاهزية وفقاً لمؤشرات الأداء المحلية", 
+        completed: false,
+        details: "مؤشرات تقيس التطبيق الفعلي والالتزام بالأنظمة المحلية"
+      }
     ],
     approvals: [
-      { role: "مدير التدريب", status: "انتظار", date: null },
-      { role: "مدير تطوير تنظيمي", status: "انتظار", date: null },
-      { role: "الموارد البشرية", status: "انتظار", date: null },
-      { role: "الرئيس التنفيذي", status: "انتظار", date: null }
-    ]
+      { role: "مدير التدريب والتطوير", status: "انتظار", date: null, entity: "إدارة التدريب" },
+      { role: "مدير تطوير تنظيمي", status: "انتظار", date: null, entity: "إدارة التطوير" },
+      { role: "مدير الموارد البشرية", status: "انتظار", date: null, entity: "الموارد البشرية" },
+      { role: "الرئيس التنفيذي", status: "انتظار", date: null, entity: "الإدارة العليا" }
+    ],
+    regulations: ["نظام العمل", "لوائح التدريب المهني", "معايير المؤسسة العامة للتدريب التقني"]
   },
   {
     id: 5,
     title: "التفعيل والمتابعة والتحسين",
-    description: "تشغيل النظام الجديد + تقارير أداء",
+    description: "تشغيل النظام الجديد + تقارير أداء وفقاً للمعايير المحلية",
     status: "قيد الانتظار",
     progress: 0,
     icon: TrendingUp,
+    example: "مثال: تفعيل نظام إدارة الأداء في شركة اتصالات يراعي مؤشرات هيئة الاتصالات",
     steps: [
-      { id: 1, title: "إطلاق الهيكل الجديد", completed: false },
-      { id: 2, title: "مراقبة الأداء لمدة 90 يوم", completed: false },
-      { id: 3, title: "إعداد تقارير الأداء", completed: false },
-      { id: 4, title: "رفع التوصيات", completed: false }
+      { 
+        id: 1, 
+        title: "إطلاق الهيكل الجديد مع التبليغ للجهات الرسمية", 
+        completed: false,
+        details: "تحديث البيانات في وزارة التجارة، التأمينات الاجتماعية، والجهات ذات العلاقة"
+      },
+      { 
+        id: 2, 
+        title: "مراقبة الأداء لمدة 90 يوم وفقاً لمؤشرات الأداء المحلية", 
+        completed: false,
+        details: "متابعة شاملة تشمل الالتزام بنسب السعودة ومؤشرات الإنتاجية"
+      },
+      { 
+        id: 3, 
+        title: "إعداد تقارير الأداء باللغة العربية", 
+        completed: false,
+        details: "تقارير دورية تبين مستوى التحسن والالتزام بالأنظمة"
+      },
+      { 
+        id: 4, 
+        title: "رفع التوصيات للتحسين المستمر", 
+        completed: false,
+        details: "توصيات تراعي التطورات في الأنظمة واللوائح المحلية"
+      }
     ],
     approvals: [
-      { role: "مدير الأداء المؤسسي", status: "انتظار", date: null },
-      { role: "مدير الموارد البشرية", status: "انتظار", date: null },
-      { role: "الرئيس التنفيذي", status: "انتظار", date: null }
-    ]
+      { role: "مدير الأداء المؤسسي", status: "انتظار", date: null, entity: "إدارة الأداء" },
+      { role: "مدير الموارد البشرية", status: "انتظار", date: null, entity: "الموارد البشرية" },
+      { role: "الرئيس التنفيذي", status: "انتظار", date: null, entity: "الإدارة العليا" }
+    ],
+    regulations: ["نظام مراقبة الشركات", "معايير الإفصاح والشفافية", "لوائح هيئة السوق المالية"]
   }
 ];
 
 const organizationalStats = [
   { title: "المراحل المكتملة", value: "1", icon: CheckCircle, color: "text-success" },
-  { title: "المرحلة الحالية", value: "2", icon: Clock, color: "text-warning" },
+  { title: "المرحلة الحالية", value: "تصميم الهيكل", icon: Clock, color: "text-warning" },
   { title: "نسبة الإنجاز الإجمالية", value: "35%", icon: TrendingUp, color: "text-primary" },
   { title: "الموافقات المعلقة", value: "2", icon: AlertCircle, color: "text-destructive" }
 ];
@@ -216,6 +326,30 @@ export const OrganizationalDevelopment: React.FC = () => {
               </CardHeader>
 
               <CardContent className="space-y-4">
+                {/* مثال تطبيقي */}
+                <div className="bg-info/10 border-r-4 border-info p-4 rounded-lg">
+                  <h4 className="font-semibold text-info mb-2 flex items-center gap-2">
+                    <Lightbulb className="h-4 w-4" />
+                    مثال تطبيقي
+                  </h4>
+                  <p className="text-sm text-foreground">{phase.example}</p>
+                </div>
+
+                {/* الأنظمة واللوائح المطبقة */}
+                <div className="bg-primary/10 border rounded-lg p-4">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <Settings className="h-4 w-4" />
+                    الأنظمة واللوائح المطبقة
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {phase.regulations.map((regulation, regIndex) => (
+                      <Badge key={regIndex} variant="outline" className="text-xs">
+                        {regulation}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
                 {/* الخطوات */}
                 <div>
                   <Button
@@ -229,21 +363,28 @@ export const OrganizationalDevelopment: React.FC = () => {
                     ) : (
                       <ChevronDown className="h-4 w-4" />
                     )}
-                    عرض الخطوات ({phase.steps.length})
+                    عرض الخطوات التفصيلية ({phase.steps.length})
                   </Button>
                   
                   {expandedSteps.includes(phase.id) && (
-                    <div className="mt-3 space-y-2">
+                    <div className="mt-3 space-y-3">
                       {phase.steps.map((step) => (
-                        <div key={step.id} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                          {step.completed ? (
-                            <CheckCircle className="h-4 w-4 text-success" />
-                          ) : (
-                            <Clock className="h-4 w-4 text-muted-foreground" />
-                          )}
-                          <span className={`text-sm ${step.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
-                            {step.title}
-                          </span>
+                        <div key={step.id} className="border rounded-lg p-4 bg-muted/20">
+                          <div className="flex items-start gap-3">
+                            {step.completed ? (
+                              <CheckCircle className="h-5 w-5 text-success mt-0.5" />
+                            ) : (
+                              <Clock className="h-5 w-5 text-muted-foreground mt-0.5" />
+                            )}
+                            <div className="flex-1">
+                              <h5 className={`font-medium mb-2 ${step.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
+                                {step.title}
+                              </h5>
+                              <p className="text-sm text-muted-foreground">
+                                {step.details}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
