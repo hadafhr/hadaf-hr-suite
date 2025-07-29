@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AIAssistant } from '@/components/AIAssistant';
@@ -18,47 +19,55 @@ const aiFeatures = [
     title: 'تحليل الأداء الذكي',
     description: 'تحليل شامل لأداء الموظفين باستخدام الذكاء الاصطناعي',
     icon: BarChart3,
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    route: '/service-platforms/performance-evaluation'
   },
   {
     title: 'التنبؤ بالاحتياجات',
     description: 'توقع احتياجات الموارد البشرية المستقبلية',
     icon: TrendingUp,
-    color: 'text-green-600',
-    bgColor: 'bg-green-50'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    route: '/service-platforms/reports'
   },
   {
     title: 'توصيات التوظيف',
     description: 'اقتراحات ذكية لأفضل المرشحين للوظائف',
     icon: Users,
-    color: 'text-purple-600',
-    bgColor: 'bg-purple-50'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    route: '/service-platforms/recruitment'
   },
   {
     title: 'تحسين الإنتاجية',
     description: 'استراتيجيات ذكية لتحسين الإنتاجية العامة',
     icon: Zap,
-    color: 'text-yellow-600',
-    bgColor: 'bg-yellow-50'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    route: '/service-platforms/employee-management'
   },
   {
     title: 'تخطيط الأهداف',
     description: 'وضع أهداف ذكية قابلة للقياس والتحقيق',
     icon: Target,
-    color: 'text-red-600',
-    bgColor: 'bg-red-50'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    route: '/service-platforms/performance-evaluation'
   },
   {
     title: 'رؤى استراتيجية',
     description: 'تحليلات عميقة للقرارات الاستراتيجية',
     icon: Lightbulb,
-    color: 'text-orange-600',
-    bgColor: 'bg-orange-50'
+    color: 'text-primary',
+    bgColor: 'bg-primary/10',
+    route: '/service-platforms/organizational-development'
   }
 ];
 
 export const AIHub: React.FC = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -78,9 +87,13 @@ export const AIHub: React.FC = () => {
         {/* AI Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {aiFeatures.map((feature, index) => (
-            <Card key={index} className="dashboard-card group hover:shadow-lg transition-all duration-300">
+            <Card 
+              key={index} 
+              className="dashboard-card group hover:shadow-lg transition-all duration-300 cursor-pointer"
+              onClick={() => navigate(feature.route)}
+            >
               <div className="p-6">
-                <div className={`w-12 h-12 rounded-lg ${feature.bgColor} flex items-center justify-center mb-4`}>
+                <div className={`w-12 h-12 rounded-lg ${feature.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className={`h-6 w-6 ${feature.color}`} />
                 </div>
                 
