@@ -113,13 +113,13 @@ const SelfServiceFeature: React.FC = () => {
               </Button>
               <div className="h-6 w-px bg-border"></div>
               <div className="flex items-center space-x-3 space-x-reverse">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center">
                   <Settings className="w-5 h-5 text-white" />
                 </div>
                 <h1 className="text-lg font-bold text-foreground">الخدمة الذاتية للموظفين</h1>
               </div>
             </div>
-            <Button onClick={() => navigate('/employee-dashboard')} className="btn-primary">
+            <Button onClick={() => navigate('/services/employee-self-service')} className="btn-primary">
               ابدأ الآن
             </Button>
           </div>
@@ -127,15 +127,15 @@ const SelfServiceFeature: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 via-background to-purple-50">
+      <section className="py-20 bg-gradient-to-br from-accent via-background to-muted">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <Badge className="bg-blue-100 text-blue-800 border-blue-200 px-4 py-2">
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2">
               خدمة ذاتية متطورة للموظفين
             </Badge>
             
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
-              تمكين الموظفين من <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">إدارة شؤونهم بأنفسهم</span>
+              تمكين الموظفين من <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">إدارة شؤونهم بأنفسهم</span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -144,7 +144,7 @@ const SelfServiceFeature: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => navigate('/employee-dashboard')}>
+              <Button size="lg" className="btn-primary" onClick={() => navigate('/services/employee-self-service')}>
                 دخول لوحة الموظف
               </Button>
               <Button size="lg" variant="outline" onClick={() => navigate('/chat-messaging')}>
@@ -160,7 +160,7 @@ const SelfServiceFeature: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                 خدمات شاملة للموظفين
               </span>
             </h2>
@@ -171,9 +171,9 @@ const SelfServiceFeature: React.FC = () => {
           
           <div className="grid lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-blue-50">
+              <Card key={index} className="service-card group hover:shadow-xl transition-all duration-300">
                 <CardHeader>
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary to-primary-glow rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
                   <CardTitle className="text-xl text-center">{feature.title}</CardTitle>
@@ -185,7 +185,7 @@ const SelfServiceFeature: React.FC = () => {
                   <ul className="space-y-2">
                     {feature.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-blue-600" />
+                        <CheckCircle className="w-4 h-4 text-primary" />
                         {benefit}
                       </li>
                     ))}
@@ -198,12 +198,12 @@ const SelfServiceFeature: React.FC = () => {
       </section>
 
       {/* Mobile App Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+      <section className="py-20 bg-gradient-to-br from-accent to-muted">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-bold">
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                   تطبيق جوال متطور
                 </span>
               </h2>
@@ -214,7 +214,7 @@ const SelfServiceFeature: React.FC = () => {
               <div className="space-y-4">
                 {mobileFeatures.map((feature, index) => (
                   <div key={index} className="flex items-start gap-4 p-4 bg-white/80 rounded-lg">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-full flex items-center justify-center">
                       <Smartphone className="w-4 h-4 text-white" />
                     </div>
                     <div>
@@ -226,7 +226,7 @@ const SelfServiceFeature: React.FC = () => {
               </div>
               
               <div className="flex gap-4 pt-4">
-                <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => navigate('/employee-dashboard')}>
+                <Button className="btn-primary" onClick={() => navigate('/services/employee-self-service')}>
                   جرب التطبيق
                 </Button>
                 <Button variant="outline">
@@ -236,7 +236,7 @@ const SelfServiceFeature: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl p-8 text-white">
+              <div className="bg-gradient-to-br from-primary to-primary-glow rounded-3xl p-8 text-white">
                 <div className="space-y-6">
                   <div className="flex items-center gap-3">
                     <Smartphone className="w-8 h-8" />
@@ -282,7 +282,7 @@ const SelfServiceFeature: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                 النتائج والفوائد
               </span>
             </h2>
@@ -293,8 +293,8 @@ const SelfServiceFeature: React.FC = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="text-center p-6 bg-gradient-to-br from-white to-blue-50 border-0">
-                <div className="text-4xl font-bold text-blue-600 mb-2">{benefit.value}</div>
+              <Card key={index} className="metric-card text-center">
+                <div className="text-4xl font-bold text-primary mb-2">{benefit.value}</div>
                 <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-sm text-muted-foreground">{benefit.description}</p>
               </Card>
@@ -304,11 +304,11 @@ const SelfServiceFeature: React.FC = () => {
       </section>
 
       {/* Security Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-muted to-accent">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="flex justify-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-success to-primary rounded-full flex items-center justify-center">
                 <Shield className="w-8 h-8 text-white" />
               </div>
             </div>
@@ -340,7 +340,7 @@ const SelfServiceFeature: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800">
+      <section className="py-20 bg-gradient-to-br from-primary via-primary-glow to-primary">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
             <h2 className="text-4xl lg:text-5xl font-bold text-white">
@@ -350,7 +350,7 @@ const SelfServiceFeature: React.FC = () => {
               ابدأ الآن واكتشف كيف يمكن للخدمة الذاتية تحسين تجربة موظفيك وزيادة كفاءة عملك
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-white/90 font-semibold px-8" onClick={() => navigate('/employee-dashboard')}>
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8" onClick={() => navigate('/services/employee-self-service')}>
                 جرب الخدمة مجاناً
               </Button>
               <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => navigate('/chat-messaging')}>
@@ -365,7 +365,7 @@ const SelfServiceFeature: React.FC = () => {
       <footer className="bg-foreground text-background py-12">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Settings className="w-6 h-6 text-blue-500" />
+            <Settings className="w-6 h-6 text-primary" />
             <span className="text-lg font-semibold">الخدمة الذاتية - بُعد HR</span>
           </div>
           <p className="text-background/70 mb-6">
