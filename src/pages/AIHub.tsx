@@ -21,7 +21,7 @@ const aiFeatures = [
     icon: BarChart3,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
-    route: '/service-platforms/performance-evaluation'
+    route: '/performance-evaluation'
   },
   {
     title: 'التنبؤ بالاحتياجات',
@@ -29,7 +29,7 @@ const aiFeatures = [
     icon: TrendingUp,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
-    route: '/service-platforms/reports'
+    route: '/reports'
   },
   {
     title: 'توصيات التوظيف',
@@ -37,7 +37,7 @@ const aiFeatures = [
     icon: Users,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
-    route: '/service-platforms/recruitment'
+    route: '/smart-hire'
   },
   {
     title: 'تحسين الإنتاجية',
@@ -45,7 +45,7 @@ const aiFeatures = [
     icon: Zap,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
-    route: '/service-platforms/employee-management'
+    route: '/employee-management'
   },
   {
     title: 'تخطيط الأهداف',
@@ -53,7 +53,7 @@ const aiFeatures = [
     icon: Target,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
-    route: '/service-platforms/performance-evaluation'
+    route: '/dashboard'
   },
   {
     title: 'رؤى استراتيجية',
@@ -61,7 +61,7 @@ const aiFeatures = [
     icon: Lightbulb,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
-    route: '/service-platforms/organizational-development'
+    route: '/business-platform'
   }
 ];
 
