@@ -30,8 +30,8 @@
     --accent: 0 0% 100%;
     --accent-foreground: 0 0% 0%;
     
-    --muted: 0 0% 8%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 0 0% 0%;
+    --muted-foreground: 0 0% 100%;
 
     /* ألوان الحالة */
     --success: 120 60% 20%;
