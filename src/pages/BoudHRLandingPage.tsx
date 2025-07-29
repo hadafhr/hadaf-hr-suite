@@ -505,7 +505,7 @@ const BoudHRLandingPage: React.FC = () => {
                   else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/service-platforms/platform-development");
                   else if (feature.title === "منصة التدريب") navigate("/service-platforms/training");
                   else if (feature.title === "حاسبة الخدمات") navigate("/service-calculator");
-                  else if (feature.title === "منصة القطاع غير الربحي") navigate("/non-profit-services");
+                  else if (feature.title === "منصة القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
                   else if (feature.title === "منصة خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
                   else if (feature.title === "حماية الأجور") navigate("/wage-protection");
                   else if (feature.title === "التقييمات الذكية") navigate("/performance-evaluation");
