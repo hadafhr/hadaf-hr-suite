@@ -29,11 +29,9 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار */}
-        <Link to="/" className="flex items-center space-x-2 space-x-reverse">
-          <img src={budLogo} alt="شعار بُعد" className="h-12 w-auto" />
-          <div className="hidden md:block">
-            <h2 className="text-xl font-bold text-gradient">بُعد</h2>
-            <p className="text-sm text-muted-foreground">حلول شاملة للموارد البشرية</p>
+        <Link to="/" className="flex items-center">
+          <div>
+            <h2 className="text-2xl font-bold text-foreground">بُعد</h2>
           </div>
         </Link>
 
