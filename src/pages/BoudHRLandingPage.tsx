@@ -28,6 +28,11 @@ import {
   Lock,
   Cloud,
   Settings,
+  Building,
+  GraduationCap,
+  Calculator,
+  Heart,
+  Briefcase,
   FileText,
   Clock,
   ChevronDown
@@ -72,25 +77,55 @@ const BoudHRLandingPage: React.FC = () => {
       title: "الخدمة الذاتية",
       description: "منصة تمكن الموظفين من إدارة طلباتهم وبياناتهم بأنفسهم",
       icon: Settings,
-      color: "text-blue-600"
+      color: "text-primary"
     },
     {
-      title: "التقييمات الذكية",
-      description: "نظام تقييم أداء متطور مدعوم بالذكاء الاصطناعي",
-      icon: BarChart3,
-      color: "text-orange-600"
+      title: "منصة التطوير والتنظيم المؤسسي",
+      description: "أدوات متقدمة لتطوير الهيكل التنظيمي وإدارة المشاريع",
+      icon: Building,
+      color: "text-primary"
+    },
+    {
+      title: "منصة التدريب",
+      description: "نظام إدارة التعلم والتدريب مع البث المباشر والمحتوى التفاعلي",
+      icon: GraduationCap,
+      color: "text-primary"
+    },
+    {
+      title: "حاسبة الخدمات",
+      description: "أداة ذكية لحساب تكلفة الخدمات والباقات المناسبة لمنظمتك",
+      icon: Calculator,
+      color: "text-primary"
+    },
+    {
+      title: "منصة القطاع غير الربحي",
+      description: "حلول مخصصة للمنظمات غير الربحية وإدارة المتطوعين",
+      icon: Heart,
+      color: "text-primary"
+    },
+    {
+      title: "منصة خدمات أصحاب الأعمال",
+      description: "حلول شاملة مع لوحات تحكم تنفيذية متقدمة لأصحاب الأعمال",
+      icon: Briefcase,
+      color: "text-primary"
     },
     {
       title: "حماية الأجور",
       description: "ضمان الامتثال الكامل لأنظمة حماية الأجور السعودية",
       icon: Shield,
-      color: "text-green-600"
+      color: "text-primary"
+    },
+    {
+      title: "التقييمات الذكية",
+      description: "نظام تقييم أداء متطور مدعوم بالذكاء الاصطناعي",
+      icon: BarChart3,
+      color: "text-primary"
     },
     {
       title: "التكامل الحكومي",
       description: "ربط مباشر مع منصات مدد وقوى والتأمينات الاجتماعية",
       icon: Building2,
-      color: "text-purple-600"
+      color: "text-primary"
     },
     {
       title: "الذكاء الاصطناعي",
@@ -467,6 +502,11 @@ const BoudHRLandingPage: React.FC = () => {
                 onClick={() => {
                   if (feature.title === "إدارة الموظفين") navigate("/employee-management");
                   else if (feature.title === "الخدمة الذاتية") navigate("/employee-self-service");
+                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/platform-development");
+                  else if (feature.title === "منصة التدريب") navigate("/training");
+                  else if (feature.title === "حاسبة الخدمات") navigate("/service-calculator");
+                  else if (feature.title === "منصة القطاع غير الربحي") navigate("/non-profit-services");
+                  else if (feature.title === "منصة خدمات أصحاب الأعمال") navigate("/business-management");
                   else if (feature.title === "حماية الأجور") navigate("/wage-protection");
                   else if (feature.title === "التقييمات الذكية") navigate("/performance-evaluation");
                   else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
