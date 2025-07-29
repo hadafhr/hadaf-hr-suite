@@ -32,11 +32,34 @@ import {
   Clock,
   ChevronDown
 } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
+
+  const menuItems = {
+    services: [
+      { name: "إدارة الموظفين", href: "#employee-management" },
+      { name: "الخدمة الذاتية", href: "#self-service" },
+      { name: "حماية الأجور", href: "#wage-protection" },
+      { name: "التقييمات الذكية", href: "#smart-evaluations" },
+      { name: "التدريب والتطوير", href: "#training" }
+    ],
+    about: [
+      { name: "رؤيتنا", href: "#vision" },
+      { name: "من نحن", href: "#who-we-are" },
+      { name: "فريق العمل", href: "#team" },
+      { name: "شركاؤنا", href: "#partners" }
+    ],
+    contact: [
+      { name: "تواصل معنا", href: "#contact" },
+      { name: "الدعم الفني", href: "#support" },
+      { name: "طلب عرض سعر", href: "#quote" },
+      { name: "حجز موعد", href: "#booking" }
+    ]
+  };
 
   const features = [
     {
@@ -138,13 +161,6 @@ const BoudHRLandingPage: React.FC = () => {
     { number: "24/7", label: "دعم متواصل" }
   ];
 
-  const navigationItems = [
-    { name: "الرئيسية", href: "#home" },
-    { name: "الحلول", href: "#solutions" },
-    { name: "الأسعار", href: "#pricing" },
-    { name: "من نحن", href: "#about" },
-    { name: "تواصل معنا", href: "#contact" }
-  ];
 
   return (
     <div className="min-h-screen bg-background font-arabic">
@@ -165,15 +181,46 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
-              {navigationItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className="navigation-item text-sm font-medium"
-                >
-                  {item.name}
-                </a>
-              ))}
+              <a href="#home" className="navigation-item text-sm font-medium">الرئيسية</a>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1">
+                  خدماتنا <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  {menuItems.services.map((item, index) => (
+                    <DropdownMenuItem key={index} asChild>
+                      <a href={item.href} className="w-full text-right">{item.name}</a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1">
+                  من نحن <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  {menuItems.about.map((item, index) => (
+                    <DropdownMenuItem key={index} asChild>
+                      <a href={item.href} className="w-full text-right">{item.name}</a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1">
+                  تواصل معنا <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  {menuItems.contact.map((item, index) => (
+                    <DropdownMenuItem key={index} asChild>
+                      <a href={item.href} className="w-full text-right">{item.name}</a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
 
             {/* CTA Buttons */}
@@ -203,16 +250,45 @@ const BoudHRLandingPage: React.FC = () => {
           {isMobileMenuOpen && (
             <div className="md:hidden py-4 border-t border-border">
               <nav className="flex flex-col space-y-2">
-                {navigationItems.map((item, index) => (
-                  <a
-                    key={index}
-                    href={item.href}
-                    className="navigation-item text-sm font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
+                  الرئيسية
+                </a>
+                <details className="group">
+                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                    خدماتنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="mr-4 mt-2 space-y-2">
+                    {menuItems.services.map((item, index) => (
+                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </details>
+                <details className="group">
+                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                    من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="mr-4 mt-2 space-y-2">
+                    {menuItems.about.map((item, index) => (
+                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </details>
+                <details className="group">
+                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                    تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="mr-4 mt-2 space-y-2">
+                    {menuItems.contact.map((item, index) => (
+                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </details>
                 <div className="flex flex-col space-y-2 pt-4">
                   <Button variant="ghost" onClick={() => navigate('/login')}>
                     تسجيل الدخول
@@ -241,12 +317,12 @@ const BoudHRLandingPage: React.FC = () => {
                 <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
                   منصة <span className="text-gradient">بُعد HR</span>
                   <br />
-                  أتمتة الموارد البشرية والامتثال الذكي
+                  البُعد الجديد لإدارة رأس المال البشري
                 </h1>
                 
                 <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                  نظام سحابي متكامل لإدارة الموارد البشرية، يربط المنشآت والموظفين والأنظمة الحكومية، 
-                  مدعوم بالذكاء الاصطناعي ومصمم خصيصاً للمنشآت السعودية.
+                  منصّة موارد بشرية سحابية، ذكية، ومتكاملة تمكّن منظمتك من إدارة دورة حياة الموظف بالكامل 
+                  من الاستقطاب وحتى نهاية الخدمة، عبر الأتمتة والتحليلات التنبؤية والتكامل الفوري مع الجهات الحكومية.
                 </p>
               </div>
               
@@ -272,37 +348,83 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Hero Image */}
+            {/* Hero Visual Elements */}
             <div className="relative animate-slide-up">
               <div className="relative bg-gradient-to-br from-primary/10 to-accent/20 rounded-3xl p-8 border border-border/50">
-                <img 
-                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
-                  alt="فريق عمل سعودي يستخدم نظام بُعد HR"
-                  className="w-full h-96 object-cover rounded-2xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
-                
-                {/* Floating Cards */}
-                <div className="absolute -top-4 -right-4 bg-card border border-border rounded-xl p-4 shadow-medium">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-4 h-4 text-primary" />
+                <div className="grid grid-cols-2 gap-6 h-96">
+                  <div className="space-y-4">
+                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                          <Cloud className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">السحابة</div>
+                          <div className="text-xs text-muted-foreground">حوسبة سحابية متقدمة</div>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm font-semibold">98% معدل الرضا</div>
-                      <div className="text-xs text-muted-foreground">من عملائنا</div>
+                    
+                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                          <Brain className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">الذكاء الاصطناعي</div>
+                          <div className="text-xs text-muted-foreground">تحليلات ذكية متطورة</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                          <Users className="w-5 h-5 text-green-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">الموارد البشرية</div>
+                          <div className="text-xs text-muted-foreground">إدارة شاملة للمواهب</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl p-4 shadow-medium">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <Award className="w-4 h-4 text-green-600" />
+                  
+                  <div className="space-y-4">
+                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                          <BarChart3 className="w-5 h-5 text-orange-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">98% معدل الرضا</div>
+                          <div className="text-xs text-muted-foreground">من عملائنا</div>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm font-semibold">متوافق مع مدد</div>
-                      <div className="text-xs text-muted-foreground">100% امتثال</div>
+                    
+                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                          <Shield className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">100% امتثال</div>
+                          <div className="text-xs text-muted-foreground">مع الأنظمة السعودية</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                          <Award className="w-5 h-5 text-red-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">ISO 27001</div>
+                          <div className="text-xs text-muted-foreground">معايير أمان عالمية</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -382,29 +504,31 @@ const BoudHRLandingPage: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gradient">تعريف عن بُعد HR</h2>
+              <h2 className="text-4xl font-bold text-gradient">من نحن</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                <strong>بُعد</strong> هو نظام سعودي ذكي لإدارة الموارد البشرية يعتمد على الحوسبة السحابية 
-                والتكامل الذكي مع الأنظمة الحكومية. يساعد أصحاب الأعمال على إدارة المنشآت والموظفين، 
-                وتتبع الامتثال، وتحسين الإنتاجية، من مكان واحد وبأعلى معايير الأمان والكفاءة.
+                نحن فريق سعودي-عالمي من خبراء الموارد البشرية، وتقنية السحابة، وعلوم البيانات.
+                اجتمعنا حول رؤية واحدة: إعادة تشكيل إدارة رأس المال البشري في المنطقة العربية.
               </p>
               
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span>مطور وفقاً للمعايير السعودية</span>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 ذكاء عملي</h3>
+                  <p className="text-muted-foreground">نحو تحويل بيانات الموظفين إلى رؤى قابلة للتنفيذ، من خلال خوارزميات AI متقدمة.</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span>متوافق مع رؤية المملكة 2030</span>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تكامل شامل</h3>
+                  <p className="text-muted-foreground">منصة واحدة تشمل: التوظيف، الرواتب، الأداء، الامتثال، التدريب - مرتبطة آليًا بمنصات: قوى – التأمينات الاجتماعية – مدد – البنوك السعودية.</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span>مدعوم بأحدث تقنيات الذكاء الاصطناعي</span>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 أمن وموثوقية</h3>
+                  <p className="text-muted-foreground">استضافة سحابية داخل المملكة، مع اعتماد معايير الأمان المحلية والعالمية (ISO 27001 وNCA ECC).</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span>آمن ومحمي بأعلى معايير الأمان</span>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تركيز إنساني</h3>
+                  <p className="text-muted-foreground">تصميم كامل للتجربة الوظيفية حول الموظف وراحته، بهدف زيادة الولاء والإنتاجية.</p>
                 </div>
               </div>
               
