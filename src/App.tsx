@@ -39,7 +39,7 @@ import { LegalPlatform } from "@/pages/LegalPlatform";
 import { EmployeeManagementPlatform } from "@/pages/EmployeeManagementPlatform";
 import NotFound from "./pages/NotFound";
 import { WageProtectionPage } from './pages/WageProtectionPage';
-import { ServiceCalculatorPage } from './pages/ServiceCalculatorPage';
+import ServiceCalculatorPage from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';

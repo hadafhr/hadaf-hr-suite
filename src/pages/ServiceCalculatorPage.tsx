@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServiceCalculator } from '@/components/ServiceCalculator';
 
-export const ServiceCalculatorPage: React.FC = () => {
+const ServiceCalculatorPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto py-8">
@@ -10,3 +10,5 @@ export const ServiceCalculatorPage: React.FC = () => {
     </div>
   );
 };
+
+export default ServiceCalculatorPage;
