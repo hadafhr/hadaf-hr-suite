@@ -42,6 +42,8 @@ import { WageProtectionPage } from './pages/WageProtectionPage';
 import { ServiceCalculatorPage } from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
+import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
+import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
 
 const queryClient = new QueryClient();
 
@@ -121,8 +123,15 @@ const App = () => {
               
               {/* New Platform Routes */}
               <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
+              <Route path="/wage-protection" element={<WageProtectionPage />} />
               <Route path="/service-calculator" element={<ServiceCalculatorPage />} />
               <Route path="/chat-messaging" element={<ChatMessagingPage />} />
+              
+              {/* Feature Pages Routes */}
+              <Route path="/employee-management" element={<EmployeeManagementFeature />} />
+              <Route path="/employee-self-service" element={<SelfServiceFeature />} />
+              <Route path="/performance-evaluation" element={<PerformanceEvaluation />} />
+              <Route path="/training" element={<Training />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>
