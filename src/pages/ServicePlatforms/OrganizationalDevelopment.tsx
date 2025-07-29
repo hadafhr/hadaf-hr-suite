@@ -196,7 +196,7 @@ export const OrganizationalDevelopment: React.FC = () => {
                     </div>
                     <div>
                       <CardTitle className="flex items-center gap-3">
-                        <span>المرحلة {phase.id}: {phase.title}</span>
+                        <span>{phase.id}: {phase.title}</span>
                         <Badge className={getStatusColor(phase.status)}>
                           {phase.status}
                         </Badge>
