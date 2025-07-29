@@ -543,8 +543,8 @@ const BoudHRLandingPage: React.FC = () => {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=800&q=80"
-                alt="مكتب حديث"
+                src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
+                alt="فريق عمل يتعاون باستخدام تقنيات الموارد البشرية الحديثة"
                 className="w-full h-96 object-cover rounded-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
@@ -579,8 +579,8 @@ const BoudHRLandingPage: React.FC = () => {
                   
                   <div className="flex items-center gap-3">
                     <img 
-                      src={`https://images.unsplash.com/${testimonial.image}?auto=format&fit=crop&w=100&q=80`}
-                      alt={testimonial.name}
+                      src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=100&q=80"
+                      alt="أحمد المحمد - مدير الموارد البشرية"
                       className="w-12 h-12 rounded-full object-cover"
                     />
                     <div>
