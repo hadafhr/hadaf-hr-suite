@@ -540,3 +540,5 @@ export const EmployeeSelfService: React.FC = () => {
     </div>
   );
 };
+
+export default EmployeeSelfService;
