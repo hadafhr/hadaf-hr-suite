@@ -100,7 +100,14 @@ export const AIHub: React.FC = () => {
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{feature.description}</p>
                 
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <Button 
+                  variant="outline" 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(feature.route);
+                  }}
+                >
                   استخدم الآن
                 </Button>
               </div>
