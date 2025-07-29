@@ -2,39 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* تصميم نظام الألوان لشركة هدف للموارد البشرية */
+/* تصميم نظام الألوان لنظام بُعد HR */
 
 @layer base {
   :root {
-    /* خلفيات أساسية - أسود */
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    /* خلفيات أساسية - أبيض */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
-    /* البطاقات والمكونات */
-    --card: 0 0% 3%;
-    --card-foreground: 0 0% 100%;
+    /* البطاقات والمكونات - أبيض */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 0 0% 3%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    /* الألوان الأساسية - أخضر غامق */
-    --primary: 120 60% 20%;
+    /* اللون الأساسي - أخضر أرتكوازي #00A896 */
+    --primary: 174 100% 33%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 120 60% 25%;
+    --primary-glow: 174 100% 40%;
     
-    /* اللون الثانوي - أبيض */
-    --secondary: 0 0% 100%;
+    /* اللون الثانوي - رمادي فاتح */
+    --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 0%;
     
-    /* ألوان الدعم - أبيض */
-    --accent: 0 0% 100%;
+    /* ألوان الدعم - رمادي فاتح */
+    --accent: 0 0% 90%;
     --accent-foreground: 0 0% 0%;
     
-    --muted: 0 0% 0%;
-    --muted-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
 
     /* ألوان الحالة */
-    --success: 120 60% 20%;
+    --success: 174 100% 33%;
     --success-foreground: 0 0% 100%;
     
     --warning: 45 85% 50%;
@@ -43,10 +43,10 @@
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    /* الحدود والمدخلات - أخضر غامق */
-    --border: 120 60% 20%;
-    --input: 0 0% 5%;
-    --ring: 120 60% 20%;
+    /* الحدود والمدخلات */
+    --border: 0 0% 90%;
+    --input: 0 0% 100%;
+    --ring: 174 100% 33%;
 
     /* التدرجات الجميلة */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));

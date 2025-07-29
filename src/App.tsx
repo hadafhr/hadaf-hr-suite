@@ -41,6 +41,7 @@ import NotFound from "./pages/NotFound";
 import { WageProtectionPage } from './pages/WageProtectionPage';
 import { ServiceCalculatorPage } from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
+import BoudHRLandingPage from './pages/BoudHRLandingPage';
 
 const queryClient = new QueryClient();
 
@@ -62,15 +63,10 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen">
-            <Header 
-              isAuthenticated={isAuthenticated}
-              onLogin={() => window.location.href = '/login'}
-              onLogout={handleLogout}
-            />
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<Login />} />
+          <Routes>
+            <Route path="/" element={<BoudHRLandingPage />} />
+            <Route path="/old-home" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
@@ -130,7 +126,6 @@ const App = () => {
               
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </div>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
