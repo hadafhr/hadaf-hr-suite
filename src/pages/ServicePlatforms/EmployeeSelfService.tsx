@@ -506,6 +506,34 @@ export const EmployeeSelfService: React.FC = () => {
               <h3 className="text-lg font-semibold mb-2">
                 {language === 'ar' ? 'نظام الرواتب' : 'Payroll System'}
               </h3>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'قريباً...' : 'Coming Soon...'}
+              </p>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="tasks">
+            <div className="text-center py-12">
+              <CheckSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold mb-2">
+                {language === 'ar' ? 'إدارة المهام' : 'Task Management'}
+              </h3>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'قريباً...' : 'Coming Soon...'}
+              </p>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="documents">
+            <div className="text-center py-12">
+              <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold mb-2">
+                {language === 'ar' ? 'مركز المستندات' : 'Document Center'}
+              </h3>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'قريباً...' : 'Coming Soon...'}
+              </p>
+            </div>
           </TabsContent>
         </Tabs>
       </div>

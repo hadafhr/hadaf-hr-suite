@@ -24,7 +24,8 @@ import {
   ThumbsDown,
   Copy,
   Share,
-  RefreshCw
+  RefreshCw,
+  Calendar as CalendarIcon
 } from 'lucide-react';
 
 interface Message {

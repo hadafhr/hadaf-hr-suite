@@ -23,6 +23,7 @@ import { WageProtection } from "@/pages/ServicePlatforms/WageProtection";
 import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopment";
 import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
 import { UserManagement } from "@/pages/UserManagement";
+import { EmployeeSelfService } from "@/pages/ServicePlatforms/EmployeeSelfService";
 import { EmployeeDashboard } from "@/pages/EmployeeDashboard";
 import { EmployerDashboard } from "@/pages/EmployerDashboard";
 import { EmployeeProfile } from "@/pages/Employee/Profile";
