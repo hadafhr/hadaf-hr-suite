@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -69,9 +68,9 @@ interface QuickStat {
 }
 
 export const EmployeeSelfService: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState('dashboard');
-  const [showAIAssistant, setShowAIAssistant] = useState(false);
-  const [language, setLanguage] = useState<'ar' | 'en'>('ar');
+  const [selectedTab, setSelectedTab] = React.useState('dashboard');
+  const [showAIAssistant, setShowAIAssistant] = React.useState(false);
+  const [language, setLanguage] = React.useState<'ar' | 'en'>('ar');
 
   // Mock employee data
   const employeeData: EmployeeData = {
