@@ -502,7 +502,7 @@ const BoudHRLandingPage: React.FC = () => {
                 onClick={() => {
                   if (feature.title === "إدارة الموظفين") navigate("/employee-management");
                   else if (feature.title === "الخدمة الذاتية") navigate("/employee-self-service");
-                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/platform-development");
+                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/service-platforms/platform-development");
                   else if (feature.title === "منصة التدريب") navigate("/training");
                   else if (feature.title === "حاسبة الخدمات") navigate("/service-calculator");
                   else if (feature.title === "منصة القطاع غير الربحي") navigate("/non-profit-services");

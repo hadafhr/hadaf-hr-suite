@@ -132,6 +132,9 @@ const App = () => {
               <Route path="/employee-self-service" element={<SelfServiceFeature />} />
               <Route path="/performance-evaluation" element={<PerformanceEvaluation />} />
               <Route path="/training" element={<Training />} />
+              <Route path="/platform-development" element={<PlatformDevelopment />} />
+              <Route path="/business-management" element={<BusinessManagement />} />
+              <Route path="/non-profit-services" element={<NonProfitServices />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>
