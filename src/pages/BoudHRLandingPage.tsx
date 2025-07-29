@@ -500,15 +500,15 @@ const BoudHRLandingPage: React.FC = () => {
                 className="service-card group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(index)}
                 onClick={() => {
-                  if (feature.title === "إدارة الموظفين") navigate("/employee-management");
-                  else if (feature.title === "الخدمة الذاتية") navigate("/employee-self-service");
-                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/service-platforms/platform-development");
+                  if (feature.title === "إدارة الموظفين") navigate("/service-platforms/employee-management");
+                  else if (feature.title === "الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
+                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
                   else if (feature.title === "منصة التدريب") navigate("/service-platforms/training");
                   else if (feature.title === "حاسبة الخدمات") navigate("/service-calculator");
                   else if (feature.title === "منصة القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
                   else if (feature.title === "منصة خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
-                  else if (feature.title === "حماية الأجور") navigate("/wage-protection");
-                  else if (feature.title === "التقييمات الذكية") navigate("/performance-evaluation");
+                  else if (feature.title === "حماية الأجور") navigate("/service-platforms/wage-protection");
+                  else if (feature.title === "التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
                   else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
                   else if (feature.title === "الذكاء الاصطناعي") navigate("/ai-hub");
                 }}

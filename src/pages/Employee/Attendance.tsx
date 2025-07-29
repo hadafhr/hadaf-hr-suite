@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Calendar, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Clock, Calendar, CheckCircle, XCircle, AlertCircle, MapPin, Navigation } from 'lucide-react';
+import { toast } from 'sonner';
 
 const attendanceHistory = [
   {
@@ -41,6 +42,95 @@ const attendanceHistory = [
 ];
 
 export const Attendance: React.FC = () => {
+  const [currentLocation, setCurrentLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [isCheckingIn, setIsCheckingIn] = useState(false);
+  const [locationPermission, setLocationPermission] = useState<'granted' | 'denied' | 'prompt'>('prompt');
+
+  // الموقع المسموح للعمل (مثال: مكتب الشركة)
+  const allowedLocation = { lat: 24.7136, lng: 46.6753 }; // الرياض
+  const allowedRadius = 100; // 100 متر
+
+  useEffect(() => {
+    checkLocationPermission();
+  }, []);
+
+  const checkLocationPermission = async () => {
+    if ('geolocation' in navigator) {
+      const permission = await navigator.permissions.query({name: 'geolocation'});
+      setLocationPermission(permission.state);
+    }
+  };
+
+  const getCurrentLocation = () => {
+    return new Promise<{lat: number, lng: number}>((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error('Geolocation is not supported'));
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          setCurrentLocation(location);
+          resolve(location);
+        },
+        (error) => {
+          reject(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000
+        }
+      );
+    });
+  };
+
+  const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+    const R = 6371e3; // الأرض في المتر
+    const φ1 = lat1 * Math.PI/180;
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lng2-lng1) * Math.PI/180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    const distance = R * c; // في الأمتار
+    return distance;
+  };
+
+  const handleCheckOut = async () => {
+    setIsCheckingIn(true);
+    try {
+      const location = await getCurrentLocation();
+      const distance = calculateDistance(
+        location.lat, 
+        location.lng, 
+        allowedLocation.lat, 
+        allowedLocation.lng
+      );
+
+      if (distance <= allowedRadius) {
+        // تسجيل الانصراف بنجاح
+        toast.success('تم تسجيل الانصراف بنجاح!');
+        console.log('تم تسجيل الانصراف من:', location);
+      } else {
+        toast.error(`يجب أن تكون في نطاق ${allowedRadius} متر من مكان العمل للتسجيل`);
+      }
+    } catch (error) {
+      toast.error('خطأ في تحديد الموقع. تأكد من تفعيل خدمة الموقع');
+      console.error('Location error:', error);
+    } finally {
+      setIsCheckingIn(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -82,17 +172,32 @@ export const Attendance: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-4">
+              {currentLocation && (
+                <div className="flex items-center text-sm text-green-600 bg-green-50 px-3 py-2 rounded-lg">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  تم تحديد موقعك
+                </div>
+              )}
+              
               <Button 
                 className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 text-lg"
-                onClick={() => {
-                  // تسجيل الانصراف
-                  console.log('تم تسجيل الانصراف');
-                }}
+                onClick={handleCheckOut}
+                disabled={isCheckingIn}
               >
-                <Clock className="h-5 w-5 mr-2" />
-                تسجيل الانصراف
+                {isCheckingIn ? (
+                  <Navigation className="h-5 w-5 mr-2 animate-spin" />
+                ) : (
+                  <Clock className="h-5 w-5 mr-2" />
+                )}
+                {isCheckingIn ? 'جاري التحقق من الموقع...' : 'تسجيل الانصراف'}
               </Button>
+              
+              {locationPermission === 'denied' && (
+                <p className="text-sm text-red-600 text-center">
+                  يجب السماح بالوصول للموقع لتسجيل الحضور والانصراف
+                </p>
+              )}
             </div>
           </div>
         </Card>
