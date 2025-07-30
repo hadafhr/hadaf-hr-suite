@@ -616,45 +616,6 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* System Platforms Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">مميزات النظام</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              منصات متخصصة وأدوات متقدمة لتلبية احتياجات مختلف القطاعات والمنظمات
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-4 gap-6">
-            {systemPlatforms.map((platform, index) => (
-              <Card 
-                key={index} 
-                className="service-card group cursor-pointer hover:shadow-strong transition-all duration-300"
-                onClick={() => navigate(platform.href)}
-              >
-                <CardHeader className="text-center p-4">
-                  <div className={`w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <platform.icon className={`w-6 h-6 ${platform.color}`} />
-                  </div>
-                  <CardTitle className="text-lg mb-2">{platform.title}</CardTitle>
-                  <CardDescription className="text-sm leading-relaxed">
-                    {platform.description}
-                  </CardDescription>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-3 w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
-                  >
-                    اكتشف المزيد
-                  </Button>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Benefits Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-6">
