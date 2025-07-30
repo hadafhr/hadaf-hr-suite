@@ -51,6 +51,7 @@ import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFe
 import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
 import SelfServiceLogin from './pages/SelfServiceLogin';
 import { Tutorials } from './pages/Tutorials';
+import { EarnWithBoad } from './pages/EarnWithBoad';
 
 const queryClient = new QueryClient();
 
@@ -104,6 +105,7 @@ const App = () => {
               {/* Service Routes */}
             <Route path="/services" element={<Services />} />
             <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/earn-with-boad" element={<EarnWithBoad />} />
             <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
               <Route path="/services/recruitment" element={<Recruitment />} />

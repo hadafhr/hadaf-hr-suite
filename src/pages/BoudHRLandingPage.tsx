@@ -302,6 +302,10 @@ const BoudHRLandingPage: React.FC = () => {
                 مركز المعرفة
               </Button>
 
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+                اربح مع بُعد
+              </Button>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
