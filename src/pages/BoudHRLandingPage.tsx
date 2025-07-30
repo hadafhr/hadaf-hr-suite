@@ -478,6 +478,32 @@ const BoudHRLandingPage: React.FC = () => {
                 </Button>
               </div>
               
+              {/* Self-Service HR App Buttons */}
+              <div className="mt-8 space-y-4">
+                <h3 className="text-lg font-semibold text-center lg:text-right mb-4">دخول نظام الخدمة الذاتية</h3>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                    onClick={() => window.open('/hr/hr-login?type=admin', '_blank')}
+                  >
+                    <Building className="ml-2 h-5 w-5" />
+                    دخول صاحب العمل إلى نظام الخدمة الذاتية
+                  </Button>
+                  
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                    onClick={() => window.open('/hr/hr-login?type=employee', '_blank')}
+                  >
+                    <Users className="ml-2 h-5 w-5" />
+                    دخول الموظف إلى نظام الخدمة الذاتية
+                  </Button>
+                </div>
+              </div>
+              
               {/* Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
                 {stats.map((stat, index) => (
