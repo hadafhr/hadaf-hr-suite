@@ -44,6 +44,7 @@ import { WageProtectionPage } from './pages/WageProtectionPage';
 import ServiceCalculatorPage from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
+import SubscriptionPackages from './pages/SubscriptionPackages';
 import { HRApp } from './pages/HRApp';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
 import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
@@ -70,6 +71,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<BoudHRLandingPage />} />
+            <Route path="/subscription-packages" element={<SubscriptionPackages />} />
             <Route path="/hr/*" element={<HRApp />} />
             <Route path="/old-home" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
