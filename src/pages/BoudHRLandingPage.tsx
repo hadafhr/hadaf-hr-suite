@@ -572,11 +572,11 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                   
                   <div className="relative">
-                    <img 
-                      src={cloudComputing} 
-                      alt="الحوسبة السحابية" 
-                      className="w-full h-32 object-cover rounded-xl shadow-medium"
-                    />
+                     <img 
+                       src="/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png" 
+                       alt="الحوسبة السحابية" 
+                       className="w-full h-32 object-cover rounded-xl shadow-medium"
+                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
                     <div className="absolute bottom-2 left-2 right-2">
                       <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
