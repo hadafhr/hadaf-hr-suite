@@ -50,6 +50,7 @@ import { HRApp } from './pages/HRApp';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
 import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
 import SelfServiceLogin from './pages/SelfServiceLogin';
+import { Tutorials } from './pages/Tutorials';
 
 const queryClient = new QueryClient();
 
@@ -101,8 +102,9 @@ const App = () => {
               <Route path="/employer/leave-management" element={<LeaveManagement />} />
               
               {/* Service Routes */}
-              <Route path="/services" element={<Services />} />
-              <Route path="/services/individuals" element={<IndividualServices />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
               <Route path="/services/recruitment" element={<Recruitment />} />
               <Route path="/services/performance" element={<PerformanceEvaluation />} />
