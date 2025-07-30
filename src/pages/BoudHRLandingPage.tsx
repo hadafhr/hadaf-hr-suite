@@ -66,6 +66,12 @@ const BoudHRLandingPage: React.FC = () => {
       { name: "فريق العمل", href: "#team" },
       { name: "شركاؤنا", href: "#partners" }
     ],
+    clients: [
+      { name: "عملاؤنا", href: "#clients" },
+      { name: "قصص نجاح", href: "#success-stories" },
+      { name: "شهادات العملاء", href: "#testimonials" },
+      { name: "دراسات الحالة", href: "#case-studies" }
+    ],
     contact: [
       { name: "تواصل معنا", href: "#contact" },
       { name: "الدعم الفني", href: "/chat-messaging" },
@@ -212,12 +218,9 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3 space-x-reverse">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">بُعد HR</h1>
-                <p className="text-xs text-muted-foreground">إدارة الموارد البشرية</p>
+                <h1 className="text-xl font-bold text-black">بُعد HR</h1>
+                <p className="text-xs text-muted-foreground">BOUD</p>
               </div>
             </div>
 
@@ -225,6 +228,22 @@ const BoudHRLandingPage: React.FC = () => {
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
+              <DropdownMenu>
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                  من نحن <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
+                  {menuItems.about.map((item, index) => (
+                    <DropdownMenuItem key={index} asChild>
+                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                        <Building2 className="w-4 h-4" />
+                        {item.name}
+                      </a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
                   خدماتنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
@@ -246,15 +265,18 @@ const BoudHRLandingPage: React.FC = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
-                  من نحن <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
+                  عملاؤنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.about.map((item, index) => (
+                  {menuItems.clients.map((item, index) => (
                     <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
-                        <Building2 className="w-4 h-4" />
+                      <button 
+                        onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' }) : navigate(item.href)} 
+                        className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                      >
+                        <Star className="w-4 h-4" />
                         {item.name}
-                      </a>
+                      </button>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
