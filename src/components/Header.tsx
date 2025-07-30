@@ -89,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
                 تسجيل دخول
               </Button>
               <Button className="btn-primary">
-                انظم الينا
+                انضم الينا
               </Button>
             </div>
           )}

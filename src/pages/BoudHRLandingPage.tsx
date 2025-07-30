@@ -257,7 +257,7 @@ const BoudHRLandingPage: React.FC = () => {
               </DropdownMenu>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
                   خدماتنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
@@ -276,7 +276,7 @@ const BoudHRLandingPage: React.FC = () => {
               </DropdownMenu>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
                   عملاؤنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
@@ -294,16 +294,16 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
+              <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
                 احسب اشتراكك
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/tutorials')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
+              <Button variant="ghost" onClick={() => navigate('/tutorials')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
                 الشروحات
               </Button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
+                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
