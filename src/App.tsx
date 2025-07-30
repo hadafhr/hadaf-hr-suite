@@ -9,6 +9,8 @@ import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
 import { Login } from "@/pages/Login";
+import { BusinessLogin } from "@/pages/BusinessLogin";
+import { IndividualLogin } from "@/pages/IndividualLogin";
 import { Services } from "@/pages/Services";
 import { IndividualServices } from "@/pages/ServicePlatforms/IndividualServices";
 import { EmployeeManagement } from "@/pages/ServicePlatforms/EmployeeManagement";
@@ -69,6 +71,8 @@ const App = () => {
             <Route path="/" element={<BoudHRLandingPage />} />
             <Route path="/old-home" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/business-login" element={<BusinessLogin />} />
+            <Route path="/individual-login" element={<IndividualLogin />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />

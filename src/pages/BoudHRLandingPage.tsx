@@ -35,9 +35,13 @@ import {
   Briefcase,
   FileText,
   Clock,
-  ChevronDown
+  ChevronDown,
+  User
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import heroLaptop from '@/assets/hero-laptop.jpg';
+import businessTeam from '@/assets/business-team.jpg';
+import codingScreen from '@/assets/coding-screen.jpg';
 
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -274,10 +278,34 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
-              <Button variant="ghost" onClick={() => navigate('/login')}>
-                تسجيل الدخول
-              </Button>
-              <Button className="btn-primary">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2">
+                    تسجيل الدخول <ChevronDown className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
+                  <DropdownMenuItem asChild>
+                    <button 
+                      onClick={() => navigate('/business-login')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <Building2 className="w-4 h-4" />
+                      دخول أصحاب الأعمال
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <button 
+                      onClick={() => navigate('/individual-login')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <User className="w-4 h-4" />
+                      دخول الأفراد
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 طلب تجربة مجانية
               </Button>
             </div>
@@ -339,10 +367,15 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                 </details>
                 <div className="flex flex-col space-y-2 pt-4">
-                  <Button variant="ghost" onClick={() => navigate('/login')}>
-                    تسجيل الدخول
+                  <Button variant="ghost" onClick={() => navigate('/business-login')}>
+                    <Building2 className="w-4 h-4 ml-2" />
+                    دخول أصحاب الأعمال
                   </Button>
-                  <Button className="btn-primary">
+                  <Button variant="ghost" onClick={() => navigate('/individual-login')}>
+                    <User className="w-4 h-4 ml-2" />
+                    دخول الأفراد
+                  </Button>
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                     طلب تجربة مجانية
                   </Button>
                 </div>
@@ -399,79 +432,61 @@ const BoudHRLandingPage: React.FC = () => {
             
             {/* Hero Visual Elements */}
             <div className="relative animate-slide-up">
-              <div className="relative bg-gradient-to-br from-primary/10 to-accent/20 rounded-3xl p-8 border border-border/50">
-                <div className="grid grid-cols-2 gap-6 h-96">
-                  <div className="space-y-4">
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
+              <div className="relative">
+                {/* Main Hero Image */}
+                <div className="relative mb-6">
+                  <img 
+                    src={heroLaptop} 
+                    alt="منصة بُعد HR - أحدث التقنيات" 
+                    className="w-full h-80 object-cover rounded-2xl shadow-strong"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                          <Cloud className="w-5 h-5 text-primary" />
+                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                          <Cloud className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <div className="text-sm font-semibold">السحابة</div>
-                          <div className="text-xs text-muted-foreground">حوسبة سحابية متقدمة</div>
+                          <div className="text-sm font-semibold text-foreground">تقنية سحابية متقدمة</div>
+                          <div className="text-xs text-muted-foreground">آمنة ومتاحة 24/7</div>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Brain className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">الذكاء الاصطناعي</div>
-                          <div className="text-xs text-muted-foreground">تحليلات ذكية متطورة</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                          <Users className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">الموارد البشرية</div>
-                          <div className="text-xs text-muted-foreground">إدارة شاملة للمواهب</div>
+                  </div>
+                </div>
+
+                {/* Secondary Images Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative">
+                    <img 
+                      src={businessTeam} 
+                      alt="فريق العمل المتميز" 
+                      className="w-full h-32 object-cover rounded-xl shadow-medium"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-medium text-foreground">فرق متخصصة</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                          <BarChart3 className="w-5 h-5 text-orange-600" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">98% معدل الرضا</div>
-                          <div className="text-xs text-muted-foreground">من عملائنا</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                          <Shield className="w-5 h-5 text-purple-600" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">100% امتثال</div>
-                          <div className="text-xs text-muted-foreground">مع الأنظمة السعودية</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-card border border-border rounded-xl p-4 shadow-medium">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                          <Award className="w-5 h-5 text-red-600" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold">ISO 27001</div>
-                          <div className="text-xs text-muted-foreground">معايير أمان عالمية</div>
+                  <div className="relative">
+                    <img 
+                      src={codingScreen} 
+                      alt="تطوير تقني متقدم" 
+                      className="w-full h-32 object-cover rounded-xl shadow-medium"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
+                        <div className="flex items-center gap-2">
+                          <Brain className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-medium text-foreground">ذكاء اصطناعي</span>
                         </div>
                       </div>
                     </div>
