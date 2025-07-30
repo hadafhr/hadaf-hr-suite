@@ -80,10 +80,58 @@ const BoudHRLandingPage: React.FC = () => {
     ]
   };
 
-  const coreFeatures = [
+  const features = [
     {
       title: "إدارة الموظفين",
       description: "نظام شامل لإدارة بيانات الموظفين وتتبع مسيرتهم المهنية",
+      icon: Users,
+      color: "text-primary"
+    },
+    {
+      title: "الخدمة الذاتية",
+      description: "منصة تمكن الموظفين من إدارة طلباتهم وبياناتهم بأنفسهم",
+      icon: Settings,
+      color: "text-primary"
+    },
+    {
+      title: "منصة التطوير والتنظيم المؤسسي",
+      description: "أدوات متقدمة لتطوير الهيكل التنظيمي وإدارة المشاريع",
+      icon: Building,
+      color: "text-primary"
+    },
+    {
+      title: "منصة التدريب",
+      description: "نظام إدارة التعلم والتدريب مع البث المباشر والمحتوى التفاعلي",
+      icon: GraduationCap,
+      color: "text-primary"
+    },
+    {
+      title: "حاسبة الخدمات",
+      description: "أداة ذكية لحساب تكلفة الخدمات والباقات المناسبة لمنظمتك",
+      icon: Calculator,
+      color: "text-primary"
+    },
+    {
+      title: "منصة القطاع غير الربحي",
+      description: "حلول مخصصة للمنظمات غير الربحية وإدارة المتطوعين",
+      icon: Heart,
+      color: "text-primary"
+    },
+    {
+      title: "منصة خدمات أصحاب الأعمال",
+      description: "حلول شاملة مع لوحات تحكم تنفيذية متقدمة لأصحاب الأعمال",
+      icon: Briefcase,
+      color: "text-primary"
+    },
+    {
+      title: "منصة الشؤون القانونية",
+      description: "أدوات قانونية متخصصة مع ذكاء اصطناعي لإدارة الشؤون القانونية",
+      icon: FileText,
+      color: "text-primary"
+    },
+    {
+      title: "منصة التوظيف الذكي",
+      description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
       icon: Users,
       color: "text-primary"
     },
@@ -110,71 +158,6 @@ const BoudHRLandingPage: React.FC = () => {
       description: "تحليل ذكي للأداء والتوصيات المدعومة بالذكاء الاصطناعي",
       icon: Brain,
       color: "text-primary"
-    },
-    {
-      title: "أمان البيانات",
-      description: "حماية متقدمة تتوافق مع معايير الأمان السعودية والعالمية",
-      icon: Lock,
-      color: "text-primary"
-    }
-  ];
-
-  const systemPlatforms = [
-    {
-      title: "منصة التطوير والتنظيم المؤسسي",
-      description: "أدوات متقدمة لتطوير الهيكل التنظيمي وإدارة المشاريع",
-      icon: Building,
-      color: "text-primary",
-      href: "/service-platforms/organizational-development"
-    },
-    {
-      title: "منصة التدريب",
-      description: "نظام إدارة التعلم والتدريب مع البث المباشر والمحتوى التفاعلي",
-      icon: GraduationCap,
-      color: "text-primary",
-      href: "/service-platforms/training"
-    },
-    {
-      title: "منصة الشؤون القانونية",
-      description: "أدوات قانونية متخصصة مع ذكاء اصطناعي لإدارة الشؤون القانونية",
-      icon: FileText,
-      color: "text-primary",
-      href: "/legal-platform"
-    },
-    {
-      title: "منصة التوظيف الذكي",
-      description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
-      icon: Users,
-      color: "text-primary",
-      href: "/smart-hire"
-    },
-    {
-      title: "منصة القطاع غير الربحي",
-      description: "حلول مخصصة للمنظمات غير الربحية وإدارة المتطوعين",
-      icon: Heart,
-      color: "text-primary",
-      href: "/service-platforms/nonprofit-services"
-    },
-    {
-      title: "منصة خدمات أصحاب الأعمال",
-      description: "حلول شاملة مع لوحات تحكم تنفيذية متقدمة لأصحاب الأعمال",
-      icon: Briefcase,
-      color: "text-primary",
-      href: "/service-platforms/business-management"
-    },
-    {
-      title: "حاسبة الخدمات",
-      description: "أداة ذكية لحساب تكلفة الخدمات والباقات المناسبة لمنظمتك",
-      icon: Calculator,
-      color: "text-primary",
-      href: "/service-calculator"
-    },
-    {
-      title: "منصة التطوير المخصص",
-      description: "تطوير حلول مخصصة حسب احتياجات المنظمة الفريدة",
-      icon: Settings,
-      color: "text-primary",
-      href: "/service-platforms/platform-development"
     }
   ];
 
@@ -443,18 +426,42 @@ const BoudHRLandingPage: React.FC = () => {
                     ))}
                   </div>
                 </details>
-                <a href="#contact" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
-                  تواصل معنا
-                </a>
-                <Button 
-                  onClick={() => {
-                    navigate('/subscription-packages');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground mt-4"
-                >
-                  اشترك الآن
-                </Button>
+                <details className="group">
+                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                    تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="mr-4 mt-2 space-y-2">
+                    {menuItems.contact.map((item, index) => (
+                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </details>
+                <div className="flex flex-col space-y-2 pt-4">
+                  <Button variant="ghost" onClick={() => navigate('/business-login')}>
+                    <Building2 className="w-4 h-4 ml-2" />
+                    دخول أصحاب الأعمال
+                  </Button>
+                  <Button variant="ghost" onClick={() => navigate('/individual-login')}>
+                    <User className="w-4 h-4 ml-2" />
+                    دخول الأفراد
+                  </Button>
+                  <Button 
+                    onClick={() => navigate('/subscription-packages')}
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
+                    اشترك الآن
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => navigate('/hr/hr-login')}
+                    className="flex items-center gap-2"
+                  >
+                    <Users className="w-4 h-4" />
+                    دخول الموارد البشرية
+                  </Button>
+                </div>
               </nav>
             </div>
           )}
@@ -462,111 +469,186 @@ const BoudHRLandingPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src={heroLaptop}
-            alt="نظام إدارة الموارد البشرية المتطور"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-6">
+      <section id="home" className="relative py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/10"></div>
+        <div className="container mx-auto px-6 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-right space-y-8">
-              <div>
-                <Badge variant="outline" className="text-white border-white/30 bg-white/10 backdrop-blur-sm mb-4">
-                  الحل الأمثل لإدارة الموارد البشرية 🚀
+            <div className="text-center lg:text-right space-y-8 animate-fade-in">
+              <div className="space-y-6">
+                <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
+                  🚀 منصة سعودية 100% متوافقة مع رؤية 2030
                 </Badge>
-                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                  بُعد <span className="text-gradient">HR</span>
+                
+                <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+                  منصة <span className="text-gradient">بُعد HR</span>
+                  <br />
+                  البُعد الجديد لإدارة رأس المال البشري
                 </h1>
-                <p className="text-xl lg:text-2xl text-white/90 mt-4 leading-relaxed">
-                  منصة ذكية شاملة لإدارة الموارد البشرية مع تكامل كامل مع الأنظمة الحكومية السعودية
+                
+                <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                  منصّة موارد بشرية سحابية، ذكية، ومتكاملة تمكّن منظمتك من إدارة دورة حياة الموظف بالكامل 
+                  من الاستقطاب وحتى نهاية الخدمة، عبر الأتمتة والتحليلات التنبؤية والتكامل الفوري مع الجهات الحكومية.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate('/subscription-packages')}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6"
-                >
-                  ابدأ تجربتك المجانية
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  onClick={() => document.getElementById('solutions')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-white text-white hover:bg-white hover:text-black text-lg px-8 py-6"
-                >
-                  اكتشف المميزات
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" onClick={() => navigate('/subscription-packages')}>
+                  اشترك الآن
+                  <ArrowLeft className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </div>
               
+              {/* Platform Access Buttons */}
+              <div className="mt-8 space-y-6">
+                {/* Self-Service HR App Buttons */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">🏢 دخول نظام الخدمة الذاتية</h3>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/hr/hr-login?type=admin', '_blank')}
+                    >
+                      <Building className="ml-2 h-5 w-5" />
+                      دخول صاحب العمل
+                    </Button>
+                    
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/hr/hr-login?type=employee', '_blank')}
+                    >
+                      <Users className="ml-2 h-5 w-5" />
+                      دخول الموظف
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Legal Affairs Platform Button */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">⚖️ الخدمات القانونية المتخصصة</h3>
+                  <div className="flex justify-center lg:justify-start">
+                    <Button 
+                      size="lg" 
+                      className="group px-8 bg-[#4CB898] hover:bg-[#4CB898]/90 text-white border-2 border-[#4CB898] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      onClick={() => window.open('/legal-platform', '_blank')}
+                    >
+                      <svg className="ml-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L3 7V10C3 16 7 20.54 12 21.5C17 20.54 21 16 21 10V7L12 2M12 4.19L18 7.63V10C18 15.31 15.25 19.22 12 19.93C8.75 19.22 6 15.31 6 10V7.63L12 4.19M15.5 11.5L14.5 10.5L11 14L9.5 12.5L8.5 13.5L11 16L15.5 11.5Z" />
+                      </svg>
+                      منصة الشؤون القانونية الذكية
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Additional Platforms */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">🚀 منصات متخصصة إضافية</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="group px-6 py-4 border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/smart-hire', '_blank')}
+                    >
+                      <Brain className="ml-2 h-5 w-5" />
+                      منصة التوظيف الذكي
+                    </Button>
+                    
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="group px-6 py-4 border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/training-platform', '_blank')}
+                    >
+                      <GraduationCap className="ml-2 h-5 w-5" />
+                      منصة التدريب الرقمي
+                    </Button>
+                    
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="group px-6 py-4 border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/wage-protection', '_blank')}
+                    >
+                      <Shield className="ml-2 h-5 w-5" />
+                      منصة حماية الأجور
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-2xl lg:text-3xl font-bold text-white mb-1">
-                      {stat.number}
-                    </div>
-                    <div className="text-sm text-white/80">
-                      {stat.label}
-                    </div>
+                    <div className="text-2xl lg:text-3xl font-bold text-primary">{stat.number}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
                   </div>
                 ))}
               </div>
             </div>
             
-            <div className="relative hidden lg:block">
+            {/* Hero Visual Elements */}
+            <div className="relative animate-slide-up">
               <div className="relative">
-                <img 
-                  src={businessTeam} 
-                  alt="فريق عمل محترف" 
-                  className="w-full h-96 object-cover rounded-2xl shadow-strong"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
-                <div className="absolute top-4 right-4">
-                  <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
-                    <div className="flex items-center gap-2 text-white">
-                      <Brain className="w-5 h-5" />
-                      <span className="text-sm font-medium">مدعوم بالذكاء الاصطناعي</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="relative">
+                {/* Main Hero Image */}
+                <div className="relative mb-6">
                   <img 
-                    src={codingScreen} 
-                    alt="واجهة النظام المتطورة" 
-                    className="w-full h-32 object-cover rounded-xl shadow-medium"
+                    src={heroLaptop} 
+                    alt="منصة بُعد HR - أحدث التقنيات" 
+                    className="w-full h-80 object-cover rounded-2xl shadow-strong"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
-                      <div className="flex items-center gap-2">
-                        <Zap className="w-4 h-4 text-primary" />
-                        <span className="text-xs font-medium text-foreground">أتمتة ذكية</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                          <Cloud className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-foreground">تقنية سحابية متقدمة</div>
+                          <div className="text-xs text-muted-foreground">آمنة ومتاحة 24/7</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                <div className="relative">
-                  <img 
-                    src={cloudComputing} 
-                    alt="الحوسبة السحابية" 
-                    className="w-full h-32 object-cover rounded-xl shadow-medium"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
-                      <div className="flex items-center gap-2">
-                        <Cloud className="w-4 h-4 text-primary" />
-                        <span className="text-xs font-medium text-foreground">حوسبة سحابية</span>
+
+                {/* Secondary Images Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative">
+                    <img 
+                      src={hrAutomation} 
+                      alt="أتمتة الموارد البشرية" 
+                      className="w-full h-32 object-cover rounded-xl shadow-medium"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
+                        <div className="flex items-center gap-2">
+                          <Zap className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-medium text-foreground">أتمتة ذكية</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="relative">
+                    <img 
+                      src={cloudComputing} 
+                      alt="الحوسبة السحابية" 
+                      className="w-full h-32 object-cover rounded-xl shadow-medium"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
+                        <div className="flex items-center gap-2">
+                          <Cloud className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-medium text-foreground">حوسبة سحابية</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -577,28 +659,36 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Core Features Section */}
+      {/* Features Section */}
       <section id="solutions" className="py-20 bg-muted/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">الميزات الأساسية</h2>
+            <h2 className="text-4xl font-bold text-gradient mb-4">مميزات النظام</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              حلول أساسية وقوية لإدارة الموارد البشرية بكفاءة عالية
+              حلول شاملة ومتطورة لتلبية جميع احتياجات إدارة الموارد البشرية
             </p>
           </div>
           
           <div className="grid lg:grid-cols-3 gap-8">
-            {coreFeatures.map((feature, index) => (
+            {features.map((feature, index) => (
               <Card 
                 key={index} 
                 className="service-card group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(index)}
                 onClick={() => {
                   if (feature.title === "إدارة الموظفين") navigate("/service-platforms/employee-management");
+                  else if (feature.title === "الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
+                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
+                  else if (feature.title === "منصة التدريب") navigate("/service-platforms/training");
+                  else if (feature.title === "حاسبة الخدمات") navigate("/service-calculator");
+                  else if (feature.title === "منصة القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
+                  else if (feature.title === "منصة خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
                   else if (feature.title === "حماية الأجور") navigate("/service-platforms/wage-protection");
                   else if (feature.title === "التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
                   else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
                   else if (feature.title === "الذكاء الاصطناعي") navigate("/ai-hub");
+                  else if (feature.title === "منصة الشؤون القانونية") navigate("/legal-platform");
+                  else if (feature.title === "منصة التوظيف الذكي") navigate("/smart-hire");
                 }}
               >
                 <CardHeader className="text-center">
@@ -617,7 +707,7 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gradient mb-4">لماذا بُعد HR؟</h2>
@@ -650,7 +740,7 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-background">
+      <section id="about" className="py-20 bg-muted/30">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -713,29 +803,35 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-muted/30">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gradient mb-4">ماذا يقول عملاؤنا</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              شهادات حقيقية من عملائنا الذين استفادوا من حلولنا المتطورة
+              تجارب حقيقية من شركات ومؤسسات تثق في بُعد HR
             </p>
           </div>
           
           <div className="grid lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="testimonial-card">
+              <Card key={index} className="service-card">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <p className="text-muted-foreground mb-6 italic">"{testimonial.text}"</p>
+                  
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    "{testimonial.text}"
+                  </p>
+                  
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-primary" />
-                    </div>
+                    <img 
+                      src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=100&q=80"
+                      alt="أحمد المحمد - مدير الموارد البشرية"
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
                     <div>
                       <h4 className="font-semibold">{testimonial.name}</h4>
                       <p className="text-sm text-muted-foreground">{testimonial.position}</p>
@@ -750,125 +846,439 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-primary/80 text-white">
+      <section className="py-20 bg-gradient-to-br from-primary via-primary-glow to-accent">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-4">ابدأ رحلتك نحو التحول الرقمي</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            انضم إلى آلاف الشركات التي تثق في بُعد HR لإدارة مواردها البشرية
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              variant="secondary"
-              onClick={() => navigate('/subscription-packages')}
-              className="text-lg px-8 py-6"
-            >
-              ابدأ تجربتك المجانية
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              onClick={() => navigate('/service-calculator')}
-              className="border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-6"
-            >
-              احسب اشتراكك
-            </Button>
+          <div className="max-w-3xl mx-auto space-y-8">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white">
+              ابدأ رحلتك مع بُعد HR اليوم
+            </h2>
+            <p className="text-xl text-white/90 leading-relaxed">
+              انضم إلى أكثر من 1000 شركة تثق في بُعد HR لإدارة مواردها البشرية
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8" onClick={() => navigate("/dashboard")}>
+                ابدأ التجربة المجانية
+              </Button>
+              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                تحدث مع خبير
+              </Button>
+            </div>
+            
+            {/* Chat Bot Button */}
+            <div className="pt-8">
+              <Button 
+                size="lg" 
+                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 flex items-center gap-2"
+                onClick={() => navigate("/ai-hub")}
+              >
+                <MessageCircle className="w-5 h-5" />
+                تحدث مع المساعد الذكي
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-background">
+      {/* Contact Us Section */}
+      <section id="contact" className="py-20 bg-background border-t border-border">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">تواصل معنا</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">📬 تواصل معنا – نحن هنا لدعمك في كل خطوة</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              نحن هنا لمساعدتك في رحلة التحول الرقمي
+              سواء كنت صاحب عمل أو موظفًا، يسعدنا خدمتك والرد على استفساراتك عبر أي وسيلة تفضلها.
             </p>
           </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            <Card>
-              <CardContent className="p-6 text-center">
-                <Phone className="w-8 h-8 mx-auto mb-4 text-primary" />
-                <h3 className="text-lg font-semibold mb-2">اتصل بنا</h3>
-                <p className="text-muted-foreground">+966 50 123 4567</p>
-              </CardContent>
-            </Card>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <div className="grid sm:grid-cols-2 gap-6">
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <Phone className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">الهاتف</h3>
+                  <p className="text-2xl font-bold text-primary">+966 55 123 4567</p>
+                  <p className="text-sm text-muted-foreground mt-2">متاح 24/7</p>
+                </Card>
+
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">البريد الإلكتروني</h3>
+                  <p className="text-lg font-bold text-primary">support@boodhr.sa</p>
+                  <p className="text-sm text-muted-foreground mt-2">رد سريع خلال ساعتين</p>
+                </Card>
+
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">الموقع</h3>
+                  <p className="text-primary font-medium">الرياض</p>
+                  <p className="text-sm text-muted-foreground">المملكة العربية السعودية</p>
+                </Card>
+
+                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+                  <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-foreground mb-2">ساعات العمل</h3>
+                  <p className="text-primary font-medium">9 صباحاً - 9 مساءً</p>
+                  <p className="text-sm text-muted-foreground">7 أيام في الأسبوع</p>
+                </Card>
+              </div>
+            </div>
+
+            {/* Social Media & Quick Actions */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-6 text-center">تابعنا على وسائل التواصل</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  {/* Snapchat */}
+                  <a 
+                    href="https://snapchat.com/add/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-yellow-100 hover:bg-yellow-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-xl">S</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* Instagram */}
+                  <a 
+                    href="https://instagram.com/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-xl">📷</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* TikTok */}
+                  <a 
+                    href="https://tiktok.com/@boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <span className="text-white font-bold text-xl">T</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* X (Twitter) */}
+                  <a 
+                    href="https://x.com/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-blue-100 hover:bg-blue-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <Twitter className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
+                  </a>
+
+                  {/* LinkedIn */}
+                  <a 
+                    href="https://linkedin.com/company/boodhr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-blue-100 hover:bg-blue-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <Linkedin className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">Bood HR</span>
+                  </a>
+
+                  {/* WhatsApp */}
+                  <a 
+                    href="https://wa.me/966551234567" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center p-4 rounded-xl bg-green-100 hover:bg-green-200 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">راسلنا</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-muted/50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-foreground mb-4 text-center">🛡️ الخصوصية والأمان</h3>
+                <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                  نحن ملتزمون بحماية خصوصيتك وأمان بياناتك وفقاً لأعلى المعايير الدولية ولوائح حماية البيانات السعودية.
+                </p>
+                <div className="flex justify-center mt-4">
+                  <Button variant="outline" size="sm" className="text-xs">
+                    اطّلع على سياسة الخصوصية
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile App Download Section */}
+      <section id="mobile-app" className="py-20 bg-gradient-to-br from-primary/5 to-accent/10">
+        <div className="container mx-auto px-6">
+          <div className="text-center space-y-6 mb-12">
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
+              📱 تطبيق محمول متقدم
+            </Badge>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+              حمّل تطبيق <span className="text-gradient">بُعد HR</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              استمتع بتجربة أفضل مع تطبيقنا المحمول المتاح على جميع المنصات
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">تسجيل الحضور بـ GPS</h3>
+                    <p className="text-muted-foreground">سجل حضورك وانصرافك من خلال الموقع الجغرافي المحدد</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Bell className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">إشعارات فورية</h3>
+                    <p className="text-muted-foreground">احصل على تنبيهات فورية لجميع التحديثات المهمة</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">إدارة الطلبات</h3>
+                    <p className="text-muted-foreground">قدم طلباتك وتابع حالتها من أي مكان</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
+                  <div className="flex items-center gap-3">
+                    <div className="text-right">
+                      <div className="text-sm font-normal">متاح على</div>
+                      <div className="font-semibold">App Store</div>
+                    </div>
+                    <div className="w-8 h-8 bg-background/20 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </Button>
+                
+                <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
+                  <div className="flex items-center gap-3">
+                    <div className="text-right">
+                      <div className="text-sm font-normal">احصل عليه من</div>
+                      <div className="font-semibold">Google Play</div>
+                    </div>
+                    <div className="w-8 h-8 bg-background/20 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </Button>
+              </div>
+              
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <Award className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-primary">قريباً</p>
+                    <p className="text-sm text-muted-foreground">التطبيق قيد التطوير النهائي وسيكون متاحاً قريباً على جميع المنصات</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             
-            <Card>
-              <CardContent className="p-6 text-center">
-                <Mail className="w-8 h-8 mx-auto mb-4 text-primary" />
-                <h3 className="text-lg font-semibold mb-2">راسلنا</h3>
-                <p className="text-muted-foreground">info@boud-hr.com</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-6 text-center">
-                <MapPin className="w-8 h-8 mx-auto mb-4 text-primary" />
-                <h3 className="text-lg font-semibold mb-2">زوروا مكاتبنا</h3>
-                <p className="text-muted-foreground">الرياض، المملكة العربية السعودية</p>
-              </CardContent>
-            </Card>
+            <div className="relative">
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
+                <div className="w-48 h-96 bg-foreground/5 rounded-3xl mx-auto border-8 border-foreground/10 relative overflow-hidden">
+                  <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-foreground/20 rounded-full"></div>
+                  <div className="mt-12 px-6 space-y-4">
+                    <div className="bg-primary/20 h-12 rounded-lg flex items-center justify-center">
+                      <Building2 className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-3 bg-foreground/10 rounded"></div>
+                      <div className="h-3 bg-foreground/5 rounded w-3/4"></div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="h-16 bg-primary/10 rounded-lg"></div>
+                      <div className="h-16 bg-primary/10 rounded-lg"></div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-2 bg-foreground/10 rounded"></div>
+                      <div className="h-2 bg-foreground/5 rounded w-2/3"></div>
+                      <div className="h-2 bg-foreground/5 rounded w-1/2"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
+      <footer className="bg-foreground text-background py-16">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">بُعد HR</h3>
-              <p className="text-background/80 mb-4">
-                منصة ذكية شاملة لإدارة الموارد البشرية مع تكامل كامل مع الأنظمة الحكومية السعودية
+            {/* Company Info */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">بُعد HR</h1>
+                  <p className="text-sm text-background/70">إدارة الموارد البشرية</p>
+                </div>
+              </div>
+              <p className="text-background/80 leading-relaxed">
+                نظام سعودي ذكي لإدارة الموارد البشرية مدعوم بالذكاء الاصطناعي
               </p>
-              <div className="flex gap-4">
-                <Button variant="ghost" size="sm" className="text-background hover:text-primary">
-                  <Linkedin className="w-5 h-5" />
-                </Button>
-                <Button variant="ghost" size="sm" className="text-background hover:text-primary">
-                  <Twitter className="w-5 h-5" />
-                </Button>
+              <div className="flex items-center gap-2">
+                <Badge className="bg-primary/20 text-primary border-primary/30">
+                  🇸🇦 صنع في السعودية
+                </Badge>
               </div>
             </div>
             
+            {/* Quick Links */}
             <div>
-              <h4 className="font-semibold mb-4">خدماتنا</h4>
-              <ul className="space-y-2 text-background/80">
-                <li><a href="/employee-management" className="hover:text-primary transition-colors">إدارة الموظفين</a></li>
-                <li><a href="/wage-protection" className="hover:text-primary transition-colors">حماية الأجور</a></li>
-                <li><a href="/performance-evaluation" className="hover:text-primary transition-colors">التقييمات الذكية</a></li>
-                <li><a href="/training" className="hover:text-primary transition-colors">التدريب والتطوير</a></li>
+              <h3 className="text-lg font-semibold mb-4">روابط سريعة</h3>
+              <ul className="space-y-2">
+                <li><a href="#home" className="text-background/80 hover:text-background transition-colors">الرئيسية</a></li>
+                <li><a href="#solutions" className="text-background/80 hover:text-background transition-colors">الحلول</a></li>
+                <li><a href="#pricing" className="text-background/80 hover:text-background transition-colors">الأسعار</a></li>
+                <li><a href="#about" className="text-background/80 hover:text-background transition-colors">من نحن</a></li>
               </ul>
             </div>
             
+            {/* Services */}
             <div>
-              <h4 className="font-semibold mb-4">الشركة</h4>
-              <ul className="space-y-2 text-background/80">
-                <li><a href="#about" className="hover:text-primary transition-colors">من نحن</a></li>
-                <li><a href="#testimonials" className="hover:text-primary transition-colors">عملاؤنا</a></li>
-                <li><a href="/subscription-packages" className="hover:text-primary transition-colors">الباقات</a></li>
-                <li><a href="#contact" className="hover:text-primary transition-colors">تواصل معنا</a></li>
+              <h3 className="text-lg font-semibold mb-4">خدماتنا</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-background/80 hover:text-background transition-colors">إدارة الموظفين</a></li>
+                <li><a href="#" className="text-background/80 hover:text-background transition-colors">حماية الأجور</a></li>
+                <li><a href="#" className="text-background/80 hover:text-background transition-colors">التقييمات الذكية</a></li>
+                <li><a href="#" className="text-background/80 hover:text-background transition-colors">التكامل الحكومي</a></li>
               </ul>
             </div>
             
+            {/* Contact Info */}
             <div>
-              <h4 className="font-semibold mb-4">الدعم</h4>
-              <ul className="space-y-2 text-background/80">
-                <li><a href="/chat-messaging" className="hover:text-primary transition-colors">الدعم الفني</a></li>
-                <li><a href="/service-calculator" className="hover:text-primary transition-colors">حاسبة الأسعار</a></li>
-                <li><a href="#contact" className="hover:text-primary transition-colors">المساعدة</a></li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-4">تواصل معنا</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-primary" />
+                  <span className="text-background/80">+966 55 123 4567</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-primary" />
+                  <span className="text-background/80">support@boodhr.sa</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span className="text-background/80">الرياض، المملكة العربية السعودية</span>
+                </div>
+              </div>
+              
+              {/* Social Links */}
+              <div className="flex items-center gap-4 mt-6">
+                <a href="#" className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center hover:bg-background/20 transition-colors">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center hover:bg-background/20 transition-colors">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center hover:bg-background/20 transition-colors">
+                  <Globe className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
           
-          <div className="border-t border-background/20 mt-8 pt-8 text-center text-background/60">
-            <p>&copy; 2024 بُعد HR. جميع الحقوق محفوظة.</p>
+          {/* Bottom */}
+          <div className="border-t border-background/20 mt-12 pt-8 text-center">
+            <p className="text-background/60 text-sm">
+              © 2024 بُعد HR. جميع الحقوق محفوظة. مطور بواسطة فريق بُعد للتقنية
+            </p>
           </div>
         </div>
       </footer>
+      
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        {/* Live Chat Support */}
+        <div className="group relative">
+          <Button
+            size="lg"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+            title="تحدث مع خدمة العملاء"
+            onClick={() => navigate("/chat-messaging")}
+          >
+            <MessageCircle className="w-6 h-6 text-white" />
+          </Button>
+          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            تحدث مع خدمة العملاء
+          </div>
+        </div>
+
+        {/* AI Assistant */}
+        <div className="group relative">
+          <Button
+            size="lg"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+            title="بُعد – مساعدك الذكي"
+            onClick={() => navigate("/ai-hub")}
+          >
+            <Brain className="w-6 h-6 text-white" />
+          </Button>
+          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            بُعد – مساعدك الذكي
+          </div>
+        </div>
+
+        {/* Call Now */}
+        <div className="group relative">
+          <Button
+            size="lg"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse"
+            title="اتصل بنا فوراً"
+            onClick={() => window.open('tel:+966551234567')}
+          >
+            <Phone className="w-6 h-6 text-white" />
+          </Button>
+          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            اتصل بنا فوراً
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
