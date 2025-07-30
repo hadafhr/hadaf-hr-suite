@@ -354,15 +354,6 @@ const BoudHRLandingPage: React.FC = () => {
                       دخول الموارد البشرية
                     </button>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/employee-self-service')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <Settings className="w-4 h-4" />
-                      دخول نظام الخدمة الذاتية
-                    </button>
-                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button 
