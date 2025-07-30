@@ -3,10 +3,13 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { EmployeeEditDialog } from '@/components/EmployeeEditDialog';
+import { EmployeeReportsDialog } from '@/components/EmployeeReportsDialog';
+import { useDownloadPrint } from '@/hooks/useDownloadPrint';
 import { 
   Users, 
   Plus, 
@@ -19,54 +22,79 @@ import {
   Mail,
   MapPin,
   Download,
-  X
+  X,
+  Printer,
+  MoreHorizontal,
+  Trash2
 } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
-const employees = [
+interface Employee {
+  id: string;
+  name: string;
+  position: string;
+  department: string;
+  email: string;
+  phone: string;
+  status: 'active' | 'inactive' | 'on-leave';
+  joinDate: string;
+  salary: number;
+  city: string;
+  notes?: string;
+  avatar?: string;
+}
+
+const initialEmployees: Employee[] = [
   {
-    id: 1,
+    id: "1",
     name: "أحمد محمد السعد",
     position: "مطور برمجيات أول",
-    department: "تقنية المعلومات",
+    department: "it",
     email: "ahmed.saad@company.com",
     phone: "+966501234567",
-    status: "نشط",
+    status: "active",
     joinDate: "2022-03-15",
-    salary: "12000",
+    salary: 12000,
+    city: "riyadh",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
   },
   {
-    id: 2,
+    id: "2",
     name: "فاطمة عبدالله النور",
     position: "محاسبة مالية",
-    department: "المالية",
+    department: "finance",
     email: "fatma.noor@company.com",
     phone: "+966507654321",
-    status: "نشط",
+    status: "active",
     joinDate: "2021-07-20",
-    salary: "9500",
+    salary: 9500,
+    city: "jeddah",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
   },
   {
-    id: 3,
+    id: "3",
     name: "محمد عبدالرحمن الشمري",
     position: "مسؤول مبيعات",
-    department: "المبيعات",
+    department: "sales",
     email: "mohammed.shamari@company.com",
     phone: "+966509876543",
-    status: "إجازة",
+    status: "on-leave",
     joinDate: "2020-11-10",
-    salary: "8500",
+    salary: 8500,
+    city: "dammam",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
   }
 ];
 
 export const EmployeeManagement: React.FC = () => {
+  const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
-  const { toast } = useToast();
-
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [showReportsDialog, setShowReportsDialog] = useState(false);
   const [showEmployeeForm, setShowEmployeeForm] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
   const [employeeFormData, setEmployeeFormData] = useState({
     name: '',
     position: '',
@@ -76,6 +104,32 @@ export const EmployeeManagement: React.FC = () => {
     salary: '',
     joinDate: ''
   });
+  const { toast } = useToast();
+  const { downloadFile, printData } = useDownloadPrint();
+
+  const departments = [
+    { value: 'all', label: 'جميع الأقسام' },
+    { value: 'hr', label: 'الموارد البشرية' },
+    { value: 'finance', label: 'المالية' },
+    { value: 'it', label: 'تقنية المعلومات' },
+    { value: 'marketing', label: 'التسويق' },
+    { value: 'sales', label: 'المبيعات' },
+    { value: 'operations', label: 'العمليات' },
+    { value: 'legal', label: 'الشؤون القانونية' },
+    { value: 'admin', label: 'الإدارة العامة' }
+  ];
+
+  const statusTranslations = {
+    'active': 'نشط',
+    'inactive': 'غير نشط',
+    'on-leave': 'في إجازة'
+  };
+
+  const statusColors = {
+    'active': 'default',
+    'inactive': 'secondary',
+    'on-leave': 'destructive'
+  } as const;
 
   const handleAddEmployee = () => {
     setShowEmployeeForm(true);
@@ -264,8 +318,8 @@ export const EmployeeManagement: React.FC = () => {
                   <div className="flex items-center gap-4">
                     <div className="text-right">
                       <p className="text-sm font-medium">{employee.department}</p>
-                      <Badge variant={employee.status === 'نشط' ? 'default' : 'secondary'}>
-                        {employee.status}
+                      <Badge variant={statusColors[employee.status]}>
+                        {statusTranslations[employee.status]}
                       </Badge>
                     </div>
                     

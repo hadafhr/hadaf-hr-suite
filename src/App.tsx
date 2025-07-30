@@ -40,6 +40,7 @@ import { BusinessPlatform } from "@/pages/BusinessPlatform";
 import LegalPlatform from "@/pages/LegalPlatform";
 import { EmployeeManagementPlatform } from "@/pages/EmployeeManagementPlatform";
 import NotFound from "./pages/NotFound";
+import { Register } from './pages/Register';
 import { WageProtectionPage } from './pages/WageProtectionPage';
 import ServiceCalculatorPage from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
@@ -76,7 +77,8 @@ const App = () => {
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
             <Route path="/hr/*" element={<HRApp />} />
             <Route path="/old-home" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             <Route path="/business-login" element={<BusinessLogin />} />
             <Route path="/individual-login" element={<IndividualLogin />} />
               <Route path="/dashboard" element={<Dashboard />} />
