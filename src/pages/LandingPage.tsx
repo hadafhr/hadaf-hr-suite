@@ -214,6 +214,14 @@ export const LandingPage: React.FC = () => {
                 >
                   استكشف الخدمات
                 </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  onClick={() => navigate('/legal-platform')}
+                >
+                  المنصة القانونية
+                </Button>
               </div>
               
               <div className="flex items-center justify-center lg:justify-start gap-8 text-white/80">
