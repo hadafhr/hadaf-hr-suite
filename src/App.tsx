@@ -52,6 +52,7 @@ import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
 import SelfServiceLogin from './pages/SelfServiceLogin';
 import { Tutorials } from './pages/Tutorials';
 import { EarnWithBoad } from './pages/EarnWithBoad';
+import { ScheduleMeeting } from './pages/ScheduleMeeting';
 
 const queryClient = new QueryClient();
 
@@ -106,6 +107,7 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/tutorials" element={<Tutorials />} />
             <Route path="/earn-with-boad" element={<EarnWithBoad />} />
+            <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
             <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
               <Route path="/services/recruitment" element={<Recruitment />} />
