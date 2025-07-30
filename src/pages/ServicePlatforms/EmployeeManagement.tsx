@@ -453,8 +453,8 @@ export const EmployeeManagement: React.FC = () => {
                   <div className="flex-1">
                     <h2 className="text-2xl font-bold text-foreground">{selectedEmployee.name}</h2>
                     <p className="text-lg text-muted-foreground">{selectedEmployee.position}</p>
-                    <Badge variant={selectedEmployee.status === 'نشط' ? 'default' : 'secondary'} className="mt-2">
-                      {selectedEmployee.status}
+                    <Badge variant={statusColors[selectedEmployee.status]} className="mt-2">
+                      {statusTranslations[selectedEmployee.status]}
                     </Badge>
                   </div>
                 </div>
