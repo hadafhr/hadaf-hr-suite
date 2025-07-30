@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
             خدماتنا
           </Link>
           <Link to="/tutorials" className="navigation-item">
-            الشروحات
+            مركز المعرفة
           </Link>
           <Link to="/about" className="navigation-item">
             من نحن

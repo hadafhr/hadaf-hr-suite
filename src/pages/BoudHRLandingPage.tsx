@@ -299,7 +299,7 @@ const BoudHRLandingPage: React.FC = () => {
               </Button>
 
               <Button variant="ghost" onClick={() => navigate('/tutorials')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
-                الشروحات
+                مركز المعرفة
               </Button>
 
               <DropdownMenu>

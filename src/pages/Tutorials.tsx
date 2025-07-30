@@ -404,13 +404,13 @@ export const Tutorials: React.FC = () => {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-3">
             <BookOpen className="h-10 w-10 text-primary" />
-            الشروحات ودليل الاستخدام
+            مركز المعرفة ودليل الاستخدام
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            دليل شامل ومتقدم لاستخدام جميع منصات وميزات نظام بُعد HR مع أربعة أنواع مختلفة من الشروحات
+            دليل شامل ومتقدم لاستخدام جميع منصات وميزات نظام بُعد HR مع أربعة أنواع مختلفة من المعرفة
           </p>
           
-          {/* أنواع الشروحات المتاحة */}
+          {/* أنواع المعرفة المتاحة */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 max-w-4xl mx-auto">
             <Card className="border-blue-200 dark:border-blue-800">
               <CardContent className="p-4 text-center">
@@ -451,7 +451,7 @@ export const Tutorials: React.FC = () => {
           <div className="relative">
             <Search className="absolute right-3 top-3 h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="ابحث في الشروحات والأدلة..."
+              placeholder="ابحث في مركز المعرفة والأدلة..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-4 pr-12 h-12 text-lg border-2 border-primary/20 focus:border-primary"
