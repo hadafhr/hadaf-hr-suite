@@ -753,7 +753,7 @@ export const EmployerDashboard: React.FC = () => {
                           onClick={() => handleSubscribeToPlan(selectedPlatform.id, plan.id)}
                         >
                           <DollarSign className="h-4 w-4 mr-2" />
-                          اشترك الآن
+                          انظم الينا
                         </Button>
                       </Card>
                     ))}
