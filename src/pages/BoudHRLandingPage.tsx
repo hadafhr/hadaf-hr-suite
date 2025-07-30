@@ -516,8 +516,8 @@ const BoudHRLandingPage: React.FC = () => {
                 {/* Main Hero Image */}
                 <div className="relative mb-6">
                   <img 
-                    src={heroLaptop} 
-                    alt="منصة بُعد HR - أحدث التقنيات" 
+                    src="/lovable-uploads/e178bb8e-1473-4998-a200-54739ac16b3e.png" 
+                    alt="فريق عمل متنوع - منصة بُعد HR" 
                     className="w-full h-80 object-cover rounded-2xl shadow-strong"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
