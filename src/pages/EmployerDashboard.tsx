@@ -94,38 +94,145 @@ const leaveRequests = [
   }
 ];
 
-const employerServices = [
+const allPlatforms = [
   {
+    id: 1,
     title: "إدارة الموظفين",
-    description: "إدارة شاملة لجميع بيانات الموظفين",
+    description: "إدارة شاملة لجميع بيانات الموظفين وكشوفات المرتبات",
     icon: Users,
-    route: "/services/employee-management",
+    route: "/service-platforms/employee-management",
     color: "bg-primary",
-    stats: "247 موظف"
+    stats: "247 موظف",
+    isActive: true,
+    features: ["إدارة البيانات الشخصية", "تتبع الحضور والانصراف", "إدارة الإجازات", "تقارير شاملة"]
   },
   {
-    title: "التوظيف",
-    description: "إدارة عمليات التوظيف والمرشحين",
+    id: 2,
+    title: "التوظيف الذكي",
+    description: "نظام ذكي لإدارة عمليات التوظيف والمرشحين",
     icon: UserPlus,
-    route: "/services/recruitment",
-    color: "bg-accent",
-    stats: "15 مرشح جديد"
+    route: "/service-platforms/recruitment",
+    color: "bg-success",
+    stats: "15 مرشح جديد",
+    isActive: true,
+    features: ["فرز المرشحين تلقائياً", "جدولة المقابلات", "تقييم المهارات", "إدارة العروض"]
   },
   {
+    id: 3,
     title: "تقييم الأداء",
-    description: "نظام تقييم الأداء وإدارة KPIs",
+    description: "نظام تقييم الأداء وإدارة المؤشرات الرئيسية",
     icon: Target,
-    route: "/services/performance",
-    color: "bg-primary",
-    stats: "85% متوسط الأداء"
+    route: "/service-platforms/performance-evaluation",
+    color: "bg-warning",
+    stats: "85% متوسط الأداء",
+    isActive: true,
+    features: ["تقييم دوري", "تتبع الأهداف", "تقارير الأداء", "خطط التطوير"]
   },
   {
+    id: 4,
     title: "التدريب والتطوير",
-    description: "إدارة البرامج التدريبية",
+    description: "منصة شاملة للتدريب والتطوير المهني",
     icon: BookOpen,
-    route: "/services/training",
+    route: "/service-platforms/training",
+    color: "bg-info",
+    stats: "12 دورة نشطة",
+    isActive: true,
+    features: ["دورات تفاعلية", "شهادات معتمدة", "تتبع التقدم", "تقييم المهارات"]
+  },
+  {
+    id: 5,
+    title: "حماية الأجور",
+    description: "نظام حماية الأجور وإدارة المستحقات المالية",
+    icon: Shield,
+    route: "/service-platforms/wage-protection",
+    color: "bg-primary",
+    stats: "100% امتثال",
+    isActive: false,
+    features: ["حماية الأجور", "تتبع المستحقات", "تقارير الامتثال", "التكامل البنكي"]
+  },
+  {
+    id: 6,
+    title: "التطوير التنظيمي",
+    description: "تطوير الهيكل التنظيمي وتحسين العمليات",
+    icon: Building2,
+    route: "/service-platforms/organizational-development",
     color: "bg-accent",
-    stats: "12 دورة نشطة"
+    stats: "8 مشروع",
+    isActive: false,
+    features: ["تحليل الهيكل التنظيمي", "تطوير العمليات", "إدارة التغيير", "قياس الفعالية"]
+  },
+  {
+    id: 7,
+    title: "التقارير والتحليلات",
+    description: "تقارير تفصيلية وتحليلات ذكية للموارد البشرية",
+    icon: BarChart3,
+    route: "/service-platforms/reports",
+    color: "bg-secondary",
+    stats: "25 تقرير",
+    isActive: false,
+    features: ["تقارير مخصصة", "تحليل البيانات", "لوحات تحكم تفاعلية", "توقعات ذكية"]
+  },
+  {
+    id: 8,
+    title: "إدارة الأعمال",
+    description: "أدوات شاملة لإدارة العمليات التجارية",
+    icon: Building2,
+    route: "/service-platforms/business-management",
+    color: "bg-primary",
+    stats: "12 عملية",
+    isActive: false,
+    features: ["إدارة المشاريع", "تتبع الأرباح", "إدارة العملاء", "تحليل الأداء المالي"]
+  }
+];
+
+const subscriptionPlans = [
+  {
+    id: 1,
+    name: "الباقة الأساسية",
+    price: "199",
+    period: "شهرياً",
+    employeeRange: "1-50 موظف",
+    features: [
+      "إدارة بيانات الموظفين",
+      "تتبع الحضور الأساسي",
+      "تقارير أساسية",
+      "دعم فني 24/7"
+    ],
+    color: "border-muted",
+    recommended: false
+  },
+  {
+    id: 2,
+    name: "الباقة المتقدمة",
+    price: "399",
+    period: "شهرياً",
+    employeeRange: "51-200 موظف",
+    features: [
+      "جميع مزايا الباقة الأساسية",
+      "نظام تقييم الأداء",
+      "إدارة الإجازات المتقدمة",
+      "تقارير تحليلية مفصلة",
+      "التكامل مع الأنظمة الخارجية"
+    ],
+    color: "border-primary",
+    recommended: true
+  },
+  {
+    id: 3,
+    name: "باقة المؤسسات",
+    price: "799",
+    period: "شهرياً",
+    employeeRange: "200+ موظف",
+    features: [
+      "جميع مزايا الباقة المتقدمة",
+      "ذكاء اصطناعي متقدم",
+      "تخصيص كامل للواجهات",
+      "دعم مخصص",
+      "تدريب متخصص للفريق",
+      "خدمات استشارية"
+    ],
+    color: "border-accent",
+    recommended: false
   }
 ];
 
@@ -144,6 +251,9 @@ export const EmployerDashboard: React.FC = () => {
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isEditEmployeeOpen, setIsEditEmployeeOpen] = useState(false);
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState<any>(null);
+  const [activePlatforms, setActivePlatforms] = useState(allPlatforms.filter(p => p.isActive));
 
   const handleAddEmployee = () => {
     if (!newEmployee.name || !newEmployee.email || !newEmployee.position) {
@@ -202,8 +312,29 @@ export const EmployerDashboard: React.FC = () => {
       title: "إنشاء تقييم أداء",
       description: "تم فتح نموذج تقييم الأداء",
     });
-    // يمكن توجيه المستخدم لصفحة تقييم الأداء
-    navigate('/services/performance');
+    navigate('/service-platforms/performance-evaluation');
+  };
+
+  const handleAddNewPlatform = () => {
+    setIsSubscriptionModalOpen(true);
+  };
+
+  const handleSubscribeToPlan = (platformId: number, planId: number) => {
+    const platform = allPlatforms.find(p => p.id === platformId);
+    const plan = subscriptionPlans.find(p => p.id === planId);
+    
+    if (platform && plan) {
+      // Simulate activation
+      setActivePlatforms(prev => [...prev, { ...platform, isActive: true }]);
+      
+      toast({
+        title: "تم تفعيل المنصة بنجاح",
+        description: `تم الاشتراك في ${platform.title} بالباقة ${plan.name}`,
+      });
+      
+      setIsSubscriptionModalOpen(false);
+      setSelectedPlatform(null);
+    }
   };
 
   return (
@@ -465,29 +596,186 @@ export const EmployerDashboard: React.FC = () => {
           </div>
         </Card>
 
-        {/* الخدمات المتاحة */}
+        {/* المنصات المتاحة */}
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-center">الخدمات المتاحة</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">المنصات المتاحة</h2>
+            <Button 
+              onClick={handleAddNewPlatform}
+              className="btn-primary"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              إضافة منصة جديدة
+            </Button>
+          </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {employerServices.map((service, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {activePlatforms.map((platform) => (
               <Card 
-                key={index} 
-                className="p-6 hover:shadow-xl transition-all duration-300 cursor-pointer group hover:scale-105"
-                onClick={() => navigate(service.route)}
+                key={platform.id} 
+                className="relative p-6 hover:shadow-xl transition-all duration-300 cursor-pointer group hover:scale-105 border-2"
+                onClick={() => navigate(platform.route)}
               >
-                <div className={`w-12 h-12 rounded-lg ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <service.icon className="h-6 w-6 text-white" />
+                <div className="absolute top-2 right-2">
+                  <Badge variant="default" className="bg-success text-white">
+                    نشط
+                  </Badge>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{service.description}</p>
-                <Badge variant="secondary" className="text-xs">
-                  {service.stats}
-                </Badge>
+                
+                <div className={`w-12 h-12 rounded-lg ${platform.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <platform.icon className="h-6 w-6 text-white" />
+                </div>
+                
+                <h3 className="text-lg font-semibold text-foreground mb-2">{platform.title}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{platform.description}</p>
+                
+                <div className="space-y-2 mb-4">
+                  <Badge variant="secondary" className="text-xs">
+                    {platform.stats}
+                  </Badge>
+                </div>
+                
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-muted-foreground">المزايا الرئيسية:</p>
+                  <ul className="text-xs text-muted-foreground space-y-1">
+                    {platform.features.slice(0, 2).map((feature, idx) => (
+                      <li key={idx} className="flex items-center">
+                        <CheckCircle className="h-3 w-3 text-success mr-1" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </Card>
             ))}
+            
+            {/* بطاقة إضافة منصة جديدة */}
+            <Card 
+              className="p-6 border-2 border-dashed border-muted-foreground/30 hover:border-primary transition-colors cursor-pointer group flex items-center justify-center min-h-[300px]"
+              onClick={handleAddNewPlatform}
+            >
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/10 transition-colors">
+                  <Plus className="h-6 w-6 text-muted-foreground group-hover:text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-muted-foreground group-hover:text-primary mb-2">
+                  إضافة منصة جديدة
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  اكتشف المزيد من المنصات لتطوير أعمالك
+                </p>
+              </div>
+            </Card>
           </div>
         </div>
+
+        {/* مودال باقات الاشتراك */}
+        <Dialog open={isSubscriptionModalOpen} onOpenChange={setIsSubscriptionModalOpen}>
+          <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl">اختر المنصة المناسبة لأعمالك</DialogTitle>
+              <DialogDescription>
+                اكتشف مجموعة واسعة من المنصات المتخصصة لتطوير أعمالك
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-8">
+              {/* المنصات المتاحة للتفعيل */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">المنصات المتاحة</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {allPlatforms.filter(p => !p.isActive).map((platform) => (
+                    <Card 
+                      key={platform.id}
+                      className={`p-4 cursor-pointer transition-all duration-200 hover:shadow-lg ${
+                        selectedPlatform?.id === platform.id ? 'ring-2 ring-primary' : ''
+                      }`}
+                      onClick={() => setSelectedPlatform(platform)}
+                    >
+                      <div className="flex items-start space-x-3 space-x-reverse">
+                        <div className={`w-10 h-10 rounded-lg ${platform.color} flex items-center justify-center`}>
+                          <platform.icon className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-sm">{platform.title}</h4>
+                          <p className="text-xs text-muted-foreground mt-1">{platform.description}</p>
+                          <Badge variant="outline" className="mt-2 text-xs">
+                            {platform.stats}
+                          </Badge>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* باقات الاشتراك */}
+              {selectedPlatform && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">
+                    باقات الاشتراك - {selectedPlatform.title}
+                  </h3>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {subscriptionPlans.map((plan) => (
+                      <Card 
+                        key={plan.id}
+                        className={`p-6 relative ${plan.color} ${
+                          plan.recommended ? 'ring-2 ring-primary shadow-lg' : ''
+                        }`}
+                      >
+                        {plan.recommended && (
+                          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                            <Badge className="bg-primary text-white">الأكثر شعبية</Badge>
+                          </div>
+                        )}
+                        
+                        <div className="text-center mb-6">
+                          <h4 className="text-xl font-bold">{plan.name}</h4>
+                          <div className="mt-2">
+                            <span className="text-3xl font-bold text-primary">{plan.price}</span>
+                            <span className="text-muted-foreground"> ريال {plan.period}</span>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2">{plan.employeeRange}</p>
+                        </div>
+                        
+                        <ul className="space-y-3 mb-6">
+                          {plan.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-start text-sm">
+                              <CheckCircle className="h-4 w-4 text-success mt-0.5 mr-2 flex-shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        <Button 
+                          className="w-full"
+                          variant={plan.recommended ? "default" : "outline"}
+                          onClick={() => handleSubscribeToPlan(selectedPlatform.id, plan.id)}
+                        >
+                          <DollarSign className="h-4 w-4 mr-2" />
+                          اشترك الآن
+                        </Button>
+                      </Card>
+                    ))}
+                  </div>
+                  
+                  {/* مزايا المنصة المحددة */}
+                  <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                    <h4 className="font-semibold mb-2">مزايا {selectedPlatform.title}:</h4>
+                    <div className="grid md:grid-cols-2 gap-2">
+                      {selectedPlatform.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center text-sm">
+                          <CheckCircle className="h-3 w-3 text-success mr-2" />
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Dialog عرض تفاصيل الموظف */}
         <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
