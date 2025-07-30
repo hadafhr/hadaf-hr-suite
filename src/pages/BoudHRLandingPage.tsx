@@ -595,7 +595,7 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="solutions" className="py-20 bg-muted/30">
+      <section id="solutions" className="py-20 bg-black">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gradient mb-4">مميزات النظام</h2>
