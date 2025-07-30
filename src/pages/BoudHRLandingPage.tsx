@@ -298,6 +298,10 @@ const BoudHRLandingPage: React.FC = () => {
                 احسب اشتراكك
               </Button>
 
+              <Button variant="ghost" onClick={() => navigate('/tutorials')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
+                الشروحات
+              </Button>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
