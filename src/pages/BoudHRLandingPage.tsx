@@ -598,7 +598,7 @@ const BoudHRLandingPage: React.FC = () => {
                   else if (feature.title === "التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
                   else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
                   else if (feature.title === "الذكاء الاصطناعي") navigate("/ai-hub");
-                  else if (feature.title === "منصة الشؤون القانونية") navigate("/legal-platform");
+                  else if (feature.title === "منصة الشؤون القانونية" || feature.title === "منصة الشؤون القانونية الذكية") navigate("/legal-platform");
                   else if (feature.title === "منصة التوظيف الذكي") navigate("/smart-hire");
                 }}
               >
