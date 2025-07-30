@@ -468,13 +468,13 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" onClick={() => window.location.href = '/hr/hr-login'}>
-                  دخول نظام الموارد البشرية
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" onClick={() => navigate('/subscription-packages')}>
+                  اشترك الآن
                   <ArrowLeft className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-2 px-8" onClick={() => document.getElementById('mobile-app')?.scrollIntoView({ behavior: 'smooth' })}>
-                  <Phone className="w-5 h-5 ml-2" />
-                  تحميل التطبيق
+                <Button size="lg" variant="outline" className="border-2 px-8" onClick={() => navigate('/service-calculator')}>
+                  <Calculator className="w-5 h-5 ml-2" />
+                  احسب تكلفة الخدمة
                 </Button>
               </div>
               
