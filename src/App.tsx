@@ -37,7 +37,7 @@ import { AttendanceManagement } from "@/pages/Employer/AttendanceManagement";
 import { LeaveManagement } from "@/pages/Employer/LeaveManagement";
 import SmartHire from "@/pages/SmartHire";
 import { BusinessPlatform } from "@/pages/BusinessPlatform";
-import { LegalPlatform } from "@/pages/LegalPlatform";
+import LegalPlatform from "@/pages/LegalPlatform";
 import { EmployeeManagementPlatform } from "@/pages/EmployeeManagementPlatform";
 import NotFound from "./pages/NotFound";
 import { WageProtectionPage } from './pages/WageProtectionPage';
