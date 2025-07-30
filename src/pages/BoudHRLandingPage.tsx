@@ -555,11 +555,11 @@ const BoudHRLandingPage: React.FC = () => {
                 {/* Secondary Images Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative">
-                    <img 
-                      src={hrAutomation} 
-                      alt="أتمتة الموارد البشرية" 
-                      className="w-full h-32 object-cover rounded-xl shadow-medium"
-                    />
+                     <img 
+                       src="/lovable-uploads/ebeb1cac-6889-402f-800b-60ea4e5b64c5.png" 
+                       alt="أتمتة الموارد البشرية" 
+                       className="w-full h-32 object-cover rounded-xl shadow-medium"
+                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
                     <div className="absolute bottom-2 left-2 right-2">
                       <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
