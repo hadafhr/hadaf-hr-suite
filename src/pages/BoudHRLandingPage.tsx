@@ -282,6 +282,10 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
+              <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
+                احسب اشتراكك
+              </Button>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
@@ -471,10 +475,6 @@ const BoudHRLandingPage: React.FC = () => {
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" onClick={() => navigate('/subscription-packages')}>
                   اشترك الآن
                   <ArrowLeft className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button size="lg" variant="outline" className="border-2 px-8" onClick={() => navigate('/service-calculator')}>
-                  <Calculator className="w-5 h-5 ml-2" />
-                  احسب تكلفة الخدمة
                 </Button>
               </div>
               
