@@ -53,8 +53,8 @@ import SelfServiceLogin from './pages/SelfServiceLogin';
 import { Tutorials } from './pages/Tutorials';
 import { EarnWithBoad } from './pages/EarnWithBoad';
 import { ScheduleMeeting } from './pages/ScheduleMeeting';
-import { Blog } from './pages/Blog';
-import { BlogPost } from './pages/BlogPost';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 
 const queryClient = new QueryClient();
 
