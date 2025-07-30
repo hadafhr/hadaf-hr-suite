@@ -594,6 +594,69 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold text-gradient">من نحن</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                نحن فريق سعودي-عالمي من خبراء الموارد البشرية، وتقنية السحابة، وعلوم البيانات.
+                اجتمعنا حول رؤية واحدة: إعادة تشكيل إدارة رأس المال البشري في المنطقة العربية.
+              </p>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 ذكاء عملي</h3>
+                  <p className="text-muted-foreground">نحو تحويل بيانات الموظفين إلى رؤى قابلة للتنفيذ، من خلال خوارزميات AI متقدمة.</p>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تكامل شامل</h3>
+                  <p className="text-muted-foreground">منصة واحدة تشمل: التوظيف، الرواتب، الأداء، الامتثال، التدريب - مرتبطة آليًا بمنصات: قوى – التأمينات الاجتماعية – مدد – البنوك السعودية.</p>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 أمن وموثوقية</h3>
+                  <p className="text-muted-foreground">استضافة سحابية داخل المملكة، مع اعتماد معايير الأمان المحلية والعالمية (ISO 27001 وNCA ECC).</p>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تركيز إنساني</h3>
+                  <p className="text-muted-foreground">تصميم كامل للتجربة الوظيفية حول الموظف وراحته، بهدف زيادة الولاء والإنتاجية.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 pt-4">
+                <Button className="btn-primary" onClick={() => navigate("/business-platform")}>
+                  تعرف على المزيد
+                </Button>
+                <Button variant="outline" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                  تواصل معنا
+                </Button>
+              </div>
+            </div>
+            
+            <div className="relative">
+              <img 
+                src={teamCollaboration}
+                alt="فريق عمل يتعاون باستخدام تقنيات الموارد البشرية الحديثة"
+                className="w-full h-96 object-cover rounded-2xl shadow-strong"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
+              <div className="absolute top-4 right-4">
+                <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-white">
+                    <Brain className="w-5 h-5" />
+                    <span className="text-sm font-medium">مدعوم بالذكاء الاصطناعي</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section id="solutions" className="py-20 bg-black">
         <div className="container mx-auto px-6">
@@ -674,68 +737,6 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gradient">من نحن</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                نحن فريق سعودي-عالمي من خبراء الموارد البشرية، وتقنية السحابة، وعلوم البيانات.
-                اجتمعنا حول رؤية واحدة: إعادة تشكيل إدارة رأس المال البشري في المنطقة العربية.
-              </p>
-              
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 ذكاء عملي</h3>
-                  <p className="text-muted-foreground">نحو تحويل بيانات الموظفين إلى رؤى قابلة للتنفيذ، من خلال خوارزميات AI متقدمة.</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تكامل شامل</h3>
-                  <p className="text-muted-foreground">منصة واحدة تشمل: التوظيف، الرواتب، الأداء، الامتثال، التدريب - مرتبطة آليًا بمنصات: قوى – التأمينات الاجتماعية – مدد – البنوك السعودية.</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 أمن وموثوقية</h3>
-                  <p className="text-muted-foreground">استضافة سحابية داخل المملكة، مع اعتماد معايير الأمان المحلية والعالمية (ISO 27001 وNCA ECC).</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تركيز إنساني</h3>
-                  <p className="text-muted-foreground">تصميم كامل للتجربة الوظيفية حول الموظف وراحته، بهدف زيادة الولاء والإنتاجية.</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 pt-4">
-                <Button className="btn-primary" onClick={() => navigate("/business-platform")}>
-                  تعرف على المزيد
-                </Button>
-                <Button variant="outline" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-                  تواصل معنا
-                </Button>
-              </div>
-            </div>
-            
-            <div className="relative">
-              <img 
-                src={teamCollaboration}
-                alt="فريق عمل يتعاون باستخدام تقنيات الموارد البشرية الحديثة"
-                className="w-full h-96 object-cover rounded-2xl shadow-strong"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
-              <div className="absolute top-4 right-4">
-                <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
-                  <div className="flex items-center gap-2 text-white">
-                    <Brain className="w-5 h-5" />
-                    <span className="text-sm font-medium">مدعوم بالذكاء الاصطناعي</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section className="py-20 bg-background">
