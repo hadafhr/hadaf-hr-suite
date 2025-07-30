@@ -42,6 +42,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import heroLaptop from '@/assets/hero-laptop.jpg';
 import businessTeam from '@/assets/business-team.jpg';
 import codingScreen from '@/assets/coding-screen.jpg';
+import hrAutomation from '@/assets/hr-automation.jpg';
+import cloudComputing from '@/assets/cloud-computing.jpg';
+import teamCollaboration from '@/assets/team-collaboration.jpg';
 
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -460,16 +463,16 @@ const BoudHRLandingPage: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative">
                     <img 
-                      src={businessTeam} 
-                      alt="فريق العمل المتميز" 
+                      src={hrAutomation} 
+                      alt="أتمتة الموارد البشرية" 
                       className="w-full h-32 object-cover rounded-xl shadow-medium"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
                     <div className="absolute bottom-2 left-2 right-2">
                       <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
                         <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-primary" />
-                          <span className="text-xs font-medium text-foreground">فرق متخصصة</span>
+                          <Zap className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-medium text-foreground">أتمتة ذكية</span>
                         </div>
                       </div>
                     </div>
@@ -477,16 +480,16 @@ const BoudHRLandingPage: React.FC = () => {
                   
                   <div className="relative">
                     <img 
-                      src={codingScreen} 
-                      alt="تطوير تقني متقدم" 
+                      src={cloudComputing} 
+                      alt="الحوسبة السحابية" 
                       className="w-full h-32 object-cover rounded-xl shadow-medium"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
                     <div className="absolute bottom-2 left-2 right-2">
                       <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
                         <div className="flex items-center gap-2">
-                          <Brain className="w-4 h-4 text-primary" />
-                          <span className="text-xs font-medium text-foreground">ذكاء اصطناعي</span>
+                          <Cloud className="w-4 h-4 text-primary" />
+                          <span className="text-xs font-medium text-foreground">حوسبة سحابية</span>
                         </div>
                       </div>
                     </div>
@@ -621,11 +624,19 @@ const BoudHRLandingPage: React.FC = () => {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80"
+                src={teamCollaboration}
                 alt="فريق عمل يتعاون باستخدام تقنيات الموارد البشرية الحديثة"
-                className="w-full h-96 object-cover rounded-2xl"
+                className="w-full h-96 object-cover rounded-2xl shadow-strong"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
+              <div className="absolute top-4 right-4">
+                <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-white">
+                    <Brain className="w-5 h-5" />
+                    <span className="text-sm font-medium">مدعوم بالذكاء الاصطناعي</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
