@@ -48,6 +48,7 @@ import SubscriptionPackages from './pages/SubscriptionPackages';
 import { HRApp } from './pages/HRApp';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
 import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
+import SelfServiceLogin from './pages/SelfServiceLogin';
 
 const queryClient = new QueryClient();
 
@@ -71,6 +72,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<BoudHRLandingPage />} />
+            <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
             <Route path="/hr/*" element={<HRApp />} />
             <Route path="/old-home" element={<LandingPage />} />

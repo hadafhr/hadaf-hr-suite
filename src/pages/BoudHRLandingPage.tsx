@@ -320,6 +320,14 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-3 space-x-reverse">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/self-service-login')}
+                className="flex items-center gap-2"
+              >
+                <Settings className="w-4 h-4" />
+                الخدمة الذاتية
+              </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2">
