@@ -329,6 +329,15 @@ const BoudHRLandingPage: React.FC = () => {
                 <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
                   <DropdownMenuItem asChild>
                     <button 
+                      onClick={() => navigate('/self-service-login')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <Settings className="w-4 h-4" />
+                      دخول نظام الخدمة الذاتية
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <button 
                       onClick={() => navigate('/business-login')} 
                       className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
                     >
