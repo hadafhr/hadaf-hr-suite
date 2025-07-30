@@ -103,7 +103,7 @@ const BoudHRLandingPage: React.FC = () => {
       title: "منصة التدريب",
       description: "نظام إدارة التعلم والتدريب مع البث المباشر والمحتوى التفاعلي",
       icon: GraduationCap,
-      color: "text-primary"
+      color: "text-black"
     },
     {
       title: "حاسبة الخدمات",
@@ -124,22 +124,22 @@ const BoudHRLandingPage: React.FC = () => {
       color: "text-primary"
     },
     {
-      title: "منصة الشؤون القانونية",
+      title: "منصة الشؤون القانونية الذكية",
       description: "أدوات قانونية متخصصة مع ذكاء اصطناعي لإدارة الشؤون القانونية",
       icon: FileText,
-      color: "text-primary"
+      color: "text-black"
     },
     {
       title: "منصة التوظيف الذكي",
       description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
       icon: Users,
-      color: "text-primary"
+      color: "text-black"
     },
     {
       title: "حماية الأجور",
       description: "ضمان الامتثال الكامل لأنظمة حماية الأجور السعودية",
       icon: Shield,
-      color: "text-primary"
+      color: "text-black"
     },
     {
       title: "التقييمات الذكية",
