@@ -478,29 +478,49 @@ const BoudHRLandingPage: React.FC = () => {
                 </Button>
               </div>
               
-              {/* Self-Service HR App Buttons */}
-              <div className="mt-8 space-y-4">
-                <h3 className="text-lg font-semibold text-center lg:text-right mb-4">دخول نظام الخدمة الذاتية</h3>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
-                    onClick={() => window.open('/hr/hr-login?type=admin', '_blank')}
-                  >
-                    <Building className="ml-2 h-5 w-5" />
-                    دخول صاحب العمل إلى نظام الخدمة الذاتية
-                  </Button>
-                  
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
-                    onClick={() => window.open('/hr/hr-login?type=employee', '_blank')}
-                  >
-                    <Users className="ml-2 h-5 w-5" />
-                    دخول الموظف إلى نظام الخدمة الذاتية
-                  </Button>
+              {/* Platform Access Buttons */}
+              <div className="mt-8 space-y-6">
+                {/* Self-Service HR App Buttons */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">دخول نظام الخدمة الذاتية</h3>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/hr/hr-login?type=admin', '_blank')}
+                    >
+                      <Building className="ml-2 h-5 w-5" />
+                      دخول صاحب العمل إلى نظام الخدمة الذاتية
+                    </Button>
+                    
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="group px-6 border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/hr/hr-login?type=employee', '_blank')}
+                    >
+                      <Users className="ml-2 h-5 w-5" />
+                      دخول الموظف إلى نظام الخدمة الذاتية
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Legal Affairs Platform Button */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">الخدمات القانونية المتخصصة</h3>
+                  <div className="flex justify-center lg:justify-start">
+                    <Button 
+                      size="lg" 
+                      className="group px-8 bg-[#4CB898] hover:bg-[#4CB898]/90 text-white border-2 border-[#4CB898] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      onClick={() => window.open('/legal-platform', '_blank')}
+                    >
+                      <svg className="ml-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L3 7V10C3 16 7 20.54 12 21.5C17 20.54 21 16 21 10V7L12 2M12 4.19L18 7.63V10C18 15.31 15.25 19.22 12 19.93C8.75 19.22 6 15.31 6 10V7.63L12 4.19M15.5 11.5L14.5 10.5L11 14L9.5 12.5L8.5 13.5L11 16L15.5 11.5Z" />
+                      </svg>
+                      الدخول إلى منصة الشؤون القانونية
+                    </Button>
+                  </div>
                 </div>
               </div>
               
