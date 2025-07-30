@@ -482,7 +482,7 @@ const BoudHRLandingPage: React.FC = () => {
               <div className="mt-8 space-y-6">
                 {/* Self-Service HR App Buttons */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">دخول نظام الخدمة الذاتية</h3>
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">🏢 دخول نظام الخدمة الذاتية</h3>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <Button 
                       size="lg" 
@@ -491,7 +491,7 @@ const BoudHRLandingPage: React.FC = () => {
                       onClick={() => window.open('/hr/hr-login?type=admin', '_blank')}
                     >
                       <Building className="ml-2 h-5 w-5" />
-                      دخول صاحب العمل إلى نظام الخدمة الذاتية
+                      دخول صاحب العمل
                     </Button>
                     
                     <Button 
@@ -501,14 +501,14 @@ const BoudHRLandingPage: React.FC = () => {
                       onClick={() => window.open('/hr/hr-login?type=employee', '_blank')}
                     >
                       <Users className="ml-2 h-5 w-5" />
-                      دخول الموظف إلى نظام الخدمة الذاتية
+                      دخول الموظف
                     </Button>
                   </div>
                 </div>
 
                 {/* Legal Affairs Platform Button */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">الخدمات القانونية المتخصصة</h3>
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">⚖️ الخدمات القانونية المتخصصة</h3>
                   <div className="flex justify-center lg:justify-start">
                     <Button 
                       size="lg" 
@@ -518,7 +518,43 @@ const BoudHRLandingPage: React.FC = () => {
                       <svg className="ml-2 h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2L3 7V10C3 16 7 20.54 12 21.5C17 20.54 21 16 21 10V7L12 2M12 4.19L18 7.63V10C18 15.31 15.25 19.22 12 19.93C8.75 19.22 6 15.31 6 10V7.63L12 4.19M15.5 11.5L14.5 10.5L11 14L9.5 12.5L8.5 13.5L11 16L15.5 11.5Z" />
                       </svg>
-                      الدخول إلى منصة الشؤون القانونية
+                      منصة الشؤون القانونية الذكية
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Additional Platforms */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-center lg:text-right mb-4">🚀 منصات متخصصة إضافية</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="group px-6 py-4 border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/smart-hire', '_blank')}
+                    >
+                      <Brain className="ml-2 h-5 w-5" />
+                      منصة التوظيف الذكي
+                    </Button>
+                    
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="group px-6 py-4 border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/training-platform', '_blank')}
+                    >
+                      <GraduationCap className="ml-2 h-5 w-5" />
+                      منصة التدريب الرقمي
+                    </Button>
+                    
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="group px-6 py-4 border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                      onClick={() => window.open('/wage-protection', '_blank')}
+                    >
+                      <Shield className="ml-2 h-5 w-5" />
+                      منصة حماية الأجور
                     </Button>
                   </div>
                 </div>
