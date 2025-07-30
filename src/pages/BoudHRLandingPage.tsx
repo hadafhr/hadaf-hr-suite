@@ -124,6 +124,18 @@ const BoudHRLandingPage: React.FC = () => {
       color: "text-primary"
     },
     {
+      title: "منصة الشؤون القانونية",
+      description: "أدوات قانونية متخصصة مع ذكاء اصطناعي لإدارة الشؤون القانونية",
+      icon: FileText,
+      color: "text-primary"
+    },
+    {
+      title: "منصة التوظيف الذكي",
+      description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
+      icon: Users,
+      color: "text-primary"
+    },
+    {
       title: "حماية الأجور",
       description: "ضمان الامتثال الكامل لأنظمة حماية الأجور السعودية",
       icon: Shield,
@@ -340,6 +352,15 @@ const BoudHRLandingPage: React.FC = () => {
                     >
                       <Users className="w-4 h-4" />
                       دخول الموارد البشرية
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <button 
+                      onClick={() => navigate('/employee-self-service')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <Settings className="w-4 h-4" />
+                      دخول نظام الخدمة الذاتية
                     </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -667,6 +688,8 @@ const BoudHRLandingPage: React.FC = () => {
                   else if (feature.title === "التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
                   else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
                   else if (feature.title === "الذكاء الاصطناعي") navigate("/ai-hub");
+                  else if (feature.title === "منصة الشؤون القانونية") navigate("/legal-platform");
+                  else if (feature.title === "منصة التوظيف الذكي") navigate("/smart-hire");
                 }}
               >
                 <CardHeader className="text-center">
