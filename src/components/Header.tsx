@@ -43,12 +43,21 @@ export const Header: React.FC<HeaderProps> = ({
           <Link to="/services" className="navigation-item">
             خدماتنا
           </Link>
-          <Link to="/tutorials" className="navigation-item">
-            مركز المعرفة
-          </Link>
-          <Link to="/blog" className="navigation-item">
-            مدونة بُعد
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="navigation-item">
+                مركز المعرفة
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
+              <DropdownMenuItem onClick={() => navigate('/tutorials')}>
+                الدروس التعليمية
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/blog')}>
+                مدونة بُعد
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Link to="/earn-with-boad" className="navigation-item">
             اربح مع بُعد
           </Link>

@@ -298,13 +298,21 @@ const BoudHRLandingPage: React.FC = () => {
                 احسب اشتراكك
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/tutorials')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
-                مركز المعرفة
-              </Button>
-
-              <Button variant="ghost" onClick={() => navigate('/blog')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
-                مدونة بُعد
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+                    مركز المعرفة
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')}>
+                    الدروس التعليمية
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/blog')}>
+                    مدونة بُعد
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
                 اربح مع بُعد
