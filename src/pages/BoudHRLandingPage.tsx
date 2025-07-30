@@ -320,6 +320,42 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-3 space-x-reverse">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2">
+                    تسجيل الدخول <ChevronDown className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
+                  <DropdownMenuItem asChild>
+                    <button 
+                      onClick={() => navigate('/business-login')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <Building2 className="w-4 h-4" />
+                      دخول أصحاب الأعمال
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <button 
+                      onClick={() => navigate('/individual-login')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <User className="w-4 h-4" />
+                      دخول الأفراد
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <button 
+                      onClick={() => navigate('/hr/hr-login')} 
+                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
+                    >
+                      <Users className="w-4 h-4" />
+                      دخول الموارد البشرية
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Button 
                 onClick={() => navigate('/subscription-packages')}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground"
