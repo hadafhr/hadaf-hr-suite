@@ -321,64 +321,10 @@ const BoudHRLandingPage: React.FC = () => {
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-3 space-x-reverse">
               <Button 
-                variant="ghost" 
-                onClick={() => navigate('/self-service-login')}
-                className="flex items-center gap-2"
-              >
-                <Settings className="w-4 h-4" />
-                الخدمة الذاتية
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2">
-                    تسجيل الدخول <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/business-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <Building2 className="w-4 h-4" />
-                      دخول أصحاب الأعمال
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/individual-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <User className="w-4 h-4" />
-                      دخول الأفراد
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/hr/hr-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <Users className="w-4 h-4" />
-                      دخول الموارد البشرية
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button 
                 onClick={() => navigate('/subscription-packages')}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 اشترك الآن
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => document.getElementById('mobile-app')?.scrollIntoView({ behavior: 'smooth' })}
-                className="flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zM3.293 7.707A1 1 0 014 7h12a1 1 0 01.707.293l.707.707-1.414 1.414L15 8.414V13a1 1 0 11-2 0V10.414l-3 3-3-3V13a1 1 0 11-2 0V8.414L4 9.414 2.586 8l.707-.707z" clipRule="evenodd" />
-                </svg>
-                تحميل التطبيق
               </Button>
             </div>
 
