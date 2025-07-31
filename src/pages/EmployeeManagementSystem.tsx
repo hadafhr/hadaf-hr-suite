@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDownloadPrint } from '@/hooks/useDownloadPrint';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -27,6 +28,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const EmployeeManagementSystem = () => {
   const navigate = useNavigate();
+  const { downloadFile, printData } = useDownloadPrint();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDepartment, setFilterDepartment] = useState('all');
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -113,13 +115,21 @@ const EmployeeManagementSystem = () => {
             <h1 className="text-xl font-semibold">نظام إدارة الموظفين</h1>
           </div>
           <div className="mr-auto flex items-center gap-2">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => downloadFile({ data: employees, filename: 'بيانات_الموظفين', format: 'excel' })}
+            >
               <Download className="h-4 w-4 ml-2" />
               تصدير البيانات
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => printData(employees, 'قائمة الموظفين')}
+            >
               <Upload className="h-4 w-4 ml-2" />
-              استيراد البيانات
+              طباعة التقرير
             </Button>
             <Button size="sm">
               <UserPlus className="h-4 w-4 ml-2" />
