@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
+import { useDownloadPrint } from '@/hooks/useDownloadPrint';
 import { AIAssistant } from '@/components/AIAssistant';
 import { 
   Award, 
@@ -20,7 +22,10 @@ import {
   Eye,
   Download,
   Brain,
-  X
+  X,
+  ArrowLeft,
+  FileText,
+  Printer
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -344,6 +349,7 @@ const employees = [
 ];
 
 export const PerformanceEvaluation: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedEmployee, setSelectedEmployee] = useState<any>(employees[0]);
   const [showKPIForm, setShowKPIForm] = useState(false);
   const [kpiFormData, setKpiFormData] = useState({
@@ -356,6 +362,7 @@ export const PerformanceEvaluation: React.FC = () => {
     feedback: ''
   });
   const { toast } = useToast();
+  const { downloadFile, printData } = useDownloadPrint();
 
   const handleNewEvaluation = () => {
     setShowKPIForm(true);
@@ -379,10 +386,44 @@ export const PerformanceEvaluation: React.FC = () => {
   };
 
   const handleExportReports = () => {
-    toast({
-      title: "تصدير التقارير",
-      description: "جاري تصدير تقارير الأداء...",
+    const reportData = employees.map(emp => ({
+      الاسم: emp.name,
+      المنصب: emp.position,
+      القسم: emp.department,
+      الدرجة_الإجمالية: emp.overallScore,
+      آخر_تقييم: emp.lastEvaluation,
+      الحالة: emp.status
+    }));
+    
+    downloadFile({
+      data: reportData,
+      filename: 'تقرير_الأداء_الشامل',
+      format: 'excel'
     });
+  };
+
+  const handleDownloadEmployeeReport = (employee: any) => {
+    const employeeReport = {
+      المعلومات_الأساسية: {
+        الاسم: employee.name,
+        المنصب: employee.position,
+        القسم: employee.department
+      },
+      درجة_الأداء: employee.overallScore,
+      آخر_تقييم: employee.lastEvaluation,
+      الحالة: employee.status,
+      الأهداف: employee.goals
+    };
+    
+    downloadFile({
+      data: employeeReport,
+      filename: `تقرير_أداء_${employee.name}`,
+      format: 'pdf'
+    });
+  };
+
+  const handlePrintReport = (employee: any) => {
+    printData(employee, `تقرير أداء الموظف: ${employee.name}`);
   };
 
   const handleGroupReview = () => {
@@ -404,15 +445,29 @@ export const PerformanceEvaluation: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-gradient mb-2">
-              تقييم الأداء KPIs
-            </h1>
-            <p className="text-muted-foreground">
-              أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية
-            </p>
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/services')}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              العودة للخدمات
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-gradient mb-2">
+                تقييم الأداء KPIs
+              </h1>
+              <p className="text-muted-foreground">
+                أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية
+              </p>
+            </div>
           </div>
           <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExportReports}>
+              <Download className="h-4 w-4 mr-2" />
+              تصدير التقارير
+            </Button>
             <Button variant="outline" onClick={handleAIAnalysis}>
               <Brain className="h-4 w-4 mr-2" />
               تحليل ذكي
@@ -509,9 +564,29 @@ export const PerformanceEvaluation: React.FC = () => {
                   <p className="text-muted-foreground">{selectedEmployee.position}</p>
                   <p className="text-sm text-muted-foreground">{selectedEmployee.department}</p>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">{selectedEmployee.overallScore}%</div>
-                  <p className="text-sm text-muted-foreground">الأداء العام</p>
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-primary">{selectedEmployee.overallScore}%</div>
+                    <p className="text-sm text-muted-foreground">الأداء العام</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleDownloadEmployeeReport(selectedEmployee)}
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      تحميل
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handlePrintReport(selectedEmployee)}
+                    >
+                      <Printer className="h-4 w-4 mr-2" />
+                      طباعة
+                    </Button>
+                  </div>
                 </div>
               </div>
 

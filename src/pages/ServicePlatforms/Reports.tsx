@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
+import { useDownloadPrint } from '@/hooks/useDownloadPrint';
 import { 
   BarChart3, 
   Download, 
@@ -95,9 +97,11 @@ const recentReports = [
 ];
 
 export const Reports: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTab, setSelectedTab] = useState('attendance');
   const { toast } = useToast();
+  const { downloadFile, printData } = useDownloadPrint();
 
   const handleNewReport = () => {
     toast({
@@ -153,13 +157,23 @@ export const Reports: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-gradient mb-2">
-              التقارير والتحليلات
-            </h1>
-            <p className="text-muted-foreground">
-              تقارير شاملة وتحليلات متقدمة لأداء المنشأة والموظفين
-            </p>
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/services')}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              العودة للخدمات
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-gradient mb-2">
+                التقارير والتحليلات
+              </h1>
+              <p className="text-muted-foreground">
+                تقارير شاملة وتحليلات متقدمة لأداء المنشأة والموظفين
+              </p>
+            </div>
           </div>
           <div className="flex gap-2">
             <Popover>

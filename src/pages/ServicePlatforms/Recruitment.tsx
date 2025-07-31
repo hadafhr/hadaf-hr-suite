@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
+import { useDownloadPrint } from '@/hooks/useDownloadPrint';
 import { 
   Target, 
   Plus, 
@@ -101,9 +103,11 @@ const candidates = [
 ];
 
 export const Recruitment: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('jobs');
   const { toast } = useToast();
+  const { downloadFile, printData } = useDownloadPrint();
 
   const [showJobForm, setShowJobForm] = useState(false);
   const [jobFormData, setJobFormData] = useState({
@@ -173,9 +177,58 @@ export const Recruitment: React.FC = () => {
   };
 
   const handleDownloadReport = (item: any) => {
-    toast({
-      title: "تحميل التقرير",
-      description: "جاري تحميل التقرير...",
+    const reportData = {
+      المعلومات_الأساسية: {
+        العنوان: item.title || item.name,
+        النوع: item.company ? 'وظيفة' : 'مرشح'
+      },
+      التفاصيل: item
+    };
+    
+    downloadFile({
+      data: reportData,
+      filename: `تقرير_${item.title || item.name}`,
+      format: 'pdf'
+    });
+  };
+
+  const handlePrintReport = (item: any) => {
+    printData(item, `تقرير: ${item.title || item.name}`);
+  };
+
+  const handleExportAllJobs = () => {
+    const jobsData = jobPostings.map(job => ({
+      المسمى_الوظيفي: job.title,
+      القسم: job.department,
+      الموقع: job.location,
+      النوع: job.type,
+      التطبيقات: job.applications,
+      الحالة: job.status,
+      تاريخ_النشر: job.postedDate
+    }));
+    
+    downloadFile({
+      data: jobsData,
+      filename: 'تقرير_الوظائف_الشامل',
+      format: 'excel'
+    });
+  };
+
+  const handleExportAllCandidates = () => {
+    const candidatesData = candidates.map(candidate => ({
+      الاسم: candidate.name,
+      المنصب: candidate.position,
+      الخبرة: candidate.experience,
+      التعليم: candidate.education,
+      التقييم: candidate.rating,
+      تقدم_لوظيفة: candidate.appliedFor,
+      الحالة: candidate.status
+    }));
+    
+    downloadFile({
+      data: candidatesData,
+      filename: 'تقرير_المرشحين_الشامل',
+      format: 'excel'
     });
   };
 
@@ -184,13 +237,23 @@ export const Recruitment: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-gradient mb-2">
-              منصة التوظيف
-            </h1>
-            <p className="text-muted-foreground">
-              أدوات ذكية للبحث عن المواهب وإدارة التوظيف
-            </p>
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/services')}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              العودة للخدمات
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-gradient mb-2">
+                منصة التوظيف
+              </h1>
+              <p className="text-muted-foreground">
+                أدوات ذكية للبحث عن المواهب وإدارة التوظيف
+              </p>
+            </div>
           </div>
           <Button className="btn-primary" onClick={handleNewJobPost}>
             <Plus className="h-4 w-4 mr-2" />
