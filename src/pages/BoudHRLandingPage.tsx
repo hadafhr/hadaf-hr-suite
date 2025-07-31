@@ -85,85 +85,85 @@ const BoudHRLandingPage: React.FC = () => {
 
   const features = [
     {
-      title: "إدارة الموظفين",
+      title: "نظام إدارة الموظفين",
       description: "نظام شامل لإدارة بيانات الموظفين وتتبع مسيرتهم المهنية",
       icon: Users,
       color: "text-primary"
     },
     {
-      title: "الخدمة الذاتية",
+      title: "نظام الخدمة الذاتية",
       description: "منصة تمكن الموظفين من إدارة طلباتهم وبياناتهم بأنفسهم",
       icon: Settings,
       color: "text-primary"
     },
     {
-      title: "منصة التطوير والتنظيم المؤسسي",
+      title: "نظام التطوير والتنظيم المؤسسي",
       description: "أدوات متقدمة لتطوير الهيكل التنظيمي وإدارة المشاريع",
       icon: Building,
       color: "text-primary"
     },
     {
-      title: "منصة التدريب",
+      title: "نظام التدريب",
       description: "نظام إدارة التعلم والتدريب مع البث المباشر والمحتوى التفاعلي",
       icon: GraduationCap,
       color: "text-black"
     },
     {
-      title: "حاسبة الخدمات",
+      title: "نظام حاسبة الخدمات",
       description: "أداة ذكية لحساب تكلفة الخدمات والباقات المناسبة لمنظمتك",
       icon: Calculator,
       color: "text-primary"
     },
     {
-      title: "منصة القطاع غير الربحي",
+      title: "نظام القطاع غير الربحي",
       description: "حلول مخصصة للمنظمات غير الربحية وإدارة المتطوعين",
       icon: Heart,
       color: "text-primary"
     },
     {
-      title: "منصة خدمات أصحاب الأعمال",
+      title: "نظام خدمات أصحاب الأعمال",
       description: "حلول شاملة مع لوحات تحكم تنفيذية متقدمة لأصحاب الأعمال",
       icon: Briefcase,
       color: "text-primary"
     },
     {
-      title: "منصة الشؤون القانونية الذكية",
+      title: "نظام الشؤون القانونية الذكية",
       description: "أدوات قانونية متخصصة مع ذكاء اصطناعي لإدارة الشؤون القانونية",
       icon: FileText,
       color: "text-black"
     },
     {
-      title: "منصة التوظيف الذكي",
+      title: "نظام التوظيف الذكي",
       description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
       icon: Users,
       color: "text-black"
     },
     {
-      title: "التعويضات والمزايا",
+      title: "نظام التعويضات والمزايا",
       description: "نظام شامل لإدارة الرواتب والمكافآت والترقيات والبدلات مع الحسابات التلقائية",
       icon: DollarSign,
       color: "text-primary"
     },
     {
-      title: "حماية الأجور",
+      title: "نظام حماية الأجور",
       description: "ضمان الامتثال الكامل لأنظمة حماية الأجور السعودية",
       icon: Shield,
       color: "text-black"
     },
     {
-      title: "التقييمات الذكية",
+      title: "نظام التقييمات الذكية",
       description: "نظام تقييم أداء متطور مدعوم بالذكاء الاصطناعي",
       icon: BarChart3,
       color: "text-primary"
     },
     {
-      title: "التكامل الحكومي",
+      title: "نظام التكامل الحكومي",
       description: "ربط مباشر مع منصات مدد وقوى والتأمينات الاجتماعية",
       icon: Building2,
       color: "text-primary"
     },
     {
-      title: "الذكاء الاصطناعي",
+      title: "نظام الذكاء الاصطناعي",
       description: "تحليل ذكي للأداء والتوصيات المدعومة بالذكاء الاصطناعي",
       icon: Brain,
       color: "text-primary"
@@ -667,10 +667,10 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="solutions" className="py-20 bg-black">
+      <section id="solutions" className="py-20 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">مميزات النظام</h2>
+            <h2 className="text-4xl font-bold text-gradient mb-4">نظام بُعد</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               حلول شاملة ومتطورة لتلبية جميع احتياجات إدارة الموارد البشرية
             </p>
