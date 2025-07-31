@@ -26,7 +26,8 @@ import {
   CheckCircle,
   AlertCircle,
   BarChart3,
-  Download
+  Download,
+  ArrowLeft
 } from 'lucide-react';
 
 const performanceData = [
@@ -85,8 +86,28 @@ export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-background">
+      {/* Header with Back Button */}
+      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-16 items-center px-6">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate(-1)}
+            className="mr-4"
+          >
+            <ArrowLeft className="h-4 w-4 ml-2" />
+            العودة
+          </Button>
+          <div className="flex items-center gap-2">
+            <BarChart3 className="h-6 w-6 text-primary" />
+            <h1 className="text-xl font-semibold">لوحة التحكم</h1>
+          </div>
+        </div>
+      </div>
+      
+      <div className="p-6">
+        <div className="max-w-7xl mx-auto space-y-6">
         {/* ترحيب وملخص */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gradient mb-2">
@@ -271,6 +292,7 @@ export const Dashboard: React.FC = () => {
             </Button>
           </div>
         </Card>
+        </div>
       </div>
     </div>
   );

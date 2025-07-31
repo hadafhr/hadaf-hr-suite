@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { ServiceCard } from '@/components/ServiceCard';
 import { 
   Users, 
@@ -9,7 +11,8 @@ import {
   Target,
   Award,
   Globe,
-  Heart
+  Heart,
+  ArrowLeft
 } from 'lucide-react';
 
 const services = [
@@ -125,8 +128,29 @@ const services = [
 ];
 
 export const Services: React.FC = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background">
+      {/* Header with Back Button */}
+      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-16 items-center px-6">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate(-1)}
+            className="mr-4"
+          >
+            <ArrowLeft className="h-4 w-4 ml-2" />
+            العودة
+          </Button>
+          <div className="flex items-center gap-2">
+            <Globe className="h-6 w-6 text-primary" />
+            <h1 className="text-xl font-semibold">خدماتنا</h1>
+          </div>
+        </div>
+      </div>
+      
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gradient mb-6">
