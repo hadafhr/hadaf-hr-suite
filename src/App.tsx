@@ -56,6 +56,10 @@ import { EarnWithBoad } from './pages/EarnWithBoad';
 import { ScheduleMeeting } from './pages/ScheduleMeeting';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import EmployeeManagementSystem from './pages/EmployeeManagementSystem';
+import DisciplinarySystem from './pages/DisciplinarySystem';
+import EmployeePortal from './pages/EmployeePortal';
+import EmployerPortal from './pages/EmployerPortal';
 
 const queryClient = new QueryClient();
 
@@ -162,6 +166,12 @@ const App = () => {
               <Route path="/platform-development" element={<PlatformDevelopment />} />
               <Route path="/business-management" element={<BusinessManagement />} />
               <Route path="/non-profit-services" element={<NonProfitServices />} />
+              
+              {/* Employee Management System Routes */}
+              <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
+              <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
+              <Route path="/employee-portal" element={<EmployeePortal />} />
+              <Route path="/employer-portal" element={<EmployerPortal />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>
