@@ -86,87 +86,94 @@ const BoudHRLandingPage: React.FC = () => {
   const features = [
     {
       title: "نظام إدارة الموظفين",
-      description: "نظام شامل لإدارة بيانات الموظفين وتتبع مسيرتهم المهنية",
+      description: "نظام شامل ومتطور لإدارة دورة حياة الموظف كاملة من التوظيف حتى التقاعد. يوفر قاعدة بيانات موحدة وآمنة لجميع المعلومات مع تتبع ذكي للأداء والتطور المهني.",
       icon: Users,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام الخدمة الذاتية",
-      description: "منصة تمكن الموظفين من إدارة طلباتهم وبياناتهم بأنفسهم",
+      description: "منصة تفاعلية متطورة تمكن الموظفين من إدارة شؤونهم الشخصية والمهنية بكل سهولة ومرونة. تقليل الأعباء الإدارية مع تحسين تجربة الموظف الرقمية بشكل استثنائي.",
       icon: Settings,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام التطوير والتنظيم المؤسسي",
-      description: "أدوات متقدمة لتطوير الهيكل التنظيمي وإدارة المشاريع",
+      description: "أدوات احترافية متقدمة لبناء وتطوير الهياكل التنظيمية الذكية. تصميم خرائط تنظيمية ديناميكية مع إدارة متطورة للمشاريع والمبادرات الاستراتيجية لضمان النمو المستدام.",
       icon: Building,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام التدريب",
-      description: "نظام إدارة التعلم والتدريب مع البث المباشر والمحتوى التفاعلي",
+      description: "منصة تعليمية شاملة مدعومة بأحدث التقنيات التفاعلية والبث المباشر. تصميم برامج تدريبية مخصصة مع تتبع دقيق للتقدم وقياس أثر التدريب على الأداء والإنتاجية.",
       icon: GraduationCap,
-      color: "text-black"
-    },
-    {
-      title: "نظام حاسبة الخدمات",
-      description: "أداة ذكية لحساب تكلفة الخدمات والباقات المناسبة لمنظمتك",
-      icon: Calculator,
-      color: "text-primary"
+      color: "text-black",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام القطاع غير الربحي",
-      description: "حلول مخصصة للمنظمات غير الربحية وإدارة المتطوعين",
+      description: "حلول مبتكرة ومتخصصة للمنظمات غير الربحية مع إدارة احترافية للمتطوعين والمشاريع الخيرية. تتبع شامل للمبادرات الاجتماعية مع قياس الأثر المجتمعي بطريقة علمية دقيقة.",
       icon: Heart,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام خدمات أصحاب الأعمال",
-      description: "حلول شاملة مع لوحات تحكم تنفيذية متقدمة لأصحاب الأعمال",
+      description: "منصة قيادية شاملة بلوحات تحكم تنفيذية متطورة وذكية. رؤى استراتيجية عميقة مع تحليلات متقدمة لاتخاذ قرارات مدروسة تدفع نمو الأعمال وتحقق التفوق التنافسي.",
       icon: Briefcase,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام الشؤون القانونية الذكية",
-      description: "أدوات قانونية متخصصة مع ذكاء اصطناعي لإدارة الشؤون القانونية",
+      description: "أدوات قانونية متخصصة مدعومة بالذكاء الاصطناعي المتطور. إدارة احترافية للعقود والامتثال القانوني مع تحليل ذكي للمخاطر وضمان الالتزام الكامل بالأنظمة واللوائح.",
       icon: FileText,
-      color: "text-black"
+      color: "text-black",
+      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام التوظيف الذكي",
-      description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
+      description: "منصة توظيف ثورية مدعومة بالذكاء الاصطناعي لاكتشاف أفضل المواهب. تتبع متطور للمتقدمين مع إدارة ذكية للمقابلات وتقييم علمي دقيق يضمن اختيار الكفاءات المناسبة.",
       icon: Users,
-      color: "text-black"
+      color: "text-black",
+      image: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام التعويضات والمزايا",
-      description: "نظام شامل لإدارة الرواتب والمكافآت والترقيات والبدلات مع الحسابات التلقائية",
+      description: "نظام مالي شامل ومتطور لإدارة الرواتب والمكافآت والترقيات والبدلات مع الحسابات التلقائية الدقيقة. تصميم هياكل تعويضية تنافسية تحفز الأداء وتحقق العدالة والشفافية المطلقة.",
       icon: DollarSign,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام حماية الأجور",
-      description: "ضمان الامتثال الكامل لأنظمة حماية الأجور السعودية",
+      description: "ضمان الامتثال المطلق والكامل لأنظمة حماية الأجور السعودية مع التكامل المباشر مع البنوك. حماية شاملة لحقوق العمال مع تتبع دقيق للمدفوعات وضمان الشفافية التامة.",
       icon: Shield,
-      color: "text-black"
+      color: "text-black",
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام التقييمات الذكية",
-      description: "نظام تقييم أداء متطور مدعوم بالذكاء الاصطناعي",
+      description: "منصة تقييم أداء ثورية مدعومة بالذكاء الاصطناعي المتطور. تحليل شامل ومعمق للأداء مع توصيات ذكية لتطوير القدرات وتحسين الإنتاجية بطرق علمية مبتكرة.",
       icon: BarChart3,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام التكامل الحكومي",
-      description: "ربط مباشر مع منصات مدد وقوى والتأمينات الاجتماعية",
+      description: "ربط تقني متطور ومباشر مع جميع المنصات الحكومية الرئيسية (مدد، قوى، التأمينات الاجتماعية). تبادل آمن للبيانات مع ضمان الامتثال الكامل للأنظمة والحصول على الخدمات فورياً.",
       icon: Building2,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=400&q=80"
     },
     {
       title: "نظام الذكاء الاصطناعي",
-      description: "تحليل ذكي للأداء والتوصيات المدعومة بالذكاء الاصطناعي",
+      description: "تحليل ذكي متطور للبيانات مع رؤى استراتيجية عميقة وتوصيات مدعومة بالذكاء الاصطناعي المتقدم. اكتشاف الأنماط الخفية واتخاذ قرارات مدروسة تحقق التفوق والابتكار المستمر.",
       icon: Brain,
-      color: "text-primary"
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80"
     }
   ];
 
@@ -683,29 +690,39 @@ const BoudHRLandingPage: React.FC = () => {
                 className="service-card group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(index)}
                 onClick={() => {
-                  if (feature.title === "إدارة الموظفين") navigate("/service-platforms/employee-management");
-                  else if (feature.title === "الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
-                  else if (feature.title === "منصة التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
-                  else if (feature.title === "منصة التدريب") navigate("/service-platforms/training");
-                  else if (feature.title === "حاسبة الخدمات") navigate("/service-calculator");
-                  else if (feature.title === "منصة القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
-                  else if (feature.title === "منصة خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
-                  else if (feature.title === "حماية الأجور") navigate("/service-platforms/wage-protection");
-                  else if (feature.title === "التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
-                  else if (feature.title === "التكامل الحكومي") navigate("/business-platform");
-                  else if (feature.title === "الذكاء الاصطناعي") navigate("/ai-hub");
-                  else if (feature.title === "منصة الشؤون القانونية" || feature.title === "منصة الشؤون القانونية الذكية") navigate("/legal-platform");
-                  else if (feature.title === "منصة التوظيف الذكي") navigate("/smart-hire");
+                  if (feature.title === "نظام إدارة الموظفين") navigate("/service-platforms/employee-management");
+                  else if (feature.title === "نظام الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
+                  else if (feature.title === "نظام التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
+                  else if (feature.title === "نظام التدريب") navigate("/service-platforms/training");
+                  else if (feature.title === "نظام القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
+                  else if (feature.title === "نظام خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
+                  else if (feature.title === "نظام حماية الأجور") navigate("/service-platforms/wage-protection");
+                  else if (feature.title === "نظام التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
+                  else if (feature.title === "نظام التكامل الحكومي") navigate("/business-platform");
+                  else if (feature.title === "نظام الذكاء الاصطناعي") navigate("/ai-hub");
+                  else if (feature.title === "نظام الشؤون القانونية الذكية") navigate("/legal-platform");
+                  else if (feature.title === "نظام التوظيف الذكي") navigate("/smart-hire");
+                  else if (feature.title === "نظام التعويضات والمزايا") navigate("/compensation-benefits");
                 }}
               >
-                <CardHeader className="text-center">
-                  <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                <CardHeader className="text-center p-0">
+                  {/* صورة النظام */}
+                  <div className="w-full h-48 overflow-hidden rounded-t-lg mb-4">
+                    <img 
+                      src={feature.image} 
+                      alt={feature.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
-                  <CardDescription className="text-base leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
+                  <div className="px-6 pb-6">
+                    <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                    </div>
+                    <CardTitle className="text-xl mb-3 text-right">{feature.title}</CardTitle>
+                    <CardDescription className="text-base leading-relaxed text-right">
+                      {feature.description}
+                    </CardDescription>
+                  </div>
                 </CardHeader>
               </Card>
             ))}
