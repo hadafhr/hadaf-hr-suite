@@ -589,7 +589,7 @@ const BoudHRLandingPage: React.FC = () => {
                   
                   <div className="relative">
                      <img 
-                       src="/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png" 
+                       src={cloudComputing} 
                        alt="الحوسبة السحابية" 
                        className="w-full h-32 object-cover rounded-xl shadow-medium"
                      />
@@ -992,7 +992,7 @@ const BoudHRLandingPage: React.FC = () => {
                       
                       <div className="relative">
                         <img 
-                          src="/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png"
+                          src={cloudComputing}
                           alt="الحوسبة السحابية في بُعد HR"
                           className="w-full h-80 object-cover rounded-xl shadow-strong"
                         />
