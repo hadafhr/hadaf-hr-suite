@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,8 +25,7 @@ import {
   X,
   Printer,
   MoreHorizontal,
-  Trash2,
-  ArrowLeft
+  Trash2
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
@@ -89,7 +87,6 @@ const initialEmployees: Employee[] = [
 ];
 
 export const EmployeeManagement: React.FC = () => {
-  const navigate = useNavigate();
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
@@ -156,22 +153,9 @@ export const EmployeeManagement: React.FC = () => {
   };
 
   const handleExportData = () => {
-    const employeeData = employees.map(emp => ({
-      الاسم: emp.name,
-      المنصب: emp.position,
-      القسم: emp.department,
-      البريد_الإلكتروني: emp.email,
-      الهاتف: emp.phone,
-      الراتب: emp.salary,
-      تاريخ_التوظيف: emp.joinDate,
-      الحالة: emp.status,
-      المدينة: emp.city
-    }));
-    
-    downloadFile({
-      data: employeeData,
-      filename: 'بيانات_الموظفين_الشاملة',
-      format: 'excel'
+    toast({
+      title: "تصدير البيانات",
+      description: "جاري تصدير بيانات الموظفين...",
     });
   };
 
@@ -191,8 +175,6 @@ export const EmployeeManagement: React.FC = () => {
   };
 
   const handleEditEmployee = (employee: any) => {
-    setEditingEmployee(employee);
-    setShowEditDialog(true);
     toast({
       title: "تعديل بيانات الموظف",
       description: `جاري تعديل بيانات ${employee.name}`,
@@ -200,39 +182,10 @@ export const EmployeeManagement: React.FC = () => {
   };
 
   const handleDownloadReport = (employee: any) => {
-    const employeeReport = {
-      المعلومات_الأساسية: {
-        الاسم: employee.name,
-        المنصب: employee.position,
-        القسم: employee.department,
-        البريد_الإلكتروني: employee.email,
-        الهاتف: employee.phone
-      },
-      التفاصيل_المالية: {
-        الراتب: employee.salary,
-        تاريخ_التوظيف: employee.joinDate
-      },
-      المعلومات_الإضافية: {
-        الحالة: employee.status,
-        المدينة: employee.city,
-        الملاحظات: employee.notes || 'لا توجد ملاحظات'
-      }
-    };
-    
-    downloadFile({
-      data: employeeReport,
-      filename: `تقرير_الموظف_${employee.name}`,
-      format: 'pdf'
+    toast({
+      title: "تحميل التقرير",
+      description: `جاري تحميل تقرير ${employee.name}`,
     });
-  };
-
-  const handlePrintEmployee = (employee: any) => {
-    printData(employee, `ملف الموظف: ${employee.name}`);
-  };
-
-  const handleViewReports = (employee: any) => {
-    setSelectedEmployee(employee);
-    setShowReportsDialog(true);
   };
 
   const handleQuickAction = (action: string) => {
@@ -253,23 +206,13 @@ export const EmployeeManagement: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/services')}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              العودة للخدمات
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-gradient mb-2">
-                إدارة الموظفين
-              </h1>
-              <p className="text-muted-foreground">
-                نظام شامل لإدارة بيانات وشؤون الموظفين
-              </p>
-            </div>
+          <div>
+            <h1 className="text-3xl font-bold text-gradient mb-2">
+              إدارة الموظفين
+            </h1>
+            <p className="text-muted-foreground">
+              نظام شامل لإدارة بيانات وشؤون الموظفين
+            </p>
           </div>
           <Button className="btn-primary" onClick={handleAddEmployee}>
             <Plus className="h-4 w-4 mr-2" />
@@ -385,7 +328,6 @@ export const EmployeeManagement: React.FC = () => {
                         variant="ghost" 
                         size="sm"
                         onClick={() => handleViewEmployee(employee)}
-                        title="عرض التفاصيل"
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -393,7 +335,6 @@ export const EmployeeManagement: React.FC = () => {
                         variant="ghost" 
                         size="sm"
                         onClick={() => handleEditEmployee(employee)}
-                        title="تعديل البيانات"
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -401,23 +342,6 @@ export const EmployeeManagement: React.FC = () => {
                         variant="ghost" 
                         size="sm"
                         onClick={() => handleDownloadReport(employee)}
-                        title="تحميل التقرير"
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handlePrintEmployee(employee)}
-                        title="طباعة"
-                      >
-                        <Printer className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handleViewReports(employee)}
-                        title="التقارير التفصيلية"
                       >
                         <FileText className="h-4 w-4" />
                       </Button>
@@ -739,38 +663,6 @@ export const EmployeeManagement: React.FC = () => {
             </div>
           </DialogContent>
         </Dialog>
-
-        {/* Employee Edit Dialog */}
-        <EmployeeEditDialog 
-          employee={editingEmployee}
-          isOpen={showEditDialog}
-          onClose={() => {
-            setShowEditDialog(false);
-            setEditingEmployee(null);
-          }}
-          onSave={(updatedEmployee) => {
-            // Update employee in the list
-            setEmployees(prev => prev.map(emp => 
-              emp.id === updatedEmployee.id ? updatedEmployee : emp
-            ));
-            setShowEditDialog(false);
-            setEditingEmployee(null);
-            toast({
-              title: "تم تحديث البيانات",
-              description: `تم تحديث بيانات ${updatedEmployee.name} بنجاح`,
-            });
-          }}
-        />
-
-        {/* Employee Reports Dialog */}
-        <EmployeeReportsDialog 
-          employee={selectedEmployee}
-          isOpen={showReportsDialog}
-          onClose={() => {
-            setShowReportsDialog(false);
-            setSelectedEmployee(null);
-          }}
-        />
       </div>
     </div>
   );

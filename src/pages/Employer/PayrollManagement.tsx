@@ -1,12 +1,9 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/hooks/use-toast';
-import { useDownloadPrint } from '@/hooks/useDownloadPrint';
-import { DollarSign, Users, TrendingUp, Download, Eye, Edit, ArrowLeft, Printer, FileText } from 'lucide-react';
+import { DollarSign, Users, TrendingUp, Download, Eye, Edit } from 'lucide-react';
 
 const employeePayroll = [
   {
@@ -45,92 +42,19 @@ const employeePayroll = [
 ];
 
 export const PayrollManagement: React.FC = () => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const { downloadFile, printData } = useDownloadPrint();
   const totalPayroll = employeePayroll.reduce((sum, emp) => sum + emp.netSalary, 0);
   const totalEmployees = employeePayroll.length;
-
-  const handleDownloadMonthlyReport = () => {
-    const payrollData = employeePayroll.map(emp => ({
-      الاسم: emp.name,
-      المنصب: emp.position,
-      القسم: emp.department,
-      الراتب_الأساسي: emp.basicSalary,
-      البدلات: emp.allowances,
-      الاستقطاعات: emp.deductions,
-      صافي_الراتب: emp.netSalary,
-      الحالة: emp.status
-    }));
-    
-    downloadFile({
-      data: payrollData,
-      filename: 'تقرير_الرواتب_الشهري',
-      format: 'excel'
-    });
-  };
-
-  const handleDownloadEmployeePayslip = (employee: any) => {
-    const payslip = {
-      معلومات_الموظف: {
-        الاسم: employee.name,
-        المنصب: employee.position,
-        القسم: employee.department
-      },
-      تفاصيل_الراتب: {
-        الراتب_الأساسي: employee.basicSalary,
-        البدلات: employee.allowances,
-        الاستقطاعات: employee.deductions,
-        صافي_الراتب: employee.netSalary
-      },
-      حالة_الدفع: employee.status
-    };
-    
-    downloadFile({
-      data: payslip,
-      filename: `كشف_راتب_${employee.name}`,
-      format: 'pdf'
-    });
-  };
-
-  const handlePrintPayslip = (employee: any) => {
-    printData(employee, `كشف راتب الموظف: ${employee.name}`);
-  };
-
-  const handleViewEmployee = (employee: any) => {
-    toast({
-      title: "عرض تفاصيل الراتب",
-      description: `عرض تفاصيل راتب ${employee.name}`,
-    });
-  };
-
-  const handleEditEmployee = (employee: any) => {
-    toast({
-      title: "تعديل راتب الموظف",
-      description: `تعديل راتب ${employee.name}`,
-    });
-  };
 
   return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/services')}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              العودة للخدمات
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">إدارة الرواتب والمستحقات</h1>
-              <p className="text-muted-foreground">نظام شامل لإدارة رواتب الموظفين والمستحقات</p>
-            </div>
+          <div>
+            <h1 className="text-3xl font-bold text-black mb-2">إدارة الرواتب والمستحقات</h1>
+            <p className="text-gray-600">نظام شامل لإدارة رواتب الموظفين والمستحقات</p>
           </div>
-          <Button className="btn-primary" onClick={handleDownloadMonthlyReport}>
+          <Button className="bg-green-500 hover:bg-green-600">
             <Download className="h-4 w-4 mr-2" />
             تقرير الرواتب الشهري
           </Button>
@@ -223,37 +147,14 @@ export const PayrollManagement: React.FC = () => {
                     </Badge>
                     
                     <div className="flex gap-1">
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handleViewEmployee(employee)}
-                        title="عرض التفاصيل"
-                      >
+                      <Button variant="ghost" size="sm">
                         <Eye className="h-4 w-4" />
                       </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handleEditEmployee(employee)}
-                        title="تعديل الراتب"
-                      >
+                      <Button variant="ghost" size="sm">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handleDownloadEmployeePayslip(employee)}
-                        title="تحميل كشف الراتب"
-                      >
+                      <Button variant="ghost" size="sm">
                         <Download className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => handlePrintPayslip(employee)}
-                        title="طباعة كشف الراتب"
-                      >
-                        <Printer className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
