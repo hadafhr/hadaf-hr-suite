@@ -37,7 +37,8 @@ import {
   Clock,
   ChevronDown,
   User,
-  Bell
+  Bell,
+  DollarSign
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -57,6 +58,7 @@ const BoudHRLandingPage: React.FC = () => {
     services: [
       { name: "إدارة الموظفين", href: "/employee-management" },
       { name: "الخدمة الذاتية", href: "/employee-self-service" },
+      { name: "التعويضات والمزايا", href: "/compensation-benefits" },
       { name: "حماية الأجور", href: "/wage-protection" },
       { name: "التقييمات الذكية", href: "/performance-evaluation" },
       { name: "التدريب والتطوير", href: "/training" }
@@ -135,6 +137,12 @@ const BoudHRLandingPage: React.FC = () => {
       description: "نظام توظيف متطور مع تتبع المتقدمين وإدارة المقابلات الذكية",
       icon: Users,
       color: "text-black"
+    },
+    {
+      title: "التعويضات والمزايا",
+      description: "نظام شامل لإدارة الرواتب والمكافآت والترقيات والبدلات مع الحسابات التلقائية",
+      icon: DollarSign,
+      color: "text-primary"
     },
     {
       title: "حماية الأجور",

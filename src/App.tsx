@@ -22,6 +22,7 @@ import { BusinessManagement } from "@/pages/ServicePlatforms/BusinessManagement"
 import { OrganizationalDevelopment } from "@/pages/ServicePlatforms/OrganizationalDevelopment";
 import { AIHub } from "@/pages/AIHub";
 import { WageProtection } from "@/pages/ServicePlatforms/WageProtection";
+import { CompensationBenefitsPlatform } from "@/pages/ServicePlatforms/CompensationBenefits";
 import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopment";
 import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
 import { UserManagement } from "@/pages/UserManagement";
@@ -120,6 +121,7 @@ const App = () => {
               <Route path="/services/training" element={<Training />} />
               <Route path="/services/business-management" element={<BusinessManagement />} />
               <Route path="/services/organizational-development" element={<OrganizationalDevelopment />} />
+              <Route path="/services/compensation-benefits" element={<CompensationBenefitsPlatform />} />
               <Route path="/services/wage-protection" element={<WageProtection />} />
               <Route path="/services/platform-development" element={<PlatformDevelopment />} />
               <Route path="/services/nonprofit-services" element={<NonProfitServices />} />
@@ -133,6 +135,7 @@ const App = () => {
               <Route path="/service-platforms/training" element={<Training />} />
               <Route path="/service-platforms/business-management" element={<BusinessManagement />} />
               <Route path="/service-platforms/organizational-development" element={<OrganizationalDevelopment />} />
+              <Route path="/service-platforms/compensation-benefits" element={<CompensationBenefitsPlatform />} />
               <Route path="/service-platforms/wage-protection" element={<WageProtection />} />
               <Route path="/service-platforms/platform-development" element={<PlatformDevelopment />} />
               <Route path="/service-platforms/nonprofit-services" element={<NonProfitServices />} />
@@ -153,6 +156,7 @@ const App = () => {
               {/* Feature Pages Routes */}
               <Route path="/employee-management" element={<EmployeeManagementFeature />} />
               <Route path="/employee-self-service" element={<SelfServiceFeature />} />
+              <Route path="/compensation-benefits" element={<CompensationBenefitsPlatform />} />
               <Route path="/performance-evaluation" element={<PerformanceEvaluation />} />
               <Route path="/training" element={<Training />} />
               <Route path="/platform-development" element={<PlatformDevelopment />} />
