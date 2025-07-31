@@ -20,8 +20,7 @@ import {
   Briefcase,
   Download,
   Filter,
-  X,
-  ArrowLeft
+  X
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
