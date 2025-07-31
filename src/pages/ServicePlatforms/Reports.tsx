@@ -20,7 +20,8 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  Settings
+  Settings,
+  ArrowLeft
 } from 'lucide-react';
 import { 
   BarChart, 
