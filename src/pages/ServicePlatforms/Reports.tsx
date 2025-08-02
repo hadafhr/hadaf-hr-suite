@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useToast } from '@/components/ui/use-toast';
+import { ReportGenerator } from '@/components/reporting/ReportGenerator';
 import { 
   BarChart3, 
   Download, 
@@ -96,7 +97,7 @@ const recentReports = [
 
 export const Reports: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
-  const [selectedTab, setSelectedTab] = useState('attendance');
+  const [selectedTab, setSelectedTab] = useState('generator');
   const { toast } = useToast();
 
   const handleNewReport = () => {
@@ -230,12 +231,18 @@ export const Reports: React.FC = () => {
 
         {/* Main Content */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="generator">مولد التقارير</TabsTrigger>
             <TabsTrigger value="attendance">تقارير الحضور</TabsTrigger>
             <TabsTrigger value="departments">تقارير الأقسام</TabsTrigger>
             <TabsTrigger value="performance">تقارير الأداء</TabsTrigger>
             <TabsTrigger value="recent">التقارير الحديثة</TabsTrigger>
           </TabsList>
+
+          {/* Report Generator Tab */}
+          <TabsContent value="generator" className="space-y-6">
+            <ReportGenerator />
+          </TabsContent>
 
           {/* Attendance Reports */}
           <TabsContent value="attendance" className="space-y-6">
