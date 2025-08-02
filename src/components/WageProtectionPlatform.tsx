@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
+import { WageProtectionDashboard } from '@/components/wageProtection/WageProtectionDashboard';
 import { 
   FileText, 
   Upload, 
@@ -474,32 +475,7 @@ export const WageProtectionPlatform: React.FC = () => {
 
           {/* Reports */}
           <TabsContent value="reports" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>التقارير والتحليلات</CardTitle>
-                <CardDescription>
-                  تقارير شاملة لحماية الأجور والامتثال
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Button variant="outline" className="h-24 flex flex-col gap-2">
-                    <BarChart3 className="w-6 h-6" />
-                    <span>تقرير الامتثال الشهري</span>
-                  </Button>
-                  
-                  <Button variant="outline" className="h-24 flex flex-col gap-2">
-                    <FileText className="w-6 h-6" />
-                    <span>سجل رفع الملفات</span>
-                  </Button>
-                  
-                  <Button variant="outline" className="h-24 flex flex-col gap-2">
-                    <Users className="w-6 h-6" />
-                    <span>تقرير الموظفين</span>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <WageProtectionDashboard />
           </TabsContent>
 
           {/* Settings */}
