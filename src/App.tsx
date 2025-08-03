@@ -60,6 +60,7 @@ import EmployeeManagementSystem from './pages/EmployeeManagementSystem';
 import DisciplinarySystem from './pages/DisciplinarySystem';
 import EmployeePortal from './pages/EmployeePortal';
 import EmployerPortal from './pages/EmployerPortal';
+import { ESignatureSystem } from './pages/ESignatureSystem';
 
 const queryClient = new QueryClient();
 
@@ -170,10 +171,14 @@ const App = () => {
               {/* Employee Management System Routes */}
               <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
               <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
-              <Route path="/employee-portal" element={<EmployeePortal />} />
-              <Route path="/employer-portal" element={<EmployerPortal />} />
-              
-              <Route path="*" element={<NotFound />} />
+               <Route path="/employee-portal" element={<EmployeePortal />} />
+               <Route path="/employer-portal" element={<EmployerPortal />} />
+               
+               {/* E-Signature System */}
+               <Route path="/e-signature" element={<ESignatureSystem />} />
+               <Route path="/electronic-signature" element={<ESignatureSystem />} />
+               
+               <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
       </TooltipProvider>
