@@ -38,7 +38,8 @@ import {
   ChevronDown,
   User,
   Bell,
-  DollarSign
+  DollarSign,
+  PenTool
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -174,6 +175,13 @@ const BoudHRLandingPage: React.FC = () => {
       icon: Brain,
       color: "text-primary",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      title: "نظام التوقيع الإلكتروني",
+      description: "نظام توقيع إلكتروني آمن ومتوافق مع نفاذ الوطني الموحد ولوائح المملكة العربية السعودية. شهادات رقمية معتمدة مع تخزين آمن في السحابة وتتبع كامل لدورة حياة المستندات لضمان الامتثال القانوني الكامل.",
+      icon: PenTool,
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=400&q=80"
     }
   ];
 
@@ -703,6 +711,7 @@ const BoudHRLandingPage: React.FC = () => {
                   else if (feature.title === "نظام الشؤون القانونية الذكية") navigate("/legal-platform");
                   else if (feature.title === "نظام التوظيف الذكي") navigate("/smart-hire");
                   else if (feature.title === "نظام التعويضات والمزايا") navigate("/compensation-benefits");
+                  else if (feature.title === "نظام التوقيع الإلكتروني") navigate("/e-signature");
                 }}
               >
                 <CardHeader className="text-center p-0">
