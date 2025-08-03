@@ -39,7 +39,8 @@ import {
   User,
   Bell,
   DollarSign,
-  PenTool
+  PenTool,
+  Video
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -182,6 +183,13 @@ const BoudHRLandingPage: React.FC = () => {
       icon: PenTool,
       color: "text-primary",
       image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      title: "نظام الاجتماعات الذكي",
+      description: "منصة متكاملة للاجتماعات المباشرة مع مجالس الإدارة والفرق التنفيذية وفرق العمل. تتضمن الفيديو المباشر، مشاركة الشاشة، التسجيل، إدارة المستندات، المحادثات، وتكليف المهام مع التكامل الكامل مع نظام بُعد للموارد البشرية.",
+      icon: Video,
+      color: "text-primary",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400&q=80"
     }
   ];
 

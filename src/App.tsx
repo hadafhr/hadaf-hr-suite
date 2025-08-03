@@ -61,6 +61,8 @@ import DisciplinarySystem from './pages/DisciplinarySystem';
 import EmployeePortal from './pages/EmployeePortal';
 import EmployerPortal from './pages/EmployerPortal';
 import { ESignatureSystem } from './pages/ESignatureSystem';
+import MeetingHub from './pages/MeetingHub';
+import MeetingSubscription from './pages/MeetingSubscription';
 
 const queryClient = new QueryClient();
 
@@ -174,9 +176,13 @@ const App = () => {
                <Route path="/employee-portal" element={<EmployeePortal />} />
                <Route path="/employer-portal" element={<EmployerPortal />} />
                
-               {/* E-Signature System */}
-               <Route path="/e-signature" element={<ESignatureSystem />} />
-               <Route path="/electronic-signature" element={<ESignatureSystem />} />
+                {/* E-Signature System */}
+                <Route path="/e-signature" element={<ESignatureSystem />} />
+                <Route path="/electronic-signature" element={<ESignatureSystem />} />
+                
+                {/* Meeting Hub System */}
+                <Route path="/meeting-hub" element={<MeetingHub />} />
+                <Route path="/meeting-hub/subscription" element={<MeetingSubscription />} />
                
                <Route path="*" element={<NotFound />} />
             </Routes>
