@@ -12,7 +12,8 @@ import {
   Award,
   Globe,
   Heart,
-  ArrowLeft
+  ArrowLeft,
+  PenTool
 } from 'lucide-react';
 
 const services = [
@@ -124,6 +125,20 @@ const services = [
       "الامتثال التنظيمي",
       "إدارة المتطوعين"
     ]
+  },
+  {
+    title: "نظام التوقيع الإلكتروني",
+    description: "نظام توقيع إلكتروني آمن ومتوافق مع نفاذ ولوائح المملكة العربية السعودية",
+    icon: PenTool,
+    route: "/e-signature",
+    features: [
+      "تكامل مع نفاذ الوطني الموحد",
+      "شهادات رقمية معتمدة", 
+      "تخزين آمن في السحابة",
+      "تتبع كامل للمستندات",
+      "امتثال كامل للوائح السعودية"
+    ],
+    isPremium: true
   }
 ];
 
