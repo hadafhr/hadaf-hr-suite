@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   FileText, 
   PenTool, 
@@ -20,10 +21,17 @@ import {
   Settings,
   Lock,
   Globe,
-  UserCheck
+  UserCheck,
+  Eye,
+  FileSignature,
+  Plus,
+  X,
+  Save,
+  Edit3
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 // Mock data for demonstration
 const mockDocuments = [
@@ -96,6 +104,10 @@ export const ESignatureSystem: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [selectedDocument, setSelectedDocument] = useState<typeof mockDocuments[0] | null>(null);
+  const [showDocumentViewer, setShowDocumentViewer] = useState(false);
+  const [showSignatureCreator, setShowSignatureCreator] = useState(false);
+  const [signatureText, setSignatureText] = useState('');
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -115,6 +127,45 @@ export const ESignatureSystem: React.FC = () => {
       case 'rejected': return 'مرفوض';
       default: return status;
     }
+  };
+
+  const handleViewDocument = (doc: typeof mockDocuments[0]) => {
+    setSelectedDocument(doc);
+    setShowDocumentViewer(true);
+  };
+
+  const handleDownloadDocument = (doc: typeof mockDocuments[0]) => {
+    // Simulate document download
+    const link = document.createElement('a');
+    link.href = '#';
+    link.download = `${doc.title}.pdf`;
+    link.click();
+  };
+
+  const handleCreateSignature = () => {
+    setShowSignatureCreator(true);
+  };
+
+  const handleSaveSignature = () => {
+    // Save signature logic here
+    setShowSignatureCreator(false);
+    setSignatureText('');
+  };
+
+  const handleNafathVerification = () => {
+    // Simulate Nafath verification
+    alert('جاري توجيهك إلى نفاذ الوطني الموحد للتحقق من الهوية...');
+  };
+
+  const handleUploadDocument = () => {
+    // Simulate document upload
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.pdf,.doc,.docx';
+    input.onchange = () => {
+      alert('تم رفع المستند بنجاح!');
+    };
+    input.click();
   };
 
   return (
@@ -282,7 +333,7 @@ export const ESignatureSystem: React.FC = () => {
                   <SelectItem value="rejected">مرفوض</SelectItem>
                 </SelectContent>
               </Select>
-              <Button className="flex items-center gap-2">
+              <Button onClick={handleUploadDocument} className="flex items-center gap-2">
                 <Upload className="w-4 h-4" />
                 رفع مستند جديد
               </Button>
@@ -318,10 +369,18 @@ export const ESignatureSystem: React.FC = () => {
                           {getStatusText(doc.status)}
                         </Badge>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleDownloadDocument(doc)}
+                          >
                             <Download className="w-4 h-4" />
                           </Button>
-                          <Button size="sm">
+                          <Button 
+                            size="sm"
+                            onClick={() => handleViewDocument(doc)}
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
                             عرض
                           </Button>
                         </div>
@@ -354,7 +413,10 @@ export const ESignatureSystem: React.FC = () => {
                       <p className="text-muted-foreground mb-4">
                         قم بإنشاء توقيع إلكتروني آمن ومعتمد
                       </p>
-                      <Button>إنشاء توقيع</Button>
+                      <Button onClick={handleCreateSignature}>
+                        <Plus className="w-4 h-4 mr-2" />
+                        إنشاء توقيع
+                      </Button>
                     </CardContent>
                   </Card>
 
@@ -365,7 +427,7 @@ export const ESignatureSystem: React.FC = () => {
                       <p className="text-muted-foreground mb-4">
                         تحقق من هويتك باستخدام نفاذ الوطني الموحد
                       </p>
-                      <Button variant="outline">
+                      <Button variant="outline" onClick={handleNafathVerification}>
                         <Globe className="w-4 h-4 mr-2" />
                         التحقق عبر نفاذ
                       </Button>
@@ -534,6 +596,96 @@ export const ESignatureSystem: React.FC = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Document Viewer Dialog */}
+        <Dialog open={showDocumentViewer} onOpenChange={setShowDocumentViewer}>
+          <DialogContent className="max-w-4xl h-[80vh]">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                {selectedDocument?.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="flex-1 bg-muted rounded-lg p-8 flex items-center justify-center">
+              <div className="text-center">
+                <FileText className="w-24 h-24 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">معاينة المستند</h3>
+                <p className="text-muted-foreground mb-4">
+                  {selectedDocument?.title}
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <Badge className={`${getStatusColor(selectedDocument?.status || '')} text-white`}>
+                    {getStatusText(selectedDocument?.status || '')}
+                  </Badge>
+                  <span className="text-sm text-muted-foreground">
+                    التقدم: {selectedDocument?.progress}%
+                  </span>
+                </div>
+                <div className="mt-6 flex gap-2 justify-center">
+                  <Button onClick={() => selectedDocument && handleDownloadDocument(selectedDocument)}>
+                    <Download className="w-4 h-4 mr-2" />
+                    تحميل
+                  </Button>
+                  <Button variant="outline">
+                    <FileSignature className="w-4 h-4 mr-2" />
+                    توقيع
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Signature Creator Dialog */}
+        <Dialog open={showSignatureCreator} onOpenChange={setShowSignatureCreator}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <PenTool className="w-5 h-5" />
+                إنشاء توقيع إلكتروني جديد
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-6">
+              <div>
+                <label className="text-sm font-medium mb-2 block">نص التوقيع</label>
+                <Input
+                  placeholder="أدخل اسمك كما تريد أن يظهر في التوقيع"
+                  value={signatureText}
+                  onChange={(e) => setSignatureText(e.target.value)}
+                />
+              </div>
+              
+              <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center">
+                <Edit3 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <h4 className="font-semibold mb-2">منطقة الرسم</h4>
+                <p className="text-muted-foreground mb-4">
+                  يمكنك الرسم هنا لإنشاء توقيع مخصص
+                </p>
+                <div className="bg-white border rounded-lg h-32 flex items-center justify-center">
+                  {signatureText && (
+                    <div className="text-2xl font-signature text-primary">
+                      {signatureText}
+                    </div>
+                  )}
+                  {!signatureText && (
+                    <span className="text-muted-foreground">معاينة التوقيع ستظهر هنا</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setShowSignatureCreator(false)}>
+                  <X className="w-4 h-4 mr-2" />
+                  إلغاء
+                </Button>
+                <Button onClick={handleSaveSignature} disabled={!signatureText}>
+                  <Save className="w-4 h-4 mr-2" />
+                  حفظ التوقيع
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
