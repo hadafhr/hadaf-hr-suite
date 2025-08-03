@@ -22,7 +22,8 @@ import {
   BarChart3,
   UserCheck,
   Crown,
-  Shield
+  Shield,
+  ArrowLeft
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -117,13 +118,23 @@ export default function MeetingHub() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold text-foreground mb-2">
-                نظام الاجتماعات الذكي
-              </h1>
-              <p className="text-muted-foreground text-lg">
-                منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال
-              </p>
+            <div className="flex items-center gap-4">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/')}
+                className="flex items-center gap-2 hover:bg-muted"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                العودة للرئيسية
+              </Button>
+              <div>
+                <h1 className="text-4xl font-bold text-foreground mb-2">
+                  نظام الاجتماعات الذكي
+                </h1>
+                <p className="text-muted-foreground text-lg">
+                  منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال
+                </p>
+              </div>
             </div>
             <div className="flex gap-3">
               <Button 
