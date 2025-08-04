@@ -120,7 +120,10 @@ export const Dashboard: React.FC = () => {
 
         {/* بطاقات الإحصائيات السريعة */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="dashboard-card">
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => navigate('/employee-management')}
+          >
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">إجمالي الموظفين</p>
@@ -131,36 +134,90 @@ export const Dashboard: React.FC = () => {
             </div>
           </Card>
 
-          <Card className="dashboard-card">
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => navigate('/employee-management')}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">معدل الحضور</p>
-                <p className="text-2xl font-bold text-primary">94.8%</p>
-                <p className="text-sm text-success">+2.1% من الشهر الماضي</p>
+                <p className="text-sm font-medium text-muted-foreground">موظف نشط</p>
+                <p className="text-2xl font-bold text-primary">234</p>
+                <p className="text-sm text-success">اليوم</p>
               </div>
-              <Clock className="h-8 w-8 text-primary" />
+              <CheckCircle className="h-8 w-8 text-success" />
             </div>
           </Card>
 
-          <Card className="dashboard-card">
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => navigate('/employee-management')}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">المهام المكتملة</p>
-                <p className="text-2xl font-bold text-primary">89%</p>
-                <p className="text-sm text-success">+5.3% من الشهر الماضي</p>
+                <p className="text-sm font-medium text-muted-foreground">في إجازة</p>
+                <p className="text-2xl font-bold text-primary">13</p>
+                <p className="text-sm text-muted-foreground">موظف حالياً</p>
               </div>
-              <CheckCircle className="h-8 w-8 text-primary" />
+              <Clock className="h-8 w-8 text-warning" />
             </div>
           </Card>
 
-          <Card className="dashboard-card">
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => navigate('/disciplinary-system')}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">التنبيهات النشطة</p>
+                <p className="text-sm font-medium text-muted-foreground">إجراءات تأديبية معلقة</p>
                 <p className="text-2xl font-bold text-warning">3</p>
                 <p className="text-sm text-muted-foreground">تحتاج للمراجعة</p>
               </div>
               <AlertCircle className="h-8 w-8 text-warning" />
+            </div>
+          </Card>
+        </div>
+
+        {/* بطاقات إضافية للخدمات */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => navigate('/employee-requests')}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">طلبات جديدة</p>
+                <p className="text-2xl font-bold text-primary">8</p>
+                <p className="text-sm text-muted-foreground">في انتظار الموافقة</p>
+              </div>
+              <Building2 className="h-8 w-8 text-blue-500" />
+            </div>
+          </Card>
+
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => navigate('/disciplinary-system')}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">نظام الإجراءات التأديبية</p>
+                <p className="text-2xl font-bold text-primary">نشط</p>
+                <p className="text-sm text-muted-foreground">إدارة شاملة</p>
+              </div>
+              <Target className="h-8 w-8 text-red-500" />
+            </div>
+          </Card>
+
+          <Card 
+            className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
+            onClick={() => alert('سيتم تطوير نظام تتبع الموقع قريباً')}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">تتبع الموظفين</p>
+                <p className="text-2xl font-bold text-primary">GPS</p>
+                <p className="text-sm text-muted-foreground">تتبع الموقع</p>
+              </div>
+              <Target className="h-8 w-8 text-green-500" />
             </div>
           </Card>
         </div>
@@ -274,24 +331,84 @@ export const Dashboard: React.FC = () => {
           </div>
         </Card>
 
-        {/* التقارير السريعة */}
-        <Card className="dashboard-card">
-          <h3 className="text-lg font-semibold mb-4">التقارير السريعة</h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            <Button variant="outline" className="h-20 flex-col" onClick={() => navigate('/reports')}>
-              <Calendar className="h-6 w-6 mb-2" />
-              <span>تقرير الحضور</span>
-            </Button>
-            <Button variant="outline" className="h-20 flex-col" onClick={() => navigate('/reports')}>
-              <Building2 className="h-6 w-6 mb-2" />
-              <span>تقرير الأقسام</span>
-            </Button>
-            <Button variant="outline" className="h-20 flex-col" onClick={() => navigate('/reports')}>
-              <TrendingUp className="h-6 w-6 mb-2" />
-              <span>تقرير الأداء</span>
-            </Button>
-          </div>
-        </Card>
+        {/* التقارير السريعة والإجراءات */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Card className="dashboard-card">
+            <h3 className="text-lg font-semibold mb-4">التقارير السريعة</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => alert('سيتم تطوير نظام التقارير قريباً')}
+              >
+                <Calendar className="h-6 w-6 mb-2" />
+                <span>تقرير الحضور</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => alert('سيتم تطوير نظام التقارير قريباً')}
+              >
+                <Building2 className="h-6 w-6 mb-2" />
+                <span>تقرير الأقسام</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => alert('سيتم تطوير نظام التقارير قريباً')}
+              >
+                <TrendingUp className="h-6 w-6 mb-2" />
+                <span>تقرير الأداء</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => navigate('/employee-management')}
+              >
+                <Users className="h-6 w-6 mb-2" />
+                <span>تقرير الموظفين</span>
+              </Button>
+            </div>
+          </Card>
+
+          <Card className="dashboard-card">
+            <h3 className="text-lg font-semibold mb-4">الإجراءات السريعة</h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => navigate('/employee-management')}
+              >
+                <Users className="h-6 w-6 mb-2" />
+                <span>إضافة موظف</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => alert('سيتم تطوير نظام طلبات الموظفين قريباً')}
+              >
+                <Building2 className="h-6 w-6 mb-2" />
+                <span>طلبات الموظفين</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => alert('سيتم تطوير إعدادات النظام قريباً')}
+              >
+                <Target className="h-6 w-6 mb-2" />
+                <span>الإعدادات</span>
+              </Button>
+              <Button 
+                variant="outline" 
+                className="h-20 flex-col hover:bg-primary/10 transition-colors" 
+                onClick={() => navigate('/employee-management')}
+              >
+                <CheckCircle className="h-6 w-6 mb-2" />
+                <span>تحرير البيانات</span>
+              </Button>
+            </div>
+          </Card>
+        </div>
         </div>
       </div>
     </div>
