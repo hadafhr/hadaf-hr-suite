@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { toast } from 'sonner';
 import { 
   Users, 
   UserPlus, 
@@ -20,11 +23,36 @@ import {
   Settings,
   Bell,
   BookOpen,
-  Gavel
+  Gavel,
+  Eye,
+  Edit,
+  Trash2,
+  Plus,
+  Star,
+  TrendingUp,
+  BarChart3,
+  PieChart,
+  RefreshCw,
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  Building2,
+  Mail,
+  Phone,
+  MapPin,
+  Save,
+  X,
+  Zap,
+  Target,
+  Activity
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
+import { Progress } from '@/components/ui/progress';
 
 const EmployeeManagementSystem = () => {
   const navigate = useNavigate();
@@ -32,9 +60,23 @@ const EmployeeManagementSystem = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDepartment, setFilterDepartment] = useState('all');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
+  const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
+  const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+  const [isEditEmployeeOpen, setIsEditEmployeeOpen] = useState(false);
+  const [newEmployee, setNewEmployee] = useState({
+    name: '',
+    position: '',
+    department: '',
+    email: '',
+    phone: '',
+    salary: '',
+    nationalId: '',
+    address: ''
+  });
 
   // بيانات وهمية للموظفين
-  const employees = [
+  const [employees, setEmployees] = useState([
     {
       id: '001',
       name: 'أحمد محمد العلي',
@@ -43,7 +85,19 @@ const EmployeeManagementSystem = () => {
       status: 'نشط',
       joinDate: '2023-01-15',
       disciplinaryRecord: 0,
-      avatar: '/placeholder.svg'
+      avatar: '/placeholder.svg',
+      email: 'ahmed.ali@company.com',
+      phone: '+966501234567',
+      salary: 12000,
+      nationalId: '1234567890',
+      address: 'الرياض، المملكة العربية السعودية',
+      performance: 95,
+      yearsOfService: 1.2,
+      lastPromotion: '2023-06-15',
+      manager: 'محمد السالم',
+      totalLeaves: 15,
+      usedLeaves: 5,
+      emergencyContact: 'سارة العلي - +966509876543'
     },
     {
       id: '002',
@@ -53,7 +107,19 @@ const EmployeeManagementSystem = () => {
       status: 'نشط',
       joinDate: '2022-08-10',
       disciplinaryRecord: 1,
-      avatar: '/placeholder.svg'
+      avatar: '/placeholder.svg',
+      email: 'fatima.ahmed@company.com',
+      phone: '+966502345678',
+      salary: 9500,
+      nationalId: '2345678901',
+      address: 'جدة، المملكة العربية السعودية',
+      performance: 88,
+      yearsOfService: 1.6,
+      lastPromotion: '2023-01-10',
+      manager: 'خالد المطيري',
+      totalLeaves: 15,
+      usedLeaves: 8,
+      emergencyContact: 'أحمد الأحمد - +966508765432'
     },
     {
       id: '003',
@@ -63,9 +129,65 @@ const EmployeeManagementSystem = () => {
       status: 'في إجازة',
       joinDate: '2021-03-20',
       disciplinaryRecord: 0,
-      avatar: '/placeholder.svg'
+      avatar: '/placeholder.svg',
+      email: 'khalid.alnamir@company.com',
+      phone: '+966503456789',
+      salary: 15000,
+      nationalId: '3456789012',
+      address: 'الدمام، المملكة العربية السعودية',
+      performance: 92,
+      yearsOfService: 2.8,
+      lastPromotion: '2022-12-01',
+      manager: 'سعد العتيبي',
+      totalLeaves: 20,
+      usedLeaves: 12,
+      emergencyContact: 'نورا النمر - +966507654321'
+    },
+    {
+      id: '004',
+      name: 'نورا محمد السعد',
+      position: 'مصممة جرافيك',
+      department: 'التسويق',
+      status: 'نشط',
+      joinDate: '2023-02-01',
+      disciplinaryRecord: 0,
+      avatar: '/placeholder.svg',
+      email: 'nora.alsaad@company.com',
+      phone: '+966504567890',
+      salary: 8500,
+      nationalId: '4567890123',
+      address: 'مكة المكرمة، المملكة العربية السعودية',
+      performance: 90,
+      yearsOfService: 1.0,
+      lastPromotion: null,
+      manager: 'عبدالله القحطاني',
+      totalLeaves: 15,
+      usedLeaves: 3,
+      emergencyContact: 'محمد السعد - +966506543210'
+    },
+    {
+      id: '005',
+      name: 'سامي علي الزهراني',
+      position: 'مطور واجهات المستخدم',
+      department: 'تقنية المعلومات',
+      status: 'نشط',
+      joinDate: '2022-11-15',
+      disciplinaryRecord: 0,
+      avatar: '/placeholder.svg',
+      email: 'sami.alzahrani@company.com',
+      phone: '+966505678901',
+      salary: 11000,
+      nationalId: '5678901234',
+      address: 'الطائف، المملكة العربية السعودية',
+      performance: 87,
+      yearsOfService: 1.3,
+      lastPromotion: '2023-08-01',
+      manager: 'محمد السالم',
+      totalLeaves: 15,
+      usedLeaves: 7,
+      emergencyContact: 'علي الزهراني - +966505432109'
     }
-  ];
+  ]);
 
   // إحصائيات النظام
   const stats = {
@@ -86,6 +208,87 @@ const EmployeeManagementSystem = () => {
         return <Badge className="bg-red-100 text-red-800">متوقف</Badge>;
       default:
         return <Badge>{status}</Badge>;
+    }
+  };
+
+  // وظائف المعالجة التفاعلية
+  const handleAddEmployee = () => {
+    setIsAddEmployeeOpen(true);
+    toast.success('فتح نموذج إضافة موظف جديد');
+  };
+
+  const handleViewEmployee = (employee: any) => {
+    setSelectedEmployee(employee);
+    setIsViewEmployeeOpen(true);
+    toast.info(`عرض تفاصيل الموظف: ${employee.name}`);
+  };
+
+  const handleEditEmployee = (employee: any) => {
+    setSelectedEmployee(employee);
+    setIsEditEmployeeOpen(true);
+    toast.info(`تحرير بيانات الموظف: ${employee.name}`);
+  };
+
+  const handleDeleteEmployee = (employeeId: string) => {
+    const employee = employees.find(emp => emp.id === employeeId);
+    if (employee) {
+      setEmployees(employees.filter(emp => emp.id !== employeeId));
+      toast.success(`تم حذف الموظف: ${employee.name}`);
+    }
+  };
+
+  const handleDisciplinaryAction = (type: string) => {
+    toast.info(`تم تطبيق إجراء: ${type}`);
+  };
+
+  const handleExportData = () => {
+    downloadFile({ data: employees, filename: 'بيانات_الموظفين', format: 'excel' });
+    toast.success('تم تصدير البيانات بنجاح');
+  };
+
+  const handlePrintReport = () => {
+    printData(employees, 'قائمة الموظفين');
+    toast.success('تم إعداد التقرير للطباعة');
+  };
+
+  const handleRefreshData = () => {
+    toast.success('تم تحديث البيانات');
+  };
+
+  const saveNewEmployee = () => {
+    if (newEmployee.name && newEmployee.position) {
+      const id = (employees.length + 1).toString().padStart(3, '0');
+      const employee = {
+        ...newEmployee,
+        id,
+        status: 'نشط',
+        joinDate: new Date().toISOString().split('T')[0],
+        disciplinaryRecord: 0,
+        avatar: '/placeholder.svg',
+        performance: 85,
+        yearsOfService: 0,
+        lastPromotion: null,
+        manager: 'غير محدد',
+        totalLeaves: 15,
+        usedLeaves: 0,
+        emergencyContact: 'غير محدد',
+        salary: parseInt(newEmployee.salary) || 0
+      };
+      setEmployees([...employees, employee]);
+      setNewEmployee({
+        name: '',
+        position: '',
+        department: '',
+        email: '',
+        phone: '',
+        salary: '',
+        nationalId: '',
+        address: ''
+      });
+      setIsAddEmployeeOpen(false);
+      toast.success(`تم إضافة الموظف: ${employee.name}`);
+    } else {
+      toast.error('يرجى ملء الحقول المطلوبة');
     }
   };
 
@@ -118,7 +321,15 @@ const EmployeeManagementSystem = () => {
             <Button 
               variant="outline" 
               size="sm"
-              onClick={() => downloadFile({ data: employees, filename: 'بيانات_الموظفين', format: 'excel' })}
+              onClick={handleRefreshData}
+            >
+              <RefreshCw className="h-4 w-4 ml-2" />
+              تحديث البيانات
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleExportData}
             >
               <Download className="h-4 w-4 ml-2" />
               تصدير البيانات
@@ -126,12 +337,15 @@ const EmployeeManagementSystem = () => {
             <Button 
               variant="outline" 
               size="sm"
-              onClick={() => printData(employees, 'قائمة الموظفين')}
+              onClick={handlePrintReport}
             >
               <Upload className="h-4 w-4 ml-2" />
               طباعة التقرير
             </Button>
-            <Button size="sm">
+            <Button 
+              size="sm"
+              onClick={handleAddEmployee}
+            >
               <UserPlus className="h-4 w-4 ml-2" />
               إضافة موظف جديد
             </Button>
@@ -225,19 +439,35 @@ const EmployeeManagementSystem = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-primary/10 transition-colors"
+                    onClick={handleAddEmployee}
+                  >
                     <UserPlus className="h-6 w-6" />
                     إضافة موظف
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-destructive/10 transition-colors"
+                    onClick={() => handleDisciplinaryAction('إجراء تأديبي')}
+                  >
                     <Gavel className="h-6 w-6" />
                     إجراء تأديبي
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-secondary/10 transition-colors"
+                    onClick={() => setActiveTab('requests')}
+                  >
                     <FileText className="h-6 w-6" />
                     طلب موظف
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-success/10 transition-colors"
+                    onClick={() => setActiveTab('reports')}
+                  >
                     <Award className="h-6 w-6" />
                     تقييم أداء
                   </Button>
@@ -314,9 +544,31 @@ const EmployeeManagementSystem = () => {
                             {employee.disciplinaryRecord}
                           </Badge>
                         </div>
-                        <Button variant="outline" size="sm">
-                          عرض التفاصيل
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleViewEmployee(employee)}
+                          >
+                            <Eye className="h-4 w-4 ml-1" />
+                            عرض
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditEmployee(employee)}
+                          >
+                            <Edit className="h-4 w-4 ml-1" />
+                            تحرير
+                          </Button>
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => handleDeleteEmployee(employee.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
@@ -405,6 +657,279 @@ const EmployeeManagementSystem = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Dialog لإضافة موظف جديد */}
+      <Dialog open={isAddEmployeeOpen} onOpenChange={setIsAddEmployeeOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <UserPlus className="h-6 w-6" />
+              إضافة موظف جديد
+            </DialogTitle>
+            <DialogDescription>
+              ملء جميع البيانات المطلوبة لإضافة الموظف
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="name">الاسم الكامل *</Label>
+                <Input
+                  id="name"
+                  value={newEmployee.name}
+                  onChange={(e) => setNewEmployee({...newEmployee, name: e.target.value})}
+                  placeholder="الاسم الكامل"
+                />
+              </div>
+              <div>
+                <Label htmlFor="position">المنصب *</Label>
+                <Input
+                  id="position"
+                  value={newEmployee.position}
+                  onChange={(e) => setNewEmployee({...newEmployee, position: e.target.value})}
+                  placeholder="المنصب الوظيفي"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="department">القسم</Label>
+                <Select 
+                  value={newEmployee.department} 
+                  onValueChange={(value) => setNewEmployee({...newEmployee, department: value})}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر القسم" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="تقنية المعلومات">تقنية المعلومات</SelectItem>
+                    <SelectItem value="المالية">المالية</SelectItem>
+                    <SelectItem value="المبيعات">المبيعات</SelectItem>
+                    <SelectItem value="التسويق">التسويق</SelectItem>
+                    <SelectItem value="الموارد البشرية">الموارد البشرية</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="salary">الراتب</Label>
+                <Input
+                  id="salary"
+                  type="number"
+                  value={newEmployee.salary}
+                  onChange={(e) => setNewEmployee({...newEmployee, salary: e.target.value})}
+                  placeholder="الراتب الشهري"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="email">البريد الإلكتروني</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={newEmployee.email}
+                  onChange={(e) => setNewEmployee({...newEmployee, email: e.target.value})}
+                  placeholder="example@company.com"
+                />
+              </div>
+              <div>
+                <Label htmlFor="phone">رقم الهاتف</Label>
+                <Input
+                  id="phone"
+                  value={newEmployee.phone}
+                  onChange={(e) => setNewEmployee({...newEmployee, phone: e.target.value})}
+                  placeholder="+966501234567"
+                />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="nationalId">رقم الهوية</Label>
+              <Input
+                id="nationalId"
+                value={newEmployee.nationalId}
+                onChange={(e) => setNewEmployee({...newEmployee, nationalId: e.target.value})}
+                placeholder="رقم الهوية الوطنية"
+              />
+            </div>
+            <div>
+              <Label htmlFor="address">العنوان</Label>
+              <Textarea
+                id="address"
+                value={newEmployee.address}
+                onChange={(e) => setNewEmployee({...newEmployee, address: e.target.value})}
+                placeholder="العنوان الكامل"
+                rows={3}
+              />
+            </div>
+            <div className="flex justify-end gap-3">
+              <Button variant="outline" onClick={() => setIsAddEmployeeOpen(false)}>
+                إلغاء
+              </Button>
+              <Button onClick={saveNewEmployee}>
+                <Save className="h-4 w-4 mr-2" />
+                حفظ الموظف
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog لعرض تفاصيل الموظف */}
+      <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Eye className="h-6 w-6" />
+              تفاصيل الموظف: {selectedEmployee?.name}
+            </DialogTitle>
+          </DialogHeader>
+          {selectedEmployee && (
+            <div className="space-y-6">
+              {/* المعلومات الأساسية */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="h-5 w-5" />
+                    المعلومات الأساسية
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-16 w-16">
+                          <AvatarImage src={selectedEmployee.avatar} />
+                          <AvatarFallback className="text-lg">{selectedEmployee.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h3 className="font-semibold text-lg">{selectedEmployee.name}</h3>
+                          <p className="text-muted-foreground">{selectedEmployee.position}</p>
+                          {getStatusBadge(selectedEmployee.status)}
+                        </div>
+                      </div>
+                      <Separator />
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm">القسم: {selectedEmployee.department}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm">تاريخ التوظيف: {selectedEmployee.joinDate}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm">سنوات الخدمة: {selectedEmployee.yearsOfService}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-3">
+                        <h4 className="font-medium">معلومات الاتصال</h4>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <Mail className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm">{selectedEmployee.email}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Phone className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm">{selectedEmployee.phone}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm">{selectedEmployee.address}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* الأداء والإحصائيات */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center mb-2">
+                        <Star className="h-8 w-8 text-yellow-500" />
+                      </div>
+                      <div className="text-2xl font-bold">{selectedEmployee.performance}%</div>
+                      <div className="text-sm text-muted-foreground">تقييم الأداء</div>
+                      <Progress value={selectedEmployee.performance} className="mt-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center mb-2">
+                        <DollarSign className="h-8 w-8 text-green-500" />
+                      </div>
+                      <div className="text-2xl font-bold">{selectedEmployee.salary.toLocaleString()}</div>
+                      <div className="text-sm text-muted-foreground">الراتب الشهري (ريال)</div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center mb-2">
+                        <Calendar className="h-8 w-8 text-blue-500" />
+                      </div>
+                      <div className="text-2xl font-bold">{selectedEmployee.usedLeaves}/{selectedEmployee.totalLeaves}</div>
+                      <div className="text-sm text-muted-foreground">الإجازات المستخدمة</div>
+                      <Progress value={(selectedEmployee.usedLeaves / selectedEmployee.totalLeaves) * 100} className="mt-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* معلومات إضافية */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>معلومات إضافية</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>رقم الهوية الوطنية</Label>
+                      <p className="text-sm mt-1">{selectedEmployee.nationalId}</p>
+                    </div>
+                    <div>
+                      <Label>المدير المباشر</Label>
+                      <p className="text-sm mt-1">{selectedEmployee.manager}</p>
+                    </div>
+                    <div>
+                      <Label>آخر ترقية</Label>
+                      <p className="text-sm mt-1">{selectedEmployee.lastPromotion || 'لا يوجد'}</p>
+                    </div>
+                    <div>
+                      <Label>جهة الاتصال في حالات الطوارئ</Label>
+                      <p className="text-sm mt-1">{selectedEmployee.emergencyContact}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="flex justify-end gap-3">
+                <Button variant="outline" onClick={() => setIsViewEmployeeOpen(false)}>
+                  إغلاق
+                </Button>
+                <Button onClick={() => {
+                  setIsViewEmployeeOpen(false);
+                  handleEditEmployee(selectedEmployee);
+                }}>
+                  <Edit className="h-4 w-4 mr-2" />
+                  تحرير البيانات
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
