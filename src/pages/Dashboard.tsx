@@ -193,7 +193,10 @@ export const Dashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-management-system')}
+            onClick={() => {
+              console.log("Total employees card clicked - navigating to employee-management-system");
+              navigate('/employee-management-system');
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -207,7 +210,10 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-management-system')}
+            onClick={() => {
+              console.log("Active employees card clicked - navigating to employee-management-system");
+              navigate('/employee-management-system');
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -221,7 +227,10 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-management-system')}
+            onClick={() => {
+              console.log("On leave card clicked - navigating to employee-management-system");
+              navigate('/employee-management-system');
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -235,7 +244,10 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/disciplinary-system')}
+            onClick={() => {
+              console.log("Disciplinary actions card clicked - navigating to disciplinary-system");
+              navigate('/disciplinary-system');
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -252,7 +264,10 @@ export const Dashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-requests')}
+            onClick={() => {
+              console.log("New requests card clicked - navigating to employee-requests");
+              navigate('/employee-requests');
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -266,7 +281,10 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/disciplinary-system')}
+            onClick={() => {
+              console.log("Disciplinary system card clicked - navigating to disciplinary-system");
+              navigate('/disciplinary-system');
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -281,6 +299,7 @@ export const Dashboard: React.FC = () => {
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
             onClick={() => {
+              console.log("GPS tracking card clicked - showing toast");
               toast({
                 title: "تتبع الموقع",
                 description: "سيتم تطوير نظام تتبع الموقع قريباً",
