@@ -57,6 +57,7 @@ import {
   ChevronDown,
   Plus
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const performanceData = [
   { month: 'يناير', employees: 65, satisfaction: 85, productivity: 78, attendance: 92 },
@@ -120,6 +121,7 @@ const topPerformers = [
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [selectedTimeRange, setSelectedTimeRange] = useState('شهر');
   const [refreshing, setRefreshing] = useState(false);
 
@@ -191,7 +193,7 @@ export const Dashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-management')}
+            onClick={() => navigate('/employee-management-system')}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -205,7 +207,7 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-management')}
+            onClick={() => navigate('/employee-management-system')}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -219,7 +221,7 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => navigate('/employee-management')}
+            onClick={() => navigate('/employee-management-system')}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -278,7 +280,12 @@ export const Dashboard: React.FC = () => {
 
           <Card 
             className="dashboard-card cursor-pointer transition-all hover:shadow-lg hover:scale-105"
-            onClick={() => alert('سيتم تطوير نظام تتبع الموقع قريباً')}
+            onClick={() => {
+              toast({
+                title: "تتبع الموقع",
+                description: "سيتم تطوير نظام تتبع الموقع قريباً",
+              });
+            }}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -286,7 +293,7 @@ export const Dashboard: React.FC = () => {
                 <p className="text-2xl font-bold text-primary">GPS</p>
                 <p className="text-sm text-muted-foreground">تتبع الموقع</p>
               </div>
-              <Target className="h-8 w-8 text-green-500" />
+              <MapPin className="h-8 w-8 text-green-500" />
             </div>
           </Card>
         </div>
@@ -642,7 +649,7 @@ export const Dashboard: React.FC = () => {
             <Button 
               variant="outline" 
               className="h-24 flex-col hover:bg-primary/10 transition-colors group"
-              onClick={() => navigate('/employee-management')}
+              onClick={() => navigate('/employee-management-system')}
             >
               <Users className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform" />
               <span>إدارة الموظفين</span>
@@ -662,7 +669,7 @@ export const Dashboard: React.FC = () => {
             <Button 
               variant="outline" 
               className="h-24 flex-col hover:bg-primary/10 transition-colors group"
-              onClick={() => alert('سيتم تطوير نظام طلبات الموظفين قريباً')}
+              onClick={() => navigate('/employee-requests')}
             >
               <FileText className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform" />
               <span>طلبات الموظفين</span>
@@ -672,7 +679,12 @@ export const Dashboard: React.FC = () => {
             <Button 
               variant="outline" 
               className="h-24 flex-col hover:bg-primary/10 transition-colors group"
-              onClick={() => alert('سيتم تطوير نظام تتبع الموقع قريباً')}
+              onClick={() => {
+                toast({
+                  title: "تتبع الموقع",
+                  description: "سيتم تطوير نظام تتبع الموقع قريباً",
+                });
+              }}
             >
               <MapPin className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform" />
               <span>تتبع الموقع</span>
@@ -689,7 +701,7 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => alert('سيتم تطوير نظام التقارير قريباً')}
+                onClick={() => navigate('/reports-analytics')}
               >
                 <Calendar className="h-6 w-6 mb-2" />
                 <span>تقرير الحضور</span>
@@ -697,7 +709,7 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => alert('سيتم تطوير نظام التقارير قريباً')}
+                onClick={() => navigate('/reports-analytics')}
               >
                 <Building2 className="h-6 w-6 mb-2" />
                 <span>تقرير الأقسام</span>
@@ -705,7 +717,7 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => alert('سيتم تطوير نظام التقارير قريباً')}
+                onClick={() => navigate('/reports-analytics')}
               >
                 <TrendingUp className="h-6 w-6 mb-2" />
                 <span>تقرير الأداء</span>
@@ -713,7 +725,7 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-management')}
+                onClick={() => navigate('/employee-management-system')}
               >
                 <Users className="h-6 w-6 mb-2" />
                 <span>تقرير الموظفين</span>
@@ -727,7 +739,7 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-management')}
+                onClick={() => navigate('/employee-management-system')}
               >
                 <Users className="h-6 w-6 mb-2" />
                 <span>إضافة موظف</span>
@@ -735,7 +747,7 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => alert('سيتم تطوير نظام طلبات الموظفين قريباً')}
+                onClick={() => navigate('/employee-requests')}
               >
                 <Building2 className="h-6 w-6 mb-2" />
                 <span>طلبات الموظفين</span>
@@ -743,15 +755,15 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => alert('سيتم تطوير إعدادات النظام قريباً')}
+                onClick={() => navigate('/system-settings')}
               >
-                <Target className="h-6 w-6 mb-2" />
+                <Settings className="h-6 w-6 mb-2" />
                 <span>الإعدادات</span>
               </Button>
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-management')}
+                onClick={() => navigate('/employee-management-system')}
               >
                 <CheckCircle className="h-6 w-6 mb-2" />
                 <span>تحرير البيانات</span>
