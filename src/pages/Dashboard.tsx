@@ -744,7 +744,10 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-management-system')}
+                onClick={() => {
+                  console.log("Employee report button clicked - navigating to reports-analytics");
+                  navigate('/reports-analytics');
+                }}
               >
                 <Users className="h-6 w-6 mb-2" />
                 <span>تقرير الموظفين</span>
@@ -758,7 +761,10 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-management-system')}
+                onClick={() => {
+                  console.log("Add employee button clicked - navigating to employee-management-system");
+                  navigate('/employee-management-system');
+                }}
               >
                 <Users className="h-6 w-6 mb-2" />
                 <span>إضافة موظف</span>
@@ -766,7 +772,10 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-requests')}
+                onClick={() => {
+                  console.log("Employee requests button clicked - navigating to employee-requests");
+                  navigate('/employee-requests');
+                }}
               >
                 <Building2 className="h-6 w-6 mb-2" />
                 <span>طلبات الموظفين</span>
@@ -774,7 +783,10 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/system-settings')}
+                onClick={() => {
+                  console.log("Settings button clicked - navigating to system-settings");
+                  navigate('/system-settings');
+                }}
               >
                 <Settings className="h-6 w-6 mb-2" />
                 <span>الإعدادات</span>
@@ -782,7 +794,10 @@ export const Dashboard: React.FC = () => {
               <Button 
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
-                onClick={() => navigate('/employee-management-system')}
+                onClick={() => {
+                  console.log("Edit data button clicked - navigating to employee-management-system");
+                  navigate('/employee-management-system');
+                }}
               >
                 <CheckCircle className="h-6 w-6 mb-2" />
                 <span>تحرير البيانات</span>
