@@ -53,6 +53,7 @@ import {
 import { EmployeeProfile } from '@/components/ess/EmployeeProfile';
 import { RequestManagement } from '@/components/ess/RequestManagement';
 import { AIAssistant as HRAIAssistant } from '@/components/ess/HRAIAssistant';
+import { AttendanceSystem } from '@/components/AttendanceSystem';
 
 interface EmployeeData {
   id: string;
@@ -427,7 +428,17 @@ export const EmployeeSelfService: React.FC = () => {
               </Dialog>
 
               {/* Notifications */}
-              <Button variant="outline" size="sm" className="relative">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="relative"
+                onClick={() => {
+                  toast({
+                    title: "الإشعارات",
+                    description: `لديك ${messages.filter(m => !m.isRead).length} رسائل غير مقروءة`,
+                  });
+                }}
+              >
                 <Bell className="h-4 w-4" />
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs flex items-center justify-center text-white">
                   {messages.filter(m => !m.isRead).length}
@@ -766,7 +777,15 @@ export const EmployeeSelfService: React.FC = () => {
           <TabsContent value="requests" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-black">إدارة الطلبات</h2>
-              <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
+              <Button 
+                className="bg-[#009F87] hover:bg-[#008072] text-white"
+                onClick={() => {
+                  toast({
+                    title: "طلب جديد",
+                    description: "سيتم فتح نموذج الطلب الجديد قريباً",
+                  });
+                }}
+              >
                 <Plus className="h-4 w-4 ml-2" />
                 طلب جديد
               </Button>
@@ -791,7 +810,16 @@ export const EmployeeSelfService: React.FC = () => {
                         <Badge className={getStatusColor(request.status)}>
                           {getStatusText(request.status)}
                         </Badge>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            toast({
+                              title: "عرض الطلب",
+                              description: `عرض تفاصيل ${request.title}`,
+                            });
+                          }}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
@@ -850,34 +878,7 @@ export const EmployeeSelfService: React.FC = () => {
 
           {/* Attendance Tab */}
           <TabsContent value="attendance" className="space-y-6">
-            <Card className="bg-white border-gray-200">
-              <CardHeader>
-                <CardTitle className="flex items-center text-black">
-                  <Clock className="h-5 w-5 ml-2 text-[#009F87]" />
-                  سجل الحضور والانصراف
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {attendanceRecords.map((record) => (
-                    <div key={record.id} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                      <div>
-                        <h4 className="font-semibold text-black">{record.date}</h4>
-                        <p className="text-sm text-gray-600">
-                          دخول: {record.checkIn} - خروج: {record.checkOut}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          ساعات العمل: {record.workHours} - الموقع: {record.location}
-                        </p>
-                      </div>
-                      <Badge className={getStatusColor(record.status)}>
-                        {getStatusText(record.status)}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <AttendanceSystem employeeData={employeeData} />
           </TabsContent>
 
           {/* Payroll Tab */}
@@ -922,7 +923,16 @@ export const EmployeeSelfService: React.FC = () => {
                             <Badge className={getStatusColor(record.status)}>
                               {getStatusText(record.status)}
                             </Badge>
-                            <Button variant="outline" size="sm">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => {
+                                toast({
+                                  title: "تحميل كشف الراتب",
+                                  description: `تحميل كشف راتب ${record.month} ${record.year}`,
+                                });
+                              }}
+                            >
                               <Download className="h-4 w-4" />
                             </Button>
                           </div>
@@ -1014,7 +1024,15 @@ export const EmployeeSelfService: React.FC = () => {
           <TabsContent value="documents" className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-black">المستندات والملفات</h2>
-              <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
+              <Button 
+                className="bg-[#009F87] hover:bg-[#008072] text-white"
+                onClick={() => {
+                  toast({
+                    title: "رفع مستند",
+                    description: "سيتم فتح نافذة رفع المستندات قريباً",
+                  });
+                }}
+              >
                 <Upload className="h-4 w-4 ml-2" />
                 رفع مستند جديد
               </Button>
@@ -1037,10 +1055,28 @@ export const EmployeeSelfService: React.FC = () => {
                         </Badge>
                       </div>
                       <div className="flex flex-col gap-1">
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            toast({
+                              title: "عرض المستند",
+                              description: `عرض ${doc.name}`,
+                            });
+                          }}
+                        >
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => {
+                            toast({
+                              title: "تحميل المستند",
+                              description: `تحميل ${doc.name}`,
+                            });
+                          }}
+                        >
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
