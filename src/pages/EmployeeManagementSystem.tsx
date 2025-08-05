@@ -44,7 +44,12 @@ import {
   X,
   Zap,
   Target,
-  Activity
+  Activity,
+  CheckCircle,
+  XCircle,
+  Check,
+  User,
+  Laptop
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -189,6 +194,80 @@ const EmployeeManagementSystem = () => {
     }
   ]);
 
+  // بيانات طلبات الموظفين
+  const [employeeRequests, setEmployeeRequests] = useState([
+    {
+      id: 1,
+      employeeName: 'أحمد محمد السعيد',
+      department: 'تقنية المعلومات',
+      requestType: 'إجازة سنوية',
+      description: 'طلب إجازة سنوية لمدة أسبوعين للسفر مع العائلة',
+      startDate: '2024-08-15',
+      endDate: '2024-08-29',
+      submitDate: '2024-08-01',
+      status: 'pending',
+      priority: 'medium',
+      email: 'ahmed.mohammed@company.com',
+      phone: '+966501234567'
+    },
+    {
+      id: 2,
+      employeeName: 'فاطمة أحمد علي',
+      department: 'المبيعات',
+      requestType: 'إجازة مرضية',
+      description: 'طلب إجازة مرضية لمدة 3 أيام بسبب حالة صحية طارئة',
+      startDate: '2024-08-05',
+      endDate: '2024-08-07',
+      submitDate: '2024-08-04',
+      status: 'approved',
+      priority: 'high',
+      email: 'fatima.ahmed@company.com',
+      phone: '+966502345678'
+    },
+    {
+      id: 3,
+      employeeName: 'محمد علي حسن',
+      department: 'التسويق',
+      requestType: 'تغيير ساعات العمل',
+      description: 'طلب تغيير ساعات العمل لتتناسب مع ظروف شخصية',
+      startDate: '2024-08-10',
+      endDate: '',
+      submitDate: '2024-08-03',
+      status: 'rejected',
+      priority: 'low',
+      email: 'mohammed.ali@company.com',
+      phone: '+966503456789'
+    },
+    {
+      id: 4,
+      employeeName: 'سارة محمود طه',
+      department: 'الموارد البشرية',
+      requestType: 'إجازة أمومة',
+      description: 'طلب إجازة أمومة لمدة 10 أسابيع',
+      startDate: '2024-09-01',
+      endDate: '2024-11-10',
+      submitDate: '2024-08-02',
+      status: 'pending',
+      priority: 'high',
+      email: 'sara.mahmoud@company.com',
+      phone: '+966504567890'
+    },
+    {
+      id: 5,
+      employeeName: 'خالد سعد الدين',
+      department: 'المالية',
+      requestType: 'تدريب خارجي',
+      description: 'طلب حضور دورة تدريبية في إدارة المخاطر المالية',
+      startDate: '2024-08-20',
+      endDate: '2024-08-22',
+      submitDate: '2024-08-01',
+      status: 'approved',
+      priority: 'medium',
+      email: 'khalid.saad@company.com',
+      phone: '+966505678901'
+    }
+  ]);
+
   // إحصائيات النظام
   const stats = {
     totalEmployees: 152,
@@ -208,6 +287,32 @@ const EmployeeManagementSystem = () => {
         return <Badge className="bg-red-100 text-red-800">متوقف</Badge>;
       default:
         return <Badge>{status}</Badge>;
+    }
+  };
+
+  const getRequestStatusBadge = (status: string) => {
+    switch (status) {
+      case 'pending':
+        return <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">في انتظار الموافقة</Badge>;
+      case 'approved':
+        return <Badge variant="secondary" className="bg-green-100 text-green-800">موافق عليه</Badge>;
+      case 'rejected':
+        return <Badge variant="secondary" className="bg-red-100 text-red-800">مرفوض</Badge>;
+      default:
+        return <Badge variant="secondary">غير محدد</Badge>;
+    }
+  };
+
+  const getRequestPriorityBadge = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return <Badge variant="destructive">عالي</Badge>;
+      case 'medium':
+        return <Badge variant="secondary">متوسط</Badge>;
+      case 'low':
+        return <Badge variant="outline">منخفض</Badge>;
+      default:
+        return <Badge variant="secondary">غير محدد</Badge>;
     }
   };
 
@@ -290,6 +395,20 @@ const EmployeeManagementSystem = () => {
     } else {
       toast.error('يرجى ملء الحقول المطلوبة');
     }
+  };
+
+  const handleApproveRequest = (requestId: number) => {
+    setEmployeeRequests(prev => prev.map(req => 
+      req.id === requestId ? { ...req, status: 'approved' } : req
+    ));
+    toast.success('تم الموافقة على الطلب بنجاح وإرسال إشعار للموظف');
+  };
+
+  const handleRejectRequest = (requestId: number) => {
+    setEmployeeRequests(prev => prev.map(req => 
+      req.id === requestId ? { ...req, status: 'rejected' } : req
+    ));
+    toast.error('تم رفض الطلب وإرسال إشعار للموظف');
   };
 
   const filteredEmployees = employees.filter(employee => {
@@ -610,14 +729,177 @@ const EmployeeManagementSystem = () => {
 
           {/* Requests Tab */}
           <TabsContent value="requests" className="space-y-6">
+            {/* Request Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <Card className="dashboard-card">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">إجمالي الطلبات</p>
+                    <p className="text-2xl font-bold text-primary">{employeeRequests.length}</p>
+                  </div>
+                  <FileText className="h-8 w-8 text-primary" />
+                </div>
+              </Card>
+
+              <Card className="dashboard-card">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">في الانتظار</p>
+                    <p className="text-2xl font-bold text-warning">{employeeRequests.filter(r => r.status === 'pending').length}</p>
+                  </div>
+                  <Clock className="h-8 w-8 text-warning" />
+                </div>
+              </Card>
+
+              <Card className="dashboard-card">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">موافق عليها</p>
+                    <p className="text-2xl font-bold text-success">{employeeRequests.filter(r => r.status === 'approved').length}</p>
+                  </div>
+                  <CheckCircle className="h-8 w-8 text-success" />
+                </div>
+              </Card>
+
+              <Card className="dashboard-card">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">مرفوضة</p>
+                    <p className="text-2xl font-bold text-destructive">{employeeRequests.filter(r => r.status === 'rejected').length}</p>
+                  </div>
+                  <XCircle className="h-8 w-8 text-destructive" />
+                </div>
+              </Card>
+            </div>
+
+            {/* Request Management */}
             <Card>
               <CardHeader>
-                <CardTitle>طلبات الموظفين</CardTitle>
+                <CardTitle className="flex items-center justify-between">
+                  طلبات الموظفين
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      <Filter className="h-4 w-4 mr-2" />
+                      تصفية
+                    </Button>
+                    <Button size="sm">
+                      <Plus className="h-4 w-4 mr-2" />
+                      طلب جديد
+                    </Button>
+                  </div>
+                </CardTitle>
                 <CardDescription>إدارة جميع طلبات الموظفين والموافقات</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  سيتم تطوير نظام طلبات الموظفين قريباً
+                <div className="space-y-4">
+                  {employeeRequests.map((request) => (
+                    <Card key={request.id} className="dashboard-card">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-4 mb-2">
+                            <h3 className="font-semibold">{request.employeeName}</h3>
+                            {getRequestStatusBadge(request.status)}
+                            {getRequestPriorityBadge(request.priority)}
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                              <Building2 className="h-4 w-4" />
+                              {request.department}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <FileText className="h-4 w-4" />
+                              {request.requestType}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4" />
+                              {request.submitDate}
+                            </div>
+                          </div>
+                          <p className="text-sm mt-2">{request.description}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4 mr-2" />
+                            عرض
+                          </Button>
+                          {request.status === 'pending' && (
+                            <>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="text-success hover:bg-success hover:text-white"
+                                onClick={() => handleApproveRequest(request.id)}
+                              >
+                                <Check className="h-4 w-4 mr-2" />
+                                موافقة
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="text-destructive hover:bg-destructive hover:text-white"
+                                onClick={() => handleRejectRequest(request.id)}
+                              >
+                                <X className="h-4 w-4 mr-2" />
+                                رفض
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Request Types */}
+            <Card>
+              <CardHeader>
+                <CardTitle>أنواع الطلبات المتاحة</CardTitle>
+                <CardDescription>الطلبات التي يمكن للموظفين تقديمها</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <Calendar className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                    <h3 className="font-medium">طلبات الإجازات</h3>
+                    <p className="text-sm text-muted-foreground">إجازة سنوية، مرضية، طارئة</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <FileText className="h-8 w-8 mx-auto mb-2 text-green-600" />
+                    <h3 className="font-medium">شهادات الراتب</h3>
+                    <p className="text-sm text-muted-foreground">تعريف بالراتب للبنوك</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <DollarSign className="h-8 w-8 mx-auto mb-2 text-yellow-600" />
+                    <h3 className="font-medium">السلف المالية</h3>
+                    <p className="text-sm text-muted-foreground">سلف على الراتب</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <User className="h-8 w-8 mx-auto mb-2 text-purple-600" />
+                    <h3 className="font-medium">طلبات الاستقالة</h3>
+                    <p className="text-sm text-muted-foreground">إجراءات إنهاء الخدمة</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <Clock className="h-8 w-8 mx-auto mb-2 text-orange-600" />
+                    <h3 className="font-medium">تعديل الحضور</h3>
+                    <p className="text-sm text-muted-foreground">تصحيح بيانات الحضور</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <MapPin className="h-8 w-8 mx-auto mb-2 text-red-600" />
+                    <h3 className="font-medium">رحلات العمل</h3>
+                    <p className="text-sm text-muted-foreground">تنقلات رسمية</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <Laptop className="h-8 w-8 mx-auto mb-2 text-indigo-600" />
+                    <h3 className="font-medium">طلب معدات</h3>
+                    <p className="text-sm text-muted-foreground">أجهزة ومعدات العمل</p>
+                  </div>
+                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
+                    <Settings className="h-8 w-8 mx-auto mb-2 text-gray-600" />
+                    <h3 className="font-medium">طلبات مخصصة</h3>
+                    <p className="text-sm text-muted-foreground">طلبات أخرى حسب الحاجة</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
