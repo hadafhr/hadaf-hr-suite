@@ -60,11 +60,10 @@ const existingUsers = [
   }
 ];
 
-const [roles, setRoles] = useState([]);
-const [departments, setDepartments] = useState([]);
-
 export const UserManagement: React.FC = () => {
   const { toast } = useToast();
+  const [roles, setRoles] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
