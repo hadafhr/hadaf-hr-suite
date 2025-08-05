@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import '@/i18n';
 import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
@@ -67,6 +68,15 @@ import { ESignatureSystem } from './pages/ESignatureSystem';
 import MeetingHub from './pages/MeetingHub';
 import MeetingSubscription from './pages/MeetingSubscription';
 import { AdminConfiguration } from './pages/AdminConfiguration';
+
+// Mobile Pages
+import { MobileLogin } from './pages/mobile/MobileLogin';
+import { MobileDashboard } from './pages/mobile/MobileDashboard';
+import { MobileRequests } from './pages/mobile/MobileRequests';
+import { MobileTasks } from './pages/mobile/MobileTasks';
+import { MobileChat } from './pages/mobile/MobileChat';
+import { MobileNotifications } from './pages/mobile/MobileNotifications';
+import { MobileProfile } from './pages/mobile/MobileProfile';
 
 const queryClient = new QueryClient();
 
@@ -193,6 +203,15 @@ const App = () => {
                 
                 {/* Admin Configuration */}
                 <Route path="/admin-configuration" element={<AdminConfiguration />} />
+                
+                {/* Mobile App Routes */}
+                <Route path="/mobile-login" element={<MobileLogin />} />
+                <Route path="/mobile-dashboard" element={<MobileDashboard />} />
+                <Route path="/mobile-requests" element={<MobileRequests />} />
+                <Route path="/mobile-tasks" element={<MobileTasks />} />
+                <Route path="/mobile-chat" element={<MobileChat />} />
+                <Route path="/mobile-notifications" element={<MobileNotifications />} />
+                <Route path="/mobile-profile" element={<MobileProfile />} />
                
                <Route path="*" element={<NotFound />} />
             </Routes>
