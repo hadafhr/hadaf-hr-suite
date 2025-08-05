@@ -66,6 +66,7 @@ import SystemSettings from './pages/SystemSettings';
 import { ESignatureSystem } from './pages/ESignatureSystem';
 import MeetingHub from './pages/MeetingHub';
 import MeetingSubscription from './pages/MeetingSubscription';
+import { AdminConfiguration } from './pages/AdminConfiguration';
 
 const queryClient = new QueryClient();
 
@@ -189,6 +190,9 @@ const App = () => {
                 {/* Meeting Hub System */}
                 <Route path="/meeting-hub" element={<MeetingHub />} />
                 <Route path="/meeting-hub/subscription" element={<MeetingSubscription />} />
+                
+                {/* Admin Configuration */}
+                <Route path="/admin-configuration" element={<AdminConfiguration />} />
                
                <Route path="*" element={<NotFound />} />
             </Routes>

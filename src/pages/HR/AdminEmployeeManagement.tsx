@@ -76,7 +76,7 @@ export const AdminEmployeeManagement: React.FC = () => {
     }
   ];
 
-  const departments = ['الكل', 'تقنية المعلومات', 'المحاسبة', 'المبيعات', 'الموارد البشرية', 'التسويق'];
+  const [departments, setDepartments] = useState<string[]>([]);
 
   const filteredEmployees = employees.filter(employee => {
     const matchesSearch = employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

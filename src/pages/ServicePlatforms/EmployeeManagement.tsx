@@ -107,17 +107,7 @@ export const EmployeeManagement: React.FC = () => {
   const { toast } = useToast();
   const { downloadFile, printData } = useDownloadPrint();
 
-  const departments = [
-    { value: 'all', label: 'جميع الأقسام' },
-    { value: 'hr', label: 'الموارد البشرية' },
-    { value: 'finance', label: 'المالية' },
-    { value: 'it', label: 'تقنية المعلومات' },
-    { value: 'marketing', label: 'التسويق' },
-    { value: 'sales', label: 'المبيعات' },
-    { value: 'operations', label: 'العمليات' },
-    { value: 'legal', label: 'الشؤون القانونية' },
-    { value: 'admin', label: 'الإدارة العامة' }
-  ];
+  const [departments, setDepartments] = useState([]);
 
   const statusTranslations = {
     'active': 'نشط',

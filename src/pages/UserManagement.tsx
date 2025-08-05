@@ -60,25 +60,8 @@ const existingUsers = [
   }
 ];
 
-const roles = [
-  { value: "admin", label: "مدير النظام" },
-  { value: "manager", label: "مدير" },
-  { value: "employee", label: "موظف" },
-  { value: "hr", label: "موارد بشرية" },
-  { value: "accountant", label: "محاسب" },
-  { value: "viewer", label: "مشاهد فقط" }
-];
-
-const departments = [
-  "إدارة عليا",
-  "الموارد البشرية", 
-  "المالية",
-  "تقنية المعلومات",
-  "المبيعات",
-  "التسويق",
-  "الإنتاج",
-  "الصيانة"
-];
+const [roles, setRoles] = useState([]);
+const [departments, setDepartments] = useState([]);
 
 export const UserManagement: React.FC = () => {
   const { toast } = useToast();

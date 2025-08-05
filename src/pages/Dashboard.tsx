@@ -784,12 +784,12 @@ export const Dashboard: React.FC = () => {
                 variant="outline" 
                 className="h-20 flex-col hover:bg-primary/10 transition-colors" 
                 onClick={() => {
-                  console.log("Settings button clicked - navigating to system-settings");
-                  navigate('/system-settings');
+                  console.log("Admin configuration button clicked - navigating to admin-configuration");
+                  navigate('/admin-configuration');
                 }}
               >
                 <Settings className="h-6 w-6 mb-2" />
-                <span>الإعدادات</span>
+                <span>إعدادات النظام</span>
               </Button>
               <Button 
                 variant="outline" 
