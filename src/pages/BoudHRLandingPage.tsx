@@ -545,7 +545,45 @@ const BoudHRLandingPage: React.FC = () => {
                 </Button>
               </div>
               
-              {/* Platform Access Buttons - Hidden */}
+              {/* BOOD HR Platform Access Buttons */}
+              <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-center mb-4 text-primary">أدخل إلى منصات بُعد HR</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    variant="outline" 
+                    className="flex flex-col items-center gap-2 h-auto py-4 border-primary/30 hover:bg-primary hover:text-white transition-all"
+                    onClick={() => navigate('/e-css')}
+                  >
+                    <Users className="w-6 h-6" />
+                    <div className="text-center">
+                      <div className="font-semibold">E-CSS</div>
+                      <div className="text-xs opacity-80">بوابة الموظف</div>
+                    </div>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex flex-col items-center gap-2 h-auto py-4 border-primary/30 hover:bg-primary hover:text-white transition-all"
+                    onClick={() => navigate('/eis')}
+                  >
+                    <Building2 className="w-6 h-6" />
+                    <div className="text-center">
+                      <div className="font-semibold">EIS</div>
+                      <div className="text-xs opacity-80">بوابة صاحب العمل</div>
+                    </div>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex flex-col items-center gap-2 h-auto py-4 border-primary/30 hover:bg-primary hover:text-white transition-all"
+                    onClick={() => navigate('/npcs')}
+                  >
+                    <Heart className="w-6 h-6" />
+                    <div className="text-center">
+                      <div className="font-semibold">NPCS</div>
+                      <div className="text-xs opacity-80">بوابة القطاع غير الربحي</div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
               
               {/* Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
