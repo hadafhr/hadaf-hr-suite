@@ -50,6 +50,9 @@ import codingScreen from '@/assets/coding-screen.jpg';
 import hrAutomation from '@/assets/hr-automation.jpg';
 import cloudComputing from '@/assets/cloud-computing.jpg';
 import teamCollaboration from '@/assets/team-collaboration.jpg';
+import ecssPoral from '@/assets/e-css-portal.jpg';
+import eisPortal from '@/assets/eis-portal.jpg';
+import npcsPortal from '@/assets/npcs-portal.jpg';
 
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -545,43 +548,108 @@ const BoudHRLandingPage: React.FC = () => {
                 </Button>
               </div>
               
-              {/* BOOD HR Platform Access Buttons */}
-              <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-6 border border-primary/20">
-                <h3 className="text-lg font-bold text-center mb-4 text-primary">أدخل إلى منصات بُعد HR</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Button 
-                    variant="outline" 
-                    className="flex flex-col items-center gap-2 h-auto py-4 border-primary/30 hover:bg-primary hover:text-white transition-all"
-                    onClick={() => navigate('/e-css')}
-                  >
-                    <Users className="w-6 h-6" />
-                    <div className="text-center">
-                      <div className="font-semibold">E-CSS</div>
-                      <div className="text-xs opacity-80">بوابة الموظف</div>
+              {/* BOOD HR Platform Access Section */}
+              <div className="bg-gradient-to-br from-primary/5 via-background to-secondary/10 rounded-3xl p-8 border border-primary/20 shadow-lg">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold mb-3 text-primary">منصات بُعد للموارد البشرية</h3>
+                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    ثلاث منصات متكاملة تلبي احتياجات جميع أطراف المنظومة الوظيفية
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* E-CSS - Employee Portal */}
+                  <div className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer" onClick={() => navigate('/e-css')}>
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={ecssPoral} 
+                        alt="بوابة الموظف - E-CSS" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-primary/90 backdrop-blur-sm rounded-full p-3">
+                          <Users className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
                     </div>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="flex flex-col items-center gap-2 h-auto py-4 border-primary/30 hover:bg-primary hover:text-white transition-all"
-                    onClick={() => navigate('/eis')}
-                  >
-                    <Building2 className="w-6 h-6" />
-                    <div className="text-center">
-                      <div className="font-semibold">EIS</div>
-                      <div className="text-xs opacity-80">بوابة صاحب العمل</div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h4 className="text-xl font-bold text-primary">E-CSS</h4>
+                        <Badge variant="secondary" className="text-xs">بوابة الموظف</Badge>
+                      </div>
+                      <h5 className="font-semibold mb-3 text-foreground">الخدمة الذاتية السحابية للموظفين</h5>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        منصة شاملة تمكن الموظفين من إدارة جميع احتياجاتهم المهنية بسهولة - من طلب الإجازات والسلف إلى مراجعة كشوف الرواتب والتقييمات، مع واجهة عربية بديهية ومساعد ذكي.
+                      </p>
+                      <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
+                        <span className="text-sm">دخول البوابة</span>
+                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="flex flex-col items-center gap-2 h-auto py-4 border-primary/30 hover:bg-primary hover:text-white transition-all"
-                    onClick={() => navigate('/npcs')}
-                  >
-                    <Heart className="w-6 h-6" />
-                    <div className="text-center">
-                      <div className="font-semibold">NPCS</div>
-                      <div className="text-xs opacity-80">بوابة القطاع غير الربحي</div>
+                  </div>
+
+                  {/* EIS - Employer Portal */}
+                  <div className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer" onClick={() => navigate('/eis')}>
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={eisPortal} 
+                        alt="بوابة صاحب العمل - EIS" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-primary/90 backdrop-blur-sm rounded-full p-3">
+                          <Building2 className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
                     </div>
-                  </Button>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h4 className="text-xl font-bold text-primary">EIS</h4>
+                        <Badge variant="secondary" className="text-xs">بوابة صاحب العمل</Badge>
+                      </div>
+                      <h5 className="font-semibold mb-3 text-foreground">الخدمات المتكاملة لأصحاب العمل</h5>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        مركز قيادي متطور يوفر لوحة تحكم شاملة لإدارة المؤسسة - من التوظيف والرواتب إلى التقارير التنفيذية والذكاء الاصطناعي، مع تكامل مباشر مع الأنظمة الحكومية.
+                      </p>
+                      <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
+                        <span className="text-sm">دخول البوابة</span>
+                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* NPCS - Nonprofit Portal */}
+                  <div className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer" onClick={() => navigate('/npcs')}>
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={npcsPortal} 
+                        alt="بوابة القطاع غير الربحي - NPCS" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-primary/90 backdrop-blur-sm rounded-full p-3">
+                          <Heart className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h4 className="text-xl font-bold text-primary">NPCS</h4>
+                        <Badge variant="secondary" className="text-xs">القطاع غير الربحي</Badge>
+                      </div>
+                      <h5 className="font-semibold mb-3 text-foreground">الخدمات الشاملة للقطاع غير الربحي</h5>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        منصة مخصصة للمنظمات غير الربحية تدير المتطوعين والمشاريع الخيرية بكفاءة عالية، مع أدوات قياس الأثر المجتمعي وتقارير خاصة للمانحين والجهات الرقابية.
+                      </p>
+                      <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
+                        <span className="text-sm">دخول البوابة</span>
+                        <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               
