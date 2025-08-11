@@ -125,7 +125,7 @@ export const EIS = () => {
       low: { variant: 'outline' as const }
     };
     
-    return <Badge variant={severityConfig[severity as keyof severityConfig]}>
+    return <Badge variant={severityConfig[severity as keyof typeof severityConfig].variant}>
       {severity.charAt(0).toUpperCase() + severity.slice(1)}
     </Badge>;
   };
