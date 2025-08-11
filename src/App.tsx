@@ -78,6 +78,11 @@ import { MobileChat } from './pages/mobile/MobileChat';
 import { MobileNotifications } from './pages/mobile/MobileNotifications';
 import { MobileProfile } from './pages/mobile/MobileProfile';
 
+// BOOD HR Main Portals
+import { ECSS } from './pages/portals/E-CSS';
+import { EIS } from './pages/portals/EIS';
+import { NPCS } from './pages/portals/NPCS';
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -212,6 +217,14 @@ const App = () => {
                 <Route path="/mobile-chat" element={<MobileChat />} />
                 <Route path="/mobile-notifications" element={<MobileNotifications />} />
                 <Route path="/mobile-profile" element={<MobileProfile />} />
+
+                {/* BOOD HR Main Portal Routes */}
+                <Route path="/e-css" element={<ECSS />} />
+                <Route path="/eis" element={<EIS />} />
+                <Route path="/npcs" element={<NPCS />} />
+                <Route path="/employee-portal" element={<ECSS />} />
+                <Route path="/employer-portal" element={<EIS />} />
+                <Route path="/nonprofit-portal" element={<NPCS />} />
                
                <Route path="*" element={<NotFound />} />
             </Routes>
