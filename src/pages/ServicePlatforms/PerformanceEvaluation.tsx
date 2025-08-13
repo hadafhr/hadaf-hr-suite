@@ -6,6 +6,13 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 import { AIAssistant } from '@/components/AIAssistant';
+import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
+import { MBOSystem } from '@/components/evaluation/MBOSystem';
+import { KPISystem } from '@/components/evaluation/KPISystem';
+import { System360 } from '@/components/evaluation/360System';
+import { BSCSystem } from '@/components/evaluation/BSCSystem';
+import { ContinuousSystem } from '@/components/evaluation/ContinuousSystem';
+import { AssessmentSuite } from '@/components/evaluation/AssessmentSuite';
 import { 
   Award, 
   TrendingUp, 
@@ -20,7 +27,9 @@ import {
   Eye,
   Download,
   Brain,
-  X
+  X,
+  ArrowLeft,
+  Languages
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -346,6 +355,8 @@ const employees = [
 export const PerformanceEvaluation: React.FC = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<any>(employees[0]);
   const [showKPIForm, setShowKPIForm] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isArabic, setIsArabic] = useState(true);
   const [kpiFormData, setKpiFormData] = useState({
     employeeName: '',
     evaluationType: '',
@@ -399,283 +410,355 @@ export const PerformanceEvaluation: React.FC = () => {
     });
   };
 
+  const handleBack = () => {
+    // Navigate back to previous view
+    window.history.back();
+  };
+
+  const toggleLanguage = () => {
+    setIsArabic(!isArabic);
+  };
+
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-6" dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-gradient mb-2">
-              تقييم الأداء KPIs
-            </h1>
-            <p className="text-muted-foreground">
-              أنظمة متطورة لقياس وتقييم الأداء باستخدام مؤشرات الأداء الرئيسية
-            </p>
+          <div className="flex items-center gap-4">
+            <Button variant="outline" size="sm" onClick={handleBack}>
+              <ArrowLeft className="h-4 w-4" />
+              {isArabic ? 'رجوع' : 'Back'}
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-gradient mb-2">
+                {isArabic ? 'إدارة الأداء' : 'Performance Management'}
+              </h1>
+              <p className="text-muted-foreground">
+                {isArabic ? 'أنظمة متطورة لقياس وتقييم الأداء باستخدام الذكاء الاصطناعي' : 'Advanced AI-powered performance evaluation systems'}
+              </p>
+            </div>
           </div>
           <div className="flex gap-2">
+            <Button variant="outline" onClick={toggleLanguage}>
+              <Languages className="h-4 w-4 mr-2" />
+              {isArabic ? 'EN' : 'عربي'}
+            </Button>
             <Button variant="outline" onClick={handleAIAnalysis}>
               <Brain className="h-4 w-4 mr-2" />
-              تحليل ذكي
+              {isArabic ? 'تحليل ذكي' : 'AI Analysis'}
             </Button>
           </div>
         </div>
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="dashboard-card">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">متوسط الأداء العام</p>
-                <p className="text-2xl font-bold text-primary">86%</p>
-              </div>
-              <Award className="h-8 w-8 text-primary" />
-            </div>
-          </Card>
-          
-          <Card className="dashboard-card">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">الأهداف المحققة</p>
-                <p className="text-2xl font-bold text-success">78%</p>
-              </div>
-              <Target className="h-8 w-8 text-success" />
-            </div>
-          </Card>
-
-          <Card className="dashboard-card">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">التقييمات المكتملة</p>
-                <p className="text-2xl font-bold text-primary">185</p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-primary" />
-            </div>
-          </Card>
-
-          <Card className="dashboard-card">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">التقييمات المعلقة</p>
-                <p className="text-2xl font-bold text-warning">12</p>
-              </div>
-              <Calendar className="h-8 w-8 text-warning" />
-            </div>
-          </Card>
-        </div>
-
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Employee List */}
-          <Card className="dashboard-card">
-            <h3 className="text-lg font-semibold mb-4">الموظفين</h3>
-            <div className="space-y-3">
-              {employees.map((employee) => (
-                <div 
-                  key={employee.id}
-                  className={`p-3 rounded-lg border cursor-pointer transition-colors ${
-                    selectedEmployee?.id === employee.id 
-                      ? 'border-primary bg-primary/5' 
-                      : 'border-border hover:bg-accent/50'
-                  }`}
-                  onClick={() => setSelectedEmployee(employee)}
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="font-medium text-sm">{employee.name}</h4>
-                    <Badge variant={
-                      employee.status === 'مكتمل' ? 'default' : 
-                      employee.status === 'مطلوب' ? 'destructive' : 'secondary'
-                    }>
-                      {employee.status}
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-muted-foreground mb-2">{employee.position}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-muted-foreground">الأداء العام</span>
-                    <span className="text-sm font-medium">{employee.overallScore}%</span>
-                  </div>
-                  <Progress value={employee.overallScore} className="h-2 mt-1" />
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          {/* Performance Details */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Employee Overview */}
-            <Card className="dashboard-card">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h3 className="text-lg font-semibold">{selectedEmployee.name}</h3>
-                  <p className="text-muted-foreground">{selectedEmployee.position}</p>
-                  <p className="text-sm text-muted-foreground">{selectedEmployee.department}</p>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">{selectedEmployee.overallScore}%</div>
-                  <p className="text-sm text-muted-foreground">الأداء العام</p>
-                </div>
-              </div>
-
-              <Tabs defaultValue="overview" className="space-y-4">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="overview">نظرة عامة</TabsTrigger>
-                  <TabsTrigger value="goals">الأهداف</TabsTrigger>
-                  <TabsTrigger value="skills">المهارات</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="overview" className="space-y-4">
-                  <div className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={performanceData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="month" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="performance" fill="hsl(var(--primary))" name="الأداء الفعلي" />
-                        <Bar dataKey="goal" fill="hsl(var(--muted))" name="الهدف" />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="goals" className="space-y-4">
-                  {selectedEmployee.goals.map((goal: any, index: number) => (
-                    <div key={index} className="p-4 border border-border rounded-lg">
-                      <div className="flex justify-between items-center mb-2">
-                        <h4 className="font-medium">{goal.title}</h4>
-                        <Badge variant={
-                          goal.status === 'مكتمل' ? 'default' : 'secondary'
-                        }>
-                          {goal.status}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-muted-foreground">التقدم</span>
-                        <span className="text-sm font-medium">{goal.progress}%</span>
-                      </div>
-                      <Progress value={goal.progress} className="h-2" />
-                    </div>
-                  ))}
-                </TabsContent>
-
-                <TabsContent value="skills" className="space-y-4">
-                  <div className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart data={skillsData}>
-                        <PolarGrid />
-                        <PolarAngleAxis dataKey="skill" />
-                        <PolarRadiusAxis angle={90} domain={[0, 100]} />
-                        <Radar
-                          name="المهارات"
-                          dataKey="score"
-                          stroke="hsl(var(--primary))"
-                          fill="hsl(var(--primary))"
-                          fillOpacity={0.3}
-                        />
-                      </RadarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </Card>
-          </div>
-        </div>
-
-        {/* مساعد الذكاء الاصطناعي */}
+        {/* Performance Management Tabs */}
         <Card className="dashboard-card">
-          <div className="flex items-center gap-2 mb-4">
-            <Brain className="h-5 w-5 text-primary" />
-            <h3 className="text-lg font-semibold">المساعد الذكي لتقييم الأداء</h3>
-          </div>
-          
-          <div className="bg-muted/30 p-4 rounded-lg mb-6">
-            <div className="flex items-center gap-2 mb-2">
-              <Brain className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium">نصيحة ذكية للموظف المحدد</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              بناءً على تحليل البيانات، يُنصح بالتركيز على تطوير مهارات {selectedEmployee.name} في مجال القيادة لتحسين الأداء العام بنسبة 15%.
-            </p>
-          </div>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+            <TabsList className="grid w-full grid-cols-8">
+              <TabsTrigger value="dashboard">{isArabic ? 'لوحة التحكم' : 'Dashboard'}</TabsTrigger>
+              <TabsTrigger value="smart">{isArabic ? 'التقييم الذكي' : 'Smart Evaluations'}</TabsTrigger>
+              <TabsTrigger value="mbo">{isArabic ? 'الإدارة بالأهداف' : 'MBO'}</TabsTrigger>
+              <TabsTrigger value="kpi">{isArabic ? 'مؤشرات الأداء' : 'KPI'}</TabsTrigger>
+              <TabsTrigger value="360">{isArabic ? 'تقييم 360' : '360 Review'}</TabsTrigger>
+              <TabsTrigger value="bsc">{isArabic ? 'بطاقة الأداء' : 'BSC'}</TabsTrigger>
+              <TabsTrigger value="continuous">{isArabic ? 'التقييم المستمر' : 'Continuous'}</TabsTrigger>
+              <TabsTrigger value="assessments">{isArabic ? 'الاختبارات' : 'Assessments'}</TabsTrigger>
+            </TabsList>
 
-          <AIAssistant />
+            <TabsContent value="dashboard" className="space-y-6">
+              {/* Statistics Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <Card className="dashboard-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">{isArabic ? 'متوسط الأداء العام' : 'Overall Performance'}</p>
+                      <p className="text-2xl font-bold text-primary">86%</p>
+                    </div>
+                    <Award className="h-8 w-8 text-primary" />
+                  </div>
+                </Card>
+                
+                <Card className="dashboard-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">{isArabic ? 'الأهداف المحققة' : 'Goals Achieved'}</p>
+                      <p className="text-2xl font-bold text-success">78%</p>
+                    </div>
+                    <Target className="h-8 w-8 text-success" />
+                  </div>
+                </Card>
+
+                <Card className="dashboard-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">{isArabic ? 'التقييمات المكتملة' : 'Completed Reviews'}</p>
+                      <p className="text-2xl font-bold text-primary">185</p>
+                    </div>
+                    <CheckCircle className="h-8 w-8 text-primary" />
+                  </div>
+                </Card>
+
+                <Card className="dashboard-card">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">{isArabic ? 'التقييمات المعلقة' : 'Pending Reviews'}</p>
+                      <p className="text-2xl font-bold text-warning">12</p>
+                    </div>
+                    <Calendar className="h-8 w-8 text-warning" />
+                  </div>
+                </Card>
+              </div>
+
+              {/* Main Content */}
+              <div className="grid lg:grid-cols-3 gap-6">
+                {/* Employee List */}
+                <Card className="dashboard-card">
+                  <h3 className="text-lg font-semibold mb-4">{isArabic ? 'الموظفين' : 'Employees'}</h3>
+                  <div className="space-y-3">
+                    {employees.map((employee) => (
+                      <div 
+                        key={employee.id}
+                        className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                          selectedEmployee?.id === employee.id 
+                            ? 'border-primary bg-primary/5' 
+                            : 'border-border hover:bg-accent/50'
+                        }`}
+                        onClick={() => setSelectedEmployee(employee)}
+                      >
+                        <div className="flex justify-between items-center mb-2">
+                          <h4 className="font-medium text-sm">{employee.name}</h4>
+                          <Badge variant={
+                            employee.status === 'مكتمل' ? 'default' : 
+                            employee.status === 'مطلوب' ? 'destructive' : 'secondary'
+                          }>
+                            {employee.status}
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground mb-2">{employee.position}</p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-muted-foreground">{isArabic ? 'الأداء العام' : 'Overall Score'}</span>
+                          <span className="text-sm font-medium">{employee.overallScore}%</span>
+                        </div>
+                        <Progress value={employee.overallScore} className="h-2 mt-1" />
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                {/* Performance Details */}
+                <div className="lg:col-span-2 space-y-6">
+                  {/* Employee Overview */}
+                  <Card className="dashboard-card">
+                    <div className="flex justify-between items-start mb-6">
+                      <div>
+                        <h3 className="text-lg font-semibold">{selectedEmployee.name}</h3>
+                        <p className="text-muted-foreground">{selectedEmployee.position}</p>
+                        <p className="text-sm text-muted-foreground">{selectedEmployee.department}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-primary">{selectedEmployee.overallScore}%</div>
+                        <p className="text-sm text-muted-foreground">{isArabic ? 'الأداء العام' : 'Overall Score'}</p>
+                      </div>
+                    </div>
+
+                    <Tabs defaultValue="overview" className="space-y-4">
+                      <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger value="overview">{isArabic ? 'نظرة عامة' : 'Overview'}</TabsTrigger>
+                        <TabsTrigger value="goals">{isArabic ? 'الأهداف' : 'Goals'}</TabsTrigger>
+                        <TabsTrigger value="skills">{isArabic ? 'المهارات' : 'Skills'}</TabsTrigger>
+                      </TabsList>
+
+                      <TabsContent value="overview" className="space-y-4">
+                        <div className="h-64">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={performanceData}>
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="month" />
+                              <YAxis />
+                              <Tooltip />
+                              <Bar dataKey="performance" fill="hsl(var(--primary))" name={isArabic ? "الأداء الفعلي" : "Actual Performance"} />
+                              <Bar dataKey="goal" fill="hsl(var(--muted))" name={isArabic ? "الهدف" : "Target"} />
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="goals" className="space-y-4">
+                        {selectedEmployee.goals.map((goal: any, index: number) => (
+                          <div key={index} className="p-4 border border-border rounded-lg">
+                            <div className="flex justify-between items-center mb-2">
+                              <h4 className="font-medium">{goal.title}</h4>
+                              <Badge variant={
+                                goal.status === 'مكتمل' ? 'default' : 'secondary'
+                              }>
+                                {goal.status}
+                              </Badge>
+                            </div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-sm text-muted-foreground">{isArabic ? 'التقدم' : 'Progress'}</span>
+                              <span className="text-sm font-medium">{goal.progress}%</span>
+                            </div>
+                            <Progress value={goal.progress} className="h-2" />
+                          </div>
+                        ))}
+                      </TabsContent>
+
+                      <TabsContent value="skills" className="space-y-4">
+                        <div className="h-64">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <RadarChart data={skillsData}>
+                              <PolarGrid />
+                              <PolarAngleAxis dataKey="skill" />
+                              <PolarRadiusAxis angle={90} domain={[0, 100]} />
+                              <Radar
+                                name={isArabic ? "المهارات" : "Skills"}
+                                dataKey="score"
+                                stroke="hsl(var(--primary))"
+                                fill="hsl(var(--primary))"
+                                fillOpacity={0.3}
+                              />
+                            </RadarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="smart">
+              <SmartEvaluations />
+            </TabsContent>
+
+            <TabsContent value="mbo">
+              <MBOSystem />
+            </TabsContent>
+
+            <TabsContent value="kpi">
+              <KPISystem />
+            </TabsContent>
+
+            <TabsContent value="360">
+              <System360 />
+            </TabsContent>
+
+            <TabsContent value="bsc">
+              <BSCSystem />
+            </TabsContent>
+
+            <TabsContent value="continuous">
+              <ContinuousSystem />
+            </TabsContent>
+
+            <TabsContent value="assessments">
+              <AssessmentSuite />
+            </TabsContent>
+          </Tabs>
         </Card>
 
-        {/* Quick Actions */}
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="dashboard-card">
-            <h3 className="font-semibold mb-4">إجراءات سريعة</h3>
-            <div className="space-y-2">
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={handleNewEvaluation}
-              >
-                <Target className="h-4 w-4 mr-2" />
-                إنشاء تقييم جديد
-              </Button>
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={handleExportReports}
-              >
-                <BarChart3 className="h-4 w-4 mr-2" />
-                تصدير التقارير
-              </Button>
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={handleGroupReview}
-              >
-                <Users className="h-4 w-4 mr-2" />
-                مراجعة جماعية
-              </Button>
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={handleAIAnalysis}
-              >
-                <Brain className="h-4 w-4 mr-2" />
-                تحليل ذكي بالـ AI
-              </Button>
-            </div>
-          </Card>
+        {/* AI Assistant - only show on dashboard */}
+        {activeTab === 'dashboard' && (
+          <>
+            <Card className="dashboard-card">
+              <div className="flex items-center gap-2 mb-4">
+                <Brain className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold">{isArabic ? 'المساعد الذكي لتقييم الأداء' : 'AI Performance Assistant'}</h3>
+              </div>
+              
+              <div className="bg-muted/30 p-4 rounded-lg mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Brain className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium">{isArabic ? 'نصيحة ذكية للموظف المحدد' : 'Smart Recommendation'}</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {isArabic 
+                    ? `بناءً على تحليل البيانات، يُنصح بالتركيز على تطوير مهارات ${selectedEmployee.name} في مجال القيادة لتحسين الأداء العام بنسبة 15%.`
+                    : `Based on data analysis, we recommend focusing on developing ${selectedEmployee.name}'s leadership skills to improve overall performance by 15%.`
+                  }
+                </p>
+              </div>
 
-          <Card className="dashboard-card">
-            <h3 className="font-semibold mb-4">التقييمات القادمة</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm">أحمد السعد</span>
-                <span className="text-xs text-muted-foreground">15 فبراير</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">سارة المطيري</span>
-                <span className="text-xs text-muted-foreground">20 فبراير</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">خالد العتيبي</span>
-                <span className="text-xs text-muted-foreground">25 فبراير</span>
-              </div>
-            </div>
-          </Card>
+              <AIAssistant />
+            </Card>
 
-          <Card className="dashboard-card">
-            <h3 className="font-semibold mb-4">الإحصائيات</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">أعلى أداء</span>
-                <span className="font-medium">95%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">أقل أداء</span>
-                <span className="font-medium">65%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">معدل تحقيق الأهداف</span>
-                <span className="font-medium">78%</span>
-              </div>
+            {/* Quick Actions */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="dashboard-card">
+                <h3 className="font-semibold mb-4">{isArabic ? 'إجراءات سريعة' : 'Quick Actions'}</h3>
+                <div className="space-y-2">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={handleNewEvaluation}
+                  >
+                    <Target className="h-4 w-4 mr-2" />
+                    {isArabic ? 'إنشاء تقييم جديد' : 'New Evaluation'}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={handleExportReports}
+                  >
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تصدير التقارير' : 'Export Reports'}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={handleGroupReview}
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    {isArabic ? 'مراجعة جماعية' : 'Group Review'}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={handleAIAnalysis}
+                  >
+                    <Brain className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تحليل ذكي بالـ AI' : 'AI Analysis'}
+                  </Button>
+                </div>
+              </Card>
+
+              <Card className="dashboard-card">
+                <h3 className="font-semibold mb-4">{isArabic ? 'التقييمات القادمة' : 'Upcoming Reviews'}</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">أحمد السعد</span>
+                    <span className="text-xs text-muted-foreground">15 فبراير</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">سارة المطيري</span>
+                    <span className="text-xs text-muted-foreground">20 فبراير</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">خالد العتيبي</span>
+                    <span className="text-xs text-muted-foreground">25 فبراير</span>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="dashboard-card">
+                <h3 className="font-semibold mb-4">{isArabic ? 'الإحصائيات' : 'Statistics'}</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-sm text-muted-foreground">{isArabic ? 'أعلى أداء' : 'Highest Score'}</span>
+                    <span className="font-medium">95%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-muted-foreground">{isArabic ? 'أقل أداء' : 'Lowest Score'}</span>
+                    <span className="font-medium">65%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-muted-foreground">{isArabic ? 'معدل تحقيق الأهداف' : 'Goal Achievement Rate'}</span>
+                    <span className="font-medium">78%</span>
+                  </div>
+                </div>
+              </Card>
             </div>
-          </Card>
-        </div>
+          </>
+        )}
 
         {/* KPI Evaluation Form Dialog */}
         <Dialog open={showKPIForm} onOpenChange={setShowKPIForm}>
