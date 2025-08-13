@@ -9,6 +9,7 @@ import '@/i18n';
 import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
+import BoudHRAssistant from "@/components/BoudHRAssistant";
 import { Login } from "@/pages/Login";
 import { BusinessLogin } from "@/pages/BusinessLogin";
 import { IndividualLogin } from "@/pages/IndividualLogin";
@@ -87,6 +88,29 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [currentLanguage, setCurrentLanguage] = React.useState<'ar' | 'en'>('ar');
+
+  // Detect language from URL or localStorage
+  React.useEffect(() => {
+    const detectLanguage = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      const storedLang = localStorage.getItem('boud-language');
+      
+      if (urlLang === 'en' || urlLang === 'ar') {
+        setCurrentLanguage(urlLang);
+        localStorage.setItem('boud-language', urlLang);
+      } else if (storedLang === 'en' || storedLang === 'ar') {
+        setCurrentLanguage(storedLang);
+      } else {
+        // Default to Arabic
+        setCurrentLanguage('ar');
+        localStorage.setItem('boud-language', 'ar');
+      }
+    };
+
+    detectLanguage();
+  }, []);
 
   const handleLogin = () => {
     // يمكن تطوير هذا لاحقاً مع نظام المصادقة الحقيقي
@@ -228,6 +252,9 @@ const App = () => {
                
                <Route path="*" element={<NotFound />} />
             </Routes>
+            
+            {/* Global BOUD HR Assistant */}
+            <BoudHRAssistant language={currentLanguage} />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
