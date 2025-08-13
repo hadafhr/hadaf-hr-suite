@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -353,6 +354,7 @@ const employees = [
 ];
 
 export const PerformanceEvaluation: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedEmployee, setSelectedEmployee] = useState<any>(employees[0]);
   const [showKPIForm, setShowKPIForm] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -438,8 +440,8 @@ export const PerformanceEvaluation: React.FC = () => {
   };
 
   const handleBack = () => {
-    // Navigate back to previous view
-    window.history.back();
+    // Navigate back to services page
+    navigate('/services');
   };
 
   const toggleLanguage = () => {
