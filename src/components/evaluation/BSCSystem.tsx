@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
 import { 
   BarChart3, 
   DollarSign, 
@@ -27,6 +28,64 @@ export const BSCSystem = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const [activeTab, setActiveTab] = useState('overview');
+  const { toast } = useToast();
+
+  // Add handlers for BSC system
+  const handleStrategyMap = () => {
+    toast({
+      title: isRTL ? 'خريطة الاستراتيجية' : 'Strategy Map',
+      description: isRTL ? 'جاري فتح خريطة الاستراتيجية التفاعلية' : 'Opening interactive strategy map'
+    });
+  };
+
+  const handleExportBSC = () => {
+    toast({
+      title: isRTL ? 'تصدير BSC' : 'Export BSC',
+      description: isRTL ? 'جاري تصدير بطاقة الأداء المتوازن' : 'Exporting Balanced Scorecard'
+    });
+  };
+
+  const handleViewDetails = (perspectiveName: string) => {
+    toast({
+      title: isRTL ? 'عرض التفاصيل' : 'View Details',
+      description: isRTL ? `عرض تفاصيل ${perspectiveName}` : `Viewing details for ${perspectiveName}`
+    });
+  };
+
+  const handleEditMetric = (metricName: string) => {
+    toast({
+      title: isRTL ? 'تعديل المقياس' : 'Edit Metric',
+      description: isRTL ? `تعديل ${metricName}` : `Editing ${metricName}`
+    });
+  };
+
+  const handleAddMetric = (perspectiveName: string) => {
+    toast({
+      title: isRTL ? 'إضافة مقياس' : 'Add Metric',
+      description: isRTL ? `إضافة مقياس جديد لـ ${perspectiveName}` : `Adding new metric to ${perspectiveName}`
+    });
+  };
+
+  const handleLinkInitiatives = (perspectiveName: string) => {
+    toast({
+      title: isRTL ? 'ربط المبادرات' : 'Link Initiatives',
+      description: isRTL ? `ربط المبادرات بـ ${perspectiveName}` : `Linking initiatives to ${perspectiveName}`
+    });
+  };
+
+  const handleEditMap = () => {
+    toast({
+      title: isRTL ? 'تحرير الخريطة' : 'Edit Map',
+      description: isRTL ? 'جاري فتح محرر خريطة الاستراتيجية' : 'Opening strategy map editor'
+    });
+  };
+
+  const handleExportMap = () => {
+    toast({
+      title: isRTL ? 'تصدير الخريطة' : 'Export Map',
+      description: isRTL ? 'جاري تصدير خريطة الاستراتيجية' : 'Exporting strategy map'
+    });
+  };
 
   // BSC Perspectives with default data
   const perspectives = [
@@ -149,11 +208,11 @@ export const BSCSystem = () => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2" onClick={handleStrategyMap}>
             <Link className="w-4 h-4" />
             {isRTL ? 'خريطة الاستراتيجية' : 'Strategy Map'}
           </Button>
-          <Button className="gap-2">
+          <Button className="gap-2" onClick={handleExportBSC}>
             <Download className="w-4 h-4" />
             {isRTL ? 'تصدير BSC' : 'Export BSC'}
           </Button>
@@ -204,7 +263,7 @@ export const BSCSystem = () => {
                     ))}
                   </div>
                   
-                  <Button size="sm" variant="outline" className="w-full mt-4">
+                  <Button size="sm" variant="outline" className="w-full mt-4" onClick={() => handleViewDetails(perspective.name)}>
                     {isRTL ? 'عرض التفاصيل' : 'View Details'}
                   </Button>
                 </CardContent>
@@ -263,7 +322,7 @@ export const BSCSystem = () => {
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="font-medium text-foreground text-sm">{metric.name}</h4>
-                          <Button size="sm" variant="ghost" className="h-6 w-6 p-0">
+                          <Button size="sm" variant="ghost" className="h-6 w-6 p-0" onClick={() => handleEditMetric(metric.name)}>
                             <Edit className="w-3 h-3" />
                           </Button>
                         </div>
@@ -293,11 +352,11 @@ export const BSCSystem = () => {
                 </div>
                 
                 <div className="mt-4 flex gap-2">
-                  <Button size="sm" className="gap-2">
+                  <Button size="sm" className="gap-2" onClick={() => handleAddMetric(perspective.name)}>
                     <Plus className="w-4 h-4" />
                     {isRTL ? 'إضافة مقياس' : 'Add Metric'}
                   </Button>
-                  <Button size="sm" variant="outline" className="gap-2">
+                  <Button size="sm" variant="outline" className="gap-2" onClick={() => handleLinkInitiatives(perspective.name)}>
                     <Link className="w-4 h-4" />
                     {isRTL ? 'ربط المبادرات' : 'Link Initiatives'}
                   </Button>
@@ -368,11 +427,11 @@ export const BSCSystem = () => {
               </div>
               
               <div className="mt-6 flex gap-2">
-                <Button className="gap-2">
+                <Button className="gap-2" onClick={handleEditMap}>
                   <Edit className="w-4 h-4" />
                   {isRTL ? 'تحرير الخريطة' : 'Edit Map'}
                 </Button>
-                <Button variant="outline" className="gap-2">
+                <Button variant="outline" className="gap-2" onClick={handleExportMap}>
                   <Download className="w-4 h-4" />
                   {isRTL ? 'تصدير الخريطة' : 'Export Map'}
                 </Button>

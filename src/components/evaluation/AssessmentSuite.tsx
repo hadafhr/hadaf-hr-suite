@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Brain,
   Users,
@@ -46,6 +47,7 @@ interface AssessmentResult {
 export const AssessmentSuite: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
+  const { toast } = useToast();
 
   const [selectedAssessment, setSelectedAssessment] = useState<string | null>(null);
 
@@ -180,19 +182,42 @@ export const AssessmentSuite: React.FC = () => {
   ];
 
   const handleCreateInvitation = (assessmentId: string) => {
-    console.log('Creating invitation for:', assessmentId);
+    const assessment = assessments.find(a => a.id === assessmentId);
+    toast({
+      title: isRTL ? 'إنشاء دعوة' : 'Create Invitation',
+      description: isRTL ? `جاري إنشاء دعوة لـ ${assessment?.name}` : `Creating invitation for ${assessment?.name}`
+    });
   };
 
   const handleImportResults = () => {
-    console.log('Importing external results...');
+    toast({
+      title: isRTL ? 'استيراد النتائج' : 'Import Results',
+      description: isRTL ? 'جاري استيراد النتائج الخارجية' : 'Importing external results'
+    });
   };
 
   const handleGenerateReport = (type: 'individual' | 'team') => {
-    console.log('Generating report:', type);
+    toast({
+      title: isRTL ? 'إنتاج التقرير' : 'Generate Report',
+      description: isRTL ? `جاري إنتاج ${type === 'individual' ? 'التقرير الفردي' : 'التقرير الفرقي'}` : `Generating ${type} report`
+    });
   };
 
   const handleViewResult = (resultId: string) => {
-    console.log('Viewing result:', resultId);
+    const result = recentResults.find(r => r.id === resultId);
+    toast({
+      title: isRTL ? 'عرض النتيجة' : 'View Result',
+      description: isRTL ? `عرض نتيجة ${result?.employeeName}` : `Viewing result for ${result?.employeeName}`
+    });
+  };
+
+  const handleCreateAssessment = (assessmentId: string) => {
+    const assessment = assessments.find(a => a.id === assessmentId);
+    toast({
+      title: isRTL ? 'إنشاء اختبار' : 'Create Assessment',
+      description: isRTL ? `جاري إنشاء ${assessment?.name}` : `Creating ${assessment?.name}`
+    });
+    setSelectedAssessment(assessmentId);
   };
 
   const getStatusBadge = (status: string) => {
@@ -319,7 +344,7 @@ export const AssessmentSuite: React.FC = () => {
                       </Button>
                       <Button
                         size="sm"
-                        onClick={() => setSelectedAssessment(assessment.id)}
+                        onClick={() => handleCreateAssessment(assessment.id)}
                         className="gap-1"
                       >
                         <Eye className="w-3 h-3" />
@@ -402,7 +427,10 @@ export const AssessmentSuite: React.FC = () => {
                             <Eye className="w-3 h-3" />
                             {isRTL ? 'عرض' : 'View'}
                           </Button>
-                          <Button size="sm" variant="outline" className="gap-1">
+                          <Button size="sm" variant="outline" className="gap-1" onClick={() => toast({
+                            title: isRTL ? 'تحميل التقرير' : 'Download Report',
+                            description: isRTL ? 'جاري تحميل التقرير' : 'Downloading report'
+                          })}>
                             <Download className="w-3 h-3" />
                             {isRTL ? 'تحميل' : 'Download'}
                           </Button>

@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Clock, 
   MessageSquare, 
@@ -30,6 +31,64 @@ export const ContinuousSystem = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const [activeTab, setActiveTab] = useState('dashboard');
+  const { toast } = useToast();
+
+  // Add handlers for continuous system
+  const handleScheduleOneOnOne = () => {
+    toast({
+      title: isRTL ? 'جدولة اجتماع 1:1' : 'Schedule 1:1',
+      description: isRTL ? 'جاري فتح نموذج جدولة الاجتماع' : 'Opening meeting scheduling form'
+    });
+  };
+
+  const handleAddMicroGoal = () => {
+    toast({
+      title: isRTL ? 'إضافة هدف مصغر' : 'Add Micro-Goal',
+      description: isRTL ? 'جاري فتح نموذج الهدف المصغر' : 'Opening micro-goal form'
+    });
+  };
+
+  const handleViewMeetingDetails = (meetingId: string) => {
+    toast({
+      title: isRTL ? 'عرض التفاصيل' : 'View Details',
+      description: isRTL ? 'عرض تفاصيل الاجتماع' : 'Viewing meeting details'
+    });
+  };
+
+  const handleStartMeeting = (meetingId: string) => {
+    toast({
+      title: isRTL ? 'بدء الاجتماع' : 'Start Meeting',
+      description: isRTL ? 'جاري بدء الاجتماع' : 'Starting the meeting'
+    });
+  };
+
+  const handleEditGoal = (goalId: string) => {
+    toast({
+      title: isRTL ? 'تعديل الهدف' : 'Edit Goal',
+      description: isRTL ? 'جاري فتح محرر الهدف' : 'Opening goal editor'
+    });
+  };
+
+  const handleUpdateProgress = (goalId: string) => {
+    toast({
+      title: isRTL ? 'تحديث التقدم' : 'Update Progress',
+      description: isRTL ? 'جاري تحديث تقدم الهدف' : 'Updating goal progress'
+    });
+  };
+
+  const handleSendFeedback = () => {
+    toast({
+      title: isRTL ? 'إرسال تغذية راجعة' : 'Send Feedback',
+      description: isRTL ? 'جاري فتح نموذج التغذية الراجعة' : 'Opening feedback form'
+    });
+  };
+
+  const handleGiveRecognition = () => {
+    toast({
+      title: isRTL ? 'إعطاء تقدير' : 'Give Recognition',
+      description: isRTL ? 'جاري فتح نموذج التقدير' : 'Opening recognition form'
+    });
+  };
 
   // Sample data for continuous performance management
   const oneOnOnes = [
@@ -177,11 +236,11 @@ export const ContinuousSystem = () => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2" onClick={handleScheduleOneOnOne}>
             <Calendar className="w-4 h-4" />
             {isRTL ? 'جدولة 1:1' : 'Schedule 1:1'}
           </Button>
-          <Button className="gap-2">
+          <Button className="gap-2" onClick={handleAddMicroGoal}>
             <Plus className="w-4 h-4" />
             {isRTL ? 'إضافة هدف مصغر' : 'Add Micro-Goal'}
           </Button>
@@ -397,11 +456,11 @@ export const ContinuousSystem = () => {
                       </div>
                       
                       <div className="mt-4 flex gap-2">
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" onClick={() => handleViewMeetingDetails(meeting.id)}>
                           {isRTL ? 'عرض التفاصيل' : 'View Details'}
                         </Button>
                         {meeting.status === 'scheduled' && (
-                          <Button size="sm">
+                          <Button size="sm" onClick={() => handleStartMeeting(meeting.id)}>
                             {isRTL ? 'ابدأ الاجتماع' : 'Start Meeting'}
                           </Button>
                         )}

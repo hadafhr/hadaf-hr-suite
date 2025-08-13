@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/hooks/use-toast';
 import { 
   BarChart3, 
   Plus, 
@@ -39,6 +40,7 @@ interface KPI {
 export const KPISystem: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
+  const { toast } = useToast();
 
   const [selectedDepartment, setSelectedDepartment] = useState<string>('sales');
   const [isAddingKPI, setIsAddingKPI] = useState(false);
@@ -225,11 +227,18 @@ export const KPISystem: React.FC = () => {
 
   const handleAddKPI = () => {
     setIsAddingKPI(true);
+    toast({
+      title: isRTL ? 'إضافة مؤشر جديد' : 'Adding New KPI',
+      description: isRTL ? 'جاري فتح نموذج الإضافة' : 'Opening add form'
+    });
   };
 
   const handleSaveKPI = () => {
     if (newKPI.name && newKPI.description) {
-      console.log('Saving new KPI:', newKPI);
+      toast({
+        title: isRTL ? 'تم الحفظ بنجاح' : 'Successfully Saved',
+        description: isRTL ? `تم إنشاء مؤشر: ${newKPI.name}` : `KPI created: ${newKPI.name}`
+      });
       setIsAddingKPI(false);
       setNewKPI({
         frequency: 'monthly',
@@ -237,6 +246,12 @@ export const KPISystem: React.FC = () => {
         targetValue: 0,
         currentValue: 0,
         status: 'active'
+      });
+    } else {
+      toast({
+        title: isRTL ? 'بيانات مطلوبة' : 'Required Fields',
+        description: isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields',
+        variant: 'destructive'
       });
     }
   };
@@ -250,18 +265,31 @@ export const KPISystem: React.FC = () => {
       currentValue: 0,
       status: 'active'
     });
+    toast({
+      title: isRTL ? 'تم الإلغاء' : 'Cancelled',
+      description: isRTL ? 'تم إلغاء إضافة المؤشر' : 'KPI addition cancelled'
+    });
   };
 
   const handleLinkDataSource = (kpiId?: string) => {
-    console.log('Linking data source for KPI:', kpiId);
+    toast({
+      title: isRTL ? 'ربط مصدر البيانات' : 'Link Data Source',
+      description: isRTL ? 'جاري فتح معالج ربط البيانات' : 'Opening data connection wizard'
+    });
   };
 
   const handleSetQuarterlyTargets = () => {
-    console.log('Setting quarterly targets...');
+    toast({
+      title: isRTL ? 'تعيين الأهداف الربع سنوية' : 'Set Quarterly Targets',
+      description: isRTL ? 'جاري فتح نموذج الأهداف الربع سنوية' : 'Opening quarterly targets form'
+    });
   };
 
   const handleLockPeriod = () => {
-    console.log('Locking period...');
+    toast({
+      title: isRTL ? 'قفل الفترة' : 'Lock Period',
+      description: isRTL ? 'تم قفل الفترة الحالية' : 'Current period has been locked'
+    });
   };
 
   return (

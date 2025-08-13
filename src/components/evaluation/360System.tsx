@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Users, 
   UserPlus, 
@@ -27,6 +28,50 @@ export const System360 = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const [activeTab, setActiveTab] = useState('setup');
+  const { toast } = useToast();
+
+  // Add handlers for all interactive elements
+  const handleSendInvitations = () => {
+    toast({
+      title: isRTL ? 'إرسال الدعوات' : 'Send Invitations',
+      description: isRTL ? 'تم إرسال دعوات التقييم لجميع المشاركين' : 'Evaluation invitations sent to all participants'
+    });
+  };
+
+  const handlePrivacySettings = () => {
+    toast({
+      title: isRTL ? 'إعدادات الخصوصية' : 'Privacy Settings',
+      description: isRTL ? 'جاري فتح إعدادات الخصوصية والأمان' : 'Opening privacy and security settings'
+    });
+  };
+
+  const handleAddRater = () => {
+    toast({
+      title: isRTL ? 'إضافة مقيّم' : 'Add Rater',
+      description: isRTL ? 'جاري فتح نموذج إضافة مقيّم جديد' : 'Opening add new rater form'
+    });
+  };
+
+  const handleSendReminders = () => {
+    toast({
+      title: isRTL ? 'إرسال تذكيرات' : 'Send Reminders',
+      description: isRTL ? 'تم إرسال تذكيرات للمقيّمين المتأخرين' : 'Reminders sent to pending raters'
+    });
+  };
+
+  const handleContactParticipant = (participantName: string) => {
+    toast({
+      title: isRTL ? 'التواصل مع المشارك' : 'Contact Participant',
+      description: isRTL ? `فتح محادثة مع ${participantName}` : `Opening chat with ${participantName}`
+    });
+  };
+
+  const handleEditCompetency = (competencyName: string) => {
+    toast({
+      title: isRTL ? 'تعديل الكفاءة' : 'Edit Competency',
+      description: isRTL ? `تعديل ${competencyName}` : `Editing ${competencyName}`
+    });
+  };
 
   // Default data for 360 evaluation
   const raterGroups = [
@@ -177,11 +222,11 @@ export const System360 = () => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2" onClick={handlePrivacySettings}>
             <Shield className="w-4 h-4" />
             {isRTL ? 'إعدادات الخصوصية' : 'Privacy Settings'}
           </Button>
-          <Button className="gap-2">
+          <Button className="gap-2" onClick={handleSendInvitations}>
             <Send className="w-4 h-4" />
             {isRTL ? 'إرسال دعوات' : 'Send Invitations'}
           </Button>
@@ -286,11 +331,11 @@ export const System360 = () => {
             <CardContent>
               <div className="flex justify-between items-center mb-6">
                 <div className="flex gap-2">
-                  <Button className="gap-2">
+                  <Button className="gap-2" onClick={handleAddRater}>
                     <UserPlus className="w-4 h-4" />
                     {isRTL ? 'إضافة مقيّم' : 'Add Rater'}
                   </Button>
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" className="gap-2" onClick={handleSendReminders}>
                     <Send className="w-4 h-4" />
                     {isRTL ? 'إرسال تذكيرات' : 'Send Reminders'}
                   </Button>
@@ -326,7 +371,7 @@ export const System360 = () => {
                         </div>
                         <div className="flex items-center gap-3">
                           {getStatusBadge(participant.status)}
-                          <Button size="sm" variant="outline" className="gap-2">
+                          <Button size="sm" variant="outline" className="gap-2" onClick={() => handleContactParticipant(participant.name)}>
                             <MessageSquare className="w-4 h-4" />
                             {isRTL ? 'تواصل' : 'Contact'}
                           </Button>
@@ -364,7 +409,7 @@ export const System360 = () => {
                             {isRTL ? `الوزن: ${area.weight}%` : `Weight: ${area.weight}%`}
                           </div>
                         </div>
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" onClick={() => handleEditCompetency(area.name)}>
                           {isRTL ? 'تعديل' : 'Edit'}
                         </Button>
                       </div>
