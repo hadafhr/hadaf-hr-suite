@@ -1,283 +1,549 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Target, 
   Plus, 
-  Edit3, 
+  Save, 
+  Edit, 
   Trash2, 
-  Calendar,
-  TrendingUp,
+  ArrowLeft,
+  Languages,
+  Download,
+  Upload,
+  Lock,
+  Unlock,
   AlertCircle,
-  Check
+  TrendingUp,
+  Calendar,
+  CheckCircle,
+  Eye
 } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+
+// Import the MBO system image
+import mboSystemImage from '@/assets/mbo-system.jpg';
 
 interface Objective {
   id: string;
   title: string;
   description: string;
-  category: 'institutional' | 'departmental' | 'individual';
+  category: 'financial' | 'customer' | 'innovation' | 'operational';
   weight: number;
   targetValue: number;
   currentValue: number;
   measurementUnit: string;
   dueDate: string;
-  status: 'active' | 'completed' | 'cancelled';
+  status: 'not_started' | 'in_progress' | 'completed' | 'cancelled';
   achievementPercentage: number;
 }
 
-export const MBOSystem: React.FC = () => {
+export const MBOSystem = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
-
+  const { toast } = useToast();
+  
   const [objectives, setObjectives] = useState<Objective[]>([
     {
       id: '1',
-      title: isRTL ? 'تحقيق رؤية الشركة 2025' : 'Achieve Company Vision 2025',
-      description: isRTL ? 'المساهمة في تحقيق الأهداف الاستراتيجية للشركة' : 'Contribute to achieving company strategic goals',
-      category: 'institutional',
-      weight: 20,
-      targetValue: 100,
-      currentValue: 75,
+      title: isRTL ? 'زيادة إيرادات المبيعات بنسبة 25%' : 'Increase sales revenue by 25%',
+      description: isRTL ? 'تحقيق نمو في المبيعات خلال الربع الثاني' : 'Achieve sales growth during Q2',
+      category: 'financial',
+      weight: 30,
+      targetValue: 125,
+      currentValue: 110,
       measurementUnit: '%',
-      dueDate: '2025-12-31',
-      status: 'active',
-      achievementPercentage: 75
+      dueDate: '2024-06-30',
+      status: 'in_progress',
+      achievementPercentage: 88
     },
     {
-      id: '2', 
-      title: isRTL ? 'زيادة إنتاجية القسم' : 'Increase Department Productivity',
-      description: isRTL ? 'تحسين كفاءة العمليات وزيادة الإنتاجية بنسبة 15%' : 'Improve process efficiency and increase productivity by 15%',
-      category: 'departmental',
-      weight: 30,
-      targetValue: 115,
-      currentValue: 108,
-      measurementUnit: '%',
-      dueDate: '2025-06-30',
-      status: 'active',
-      achievementPercentage: 94
+      id: '2',
+      title: isRTL ? 'تطوير منتجات جديدة' : 'Develop new products',
+      description: isRTL ? 'إطلاق 3 منتجات جديدة في السوق' : 'Launch 3 new products in the market',
+      category: 'innovation',
+      weight: 25,
+      targetValue: 3,
+      currentValue: 2,
+      measurementUnit: isRTL ? 'منتجات' : 'products',
+      dueDate: '2024-08-15',
+      status: 'in_progress',
+      achievementPercentage: 67
     },
     {
       id: '3',
-      title: isRTL ? 'تطوير المهارات التقنية' : 'Develop Technical Skills',
-      description: isRTL ? 'إكمال 3 دورات تدريبية في التقنيات الحديثة' : 'Complete 3 training courses in modern technologies',
-      category: 'individual',
-      weight: 50,
-      targetValue: 3,
-      currentValue: 2,
-      measurementUnit: isRTL ? 'دورة' : 'courses',
-      dueDate: '2025-09-30',
-      status: 'active',
-      achievementPercentage: 67
+      title: isRTL ? 'تحسين رضا العملاء' : 'Improve customer satisfaction',
+      description: isRTL ? 'تحقيق معدل رضا 95% من العملاء' : 'Achieve 95% customer satisfaction rate',
+      category: 'customer',
+      weight: 20,
+      targetValue: 95,
+      currentValue: 88,
+      measurementUnit: '%',
+      dueDate: '2024-07-31',
+      status: 'in_progress',
+      achievementPercentage: 93
+    },
+    {
+      id: '4',
+      title: isRTL ? 'تحسين كفاءة العمليات' : 'Improve operational efficiency',
+      description: isRTL ? 'تقليل وقت المعالجة بنسبة 20%' : 'Reduce processing time by 20%',
+      category: 'operational',
+      weight: 25,
+      targetValue: 80,
+      currentValue: 85,
+      measurementUnit: '%',
+      dueDate: '2024-09-30',
+      status: 'completed',
+      achievementPercentage: 100
     }
   ]);
-
-  const [isAddingObjective, setIsAddingObjective] = useState(false);
+  
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const [newObjective, setNewObjective] = useState<Partial<Objective>>({
-    category: 'individual',
+    title: '',
+    description: '',
+    category: 'financial',
     weight: 0,
     targetValue: 0,
     currentValue: 0,
     measurementUnit: '',
-    status: 'active'
+    dueDate: '',
+    status: 'not_started'
   });
 
-  const categoryLabels = {
-    institutional: isRTL ? 'مؤسسية' : 'Institutional',
-    departmental: isRTL ? 'قسمية' : 'Departmental', 
-    individual: isRTL ? 'فردية' : 'Individual'
-  };
-
-  const categoryColors = {
-    institutional: 'bg-blue-500',
-    departmental: 'bg-green-500',
-    individual: 'bg-purple-500'
-  };
-
-  const statusLabels = {
-    active: isRTL ? 'نشط' : 'Active',
-    completed: isRTL ? 'مكتمل' : 'Completed',
-    cancelled: isRTL ? 'ملغي' : 'Cancelled'
-  };
-
-  const statusColors = {
-    active: 'bg-blue-500',
-    completed: 'bg-green-500', 
-    cancelled: 'bg-red-500'
-  };
-
-  const defaultWeights = {
-    institutional: 20,
-    departmental: 30,
-    individual: 50
-  };
-
-  const totalWeight = objectives.reduce((sum, obj) => sum + obj.weight, 0);
-  const overallAchievement = objectives.reduce((sum, obj) => sum + (obj.achievementPercentage * obj.weight / 100), 0);
-
   const handleAddObjective = () => {
-    setIsAddingObjective(true);
-  };
-
-  const handleSaveObjective = () => {
-    if (newObjective.title && newObjective.description) {
-      const objective: Objective = {
-        id: Date.now().toString(),
-        title: newObjective.title!,
-        description: newObjective.description!,
-        category: newObjective.category as any,
-        weight: newObjective.weight!,
-        targetValue: newObjective.targetValue!,
-        currentValue: newObjective.currentValue!,
-        measurementUnit: newObjective.measurementUnit!,
-        dueDate: newObjective.dueDate!,
-        status: 'active',
-        achievementPercentage: newObjective.currentValue! / newObjective.targetValue! * 100
-      };
-      
-      setObjectives([...objectives, objective]);
-      setNewObjective({
-        category: 'individual',
-        weight: 0,
-        targetValue: 0,
-        currentValue: 0,
-        measurementUnit: '',
-        status: 'active'
+    if (!newObjective.title || !newObjective.targetValue) {
+      toast({
+        title: isRTL ? 'خطأ في البيانات' : 'Data Error',
+        description: isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields',
+        variant: 'destructive'
       });
-      setIsAddingObjective(false);
+      return;
     }
-  };
 
-  const handleCancelAdd = () => {
-    setIsAddingObjective(false);
+    const objective: Objective = {
+      id: Date.now().toString(),
+      title: newObjective.title!,
+      description: newObjective.description || '',
+      category: newObjective.category as any,
+      weight: newObjective.weight || 0,
+      targetValue: newObjective.targetValue!,
+      currentValue: newObjective.currentValue || 0,
+      measurementUnit: newObjective.measurementUnit || '',
+      dueDate: newObjective.dueDate || '',
+      status: 'not_started',
+      achievementPercentage: 0
+    };
+
+    setObjectives([...objectives, objective]);
     setNewObjective({
-      category: 'individual',
+      title: '',
+      description: '',
+      category: 'financial',
       weight: 0,
       targetValue: 0,
       currentValue: 0,
       measurementUnit: '',
-      status: 'active'
+      dueDate: '',
+      status: 'not_started'
+    });
+    setShowAddForm(false);
+    
+    toast({
+      title: isRTL ? 'تم إضافة الهدف' : 'Objective Added',
+      description: isRTL ? 'تم إضافة الهدف بنجاح' : 'Objective added successfully'
+    });
+  };
+
+  const handleSaveObjectives = () => {
+    toast({
+      title: isRTL ? 'تم الحفظ' : 'Saved',
+      description: isRTL ? 'تم حفظ جميع الأهداف' : 'All objectives saved successfully'
     });
   };
 
   const handleDeleteObjective = (id: string) => {
     setObjectives(objectives.filter(obj => obj.id !== id));
+    toast({
+      title: isRTL ? 'تم الحذف' : 'Deleted',
+      description: isRTL ? 'تم حذف الهدف' : 'Objective deleted'
+    });
   };
 
   const handleImportObjectives = () => {
-    console.log('Importing objectives...');
+    toast({
+      title: isRTL ? 'استيراد الأهداف' : 'Import Objectives',
+      description: isRTL ? 'جاري استيراد الأهداف من ملف CSV' : 'Importing objectives from CSV file'
+    });
+  };
+
+  const handleExportObjectives = () => {
+    toast({
+      title: isRTL ? 'تصدير الأهداف' : 'Export Objectives',
+      description: isRTL ? 'جاري تصدير الأهداف إلى ملف Excel' : 'Exporting objectives to Excel file'
+    });
   };
 
   const handleAlignObjective = (id: string) => {
-    console.log('Aligning objective:', id);
+    toast({
+      title: isRTL ? 'محاذاة الهدف' : 'Align Objective',
+      description: isRTL ? 'تم ربط الهدف بالاستراتيجية العامة' : 'Objective aligned with company strategy'
+    });
   };
 
   const handleLockObjectives = () => {
-    console.log('Locking objectives...');
+    setIsLocked(!isLocked);
+    toast({
+      title: isLocked ? (isRTL ? 'تم إلغاء القفل' : 'Unlocked') : (isRTL ? 'تم القفل' : 'Locked'),
+      description: isLocked 
+        ? (isRTL ? 'يمكن الآن تعديل الأهداف' : 'Objectives can now be edited')
+        : (isRTL ? 'تم قفل الأهداف لهذه الدورة' : 'Objectives locked for this cycle')
+    });
   };
 
+  const handlePreviewObjective = (id: string) => {
+    toast({
+      title: isRTL ? 'معاينة الهدف' : 'Preview Objective',
+      description: isRTL ? 'عرض تفاصيل الهدف' : 'Viewing objective details'
+    });
+  };
+
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar');
+  };
+
+  const handleBack = () => {
+    window.history.back();
+  };
+
+  const totalWeight = objectives.reduce((sum, obj) => sum + obj.weight, 0);
+  const overallAchievement = objectives.length > 0 
+    ? objectives.reduce((sum, obj) => sum + (obj.achievementPercentage * obj.weight / 100), 0) / totalWeight * 100
+    : 0;
+
+  const defaultWeights = {
+    financial: { label: isRTL ? 'مالي' : 'Financial', weight: 30, color: '#3B82F6' },
+    customer: { label: isRTL ? 'عملاء' : 'Customer', weight: 25, color: '#10B981' },
+    innovation: { label: isRTL ? 'ابتكار' : 'Innovation', weight: 25, color: '#8B5CF6' },
+    operational: { label: isRTL ? 'تشغيلي' : 'Operational', weight: 20, color: '#F59E0B' }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed': return 'bg-green-500';
+      case 'in_progress': return 'bg-blue-500';
+      case 'not_started': return 'bg-gray-500';
+      case 'cancelled': return 'bg-red-500';
+      default: return 'bg-gray-500';
+    }
+  };
+
+  const getStatusLabel = (status: string) => {
+    const labels = {
+      completed: isRTL ? 'مكتمل' : 'Completed',
+      in_progress: isRTL ? 'جاري' : 'In Progress',
+      not_started: isRTL ? 'لم يبدأ' : 'Not Started',
+      cancelled: isRTL ? 'ملغي' : 'Cancelled'
+    };
+    return labels[status as keyof typeof labels] || status;
+  };
+
+  // Chart data
+  const chartData = objectives.map(obj => ({
+    name: obj.title.substring(0, 20) + '...',
+    achievement: obj.achievementPercentage,
+    target: 100
+  }));
+
+  const pieData = Object.entries(defaultWeights).map(([key, value]) => ({
+    name: value.label,
+    value: value.weight,
+    color: value.color
+  }));
+
   return (
-    <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <Card>
+    <div className="space-y-6 animate-fade-in" dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-8">
+        <div className="relative z-10 flex items-center gap-6">
+          <div className="flex-1">
+            <div className="flex items-center gap-4 mb-4">
+              <Button variant="outline" size="sm" onClick={handleBack} className="hover-scale">
+                <ArrowLeft className="h-4 w-4" />
+                {isRTL ? 'رجوع' : 'Back'}
+              </Button>
+              <Button variant="outline" size="sm" onClick={toggleLanguage} className="hover-scale">
+                <Languages className="h-4 w-4 mr-2" />
+                {isRTL ? 'EN' : 'عربي'}
+              </Button>
+            </div>
+            
+            <h1 className="text-3xl font-bold text-gradient mb-4">
+              <Target className="inline h-8 w-8 mr-3 text-blue-600" />
+              {isRTL ? 'نظام الإدارة بالأهداف (MBO)' : 'Management by Objectives (MBO)'}
+            </h1>
+            <p className="text-lg text-muted-foreground mb-6">
+              {isRTL 
+                ? 'نظام إدارة وقياس الأهداف الذكية (SMART) مع متابعة التقدم والتحليل'
+                : 'Smart objectives management system with progress tracking and analysis'
+              }
+            </p>
+            
+            <div className="flex flex-wrap gap-3">
+              <Button onClick={() => setShowAddForm(true)} className="btn-primary hover-scale">
+                <Plus className="h-4 w-4 mr-2" />
+                {isRTL ? 'إضافة هدف جديد' : 'Add New Objective'}
+              </Button>
+              <Button variant="outline" onClick={handleSaveObjectives} className="hover-scale">
+                <Save className="h-4 w-4 mr-2" />
+                {isRTL ? 'حفظ' : 'Save'}
+              </Button>
+              <Button variant="outline" onClick={handleImportObjectives} className="hover-scale">
+                <Upload className="h-4 w-4 mr-2" />
+                {isRTL ? 'استيراد' : 'Import'}
+              </Button>
+              <Button variant="outline" onClick={handleExportObjectives} className="hover-scale">
+                <Download className="h-4 w-4 mr-2" />
+                {isRTL ? 'تصدير' : 'Export'}
+              </Button>
+              <Button variant="outline" onClick={handleLockObjectives} className="hover-scale">
+                {isLocked ? <Unlock className="h-4 w-4 mr-2" /> : <Lock className="h-4 w-4 mr-2" />}
+                {isLocked ? (isRTL ? 'إلغاء القفل' : 'Unlock') : (isRTL ? 'قفل الأهداف' : 'Lock Goals')}
+              </Button>
+            </div>
+          </div>
+          
+          <div className="hidden lg:block">
+            <img 
+              src={mboSystemImage} 
+              alt="MBO System" 
+              className="w-80 h-40 object-cover rounded-lg shadow-lg hover-scale"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Dashboard Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card className="dashboard-card hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {isRTL ? 'الإنجاز العام' : 'Overall Achievement'}
+                </p>
+                <p className="text-2xl font-bold text-primary">{Math.round(overallAchievement)}%</p>
+              </div>
+              <TrendingUp className="h-8 w-8 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="dashboard-card hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {isRTL ? 'إجمالي الأهداف' : 'Total Objectives'}
+                </p>
+                <p className="text-2xl font-bold text-primary">{objectives.length}</p>
+              </div>
+              <Target className="h-8 w-8 text-primary" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="dashboard-card hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {isRTL ? 'الأهداف المكتملة' : 'Completed Goals'}
+                </p>
+                <p className="text-2xl font-bold text-success">
+                  {objectives.filter(obj => obj.status === 'completed').length}
+                </p>
+              </div>
+              <CheckCircle className="h-8 w-8 text-success" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="dashboard-card hover-scale">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {isRTL ? 'إجمالي الوزن' : 'Total Weight'}
+                </p>
+                <p className="text-2xl font-bold text-primary">{totalWeight}%</p>
+              </div>
+              <AlertCircle className={`h-8 w-8 ${totalWeight === 100 ? 'text-success' : 'text-warning'}`} />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="dashboard-card">
+          <CardHeader>
+            <CardTitle>{isRTL ? 'تقدم الأهداف' : 'Objectives Progress'}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="achievement" fill="hsl(var(--primary))" />
+                  <Bar dataKey="target" fill="hsl(var(--muted))" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="dashboard-card">
+          <CardHeader>
+            <CardTitle>{isRTL ? 'توزيع الأوزان الافتراضية' : 'Default Weight Distribution'}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, value }) => `${name}: ${value}%`}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Default Weights */}
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Target className="w-5 h-5" />
-            {isRTL ? 'نظام الإدارة بالأهداف (MBO)' : 'Management by Objectives (MBO) System'}
-          </CardTitle>
-          <CardDescription>
-            {isRTL ? 'تحديد الأهداف SMART ومتابعة تحقيقها مع الأوزان الافتراضية' : 'Set SMART objectives and track their achievement with default weights'}
-          </CardDescription>
+          <CardTitle>{isRTL ? 'الأوزان الافتراضية للفئات' : 'Default Category Weights'}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">{defaultWeights.institutional}%</div>
-              <div className="text-sm text-muted-foreground">{isRTL ? 'أهداف مؤسسية' : 'Institutional Goals'}</div>
-            </div>
-            <div className="text-center p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">{defaultWeights.departmental}%</div>
-              <div className="text-sm text-muted-foreground">{isRTL ? 'أهداف قسمية' : 'Departmental Goals'}</div>
-            </div>
-            <div className="text-center p-4 bg-purple-50 dark:bg-purple-950/20 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">{defaultWeights.individual}%</div>
-              <div className="text-sm text-muted-foreground">{isRTL ? 'أهداف فردية' : 'Individual Goals'}</div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {Object.entries(defaultWeights).map(([key, value]) => (
+              <div key={key} className="text-center p-4 rounded-lg bg-muted/30">
+                <div className={`w-12 h-12 rounded-full mx-auto mb-2`} style={{ backgroundColor: value.color }}></div>
+                <h3 className="font-medium">{value.label}</h3>
+                <p className="text-sm text-muted-foreground">{value.weight}%</p>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Overall Progress */}
-      <Card>
+      {/* Objectives List */}
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5" />
-            {isRTL ? 'التقدم العام' : 'Overall Progress'}
+          <CardTitle className="flex items-center justify-between">
+            <span>{isRTL ? 'قائمة الأهداف' : 'Objectives List'}</span>
+            <Badge variant={isLocked ? 'destructive' : 'default'}>
+              {isLocked ? (isRTL ? 'مقفل' : 'Locked') : (isRTL ? 'قابل للتعديل' : 'Editable')}
+            </Badge>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">
-                {isRTL ? 'إجمالي الإنجاز' : 'Total Achievement'}
-              </span>
-              <span className="text-lg font-bold">{overallAchievement.toFixed(1)}%</span>
-            </div>
-            <Progress value={overallAchievement} className="h-3" />
-            
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">
-                {isRTL ? 'إجمالي الأوزان' : 'Total Weights'}
-              </span>
-              <span className={`text-sm font-medium ${totalWeight === 100 ? 'text-green-600' : 'text-red-600'}`}>
-                {totalWeight}%
-              </span>
-            </div>
-            
-            {totalWeight !== 100 && (
-              <div className="flex items-center gap-2 p-3 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg">
-                <AlertCircle className="w-4 h-4 text-yellow-600" />
-                <span className="text-sm text-yellow-700 dark:text-yellow-400">
-                  {isRTL ? 'تحذير: إجمالي الأوزان يجب أن يساوي 100%' : 'Warning: Total weights should equal 100%'}
-                </span>
+            {objectives.map((objective) => (
+              <div key={objective.id} className="p-6 border border-border rounded-lg hover:shadow-md transition-shadow">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="font-semibold">{objective.title}</h3>
+                      <Badge className={getStatusColor(objective.status)}>
+                        {getStatusLabel(objective.status)}
+                      </Badge>
+                      <Badge variant="outline">
+                        {defaultWeights[objective.category]?.label} - {objective.weight}%
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">{objective.description}</p>
+                    <div className="flex items-center gap-6 text-sm">
+                      <span>
+                        <strong>{isRTL ? 'الهدف:' : 'Target:'}</strong> {objective.targetValue} {objective.measurementUnit}
+                      </span>
+                      <span>
+                        <strong>{isRTL ? 'الحالي:' : 'Current:'}</strong> {objective.currentValue} {objective.measurementUnit}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {objective.dueDate}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" onClick={() => handlePreviewObjective(objective.id)} className="hover-scale">
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => handleAlignObjective(objective.id)} className="hover-scale">
+                      <Target className="h-4 w-4" />
+                    </Button>
+                    {!isLocked && (
+                      <>
+                        <Button size="sm" variant="outline" className="hover-scale">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => handleDeleteObjective(objective.id)} className="hover-scale">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>{isRTL ? 'نسبة الإنجاز' : 'Achievement'}</span>
+                    <span className="font-medium">{objective.achievementPercentage}%</span>
+                  </div>
+                  <Progress value={objective.achievementPercentage} className="h-2" />
+                </div>
               </div>
-            )}
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap items-center gap-3">
-        <Button onClick={handleAddObjective} className="gap-2">
-          <Plus className="w-4 h-4" />
-          {isRTL ? 'إضافة هدف' : 'Add Objective'}
-        </Button>
-        <Button onClick={handleImportObjectives} variant="outline" className="gap-2">
-          <Target className="w-4 h-4" />
-          {isRTL ? 'استيراد أهداف' : 'Import Objectives'}
-        </Button>
-        <Button onClick={handleLockObjectives} variant="outline" className="gap-2">
-          <Check className="w-4 h-4" />
-          {isRTL ? 'قفل الأهداف' : 'Lock Objectives'}
-        </Button>
-      </div>
-
-      {/* Add New Objective Form */}
-      {isAddingObjective && (
-        <Card>
-          <CardHeader>
-            <CardTitle>{isRTL ? 'إضافة هدف جديد' : 'Add New Objective'}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+      {/* Add Objective Dialog */}
+      <Dialog open={showAddForm} onOpenChange={setShowAddForm}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{isRTL ? 'إضافة هدف جديد' : 'Add New Objective'}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6 py-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="title">{isRTL ? 'عنوان الهدف' : 'Objective Title'}</Label>
                 <Input
                   id="title"
@@ -286,22 +552,34 @@ export const MBOSystem: React.FC = () => {
                   placeholder={isRTL ? 'أدخل عنوان الهدف' : 'Enter objective title'}
                 />
               </div>
-              
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="category">{isRTL ? 'الفئة' : 'Category'}</Label>
                 <Select value={newObjective.category} onValueChange={(value) => setNewObjective({...newObjective, category: value as any})}>
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue placeholder={isRTL ? 'اختر الفئة' : 'Select category'} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="institutional">{categoryLabels.institutional}</SelectItem>
-                    <SelectItem value="departmental">{categoryLabels.departmental}</SelectItem>
-                    <SelectItem value="individual">{categoryLabels.individual}</SelectItem>
+                    {Object.entries(defaultWeights).map(([key, value]) => (
+                      <SelectItem key={key} value={key}>{value.label}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
+            </div>
 
-              <div>
+            <div className="space-y-2">
+              <Label htmlFor="description">{isRTL ? 'الوصف' : 'Description'}</Label>
+              <Textarea
+                id="description"
+                value={newObjective.description || ''}
+                onChange={(e) => setNewObjective({...newObjective, description: e.target.value})}
+                placeholder={isRTL ? 'أدخل وصف الهدف' : 'Enter objective description'}
+                rows={3}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
                 <Label htmlFor="weight">{isRTL ? 'الوزن (%)' : 'Weight (%)'}</Label>
                 <Input
                   id="weight"
@@ -311,43 +589,42 @@ export const MBOSystem: React.FC = () => {
                   placeholder="0"
                 />
               </div>
-
-              <div>
-                <Label htmlFor="targetValue">{isRTL ? 'القيمة المستهدفة' : 'Target Value'}</Label>
+              <div className="space-y-2">
+                <Label htmlFor="target">{isRTL ? 'القيمة المستهدفة' : 'Target Value'}</Label>
                 <Input
-                  id="targetValue"
+                  id="target"
                   type="number"
                   value={newObjective.targetValue || ''}
                   onChange={(e) => setNewObjective({...newObjective, targetValue: Number(e.target.value)})}
                   placeholder="0"
                 />
               </div>
-
-              <div>
-                <Label htmlFor="currentValue">{isRTL ? 'القيمة الحالية' : 'Current Value'}</Label>
+              <div className="space-y-2">
+                <Label htmlFor="unit">{isRTL ? 'وحدة القياس' : 'Measurement Unit'}</Label>
                 <Input
-                  id="currentValue"
+                  id="unit"
+                  value={newObjective.measurementUnit || ''}
+                  onChange={(e) => setNewObjective({...newObjective, measurementUnit: e.target.value})}
+                  placeholder={isRTL ? 'مثل: %, عدد, ريال' : 'e.g: %, count, $'}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="current">{isRTL ? 'القيمة الحالية' : 'Current Value'}</Label>
+                <Input
+                  id="current"
                   type="number"
                   value={newObjective.currentValue || ''}
                   onChange={(e) => setNewObjective({...newObjective, currentValue: Number(e.target.value)})}
                   placeholder="0"
                 />
               </div>
-
-              <div>
-                <Label htmlFor="measurementUnit">{isRTL ? 'وحدة القياس' : 'Measurement Unit'}</Label>
+              <div className="space-y-2">
+                <Label htmlFor="due">{isRTL ? 'تاريخ الاستحقاق' : 'Due Date'}</Label>
                 <Input
-                  id="measurementUnit"
-                  value={newObjective.measurementUnit || ''}
-                  onChange={(e) => setNewObjective({...newObjective, measurementUnit: e.target.value})}
-                  placeholder={isRTL ? 'مثال: %, دولار, عدد' : 'e.g., %, $, count'}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="dueDate">{isRTL ? 'تاريخ الاستحقاق' : 'Due Date'}</Label>
-                <Input
-                  id="dueDate"
+                  id="due"
                   type="date"
                   value={newObjective.dueDate || ''}
                   onChange={(e) => setNewObjective({...newObjective, dueDate: e.target.value})}
@@ -355,112 +632,18 @@ export const MBOSystem: React.FC = () => {
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="description">{isRTL ? 'وصف الهدف' : 'Objective Description'}</Label>
-              <Textarea
-                id="description"
-                value={newObjective.description || ''}
-                onChange={(e) => setNewObjective({...newObjective, description: e.target.value})}
-                placeholder={isRTL ? 'اكتب وصفاً تفصيلياً للهدف' : 'Write a detailed description of the objective'}
-                rows={3}
-              />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Button onClick={handleSaveObjective}>
-                {isRTL ? 'حفظ الهدف' : 'Save Objective'}
+            <div className="flex gap-4 pt-4">
+              <Button onClick={handleAddObjective} className="btn-primary flex-1 hover-scale">
+                <Plus className="h-4 w-4 mr-2" />
+                {isRTL ? 'إضافة الهدف' : 'Add Objective'}
               </Button>
-              <Button onClick={handleCancelAdd} variant="outline">
+              <Button variant="outline" onClick={() => setShowAddForm(false)} className="hover-scale">
                 {isRTL ? 'إلغاء' : 'Cancel'}
               </Button>
             </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Objectives List */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">{isRTL ? 'قائمة الأهداف' : 'Objectives List'}</h3>
-        
-        {objectives.map((objective) => (
-          <Card key={objective.id} className="hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h4 className="font-semibold text-foreground">{objective.title}</h4>
-                    <Badge variant="outline" className={`text-white ${categoryColors[objective.category]}`}>
-                      {categoryLabels[objective.category]}
-                    </Badge>
-                    <Badge variant="outline" className={`text-white ${statusColors[objective.status]}`}>
-                      {statusLabels[objective.status]}
-                    </Badge>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground mb-3">{objective.description}</p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                    <div>
-                      <span className="text-xs text-muted-foreground">{isRTL ? 'الوزن' : 'Weight'}</span>
-                      <div className="font-medium">{objective.weight}%</div>
-                    </div>
-                    <div>
-                      <span className="text-xs text-muted-foreground">{isRTL ? 'الهدف' : 'Target'}</span>
-                      <div className="font-medium">{objective.targetValue} {objective.measurementUnit}</div>
-                    </div>
-                    <div>
-                      <span className="text-xs text-muted-foreground">{isRTL ? 'الحالي' : 'Current'}</span>
-                      <div className="font-medium">{objective.currentValue} {objective.measurementUnit}</div>
-                    </div>
-                    <div>
-                      <span className="text-xs text-muted-foreground">{isRTL ? 'الاستحقاق' : 'Due Date'}</span>
-                      <div className="font-medium flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(objective.dueDate).toLocaleDateString(isRTL ? 'ar' : 'en')}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">
-                        {isRTL ? 'نسبة الإنجاز' : 'Achievement'}
-                      </span>
-                      <span className="text-sm font-medium">{objective.achievementPercentage.toFixed(1)}%</span>
-                    </div>
-                    <Progress value={objective.achievementPercentage} className="h-2" />
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2 ml-4">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleAlignObjective(objective.id)}
-                    className="gap-1"
-                  >
-                    <Target className="w-3 h-3" />
-                    {isRTL ? 'محاذاة' : 'Align'}
-                  </Button>
-                  <Button size="sm" variant="outline" className="gap-1">
-                    <Edit3 className="w-3 h-3" />
-                    {isRTL ? 'تعديل' : 'Edit'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleDeleteObjective(objective.id)}
-                    className="gap-1 text-red-600 hover:text-red-700"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                    {isRTL ? 'حذف' : 'Delete'}
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

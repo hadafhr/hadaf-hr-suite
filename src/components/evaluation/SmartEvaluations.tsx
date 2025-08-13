@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/hooks/use-toast';
 import { 
   ArrowLeft,
   Brain,
@@ -35,11 +36,15 @@ import { WhatIfSimulator } from './smart/WhatIfSimulator';
 import { SmartSettings } from './smart/SmartSettings';
 import { SmartReports } from './smart/SmartReports';
 
+// Import the hero image
+import smartEvaluationsImage from '@/assets/smart-evaluations.jpg';
+
 export const SmartEvaluations = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const [activeTab, setActiveTab] = useState('overview');
   const [isDraft, setIsDraft] = useState(false);
+  const { toast } = useToast();
 
   // Global actions available on all tabs
   const globalActions = [
@@ -48,43 +53,61 @@ export const SmartEvaluations = () => {
     { id: 'preview', label: isRTL ? 'معاينة' : 'Preview', icon: Eye, variant: 'outline' as const },
     { id: 'export-pdf', label: isRTL ? 'تصدير PDF' : 'Export PDF', icon: FileDown, variant: 'outline' as const },
     { id: 'export-excel', label: isRTL ? 'تصدير Excel' : 'Export Excel', icon: Download, variant: 'outline' as const },
-    { id: 'import', label: isRTL ? 'استيراد' : 'Import CSV', icon: Upload, variant: 'outline' as const },
+    { id: 'import', label: isRTL ? 'استيراد' : 'Import', icon: Upload, variant: 'outline' as const }
   ];
 
+  // Handle global actions
   const handleGlobalAction = (actionId: string) => {
     switch (actionId) {
       case 'save':
-        console.log('Saving smart evaluations...');
+        toast({
+          title: isRTL ? 'تم الحفظ بنجاح' : 'Saved Successfully',
+          description: isRTL ? 'تم حفظ التقييم الذكي' : 'Smart evaluation saved'
+        });
+        setIsDraft(false);
         break;
       case 'save-draft':
+        toast({
+          title: isRTL ? 'تم حفظ المسودة' : 'Draft Saved',
+          description: isRTL ? 'تم حفظ المسودة بنجاح' : 'Draft saved successfully'
+        });
         setIsDraft(true);
-        console.log('Saving as draft...');
         break;
       case 'preview':
-        console.log('Opening preview...');
+        toast({
+          title: isRTL ? 'معاينة التقييم' : 'Preview Mode',
+          description: isRTL ? 'جاري فتح المعاينة' : 'Opening preview'
+        });
         break;
       case 'export-pdf':
-        console.log('Exporting to PDF...');
+        toast({
+          title: isRTL ? 'تصدير PDF' : 'Exporting PDF',
+          description: isRTL ? 'جاري إنشاء ملف PDF' : 'Generating PDF file'
+        });
         break;
       case 'export-excel':
-        console.log('Exporting to Excel...');
+        toast({
+          title: isRTL ? 'تصدير Excel' : 'Exporting Excel',
+          description: isRTL ? 'جاري إنشاء ملف Excel' : 'Generating Excel file'
+        });
         break;
       case 'import':
-        console.log('Opening import dialog...');
+        toast({
+          title: isRTL ? 'استيراد البيانات' : 'Import Data',
+          description: isRTL ? 'جاري استيراد البيانات' : 'Importing data'
+        });
+        break;
+      default:
         break;
     }
   };
 
   const handleBack = () => {
-    console.log('Navigating back to Performance Management...');
-    // Navigate back to main Performance Management page
+    window.history.back();
   };
 
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'ar' ? 'en' : 'ar';
-    i18n.changeLanguage(newLang);
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLang;
+    i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar');
   };
 
   const tabs = [
@@ -99,140 +122,132 @@ export const SmartEvaluations = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-background/90 p-6" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="outline" 
-              onClick={handleBack}
-              className="gap-2 hover:bg-accent/50"
-            >
-              <ArrowLeft className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-xl">
-                <Brain className="w-6 h-6 text-primary" />
+    <div className="min-h-screen bg-background p-6 animate-fade-in" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 p-8">
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-4 mb-4">
+                <Button variant="outline" size="sm" onClick={handleBack} className="hover-scale">
+                  <ArrowLeft className="h-4 w-4" />
+                  {isRTL ? 'رجوع' : 'Back'}
+                </Button>
+                <Button variant="outline" size="sm" onClick={toggleLanguage} className="hover-scale">
+                  <Languages className="h-4 w-4 mr-2" />
+                  {isRTL ? 'EN' : 'عربي'}
+                </Button>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">
-                  {isRTL ? 'التقييمات الذكية' : 'Smart Evaluations'}
-                </h1>
-                <p className="text-muted-foreground">
-                  {isRTL ? 'تقييمات مدعومة بالذكاء الاصطناعي مع رؤى ذكية' : 'AI-Powered Evaluations with Smart Insights'}
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={toggleLanguage}
-              className="gap-2"
-            >
-              <Languages className="w-4 h-4" />
-              {isRTL ? 'English' : 'العربية'}
-            </Button>
-            {isDraft && (
-              <Badge variant="secondary" className="bg-amber-100 text-amber-800">
-                {isRTL ? 'مسودة' : 'Draft'}
-              </Badge>
-            )}
-          </div>
-        </div>
-
-        {/* Global Actions */}
-        <div className="flex flex-wrap items-center gap-2 p-4 bg-card rounded-xl border shadow-sm">
-          {globalActions.map((action) => (
-            <Button
-              key={action.id}
-              variant={action.variant}
-              size="sm"
-              onClick={() => handleGlobalAction(action.id)}
-              className="gap-2"
-            >
-              <action.icon className="w-4 h-4" />
-              {action.label}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/* Smart Evaluations Content */}
-      <Card className="shadow-xl border-0 bg-card/50 backdrop-blur-sm">
-        <CardHeader className="pb-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-3 text-xl">
-                <Brain className="w-5 h-5 text-primary" />
-                {isRTL ? 'نظام التقييم الذكي' : 'Smart Evaluation System'}
-              </CardTitle>
-              <CardDescription>
+              
+              <h1 className="text-4xl font-bold text-gradient mb-4">
+                <Brain className="inline h-8 w-8 mr-3 text-primary" />
+                {isRTL ? 'التقييم الذكي بالذكاء الاصطناعي' : 'AI-Powered Smart Evaluations'}
+              </h1>
+              <p className="text-lg text-muted-foreground mb-6">
                 {isRTL 
-                  ? 'يجمع البيانات من جميع أنظمة التقييم والتقييمات لتوليد نتائج ذكية ورؤى قائمة على الذكاء الاصطناعي'
-                  : 'Combines data from all appraisal systems and assessments to generate smart scores and AI-driven insights'
+                  ? 'منظومة تقييم متطورة تستخدم الذكاء الاصطناعي لتحليل الأداء وتقديم توصيات ذكية'
+                  : 'Advanced AI-powered evaluation system for intelligent performance analysis and recommendations'
                 }
-              </CardDescription>
+              </p>
+              
+              <div className="flex flex-wrap gap-3">
+                {globalActions.map((action) => (
+                  <Button
+                    key={action.id}
+                    variant={action.variant}
+                    size="sm"
+                    onClick={() => handleGlobalAction(action.id)}
+                    className="hover-scale"
+                  >
+                    <action.icon className="h-4 w-4 mr-2" />
+                    {action.label}
+                  </Button>
+                ))}
+              </div>
             </div>
-            <Badge className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
-              {isRTL ? 'مدعوم بالذكاء الاصطناعي' : 'AI-Powered'}
-            </Badge>
+            
+            <div className="hidden lg:block">
+              <img 
+                src={smartEvaluationsImage} 
+                alt="Smart Evaluations" 
+                className="w-96 h-48 object-cover rounded-lg shadow-lg hover-scale"
+              />
+            </div>
           </div>
-        </CardHeader>
+        </div>
 
-        <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8 bg-muted/50">
-              {tabs.map((tab) => (
-                <TabsTrigger 
-                  key={tab.id} 
-                  value={tab.id}
-                  className="flex flex-col gap-1 h-16 text-xs data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
-                >
-                  <tab.icon className="w-4 h-4" />
-                  <span className="hidden lg:block">{tab.label}</span>
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        {/* Smart Evaluations Content */}
+        <Card className="shadow-xl border-0 bg-card/50 backdrop-blur-sm">
+          <CardHeader className="pb-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <Brain className="w-5 h-5 text-primary" />
+                  {isRTL ? 'نظام التقييم الذكي' : 'Smart Evaluation System'}
+                </CardTitle>
+                <CardDescription>
+                  {isRTL 
+                    ? 'يجمع البيانات من جميع أنظمة التقييم والتقييمات لتوليد نتائج ذكية ورؤى قائمة على الذكاء الاصطناعي'
+                    : 'Combines data from all appraisal systems and assessments to generate smart scores and AI-driven insights'
+                  }
+                </CardDescription>
+              </div>
+              <Badge className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+                {isRTL ? 'مدعوم بالذكاء الاصطناعي' : 'AI-Powered'}
+              </Badge>
+            </div>
+          </CardHeader>
 
-            <TabsContent value="overview" className="mt-0">
-              <SmartOverview />
-            </TabsContent>
+          <CardContent>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8 bg-muted/50">
+                {tabs.map((tab) => (
+                  <TabsTrigger 
+                    key={tab.id} 
+                    value={tab.id}
+                    className="flex flex-col gap-1 h-16 text-xs data-[state=active]:bg-primary/10 data-[state=active]:text-primary"
+                  >
+                    <tab.icon className="w-4 h-4" />
+                    <span className="hidden lg:block">{tab.label}</span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
 
-            <TabsContent value="scorecards" className="mt-0">
-              <SmartScorecards />
-            </TabsContent>
+              <TabsContent value="overview" className="mt-0">
+                <SmartOverview />
+              </TabsContent>
 
-            <TabsContent value="calibration" className="mt-0">
-              <CalibrationWorkspace />
-            </TabsContent>
+              <TabsContent value="scorecards" className="mt-0">
+                <SmartScorecards />
+              </TabsContent>
 
-            <TabsContent value="insights" className="mt-0">
-              <InsightsRisks />
-            </TabsContent>
+              <TabsContent value="calibration" className="mt-0">
+                <CalibrationWorkspace />
+              </TabsContent>
 
-            <TabsContent value="recommendations" className="mt-0">
-              <RecommendationsIDP />
-            </TabsContent>
+              <TabsContent value="insights" className="mt-0">
+                <InsightsRisks />
+              </TabsContent>
 
-            <TabsContent value="simulator" className="mt-0">
-              <WhatIfSimulator />
-            </TabsContent>
+              <TabsContent value="recommendations" className="mt-0">
+                <RecommendationsIDP />
+              </TabsContent>
 
-            <TabsContent value="settings" className="mt-0">
-              <SmartSettings />
-            </TabsContent>
+              <TabsContent value="simulator" className="mt-0">
+                <WhatIfSimulator />
+              </TabsContent>
 
-            <TabsContent value="reports" className="mt-0">
-              <SmartReports />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
+              <TabsContent value="settings" className="mt-0">
+                <SmartSettings />
+              </TabsContent>
+
+              <TabsContent value="reports" className="mt-0">
+                <SmartReports />
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
