@@ -19,6 +19,11 @@ serve(async (req) => {
 
     console.log('BOUD HR Assistant request:', { message, context, language });
 
+    // Check if OpenAI API key is available
+    if (!openAIApiKey) {
+      throw new Error('OpenAI API key is not configured');
+    }
+
     // Create context-aware system prompt
     const systemPrompt = language === 'ar' 
       ? `أنت مساعد BOUD HR الذكي، مساعد ذكي متخصص في الموارد البشرية ومنصة BOUD. أنت خبير في:
@@ -119,11 +124,10 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in BOUD HR Assistant function:', error);
+    
     return new Response(JSON.stringify({ 
       error: error.message,
-      response: language === 'ar' 
-        ? 'عذراً، حدث خطأ في المساعد الذكي. يرجى المحاولة مرة أخرى.'
-        : 'Sorry, there was an error with the AI assistant. Please try again.'
+      response: 'عذراً، حدث خطأ في المساعد الذكي. يرجى المحاولة مرة أخرى.'
     }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
