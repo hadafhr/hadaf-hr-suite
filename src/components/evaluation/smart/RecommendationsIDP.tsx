@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/components/ui/use-toast';
 import { 
   Target,
   BookOpen,
@@ -57,6 +58,7 @@ export const RecommendationsIDP = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<string>('1');
   const [selectedIDP, setSelectedIDP] = useState<EmployeeIDP | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
 
   // Demo employees for IDP generation
   const employees = [
@@ -172,11 +174,18 @@ export const RecommendationsIDP = () => {
   };
 
   const handleAssignLearning = (actionId: string) => {
-    console.log(`Assigning learning path for action: ${actionId}`);
+    toast({
+      title: isRTL ? "تم تعيين المسار التعليمي" : "Learning Path Assigned",
+      description: isRTL ? "تم ربط الإجراء بالمسار التعليمي المناسب" : "Action linked to appropriate learning path",
+    });
   };
 
   const handleNotifyEmployee = (idpId: string) => {
-    console.log(`Notifying employee about IDP: ${idpId}`);
+    const idp = idps.find(i => i.id === idpId);
+    toast({
+      title: isRTL ? "تم إرسال الإشعار" : "Notification Sent",
+      description: isRTL ? `تم إشعار ${idp?.employeeName} بخطة التطوير` : `${idp?.employeeName} notified about development plan`,
+    });
   };
 
   const handleMarkCompleted = (idpId: string, actionId: string) => {
@@ -192,10 +201,26 @@ export const RecommendationsIDP = () => {
           }
         : idp
     ));
+    
+    toast({
+      title: isRTL ? "تم إكمال الإجراء" : "Action Completed",
+      description: isRTL ? "تم تحديث حالة الإجراء إلى مكتمل" : "Action status updated to completed",
+    });
   };
 
   const handleExportIDP = (idpId: string) => {
-    console.log(`Exporting IDP: ${idpId}`);
+    const idp = idps.find(i => i.id === idpId);
+    toast({
+      title: isRTL ? "تصدير خطة التطوير" : "Exporting IDP",
+      description: isRTL ? `جاري تحضير ملف PDF لخطة ${idp?.employeeName}` : `Preparing PDF for ${idp?.employeeName}'s plan`,
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: isRTL ? "تم التصدير بنجاح" : "Export Successful",
+        description: isRTL ? "تم تحميل ملف خطة التطوير" : "Development plan file downloaded",
+      });
+    }, 1500);
   };
 
   const getStatusBadge = (status: string) => {

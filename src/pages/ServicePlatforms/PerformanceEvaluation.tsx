@@ -369,13 +369,26 @@ export const PerformanceEvaluation: React.FC = () => {
   const { toast } = useToast();
 
   const handleNewEvaluation = () => {
+    toast({
+      title: isArabic ? "فتح نموذج التقييم" : "Opening Evaluation Form",
+      description: isArabic ? "جاري فتح نموذج تقييم الأداء الجديد" : "Opening new performance evaluation form",
+    });
     setShowKPIForm(true);
   };
 
   const handleSubmitKPI = () => {
+    if (!kpiFormData.employeeName || !kpiFormData.evaluationType || !kpiFormData.rating) {
+      toast({
+        title: isArabic ? "خطأ في البيانات" : "Data Error",
+        description: isArabic ? "يرجى ملء جميع الحقول المطلوبة" : "Please fill all required fields",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     toast({
-      title: "تم حفظ التقييم بنجاح",
-      description: `تم حفظ تقييم ${kpiFormData.employeeName}`,
+      title: isArabic ? "تم حفظ التقييم بنجاح" : "Evaluation Saved Successfully",
+      description: isArabic ? `تم حفظ تقييم ${kpiFormData.employeeName}` : `Saved evaluation for ${kpiFormData.employeeName}`,
     });
     setShowKPIForm(false);
     setKpiFormData({
@@ -391,23 +404,37 @@ export const PerformanceEvaluation: React.FC = () => {
 
   const handleExportReports = () => {
     toast({
-      title: "تصدير التقارير",
-      description: "جاري تصدير تقارير الأداء...",
+      title: isArabic ? "تصدير التقارير" : "Exporting Reports",
+      description: isArabic ? "جاري تحضير ملف PDF للتقارير..." : "Preparing PDF report file...",
     });
+    
+    // Simulate file generation
+    setTimeout(() => {
+      toast({
+        title: isArabic ? "تم التصدير بنجاح" : "Export Successful",
+        description: isArabic ? "تم تحميل ملف التقرير" : "Report file downloaded",
+      });
+    }, 2000);
   };
 
   const handleGroupReview = () => {
     toast({
-      title: "مراجعة جماعية",
-      description: "تم فتح أداة المراجعة الجماعية",
+      title: isArabic ? "مراجعة جماعية" : "Group Review",
+      description: isArabic ? "تم فتح واجهة المراجعة الجماعية للفريق" : "Opening team group review interface",
     });
+    
+    // Switch to specific tab for group review
+    setActiveTab('360');
   };
 
   const handleAIAnalysis = () => {
     toast({
-      title: "تحليل ذكي",
-      description: "جاري تحليل الأداء باستخدام الذكاء الاصطناعي...",
+      title: isArabic ? "تحليل ذكي" : "AI Analysis",
+      description: isArabic ? "جاري تحليل الأداء باستخدام الذكاء الاصطناعي..." : "Running AI performance analysis...",
     });
+    
+    // Switch to smart evaluations tab
+    setActiveTab('smart');
   };
 
   const handleBack = () => {
@@ -512,20 +539,29 @@ export const PerformanceEvaluation: React.FC = () => {
               <div className="grid lg:grid-cols-3 gap-6">
                 {/* Employee List */}
                 <Card className="dashboard-card">
-                  <h3 className="text-lg font-semibold mb-4">{isArabic ? 'الموظفين' : 'Employees'}</h3>
-                  <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Users className="h-5 w-5 text-primary" />
+                    <h3 className="text-lg font-semibold">{isArabic ? 'الموظفين' : 'Employees'}</h3>
+                  </div>
+                  <div className="space-y-3 max-h-96 overflow-y-auto">
                     {employees.map((employee) => (
                       <div 
                         key={employee.id}
-                        className={`p-3 rounded-lg border cursor-pointer transition-colors ${
+                        className={`p-3 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md ${
                           selectedEmployee?.id === employee.id 
-                            ? 'border-primary bg-primary/5' 
-                            : 'border-border hover:bg-accent/50'
+                            ? 'border-primary bg-primary/5 shadow-sm' 
+                            : 'border-border hover:bg-accent/50 hover:border-primary/30'
                         }`}
-                        onClick={() => setSelectedEmployee(employee)}
+                        onClick={() => {
+                          setSelectedEmployee(employee);
+                          toast({
+                            title: isArabic ? "تم اختيار الموظف" : "Employee Selected",
+                            description: isArabic ? `تم عرض بيانات ${employee.name}` : `Showing data for ${employee.name}`,
+                          });
+                        }}
                       >
                         <div className="flex justify-between items-center mb-2">
-                          <h4 className="font-medium text-sm">{employee.name}</h4>
+                          <h4 className="font-medium text-sm truncate">{employee.name}</h4>
                           <Badge variant={
                             employee.status === 'مكتمل' ? 'default' : 
                             employee.status === 'مطلوب' ? 'destructive' : 'secondary'
@@ -533,7 +569,8 @@ export const PerformanceEvaluation: React.FC = () => {
                             {employee.status}
                           </Badge>
                         </div>
-                        <p className="text-xs text-muted-foreground mb-2">{employee.position}</p>
+                        <p className="text-xs text-muted-foreground mb-2 truncate">{employee.position}</p>
+                        <p className="text-xs text-muted-foreground mb-2">{employee.department}</p>
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-muted-foreground">{isArabic ? 'الأداء العام' : 'Overall Score'}</span>
                           <span className="text-sm font-medium">{employee.overallScore}%</span>
