@@ -413,15 +413,6 @@ const BoudHRLandingPage: React.FC = () => {
                       دخول الأفراد
                     </button>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/hr/hr-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <Users className="w-4 h-4" />
-                      دخول الموارد البشرية
-                    </button>
-                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button 
@@ -502,14 +493,6 @@ const BoudHRLandingPage: React.FC = () => {
                     className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   >
                     انضم الينا
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => navigate('/hr/hr-login')}
-                    className="flex items-center gap-2"
-                  >
-                    <Users className="w-4 h-4" />
-                    دخول الموارد البشرية
                   </Button>
                 </div>
               </nav>
