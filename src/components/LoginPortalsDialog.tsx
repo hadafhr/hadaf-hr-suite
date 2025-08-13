@@ -30,7 +30,7 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
         </DialogHeader>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* E-CSS - Employee Portal */}
+          {/* Employee Portal */}
           <div 
             className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer" 
             onClick={() => handlePortalNavigation('/e-css')}
@@ -38,7 +38,7 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             <div className="relative h-48 overflow-hidden">
               <img 
                 src={ecssPoral} 
-                alt="بوابة الموظف - E-CSS" 
+                alt="بوابة الموظفين" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
@@ -50,12 +50,12 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             </div>
             <div className="p-6">
               <div className="flex items-center gap-3 mb-3">
-                <h4 className="text-xl font-bold text-primary">E-CSS</h4>
-                <Badge variant="secondary" className="text-xs">بوابة الموظف</Badge>
+                <h4 className="text-xl font-bold text-primary">EMPLOYEE PORTAL</h4>
+                <Badge variant="secondary" className="text-xs">بوابة الموظفين</Badge>
               </div>
-              <h5 className="font-semibold mb-3 text-foreground">الخدمة الذاتية السحابية للموظفين</h5>
+              <h5 className="font-semibold mb-3 text-foreground">بوابة الموظفين الموحدة</h5>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                منصة شاملة تمكن الموظفين من إدارة جميع احتياجاتهم المهنية بسهولة - من طلب الإجازات والسلف إلى مراجعة كشوف الرواتب والتقييمات.
+                منصة شاملة تجمع الخدمة الذاتية والوصول الفردي للموظفين - إدارة الإجازات، كشوف الرواتب، التقييمات، والخدمات الشخصية في مكان واحد.
               </p>
               <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
                 <span className="text-sm">دخول البوابة</span>
@@ -64,7 +64,7 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             </div>
           </div>
 
-          {/* EIS - Employer Portal */}
+          {/* Employers Portal */}
           <div 
             className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer" 
             onClick={() => handlePortalNavigation('/eis')}
@@ -72,7 +72,7 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             <div className="relative h-48 overflow-hidden">
               <img 
                 src={eisPortal} 
-                alt="بوابة صاحب العمل - EIS" 
+                alt="بوابة أصحاب العمل" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
@@ -84,12 +84,12 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             </div>
             <div className="p-6">
               <div className="flex items-center gap-3 mb-3">
-                <h4 className="text-xl font-bold text-primary">EIS</h4>
-                <Badge variant="secondary" className="text-xs">بوابة صاحب العمل</Badge>
+                <h4 className="text-xl font-bold text-primary">EMPLOYERS PORTAL</h4>
+                <Badge variant="secondary" className="text-xs">بوابة أصحاب العمل</Badge>
               </div>
-              <h5 className="font-semibold mb-3 text-foreground">الخدمات المتكاملة لأصحاب العمل</h5>
+              <h5 className="font-semibold mb-3 text-foreground">بوابة أصحاب العمل الموحدة</h5>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                مركز قيادي متطور يوفر لوحة تحكم شاملة لإدارة المؤسسة - من التوظيف والرواتب إلى التقارير التنفيذية والذكاء الاصطناعي.
+                مركز قيادي شامل يجمع أدوات إدارة الأعمال وخدمات أصحاب العمل - التوظيف، الرواتب، التقارير التنفيذية، والذكاء الاصطناعي في منصة واحدة.
               </p>
               <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
                 <span className="text-sm">دخول البوابة</span>
@@ -98,7 +98,7 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             </div>
           </div>
 
-          {/* NPCS - Nonprofit Portal */}
+          {/* Non-Profit Portal */}
           <div 
             className="group relative overflow-hidden rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 cursor-pointer" 
             onClick={() => handlePortalNavigation('/npcs')}
@@ -106,7 +106,7 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             <div className="relative h-48 overflow-hidden">
               <img 
                 src={npcsPortal} 
-                alt="بوابة القطاع غير الربحي - NPCS" 
+                alt="بوابة القطاع غير الربحي" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
@@ -118,12 +118,12 @@ export const LoginPortalsDialog: React.FC<LoginPortalsDialogProps> = ({ isOpen, 
             </div>
             <div className="p-6">
               <div className="flex items-center gap-3 mb-3">
-                <h4 className="text-xl font-bold text-primary">NPCS</h4>
-                <Badge variant="secondary" className="text-xs">القطاع غير الربحي</Badge>
+                <h4 className="text-xl font-bold text-primary">NON-PROFIT PORTAL</h4>
+                <Badge variant="secondary" className="text-xs">بوابة القطاع غير الربحي</Badge>
               </div>
-              <h5 className="font-semibold mb-3 text-foreground">الخدمات الشاملة للقطاع غير الربحي</h5>
+              <h5 className="font-semibold mb-3 text-foreground">بوابة القطاع غير الربحي</h5>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                منصة مخصصة للمنظمات غير الربحية تدير المتطوعين والمشاريع الخيرية بكفاءة عالية، مع أدوات قياس الأثر المجتمعي.
+                منصة متخصصة للمنظمات غير الربحية تدير المتطوعين والمشاريع الخيرية بكفاءة عالية، مع أدوات قياس الأثر المجتمعي والتنمية المستدامة.
               </p>
               <div className="flex items-center text-primary font-medium group-hover:text-primary/80 transition-colors">
                 <span className="text-sm">دخول البوابة</span>
