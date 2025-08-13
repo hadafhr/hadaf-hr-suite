@@ -252,8 +252,8 @@ export const KPISystem: React.FC = () => {
     });
   };
 
-  const handleLinkDataSource = () => {
-    console.log('Linking data source...');
+  const handleLinkDataSource = (kpiId?: string) => {
+    console.log('Linking data source...', kpiId);
   };
 
   const handleSetQuarterlyTargets = () => {
@@ -340,7 +340,7 @@ export const KPISystem: React.FC = () => {
           <Plus className="w-4 h-4" />
           {isRTL ? 'تعيين مؤشرات' : 'Assign Indicators'}
         </Button>
-        <Button onClick={handleLinkDataSource} variant="outline" className="gap-2">
+        <Button onClick={() => handleLinkDataSource()} variant="outline" className="gap-2">
           <Link className="w-4 h-4" />
           {isRTL ? 'ربط مصدر بيانات' : 'Link Data Source'}
         </Button>
