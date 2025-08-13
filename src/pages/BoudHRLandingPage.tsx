@@ -550,12 +550,6 @@ const BoudHRLandingPage: React.FC = () => {
               
               {/* BOOD HR Platform Access Section */}
               <div className="bg-gradient-to-br from-primary/5 via-background to-secondary/10 rounded-3xl p-8 border border-primary/20 shadow-lg">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold mb-3 text-primary">منصات بُعد للموارد البشرية</h3>
-                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                    ثلاث منصات متكاملة تلبي احتياجات جميع أطراف المنظومة الوظيفية
-                  </p>
-                </div>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   {/* E-CSS - Employee Portal */}
