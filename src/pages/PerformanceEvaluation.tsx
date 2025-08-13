@@ -30,11 +30,14 @@ import {
   PlayCircle,
   Languages
 } from 'lucide-react';
-import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 import { MBOSystem } from '@/components/evaluation/MBOSystem';
 import { KPISystem } from '@/components/evaluation/KPISystem';
 import { AssessmentSuite } from '@/components/evaluation/AssessmentSuite';
+import { System360 } from '@/components/evaluation/360System';
+import { BSCSystem } from '@/components/evaluation/BSCSystem';
+import { ContinuousSystem } from '@/components/evaluation/ContinuousSystem';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 
 export const PerformanceEvaluation: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -434,15 +437,38 @@ export const PerformanceEvaluation: React.FC = () => {
                                <div className="flex-1">
                                  <h3 className="font-semibold text-foreground text-lg">{system.name}</h3>
                                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{system.description}</p>
-                                <p className="text-xs text-muted-foreground mt-2">
-                                  <span className="font-medium">
-                                    {isRTL ? 'الأوزان الافتراضية: ' : 'Default weights: '}
-                                  </span>
-                                  {system.defaultWeights}
-                                </p>
+                                <div className="mt-3 p-3 bg-accent/30 rounded-lg">
+                                  <p className="text-xs text-primary font-medium">
+                                    {isRTL ? 'الأوزان الافتراضية: ' : 'Default Weights: '}{system.defaultWeights}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                            <Badge variant="secondary">{system.status}</Badge>
+                            <div className="flex flex-col gap-2">
+                              <Badge 
+                                className={`${
+                                  system.status === 'active' ? 'bg-success/20 text-success border-success/30' : 'bg-muted text-muted-foreground'
+                                }`}
+                              >
+                                {system.status === 'active' ? (isRTL ? 'نشط' : 'Active') : (isRTL ? 'غير نشط' : 'Inactive')}
+                              </Badge>
+                              <Button 
+                                size="sm" 
+                                variant="outline" 
+                                className="gap-2 hover:bg-primary hover:text-primary-foreground"
+                                onClick={() => {
+                                  if (system.id === 'mbo') setActiveTab('mbo');
+                                  else if (system.id === 'kpi') setActiveTab('kpi');
+                                  else if (system.id === '360') setActiveTab('360');
+                                  else if (system.id === 'bsc') setActiveTab('bsc');
+                                  else if (system.id === 'continuous') setActiveTab('continuous');
+                                  else console.log(`Opening ${system.id} system...`);
+                                }}
+                              >
+                                <Settings className="w-4 h-4" />
+                                {isRTL ? 'إعداد' : 'Configure'}
+                              </Button>
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -451,6 +477,31 @@ export const PerformanceEvaluation: React.FC = () => {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          {/* MBO Tab */}
+          <TabsContent value="mbo" className="space-y-6">
+            <MBOSystem />
+          </TabsContent>
+
+          {/* KPI Tab */}
+          <TabsContent value="kpi" className="space-y-6">
+            <KPISystem />
+          </TabsContent>
+
+          {/* 360 Tab */}
+          <TabsContent value="360" className="space-y-6">
+            <System360 />
+          </TabsContent>
+
+          {/* BSC Tab */}
+          <TabsContent value="bsc" className="space-y-6">
+            <BSCSystem />
+          </TabsContent>
+
+          {/* Continuous Tab */}
+          <TabsContent value="continuous" className="space-y-6">
+            <ContinuousSystem />
           </TabsContent>
 
           {/* Assessments Tab */}
