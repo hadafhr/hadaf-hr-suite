@@ -253,7 +253,7 @@ export const KPISystem: React.FC = () => {
   };
 
   const handleLinkDataSource = (kpiId?: string) => {
-    console.log('Linking data source...', kpiId);
+    console.log('Linking data source for KPI:', kpiId);
   };
 
   const handleSetQuarterlyTargets = () => {
