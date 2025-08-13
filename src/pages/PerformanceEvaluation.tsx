@@ -20,9 +20,21 @@ import {
   Eye,
   Save,
   Send,
-  Calendar
+  Calendar,
+  Brain,
+  Zap,
+  Activity,
+  Award,
+  Scale,
+  AlertTriangle,
+  PlayCircle,
+  Languages
 } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
+import { MBOSystem } from '@/components/evaluation/MBOSystem';
+import { KPISystem } from '@/components/evaluation/KPISystem';
+import { AssessmentSuite } from '@/components/evaluation/AssessmentSuite';
 
 export const PerformanceEvaluation: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -236,26 +248,27 @@ export const PerformanceEvaluation: React.FC = () => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7">
-            <TabsTrigger value="dashboard">
+          <TabsList className="grid w-full grid-cols-8 bg-muted/30 p-1 rounded-2xl">
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
               {isRTL ? 'لوحة القيادة' : 'Dashboard'}
             </TabsTrigger>
-            <TabsTrigger value="evaluations">
-              {isRTL ? 'التقييمات' : 'Evaluations'}
+            <TabsTrigger value="smart" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
+              <Brain className="w-4 h-4 ml-2" />
+              {isRTL ? 'التقييم الذكي' : 'Smart Evaluations'}
             </TabsTrigger>
-            <TabsTrigger value="assessments">
+            <TabsTrigger value="evaluations" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
+              {isRTL ? 'التقييمات' : 'Appraisals'}
+            </TabsTrigger>
+            <TabsTrigger value="assessments" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
               {isRTL ? 'الاختبارات' : 'Assessments'}
             </TabsTrigger>
-            <TabsTrigger value="courses">
-              {isRTL ? 'الدورات' : 'Courses'}
-            </TabsTrigger>
-            <TabsTrigger value="templates">
+            <TabsTrigger value="templates" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
               {isRTL ? 'القوالب' : 'Templates'}
             </TabsTrigger>
-            <TabsTrigger value="settings">
+            <TabsTrigger value="settings" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
               {isRTL ? 'الإعدادات' : 'Settings'}
             </TabsTrigger>
-            <TabsTrigger value="reports">
+            <TabsTrigger value="reports" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl">
               {isRTL ? 'التقارير' : 'Reports'}
             </TabsTrigger>
           </TabsList>
@@ -355,6 +368,11 @@ export const PerformanceEvaluation: React.FC = () => {
             </Card>
           </TabsContent>
 
+          {/* Smart Evaluations Tab */}
+          <TabsContent value="smart" className="space-y-6">
+            <SmartEvaluations />
+          </TabsContent>
+
           {/* Evaluations Tab */}
           <TabsContent value="evaluations" className="space-y-6">
             {/* Action Buttons */}
@@ -405,15 +423,17 @@ export const PerformanceEvaluation: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-4">
-                    {evaluationSystems.map((system) => (
-                      <Card key={system.id} className="hover:shadow-md transition-shadow cursor-pointer">
-                        <CardContent className="p-4">
-                          <div className="flex items-start justify-between">
-                            <div className="flex items-start gap-3">
-                              <system.icon className="w-6 h-6 text-primary mt-1" />
-                              <div>
-                                <h3 className="font-semibold text-foreground">{system.name}</h3>
-                                <p className="text-sm text-muted-foreground mt-1">{system.description}</p>
+                     {evaluationSystems.map((system) => (
+                       <Card key={system.id} className="hover:shadow-soft transition-all duration-300 cursor-pointer border-l-4 border-l-primary/20 hover:border-l-primary hover:bg-accent/20">
+                         <CardContent className="p-6">
+                           <div className="flex items-start justify-between">
+                             <div className="flex items-start gap-4">
+                               <div className="p-3 bg-primary/10 rounded-xl">
+                                 <system.icon className="w-6 h-6 text-primary" />
+                               </div>
+                               <div className="flex-1">
+                                 <h3 className="font-semibold text-foreground text-lg">{system.name}</h3>
+                                 <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{system.description}</p>
                                 <p className="text-xs text-muted-foreground mt-2">
                                   <span className="font-medium">
                                     {isRTL ? 'الأوزان الافتراضية: ' : 'Default weights: '}
@@ -435,6 +455,11 @@ export const PerformanceEvaluation: React.FC = () => {
 
           {/* Assessments Tab */}
           <TabsContent value="assessments" className="space-y-6">
+            <AssessmentSuite />
+          </TabsContent>
+
+          {/* Templates Tab */}
+          <TabsContent value="templates" className="space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
