@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, User, Settings, LogOut } from 'lucide-react';
@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { LoginPortalsDialog } from '@/components/LoginPortalsDialog';
 import budLogo from '@/assets/bud-logo.png';
 
 interface HeaderProps {
@@ -24,6 +25,12 @@ export const Header: React.FC<HeaderProps> = ({
   onLogout 
 }) => {
   const navigate = useNavigate();
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
+
+  const handleLoginClick = () => {
+    setIsLoginDialogOpen(true);
+    onLogin?.();
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -103,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
             </DropdownMenu>
           ) : (
             <div className="flex items-center space-x-2 space-x-reverse">
-              <Button variant="ghost" onClick={onLogin}>
+              <Button variant="ghost" onClick={handleLoginClick}>
                 تسجيل دخول
               </Button>
               <Button className="btn-primary">
@@ -118,6 +125,11 @@ export const Header: React.FC<HeaderProps> = ({
           </Button>
         </div>
       </div>
+      
+      <LoginPortalsDialog 
+        isOpen={isLoginDialogOpen} 
+        onClose={() => setIsLoginDialogOpen(false)} 
+      />
     </header>
   );
 };
