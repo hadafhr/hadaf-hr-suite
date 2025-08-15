@@ -37,9 +37,11 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار */}
         <Link to="/" className="flex items-center">
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">بُعد</h2>
-          </div>
+          <img 
+            src="/lovable-uploads/3c8f6f3e-60c9-4820-a3ff-6eb6a2bac597.png" 
+            alt="BOUD HR Logo" 
+            className="h-10 w-auto"
+          />
         </Link>
 
         {/* التنقل الأساسي */}
