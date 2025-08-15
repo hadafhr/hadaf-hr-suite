@@ -118,13 +118,6 @@ const BoudHRLandingPage: React.FC = () => {
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80"
     },
     {
-      title: "نظام القطاع غير الربحي",
-      description: "حلول مبتكرة ومتخصصة للمنظمات غير الربحية مع إدارة احترافية للمتطوعين والمشاريع الخيرية. تتبع شامل للمبادرات الاجتماعية مع قياس الأثر المجتمعي بطريقة علمية دقيقة.",
-      icon: Heart,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=400&q=80"
-    },
-    {
       title: "نظام خدمات أصحاب الأعمال",
       description: "منصة قيادية شاملة بلوحات تحكم تنفيذية متطورة وذكية. رؤى استراتيجية عميقة مع تحليلات متقدمة لاتخاذ قرارات مدروسة تدفع نمو الأعمال وتحقق التفوق التنافسي.",
       icon: Briefcase,
