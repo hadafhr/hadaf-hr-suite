@@ -268,7 +268,7 @@ const BoudHRLandingPage: React.FC = () => {
               <img 
                 src="/lovable-uploads/3c8f6f3e-60c9-4820-a3ff-6eb6a2bac597.png" 
                 alt="BOUD HR Logo" 
-                className="h-12 w-auto ml-4"
+                className="h-16 w-auto ml-4"
               />
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
