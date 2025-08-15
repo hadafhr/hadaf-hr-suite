@@ -263,17 +263,13 @@ const BoudHRLandingPage: React.FC = () => {
       <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3 space-x-reverse">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
               <img 
                 src="/lovable-uploads/3c8f6f3e-60c9-4820-a3ff-6eb6a2bac597.png" 
                 alt="BOUD HR Logo" 
-                className="h-10 w-auto"
+                className="h-8 w-auto ml-4"
               />
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
               <DropdownMenu>
