@@ -206,9 +206,11 @@ const RecruitmentOnboarding: React.FC = () => {
         'in-progress': { color: 'bg-blue-100 text-blue-800', text: 'قيد التنفيذ' },
         'completed': { color: 'bg-green-100 text-green-800', text: 'مكتمل' }
       }
-    };
+    } as const;
 
-    const config = configs[type][status as keyof typeof configs[typeof type]] || { color: 'bg-gray-100 text-gray-800', text: 'غير محدد' };
+    // Simplified type-safe access
+    const typeConfig = configs[type];
+    const config = (typeConfig as any)[status] || { color: 'bg-gray-100 text-gray-800', text: 'غير محدد' };
     return <Badge className={config.color}>{config.text}</Badge>;
   };
 
