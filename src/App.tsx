@@ -59,6 +59,7 @@ import { ScheduleMeeting } from './pages/ScheduleMeeting';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import EmployeeManagementSystem from './pages/EmployeeManagementSystem';
+import ComprehensiveEmployeeManagement from './pages/ComprehensiveEmployeeManagement';
 import DisciplinarySystem from './pages/DisciplinarySystem';
 import EmployeePortal from './pages/EmployeePortal';
 import EmployerPortal from './pages/EmployerPortal';
@@ -213,8 +214,9 @@ const App = () => {
               <Route path="/business-management" element={<BusinessManagement />} />
               <Route path="/non-profit-services" element={<NonProfitServices />} />
               
-              {/* Employee Management System Routes */}
-              <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
+               {/* Employee Management System Routes */}
+               <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
+               <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
               <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
               <Route path="/employee-requests" element={<EmployeeRequests />} />
               <Route path="/reports-analytics" element={<ReportsAnalytics />} />
