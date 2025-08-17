@@ -215,9 +215,9 @@ const App = () => {
               <Route path="/non-profit-services" element={<NonProfitServices />} />
               
                {/* Employee Management System Routes */}
-               <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
-               <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
-              <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
+          <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
+          <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
+          <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
               <Route path="/employee-requests" element={<EmployeeRequests />} />
               <Route path="/reports-analytics" element={<ReportsAnalytics />} />
               <Route path="/system-settings" element={<SystemSettings />} />
