@@ -681,7 +681,7 @@ const BoudHRLandingPage: React.FC = () => {
                 className="service-card group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(index)}
                 onClick={() => {
-                  if (feature.title === "نظام إدارة الموظفين") navigate("/employee-management-system");
+                  if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/employee-management-system");
                   else if (feature.title === "نظام الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
                   else if (feature.title === "نظام التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
                   else if (feature.title === "نظام التدريب") navigate("/service-platforms/training");
