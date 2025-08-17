@@ -78,6 +78,7 @@ import RecruitmentOnboarding from '@/components/employee/RecruitmentOnboarding';
 import InsuranceManagement from '@/components/employee/InsuranceManagement';
 import BenefitsRewards from '@/components/employee/BenefitsRewards';
 import DisciplinarySystem from '@/components/employee/DisciplinarySystem';
+import SmartDashboard from '@/components/employee/SmartDashboard';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -658,6 +659,9 @@ const EmployeeManagementSystem = () => {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Smart Dashboard with AI Insights */}
+            <SmartDashboard />
           </TabsContent>
 
           {/* Employees Tab */}
