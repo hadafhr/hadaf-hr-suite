@@ -7,13 +7,98 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
   public: {
     Tables: {
+      action_items: {
+        Row: {
+          assigned_to: string | null
+          completion_date: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          due_date: string | null
+          id: string
+          item_type: string | null
+          notes: string | null
+          priority: string | null
+          progress_percentage: number | null
+          related_compliance_id: string | null
+          related_meeting_id: string | null
+          related_policy_id: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          completion_date?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          item_type?: string | null
+          notes?: string | null
+          priority?: string | null
+          progress_percentage?: number | null
+          related_compliance_id?: string | null
+          related_meeting_id?: string | null
+          related_policy_id?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          assigned_to?: string | null
+          completion_date?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          item_type?: string | null
+          notes?: string | null
+          priority?: string | null
+          progress_percentage?: number | null
+          related_compliance_id?: string | null
+          related_meeting_id?: string | null
+          related_policy_id?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "action_items_related_compliance_id_fkey"
+            columns: ["related_compliance_id"]
+            isOneToOne: false
+            referencedRelation: "compliance_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "action_items_related_meeting_id_fkey"
+            columns: ["related_meeting_id"]
+            isOneToOne: false
+            referencedRelation: "governance_meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "action_items_related_policy_id_fkey"
+            columns: ["related_policy_id"]
+            isOneToOne: false
+            referencedRelation: "policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_insights: {
         Row: {
           action_required: boolean | null
@@ -206,6 +291,21 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      boud: {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+        }
+        Relationships: []
       }
       budget_lines: {
         Row: {
@@ -469,6 +569,129 @@ export type Database = {
           updated_at?: string
           vat_number?: string | null
           website?: string | null
+        }
+        Relationships: []
+      }
+      compliance_items: {
+        Row: {
+          completion_percentage: number | null
+          compliance_type: string | null
+          created_at: string
+          description: string | null
+          due_date: string | null
+          evidence_url: string | null
+          id: string
+          last_assessment_date: string | null
+          next_assessment_date: string | null
+          notes: string | null
+          priority: string | null
+          requirement_source: string | null
+          responsible_person: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completion_percentage?: number | null
+          compliance_type?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          evidence_url?: string | null
+          id?: string
+          last_assessment_date?: string | null
+          next_assessment_date?: string | null
+          notes?: string | null
+          priority?: string | null
+          requirement_source?: string | null
+          responsible_person?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completion_percentage?: number | null
+          compliance_type?: string | null
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          evidence_url?: string | null
+          id?: string
+          last_assessment_date?: string | null
+          next_assessment_date?: string | null
+          notes?: string | null
+          priority?: string | null
+          requirement_source?: string | null
+          responsible_person?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      compliance_reports: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          critical_issues_count: number | null
+          description: string | null
+          generated_by: string
+          id: string
+          overall_compliance_score: number | null
+          published_at: string | null
+          recommendations_count: number | null
+          report_data: Json | null
+          report_type: string | null
+          reporting_period_end: string
+          reporting_period_start: string
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          critical_issues_count?: number | null
+          description?: string | null
+          generated_by: string
+          id?: string
+          overall_compliance_score?: number | null
+          published_at?: string | null
+          recommendations_count?: number | null
+          report_data?: Json | null
+          report_type?: string | null
+          reporting_period_end: string
+          reporting_period_start: string
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          critical_issues_count?: number | null
+          description?: string | null
+          generated_by?: string
+          id?: string
+          overall_compliance_score?: number | null
+          published_at?: string | null
+          recommendations_count?: number | null
+          report_data?: Json | null
+          report_type?: string | null
+          reporting_period_end?: string
+          reporting_period_start?: string
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -893,6 +1116,63 @@ export type Database = {
           report_name?: string
           report_type?: string
           updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      governance_meetings: {
+        Row: {
+          agenda: string | null
+          attendees_count: number | null
+          created_at: string
+          created_by: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          location: string | null
+          meeting_date: string
+          meeting_type: string | null
+          meeting_url: string | null
+          minutes: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          agenda?: string | null
+          attendees_count?: number | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          location?: string | null
+          meeting_date: string
+          meeting_type?: string | null
+          meeting_url?: string | null
+          minutes?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          agenda?: string | null
+          attendees_count?: number | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          location?: string | null
+          meeting_date?: string
+          meeting_type?: string | null
+          meeting_url?: string | null
+          minutes?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -1458,6 +1738,68 @@ export type Database = {
             columns: ["meeting_id"]
             isOneToOne: false
             referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meeting_decisions: {
+        Row: {
+          completion_date: string | null
+          created_at: string
+          decision_number: string | null
+          decision_type: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          implementation_status: string | null
+          meeting_id: string
+          notes: string | null
+          responsible_person: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completion_date?: string | null
+          created_at?: string
+          decision_number?: string | null
+          decision_type?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          implementation_status?: string | null
+          meeting_id: string
+          notes?: string | null
+          responsible_person?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completion_date?: string | null
+          created_at?: string
+          decision_number?: string | null
+          decision_type?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          implementation_status?: string | null
+          meeting_id?: string
+          notes?: string | null
+          responsible_person?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_decisions_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "governance_meetings"
             referencedColumns: ["id"]
           },
         ]
@@ -2109,6 +2451,181 @@ export type Database = {
           wps_file_generated?: boolean | null
         }
         Relationships: []
+      }
+      policies: {
+        Row: {
+          approval_status: string | null
+          approved_at: string | null
+          approved_by: string | null
+          category_id: string | null
+          content: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          document_url: string | null
+          effective_date: string | null
+          id: string
+          last_review_date: string | null
+          next_review_date: string | null
+          priority: string | null
+          review_frequency_months: number | null
+          status: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+          version: string | null
+        }
+        Insert: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          category_id?: string | null
+          content?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          document_url?: string | null
+          effective_date?: string | null
+          id?: string
+          last_review_date?: string | null
+          next_review_date?: string | null
+          priority?: string | null
+          review_frequency_months?: number | null
+          status?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+          version?: string | null
+        }
+        Update: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          category_id?: string | null
+          content?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          document_url?: string | null
+          effective_date?: string | null
+          id?: string
+          last_review_date?: string | null
+          next_review_date?: string | null
+          priority?: string | null
+          review_frequency_months?: number | null
+          status?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "policies_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "policy_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      policy_categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name_ar: string
+          name_en: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name_ar: string
+          name_en?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name_ar?: string
+          name_en?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      policy_reviews: {
+        Row: {
+          action_required: boolean | null
+          assigned_date: string | null
+          completed_date: string | null
+          created_at: string
+          due_date: string | null
+          findings: string | null
+          id: string
+          policy_id: string
+          recommendations: string | null
+          review_type: string | null
+          reviewer_id: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action_required?: boolean | null
+          assigned_date?: string | null
+          completed_date?: string | null
+          created_at?: string
+          due_date?: string | null
+          findings?: string | null
+          id?: string
+          policy_id: string
+          recommendations?: string | null
+          review_type?: string | null
+          reviewer_id?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          action_required?: boolean | null
+          assigned_date?: string | null
+          completed_date?: string | null
+          created_at?: string
+          due_date?: string | null
+          findings?: string | null
+          id?: string
+          policy_id?: string
+          recommendations?: string | null
+          review_type?: string | null
+          reviewer_id?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "policy_reviews_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "policies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -2811,22 +3328,26 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_admin_user: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       get_user_company_id: {
         Args: { _user_id: string }
         Returns: string
       }
       has_role: {
         Args: {
-          _user_id: string
           _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
         }
         Returns: boolean
       }
       hr_has_role: {
         Args: {
-          _user_id: string
           _company_id: string
           _role: Database["public"]["Enums"]["hr_role"]
+          _user_id: string
         }
         Returns: boolean
       }
