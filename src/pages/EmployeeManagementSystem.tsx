@@ -93,6 +93,8 @@ const EmployeeManagementSystem = () => {
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isEditEmployeeOpen, setIsEditEmployeeOpen] = useState(false);
+  const [showRequestDialog, setShowRequestDialog] = useState(false);
+  const [selectedRequestType, setSelectedRequestType] = useState('');
   const [newEmployee, setNewEmployee] = useState({
     name: '',
     position: '',
@@ -368,6 +370,35 @@ const EmployeeManagementSystem = () => {
 
   const handleDisciplinaryAction = (type: string) => {
     toast.info(`تم تطبيق إجراء: ${type}`);
+  };
+
+  // Handle request type selection
+  const handleRequestClick = (requestType: string) => {
+    setSelectedRequestType(requestType);
+    setShowRequestDialog(true);
+    toast.info(`فتح نموذج ${getRequestTitle(requestType)}`);
+  };
+
+  // Get request title based on type
+  const getRequestTitle = (type: string) => {
+    const titles = {
+      leave: 'طلب إجازة',
+      salary_certificate: 'طلب شهادة راتب',
+      financial_advance: 'طلب سلفة مالية',
+      resignation: 'طلب استقالة',
+      attendance_correction: 'طلب تعديل حضور',
+      business_trip: 'طلب رحلة عمل',
+      equipment: 'طلب معدات',
+      custom: 'طلب مخصص'
+    };
+    return titles[type as keyof typeof titles] || 'طلب جديد';
+  };
+
+  // Handle request submission
+  const handleSubmitRequest = () => {
+    toast.success('تم تقديم الطلب بنجاح!');
+    setShowRequestDialog(false);
+    setSelectedRequestType('');
   };
 
   const handleExportData = () => {
@@ -986,49 +1017,197 @@ const EmployeeManagementSystem = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <Calendar className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-blue-50 hover:border-blue-200"
+                    onClick={() => handleRequestClick('leave')}
+                  >
+                    <Calendar className="h-8 w-8 mb-2 text-blue-600" />
                     <h3 className="font-medium">طلبات الإجازات</h3>
                     <p className="text-sm text-muted-foreground">إجازة سنوية، مرضية، طارئة</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <FileText className="h-8 w-8 mx-auto mb-2 text-green-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-green-50 hover:border-green-200"
+                    onClick={() => handleRequestClick('salary_certificate')}
+                  >
+                    <FileText className="h-8 w-8 mb-2 text-green-600" />
                     <h3 className="font-medium">شهادات الراتب</h3>
                     <p className="text-sm text-muted-foreground">تعريف بالراتب للبنوك</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <DollarSign className="h-8 w-8 mx-auto mb-2 text-yellow-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-yellow-50 hover:border-yellow-200"
+                    onClick={() => handleRequestClick('financial_advance')}
+                  >
+                    <DollarSign className="h-8 w-8 mb-2 text-yellow-600" />
                     <h3 className="font-medium">السلف المالية</h3>
                     <p className="text-sm text-muted-foreground">سلف على الراتب</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <User className="h-8 w-8 mx-auto mb-2 text-purple-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-purple-50 hover:border-purple-200"
+                    onClick={() => handleRequestClick('resignation')}
+                  >
+                    <User className="h-8 w-8 mb-2 text-purple-600" />
                     <h3 className="font-medium">طلبات الاستقالة</h3>
                     <p className="text-sm text-muted-foreground">إجراءات إنهاء الخدمة</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <Clock className="h-8 w-8 mx-auto mb-2 text-orange-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-orange-50 hover:border-orange-200"
+                    onClick={() => handleRequestClick('attendance_correction')}
+                  >
+                    <Clock className="h-8 w-8 mb-2 text-orange-600" />
                     <h3 className="font-medium">تعديل الحضور</h3>
                     <p className="text-sm text-muted-foreground">تصحيح بيانات الحضور</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <MapPin className="h-8 w-8 mx-auto mb-2 text-red-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-red-50 hover:border-red-200"
+                    onClick={() => handleRequestClick('business_trip')}
+                  >
+                    <MapPin className="h-8 w-8 mb-2 text-red-600" />
                     <h3 className="font-medium">رحلات العمل</h3>
                     <p className="text-sm text-muted-foreground">تنقلات رسمية</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <Laptop className="h-8 w-8 mx-auto mb-2 text-indigo-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-indigo-50 hover:border-indigo-200"
+                    onClick={() => handleRequestClick('equipment')}
+                  >
+                    <Laptop className="h-8 w-8 mb-2 text-indigo-600" />
                     <h3 className="font-medium">طلب معدات</h3>
                     <p className="text-sm text-muted-foreground">أجهزة ومعدات العمل</p>
-                  </div>
-                  <div className="text-center p-4 border rounded-lg hover:bg-muted/50 cursor-pointer">
-                    <Settings className="h-8 w-8 mx-auto mb-2 text-gray-600" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="text-center p-4 h-auto flex flex-col items-center hover:bg-gray-50 hover:border-gray-300"
+                    onClick={() => handleRequestClick('custom')}
+                  >
+                    <Settings className="h-8 w-8 mb-2 text-gray-600" />
                     <h3 className="font-medium">طلبات مخصصة</h3>
                     <p className="text-sm text-muted-foreground">طلبات أخرى حسب الحاجة</p>
-                  </div>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
+            
+            {/* Request Submission Dialog */}
+            <Dialog open={showRequestDialog} onOpenChange={setShowRequestDialog}>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle className="text-right">
+                    {getRequestTitle(selectedRequestType)}
+                  </DialogTitle>
+                  <DialogDescription className="text-right">
+                    قم بملء البيانات المطلوبة لتقديم الطلب
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <div className="space-y-4 text-right" dir="rtl">
+                  {selectedRequestType && (
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">عنوان الطلب</label>
+                        <Input placeholder="أدخل عنوان الطلب..." />
+                      </div>
+                      
+                      {(selectedRequestType === 'financial_advance') && (
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">المبلغ المطلوب (ريال سعودي)</label>
+                          <Input type="number" placeholder="0" />
+                        </div>
+                      )}
+                      
+                      {(selectedRequestType === 'leave' || selectedRequestType === 'business_trip') && (
+                        <>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <label className="text-sm font-medium">تاريخ البداية</label>
+                              <Input type="date" />
+                            </div>
+                            <div className="space-y-2">
+                              <label className="text-sm font-medium">تاريخ النهاية</label>
+                              <Input type="date" />
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      
+                      {selectedRequestType === 'equipment' && (
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">نوع المعدات المطلوبة</label>
+                          <Select>
+                            <SelectTrigger>
+                              <SelectValue placeholder="اختر نوع المعدات" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="laptop">جهاز لابتوب</SelectItem>
+                              <SelectItem value="desktop">جهاز كمبيوتر مكتبي</SelectItem>
+                              <SelectItem value="phone">هاتف محمول</SelectItem>
+                              <SelectItem value="printer">طابعة</SelectItem>
+                              <SelectItem value="other">أخرى</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+                      
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">تفاصيل الطلب</label>
+                        <textarea 
+                          className="w-full p-3 border rounded-md resize-none h-24"
+                          placeholder="أدخل تفاصيل الطلب..."
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">الأولوية</label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="اختر أولوية الطلب" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="low">منخفضة</SelectItem>
+                            <SelectItem value="medium">متوسطة</SelectItem>
+                            <SelectItem value="high">عالية</SelectItem>
+                            <SelectItem value="urgent">عاجلة</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">المرفقات (اختياري)</label>
+                        <Input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+                      </div>
+                      
+                      <div className="flex gap-3 pt-4">
+                        <Button 
+                          onClick={() => handleSubmitRequest()}
+                          className="flex-1"
+                        >
+                          تقديم الطلب
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          onClick={() => setShowRequestDialog(false)}
+                          className="flex-1"
+                        >
+                          إلغاء
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </DialogContent>
+            </Dialog>
           </TabsContent>
 
           {/* Attendance Tab */}
