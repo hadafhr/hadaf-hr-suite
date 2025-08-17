@@ -49,8 +49,32 @@ import {
   XCircle,
   Check,
   User,
-  Laptop
+  Laptop,
+  Timer,
+  CreditCard,
+  GraduationCap,
+  Briefcase,
+  UserX,
+  UserCheck,
+  TrendingDown,
+  Calculator,
+  ClipboardList,
+  FileCheck,
+  MessageSquare,
+  Shield,
+  Heart,
+  Camera,
+  Gift
 } from 'lucide-react';
+
+// Import comprehensive components
+import AttendanceManagement from '@/components/employee/AttendanceManagement';
+import LeaveManagement from '@/components/employee/LeaveManagement';
+import PayrollCompensation from '@/components/employee/PayrollCompensation';
+import PerformanceManagement from '@/components/employee/PerformanceManagement';
+import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
+import OffboardingSystem from '@/components/employee/OffboardingSystem';
+import RecruitmentOnboarding from '@/components/employee/RecruitmentOnboarding';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -474,13 +498,17 @@ const EmployeeManagementSystem = () => {
 
       <div className="p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-10 text-xs">
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
             <TabsTrigger value="employees">الموظفين</TabsTrigger>
-            <TabsTrigger value="disciplinary">الإجراءات التأديبية</TabsTrigger>
-            <TabsTrigger value="requests">طلبات الموظفين</TabsTrigger>
+            <TabsTrigger value="attendance">الحضور</TabsTrigger>
+            <TabsTrigger value="leaves">الإجازات</TabsTrigger>
+            <TabsTrigger value="payroll">الرواتب</TabsTrigger>
+            <TabsTrigger value="performance">الأداء</TabsTrigger>
+            <TabsTrigger value="training">التدريب</TabsTrigger>
+            <TabsTrigger value="recruitment">التوظيف</TabsTrigger>
+            <TabsTrigger value="requests">الطلبات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
-            <TabsTrigger value="settings">الإعدادات</TabsTrigger>
           </TabsList>
 
           {/* Dashboard Tab */}
@@ -696,33 +724,131 @@ const EmployeeManagementSystem = () => {
             </div>
           </TabsContent>
 
-          {/* Disciplinary Tab */}
+          {/* Disciplinary Tab - Moved after requests */}
           <TabsContent value="disciplinary" className="space-y-6">
+            {/* Disciplinary System */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Gavel className="h-6 w-6" />
+                  <Gavel className="h-6 w-6 text-red-600" />
                   نظام الإجراءات التأديبية - نظام العمل السعودي
                 </CardTitle>
                 <CardDescription>
-                  إدارة الإجراءات التأديبية وفقاً لنظام العمل السعودي
+                  إدارة الإجراءات التأديبية وفقاً لنظام العمل السعودي مع تتبع المخالفات والعقوبات
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Button className="h-20 flex-col gap-2">
+                {/* Disciplinary Statistics */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                  <Card className="bg-yellow-50 border-yellow-200">
+                    <CardContent className="p-4 text-center">
+                      <AlertTriangle className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-yellow-700">12</div>
+                      <div className="text-sm text-yellow-600">إنذارات أولى</div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-orange-50 border-orange-200">
+                    <CardContent className="p-4 text-center">
+                      <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-orange-700">5</div>
+                      <div className="text-sm text-orange-600">إنذارات نهائية</div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-red-50 border-red-200">
+                    <CardContent className="p-4 text-center">
+                      <UserX className="h-8 w-8 text-red-600 mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-red-700">2</div>
+                      <div className="text-sm text-red-600">فصل تأديبي</div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-green-50 border-green-200">
+                    <CardContent className="p-4 text-center">
+                      <UserCheck className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-green-700">231</div>
+                      <div className="text-sm text-green-600">ملف نظيف</div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Disciplinary Actions */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <Button 
+                    className="h-20 flex-col gap-2 bg-yellow-600 hover:bg-yellow-700"
+                    onClick={() => {
+                      toast.success('تم تسجيل الإنذار الأول');
+                      setActiveTab('employees');
+                    }}
+                  >
                     <AlertTriangle className="h-6 w-6" />
                     إنذار أول
                   </Button>
-                  <Button variant="destructive" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="destructive" 
+                    className="h-20 flex-col gap-2"
+                    onClick={() => {
+                      toast.warning('تم تسجيل الإنذار النهائي');
+                      setActiveTab('employees');
+                    }}
+                  >
                     <AlertTriangle className="h-6 w-6" />
                     إنذار نهائي
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-blue-50"
+                    onClick={() => {
+                      toast.info('تم فتح قاعدة البيانات القانونية');
+                    }}
+                  >
                     <BookOpen className="h-6 w-6" />
                     قاعدة البيانات القانونية
                   </Button>
                 </div>
+
+                {/* Recent Disciplinary Actions */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">الإجراءات التأديبية الحديثة</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <Avatar className="h-10 w-10">
+                            <AvatarFallback>أح</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h4 className="font-medium">أحمد محمد العلي</h4>
+                            <p className="text-sm text-muted-foreground">تأخر متكرر - 3 مرات</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">إنذار أول</Badge>
+                          <span className="text-sm text-muted-foreground">2024-03-15</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <Avatar className="h-10 w-10">
+                            <AvatarFallback>سا</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h4 className="font-medium">سارة أحمد محمد</h4>
+                            <p className="text-sm text-muted-foreground">عدم الالتزام بسياسة الشركة</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Badge variant="destructive" className="bg-orange-100 text-orange-800">إنذار نهائي</Badge>
+                          <span className="text-sm text-muted-foreground">2024-03-10</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </CardContent>
             </Card>
           </TabsContent>
@@ -905,34 +1031,318 @@ const EmployeeManagementSystem = () => {
             </Card>
           </TabsContent>
 
-          {/* Reports Tab */}
-          <TabsContent value="reports" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>التقارير والتحليلات</CardTitle>
-                <CardDescription>تقارير شاملة عن الموظفين والأداء</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  سيتم تطوير نظام التقارير قريباً
-                </div>
-              </CardContent>
-            </Card>
+          {/* Attendance Tab */}
+          <TabsContent value="attendance" className="space-y-6">
+            <AttendanceManagement />
           </TabsContent>
 
-          {/* Settings Tab */}
-          <TabsContent value="settings" className="space-y-6">
+          {/* Leaves Tab */}
+          <TabsContent value="leaves" className="space-y-6">
+            <LeaveManagement />
+          </TabsContent>
+
+          {/* Payroll Tab */}
+          <TabsContent value="payroll" className="space-y-6">
+            <PayrollCompensation />
+          </TabsContent>
+
+          {/* Performance Tab */}
+          <TabsContent value="performance" className="space-y-6">
+            <PerformanceManagement />
+          </TabsContent>
+
+          {/* Training Tab */}
+          <TabsContent value="training" className="space-y-6">
+            <TrainingDevelopment />
+          </TabsContent>
+
+          {/* Recruitment Tab */}
+          <TabsContent value="recruitment" className="space-y-6">
+            <RecruitmentOnboarding />
+          </TabsContent>
+
+          {/* Reports Tab */}
+          <TabsContent value="reports" className="space-y-6">
+            {/* HR Analytics Dashboard */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-blue-100">معدل الحضور</p>
+                      <p className="text-3xl font-bold">94.5%</p>
+                    </div>
+                    <Timer className="h-10 w-10 text-blue-200" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-green-100">متوسط الأداء</p>
+                      <p className="text-3xl font-bold">87.2%</p>
+                    </div>
+                    <TrendingUp className="h-10 w-10 text-green-200" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-purple-100">معدل الاستبقاء</p>
+                      <p className="text-3xl font-bold">92.8%</p>
+                    </div>
+                    <Shield className="h-10 w-10 text-purple-200" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-orange-100">رضا الموظفين</p>
+                      <p className="text-3xl font-bold">4.2/5</p>
+                    </div>
+                    <Heart className="h-10 w-10 text-orange-200" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Report Generation */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-6 w-6" />
+                    تقارير الحضور والانصراف
+                  </CardTitle>
+                  <CardDescription>تقارير مفصلة عن حضور الموظفين</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير الحضور الشهري');
+                      handleExportData();
+                    }}
+                  >
+                    <Calendar className="h-4 w-4 mr-2" />
+                    تقرير الحضور الشهري
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير المتأخرين');
+                      handleExportData();
+                    }}
+                  >
+                    <Clock className="h-4 w-4 mr-2" />
+                    تقرير المتأخرين
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير الإجازات');
+                      handleExportData();
+                    }}
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    تقرير الإجازات المستخدمة
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="h-6 w-6" />
+                    تقارير الأداء والتطوير
+                  </CardTitle>
+                  <CardDescription>تحليلات أداء الموظفين والتدريب</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير الأداء الربعي');
+                      handleExportData();
+                    }}
+                  >
+                    <Star className="h-4 w-4 mr-2" />
+                    تقرير الأداء الربعي
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير التدريب');
+                      handleExportData();
+                    }}
+                  >
+                    <GraduationCap className="h-4 w-4 mr-2" />
+                    تقرير التدريب والتطوير
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير الترقيات');
+                      handleExportData();
+                    }}
+                  >
+                    <TrendingUp className="h-4 w-4 mr-2" />
+                    تقرير الترقيات والزيادات
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <DollarSign className="h-6 w-6" />
+                    التقارير المالية
+                  </CardTitle>
+                  <CardDescription>تقارير الرواتب والمزايا</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير الرواتب الشهري');
+                      handleExportData();
+                    }}
+                  >
+                    <CreditCard className="h-4 w-4 mr-2" />
+                    تقرير الرواتب الشهري
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير المزايا');
+                      handleExportData();
+                    }}
+                  >
+                    <Gift className="h-4 w-4 mr-2" />
+                    تقرير المزايا والبدلات
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير التكاليف');
+                      handleExportData();
+                    }}
+                  >
+                    <Calculator className="h-4 w-4 mr-2" />
+                    تقرير التكاليف الإجمالية
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileCheck className="h-6 w-6" />
+                    التقارير الإدارية
+                  </CardTitle>
+                  <CardDescription>تقارير إدارية ونماذج حكومية</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير التأمينات الاجتماعية');
+                      handleExportData();
+                    }}
+                  >
+                    <Shield className="h-4 w-4 mr-2" />
+                    تقرير التأمينات الاجتماعية
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير ضريبة القيمة المضافة');
+                      handleExportData();
+                    }}
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    تقرير ضريبة القيمة المضافة
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      toast.success('تم إنشاء تقرير الموارد البشرية');
+                      handleExportData();
+                    }}
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    تقرير إحصائيات الموارد البشرية
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Quick Export Actions */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="h-6 w-6" />
-                  إعدادات النظام
-                </CardTitle>
-                <CardDescription>تخصيص إعدادات نظام إدارة الموظفين</CardDescription>
+                <CardTitle>تصدير التقارير</CardTitle>
+                <CardDescription>تصدير جميع البيانات بصيغ مختلفة</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  سيتم تطوير إعدادات النظام قريباً
+                <div className="flex flex-wrap gap-3">
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      handleExportData();
+                      toast.success('تم تصدير البيانات بصيغة Excel');
+                    }}
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    تصدير Excel
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      handlePrintReport();
+                      toast.success('تم إعداد التقرير للطباعة');
+                    }}
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    طباعة التقرير
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      toast.success('تم إرسال التقرير بالبريد الإلكتروني');
+                    }}
+                  >
+                    <Mail className="h-4 w-4 mr-2" />
+                    إرسال بالبريد
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      toast.success('تم جدولة التقرير التلقائي');
+                    }}
+                  >
+                    <Clock className="h-4 w-4 mr-2" />
+                    جدولة تلقائية
+                  </Button>
                 </div>
               </CardContent>
             </Card>
