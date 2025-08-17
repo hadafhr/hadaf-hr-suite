@@ -9,27 +9,55 @@ export interface BoudEmployee {
   last_name: string;
   email?: string;
   phone?: string;
-  position_id?: string;
-  department_id?: string;
   company_id?: string;
-  employment_status: 'active' | 'inactive' | 'terminated' | 'suspended';
+  department_id?: string;
+  position_id?: string;
+  employment_status?: 'active' | 'inactive' | 'terminated' | 'suspended';
   hire_date?: string;
   basic_salary?: number;
-  is_active: boolean;
-  created_at: string;
+  is_active?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface BoudCompany {
   id: string;
   company_name: string;
+  company_code: string;
   company_name_english?: string;
   commercial_register?: string;
   tax_number?: string;
+  vat_number?: string;
   contact_email?: string;
   contact_phone?: string;
+  email?: string;
+  phone?: string;
   address?: string;
-  is_active: boolean;
+  is_active?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface PayrollRun {
+  id: string;
+  company_id: string;
+  payroll_period: string;
+  payroll_month: number;
+  payroll_year: number;
+  payroll_period_start: string;
+  payroll_period_end: string;
+  total_gross: number;
+  total_deductions: number;
+  total_net: number;
+  status: string;
+  approved_by?: string;
+  approved_date?: string;
+  payment_date?: string;
+  bank_file_generated?: boolean;
+  wps_file_generated?: boolean;
+  notes?: string;
   created_at: string;
+  updated_at: string;
 }
 
 export interface BoudDashboardStats {
@@ -55,15 +83,12 @@ export const useBoudEMS = () => {
   // Fetch dashboard stats
   const fetchStats = async () => {
     try {
-      const [employeesResult, companiesResult, attendanceResult] = await Promise.all([
-        supabase.from('boud_employees').select('*', { count: 'exact' }),
-        supabase.from('boud_companies').select('*', { count: 'exact' }).eq('is_active', true),
-        supabase.from('boud_attendance').select('*', { count: 'exact' }).eq('date', new Date().toISOString().split('T')[0])
-      ]);
+      const employeesQuery = await supabase.from('boud_employees').select('*', { count: 'exact', head: true });
+      const companiesQuery = await supabase.from('boud_companies').select('*', { count: 'exact', head: true });
 
-      const totalEmployees = employeesResult.count || 0;
-      const activeCompanies = companiesResult.count || 0;
-      const todayAttendance = attendanceResult.count || 0;
+      const totalEmployees = employeesQuery.count || 0;
+      const activeCompanies = companiesQuery.count || 0;
+      const todayAttendance = 0; // Placeholder for now
 
       // Calculate employee growth (mock calculation)
       const employeeGrowth = Math.round(Math.random() * 15 + 5);
@@ -145,11 +170,11 @@ export const useBoudEMS = () => {
   };
 
   // Add employee
-  const addEmployee = async (employeeData: Partial<BoudEmployee>) => {
+  const addEmployee = async (employeeData: Omit<Partial<BoudEmployee>, 'id'> & { employee_id: string; first_name: string; last_name: string }) => {
     try {
       const { data, error } = await supabase
         .from('boud_employees')
-        .insert([employeeData])
+        .insert(employeeData)
         .select()
         .single();
 
@@ -230,11 +255,11 @@ export const useBoudEMS = () => {
   };
 
   // Add company
-  const addCompany = async (companyData: Partial<BoudCompany>) => {
+  const addCompany = async (companyData: Omit<Partial<BoudCompany>, 'id'> & { company_name: string; company_code: string }) => {
     try {
       const { data, error } = await supabase
         .from('boud_companies')
-        .insert([companyData])
+        .insert(companyData)
         .select()
         .single();
 

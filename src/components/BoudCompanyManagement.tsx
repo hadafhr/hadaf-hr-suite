@@ -34,7 +34,16 @@ export const BoudCompanyManagement: React.FC = () => {
 
   const handleAddCompany = async () => {
     try {
-      await addCompany(newCompany);
+      await addCompany({
+        company_name: newCompany.company_name,
+        company_code: `COM-${Date.now()}`,
+        company_name_english: newCompany.company_name_english,
+        commercial_register: newCompany.commercial_register,
+        tax_number: newCompany.tax_number,
+        contact_email: newCompany.contact_email,
+        contact_phone: newCompany.contact_phone,
+        address: newCompany.address
+      });
       setIsAddDialogOpen(false);
       setNewCompany({
         company_name: '',

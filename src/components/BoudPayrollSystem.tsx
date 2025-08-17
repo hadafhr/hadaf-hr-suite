@@ -20,7 +20,7 @@ interface PayrollRun {
   total_gross_salary?: number;
   total_deductions?: number;
   total_net_salary?: number;
-  status: 'draft' | 'processing' | 'approved' | 'paid';
+  status: string;
   approved_date?: string;
   created_at: string;
 }
@@ -76,7 +76,7 @@ export const BoudPayrollSystem: React.FC = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setPayrollRuns(data || []);
+      setPayrollRuns((data || []) as PayrollRun[]);
     } catch (error) {
       console.error('Error fetching payroll runs:', error);
       toast({
