@@ -9,6 +9,7 @@ import { BoudEmployeeManagement } from '@/components/BoudEmployeeManagement';
 import { BoudCompanyManagement } from '@/components/BoudCompanyManagement';
 import { BoudAttendanceSystem } from '@/components/BoudAttendanceSystem';
 import { BoudPayrollSystem } from '@/components/BoudPayrollSystem';
+import BoudDashboard from '@/components/BoudDashboard';
 import { useBoudEMS } from '@/hooks/useBoudEMS';
 
 export const BoudEMS: React.FC = () => {
@@ -85,84 +86,8 @@ export const BoudEMS: React.FC = () => {
             <TabsTrigger value="reports">التقارير</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="dashboard" className="space-y-6">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {dashboardCards.map((card, index) => {
-                const Icon = card.icon;
-                return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground mb-1">
-                            {card.title}
-                          </p>
-                          <p className="text-2xl font-bold text-foreground">
-                            {card.value}
-                          </p>
-                        </div>
-                        <div className={`p-3 rounded-lg ${card.bgColor}`}>
-                          <Icon className={`h-6 w-6 ${card.color}`} />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>الإجراءات السريعة</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {quickActions.map((action, index) => {
-                    const Icon = action.icon;
-                    return (
-                      <Button
-                        key={index}
-                        variant="outline"
-                        className="h-20 flex-col gap-2"
-                        onClick={action.action}
-                      >
-                        <Icon className="h-6 w-6" />
-                        <span className="text-sm">{action.title}</span>
-                      </Button>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Recent Activity */}
-            <Card>
-              <CardHeader>
-                <CardTitle>النشاطات الأخيرة</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {stats?.recentActivities?.map((activity, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-primary"></div>
-                        <span className="text-sm">{activity.description}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="secondary">{activity.type}</Badge>
-                        <span className="text-xs text-muted-foreground">{activity.time}</span>
-                      </div>
-                    </div>
-                  )) || (
-                    <p className="text-muted-foreground text-center py-4">
-                      لا توجد نشاطات حديثة
-                    </p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+          <TabsContent value="dashboard">
+            <BoudDashboard />
           </TabsContent>
 
           <TabsContent value="employees">
