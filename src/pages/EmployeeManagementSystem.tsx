@@ -75,6 +75,7 @@ import PerformanceManagement from '@/components/employee/PerformanceManagement';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import OffboardingSystem from '@/components/employee/OffboardingSystem';
 import RecruitmentOnboarding from '@/components/employee/RecruitmentOnboarding';
+import BenefitsInsurance from '@/components/employee/BenefitsInsurance';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -529,7 +530,7 @@ const EmployeeManagementSystem = () => {
 
       <div className="p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-10 text-xs">
+          <TabsList className="grid w-full grid-cols-11 text-xs">
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
             <TabsTrigger value="employees">الموظفين</TabsTrigger>
             <TabsTrigger value="attendance">الحضور</TabsTrigger>
@@ -538,6 +539,7 @@ const EmployeeManagementSystem = () => {
             <TabsTrigger value="performance">الأداء</TabsTrigger>
             <TabsTrigger value="training">التدريب</TabsTrigger>
             <TabsTrigger value="recruitment">التوظيف</TabsTrigger>
+            <TabsTrigger value="benefits">المزايا والتأمينات</TabsTrigger>
             <TabsTrigger value="requests">الطلبات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
           </TabsList>
@@ -1238,6 +1240,11 @@ const EmployeeManagementSystem = () => {
           {/* Recruitment Tab */}
           <TabsContent value="recruitment" className="space-y-6">
             <RecruitmentOnboarding />
+          </TabsContent>
+
+          {/* Benefits & Insurance Tab */}
+          <TabsContent value="benefits" className="space-y-6">
+            <BenefitsInsurance />
           </TabsContent>
 
           {/* Reports Tab */}
