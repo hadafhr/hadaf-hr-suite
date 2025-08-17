@@ -1,0 +1,33 @@
+-- Insert sample performance KPIs
+INSERT INTO public.performance_kpis (company_id, name, description, category, unit, target_value, frequency, is_active) VALUES
+('550e8400-e29b-41d4-a716-446655440001', 'معدل إنجاز المهام', 'النسبة المئوية لإنجاز المهام في الوقت المحدد', 'الأداء', 'percentage', 95, 'monthly', true),
+('550e8400-e29b-41d4-a716-446655440001', 'رضا العملاء', 'تقييم رضا العملاء من 1 إلى 5', 'الجودة', 'rating', 4.5, 'quarterly', true),
+('550e8400-e29b-41d4-a716-446655440001', 'الالتزام بالمواعيد', 'النسبة المئوية للالتزام بالمواعيد المحددة', 'الانضباط', 'percentage', 98, 'monthly', true),
+('550e8400-e29b-41d4-a716-446655440001', 'عدد الأخطاء', 'عدد الأخطاء في العمل شهرياً', 'الجودة', 'number', 2, 'monthly', true),
+('550e8400-e29b-41d4-a716-446655440001', 'ساعات التدريب', 'عدد ساعات التدريب المكتملة', 'التطوير', 'hours', 40, 'quarterly', true);
+
+-- Insert sample performance goals  
+INSERT INTO public.performance_goals (employee_id, company_id, title, description, target_value, current_value, unit, priority, status, start_date, target_date, category) VALUES
+('550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440001', 'تطوير نظام إدارة المشاريع', 'بناء نظام شامل لإدارة المشاريع الداخلية باستخدام أحدث التقنيات', 100, 75, 'percentage', 'high', 'active', '2024-01-01', '2024-12-31', 'مشاريع'),
+('550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440001', 'تحسين مهارات React', 'إتقان React والتقنيات المتقدمة وحضور دورة تدريبية', 100, 80, 'percentage', 'medium', 'active', '2024-02-01', '2024-08-31', 'تطوير'),
+('550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440001', 'قيادة فريق المطورين', 'تولي مسؤولية قيادة فريق من 5 مطورين', 100, 60, 'percentage', 'high', 'active', '2024-03-01', '2024-12-31', 'قيادة'),
+('550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440001', 'تطوير مهارات التصميم', 'تعلم أدوات التصميم الحديثة وتطبيقها في المشاريع', 100, 45, 'percentage', 'medium', 'active', '2024-01-15', '2024-09-30', 'تطوير'),
+('550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440001', 'زيادة رضا العملاء', 'تحسين تجربة العملاء ورفع معدل الرضا إلى 4.8', 4.8, 4.2, 'rating', 'critical', 'active', '2024-02-01', '2024-11-30', 'جودة');
+
+-- Insert sample performance reviews
+INSERT INTO public.performance_reviews (employee_id, company_id, reviewer_id, review_period_start, review_period_end, overall_rating, goal_achievement_score, competency_scores, strengths, areas_for_improvement, development_recommendations, manager_comments, status, next_review_date) VALUES
+('550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', '2024-01-01', '2024-06-30', 4.2, 75, '{"technical": 4.5, "communication": 4.0, "leadership": 4.2, "problem_solving": 4.3, "teamwork": 4.1}', 'مهارات تقنية ممتازة، سرعة في التعلم، قدرة على حل المشاكل المعقدة', 'التواصل مع العملاء، إدارة الوقت، مهارات العروض التقديمية', 'التركيز على تطوير مهارات التواصل والقيادة، حضور دورات في إدارة المشاريع', 'موظف متميز يحتاج لتطوير مهارات الإدارة والقيادة', 'completed', '2024-12-31'),
+('550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', '2024-01-01', '2024-06-30', 3.8, 65, '{"technical": 3.5, "communication": 4.2, "leadership": 3.0, "problem_solving": 3.8, "teamwork": 4.5}', 'تواصل ممتاز مع الفريق، روح الفريق العالية، استعداد للتعلم', 'المهارات التقنية، إدارة المهام المتعددة، التركيز على التفاصيل', 'التركيز على تطوير المهارات التقنية، حضور دورات متخصصة', 'موظف جيد يحتاج لمزيد من التطوير التقني', 'completed', '2024-12-31');
+
+-- Insert sample development plans
+INSERT INTO public.development_plans (employee_id, company_id, title, description, objective, skills_to_develop, development_activities, budget_allocated, start_date, target_completion_date, status, progress_percentage) VALUES
+('550e8400-e29b-41d4-a716-446655440010', '550e8400-e29b-41d4-a716-446655440001', 'خطة تطوير القيادة والإدارة', 'خطة شاملة لتطوير مهارات القيادة والإدارة للترقية لمنصب مدير فريق', 'تأهيل الموظف لتولي منصب قيادي في غضون 12 شهر', ARRAY['إدارة الفرق', 'التخطيط الاستراتيجي', 'التواصل الفعال', 'حل المشاكل', 'اتخاذ القرارات'], '[{"activity": "دورة إدارة المشاريع PMP", "duration": "3 أشهر", "cost": 5000}, {"activity": "ورشة مهارات القيادة", "duration": "أسبوع", "cost": 2000}, {"activity": "تدريب عملي مع المدير", "duration": "6 أشهر", "cost": 0}]'::jsonb, 15000, '2024-03-01', '2025-02-28', 'active', 35),
+('550e8400-e29b-41d4-a716-446655440011', '550e8400-e29b-41d4-a716-446655440001', 'خطة تطوير المهارات التقنية', 'تطوير المهارات التقنية المتقدمة في التصميم والبرمجة', 'رفع المستوى التقني للموظف ليصبح مطور متقدم', ARRAY['React Advanced', 'Node.js', 'Database Design', 'UI/UX Design', 'DevOps'], '[{"activity": "دورة React المتقدمة", "duration": "2 أشهر", "cost": 3000}, {"activity": "تدريب على Node.js", "duration": "1 شهر", "cost": 2000}, {"activity": "ورشة تصميم قواعد البيانات", "duration": "أسبوعين", "cost": 1500}]'::jsonb, 10000, '2024-02-15', '2024-10-15', 'active', 50);
+
+-- Insert sample performance competencies
+INSERT INTO public.performance_competencies (company_id, name, description, category, is_active) VALUES
+('550e8400-e29b-41d4-a716-446655440001', 'المهارات التقنية', 'إتقان التقنيات والأدوات المطلوبة للعمل', 'تقنية', true),
+('550e8400-e29b-41d4-a716-446655440001', 'التواصل الفعال', 'القدرة على التواصل بوضوح وفعالية', 'اتصال', true),
+('550e8400-e29b-41d4-a716-446655440001', 'القيادة والإدارة', 'مهارات قيادة الفرق وإدارة المشاريع', 'قيادة', true),
+('550e8400-e29b-41d4-a716-446655440001', 'حل المشاكل', 'القدرة على تحليل وحل المشاكل بطريقة إبداعية', 'تفكير', true),
+('550e8400-e29b-41d4-a716-446655440001', 'العمل الجماعي', 'التعاون الفعال مع أعضاء الفريق', 'اجتماعية', true);
