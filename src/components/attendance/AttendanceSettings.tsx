@@ -38,7 +38,7 @@ const AttendanceSettings = () => {
 
   // بيانات الإعدادات العامة
   const [generalSettings, setGeneralSettings] = useState({
-    work_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'],
+    work_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'] as ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[],
     default_start_time: '08:00',
     default_end_time: '17:00',
     break_duration: 60,
@@ -54,9 +54,9 @@ const AttendanceSettings = () => {
   // بيانات جدول العمل الجديد
   const [newSchedule, setNewSchedule] = useState({
     name: '',
-    schedule_type: 'full_time',
+    schedule_type: 'full_time' as 'full_time' | 'remote' | 'part_time' | 'hybrid',
     description: '',
-    work_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'],
+    work_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'] as ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[],
     start_time: '08:00',
     end_time: '17:00',
     break_start_time: '12:00',
@@ -111,7 +111,7 @@ const AttendanceSettings = () => {
       if (data) {
         setSettings(data);
         setGeneralSettings({
-          work_days: data.work_days || ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'] as const,
+          work_days: (data.work_days || ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday']) as ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[],
           default_start_time: data.default_start_time || '08:00',
           default_end_time: data.default_end_time || '17:00',
           break_duration: data.break_duration || 60,
@@ -170,6 +170,7 @@ const AttendanceSettings = () => {
     try {
       const settingsData = {
         ...generalSettings,
+        work_days: generalSettings.work_days as any,
         default_start_time: generalSettings.default_start_time + ':00',
         default_end_time: generalSettings.default_end_time + ':00',
         auto_clock_out_time: generalSettings.auto_clock_out_time + ':00',
@@ -206,6 +207,8 @@ const AttendanceSettings = () => {
     try {
       const scheduleData = {
         ...newSchedule,
+        work_days: newSchedule.work_days as any,
+        schedule_type: newSchedule.schedule_type as any,
         start_time: newSchedule.start_time + ':00',
         end_time: newSchedule.end_time + ':00',
         break_start_time: newSchedule.break_start_time ? newSchedule.break_start_time + ':00' : null,
@@ -294,9 +297,9 @@ const AttendanceSettings = () => {
   const resetNewSchedule = () => {
     setNewSchedule({
       name: '',
-      schedule_type: 'full_time',
+      schedule_type: 'full_time' as 'full_time' | 'remote' | 'part_time' | 'hybrid',
       description: '',
-      work_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'],
+      work_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'] as ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday')[],
       start_time: '08:00',
       end_time: '17:00',
       break_start_time: '12:00',
@@ -315,15 +318,16 @@ const AttendanceSettings = () => {
   };
 
   const handleDayToggle = (day: string, isGeneralSettings = true) => {
+    const dayValue = day as ('sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday');
     if (isGeneralSettings) {
-      const newDays = generalSettings.work_days.includes(day)
-        ? generalSettings.work_days.filter(d => d !== day)
-        : [...generalSettings.work_days, day];
+      const newDays = generalSettings.work_days.includes(dayValue)
+        ? generalSettings.work_days.filter(d => d !== dayValue)
+        : [...generalSettings.work_days, dayValue];
       setGeneralSettings({ ...generalSettings, work_days: newDays });
     } else {
-      const newDays = newSchedule.work_days.includes(day)
-        ? newSchedule.work_days.filter(d => d !== day)
-        : [...newSchedule.work_days, day];
+      const newDays = newSchedule.work_days.includes(dayValue)
+        ? newSchedule.work_days.filter(d => d !== dayValue)
+        : [...newSchedule.work_days, dayValue];
       setNewSchedule({ ...newSchedule, work_days: newDays });
     }
   };
@@ -363,16 +367,16 @@ const AttendanceSettings = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
-                  {Object.entries(dayNames).map(([day, name]) => (
-                    <div key={day} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={day}
-                        checked={generalSettings.work_days.includes(day)}
-                        onCheckedChange={() => handleDayToggle(day)}
-                      />
-                      <Label htmlFor={day} className="mr-2">{name}</Label>
-                    </div>
-                  ))}
+                   {Object.entries(dayNames).map(([day, name]) => (
+                     <div key={day} className="flex items-center space-x-2">
+                       <Checkbox
+                         id={day}
+                         checked={generalSettings.work_days.includes(day as any)}
+                         onCheckedChange={() => handleDayToggle(day)}
+                       />
+                       <Label htmlFor={day} className="mr-2">{name}</Label>
+                     </div>
+                   ))}
                 </div>
               </CardContent>
             </Card>
@@ -557,10 +561,10 @@ const AttendanceSettings = () => {
                     </div>
                     <div>
                       <Label htmlFor="schedule_type">نوع الدوام</Label>
-                      <Select
-                        value={newSchedule.schedule_type}
-                        onValueChange={(value) => setNewSchedule({...newSchedule, schedule_type: value})}
-                      >
+                       <Select
+                         value={newSchedule.schedule_type}
+                         onValueChange={(value) => setNewSchedule({...newSchedule, schedule_type: value as any})}
+                       >
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
@@ -584,16 +588,16 @@ const AttendanceSettings = () => {
                   <div>
                     <Label>أيام العمل</Label>
                     <div className="grid grid-cols-3 gap-3 mt-2">
-                      {Object.entries(dayNames).map(([day, name]) => (
-                        <div key={day} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={`new_${day}`}
-                            checked={newSchedule.work_days.includes(day)}
-                            onCheckedChange={() => handleDayToggle(day, false)}
-                          />
-                          <Label htmlFor={`new_${day}`} className="mr-2">{name}</Label>
-                        </div>
-                      ))}
+                       {Object.entries(dayNames).map(([day, name]) => (
+                         <div key={day} className="flex items-center space-x-2">
+                           <Checkbox
+                             id={`new_${day}`}
+                             checked={newSchedule.work_days.includes(day as any)}
+                             onCheckedChange={() => handleDayToggle(day, false)}
+                           />
+                           <Label htmlFor={`new_${day}`} className="mr-2">{name}</Label>
+                         </div>
+                       ))}
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">

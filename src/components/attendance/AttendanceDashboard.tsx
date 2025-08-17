@@ -101,7 +101,7 @@ const AttendanceDashboard = () => {
         .order('clock_in_time', { ascending: false });
 
       if (statusFilter !== 'all') {
-        query = query.eq('status', statusFilter);
+        query = query.eq('status', statusFilter as any);
       }
 
       const { data, error } = await query;
