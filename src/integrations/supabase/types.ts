@@ -189,6 +189,190 @@ export type Database = {
         }
         Relationships: []
       }
+      attendance_corrections: {
+        Row: {
+          attendance_record_id: string
+          correction_type: string
+          created_at: string
+          current_value: string | null
+          employee_id: string
+          id: string
+          reason: string
+          requested_value: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          attendance_record_id: string
+          correction_type: string
+          created_at?: string
+          current_value?: string | null
+          employee_id: string
+          id?: string
+          reason: string
+          requested_value: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          attendance_record_id?: string
+          correction_type?: string
+          created_at?: string
+          current_value?: string | null
+          employee_id?: string
+          id?: string
+          reason?: string
+          requested_value?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_corrections_attendance_record_id_fkey"
+            columns: ["attendance_record_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_records_new"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attendance_records_new: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          attendance_date: string
+          break_end_time: string | null
+          break_start_time: string | null
+          clock_in_time: string | null
+          clock_out_time: string | null
+          created_at: string
+          employee_id: string
+          id: string
+          is_remote: boolean
+          location_check_in: string | null
+          location_check_out: string | null
+          notes: string | null
+          overtime_hours: number | null
+          schedule_id: string | null
+          status: Database["public"]["Enums"]["attendance_status"]
+          total_hours: number | null
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          attendance_date?: string
+          break_end_time?: string | null
+          break_start_time?: string | null
+          clock_in_time?: string | null
+          clock_out_time?: string | null
+          created_at?: string
+          employee_id: string
+          id?: string
+          is_remote?: boolean
+          location_check_in?: string | null
+          location_check_out?: string | null
+          notes?: string | null
+          overtime_hours?: number | null
+          schedule_id?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          total_hours?: number | null
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          attendance_date?: string
+          break_end_time?: string | null
+          break_start_time?: string | null
+          clock_in_time?: string | null
+          clock_out_time?: string | null
+          created_at?: string
+          employee_id?: string
+          id?: string
+          is_remote?: boolean
+          location_check_in?: string | null
+          location_check_out?: string | null
+          notes?: string | null
+          overtime_hours?: number | null
+          schedule_id?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          total_hours?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_records_new_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "work_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attendance_settings: {
+        Row: {
+          allow_remote_work: boolean
+          auto_clock_out: boolean
+          auto_clock_out_time: string | null
+          break_duration: number
+          company_id: string | null
+          created_at: string
+          default_end_time: string
+          default_start_time: string
+          early_leave_threshold_minutes: number
+          id: string
+          late_threshold_minutes: number
+          overtime_threshold_hours: number | null
+          require_location_check: boolean
+          updated_at: string
+          work_days: Database["public"]["Enums"]["day_of_week"][]
+        }
+        Insert: {
+          allow_remote_work?: boolean
+          auto_clock_out?: boolean
+          auto_clock_out_time?: string | null
+          break_duration?: number
+          company_id?: string | null
+          created_at?: string
+          default_end_time?: string
+          default_start_time?: string
+          early_leave_threshold_minutes?: number
+          id?: string
+          late_threshold_minutes?: number
+          overtime_threshold_hours?: number | null
+          require_location_check?: boolean
+          updated_at?: string
+          work_days?: Database["public"]["Enums"]["day_of_week"][]
+        }
+        Update: {
+          allow_remote_work?: boolean
+          auto_clock_out?: boolean
+          auto_clock_out_time?: string | null
+          break_duration?: number
+          company_id?: string | null
+          created_at?: string
+          default_end_time?: string
+          default_start_time?: string
+          early_leave_threshold_minutes?: number
+          id?: string
+          late_threshold_minutes?: number
+          overtime_threshold_hours?: number | null
+          require_location_check?: boolean
+          updated_at?: string
+          work_days?: Database["public"]["Enums"]["day_of_week"][]
+        }
+        Relationships: []
+      }
       bank_accounts: {
         Row: {
           account_number: string
@@ -1753,6 +1937,39 @@ export type Database = {
         }
         Relationships: []
       }
+      company_holidays: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          holiday_date: string
+          id: string
+          is_active: boolean
+          is_recurring: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          holiday_date: string
+          id?: string
+          is_active?: boolean
+          is_recurring?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          holiday_date?: string
+          id?: string
+          is_active?: boolean
+          is_recurring?: boolean
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       compliance_items: {
         Row: {
           completion_percentage: number | null
@@ -2118,6 +2335,47 @@ export type Database = {
           variance_percentage?: number | null
         }
         Relationships: []
+      }
+      employee_work_schedules: {
+        Row: {
+          created_at: string
+          effective_date: string
+          employee_id: string
+          end_date: string | null
+          id: string
+          is_active: boolean
+          schedule_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          effective_date?: string
+          employee_id: string
+          end_date?: string | null
+          id?: string
+          is_active?: boolean
+          schedule_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          effective_date?: string
+          employee_id?: string
+          end_date?: string | null
+          id?: string
+          is_active?: boolean
+          schedule_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_work_schedules_schedule_id_fkey"
+            columns: ["schedule_id"]
+            isOneToOne: false
+            referencedRelation: "work_schedules"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       employees: {
         Row: {
@@ -4668,6 +4926,60 @@ export type Database = {
         }
         Relationships: []
       }
+      work_schedules: {
+        Row: {
+          break_end_time: string | null
+          break_start_time: string | null
+          company_id: string | null
+          created_at: string
+          description: string | null
+          end_time: string
+          id: string
+          is_active: boolean
+          name: string
+          schedule_type: Database["public"]["Enums"]["work_schedule_type"]
+          start_time: string
+          total_hours_per_day: number
+          total_hours_per_week: number
+          updated_at: string
+          work_days: Database["public"]["Enums"]["day_of_week"][]
+        }
+        Insert: {
+          break_end_time?: string | null
+          break_start_time?: string | null
+          company_id?: string | null
+          created_at?: string
+          description?: string | null
+          end_time: string
+          id?: string
+          is_active?: boolean
+          name: string
+          schedule_type?: Database["public"]["Enums"]["work_schedule_type"]
+          start_time: string
+          total_hours_per_day: number
+          total_hours_per_week: number
+          updated_at?: string
+          work_days: Database["public"]["Enums"]["day_of_week"][]
+        }
+        Update: {
+          break_end_time?: string | null
+          break_start_time?: string | null
+          company_id?: string | null
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          schedule_type?: Database["public"]["Enums"]["work_schedule_type"]
+          start_time?: string
+          total_hours_per_day?: number
+          total_hours_per_week?: number
+          updated_at?: string
+          work_days?: Database["public"]["Enums"]["day_of_week"][]
+        }
+        Relationships: []
+      }
       workflow_approvals: {
         Row: {
           action: Database["public"]["Enums"]["approval_action"] | null
@@ -4915,6 +5227,14 @@ export type Database = {
         | "late"
         | "early_leave"
         | "overtime"
+      day_of_week:
+        | "sunday"
+        | "monday"
+        | "tuesday"
+        | "wednesday"
+        | "thursday"
+        | "friday"
+        | "saturday"
       disciplinary_action:
         | "verbal_warning"
         | "written_warning"
@@ -4973,6 +5293,7 @@ export type Database = {
         | "line_manager"
         | "employee"
         | "payroll_officer"
+      work_schedule_type: "full_time" | "remote" | "part_time" | "hybrid"
       workflow_status:
         | "pending"
         | "in_review"
@@ -5126,6 +5447,15 @@ export const Constants = {
         "early_leave",
         "overtime",
       ],
+      day_of_week: [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+      ],
       disciplinary_action: [
         "verbal_warning",
         "written_warning",
@@ -5190,6 +5520,7 @@ export const Constants = {
         "employee",
         "payroll_officer",
       ],
+      work_schedule_type: ["full_time", "remote", "part_time", "hybrid"],
       workflow_status: [
         "pending",
         "in_review",
