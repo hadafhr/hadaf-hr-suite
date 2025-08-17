@@ -77,6 +77,7 @@ import OffboardingSystem from '@/components/employee/OffboardingSystem';
 import RecruitmentOnboarding from '@/components/employee/RecruitmentOnboarding';
 import InsuranceManagement from '@/components/employee/InsuranceManagement';
 import BenefitsRewards from '@/components/employee/BenefitsRewards';
+import DisciplinarySystem from '@/components/employee/DisciplinarySystem';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -535,6 +536,7 @@ const EmployeeManagementSystem = () => {
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
             <TabsTrigger value="employees">الموظفين</TabsTrigger>
             <TabsTrigger value="attendance">الحضور</TabsTrigger>
+            <TabsTrigger value="disciplinary">الجزاءات</TabsTrigger>
             <TabsTrigger value="leaves">الإجازات</TabsTrigger>
             <TabsTrigger value="payroll">الرواتب</TabsTrigger>
             <TabsTrigger value="performance">الأداء</TabsTrigger>
@@ -759,133 +761,9 @@ const EmployeeManagementSystem = () => {
             </div>
           </TabsContent>
 
-          {/* Disciplinary Tab - Moved after requests */}
+          {/* Disciplinary Tab */}
           <TabsContent value="disciplinary" className="space-y-6">
-            {/* Disciplinary System */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Gavel className="h-6 w-6 text-red-600" />
-                  نظام الإجراءات التأديبية - نظام العمل السعودي
-                </CardTitle>
-                <CardDescription>
-                  إدارة الإجراءات التأديبية وفقاً لنظام العمل السعودي مع تتبع المخالفات والعقوبات
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {/* Disciplinary Statistics */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                  <Card className="bg-yellow-50 border-yellow-200">
-                    <CardContent className="p-4 text-center">
-                      <AlertTriangle className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-yellow-700">12</div>
-                      <div className="text-sm text-yellow-600">إنذارات أولى</div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="bg-orange-50 border-orange-200">
-                    <CardContent className="p-4 text-center">
-                      <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-orange-700">5</div>
-                      <div className="text-sm text-orange-600">إنذارات نهائية</div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="bg-red-50 border-red-200">
-                    <CardContent className="p-4 text-center">
-                      <UserX className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-red-700">2</div>
-                      <div className="text-sm text-red-600">فصل تأديبي</div>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="bg-green-50 border-green-200">
-                    <CardContent className="p-4 text-center">
-                      <UserCheck className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-green-700">231</div>
-                      <div className="text-sm text-green-600">ملف نظيف</div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Disciplinary Actions */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  <Button 
-                    className="h-20 flex-col gap-2 bg-yellow-600 hover:bg-yellow-700"
-                    onClick={() => {
-                      toast.success('تم تسجيل الإنذار الأول');
-                      setActiveTab('employees');
-                    }}
-                  >
-                    <AlertTriangle className="h-6 w-6" />
-                    إنذار أول
-                  </Button>
-                  <Button 
-                    variant="destructive" 
-                    className="h-20 flex-col gap-2"
-                    onClick={() => {
-                      toast.warning('تم تسجيل الإنذار النهائي');
-                      setActiveTab('employees');
-                    }}
-                  >
-                    <AlertTriangle className="h-6 w-6" />
-                    إنذار نهائي
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="h-20 flex-col gap-2 hover:bg-blue-50"
-                    onClick={() => {
-                      toast.info('تم فتح قاعدة البيانات القانونية');
-                    }}
-                  >
-                    <BookOpen className="h-6 w-6" />
-                    قاعدة البيانات القانونية
-                  </Button>
-                </div>
-
-                {/* Recent Disciplinary Actions */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">الإجراءات التأديبية الحديثة</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex items-center gap-4">
-                          <Avatar className="h-10 w-10">
-                            <AvatarFallback>أح</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <h4 className="font-medium">أحمد محمد العلي</h4>
-                            <p className="text-sm text-muted-foreground">تأخر متكرر - 3 مرات</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">إنذار أول</Badge>
-                          <span className="text-sm text-muted-foreground">2024-03-15</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex items-center gap-4">
-                          <Avatar className="h-10 w-10">
-                            <AvatarFallback>سا</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <h4 className="font-medium">سارة أحمد محمد</h4>
-                            <p className="text-sm text-muted-foreground">عدم الالتزام بسياسة الشركة</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="destructive" className="bg-orange-100 text-orange-800">إنذار نهائي</Badge>
-                          <span className="text-sm text-muted-foreground">2024-03-10</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CardContent>
-            </Card>
+            <DisciplinarySystem />
           </TabsContent>
 
           {/* Requests Tab */}

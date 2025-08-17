@@ -2222,6 +2222,121 @@ export type Database = {
         }
         Relationships: []
       }
+      disciplinary_actions: {
+        Row: {
+          action_type: Database["public"]["Enums"]["disciplinary_action_type"]
+          attendance_record_id: string | null
+          case_number: string
+          company_id: string | null
+          created_at: string | null
+          description: string
+          employee_id: string
+          evidence: Json | null
+          id: string
+          notes: string | null
+          penalty_amount: number | null
+          reported_by: string
+          resolution_date: string | null
+          review_date: string | null
+          status: Database["public"]["Enums"]["disciplinary_status"] | null
+          suspension_days: number | null
+          updated_at: string | null
+          violation_date: string
+          violation_id: string | null
+        }
+        Insert: {
+          action_type: Database["public"]["Enums"]["disciplinary_action_type"]
+          attendance_record_id?: string | null
+          case_number: string
+          company_id?: string | null
+          created_at?: string | null
+          description: string
+          employee_id: string
+          evidence?: Json | null
+          id?: string
+          notes?: string | null
+          penalty_amount?: number | null
+          reported_by: string
+          resolution_date?: string | null
+          review_date?: string | null
+          status?: Database["public"]["Enums"]["disciplinary_status"] | null
+          suspension_days?: number | null
+          updated_at?: string | null
+          violation_date: string
+          violation_id?: string | null
+        }
+        Update: {
+          action_type?: Database["public"]["Enums"]["disciplinary_action_type"]
+          attendance_record_id?: string | null
+          case_number?: string
+          company_id?: string | null
+          created_at?: string | null
+          description?: string
+          employee_id?: string
+          evidence?: Json | null
+          id?: string
+          notes?: string | null
+          penalty_amount?: number | null
+          reported_by?: string
+          resolution_date?: string | null
+          review_date?: string | null
+          status?: Database["public"]["Enums"]["disciplinary_status"] | null
+          suspension_days?: number | null
+          updated_at?: string | null
+          violation_date?: string
+          violation_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disciplinary_actions_violation_id_fkey"
+            columns: ["violation_id"]
+            isOneToOne: false
+            referencedRelation: "saudi_labor_violations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      disciplinary_approvals: {
+        Row: {
+          approval_level: number
+          approved_at: string | null
+          approver_id: string
+          comments: string | null
+          created_at: string | null
+          disciplinary_action_id: string | null
+          id: string
+          status: string
+        }
+        Insert: {
+          approval_level: number
+          approved_at?: string | null
+          approver_id: string
+          comments?: string | null
+          created_at?: string | null
+          disciplinary_action_id?: string | null
+          id?: string
+          status?: string
+        }
+        Update: {
+          approval_level?: number
+          approved_at?: string | null
+          approver_id?: string
+          comments?: string | null
+          created_at?: string | null
+          disciplinary_action_id?: string | null
+          id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disciplinary_approvals_disciplinary_action_id_fkey"
+            columns: ["disciplinary_action_id"]
+            isOneToOne: false
+            referencedRelation: "disciplinary_actions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       donations: {
         Row: {
           created_at: string
@@ -2290,6 +2405,59 @@ export type Database = {
             columns: ["service_id"]
             isOneToOne: false
             referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employee_disciplinary_record: {
+        Row: {
+          clean_record_start_date: string | null
+          company_id: string | null
+          created_at: string | null
+          disciplinary_action_id: string | null
+          employee_id: string
+          id: string
+          is_active: boolean | null
+          last_violation_date: string | null
+          total_penalties: number | null
+          total_warnings: number | null
+          updated_at: string | null
+          violation_count: number | null
+        }
+        Insert: {
+          clean_record_start_date?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          disciplinary_action_id?: string | null
+          employee_id: string
+          id?: string
+          is_active?: boolean | null
+          last_violation_date?: string | null
+          total_penalties?: number | null
+          total_warnings?: number | null
+          updated_at?: string | null
+          violation_count?: number | null
+        }
+        Update: {
+          clean_record_start_date?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          disciplinary_action_id?: string | null
+          employee_id?: string
+          id?: string
+          is_active?: boolean | null
+          last_violation_date?: string | null
+          total_penalties?: number | null
+          total_warnings?: number | null
+          updated_at?: string | null
+          violation_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_disciplinary_record_disciplinary_action_id_fkey"
+            columns: ["disciplinary_action_id"]
+            isOneToOne: false
+            referencedRelation: "disciplinary_actions"
             referencedColumns: ["id"]
           },
         ]
@@ -4636,6 +4804,60 @@ export type Database = {
         }
         Relationships: []
       }
+      saudi_labor_violations: {
+        Row: {
+          article_reference: string
+          auto_trigger_rules: Json | null
+          category: string
+          created_at: string | null
+          description: string | null
+          final_action: string
+          first_action: string
+          id: string
+          is_active: boolean | null
+          second_action: string
+          severity: Database["public"]["Enums"]["violation_severity"]
+          updated_at: string | null
+          violation_code: string
+          violation_name: string
+          violation_name_en: string | null
+        }
+        Insert: {
+          article_reference: string
+          auto_trigger_rules?: Json | null
+          category: string
+          created_at?: string | null
+          description?: string | null
+          final_action: string
+          first_action: string
+          id?: string
+          is_active?: boolean | null
+          second_action: string
+          severity?: Database["public"]["Enums"]["violation_severity"]
+          updated_at?: string | null
+          violation_code: string
+          violation_name: string
+          violation_name_en?: string | null
+        }
+        Update: {
+          article_reference?: string
+          auto_trigger_rules?: Json | null
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          final_action?: string
+          first_action?: string
+          id?: string
+          is_active?: boolean | null
+          second_action?: string
+          severity?: Database["public"]["Enums"]["violation_severity"]
+          updated_at?: string | null
+          violation_code?: string
+          violation_name?: string
+          violation_name_en?: string | null
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           category: Database["public"]["Enums"]["service_category"]
@@ -5184,9 +5406,22 @@ export type Database = {
         }
         Returns: boolean
       }
+      check_and_create_attendance_violations: {
+        Args: { p_company_id: string; p_employee_id: string }
+        Returns: {
+          action_created: boolean
+          count: number
+          suggested_action: string
+          violation_type: string
+        }[]
+      }
       create_admin_user: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      generate_disciplinary_case_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       get_user_company_id: {
         Args: { _user_id: string }
@@ -5241,6 +5476,14 @@ export type Database = {
         | "final_warning"
         | "suspension"
         | "termination"
+      disciplinary_action_type:
+        | "verbal_warning"
+        | "written_warning"
+        | "salary_deduction"
+        | "suspension"
+        | "final_warning"
+        | "termination"
+      disciplinary_status: "pending" | "under_review" | "resolved" | "escalated"
       donation_status:
         | "pending"
         | "confirmed"
@@ -5293,6 +5536,7 @@ export type Database = {
         | "line_manager"
         | "employee"
         | "payroll_officer"
+      violation_severity: "low" | "medium" | "high" | "critical"
       work_schedule_type: "full_time" | "remote" | "part_time" | "hybrid"
       workflow_status:
         | "pending"
@@ -5463,6 +5707,15 @@ export const Constants = {
         "suspension",
         "termination",
       ],
+      disciplinary_action_type: [
+        "verbal_warning",
+        "written_warning",
+        "salary_deduction",
+        "suspension",
+        "final_warning",
+        "termination",
+      ],
+      disciplinary_status: ["pending", "under_review", "resolved", "escalated"],
       donation_status: [
         "pending",
         "confirmed",
@@ -5520,6 +5773,7 @@ export const Constants = {
         "employee",
         "payroll_officer",
       ],
+      violation_severity: ["low", "medium", "high", "critical"],
       work_schedule_type: ["full_time", "remote", "part_time", "hybrid"],
       workflow_status: [
         "pending",
