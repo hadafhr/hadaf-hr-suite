@@ -1933,6 +1933,78 @@ export type Database = {
         }
         Relationships: []
       }
+      development_plans: {
+        Row: {
+          actual_completion_date: string | null
+          approval_date: string | null
+          approved_by: string | null
+          budget_allocated: number | null
+          budget_used: number | null
+          company_id: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          development_activities: Json | null
+          employee_id: string
+          id: string
+          mentor_id: string | null
+          objective: string | null
+          progress_percentage: number | null
+          skills_to_develop: string[] | null
+          start_date: string
+          status: string | null
+          target_completion_date: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          actual_completion_date?: string | null
+          approval_date?: string | null
+          approved_by?: string | null
+          budget_allocated?: number | null
+          budget_used?: number | null
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          development_activities?: Json | null
+          employee_id: string
+          id?: string
+          mentor_id?: string | null
+          objective?: string | null
+          progress_percentage?: number | null
+          skills_to_develop?: string[] | null
+          start_date?: string
+          status?: string | null
+          target_completion_date: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          actual_completion_date?: string | null
+          approval_date?: string | null
+          approved_by?: string | null
+          budget_allocated?: number | null
+          budget_used?: number | null
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          development_activities?: Json | null
+          employee_id?: string
+          id?: string
+          mentor_id?: string | null
+          objective?: string | null
+          progress_percentage?: number | null
+          skills_to_develop?: string[] | null
+          start_date?: string
+          status?: string | null
+          target_completion_date?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       donations: {
         Row: {
           created_at: string
@@ -2004,6 +2076,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      employee_kpi_measurements: {
+        Row: {
+          actual_value: number
+          created_at: string
+          employee_id: string
+          id: string
+          kpi_id: string
+          measurement_date: string
+          notes: string | null
+          recorded_by: string | null
+          target_value: number | null
+          variance: number | null
+          variance_percentage: number | null
+        }
+        Insert: {
+          actual_value: number
+          created_at?: string
+          employee_id: string
+          id?: string
+          kpi_id: string
+          measurement_date?: string
+          notes?: string | null
+          recorded_by?: string | null
+          target_value?: number | null
+          variance?: number | null
+          variance_percentage?: number | null
+        }
+        Update: {
+          actual_value?: number
+          created_at?: string
+          employee_id?: string
+          id?: string
+          kpi_id?: string
+          measurement_date?: string
+          notes?: string | null
+          recorded_by?: string | null
+          target_value?: number | null
+          variance?: number | null
+          variance_percentage?: number | null
+        }
+        Relationships: []
       }
       employees: {
         Row: {
@@ -3630,6 +3744,243 @@ export type Database = {
           updated_at?: string
           user_id?: string
           wps_file_generated?: boolean | null
+        }
+        Relationships: []
+      }
+      performance_competencies: {
+        Row: {
+          category: string
+          company_id: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          proficiency_levels: Json | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          proficiency_levels?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          proficiency_levels?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      performance_goals: {
+        Row: {
+          assigned_by: string | null
+          category: string | null
+          company_id: string
+          completion_date: string | null
+          created_at: string
+          created_by: string | null
+          current_value: number | null
+          description: string | null
+          employee_id: string
+          id: string
+          priority: string | null
+          review_comments: string | null
+          review_date: string | null
+          reviewed_by: string | null
+          start_date: string
+          status: string | null
+          target_date: string
+          target_value: number | null
+          title: string
+          unit: string | null
+          updated_at: string
+          weight: number | null
+        }
+        Insert: {
+          assigned_by?: string | null
+          category?: string | null
+          company_id: string
+          completion_date?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_value?: number | null
+          description?: string | null
+          employee_id: string
+          id?: string
+          priority?: string | null
+          review_comments?: string | null
+          review_date?: string | null
+          reviewed_by?: string | null
+          start_date?: string
+          status?: string | null
+          target_date: string
+          target_value?: number | null
+          title: string
+          unit?: string | null
+          updated_at?: string
+          weight?: number | null
+        }
+        Update: {
+          assigned_by?: string | null
+          category?: string | null
+          company_id?: string
+          completion_date?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_value?: number | null
+          description?: string | null
+          employee_id?: string
+          id?: string
+          priority?: string | null
+          review_comments?: string | null
+          review_date?: string | null
+          reviewed_by?: string | null
+          start_date?: string
+          status?: string | null
+          target_date?: string
+          target_value?: number | null
+          title?: string
+          unit?: string | null
+          updated_at?: string
+          weight?: number | null
+        }
+        Relationships: []
+      }
+      performance_kpis: {
+        Row: {
+          calculation_method: string | null
+          category: string
+          company_id: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          frequency: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          target_value: number | null
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          calculation_method?: string | null
+          category: string
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          frequency?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          target_value?: number | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          calculation_method?: string | null
+          category?: string
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          frequency?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          target_value?: number | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      performance_reviews: {
+        Row: {
+          approved_by: string | null
+          approved_date: string | null
+          areas_for_improvement: string | null
+          company_id: string
+          competency_scores: Json | null
+          created_at: string
+          development_recommendations: string | null
+          employee_comments: string | null
+          employee_id: string
+          goal_achievement_score: number | null
+          hr_comments: string | null
+          id: string
+          manager_comments: string | null
+          next_review_date: string | null
+          overall_rating: number | null
+          review_period_end: string
+          review_period_start: string
+          reviewer_id: string
+          status: string | null
+          strengths: string | null
+          submitted_date: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved_by?: string | null
+          approved_date?: string | null
+          areas_for_improvement?: string | null
+          company_id: string
+          competency_scores?: Json | null
+          created_at?: string
+          development_recommendations?: string | null
+          employee_comments?: string | null
+          employee_id: string
+          goal_achievement_score?: number | null
+          hr_comments?: string | null
+          id?: string
+          manager_comments?: string | null
+          next_review_date?: string | null
+          overall_rating?: number | null
+          review_period_end: string
+          review_period_start: string
+          reviewer_id: string
+          status?: string | null
+          strengths?: string | null
+          submitted_date?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved_by?: string | null
+          approved_date?: string | null
+          areas_for_improvement?: string | null
+          company_id?: string
+          competency_scores?: Json | null
+          created_at?: string
+          development_recommendations?: string | null
+          employee_comments?: string | null
+          employee_id?: string
+          goal_achievement_score?: number | null
+          hr_comments?: string | null
+          id?: string
+          manager_comments?: string | null
+          next_review_date?: string | null
+          overall_rating?: number | null
+          review_period_end?: string
+          review_period_start?: string
+          reviewer_id?: string
+          status?: string | null
+          strengths?: string | null
+          submitted_date?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { toast } from 'sonner';
+import { usePerformanceManagement } from '@/hooks/usePerformanceManagement';
 import { 
   Award,
   Target,
@@ -24,183 +20,72 @@ import {
   Edit,
   Eye,
   Calendar,
-  MessageSquare,
-  Zap,
+  Activity,
   Trophy,
-  User,
-  Activity
+  Zap,
+  Rocket,
+  BookOpen,
+  Brain,
+  LineChart
 } from 'lucide-react';
 
-interface PerformanceReview {
-  id: string;
-  employeeId: string;
-  employeeName: string;
-  department: string;
-  reviewPeriod: string;
-  reviewType: 'annual' | 'mid-year' | 'quarterly' | 'probation';
-  status: 'draft' | 'self-evaluation' | 'manager-review' | 'hr-review' | 'completed';
-  overallRating: number;
-  competencyRatings: {
-    technical: number;
-    communication: number;
-    leadership: number;
-    problemSolving: number;
-    teamwork: number;
-  };
-  goals: Goal[];
-  strengths: string[];
-  areasForImprovement: string[];
-  developmentPlan: string;
-  managerComments: string;
-  employeeComments: string;
-  hrComments: string;
-  completedDate?: string;
-  nextReviewDate: string;
-}
-
-interface Goal {
-  id: string;
-  title: string;
-  description: string;
-  category: 'performance' | 'development' | 'behavioral' | 'project';
-  targetDate: string;
-  status: 'not-started' | 'in-progress' | 'completed' | 'overdue';
-  progress: number;
-  measurement: string;
-  importance: 'low' | 'medium' | 'high' | 'critical';
-}
-
-interface KPI {
-  id: string;
-  name: string;
-  category: string;
-  target: number;
-  actual: number;
-  unit: string;
-  period: string;
-  status: 'above-target' | 'on-track' | 'below-target' | 'critical';
-}
-
 const PerformanceManagement: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [selectedEmployee, setSelectedEmployee] = useState<string>('');
+  const [activeView, setActiveView] = useState('dashboard');
+  const { 
+    isLoading, 
+    goals, 
+    reviews, 
+    kpis, 
+    measurements, 
+    developmentPlans, 
+    competencies,
+    getPerformanceStats 
+  } = usePerformanceManagement();
 
-  // Mock performance reviews
-  const [performanceReviews] = useState<PerformanceReview[]>([
-    {
-      id: 'PR001',
-      employeeId: 'EMP001',
-      employeeName: 'أحمد محمد العلي',
-      department: 'تقنية المعلومات',
-      reviewPeriod: '2024',
-      reviewType: 'annual',
-      status: 'completed',
-      overallRating: 4.2,
-      competencyRatings: {
-        technical: 4.5,
-        communication: 4.0,
-        leadership: 4.2,
-        problemSolving: 4.3,
-        teamwork: 4.1
-      },
-      goals: [
-        {
-          id: 'G001',
-          title: 'تطوير نظام إدارة المشاريع',
-          description: 'بناء نظام شامل لإدارة المشاريع الداخلية',
-          category: 'project',
-          targetDate: '2024-12-31',
-          status: 'in-progress',
-          progress: 75,
-          measurement: 'اكتمال المشروع',
-          importance: 'high'
-        },
-        {
-          id: 'G002', 
-          title: 'حضور دورة React المتقدمة',
-          description: 'تطوير مهارات React وNext.js',
-          category: 'development',
-          targetDate: '2024-06-30',
-          status: 'completed',
-          progress: 100,
-          measurement: 'إتمام الدورة والحصول على الشهادة',
-          importance: 'medium'
-        }
-      ],
-      strengths: ['مهارات تقنية ممتازة', 'سرعة في التعلم', 'قدرة على حل المشاكل'],
-      areasForImprovement: ['التواصل مع العملاء', 'إدارة الوقت', 'العروض التقديمية'],
-      developmentPlan: 'التركيز على تطوير مهارات التواصل والقيادة',
-      managerComments: 'موظف متميز يحتاج لتطوير مهارات الإدارة',
-      employeeComments: 'أرغب في المزيد من المسؤوليات القيادية',
-      hrComments: 'مرشح قوي للترقية مع التدريب المناسب',
-      completedDate: '2024-03-15',
-      nextReviewDate: '2024-09-15'
-    }
-  ]);
+  const stats = getPerformanceStats();
 
-  // Mock KPIs
-  const [kpis] = useState<KPI[]>([
-    {
-      id: 'KPI001',
-      name: 'معدل إنجاز المهام',
-      category: 'الأداء',
-      target: 95,
-      actual: 92,
-      unit: '%',
-      period: 'شهري',
-      status: 'on-track'
-    },
-    {
-      id: 'KPI002',
-      name: 'رضا العملاء',
-      category: 'الجودة',
-      target: 4.5,
-      actual: 4.7,
-      unit: '/5',
-      period: 'ربعي',
-      status: 'above-target'
-    },
-    {
-      id: 'KPI003',
-      name: 'الالتزام بالمواعيد',
-      category: 'الانضباط',
-      target: 98,
-      actual: 85,
-      unit: '%',
-      period: 'شهري',
-      status: 'below-target'
-    }
-  ]);
-
-  const getStatusBadge = (status: string, type: 'review' | 'goal' | 'kpi' = 'review') => {
+  const getStatusBadge = (status: string, type: 'goal' | 'review' | 'plan' = 'goal') => {
     const configs = {
+      goal: {
+        'active': { color: 'bg-blue-100 text-blue-800', text: 'نشط' },
+        'completed': { color: 'bg-green-100 text-green-800', text: 'مكتمل' },
+        'paused': { color: 'bg-yellow-100 text-yellow-800', text: 'متوقف' },
+        'cancelled': { color: 'bg-red-100 text-red-800', text: 'ملغي' }
+      },
       review: {
         'draft': { color: 'bg-gray-100 text-gray-800', text: 'مسودة' },
-        'self-evaluation': { color: 'bg-blue-100 text-blue-800', text: 'تقييم ذاتي' },
-        'manager-review': { color: 'bg-orange-100 text-orange-800', text: 'مراجعة المدير' },
-        'hr-review': { color: 'bg-purple-100 text-purple-800', text: 'مراجعة الموارد البشرية' },
-        'completed': { color: 'bg-green-100 text-green-800', text: 'مكتمل' }
-      },
-      goal: {
-        'not-started': { color: 'bg-gray-100 text-gray-800', text: 'لم يبدأ' },
-        'in-progress': { color: 'bg-blue-100 text-blue-800', text: 'قيد التنفيذ' },
+        'in_progress': { color: 'bg-blue-100 text-blue-800', text: 'قيد التنفيذ' },
+        'pending_approval': { color: 'bg-yellow-100 text-yellow-800', text: 'في انتظار الموافقة' },
         'completed': { color: 'bg-green-100 text-green-800', text: 'مكتمل' },
-        'overdue': { color: 'bg-red-100 text-red-800', text: 'متأخر' }
+        'cancelled': { color: 'bg-red-100 text-red-800', text: 'ملغي' }
       },
-      kpi: {
-        'above-target': { color: 'bg-green-100 text-green-800', text: 'فوق المستهدف' },
-        'on-track': { color: 'bg-blue-100 text-blue-800', text: 'على المسار الصحيح' },
-        'below-target': { color: 'bg-orange-100 text-orange-800', text: 'أقل من المستهدف' },
-        'critical': { color: 'bg-red-100 text-red-800', text: 'حرج' }
+      plan: {
+        'draft': { color: 'bg-gray-100 text-gray-800', text: 'مسودة' },
+        'active': { color: 'bg-blue-100 text-blue-800', text: 'نشط' },
+        'completed': { color: 'bg-green-100 text-green-800', text: 'مكتمل' },
+        'on_hold': { color: 'bg-yellow-100 text-yellow-800', text: 'معلق' },
+        'cancelled': { color: 'bg-red-100 text-red-800', text: 'ملغي' }
       }
-    } as const;
+    };
 
-    const typeConfig = configs[type];
-    const config = (typeConfig as any)[status] || { color: 'bg-gray-100 text-gray-800', text: status };
+    const config = (configs[type] as any)[status] || { color: 'bg-gray-100 text-gray-800', text: status };
     return <Badge className={config.color}>{config.text}</Badge>;
   };
 
-  const getRatingStars = (rating: number) => {
+  const getPriorityBadge = (priority: string) => {
+    const configs = {
+      'low': { color: 'bg-gray-100 text-gray-800', text: 'منخفض' },
+      'medium': { color: 'bg-blue-100 text-blue-800', text: 'متوسط' },
+      'high': { color: 'bg-orange-100 text-orange-800', text: 'عالي' },
+      'critical': { color: 'bg-red-100 text-red-800', text: 'حرج' }
+    };
+    
+    const config = (configs as any)[priority] || { color: 'bg-gray-100 text-gray-800', text: priority };
+    return <Badge className={config.color}>{config.text}</Badge>;
+  };
+
+  const getRatingStars = (rating?: number) => {
+    if (!rating) return null;
     return (
       <div className="flex items-center gap-1">
         {[...Array(5)].map((_, i) => (
@@ -214,398 +99,464 @@ const PerformanceManagement: React.FC = () => {
     );
   };
 
-  const calculateStats = () => {
-    return {
-      totalReviews: performanceReviews.length,
-      completedReviews: performanceReviews.filter(r => r.status === 'completed').length,
-      averageRating: performanceReviews.reduce((sum, r) => sum + r.overallRating, 0) / performanceReviews.length,
-      overdueTasks: performanceReviews.reduce((sum, r) => sum + r.goals.filter(g => g.status === 'overdue').length, 0),
-      highPerformers: performanceReviews.filter(r => r.overallRating >= 4.0).length,
-      needsImprovement: performanceReviews.filter(r => r.overallRating < 3.0).length
-    };
-  };
-
-  const stats = calculateStats();
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6 p-6 bg-gradient-to-br from-[#009F87]/5 via-background to-[#009F87]/10 min-h-screen relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#009F87]/5 rounded-full animate-pulse"></div>
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#009F87]/10 rounded-full animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-[#009F87]/5 rounded-full animate-float"></div>
-      </div>
-
+    <div className="space-y-6 p-6 bg-gradient-to-br from-primary/5 via-background to-primary/10 min-h-screen">
       {/* Header */}
-      <div className="relative flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-[#009F87]/10 rounded-lg">
-            <Award className="h-8 w-8 text-[#009F87]" />
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <Award className="h-8 w-8 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#009F87]">نظام إدارة الأداء</h1>
+            <h1 className="text-2xl font-bold text-primary">نظام إدارة الأداء</h1>
             <p className="text-muted-foreground">تقييم الأداء والأهداف والتطوير المهني</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="hover:bg-[#009F87] hover:text-white">
+          <Button variant="outline" className="hover:bg-primary hover:text-white">
             <FileText className="h-4 w-4 ml-2" />
             تقرير الأداء
           </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
-                <Plus className="h-4 w-4 ml-2" />
-                تقييم جديد
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl bg-white/95 backdrop-blur">
-              <DialogHeader>
-                <DialogTitle className="text-[#009F87]">إنشاء تقييم أداء جديد</DialogTitle>
-                <DialogDescription>اختر الموظف ونوع التقييم</DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>الموظف</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="اختر الموظف" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="EMP001">أحمد محمد العلي</SelectItem>
-                        <SelectItem value="EMP002">فاطمة سعد الأحمد</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label>نوع التقييم</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="اختر النوع" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="annual">تقييم سنوي</SelectItem>
-                        <SelectItem value="mid-year">تقييم نصف سنوي</SelectItem>
-                        <SelectItem value="quarterly">تقييم ربعي</SelectItem>
-                        <SelectItem value="probation">تقييم فترة تجريبية</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <div className="flex justify-end gap-2">
-                  <Button variant="outline">إلغاء</Button>
-                  <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
-                    إنشاء التقييم
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button className="bg-primary hover:bg-primary/90 text-white">
+            <Plus className="h-4 w-4 ml-2" />
+            إضافة جديد
+          </Button>
         </div>
       </div>
 
       {/* Statistics Cards */}
-      <div className="relative grid grid-cols-2 md:grid-cols-6 gap-4">
-        <Card className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all animate-fade-in">
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+        <Card className="bg-white/80 backdrop-blur border-primary/20 hover:shadow-lg transition-all">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <Users className="h-6 w-6 text-[#009F87]" />
+              <Target className="h-6 w-6 text-primary" />
             </div>
-            <div className="text-2xl font-bold text-[#009F87]">{stats.totalReviews}</div>
-            <div className="text-sm text-muted-foreground">إجمالي التقييمات</div>
+            <div className="text-2xl font-bold text-primary">{stats.totalGoals}</div>
+            <div className="text-sm text-muted-foreground">إجمالي الأهداف</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur border-green-200 hover:shadow-lg transition-all animate-fade-in" style={{animationDelay: '0.1s'}}>
+        <Card className="bg-white/80 backdrop-blur border-green-200 hover:shadow-lg transition-all">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
               <CheckCircle className="h-6 w-6 text-green-600" />
             </div>
-            <div className="text-2xl font-bold text-green-600">{stats.completedReviews}</div>
-            <div className="text-sm text-muted-foreground">تقييمات مكتملة</div>
+            <div className="text-2xl font-bold text-green-600">{stats.completedGoals}</div>
+            <div className="text-sm text-muted-foreground">أهداف مكتملة</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur border-yellow-200 hover:shadow-lg transition-all animate-fade-in" style={{animationDelay: '0.2s'}}>
+        <Card className="bg-white/80 backdrop-blur border-blue-200 hover:shadow-lg transition-all">
+          <CardContent className="p-4 text-center">
+            <div className="flex items-center justify-center mb-2">
+              <Activity className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="text-2xl font-bold text-blue-600">{stats.activeGoals}</div>
+            <div className="text-sm text-muted-foreground">أهداف نشطة</div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white/80 backdrop-blur border-yellow-200 hover:shadow-lg transition-all">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
               <Star className="h-6 w-6 text-yellow-600" />
             </div>
-            <div className="text-2xl font-bold text-yellow-600">{stats.averageRating.toFixed(1)}</div>
+            <div className="text-2xl font-bold text-yellow-600">{stats.averageRating || 0}</div>
             <div className="text-sm text-muted-foreground">متوسط التقييم</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur border-red-200 hover:shadow-lg transition-all animate-fade-in" style={{animationDelay: '0.3s'}}>
+        <Card className="bg-white/80 backdrop-blur border-purple-200 hover:shadow-lg transition-all">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <AlertTriangle className="h-6 w-6 text-red-600" />
+              <BookOpen className="h-6 w-6 text-purple-600" />
             </div>
-            <div className="text-2xl font-bold text-red-600">{stats.overdueTasks}</div>
-            <div className="text-sm text-muted-foreground">مهام متأخرة</div>
+            <div className="text-2xl font-bold text-purple-600">{stats.activePlans}</div>
+            <div className="text-sm text-muted-foreground">خطط تطوير نشطة</div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur border-emerald-200 hover:shadow-lg transition-all animate-fade-in" style={{animationDelay: '0.4s'}}>
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Trophy className="h-6 w-6 text-emerald-600" />
-            </div>
-            <div className="text-2xl font-bold text-emerald-600">{stats.highPerformers}</div>
-            <div className="text-sm text-muted-foreground">أداء متميز</div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white/80 backdrop-blur border-orange-200 hover:shadow-lg transition-all animate-fade-in" style={{animationDelay: '0.5s'}}>
+        <Card className="bg-white/80 backdrop-blur border-orange-200 hover:shadow-lg transition-all">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
               <TrendingUp className="h-6 w-6 text-orange-600" />
             </div>
-            <div className="text-2xl font-bold text-orange-600">{stats.needsImprovement}</div>
-            <div className="text-sm text-muted-foreground">يحتاج تحسين</div>
+            <div className="text-2xl font-bold text-orange-600">{stats.averageGoalProgress}%</div>
+            <div className="text-sm text-muted-foreground">متوسط التقدم</div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Tabs Navigation */}
-      <div className="relative">
-        <div className="flex space-x-1 bg-white/70 backdrop-blur rounded-lg p-1">
-          {[
-            { id: 'dashboard', label: 'لوحة التحكم', icon: BarChart3 },
-            { id: 'reviews', label: 'التقييمات', icon: Award },
-            { id: 'goals', label: 'الأهداف', icon: Target },
-            { id: 'kpis', label: 'مؤشرات الأداء', icon: Activity },
-            { id: 'development', label: 'خطط التطوير', icon: TrendingUp }
-          ].map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeTab === tab.id
-                    ? 'bg-[#009F87] text-white shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-white/50'
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      {/* Main Content Tabs */}
+      <Tabs value={activeView} onValueChange={setActiveView} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-5 bg-white/70 backdrop-blur">
+          <TabsTrigger value="dashboard" className="flex items-center gap-2">
+            <BarChart3 className="h-4 w-4" />
+            لوحة التحكم
+          </TabsTrigger>
+          <TabsTrigger value="reviews" className="flex items-center gap-2">
+            <Award className="h-4 w-4" />
+            التقييمات
+          </TabsTrigger>
+          <TabsTrigger value="goals" className="flex items-center gap-2">
+            <Target className="h-4 w-4" />
+            الأهداف
+          </TabsTrigger>
+          <TabsTrigger value="kpis" className="flex items-center gap-2">
+            <LineChart className="h-4 w-4" />
+            مؤشرات الأداء
+          </TabsTrigger>
+          <TabsTrigger value="development" className="flex items-center gap-2">
+            <Brain className="h-4 w-4" />
+            خطط التطوير
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Content based on active tab */}
-      {activeTab === 'reviews' && (
-        <div className="relative space-y-4">
-          {performanceReviews.map((review, index) => (
-            <Card 
-              key={review.id}
-              className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all animate-fade-in"
-              style={{animationDelay: `${index * 0.1}s`}}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-[#009F87]/10 rounded-full flex items-center justify-center">
-                      <span className="font-semibold text-[#009F87]">
-                        {review.employeeName.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold">{review.employeeName}</h3>
-                        {getStatusBadge(review.status, 'review')}
-                        <Badge variant="outline">{review.department}</Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                        <span>فترة التقييم: {review.reviewPeriod}</span>
-                        <span>نوع التقييم: {review.reviewType}</span>
-                        {review.completedDate && <span>تاريخ الإكمال: {review.completedDate}</span>}
-                      </div>
-                      <div className="flex items-center gap-6">
-                        <div>
-                          <span className="text-sm font-medium text-muted-foreground">التقييم الإجمالي:</span>
-                          {getRatingStars(review.overallRating)}
+        {/* Dashboard Tab */}
+        <TabsContent value="dashboard" className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Goals Overview */}
+            <Card className="bg-white/90 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-5 w-5 text-primary" />
+                  نظرة عامة على الأهداف
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {goals.slice(0, 5).map((goal) => (
+                    <div key={goal.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                      <div className="flex-1">
+                        <h4 className="font-medium">{goal.title}</h4>
+                        <div className="flex items-center gap-2 mt-1">
+                          {getStatusBadge(goal.status, 'goal')}
+                          {getPriorityBadge(goal.priority)}
                         </div>
-                        <div>
-                          <span className="text-sm font-medium text-muted-foreground">الأهداف المكتملة:</span>
-                          <span className="font-semibold ml-1">
-                            {review.goals.filter(g => g.status === 'completed').length}/{review.goals.length}
-                          </span>
-                        </div>
+                        <Progress value={goal.current_value} className="mt-2" />
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white">
-                      <Eye className="h-4 w-4 ml-2" />
-                      عرض التفاصيل
-                    </Button>
-                    <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white">
-                      <Edit className="h-4 w-4 ml-2" />
-                      تحرير
-                    </Button>
-                    <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white">
-                      <MessageSquare className="h-4 w-4 ml-2" />
-                      تعليقات
-                    </Button>
-                  </div>
-                </div>
-                
-                {/* Competency Ratings */}
-                <div className="mt-4 p-4 bg-[#009F87]/5 rounded-lg">
-                  <h4 className="font-medium mb-3">تقييم الكفاءات</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
-                    <div className="text-center">
-                      <div className="font-medium">المهارات التقنية</div>
-                      {getRatingStars(review.competencyRatings.technical)}
-                    </div>
-                    <div className="text-center">
-                      <div className="font-medium">التواصل</div>
-                      {getRatingStars(review.competencyRatings.communication)}
-                    </div>
-                    <div className="text-center">
-                      <div className="font-medium">القيادة</div>
-                      {getRatingStars(review.competencyRatings.leadership)}
-                    </div>
-                    <div className="text-center">
-                      <div className="font-medium">حل المشاكل</div>
-                      {getRatingStars(review.competencyRatings.problemSolving)}
-                    </div>
-                    <div className="text-center">
-                      <div className="font-medium">العمل الجماعي</div>
-                      {getRatingStars(review.competencyRatings.teamwork)}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      )}
 
-      {activeTab === 'goals' && (
-        <div className="relative space-y-4">
-          <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+            {/* Recent Reviews */}
+            <Card className="bg-white/90 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="h-5 w-5 text-primary" />
+                  التقييمات الأخيرة
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {reviews.slice(0, 5).map((review) => (
+                    <div key={review.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          {getStatusBadge(review.status, 'review')}
+                          {getRatingStars(review.overall_rating)}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {review.review_period_start} - {review.review_period_end}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Development Plans Overview */}
+          <Card className="bg-white/90 backdrop-blur">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                <Target className="h-6 w-6" />
-                إدارة الأهداف
+              <CardTitle className="flex items-center gap-2">
+                <Brain className="h-5 w-5 text-primary" />
+                خطط التطوير المهني
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {performanceReviews.flatMap(review => review.goals).map((goal, index) => (
-                  <Card 
-                    key={goal.id}
-                    className="hover:shadow-md transition-all animate-fade-in"
-                    style={{animationDelay: `${index * 0.1}s`}}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="font-semibold">{goal.title}</h3>
-                            {getStatusBadge(goal.status, 'goal')}
-                            <Badge variant="outline">{goal.category}</Badge>
-                          </div>
-                          <p className="text-sm text-muted-foreground mb-3">{goal.description}</p>
-                          <div className="flex items-center gap-6 text-sm">
-                            <span><strong>الموعد المستهدف:</strong> {goal.targetDate}</span>
-                            <span><strong>الأهمية:</strong> {goal.importance}</span>
-                          </div>
-                          <div className="mt-3">
-                            <div className="flex items-center justify-between text-sm mb-1">
-                              <span>التقدم</span>
-                              <span>{goal.progress}%</span>
-                            </div>
-                            <Progress value={goal.progress} className="h-2" />
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm">
-                            <Edit className="h-4 w-4 ml-2" />
-                            تحديث
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+              <div className="grid md:grid-cols-3 gap-4">
+                {developmentPlans.slice(0, 6).map((plan) => (
+                  <div key={plan.id} className="p-4 bg-muted/20 rounded-lg border">
+                    <h4 className="font-medium mb-2">{plan.title}</h4>
+                    <div className="flex items-center gap-2 mb-3">
+                      {getStatusBadge(plan.status, 'plan')}
+                    </div>
+                    <Progress value={plan.progress_percentage} className="mb-2" />
+                    <div className="text-sm text-muted-foreground">
+                      التقدم: {plan.progress_percentage}%
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      الهدف: {new Date(plan.target_completion_date).toLocaleDateString('ar-SA')}
+                    </div>
+                  </div>
                 ))}
               </div>
             </CardContent>
           </Card>
-        </div>
-      )}
+        </TabsContent>
 
-      {activeTab === 'kpis' && (
-        <div className="relative space-y-4">
-          <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                <Activity className="h-6 w-6" />
-                مؤشرات الأداء الرئيسية (KPIs)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {kpis.map((kpi, index) => (
-                  <Card 
-                    key={kpi.id}
-                    className="hover:shadow-md transition-all animate-fade-in"
-                    style={{animationDelay: `${index * 0.1}s`}}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="font-semibold">{kpi.name}</h3>
-                            {getStatusBadge(kpi.status, 'kpi')}
-                            <Badge variant="outline">{kpi.category}</Badge>
-                          </div>
-                          <div className="grid grid-cols-4 gap-4 text-sm">
-                            <div>
-                              <span className="font-medium text-muted-foreground">المستهدف:</span>
-                              <p className="font-semibold">{kpi.target}{kpi.unit}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium text-muted-foreground">الفعلي:</span>
-                              <p className={`font-semibold ${
-                                kpi.actual >= kpi.target ? 'text-green-600' : 'text-red-600'
-                              }`}>{kpi.actual}{kpi.unit}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium text-muted-foreground">الانحراف:</span>
-                              <p className={`font-semibold ${
-                                kpi.actual >= kpi.target ? 'text-green-600' : 'text-red-600'
-                              }`}>
-                                {((kpi.actual - kpi.target) / kpi.target * 100).toFixed(1)}%
-                              </p>
-                            </div>
-                            <div>
-                              <span className="font-medium text-muted-foreground">الفترة:</span>
-                              <p className="font-semibold">{kpi.period}</p>
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <Progress 
-                              value={Math.min((kpi.actual / kpi.target) * 100, 100)} 
-                              className="h-2"
-                            />
+        {/* Reviews Tab */}
+        <TabsContent value="reviews" className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">تقييمات الأداء</h2>
+            <Button className="bg-primary hover:bg-primary/90">
+              <Plus className="h-4 w-4 ml-2" />
+              تقييم جديد
+            </Button>
+          </div>
+          
+          <div className="grid gap-4">
+            {reviews.map((review) => (
+              <Card key={review.id} className="bg-white/90 backdrop-blur hover:shadow-lg transition-all">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-lg font-semibold">تقييم أداء</h3>
+                        {getStatusBadge(review.status, 'review')}
+                        {getRatingStars(review.overall_rating)}
+                      </div>
+                      
+                      <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground mb-4">
+                        <div>فترة التقييم: {review.review_period_start} - {review.review_period_end}</div>
+                        <div>درجة الأهداف: {review.goal_achievement_score}%</div>
+                      </div>
+
+                      {review.strengths && (
+                        <div className="mb-3">
+                          <h4 className="font-medium text-green-700 mb-1">نقاط القوة:</h4>
+                          <p className="text-sm text-muted-foreground">{review.strengths}</p>
+                        </div>
+                      )}
+
+                      {review.areas_for_improvement && (
+                        <div className="mb-3">
+                          <h4 className="font-medium text-orange-700 mb-1">مجالات التحسين:</h4>
+                          <p className="text-sm text-muted-foreground">{review.areas_for_improvement}</p>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm">
+                        <Eye className="h-4 w-4 ml-1" />
+                        عرض
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Edit className="h-4 w-4 ml-1" />
+                        تعديل
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Goals Tab */}
+        <TabsContent value="goals" className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">الأهداف</h2>
+            <Button className="bg-primary hover:bg-primary/90">
+              <Plus className="h-4 w-4 ml-2" />
+              هدف جديد
+            </Button>
+          </div>
+          
+          <div className="grid gap-4">
+            {goals.map((goal) => (
+              <Card key={goal.id} className="bg-white/90 backdrop-blur hover:shadow-lg transition-all">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-lg font-semibold">{goal.title}</h3>
+                        {getStatusBadge(goal.status, 'goal')}
+                        {getPriorityBadge(goal.priority)}
+                      </div>
+                      
+                      {goal.description && (
+                        <p className="text-sm text-muted-foreground mb-4">{goal.description}</p>
+                      )}
+
+                      <div className="grid md:grid-cols-3 gap-4 mb-4">
+                        <div className="text-sm">
+                          <span className="font-medium">التقدم:</span>
+                          <Progress value={goal.current_value} className="mt-1" />
+                          <span className="text-xs text-muted-foreground">{goal.current_value}%</span>
+                        </div>
+                        <div className="text-sm">
+                          <span className="font-medium">الفئة:</span>
+                          <Badge variant="outline" className="ml-2">{goal.category}</Badge>
+                        </div>
+                        <div className="text-sm">
+                          <span className="font-medium">الموعد المستهدف:</span>
+                          <div className="text-muted-foreground">{new Date(goal.target_date).toLocaleDateString('ar-SA')}</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm">
+                        <Eye className="h-4 w-4 ml-1" />
+                        عرض
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Edit className="h-4 w-4 ml-1" />
+                        تعديل
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* KPIs Tab */}
+        <TabsContent value="kpis" className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">مؤشرات الأداء الرئيسية</h2>
+            <Button className="bg-primary hover:bg-primary/90">
+              <Plus className="h-4 w-4 ml-2" />
+              مؤشر جديد
+            </Button>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {kpis.map((kpi) => (
+              <Card key={kpi.id} className="bg-white/90 backdrop-blur hover:shadow-lg transition-all">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{kpi.name}</h3>
+                      <div className="text-sm text-muted-foreground mt-1">{kpi.category}</div>
+                    </div>
+                    <Badge variant={kpi.is_active ? "default" : "secondary"}>
+                      {kpi.is_active ? 'نشط' : 'غير نشط'}
+                    </Badge>
+                  </div>
+                  
+                  {kpi.description && (
+                    <p className="text-sm text-muted-foreground mb-4">{kpi.description}</p>
+                  )}
+
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>الوحدة:</span>
+                      <span className="font-medium">{kpi.unit}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>التكرار:</span>
+                      <span className="font-medium">{kpi.frequency}</span>
+                    </div>
+                    {kpi.target_value && (
+                      <div className="flex justify-between">
+                        <span>الهدف:</span>
+                        <span className="font-medium">{kpi.target_value}</span>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Development Plans Tab */}
+        <TabsContent value="development" className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">خطط التطوير المهني</h2>
+            <Button className="bg-primary hover:bg-primary/90">
+              <Plus className="h-4 w-4 ml-2" />
+              خطة جديدة
+            </Button>
+          </div>
+          
+          <div className="grid gap-4">
+            {developmentPlans.map((plan) => (
+              <Card key={plan.id} className="bg-white/90 backdrop-blur hover:shadow-lg transition-all">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-3">
+                        <h3 className="text-lg font-semibold">{plan.title}</h3>
+                        {getStatusBadge(plan.status, 'plan')}
+                      </div>
+                      
+                      {plan.description && (
+                        <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                      )}
+
+                      <div className="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                          <h4 className="font-medium mb-2">التقدم:</h4>
+                          <Progress value={plan.progress_percentage} className="mb-1" />
+                          <div className="text-sm text-muted-foreground">{plan.progress_percentage}% مكتمل</div>
+                        </div>
+                        <div>
+                          <h4 className="font-medium mb-2">المهارات المستهدفة:</h4>
+                          <div className="flex flex-wrap gap-1">
+                            {plan.skills_to_develop.slice(0, 3).map((skill, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {skill}
+                              </Badge>
+                            ))}
+                            {plan.skills_to_develop.length > 3 && (
+                              <Badge variant="outline" className="text-xs">
+                                +{plan.skills_to_develop.length - 3}
+                              </Badge>
+                            )}
                           </div>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+
+                      <div className="grid md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <span className="font-medium">تاريخ البداية:</span>
+                          <div className="text-muted-foreground">{new Date(plan.start_date).toLocaleDateString('ar-SA')}</div>
+                        </div>
+                        <div>
+                          <span className="font-medium">الموعد المستهدف:</span>
+                          <div className="text-muted-foreground">{new Date(plan.target_completion_date).toLocaleDateString('ar-SA')}</div>
+                        </div>
+                        <div>
+                          <span className="font-medium">الميزانية المخصصة:</span>
+                          <div className="text-muted-foreground">{plan.budget_allocated.toLocaleString()} ريال</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm">
+                        <Eye className="h-4 w-4 ml-1" />
+                        عرض
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Edit className="h-4 w-4 ml-1" />
+                        تعديل
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
