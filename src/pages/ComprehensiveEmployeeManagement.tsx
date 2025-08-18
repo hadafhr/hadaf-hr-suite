@@ -66,7 +66,8 @@ import {
   Timer,
   PenTool,
   Video,
-  FileBarChart
+  FileBarChart,
+  CalendarClock
 } from 'lucide-react';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
@@ -345,7 +346,7 @@ const ComprehensiveEmployeeManagement = () => {
               التوقيع الإلكتروني
             </TabsTrigger>
             <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <Video className="h-4 w-4 ml-2" />
+              <CalendarClock className="h-4 w-4 ml-2" />
               الاجتماعات
             </TabsTrigger>
             <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
