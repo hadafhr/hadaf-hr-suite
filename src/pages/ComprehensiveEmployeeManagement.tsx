@@ -714,7 +714,12 @@ const ComprehensiveEmployeeManagement = () => {
             <SmartHire />
           </TabsContent>
 
-          {/* Add more tab contents here... */}
+          {/* Performance Tab - Smart Evaluations System */}
+          <TabsContent value="performance" className="space-y-6">
+            <SmartEvaluations />
+          </TabsContent>
+
+          {/* Add other tab contents here... */}
         </Tabs>
 
         {/* Employee Details Dialog */}
@@ -930,10 +935,6 @@ const ComprehensiveEmployeeManagement = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Performance Tab - Smart Evaluations Integration */}
-        <TabsContent value="performance" className="space-y-6">
-          <SmartEvaluations />
-        </TabsContent>
       </div>
     </div>
   );
