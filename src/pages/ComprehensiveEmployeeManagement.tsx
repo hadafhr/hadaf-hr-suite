@@ -67,7 +67,8 @@ import {
   PenTool,
   Video,
   FileBarChart,
-  CalendarClock
+  CalendarClock,
+  Gift
 } from 'lucide-react';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
@@ -316,7 +317,7 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-12 bg-white/70 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-15 bg-white/70 backdrop-blur">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <BarChart3 className="h-4 w-4 ml-2" />
               لوحة التحكم
@@ -329,25 +330,21 @@ const ComprehensiveEmployeeManagement = () => {
               <Clock className="h-4 w-4 ml-2" />
               الحضور
             </TabsTrigger>
+            <TabsTrigger value="disciplinary" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <AlertTriangle className="h-4 w-4 ml-2" />
+              الجزاءات
+            </TabsTrigger>
             <TabsTrigger value="leaves" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <Calendar className="h-4 w-4 ml-2" />
               الإجازات
             </TabsTrigger>
+            <TabsTrigger value="payroll" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <DollarSign className="h-4 w-4 ml-2" />
+              الرواتب
+            </TabsTrigger>
             <TabsTrigger value="performance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <Target className="h-4 w-4 ml-2" />
               الأداء
-            </TabsTrigger>
-            <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <FileText className="h-4 w-4 ml-2" />
-              الطلبات
-            </TabsTrigger>
-            <TabsTrigger value="signature" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <PenTool className="h-4 w-4 ml-2" />
-              التوقيع الإلكتروني
-            </TabsTrigger>
-            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <CalendarClock className="h-4 w-4 ml-2" />
-              الاجتماعات
             </TabsTrigger>
             <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <GraduationCap className="h-4 w-4 ml-2" />
@@ -357,9 +354,25 @@ const ComprehensiveEmployeeManagement = () => {
               <UserPlus className="h-4 w-4 ml-2" />
               التوظيف
             </TabsTrigger>
-            <TabsTrigger value="disciplinary" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <AlertTriangle className="h-4 w-4 ml-2" />
-              التأديبي
+            <TabsTrigger value="insurance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Shield className="h-4 w-4 ml-2" />
+              التأمينات
+            </TabsTrigger>
+            <TabsTrigger value="benefits" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Gift className="h-4 w-4 ml-2" />
+              المزايا والحوافز
+            </TabsTrigger>
+            <TabsTrigger value="signature" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <PenTool className="h-4 w-4 ml-2" />
+              التوقيع الإلكتروني
+            </TabsTrigger>
+            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <CalendarClock className="h-4 w-4 ml-2" />
+              الاجتماعات
+            </TabsTrigger>
+            <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <FileText className="h-4 w-4 ml-2" />
+              الطلبات
             </TabsTrigger>
             <TabsTrigger value="reports" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <FileBarChart className="h-4 w-4 ml-2" />
@@ -771,7 +784,173 @@ const ComprehensiveEmployeeManagement = () => {
             <MeetingHub />
           </TabsContent>
 
-          {/* Add other tab contents here... */}
+          {/* Disciplinary Tab */}
+          <TabsContent value="disciplinary" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <AlertTriangle className="h-6 w-6" />
+                  نظام الجزاءات والتأديب
+                </CardTitle>
+                <CardDescription>
+                  إدارة المخالفات والإجراءات التأديبية للموظفين
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام الجزاءات والتأديب هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: تسجيل المخالفات، الإنذارات، الخصومات، والتقارير التأديبية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Payroll Tab */}
+          <TabsContent value="payroll" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <DollarSign className="h-6 w-6" />
+                  نظام إدارة الرواتب والمستحقات
+                </CardTitle>
+                <CardDescription>
+                  إدارة شاملة للرواتب والمستحقات المالية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <DollarSign className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام الرواتب هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: حساب الرواتب، البدلات، الخصومات، وكشوف المرتبات الشهرية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Insurance Tab */}
+          <TabsContent value="insurance" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Shield className="h-6 w-6" />
+                  نظام إدارة التأمينات
+                </CardTitle>
+                <CardDescription>
+                  إدارة التأمين الطبي والاجتماعي للموظفين
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Shield className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام التأمينات هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: التأمين الطبي، التأمين الاجتماعي، والمطالبات التأمينية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Benefits Tab */}
+          <TabsContent value="benefits" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Gift className="h-6 w-6" />
+                  نظام المزايا والحوافز
+                </CardTitle>
+                <CardDescription>
+                  إدارة المكافآت والحوافز والمزايا الإضافية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Gift className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام المزايا والحوافز هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: المكافآت، الحوافز، البدلات الإضافية، وبرامج المزايا
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Requests Tab */}
+          <TabsContent value="requests" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <FileText className="h-6 w-6" />
+                  نظام إدارة الطلبات
+                </CardTitle>
+                <CardDescription>
+                  إدارة جميع طلبات الموظفين والموافقات
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <FileText className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة الطلبات هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: طلبات الإجازات، الشهادات، التنقلات، والموافقات الإدارية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Reports Tab */}
+          <TabsContent value="reports" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <FileBarChart className="h-6 w-6" />
+                  نظام التقارير والتحليلات
+                </CardTitle>
+                <CardDescription>
+                  تقارير شاملة وتحليلات متقدمة لبيانات الموارد البشرية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <FileBarChart className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام التقارير هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: تقارير الحضور، الأداء، الرواتب، والتحليلات الإحصائية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Leaves Tab */}
+          <TabsContent value="leaves" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Calendar className="h-6 w-6" />
+                  نظام إدارة الإجازات
+                </CardTitle>
+                <CardDescription>
+                  إدارة شاملة لجميع أنواع الإجازات والغيابات
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Calendar className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة الإجازات هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: الإجازات السنوية، المرضية، الطارئة، والموافقات التلقائية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
 
         {/* Employee Details Dialog */}
