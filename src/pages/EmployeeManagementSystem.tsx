@@ -64,8 +64,7 @@ import {
   Shield,
   Heart,
   Camera,
-  Gift,
-  PenTool
+  Gift
 } from 'lucide-react';
 
 // Import comprehensive components
@@ -486,7 +485,7 @@ const EmployeeManagementSystem = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/')}
+            onClick={() => navigate(-1)}
             className="mr-4"
           >
             <ArrowLeft className="h-4 w-4 ml-2" />
@@ -546,7 +545,6 @@ const EmployeeManagementSystem = () => {
             <TabsTrigger value="recruitment">التوظيف</TabsTrigger>
             <TabsTrigger value="insurance">التأمينات</TabsTrigger>
             <TabsTrigger value="benefits">المزايا والحوافز</TabsTrigger>
-            <TabsTrigger value="e-signature">التوقيع الإلكتروني</TabsTrigger>
             <TabsTrigger value="requests">الطلبات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
           </TabsList>
@@ -1136,216 +1134,6 @@ const EmployeeManagementSystem = () => {
           {/* Benefits & Rewards Tab */}
           <TabsContent value="benefits" className="space-y-6">
             <BenefitsRewards />
-          </TabsContent>
-
-          {/* E-Signature Tab */}
-          <TabsContent value="e-signature" className="space-y-6">
-            <div className="space-y-6">
-              {/* Header */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-3xl font-bold text-foreground">نظام التوقيع الإلكتروني</h2>
-                  <p className="text-muted-foreground">نظام توقيع متوافق مع نفاذ ولوائح المملكة العربية السعودية</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Badge variant="outline" className="flex items-center gap-2">
-                    <Shield className="w-4 h-4" />
-                    متوافق مع نفاذ
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Analytics Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="bg-gradient-to-r from-blue-500/10 to-blue-600/10 border-blue-200">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">إجمالي المستندات</CardTitle>
-                    <FileText className="h-4 w-4 text-blue-600" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-blue-600">156</div>
-                    <p className="text-xs text-muted-foreground">+23% هذا الشهر</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gradient-to-r from-green-500/10 to-green-600/10 border-green-200">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">المستندات الموقعة</CardTitle>
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-green-600">98</div>
-                    <p className="text-xs text-muted-foreground">63% من الإجمالي</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 border-yellow-200">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">في الانتظار</CardTitle>
-                    <Clock className="h-4 w-4 text-yellow-600" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-yellow-600">45</div>
-                    <p className="text-xs text-muted-foreground">متوسط الوقت: 2.4 أيام</p>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-gradient-to-r from-red-500/10 to-red-600/10 border-red-200">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">المرفوضة</CardTitle>
-                    <XCircle className="h-4 w-4 text-red-600" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-red-600">13</div>
-                    <p className="text-xs text-muted-foreground">8% من الإجمالي</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Document Management */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Document Upload */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Upload className="w-5 h-5" />
-                      رفع مستند جديد
-                    </CardTitle>
-                    <CardDescription>قم برفع المستندات للحصول على التوقيعات الإلكترونية</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer">
-                      <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-lg font-medium mb-2">اسحب وأفلت الملفات هنا</p>
-                      <p className="text-muted-foreground mb-4">أو انقر للاختيار من جهازك</p>
-                      <Button>
-                        <Plus className="w-4 h-4 mr-2" />
-                        اختيار الملفات
-                      </Button>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <FileText className="w-4 h-4" />
-                      <span>يدعم: PDF, DOC, DOCX (حتى 10 ميجابايت)</span>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Signature Creation */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <PenTool className="w-5 h-5" />
-                      إنشاء توقيع إلكتروني
-                    </CardTitle>
-                    <CardDescription>قم بإنشاء توقيعك الإلكتروني المعتمد</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="border rounded-lg p-6 bg-muted/50">
-                      <div className="flex items-center justify-center h-32 border-2 border-dashed border-muted-foreground/25 rounded bg-background">
-                        <div className="text-center">
-                          <PenTool className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                          <p className="text-sm text-muted-foreground">منطقة التوقيع</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button className="flex-1">
-                        <Edit className="w-4 h-4 mr-2" />
-                        رسم التوقيع
-                      </Button>
-                      <Button variant="outline" className="flex-1">
-                        <Upload className="w-4 h-4 mr-2" />
-                        رفع صورة
-                      </Button>
-                    </div>
-                    <Button className="w-full" variant="outline">
-                      التحقق عبر نفاذ
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Recent Documents */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="w-5 h-5" />
-                    المستندات الحديثة
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[
-                      {
-                        id: '1',
-                        title: 'عقد عمل - أحمد محمد',
-                        status: 'pending',
-                        progress: 50,
-                        signatories: ['أحمد محمد', 'مدير الموارد البشرية'],
-                        createdAt: '2024-01-15'
-                      },
-                      {
-                        id: '2',
-                        title: 'إنذار كتابي - سارة أحمد',
-                        status: 'completed',
-                        progress: 100,
-                        signatories: ['سارة أحمد', 'مدير المبيعات'],
-                        createdAt: '2024-01-10'
-                      },
-                      {
-                        id: '3',
-                        title: 'سياسة الشركة الجديدة',
-                        status: 'draft',
-                        progress: 0,
-                        signatories: ['جميع الموظفين'],
-                        createdAt: '2024-01-20'
-                      }
-                    ].map((doc) => (
-                      <div key={doc.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
-                        <div className="flex items-center gap-4">
-                          <FileText className="w-8 h-8 text-primary" />
-                          <div>
-                            <h4 className="font-medium">{doc.title}</h4>
-                            <p className="text-sm text-muted-foreground">
-                              الموقعون: {doc.signatories.join(', ')}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              تاريخ الإنشاء: {doc.createdAt}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <div className="text-center">
-                            <Progress value={doc.progress} className="w-20 mb-1" />
-                            <span className="text-xs text-muted-foreground">{doc.progress}%</span>
-                          </div>
-                          <Badge 
-                            variant={doc.status === 'completed' ? 'default' : doc.status === 'pending' ? 'secondary' : 'outline'}
-                            className={
-                              doc.status === 'completed' ? 'bg-green-500' : 
-                              doc.status === 'pending' ? 'bg-yellow-500' : 
-                              'bg-gray-500'
-                            }
-                          >
-                            {doc.status === 'completed' ? 'مكتمل' : 
-                             doc.status === 'pending' ? 'في الانتظار' : 
-                             'مسودة'}
-                          </Badge>
-                          <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
-                              <Eye className="w-4 h-4" />
-                            </Button>
-                            <Button variant="outline" size="sm">
-                              <Download className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
           </TabsContent>
 
           {/* Reports Tab */}
