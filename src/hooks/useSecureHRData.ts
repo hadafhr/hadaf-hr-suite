@@ -11,14 +11,11 @@ export interface PublicEmployeeData {
   id: string;
   company_id?: string;
   employee_id: string;
-  full_name: string;
+  first_name: string;
+  last_name: string;
   email?: string;
-  position?: string;
-  org_unit_id?: string;
-  manager_id?: string;
   hire_date?: string;
   is_active?: boolean;
-  created_at?: string;
 }
 
 export const useSecureHRData = () => {
@@ -33,9 +30,9 @@ export const useSecureHRData = () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase
-        .from('public_employee_directory')
+        .from('employee_directory')
         .select('*')
-        .order('full_name');
+        .order('first_name');
 
       if (error) {
         console.error('Error fetching public directory:', error);

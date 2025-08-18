@@ -591,7 +591,7 @@ export type Database = {
             foreignKeyName: "boud_attendance_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -780,7 +780,7 @@ export type Database = {
             foreignKeyName: "boud_disciplinary_actions_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -794,7 +794,7 @@ export type Database = {
             foreignKeyName: "boud_disciplinary_actions_issued_by_fkey"
             columns: ["issued_by"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -875,7 +875,7 @@ export type Database = {
             foreignKeyName: "boud_employee_terminations_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -889,7 +889,7 @@ export type Database = {
             foreignKeyName: "boud_employee_terminations_processed_by_fkey"
             columns: ["processed_by"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -1095,7 +1095,7 @@ export type Database = {
             foreignKeyName: "boud_employees_manager_id_fkey"
             columns: ["manager_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -1306,7 +1306,7 @@ export type Database = {
             foreignKeyName: "boud_leave_requests_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -1320,7 +1320,7 @@ export type Database = {
             foreignKeyName: "boud_leave_requests_hr_approval_by_fkey"
             columns: ["hr_approval_by"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -1334,7 +1334,7 @@ export type Database = {
             foreignKeyName: "boud_leave_requests_manager_approval_by_fkey"
             columns: ["manager_approval_by"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -1436,7 +1436,7 @@ export type Database = {
             foreignKeyName: "boud_payroll_items_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -1607,7 +1607,7 @@ export type Database = {
             foreignKeyName: "boud_performance_evaluations_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -1621,7 +1621,7 @@ export type Database = {
             foreignKeyName: "boud_performance_evaluations_evaluator_id_fkey"
             columns: ["evaluator_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -1684,7 +1684,7 @@ export type Database = {
             foreignKeyName: "boud_training_enrollments_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "secure_employee_view"
+            referencedRelation: "employee_directory"
             referencedColumns: ["id"]
           },
           {
@@ -3374,13 +3374,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "hr_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "public_employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "hr_employees_org_unit_id_fkey"
             columns: ["org_unit_id"]
             isOneToOne: false
@@ -3463,13 +3456,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "hr_requests_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "public_employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "hr_requests_workflow_template_id_fkey"
             columns: ["workflow_template_id"]
             isOneToOne: false
@@ -3525,13 +3511,6 @@ export type Database = {
             columns: ["employee_id"]
             isOneToOne: false
             referencedRelation: "hr_employees"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "hr_user_roles_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "public_employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -5886,236 +5865,36 @@ export type Database = {
       }
     }
     Views: {
-      public_employee_directory: {
+      employee_directory: {
         Row: {
           company_id: string | null
-          created_at: string | null
           email: string | null
           employee_id: string | null
-          full_name: string | null
-          hire_date: string | null
-          id: string | null
-          is_active: boolean | null
-          manager_id: string | null
-          org_unit_id: string | null
-          position: string | null
-        }
-        Insert: {
-          company_id?: string | null
-          created_at?: string | null
-          email?: string | null
-          employee_id?: string | null
-          full_name?: string | null
-          hire_date?: string | null
-          id?: string | null
-          is_active?: boolean | null
-          manager_id?: string | null
-          org_unit_id?: string | null
-          position?: string | null
-        }
-        Update: {
-          company_id?: string | null
-          created_at?: string | null
-          email?: string | null
-          employee_id?: string | null
-          full_name?: string | null
-          hire_date?: string | null
-          id?: string | null
-          is_active?: boolean | null
-          manager_id?: string | null
-          org_unit_id?: string | null
-          position?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "hr_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "companies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "hr_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employees"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "hr_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "public_employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "hr_employees_org_unit_id_fkey"
-            columns: ["org_unit_id"]
-            isOneToOne: false
-            referencedRelation: "org_units"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      secure_employee_view: {
-        Row: {
-          address: string | null
-          annual_leave_balance: number | null
-          bank_account_masked: string | null
-          bank_name: string | null
-          basic_salary: number | null
-          company_id: string | null
-          contract_end_date: string | null
-          contract_start_date: string | null
-          contract_type: string | null
-          created_at: string | null
-          date_of_birth: string | null
-          department_id: string | null
-          documents: Json | null
-          education_level: string | null
-          email: string | null
-          emergency_contact: Json | null
-          emergency_leave_balance: number | null
-          employee_id: string | null
-          employment_status:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          experience_years: number | null
           first_name: string | null
-          full_name_arabic: string | null
-          gender: string | null
-          graduation_year: number | null
           hire_date: string | null
-          housing_allowance: number | null
-          iban_masked: string | null
           id: string | null
           is_active: boolean | null
           last_name: string | null
-          major: string | null
-          manager_id: string | null
-          marital_status: string | null
-          middle_name: string | null
-          national_id_masked: string | null
-          nationality: string | null
-          notes: string | null
-          other_allowances: number | null
-          passport_number_masked: string | null
-          phone_masked: string | null
-          position_id: string | null
-          profile_picture_url: string | null
-          sick_leave_balance: number | null
-          total_salary: number | null
-          transport_allowance: number | null
-          university: string | null
-          updated_at: string | null
-          user_id: string | null
-          work_location: string | null
         }
         Insert: {
-          address?: string | null
-          annual_leave_balance?: number | null
-          bank_account_masked?: never
-          bank_name?: string | null
-          basic_salary?: number | null
           company_id?: string | null
-          contract_end_date?: string | null
-          contract_start_date?: string | null
-          contract_type?: string | null
-          created_at?: string | null
-          date_of_birth?: string | null
-          department_id?: string | null
-          documents?: Json | null
-          education_level?: string | null
           email?: string | null
-          emergency_contact?: Json | null
-          emergency_leave_balance?: number | null
           employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          experience_years?: number | null
           first_name?: string | null
-          full_name_arabic?: string | null
-          gender?: string | null
-          graduation_year?: number | null
           hire_date?: string | null
-          housing_allowance?: number | null
-          iban_masked?: never
           id?: string | null
           is_active?: boolean | null
           last_name?: string | null
-          major?: string | null
-          manager_id?: string | null
-          marital_status?: string | null
-          middle_name?: string | null
-          national_id_masked?: never
-          nationality?: string | null
-          notes?: string | null
-          other_allowances?: number | null
-          passport_number_masked?: never
-          phone_masked?: never
-          position_id?: string | null
-          profile_picture_url?: string | null
-          sick_leave_balance?: number | null
-          total_salary?: number | null
-          transport_allowance?: number | null
-          university?: string | null
-          updated_at?: string | null
-          user_id?: string | null
-          work_location?: string | null
         }
         Update: {
-          address?: string | null
-          annual_leave_balance?: number | null
-          bank_account_masked?: never
-          bank_name?: string | null
-          basic_salary?: number | null
           company_id?: string | null
-          contract_end_date?: string | null
-          contract_start_date?: string | null
-          contract_type?: string | null
-          created_at?: string | null
-          date_of_birth?: string | null
-          department_id?: string | null
-          documents?: Json | null
-          education_level?: string | null
           email?: string | null
-          emergency_contact?: Json | null
-          emergency_leave_balance?: number | null
           employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          experience_years?: number | null
           first_name?: string | null
-          full_name_arabic?: string | null
-          gender?: string | null
-          graduation_year?: number | null
           hire_date?: string | null
-          housing_allowance?: number | null
-          iban_masked?: never
           id?: string | null
           is_active?: boolean | null
           last_name?: string | null
-          major?: string | null
-          manager_id?: string | null
-          marital_status?: string | null
-          middle_name?: string | null
-          national_id_masked?: never
-          nationality?: string | null
-          notes?: string | null
-          other_allowances?: number | null
-          passport_number_masked?: never
-          phone_masked?: never
-          position_id?: string | null
-          profile_picture_url?: string | null
-          sick_leave_balance?: number | null
-          total_salary?: number | null
-          transport_allowance?: number | null
-          university?: string | null
-          updated_at?: string | null
-          user_id?: string | null
-          work_location?: string | null
         }
         Relationships: [
           {
@@ -6123,34 +5902,6 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_department_id_fkey"
-            columns: ["department_id"]
-            isOneToOne: false
-            referencedRelation: "boud_departments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "boud_employees"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "secure_employee_view"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_position_id_fkey"
-            columns: ["position_id"]
-            isOneToOne: false
-            referencedRelation: "boud_job_positions"
             referencedColumns: ["id"]
           },
         ]
@@ -6212,6 +5963,10 @@ export type Database = {
       }
       get_decrypted_passport_number: {
         Args: { employee_id: string }
+        Returns: string
+      }
+      get_employee_company_id: {
+        Args: { _user_id: string }
         Returns: string
       }
       get_user_company_id: {

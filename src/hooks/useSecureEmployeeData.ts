@@ -7,6 +7,17 @@ type BoudEmployee = Database['public']['Tables']['boud_employees']['Row'];
 type BoudEmployeeInsert = Database['public']['Tables']['boud_employees']['Insert'];
 type BoudEmployeeUpdate = Database['public']['Tables']['boud_employees']['Update'];
 
+export interface EmployeeDirectoryData {
+  id: string;
+  employee_id: string;
+  first_name: string;
+  last_name: string;
+  email?: string;
+  hire_date?: string;
+  is_active?: boolean;
+  company_id?: string;
+}
+
 export interface SecureEmployeeViewData {
   id: string;
   user_id?: string;
@@ -19,14 +30,14 @@ export interface SecureEmployeeViewData {
   middle_name?: string;
   last_name: string;
   full_name_arabic?: string;
-  national_id_masked?: string;
-  passport_number_masked?: string;
+  national_id?: string;
+  passport_number?: string;
   nationality?: string;
   gender?: string;
   date_of_birth?: string;
   marital_status?: string;
   email?: string;
-  phone_masked?: string;
+  phone?: string;
   address?: string;
   hire_date?: string;
   contract_start_date?: string;
@@ -40,8 +51,8 @@ export interface SecureEmployeeViewData {
   other_allowances?: number;
   total_salary?: number;
   bank_name?: string;
-  bank_account_masked?: string;
-  iban_masked?: string;
+  bank_account_number?: string;
+  iban?: string;
   education_level?: string;
   university?: string;
   major?: string;
@@ -60,38 +71,61 @@ export interface SecureEmployeeViewData {
 }
 
 export const useSecureEmployeeData = () => {
-  const [employees, setEmployees] = useState<SecureEmployeeViewData[]>([]);
+  const [employees, setEmployees] = useState<EmployeeDirectoryData[]>([]);
+  const [fullEmployeeData, setFullEmployeeData] = useState<SecureEmployeeViewData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  // Fetch secure employee data with basic directory information
   const fetchSecureEmployeeData = async () => {
     setIsLoading(true);
     try {
-      // Fetch masked data by default from secure view
-      const { data: secureData, error } = await supabase
-        .from('secure_employee_view')
+      const { data, error } = await supabase
+        .from('employee_directory')
         .select('*')
-        .eq('is_active', true)
-        .order('created_at', { ascending: false });
+        .order('first_name');
 
       if (error) {
-        console.error('Error fetching secure employee data:', error);
+        console.error('Error fetching employee directory:', error);
         toast({
-          title: "خطأ في جلب البيانات",
-          description: "حدث خطأ أثناء جلب بيانات الموظفين المؤمنة",
+          title: "خطأ في جلب دليل الموظفين",
+          description: "حدث خطأ أثناء جلب البيانات الأساسية للموظفين",
           variant: "destructive",
         });
         return;
       }
 
-      setEmployees((secureData || []) as SecureEmployeeViewData[]);
+      setEmployees(data || []);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error fetching employee directory:', error);
       toast({
-        title: "خطأ",
-        description: "حدث خطأ غير متوقع",
+        title: "خطأ في جلب دليل الموظفين",
+        description: "حدث خطأ أثناء جلب البيانات الأساسية للموظفين",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch full employee data (for HR staff only)
+  const fetchFullEmployeeData = async () => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('boud_employees')
+        .select('*')
+        .eq('is_active', true)
+        .order('first_name');
+
+      if (error) {
+        console.error('Error fetching full employee data:', error);
+        return;
+      }
+
+      setFullEmployeeData(data || []);
+    } catch (error) {
+      console.error('Error fetching full employee data:', error);
     } finally {
       setIsLoading(false);
     }
@@ -214,8 +248,10 @@ export const useSecureEmployeeData = () => {
 
   return {
     employees,
+    fullEmployeeData,
     isLoading,
     fetchSecureEmployeeData,
+    fetchFullEmployeeData,
     getDecryptedSensitiveData,
     updateEmployee,
     addEmployee,
