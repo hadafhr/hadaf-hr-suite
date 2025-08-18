@@ -362,6 +362,10 @@ const ComprehensiveEmployeeManagement = () => {
               <Gift className="h-4 w-4 ml-2" />
               المزايا والحوافز
             </TabsTrigger>
+            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <CalendarClock className="h-4 w-4 ml-2" />
+              الاجتماعات
+            </TabsTrigger>
             <TabsTrigger value="signature" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <PenTool className="h-4 w-4 ml-2" />
               التوقيع الإلكتروني
@@ -369,10 +373,6 @@ const ComprehensiveEmployeeManagement = () => {
             <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <FileText className="h-4 w-4 ml-2" />
               الطلبات
-            </TabsTrigger>
-            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <CalendarClock className="h-4 w-4 ml-2" />
-              الاجتماعات
             </TabsTrigger>
             <TabsTrigger value="reports" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <FileBarChart className="h-4 w-4 ml-2" />
