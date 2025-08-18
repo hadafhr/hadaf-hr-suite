@@ -366,13 +366,13 @@ const ComprehensiveEmployeeManagement = () => {
               <PenTool className="h-4 w-4 ml-2" />
               التوقيع الإلكتروني
             </TabsTrigger>
-            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <CalendarClock className="h-4 w-4 ml-2" />
-              الاجتماعات
-            </TabsTrigger>
             <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <FileText className="h-4 w-4 ml-2" />
               الطلبات
+            </TabsTrigger>
+            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <CalendarClock className="h-4 w-4 ml-2" />
+              الاجتماعات
             </TabsTrigger>
             <TabsTrigger value="reports" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <FileBarChart className="h-4 w-4 ml-2" />
