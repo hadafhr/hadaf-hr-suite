@@ -373,6 +373,36 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_logs: {
+        Row: {
+          created_at: string | null
+          details: Json | null
+          id: string
+          operation: string
+          record_id: string | null
+          table_name: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          operation: string
+          record_id?: string | null
+          table_name: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          operation?: string
+          record_id?: string | null
+          table_name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       bank_accounts: {
         Row: {
           account_number: string
@@ -3344,6 +3374,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "hr_employees_manager_id_fkey"
+            columns: ["manager_id"]
+            isOneToOne: false
+            referencedRelation: "public_employee_directory"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "hr_employees_org_unit_id_fkey"
             columns: ["org_unit_id"]
             isOneToOne: false
@@ -3426,6 +3463,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "hr_requests_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "public_employee_directory"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "hr_requests_workflow_template_id_fkey"
             columns: ["workflow_template_id"]
             isOneToOne: false
@@ -3481,6 +3525,13 @@ export type Database = {
             columns: ["employee_id"]
             isOneToOne: false
             referencedRelation: "hr_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "hr_user_roles_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "public_employee_directory"
             referencedColumns: ["id"]
           },
         ]
@@ -5835,6 +5886,77 @@ export type Database = {
       }
     }
     Views: {
+      public_employee_directory: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          email: string | null
+          employee_id: string | null
+          full_name: string | null
+          hire_date: string | null
+          id: string | null
+          is_active: boolean | null
+          manager_id: string | null
+          org_unit_id: string | null
+          position: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          email?: string | null
+          employee_id?: string | null
+          full_name?: string | null
+          hire_date?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          manager_id?: string | null
+          org_unit_id?: string | null
+          position?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          email?: string | null
+          employee_id?: string | null
+          full_name?: string | null
+          hire_date?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          manager_id?: string | null
+          org_unit_id?: string | null
+          position?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hr_employees_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "hr_employees_manager_id_fkey"
+            columns: ["manager_id"]
+            isOneToOne: false
+            referencedRelation: "hr_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "hr_employees_manager_id_fkey"
+            columns: ["manager_id"]
+            isOneToOne: false
+            referencedRelation: "public_employee_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "hr_employees_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       secure_employee_view: {
         Row: {
           address: string | null
