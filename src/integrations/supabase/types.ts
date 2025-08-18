@@ -5997,6 +5997,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      secure_employee_access_check: {
+        Args: { _employee_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role:
