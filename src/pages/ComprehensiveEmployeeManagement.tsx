@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
+import { DigitalSignatureManagement } from '@/components/employee/DigitalSignatureManagement';
 import { 
   Users, 
   UserPlus, 
@@ -63,7 +64,9 @@ import {
   MessageSquare,
   ClipboardList,
   Calendar as CalendarIcon,
-  Timer
+  Timer,
+  PenTool,
+  FileSignature
 } from 'lucide-react';
 
 const ComprehensiveEmployeeManagement = () => {
@@ -308,7 +311,7 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 bg-white/70 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-9 bg-white/70 backdrop-blur">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               لوحة التحكم
             </TabsTrigger>
@@ -323,6 +326,9 @@ const ComprehensiveEmployeeManagement = () => {
             </TabsTrigger>
             <TabsTrigger value="performance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               الأداء
+            </TabsTrigger>
+            <TabsTrigger value="signature" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              التوقيع الإلكتروني
             </TabsTrigger>
             <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               الطلبات
@@ -693,6 +699,11 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Digital Signature Tab */}
+          <TabsContent value="signature" className="space-y-6">
+            <DigitalSignatureManagement />
           </TabsContent>
 
           {/* Add more tab contents here... */}
