@@ -171,6 +171,7 @@ export const BoudEMS: React.FC = () => {
         {activeTab === 'rewards' && <RewardsIncentives onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'meetings' && <Meetings onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'esignature' && <ElectronicSignature onBack={() => setActiveTab('dashboard')} />}
+        {activeTab === 'tasks' && <TasksTracking onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'requests' && <RequestsNotifications onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'ai' && <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'reports' && <Reports onBack={() => setActiveTab('dashboard')} />}
