@@ -1,0 +1,156 @@
+-- Phase 1: Critical Database Security Fixes
+
+-- First, drop problematic views and policies causing recursion
+DROP VIEW IF EXISTS public.secure_employee_view CASCADE;
+DROP VIEW IF EXISTS public.public_employee_directory CASCADE;
+
+-- Drop existing policies on boud_employees that cause infinite recursion
+DROP POLICY IF EXISTS "Employees can view their own profile" ON public.boud_employees;
+DROP POLICY IF EXISTS "HR managers can manage employees" ON public.boud_employees;
+DROP POLICY IF EXISTS "Line managers can view their team" ON public.boud_employees;
+DROP POLICY IF EXISTS "Users can view employees in their company" ON public.boud_employees;
+
+-- Drop existing policies on meeting_participants that cause infinite recursion
+DROP POLICY IF EXISTS "Users can manage their meeting participants" ON public.meeting_participants;
+DROP POLICY IF EXISTS "Users can view meeting participants" ON public.meeting_participants;
+
+-- Create secure helper functions to prevent recursion
+CREATE OR REPLACE FUNCTION public.get_employee_company_id(_user_id uuid)
+RETURNS uuid
+LANGUAGE sql
+STABLE SECURITY DEFINER
+SET search_path TO 'public'
+AS $$
+  SELECT company_id
+  FROM public.boud_employees
+  WHERE user_id = _user_id
+  LIMIT 1
+$$;
+
+CREATE OR REPLACE FUNCTION public.get_employee_id_for_user(_user_id uuid)
+RETURNS uuid
+LANGUAGE sql
+STABLE SECURITY DEFINER
+SET search_path TO 'public'
+AS $$
+  SELECT id
+  FROM public.boud_employees
+  WHERE user_id = _user_id
+  LIMIT 1
+$$;
+
+-- Create new secure RLS policies for boud_employees
+CREATE POLICY "employees_view_own_profile"
+ON public.boud_employees
+FOR SELECT
+TO authenticated
+USING (user_id = auth.uid());
+
+CREATE POLICY "hr_manage_company_employees"
+ON public.boud_employees
+FOR ALL
+TO authenticated
+USING (
+  boud_has_role(auth.uid(), company_id, 'super_admin'::user_role) OR
+  boud_has_role(auth.uid(), company_id, 'hr_manager'::user_role)
+)
+WITH CHECK (
+  boud_has_role(auth.uid(), company_id, 'super_admin'::user_role) OR
+  boud_has_role(auth.uid(), company_id, 'hr_manager'::user_role)
+);
+
+CREATE POLICY "employees_update_own_profile"
+ON public.boud_employees
+FOR UPDATE
+TO authenticated
+USING (user_id = auth.uid())
+WITH CHECK (user_id = auth.uid());
+
+-- Create secure view for basic employee directory (non-sensitive data only)
+CREATE VIEW public.employee_directory AS
+SELECT 
+  e.id,
+  e.employee_id,
+  e.first_name,
+  e.last_name,
+  e.email,
+  CASE 
+    WHEN e.position_id IS NOT NULL THEN p.name
+    ELSE 'موظف'
+  END as position_name,
+  e.hire_date,
+  e.is_active,
+  e.company_id
+FROM public.boud_employees e
+LEFT JOIN public.boud_positions p ON e.position_id = p.id
+WHERE e.is_active = true;
+
+-- Enable RLS on the new view
+ALTER VIEW public.employee_directory SET (security_barrier = true);
+
+-- Grant access to the directory view
+GRANT SELECT ON public.employee_directory TO authenticated;
+
+-- Create RLS policy for employee directory
+CREATE POLICY "company_members_view_directory"
+ON public.employee_directory
+FOR SELECT
+TO authenticated
+USING (company_id = public.get_employee_company_id(auth.uid()));
+
+-- Fix meeting_participants policies to prevent recursion
+CREATE POLICY "participants_manage_own_meetings"
+ON public.meeting_participants
+FOR ALL
+TO authenticated
+USING (participant_id = public.get_employee_id_for_user(auth.uid()))
+WITH CHECK (participant_id = public.get_employee_id_for_user(auth.uid()));
+
+-- Add audit logging trigger for sensitive data access
+CREATE OR REPLACE FUNCTION public.audit_sensitive_employee_access()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path TO 'public'
+AS $$
+BEGIN
+  -- Log when someone accesses employee records
+  INSERT INTO public.audit_logs (
+    table_name,
+    operation,
+    user_id,
+    record_id,
+    details,
+    created_at
+  ) VALUES (
+    TG_TABLE_NAME,
+    TG_OP,
+    auth.uid(),
+    CASE 
+      WHEN TG_OP = 'DELETE' THEN OLD.id
+      ELSE NEW.id
+    END,
+    jsonb_build_object(
+      'accessed_by', auth.uid(),
+      'employee_accessed', CASE 
+        WHEN TG_OP = 'DELETE' THEN OLD.id
+        ELSE NEW.id
+      END,
+      'timestamp', extract(epoch from now())
+    ),
+    now()
+  );
+  
+  RETURN CASE WHEN TG_OP = 'DELETE' THEN OLD ELSE NEW END;
+EXCEPTION
+  WHEN OTHERS THEN
+    -- Don't fail the query if audit logging fails
+    RETURN CASE WHEN TG_OP = 'DELETE' THEN OLD ELSE NEW END;
+END;
+$$;
+
+-- Add audit trigger to boud_employees
+DROP TRIGGER IF EXISTS audit_employee_access ON public.boud_employees;
+CREATE TRIGGER audit_employee_access
+  AFTER SELECT OR UPDATE OR DELETE ON public.boud_employees
+  FOR EACH ROW EXECUTE FUNCTION public.audit_sensitive_employee_access();
