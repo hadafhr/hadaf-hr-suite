@@ -68,6 +68,7 @@ import {
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
+import MeetingHub from '@/pages/MeetingHub';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -311,7 +312,7 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-10 bg-white/70 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-11 bg-white/70 backdrop-blur">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               لوحة التحكم
             </TabsTrigger>
@@ -329,6 +330,9 @@ const ComprehensiveEmployeeManagement = () => {
             </TabsTrigger>
             <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               الطلبات
+            </TabsTrigger>
+            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              الاجتماعات
             </TabsTrigger>
             <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               التدريب
@@ -717,6 +721,11 @@ const ComprehensiveEmployeeManagement = () => {
           {/* Performance Tab - Smart Evaluations System */}
           <TabsContent value="performance" className="space-y-6">
             <SmartEvaluations />
+          </TabsContent>
+
+          {/* Meetings Tab - Smart Meetings System */}
+          <TabsContent value="meetings" className="space-y-6">
+            <MeetingHub />
           </TabsContent>
 
           {/* Add other tab contents here... */}

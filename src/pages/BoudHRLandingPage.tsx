@@ -687,7 +687,7 @@ const BoudHRLandingPage: React.FC = () => {
                   else if (feature.title === "نظام الشؤون القانونية الذكية") navigate("/legal-platform");
                   else if (feature.title === "نظام التوظيف الذكي") navigate("/comprehensive-employee-management");
                   else if (feature.title === "نظام التعويضات والمزايا") navigate("/compensation-benefits");
-                  else if (feature.title === "نظام الاجتماعات الذكي") navigate("/meeting-hub");
+                  else if (feature.title === "نظام الاجتماعات الذكي") navigate("/comprehensive-employee-management");
                 }}
               >
                 <CardHeader className="text-center p-0">
