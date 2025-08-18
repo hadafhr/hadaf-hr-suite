@@ -64,9 +64,7 @@ import {
   Shield,
   Heart,
   Camera,
-  Gift,
-  FileSignature,
-  PenTool
+  Gift
 } from 'lucide-react';
 
 // Import comprehensive components
@@ -81,7 +79,6 @@ import InsuranceManagement from '@/components/employee/InsuranceManagement';
 import BenefitsRewards from '@/components/employee/BenefitsRewards';
 import DisciplinarySystem from '@/components/employee/DisciplinarySystem';
 import SmartDashboard from '@/components/employee/SmartDashboard';
-import { DigitalSignatureManagement } from '@/components/employee/DigitalSignatureManagement';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -536,7 +533,7 @@ const EmployeeManagementSystem = () => {
 
       <div className="p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-13 text-xs">
+          <TabsList className="grid w-full grid-cols-12 text-xs">
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
             <TabsTrigger value="employees">الموظفين</TabsTrigger>
             <TabsTrigger value="attendance">الحضور</TabsTrigger>
@@ -548,7 +545,6 @@ const EmployeeManagementSystem = () => {
             <TabsTrigger value="recruitment">التوظيف</TabsTrigger>
             <TabsTrigger value="insurance">التأمينات</TabsTrigger>
             <TabsTrigger value="benefits">المزايا والحوافز</TabsTrigger>
-            <TabsTrigger value="esignature">التوقيع الإلكتروني</TabsTrigger>
             <TabsTrigger value="requests">الطلبات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
           </TabsList>
@@ -1138,134 +1134,6 @@ const EmployeeManagementSystem = () => {
           {/* Benefits & Rewards Tab */}
           <TabsContent value="benefits" className="space-y-6">
             <BenefitsRewards />
-          </TabsContent>
-
-          {/* Digital Signature Management Tab */}
-          <TabsContent value="esignature" className="space-y-6">
-            <DigitalSignatureManagement />
-          </TabsContent>
-
-          {/* Requests Tab */}
-          <TabsContent value="requests" className="space-y-6">
-            {/* Request Statistics */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="dashboard-card">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">إجمالي الطلبات</p>
-                    <p className="text-2xl font-bold text-primary">{employeeRequests.length}</p>
-                  </div>
-                  <FileText className="h-8 w-8 text-primary" />
-                </div>
-              </Card>
-
-              <Card className="dashboard-card">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">في الانتظار</p>
-                    <p className="text-2xl font-bold text-warning">{employeeRequests.filter(r => r.status === 'pending').length}</p>
-                  </div>
-                  <Clock className="h-8 w-8 text-warning" />
-                </div>
-              </Card>
-
-              <Card className="dashboard-card">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">موافق عليها</p>
-                    <p className="text-2xl font-bold text-success">{employeeRequests.filter(r => r.status === 'approved').length}</p>
-                  </div>
-                  <CheckCircle className="h-8 w-8 text-success" />
-                </div>
-              </Card>
-
-              <Card className="dashboard-card">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">مرفوضة</p>
-                    <p className="text-2xl font-bold text-destructive">{employeeRequests.filter(r => r.status === 'rejected').length}</p>
-                  </div>
-                  <XCircle className="h-8 w-8 text-destructive" />
-                </div>
-              </Card>
-            </div>
-
-            {/* Request Management */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  طلبات الموظفين
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm">
-                      <Filter className="h-4 w-4 mr-2" />
-                      تصفية
-                    </Button>
-                    <Button size="sm">
-                      <Plus className="h-4 w-4 mr-2" />
-                      طلب جديد
-                    </Button>
-                  </div>
-                </CardTitle>
-                <CardDescription>إدارة جميع طلبات الموظفين والموافقات</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {employeeRequests.map((request) => (
-                    <Card key={request.id} className="dashboard-card">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-4 mb-2">
-                            <h3 className="font-semibold">{request.employeeName}</h3>
-                            {getRequestStatusBadge(request.status)}
-                            {getRequestPriorityBadge(request.priority)}
-                          </div>
-                          <p className="text-sm text-muted-foreground mb-1">
-                            <strong>نوع الطلب:</strong> {request.requestType}
-                          </p>
-                          <p className="text-sm text-muted-foreground mb-1">
-                            <strong>القسم:</strong> {request.department}
-                          </p>
-                          <p className="text-sm">{request.description}</p>
-                          {request.startDate && (
-                            <p className="text-sm text-muted-foreground mt-1">
-                              <strong>من:</strong> {request.startDate} {request.endDate && `إلى ${request.endDate}`}
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex gap-2">
-                          {request.status === 'pending' && (
-                            <>
-                              <Button 
-                                size="sm" 
-                                variant="outline" 
-                                className="text-green-600 border-green-600 hover:bg-green-50"
-                                onClick={() => handleApproveRequest(request.id)}
-                              >
-                                <Check className="h-4 w-4 mr-1" />
-                                موافقة
-                              </Button>
-                              <Button 
-                                size="sm" 
-                                variant="outline" 
-                                className="text-red-600 border-red-600 hover:bg-red-50"
-                                onClick={() => handleRejectRequest(request.id)}
-                              >
-                                <X className="h-4 w-4 mr-1" />
-                                رفض
-                              </Button>
-                            </>
-                          )}
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4 mr-1" />
-                            عرض
-                          </Button>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           {/* Reports Tab */}
