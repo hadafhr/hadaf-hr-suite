@@ -1,30 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Eye, EyeOff, Building2, Mail, Lock } from 'lucide-react';
+import { Eye, EyeOff, Building2, Mail, Lock, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { sanitizeInput, isValidEmail } from '@/utils/sanitizeHtml';
 import hadafLogo from '@/assets/hadaf-logo.png';
 
 export const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     remember: false
   });
+  const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
+  const { signIn, user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [user, navigate]);
+
+  const validateForm = (): boolean => {
+    const newErrors: string[] = [];
+    
+    if (!formData.email) {
+      newErrors.push('البريد الإلكتروني مطلوب');
+    } else if (!isValidEmail(formData.email)) {
+      newErrors.push('البريد الإلكتروني غير صحيح');
+    }
+    
+    if (!formData.password) {
+      newErrors.push('كلمة المرور مطلوبة');
+    } else if (formData.password.length < 6) {
+      newErrors.push('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+    }
+    
+    setErrors(newErrors);
+    return newErrors.length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // هنا ستتم معالجة تسجيل الدخول
-    console.log('تسجيل الدخول:', formData);
-    navigate('/dashboard');
+    
+    if (!validateForm()) return;
+    
+    setLoading(true);
+    
+    const { error } = await signIn(
+      sanitizeInput(formData.email),
+      formData.password
+    );
+    
+    if (!error) {
+      navigate('/dashboard', { replace: true });
+    }
+    
+    setLoading(false);
   };
 
   const handleInputChange = (field: string, value: any) => {
+    // Clear errors when user starts typing
+    if (errors.length > 0) {
+      setErrors([]);
+    }
+    
+    if (field === 'email') {
+      value = sanitizeInput(value);
+    }
+    
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -48,6 +100,15 @@ export const Login: React.FC = () => {
 
         {/* نموذج تسجيل الدخول */}
         <Card className="glass-card p-6">
+          {errors.length > 0 && (
+            <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
+              <ul className="text-sm text-destructive space-y-1">
+                {errors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* البريد الإلكتروني */}
             <div className="space-y-2">
@@ -108,9 +169,18 @@ export const Login: React.FC = () => {
             </div>
 
             {/* زر تسجيل الدخول */}
-            <Button type="submit" className="w-full btn-primary">
-              <Building2 className="h-4 w-4 mr-2" />
-              تسجيل الدخول
+            <Button type="submit" className="w-full btn-primary" disabled={loading}>
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  جارٍ تسجيل الدخول...
+                </>
+              ) : (
+                <>
+                  <Building2 className="h-4 w-4 mr-2" />
+                  تسجيل الدخول
+                </>
+              )}
             </Button>
 
             {/* خط فاصل */}

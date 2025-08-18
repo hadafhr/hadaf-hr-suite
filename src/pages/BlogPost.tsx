@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Calendar, Clock, Share2, ChevronLeft } from 'lucide-react';
 import { BlogCard } from '@/components/blog/BlogCard';
+import { SafeBlogContent } from '@/components/blog/SafeBlogContent';
 
 export const BlogPost = () => {
   const { slug } = useParams();
@@ -98,13 +99,11 @@ export const BlogPost = () => {
               />
             </div>
 
-            {/* Article Content */}
-            <div className="prose prose-lg max-w-none text-foreground">
-              <div 
-                className="content"
-                dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
-              />
-            </div>
+            {/* Article Content - XSS Protected */}
+            <SafeBlogContent 
+              content={post.content.replace(/\n/g, '<br />')} 
+              className="prose prose-lg max-w-none text-foreground"
+            />
 
             {/* Article Footer */}
             <div className="mt-12 pt-8 border-t border-border">

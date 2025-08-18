@@ -5870,31 +5870,40 @@ export type Database = {
           company_id: string | null
           email: string | null
           employee_id: string | null
+          employment_status:
+            | Database["public"]["Enums"]["employee_status"]
+            | null
           first_name: string | null
           hire_date: string | null
           id: string | null
-          is_active: boolean | null
           last_name: string | null
+          phone: string | null
         }
         Insert: {
           company_id?: string | null
           email?: string | null
           employee_id?: string | null
+          employment_status?:
+            | Database["public"]["Enums"]["employee_status"]
+            | null
           first_name?: string | null
           hire_date?: string | null
           id?: string | null
-          is_active?: boolean | null
           last_name?: string | null
+          phone?: string | null
         }
         Update: {
           company_id?: string | null
           email?: string | null
           employee_id?: string | null
+          employment_status?:
+            | Database["public"]["Enums"]["employee_status"]
+            | null
           first_name?: string | null
           hire_date?: string | null
           id?: string | null
-          is_active?: boolean | null
           last_name?: string | null
+          phone?: string | null
         }
         Relationships: [
           {
