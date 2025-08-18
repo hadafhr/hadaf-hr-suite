@@ -53,6 +53,10 @@ import MainLandingPage from './pages/MainLandingPage';
 import Features from './pages/Features';
 import Knowledge from './pages/Knowledge';
 import Guides from './pages/Guides';
+import Pricing from './pages/Pricing';
+import Contact from './pages/Contact';
+import Schedule from './pages/Schedule';
+import Integrations from './pages/Integrations';
 import SubscriptionPackages from './pages/SubscriptionPackages';
 import { HRApp } from './pages/HRApp';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
@@ -141,10 +145,10 @@ const App = () => {
             <Route path="/features" element={<Features />} />
             <Route path="/knowledge" element={<Knowledge />} />
             <Route path="/guides" element={<Guides />} />
-            <Route path="/pricing" element={<SubscriptionPackages />} />
-            <Route path="/contact" element={<ChatMessagingPage />} />
-            <Route path="/schedule" element={<ScheduleMeeting />} />
-            <Route path="/integrations" element={<Services />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/integrations" element={<Integrations />} />
             <Route path="/old-landing" element={<BoudHRLandingPage />} />
             <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
