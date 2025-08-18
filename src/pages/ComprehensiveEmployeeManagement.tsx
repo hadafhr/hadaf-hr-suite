@@ -82,6 +82,15 @@ import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 import MeetingHub from '@/pages/MeetingHub';
+import { DepartmentManagement } from '@/components/systems/DepartmentManagement';
+import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
+import { OrganizationalStructure } from '@/components/systems/OrganizationalStructure';
+import { WageProtectionSystem } from '@/components/systems/WageProtectionSystem';
+import { LegalAffairs } from '@/components/systems/LegalAffairs';
+import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
+import { RewardsIncentives } from '@/components/systems/RewardsIncentives';
+import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
+import { TasksTracking } from '@/components/systems/TasksTracking';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
