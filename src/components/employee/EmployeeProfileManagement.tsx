@@ -12,28 +12,32 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { 
   User, Edit, Upload, FileText, Camera, Phone, 
   Mail, MapPin, Calendar, Briefcase, GraduationCap,
-  Building2, CreditCard, Heart, Shield
+  Building2, CreditCard, Heart, Shield, Eye, EyeOff, Lock
 } from 'lucide-react';
-import { useBoudEMS } from '@/hooks/useBoudEMS';
+import { useSecureEmployeeData } from '@/hooks/useSecureEmployeeData';
 import { useToast } from '@/hooks/use-toast';
 
 export function EmployeeProfileManagement() {
   const [editMode, setEditMode] = useState(false);
   const [showDocuments, setShowDocuments] = useState(false);
-  const { employees, isLoading, updateEmployee } = useBoudEMS();
+  const [showSensitiveData, setShowSensitiveData] = useState<{ [key: string]: boolean }>({});
+  const [decryptedData, setDecryptedData] = useState<{ [key: string]: any }>({});
+  const { employees, isLoading, getDecryptedSensitiveData, updateEmployee } = useSecureEmployeeData();
   const { toast } = useToast();
 
-  // بيانات تجريبية للموظف الحالي
-  const currentEmployee = {
+  // استخدام البيانات المشفرة من الهوك الجديد أو البيانات التجريبية
+  const currentEmployee = employees?.[0] || {
     id: '1',
     employee_id: 'EMP001',
     first_name: 'أحمد',
     last_name: 'محمد الأحمد',
     full_name_arabic: 'أحمد محمد الأحمد',
     email: 'ahmed.mohammed@company.com',
-    phone: '+966501234567',
-    national_id: '1234567890',
-    passport_number: 'A12345678',
+    phone_masked: 'XXX-XXX-4567',
+    national_id_masked: 'XXX-XXXX-7890',
+    passport_number_masked: 'XXX45678',
+    bank_account_masked: 'XXXX-6789',
+    iban_masked: 'SA' + 'X'.repeat(20) + '9012',
     nationality: 'سعودي',
     gender: 'ذكر',
     date_of_birth: '1990-01-15',
@@ -41,12 +45,11 @@ export function EmployeeProfileManagement() {
     address: 'الرياض، المملكة العربية السعودية',
     hire_date: '2020-01-01',
     contract_type: 'دائم',
-    position: 'مطور برمجيات',
+    job_title: 'مطور برمجيات', // Added this field
     basic_salary: 8000,
     housing_allowance: 2000,
     transport_allowance: 500,
     bank_name: 'البنك الأهلي السعودي',
-    iban: 'SA1234567890123456789012',
     education_level: 'بكالوريوس',
     university: 'جامعة الملك سعود',
     major: 'علوم الحاسب',
@@ -83,8 +86,43 @@ export function EmployeeProfileManagement() {
     { id: 'medical', name: 'التقرير الطبي', icon: <Heart className="h-4 w-4" />, status: 'مرفوع' },
   ];
 
+  // Helper function to toggle and decrypt sensitive data
+  const toggleSensitiveData = async (fieldName: string) => {
+    if (!showSensitiveData[fieldName]) {
+      // Show decrypted data
+      const decrypted = await getDecryptedSensitiveData(currentEmployee.id);
+      if (decrypted) {
+        setDecryptedData(prev => ({ ...prev, [currentEmployee.id]: decrypted }));
+        setShowSensitiveData(prev => ({ ...prev, [fieldName]: true }));
+      }
+    } else {
+      // Hide decrypted data
+      setShowSensitiveData(prev => ({ ...prev, [fieldName]: false }));
+    }
+  };
+
+  // Get the value to display for sensitive fields
+  const getSensitiveFieldValue = (fieldName: string, maskedValue: string | undefined) => {
+    const employeeDecrypted = decryptedData[currentEmployee.id];
+    if (showSensitiveData[fieldName] && employeeDecrypted?.[fieldName]) {
+      return employeeDecrypted[fieldName];
+    }
+    return maskedValue || 'غير محدد';
+  };
+
   return (
     <div className="space-y-6" dir="rtl">
+      {/* Security Notice */}
+      <Card className="border-blue-200 bg-blue-50">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 text-blue-800">
+            <Shield className="h-5 w-5" />
+            <span className="font-medium">حماية البيانات الحساسة:</span>
+            <span className="text-sm">البيانات الحساسة مشفرة ومحمية. استخدم زر العرض لإظهار البيانات الكاملة.</span>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Profile Header */}
       <Card>
         <CardHeader>
@@ -150,9 +188,19 @@ export function EmployeeProfileManagement() {
               </div>
 
               <div className="space-y-2">
-                <Label>رقم الجوال</Label>
+                <Label className="flex items-center gap-2">
+                  رقم الجوال
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => toggleSensitiveData('phone')}
+                    className="h-6 w-6 p-0"
+                  >
+                    {showSensitiveData['phone'] ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                  </Button>
+                </Label>
                 <Input 
-                  value={currentEmployee.phone} 
+                  value={getSensitiveFieldValue('phone', currentEmployee.phone_masked)} 
                   disabled={!editMode}
                   className={!editMode ? "bg-gray-50" : ""}
                 />
@@ -194,18 +242,38 @@ export function EmployeeProfileManagement() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>رقم الهوية الوطنية</Label>
+                  <Label className="flex items-center gap-2">
+                    رقم الهوية الوطنية
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => toggleSensitiveData('national_id')}
+                      className="h-6 w-6 p-0"
+                    >
+                      {showSensitiveData['national_id'] ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                    </Button>
+                  </Label>
                   <Input 
-                    value={currentEmployee.national_id} 
+                    value={getSensitiveFieldValue('national_id', currentEmployee.national_id_masked)} 
                     disabled={!editMode}
                     className={!editMode ? "bg-gray-50" : ""}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label>رقم جواز السفر</Label>
+                  <Label className="flex items-center gap-2">
+                    رقم جواز السفر
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => toggleSensitiveData('passport_number')}
+                      className="h-6 w-6 p-0"
+                    >
+                      {showSensitiveData['passport_number'] ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                    </Button>
+                  </Label>
                   <Input 
-                    value={currentEmployee.passport_number} 
+                    value={getSensitiveFieldValue('passport_number', currentEmployee.passport_number_masked)} 
                     disabled={!editMode}
                     className={!editMode ? "bg-gray-50" : ""}
                   />
@@ -304,14 +372,14 @@ export function EmployeeProfileManagement() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>المسمى الوظيفي</Label>
-                  <Input 
-                    value={currentEmployee.position} 
-                    disabled={!editMode}
-                    className={!editMode ? "bg-gray-50" : ""}
-                  />
-                </div>
+                 <div className="space-y-2">
+                   <Label>المسمى الوظيفي</Label>
+                   <Input 
+                     value={(currentEmployee as any).job_title || 'غير محدد'} 
+                     disabled={!editMode}
+                     className={!editMode ? "bg-gray-50" : ""}
+                   />
+                 </div>
 
                 <div className="space-y-2">
                   <Label>تاريخ التعيين</Label>
@@ -401,14 +469,24 @@ export function EmployeeProfileManagement() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label>رقم الآيبان</Label>
-                  <Input 
-                    value={currentEmployee.iban} 
-                    disabled={!editMode}
-                    className={!editMode ? "bg-gray-50" : ""}
-                  />
-                </div>
+                 <div className="space-y-2">
+                   <Label className="flex items-center gap-2">
+                     رقم الآيبان
+                     <Button
+                       size="sm"
+                       variant="ghost"
+                       onClick={() => toggleSensitiveData('iban')}
+                       className="h-6 w-6 p-0"
+                     >
+                       {showSensitiveData['iban'] ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                     </Button>
+                   </Label>
+                   <Input 
+                     value={getSensitiveFieldValue('iban', currentEmployee.iban_masked)} 
+                     disabled={!editMode}
+                     className={!editMode ? "bg-gray-50" : ""}
+                   />
+                 </div>
               </div>
             </CardContent>
           </Card>
