@@ -15,28 +15,19 @@ export const LanguageSwitcher = () => {
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
-    // Update document direction and language
+    // Update document direction
     document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lng;
-    // Update body class for RTL styling
-    document.body.classList.toggle('rtl', lng === 'ar');
     setIsOpen(false);
-    
-    // Update URL for language routing
-    const path = window.location.pathname;
-    const newPath = lng === 'en' ? '/en' : '/';
-    if (path !== newPath && (path === '/' || path === '/en')) {
-      window.history.replaceState(null, '', newPath);
-    }
   };
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2 text-foreground hover:text-primary">
+        <Button variant="ghost" size="sm" className="gap-2">
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">
-            {i18n.language === 'ar' ? t('language.arabic') : t('language.english')}
+            {i18n.language === 'ar' ? 'العربية' : 'English'}
           </span>
         </Button>
       </DropdownMenuTrigger>
@@ -48,13 +39,13 @@ export const LanguageSwitcher = () => {
           onClick={() => changeLanguage('ar')}
           className={`cursor-pointer ${i18n.language === 'ar' ? 'bg-accent' : ''}`}
         >
-          {t('language.arabic')}
+          العربية
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => changeLanguage('en')}
           className={`cursor-pointer ${i18n.language === 'en' ? 'bg-accent' : ''}`}
         >
-          {t('language.english')}
+          English
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
