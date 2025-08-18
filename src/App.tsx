@@ -61,6 +61,7 @@ import BlogPost from './pages/BlogPost';
 import EmployeeManagementSystem from './pages/EmployeeManagementSystem';
 import ComprehensiveEmployeeManagement from './pages/ComprehensiveEmployeeManagement';
 import DisciplinarySystem from './pages/DisciplinarySystem';
+import EmployeeServicesDepartment from './pages/EmployeeServicesDepartment';
 import EmployeePortal from './pages/EmployeePortal';
 import EmployerPortal from './pages/EmployerPortal';
 import EmployeeRequests from './pages/EmployeeRequests';
@@ -216,6 +217,7 @@ const App = () => {
               
                {/* Employee Management System Routes */}
           <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
+              <Route path="/employee-services-department" element={<EmployeeServicesDepartment />} />
           <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
           <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
               <Route path="/employee-requests" element={<EmployeeRequests />} />
