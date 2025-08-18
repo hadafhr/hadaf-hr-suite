@@ -68,7 +68,15 @@ import {
   Video,
   FileBarChart,
   CalendarClock,
-  Gift
+  Gift,
+  Building,
+  Globe,
+  Network,
+  Banknote,
+  Scale,
+  Bot,
+  CheckSquare,
+  Megaphone
 } from 'lucide-react';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
@@ -317,64 +325,92 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-16 bg-white/70 backdrop-blur">
-            <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+          <TabsList className="grid w-full grid-cols-22 bg-white/70 backdrop-blur gap-1 p-2">
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <BarChart3 className="h-4 w-4 ml-2" />
               لوحة التحكم
             </TabsTrigger>
-            <TabsTrigger value="employees" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="employees" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <Users className="h-4 w-4 ml-2" />
-              الموظفين
+              فريق العمل
             </TabsTrigger>
-            <TabsTrigger value="attendance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="departments" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Building className="h-4 w-4 ml-2" />
+              الإدارات والاقسام
+            </TabsTrigger>
+            <TabsTrigger value="attendance" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <Clock className="h-4 w-4 ml-2" />
-              الحضور
+              الحضور والانصراف
             </TabsTrigger>
-            <TabsTrigger value="disciplinary" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="disciplinary" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <AlertTriangle className="h-4 w-4 ml-2" />
-              الجزاءات
+              الجزاءات والعقوبات
             </TabsTrigger>
-            <TabsTrigger value="leaves" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="leaves" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <Calendar className="h-4 w-4 ml-2" />
-              الإجازات
+              الإجازات والعطلات
             </TabsTrigger>
-            <TabsTrigger value="payroll" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="payroll" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <DollarSign className="h-4 w-4 ml-2" />
-              الرواتب
+              الرواتب والأجور
             </TabsTrigger>
-            <TabsTrigger value="performance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="government" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Globe className="h-4 w-4 ml-2" />
+              التكامل الحكومي
+            </TabsTrigger>
+            <TabsTrigger value="organization" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Network className="h-4 w-4 ml-2" />
+              التنظيم المؤسسي
+            </TabsTrigger>
+            <TabsTrigger value="wageprotection" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Banknote className="h-4 w-4 ml-2" />
+              حماية الأجور
+            </TabsTrigger>
+            <TabsTrigger value="legal" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Scale className="h-4 w-4 ml-2" />
+              الشؤون القانونية
+            </TabsTrigger>
+            <TabsTrigger value="performance" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <Target className="h-4 w-4 ml-2" />
-              الأداء
+              تقييم الأداء
             </TabsTrigger>
-            <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="training" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <GraduationCap className="h-4 w-4 ml-2" />
-              التدريب
+              التدريب والتطوير
             </TabsTrigger>
-            <TabsTrigger value="recruitment" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="recruitment" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <UserPlus className="h-4 w-4 ml-2" />
-              التوظيف
+              التوظيف والتعين
             </TabsTrigger>
-            <TabsTrigger value="insurance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="insurance" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <Shield className="h-4 w-4 ml-2" />
-              التأمينات
+              التأمين
             </TabsTrigger>
-            <TabsTrigger value="benefits" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="benefits" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <Gift className="h-4 w-4 ml-2" />
-              المزايا والحوافز
+              المكافآت والحوافز
             </TabsTrigger>
-            <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="meetings" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <CalendarClock className="h-4 w-4 ml-2" />
               الاجتماعات
             </TabsTrigger>
-            <TabsTrigger value="signature" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="signature" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <PenTool className="h-4 w-4 ml-2" />
               التوقيع الإلكتروني
             </TabsTrigger>
-            <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-              <FileText className="h-4 w-4 ml-2" />
-              الطلبات
+            <TabsTrigger value="tasks" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <CheckSquare className="h-4 w-4 ml-2" />
+              المهام والمتابعة
             </TabsTrigger>
-            <TabsTrigger value="reports" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsTrigger value="requests" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Megaphone className="h-4 w-4 ml-2" />
+              الطلبات والاشعارات
+            </TabsTrigger>
+            <TabsTrigger value="ai" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
+              <Bot className="h-4 w-4 ml-2" />
+              الذكاء الاصطناعي
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="data-[state=active]:bg-black data-[state=active]:text-white bg-white text-black border-2 border-white hover:bg-gray-100 transition-colors">
               <FileBarChart className="h-4 w-4 ml-2" />
               التقارير
             </TabsTrigger>
@@ -947,6 +983,153 @@ const ComprehensiveEmployeeManagement = () => {
                   <p className="text-sm text-muted-foreground mt-2">
                     يشمل: الإجازات السنوية، المرضية، الطارئة، والموافقات التلقائية
                   </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Departments Tab */}
+          <TabsContent value="departments" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Building className="h-6 w-6" />
+                  إدارة الإدارات والأقسام
+                </CardTitle>
+                <CardDescription>
+                  تنظيم وإدارة هيكل الشركة والأقسام
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Building className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة الإدارات والأقسام هنا</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Government Integration Tab */}
+          <TabsContent value="government" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Globe className="h-6 w-6" />
+                  التكامل الحكومي
+                </CardTitle>
+                <CardDescription>
+                  ربط مع الأنظمة الحكومية والجهات الرسمية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Globe className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام التكامل الحكومي هنا</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Organization Tab */}
+          <TabsContent value="organization" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Network className="h-6 w-6" />
+                  التنظيم المؤسسي
+                </CardTitle>
+                <CardDescription>
+                  هيكلة وتنظيم المؤسسة والعمليات الإدارية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Network className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام التنظيم المؤسسي هنا</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Wage Protection Tab */}
+          <TabsContent value="wageprotection" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Banknote className="h-6 w-6" />
+                  حماية الأجور
+                </CardTitle>
+                <CardDescription>
+                  نظام حماية الأجور والامتثال للقوانين
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Banknote className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام حماية الأجور هنا</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Legal Tab */}
+          <TabsContent value="legal" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Scale className="h-6 w-6" />
+                  الشؤون القانونية
+                </CardTitle>
+                <CardDescription>
+                  إدارة الشؤون القانونية والقضايا العمالية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Scale className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام الشؤون القانونية هنا</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Tasks Tab */}
+          <TabsContent value="tasks" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <CheckSquare className="h-6 w-6" />
+                  المهام والمتابعة
+                </CardTitle>
+                <CardDescription>
+                  إدارة المهام ومتابعة التقدم والإنجازات
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <CheckSquare className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة المهام هنا</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* AI Tab */}
+          <TabsContent value="ai" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <Bot className="h-6 w-6" />
+                  الذكاء الاصطناعي
+                </CardTitle>
+                <CardDescription>
+                  مساعد ذكي وتحليلات متقدمة بالذكاء الاصطناعي
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <Bot className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام الذكاء الاصطناعي هنا</p>
                 </div>
               </CardContent>
             </Card>
