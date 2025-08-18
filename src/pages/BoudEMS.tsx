@@ -128,7 +128,7 @@ export const BoudEMS: React.FC = () => {
         </div>
 
         {/* System Modules Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-11 gap-4">
           {systemModules.map((module) => {
             const Icon = module.icon;
             return (
