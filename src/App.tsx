@@ -49,6 +49,10 @@ import { WageProtectionPage } from './pages/WageProtectionPage';
 import ServiceCalculatorPage from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
+import MainLandingPage from './pages/MainLandingPage';
+import Features from './pages/Features';
+import Knowledge from './pages/Knowledge';
+import Guides from './pages/Guides';
 import SubscriptionPackages from './pages/SubscriptionPackages';
 import { HRApp } from './pages/HRApp';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
@@ -131,8 +135,17 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<BoudHRLandingPage />} />
+            <Routes>
+            <Route path="/" element={<MainLandingPage />} />
+            <Route path="/en" element={<MainLandingPage />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/knowledge" element={<Knowledge />} />
+            <Route path="/guides" element={<Guides />} />
+            <Route path="/pricing" element={<SubscriptionPackages />} />
+            <Route path="/contact" element={<ChatMessagingPage />} />
+            <Route path="/schedule" element={<ScheduleMeeting />} />
+            <Route path="/integrations" element={<Services />} />
+            <Route path="/old-landing" element={<BoudHRLandingPage />} />
             <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
             <Route path="/hr/*" element={<HRApp />} />
