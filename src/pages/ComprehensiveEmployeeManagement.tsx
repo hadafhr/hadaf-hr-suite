@@ -63,7 +63,10 @@ import {
   MessageSquare,
   ClipboardList,
   Calendar as CalendarIcon,
-  Timer
+  Timer,
+  PenTool,
+  Video,
+  FileBarChart
 } from 'lucide-react';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
@@ -312,38 +315,53 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-11 bg-white/70 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-12 bg-white/70 backdrop-blur">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <BarChart3 className="h-4 w-4 ml-2" />
               لوحة التحكم
             </TabsTrigger>
             <TabsTrigger value="employees" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Users className="h-4 w-4 ml-2" />
               الموظفين
             </TabsTrigger>
             <TabsTrigger value="attendance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Clock className="h-4 w-4 ml-2" />
               الحضور
             </TabsTrigger>
             <TabsTrigger value="leaves" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Calendar className="h-4 w-4 ml-2" />
               الإجازات
             </TabsTrigger>
             <TabsTrigger value="performance" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Target className="h-4 w-4 ml-2" />
               الأداء
             </TabsTrigger>
             <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <FileText className="h-4 w-4 ml-2" />
               الطلبات
             </TabsTrigger>
+            <TabsTrigger value="signature" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <PenTool className="h-4 w-4 ml-2" />
+              التوقيع الإلكتروني
+            </TabsTrigger>
             <TabsTrigger value="meetings" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <Video className="h-4 w-4 ml-2" />
               الاجتماعات
             </TabsTrigger>
             <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <GraduationCap className="h-4 w-4 ml-2" />
               التدريب
             </TabsTrigger>
             <TabsTrigger value="recruitment" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <UserPlus className="h-4 w-4 ml-2" />
               التوظيف
             </TabsTrigger>
             <TabsTrigger value="disciplinary" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <AlertTriangle className="h-4 w-4 ml-2" />
               التأديبي
             </TabsTrigger>
             <TabsTrigger value="reports" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <FileBarChart className="h-4 w-4 ml-2" />
               التقارير
             </TabsTrigger>
           </TabsList>
@@ -721,6 +739,30 @@ const ComprehensiveEmployeeManagement = () => {
           {/* Performance Tab - Smart Evaluations System */}
           <TabsContent value="performance" className="space-y-6">
             <SmartEvaluations />
+          </TabsContent>
+
+          {/* Electronic Signature Tab */}
+          <TabsContent value="signature" className="space-y-6">
+            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                  <PenTool className="h-6 w-6" />
+                  نظام التوقيع الإلكتروني
+                </CardTitle>
+                <CardDescription>
+                  توقيع وإدارة المستندات إلكترونياً بأمان عالي
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <PenTool className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <p className="text-muted-foreground">سيتم تطوير نظام التوقيع الإلكتروني هنا</p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    يشمل: توقيع المستندات، إدارة العقود، تتبع التوقيعات، والمصادقة الرقمية
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Meetings Tab - Smart Meetings System */}
