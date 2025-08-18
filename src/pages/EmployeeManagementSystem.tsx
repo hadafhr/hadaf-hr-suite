@@ -534,8 +534,9 @@ const EmployeeManagementSystem = () => {
 
       <div className="p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-12 text-xs">
+          <TabsList className="grid w-full grid-cols-13 text-xs">
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+            <TabsTrigger value="institutional-development">التطوير المؤسسي</TabsTrigger>
             <TabsTrigger value="employees">الموظفين</TabsTrigger>
             <TabsTrigger value="attendance">الحضور</TabsTrigger>
             <TabsTrigger value="disciplinary">الجزاءات</TabsTrigger>
@@ -664,6 +665,111 @@ const EmployeeManagementSystem = () => {
 
             {/* Smart Dashboard with AI Insights */}
             <SmartDashboard />
+          </TabsContent>
+
+          {/* Institutional Development Tab */}
+          <TabsContent value="institutional-development" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building2 className="h-6 w-6 text-primary" />
+                  التطوير المؤسسي
+                </CardTitle>
+                <CardDescription>
+                  إدارة وتطوير الهياكل المؤسسية والعمليات التنظيمية
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Organizational Structure */}
+                  <Card className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Building2 className="h-6 w-6 text-primary" />
+                        </div>
+                        <Badge variant="secondary">متاح</Badge>
+                      </div>
+                      <h3 className="font-semibold mb-2">الهيكل التنظيمي</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        إدارة وتحديث الهيكل التنظيمي للشركة والأقسام
+                      </p>
+                      <Button variant="outline" size="sm" className="w-full">
+                        إدارة الهيكل
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Process Improvement */}
+                  <Card className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <TrendingUp className="h-6 w-6 text-primary" />
+                        </div>
+                        <Badge variant="secondary">متاح</Badge>
+                      </div>
+                      <h3 className="font-semibold mb-2">تحسين العمليات</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        تطوير وتحسين العمليات الإدارية والتشغيلية
+                      </p>
+                      <Button variant="outline" size="sm" className="w-full">
+                        تطوير العمليات
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Strategic Planning */}
+                  <Card className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <Target className="h-6 w-6 text-primary" />
+                        </div>
+                        <Badge variant="secondary">متاح</Badge>
+                      </div>
+                      <h3 className="font-semibold mb-2">التخطيط الاستراتيجي</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        وضع وتنفيذ الخطط الاستراتيجية طويلة المدى
+                      </p>
+                      <Button variant="outline" size="sm" className="w-full">
+                        إدارة الخطط
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="mt-8">
+                  <h3 className="text-lg font-semibold mb-4">إحصائيات التطوير المؤسسي</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-primary">12</div>
+                        <div className="text-sm text-muted-foreground">مشاريع تطوير نشطة</div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-success">85%</div>
+                        <div className="text-sm text-muted-foreground">معدل إنجاز المشاريع</div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-warning">6</div>
+                        <div className="text-sm text-muted-foreground">أقسام قيد التطوير</div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <div className="text-2xl font-bold text-info">24</div>
+                        <div className="text-sm text-muted-foreground">ساعة تدريب هذا الشهر</div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Employees Tab */}
