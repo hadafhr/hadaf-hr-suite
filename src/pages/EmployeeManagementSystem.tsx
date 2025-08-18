@@ -64,7 +64,8 @@ import {
   Shield,
   Heart,
   Camera,
-  Gift
+  Gift,
+  PenTool
 } from 'lucide-react';
 
 // Import comprehensive components
@@ -545,6 +546,7 @@ const EmployeeManagementSystem = () => {
             <TabsTrigger value="recruitment">التوظيف</TabsTrigger>
             <TabsTrigger value="insurance">التأمينات</TabsTrigger>
             <TabsTrigger value="benefits">المزايا والحوافز</TabsTrigger>
+            <TabsTrigger value="esignature">التوقيع الإلكتروني</TabsTrigger>
             <TabsTrigger value="requests">الطلبات</TabsTrigger>
             <TabsTrigger value="reports">التقارير</TabsTrigger>
           </TabsList>
@@ -1134,6 +1136,236 @@ const EmployeeManagementSystem = () => {
           {/* Benefits & Rewards Tab */}
           <TabsContent value="benefits" className="space-y-6">
             <BenefitsRewards />
+          </TabsContent>
+
+          {/* Electronic Signature Tab */}
+          <TabsContent value="esignature" className="space-y-6">
+            <div className="space-y-6">
+              {/* Header */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-3xl font-bold text-foreground mb-2">
+                    نظام التوقيع الإلكتروني الآمن
+                  </h2>
+                  <p className="text-muted-foreground">
+                    نظام توقيع إلكتروني آمن ومتوافق مع نفاذ الوطني الموحد ولوائح المملكة العربية السعودية
+                  </p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Badge variant="outline" className="flex items-center gap-2">
+                    <Shield className="w-4 h-4" />
+                    متوافق مع نفاذ
+                  </Badge>
+                  <Badge variant="outline" className="flex items-center gap-2">
+                    <PenTool className="w-4 h-4" />
+                    شهادة معتمدة
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Analytics Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card className="bg-gradient-to-r from-blue-500/10 to-blue-600/10 border-blue-200">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">إجمالي المستندات</CardTitle>
+                    <FileText className="h-4 w-4 text-blue-600" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-blue-600">156</div>
+                    <p className="text-xs text-muted-foreground">+23% هذا الشهر</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-r from-green-500/10 to-green-600/10 border-green-200">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">المستندات الموقعة</CardTitle>
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-green-600">98</div>
+                    <p className="text-xs text-muted-foreground">62.8% من الإجمالي</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 border-yellow-200">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">في الانتظار</CardTitle>
+                    <Clock className="h-4 w-4 text-yellow-600" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-yellow-600">45</div>
+                    <p className="text-xs text-muted-foreground">متوسط الوقت: 2.4 أيام</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-r from-red-500/10 to-red-600/10 border-red-200">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">المرفوضة</CardTitle>
+                    <AlertTriangle className="h-4 w-4 text-red-600" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-red-600">13</div>
+                    <p className="text-xs text-muted-foreground">8.3% من الإجمالي</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Main Features */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Documents Management */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="w-5 h-5" />
+                      إدارة المستندات
+                    </CardTitle>
+                    <CardDescription>
+                      رفع وإدارة المستندات المطلوب توقيعها
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Button 
+                      className="w-full" 
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = '.pdf,.doc,.docx';
+                        input.onchange = () => toast.success('تم رفع المستند بنجاح!');
+                        input.click();
+                      }}
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      رفع مستند جديد
+                    </Button>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <FileText className="w-6 h-6 text-primary" />
+                          <div>
+                            <p className="font-medium">عقد عمل - أحمد محمد</p>
+                            <p className="text-sm text-muted-foreground">في الانتظار</p>
+                          </div>
+                        </div>
+                        <Button size="sm" variant="outline">
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <FileText className="w-6 h-6 text-green-600" />
+                          <div>
+                            <p className="font-medium">سياسة العمل الجديدة</p>
+                            <p className="text-sm text-green-600">مكتمل</p>
+                          </div>
+                        </div>
+                        <Button size="sm" variant="outline">
+                          <Download className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Signature Creation */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <PenTool className="w-5 h-5" />
+                      إنشاء التوقيعات
+                    </CardTitle>
+                    <CardDescription>
+                      إنشاء وإدارة التوقيعات الإلكترونية المعتمدة
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Button 
+                      className="w-full" 
+                      onClick={() => toast.success('فتح أداة إنشاء التوقيع')}
+                    >
+                      <PenTool className="w-4 h-4 mr-2" />
+                      إنشاء توقيع جديد
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      onClick={() => toast.info('جاري توجيهك إلى نفاذ الوطني الموحد...')}
+                    >
+                      <UserCheck className="w-4 h-4 mr-2" />
+                      التحقق عبر نفاذ
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Compliance & Security */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="w-5 h-5" />
+                      الامتثال والأمان
+                    </CardTitle>
+                    <CardDescription>
+                      ضمان الامتثال للقوانين والأنظمة السعودية
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-green-600">
+                        <CheckCircle className="w-4 h-4" />
+                        <span className="text-sm">متوافق مع نفاذ الوطني الموحد</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-green-600">
+                        <CheckCircle className="w-4 h-4" />
+                        <span className="text-sm">شهادات رقمية معتمدة</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-green-600">
+                        <CheckCircle className="w-4 h-4" />
+                        <span className="text-sm">تخزين آمن في السحابة</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-green-600">
+                        <CheckCircle className="w-4 h-4" />
+                        <span className="text-sm">تتبع كامل لدورة حياة المستند</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Quick Actions */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="w-5 h-5" />
+                      إجراءات سريعة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start" 
+                      onClick={() => navigate('/e-signature')}
+                    >
+                      <FileCheck className="w-4 h-4 mr-2" />
+                      النظام الكامل للتوقيع الإلكتروني
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => toast.success('تم تصدير تقرير التوقيعات')}
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      تصدير تقرير التوقيعات
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => toast.info('فتح إعدادات النظام')}
+                    >
+                      <Settings className="w-4 h-4 mr-2" />
+                      إعدادات النظام
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </TabsContent>
 
           {/* Reports Tab */}
