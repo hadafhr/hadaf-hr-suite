@@ -103,7 +103,7 @@ const EmployeePortal = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             className="mr-4"
           >
             <ArrowLeft className="h-4 w-4 ml-2" />
