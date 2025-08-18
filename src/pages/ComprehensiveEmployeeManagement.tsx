@@ -65,6 +65,7 @@ import {
   Calendar as CalendarIcon,
   Timer
 } from 'lucide-react';
+import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -308,7 +309,7 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 bg-white/70 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-9 bg-white/70 backdrop-blur">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               لوحة التحكم
             </TabsTrigger>
@@ -326,6 +327,9 @@ const ComprehensiveEmployeeManagement = () => {
             </TabsTrigger>
             <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               الطلبات
+            </TabsTrigger>
+            <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              التدريب
             </TabsTrigger>
             <TabsTrigger value="disciplinary" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               التأديبي
@@ -693,6 +697,11 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Training Tab */}
+          <TabsContent value="training" className="space-y-6">
+            <TrainingDevelopment />
           </TabsContent>
 
           {/* Add more tab contents here... */}

@@ -677,7 +677,7 @@ const BoudHRLandingPage: React.FC = () => {
                   if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/employee-management-system");
                   else if (feature.title === "نظام الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
                   else if (feature.title === "نظام التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
-                  else if (feature.title === "نظام التدريب") navigate("/service-platforms/training");
+                  else if (feature.title === "نظام التدريب") navigate("/comprehensive-employee-management");
                   else if (feature.title === "نظام القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
                   else if (feature.title === "نظام خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
                   else if (feature.title === "نظام حماية الأجور") navigate("/service-platforms/wage-protection");
