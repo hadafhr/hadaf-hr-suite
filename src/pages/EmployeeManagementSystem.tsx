@@ -532,8 +532,10 @@ const EmployeeManagementSystem = () => {
         </div>
       </div>
 
-      <div className="p-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="flex">
+        {/* Main Content */}
+        <div className="flex-1 p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-13 text-xs">
             <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
             <TabsTrigger value="institutional-development">التطوير المؤسسي</TabsTrigger>
@@ -1767,6 +1769,245 @@ const EmployeeManagementSystem = () => {
             </Card>
           </TabsContent>
         </Tabs>
+        </div>
+
+        {/* Right Sidebar with 22 Icons */}
+        <div className="w-16 border-l bg-background/50 backdrop-blur">
+          <div className="flex flex-col items-center py-4 space-y-3 overflow-y-auto max-h-screen">
+            {/* Icon 1: Dashboard */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('dashboard')}
+              title="لوحة التحكم"
+            >
+              <BarChart3 className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 2: Users */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('employees')}
+              title="الموظفين"
+            >
+              <Users className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 3: User Plus */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={handleAddEmployee}
+              title="إضافة موظف"
+            >
+              <UserPlus className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 4: Settings */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="الإعدادات"
+            >
+              <Settings className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 5: Calendar */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('attendance')}
+              title="الحضور والانصراف"
+            >
+              <Calendar className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 6: Clock */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="الوقت"
+            >
+              <Clock className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 7: File Text */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('requests')}
+              title="الطلبات"
+            >
+              <FileText className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 8: Award */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('performance')}
+              title="تقييم الأداء"
+            >
+              <Award className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 9: Briefcase */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('recruitment')}
+              title="التوظيف"
+            >
+              <Briefcase className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 10: Building */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('institutional-development')}
+              title="التطوير المؤسسي"
+            >
+              <Building2 className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 11: Phone */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="الهاتف"
+            >
+              <Phone className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 12: Mail */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="البريد الإلكتروني"
+            >
+              <Mail className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 13: Bell */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="الإشعارات"
+            >
+              <Bell className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 14: Shield */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="الأمان"
+            >
+              <Shield className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 15: Heart */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('benefits')}
+              title="المزايا والحوافز"
+            >
+              <Heart className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 16: Calculator */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('payroll')}
+              title="الرواتب"
+            >
+              <Calculator className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 17: Trending Up */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="النمو"
+            >
+              <TrendingUp className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 18: Pie Chart */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('reports')}
+              title="التقارير"
+            >
+              <PieChart className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 19: Download */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={handleExportData}
+              title="تحميل"
+            >
+              <Download className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 20: Upload */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={handlePrintReport}
+              title="رفع"
+            >
+              <Upload className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 21: Search */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="البحث"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 22: Filter */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              title="التصفية"
+            >
+              <Filter className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Dialog لإضافة موظف جديد */}
@@ -2041,7 +2282,222 @@ const EmployeeManagementSystem = () => {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+
+        {/* Right Sidebar with 22 Icons */}
+        <div className="w-16 border-l bg-background/50 backdrop-blur">
+          <div className="flex flex-col items-center py-4 space-y-3">
+            {/* Icon 1: Dashboard */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('dashboard')}
+            >
+              <BarChart3 className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 2: Users */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('employees')}
+            >
+              <Users className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 3: User Plus */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={handleAddEmployee}
+            >
+              <UserPlus className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 4: Settings */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Settings className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 5: Calendar */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('attendance')}
+            >
+              <Calendar className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 6: Clock */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Clock className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 7: File Text */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('requests')}
+            >
+              <FileText className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 8: Award */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('performance')}
+            >
+              <Award className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 9: Briefcase */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('recruitment')}
+            >
+              <Briefcase className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 10: Building */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('institutional-development')}
+            >
+              <Building2 className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 11: Phone */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Phone className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 12: Mail */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Mail className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 13: Bell */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Bell className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 14: Shield */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Shield className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 15: Heart */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('benefits')}
+            >
+              <Heart className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 16: Calculator */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('payroll')}
+            >
+              <Calculator className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 17: Trending Up */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <TrendingUp className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 18: Pie Chart */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={() => setActiveTab('reports')}
+            >
+              <PieChart className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 19: Download */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+              onClick={handleExportData}
+            >
+              <Download className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 20: Upload */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Upload className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 21: Search */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+            
+            {/* Icon 22: Filter */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-10 w-10 hover:bg-primary/10"
+            >
+              <Filter className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
   );
 };
 
