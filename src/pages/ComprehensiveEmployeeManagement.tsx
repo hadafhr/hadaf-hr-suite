@@ -67,6 +67,7 @@ import {
 } from 'lucide-react';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
+import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -875,12 +876,64 @@ const ComprehensiveEmployeeManagement = () => {
                     </div>
                   </TabsContent>
 
+                  <TabsContent value="performance" className="space-y-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base flex items-center gap-2">
+                          <TrendingUp className="h-5 w-5 text-[#009F87]" />
+                          تقييم الأداء الذكي
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid md:grid-cols-3 gap-4 mb-6">
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-[#009F87]">{selectedEmployee.performance.currentRating}/5</div>
+                            <div className="text-sm text-muted-foreground">التقييم الحالي</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-blue-600">{selectedEmployee.performance.goalsCompleted}/{selectedEmployee.performance.goals}</div>
+                            <div className="text-sm text-muted-foreground">الأهداف المنجزة</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-green-600">{selectedEmployee.performance.lastReviewDate}</div>
+                            <div className="text-sm text-muted-foreground">آخر مراجعة</div>
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <div>
+                            <h4 className="font-medium mb-2">نقاط القوة:</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedEmployee.performance.strengths.map((strength, index) => (
+                                <Badge key={index} className="bg-green-100 text-green-800">{strength}</Badge>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-medium mb-2">مجالات التحسين:</h4>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedEmployee.performance.areasForImprovement.map((area, index) => (
+                                <Badge key={index} className="bg-orange-100 text-orange-800">{area}</Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
                   {/* Add more tab contents... */}
                 </Tabs>
               </div>
             )}
           </DialogContent>
         </Dialog>
+
+        {/* Performance Tab - Smart Evaluations Integration */}
+        <TabsContent value="performance" className="space-y-6">
+          <SmartEvaluations />
+        </TabsContent>
       </div>
     </div>
   );

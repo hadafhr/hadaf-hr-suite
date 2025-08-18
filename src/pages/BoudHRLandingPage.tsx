@@ -681,7 +681,7 @@ const BoudHRLandingPage: React.FC = () => {
                   else if (feature.title === "نظام القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
                   else if (feature.title === "نظام خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
                   else if (feature.title === "نظام حماية الأجور") navigate("/service-platforms/wage-protection");
-                  else if (feature.title === "نظام التقييمات الذكية") navigate("/service-platforms/performance-evaluation");
+                  else if (feature.title === "نظام التقييمات الذكية") navigate("/comprehensive-employee-management");
                   else if (feature.title === "نظام التكامل الحكومي") navigate("/business-platform");
                   else if (feature.title === "نظام الذكاء الاصطناعي") navigate("/ai-hub");
                   else if (feature.title === "نظام الشؤون القانونية الذكية") navigate("/legal-platform");
