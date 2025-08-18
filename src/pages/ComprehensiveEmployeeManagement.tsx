@@ -317,7 +317,7 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-15 bg-white/70 backdrop-blur">
+          <TabsList className="grid w-full grid-cols-16 bg-white/70 backdrop-blur">
             <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
               <BarChart3 className="h-4 w-4 ml-2" />
               لوحة التحكم
