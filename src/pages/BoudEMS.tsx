@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
   LayoutDashboard, Users, Building2, Clock, AlertTriangle, Calendar, 
-  DollarSign, Globe, Sitemap, Shield, Scale, Target, BookOpen, 
-  UserPlus, FileShield, Award, Video, PenTool, CheckSquare, 
-  Bell, Brain, FileText
+  DollarSign, Globe, Network, Shield, Scale, Target, BookOpen, 
+  UserPlus, ShieldCheck, Award, Video, PenTool, CheckSquare, 
+  Bell, Brain, FileText, TrendingUp
 } from 'lucide-react';
 import { BoudEmployeeManagement } from '@/components/BoudEmployeeManagement';
 import { BoudCompanyManagement } from '@/components/BoudCompanyManagement';
@@ -33,6 +33,7 @@ import { Meetings } from '@/components/systems/Meetings';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
+import { RequestsNotifications } from '@/components/systems/RequestsNotifications';
 import { Reports } from '@/components/systems/Reports';
 import { useBoudEMS } from '@/hooks/useBoudEMS';
 
@@ -51,13 +52,13 @@ export const BoudEMS: React.FC = () => {
     { id: 'leaves', title: isRTL ? 'الإجازات والعطل' : 'Leaves & Holidays', icon: Calendar },
     { id: 'salaries', title: isRTL ? 'الرواتب والأجور' : 'Salaries & Wages', icon: DollarSign },
     { id: 'government', title: isRTL ? 'التكامل الحكومي' : 'Government Integration', icon: Globe },
-    { id: 'organization', title: isRTL ? 'الهيكل التنظيمي' : 'Organizational Structure', icon: Sitemap },
+    { id: 'organization', title: isRTL ? 'الهيكل التنظيمي' : 'Organizational Structure', icon: Network },
     { id: 'wage_protection', title: isRTL ? 'نظام حماية الأجور' : 'Wage Protection System', icon: Shield },
     { id: 'legal', title: isRTL ? 'الشؤون القانونية' : 'Legal Affairs', icon: Scale },
     { id: 'performance', title: isRTL ? 'تقييم الأداء' : 'Performance Evaluation', icon: Target },
     { id: 'training', title: isRTL ? 'التدريب والتطوير' : 'Training & Development', icon: BookOpen },
     { id: 'recruitment', title: isRTL ? 'التوظيف والتعيين' : 'Recruitment & Hiring', icon: UserPlus },
-    { id: 'insurance', title: isRTL ? 'التأمين' : 'Insurance', icon: FileShield },
+    { id: 'insurance', title: isRTL ? 'التأمين' : 'Insurance', icon: ShieldCheck },
     { id: 'rewards', title: isRTL ? 'المكافآت والحوافز' : 'Rewards & Incentives', icon: Award },
     { id: 'meetings', title: isRTL ? 'الاجتماعات' : 'Meetings', icon: Video },
     { id: 'esignature', title: isRTL ? 'التوقيع الإلكتروني' : 'eSignature', icon: PenTool },
@@ -170,7 +171,7 @@ export const BoudEMS: React.FC = () => {
         {activeTab === 'rewards' && <RewardsIncentives onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'meetings' && <Meetings onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'esignature' && <ElectronicSignature onBack={() => setActiveTab('dashboard')} />}
-        {activeTab === 'tasks' && <TasksTracking onBack={() => setActiveTab('dashboard')} />}
+        {activeTab === 'requests' && <RequestsNotifications onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'ai' && <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />}
         {activeTab === 'reports' && <Reports onBack={() => setActiveTab('dashboard')} />}
       </div>
