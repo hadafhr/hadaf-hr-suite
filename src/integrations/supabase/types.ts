@@ -2462,6 +2462,57 @@ export type Database = {
           },
         ]
       }
+      employee_documents: {
+        Row: {
+          created_at: string | null
+          document_name: string
+          document_type: string
+          employee_id: string
+          expiry_date: string | null
+          file_path: string | null
+          file_size: number | null
+          id: string
+          is_verified: boolean | null
+          mime_type: string | null
+          notes: string | null
+          updated_at: string | null
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          document_name: string
+          document_type: string
+          employee_id: string
+          expiry_date?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          id?: string
+          is_verified?: boolean | null
+          mime_type?: string | null
+          notes?: string | null
+          updated_at?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          document_name?: string
+          document_type?: string
+          employee_id?: string
+          expiry_date?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          id?: string
+          is_verified?: boolean | null
+          mime_type?: string | null
+          notes?: string | null
+          updated_at?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: []
+      }
       employee_kpi_measurements: {
         Row: {
           actual_value: number
@@ -2501,6 +2552,57 @@ export type Database = {
           target_value?: number | null
           variance?: number | null
           variance_percentage?: number | null
+        }
+        Relationships: []
+      }
+      employee_requests: {
+        Row: {
+          assigned_to: string | null
+          completed_at: string | null
+          created_at: string | null
+          description: string | null
+          documents: Json | null
+          due_date: string | null
+          employee_id: string
+          id: string
+          priority: string | null
+          request_type: string
+          response_notes: string | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          description?: string | null
+          documents?: Json | null
+          due_date?: string | null
+          employee_id: string
+          id?: string
+          priority?: string | null
+          request_type: string
+          response_notes?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          description?: string | null
+          documents?: Json | null
+          due_date?: string | null
+          employee_id?: string
+          id?: string
+          priority?: string | null
+          request_type?: string
+          response_notes?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -2602,6 +2704,81 @@ export type Database = {
           updated_at?: string
           user_id?: string
           user_ref?: string | null
+        }
+        Relationships: []
+      }
+      end_of_service: {
+        Row: {
+          clearance_status: Json | null
+          created_at: string | null
+          deductions: number | null
+          employee_id: string
+          exit_interview_completed: boolean | null
+          final_documents_issued: boolean | null
+          final_settlement: Json | null
+          id: string
+          last_working_day: string | null
+          net_amount: number | null
+          notice_period_days: number | null
+          other_dues: number | null
+          processed_by: string | null
+          reason: string | null
+          status: string | null
+          termination_date: string
+          termination_type: string
+          total_eos_amount: number | null
+          updated_at: string | null
+          vacation_balance_amount: number | null
+          vacation_balance_days: number | null
+          years_of_service: number | null
+        }
+        Insert: {
+          clearance_status?: Json | null
+          created_at?: string | null
+          deductions?: number | null
+          employee_id: string
+          exit_interview_completed?: boolean | null
+          final_documents_issued?: boolean | null
+          final_settlement?: Json | null
+          id?: string
+          last_working_day?: string | null
+          net_amount?: number | null
+          notice_period_days?: number | null
+          other_dues?: number | null
+          processed_by?: string | null
+          reason?: string | null
+          status?: string | null
+          termination_date: string
+          termination_type: string
+          total_eos_amount?: number | null
+          updated_at?: string | null
+          vacation_balance_amount?: number | null
+          vacation_balance_days?: number | null
+          years_of_service?: number | null
+        }
+        Update: {
+          clearance_status?: Json | null
+          created_at?: string | null
+          deductions?: number | null
+          employee_id?: string
+          exit_interview_completed?: boolean | null
+          final_documents_issued?: boolean | null
+          final_settlement?: Json | null
+          id?: string
+          last_working_day?: string | null
+          net_amount?: number | null
+          notice_period_days?: number | null
+          other_dues?: number | null
+          processed_by?: string | null
+          reason?: string | null
+          status?: string | null
+          termination_date?: string
+          termination_type?: string
+          total_eos_amount?: number | null
+          updated_at?: string | null
+          vacation_balance_amount?: number | null
+          vacation_balance_days?: number | null
+          years_of_service?: number | null
         }
         Relationships: []
       }
@@ -3422,6 +3599,113 @@ export type Database = {
           },
         ]
       }
+      leave_requests: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string | null
+          emergency_contact: string | null
+          employee_id: string
+          end_date: string
+          id: string
+          leave_type_id: string
+          reason: string | null
+          rejection_reason: string | null
+          replacement_employee_id: string | null
+          start_date: string
+          status: string | null
+          total_days: number
+          updated_at: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string | null
+          emergency_contact?: string | null
+          employee_id: string
+          end_date: string
+          id?: string
+          leave_type_id: string
+          reason?: string | null
+          rejection_reason?: string | null
+          replacement_employee_id?: string | null
+          start_date: string
+          status?: string | null
+          total_days: number
+          updated_at?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string | null
+          emergency_contact?: string | null
+          employee_id?: string
+          end_date?: string
+          id?: string
+          leave_type_id?: string
+          reason?: string | null
+          rejection_reason?: string | null
+          replacement_employee_id?: string | null
+          start_date?: string
+          status?: string | null
+          total_days?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leave_requests_leave_type_id_fkey"
+            columns: ["leave_type_id"]
+            isOneToOne: false
+            referencedRelation: "leave_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leave_types: {
+        Row: {
+          carry_forward_allowed: boolean | null
+          company_id: string | null
+          created_at: string | null
+          gender_restriction: string | null
+          id: string
+          is_active: boolean | null
+          is_paid: boolean | null
+          max_days_per_year: number | null
+          name_ar: string
+          name_en: string | null
+          requires_approval: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          carry_forward_allowed?: boolean | null
+          company_id?: string | null
+          created_at?: string | null
+          gender_restriction?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_paid?: boolean | null
+          max_days_per_year?: number | null
+          name_ar: string
+          name_en?: string | null
+          requires_approval?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          carry_forward_allowed?: boolean | null
+          company_id?: string | null
+          created_at?: string | null
+          gender_restriction?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_paid?: boolean | null
+          max_days_per_year?: number | null
+          name_ar?: string
+          name_en?: string | null
+          requires_approval?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       meeting_chats: {
         Row: {
           id: string
@@ -4121,6 +4405,60 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      payroll_requests: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          bank_letter_type: string | null
+          created_at: string | null
+          documents: Json | null
+          employee_id: string
+          id: string
+          notes: string | null
+          processed_at: string | null
+          processed_by: string | null
+          request_reason: string | null
+          request_type: string
+          requested_amount: number | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_letter_type?: string | null
+          created_at?: string | null
+          documents?: Json | null
+          employee_id: string
+          id?: string
+          notes?: string | null
+          processed_at?: string | null
+          processed_by?: string | null
+          request_reason?: string | null
+          request_type: string
+          requested_amount?: number | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_letter_type?: string | null
+          created_at?: string | null
+          documents?: Json | null
+          employee_id?: string
+          id?: string
+          notes?: string | null
+          processed_at?: string | null
+          processed_by?: string | null
+          request_reason?: string | null
+          request_type?: string
+          requested_amount?: number | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       payroll_runs: {
         Row: {
