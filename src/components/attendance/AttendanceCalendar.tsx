@@ -444,7 +444,7 @@ const AttendanceCalendar: React.FC<AttendanceCalendarProps> = ({
                         </div>
                         
                         <div className="flex items-center gap-4">
-                          {attendance.checkIn && (
+                          {'checkIn' in attendance && attendance.checkIn && (
                             <div className="text-sm text-gray-600">
                               {attendance.checkIn} - {attendance.checkOut}
                             </div>
@@ -452,7 +452,7 @@ const AttendanceCalendar: React.FC<AttendanceCalendarProps> = ({
                           
                           {getStatusBadge(attendance.status)}
                           
-                          {attendance.hours && (
+                          {'hours' in attendance && attendance.hours && (
                             <div className="text-sm font-medium">
                               {attendance.hours} س
                             </div>

@@ -14,7 +14,7 @@ import {
   FileText,
   Download,
   Send,
-  Calendar,
+  Calendar as CalendarIcon,
   Filter,
   Eye,
   BarChart3,
@@ -64,7 +64,7 @@ const AttendanceReports: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const reportTypes = [
-    { value: 'daily-summary', label: 'تقرير يومي مفصل', icon: Calendar },
+    { value: 'daily-summary', label: 'تقرير يومي مفصل', icon: CalendarIcon },
     { value: 'monthly-summary', label: 'ملخص شهري', icon: BarChart3 },
     { value: 'punctuality-ranking', label: 'ترتيب الالتزام بالمواعيد', icon: TrendingUp },
     { value: 'absence-analysis', label: 'تحليل الغياب والإجازات', icon: XCircle },

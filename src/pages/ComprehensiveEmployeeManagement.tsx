@@ -78,6 +78,7 @@ import {
   CheckSquare,
   Megaphone
 } from 'lucide-react';
+import DepartmentsManagement from '@/components/departments/DepartmentsManagement';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
