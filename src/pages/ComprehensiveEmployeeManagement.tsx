@@ -84,6 +84,10 @@ import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 import MeetingHub from '@/pages/MeetingHub';
 import AttendanceDashboard from '@/components/attendance/AttendanceDashboard';
+import AttendanceRealTimeClock from '@/components/attendance/AttendanceRealTimeClock';
+import AttendanceCalendar from '@/components/attendance/AttendanceCalendar';
+import ShiftManagement from '@/components/attendance/ShiftManagement';
+import AttendanceReports from '@/components/attendance/AttendanceReports';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
 import { OrganizationalStructure } from '@/components/systems/OrganizationalStructure';
 import { WageProtectionSystem } from '@/components/systems/WageProtectionSystem';
@@ -730,26 +734,156 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Other tabs will be implemented here... */}
           <TabsContent value="attendance" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Clock className="h-6 w-6" />
-                  نظام إدارة الحضور والانصراف
-                </CardTitle>
-                <CardDescription>
-                  متابعة شاملة لحضور الموظفين مع التكامل مع نظام تحديد المواقع
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Timer className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام الحضور المتقدم هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: تسجيل الحضور بالموقع، جداول المناوبات، تتبع الوقت الإضافي، والتقارير التفصيلية
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Attendance Dashboard Overview */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <Card className="bg-gradient-to-r from-green-50 to-green-100 border-green-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-green-600 text-sm font-medium">موجود اليوم</p>
+                      <p className="text-3xl font-bold text-green-700">238</p>
+                    </div>
+                    <CheckCircle className="h-8 w-8 text-green-600" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-yellow-50 to-yellow-100 border-yellow-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-yellow-600 text-sm font-medium">متأخرين</p>
+                      <p className="text-3xl font-bold text-yellow-700">12</p>
+                    </div>
+                    <Clock className="h-8 w-8 text-yellow-600" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-red-50 to-red-100 border-red-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-red-600 text-sm font-medium">غائب</p>
+                      <p className="text-3xl font-bold text-red-700">7</p>
+                    </div>
+                    <XCircle className="h-8 w-8 text-red-600" />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-blue-600 text-sm font-medium">في إجازة</p>
+                      <p className="text-3xl font-bold text-blue-700">15</p>
+                    </div>
+                    <Calendar className="h-8 w-8 text-blue-600" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Attendance Management Tabs */}
+            <Tabs defaultValue="real-time" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-4 bg-white/50 backdrop-blur">
+                <TabsTrigger value="real-time" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+                  ساعة الحضور
+                </TabsTrigger>
+                <TabsTrigger value="calendar" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+                  التقويم
+                </TabsTrigger>
+                <TabsTrigger value="shifts" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+                  إدارة المناوبات
+                </TabsTrigger>
+                <TabsTrigger value="reports" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+                  التقارير
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Real-Time Clock Tab */}
+              <TabsContent value="real-time" className="space-y-6">
+                <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                      <Timer className="h-6 w-6" />
+                      ساعة الحضور والانصراف الذكية
+                    </CardTitle>
+                    <CardDescription>
+                      تسجيل الحضور في الوقت الفعلي مع التحقق من الموقع الجغرافي
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <AttendanceRealTimeClock 
+                      employeeId="EMP001"
+                      onCheckIn={(data) => {
+                        console.log('Check In:', data);
+                        toast.success('تم تسجيل الحضور بنجاح');
+                      }}
+                      onCheckOut={(data) => {
+                        console.log('Check Out:', data);
+                        toast.success('تم تسجيل الانصراف بنجاح');
+                      }}
+                    />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Calendar Tab */}
+              <TabsContent value="calendar" className="space-y-6">
+                <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                      <CalendarIcon className="h-6 w-6" />
+                      تقويم الحضور (هجري وميلادي)
+                    </CardTitle>
+                    <CardDescription>
+                      عرض تقويم شامل للحضور والانصراف مع إمكانية التبديل بين التقويم الهجري والميلادي
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <AttendanceCalendar />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Shifts Management Tab */}
+              <TabsContent value="shifts" className="space-y-6">
+                <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                      <Users className="h-6 w-6" />
+                      إدارة المناوبات وأنواع الدوام
+                    </CardTitle>
+                    <CardDescription>
+                      إنشاء وإدارة جداول المناوبات المختلفة (ثابت، متناوب، مرن، عن بُعد)
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ShiftManagement />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Reports Tab */}
+              <TabsContent value="reports" className="space-y-6">
+                <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-[#009F87]">
+                      <FileBarChart className="h-6 w-6" />
+                      تقارير الحضور والانصراف
+                    </CardTitle>
+                    <CardDescription>
+                      تقارير شاملة ومفصلة عن حضور الموظفين مع إمكانية التصدير
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <AttendanceReports />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </TabsContent>
 
           {/* Training Tab */}
