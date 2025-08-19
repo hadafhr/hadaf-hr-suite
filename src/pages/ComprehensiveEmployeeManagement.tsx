@@ -286,6 +286,15 @@ const ComprehensiveEmployeeManagement = () => {
       {/* Header */}
       <div className="relative border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="flex h-20 items-center px-6">
+          {/* BOUD Logo */}
+          <div className="flex items-center gap-4 ml-4">
+            <img 
+              src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
+              alt="شعار بُعد BOUD HR" 
+              className="h-20 w-auto"
+            />
+          </div>
+          
           <Button
             variant="ghost"
             size="sm"
@@ -295,15 +304,6 @@ const ComprehensiveEmployeeManagement = () => {
             <ArrowLeft className="h-4 w-4 ml-2" />
             العودة
           </Button>
-          
-          {/* BOUD Logo */}
-          <div className="flex items-center gap-4 mr-4">
-            <img 
-              src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
-              alt="شعار بُعد BOUD HR" 
-              className="h-30 w-auto"
-            />
-          </div>
           
           <div className="flex items-center gap-3">
             <div className="p-2 bg-[#009F87]/10 rounded-lg">
