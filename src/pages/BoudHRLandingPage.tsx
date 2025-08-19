@@ -91,17 +91,27 @@ const BoudHRLandingPage: React.FC = () => {
   const features = [
     {
       title: "نظام إدارة الموظفين الشامل",
-      description: "حلول شاملة ومتطورة لتلبية جميع احتياجات إدارة الموارد البشرية. يتضمن جميع الأنظمة: التوظيف الذكي، التدريب، التعويضات والمزايا، حماية الأجور، التقييمات الذكية، التكامل الحكومي، الذكاء الاصطناعي، الاجتماعات الذكية، الشؤون القانونية، وخدمات أصحاب الأعمال.",
+      subtitle: "الحل الأمثل لإدارة رأس المال البشري",
+      description: "حل متكامل وشامل يجمع 22 نظاماً فرعياً في منصة واحدة متطورة لإدارة دورة حياة الموظف بالكامل",
+      marketingText: "🚀 أتمتة كاملة للعمليات • 🎯 تحليلات ذكية ومتقدمة • ⚡ تكامل فوري مع الأنظمة الحكومية • 🔒 أمان عالي المستوى",
       icon: Users,
       color: "text-primary",
-      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=400&q=80"
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
+      route: "/comprehensive-employee-management",
+      features: ["التوظيف الذكي", "إدارة الأداء", "الرواتب والمزايا", "التدريب والتطوير", "حماية الأجور", "التكامل الحكومي"],
+      animation: "hover:scale-105 transform transition-all duration-500"
     },
     {
-      title: "نظام الخدمة الذاتية",
-      description: "منصة تفاعلية متطورة تمكن الموظفين من إدارة شؤونهم الشخصية والمهنية بكل سهولة ومرونة. تقليل الأعباء الإدارية مع تحسين تجربة الموظف الرقمية بشكل استثنائي.",
+      title: "نظام الخدمة الذاتية السحابي",
+      subtitle: "تمكين الموظفين رقمياً",
+      description: "منصة تفاعلية متطورة تمكن الموظفين من إدارة شؤونهم الشخصية والمهنية بكل سهولة ومرونة من أي مكان وفي أي وقت",
+      marketingText: "📱 واجهة سهلة ومتجاوبة • ⏱️ خدمة 24/7 • 🔄 تحديثات فورية • 📊 تقارير شخصية مفصلة",
       icon: Settings,
       color: "text-primary",
-      image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?auto=format&fit=crop&w=400&q=80"
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=80",
+      route: "/employee-self-service",
+      features: ["الملف الشخصي", "طلبات الإجازات", "كشوف الرواتب", "التقييمات الذاتية", "التدريب الإلكتروني", "التواصل المباشر"],
+      animation: "hover:scale-105 transform transition-all duration-500"
     }
   ];
 
@@ -581,47 +591,131 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="solutions" className="py-20 bg-background">
+      <section id="solutions" className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">نظام بُعد</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-6 py-3 text-base font-medium mb-6">
+              🎯 منصة موحدة لجميع احتياجات الموارد البشرية
+            </Badge>
+            <h2 className="text-5xl lg:text-6xl font-bold text-gradient mb-6">نظام بُعد</h2>
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               حلول شاملة ومتطورة لتلبية جميع احتياجات إدارة الموارد البشرية
             </p>
           </div>
           
-          <div className="grid lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card 
-                key={index} 
-                className="service-card group cursor-pointer"
-                onMouseEnter={() => setActiveFeature(index)}
-                onClick={() => {
-                  if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/comprehensive-employee-management");
-                  else if (feature.title === "نظام الخدمة الذاتية") navigate("/employee-self-service");
-                }}
-              >
-                <CardHeader className="text-center p-0">
-                  {/* صورة النظام */}
-                  <div className="w-full h-48 overflow-hidden rounded-t-lg mb-4">
-                    <img 
-                      src={feature.image} 
-                      alt={feature.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="px-6 pb-6">
-                    <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <feature.icon className={`w-8 h-8 ${feature.color}`} />
+          {/* الأنظمة الرئيسية في الوسط */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {features.map((feature, index) => (
+                <Card 
+                  key={index} 
+                  className={`service-card group cursor-pointer bg-gradient-to-br from-background to-muted/30 border-2 hover:border-primary/30 ${feature.animation} hover:shadow-2xl`}
+                  onMouseEnter={() => setActiveFeature(index)}
+                  onClick={() => navigate(feature.route)}
+                >
+                  <CardContent className="p-0 relative overflow-hidden">
+                    {/* صورة تسويقية متحركة */}
+                    <div className="relative w-full h-64 overflow-hidden">
+                      <img 
+                        src={feature.image} 
+                        alt={feature.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                      
+                      {/* شارة متحركة */}
+                      <div className="absolute top-4 right-4">
+                        <Badge className="bg-primary/90 text-white border-0 px-4 py-2 text-sm font-bold animate-pulse">
+                          🚀 جديد ومتطور
+                        </Badge>
+                      </div>
+                      
+                      {/* أيقونة النظام */}
+                      <div className="absolute bottom-4 left-4">
+                        <div className={`w-16 h-16 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                          <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                        </div>
+                      </div>
                     </div>
-                    <CardTitle className="text-xl mb-3 text-right">{feature.title}</CardTitle>
-                    <CardDescription className="text-base leading-relaxed text-right">
-                      {feature.description}
-                    </CardDescription>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
+                    
+                    {/* محتوى النظام */}
+                    <div className="p-8">
+                      <div className="text-center mb-6">
+                        <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+                          {feature.title}
+                        </h3>
+                        <p className="text-lg text-primary font-semibold mb-4">
+                          {feature.subtitle}
+                        </p>
+                      </div>
+                      
+                      {/* الوصف التسويقي */}
+                      <div className="space-y-4 mb-6">
+                        <p className="text-base text-muted-foreground leading-relaxed text-center">
+                          {feature.description}
+                        </p>
+                        
+                        {/* النقاط التسويقية */}
+                        <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
+                          <p className="text-sm text-foreground font-medium text-center leading-relaxed">
+                            {feature.marketingText}
+                          </p>
+                        </div>
+                        
+                        {/* الميزات الرئيسية */}
+                        <div className="grid grid-cols-2 gap-2 mt-4">
+                          {feature.features.map((feat, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                              <span className="text-sm text-muted-foreground">{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* زر تعرف أكثر */}
+                      <div className="text-center">
+                        <Button 
+                          size="lg"
+                          className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-base font-semibold group-hover:shadow-lg transition-all duration-300"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(feature.route);
+                          }}
+                        >
+                          <span className="mr-2">تعرف أكثر</span>
+                          <ArrowLeft className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+          
+          {/* إحصائيات سريعة */}
+          <div className="mt-16 text-center">
+            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/10 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-1">22</div>
+                  <div className="text-sm text-muted-foreground">نظام فرعي متكامل</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-1">100%</div>
+                  <div className="text-sm text-muted-foreground">توافق مع الأنظمة السعودية</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-1">24/7</div>
+                  <div className="text-sm text-muted-foreground">خدمة متاحة</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-1">70%</div>
+                  <div className="text-sm text-muted-foreground">توفير في الوقت</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
