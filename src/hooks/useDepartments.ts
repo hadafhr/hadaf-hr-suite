@@ -1,30 +1,28 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
+// Define interfaces for department-related data
 export interface Department {
   id: string;
   company_id: string;
-  parent_department_id?: string;
   department_code: string;
   name_ar: string;
   name_en?: string;
   description?: string;
   department_type: string;
-  function_type: 'strategic' | 'operational' | 'support';
-  sector_type: 'governmental' | 'private' | 'nonprofit';
+  function_type: "strategic" | "operational" | "support";
+  sector_type: "governmental" | "private" | "nonprofit";
+  parent_department_id?: string | null;
   cost_center_code?: string;
   location?: string;
-  is_active: boolean;
-  visibility_level: 'public' | 'internal' | 'hr_only';
-  manager_id?: string;
-  deputy_manager_id?: string;
-  head_count: number;
-  budget_allocation: number;
-  custom_fields: any;
+  budget_allocation?: number;
+  head_count?: number;
   sort_order: number;
+  visibility_level: "internal" | "public" | "hr_only";
+  is_active: boolean;
+  custom_fields: Record<string, any>;
   created_at: string;
   updated_at: string;
-  created_by?: string;
 }
 
 export interface DepartmentPosition {
@@ -36,10 +34,10 @@ export interface DepartmentPosition {
   title_en?: string;
   description?: string;
   level: number;
-  reports_to_position_id?: string;
+  reports_to_position_id?: string | null;
   salary_grade?: string;
-  required_qualifications: string[];
-  responsibilities: string[];
+  required_qualifications?: string[];
+  responsibilities?: string[];
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -53,7 +51,7 @@ export interface DepartmentEmployee {
   assignment_date: string;
   end_date?: string;
   is_primary: boolean;
-  assignment_type: 'permanent' | 'temporary' | 'secondment';
+  assignment_type: string;
   created_at: string;
   updated_at: string;
 }
@@ -62,57 +60,86 @@ export interface DepartmentKPI {
   id: string;
   department_id: string;
   kpi_name: string;
-  kpi_type: 'financial' | 'operational' | 'hr' | 'quality';
-  target_value: number;
-  current_value: number;
+  kpi_type: string;
+  target_value?: number;
+  current_value?: number;
   unit_of_measure?: string;
-  frequency: 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+  frequency: string;
   is_active: boolean;
   created_at: string;
   updated_at: string;
 }
 
 export const useDepartments = () => {
-  const [departments, setDepartments] = useState<Department[]>([]);
+  const [departments, setDepartments] = useState<Department[]>([
+    {
+      id: '1',
+      company_id: 'temp-company-id',
+      department_code: 'HR',
+      name_ar: 'قسم الموارد البشرية',
+      name_en: 'Human Resources Department',
+      description: 'إدارة شؤون الموظفين والتطوير المهني',
+      department_type: 'operational',
+      function_type: 'support',
+      sector_type: 'private',
+      parent_department_id: null,
+      cost_center_code: 'CC-HR-001',
+      location: 'الطابق الثاني - المبنى الرئيسي',
+      budget_allocation: 500000,
+      head_count: 12,
+      sort_order: 1,
+      visibility_level: 'internal',
+      is_active: true,
+      custom_fields: {},
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    {
+      id: '2',
+      company_id: 'temp-company-id',
+      department_code: 'IT',
+      name_ar: 'قسم تقنية المعلومات',
+      name_en: 'Information Technology Department',
+      description: 'إدارة الأنظمة التقنية والبنية التحتية',
+      department_type: 'operational',
+      function_type: 'support',
+      sector_type: 'private',
+      parent_department_id: null,
+      cost_center_code: 'CC-IT-001',
+      location: 'الطابق الأول - المبنى التقني',
+      budget_allocation: 750000,
+      head_count: 15,
+      sort_order: 2,
+      visibility_level: 'internal',
+      is_active: true,
+      custom_fields: {},
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    }
+  ]);
+  
   const [positions, setPositions] = useState<DepartmentPosition[]>([]);
   const [departmentEmployees, setDepartmentEmployees] = useState<DepartmentEmployee[]>([]);
   const [departmentKPIs, setDepartmentKPIs] = useState<DepartmentKPI[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch all departments
+  // Initialize data on mount
+  useEffect(() => {
+    fetchDepartments();
+    fetchPositions();
+    fetchDepartmentEmployees();
+    fetchDepartmentKPIs();
+  }, []);
+
+  // Fetch departments with mock data
   const fetchDepartments = async () => {
     try {
       setIsLoading(true);
-      // Mock data for now since tables don't exist yet
-      const mockDepartments: Department[] = [
-        {
-          id: '1',
-          company_id: 'temp-company-id',
-          department_code: 'HR',
-          name_ar: 'الموارد البشرية',
-          name_en: 'Human Resources',
-          description: 'قسم إدارة الموارد البشرية والشؤون الإدارية',
-          department_type: 'support',
-          function_type: 'support',
-          sector_type: 'private',
-          cost_center_code: 'CC-HR-001',
-          location: 'المبنى الرئيسي - الطابق الثالث',
-          is_active: true,
-          visibility_level: 'internal',
-          head_count: 8,
-          budget_allocation: 500000,
-          custom_fields: {},
-          sort_order: 1,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-      ];
-      setDepartments(mockDepartments);
+      // Mock data is already set in state
+      setIsLoading(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch departments');
-      console.error('Error fetching departments:', err);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -120,15 +147,14 @@ export const useDepartments = () => {
   // Fetch department positions with mock data
   const fetchPositions = async () => {
     try {
-      // Mock positions data since table doesn't exist yet
       const positions: DepartmentPosition[] = [
         {
           id: '1',
-          department_id: 'dept-1',
+          department_id: '1',
           company_id: 'temp-company-id',
           position_code: 'MGR001',
-          title_ar: 'مدير القسم',
-          title_en: 'Department Manager',
+          title_ar: 'مدير الموارد البشرية',
+          title_en: 'HR Manager',
           description: 'إدارة القسم والإشراف على فريق العمل',
           level: 1,
           reports_to_position_id: null,
@@ -149,11 +175,10 @@ export const useDepartments = () => {
   // Fetch department employees with mock data
   const fetchDepartmentEmployees = async () => {
     try {
-      // Mock employees data since table doesn't exist yet
       const employees: DepartmentEmployee[] = [
         {
           id: '1',
-          department_id: 'dept-1',
+          department_id: '1',
           employee_id: '1',
           position_id: '1',
           assignment_date: new Date().toISOString().split('T')[0],
@@ -173,11 +198,10 @@ export const useDepartments = () => {
   // Fetch department KPIs with mock data
   const fetchDepartmentKPIs = async () => {
     try {
-      // Mock KPIs data since table doesn't exist yet
       const kpis: DepartmentKPI[] = [
         {
           id: '1',
-          department_id: 'dept-1',
+          department_id: '1',
           kpi_name: 'معدل الإنتاجية',
           kpi_type: 'operational',
           target_value: 85,
@@ -198,7 +222,6 @@ export const useDepartments = () => {
   // Create department with mock implementation
   const createDepartment = async (department: Omit<Department, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      // Mock department creation since table structure differs
       const newDepartment: Department = {
         ...department,
         id: Math.random().toString(36).substr(2, 9),
@@ -216,7 +239,6 @@ export const useDepartments = () => {
   // Update department with mock implementation
   const updateDepartment = async (id: string, updates: Partial<Department>) => {
     try {
-      // Mock department update
       const updatedDepartment = departments.find(d => d.id === id);
       if (!updatedDepartment) {
         return { data: null, error: 'Department not found' };
@@ -238,7 +260,6 @@ export const useDepartments = () => {
   // Delete department (soft delete)
   const deleteDepartment = async (id: string) => {
     try {
-      // Mock department deletion
       setDepartments(prev => prev.map(dept => dept.id === id ? { ...dept, is_active: false } : dept));
       return { data: null, error: null };
     } catch (err) {
@@ -249,7 +270,6 @@ export const useDepartments = () => {
   // Get department hierarchy with mock implementation  
   const getDepartmentHierarchy = async (companyId: string) => {
     try {
-      // Mock hierarchy data since RPC function doesn't exist
       const hierarchyData = departments.filter(d => d.company_id === companyId);
       return { data: hierarchyData, error: null };
     } catch (err) {
@@ -257,166 +277,111 @@ export const useDepartments = () => {
     }
   };
 
-  // Create department position
-  const createPosition = async (position: Omit<DepartmentPosition, 'id' | 'created_at' | 'updated_at'>) => {
+  // Assign employee to position (mock implementation)
+  const assignEmployeeToPosition = async (assignment: Omit<DepartmentEmployee, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
-        .from('boud_department_positions')
-        .insert([position])
-        .select()
-        .single();
-
-      if (error) throw error;
+      const newAssignment: DepartmentEmployee = {
+        ...assignment,
+        id: Math.random().toString(36).substr(2, 9),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
       
-      setPositions(prev => [...prev, data]);
-      return data;
+      setDepartmentEmployees(prev => [...prev, newAssignment]);
+      return { data: newAssignment, error: null };
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to create position');
+      return { data: null, error: err instanceof Error ? err.message : 'Failed to assign employee' };
     }
   };
 
-  // Assign employee to department
-  const assignEmployeeToDepartment = async (assignment: Omit<DepartmentEmployee, 'id' | 'created_at' | 'updated_at'>) => {
+  // Create KPI (mock implementation)
+  const createKPI = async (kpi: Omit<DepartmentKPI, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { data, error } = await supabase
-        .from('boud_department_employees')
-        .insert([assignment])
-        .select()
-        .single();
-
-      if (error) throw error;
+      const newKPI: DepartmentKPI = {
+        ...kpi,
+        id: Math.random().toString(36).substr(2, 9),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
       
-      setDepartmentEmployees(prev => [...prev, data]);
-      return data;
+      setDepartmentKPIs(prev => [...prev, newKPI]);
+      return { data: newKPI, error: null };
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to assign employee');
+      return { data: null, error: err instanceof Error ? err.message : 'Failed to create KPI' };
     }
   };
 
-  // Create department KPI
-  const createDepartmentKPI = async (kpi: Omit<DepartmentKPI, 'id' | 'created_at' | 'updated_at'>) => {
+  // Generate export data (mock implementation)
+  const getExportData = async (companyId: string) => {
     try {
-      const { data, error } = await supabase
-        .from('boud_department_kpis')
-        .insert([kpi])
-        .select()
-        .single();
-
-      if (error) throw error;
+      const exportData = {
+        departments: departments.filter(d => d.company_id === companyId),
+        positions: positions,
+        employees: departmentEmployees,
+        kpis: departmentKPIs
+      };
       
-      setDepartmentKPIs(prev => [...prev, data]);
-      return data;
+      return { data: exportData, error: null };
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to create KPI');
+      return { data: null, error: err instanceof Error ? err.message : 'Failed to generate export' };
     }
   };
 
-  // Get AI insights for departments
+  // Import departments data (mock implementation)
+  const importDepartments = async (importData: any[]) => {
+    try {
+      const importedDepartments = importData.map(dept => ({
+        ...dept,
+        id: Math.random().toString(36).substr(2, 9),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })) as Department[];
+      
+      setDepartments(prev => [...prev, ...importedDepartments]);
+      return { data: importedDepartments, error: null };
+    } catch (err) {
+      return { data: null, error: err instanceof Error ? err.message : 'Failed to import departments' };
+    }
+  };
+
+  // Get AI insights (mock implementation)
   const getAIInsights = async () => {
-    // Mock AI insights - in real implementation, this would call an AI service
     return [
       {
         id: '1',
-        type: 'optimization',
-        title: 'تحسين الهيكل التنظيمي',
-        description: 'تم اكتشاف تداخل في مهام قسمي التسويق والمبيعات',
+        type: 'recommendation',
+        title: 'توصية بإعادة هيكلة القسم',
+        description: 'يُنصح بدمج قسم التسويق مع قسم المبيعات لتحسين الكفاءة',
         priority: 'high',
-        recommendation: 'دمج الأقسام أو إعادة توزيع المهام',
-        impact: 'توفير 15% من التكاليف التشغيلية'
-      },
-      {
-        id: '2',
-        type: 'efficiency',
-        title: 'نسبة الموظفين إلى المدير',
-        description: 'قسم تقنية المعلومات يحتاج إلى مدير إضافي',
-        priority: 'medium',
-        recommendation: 'تعيين مدير فرعي للقسم',
-        impact: 'تحسين الكفاءة بنسبة 20%'
-      },
-      {
-        id: '3',
-        type: 'performance',
-        title: 'أداء القسم المالي',
-        description: 'أداء متميز يستحق التقدير',
-        priority: 'low',
-        recommendation: 'برنامج حوافز للفريق',
-        impact: 'الحفاظ على مستوى الأداء العالي'
+        impact: 'medium'
       }
     ];
   };
 
-  // Export departments data
-  const exportDepartments = async (format: 'excel' | 'pdf') => {
-    // Mock export functionality
-    const exportData = departments.map(dept => ({
-      'رمز القسم': dept.department_code,
-      'الاسم بالعربية': dept.name_ar,
-      'الاسم بالإنجليزية': dept.name_en || '',
-      'نوع الوظيفة': dept.function_type,
-      'الموقع': dept.location || '',
-      'عدد الموظفين': dept.head_count,
-      'الميزانية': dept.budget_allocation
-    }));
-
-    console.log(`Exporting departments as ${format}:`, exportData);
-    return exportData;
-  };
-
-  // Import departments data
-  const importDepartments = async (data: any[]) => {
-    try {
-      const { data: imported, error } = await supabase
-        .from('boud_departments')
-        .insert(data)
-        .select();
-
-      if (error) throw error;
-      
-      setDepartments(prev => [...prev, ...imported]);
-      return imported;
-    } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to import departments');
-    }
-  };
-
-  useEffect(() => {
-    fetchDepartments();
-    fetchPositions();
-    fetchDepartmentEmployees();
-    fetchDepartmentKPIs();
-  }, []);
-
   return {
+    // State
     departments,
     positions,
     departmentEmployees,
     departmentKPIs,
     isLoading,
     error,
-    
-    // Department management
+
+    // Actions
     createDepartment,
     updateDepartment,
     deleteDepartment,
     getDepartmentHierarchy,
-    
-    // Position management
-    createPosition,
-    
-    // Employee assignment
-    assignEmployeeToDepartment,
-    
-    // KPI management
-    createDepartmentKPI,
-    
-    // AI and analytics
+    assignEmployeeToPosition,
+    createKPI,
+    getExportData,
+    importDepartments,
     getAIInsights,
     
-    // Import/Export
-    exportDepartments,
-    importDepartments,
-    
-    // Refresh data
-    refetch: fetchDepartments
+    // Utility functions
+    fetchDepartments,
+    fetchPositions,
+    fetchDepartmentEmployees,
+    fetchDepartmentKPIs
   };
 };

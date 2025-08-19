@@ -132,7 +132,9 @@ const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ onBack })
         is_active: true,
         head_count: 0,
         sort_order: 0,
-        function_type: newDepartment.function_type as "strategic" | "operational" | "support"
+        function_type: newDepartment.function_type as "strategic" | "operational" | "support",
+        sector_type: newDepartment.sector_type as "governmental" | "private" | "nonprofit",
+        visibility_level: newDepartment.visibility_level as "internal" | "public" | "hr_only"
       };
       
       await createDepartment(departmentToCreate);
