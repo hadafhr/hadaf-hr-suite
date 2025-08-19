@@ -110,7 +110,7 @@ export const CourseViewer: React.FC<CourseViewerProps> = ({ course, onClose }) =
       maxPoints: 100,
       status: 'pending'
     }
-  ];
+  ]);
 
   // Sample chat messages
   const [chatMessages, setChatMessages] = useState([
