@@ -221,3 +221,53 @@
     transform: translateY(-5px);
   }
 }
+
+/* Professional scrollbar for horizontal navigation */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Smooth scrolling animation */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.nav-slide-in {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* Custom scrollbar styles for horizontal containers */
+.horizontal-icon-nav {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary)) transparent;
+}
+
+.horizontal-icon-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.horizontal-icon-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.horizontal-icon-nav::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 2px;
+}
+
+.horizontal-icon-nav::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary-foreground));
+}
