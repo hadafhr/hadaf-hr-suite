@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Progress } from '@/components/ui/progress';
 import { 
   GraduationCap, 
@@ -33,7 +33,15 @@ import {
   Mic,
   Share2,
   BarChart3,
-  ArrowLeft
+  ArrowLeft,
+  LogIn,
+  Play as PlayIcon,
+  User,
+  Building2,
+  Target,
+  Activity,
+  AlertTriangle,
+  CheckCircle
 } from 'lucide-react';
 
 // Import training components
@@ -47,6 +55,9 @@ import { CertificateManager } from './CertificateManager';
 import { InstructorManagement } from './InstructorManagement';
 import { TrainingAnalytics } from './TrainingAnalytics';
 import { LiveSessionsManager } from './LiveSessionsManager';
+import { TraineeManagement } from './TraineeManagement';
+import { LearningTracksManager } from './LearningTracksManager';
+import { CourseViewer } from './CourseViewer';
 import { useTrainingSystem } from '@/hooks/useTrainingSystem';
 
 interface TrainingDashboardProps {
@@ -56,169 +67,151 @@ interface TrainingDashboardProps {
 export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
-  const [selectedTab, setSelectedTab] = useState('overview');
-  const [selectedView, setSelectedView] = useState('admin');
+  const { courses, stats, loading } = useTrainingSystem();
+  
+  const [selectedTab, setSelectedTab] = useState('dashboard');
+  const [selectedView, setSelectedView] = useState('admin'); // admin, instructor, trainee, hr-admin
   const [showCourseCreator, setShowCourseCreator] = useState(false);
   const [showLiveStream, setShowLiveStream] = useState(false);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
+  const [showCourseViewer, setShowCourseViewer] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
 
-  // Sample data for courses
-  const courses = [
+  // Enhanced sample data for complete functionality
+  const enhancedStats = {
+    ...stats,
+    totalCourses: 45,
+    activeLiveSessions: 8,
+    completedTrainings: 234,
+    topTrainers: 15,
+    totalTrainees: 1247,
+    pendingTasks: 23,
+    thisMonthEnrollments: 156,
+    averageCompletion: 89,
+    certificatesGenerated: 342,
+    ongoingAssignments: 67
+  };
+
+  // Sample upcoming courses with timers
+  const upcomingCourses = [
     {
-      id: 1,
-      title: "أساسيات إدارة المشاريع",
-      englishTitle: "Project Management Fundamentals",
-      description: "دورة شاملة لتعلم مبادئ إدارة المشاريع وأدواتها الحديثة",
-      instructor: "د. محمد الأحمد",
-      duration: "40 ساعة",
-      level: "مبتدئ",
-      enrolled: 145,
-      capacity: 200,
-      progress: 65,
-      rating: 4.8,
-      status: "active",
-      category: "إدارة",
-      format: "hybrid",
-      startDate: "2024-02-01",
-      endDate: "2024-02-29",
-      thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop",
-      isLive: false,
-      hasAI: true
+      id: 'uc1',
+      title: 'إدارة المشاريع المتقدمة',
+      instructor: 'د. محمد الأحمد',
+      startTime: '2024-02-20T14:00:00Z',
+      participants: 45,
+      maxParticipants: 60,
+      isLive: true
     },
     {
-      id: 2,
-      title: "التسويق الرقمي المتقدم",
-      englishTitle: "Advanced Digital Marketing",
-      description: "استراتيجيات التسويق الرقمي وإدارة وسائل التواصل الاجتماعي",
-      instructor: "أ. سارة المطيري",
-      duration: "32 ساعة",
-      level: "متقدم",
-      enrolled: 89,
-      capacity: 150,
-      progress: 100,
-      rating: 4.9,
-      status: "completed",
-      category: "تسويق",
-      format: "online",
-      startDate: "2024-01-15",
-      endDate: "2024-02-15",
-      thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=200&fit=crop",
-      isLive: true,
-      hasAI: true
-    },
-    {
-      id: 3,
-      title: "البرمجة بـ React",
-      englishTitle: "React Programming",
-      description: "تطوير تطبيقات الويب التفاعلية باستخدام مكتبة React",
-      instructor: "م. أحمد العتيبي",
-      duration: "48 ساعة",
-      level: "متوسط",
-      enrolled: 67,
-      capacity: 100,
-      progress: 30,
-      rating: 4.7,
-      status: "active",
-      category: "تقنية",
-      format: "online",
-      startDate: "2024-02-10",
-      endDate: "2024-03-10",
-      thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=300&h=200&fit=crop",
-      isLive: false,
-      hasAI: true
+      id: 'uc2', 
+      title: 'التسويق الرقمي الحديث',
+      instructor: 'أ. سارة المطيري',
+      startTime: '2024-02-20T16:30:00Z',
+      participants: 32,
+      maxParticipants: 50,
+      isLive: false
     }
   ];
 
-  // Learning paths data
-  const learningPaths = [
+  // Recent activity logs
+  const recentActivity = [
+    { id: 1, type: 'enrollment', user: 'أحمد محمد', action: 'تسجيل في دورة React', time: '10:30 ص', icon: BookOpen },
+    { id: 2, type: 'completion', user: 'فاطمة الزهراني', action: 'أكمل دورة إدارة المشاريع', time: '09:45 ص', icon: CheckCircle },
+    { id: 3, type: 'live', user: 'د. محمد الأحمد', action: 'بدأ جلسة مباشرة', time: '09:15 ص', icon: Video },
+    { id: 4, type: 'assignment', user: 'خالد العتيبي', action: 'رفع مهمة التسويق الرقمي', time: '08:30 ص', icon: FileText }
+  ];
+
+  // AI Alerts and recommendations
+  const aiAlerts = [
     {
-      id: 1,
-      title: "مسار تطوير القيادة",
-      courses: 5,
-      duration: "120 ساعة",
-      progress: 60,
-      description: "برنامج متكامل لتطوير المهارات القيادية والإدارية",
-      enrolled: 45
+      type: 'warning',
+      title: 'انخفاض في التفاعل',
+      message: 'دورة البرمجة تحتاج لمراجعة المحتوى - معدل المشاركة 45%',
+      priority: 'high'
     },
     {
-      id: 2,
-      title: "مسار التقنية والبرمجة",
-      courses: 8,
-      duration: "180 ساعة",
-      progress: 35,
-      description: "مسار شامل لتعلم أحدث التقنيات والأدوات البرمجية",
-      enrolled: 67
+      type: 'success',
+      title: 'أداء ممتاز',
+      message: 'دورة إدارة المشاريع حققت معدل إكمال 96%',
+      priority: 'low'
     },
     {
-      id: 3,
-      title: "مسار المالية والمحاسبة",
-      courses: 6,
-      duration: "150 ساعة",
-      progress: 80,
-      description: "دورات متخصصة في المالية والمحاسبة والتخطيط المالي",
-      enrolled: 34
+      type: 'info',
+      title: 'توصية جديدة',
+      message: 'ينصح بإضافة دورة في الذكاء الاصطناعي للقسم التقني',
+      priority: 'medium'
     }
   ];
 
-  // Statistics data
-  const stats = {
-    activeCourses: 24,
-    totalLearners: 1247,
-    certificatesIssued: 342,
-    liveSessions: 8,
-    completionRate: 94,
-    averageRating: 4.8,
-    totalHours: 15680,
-    activeInstructors: 15
-  };
-
-  // Filter courses based on search and filter
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.englishTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = selectedFilter === 'all' || course.status === selectedFilter;
-    return matchesSearch && matchesFilter;
-  });
-
-  // Utility functions for badges
-  const getStatusBadge = (status: string) => {
-    const statusConfig = {
-      active: { text: isRTL ? 'نشط' : 'Active', className: 'bg-green-500/10 text-green-500 border-green-500/20' },
-      completed: { text: isRTL ? 'مكتمل' : 'Completed', className: 'bg-gray-500/10 text-gray-500 border-gray-500/20' },
-      upcoming: { text: isRTL ? 'قادم' : 'Upcoming', className: 'bg-blue-500/10 text-blue-500 border-blue-500/20' }
-    };
-    return statusConfig[status as keyof typeof statusConfig];
-  };
-
-  const getFormatBadge = (format: string) => {
-    const formatConfig = {
-      online: { text: isRTL ? 'إلكتروني' : 'Online', className: 'bg-purple-500/10 text-purple-500 border-purple-500/20' },
-      offline: { text: isRTL ? 'حضوري' : 'In-Person', className: 'bg-orange-500/10 text-orange-500 border-orange-500/20' },
-      hybrid: { text: isRTL ? 'مدمج' : 'Hybrid', className: 'bg-blue-500/10 text-blue-500 border-blue-500/20' }
-    };
-    return formatConfig[format as keyof typeof formatConfig];
-  };
-
-  const getLevelBadge = (level: string) => {
-    const levelConfig = {
-      'مبتدئ': { text: 'مبتدئ', className: 'bg-green-500/10 text-green-500 border-green-500/20' },
-      'متوسط': { text: 'متوسط', className: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' },
-      'متقدم': { text: 'متقدم', className: 'bg-red-500/10 text-red-500 border-red-500/20' }
-    };
-    return levelConfig[level as keyof typeof levelConfig];
+  // Handle entering a course (live or recorded)
+  const handleEnterCourse = (course: any) => {
+    if (course.isLive) {
+      setSelectedCourse(course);
+      setShowLiveStream(true);
+    } else {
+      setSelectedCourse(course);
+      setShowCourseViewer(true);
+    }
   };
 
   // Render different views based on user role
   if (selectedView === 'instructor') {
-    return <InstructorDashboard />;
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="flex items-center justify-between p-6 border-b">
+          <Button variant="outline" size="sm" onClick={onBack}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {isRTL ? 'رجوع' : 'Back'}
+          </Button>
+          <div className="flex gap-2">
+            {['admin', 'trainee', 'hr-admin'].map((role) => (
+              <Button
+                key={role}
+                variant={selectedView === role ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedView(role)}
+              >
+                {role === 'admin' ? (isRTL ? 'مشرف تدريب' : 'Training Admin') :
+                 role === 'trainee' ? (isRTL ? 'متدرب' : 'Trainee') :
+                 (isRTL ? 'مدير الموارد البشرية' : 'HR Admin')}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <InstructorDashboard />
+      </div>
+    );
   }
 
-  if (selectedView === 'student') {
-    return <StudentDashboard />;
+  if (selectedView === 'trainee') {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="flex items-center justify-between p-6 border-b">
+          <Button variant="outline" size="sm" onClick={onBack}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {isRTL ? 'رجوع' : 'Back'}
+          </Button>
+          <div className="flex gap-2">
+            {['admin', 'instructor', 'hr-admin'].map((role) => (
+              <Button
+                key={role}
+                variant={selectedView === role ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedView(role)}
+              >
+                {role === 'admin' ? (isRTL ? 'مشرف تدريب' : 'Training Admin') :
+                 role === 'instructor' ? (isRTL ? 'مدرب' : 'Instructor') :
+                 (isRTL ? 'مدير الموارد البشرية' : 'HR Admin')}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <StudentDashboard />
+      </div>
+    );
   }
 
   return (
@@ -239,10 +232,10 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
             </Button>
             <div>
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                {isRTL ? 'منصة التدريب التفاعلية المتكاملة' : 'AI-Powered Interactive Training System'}
+                {isRTL ? 'نظام التدريب والتطوير المتكامل' : 'Complete Training & Development System'}
               </h1>
               <p className="text-muted-foreground">
-                {isRTL ? 'منصة احترافية للتدريب والتطوير المؤسسي بالذكاء الاصطناعي والبث المباشر' : 'Professional platform for institutional training and development with AI and live streaming'}
+                {isRTL ? 'منصة احترافية شاملة للتدريب المؤسسي بالذكاء الاصطناعي والتحليلات المتقدمة' : 'Professional comprehensive platform for corporate training with AI and advanced analytics'}
               </p>
             </div>
           </div>
@@ -257,7 +250,7 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
                 className="text-xs"
               >
                 <Settings className="h-3 w-3 mr-1" />
-                {isRTL ? 'مشرف' : 'Admin'}
+                {isRTL ? 'مشرف تدريب' : 'Training Admin'}
               </Button>
               <Button
                 variant={selectedView === 'instructor' ? 'default' : 'ghost'}
@@ -269,13 +262,22 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
                 {isRTL ? 'مدرب' : 'Instructor'}
               </Button>
               <Button
-                variant={selectedView === 'student' ? 'default' : 'ghost'}
+                variant={selectedView === 'trainee' ? 'default' : 'ghost'}
                 size="sm"
-                onClick={() => setSelectedView('student')}
+                onClick={() => setSelectedView('trainee')}
                 className="text-xs"
               >
                 <GraduationCap className="h-3 w-3 mr-1" />
-                {isRTL ? 'متدرب' : 'Student'}
+                {isRTL ? 'متدرب' : 'Trainee'}
+              </Button>
+              <Button
+                variant={selectedView === 'hr-admin' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setSelectedView('hr-admin')}
+                className="text-xs"
+              >
+                <Building2 className="h-3 w-3 mr-1" />
+                {isRTL ? 'إدارة الموارد البشرية' : 'HR Admin'}
               </Button>
             </div>
 
@@ -290,206 +292,210 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
             </Button>
 
             {/* Create Course Button */}
-            <Dialog open={showCourseCreator} onOpenChange={setShowCourseCreator}>
-              <DialogTrigger asChild>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  <Plus className="h-4 w-4 mr-2" />
-                  {isRTL ? 'إنشاء دورة جديدة' : 'Create New Course'}
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>{isRTL ? 'إنشاء دورة تدريبية جديدة' : 'Create New Training Course'}</DialogTitle>
-                </DialogHeader>
-                <CourseCreator />
-              </DialogContent>
-            </Dialog>
+            <Button
+              onClick={() => setShowCourseCreator(true)}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              {isRTL ? 'إنشاء دورة جديدة' : 'Create New Course'}
+            </Button>
           </div>
         </div>
 
-        {/* Enhanced Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الدورات النشطة' : 'Active Courses'}
-                  </p>
-                  <p className="text-2xl font-bold text-foreground">{stats.activeCourses}</p>
-                  <p className="text-xs text-green-500 flex items-center mt-1">
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    {isRTL ? '+12% هذا الشهر' : '+12% this month'}
-                  </p>
-                </div>
-                <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'المتدربين النشطين' : 'Active Learners'}
-                  </p>
-                  <p className="text-2xl font-bold text-foreground">{stats.totalLearners.toLocaleString()}</p>
-                  <p className="text-xs text-green-500 flex items-center mt-1">
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    {isRTL ? '+156 متدرب جديد' : '+156 new learners'}
-                  </p>
-                </div>
-                <div className="h-12 w-12 bg-blue-500/10 rounded-lg flex items-center justify-center">
-                  <Users className="h-6 w-6 text-blue-500" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الشهادات الصادرة' : 'Certificates Issued'}
-                  </p>
-                  <p className="text-2xl font-bold text-green-500">{stats.certificatesIssued}</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {isRTL ? `معدل نجاح ${stats.completionRate}%` : `${stats.completionRate}% completion rate`}
-                  </p>
-                </div>
-                <div className="h-12 w-12 bg-green-500/10 rounded-lg flex items-center justify-center">
-                  <Award className="h-6 w-6 text-green-500" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الجلسات المباشرة' : 'Live Sessions'}
-                  </p>
-                  <p className="text-2xl font-bold text-red-500">{stats.liveSessions}</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {isRTL ? 'جاري الآن' : 'Currently active'}
-                  </p>
-                </div>
-                <div className="h-12 w-12 bg-red-500/10 rounded-lg flex items-center justify-center">
-                  <Video className="h-6 w-6 text-red-500 animate-pulse" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Button 
-            variant="outline" 
-            className="h-16 flex flex-col items-center justify-center border-border hover:bg-accent/50 transition-colors"
-            onClick={() => setShowLiveStream(true)}
-          >
-            <Video className="h-5 w-5 mb-1 text-red-500" />
-            <span className="text-sm">{isRTL ? 'بدء بث مباشر' : 'Start Live Stream'}</span>
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            className="h-16 flex flex-col items-center justify-center border-border hover:bg-accent/50 transition-colors"
-            onClick={() => setShowCourseCreator(true)}
-          >
-            <Plus className="h-5 w-5 mb-1 text-primary" />
-            <span className="text-sm">{isRTL ? 'إنشاء دورة' : 'Create Course'}</span>
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            className="h-16 flex flex-col items-center justify-center border-border hover:bg-accent/50 transition-colors"
-            onClick={() => setSelectedTab('instructors')}
-          >
-            <UserCheck className="h-5 w-5 mb-1 text-blue-500" />
-            <span className="text-sm">{isRTL ? 'إدارة المدربين' : 'Manage Instructors'}</span>
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            className="h-16 flex flex-col items-center justify-center border-border hover:bg-accent/50 transition-colors"
-            onClick={() => setShowAIAssistant(true)}
-          >
-            <Brain className="h-5 w-5 mb-1 text-purple-500" />
-            <span className="text-sm">{isRTL ? 'المساعد الذكي' : 'AI Assistant'}</span>
-          </Button>
-        </div>
-
-        {/* AI Assistant Dialog */}
-        <Dialog open={showAIAssistant} onOpenChange={setShowAIAssistant}>
-          <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Brain className="h-5 w-5 text-primary" />
-                {isRTL ? 'المساعد الذكي للتدريب' : 'AI Training Assistant'}
-              </DialogTitle>
-            </DialogHeader>
-            <AIAssistant onClose={() => setShowAIAssistant(false)} />
-          </DialogContent>
-        </Dialog>
-
-        {/* Live Stream Dialog */}
-        <Dialog open={showLiveStream} onOpenChange={setShowLiveStream}>
-          <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Video className="h-5 w-5 text-red-500" />
-                {isRTL ? 'البث المباشر التفاعلي' : 'Interactive Live Streaming'}
-              </DialogTitle>
-            </DialogHeader>
-            <LiveStreamPlayer 
-              sessionId="demo-session"
-              isInstructor={true}
-              onJoinSession={() => console.log('Joined session')}
-              onLeaveSession={() => setShowLiveStream(false)}
-            />
-          </DialogContent>
-        </Dialog>
-
-        {/* Enhanced Main Content */}
+        {/* Main Navigation Tabs */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7 bg-card border border-border">
-            <TabsTrigger value="overview" className="text-sm">{isRTL ? 'نظرة عامة' : 'Overview'}</TabsTrigger>
-            <TabsTrigger value="courses" className="text-sm">{isRTL ? 'الدورات' : 'Courses'}</TabsTrigger>
-            <TabsTrigger value="live" className="text-sm">{isRTL ? 'البث المباشر' : 'Live Sessions'}</TabsTrigger>
-            <TabsTrigger value="instructors" className="text-sm">{isRTL ? 'المدربين' : 'Instructors'}</TabsTrigger>
-            <TabsTrigger value="paths" className="text-sm">{isRTL ? 'المسارات' : 'Learning Paths'}</TabsTrigger>
-            <TabsTrigger value="assessments" className="text-sm">{isRTL ? 'التقييمات' : 'Assessments'}</TabsTrigger>
-            <TabsTrigger value="analytics" className="text-sm">{isRTL ? 'التحليلات' : 'Analytics'}</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-8 bg-card border border-border">
+            <TabsTrigger value="dashboard" className="text-sm font-medium">
+              <Monitor className="h-4 w-4 mr-1" />
+              {isRTL ? 'لوحة التحكم' : 'Dashboard'}
+            </TabsTrigger>
+            <TabsTrigger value="courses" className="text-sm font-medium">
+              <BookOpen className="h-4 w-4 mr-1" />
+              {isRTL ? 'الدورات التدريبية' : 'Training Courses'}
+            </TabsTrigger>
+            <TabsTrigger value="certificates" className="text-sm font-medium">
+              <Award className="h-4 w-4 mr-1" />
+              {isRTL ? 'الشهادات' : 'Certificates'}
+            </TabsTrigger>
+            <TabsTrigger value="trainees" className="text-sm font-medium">
+              <Users className="h-4 w-4 mr-1" />
+              {isRTL ? 'المتدربين' : 'Trainees'}
+            </TabsTrigger>
+            <TabsTrigger value="learning-tracks" className="text-sm font-medium">
+              <Target className="h-4 w-4 mr-1" />
+              {isRTL ? 'مسارات التعلم' : 'Learning Tracks'}
+            </TabsTrigger>
+            <TabsTrigger value="live-sessions" className="text-sm font-medium">
+              <Video className="h-4 w-4 mr-1" />
+              {isRTL ? 'البث المباشر' : 'Live Sessions'}
+            </TabsTrigger>
+            <TabsTrigger value="instructors" className="text-sm font-medium">
+              <UserCheck className="h-4 w-4 mr-1" />
+              {isRTL ? 'المدربين' : 'Instructors'}
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="text-sm font-medium">
+              <BarChart3 className="h-4 w-4 mr-1" />
+              {isRTL ? 'التحليلات والتقارير' : 'Analytics & Reports'}
+            </TabsTrigger>
           </TabsList>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Dashboard Tab - Main Overview */}
+          <TabsContent value="dashboard" className="space-y-6">
+            {/* Key Statistics Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {isRTL ? 'إجمالي الدورات' : 'Total Courses'}
+                      </p>
+                      <p className="text-2xl font-bold text-foreground">{enhancedStats.totalCourses}</p>
+                      <p className="text-xs text-green-500 flex items-center mt-1">
+                        <TrendingUp className="h-3 w-3 mr-1" />
+                        {isRTL ? '+8 هذا الشهر' : '+8 this month'}
+                      </p>
+                    </div>
+                    <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <BookOpen className="h-6 w-6 text-primary" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {isRTL ? 'جلسات مباشرة نشطة' : 'Active Live Sessions'}
+                      </p>
+                      <p className="text-2xl font-bold text-red-500">{enhancedStats.activeLiveSessions}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {isRTL ? 'جاري الآن' : 'Currently running'}
+                      </p>
+                    </div>
+                    <div className="h-12 w-12 bg-red-500/10 rounded-lg flex items-center justify-center">
+                      <Video className="h-6 w-6 text-red-500 animate-pulse" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {isRTL ? 'التدريبات المكتملة' : 'Completed Trainings'}
+                      </p>
+                      <p className="text-2xl font-bold text-green-500">{enhancedStats.completedTrainings}</p>
+                      <p className="text-xs text-green-500 flex items-center mt-1">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        {isRTL ? `معدل إكمال ${enhancedStats.averageCompletion}%` : `${enhancedStats.averageCompletion}% completion rate`}
+                      </p>
+                    </div>
+                    <div className="h-12 w-12 bg-green-500/10 rounded-lg flex items-center justify-center">
+                      <Award className="h-6 w-6 text-green-500" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border bg-card hover:shadow-lg transition-all duration-200">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {isRTL ? 'إجمالي المتدربين' : 'Total Trainees'}
+                      </p>
+                      <p className="text-2xl font-bold text-blue-500">{enhancedStats.totalTrainees.toLocaleString()}</p>
+                      <p className="text-xs text-blue-500 flex items-center mt-1">
+                        <TrendingUp className="h-3 w-3 mr-1" />
+                        {isRTL ? `+${enhancedStats.thisMonthEnrollments} هذا الشهر` : `+${enhancedStats.thisMonthEnrollments} this month`}
+                      </p>
+                    </div>
+                    <div className="h-12 w-12 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                      <Users className="h-6 w-6 text-blue-500" />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Upcoming Courses with Timer */}
+            <Card className="border-border bg-card">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-primary" />
+                    {isRTL ? 'الدورات القادمة' : 'Upcoming Courses'}
+                  </div>
+                  <Badge variant="outline" className="animate-pulse">
+                    {isRTL ? 'مباشر' : 'LIVE'}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {upcomingCourses.map((course) => (
+                    <div key={course.id} className="p-4 border border-border rounded-lg bg-accent/5">
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h3 className="font-semibold">{course.title}</h3>
+                          <p className="text-sm text-muted-foreground">{course.instructor}</p>
+                        </div>
+                        {course.isLive && (
+                          <div className="flex items-center gap-1 text-red-500 text-xs">
+                            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                            {isRTL ? 'مباشر' : 'LIVE'}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center justify-between text-sm mb-3">
+                        <span>{new Date(course.startTime).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}</span>
+                        <span>{course.participants}/{course.maxParticipants} {isRTL ? 'مشارك' : 'participants'}</span>
+                      </div>
+                      <Button 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => handleEnterCourse(course)}
+                      >
+                        <LogIn className="h-4 w-4 mr-2" />
+                        {course.isLive ? (isRTL ? 'دخول البث المباشر' : 'Enter Live Session') : (isRTL ? 'دخول الدورة' : 'Enter Course')}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* AI Alerts and Recent Activity */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* AI Alerts */}
               <Card className="border-border bg-card">
                 <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-primary" />
-                    {isRTL ? 'الدورات الحديثة' : 'Recent Courses'}
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-purple-500" />
+                    {isRTL ? 'تنبيهات الذكاء الاصطناعي' : 'AI Alerts & Recommendations'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {courses.slice(0, 3).map((course) => (
-                      <div key={course.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/50">
-                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <BookOpen className="h-4 w-4 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium text-sm">{course.title}</p>
-                          <p className="text-xs text-muted-foreground">{course.instructor}</p>
+                    {aiAlerts.map((alert, index) => (
+                      <div key={index} className={`p-3 rounded-lg border ${
+                        alert.type === 'warning' ? 'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/10' :
+                        alert.type === 'success' ? 'bg-green-50 border-green-200 dark:bg-green-900/10' :
+                        'bg-blue-50 border-blue-200 dark:bg-blue-900/10'
+                      }`}>
+                        <div className="flex items-start gap-3">
+                          {alert.type === 'warning' && <AlertTriangle className="h-4 w-4 text-yellow-500 mt-0.5" />}
+                          {alert.type === 'success' && <CheckCircle className="h-4 w-4 text-green-500 mt-0.5" />}
+                          {alert.type === 'info' && <Target className="h-4 w-4 text-blue-500 mt-0.5" />}
+                          <div className="flex-1">
+                            <p className="font-medium text-sm">{alert.title}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{alert.message}</p>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -497,63 +503,54 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
                 </CardContent>
               </Card>
 
+              {/* Recent Activity */}
               <Card className="border-border bg-card">
                 <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Video className="h-5 w-5 text-red-500" />
-                    {isRTL ? 'الجلسات المباشرة' : 'Live Sessions'}
+                  <CardTitle className="flex items-center gap-2">
+                    <Activity className="h-5 w-5 text-green-500" />
+                    {isRTL ? 'النشاط الأخير' : 'Recent Activity'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-2 rounded-lg bg-red-50 border border-red-200">
-                      <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">التسويق الرقمي المتقدم</p>
-                        <p className="text-xs text-muted-foreground">89 مشارك</p>
+                    {recentActivity.map((activity) => (
+                      <div key={activity.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/50">
+                        <div className={`h-8 w-8 rounded-full flex items-center justify-center ${
+                          activity.type === 'completion' ? 'bg-green-500/10' :
+                          activity.type === 'live' ? 'bg-red-500/10' :
+                          activity.type === 'enrollment' ? 'bg-blue-500/10' :
+                          'bg-purple-500/10'
+                        }`}>
+                          <activity.icon className={`h-4 w-4 ${
+                            activity.type === 'completion' ? 'text-green-500' :
+                            activity.type === 'live' ? 'text-red-500' :
+                            activity.type === 'enrollment' ? 'text-blue-500' :
+                            'text-purple-500'
+                          }`} />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{activity.user}</p>
+                          <p className="text-xs text-muted-foreground">{activity.action}</p>
+                        </div>
+                        <span className="text-xs text-muted-foreground">{activity.time}</span>
                       </div>
-                    </div>
-                    <div className="text-center py-4">
-                      <Button size="sm" onClick={() => setShowLiveStream(true)}>
-                        <Video className="h-4 w-4 mr-2" />
-                        {isRTL ? 'بدء جلسة جديدة' : 'Start New Session'}
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border bg-card">
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Award className="h-5 w-5 text-green-500" />
-                    {isRTL ? 'الإنجازات الأخيرة' : 'Recent Achievements'}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/50">
-                      <Award className="h-8 w-8 text-yellow-500" />
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">23 شهادة جديدة</p>
-                        <p className="text-xs text-muted-foreground">تم إصدارها اليوم</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/50">
-                      <TrendingUp className="h-8 w-8 text-green-500" />
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">معدل إكمال 94%</p>
-                        <p className="text-xs text-muted-foreground">تحسن بنسبة 5%</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
 
-          {/* Courses Tab */}
+          {/* Training Courses Tab */}
           <TabsContent value="courses" className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold">{isRTL ? 'الدورات التدريبية' : 'Training Courses'}</h2>
+              <Button onClick={() => setShowCourseCreator(true)}>
+                <Plus className="h-4 w-4 mr-2" />
+                {isRTL ? 'إضافة دورة جديدة' : 'Add New Course'}
+              </Button>
+            </div>
+
             {/* Search and Filter */}
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
@@ -576,232 +573,201 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
                   {isRTL ? 'الكل' : 'All'}
                 </Button>
                 <Button
+                  variant={selectedFilter === 'live' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedFilter('live')}
+                >
+                  {isRTL ? 'مباشر' : 'Live'}
+                </Button>
+                <Button
+                  variant={selectedFilter === 'recorded' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedFilter('recorded')}
+                >
+                  {isRTL ? 'مسجل' : 'Recorded'}
+                </Button>
+                <Button
                   variant={selectedFilter === 'active' ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setSelectedFilter('active')}
                 >
                   {isRTL ? 'نشط' : 'Active'}
                 </Button>
-                <Button
-                  variant={selectedFilter === 'completed' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedFilter('completed')}
-                >
-                  {isRTL ? 'مكتمل' : 'Completed'}
-                </Button>
               </div>
             </div>
 
             {/* Courses Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCourses.map((course) => {
-                const statusBadge = getStatusBadge(course.status);
-                const formatBadge = getFormatBadge(course.format);
-                const levelBadge = getLevelBadge(course.level);
-                
-                return (
-                  <Card key={course.id} className="border-border bg-card hover:shadow-xl transition-all duration-300 overflow-hidden group">
-                    <div className="relative">
-                      <img 
-                        src={course.thumbnail} 
-                        alt={course.title}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              {courses.map((course) => (
+                <Card key={course.id} className="border-border bg-card hover:shadow-xl transition-all duration-300 overflow-hidden group">
+                  <div className="relative">
+                    <img 
+                      src={course.thumbnail} 
+                      alt={course.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    
+                    {/* Live indicator */}
+                    {course.isLive && (
+                      <div className="absolute top-3 left-3 flex items-center gap-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                        {isRTL ? 'مباشر الآن' : 'LIVE NOW'}
+                      </div>
+                    )}
+
+                    {/* AI badge */}
+                    {course.hasAI && (
+                      <div className="absolute top-3 right-3 bg-purple-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
+                        <Brain className="h-3 w-3" />
+                        AI
+                      </div>
+                    )}
+                  </div>
+
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg mb-1 line-clamp-2">{course.title}</CardTitle>
+                    <p className="text-sm text-muted-foreground mb-2">{course.englishTitle}</p>
+                  </CardHeader>
+
+                  <CardContent className="pt-0">
+                    <div className="space-y-4">
+                      <p className="text-sm text-muted-foreground line-clamp-2">{course.description}</p>
                       
-                      {/* Live indicator */}
-                      {course.isLive && (
-                        <div className="absolute top-3 left-3 flex items-center gap-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs">
-                          <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                          {isRTL ? 'مباشر الآن' : 'LIVE NOW'}
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">{isRTL ? 'المدرب:' : 'Instructor:'}</span>
+                          <span className="font-medium">{course.instructor}</span>
                         </div>
-                      )}
-
-                      {/* AI badge */}
-                      {course.hasAI && (
-                        <div className="absolute top-3 right-3 bg-purple-500 text-white px-2 py-1 rounded-full text-xs flex items-center gap-1">
-                          <Brain className="h-3 w-3" />
-                          AI
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">{isRTL ? 'المدة:' : 'Duration:'}</span>
+                          <span>{course.duration}</span>
                         </div>
-                      )}
-
-                      {/* Course level and format badges */}
-                      <div className="absolute bottom-3 left-3 flex gap-2">
-                        <Badge className={`${statusBadge.className} text-xs`}>
-                          {statusBadge.text}
-                        </Badge>
-                        <Badge className={`${formatBadge.className} text-xs`}>
-                          {formatBadge.text}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex-1">
-                          <CardTitle className="text-lg mb-1 line-clamp-2">{course.title}</CardTitle>
-                          <p className="text-sm text-muted-foreground mb-2">{course.englishTitle}</p>
-                          <Badge className={`${levelBadge.className} text-xs w-fit`}>
-                            {levelBadge.text}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center gap-1 text-yellow-500">
-                          <Star className="h-4 w-4 fill-current" />
-                          <span className="text-sm font-medium">{course.rating}</span>
-                        </div>
-                      </div>
-                    </CardHeader>
-
-                    <CardContent className="pt-0">
-                      <div className="space-y-4">
-                        <p className="text-sm text-muted-foreground line-clamp-2">{course.description}</p>
-                        
-                        <div className="space-y-3 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              <UserCheck className="h-3 w-3" />
-                              {isRTL ? 'المدرب:' : 'Instructor:'}
-                            </span>
-                            <span className="font-medium">{course.instructor}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              <Clock className="h-3 w-3" />
-                              {isRTL ? 'المدة:' : 'Duration:'}
-                            </span>
-                            <span>{course.duration}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              <Users className="h-3 w-3" />
-                              {isRTL ? 'المسجلين:' : 'Enrolled:'}
-                            </span>
-                            <span className="font-medium">{course.enrolled}/{course.capacity}</span>
-                          </div>
-                        </div>
-
-                        {/* Enrollment Progress */}
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span>{isRTL ? 'نسبة الحجز' : 'Enrollment'}</span>
-                            <span>{Math.round((course.enrolled / course.capacity) * 100)}%</span>
-                          </div>
-                          <Progress 
-                            value={(course.enrolled / course.capacity) * 100}
-                            className="h-2"
-                          />
-                        </div>
-
-                        {/* Course Progress */}
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span>{isRTL ? 'التقدم' : 'Progress'}</span>
-                            <span>{course.progress}%</span>
-                          </div>
-                          <Progress 
-                            value={course.progress}
-                            className="h-2"
-                          />
-                        </div>
-
-                        <div className="flex justify-between text-xs text-muted-foreground">
-                          <span>{isRTL ? 'من' : 'From'} {course.startDate}</span>
-                          <span>{isRTL ? 'إلى' : 'To'} {course.endDate}</span>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">{isRTL ? 'المسجلين:' : 'Enrolled:'}</span>
+                          <span>{course.enrolled}/{course.capacity}</span>
                         </div>
                       </div>
 
-                      <div className="flex gap-2 mt-6">
-                        <Button size="sm" variant="outline" className="flex-1 border-border hover:bg-accent">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>{isRTL ? 'التقدم' : 'Progress'}</span>
+                          <span>{course.progress}%</span>
+                        </div>
+                        <Progress value={course.progress} className="h-2" />
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Button 
+                          size="sm" 
+                          className="flex-1 bg-primary hover:bg-primary/90"
+                          onClick={() => handleEnterCourse(course)}
+                        >
+                          <LogIn className="h-3 w-3 mr-1" />
+                          {course.isLive ? (isRTL ? 'دخول مباشر' : 'Enter Live') : (isRTL ? 'دخول الدورة' : 'Enter Course')}
+                        </Button>
+                        <Button size="sm" variant="outline">
                           <Eye className="h-3 w-3 mr-1" />
                           {isRTL ? 'عرض' : 'View'}
                         </Button>
-                        {course.isLive && (
-                          <Button size="sm" className="flex-1 bg-red-500 hover:bg-red-600 text-white">
-                            <Video className="h-3 w-3 mr-1" />
-                            {isRTL ? 'انضمام' : 'Join Live'}
-                          </Button>
-                        )}
-                        {!course.isLive && (
-                          <Button size="sm" variant="outline" className="flex-1 border-border hover:bg-accent">
-                            <Play className="h-3 w-3 mr-1" />
-                            {isRTL ? 'بدء' : 'Start'}
-                          </Button>
-                        )}
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="live">
+          {/* Certificates Tab */}
+          <TabsContent value="certificates">
+            <CertificateManager />
+          </TabsContent>
+
+          {/* Trainees Tab */}
+          <TabsContent value="trainees">
+            <TraineeManagement />
+          </TabsContent>
+
+          {/* Learning Tracks Tab */}
+          <TabsContent value="learning-tracks">
+            <LearningTracksManager />
+          </TabsContent>
+
+          {/* Live Sessions Tab */}
+          <TabsContent value="live-sessions">
             <LiveSessionsManager />
           </TabsContent>
 
+          {/* Instructors Tab */}
           <TabsContent value="instructors">
             <InstructorManagement />
           </TabsContent>
 
-          <TabsContent value="paths">
-            <div className="space-y-6">
-              <div className="flex justify-between items-center">
-                <h3 className="text-xl font-bold">{isRTL ? 'المسارات التعليمية' : 'Learning Paths'}</h3>
-                <Button>
-                  <Plus className="h-4 w-4 mr-2" />
-                  {isRTL ? 'مسار جديد' : 'New Path'}
-                </Button>
-              </div>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {learningPaths.map((path) => (
-                  <Card key={path.id} className="border-border bg-card hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <CardTitle className="text-lg">{path.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground">{path.description}</p>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex justify-between text-sm">
-                          <span>{isRTL ? 'الدورات:' : 'Courses:'}</span>
-                          <span className="font-medium">{path.courses}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span>{isRTL ? 'المدة الإجمالية:' : 'Total Duration:'}</span>
-                          <span>{path.duration}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span>{isRTL ? 'المسجلين:' : 'Enrolled:'}</span>
-                          <span>{path.enrolled}</span>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span>{isRTL ? 'التقدم' : 'Progress'}</span>
-                            <span>{path.progress}%</span>
-                          </div>
-                          <Progress value={path.progress} className="h-2" />
-                        </div>
-                        
-                        <Button className="w-full" variant="outline">
-                          {isRTL ? 'عرض المسار' : 'View Path'}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="assessments">
-            <AssessmentManager />
-          </TabsContent>
-
+          {/* Analytics Tab */}
           <TabsContent value="analytics">
             <TrainingAnalytics />
           </TabsContent>
         </Tabs>
+
+        {/* Dialogs */}
+        
+        {/* Course Creator Dialog */}
+        <Dialog open={showCourseCreator} onOpenChange={setShowCourseCreator}>
+          <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{isRTL ? 'إنشاء دورة تدريبية جديدة' : 'Create New Training Course'}</DialogTitle>
+            </DialogHeader>
+            <CourseCreator />
+          </DialogContent>
+        </Dialog>
+
+        {/* AI Assistant Dialog */}
+        <Dialog open={showAIAssistant} onOpenChange={setShowAIAssistant}>
+          <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Brain className="h-5 w-5 text-primary" />
+                {isRTL ? 'المساعد الذكي للتدريب' : 'AI Training Assistant'}
+              </DialogTitle>
+            </DialogHeader>
+            <AIAssistant onClose={() => setShowAIAssistant(false)} />
+          </DialogContent>
+        </Dialog>
+
+        {/* Live Stream Dialog */}
+        <Dialog open={showLiveStream} onOpenChange={setShowLiveStream}>
+          <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Video className="h-5 w-5 text-red-500" />
+                {selectedCourse?.title || (isRTL ? 'البث المباشر التفاعلي' : 'Interactive Live Session')}
+              </DialogTitle>
+            </DialogHeader>
+            <LiveStreamPlayer 
+              sessionId={selectedCourse?.id || "demo-session"}
+              isInstructor={selectedView === 'instructor' || selectedView === 'admin'}
+              onJoinSession={() => console.log('Joined session')}
+              onLeaveSession={() => setShowLiveStream(false)}
+            />
+          </DialogContent>
+        </Dialog>
+
+        {/* Course Viewer Dialog */}
+        <Dialog open={showCourseViewer} onOpenChange={setShowCourseViewer}>
+          <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <PlayIcon className="h-5 w-5 text-primary" />
+                {selectedCourse?.title || (isRTL ? 'مشاهدة الدورة' : 'Course Viewer')}
+              </DialogTitle>
+            </DialogHeader>
+            <CourseViewer 
+              course={selectedCourse}
+              onClose={() => setShowCourseViewer(false)}
+            />
+          </DialogContent>
+        </Dialog>
+
       </div>
     </div>
   );
