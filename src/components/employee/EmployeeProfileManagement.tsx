@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,506 +6,504 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { 
-  User, Edit, Upload, FileText, Camera, Phone, 
-  Mail, MapPin, Calendar, Briefcase, GraduationCap,
-  Building2, CreditCard, Heart, Shield, Eye, EyeOff, Lock
+import { toast } from 'sonner';
+import {
+  User,
+  Edit,
+  Upload,
+  Download,
+  FileText,
+  Calendar,
+  Phone,
+  Mail,
+  MapPin,
+  Building2,
+  Briefcase,
+  GraduationCap,
+  Users,
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  Star,
+  Award,
+  Target,
+  Eye,
+  Plus
 } from 'lucide-react';
-import { useSecureEmployeeData } from '@/hooks/useSecureEmployeeData';
-import { useToast } from '@/hooks/use-toast';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
-export function EmployeeProfileManagement() {
-  const [editMode, setEditMode] = useState(false);
-  const [showDocuments, setShowDocuments] = useState(false);
-  const [showSensitiveData, setShowSensitiveData] = useState<{ [key: string]: boolean }>({});
-  const [decryptedData, setDecryptedData] = useState<{ [key: string]: any }>({});
-  
-  const { 
-    employees, 
-    fullEmployeeData, 
-    isLoading, 
-    fetchFullEmployeeData,
-    getDecryptedSensitiveData, 
-    updateEmployee 
-  } = useSecureEmployeeData();
-  
-  const { toast } = useToast();
+export const EmployeeProfileManagement: React.FC = () => {
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [isUploadingDocument, setIsUploadingDocument] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<any>(null);
 
-  // Load full employee data on mount
-  useEffect(() => {
-    fetchFullEmployeeData();
-  }, []);
+  // Mock employee data
+  const employeeData = {
+    id: 'EMP001',
+    name: 'أحمد محمد العلي',
+    nameEn: 'Ahmed Mohammed Al-Ali',
+    position: 'مطور برمجيات أول',
+    department: 'تقنية المعلومات',
+    email: 'ahmed.ali@company.com',
+    phone: '+966501234567',
+    nationalId: '1234567890',
+    passportNumber: 'A12345678',
+    nationality: 'سعودي',
+    dateOfBirth: '1990-05-15',
+    maritalStatus: 'متزوج',
+    address: 'الرياض، المملكة العربية السعودية',
+    emergencyContact: 'سارة العلي - +966509876543',
+    hireDate: '2022-01-15',
+    contractType: 'دائم',
+    manager: 'محمد السالم',
+    grade: 'الدرجة السابعة',
+    workLocation: 'المكتب الرئيسي - الرياض',
+    avatar: '/placeholder.svg',
+    
+    // Career information
+    career: {
+      yearsOfService: 2.2,
+      lastPromotion: '2023-06-15',
+      performanceRating: 4.5,
+      totalProjects: 12,
+      completedTraining: 8
+    },
+    
+    // Documents
+    documents: [
+      { id: '1', name: 'العقد الوظيفي', type: 'contract', status: 'active', expiryDate: '2025-01-15', fileSize: '2.3 MB' },
+      { id: '2', name: 'صورة الهوية الوطنية', type: 'id', status: 'active', expiryDate: '2030-05-15', fileSize: '1.2 MB' },
+      { id: '3', name: 'صورة جواز السفر', type: 'passport', status: 'active', expiryDate: '2028-03-20', fileSize: '1.8 MB' },
+      { id: '4', name: 'شهادة المؤهل العلمي', type: 'education', status: 'active', expiryDate: null, fileSize: '3.1 MB' },
+      { id: '5', name: 'شهادة الخبرة السابقة', type: 'experience', status: 'expired', expiryDate: '2024-01-01', fileSize: '1.5 MB' },
+      { id: '6', name: 'تقرير الفحص الطبي', type: 'medical', status: 'expiring', expiryDate: '2024-03-15', fileSize: '2.7 MB' }
+    ],
+    
+    // Education
+    education: {
+      level: 'بكالوريوس',
+      university: 'جامعة الملك سعود',
+      major: 'علوم الحاسب',
+      graduationYear: 2016,
+      gpa: 3.8
+    },
+    
+    // Emergency contacts
+    emergencyContacts: [
+      { name: 'سارة العلي', relation: 'الزوجة', phone: '+966509876543' },
+      { name: 'محمد العلي', relation: 'الوالد', phone: '+966508765432' }
+    ]
+  };
 
-  // Use full employee data if available, otherwise use directory data with defaults
-  const currentEmployee = fullEmployeeData?.[0] || (employees?.[0] ? {
-    ...employees[0],
-    full_name_arabic: `${employees[0].first_name} ${employees[0].last_name}`,
-    phone: '',
-    national_id: '',
-    passport_number: '',
-    nationality: 'غير محدد',
-    gender: 'غير محدد',
-    date_of_birth: '',
-    marital_status: 'غير محدد',
-    address: '',
-    contract_type: 'دائم',
-    employment_status: 'active',
-    work_location: '',
-    basic_salary: 0,
-    housing_allowance: 0,
-    transport_allowance: 0,
-    other_allowances: 0,
-    total_salary: 0,
-    bank_name: '',
-    bank_account_number: '',
-    iban: '',
-    education_level: '',
-    university: '',
-    major: '',
-    graduation_year: undefined,
-    experience_years: 0,
-    annual_leave_balance: 30,
-    sick_leave_balance: 30,
-    emergency_leave_balance: 5,
-    emergency_contact: {},
-    documents: [],
-    profile_picture_url: '',
-    notes: '',
-    created_at: '',
-    updated_at: '',
-    user_id: '',
-    department_id: '',
-    position_id: '',
-    manager_id: '',
-    contract_start_date: '',
-    contract_end_date: '',
-    middle_name: ''
-  } : null);
-
-  const handleSave = async () => {
-    try {
-      toast({
-        title: "تم حفظ البيانات",
-        description: "تم تحديث بيانات الملف الشخصي بنجاح"
-      });
-      setEditMode(false);
-    } catch (error) {
-      toast({
-        title: "خطأ في الحفظ",
-        description: "حدث خطأ أثناء حفظ البيانات",
-        variant: "destructive"
-      });
+  const getDocumentStatusBadge = (status: string) => {
+    switch (status) {
+      case 'active':
+        return <Badge className="bg-green-500 text-white hover:bg-green-600">نشط</Badge>;
+      case 'expired':
+        return <Badge className="bg-red-500 text-white hover:bg-red-600">منتهي الصلاحية</Badge>;
+      case 'expiring':
+        return <Badge className="bg-orange-500 text-white hover:bg-orange-600">ينتهي قريباً</Badge>;
+      default:
+        return <Badge variant="secondary">غير محدد</Badge>;
     }
   };
 
-  const documentTypes = [
-    { id: 'id_copy', name: 'صورة الهوية', icon: <CreditCard className="h-4 w-4" />, status: 'مرفوع' },
-    { id: 'passport', name: 'صورة جواز السفر', icon: <FileText className="h-4 w-4" />, status: 'مرفوع' },
-    { id: 'contract', name: 'عقد العمل', icon: <FileText className="h-4 w-4" />, status: 'مرفوع' },
-    { id: 'certificate', name: 'الشهادة الجامعية', icon: <GraduationCap className="h-4 w-4" />, status: 'مطلوب' },
-    { id: 'medical', name: 'التقرير الطبي', icon: <Heart className="h-4 w-4" />, status: 'مرفوع' },
-  ];
-
-  // Helper function to toggle and decrypt sensitive data
-  const toggleSensitiveData = async (fieldName: string) => {
-    if (!showSensitiveData[fieldName]) {
-      // Show decrypted data
-      if (currentEmployee?.id) {
-        const decrypted = await getDecryptedSensitiveData(currentEmployee.id);
-        if (decrypted) {
-          setDecryptedData(prev => ({ ...prev, [currentEmployee.id]: decrypted }));
-          setShowSensitiveData(prev => ({ ...prev, [fieldName]: true }));
-        }
-      }
-    } else {
-      // Hide decrypted data
-      setShowSensitiveData(prev => ({ ...prev, [fieldName]: false }));
+  const getDocumentIcon = (type: string) => {
+    switch (type) {
+      case 'contract':
+        return <FileText className="h-5 w-5 text-blue-600" />;
+      case 'id':
+        return <User className="h-5 w-5 text-green-600" />;
+      case 'passport':
+        return <Building2 className="h-5 w-5 text-purple-600" />;
+      case 'education':
+        return <GraduationCap className="h-5 w-5 text-indigo-600" />;
+      case 'medical':
+        return <Calendar className="h-5 w-5 text-red-600" />;
+      default:
+        return <FileText className="h-5 w-5 text-gray-600" />;
     }
   };
 
-  // Helper function to get sensitive field value (masked or decrypted)
-  const getSensitiveFieldValue = (fieldName: string, maskedValue: string | undefined) => {
-    if (showSensitiveData[fieldName] && currentEmployee?.id && decryptedData[currentEmployee.id]) {
-      return decryptedData[currentEmployee.id][fieldName] || maskedValue || 'غير متاح';
-    }
-    return maskedValue || 'XXX-XXX-XXXX';
+  const handleUpdateProfile = () => {
+    setIsEditingProfile(false);
+    toast.success('تم تحديث الملف الشخصي بنجاح');
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p>جاري تحميل بيانات الموظف...</p>
-        </div>
-      </div>
-    );
-  }
+  const handleUploadDocument = () => {
+    setIsUploadingDocument(false);
+    toast.success('تم رفع المستند بنجاح');
+  };
 
-  if (!currentEmployee) {
-    return (
-      <div className="text-center p-8">
-        <p className="text-muted-foreground">لا توجد بيانات موظف متاحة</p>
-      </div>
-    );
-  }
+  const handleDownloadDocument = (documentName: string) => {
+    toast.info(`جاري تحميل: ${documentName}`);
+  };
+
+  const handleViewDocument = (document: any) => {
+    setSelectedDocument(document);
+    toast.info(`عرض المستند: ${document.name}`);
+  };
 
   return (
-    <div className="space-y-6 p-6 bg-background">
-      {/* Security Notice */}
-      <Alert className="border-amber-200 bg-amber-50">
-        <Shield className="h-4 w-4 text-amber-600" />
-        <AlertDescription className="text-amber-800">
-          البيانات الحساسة محمية بالتشفير. انقر على أيقونة العين لعرض البيانات الفعلية.
-        </AlertDescription>
-      </Alert>
-
+    <div className="space-y-6 bg-background text-foreground">
       {/* Profile Header */}
-      <Card>
-        <CardHeader>
+      <Card className="border-l-4 border-l-green-500 bg-card shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-background to-muted">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-20 w-20">
-                <AvatarImage src={currentEmployee.profile_picture_url || ''} />
-                <AvatarFallback className="text-lg">
-                  {`${currentEmployee.first_name?.[0] || ''}${currentEmployee.last_name?.[0] || ''}`}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <CardTitle className="text-2xl">
-                  {currentEmployee.full_name_arabic || `${currentEmployee.first_name} ${currentEmployee.last_name}`}
-                </CardTitle>
-                <p className="text-muted-foreground">رقم الموظف: {currentEmployee.employee_id}</p>
-                <Badge variant="secondary" className="mt-1">
-                  {currentEmployee.employment_status === 'active' ? 'نشط' : 'غير نشط'}
-                </Badge>
+            <CardTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <div className="p-2 bg-green-500 rounded-lg">
+                <User className="h-6 w-6 text-white" />
               </div>
-            </div>
-            <div className="flex gap-2">
-              {editMode ? (
-                <>
-                  <Button onClick={handleSave} size="sm">
-                    <User className="h-4 w-4 mr-2" />
-                    حفظ
-                  </Button>
-                  <Button variant="outline" onClick={() => setEditMode(false)} size="sm">
-                    إلغاء
-                  </Button>
-                </>
-              ) : (
-                <Button onClick={() => setEditMode(true)} size="sm">
-                  <Edit className="h-4 w-4 mr-2" />
-                  تعديل
-                </Button>
-              )}
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    <Camera className="h-4 w-4 mr-2" />
-                    تغيير الصورة
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>تغيير صورة الملف الشخصي</DialogTitle>
-                  </DialogHeader>
-                  <div className="grid w-full max-w-sm items-center gap-1.5">
-                    <Label htmlFor="picture">الصورة</Label>
-                    <Input id="picture" type="file" accept="image/*" />
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
+              ملف الموظف الشخصي
+            </CardTitle>
+            <Button 
+              onClick={() => setIsEditingProfile(true)}
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              <Edit className="h-4 w-4 ml-2" />
+              تعديل البيانات
+            </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-muted-foreground" />
-              <span>{currentEmployee.email || 'غير محدد'}</span>
+        <CardContent className="pt-6">
+          <div className="flex items-start gap-6">
+            <div className="flex flex-col items-center space-y-4">
+              <Avatar className="h-32 w-32 border-4 border-green-200">
+                <AvatarImage src={employeeData.avatar} alt={employeeData.name} />
+                <AvatarFallback className="text-2xl bg-gradient-to-r from-green-400 to-green-600 text-white">
+                  {employeeData.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              <Button variant="outline" size="sm" className="border-green-500 text-green-600 hover:bg-green-50">
+                <Upload className="h-4 w-4 ml-2" />
+                تحديث الصورة
+              </Button>
             </div>
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-muted-foreground" />
-              <div className="flex items-center gap-2">
-                <span>{getSensitiveFieldValue('phone', currentEmployee.phone)}</span>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="h-6 w-6 p-0"
-                  onClick={() => toggleSensitiveData('phone')}
-                >
-                  {showSensitiveData['phone'] ? 
-                    <EyeOff className="h-3 w-3" /> : 
-                    <Eye className="h-3 w-3" />
-                  }
-                </Button>
+            
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">الاسم الكامل</Label>
+                  <p className="text-lg font-semibold text-foreground">{employeeData.name}</p>
+                  <p className="text-sm text-muted-foreground">{employeeData.nameEn}</p>
+                </div>
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">المسمى الوظيفي</Label>
+                  <p className="text-base font-medium text-foreground">{employeeData.position}</p>
+                </div>
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">القسم</Label>
+                  <p className="text-base font-medium text-foreground">{employeeData.department}</p>
+                </div>
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">تاريخ التعيين</Label>
+                  <p className="text-base font-medium text-foreground">{employeeData.hireDate}</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <span>تاريخ التوظيف: {currentEmployee.hire_date || 'غير محدد'}</span>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">رقم الموظف</Label>
+                  <p className="text-lg font-semibold text-green-600">{employeeData.id}</p>
+                </div>
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">المدير المباشر</Label>
+                  <p className="text-base font-medium text-foreground">{employeeData.manager}</p>
+                </div>
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">الدرجة الوظيفية</Label>
+                  <p className="text-base font-medium text-foreground">{employeeData.grade}</p>
+                </div>
+                <div className="p-4 bg-muted rounded-lg">
+                  <Label className="text-sm font-medium text-muted-foreground">سنوات الخدمة</Label>
+                  <p className="text-base font-medium text-green-600">{employeeData.career.yearsOfService} سنة</p>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card className="bg-gradient-to-r from-green-50 to-green-100 border-green-200">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-green-600 font-medium">تقييم الأداء</p>
+                <p className="text-2xl font-bold text-green-700">{employeeData.career.performanceRating}/5</p>
+              </div>
+              <Star className="h-8 w-8 text-green-500" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-blue-600 font-medium">المشاريع المكتملة</p>
+                <p className="text-2xl font-bold text-blue-700">{employeeData.career.totalProjects}</p>
+              </div>
+              <Target className="h-8 w-8 text-blue-500" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-purple-600 font-medium">الدورات المكتملة</p>
+                <p className="text-2xl font-bold text-purple-700">{employeeData.career.completedTraining}</p>
+              </div>
+              <Award className="h-8 w-8 text-purple-500" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-orange-600 font-medium">آخر ترقية</p>
+                <p className="text-sm font-bold text-orange-700">{employeeData.career.lastPromotion}</p>
+              </div>
+              <Clock className="h-8 w-8 text-orange-500" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Detailed Information Tabs */}
       <Tabs defaultValue="personal" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="personal">البيانات الشخصية</TabsTrigger>
-          <TabsTrigger value="job">بيانات العمل</TabsTrigger>
-          <TabsTrigger value="financial">البيانات المالية</TabsTrigger>
-          <TabsTrigger value="education">التعليم</TabsTrigger>
-          <TabsTrigger value="documents">المستندات</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-4 bg-muted">
+          <TabsTrigger value="personal" className="data-[state=active]:bg-green-500 data-[state=active]:text-white">البيانات الشخصية</TabsTrigger>
+          <TabsTrigger value="documents" className="data-[state=active]:bg-green-500 data-[state=active]:text-white">المستندات</TabsTrigger>
+          <TabsTrigger value="education" className="data-[state=active]:bg-green-500 data-[state=active]:text-white">التعليم</TabsTrigger>
+          <TabsTrigger value="emergency" className="data-[state=active]:bg-green-500 data-[state=active]:text-white">جهات الاتصال</TabsTrigger>
         </TabsList>
 
         <TabsContent value="personal" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>المعلومات الشخصية</CardTitle>
+          <Card className="border-green-200">
+            <CardHeader className="bg-gradient-to-r from-green-50 to-green-100">
+              <CardTitle className="flex items-center gap-2 text-green-700">
+                <User className="h-5 w-5" />
+                المعلومات الشخصية
+              </CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>رقم الهوية الوطنية</Label>
-                <div className="flex items-center gap-2">
-                  <Input 
-                    value={getSensitiveFieldValue('national_id', currentEmployee.national_id)}
-                    disabled={!editMode}
-                    className="flex-1"
-                  />
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-8 w-8 p-0"
-                    onClick={() => toggleSensitiveData('national_id')}
-                  >
-                    {showSensitiveData['national_id'] ? 
-                      <EyeOff className="h-4 w-4" /> : 
-                      <Eye className="h-4 w-4" />
-                    }
-                  </Button>
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+                    <Mail className="h-5 w-5 text-green-600" />
+                    <div>
+                      <Label className="text-sm text-muted-foreground font-medium">البريد الإلكتروني</Label>
+                      <p className="font-semibold text-foreground">{employeeData.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+                    <Phone className="h-5 w-5 text-green-600" />
+                    <div>
+                      <Label className="text-sm text-muted-foreground font-medium">رقم الجوال</Label>
+                      <p className="font-semibold text-foreground">{employeeData.phone}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+                    <Calendar className="h-5 w-5 text-green-600" />
+                    <div>
+                      <Label className="text-sm text-muted-foreground font-medium">تاريخ الميلاد</Label>
+                      <p className="font-semibold text-foreground">{employeeData.dateOfBirth}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">رقم الهوية الوطنية</Label>
+                    <p className="font-semibold text-foreground">{employeeData.nationalId}</p>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">رقم جواز السفر</Label>
+                    <p className="font-semibold text-foreground">{employeeData.passportNumber}</p>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">الحالة الاجتماعية</Label>
+                    <p className="font-semibold text-foreground">{employeeData.maritalStatus}</p>
+                  </div>
                 </div>
               </div>
               
-              <div>
-                <Label>رقم جواز السفر</Label>
-                <div className="flex items-center gap-2">
-                  <Input 
-                    value={getSensitiveFieldValue('passport_number', currentEmployee.passport_number)}
-                    disabled={!editMode}
-                    className="flex-1"
-                  />
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-8 w-8 p-0"
-                    onClick={() => toggleSensitiveData('passport_number')}
-                  >
-                    {showSensitiveData['passport_number'] ? 
-                      <EyeOff className="h-4 w-4" /> : 
-                      <Eye className="h-4 w-4" />
-                    }
-                  </Button>
+              <div className="mt-6">
+                <div className="flex items-start gap-3 p-4 bg-muted rounded-lg">
+                  <MapPin className="h-5 w-5 text-green-600 mt-1" />
+                  <div>
+                    <Label className="text-sm text-muted-foreground font-medium">العنوان</Label>
+                    <p className="font-semibold text-foreground">{employeeData.address}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div>
-                <Label>الجنسية</Label>
-                <Input value={currentEmployee.nationality || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>الجنس</Label>
-                <Input value={currentEmployee.gender || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>تاريخ الميلاد</Label>
-                <Input value={currentEmployee.date_of_birth || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>الحالة الاجتماعية</Label>
-                <Input value={currentEmployee.marital_status || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div className="md:col-span-2">
-                <Label>العنوان</Label>
-                <Input value={currentEmployee.address || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div className="md:col-span-2">
-                <Label>جهة الاتصال في حالة الطوارئ</Label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
-                  <Input 
-                    placeholder="الاسم" 
-                    value={currentEmployee.emergency_contact?.name || ''} 
-                    disabled={!editMode} 
-                  />
-                  <Input 
-                    placeholder="صلة القرابة" 
-                    value={currentEmployee.emergency_contact?.relationship || ''} 
-                    disabled={!editMode} 
-                  />
-                  <Input 
-                    placeholder="رقم الهاتف" 
-                    value={currentEmployee.emergency_contact?.phone || ''} 
-                    disabled={!editMode} 
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="job" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>معلومات العمل</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>نوع العقد</Label>
-                <Input value={currentEmployee.contract_type || 'دائم'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>سنوات الخبرة</Label>
-                <Input value={currentEmployee.experience_years || 0} disabled={!editMode} />
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="financial" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>المعلومات المالية</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>الراتب الأساسي</Label>
-                <Input 
-                  value={`${(currentEmployee.basic_salary || 0).toLocaleString()} ريال`} 
-                  disabled={!editMode} 
-                />
-              </div>
-
-              <div>
-                <Label>بدل السكن</Label>
-                <Input 
-                  value={`${(currentEmployee.housing_allowance || 0).toLocaleString()} ريال`} 
-                  disabled={!editMode} 
-                />
-              </div>
-
-              <div>
-                <Label>بدل المواصلات</Label>
-                <Input 
-                  value={`${(currentEmployee.transport_allowance || 0).toLocaleString()} ريال`} 
-                  disabled={!editMode} 
-                />
-              </div>
-
-              <div>
-                <Label>إجمالي الراتب</Label>
-                <Input 
-                  value={`${((currentEmployee.basic_salary || 0) + (currentEmployee.housing_allowance || 0) + (currentEmployee.transport_allowance || 0)).toLocaleString()} ريال`} 
-                  disabled 
-                  className="font-semibold"
-                />
-              </div>
-
-              <div>
-                <Label>اسم البنك</Label>
-                <Input value={currentEmployee.bank_name || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>رقم الآيبان</Label>
-                <div className="flex items-center gap-2">
-                  <Input 
-                    value={getSensitiveFieldValue('iban', currentEmployee.iban)}
-                    disabled={!editMode}
-                    className="flex-1"
-                  />
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-8 w-8 p-0"
-                    onClick={() => toggleSensitiveData('iban')}
-                  >
-                    {showSensitiveData['iban'] ? 
-                      <EyeOff className="h-4 w-4" /> : 
-                      <Eye className="h-4 w-4" />
-                    }
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="education" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>المؤهلات التعليمية</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>المستوى التعليمي</Label>
-                <Input value={currentEmployee.education_level || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>الجامعة</Label>
-                <Input value={currentEmployee.university || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>التخصص</Label>
-                <Input value={currentEmployee.major || 'غير محدد'} disabled={!editMode} />
-              </div>
-
-              <div>
-                <Label>سنة التخرج</Label>
-                <Input value={currentEmployee.graduation_year || 'غير محدد'} disabled={!editMode} />
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
         <TabsContent value="documents" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>المستندات المطلوبة</CardTitle>
+          <Card className="border-green-200">
+            <CardHeader className="bg-gradient-to-r from-green-50 to-green-100">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-green-700">
+                  <FileText className="h-5 w-5" />
+                  وثائق الموظف
+                </CardTitle>
+                <Dialog open={isUploadingDocument} onOpenChange={setIsUploadingDocument}>
+                  <DialogTrigger asChild>
+                    <Button className="bg-green-600 hover:bg-green-700 text-white">
+                      <Plus className="h-4 w-4 ml-2" />
+                      رفع مستند
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>رفع مستند جديد</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <Label>نوع المستند</Label>
+                        <Input placeholder="مثال: شهادة دورة تدريبية" />
+                      </div>
+                      <div>
+                        <Label>ملف المستند</Label>
+                        <Input type="file" />
+                      </div>
+                      <div>
+                        <Label>تاريخ انتهاء الصلاحية (اختياري)</Label>
+                        <Input type="date" />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={handleUploadDocument}
+                          className="bg-green-600 hover:bg-green-700 text-white"
+                        >
+                          رفع المستند
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          onClick={() => setIsUploadingDocument(false)}
+                        >
+                          إلغاء
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {documentTypes.map((doc) => (
-                  <div key={doc.id} className="flex items-center justify-between p-3 border rounded-lg">
-                    <div className="flex items-center gap-2">
-                      {doc.icon}
-                      <span className="font-medium">{doc.name}</span>
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {employeeData.documents.map((doc) => (
+                  <div key={doc.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow bg-card">
+                    <div className="flex items-center gap-3">
+                      {getDocumentIcon(doc.type)}
+                      <div>
+                        <p className="font-medium text-foreground">{doc.name}</p>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span>{doc.fileSize}</span>
+                          {doc.expiryDate && (
+                            <span>• ينتهي في: {doc.expiryDate}</span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge variant={doc.status === 'مرفوع' ? 'default' : 'destructive'}>
-                        {doc.status}
-                      </Badge>
-                      {doc.status === 'مرفوع' ? (
-                        <Button variant="outline" size="sm">
-                          عرض
-                        </Button>
-                      ) : (
-                        <Button variant="outline" size="sm">
-                          <Upload className="h-4 w-4 mr-1" />
-                          رفع
-                        </Button>
-                      )}
+                      {getDocumentStatusBadge(doc.status)}
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleViewDocument(doc)}
+                      >
+                        <Eye className="h-4 w-4 ml-2" />
+                        عرض
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleDownloadDocument(doc.name)}
+                      >
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="education" className="space-y-4">
+          <Card className="border-green-200">
+            <CardHeader className="bg-gradient-to-r from-green-50 to-green-100">
+              <CardTitle className="flex items-center gap-2 text-green-700">
+                <GraduationCap className="h-5 w-5" />
+                المؤهلات العلمية
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">مستوى التعليم</Label>
+                    <p className="text-lg font-semibold text-foreground">{employeeData.education.level}</p>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">الجامعة</Label>
+                    <p className="font-semibold text-foreground">{employeeData.education.university}</p>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">المعدل التراكمي</Label>
+                    <p className="text-lg font-semibold text-green-600">{employeeData.education.gpa}/4.0</p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">التخصص</Label>
+                    <p className="font-semibold text-foreground">{employeeData.education.major}</p>
+                  </div>
+                  <div className="p-4 bg-muted rounded-lg">
+                    <Label className="text-sm text-muted-foreground font-medium">سنة التخرج</Label>
+                    <p className="font-semibold text-foreground">{employeeData.education.graduationYear}</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="emergency" className="space-y-4">
+          <Card className="border-green-200">
+            <CardHeader className="bg-gradient-to-r from-green-50 to-green-100">
+              <CardTitle className="flex items-center gap-2 text-green-700">
+                <Users className="h-5 w-5" />
+                جهات الاتصال في حالات الطوارئ
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="space-y-4">
+                {employeeData.emergencyContacts.map((contact, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg bg-muted">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-green-100 rounded-full">
+                        <Users className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">{contact.name}</p>
+                        <p className="text-sm text-muted-foreground">{contact.relation}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Phone className="h-4 w-4 text-muted-foreground" />
+                      <span className="font-medium text-foreground">{contact.phone}</span>
                     </div>
                   </div>
                 ))}
@@ -514,6 +512,53 @@ export function EmployeeProfileManagement() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Edit Profile Dialog */}
+      <Dialog open={isEditingProfile} onOpenChange={setIsEditingProfile}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>تعديل الملف الشخصي</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label>الاسم الكامل</Label>
+                <Input defaultValue={employeeData.name} />
+              </div>
+              <div>
+                <Label>البريد الإلكتروني</Label>
+                <Input defaultValue={employeeData.email} />
+              </div>
+              <div>
+                <Label>رقم الجوال</Label>
+                <Input defaultValue={employeeData.phone} />
+              </div>
+              <div>
+                <Label>الحالة الاجتماعية</Label>
+                <Input defaultValue={employeeData.maritalStatus} />
+              </div>
+            </div>
+            <div>
+              <Label>العنوان</Label>
+              <Textarea defaultValue={employeeData.address} />
+            </div>
+            <div className="flex gap-2">
+              <Button 
+                onClick={handleUpdateProfile}
+                className="bg-green-600 hover:bg-green-700 text-white"
+              >
+                حفظ التغييرات
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setIsEditingProfile(false)}
+              >
+                إلغاء
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
-}
+};
