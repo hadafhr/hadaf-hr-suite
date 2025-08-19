@@ -104,13 +104,6 @@ const BoudHRLandingPage: React.FC = () => {
       image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?auto=format&fit=crop&w=400&q=80"
     },
     {
-      title: "نظام التطوير والتنظيم المؤسسي",
-      description: "أدوات احترافية متقدمة لبناء وتطوير الهياكل التنظيمية الذكية. تصميم خرائط تنظيمية ديناميكية مع إدارة متطورة للمشاريع والمبادرات الاستراتيجية لضمان النمو المستدام.",
-      icon: Building,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=400&q=80"
-    },
-    {
       title: "نظام التدريب",
       description: "منصة تعليمية شاملة مدعومة بأحدث التقنيات التفاعلية والبث المباشر. تصميم برامج تدريبية مخصصة مع تتبع دقيق للتقدم وقياس أثر التدريب على الأداء والإنتاجية.",
       icon: GraduationCap,
@@ -676,7 +669,6 @@ const BoudHRLandingPage: React.FC = () => {
                 onClick={() => {
                   if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/employee-management-system");
                   else if (feature.title === "نظام الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
-                  else if (feature.title === "نظام التطوير والتنظيم المؤسسي") navigate("/service-platforms/organizational-development");
                   else if (feature.title === "نظام التدريب") navigate("/comprehensive-employee-management");
                   else if (feature.title === "نظام القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
                   else if (feature.title === "نظام خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
