@@ -44,6 +44,10 @@ import { InstructorDashboard } from './InstructorDashboard';
 import { AIAssistant } from './AITrainingAssistant';
 import { AssessmentManager } from './AssessmentManager';
 import { CertificateManager } from './CertificateManager';
+import { InstructorManagement } from './InstructorManagement';
+import { TrainingAnalytics } from './TrainingAnalytics';
+import { LiveSessionsManager } from './LiveSessionsManager';
+import { useTrainingSystem } from '@/hooks/useTrainingSystem';
 
 interface TrainingDashboardProps {
   onBack: () => void;
@@ -407,6 +411,7 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
           <Button 
             variant="outline" 
             className="h-16 flex flex-col items-center justify-center border-border hover:bg-accent/50 transition-colors"
+            onClick={() => setSelectedTab('instructors')}
           >
             <UserCheck className="h-5 w-5 mb-1 text-blue-500" />
             <span className="text-sm">{isRTL ? 'إدارة المدربين' : 'Manage Instructors'}</span>
@@ -455,10 +460,11 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
 
         {/* Enhanced Main Content */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 bg-card border border-border">
+          <TabsList className="grid w-full grid-cols-7 bg-card border border-border">
             <TabsTrigger value="overview" className="text-sm">{isRTL ? 'نظرة عامة' : 'Overview'}</TabsTrigger>
             <TabsTrigger value="courses" className="text-sm">{isRTL ? 'الدورات' : 'Courses'}</TabsTrigger>
             <TabsTrigger value="live" className="text-sm">{isRTL ? 'البث المباشر' : 'Live Sessions'}</TabsTrigger>
+            <TabsTrigger value="instructors" className="text-sm">{isRTL ? 'المدربين' : 'Instructors'}</TabsTrigger>
             <TabsTrigger value="paths" className="text-sm">{isRTL ? 'المسارات' : 'Learning Paths'}</TabsTrigger>
             <TabsTrigger value="assessments" className="text-sm">{isRTL ? 'التقييمات' : 'Assessments'}</TabsTrigger>
             <TabsTrigger value="analytics" className="text-sm">{isRTL ? 'التحليلات' : 'Analytics'}</TabsTrigger>
@@ -729,12 +735,12 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
             </div>
           </TabsContent>
 
-          {/* Other tabs content will be added in subsequent components */}
           <TabsContent value="live">
-            <Card className="p-6 border-border bg-card">
-              <h3 className="text-lg font-semibold mb-4">{isRTL ? 'إدارة الجلسات المباشرة' : 'Live Sessions Management'}</h3>
-              <p className="text-muted-foreground">{isRTL ? 'قريبًا - إدارة البث المباشر والجلسات التفاعلية' : 'Coming soon - Live streaming and interactive sessions management'}</p>
-            </Card>
+            <LiveSessionsManager />
+          </TabsContent>
+
+          <TabsContent value="instructors">
+            <InstructorManagement />
           </TabsContent>
 
           <TabsContent value="paths">
@@ -793,13 +799,7 @@ export const TrainingDashboard: React.FC<TrainingDashboardProps> = ({ onBack }) 
           </TabsContent>
 
           <TabsContent value="analytics">
-            <Card className="p-6 border-border bg-card">
-              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <BarChart3 className="h-5 w-5" />
-                {isRTL ? 'تحليلات التدريب المتقدمة' : 'Advanced Training Analytics'}
-              </h3>
-              <p className="text-muted-foreground">{isRTL ? 'قريبًا - تحليلات شاملة لأداء التدريب والمتدربين' : 'Coming soon - Comprehensive training and learner performance analytics'}</p>
-            </Card>
+            <TrainingAnalytics />
           </TabsContent>
         </Tabs>
       </div>
