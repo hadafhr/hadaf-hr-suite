@@ -77,8 +77,8 @@ const TeamMembers = () => {
   const [activeView, setActiveView] = useState<'directory' | 'profile' | 'manager' | 'org' | 'analytics'>('directory');
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterDepartment, setFilterDepartment] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterDepartment, setFilterDepartment] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
@@ -224,8 +224,8 @@ const TeamMembers = () => {
     const matchesSearch = emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          emp.position.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDepartment = !filterDepartment || emp.department === filterDepartment;
-    const matchesStatus = !filterStatus || emp.status === filterStatus;
+    const matchesDepartment = filterDepartment === 'all' || emp.department === filterDepartment;
+    const matchesStatus = filterStatus === 'all' || emp.status === filterStatus;
     
     return matchesSearch && matchesDepartment && matchesStatus;
   });

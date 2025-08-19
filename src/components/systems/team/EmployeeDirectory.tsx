@@ -272,7 +272,7 @@ const EmployeeDirectory: React.FC<EmployeeDirectoryProps> = ({
                   <SelectValue placeholder="جميع الأقسام" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع الأقسام</SelectItem>
+                  <SelectItem value="all">جميع الأقسام</SelectItem>
                   {departments.map(dept => (
                     <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                   ))}
@@ -284,7 +284,7 @@ const EmployeeDirectory: React.FC<EmployeeDirectoryProps> = ({
                   <SelectValue placeholder="جميع الحالات" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع الحالات</SelectItem>
+                  <SelectItem value="all">جميع الحالات</SelectItem>
                   {statuses.map(status => (
                     <SelectItem key={status.value} value={status.value}>{status.label}</SelectItem>
                   ))}
