@@ -2229,6 +2229,96 @@ export type Database = {
         }
         Relationships: []
       }
+      comprehensive_leave_requests: {
+        Row: {
+          attachments: Json | null
+          created_at: string | null
+          delegate_employee_id: string | null
+          delegate_instructions: string | null
+          employee_id: string
+          end_date: string
+          final_approval_at: string | null
+          final_approver_id: string | null
+          hr_approval_at: string | null
+          hr_approver_id: string | null
+          hr_comments: string | null
+          id: string
+          leave_type_code: string
+          manager_approval_at: string | null
+          manager_comments: string | null
+          manager_id: string | null
+          medical_certificate_url: string | null
+          priority: string | null
+          reason: string
+          rejection_reason: string | null
+          start_date: string
+          status: string | null
+          submitted_at: string | null
+          submitted_by: string | null
+          total_days: number
+          updated_at: string | null
+          working_days: number
+        }
+        Insert: {
+          attachments?: Json | null
+          created_at?: string | null
+          delegate_employee_id?: string | null
+          delegate_instructions?: string | null
+          employee_id: string
+          end_date: string
+          final_approval_at?: string | null
+          final_approver_id?: string | null
+          hr_approval_at?: string | null
+          hr_approver_id?: string | null
+          hr_comments?: string | null
+          id?: string
+          leave_type_code: string
+          manager_approval_at?: string | null
+          manager_comments?: string | null
+          manager_id?: string | null
+          medical_certificate_url?: string | null
+          priority?: string | null
+          reason: string
+          rejection_reason?: string | null
+          start_date: string
+          status?: string | null
+          submitted_at?: string | null
+          submitted_by?: string | null
+          total_days: number
+          updated_at?: string | null
+          working_days: number
+        }
+        Update: {
+          attachments?: Json | null
+          created_at?: string | null
+          delegate_employee_id?: string | null
+          delegate_instructions?: string | null
+          employee_id?: string
+          end_date?: string
+          final_approval_at?: string | null
+          final_approver_id?: string | null
+          hr_approval_at?: string | null
+          hr_approver_id?: string | null
+          hr_comments?: string | null
+          id?: string
+          leave_type_code?: string
+          manager_approval_at?: string | null
+          manager_comments?: string | null
+          manager_id?: string | null
+          medical_certificate_url?: string | null
+          priority?: string | null
+          reason?: string
+          rejection_reason?: string | null
+          start_date?: string
+          status?: string | null
+          submitted_at?: string | null
+          submitted_by?: string | null
+          total_days?: number
+          updated_at?: string | null
+          working_days?: number
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           address: string | null
@@ -2688,6 +2778,45 @@ export type Database = {
           target_value?: number | null
           variance?: number | null
           variance_percentage?: number | null
+        }
+        Relationships: []
+      }
+      employee_leave_balances: {
+        Row: {
+          carried_forward: number | null
+          employee_id: string
+          id: string
+          last_updated: string | null
+          leave_type_code: string
+          pending_days: number | null
+          remaining_days: number | null
+          total_entitled: number | null
+          used_days: number | null
+          year: number
+        }
+        Insert: {
+          carried_forward?: number | null
+          employee_id: string
+          id?: string
+          last_updated?: string | null
+          leave_type_code: string
+          pending_days?: number | null
+          remaining_days?: number | null
+          total_entitled?: number | null
+          used_days?: number | null
+          year: number
+        }
+        Update: {
+          carried_forward?: number | null
+          employee_id?: string
+          id?: string
+          last_updated?: string | null
+          leave_type_code?: string
+          pending_days?: number | null
+          remaining_days?: number | null
+          total_entitled?: number | null
+          used_days?: number | null
+          year?: number
         }
         Relationships: []
       }
@@ -3749,6 +3878,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      leave_ai_insights: {
+        Row: {
+          created_at: string | null
+          data: Json | null
+          department_id: string | null
+          description: string
+          employee_id: string | null
+          id: string
+          insight_type: string
+          is_dismissed: boolean | null
+          is_read: boolean | null
+          recommendations: Json | null
+          severity: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          data?: Json | null
+          department_id?: string | null
+          description: string
+          employee_id?: string | null
+          id?: string
+          insight_type: string
+          is_dismissed?: boolean | null
+          is_read?: boolean | null
+          recommendations?: Json | null
+          severity?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          data?: Json | null
+          department_id?: string | null
+          description?: string
+          employee_id?: string | null
+          id?: string
+          insight_type?: string
+          is_dismissed?: boolean | null
+          is_read?: boolean | null
+          recommendations?: Json | null
+          severity?: string | null
+          title?: string
+        }
+        Relationships: []
       }
       leave_requests: {
         Row: {
@@ -5293,6 +5467,45 @@ export type Database = {
         }
         Relationships: []
       }
+      saudi_holidays: {
+        Row: {
+          created_at: string | null
+          duration_days: number | null
+          gregorian_date: string | null
+          hijri_date: string | null
+          holiday_type: string | null
+          id: string
+          is_active: boolean | null
+          is_recurring: boolean | null
+          name_ar: string
+          name_en: string
+        }
+        Insert: {
+          created_at?: string | null
+          duration_days?: number | null
+          gregorian_date?: string | null
+          hijri_date?: string | null
+          holiday_type?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_recurring?: boolean | null
+          name_ar: string
+          name_en: string
+        }
+        Update: {
+          created_at?: string | null
+          duration_days?: number | null
+          gregorian_date?: string | null
+          hijri_date?: string | null
+          holiday_type?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_recurring?: boolean | null
+          name_ar?: string
+          name_en?: string
+        }
+        Relationships: []
+      }
       saudi_labor_violations: {
         Row: {
           article_reference: string
@@ -5344,6 +5557,57 @@ export type Database = {
           violation_code?: string
           violation_name?: string
           violation_name_en?: string | null
+        }
+        Relationships: []
+      }
+      saudi_leave_types: {
+        Row: {
+          code: string
+          created_at: string | null
+          description_ar: string | null
+          description_en: string | null
+          gender_restriction: string | null
+          id: string
+          is_active: boolean | null
+          is_paid: boolean | null
+          max_consecutive_days: number | null
+          max_days_per_year: number | null
+          minimum_service_years: number | null
+          name_ar: string
+          name_en: string
+          requires_medical_certificate: boolean | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          gender_restriction?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_paid?: boolean | null
+          max_consecutive_days?: number | null
+          max_days_per_year?: number | null
+          minimum_service_years?: number | null
+          name_ar: string
+          name_en: string
+          requires_medical_certificate?: boolean | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          gender_restriction?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_paid?: boolean | null
+          max_consecutive_days?: number | null
+          max_days_per_year?: number | null
+          minimum_service_years?: number | null
+          name_ar?: string
+          name_en?: string
+          requires_medical_certificate?: boolean | null
         }
         Relationships: []
       }

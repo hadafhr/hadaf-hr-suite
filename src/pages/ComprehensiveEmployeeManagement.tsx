@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Label } from '@/components/ui/label';
@@ -97,7 +98,6 @@ import { RewardsIncentives } from '@/components/systems/RewardsIncentives';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import TeamMembers from '@/components/systems/TeamMembers';
-import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -1056,28 +1056,8 @@ const ComprehensiveEmployeeManagement = () => {
             </Card>
           </TabsContent>
 
-          {/* Leaves Tab */}
           <TabsContent value="leaves" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Calendar className="h-6 w-6" />
-                  نظام إدارة الإجازات
-                </CardTitle>
-                <CardDescription>
-                  إدارة شاملة لجميع أنواع الإجازات والغيابات
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Calendar className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة الإجازات هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: الإجازات السنوية، المرضية، الطارئة، والموافقات التلقائية
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <ComprehensiveLeaveSystem />
           </TabsContent>
 
           {/* Departments Tab */}
