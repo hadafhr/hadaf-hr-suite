@@ -26,6 +26,7 @@ import {
   AlertTriangle,
   CheckCircle
 } from 'lucide-react';
+import { ReportsGenerator } from './ReportsGenerator';
 import { useTrainingSystem } from '@/hooks/useTrainingSystem';
 
 export const TrainingAnalytics: React.FC = () => {
@@ -428,6 +429,10 @@ export const TrainingAnalytics: React.FC = () => {
               {isRTL ? 'سيتم عرض التنبؤات المستقبلية بناءً على البيانات التاريخية والذكاء الاصطناعي' : 'Future predictions based on historical data and AI analysis will be displayed here'}
             </p>
           </Card>
+        </TabsContent>
+        {/* Reports Tab */}
+        <TabsContent value="reports" className="space-y-6">
+          <ReportsGenerator />
         </TabsContent>
       </Tabs>
     </div>

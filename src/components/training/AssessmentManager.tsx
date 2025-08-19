@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { AssessmentCreator as AssessmentCreatorComponent } from './AssessmentCreator';
 import { 
   FileText, 
   Plus, 
@@ -238,7 +239,7 @@ export const AssessmentManager: React.FC = () => {
             <DialogHeader>
               <DialogTitle>{isRTL ? 'إنشاء تقييم جديد' : 'Create New Assessment'}</DialogTitle>
             </DialogHeader>
-            <AssessmentCreator onClose={() => setShowCreateDialog(false)} />
+            <AssessmentCreatorComponent onClose={() => setShowCreateDialog(false)} />
           </DialogContent>
         </Dialog>
       </div>
