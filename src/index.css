@@ -253,23 +253,43 @@
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--primary)) transparent;
+  scroll-behavior: smooth;
+  /* Ensure all 22 icons are properly visible */
+  padding-bottom: 8px;
 }
 
 .horizontal-icon-nav::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
 }
 
 .horizontal-icon-nav::-webkit-scrollbar-track {
-  background: transparent;
+  background: hsl(var(--muted));
+  border-radius: 3px;
 }
 
 .horizontal-icon-nav::-webkit-scrollbar-thumb {
   background: hsl(var(--primary));
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 .horizontal-icon-nav::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary-foreground));
+  background: hsl(var(--primary-glow));
+}
+
+/* Ensure proper tab spacing for all 22 icons */
+.tabs-list-container {
+  min-width: fit-content;
+  display: flex;
+  gap: 12px;
+}
+
+.tab-item-optimized {
+  min-width: 140px;
+  flex-shrink: 0;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 /* إضافة متحركات مخصصة */

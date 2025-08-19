@@ -46,7 +46,8 @@ import {
   Image as ImageIcon,
   Award,
   Clock3,
-  AlertCircle
+  AlertCircle,
+  ArrowLeft
 } from 'lucide-react';
 
 // Import components
@@ -401,13 +402,35 @@ export const EmployeeSelfService: React.FC = () => {
         {/* Header */}
         <div className="bg-white border-b border-gray-200 pb-6">
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold text-black mb-2">
-                منصة الخدمة الذاتية للموظف
-              </h1>
-              <p className="text-gray-600">
-                منصة ذكية وشاملة لإدارة جميع شؤونك الوظيفية بسهولة وأمان
-              </p>
+            <div className="flex items-center gap-4">
+              {/* Back Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.history.back()}
+                className="hover:bg-[#009F87]/10"
+              >
+                <ArrowLeft className="h-4 w-4 ml-2" />
+                العودة
+              </Button>
+              
+              {/* BOUD Logo */}
+              <div className="flex items-center gap-3">
+                <img 
+                  src="/public/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png" 
+                  alt="شعار بُعد BOUD" 
+                  className="h-12 w-auto"
+                />
+              </div>
+              
+              <div>
+                <h1 className="text-3xl font-bold text-black mb-2">
+                  منصة الخدمة الذاتية للموظف
+                </h1>
+                <p className="text-gray-600">
+                  منصة ذكية وشاملة لإدارة جميع شؤونك الوظيفية بسهولة وأمان
+                </p>
+              </div>
             </div>
             
             <div className="flex items-center gap-4">
