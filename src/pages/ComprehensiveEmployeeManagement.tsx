@@ -1214,7 +1214,11 @@ const ComprehensiveEmployeeManagement = () => {
             <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Bot className="h-6 w-6" />
+                  <img 
+                    src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
+                    alt="شعار بُعد BOUD HR" 
+                    className="h-6 w-auto"
+                  />
                   الذكاء الاصطناعي
                 </CardTitle>
                 <CardDescription>
@@ -1223,7 +1227,11 @@ const ComprehensiveEmployeeManagement = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8">
-                  <Bot className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
+                  <img 
+                    src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
+                    alt="شعار بُعد BOUD HR" 
+                    className="h-16 w-auto mx-auto mb-4 opacity-50"
+                  />
                   <p className="text-muted-foreground">سيتم تطوير نظام الذكاء الاصطناعي هنا</p>
                 </div>
               </CardContent>
