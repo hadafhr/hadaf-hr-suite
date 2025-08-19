@@ -180,7 +180,7 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
             size="icon"
           >
             <img 
-              src={boudAssistantIcon} 
+              src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
               alt="BOUD HR Assistant" 
               className="w-8 h-8 group-hover:scale-110 transition-transform duration-200"
             />
@@ -199,7 +199,7 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
             <CardHeader className="flex flex-row items-center justify-between p-3 pb-2 border-b">
               <div className="flex items-center gap-2">
                 <img 
-                  src={boudAssistantIcon} 
+                  src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
                   alt="BOUD HR Assistant" 
                   className="w-6 h-6"
                 />
