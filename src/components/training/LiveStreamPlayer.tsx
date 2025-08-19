@@ -47,11 +47,35 @@ export const LiveStreamPlayer: React.FC<LiveStreamPlayerProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // محاكاة الاتصال بجلسة البث المباشر
     if (isConnected && videoRef.current) {
-      // هنا سيتم تكامل WebRTC أو Zoom SDK
-      console.log('Connecting to live session:', sessionId);
+      // الحصول على البث المباشر من الكاميرا
+      navigator.mediaDevices.getUserMedia({ 
+        video: { width: 1280, height: 720 }, 
+        audio: true 
+      })
+      .then((stream) => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          console.log('Live stream connected successfully');
+        }
+      })
+      .catch((error) => {
+        console.error('Error accessing camera:', error);
+        // في حالة عدم توفر الكاميرا، استخدم فيديو تجريبي
+        if (videoRef.current) {
+          // يمكن هنا إضافة مصدر فيديو احتياطي أو صورة ثابتة
+          videoRef.current.poster = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI3MjAiIHZpZXdCb3g9IjAgMCAxMjgwIDcyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyODAiIGhlaWdodD0iNzIwIiBmaWxsPSIjMTExODI3Ii8+Cjx0ZXh0IHg9IjY0MCIgeT0iMzgwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7Yp9mE2KjYqyDYp9mE2YXYqNin2LTYsSDZhNmKINmF2KrYp9itPC90ZXh0Pgo8L3N2Zz4K";
+        }
+      });
     }
+
+    // تنظيف البث عند المغادرة
+    return () => {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
   }, [isConnected, sessionId]);
 
   const handleJoinSession = () => {
