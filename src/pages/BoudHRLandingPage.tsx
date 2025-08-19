@@ -91,7 +91,7 @@ const BoudHRLandingPage: React.FC = () => {
   const features = [
     {
       title: "نظام إدارة الموظفين الشامل",
-      description: "نظام متكامل ومتطور لإدارة دورة حياة الموظف الكاملة من التوظيف حتى التقاعد مع تتبع الحضور والانصراف وإدارة الإجازات والأداء. يطبق لائحة الجزاءات والعقوبات وفقاً لنظام العمل السعودي مع واجهة احترافية سهلة الاستخدام.",
+      description: "حلول شاملة ومتطورة لتلبية جميع احتياجات إدارة الموارد البشرية. يتضمن جميع الأنظمة: التوظيف الذكي، التدريب، التعويضات والمزايا، حماية الأجور، التقييمات الذكية، التكامل الحكومي، الذكاء الاصطناعي، الاجتماعات الذكية، الشؤون القانونية، وخدمات أصحاب الأعمال.",
       icon: Users,
       color: "text-primary",
       image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=400&q=80"
@@ -102,76 +102,6 @@ const BoudHRLandingPage: React.FC = () => {
       icon: Settings,
       color: "text-primary",
       image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام التدريب",
-      description: "منصة تعليمية شاملة مدعومة بأحدث التقنيات التفاعلية والبث المباشر. تصميم برامج تدريبية مخصصة مع تتبع دقيق للتقدم وقياس أثر التدريب على الأداء والإنتاجية.",
-      icon: GraduationCap,
-      color: "text-black",
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام خدمات أصحاب الأعمال",
-      description: "منصة قيادية شاملة بلوحات تحكم تنفيذية متطورة وذكية. رؤى استراتيجية عميقة مع تحليلات متقدمة لاتخاذ قرارات مدروسة تدفع نمو الأعمال وتحقق التفوق التنافسي.",
-      icon: Briefcase,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام الشؤون القانونية الذكية",
-      description: "أدوات قانونية متخصصة مدعومة بالذكاء الاصطناعي المتطور. إدارة احترافية للعقود والامتثال القانوني مع تحليل ذكي للمخاطر وضمان الالتزام الكامل بالأنظمة واللوائح.",
-      icon: FileText,
-      color: "text-black",
-      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام التوظيف الذكي",
-      description: "منصة توظيف ثورية مدعومة بالذكاء الاصطناعي لاكتشاف أفضل المواهب. تتبع متطور للمتقدمين مع إدارة ذكية للمقابلات وتقييم علمي دقيق يضمن اختيار الكفاءات المناسبة.",
-      icon: Users,
-      color: "text-black",
-      image: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام التعويضات والمزايا",
-      description: "نظام مالي شامل ومتطور لإدارة الرواتب والمكافآت والترقيات والبدلات مع الحسابات التلقائية الدقيقة. تصميم هياكل تعويضية تنافسية تحفز الأداء وتحقق العدالة والشفافية المطلقة.",
-      icon: DollarSign,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام حماية الأجور",
-      description: "ضمان الامتثال المطلق والكامل لأنظمة حماية الأجور السعودية مع التكامل المباشر مع البنوك. حماية شاملة لحقوق العمال مع تتبع دقيق للمدفوعات وضمان الشفافية التامة.",
-      icon: Shield,
-      color: "text-black",
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام التقييمات الذكية",
-      description: "منصة تقييم أداء ثورية مدعومة بالذكاء الاصطناعي المتطور. تحليل شامل ومعمق للأداء مع توصيات ذكية لتطوير القدرات وتحسين الإنتاجية بطرق علمية مبتكرة.",
-      icon: BarChart3,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام التكامل الحكومي",
-      description: "ربط تقني متطور ومباشر مع جميع المنصات الحكومية الرئيسية (مدد، قوى، التأمينات الاجتماعية). تبادل آمن للبيانات مع ضمان الامتثال الكامل للأنظمة والحصول على الخدمات فورياً.",
-      icon: Building2,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام الذكاء الاصطناعي",
-      description: "تحليل ذكي متطور للبيانات مع رؤى استراتيجية عميقة وتوصيات مدعومة بالذكاء الاصطناعي المتقدم. اكتشاف الأنماط الخفية واتخاذ قرارات مدروسة تحقق التفوق والابتكار المستمر.",
-      icon: Brain,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      title: "نظام الاجتماعات الذكي",
-      description: "منصة متكاملة للاجتماعات المباشرة مع مجالس الإدارة والفرق التنفيذية وفرق العمل. تتضمن الفيديو المباشر، مشاركة الشاشة، التسجيل، إدارة المستندات، المحادثات، وتكليف المهام مع التكامل الكامل مع نظام بُعد للموارد البشرية.",
-      icon: Video,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400&q=80"
     }
   ];
 
@@ -667,19 +597,8 @@ const BoudHRLandingPage: React.FC = () => {
                 className="service-card group cursor-pointer"
                 onMouseEnter={() => setActiveFeature(index)}
                 onClick={() => {
-                  if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/employee-management-system");
+                  if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/comprehensive-employee-management");
                   else if (feature.title === "نظام الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
-                  else if (feature.title === "نظام التدريب") navigate("/comprehensive-employee-management");
-                  else if (feature.title === "نظام القطاع غير الربحي") navigate("/service-platforms/nonprofit-services");
-                  else if (feature.title === "نظام خدمات أصحاب الأعمال") navigate("/service-platforms/business-management");
-                  else if (feature.title === "نظام حماية الأجور") navigate("/service-platforms/wage-protection");
-                  else if (feature.title === "نظام التقييمات الذكية") navigate("/comprehensive-employee-management");
-                  else if (feature.title === "نظام التكامل الحكومي") navigate("/business-platform");
-                  else if (feature.title === "نظام الذكاء الاصطناعي") navigate("/ai-hub");
-                  else if (feature.title === "نظام الشؤون القانونية الذكية") navigate("/legal-platform");
-                  else if (feature.title === "نظام التوظيف الذكي") navigate("/comprehensive-employee-management");
-                  else if (feature.title === "نظام التعويضات والمزايا") navigate("/compensation-benefits");
-                  else if (feature.title === "نظام الاجتماعات الذكي") navigate("/comprehensive-employee-management");
                 }}
               >
                 <CardHeader className="text-center p-0">
