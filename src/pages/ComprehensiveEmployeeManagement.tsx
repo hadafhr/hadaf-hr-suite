@@ -91,6 +91,7 @@ import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { RewardsIncentives } from '@/components/systems/RewardsIncentives';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
+import TeamMembers from '@/components/systems/TeamMembers';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -721,130 +722,9 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
           </TabsContent>
 
-          {/* Employees Tab */}
+          {/* Employees Tab - Team Members */}
           <TabsContent value="employees" className="space-y-6">
-            {/* Search and Filter */}
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardContent className="p-4">
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="البحث عن موظف (الاسم، المنصب، رقم الموظف)..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 border-[#009F87]/20 focus:border-[#009F87]"
-                    />
-                  </div>
-                  <Select value={filterDepartment} onValueChange={setFilterDepartment}>
-                    <SelectTrigger className="w-full md:w-48 border-[#009F87]/20 focus:border-[#009F87]">
-                      <SelectValue placeholder="تصفية حسب القسم" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">جميع الأقسام</SelectItem>
-                      {departments.map((dept) => (
-                        <SelectItem key={dept} value={dept}>{dept}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
-                    <Filter className="h-4 w-4 ml-2" />
-                    تطبيق التصفية
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Employee Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredEmployees.map((employee, index) => (
-                <Card 
-                  key={employee.id} 
-                  className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-xl transition-all duration-300 animate-fade-in hover:scale-105"
-                  style={{animationDelay: `${index * 0.1}s`}}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-12 w-12 border-2 border-[#009F87]/20">
-                          <AvatarImage src={employee.avatar} alt={employee.name} />
-                          <AvatarFallback className="bg-[#009F87]/10 text-[#009F87]">
-                            {employee.name.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{employee.name}</h3>
-                          <p className="text-sm text-muted-foreground">{employee.id}</p>
-                        </div>
-                      </div>
-                      {getStatusBadge(employee.status)}
-                    </div>
-
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center gap-2 text-sm">
-                        <Briefcase className="h-4 w-4 text-[#009F87]" />
-                        <span>{employee.position}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <Building2 className="h-4 w-4 text-[#009F87]" />
-                        <span>{employee.department}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <User className="h-4 w-4 text-[#009F87]" />
-                        <span>{employee.manager}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <Calendar className="h-4 w-4 text-[#009F87]" />
-                        <span>انضم في {employee.joinDate}</span>
-                      </div>
-                    </div>
-
-                    {/* Performance indicator */}
-                    <div className="mb-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium">تقييم الأداء</span>
-                        <span className={`text-sm font-bold ${getPerformanceColor(employee.performance.currentRating)}`}>
-                          {employee.performance.currentRating}/5
-                        </span>
-                      </div>
-                      <Progress value={employee.performance.currentRating * 20} className="h-2" />
-                    </div>
-
-                    {/* Quick stats */}
-                    <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
-                      <div className="bg-[#009F87]/5 p-2 rounded text-center">
-                        <div className="font-semibold text-[#009F87]">{employee.attendance.thisMonth.attendanceRate}%</div>
-                        <div className="text-xs text-muted-foreground">معدل الحضور</div>
-                      </div>
-                      <div className="bg-[#009F87]/5 p-2 rounded text-center">
-                        <div className="font-semibold text-[#009F87]">{employee.leaves.annual.remaining}</div>
-                        <div className="text-xs text-muted-foreground">إجازة متبقية</div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1 hover:bg-[#009F87] hover:text-white transition-colors"
-                        onClick={() => handleViewEmployee(employee)}
-                      >
-                        <Eye className="h-4 w-4 ml-1" />
-                        عرض
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1 hover:bg-blue-600 hover:text-white transition-colors"
-                      >
-                        <Edit className="h-4 w-4 ml-1" />
-                        تحرير
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <TeamMembers />
           </TabsContent>
 
           {/* Other tabs will be implemented here... */}
