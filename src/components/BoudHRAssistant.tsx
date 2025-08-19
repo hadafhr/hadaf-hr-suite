@@ -176,7 +176,7 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
         <img 
           src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
           alt="BOUD HR Assistant" 
-          className={`fixed bottom-6 ${isRTL ? 'left-6' : 'right-6'} z-50 w-16 h-16 cursor-pointer hover:scale-110 transition-all duration-300 drop-shadow-lg hover:drop-shadow-xl`}
+          className={`fixed bottom-6 ${isRTL ? 'left-6' : 'right-6'} z-50 w-24 h-24 cursor-pointer hover:scale-110 transition-all duration-300 drop-shadow-lg hover:drop-shadow-xl`}
           onClick={() => setIsOpen(true)}
         />
       )}
