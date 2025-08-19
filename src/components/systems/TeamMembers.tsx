@@ -41,6 +41,14 @@ import {
   Crown,
   Briefcase
 } from 'lucide-react';
+
+// Import employee avatar images
+import ahmedAvatar from '@/assets/employee-avatars/ahmed-mohamed.jpg';
+import fatimaAvatar from '@/assets/employee-avatars/fatima-abdullah.jpg';
+import mohamedAvatar from '@/assets/employee-avatars/mohamed-khalidi.jpg';
+import saraAvatar from '@/assets/employee-avatars/sara-mutairi.jpg';
+import noraAvatar from '@/assets/employee-avatars/nora-salem.jpg';
+
 import EmployeeDirectory from './team/EmployeeDirectory';
 import EmployeeProfile from './team/EmployeeProfile';
 import ManagerDashboard from './team/ManagerDashboard';
@@ -100,7 +108,7 @@ const TeamMembers = () => {
         status: 'active',
         joinDate: '2022-01-15',
         yearsInCompany: 2,
-        profilePicture: '/api/placeholder/150/150',
+        profilePicture: ahmedAvatar,
         performanceScore: 88,
         attendanceRate: 95,
         tasks: 15,
@@ -125,7 +133,7 @@ const TeamMembers = () => {
         status: 'active',
         joinDate: '2021-03-10',
         yearsInCompany: 3,
-        profilePicture: '/api/placeholder/150/150',
+        profilePicture: fatimaAvatar,
         performanceScore: 92,
         attendanceRate: 98,
         tasks: 8,
@@ -150,7 +158,7 @@ const TeamMembers = () => {
         status: 'active',
         joinDate: '2019-06-01',
         yearsInCompany: 5,
-        profilePicture: '/api/placeholder/150/150',
+        profilePicture: mohamedAvatar,
         performanceScore: 95,
         attendanceRate: 97,
         tasks: 25,
@@ -175,7 +183,7 @@ const TeamMembers = () => {
         status: 'on_leave',
         joinDate: '2020-09-15',
         yearsInCompany: 4,
-        profilePicture: '/api/placeholder/150/150',
+        profilePicture: saraAvatar,
         performanceScore: 85,
         attendanceRate: 92,
         tasks: 12,
@@ -200,7 +208,7 @@ const TeamMembers = () => {
         status: 'active',
         joinDate: '2018-02-01',
         yearsInCompany: 6,
-        profilePicture: '/api/placeholder/150/150',
+        profilePicture: noraAvatar,
         performanceScore: 97,
         attendanceRate: 99,
         tasks: 20,
