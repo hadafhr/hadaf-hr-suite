@@ -125,14 +125,17 @@ const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ onBack })
 
   const handleCreateDepartment = async () => {
     try {
-      await createDepartment({
+      const departmentToCreate = {
         ...newDepartment,
         company_id: 'temp-company-id',
         department_type: 'operational',
         is_active: true,
         head_count: 0,
-        sort_order: 0
-      });
+        sort_order: 0,
+        function_type: newDepartment.function_type as "strategic" | "operational" | "support"
+      };
+      
+      await createDepartment(departmentToCreate);
       setIsAddDialogOpen(false);
       setNewDepartment({
         department_code: '',

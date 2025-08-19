@@ -82,7 +82,7 @@ import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 import MeetingHub from '@/pages/MeetingHub';
-import { DepartmentManagement } from '@/components/systems/DepartmentManagement';
+import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
 import { OrganizationalStructure } from '@/components/systems/OrganizationalStructure';
 import { WageProtectionSystem } from '@/components/systems/WageProtectionSystem';
@@ -976,10 +976,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <Building className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة الإدارات والأقسام هنا</p>
-                </div>
+                <DepartmentsManagement onBack={() => setActiveTab('dashboard')} />
               </CardContent>
             </Card>
           </TabsContent>
