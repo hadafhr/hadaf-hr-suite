@@ -301,7 +301,7 @@ const ComprehensiveEmployeeManagement = () => {
             <img 
               src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
               alt="شعار بُعد BOUD HR" 
-              className="h-12 w-auto"
+              className="h-50 w-auto"
             />
           </div>
           
