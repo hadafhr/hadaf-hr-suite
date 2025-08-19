@@ -14,7 +14,8 @@ import {
   Eye, Edit, CheckCircle2, XCircle, Clock, Star,
   Users, TrendingUp, BarChart3, Calendar, Mail,
   Phone, MapPin, FileText, Award, Brain, Zap,
-  MessageSquare, Video, Briefcase, GraduationCap
+  MessageSquare, Video, Briefcase, GraduationCap,
+  Building2, DollarSign
 } from 'lucide-react';
 import patternBg from '@/assets/boud-pattern-bg.jpg';
 import gradientMesh from '@/assets/boud-gradient-mesh.jpg';

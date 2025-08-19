@@ -734,7 +734,7 @@ export const SmartPerformance: React.FC<PerformanceProps> = ({ onBack }) => {
                     <div className="flex items-center justify-between p-4 bg-destructive/10 rounded-lg">
                       <div className="flex items-center gap-3">
                         <div className="w-4 h-4 bg-destructive rounded-full"></div>
-                        <span className="font-medium">يحتاج تحسين (<70%)</span>
+                        <span className="font-medium">يحتاج تحسين (&lt;70%)</span>
                       </div>
                       <span className="text-2xl font-bold text-destructive">22</span>
                     </div>
