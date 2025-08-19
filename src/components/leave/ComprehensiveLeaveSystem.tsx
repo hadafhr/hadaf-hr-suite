@@ -606,39 +606,6 @@ export const ComprehensiveLeaveSystem: React.FC = () => {
           <CalendarIcon className="h-12 w-12 text-primary mx-auto mb-4 animate-pulse" />
           <p className="text-lg font-medium">جاري تحميل نظام الإجازات...</p>
         </div>
-        </div>
-
-        {/* Approval Dialog */}
-        <Dialog open={isApprovalDialogOpen} onOpenChange={setIsApprovalDialogOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>
-                {approvalAction === 'approve' ? 'اعتماد طلب الإجازة' : 'رفض طلب الإجازة'}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <Label>التعليقات</Label>
-                <Textarea 
-                  value={approvalComments}
-                  onChange={(e) => setApprovalComments(e.target.value)}
-                  placeholder={approvalAction === 'approve' ? 'تعليقات الموافقة (اختياري)' : 'سبب الرفض (مطلوب)'}
-                />
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsApprovalDialogOpen(false)}>
-                  إلغاء
-                </Button>
-                <Button 
-                  onClick={handleSubmitApproval}
-                  className={approvalAction === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
-                >
-                  {approvalAction === 'approve' ? 'اعتماد' : 'رفض'}
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
     );
   }
@@ -669,143 +636,144 @@ export const ComprehensiveLeaveSystem: React.FC = () => {
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>طلب إجازة جديد</DialogTitle>
-              <DialogDescription>
-                املأ البيانات المطلوبة لتقديم طلب إجازة جديد
-              </DialogDescription>
-            </DialogHeader>
-            
-            <div className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>نوع الإجازة *</Label>
-                  <Select value={newRequestForm.leave_type_code} onValueChange={(value) => 
-                    setNewRequestForm(prev => ({ ...prev, leave_type_code: value }))
-                  }>
-                    <SelectTrigger>
-                      <SelectValue placeholder="اختر نوع الإجازة" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {leaveTypes.map((type) => {
-                        const IconComponent = getLeaveTypeIcon(type.code);
-                        return (
-                          <SelectItem key={type.code} value={type.code}>
-                            <div className="flex items-center gap-2">
-                              <IconComponent className="h-4 w-4" />
-                              <span>{type.name_ar}</span>
-                              {!type.is_paid && <Badge variant="outline">بدون راتب</Badge>}
-                            </div>
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
+              <DialogHeader>
+                <DialogTitle>طلب إجازة جديد</DialogTitle>
+                <DialogDescription>
+                  املأ البيانات المطلوبة لتقديم طلب إجازة جديد
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>نوع الإجازة *</Label>
+                    <Select value={newRequestForm.leave_type_code} onValueChange={(value) => 
+                      setNewRequestForm(prev => ({ ...prev, leave_type_code: value }))
+                    }>
+                      <SelectTrigger>
+                        <SelectValue placeholder="اختر نوع الإجازة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {leaveTypes.map((type) => {
+                          const IconComponent = getLeaveTypeIcon(type.code);
+                          return (
+                            <SelectItem key={type.code} value={type.code}>
+                              <div className="flex items-center gap-2">
+                                <IconComponent className="h-4 w-4" />
+                                <span>{type.name_ar}</span>
+                                {!type.is_paid && <Badge variant="outline">بدون راتب</Badge>}
+                              </div>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <Label>الأولوية</Label>
+                    <Select value={newRequestForm.priority} onValueChange={(value) => 
+                      setNewRequestForm(prev => ({ ...prev, priority: value as any }))
+                    }>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">منخفضة</SelectItem>
+                        <SelectItem value="normal">عادية</SelectItem>
+                        <SelectItem value="high">مرتفعة</SelectItem>
+                        <SelectItem value="urgent">عاجلة</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-                
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label>تاريخ البداية *</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="w-full justify-start text-left">
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {selectedDate ? format(selectedDate, 'PPP', { locale: ar }) : 'اختر التاريخ'}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={setSelectedDate}
+                          initialFocus
+                          className="pointer-events-auto"
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  
+                  <div>
+                    <Label>تاريخ النهاية *</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="w-full justify-start text-left">
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {endDate ? format(endDate, 'PPP', { locale: ar }) : 'اختر التاريخ'}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={endDate}
+                          onSelect={setEndDate}
+                          initialFocus
+                          disabled={(date) => selectedDate ? date < selectedDate : false}
+                          className="pointer-events-auto"
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                </div>
+
+                {selectedDate && endDate && (
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      إجمالي أيام الإجازة المطلوبة: <strong>{calculateDays(selectedDate, endDate)} يوم</strong>
+                    </AlertDescription>
+                  </Alert>
+                )}
+
                 <div>
-                  <Label>الأولوية</Label>
-                  <Select value={newRequestForm.priority} onValueChange={(value) => 
-                    setNewRequestForm(prev => ({ ...prev, priority: value as any }))
-                  }>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="low">منخفضة</SelectItem>
-                      <SelectItem value="normal">عادية</SelectItem>
-                      <SelectItem value="high">مرتفعة</SelectItem>
-                      <SelectItem value="urgent">عاجلة</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label>سبب الإجازة *</Label>
+                  <Textarea 
+                    placeholder="اذكر سبب طلب الإجازة بالتفصيل..."
+                    value={newRequestForm.reason}
+                    onChange={(e) => setNewRequestForm(prev => ({ ...prev, reason: e.target.value }))}
+                    rows={3}
+                  />
+                </div>
+
+                <div>
+                  <Label>تعليمات للمفوض (اختياري)</Label>
+                  <Textarea 
+                    placeholder="تعليمات خاصة للموظف المفوض أثناء فترة الإجازة..."
+                    value={newRequestForm.delegate_instructions}
+                    onChange={(e) => setNewRequestForm(prev => ({ ...prev, delegate_instructions: e.target.value }))}
+                    rows={2}
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setIsNewRequestOpen(false)}>
+                    إلغاء
+                  </Button>
+                  <Button onClick={handleSubmitRequest} className="bg-primary hover:bg-primary/90">
+                    تقديم الطلب
+                  </Button>
                 </div>
               </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>تاريخ البداية *</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className="w-full justify-start text-left">
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {selectedDate ? format(selectedDate, 'PPP', { locale: ar }) : 'اختر التاريخ'}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={setSelectedDate}
-                        initialFocus
-                        className="pointer-events-auto"
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                
-                <div>
-                  <Label>تاريخ النهاية *</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className="w-full justify-start text-left">
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {endDate ? format(endDate, 'PPP', { locale: ar }) : 'اختر التاريخ'}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={endDate}
-                        onSelect={setEndDate}
-                        initialFocus
-                        disabled={(date) => selectedDate ? date < selectedDate : false}
-                        className="pointer-events-auto"
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              </div>
-
-              {selectedDate && endDate && (
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    إجمالي أيام الإجازة المطلوبة: <strong>{calculateDays(selectedDate, endDate)} يوم</strong>
-                  </AlertDescription>
-                </Alert>
-              )}
-
-              <div>
-                <Label>سبب الإجازة *</Label>
-                <Textarea 
-                  placeholder="اذكر سبب طلب الإجازة بالتفصيل..."
-                  value={newRequestForm.reason}
-                  onChange={(e) => setNewRequestForm(prev => ({ ...prev, reason: e.target.value }))}
-                  rows={3}
-                />
-              </div>
-
-              <div>
-                <Label>تعليمات للمفوض (اختياري)</Label>
-                <Textarea 
-                  placeholder="تعليمات خاصة للموظف المفوض أثناء فترة الإجازة..."
-                  value={newRequestForm.delegate_instructions}
-                  onChange={(e) => setNewRequestForm(prev => ({ ...prev, delegate_instructions: e.target.value }))}
-                  rows={2}
-                />
-              </div>
-
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsNewRequestOpen(false)}>
-                  إلغاء
-                </Button>
-                <Button onClick={handleSubmitRequest} className="bg-primary hover:bg-primary/90">
-                  تقديم الطلب
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       {/* Critical AI Insights Alert */}
@@ -1057,6 +1025,27 @@ export const ComprehensiveLeaveSystem: React.FC = () => {
                           </Button>
                         </>
                       )}
+                      {(request.status === 'submitted' || request.status.includes('pending')) && userRole !== 'employee' && (
+                        <>
+                          <Button 
+                            size="sm" 
+                            className="bg-green-600 hover:bg-green-700"
+                            onClick={() => handleApprovalRequest(request, 'approve')}
+                          >
+                            <CheckCircle className="h-4 w-4 ml-2" />
+                            اعتماد
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-red-600 hover:text-red-700 border-red-300"
+                            onClick={() => handleApprovalRequest(request, 'reject')}
+                          >
+                            <XCircle className="h-4 w-4 ml-2" />
+                            رفض
+                          </Button>
+                        </>
+                      )}
                       {(request.status === 'submitted' || request.status.includes('pending')) && (
                         <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700">
                           إلغاء الطلب
@@ -1262,6 +1251,38 @@ export const ComprehensiveLeaveSystem: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Approval Dialog */}
+      <Dialog open={isApprovalDialogOpen} onOpenChange={setIsApprovalDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {approvalAction === 'approve' ? 'اعتماد طلب الإجازة' : 'رفض طلب الإجازة'}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label>التعليقات</Label>
+              <Textarea 
+                value={approvalComments}
+                onChange={(e) => setApprovalComments(e.target.value)}
+                placeholder={approvalAction === 'approve' ? 'تعليقات الموافقة (اختياري)' : 'سبب الرفض (مطلوب)'}
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setIsApprovalDialogOpen(false)}>
+                إلغاء
+              </Button>
+              <Button 
+                onClick={handleSubmitApproval}
+                className={approvalAction === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
+              >
+                {approvalAction === 'approve' ? 'اعتماد' : 'رفض'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
