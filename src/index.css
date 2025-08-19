@@ -271,3 +271,23 @@
 .horizontal-icon-nav::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary-foreground));
 }
+
+/* إضافة متحركات مخصصة */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* إخفاء شريط التمرير */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

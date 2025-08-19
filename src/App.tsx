@@ -219,14 +219,14 @@ const App = () => {
               
                {/* Employee Management System Routes */}
           <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
-              <Route path="/employee-services-department" element={<EmployeeServicesDepartment />} />
+                <Route path="/employee-services-department" element={<EmployeeServicesDepartment />} />
           <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
           <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
               <Route path="/employee-requests" element={<EmployeeRequests />} />
               <Route path="/reports-analytics" element={<ReportsAnalytics />} />
               <Route path="/system-settings" element={<SystemSettings />} />
-               <Route path="/employee-portal" element={<EmployeePortal />} />
-               <Route path="/employer-portal" element={<EmployerPortal />} />
+                <Route path="/employee-portal" element={<EmployeePortal />} />
+                <Route path="/employer-portal" element={<EmployerPortal />} />
                
                 {/* E-Signature System */}
                 <Route path="/e-signature" element={<ESignatureSystem />} />
@@ -252,9 +252,6 @@ const App = () => {
                 <Route path="/e-css" element={<ECSS />} />
                 <Route path="/eis" element={<EIS />} />
                 <Route path="/npcs" element={<NPCS />} />
-                <Route path="/employee-portal" element={<ECSS />} />
-                <Route path="/employer-portal" element={<EIS />} />
-                <Route path="/nonprofit-portal" element={<NPCS />} />
                
                <Route path="*" element={<NotFound />} />
             </Routes>

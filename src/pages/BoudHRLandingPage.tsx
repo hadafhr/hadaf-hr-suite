@@ -598,7 +598,7 @@ const BoudHRLandingPage: React.FC = () => {
                 onMouseEnter={() => setActiveFeature(index)}
                 onClick={() => {
                   if (feature.title === "نظام إدارة الموظفين الشامل") navigate("/comprehensive-employee-management");
-                  else if (feature.title === "نظام الخدمة الذاتية") navigate("/service-platforms/employee-self-service");
+                  else if (feature.title === "نظام الخدمة الذاتية") navigate("/employee-self-service");
                 }}
               >
                 <CardHeader className="text-center p-0">
