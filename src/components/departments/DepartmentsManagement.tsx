@@ -625,4 +625,5 @@ const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ onBack })
   );
 };
 
+export { DepartmentsManagement };
 export default DepartmentsManagement;
