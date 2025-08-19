@@ -299,8 +299,8 @@ const ComprehensiveEmployeeManagement = () => {
           {/* BOUD Logo */}
           <div className="flex items-center gap-4 mr-4">
             <img 
-              src="/public/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png" 
-              alt="شعار بُعد BOUD" 
+              src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
+              alt="شعار بُعد BOUD HR" 
               className="h-12 w-auto"
             />
           </div>
