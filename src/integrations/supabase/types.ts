@@ -3270,23 +3270,28 @@ export type Database = {
           contract_start_date: string | null
           created_at: string
           email: string | null
+          email_encrypted: string | null
           employee_id: string
           full_name: string
           grade: string | null
           hire_date: string | null
           housing_allowance: number | null
           iban: string | null
+          iban_encrypted: string | null
           id: string
           is_active: boolean | null
           job_title: string | null
           leave_balances: Json | null
           manager_id: string | null
           national_id: string | null
+          national_id_encrypted: string | null
           nationality: string | null
           org_unit_id: string | null
           other_allowances: number | null
           passport_number: string | null
+          passport_number_encrypted: string | null
           phone: string | null
+          phone_encrypted: string | null
           position: string | null
           profile_data: Json | null
           status: Database["public"]["Enums"]["employee_status"] | null
@@ -3302,23 +3307,28 @@ export type Database = {
           contract_start_date?: string | null
           created_at?: string
           email?: string | null
+          email_encrypted?: string | null
           employee_id: string
           full_name: string
           grade?: string | null
           hire_date?: string | null
           housing_allowance?: number | null
           iban?: string | null
+          iban_encrypted?: string | null
           id?: string
           is_active?: boolean | null
           job_title?: string | null
           leave_balances?: Json | null
           manager_id?: string | null
           national_id?: string | null
+          national_id_encrypted?: string | null
           nationality?: string | null
           org_unit_id?: string | null
           other_allowances?: number | null
           passport_number?: string | null
+          passport_number_encrypted?: string | null
           phone?: string | null
+          phone_encrypted?: string | null
           position?: string | null
           profile_data?: Json | null
           status?: Database["public"]["Enums"]["employee_status"] | null
@@ -3334,23 +3344,28 @@ export type Database = {
           contract_start_date?: string | null
           created_at?: string
           email?: string | null
+          email_encrypted?: string | null
           employee_id?: string
           full_name?: string
           grade?: string | null
           hire_date?: string | null
           housing_allowance?: number | null
           iban?: string | null
+          iban_encrypted?: string | null
           id?: string
           is_active?: boolean | null
           job_title?: string | null
           leave_balances?: Json | null
           manager_id?: string | null
           national_id?: string | null
+          national_id_encrypted?: string | null
           nationality?: string | null
           org_unit_id?: string | null
           other_allowances?: number | null
           passport_number?: string | null
+          passport_number_encrypted?: string | null
           phone?: string | null
+          phone_encrypted?: string | null
           position?: string | null
           profile_data?: Json | null
           status?: Database["public"]["Enums"]["employee_status"] | null
