@@ -82,7 +82,7 @@ import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 import MeetingHub from '@/pages/MeetingHub';
-import DepartmentsManagement from '@/components/departments/DepartmentsManagement';
+import AttendanceDashboard from '@/components/attendance/AttendanceDashboard';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
 import { OrganizationalStructure } from '@/components/systems/OrganizationalStructure';
 import { WageProtectionSystem } from '@/components/systems/WageProtectionSystem';
