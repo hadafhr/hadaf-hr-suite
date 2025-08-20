@@ -98,6 +98,7 @@ import { WageProtectionSystem } from '@/components/systems/WageProtectionSystem'
 import { LegalAffairs } from '@/components/systems/LegalAffairs';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { RewardsIncentives } from '@/components/systems/RewardsIncentives';
+import { RewardsIncentivesManagement } from '@/components/systems/RewardsIncentivesManagement';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import TeamMembers from '@/components/systems/TeamMembers';
@@ -973,52 +974,9 @@ const ComprehensiveEmployeeManagement = () => {
             <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          {/* Benefits Tab */}
+          {/* Benefits Tab - Rewards & Incentives System */}
           <TabsContent value="benefits" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Gift className="h-6 w-6" />
-                  نظام المزايا والحوافز
-                </CardTitle>
-                <CardDescription>
-                  إدارة المكافآت والحوافز والمزايا الإضافية
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Gift className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام المزايا والحوافز هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: المكافآت، الحوافز، البدلات الإضافية، وبرامج المزايا
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Requests Tab */}
-          <TabsContent value="requests" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <FileText className="h-6 w-6" />
-                  نظام إدارة الطلبات
-                </CardTitle>
-                <CardDescription>
-                  إدارة جميع طلبات الموظفين والموافقات
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <FileText className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة الطلبات هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: طلبات الإجازات، الشهادات، التنقلات، والموافقات الإدارية
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <RewardsIncentivesManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Reports Tab */}
