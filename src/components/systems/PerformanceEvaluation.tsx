@@ -5,7 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, Target, TrendingUp, Search, Plus, Star, Award } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { ArrowLeft, Target, TrendingUp, Search, Plus, Star, Award, Download, Upload, FileText, Eye, Save, Brain, BarChart3, Users, PieChart, Activity, Zap, Globe, Settings, Share } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, LineChart, Line, AreaChart, Area, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Pie } from 'recharts';
 
 interface PerformanceEvaluationProps {
   onBack: () => void;
@@ -42,6 +44,43 @@ export const PerformanceEvaluation: React.FC<PerformanceEvaluationProps> = ({ on
   const isRTL = i18n.language === 'ar';
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [activeView, setActiveView] = useState('dashboard');
+
+  // بيانات التحليلات المتقدمة
+  const performanceAnalytics = [
+    { month: 'يناير', performance: 85, target: 90, employees: 120 },
+    { month: 'فبراير', performance: 88, target: 90, employees: 125 },
+    { month: 'مارس', performance: 92, target: 90, employees: 130 },
+    { month: 'أبريل', performance: 87, target: 90, employees: 128 },
+    { month: 'مايو', performance: 95, target: 90, employees: 135 },
+    { month: 'يونيو', performance: 90, target: 90, employees: 132 }
+  ];
+
+  const departmentPerformance = [
+    { name: 'تقنية المعلومات', value: 95, count: 24 },
+    { name: 'الموارد البشرية', value: 92, count: 18 },
+    { name: 'المبيعات', value: 88, count: 32 },
+    { name: 'المحاسبة', value: 90, count: 16 },
+    { name: 'التسويق', value: 87, count: 20 }
+  ];
+
+  const aiInsights = [
+    { category: 'الأداء المتميز', count: 45, percentage: 78, color: '#10B981' },
+    { category: 'يحتاج تطوير', count: 12, percentage: 21, color: '#F59E0B' },
+    { category: 'أداء منخفض', count: 3, percentage: 5, color: '#EF4444' },
+    { category: 'موظفون جدد', count: 8, percentage: 14, color: '#3B82F6' }
+  ];
+
+  const competencyData = [
+    { skill: 'القيادة', current: 85, target: 90 },
+    { skill: 'التواصل', current: 92, target: 95 },
+    { skill: 'التقنية', current: 88, target: 90 },
+    { skill: 'حل المشاكل', current: 90, target: 92 },
+    { skill: 'العمل الجماعي', current: 87, target: 90 },
+    { skill: 'الإبداع', current: 83, target: 88 }
+  ];
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
   const evaluations: Evaluation[] = [
     {
@@ -164,86 +203,261 @@ export const PerformanceEvaluation: React.FC<PerformanceEvaluationProps> = ({ on
   });
 
   return (
-    <div className={`min-h-screen bg-background p-6 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                {isRTL ? 'تقييم الأداء' : 'Performance Evaluation'}
+    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header with AI Branding */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {isRTL ? 'رجوع' : 'Back'}
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Share className="h-4 w-4 ml-2" />
+                  {isRTL ? 'استيراد' : 'Import'}
+                </Button>
+                <Button className="bg-green-500/80 border-green-400/30 text-white hover:bg-green-500/90 backdrop-blur-sm">
+                  <Download className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
+                </Button>
+                <Button className="bg-red-500/80 border-red-400/30 text-white hover:bg-red-500/90 backdrop-blur-sm">
+                  <FileText className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
+                </Button>
+                <Button className="bg-blue-500/80 border-blue-400/30 text-white hover:bg-blue-500/90 backdrop-blur-sm">
+                  <Eye className="h-4 w-4 ml-2" />
+                  {isRTL ? 'معاينة' : 'Preview'}
+                </Button>
+                <Button className="bg-yellow-500/80 border-yellow-400/30 text-white hover:bg-yellow-500/90 backdrop-blur-sm">
+                  <Save className="h-4 w-4 ml-2" />
+                  {isRTL ? 'حفظ كمسودة' : 'Save Draft'}
+                </Button>
+                <Button className="bg-emerald-500 border-emerald-400 text-white hover:bg-emerald-600 shadow-lg">
+                  <Save className="h-4 w-4 ml-2" />
+                  {isRTL ? 'حفظ' : 'Save'}
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Brain className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                {isRTL ? 'التقييم الذكي بالذكاء الاصطناعي' : 'AI-Powered Smart Evaluation'}
               </h1>
-              <p className="text-muted-foreground">
-                {isRTL ? 'إدارة تقييمات الأداء والأهداف والمتابعة' : 'Manage performance evaluations, goals and tracking'}
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                {isRTL ? 'منظومة تقييم متطورة تستخدم الذكاء الاصطناعي لتحليل الأداء وتقديم توصيات ذكية' : 'Advanced evaluation system using AI to analyze performance and provide intelligent recommendations'}
               </p>
             </div>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            {isRTL ? 'تقييم جديد' : 'New Evaluation'}
-          </Button>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'التقييمات المكتملة' : 'Completed Evaluations'}
-                  </p>
-                  <p className="text-2xl font-bold">156</p>
+        {/* AI Analytics Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {/* Main Analytics Panel */}
+          <div className="lg:col-span-2">
+            <Card className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white shadow-2xl rounded-2xl overflow-hidden">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* World Map Visualization */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-blue-200">
+                      {isRTL ? 'التوزيع العالمي' : 'Global Distribution'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-blue-800/50 to-purple-800/50 rounded-xl p-4 flex items-center justify-center">
+                      <Globe className="h-32 w-32 text-blue-300 opacity-80" />
+                      <div className="absolute top-4 right-4 bg-blue-500/80 px-3 py-1 rounded-full text-sm">
+                        685 {isRTL ? 'موظف' : 'Employees'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-green-500/80 px-3 py-1 rounded-full text-sm">
+                        15,625 {isRTL ? 'تقييم' : 'Evaluations'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* AI Brain Visualization */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-purple-200">
+                      {isRTL ? 'تحليل الذكاء الاصطناعي' : 'AI Analysis'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-purple-800/50 to-pink-800/50 rounded-xl p-4 flex items-center justify-center">
+                      <Brain className="h-32 w-32 text-purple-300 opacity-80" />
+                      <div className="absolute top-4 right-4 bg-purple-500/80 px-3 py-1 rounded-full text-sm">
+                        33% {isRTL ? 'تحسن' : 'Improvement'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-pink-500/80 px-3 py-1 rounded-full text-sm">
+                        7,002 {isRTL ? 'توصية' : 'Insights'}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <Target className="h-8 w-8 text-green-600" />
+
+                {/* Performance Chart */}
+                <div className="mt-8">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={performanceAnalytics}>
+                      <defs>
+                        <linearGradient id="colorPerformance" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.1}/>
+                        </linearGradient>
+                        <linearGradient id="colorTarget" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#10B981" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#10B981" stopOpacity={0.1}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="month" stroke="#9CA3AF" />
+                      <YAxis stroke="#9CA3AF" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
+                        labelStyle={{ color: '#F3F4F6' }}
+                      />
+                      <Area type="monotone" dataKey="performance" stroke="#3B82F6" fill="url(#colorPerformance)" />
+                      <Area type="monotone" dataKey="target" stroke="#10B981" fill="url(#colorTarget)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-800">
+                    {isRTL ? 'إحصائيات سريعة' : 'Quick Stats'}
+                  </h3>
+                  <Settings className="h-5 w-5 text-gray-400" />
+                </div>
+                <div className="space-y-4">
+                  {aiInsights.map((insight, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${insight.color}15` }}>
+                      <div>
+                        <p className="font-semibold text-gray-800">{insight.category}</p>
+                        <p className="text-sm text-gray-600">{insight.count} {isRTL ? 'موظف' : 'employees'}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold" style={{ color: insight.color }}>{insight.percentage}%</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  {isRTL ? 'توزيع الأقسام' : 'Department Distribution'}
+                </h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <RechartsPieChart>
+                    <Pie
+                      data={departmentPerformance}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={40}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {departmentPerformance.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Smart AI System Categories */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-emerald-500 text-white px-6 py-2 rounded-full shadow-lg">
+              <Brain className="h-5 w-5" />
+              <span className="font-medium">{isRTL ? 'مدعوم بالذكاء الاصطناعي' : 'AI-Powered System'}</span>
+            </div>
+          </div>
+          
+          <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+                {isRTL ? 'نظام التقييم الذكي' : 'Smart Evaluation System'}
+              </h2>
+              <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                {isRTL ? 'يجمع البيانات من جميع أنظمة التقييمات والتقييمات لتوليد نتائج ذكية وتقوية قائمة على الذكاء الاصطناعي' : 'Collects data from all evaluation systems and assessments to generate intelligent results and AI-powered recommendations'}
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+                {[
+                  { icon: BarChart3, label: isRTL ? 'خبرة عملية' : 'Work Experience', color: 'bg-blue-500', count: 0 },
+                  { icon: Users, label: isRTL ? 'نطاقات النتائج الذكية' : 'Smart Results', color: 'bg-yellow-500', count: 2 },
+                  { icon: Target, label: isRTL ? 'المخاطر' : 'Risks', color: 'bg-red-500', count: 2 },
+                  { icon: Award, label: isRTL ? 'الرؤى والمخاطر' : 'Insights', color: 'bg-orange-500', count: 6 },
+                  { icon: PieChart, label: isRTL ? 'التوصيات (IDP)' : 'Recommendations', color: 'bg-green-500', count: 3 },
+                  { icon: Activity, label: isRTL ? 'مجلس هذا نو' : 'Analytics', color: 'bg-blue-600', count: 5 },
+                  { icon: Zap, label: isRTL ? 'الإعدادات' : 'Settings', color: 'bg-purple-500', count: 5 },
+                  { icon: TrendingUp, label: isRTL ? 'التقارير' : 'Reports', color: 'bg-green-600', count: 0 }
+                ].map((item, index) => (
+                  <div key={index} className="text-center group cursor-pointer">
+                    <div className={`${item.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform relative`}>
+                      <item.icon className="h-8 w-8 text-white" />
+                      {item.count > 0 && (
+                        <div className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                          {item.count}
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
               </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'متوسط الأداء' : 'Average Performance'}
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">4.2</p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">3</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'المعايير المعلقة' : 'Pending Standards'}</div>
+                  <div className="text-xs text-gray-500 mt-1">{isRTL ? 'في انتظار المراجعة' : 'Under Review'}</div>
                 </div>
-                <Star className="h-8 w-8 text-yellow-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الأهداف المكتملة' : 'Goals Completed'}
-                  </p>
-                  <p className="text-2xl font-bold text-blue-600">89</p>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl">
+                  <div className="text-3xl font-bold text-orange-600 mb-2">6</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'الموظفون عالي المخاطر' : 'High-Risk Employees'}</div>
+                  <div className="text-xs text-gray-500 mt-1">{isRTL ? 'يحتاجون اهتمام' : 'Need Attention'}</div>
                 </div>
-                <Award className="h-8 w-8 text-blue-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'تحسن الأداء' : 'Performance Growth'}
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">+12%</p>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
+                  <div className="text-3xl font-bold text-green-600 mb-2">76</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'متوسط النتيجة الذكية' : 'Average Smart Score'}</div>
+                  <div className="text-xs text-gray-500 mt-1">{isRTL ? 'من أصل 100' : 'Out of 100'}</div>
                 </div>
-                <TrendingUp className="h-8 w-8 text-green-600" />
+                
+                <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
+                  <div className="text-3xl font-bold text-purple-600 mb-2">72%</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'اكتمال التقييم' : 'Evaluation Completion'}</div>
+                  <div className="text-xs text-gray-500 mt-1">{isRTL ? 'للربع الحالي' : 'Current Quarter'}</div>
+                </div>
               </div>
             </CardContent>
           </Card>
