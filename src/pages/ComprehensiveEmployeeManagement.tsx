@@ -930,13 +930,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <PenTool className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام التوقيع الإلكتروني هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: توقيع المستندات، إدارة العقود، تتبع التوقيعات، والمصادقة الرقمية
-                  </p>
-                </div>
+                <ElectronicSignature onBack={() => {}} />
               </CardContent>
             </Card>
           </TabsContent>
