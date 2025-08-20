@@ -1,15 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import BoudHRLandingPage from '@/pages/BoudHRLandingPage';
 
 const Index = () => {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    // إعادة توجيه تلقائية إلى الصفحة الرئيسية
-    navigate('/');
-  }, [navigate]);
-
-  return null;
+  return <BoudHRLandingPage />;
 };
 
 export default Index;
