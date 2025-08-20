@@ -99,6 +99,7 @@ import { RewardsIncentives } from '@/components/systems/RewardsIncentives';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import TeamMembers from '@/components/systems/TeamMembers';
+import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -949,14 +950,8 @@ const ComprehensiveEmployeeManagement = () => {
                   إدارة شاملة للرواتب والمستحقات المالية
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <DollarSign className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام الرواتب هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: حساب الرواتب، البدلات، الخصومات، وكشوف المرتبات الشهرية
-                  </p>
-                </div>
+              <CardContent className="p-0">
+                <ComprehensivePayrollSystem />
               </CardContent>
             </Card>
           </TabsContent>
