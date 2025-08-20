@@ -422,13 +422,6 @@ const ComprehensiveEmployeeManagement = () => {
                   className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
                 >
                   <Network className="h-4 w-4 ml-2 flex-shrink-0" />
-                  التنظيم المؤسسي
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="orgdevelopment" 
-                  className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
-                >
-                  <TrendingUp className="h-4 w-4 ml-2 flex-shrink-0" />
                   التطوير والتنظيم المؤسسي
                 </TabsTrigger>
                 <TabsTrigger 
@@ -1099,11 +1092,6 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Organization Tab */}
           <TabsContent value="organization" className="space-y-6">
-            <OrganizationalStructure onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          {/* Organizational Development Tab */}
-          <TabsContent value="orgdevelopment" className="space-y-6">
             <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
