@@ -1099,23 +1099,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Organization Tab */}
           <TabsContent value="organization" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Network className="h-6 w-6" />
-                  التنظيم المؤسسي
-                </CardTitle>
-                <CardDescription>
-                  هيكلة وتنظيم المؤسسة والعمليات الإدارية
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Network className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام التنظيم المؤسسي هنا</p>
-                </div>
-              </CardContent>
-            </Card>
+            <OrganizationalStructure onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Organizational Development Tab */}
