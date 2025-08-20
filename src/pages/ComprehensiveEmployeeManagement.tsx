@@ -85,6 +85,7 @@ import { DepartmentsManagement } from '@/components/departments/DepartmentsManag
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
+import { PerformanceEvaluation } from '@/components/systems/PerformanceEvaluation';
 import MeetingHub from '@/pages/MeetingHub';
 import AttendanceDashboard from '@/components/attendance/AttendanceDashboard';
 import AttendanceRealTimeClock from '@/components/attendance/AttendanceRealTimeClock';
@@ -912,7 +913,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Performance Tab - Smart Evaluations System */}
           <TabsContent value="performance" className="space-y-6">
-            <SmartEvaluations />
+            <PerformanceEvaluation onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Electronic Signature Tab */}
