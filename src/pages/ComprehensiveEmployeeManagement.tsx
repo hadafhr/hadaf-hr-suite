@@ -101,6 +101,7 @@ import { RewardsIncentives } from '@/components/systems/RewardsIncentives';
 import { RewardsIncentivesManagement } from '@/components/systems/RewardsIncentivesManagement';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
+import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
 import TeamMembers from '@/components/systems/TeamMembers';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
@@ -1079,14 +1080,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <img 
-                    src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
-                    alt="شعار بُعد BOUD HR" 
-                    className="h-16 w-auto mx-auto mb-4 opacity-50"
-                  />
-                  <p className="text-muted-foreground">سيتم تطوير نظام الذكاء الاصطناعي هنا</p>
-                </div>
+                <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
               </CardContent>
             </Card>
           </TabsContent>
