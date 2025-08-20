@@ -102,6 +102,7 @@ import { TasksTracking } from '@/components/systems/TasksTracking';
 import TeamMembers from '@/components/systems/TeamMembers';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
+import { GovernanceCompliance } from '@/components/systems/GovernanceCompliance';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -421,6 +422,13 @@ const ComprehensiveEmployeeManagement = () => {
                 >
                   <Network className="h-4 w-4 ml-2 flex-shrink-0" />
                   التنظيم المؤسسي
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="governance" 
+                  className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
+                >
+                  <Shield className="h-4 w-4 ml-2 flex-shrink-0" />
+                  الحوكمة والامتثال
                 </TabsTrigger>
                 <TabsTrigger 
                   value="wageprotection" 
@@ -1100,6 +1108,11 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Governance and Compliance Tab */}
+          <TabsContent value="governance" className="space-y-6">
+            <GovernanceCompliance onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Wage Protection Tab */}
