@@ -1,756 +1,290 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { 
-  Shield, 
-  FileText, 
-  CheckCircle2, 
-  AlertTriangle, 
-  Eye, 
-  Edit, 
-  Plus, 
-  Download, 
-  Upload, 
-  Calendar, 
-  Users, 
-  BarChart3, 
-  Clock, 
-  Target, 
-  BookOpen, 
-  Award, 
-  Settings, 
-  Bell,
-  Gavel,
-  Scale,
-  Lock,
-  UserCheck,
-  Database,
-  TrendingUp,
-  Activity
-} from 'lucide-react';
-import { toast } from 'sonner';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Scale, AlertTriangle, CheckCircle, FileCheck, Gavel, Users, FileText, Eye, Save, Download, Share, Settings } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
 
 interface GovernanceComplianceProps {
   onBack: () => void;
 }
 
 export const GovernanceCompliance: React.FC<GovernanceComplianceProps> = ({ onBack }) => {
-  const [activeView, setActiveView] = useState('overview');
-  const [selectedPolicy, setSelectedPolicy] = useState<any>(null);
-  const [isAddPolicyOpen, setIsAddPolicyOpen] = useState(false);
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
 
-  // Mock data for governance and compliance
-  const complianceStats = {
-    totalPolicies: 45,
-    activePolicies: 42,
-    pendingReview: 3,
-    complianceRate: 94.2,
-    riskLevel: 'منخفض',
-    lastAudit: '2024-02-15',
-    nextAudit: '2024-08-15',
-    violations: 2,
-    resolvedViolations: 18
-  };
-
-  const policies = [
-    {
-      id: 'POL001',
-      title: 'سياسة السلوك المهني وأخلاقيات العمل',
-      category: 'أخلاقيات العمل',
-      status: 'نشط',
-      version: '2.1',
-      lastUpdated: '2024-01-15',
-      approvedBy: 'إدارة الموارد البشرية',
-      effectiveDate: '2024-02-01',
-      reviewDate: '2024-12-01',
-      priority: 'عالي',
-      compliance: 98,
-      description: 'تحدد هذه السياسة المعايير الأخلاقية والسلوكية المطلوبة من جميع الموظفين',
-      applicableTo: ['جميع الموظفين'],
-      relatedLaws: ['نظام العمل السعودي', 'لائحة السلوك المهني']
-    },
-    {
-      id: 'POL002',
-      title: 'سياسة الخصوصية وحماية البيانات',
-      category: 'أمن المعلومات',
-      status: 'نشط',
-      version: '1.5',
-      lastUpdated: '2024-03-10',
-      approvedBy: 'إدارة تقنية المعلومات',
-      effectiveDate: '2024-03-15',
-      reviewDate: '2024-09-15',
-      priority: 'عالي',
-      compliance: 96,
-      description: 'تنظم هذه السياسة جمع ومعالجة واستخدام البيانات الشخصية',
-      applicableTo: ['جميع الموظفين', 'قسم تقنية المعلومات'],
-      relatedLaws: ['نظام حماية البيانات الشخصية', 'لائحة الأمن السيبراني']
-    },
-    {
-      id: 'POL003',
-      title: 'سياسة مكافحة التحرش في مكان العمل',
-      category: 'بيئة العمل',
-      status: 'نشط',
-      version: '1.2',
-      lastUpdated: '2024-02-20',
-      approvedBy: 'الإدارة العليا',
-      effectiveDate: '2024-03-01',
-      reviewDate: '2024-11-01',
-      priority: 'عالي',
-      compliance: 100,
-      description: 'تحدد إجراءات منع والتعامل مع حالات التحرش في بيئة العمل',
-      applicableTo: ['جميع الموظفين', 'الإدارة'],
-      relatedLaws: ['نظام مكافحة التحرش', 'نظام العمل السعودي']
-    }
+  // بيانات الحوكمة والامتثال
+  const complianceData = [
+    { month: 'يناير', compliance: 95, violations: 5 },
+    { month: 'فبراير', compliance: 97, violations: 3 },
+    { month: 'مارس', compliance: 94, violations: 6 },
+    { month: 'أبريل', compliance: 98, violations: 2 },
+    { month: 'مايو', compliance: 96, violations: 4 },
+    { month: 'يونيو', compliance: 99, violations: 1 }
   ];
 
-  const riskAssessments = [
-    {
-      id: 'RISK001',
-      title: 'تقييم مخاطر أمن المعلومات',
-      category: 'أمن المعلومات',
-      riskLevel: 'متوسط',
-      probability: 'متوسط',
-      impact: 'عالي',
-      status: 'قيد المراجعة',
-      owner: 'إدارة تقنية المعلومات',
-      dueDate: '2024-05-15',
-      mitigationActions: 3,
-      completedActions: 1
-    },
-    {
-      id: 'RISK002',
-      title: 'تقييم مخاطر الامتثال التنظيمي',
-      category: 'امتثال',
-      riskLevel: 'منخفض',
-      probability: 'منخفض',
-      impact: 'متوسط',
-      status: 'مكتمل',
-      owner: 'إدارة الموارد البشرية',
-      dueDate: '2024-04-30',
-      mitigationActions: 2,
-      completedActions: 2
-    }
+  const governanceMetrics = [
+    { category: 'الامتثال الكامل', count: 340, percentage: 92, color: 'hsl(var(--success))' },
+    { category: 'تحت المراجعة', count: 28, percentage: 7.5, color: 'hsl(var(--warning))' },
+    { category: 'مخالفات قيد المعالجة', count: 8, percentage: 2, color: 'hsl(var(--destructive))' },
+    { category: 'تدقيقات مكتملة', count: 95, percentage: 98, color: 'hsl(var(--primary))' }
   ];
 
-  const auditActivities = [
-    {
-      id: 'AUD001',
-      title: 'مراجعة داخلية لسياسات الموارد البشرية',
-      type: 'مراجعة داخلية',
-      status: 'مجدولة',
-      auditor: 'فريق المراجعة الداخلية',
-      scheduledDate: '2024-05-20',
-      scope: ['سياسات التوظيف', 'إجراءات التقييم', 'نظم الحوافز'],
-      findings: 0,
-      recommendations: 0
-    },
-    {
-      id: 'AUD002',
-      title: 'مراجعة خارجية للامتثال التنظيمي',
-      type: 'مراجعة خارجية',
-      status: 'مكتملة',
-      auditor: 'شركة المراجعة المعتمدة',
-      completedDate: '2024-02-15',
-      scope: ['الامتثال لنظام العمل', 'سياسات الأجور', 'إجراءات السلامة'],
-      findings: 2,
-      recommendations: 3
-    }
+  const riskAssessment = [
+    { level: 'مخاطر منخفضة', value: 70, count: 280 },
+    { level: 'مخاطر متوسطة', value: 25, count: 100 },
+    { level: 'مخاطر عالية', value: 5, count: 20 }
   ];
 
-  const trainingPrograms = [
-    {
-      id: 'TRN001',
-      title: 'برنامج التوعية بالامتثال',
-      category: 'امتثال',
-      status: 'نشط',
-      duration: '4 ساعات',
-      completionRate: 87,
-      enrolledEmployees: 245,
-      completedEmployees: 213,
-      dueDate: '2024-06-30',
-      mandatory: true
-    },
-    {
-      id: 'TRN002',
-      title: 'ورشة أمن المعلومات',
-      category: 'أمن المعلومات',
-      status: 'مجدولة',
-      duration: '6 ساعات',
-      completionRate: 0,
-      enrolledEmployees: 120,
-      completedEmployees: 0,
-      dueDate: '2024-07-15',
-      mandatory: true
-    }
-  ];
-
-  const getPriorityBadge = (priority: string) => {
-    const config = {
-      'عالي': 'bg-red-100 text-red-800 border-red-200',
-      'متوسط': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'منخفض': 'bg-green-100 text-green-800 border-green-200'
-    };
-    return <Badge className={config[priority as keyof typeof config]}>{priority}</Badge>;
-  };
-
-  const getStatusBadge = (status: string) => {
-    const config = {
-      'نشط': 'bg-green-100 text-green-800 border-green-200',
-      'قيد المراجعة': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'مجدولة': 'bg-blue-100 text-blue-800 border-blue-200',
-      'مكتملة': 'bg-green-100 text-green-800 border-green-200',
-      'مكتمل': 'bg-green-100 text-green-800 border-green-200'
-    };
-    return <Badge className={config[status as keyof typeof config]}>{status}</Badge>;
-  };
-
-  const getRiskBadge = (risk: string) => {
-    const config = {
-      'عالي': 'bg-red-100 text-red-800 border-red-200',
-      'متوسط': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'منخفض': 'bg-green-100 text-green-800 border-green-200'
-    };
-    return <Badge className={config[risk as keyof typeof config]}>{risk}</Badge>;
-  };
+  const BOUD_COLORS = ['hsl(var(--success))', 'hsl(var(--warning))', 'hsl(var(--destructive))'];
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-[#009F87]/10 rounded-lg">
-            <Shield className="h-8 w-8 text-[#009F87]" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-[#009F87]">نظام الحوكمة والامتثال</h2>
-            <p className="text-muted-foreground">إدارة السياسات والامتثال التنظيمي</p>
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {isRTL ? 'رجوع' : 'Back'}
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Share className="h-4 w-4 ml-2" />
+                  {isRTL ? 'استيراد' : 'Import'}
+                </Button>
+                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm">
+                  <Download className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
+                </Button>
+                <Button className="bg-destructive/80 border-destructive/30 text-white hover:bg-destructive/90 backdrop-blur-sm">
+                  <FileText className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Save className="h-4 w-4 ml-2" />
+                  {isRTL ? 'حفظ' : 'Save'}
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Scale className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                {isRTL ? 'نظام الحوكمة والامتثال الذكي' : 'Smart Governance & Compliance System'}
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                {isRTL ? 'نظام متطور لإدارة الحوكمة المؤسسية وضمان الامتثال للقوانين واللوائح' : 'Advanced system for corporate governance management and regulatory compliance assurance'}
+              </p>
+            </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 ml-2" />
-            تصدير التقارير
-          </Button>
-          <Button 
-            onClick={() => setIsAddPolicyOpen(true)}
-            className="bg-[#009F87] hover:bg-[#008072] text-white"
-          >
-            <Plus className="h-4 w-4 ml-2" />
-            إضافة سياسة جديدة
-          </Button>
-        </div>
-      </div>
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="border-[#009F87]/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">إجمالي السياسات</p>
-                <p className="text-2xl font-bold text-[#009F87]">{complianceStats.totalPolicies}</p>
-                <p className="text-xs text-green-600">↗ +3 هذا الشهر</p>
-              </div>
-              <FileText className="h-8 w-8 text-[#009F87]/50" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-[#009F87]/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">معدل الامتثال</p>
-                <p className="text-2xl font-bold text-green-600">{complianceStats.complianceRate}%</p>
-                <p className="text-xs text-green-600">↗ +2.1% من الشهر الماضي</p>
-              </div>
-              <CheckCircle2 className="h-8 w-8 text-green-500/50" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-[#009F87]/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">مستوى المخاطر</p>
-                <p className="text-2xl font-bold text-green-600">{complianceStats.riskLevel}</p>
-                <p className="text-xs text-green-600">↓ تحسن بنسبة 15%</p>
-              </div>
-              <Shield className="h-8 w-8 text-green-500/50" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-[#009F87]/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">المخالفات النشطة</p>
-                <p className="text-2xl font-bold text-orange-600">{complianceStats.violations}</p>
-                <p className="text-xs text-green-600">↓ -3 هذا الشهر</p>
-              </div>
-              <AlertTriangle className="h-8 w-8 text-orange-500/50" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Main Content Tabs */}
-      <Tabs value={activeView} onValueChange={setActiveView} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-5 bg-muted/50">
-          <TabsTrigger value="overview" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-            <BarChart3 className="h-4 w-4 ml-2" />
-            نظرة عامة
-          </TabsTrigger>
-          <TabsTrigger value="policies" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-            <FileText className="h-4 w-4 ml-2" />
-            السياسات
-          </TabsTrigger>
-          <TabsTrigger value="risk" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-            <Shield className="h-4 w-4 ml-2" />
-            تقييم المخاطر
-          </TabsTrigger>
-          <TabsTrigger value="audit" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-            <Eye className="h-4 w-4 ml-2" />
-            المراجعة
-          </TabsTrigger>
-          <TabsTrigger value="training" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
-            <BookOpen className="h-4 w-4 ml-2" />
-            التدريب
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="space-y-6">
-          {/* Compliance Dashboard */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-[#009F87]" />
-                  مؤشرات الامتثال
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>السياسات النشطة</span>
-                    <span className="font-medium">{complianceStats.activePolicies}/{complianceStats.totalPolicies}</span>
+        {/* Analytics Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {/* Main Analytics Panel */}
+          <div className="lg:col-span-2">
+            <Card className="bg-gradient-to-br from-slate-900 via-primary to-secondary text-white shadow-2xl rounded-2xl overflow-hidden">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Governance Framework */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-primary-glow">
+                      {isRTL ? 'إطار الحوكمة' : 'Governance Framework'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-primary/50 to-secondary/50 rounded-xl p-4 flex items-center justify-center">
+                      <Scale className="h-32 w-32 text-primary-glow opacity-80" />
+                      <div className="absolute top-4 right-4 bg-primary/80 px-3 py-1 rounded-full text-sm">
+                        340 {isRTL ? 'إجراء ملتزم' : 'Compliant'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-secondary/80 px-3 py-1 rounded-full text-sm">
+                        92% {isRTL ? 'معدل الامتثال' : 'Compliance Rate'}
+                      </div>
+                    </div>
                   </div>
-                  <Progress value={93} className="h-2" />
+
+                  {/* Risk Assessment */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-warning">
+                      {isRTL ? 'تقييم المخاطر' : 'Risk Assessment'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-warning/50 to-destructive/50 rounded-xl p-4 flex items-center justify-center">
+                      <AlertTriangle className="h-32 w-32 text-warning opacity-80" />
+                      <div className="absolute top-4 right-4 bg-warning/80 px-3 py-1 rounded-full text-sm">
+                        20 {isRTL ? 'مخاطر عالية' : 'High Risk'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-destructive/80 px-3 py-1 rounded-full text-sm">
+                        95 {isRTL ? 'تدقيق مكتمل' : 'Audits Done'}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>معدل الامتثال العام</span>
-                    <span className="font-medium">{complianceStats.complianceRate}%</span>
-                  </div>
-                  <Progress value={complianceStats.complianceRate} className="h-2" />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>التدريب المكتمل</span>
-                    <span className="font-medium">87%</span>
-                  </div>
-                  <Progress value={87} className="h-2" />
+
+                {/* Compliance Trends Chart */}
+                <div className="mt-8">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={complianceData}>
+                      <defs>
+                        <linearGradient id="colorCompliance" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                        </linearGradient>
+                        <linearGradient id="colorViolations" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--destructive))" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(var(--destructive))" stopOpacity={0.1}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="month" stroke="#9CA3AF" />
+                      <YAxis stroke="#9CA3AF" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
+                        labelStyle={{ color: '#F3F4F6' }}
+                      />
+                      <Area type="monotone" dataKey="compliance" stroke="hsl(var(--primary))" fill="url(#colorCompliance)" />
+                      <Area type="monotone" dataKey="violations" stroke="hsl(var(--destructive))" fill="url(#colorViolations)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
               </CardContent>
             </Card>
+          </div>
 
-            <Card className="border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-[#009F87]" />
-                  جدولة المراجعات
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-800">
+                    {isRTL ? 'مؤشرات الحوكمة' : 'Governance Metrics'}
+                  </h3>
+                  <Settings className="h-5 w-5 text-gray-400" />
+                </div>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <div>
-                      <p className="font-medium text-sm">مراجعة سياسات الموارد البشرية</p>
-                      <p className="text-xs text-muted-foreground">مجدولة: 20 مايو 2024</p>
+                  {governanceMetrics.map((metric, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
+                      <div>
+                        <p className="font-semibold text-gray-800">{metric.category}</p>
+                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'عنصر' : 'items'}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
+                      </div>
                     </div>
-                    {getRiskBadge('متوسط')}
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                    <div>
-                      <p className="font-medium text-sm">مراجعة أمن المعلومات</p>
-                      <p className="text-xs text-muted-foreground">مكتملة: 15 فبراير 2024</p>
-                    </div>
-                    {getStatusBadge('مكتملة')}
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <div>
-                      <p className="font-medium text-sm">المراجعة السنوية الشاملة</p>
-                      <p className="text-xs text-muted-foreground">مجدولة: 15 أغسطس 2024</p>
-                    </div>
-                    {getPriorityBadge('عالي')}
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
-          </div>
 
-          {/* Recent Activities */}
-          <Card className="border-[#009F87]/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-[#009F87]" />
-                الأنشطة الأخيرة
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  {isRTL ? 'تقييم المخاطر' : 'Risk Assessment'}
+                </h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <RechartsPieChart>
+                    <Pie
+                      data={riskAssessment}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={40}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {riskAssessment.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Governance System */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-2 rounded-full shadow-lg">
+              <Scale className="h-5 w-5" />
+              <span className="font-medium">{isRTL ? 'نظام حوكمة متطور' : 'Advanced Governance System'}</span>
+            </div>
+          </div>
+          
+          <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+                {isRTL ? 'نظام الحوكمة والامتثال' : 'Governance & Compliance System'}
+              </h2>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
                 {[
-                  { action: 'تم تحديث سياسة الخصوصية', time: 'منذ ساعتين', user: 'أحمد المحمد', type: 'update' },
-                  { action: 'تم إكمال مراجعة الامتثال', time: 'منذ 4 ساعات', user: 'سارة العلي', type: 'complete' },
-                  { action: 'تم إضافة سياسة جديدة', time: 'أمس', user: 'محمد السالم', type: 'new' },
-                  { action: 'تم تسجيل مخالفة', time: 'أمس', user: 'النظام الآلي', type: 'violation' }
-                ].map((activity, index) => (
-                  <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <div className={`p-2 rounded-full ${
-                      activity.type === 'update' ? 'bg-blue-100 text-blue-600' :
-                      activity.type === 'complete' ? 'bg-green-100 text-green-600' :
-                      activity.type === 'new' ? 'bg-[#009F87]/10 text-[#009F87]' :
-                      'bg-red-100 text-red-600'
-                    }`}>
-                      {activity.type === 'update' && <Edit className="h-4 w-4" />}
-                      {activity.type === 'complete' && <CheckCircle2 className="h-4 w-4" />}
-                      {activity.type === 'new' && <Plus className="h-4 w-4" />}
-                      {activity.type === 'violation' && <AlertTriangle className="h-4 w-4" />}
+                  { icon: Scale, label: isRTL ? 'إطار الحوكمة' : 'Governance Framework', color: 'bg-primary', count: 0 },
+                  { icon: Gavel, label: isRTL ? 'الامتثال القانوني' : 'Legal Compliance', color: 'bg-secondary', count: 8 },
+                  { icon: AlertTriangle, label: isRTL ? 'إدارة المخاطر' : 'Risk Management', color: 'bg-destructive', count: 20 },
+                  { icon: FileCheck, label: isRTL ? 'التدقيق الداخلي' : 'Internal Audit', color: 'bg-success', count: 0 },
+                  { icon: Users, label: isRTL ? 'إدارة الأصحاب' : 'Stakeholder Management', color: 'bg-warning', count: 5 },
+                  { icon: FileText, label: isRTL ? 'التقارير التنظيمية' : 'Regulatory Reports', color: 'bg-warning', count: 2 },
+                  { icon: Eye, label: isRTL ? 'المراقبة المستمرة' : 'Continuous Monitoring', color: 'bg-success', count: 0 },
+                  { icon: Settings, label: isRTL ? 'الإعدادات المتقدمة' : 'Advanced Settings', color: 'bg-secondary', count: 0 }
+                ].map((item, index) => (
+                  <div key={index} className="text-center group cursor-pointer">
+                    <div className={`${item.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform relative`}>
+                      <item.icon className="h-8 w-8 text-white" />
+                      {item.count > 0 && (
+                        <div className="absolute -top-2 -right-2 bg-destructive text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                          {item.count}
+                        </div>
+                      )}
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">{activity.action}</p>
-                      <p className="text-xs text-muted-foreground">{activity.user} • {activity.time}</p>
-                    </div>
+                    <p className="text-sm font-medium text-gray-700 group-hover:text-secondary transition-colors">
+                      {item.label}
+                    </p>
                   </div>
                 ))}
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="policies" className="space-y-6">
-          <Card className="border-[#009F87]/20">
-            <CardHeader>
-              <CardTitle>السياسات والإجراءات</CardTitle>
-              <CardDescription>إدارة جميع السياسات المؤسسية وإجراءات الامتثال</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {policies.map((policy) => (
-                  <Card key={policy.id} className="border border-gray-200 hover:border-[#009F87]/30 transition-colors">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold text-[#009F87]">{policy.title}</h3>
-                            {getStatusBadge(policy.status)}
-                            {getPriorityBadge(policy.priority)}
-                          </div>
-                          <p className="text-sm text-muted-foreground mb-3">{policy.description}</p>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-                            <div>
-                              <span className="font-medium">الفئة:</span>
-                              <p className="text-muted-foreground">{policy.category}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">الإصدار:</span>
-                              <p className="text-muted-foreground">{policy.version}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">معدل الامتثال:</span>
-                              <p className="text-green-600 font-medium">{policy.compliance}%</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">تاريخ المراجعة:</span>
-                              <p className="text-muted-foreground">{policy.reviewDate}</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Download className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-primary/20 rounded-xl border border-primary/20">
+                  <div className="text-3xl font-bold text-primary mb-2">340</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'إجراءات ملتزمة' : 'Compliant Procedures'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-destructive/10 to-destructive/20 rounded-xl border border-destructive/20">
+                  <div className="text-3xl font-bold text-destructive mb-2">8</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'مخالفات قيد المعالجة' : 'Violations Under Review'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-success/10 to-success/20 rounded-xl border border-success/20">
+                  <div className="text-3xl font-bold text-success mb-2">92%</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'معدل الامتثال' : 'Compliance Rate'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-xl border border-secondary/20">
+                  <div className="text-3xl font-bold text-secondary mb-2">95</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'تدقيقات مكتملة' : 'Completed Audits'}</div>
+                </div>
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-
-        <TabsContent value="risk" className="space-y-6">
-          <Card className="border-[#009F87]/20">
-            <CardHeader>
-              <CardTitle>تقييم المخاطر والتخفيف</CardTitle>
-              <CardDescription>مراقبة وإدارة المخاطر التنظيمية</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {riskAssessments.map((risk) => (
-                  <Card key={risk.id} className="border border-gray-200">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold">{risk.title}</h3>
-                            {getRiskBadge(risk.riskLevel)}
-                            {getStatusBadge(risk.status)}
-                          </div>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                            <div>
-                              <span className="font-medium">الاحتمالية:</span>
-                              <p className="text-muted-foreground">{risk.probability}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">التأثير:</span>
-                              <p className="text-muted-foreground">{risk.impact}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">المسؤول:</span>
-                              <p className="text-muted-foreground">{risk.owner}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">الموعد النهائي:</span>
-                              <p className="text-muted-foreground">{risk.dueDate}</p>
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>إجراءات التخفيف</span>
-                              <span>{risk.completedActions}/{risk.mitigationActions}</span>
-                            </div>
-                            <Progress value={(risk.completedActions / risk.mitigationActions) * 100} className="h-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="audit" className="space-y-6">
-          <Card className="border-[#009F87]/20">
-            <CardHeader>
-              <CardTitle>أنشطة المراجعة والتدقيق</CardTitle>
-              <CardDescription>متابعة جميع أنشطة المراجعة الداخلية والخارجية</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {auditActivities.map((audit) => (
-                  <Card key={audit.id} className="border border-gray-200">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold">{audit.title}</h3>
-                            {getStatusBadge(audit.status)}
-                            <Badge variant="outline">{audit.type}</Badge>
-                          </div>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-3">
-                            <div>
-                              <span className="font-medium">المدقق:</span>
-                              <p className="text-muted-foreground">{audit.auditor}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">التاريخ:</span>
-                              <p className="text-muted-foreground">
-                                {audit.status === 'مكتملة' ? audit.completedDate : audit.scheduledDate}
-                              </p>
-                            </div>
-                            <div>
-                              <span className="font-medium">النتائج:</span>
-                              <p className="text-muted-foreground">{audit.findings} نتيجة</p>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium mb-1">نطاق المراجعة:</p>
-                            <div className="flex flex-wrap gap-1">
-                              {audit.scope.map((item, index) => (
-                                <Badge key={index} variant="secondary" className="text-xs">
-                                  {item}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Download className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="training" className="space-y-6">
-          <Card className="border-[#009F87]/20">
-            <CardHeader>
-              <CardTitle>برامج التدريب على الامتثال</CardTitle>
-              <CardDescription>متابعة التدريبات الإجبارية والاختيارية للموظفين</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {trainingPrograms.map((program) => (
-                  <Card key={program.id} className="border border-gray-200">
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold">{program.title}</h3>
-                            {getStatusBadge(program.status)}
-                            {program.mandatory && <Badge className="bg-red-100 text-red-800">إجباري</Badge>}
-                          </div>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-3">
-                            <div>
-                              <span className="font-medium">المدة:</span>
-                              <p className="text-muted-foreground">{program.duration}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">المسجلين:</span>
-                              <p className="text-muted-foreground">{program.enrolledEmployees}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">المكتملين:</span>
-                              <p className="text-muted-foreground">{program.completedEmployees}</p>
-                            </div>
-                            <div>
-                              <span className="font-medium">الموعد النهائي:</span>
-                              <p className="text-muted-foreground">{program.dueDate}</p>
-                            </div>
-                          </div>
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span>معدل الإنجاز</span>
-                              <span>{program.completionRate}%</span>
-                            </div>
-                            <Progress value={program.completionRate} className="h-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Users className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-
-      {/* Add Policy Dialog */}
-      <Dialog open={isAddPolicyOpen} onOpenChange={setIsAddPolicyOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>إضافة سياسة جديدة</DialogTitle>
-            <DialogDescription>
-              قم بإنشاء سياسة جديدة لتعزيز الامتثال التنظيمي
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">عنوان السياسة</Label>
-                <Input id="title" placeholder="مثال: سياسة أمن المعلومات" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="category">الفئة</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="اختر الفئة" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="ethics">أخلاقيات العمل</SelectItem>
-                    <SelectItem value="security">أمن المعلومات</SelectItem>
-                    <SelectItem value="environment">بيئة العمل</SelectItem>
-                    <SelectItem value="compliance">امتثال</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">الوصف</Label>
-              <Textarea id="description" placeholder="وصف مختصر للسياسة وأهدافها" />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="priority">الأولوية</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="اختر الأولوية" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="high">عالي</SelectItem>
-                    <SelectItem value="medium">متوسط</SelectItem>
-                    <SelectItem value="low">منخفض</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="effective-date">تاريخ السريان</Label>
-                <Input id="effective-date" type="date" />
-              </div>
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsAddPolicyOpen(false)}>
-                إلغاء
-              </Button>
-              <Button 
-                className="bg-[#009F87] hover:bg-[#008072] text-white"
-                onClick={() => {
-                  toast.success('تم إنشاء السياسة بنجاح');
-                  setIsAddPolicyOpen(false);
-                }}
-              >
-                حفظ السياسة
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+        </div>
+      </div>
     </div>
   );
 };

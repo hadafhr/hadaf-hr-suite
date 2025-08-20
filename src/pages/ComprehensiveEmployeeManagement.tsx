@@ -1103,23 +1103,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Wage Protection Tab */}
           <TabsContent value="wageprotection" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Banknote className="h-6 w-6" />
-                  حماية الأجور
-                </CardTitle>
-                <CardDescription>
-                  نظام حماية الأجور والامتثال للقوانين
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Banknote className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام حماية الأجور هنا</p>
-                </div>
-              </CardContent>
-            </Card>
+            <WageProtectionSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Legal Tab */}
