@@ -102,6 +102,7 @@ import { RewardsIncentivesManagement } from '@/components/systems/RewardsIncenti
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
+import { RequestsNotifications } from '@/components/systems/RequestsNotifications';
 import TeamMembers from '@/components/systems/TeamMembers';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
@@ -1061,6 +1062,11 @@ const ComprehensiveEmployeeManagement = () => {
                 <TasksTracking onBack={() => setActiveTab('dashboard')} />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Requests Tab */}
+          <TabsContent value="requests" className="space-y-6">
+            <RequestsNotifications onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* AI Tab */}
