@@ -1108,23 +1108,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Legal Tab */}
           <TabsContent value="legal" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Scale className="h-6 w-6" />
-                  الشؤون القانونية
-                </CardTitle>
-                <CardDescription>
-                  إدارة الشؤون القانونية والقضايا العمالية
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Scale className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام الشؤون القانونية هنا</p>
-                </div>
-              </CardContent>
-            </Card>
+            <LegalAffairs onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Tasks Tab */}
