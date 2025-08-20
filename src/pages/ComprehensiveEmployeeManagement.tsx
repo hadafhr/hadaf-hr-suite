@@ -78,7 +78,8 @@ import {
   Scale,
   Bot,
   CheckSquare,
-  Megaphone
+  Megaphone,
+  Plug
 } from 'lucide-react';
 import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
@@ -100,6 +101,7 @@ import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import TeamMembers from '@/components/systems/TeamMembers';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
+import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -410,8 +412,8 @@ const ComprehensiveEmployeeManagement = () => {
                   value="government" 
                   className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
                 >
-                  <Globe className="h-4 w-4 ml-2 flex-shrink-0" />
-                  التكامل الحكومي
+                  <Plug className="h-4 w-4 ml-2 flex-shrink-0" />
+                  التكامل والربط
                 </TabsTrigger>
                 <TabsTrigger 
                   value="organization" 
@@ -1076,23 +1078,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Government Integration Tab */}
           <TabsContent value="government" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Globe className="h-6 w-6" />
-                  التكامل الحكومي
-                </CardTitle>
-                <CardDescription>
-                  ربط مع الأنظمة الحكومية والجهات الرسمية
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Globe className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام التكامل الحكومي هنا</p>
-                </div>
-              </CardContent>
-            </Card>
+            <ComprehensiveIntegrationSystem />
           </TabsContent>
 
           {/* Organization Tab */}
