@@ -3029,6 +3029,115 @@ export type Database = {
         }
         Relationships: []
       }
+      employee_rewards: {
+        Row: {
+          amount: number
+          approved_at: string | null
+          approved_by: string | null
+          attachments: Json | null
+          calculation_base: Json | null
+          comments: string | null
+          company_id: string | null
+          created_at: string | null
+          created_by: string | null
+          eligibility_score: number | null
+          employee_id: string | null
+          id: string
+          net_amount: number | null
+          payment_date: string | null
+          payment_reference: string | null
+          performance_period_end: string | null
+          performance_period_start: string | null
+          program_id: string | null
+          reason: string
+          recommended_by: string | null
+          rejected_reason: string | null
+          reward_number: string
+          reward_type: Database["public"]["Enums"]["reward_type"]
+          status: Database["public"]["Enums"]["reward_status"] | null
+          tax_deducted: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          approved_at?: string | null
+          approved_by?: string | null
+          attachments?: Json | null
+          calculation_base?: Json | null
+          comments?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          eligibility_score?: number | null
+          employee_id?: string | null
+          id?: string
+          net_amount?: number | null
+          payment_date?: string | null
+          payment_reference?: string | null
+          performance_period_end?: string | null
+          performance_period_start?: string | null
+          program_id?: string | null
+          reason: string
+          recommended_by?: string | null
+          rejected_reason?: string | null
+          reward_number?: string
+          reward_type: Database["public"]["Enums"]["reward_type"]
+          status?: Database["public"]["Enums"]["reward_status"] | null
+          tax_deducted?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          approved_at?: string | null
+          approved_by?: string | null
+          attachments?: Json | null
+          calculation_base?: Json | null
+          comments?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          eligibility_score?: number | null
+          employee_id?: string | null
+          id?: string
+          net_amount?: number | null
+          payment_date?: string | null
+          payment_reference?: string | null
+          performance_period_end?: string | null
+          performance_period_start?: string | null
+          program_id?: string | null
+          reason?: string
+          recommended_by?: string | null
+          rejected_reason?: string | null
+          reward_number?: string
+          reward_type?: Database["public"]["Enums"]["reward_type"]
+          status?: Database["public"]["Enums"]["reward_status"] | null
+          tax_deducted?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_rewards_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_rewards_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_rewards_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "incentive_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employee_work_schedules: {
         Row: {
           created_at: string
@@ -3885,6 +3994,90 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      incentive_programs: {
+        Row: {
+          auto_process: boolean | null
+          budget_limit: number | null
+          company_id: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          eligibility_criteria: Json | null
+          end_date: string | null
+          fixed_amount: number | null
+          frequency: Database["public"]["Enums"]["incentive_frequency"] | null
+          id: string
+          is_active: boolean | null
+          max_amount_per_employee: number | null
+          program_code: string
+          program_name: string
+          program_type: Database["public"]["Enums"]["reward_type"]
+          requires_executive_approval: boolean | null
+          requires_hr_approval: boolean | null
+          requires_manager_approval: boolean | null
+          reward_percentage: number | null
+          start_date: string
+          target_metric: string | null
+          target_value: number | null
+          updated_at: string | null
+          used_budget: number | null
+        }
+        Insert: {
+          auto_process?: boolean | null
+          budget_limit?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          eligibility_criteria?: Json | null
+          end_date?: string | null
+          fixed_amount?: number | null
+          frequency?: Database["public"]["Enums"]["incentive_frequency"] | null
+          id?: string
+          is_active?: boolean | null
+          max_amount_per_employee?: number | null
+          program_code: string
+          program_name: string
+          program_type: Database["public"]["Enums"]["reward_type"]
+          requires_executive_approval?: boolean | null
+          requires_hr_approval?: boolean | null
+          requires_manager_approval?: boolean | null
+          reward_percentage?: number | null
+          start_date: string
+          target_metric?: string | null
+          target_value?: number | null
+          updated_at?: string | null
+          used_budget?: number | null
+        }
+        Update: {
+          auto_process?: boolean | null
+          budget_limit?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          eligibility_criteria?: Json | null
+          end_date?: string | null
+          fixed_amount?: number | null
+          frequency?: Database["public"]["Enums"]["incentive_frequency"] | null
+          id?: string
+          is_active?: boolean | null
+          max_amount_per_employee?: number | null
+          program_code?: string
+          program_name?: string
+          program_type?: Database["public"]["Enums"]["reward_type"]
+          requires_executive_approval?: boolean | null
+          requires_hr_approval?: boolean | null
+          requires_manager_approval?: boolean | null
+          reward_percentage?: number | null
+          start_date?: string
+          target_metric?: string | null
+          target_value?: number | null
+          updated_at?: string | null
+          used_budget?: number | null
+        }
+        Relationships: []
       }
       insurance_claims: {
         Row: {
@@ -6621,6 +6814,326 @@ export type Database = {
         }
         Relationships: []
       }
+      reward_approvals: {
+        Row: {
+          approval_level: number
+          approved_at: string | null
+          approver_id: string
+          comments: string | null
+          created_at: string | null
+          id: string
+          is_final_approval: boolean | null
+          reward_id: string | null
+          status: Database["public"]["Enums"]["reward_status"] | null
+        }
+        Insert: {
+          approval_level: number
+          approved_at?: string | null
+          approver_id: string
+          comments?: string | null
+          created_at?: string | null
+          id?: string
+          is_final_approval?: boolean | null
+          reward_id?: string | null
+          status?: Database["public"]["Enums"]["reward_status"] | null
+        }
+        Update: {
+          approval_level?: number
+          approved_at?: string | null
+          approver_id?: string
+          comments?: string | null
+          created_at?: string | null
+          id?: string
+          is_final_approval?: boolean | null
+          reward_id?: string | null
+          status?: Database["public"]["Enums"]["reward_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reward_approvals_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "employee_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reward_eligibility_checks: {
+        Row: {
+          calculated_amount: number | null
+          check_date: string | null
+          created_at: string | null
+          eligibility_score: number | null
+          employee_id: string | null
+          failed_criteria: Json | null
+          id: string
+          is_eligible: boolean | null
+          met_criteria: Json | null
+          notes: string | null
+          program_id: string | null
+        }
+        Insert: {
+          calculated_amount?: number | null
+          check_date?: string | null
+          created_at?: string | null
+          eligibility_score?: number | null
+          employee_id?: string | null
+          failed_criteria?: Json | null
+          id?: string
+          is_eligible?: boolean | null
+          met_criteria?: Json | null
+          notes?: string | null
+          program_id?: string | null
+        }
+        Update: {
+          calculated_amount?: number | null
+          check_date?: string | null
+          created_at?: string | null
+          eligibility_score?: number | null
+          employee_id?: string | null
+          failed_criteria?: Json | null
+          id?: string
+          is_eligible?: boolean | null
+          met_criteria?: Json | null
+          notes?: string | null
+          program_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reward_eligibility_checks_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "incentive_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reward_history: {
+        Row: {
+          average_reward: number | null
+          company_id: string | null
+          created_at: string | null
+          department_id: string | null
+          employee_id: string | null
+          id: string
+          month: number
+          number_of_rewards: number | null
+          performance_rating: number | null
+          position_id: string | null
+          top_reward_type: Database["public"]["Enums"]["reward_type"] | null
+          total_rewards: number | null
+          year: number
+        }
+        Insert: {
+          average_reward?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          department_id?: string | null
+          employee_id?: string | null
+          id?: string
+          month: number
+          number_of_rewards?: number | null
+          performance_rating?: number | null
+          position_id?: string | null
+          top_reward_type?: Database["public"]["Enums"]["reward_type"] | null
+          total_rewards?: number | null
+          year: number
+        }
+        Update: {
+          average_reward?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          department_id?: string | null
+          employee_id?: string | null
+          id?: string
+          month?: number
+          number_of_rewards?: number | null
+          performance_rating?: number | null
+          position_id?: string | null
+          top_reward_type?: Database["public"]["Enums"]["reward_type"] | null
+          total_rewards?: number | null
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reward_history_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reward_history_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_directory"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reward_notifications: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          email_sent: boolean | null
+          id: string
+          is_read: boolean | null
+          message: string
+          metadata: Json | null
+          notification_type: string
+          priority_level: number | null
+          push_sent: boolean | null
+          read_at: string | null
+          recipient_id: string
+          reward_id: string | null
+          sms_sent: boolean | null
+          title: string
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          email_sent?: boolean | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          metadata?: Json | null
+          notification_type: string
+          priority_level?: number | null
+          push_sent?: boolean | null
+          read_at?: string | null
+          recipient_id: string
+          reward_id?: string | null
+          sms_sent?: boolean | null
+          title: string
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          email_sent?: boolean | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          metadata?: Json | null
+          notification_type?: string
+          priority_level?: number | null
+          push_sent?: boolean | null
+          read_at?: string | null
+          recipient_id?: string
+          reward_id?: string | null
+          sms_sent?: boolean | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reward_notifications_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "employee_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reward_reports: {
+        Row: {
+          company_id: string | null
+          data: Json | null
+          file_format: string | null
+          file_path: string | null
+          filters: Json | null
+          generated_at: string | null
+          generated_by: string | null
+          id: string
+          is_scheduled: boolean | null
+          next_generation_date: string | null
+          recipients: Json | null
+          report_name: string
+          report_type: string
+          schedule_frequency: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          data?: Json | null
+          file_format?: string | null
+          file_path?: string | null
+          filters?: Json | null
+          generated_at?: string | null
+          generated_by?: string | null
+          id?: string
+          is_scheduled?: boolean | null
+          next_generation_date?: string | null
+          recipients?: Json | null
+          report_name: string
+          report_type: string
+          schedule_frequency?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          data?: Json | null
+          file_format?: string | null
+          file_path?: string | null
+          filters?: Json | null
+          generated_at?: string | null
+          generated_by?: string | null
+          id?: string
+          is_scheduled?: boolean | null
+          next_generation_date?: string | null
+          recipients?: Json | null
+          report_name?: string
+          report_type?: string
+          schedule_frequency?: string | null
+        }
+        Relationships: []
+      }
+      reward_system_settings: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          setting_key: string
+          setting_type: string | null
+          setting_value: string
+          updated_at: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          setting_key: string
+          setting_type?: string | null
+          setting_value: string
+          updated_at?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          setting_key?: string
+          setting_type?: string | null
+          setting_value?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       saudi_holidays: {
         Row: {
           created_at: string | null
@@ -7362,6 +7875,16 @@ export type Database = {
         }
         Returns: boolean
       }
+      calculate_reward_eligibility: {
+        Args: { p_employee_id: string; p_program_id: string }
+        Returns: {
+          calculated_amount: number
+          eligibility_score: number
+          failed_criteria: Json
+          is_eligible: boolean
+          met_criteria: Json
+        }[]
+      }
       check_and_create_attendance_violations: {
         Args: { p_company_id: string; p_employee_id: string }
         Returns: {
@@ -7392,6 +7915,10 @@ export type Database = {
         Returns: string
       }
       generate_disciplinary_case_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_reward_number: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
@@ -7524,6 +8051,12 @@ export type Database = {
         | "npcs_manager"
         | "donor_reader"
       hr_workflow_status: "active" | "inactive" | "draft"
+      incentive_frequency:
+        | "monthly"
+        | "quarterly"
+        | "semi_annual"
+        | "annual"
+        | "one_time"
       insurance_status: "active" | "inactive" | "suspended" | "expired"
       insurance_type:
         | "health"
@@ -7557,6 +8090,18 @@ export type Database = {
       participant_role: "organizer" | "required" | "optional" | "presenter"
       premium_frequency: "monthly" | "quarterly" | "semi_annual" | "annual"
       request_status: "pending" | "approved" | "rejected" | "cancelled"
+      reward_status: "pending" | "approved" | "paid" | "rejected" | "processing"
+      reward_type:
+        | "annual_bonus"
+        | "performance_based"
+        | "team_achievement"
+        | "manager_recommendation"
+        | "special_occasion"
+        | "semi_annual"
+        | "project_completion"
+        | "kpi_achievement"
+        | "attendance_excellence"
+        | "innovation"
       service_category:
         | "water"
         | "quran"
@@ -7799,6 +8344,13 @@ export const Constants = {
         "donor_reader",
       ],
       hr_workflow_status: ["active", "inactive", "draft"],
+      incentive_frequency: [
+        "monthly",
+        "quarterly",
+        "semi_annual",
+        "annual",
+        "one_time",
+      ],
       insurance_status: ["active", "inactive", "suspended", "expired"],
       insurance_type: [
         "health",
@@ -7836,6 +8388,19 @@ export const Constants = {
       participant_role: ["organizer", "required", "optional", "presenter"],
       premium_frequency: ["monthly", "quarterly", "semi_annual", "annual"],
       request_status: ["pending", "approved", "rejected", "cancelled"],
+      reward_status: ["pending", "approved", "paid", "rejected", "processing"],
+      reward_type: [
+        "annual_bonus",
+        "performance_based",
+        "team_achievement",
+        "manager_recommendation",
+        "special_occasion",
+        "semi_annual",
+        "project_completion",
+        "kpi_achievement",
+        "attendance_excellence",
+        "innovation",
+      ],
       service_category: [
         "water",
         "quran",
