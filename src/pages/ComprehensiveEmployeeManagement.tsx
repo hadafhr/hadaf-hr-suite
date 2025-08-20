@@ -103,6 +103,7 @@ import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
 import { RequestsNotifications } from '@/components/systems/RequestsNotifications';
+import { Reports } from '@/components/systems/Reports';
 import TeamMembers from '@/components/systems/TeamMembers';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
@@ -977,26 +978,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Reports Tab */}
           <TabsContent value="reports" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <FileBarChart className="h-6 w-6" />
-                  نظام التقارير والتحليلات
-                </CardTitle>
-                <CardDescription>
-                  تقارير شاملة وتحليلات متقدمة لبيانات الموارد البشرية
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <FileBarChart className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام التقارير هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: تقارير الحضور، الأداء، الرواتب، والتحليلات الإحصائية
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <Reports onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="leaves" className="space-y-6">
