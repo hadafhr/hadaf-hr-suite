@@ -1057,10 +1057,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <CheckSquare className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام إدارة المهام هنا</p>
-                </div>
+                <TasksTracking onBack={() => setActiveTab('dashboard')} />
               </CardContent>
             </Card>
           </TabsContent>
