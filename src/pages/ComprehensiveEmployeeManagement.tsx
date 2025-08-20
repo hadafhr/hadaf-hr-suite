@@ -970,26 +970,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Insurance Tab */}
           <TabsContent value="insurance" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-[#009F87]">
-                  <Shield className="h-6 w-6" />
-                  نظام إدارة التأمينات
-                </CardTitle>
-                <CardDescription>
-                  إدارة التأمين الطبي والاجتماعي للموظفين
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Shield className="h-16 w-16 mx-auto mb-4 text-[#009F87] opacity-50" />
-                  <p className="text-muted-foreground">سيتم تطوير نظام التأمينات هنا</p>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    يشمل: التأمين الطبي، التأمين الاجتماعي، والمطالبات التأمينية
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           {/* Benefits Tab */}
