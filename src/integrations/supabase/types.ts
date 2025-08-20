@@ -2319,6 +2319,90 @@ export type Database = {
         }
         Relationships: []
       }
+      court_sessions: {
+        Row: {
+          agenda: string | null
+          attachments: Json | null
+          attendees: Json | null
+          court_name: string
+          court_room: string | null
+          created_at: string
+          created_by: string | null
+          decisions: string | null
+          duration_minutes: number | null
+          evidence_presented: Json | null
+          id: string
+          judge_name: string | null
+          lawyer_notes: string | null
+          legal_case_id: string
+          minutes: string | null
+          next_session_date: string | null
+          outcome: string | null
+          postponement_reason: string | null
+          session_date: string
+          session_number: number
+          session_time: string | null
+          session_type: string
+          status: Database["public"]["Enums"]["session_status"]
+          updated_at: string
+          witness_testimonies: string | null
+        }
+        Insert: {
+          agenda?: string | null
+          attachments?: Json | null
+          attendees?: Json | null
+          court_name: string
+          court_room?: string | null
+          created_at?: string
+          created_by?: string | null
+          decisions?: string | null
+          duration_minutes?: number | null
+          evidence_presented?: Json | null
+          id?: string
+          judge_name?: string | null
+          lawyer_notes?: string | null
+          legal_case_id: string
+          minutes?: string | null
+          next_session_date?: string | null
+          outcome?: string | null
+          postponement_reason?: string | null
+          session_date: string
+          session_number: number
+          session_time?: string | null
+          session_type?: string
+          status?: Database["public"]["Enums"]["session_status"]
+          updated_at?: string
+          witness_testimonies?: string | null
+        }
+        Update: {
+          agenda?: string | null
+          attachments?: Json | null
+          attendees?: Json | null
+          court_name?: string
+          court_room?: string | null
+          created_at?: string
+          created_by?: string | null
+          decisions?: string | null
+          duration_minutes?: number | null
+          evidence_presented?: Json | null
+          id?: string
+          judge_name?: string | null
+          lawyer_notes?: string | null
+          legal_case_id?: string
+          minutes?: string | null
+          next_session_date?: string | null
+          outcome?: string | null
+          postponement_reason?: string | null
+          session_date?: string
+          session_number?: number
+          session_time?: string | null
+          session_type?: string
+          status?: Database["public"]["Enums"]["session_status"]
+          updated_at?: string
+          witness_testimonies?: string | null
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           address: string | null
@@ -4028,6 +4112,507 @@ export type Database = {
           name_en?: string | null
           requires_approval?: boolean | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      legal_cases: {
+        Row: {
+          assigned_lawyer_id: string | null
+          attachments: Json | null
+          case_number: string
+          case_type: Database["public"]["Enums"]["legal_case_type"]
+          case_value: number | null
+          company_id: string | null
+          court_name: string | null
+          created_at: string
+          created_by: string | null
+          defendant_name: string | null
+          description: string | null
+          employee_id: string | null
+          filing_date: string
+          hearing_date: string | null
+          id: string
+          judge_name: string | null
+          lawyer_name: string | null
+          notes: string | null
+          plaintiff_name: string | null
+          priority_level: number | null
+          resolution_date: string | null
+          status: Database["public"]["Enums"]["legal_case_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_lawyer_id?: string | null
+          attachments?: Json | null
+          case_number: string
+          case_type: Database["public"]["Enums"]["legal_case_type"]
+          case_value?: number | null
+          company_id?: string | null
+          court_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          defendant_name?: string | null
+          description?: string | null
+          employee_id?: string | null
+          filing_date: string
+          hearing_date?: string | null
+          id?: string
+          judge_name?: string | null
+          lawyer_name?: string | null
+          notes?: string | null
+          plaintiff_name?: string | null
+          priority_level?: number | null
+          resolution_date?: string | null
+          status?: Database["public"]["Enums"]["legal_case_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_lawyer_id?: string | null
+          attachments?: Json | null
+          case_number?: string
+          case_type?: Database["public"]["Enums"]["legal_case_type"]
+          case_value?: number | null
+          company_id?: string | null
+          court_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          defendant_name?: string | null
+          description?: string | null
+          employee_id?: string | null
+          filing_date?: string
+          hearing_date?: string | null
+          id?: string
+          judge_name?: string | null
+          lawyer_name?: string | null
+          notes?: string | null
+          plaintiff_name?: string | null
+          priority_level?: number | null
+          resolution_date?: string | null
+          status?: Database["public"]["Enums"]["legal_case_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      legal_contracts: {
+        Row: {
+          attachments: Json | null
+          auto_renewal: boolean | null
+          company_id: string | null
+          contract_file_url: string | null
+          contract_number: string
+          contract_type: Database["public"]["Enums"]["contract_type"]
+          contract_value: number | null
+          created_at: string
+          created_by: string | null
+          currency: string | null
+          description: string | null
+          digital_signature: boolean | null
+          e_signature_id: string | null
+          employee_id: string | null
+          end_date: string | null
+          id: string
+          notes: string | null
+          party_contact: string | null
+          party_name: string
+          renewal_date: string | null
+          renewal_period: number | null
+          signed_by: string | null
+          signed_date: string | null
+          special_clauses: string | null
+          start_date: string
+          status: Database["public"]["Enums"]["contract_status"]
+          terms_conditions: string | null
+          title: string
+          updated_at: string
+          witness_name: string | null
+        }
+        Insert: {
+          attachments?: Json | null
+          auto_renewal?: boolean | null
+          company_id?: string | null
+          contract_file_url?: string | null
+          contract_number: string
+          contract_type: Database["public"]["Enums"]["contract_type"]
+          contract_value?: number | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          description?: string | null
+          digital_signature?: boolean | null
+          e_signature_id?: string | null
+          employee_id?: string | null
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          party_contact?: string | null
+          party_name: string
+          renewal_date?: string | null
+          renewal_period?: number | null
+          signed_by?: string | null
+          signed_date?: string | null
+          special_clauses?: string | null
+          start_date: string
+          status?: Database["public"]["Enums"]["contract_status"]
+          terms_conditions?: string | null
+          title: string
+          updated_at?: string
+          witness_name?: string | null
+        }
+        Update: {
+          attachments?: Json | null
+          auto_renewal?: boolean | null
+          company_id?: string | null
+          contract_file_url?: string | null
+          contract_number?: string
+          contract_type?: Database["public"]["Enums"]["contract_type"]
+          contract_value?: number | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          description?: string | null
+          digital_signature?: boolean | null
+          e_signature_id?: string | null
+          employee_id?: string | null
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          party_contact?: string | null
+          party_name?: string
+          renewal_date?: string | null
+          renewal_period?: number | null
+          signed_by?: string | null
+          signed_date?: string | null
+          special_clauses?: string | null
+          start_date?: string
+          status?: Database["public"]["Enums"]["contract_status"]
+          terms_conditions?: string | null
+          title?: string
+          updated_at?: string
+          witness_name?: string | null
+        }
+        Relationships: []
+      }
+      legal_correspondence: {
+        Row: {
+          attachments: Json | null
+          company_id: string | null
+          content: string
+          correspondence_type: Database["public"]["Enums"]["correspondence_type"]
+          created_at: string
+          created_by: string | null
+          delivered_at: string | null
+          delivery_method: string | null
+          delivery_status: string | null
+          due_date: string | null
+          id: string
+          language_code: string | null
+          official_stamp: boolean | null
+          priority_level: number | null
+          recipient_email: string | null
+          recipient_name: string | null
+          recipient_organization: string | null
+          recipient_phone: string | null
+          recipient_title: string | null
+          reference_number: string
+          related_case_id: string | null
+          related_contract_id: string | null
+          response_date: string | null
+          response_deadline: string | null
+          response_received: boolean | null
+          response_required: boolean | null
+          sender_email: string | null
+          sender_name: string | null
+          sender_organization: string | null
+          sender_phone: string | null
+          sender_title: string | null
+          status: string
+          subject: string
+          tracking_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          attachments?: Json | null
+          company_id?: string | null
+          content: string
+          correspondence_type: Database["public"]["Enums"]["correspondence_type"]
+          created_at?: string
+          created_by?: string | null
+          delivered_at?: string | null
+          delivery_method?: string | null
+          delivery_status?: string | null
+          due_date?: string | null
+          id?: string
+          language_code?: string | null
+          official_stamp?: boolean | null
+          priority_level?: number | null
+          recipient_email?: string | null
+          recipient_name?: string | null
+          recipient_organization?: string | null
+          recipient_phone?: string | null
+          recipient_title?: string | null
+          reference_number: string
+          related_case_id?: string | null
+          related_contract_id?: string | null
+          response_date?: string | null
+          response_deadline?: string | null
+          response_received?: boolean | null
+          response_required?: boolean | null
+          sender_email?: string | null
+          sender_name?: string | null
+          sender_organization?: string | null
+          sender_phone?: string | null
+          sender_title?: string | null
+          status?: string
+          subject: string
+          tracking_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          attachments?: Json | null
+          company_id?: string | null
+          content?: string
+          correspondence_type?: Database["public"]["Enums"]["correspondence_type"]
+          created_at?: string
+          created_by?: string | null
+          delivered_at?: string | null
+          delivery_method?: string | null
+          delivery_status?: string | null
+          due_date?: string | null
+          id?: string
+          language_code?: string | null
+          official_stamp?: boolean | null
+          priority_level?: number | null
+          recipient_email?: string | null
+          recipient_name?: string | null
+          recipient_organization?: string | null
+          recipient_phone?: string | null
+          recipient_title?: string | null
+          reference_number?: string
+          related_case_id?: string | null
+          related_contract_id?: string | null
+          response_date?: string | null
+          response_deadline?: string | null
+          response_received?: boolean | null
+          response_required?: boolean | null
+          sender_email?: string | null
+          sender_name?: string | null
+          sender_organization?: string | null
+          sender_phone?: string | null
+          sender_title?: string | null
+          status?: string
+          subject?: string
+          tracking_number?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      legal_document_templates: {
+        Row: {
+          approval_required: boolean | null
+          company_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          is_official: boolean | null
+          language_code: string
+          notes: string | null
+          template_category: string
+          template_content: string
+          template_name: string
+          template_type: string
+          template_variables: Json | null
+          updated_at: string
+          version_number: number | null
+        }
+        Insert: {
+          approval_required?: boolean | null
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_official?: boolean | null
+          language_code?: string
+          notes?: string | null
+          template_category: string
+          template_content: string
+          template_name: string
+          template_type: string
+          template_variables?: Json | null
+          updated_at?: string
+          version_number?: number | null
+        }
+        Update: {
+          approval_required?: boolean | null
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_official?: boolean | null
+          language_code?: string
+          notes?: string | null
+          template_category?: string
+          template_content?: string
+          template_name?: string
+          template_type?: string
+          template_variables?: Json | null
+          updated_at?: string
+          version_number?: number | null
+        }
+        Relationships: []
+      }
+      legal_notifications: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          email_sent: boolean | null
+          id: string
+          is_read: boolean | null
+          message: string
+          metadata: Json | null
+          notification_type: string
+          priority_level: number | null
+          push_sent: boolean | null
+          read_at: string | null
+          recipient_id: string
+          related_id: string | null
+          related_table: string | null
+          scheduled_for: string | null
+          sent_at: string | null
+          sms_sent: boolean | null
+          title: string
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          email_sent?: boolean | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          metadata?: Json | null
+          notification_type: string
+          priority_level?: number | null
+          push_sent?: boolean | null
+          read_at?: string | null
+          recipient_id: string
+          related_id?: string | null
+          related_table?: string | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          sms_sent?: boolean | null
+          title: string
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          email_sent?: boolean | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          metadata?: Json | null
+          notification_type?: string
+          priority_level?: number | null
+          push_sent?: boolean | null
+          read_at?: string | null
+          recipient_id?: string
+          related_id?: string | null
+          related_table?: string | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          sms_sent?: boolean | null
+          title?: string
+        }
+        Relationships: []
+      }
+      legal_violations: {
+        Row: {
+          attachments: Json | null
+          category: string
+          company_id: string | null
+          created_at: string
+          created_by: string | null
+          description: string
+          disciplinary_action_id: string | null
+          employee_id: string | null
+          id: string
+          legal_consequences: string | null
+          legal_reference: string | null
+          penalty_amount: number | null
+          penalty_description: string | null
+          previous_violation_count: number | null
+          recommended_action: string | null
+          repeat_violation: boolean | null
+          resolution_date: string | null
+          resolution_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          severity: Database["public"]["Enums"]["violation_severity"]
+          status: string
+          title: string
+          updated_at: string
+          violation_date: string
+          violation_number: string
+        }
+        Insert: {
+          attachments?: Json | null
+          category: string
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description: string
+          disciplinary_action_id?: string | null
+          employee_id?: string | null
+          id?: string
+          legal_consequences?: string | null
+          legal_reference?: string | null
+          penalty_amount?: number | null
+          penalty_description?: string | null
+          previous_violation_count?: number | null
+          recommended_action?: string | null
+          repeat_violation?: boolean | null
+          resolution_date?: string | null
+          resolution_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity: Database["public"]["Enums"]["violation_severity"]
+          status?: string
+          title: string
+          updated_at?: string
+          violation_date: string
+          violation_number: string
+        }
+        Update: {
+          attachments?: Json | null
+          category?: string
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          disciplinary_action_id?: string | null
+          employee_id?: string | null
+          id?: string
+          legal_consequences?: string | null
+          legal_reference?: string | null
+          penalty_amount?: number | null
+          penalty_description?: string | null
+          previous_violation_count?: number | null
+          recommended_action?: string | null
+          repeat_violation?: boolean | null
+          resolution_date?: string | null
+          resolution_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: Database["public"]["Enums"]["violation_severity"]
+          status?: string
+          title?: string
+          updated_at?: string
+          violation_date?: string
+          violation_number?: string
         }
         Relationships: []
       }
@@ -6300,6 +6885,20 @@ export type Database = {
         | "late"
         | "early_leave"
         | "overtime"
+      contract_status:
+        | "draft"
+        | "active"
+        | "expired"
+        | "terminated"
+        | "pending_renewal"
+      contract_type:
+        | "employment"
+        | "commercial"
+        | "service"
+        | "confidentiality"
+        | "partnership"
+        | "consulting"
+      correspondence_type: "outgoing" | "incoming" | "internal"
       day_of_week:
         | "sunday"
         | "monday"
@@ -6353,6 +6952,19 @@ export type Database = {
         | "maternity"
         | "paternity"
         | "unpaid"
+      legal_case_status:
+        | "pending"
+        | "in_progress"
+        | "resolved"
+        | "appealed"
+        | "closed"
+      legal_case_type:
+        | "labor_dispute"
+        | "commercial_contract"
+        | "administrative_dispute"
+        | "disciplinary_action"
+        | "compensation_claim"
+        | "regulatory_violation"
       meeting_status: "scheduled" | "ongoing" | "completed" | "cancelled"
       meeting_type: "board" | "executive" | "department" | "team" | "one_on_one"
       participant_role: "organizer" | "required" | "optional" | "presenter"
@@ -6366,6 +6978,7 @@ export type Database = {
         | "equipment"
         | "chairs"
         | "carpets"
+      session_status: "scheduled" | "completed" | "postponed" | "cancelled"
       task_status: "pending" | "in_progress" | "completed" | "cancelled"
       user_access_level: "admin" | "executive" | "manager" | "employee"
       user_role:
@@ -6529,6 +7142,22 @@ export const Constants = {
         "early_leave",
         "overtime",
       ],
+      contract_status: [
+        "draft",
+        "active",
+        "expired",
+        "terminated",
+        "pending_renewal",
+      ],
+      contract_type: [
+        "employment",
+        "commercial",
+        "service",
+        "confidentiality",
+        "partnership",
+        "consulting",
+      ],
+      correspondence_type: ["outgoing", "incoming", "internal"],
       day_of_week: [
         "sunday",
         "monday",
@@ -6588,6 +7217,21 @@ export const Constants = {
         "paternity",
         "unpaid",
       ],
+      legal_case_status: [
+        "pending",
+        "in_progress",
+        "resolved",
+        "appealed",
+        "closed",
+      ],
+      legal_case_type: [
+        "labor_dispute",
+        "commercial_contract",
+        "administrative_dispute",
+        "disciplinary_action",
+        "compensation_claim",
+        "regulatory_violation",
+      ],
       meeting_status: ["scheduled", "ongoing", "completed", "cancelled"],
       meeting_type: ["board", "executive", "department", "team", "one_on_one"],
       participant_role: ["organizer", "required", "optional", "presenter"],
@@ -6602,6 +7246,7 @@ export const Constants = {
         "chairs",
         "carpets",
       ],
+      session_status: ["scheduled", "completed", "postponed", "cancelled"],
       task_status: ["pending", "in_progress", "completed", "cancelled"],
       user_access_level: ["admin", "executive", "manager", "employee"],
       user_role: [
