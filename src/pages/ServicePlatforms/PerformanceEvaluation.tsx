@@ -29,8 +29,7 @@ import {
   Download,
   Brain,
   X,
-  ArrowLeft,
-  Languages
+  ArrowLeft
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -468,10 +467,6 @@ export const PerformanceEvaluation: React.FC = () => {
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={toggleLanguage}>
-              <Languages className="h-4 w-4 mr-2" />
-              {isArabic ? 'EN' : 'عربي'}
-            </Button>
             <Button variant="outline" onClick={handleAIAnalysis}>
               <Brain className="h-4 w-4 mr-2" />
               {isArabic ? 'تحليل ذكي' : 'AI Analysis'}

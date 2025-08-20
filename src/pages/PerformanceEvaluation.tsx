@@ -27,8 +27,7 @@ import {
   Award,
   Scale,
   AlertTriangle,
-  PlayCircle,
-  Languages
+  PlayCircle
 } from 'lucide-react';
 import { SmartEvaluations } from '@/components/evaluation/SmartEvaluations';
 import { MBOSystem } from '@/components/evaluation/MBOSystem';
@@ -238,7 +237,6 @@ export const PerformanceEvaluation: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <LanguageSwitcher />
               <Button size="sm" className="gap-2">
                 <Settings className="w-4 h-4" />
                 {isRTL ? 'الإعدادات' : 'Settings'}
