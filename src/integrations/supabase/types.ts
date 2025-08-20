@@ -2823,6 +2823,80 @@ export type Database = {
         }
         Relationships: []
       }
+      employee_insurance_subscriptions: {
+        Row: {
+          additional_coverage: Json | null
+          beneficiaries: Json | null
+          created_at: string | null
+          dependents: Json | null
+          employee_contribution: number | null
+          employee_id: string
+          employer_contribution: number | null
+          end_date: string | null
+          id: string
+          last_medical_checkup: string | null
+          medical_conditions: Json | null
+          notes: string | null
+          policy_id: string | null
+          salary_percentage: number | null
+          start_date: string
+          status: Database["public"]["Enums"]["insurance_status"] | null
+          subscription_number: string
+          total_premium: number
+          updated_at: string | null
+        }
+        Insert: {
+          additional_coverage?: Json | null
+          beneficiaries?: Json | null
+          created_at?: string | null
+          dependents?: Json | null
+          employee_contribution?: number | null
+          employee_id: string
+          employer_contribution?: number | null
+          end_date?: string | null
+          id?: string
+          last_medical_checkup?: string | null
+          medical_conditions?: Json | null
+          notes?: string | null
+          policy_id?: string | null
+          salary_percentage?: number | null
+          start_date: string
+          status?: Database["public"]["Enums"]["insurance_status"] | null
+          subscription_number: string
+          total_premium: number
+          updated_at?: string | null
+        }
+        Update: {
+          additional_coverage?: Json | null
+          beneficiaries?: Json | null
+          created_at?: string | null
+          dependents?: Json | null
+          employee_contribution?: number | null
+          employee_id?: string
+          employer_contribution?: number | null
+          end_date?: string | null
+          id?: string
+          last_medical_checkup?: string | null
+          medical_conditions?: Json | null
+          notes?: string | null
+          policy_id?: string | null
+          salary_percentage?: number | null
+          start_date?: string
+          status?: Database["public"]["Enums"]["insurance_status"] | null
+          subscription_number?: string
+          total_premium?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_insurance_subscriptions_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employee_kpi_measurements: {
         Row: {
           actual_value: number
@@ -3367,6 +3441,75 @@ export type Database = {
         }
         Relationships: []
       }
+      gosi_integration: {
+        Row: {
+          api_response: Json | null
+          api_sync_date: string | null
+          company_id: string | null
+          created_at: string | null
+          employee_id: string
+          employee_percentage: number | null
+          employer_percentage: number | null
+          gosi_number: string
+          id: string
+          last_contribution_date: string | null
+          monthly_employee_contribution: number
+          monthly_employer_contribution: number
+          penalties: Json | null
+          salary_subject_to_gosi: number
+          service_periods: Json | null
+          status: Database["public"]["Enums"]["insurance_status"] | null
+          subscription_date: string
+          total_months_contributed: number | null
+          updated_at: string | null
+          violations: Json | null
+        }
+        Insert: {
+          api_response?: Json | null
+          api_sync_date?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          employee_id: string
+          employee_percentage?: number | null
+          employer_percentage?: number | null
+          gosi_number: string
+          id?: string
+          last_contribution_date?: string | null
+          monthly_employee_contribution: number
+          monthly_employer_contribution: number
+          penalties?: Json | null
+          salary_subject_to_gosi: number
+          service_periods?: Json | null
+          status?: Database["public"]["Enums"]["insurance_status"] | null
+          subscription_date: string
+          total_months_contributed?: number | null
+          updated_at?: string | null
+          violations?: Json | null
+        }
+        Update: {
+          api_response?: Json | null
+          api_sync_date?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          employee_id?: string
+          employee_percentage?: number | null
+          employer_percentage?: number | null
+          gosi_number?: string
+          id?: string
+          last_contribution_date?: string | null
+          monthly_employee_contribution?: number
+          monthly_employer_contribution?: number
+          penalties?: Json | null
+          salary_subject_to_gosi?: number
+          service_periods?: Json | null
+          status?: Database["public"]["Enums"]["insurance_status"] | null
+          subscription_date?: string
+          total_months_contributed?: number | null
+          updated_at?: string | null
+          violations?: Json | null
+        }
+        Relationships: []
+      }
       governance_meetings: {
         Row: {
           agenda: string | null
@@ -3742,6 +3885,432 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      insurance_claims: {
+        Row: {
+          approval_date: string | null
+          approved_amount: number | null
+          claim_date: string | null
+          claim_number: string
+          claim_type: string
+          claimed_amount: number
+          created_at: string | null
+          diagnosis: string | null
+          id: string
+          incident_date: string
+          notes: string | null
+          paid_amount: number | null
+          payment_date: string | null
+          prescription_details: Json | null
+          processed_by: string | null
+          provider_name: string | null
+          rejection_reason: string | null
+          status: Database["public"]["Enums"]["claim_status"] | null
+          subscription_id: string | null
+          supporting_documents: Json | null
+          treatment_type: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          approval_date?: string | null
+          approved_amount?: number | null
+          claim_date?: string | null
+          claim_number: string
+          claim_type: string
+          claimed_amount: number
+          created_at?: string | null
+          diagnosis?: string | null
+          id?: string
+          incident_date: string
+          notes?: string | null
+          paid_amount?: number | null
+          payment_date?: string | null
+          prescription_details?: Json | null
+          processed_by?: string | null
+          provider_name?: string | null
+          rejection_reason?: string | null
+          status?: Database["public"]["Enums"]["claim_status"] | null
+          subscription_id?: string | null
+          supporting_documents?: Json | null
+          treatment_type?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          approval_date?: string | null
+          approved_amount?: number | null
+          claim_date?: string | null
+          claim_number?: string
+          claim_type?: string
+          claimed_amount?: number
+          created_at?: string | null
+          diagnosis?: string | null
+          id?: string
+          incident_date?: string
+          notes?: string | null
+          paid_amount?: number | null
+          payment_date?: string | null
+          prescription_details?: Json | null
+          processed_by?: string | null
+          provider_name?: string | null
+          rejection_reason?: string | null
+          status?: Database["public"]["Enums"]["claim_status"] | null
+          subscription_id?: string | null
+          supporting_documents?: Json | null
+          treatment_type?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_claims_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "employee_insurance_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_notifications: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          email_sent: boolean | null
+          id: string
+          is_read: boolean | null
+          message: string
+          metadata: Json | null
+          notification_type: string
+          priority_level: number | null
+          push_sent: boolean | null
+          read_at: string | null
+          recipient_id: string
+          related_id: string | null
+          related_table: string | null
+          scheduled_for: string | null
+          sent_at: string | null
+          sms_sent: boolean | null
+          title: string
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          email_sent?: boolean | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          metadata?: Json | null
+          notification_type: string
+          priority_level?: number | null
+          push_sent?: boolean | null
+          read_at?: string | null
+          recipient_id: string
+          related_id?: string | null
+          related_table?: string | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          sms_sent?: boolean | null
+          title: string
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          email_sent?: boolean | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          metadata?: Json | null
+          notification_type?: string
+          priority_level?: number | null
+          push_sent?: boolean | null
+          read_at?: string | null
+          recipient_id?: string
+          related_id?: string | null
+          related_table?: string | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          sms_sent?: boolean | null
+          title?: string
+        }
+        Relationships: []
+      }
+      insurance_payments: {
+        Row: {
+          additional_fees: number | null
+          company_id: string | null
+          created_at: string | null
+          created_by: string | null
+          discount_amount: number | null
+          due_date: string
+          employee_contributions: number | null
+          employer_contributions: number | null
+          gosi_contributions: number | null
+          id: string
+          net_amount: number
+          payment_date: string | null
+          payment_details: Json | null
+          payment_method: string | null
+          payment_period: string
+          penalty_amount: number | null
+          policy_id: string | null
+          receipt_number: string | null
+          status: string | null
+          total_amount: number
+          transaction_reference: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          additional_fees?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          discount_amount?: number | null
+          due_date: string
+          employee_contributions?: number | null
+          employer_contributions?: number | null
+          gosi_contributions?: number | null
+          id?: string
+          net_amount: number
+          payment_date?: string | null
+          payment_details?: Json | null
+          payment_method?: string | null
+          payment_period: string
+          penalty_amount?: number | null
+          policy_id?: string | null
+          receipt_number?: string | null
+          status?: string | null
+          total_amount: number
+          transaction_reference?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          additional_fees?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          discount_amount?: number | null
+          due_date?: string
+          employee_contributions?: number | null
+          employer_contributions?: number | null
+          gosi_contributions?: number | null
+          id?: string
+          net_amount?: number
+          payment_date?: string | null
+          payment_details?: Json | null
+          payment_method?: string | null
+          payment_period?: string
+          penalty_amount?: number | null
+          policy_id?: string | null
+          receipt_number?: string | null
+          status?: string | null
+          total_amount?: number
+          transaction_reference?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_payments_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_policies: {
+        Row: {
+          auto_renewal: boolean | null
+          company_id: string | null
+          coverage_level: Database["public"]["Enums"]["coverage_level"] | null
+          coverage_limit: number | null
+          covered_services: Json | null
+          created_at: string | null
+          created_by: string | null
+          deductible_amount: number | null
+          documents: Json | null
+          end_date: string
+          exclusions: Json | null
+          id: string
+          insurance_type: Database["public"]["Enums"]["insurance_type"]
+          policy_name: string
+          policy_number: string
+          premium_amount: number
+          premium_frequency:
+            | Database["public"]["Enums"]["premium_frequency"]
+            | null
+          provider_id: string | null
+          renewal_date: string | null
+          start_date: string
+          status: Database["public"]["Enums"]["insurance_status"] | null
+          terms_conditions: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          auto_renewal?: boolean | null
+          company_id?: string | null
+          coverage_level?: Database["public"]["Enums"]["coverage_level"] | null
+          coverage_limit?: number | null
+          covered_services?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          deductible_amount?: number | null
+          documents?: Json | null
+          end_date: string
+          exclusions?: Json | null
+          id?: string
+          insurance_type: Database["public"]["Enums"]["insurance_type"]
+          policy_name: string
+          policy_number: string
+          premium_amount?: number
+          premium_frequency?:
+            | Database["public"]["Enums"]["premium_frequency"]
+            | null
+          provider_id?: string | null
+          renewal_date?: string | null
+          start_date: string
+          status?: Database["public"]["Enums"]["insurance_status"] | null
+          terms_conditions?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          auto_renewal?: boolean | null
+          company_id?: string | null
+          coverage_level?: Database["public"]["Enums"]["coverage_level"] | null
+          coverage_limit?: number | null
+          covered_services?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          deductible_amount?: number | null
+          documents?: Json | null
+          end_date?: string
+          exclusions?: Json | null
+          id?: string
+          insurance_type?: Database["public"]["Enums"]["insurance_type"]
+          policy_name?: string
+          policy_number?: string
+          premium_amount?: number
+          premium_frequency?:
+            | Database["public"]["Enums"]["premium_frequency"]
+            | null
+          provider_id?: string | null
+          renewal_date?: string | null
+          start_date?: string
+          status?: Database["public"]["Enums"]["insurance_status"] | null
+          terms_conditions?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_policies_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_providers: {
+        Row: {
+          api_endpoint: string | null
+          api_key_encrypted: string | null
+          company_id: string | null
+          contact_email: string | null
+          contact_person: string | null
+          contact_phone: string | null
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          license_number: string | null
+          provider_code: string
+          provider_name: string
+          provider_type: Database["public"]["Enums"]["insurance_type"]
+          service_areas: string[] | null
+          supported_services: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          api_endpoint?: string | null
+          api_key_encrypted?: string | null
+          company_id?: string | null
+          contact_email?: string | null
+          contact_person?: string | null
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          license_number?: string | null
+          provider_code: string
+          provider_name: string
+          provider_type: Database["public"]["Enums"]["insurance_type"]
+          service_areas?: string[] | null
+          supported_services?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          api_endpoint?: string | null
+          api_key_encrypted?: string | null
+          company_id?: string | null
+          contact_email?: string | null
+          contact_person?: string | null
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          license_number?: string | null
+          provider_code?: string
+          provider_name?: string
+          provider_type?: Database["public"]["Enums"]["insurance_type"]
+          service_areas?: string[] | null
+          supported_services?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      insurance_reports: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          file_path: string | null
+          generated_at: string | null
+          generated_by: string | null
+          id: string
+          parameters: Json | null
+          report_data: Json
+          report_name: string
+          report_period_end: string | null
+          report_period_start: string | null
+          report_type: string
+          status: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          file_path?: string | null
+          generated_at?: string | null
+          generated_by?: string | null
+          id?: string
+          parameters?: Json | null
+          report_data?: Json
+          report_name: string
+          report_period_end?: string | null
+          report_period_start?: string | null
+          report_type: string
+          status?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          file_path?: string | null
+          generated_at?: string | null
+          generated_by?: string | null
+          id?: string
+          parameters?: Json | null
+          report_data?: Json
+          report_name?: string
+          report_period_end?: string | null
+          report_period_start?: string | null
+          report_type?: string
+          status?: string | null
+        }
+        Relationships: []
       }
       invoice_items: {
         Row: {
@@ -6818,7 +7387,15 @@ export type Database = {
         Args: { data: string; key_id?: string }
         Returns: string
       }
+      generate_claim_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       generate_disciplinary_case_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_subscription_number: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
@@ -6885,6 +7462,7 @@ export type Database = {
         | "late"
         | "early_leave"
         | "overtime"
+      claim_status: "pending" | "approved" | "rejected" | "processing" | "paid"
       contract_status:
         | "draft"
         | "active"
@@ -6899,6 +7477,7 @@ export type Database = {
         | "partnership"
         | "consulting"
       correspondence_type: "outgoing" | "incoming" | "internal"
+      coverage_level: "basic" | "standard" | "premium" | "comprehensive"
       day_of_week:
         | "sunday"
         | "monday"
@@ -6945,6 +7524,14 @@ export type Database = {
         | "npcs_manager"
         | "donor_reader"
       hr_workflow_status: "active" | "inactive" | "draft"
+      insurance_status: "active" | "inactive" | "suspended" | "expired"
+      insurance_type:
+        | "health"
+        | "social"
+        | "life"
+        | "disability"
+        | "dental"
+        | "vision"
       leave_type:
         | "annual"
         | "sick"
@@ -6968,6 +7555,7 @@ export type Database = {
       meeting_status: "scheduled" | "ongoing" | "completed" | "cancelled"
       meeting_type: "board" | "executive" | "department" | "team" | "one_on_one"
       participant_role: "organizer" | "required" | "optional" | "presenter"
+      premium_frequency: "monthly" | "quarterly" | "semi_annual" | "annual"
       request_status: "pending" | "approved" | "rejected" | "cancelled"
       service_category:
         | "water"
@@ -7142,6 +7730,7 @@ export const Constants = {
         "early_leave",
         "overtime",
       ],
+      claim_status: ["pending", "approved", "rejected", "processing", "paid"],
       contract_status: [
         "draft",
         "active",
@@ -7158,6 +7747,7 @@ export const Constants = {
         "consulting",
       ],
       correspondence_type: ["outgoing", "incoming", "internal"],
+      coverage_level: ["basic", "standard", "premium", "comprehensive"],
       day_of_week: [
         "sunday",
         "monday",
@@ -7209,6 +7799,15 @@ export const Constants = {
         "donor_reader",
       ],
       hr_workflow_status: ["active", "inactive", "draft"],
+      insurance_status: ["active", "inactive", "suspended", "expired"],
+      insurance_type: [
+        "health",
+        "social",
+        "life",
+        "disability",
+        "dental",
+        "vision",
+      ],
       leave_type: [
         "annual",
         "sick",
@@ -7235,6 +7834,7 @@ export const Constants = {
       meeting_status: ["scheduled", "ongoing", "completed", "cancelled"],
       meeting_type: ["board", "executive", "department", "team", "one_on_one"],
       participant_role: ["organizer", "required", "optional", "presenter"],
+      premium_frequency: ["monthly", "quarterly", "semi_annual", "annual"],
       request_status: ["pending", "approved", "rejected", "cancelled"],
       service_category: [
         "water",
