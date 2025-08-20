@@ -1,373 +1,291 @@
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, CheckSquare, Clock, Users, AlertCircle, Calendar, User, Search, Plus } from 'lucide-react';
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  assignedTo: string;
-  assignedBy: string;
-  department: string;
-  priority: 'عالي' | 'متوسط' | 'منخفض';
-  status: 'جديد' | 'قيد التنفيذ' | 'مكتمل' | 'متأخر' | 'ملغي';
-  progress: number;
-  startDate: string;
-  dueDate: string;
-  completionDate?: string;
-  category: 'مشروع' | 'إدارية' | 'تقنية' | 'تدريب' | 'أخرى';
-}
+import { ArrowLeft, CheckSquare, Clock, Users, AlertTriangle, TrendingUp, Eye, Save, Download, Share, Settings, BarChart, Target, Calendar, Plus, User, Search, AlertCircle } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
 
 interface TasksTrackingProps {
   onBack: () => void;
 }
 
 export const TasksTracking: React.FC<TasksTrackingProps> = ({ onBack }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('all');
-  
-  const tasks: Task[] = [
-    {
-      id: 'TSK001',
-      title: 'تطوير نظام إدارة الحضور الجديد',
-      description: 'تطوير وتنفيذ نظام متقدم لإدارة حضور وانصراف الموظفين',
-      assignedTo: 'أحمد محمد العلي',
-      assignedBy: 'مدير تقنية المعلومات',
-      department: 'تقنية المعلومات',
-      priority: 'عالي',
-      status: 'قيد التنفيذ',
-      progress: 75,
-      startDate: '2024-03-01',
-      dueDate: '2024-04-15',
-      category: 'تقنية'
-    },
-    {
-      id: 'TSK002',
-      title: 'مراجعة وتحديث سياسات الموارد البشرية',
-      description: 'مراجعة شاملة لجميع سياسات الموارد البشرية وتحديثها',
-      assignedTo: 'فاطمة أحمد السالم',
-      assignedBy: 'مدير الموارد البشرية',
-      department: 'الموارد البشرية',
-      priority: 'متوسط',
-      status: 'قيد التنفيذ',
-      progress: 45,
-      startDate: '2024-03-10',
-      dueDate: '2024-04-30',
-      category: 'إدارية'
-    },
-    {
-      id: 'TSK003',
-      title: 'تنظيم برنامج التدريب الربع سنوي',
-      description: 'تخطيط وتنفيذ برنامج التدريب للموظفين للربع الثاني',
-      assignedTo: 'محمد سعد الخالد',
-      assignedBy: 'مدير التدريب والتطوير',
-      department: 'الموارد البشرية',
-      priority: 'عالي',
-      status: 'جديد',
-      progress: 10,
-      startDate: '2024-03-25',
-      dueDate: '2024-05-15',
-      category: 'تدريب'
-    },
-    {
-      id: 'TSK004',
-      title: 'إعداد التقرير المالي الربع سنوي',
-      description: 'إعداد وتجهيز التقرير المالي للربع الأول من العام',
-      assignedTo: 'سارة عبدالله النصر',
-      assignedBy: 'المدير المالي',
-      department: 'المالية',
-      priority: 'عالي',
-      status: 'مكتمل',
-      progress: 100,
-      startDate: '2024-03-01',
-      dueDate: '2024-03-31',
-      completionDate: '2024-03-28',
-      category: 'إدارية'
-    },
-    {
-      id: 'TSK005',
-      title: 'تحديث موقع الشركة الإلكتروني',
-      description: 'تحديث المحتوى والتصميم لموقع الشركة الرسمي',
-      assignedTo: 'عبدالرحمن يوسف',
-      assignedBy: 'مدير التسويق',
-      department: 'التسويق',
-      priority: 'منخفض',
-      status: 'متأخر',
-      progress: 30,
-      startDate: '2024-02-15',
-      dueDate: '2024-03-15',
-      category: 'تقنية'
-    }
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+
+  // بيانات المهام والمتابعة
+  const tasksData = [
+    { month: 'يناير', completed: 125, pending: 35, overdue: 8 },
+    { month: 'فبراير', completed: 140, pending: 28, overdue: 5 },
+    { month: 'مارس', completed: 118, pending: 42, overdue: 12 },
+    { month: 'أبريل', completed: 155, pending: 25, overdue: 3 },
+    { month: 'مايو', completed: 132, pending: 38, overdue: 7 },
+    { month: 'يونيو', completed: 168, pending: 22, overdue: 4 }
   ];
 
-  const getStatusBadge = (status: string) => {
-    const config = {
-      'جديد': 'bg-blue-100 text-blue-800 border-blue-200',
-      'قيد التنفيذ': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'مكتمل': 'bg-green-100 text-green-800 border-green-200',
-      'متأخر': 'bg-red-100 text-red-800 border-red-200',
-      'ملغي': 'bg-gray-100 text-gray-800 border-gray-200'
-    };
-    return config[status as keyof typeof config] || 'bg-gray-100 text-gray-800';
-  };
+  const tasksMetrics = [
+    { category: 'المهام المكتملة', count: 1240, percentage: 87, color: '#009F87' },
+    { category: 'المهام قيد التنفيذ', count: 185, percentage: 13, color: '#1e40af' },
+    { category: 'المهام المتأخرة', count: 28, percentage: 2, color: '#dc2626' },
+    { category: 'معدل الإنجاز', count: 95, percentage: 95, color: '#059669' }
+  ];
 
-  const getPriorityBadge = (priority: string) => {
-    const config = {
-      'عالي': 'bg-red-100 text-red-800 border-red-200',
-      'متوسط': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'منخفض': 'bg-green-100 text-green-800 border-green-200'
-    };
-    return config[priority as keyof typeof config] || 'bg-gray-100 text-gray-800';
-  };
+  const tasksByPriority = [
+    { priority: 'عالية الأولوية', value: 35, count: 48 },
+    { priority: 'متوسطة الأولوية', value: 45, count: 62 },
+    { priority: 'منخفضة الأولوية', value: 20, count: 27 }
+  ];
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'مكتمل':
-        return <CheckSquare className="h-4 w-4 text-green-600" />;
-      case 'قيد التنفيذ':
-        return <Clock className="h-4 w-4 text-yellow-600" />;
-      case 'متأخر':
-        return <AlertCircle className="h-4 w-4 text-red-600" />;
-      default:
-        return <CheckSquare className="h-4 w-4 text-blue-600" />;
-    }
-  };
-
-  const getProgressColor = (status: string, progress: number) => {
-    if (status === 'متأخر') return 'bg-red-500';
-    if (status === 'مكتمل') return 'bg-green-500';
-    if (progress > 75) return 'bg-blue-500';
-    if (progress > 50) return 'bg-yellow-500';
-    return 'bg-gray-400';
-  };
-
-  const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         task.assignedTo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         task.department.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = selectedFilter === 'all' || task.status === selectedFilter;
-    return matchesSearch && matchesFilter;
-  });
-
-  const newTasks = tasks.filter(t => t.status === 'جديد').length;
-  const inProgressTasks = tasks.filter(t => t.status === 'قيد التنفيذ').length;
-  const completedTasks = tasks.filter(t => t.status === 'مكتمل').length;
-  const overdueTasks = tasks.filter(t => t.status === 'متأخر').length;
+  const BOUD_COLORS = ['#dc2626', '#f59e0b', '#059669'];
 
   return (
-    <div className="space-y-6 p-6">
-      {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
-        <Button
-          variant="ghost"
-          onClick={onBack}
-          className="hover:bg-[#009F87]/10"
-        >
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          العودة
-        </Button>
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#009F87]/10 rounded-lg">
-            <CheckSquare className="h-6 w-6 text-[#009F87]" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-[#009F87]">المهام والمتابعة</h1>
-            <p className="text-muted-foreground">إدارة ومتابعة مهام الموظفين والمشاريع</p>
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#009F87] via-[#008072] to-[#009F87] p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {isRTL ? 'رجوع' : 'Back'}
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Share className="h-4 w-4 ml-2" />
+                  {isRTL ? 'استيراد' : 'Import'}
+                </Button>
+                <Button className="bg-[#009F87]/80 border-[#009F87]/30 text-white hover:bg-[#009F87]/90 backdrop-blur-sm">
+                  <Download className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
+                </Button>
+                <Button className="bg-red-600/80 border-red-600/30 text-white hover:bg-red-600/90 backdrop-blur-sm">
+                  <CheckSquare className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
+                </Button>
+                <Button className="bg-blue-600 border-blue-600 text-white hover:bg-blue-600/90 shadow-lg">
+                  <Save className="h-4 w-4 ml-2" />
+                  {isRTL ? 'حفظ' : 'Save'}
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <CheckSquare className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                {isRTL ? 'نظام المهام والمتابعة الذكي' : 'Smart Tasks & Tracking System'}
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                {isRTL ? 'نظام متطور لإدارة المهام وتتبع التقدم وقياس الأداء' : 'Advanced system for task management and progress tracking'}
+              </p>
+            </div>
           </div>
         </div>
-        <div className="mr-auto">
-          <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
-            <Plus className="h-4 w-4 ml-2" />
-            إضافة مهمة جديدة
-          </Button>
-        </div>
-      </div>
 
-      {/* Stats Overview */}
-      <div className="grid md:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur border-blue-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <CheckSquare className="h-6 w-6 text-blue-600" />
-            </div>
-            <div className="text-2xl font-bold text-blue-600 mb-1">{newTasks}</div>
-            <div className="text-sm text-muted-foreground">مهام جديدة</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white/80 backdrop-blur border-yellow-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Clock className="h-6 w-6 text-yellow-600" />
-            </div>
-            <div className="text-2xl font-bold text-yellow-600 mb-1">{inProgressTasks}</div>
-            <div className="text-sm text-muted-foreground">قيد التنفيذ</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white/80 backdrop-blur border-green-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <CheckSquare className="h-6 w-6 text-green-600" />
-            </div>
-            <div className="text-2xl font-bold text-green-600 mb-1">{completedTasks}</div>
-            <div className="text-sm text-muted-foreground">مكتملة</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white/80 backdrop-blur border-red-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <AlertCircle className="h-6 w-6 text-red-600" />
-            </div>
-            <div className="text-2xl font-bold text-red-600 mb-1">{overdueTasks}</div>
-            <div className="text-sm text-muted-foreground">متأخرة</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Search and Filter */}
-      <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-        <CardContent className="p-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="البحث في المهام (العنوان، المنفذ، القسم)..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <select 
-              value={selectedFilter} 
-              onChange={(e) => setSelectedFilter(e.target.value)}
-              className="border border-[#009F87]/20 rounded-lg px-3 py-2 focus:border-[#009F87] w-full md:w-48"
-            >
-              <option value="all">جميع الحالات</option>
-              <option value="جديد">مهام جديدة</option>
-              <option value="قيد التنفيذ">قيد التنفيذ</option>
-              <option value="مكتمل">مكتملة</option>
-              <option value="متأخر">متأخرة</option>
-            </select>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Tasks List */}
-      <div className="space-y-4">
-        {filteredTasks.map((task) => (
-          <Card key={task.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-[#009F87]/10 rounded-lg">
-                    {getStatusIcon(task.status)}
+        {/* Analytics Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {/* Main Analytics Panel */}
+          <div className="lg:col-span-2">
+            <Card className="bg-gradient-to-br from-slate-900 via-[#009F87] to-blue-900 text-white shadow-2xl rounded-2xl overflow-hidden">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Task Management */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-green-300">
+                      {isRTL ? 'إدارة المهام' : 'Task Management'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-[#009F87]/50 to-blue-600/50 rounded-xl p-4 flex items-center justify-center">
+                      <CheckSquare className="h-32 w-32 text-green-300 opacity-80" />
+                      <div className="absolute top-4 right-4 bg-[#009F87]/80 px-3 py-1 rounded-full text-sm">
+                        1240 {isRTL ? 'مهمة مكتملة' : 'Completed'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-blue-600/80 px-3 py-1 rounded-full text-sm">
+                        87% {isRTL ? 'معدل الإنجاز' : 'Completion Rate'}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-1">{task.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-2">{task.description}</p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <span className="flex items-center">
-                        <User className="h-4 w-4 ml-1" />
-                        {task.assignedTo}
-                      </span>
-                      <span className="flex items-center">
-                        <Users className="h-4 w-4 ml-1" />
-                        {task.department}
-                      </span>
-                      <span className="flex items-center">
-                        <Calendar className="h-4 w-4 ml-1" />
-                        {task.dueDate}
-                      </span>
+
+                  {/* Time Tracking */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-blue-300">
+                      {isRTL ? 'تتبع الوقت' : 'Time Tracking'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-blue-600/50 to-purple-600/50 rounded-xl p-4 flex items-center justify-center">
+                      <Clock className="h-32 w-32 text-blue-300 opacity-80" />
+                      <div className="absolute top-4 right-4 bg-blue-600/80 px-3 py-1 rounded-full text-sm">
+                        2,840 {isRTL ? 'ساعة' : 'Hours'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-purple-600/80 px-3 py-1 rounded-full text-sm">
+                        95% {isRTL ? 'كفاءة الوقت' : 'Time Efficiency'}
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Badge className={getStatusBadge(task.status)}>
-                    {task.status}
-                  </Badge>
-                  <Badge className={getPriorityBadge(task.priority)}>
-                    أولوية {task.priority}
-                  </Badge>
-                </div>
-              </div>
 
-              {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium">التقدم</span>
-                  <span className="text-sm text-muted-foreground">{task.progress}%</span>
+                {/* Tasks Trends Chart */}
+                <div className="mt-8">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={tasksData}>
+                      <defs>
+                        <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#009F87" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#009F87" stopOpacity={0.1}/>
+                        </linearGradient>
+                        <linearGradient id="colorPending" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#1e40af" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#1e40af" stopOpacity={0.1}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="month" stroke="#9CA3AF" />
+                      <YAxis stroke="#9CA3AF" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
+                        labelStyle={{ color: '#F3F4F6' }}
+                      />
+                      <Area type="monotone" dataKey="completed" stroke="#009F87" fill="url(#colorCompleted)" />
+                      <Area type="monotone" dataKey="pending" stroke="#1e40af" fill="url(#colorPending)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full transition-all ${getProgressColor(task.status, task.progress)}`}
-                    style={{ width: `${task.progress}%` }}
-                  ></div>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
+          </div>
 
-              <div className="grid md:grid-cols-4 gap-4 text-sm mb-4">
-                <div className="bg-blue-50 p-3 rounded-lg">
-                  <div className="font-medium text-blue-900 mb-1">تاريخ البداية</div>
-                  <div className="text-blue-700">{task.startDate}</div>
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-800">
+                    {isRTL ? 'مؤشرات المهام' : 'Task Metrics'}
+                  </h3>
+                  <Settings className="h-5 w-5 text-gray-400" />
                 </div>
-                
-                <div className="bg-orange-50 p-3 rounded-lg">
-                  <div className="font-medium text-orange-900 mb-1">تاريخ الاستحقاق</div>
-                  <div className="text-orange-700">{task.dueDate}</div>
+                <div className="space-y-4">
+                  {tasksMetrics.map((metric, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
+                      <div>
+                        <p className="font-semibold text-gray-800">{metric.category}</p>
+                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'عنصر' : 'items'}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                
-                <div className="bg-purple-50 p-3 rounded-lg">
-                  <div className="font-medium text-purple-900 mb-1">الفئة</div>
-                  <div className="text-purple-700">{task.category}</div>
-                </div>
-                
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <div className="font-medium text-gray-900 mb-1">مكلف من</div>
-                  <div className="text-gray-700">{task.assignedBy}</div>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
 
-              {task.completionDate && (
-                <div className="bg-green-50 p-3 rounded-lg mb-4">
-                  <div className="flex items-center text-sm">
-                    <CheckSquare className="h-4 w-4 text-green-600 ml-2" />
-                    <span className="font-medium text-green-700">
-                      تم الإنجاز في: {task.completionDate}
-                    </span>
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  {isRTL ? 'المهام حسب الأولوية' : 'Tasks by Priority'}
+                </h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <RechartsPieChart>
+                    <Pie
+                      data={tasksByPriority}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={40}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {tasksByPriority.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Tasks System */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-[#009F87] text-white px-6 py-2 rounded-full shadow-lg">
+              <CheckSquare className="h-5 w-5" />
+              <span className="font-medium">{isRTL ? 'نظام مهام متطور' : 'Advanced Tasks System'}</span>
+            </div>
+          </div>
+          
+          <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+                {isRTL ? 'نظام المهام والمتابعة المتطور' : 'Advanced Tasks & Tracking System'}
+              </h2>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+                {[
+                  { icon: CheckSquare, label: isRTL ? 'إدارة المهام' : 'Task Management', color: 'bg-[#009F87]', count: 0 },
+                  { icon: Clock, label: isRTL ? 'تتبع الوقت' : 'Time Tracking', color: 'bg-blue-600', count: 28 },
+                  { icon: Users, label: isRTL ? 'فرق العمل' : 'Team Collaboration', color: 'bg-green-600', count: 5 },
+                  { icon: TrendingUp, label: isRTL ? 'تقارير الأداء' : 'Performance Reports', color: 'bg-purple-600', count: 0 },
+                  { icon: Target, label: isRTL ? 'الأهداف والمعالم' : 'Goals & Milestones', color: 'bg-yellow-600', count: 12 },
+                  { icon: AlertTriangle, label: isRTL ? 'التنبيهات والتذكيرات' : 'Alerts & Reminders', color: 'bg-red-600', count: 15 },
+                  { icon: Calendar, label: isRTL ? 'جدولة المهام' : 'Task Scheduling', color: 'bg-indigo-600', count: 0 },
+                  { icon: Settings, label: isRTL ? 'الإعدادات المتقدمة' : 'Advanced Settings', color: 'bg-gray-600', count: 0 }
+                ].map((item, index) => (
+                  <div key={index} className="text-center group cursor-pointer">
+                    <div className={`${item.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform relative`}>
+                      <item.icon className="h-8 w-8 text-white" />
+                      {item.count > 0 && (
+                        <div className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                          {item.count}
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-sm font-medium text-gray-700 group-hover:text-[#009F87] transition-colors">
+                      {item.label}
+                    </p>
                   </div>
+                ))}
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div className="text-center p-6 bg-gradient-to-br from-[#009F87]/10 to-[#009F87]/20 rounded-xl border border-[#009F87]/20">
+                  <div className="text-3xl font-bold text-[#009F87] mb-2">1,240</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'مهام مكتملة' : 'Completed Tasks'}</div>
                 </div>
-              )}
-
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  عرض التفاصيل
-                </Button>
-                {task.status !== 'مكتمل' && task.status !== 'ملغي' && (
-                  <Button variant="outline" size="sm" className="text-blue-600 hover:bg-blue-50">
-                    تحديث التقدم
-                  </Button>
-                )}
-                <Button variant="outline" size="sm" className="text-green-600 hover:bg-green-50">
-                  إضافة تعليق
-                </Button>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-blue-600/10 to-blue-600/20 rounded-xl border border-blue-600/20">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">185</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'مهام نشطة' : 'Active Tasks'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-green-600/10 to-green-600/20 rounded-xl border border-green-600/20">
+                  <div className="text-3xl font-bold text-green-600 mb-2">87%</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'معدل الإنجاز' : 'Completion Rate'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-purple-600/10 to-purple-600/20 rounded-xl border border-purple-600/20">
+                  <div className="text-3xl font-bold text-purple-600 mb-2">2,840</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'ساعات العمل' : 'Work Hours'}</div>
+                </div>
               </div>
             </CardContent>
           </Card>
-        ))}
+        </div>
       </div>
-
-      {filteredTasks.length === 0 && (
-        <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-          <CardContent className="p-8 text-center">
-            <CheckSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-muted-foreground mb-2">لا توجد مهام</h3>
-            <p className="text-muted-foreground">لم يتم العثور على مهام تطابق معايير البحث المحددة</p>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 };
