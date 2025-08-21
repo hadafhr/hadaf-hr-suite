@@ -97,7 +97,7 @@ const BoudHRLandingPage: React.FC = () => {
       icon: Users,
       color: "text-primary",
       image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
-      route: "/comprehensive-employee-management",
+      route: "/employee-management-info",
       features: ["التوظيف الذكي", "إدارة الأداء", "الرواتب والمزايا", "التدريب والتطوير", "حماية الأجور", "التكامل الحكومي"],
       animation: "hover:scale-105 transform transition-all duration-500"
     },
@@ -109,7 +109,7 @@ const BoudHRLandingPage: React.FC = () => {
       icon: Settings,
       color: "text-primary",
       image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=80",
-      route: "/employee-self-service",
+      route: "/self-service-info",
       features: ["الملف الشخصي", "طلبات الإجازات", "كشوف الرواتب", "التقييمات الذاتية", "التدريب الإلكتروني", "التواصل المباشر"],
       animation: "hover:scale-105 transform transition-all duration-500"
     }
@@ -304,29 +304,20 @@ const BoudHRLandingPage: React.FC = () => {
                 <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
                   <DropdownMenuItem asChild>
                     <button 
-                      onClick={() => navigate('/self-service-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <Settings className="w-4 h-4" />
-                      دخول نظام الخدمة الذاتية
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/business-login')} 
+                      onClick={() => navigate('/admin-login')} 
                       className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
                     >
                       <Building2 className="w-4 h-4" />
-                      دخول أصحاب الأعمال
+                      🔘 لوحة تحكم الإدارة
                     </button>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <button 
-                      onClick={() => navigate('/individual-login')} 
+                      onClick={() => navigate('/employee-login')} 
                       className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
                     >
                       <User className="w-4 h-4" />
-                      دخول الأفراد
+                      🔘 لوحة تحكم الموظف
                     </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -396,13 +387,13 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                 </details>
                 <div className="flex flex-col space-y-2 pt-4">
-                  <Button variant="ghost" onClick={() => navigate('/business-login')}>
+                  <Button variant="ghost" onClick={() => navigate('/admin-login')}>
                     <Building2 className="w-4 h-4 ml-2" />
-                    دخول أصحاب الأعمال
+                    🔘 لوحة تحكم الإدارة
                   </Button>
-                  <Button variant="ghost" onClick={() => navigate('/individual-login')}>
+                  <Button variant="ghost" onClick={() => navigate('/employee-login')}>
                     <User className="w-4 h-4 ml-2" />
-                    دخول الأفراد
+                    🔘 لوحة تحكم الموظف
                   </Button>
                   <Button 
                     onClick={() => navigate('/subscription-packages')}

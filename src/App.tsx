@@ -72,6 +72,12 @@ import { ESignatureSystem } from './pages/ESignatureSystem';
 import MeetingHub from './pages/MeetingHub';
 import MeetingSubscription from './pages/MeetingSubscription';
 import { AdminConfiguration } from './pages/AdminConfiguration';
+import AdminLogin from './pages/AdminLogin';
+import EmployeeLogin from './pages/EmployeeLogin';
+import EmployeeManagementInfo from './pages/EmployeeManagementInfo';
+import SelfServiceInfo from './pages/SelfServiceInfo';
+import DemoRequest from './pages/DemoRequest';
+import Contact from './pages/Contact';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -141,6 +147,12 @@ const App = () => {
               <Route path="/register" element={<Register />} />
             <Route path="/business-login" element={<BusinessLogin />} />
             <Route path="/individual-login" element={<IndividualLogin />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/employee-login" element={<EmployeeLogin />} />
+            <Route path="/employee-management-info" element={<EmployeeManagementInfo />} />
+            <Route path="/self-service-info" element={<SelfServiceInfo />} />
+            <Route path="/demo-request" element={<DemoRequest />} />
+            <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
