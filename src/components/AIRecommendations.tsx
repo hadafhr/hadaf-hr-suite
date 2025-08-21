@@ -124,10 +124,13 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
         })}
       </div>
 
-      <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
-        <p className="text-xs text-primary text-center">
-          💡 هذه التوصيات مبنية على تحليل بيانات أكثر من 1000 شركة
-        </p>
+      <div className="mt-4 p-3 bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-lg">
+        <div className="flex items-center justify-center gap-2">
+          <Bot className="h-4 w-4 text-primary" />
+          <p className="text-xs text-primary font-medium">
+            توصيات ذكية مبنية على تحليل +1000 شركة
+          </p>
+        </div>
       </div>
     </Card>
   );

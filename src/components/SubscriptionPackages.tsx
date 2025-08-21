@@ -106,24 +106,24 @@ export const SubscriptionPackages: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gradient mb-4">
+      <div className="text-center mb-8 md:mb-12">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gradient mb-4">
           باقات نظام بُعد HR الذكية
         </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
           حل متكامل لإدارة الموارد البشرية في منشأتك - نظام ذكي يختصر الوقت والجهد
         </p>
-        <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-xl max-w-2xl mx-auto">
-          <p className="text-primary font-semibold">
-            🏷️ خصم 10% على جميع الباقات مقارنة بالمنافسين + ضمان استرداد المال خلال 30 يوم
+        <div className="mt-4 md:mt-6 p-3 md:p-4 bg-primary/10 border border-primary/20 rounded-xl max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-primary font-semibold">
+            🏷️ خصم 10% على جميع الباقات + ضمان استرداد المال خلال 30 يوم
           </p>
         </div>
       </div>
 
       {/* الباقات */}
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-6 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
         {packages.map((pkg, index) => {
           const IconComponent = pkg.icon;
           return (
@@ -186,21 +186,21 @@ export const SubscriptionPackages: React.FC = () => {
       </div>
 
       {/* مقارنة سريعة */}
-      <div className="bg-gradient-to-r from-primary/5 to-primary-glow/5 rounded-2xl p-8 text-center">
-        <h3 className="text-2xl font-bold mb-4">غير متأكد من الباقة المناسبة؟</h3>
-        <p className="text-muted-foreground mb-6">
+      <div className="bg-gradient-to-r from-primary/5 to-primary-glow/5 rounded-2xl p-4 md:p-8 text-center">
+        <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">غير متأكد من الباقة المناسبة؟</h3>
+        <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 px-4">
           استخدم حاسبة الأسعار الذكية أو تواصل مع فريق المبيعات للحصول على استشارة مجانية
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-primary to-primary-glow"
+            className="bg-gradient-to-r from-primary to-primary-glow w-full sm:w-auto"
             onClick={() => setSelectedPackage('calculator')}
           >
             <Zap className="h-5 w-5 ml-2" />
             استخدم حاسبة الأسعار
           </Button>
-          <Button size="lg" variant="outline">
+          <Button size="lg" variant="outline" className="w-full sm:w-auto">
             تواصل مع المبيعات
           </Button>
         </div>

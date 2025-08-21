@@ -163,7 +163,9 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
   };
 
   const generatePDF = async () => {
-    // محاكاة توليد PDF
+    const { jsPDF } = await import('jspdf');
+    const doc = new jsPDF();
+
     const invoiceData = {
       companyName,
       contactEmail,
@@ -175,14 +177,50 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
       invoiceNumber: `BOUD-${Date.now()}`
     };
 
-    console.log('Generating PDF with data:', invoiceData);
+    // إعداد الخط العربي
+    doc.setFont('helvetica');
     
-    // هنا يمكن إضافة مكتبة PDF مثل jsPDF
-    alert('تم توليد الفاتورة بنجاح! سيتم تحميلها قريبًا...');
+    // العنوان الرئيسي
+    doc.setFontSize(20);
+    doc.text('BOUD HR System Invoice', 20, 30);
+    doc.text('فاتورة نظام بُعد لإدارة الموارد البشرية', 20, 45);
+    
+    // معلومات الفاتورة
+    doc.setFontSize(12);
+    doc.text(`Invoice Number: ${invoiceData.invoiceNumber}`, 20, 65);
+    doc.text(`Date: ${invoiceData.date}`, 20, 75);
+    doc.text(`Company: ${invoiceData.companyName}`, 20, 85);
+    doc.text(`Email: ${invoiceData.contactEmail}`, 20, 95);
+    doc.text(`Employees: ${invoiceData.employeeCount}`, 20, 105);
+    
+    // تفاصيل الباقة
+    doc.setFontSize(14);
+    doc.text('Package Details:', 20, 125);
+    
+    let yPos = 140;
+    doc.setFontSize(10);
+    
+    calculation.breakdown.forEach((item) => {
+      doc.text(`${item.item}: ${item.total?.toLocaleString()} SAR`, 25, yPos);
+      yPos += 10;
+    });
+    
+    // الخصم إن وجد
+    if (calculation.discount > 0) {
+      doc.text(`Annual Discount (15%): -${calculation.discount.toLocaleString()} SAR`, 25, yPos);
+      yPos += 10;
+    }
+    
+    // المجموع النهائي
+    doc.setFontSize(14);
+    doc.text(`Total: ${calculation.total.toLocaleString()} SAR`, 25, yPos + 15);
+    
+    // حفظ الملف
+    doc.save(`BOUD-HR-Invoice-${invoiceData.invoiceNumber}.pdf`);
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-4 md:p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         {onBack && (
@@ -200,7 +238,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Configuration Panel */}
         <div className="lg:col-span-2 space-y-6">
           {/* معلومات الشركة */}
@@ -389,12 +427,28 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
               </Button>
               
               <div className="text-center">
-                <p className="text-xs text-muted-foreground mb-2">وسائل الدفع المقبولة:</p>
-                <div className="flex justify-center gap-2 text-xs">
-                  <Badge variant="outline">مدى</Badge>
-                  <Badge variant="outline">Apple Pay</Badge>
-                  <Badge variant="outline">STC Pay</Badge>
-                  <Badge variant="outline">فيزا</Badge>
+                <p className="text-xs text-muted-foreground mb-3">وسائل الدفع المقبولة:</p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                    <CreditCard className="h-3 w-3 ml-1" />
+                    مدى
+                  </Badge>
+                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                    <CreditCard className="h-3 w-3 ml-1" />
+                    Apple Pay
+                  </Badge>
+                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                    <CreditCard className="h-3 w-3 ml-1" />
+                    STC Pay
+                  </Badge>
+                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                    <CreditCard className="h-3 w-3 ml-1" />
+                    فيزا / ماستر
+                  </Badge>
+                  <Badge variant="outline" className="flex items-center justify-center py-2 col-span-2">
+                    <CreditCard className="h-3 w-3 ml-1" />
+                    تحويل بنكي
+                  </Badge>
                 </div>
               </div>
             </div>
