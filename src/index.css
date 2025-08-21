@@ -190,11 +190,6 @@
   }
 }
 
-/* حجم شعار مخصص */
-.h-55 {
-  height: 13.75rem; /* 220px = 55 * 4px */
-}
-
 @layer utilities {
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;

@@ -32,8 +32,7 @@ export const ServiceCalculator: React.FC<ServiceCalculatorProps> = ({ onBack }) 
               <img 
                 src="/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png" 
                 alt="BOUD HR System" 
-                className="h-55 w-auto"
-                style={{ height: '13.75rem' }}
+                className="h-12 w-auto"
               />
               <div>
                 <h1 className="text-xl font-bold text-foreground">نظام بُعد لإدارة الموارد البشرية</h1>
