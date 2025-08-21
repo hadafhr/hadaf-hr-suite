@@ -43,12 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* التنقل الأساسي */}
         <nav className="hidden md:flex items-center space-x-6 space-x-reverse">
-          <Link to="/" className="navigation-item flex items-center gap-2">
-            <img 
-              src="/lovable-uploads/14d09ee8-3aea-4bc7-8e06-929c209dcb63.png" 
-              alt="شعار بُعد BOUD HR" 
-              className="h-[55px] w-auto"
-            />
+          <Link to="/" className="navigation-item">
             الرئيسية
           </Link>
           <Link to="/services" className="navigation-item">

@@ -7,7 +7,7 @@ interface BoudLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const BoudLogo: React.FC<BoudLogoProps> = ({ 
+export const BoudLogo: React.FC<BoudLogoProps> = ({ 
   className, 
   showText = false,
   variant = 'full',
@@ -59,6 +59,3 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
     </div>
   );
 };
-
-export { BoudLogo };
-export default BoudLogo;
