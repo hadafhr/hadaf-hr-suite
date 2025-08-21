@@ -24,7 +24,7 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
 
   // اختيار الشعار المناسب - الشعارات الرسمية الجديدة
   const logoSrc = {
-    full: '/lovable-uploads/0130a7c8-2a91-4c8d-93b5-b296d7bb95a0.png', // الشعار المستطيل الكامل الرسمي
+    full: '/lovable-uploads/34b81724-88d2-404d-8192-f65dc4643195.png', // الشعار المستطيل الكامل الرسمي
     icon: '/lovable-uploads/0e845462-6664-4621-9f4e-7af1cd547135.png', // الشعار الصغير الرسمي (BD HR)
     pattern: '/lovable-uploads/0e845462-6664-4621-9f4e-7af1cd547135.png' // للاستخدام كنمط
   };
