@@ -40,13 +40,13 @@ interface Subscription {
 interface Invoice {
   id: string;
   invoice_number: string;
-  issue_date?: string;
-  total_amount?: number;
+  issue_date: string;
+  total_amount: number;
   amount?: number;
-  payment_status?: string;
-  status?: string;
+  status: string;
   pdf_url?: string;
   currency: string;
+  payment_date?: string;
 }
 
 const InvoicesDashboard = () => {
@@ -98,7 +98,7 @@ const InvoicesDashboard = () => {
 
       // حساب الإحصائيات
       const totalSpent = invoicesData?.reduce((sum, invoice) => 
-        sum + (invoice.payment_status === 'paid' ? Number(invoice.total_amount) : 0), 0) || 0;
+        sum + (invoice.status === 'paid' ? Number(invoice.total_amount) : 0), 0) || 0;
       
       const activeSubscriptions = subscriptionsData?.filter(sub => sub.status === 'active').length || 0;
       
@@ -110,7 +110,7 @@ const InvoicesDashboard = () => {
         return diffDays <= 30 && diffDays > 0;
       }).length || 0;
       
-      const paidInvoices = invoicesData?.filter(invoice => invoice.payment_status === 'paid').length || 0;
+      const paidInvoices = invoicesData?.filter(invoice => invoice.status === 'paid').length || 0;
 
       setStats({
         totalSpent,
@@ -362,7 +362,7 @@ const InvoicesDashboard = () => {
                           {new Date(invoice.issue_date).toLocaleDateString('ar-SA')}
                         </p>
                       </div>
-                      {getPaymentStatusBadge(invoice.payment_status)}
+                      {getPaymentStatusBadge(invoice.status)}
                     </div>
                     
                     <div className="flex items-center justify-between">
