@@ -45,6 +45,7 @@ export const Header: React.FC<HeaderProps> = ({
             src="/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png" 
             alt="BOUD HR System" 
             className="h-55 w-auto"
+            style={{ height: '13.75rem' }}
           />
         </Link>
 
