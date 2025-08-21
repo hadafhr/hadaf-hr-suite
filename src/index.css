@@ -17,10 +17,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    /* اللون الأساسي - أخضر تركوازي #009F87 */
-    --primary: 172 100% 31%;
+    /* اللون الأساسي - أخضر فيروزي BOUD #00C897 */
+    --primary: 167 100% 39%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 172 80% 45%;
+    --primary-glow: 167 80% 55%;
+    --primary-dark: 167 100% 32%;
+    
+    /* أسود داكن BOUD #141414 */
+    --boud-dark: 0 0% 8%;
+    
+    /* رمادي فاتح BOUD #F3F3F3 */
+    --boud-light: 0 0% 95%;
+    
+    /* تأكيد BOUD #00A37A */
+    --boud-accent: 172 100% 32%;
     
     /* اللون الثانوي - رمادي متوسط */
     --secondary: 0 0% 29%;
