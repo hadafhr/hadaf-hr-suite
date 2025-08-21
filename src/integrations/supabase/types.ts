@@ -1626,6 +1626,48 @@ export type Database = {
           },
         ]
       }
+      boud_subscription_packages: {
+        Row: {
+          created_at: string
+          description: string | null
+          features: Json | null
+          id: string
+          is_active: boolean | null
+          max_employees: number
+          package_name: string
+          package_name_en: string | null
+          price_monthly: number
+          price_yearly: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          features?: Json | null
+          id?: string
+          is_active?: boolean | null
+          max_employees?: number
+          package_name: string
+          package_name_en?: string | null
+          price_monthly?: number
+          price_yearly?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          features?: Json | null
+          id?: string
+          is_active?: boolean | null
+          max_employees?: number
+          package_name?: string
+          package_name_en?: string | null
+          price_monthly?: number
+          price_yearly?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       boud_training_enrollments: {
         Row: {
           attendance_percentage: number | null
@@ -1804,6 +1846,68 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      boud_user_subscriptions: {
+        Row: {
+          auto_renew: boolean | null
+          billing_cycle: string
+          company_name: string
+          contact_email: string
+          created_at: string
+          employee_count: number
+          id: string
+          package_id: string | null
+          status: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          subscription_end: string
+          subscription_start: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          auto_renew?: boolean | null
+          billing_cycle: string
+          company_name: string
+          contact_email: string
+          created_at?: string
+          employee_count?: number
+          id?: string
+          package_id?: string | null
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          subscription_end: string
+          subscription_start?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          auto_renew?: boolean | null
+          billing_cycle?: string
+          company_name?: string
+          contact_email?: string
+          created_at?: string
+          employee_count?: number
+          id?: string
+          package_id?: string | null
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          subscription_end?: string
+          subscription_start?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "boud_user_subscriptions_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "boud_subscription_packages"
             referencedColumns: ["id"]
           },
         ]
@@ -4562,8 +4666,13 @@ export type Database = {
           id: string
           invoice_number: string
           issue_date: string
+          paid_at: string | null
           payment_date: string | null
+          payment_method: string | null
+          pdf_url: string | null
           status: string | null
+          stripe_invoice_id: string | null
+          subscription_id: string | null
           tax_amount: number | null
           total_amount: number
           updated_at: string
@@ -4582,8 +4691,13 @@ export type Database = {
           id?: string
           invoice_number: string
           issue_date?: string
+          paid_at?: string | null
           payment_date?: string | null
+          payment_method?: string | null
+          pdf_url?: string | null
           status?: string | null
+          stripe_invoice_id?: string | null
+          subscription_id?: string | null
           tax_amount?: number | null
           total_amount: number
           updated_at?: string
@@ -4602,15 +4716,28 @@ export type Database = {
           id?: string
           invoice_number?: string
           issue_date?: string
+          paid_at?: string | null
           payment_date?: string | null
+          payment_method?: string | null
+          pdf_url?: string | null
           status?: string | null
+          stripe_invoice_id?: string | null
+          subscription_id?: string | null
           tax_amount?: number | null
           total_amount?: number
           updated_at?: string
           user_id?: string
           zatca_uuid?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "invoices_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "boud_user_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       journal_entries: {
         Row: {
@@ -6760,6 +6887,41 @@ export type Database = {
           },
         ]
       }
+      renewal_reminders: {
+        Row: {
+          created_at: string
+          email_sent: boolean | null
+          id: string
+          reminder_type: string
+          sent_at: string | null
+          subscription_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email_sent?: boolean | null
+          id?: string
+          reminder_type: string
+          sent_at?: string | null
+          subscription_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email_sent?: boolean | null
+          id?: string
+          reminder_type?: string
+          sent_at?: string | null
+          subscription_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "renewal_reminders_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "boud_user_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       requests: {
         Row: {
           admin_notes: string | null
@@ -7908,6 +8070,10 @@ export type Database = {
       }
       encrypt_sensitive_data: {
         Args: { data: string; key_id?: string }
+        Returns: string
+      }
+      generate_boud_invoice_number: {
+        Args: Record<PropertyKey, never>
         Returns: string
       }
       generate_claim_number: {
