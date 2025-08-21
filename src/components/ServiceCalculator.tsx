@@ -30,7 +30,7 @@ export const ServiceCalculator: React.FC<ServiceCalculatorProps> = ({ onBack }) 
                 العودة للرئيسية
               </Button>
               <img 
-                src="/lovable-uploads/eef65381-1089-4f1f-bb27-f52ff27d8a97.png" 
+                src="/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png" 
                 alt="BOUD HR System" 
                 className="h-12 w-auto"
               />
