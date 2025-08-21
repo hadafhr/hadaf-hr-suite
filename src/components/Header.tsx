@@ -40,13 +40,9 @@ export const Header: React.FC<HeaderProps> = ({
       <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار الرسمي */}
-        <Link to="/" className="flex items-center">
-          <img 
-            src="/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png" 
-            alt="BOUD HR System" 
-            className="h-12 w-auto"
-          />
-        </Link>
+        {/* مساحة فارغة بدلاً من الشعار */}
+        <div className="flex items-center">
+        </div>
 
         {/* التنقل الأساسي */}
         <nav className="hidden md:flex items-center space-x-6 space-x-reverse">
