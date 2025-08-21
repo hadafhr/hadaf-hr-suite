@@ -64,7 +64,7 @@ This project includes mobile app capabilities using Capacitor.
 
 The app is configured with:
 - **App ID**: `app.lovable.3a35ea4e52184868bcc6643025691c73`
-- **App Name**: `hadaf-hr-suite`
+- **App Name**: `boud-hr-suite`
 - **Hot Reload**: Enabled for development
 
 ## Features

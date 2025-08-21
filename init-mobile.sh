@@ -4,7 +4,7 @@
 echo "🚀 تهيئة Capacitor للتطبيق المحمول..."
 
 # Run Capacitor init
-npx cap init hadaf-hr-suite app.lovable.3a35ea4e52184868bcc6643025691c73 --web-dir=dist
+npx cap init boud-hr-suite app.lovable.3a35ea4e52184868bcc6643025691c73 --web-dir=dist
 
 echo "✅ تم تهيئة Capacitor بنجاح!"
 echo ""
