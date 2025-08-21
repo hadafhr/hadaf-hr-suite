@@ -36,9 +36,10 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
-        {/* الشعار */}
+        {/* الشعار الرسمي */}
         <Link to="/" className="flex items-center">
-          <BoudLogo variant="full" size="md" />
+          <BoudLogo variant="full" size="header" className="hidden sm:block" />
+          <BoudLogo variant="icon" size="md" className="block sm:hidden" />
         </Link>
 
         {/* التنقل الأساسي */}

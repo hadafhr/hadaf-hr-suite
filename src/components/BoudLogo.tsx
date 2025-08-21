@@ -4,7 +4,7 @@ interface BoudLogoProps {
   className?: string;
   showText?: boolean;
   variant?: 'full' | 'icon' | 'pattern';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'header';
 }
 
 const BoudLogo: React.FC<BoudLogoProps> = ({ 
@@ -18,14 +18,15 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
     sm: 'h-8 w-auto',
     md: 'h-12 w-auto',
     lg: 'h-16 w-auto', 
-    xl: 'h-24 w-auto'
+    xl: 'h-24 w-auto',
+    header: 'h-14 w-auto' // حجم خاص للهيدر
   };
 
-  // اختيار الشعار المناسب
+  // اختيار الشعار المناسب - الشعارات الرسمية الجديدة
   const logoSrc = {
-    full: '/lovable-uploads/3c8f6f3e-60c9-4820-a3ff-6eb6a2bac597.png', // الشعار المستطيل الكامل
-    icon: '/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png', // الشعار الصغير (أيقونة)
-    pattern: '/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png' // للاستخدام كنمط
+    full: '/lovable-uploads/0130a7c8-2a91-4c8d-93b5-b296d7bb95a0.png', // الشعار المستطيل الكامل الرسمي
+    icon: '/lovable-uploads/0e845462-6664-4621-9f4e-7af1cd547135.png', // الشعار الصغير الرسمي (BD HR)
+    pattern: '/lovable-uploads/0e845462-6664-4621-9f4e-7af1cd547135.png' // للاستخدام كنمط
   };
 
   const finalClassName = className || sizeClasses[size];
