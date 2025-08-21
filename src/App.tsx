@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from '@/hooks/useAuth';
 import '@/i18n';
+import { AutoLanguageDetector } from './components/shared/AutoLanguageDetector';
 import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
@@ -136,6 +137,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
+          <AutoLanguageDetector />
           <Toaster />
           <Sonner />
           <BrowserRouter>
