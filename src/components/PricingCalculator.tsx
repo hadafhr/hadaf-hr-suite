@@ -162,6 +162,30 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
     }));
   };
 
+  const handlePayment = (method: string) => {
+    if (!companyName || !contactEmail) {
+      alert('يرجى إدخال اسم الشركة والبريد الإلكتروني أولاً');
+      return;
+    }
+
+    // إنشاء الفاتورة أولاً
+    generatePDF();
+
+    // رسالة تأكيد وفقاً لطريقة الدفع
+    const paymentMessages = {
+      'mada': 'سيتم توجيهك لبوابة الدفع بالمدى',
+      'apple-pay': 'سيتم فتح Apple Pay',
+      'stc-pay': 'سيتم توجيهك لتطبيق STC Pay',
+      'visa-mastercard': 'سيتم توجيهك لبوابة الدفع الإلكتروني',
+      'bank-transfer': 'سيتم إرسال تفاصيل التحويل البنكي على بريدك الإلكتروني'
+    };
+
+    alert(paymentMessages[method] || 'تم اختيار طريقة الدفع');
+    
+    // هنا يمكن إضافة التكامل مع بوابات الدفع الفعلية
+    console.log('Payment method selected:', method, 'Total:', calculation.total);
+  };
+
   const generatePDF = async () => {
     const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
@@ -427,28 +451,53 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
               </Button>
               
               <div className="text-center">
-                <p className="text-xs text-muted-foreground mb-3">وسائل الدفع المقبولة:</p>
+                <p className="text-xs text-muted-foreground mb-3">اختر طريقة الدفع:</p>
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
+                    onClick={() => handlePayment('mada')}
+                  >
                     <CreditCard className="h-3 w-3 ml-1" />
                     مدى
-                  </Badge>
-                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
+                    onClick={() => handlePayment('apple-pay')}
+                  >
                     <CreditCard className="h-3 w-3 ml-1" />
                     Apple Pay
-                  </Badge>
-                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
+                    onClick={() => handlePayment('stc-pay')}
+                  >
                     <CreditCard className="h-3 w-3 ml-1" />
                     STC Pay
-                  </Badge>
-                  <Badge variant="outline" className="flex items-center justify-center py-2">
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
+                    onClick={() => handlePayment('visa-mastercard')}
+                  >
                     <CreditCard className="h-3 w-3 ml-1" />
                     فيزا / ماستر
-                  </Badge>
-                  <Badge variant="outline" className="flex items-center justify-center py-2 col-span-2">
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="flex items-center justify-center py-3 col-span-2 hover:bg-primary/10 transition-colors"
+                    onClick={() => handlePayment('bank-transfer')}
+                  >
                     <CreditCard className="h-3 w-3 ml-1" />
                     تحويل بنكي
-                  </Badge>
+                  </Button>
                 </div>
               </div>
             </div>
