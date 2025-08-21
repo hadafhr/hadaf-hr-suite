@@ -2823,6 +2823,66 @@ export type Database = {
           },
         ]
       }
+      employee_attendance_records: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          attendance_date: string
+          break_end_time: string | null
+          break_start_time: string | null
+          check_in_location: Json | null
+          check_in_time: string | null
+          check_out_location: Json | null
+          check_out_time: string | null
+          created_at: string | null
+          employee_id: string
+          id: string
+          notes: string | null
+          overtime_hours: number | null
+          status: string | null
+          total_hours: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          attendance_date?: string
+          break_end_time?: string | null
+          break_start_time?: string | null
+          check_in_location?: Json | null
+          check_in_time?: string | null
+          check_out_location?: Json | null
+          check_out_time?: string | null
+          created_at?: string | null
+          employee_id: string
+          id?: string
+          notes?: string | null
+          overtime_hours?: number | null
+          status?: string | null
+          total_hours?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          attendance_date?: string
+          break_end_time?: string | null
+          break_start_time?: string | null
+          check_in_location?: Json | null
+          check_in_time?: string | null
+          check_out_location?: Json | null
+          check_out_time?: string | null
+          created_at?: string | null
+          employee_id?: string
+          id?: string
+          notes?: string | null
+          overtime_hours?: number | null
+          status?: string | null
+          total_hours?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       employee_disciplinary_record: {
         Row: {
           clean_record_start_date: string | null
@@ -3082,6 +3142,54 @@ export type Database = {
         }
         Relationships: []
       }
+      employee_notifications: {
+        Row: {
+          action_type: string | null
+          created_at: string | null
+          description: string | null
+          employee_id: string
+          expires_at: string | null
+          id: string
+          is_read: boolean | null
+          metadata: Json | null
+          notification_type: string
+          priority: string | null
+          read_at: string | null
+          related_id: string | null
+          title: string
+        }
+        Insert: {
+          action_type?: string | null
+          created_at?: string | null
+          description?: string | null
+          employee_id: string
+          expires_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          metadata?: Json | null
+          notification_type?: string
+          priority?: string | null
+          read_at?: string | null
+          related_id?: string | null
+          title: string
+        }
+        Update: {
+          action_type?: string | null
+          created_at?: string | null
+          description?: string | null
+          employee_id?: string
+          expires_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          metadata?: Json | null
+          notification_type?: string
+          priority?: string | null
+          read_at?: string | null
+          related_id?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
       employee_requests: {
         Row: {
           assigned_to: string | null
@@ -3241,6 +3349,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      employee_temporary_passwords: {
+        Row: {
+          created_at: string | null
+          employee_id: string
+          expires_at: string
+          id: string
+          is_used: boolean | null
+          temp_password: string
+        }
+        Insert: {
+          created_at?: string | null
+          employee_id: string
+          expires_at?: string
+          id?: string
+          is_used?: boolean | null
+          temp_password: string
+        }
+        Update: {
+          created_at?: string | null
+          employee_id?: string
+          expires_at?: string
+          id?: string
+          is_used?: boolean | null
+          temp_password?: string
+        }
+        Relationships: []
       }
       employee_work_schedules: {
         Row: {
@@ -8060,6 +8195,18 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      create_employee_notification: {
+        Args: {
+          p_action_type?: string
+          p_description: string
+          p_employee_id: string
+          p_notification_type?: string
+          p_priority?: string
+          p_related_id?: string
+          p_title: string
+        }
+        Returns: string
+      }
       decrypt_sensitive_data: {
         Args: { encrypted_data: string; key_id?: string }
         Returns: string
@@ -8089,6 +8236,10 @@ export type Database = {
         Returns: string
       }
       generate_subscription_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_temp_password: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
