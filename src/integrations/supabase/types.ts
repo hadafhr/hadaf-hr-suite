@@ -8286,6 +8286,14 @@ export type Database = {
         Args: { _employee_id: string; _user_id: string }
         Returns: boolean
       }
+      update_attendance_location: {
+        Args: {
+          p_attendance_id: string
+          p_is_check_out?: boolean
+          p_location: Json
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role:
