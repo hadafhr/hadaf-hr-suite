@@ -50,6 +50,8 @@ import ServiceCalculatorPage from './pages/ServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
 import SubscriptionPackages from './pages/SubscriptionPackages';
+import SubscriptionSuccess from './pages/SubscriptionSuccess';
+import InvoicesDashboard from './pages/InvoicesDashboard';
 import { HRApp } from './pages/HRApp';
 import EmployeeManagementFeature from './pages/FeaturePages/EmployeeManagementFeature';
 import SelfServiceFeature from './pages/FeaturePages/SelfServiceFeature';
@@ -141,6 +143,8 @@ const App = () => {
             <Route path="/" element={<BoudHRLandingPage />} />
             <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
+            <Route path="/subscription-success" element={<SubscriptionSuccess />} />
+            <Route path="/invoices-dashboard" element={<InvoicesDashboard />} />
             <Route path="/hr/*" element={<HRApp />} />
             <Route path="/old-home" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
