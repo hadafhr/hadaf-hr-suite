@@ -15,11 +15,11 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
 }) => {
   // أحجام محددة مسبقاً
   const sizeClasses = {
-    sm: 'h-8 w-auto',
-    md: 'h-12 w-auto',
-    lg: 'h-16 w-auto', 
-    xl: 'h-24 w-auto',
-    header: 'h-14 w-auto' // حجم خاص للهيدر
+    sm: 'h-55 w-auto',
+    md: 'h-55 w-auto',
+    lg: 'h-55 w-auto', 
+    xl: 'h-55 w-auto',
+    header: 'h-55 w-auto' // حجم خاص للهيدر
   };
 
   // اختيار الشعار المناسب - الشعارات الرسمية الجديدة
