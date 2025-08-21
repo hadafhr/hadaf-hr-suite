@@ -396,8 +396,12 @@ export const ServiceCalculator: React.FC<ServiceCalculatorProps> = ({ onBack }) 
             </Button>
           </div>
         )}
-        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-          <Calculator className="h-8 w-8 text-primary" />
+        <div className="flex justify-center mx-auto mb-4">
+          <img 
+            src="/lovable-uploads/bd345aa0-600d-43fb-b482-67d69fe656d4.png" 
+            alt="شعار بُعد BOUD HR" 
+            className="h-16 w-auto"
+          />
         </div>
         <h1 className="text-4xl font-bold text-gradient">حاسبة خدمات بُعد HR الذكية</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
