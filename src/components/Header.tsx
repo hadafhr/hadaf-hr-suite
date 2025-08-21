@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { BoudLogo } from './BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Menu, User, Settings, LogOut } from 'lucide-react';
 import { 
@@ -37,11 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار */}
         <Link to="/" className="flex items-center">
-          <img 
-            src="/lovable-uploads/3c8f6f3e-60c9-4820-a3ff-6eb6a2bac597.png" 
-            alt="BOUD HR Logo" 
-            className="h-10 w-auto"
-          />
+          <BoudLogo variant="full" size="md" />
         </Link>
 
         {/* التنقل الأساسي */}

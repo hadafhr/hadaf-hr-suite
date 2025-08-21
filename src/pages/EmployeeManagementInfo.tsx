@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -68,11 +69,7 @@ const EmployeeManagementInfo: React.FC = () => {
               <ArrowLeft className="w-5 h-5" />
               العودة للرئيسية
             </Button>
-            <img 
-              src="/lovable-uploads/3c8f6f3e-60c9-4820-a3ff-6eb6a2bac597.png" 
-              alt="BOUD HR Logo" 
-              className="h-12 w-auto"
-            />
+            <BoudLogo variant="full" size="md" />
           </div>
         </div>
       </header>

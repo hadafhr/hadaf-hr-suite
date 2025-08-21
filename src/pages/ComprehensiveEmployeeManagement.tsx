@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -306,9 +307,9 @@ const ComprehensiveEmployeeManagement = () => {
         <div className="flex h-20 items-center px-6">
           {/* BOUD Logo */}
           <div className="flex items-center gap-4 ml-4">
-            <img 
-              src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
-              alt="شعار بُعد BOUD HR" 
+            <BoudLogo 
+              variant="full" 
+              size="lg"
               className="h-12 w-auto"
             />
           </div>
