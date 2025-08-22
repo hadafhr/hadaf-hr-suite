@@ -303,23 +303,19 @@ const BoudHRLandingPage: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/admin-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <Building2 className="w-4 h-4" />
-                      🔘 لوحة تحكم الإدارة
-                    </button>
+                  <DropdownMenuItem 
+                    onClick={() => navigate('/admin-login')}
+                    className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer"
+                  >
+                    <Building2 className="w-4 h-4" />
+                    🔘 لوحة تحكم الإدارة
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <button 
-                      onClick={() => navigate('/employee-login')} 
-                      className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                    >
-                      <User className="w-4 h-4" />
-                      🔘 لوحة تحكم الموظف
-                    </button>
+                  <DropdownMenuItem 
+                    onClick={() => navigate('/employee-login')}
+                    className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer"
+                  >
+                    <User className="w-4 h-4" />
+                    🔘 لوحة تحكم الموظف
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
