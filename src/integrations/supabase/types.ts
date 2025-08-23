@@ -8197,6 +8197,46 @@ export type Database = {
           },
         ]
       }
+      secure_payroll_summary: {
+        Row: {
+          absence_days: number | null
+          actual_working_days: number | null
+          basic_salary: number | null
+          can_view_salary: boolean | null
+          created_at: string | null
+          employee_id: string | null
+          employee_name: string | null
+          employee_number: string | null
+          id: string | null
+          net_salary: number | null
+          overtime_hours: number | null
+          payroll_run_id: string | null
+          working_days: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "boud_payroll_items_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "boud_payroll_items_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "boud_payroll_items_payroll_run_id_fkey"
+            columns: ["payroll_run_id"]
+            isOneToOne: false
+            referencedRelation: "boud_payroll_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       boud_get_user_company_id: {
