@@ -8222,87 +8222,63 @@ export type Database = {
     Views: {
       employee_directory_public: {
         Row: {
-          company_id: string | null
           employee_id: string | null
           first_name: string | null
           id: string | null
           last_name: string | null
         }
         Insert: {
-          company_id?: string | null
           employee_id?: string | null
           first_name?: string | null
           id?: string | null
           last_name?: string | null
         }
         Update: {
-          company_id?: string | null
           employee_id?: string | null
           first_name?: string | null
           id?: string | null
           last_name?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       hr_employee_summary: {
         Row: {
-          company_id: string | null
           employee_id: string | null
           first_name: string | null
           id: string | null
-          is_active: boolean | null
           last_name: string | null
         }
         Insert: {
-          company_id?: string | null
           employee_id?: string | null
           first_name?: string | null
           id?: string | null
-          is_active?: boolean | null
           last_name?: string | null
         }
         Update: {
-          company_id?: string | null
           employee_id?: string | null
           first_name?: string | null
           id?: string | null
-          is_active?: boolean | null
           last_name?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       secure_payroll_summary: {
         Row: {
-          basic_salary: number | null
-          company_id: string | null
           employee_id: string | null
           id: string | null
           net_salary: number | null
         }
+        Insert: {
+          employee_id?: string | null
+          id?: string | null
+          net_salary?: number | null
+        }
+        Update: {
+          employee_id?: string | null
+          id?: string | null
+          net_salary?: number | null
+        }
         Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "boud_payroll_items_employee_id_fkey"
             columns: ["employee_id"]
