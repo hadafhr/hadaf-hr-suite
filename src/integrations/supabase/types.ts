@@ -8255,39 +8255,24 @@ export type Database = {
       hr_employee_summary: {
         Row: {
           company_id: string | null
-          email: string | null
           employee_id: string | null
-          employment_status:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
           first_name: string | null
-          hire_date: string | null
           id: string | null
           is_active: boolean | null
           last_name: string | null
         }
         Insert: {
           company_id?: string | null
-          email?: string | null
           employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
           first_name?: string | null
-          hire_date?: string | null
           id?: string | null
           is_active?: boolean | null
           last_name?: string | null
         }
         Update: {
           company_id?: string | null
-          email?: string | null
           employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
           first_name?: string | null
-          hire_date?: string | null
           id?: string | null
           is_active?: boolean | null
           last_name?: string | null
@@ -8307,11 +8292,7 @@ export type Database = {
           basic_salary: number | null
           company_id: string | null
           employee_id: string | null
-          employee_number: string | null
-          first_name: string | null
-          gross_salary: number | null
           id: string | null
-          last_name: string | null
           net_salary: number | null
         }
         Relationships: [
