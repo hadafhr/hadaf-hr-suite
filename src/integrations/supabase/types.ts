@@ -591,35 +591,7 @@ export type Database = {
             foreignKeyName: "boud_attendance_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_attendance_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_attendance_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_attendance_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_attendance_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -815,35 +787,7 @@ export type Database = {
             foreignKeyName: "boud_disciplinary_actions_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -864,35 +808,7 @@ export type Database = {
             foreignKeyName: "boud_disciplinary_actions_issued_by_fkey"
             columns: ["issued_by"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_issued_by_fkey"
-            columns: ["issued_by"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_issued_by_fkey"
-            columns: ["issued_by"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_issued_by_fkey"
-            columns: ["issued_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_disciplinary_actions_issued_by_fkey"
-            columns: ["issued_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -980,35 +896,7 @@ export type Database = {
             foreignKeyName: "boud_employee_terminations_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1029,35 +917,7 @@ export type Database = {
             foreignKeyName: "boud_employee_terminations_processed_by_fkey"
             columns: ["processed_by"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_processed_by_fkey"
-            columns: ["processed_by"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_processed_by_fkey"
-            columns: ["processed_by"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_processed_by_fkey"
-            columns: ["processed_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employee_terminations_processed_by_fkey"
-            columns: ["processed_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1270,35 +1130,7 @@ export type Database = {
             foreignKeyName: "boud_employees_manager_id_fkey"
             columns: ["manager_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_manager_id_fkey"
-            columns: ["manager_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1516,35 +1348,7 @@ export type Database = {
             foreignKeyName: "boud_leave_requests_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1565,35 +1369,7 @@ export type Database = {
             foreignKeyName: "boud_leave_requests_hr_approval_by_fkey"
             columns: ["hr_approval_by"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_hr_approval_by_fkey"
-            columns: ["hr_approval_by"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_hr_approval_by_fkey"
-            columns: ["hr_approval_by"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_hr_approval_by_fkey"
-            columns: ["hr_approval_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_hr_approval_by_fkey"
-            columns: ["hr_approval_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1614,35 +1390,7 @@ export type Database = {
             foreignKeyName: "boud_leave_requests_manager_approval_by_fkey"
             columns: ["manager_approval_by"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_manager_approval_by_fkey"
-            columns: ["manager_approval_by"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_manager_approval_by_fkey"
-            columns: ["manager_approval_by"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_manager_approval_by_fkey"
-            columns: ["manager_approval_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_leave_requests_manager_approval_by_fkey"
-            columns: ["manager_approval_by"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1751,35 +1499,7 @@ export type Database = {
             foreignKeyName: "boud_payroll_items_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -1957,35 +1677,7 @@ export type Database = {
             foreignKeyName: "boud_performance_evaluations_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -2006,35 +1698,7 @@ export type Database = {
             foreignKeyName: "boud_performance_evaluations_evaluator_id_fkey"
             columns: ["evaluator_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_evaluator_id_fkey"
-            columns: ["evaluator_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_evaluator_id_fkey"
-            columns: ["evaluator_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_evaluator_id_fkey"
-            columns: ["evaluator_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_performance_evaluations_evaluator_id_fkey"
-            columns: ["evaluator_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -2146,35 +1810,7 @@ export type Database = {
             foreignKeyName: "boud_training_enrollments_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_training_enrollments_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_training_enrollments_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_training_enrollments_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_training_enrollments_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -3793,35 +3429,7 @@ export type Database = {
             foreignKeyName: "employee_rewards_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "employee_rewards_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "employee_rewards_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "employee_rewards_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "employee_rewards_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -7697,35 +7305,7 @@ export type Database = {
             foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reward_eligibility_checks_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -7802,35 +7382,7 @@ export type Database = {
             foreignKeyName: "reward_history_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reward_history_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reward_history_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "reward_history_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "reward_history_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
             referencedColumns: ["id"]
           },
           {
@@ -8668,56 +8220,6 @@ export type Database = {
       }
     }
     Views: {
-      employee_directory: {
-        Row: {
-          company_id: string | null
-          email: string | null
-          employee_id: string | null
-          employment_status:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          first_name: string | null
-          hire_date: string | null
-          id: string | null
-          last_name: string | null
-          phone: string | null
-        }
-        Insert: {
-          company_id?: string | null
-          email?: string | null
-          employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          first_name?: string | null
-          hire_date?: string | null
-          id?: string | null
-          last_name?: string | null
-          phone?: string | null
-        }
-        Update: {
-          company_id?: string | null
-          email?: string | null
-          employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          first_name?: string | null
-          hire_date?: string | null
-          id?: string | null
-          last_name?: string | null
-          phone?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       employee_directory_public: {
         Row: {
           company_id: string | null
@@ -8753,149 +8255,9 @@ export type Database = {
           },
         ]
       }
-      employee_payroll_view: {
-        Row: {
-          basic_salary: number | null
-          company_id: string | null
-          employee_id: string | null
-          employee_number: string | null
-          first_name: string | null
-          last_name: string | null
-          last_payroll_date: string | null
-          payroll_records_count: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      hr_employee_financial_data: {
-        Row: {
-          basic_salary: number | null
-          company_id: string | null
-          employee_id: string | null
-          first_name: string | null
-          housing_allowance: number | null
-          id: string | null
-          last_name: string | null
-          other_allowances: number | null
-          total_salary: number | null
-          transport_allowance: number | null
-        }
-        Insert: {
-          basic_salary?: number | null
-          company_id?: string | null
-          employee_id?: string | null
-          first_name?: string | null
-          housing_allowance?: number | null
-          id?: string | null
-          last_name?: string | null
-          other_allowances?: number | null
-          total_salary?: number | null
-          transport_allowance?: number | null
-        }
-        Update: {
-          basic_salary?: number | null
-          company_id?: string | null
-          employee_id?: string | null
-          first_name?: string | null
-          housing_allowance?: number | null
-          id?: string | null
-          last_name?: string | null
-          other_allowances?: number | null
-          total_salary?: number | null
-          transport_allowance?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      hr_employee_sensitive_data: {
-        Row: {
-          company_id: string | null
-          department_id: string | null
-          email: string | null
-          employee_id: string | null
-          employment_status:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          first_name: string | null
-          hire_date: string | null
-          id: string | null
-          last_name: string | null
-          phone: string | null
-          position_id: string | null
-        }
-        Insert: {
-          company_id?: string | null
-          department_id?: string | null
-          email?: string | null
-          employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          first_name?: string | null
-          hire_date?: string | null
-          id?: string | null
-          last_name?: string | null
-          phone?: string | null
-          position_id?: string | null
-        }
-        Update: {
-          company_id?: string | null
-          department_id?: string | null
-          email?: string | null
-          employee_id?: string | null
-          employment_status?:
-            | Database["public"]["Enums"]["employee_status"]
-            | null
-          first_name?: string | null
-          hire_date?: string | null
-          id?: string | null
-          last_name?: string | null
-          phone?: string | null
-          position_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_department_id_fkey"
-            columns: ["department_id"]
-            isOneToOne: false
-            referencedRelation: "boud_departments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_position_id_fkey"
-            columns: ["position_id"]
-            isOneToOne: false
-            referencedRelation: "boud_job_positions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       hr_employee_summary: {
         Row: {
-          basic_salary: number | null
           company_id: string | null
-          created_at: string | null
           department_id: string | null
           email: string | null
           employee_id: string | null
@@ -8908,13 +8270,9 @@ export type Database = {
           is_active: boolean | null
           last_name: string | null
           phone: string | null
-          position_id: string | null
-          updated_at: string | null
         }
         Insert: {
-          basic_salary?: number | null
           company_id?: string | null
-          created_at?: string | null
           department_id?: string | null
           email?: string | null
           employee_id?: string | null
@@ -8927,13 +8285,9 @@ export type Database = {
           is_active?: boolean | null
           last_name?: string | null
           phone?: string | null
-          position_id?: string | null
-          updated_at?: string | null
         }
         Update: {
-          basic_salary?: number | null
           company_id?: string | null
-          created_at?: string | null
           department_id?: string | null
           email?: string | null
           employee_id?: string | null
@@ -8946,8 +8300,6 @@ export type Database = {
           is_active?: boolean | null
           last_name?: string | null
           phone?: string | null
-          position_id?: string | null
-          updated_at?: string | null
         }
         Relationships: [
           {
@@ -8962,85 +8314,6 @@ export type Database = {
             columns: ["department_id"]
             isOneToOne: false
             referencedRelation: "boud_departments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_position_id_fkey"
-            columns: ["position_id"]
-            isOneToOne: false
-            referencedRelation: "boud_job_positions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      payroll_summary: {
-        Row: {
-          basic_salary: number | null
-          company_id: string | null
-          employee_id: string | null
-          employee_number: string | null
-          first_name: string | null
-          gross_salary: number | null
-          id: string | null
-          last_name: string | null
-          net_salary: number | null
-          total_deductions: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "boud_employees_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "boud_employees"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_directory_public"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_summary"
             referencedColumns: ["id"]
           },
         ]
@@ -9056,7 +8329,6 @@ export type Database = {
           id: string | null
           last_name: string | null
           net_salary: number | null
-          payroll_run_id: string | null
           total_deductions: number | null
         }
         Relationships: [
@@ -9078,13 +8350,6 @@ export type Database = {
             foreignKeyName: "boud_payroll_items_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_directory"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "employee_directory_public"
             referencedColumns: ["id"]
           },
@@ -9092,35 +8357,7 @@ export type Database = {
             foreignKeyName: "boud_payroll_items_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
-            referencedRelation: "employee_payroll_view"
-            referencedColumns: ["employee_id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_financial_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
-            referencedRelation: "hr_employee_sensitive_data"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_employee_id_fkey"
-            columns: ["employee_id"]
-            isOneToOne: false
             referencedRelation: "hr_employee_summary"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_payroll_items_payroll_run_id_fkey"
-            columns: ["payroll_run_id"]
-            isOneToOne: false
-            referencedRelation: "boud_payroll_runs"
             referencedColumns: ["id"]
           },
         ]
@@ -9241,7 +8478,6 @@ export type Database = {
           employee_id: string
           employee_name: string
           net_salary: number
-          total_deductions: number
         }[]
       }
       get_user_company_id: {
