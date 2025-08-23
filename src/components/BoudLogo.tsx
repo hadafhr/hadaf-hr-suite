@@ -22,11 +22,11 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
     header: 'h-14 w-auto' // حجم خاص للهيدر
   };
 
-  // اختيار الشعار المناسب - الشعارات الرسمية الجديدة
+  // اختيار الشعار المناسب - الشعار الرسمي الجديد
   const logoSrc = {
-    full: '/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png', // الشعار الجديد لـ BOUD HR
-    icon: '/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png', // الشعار الجديد لـ BOUD HR
-    pattern: '/lovable-uploads/90b6b6a6-b16b-4647-9707-638a28c03c49.png' // للاستخدام كنمط
+    full: '/lovable-uploads/9faa3f3d-a72e-48f0-86a7-264e2ad4a286.png', // الشعار الجديد لـ BOUD HR
+    icon: '/lovable-uploads/9faa3f3d-a72e-48f0-86a7-264e2ad4a286.png', // الشعار الجديد لـ BOUD HR
+    pattern: '/lovable-uploads/9faa3f3d-a72e-48f0-86a7-264e2ad4a286.png' // للاستخدام كنمط
   };
 
   const finalClassName = className || sizeClasses[size];
