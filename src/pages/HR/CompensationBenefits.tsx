@@ -9,6 +9,7 @@ import { PromotionManager } from '@/components/compensation/PromotionManager';
 import { RewardsManager } from '@/components/compensation/RewardsManager';
 import { AssignmentAllowances } from '@/components/compensation/AssignmentAllowances';
 import { CompensationDashboard } from '@/components/compensation/CompensationDashboard';
+import { SystemHeader } from '@/components/shared/SystemHeader';
 import { 
   DollarSign, 
   TrendingUp, 
@@ -17,7 +18,8 @@ import {
   Users, 
   BarChart3,
   Settings,
-  FileText
+  FileText,
+  Gift
 } from 'lucide-react';
 
 export const CompensationBenefits: React.FC = () => {
@@ -34,27 +36,21 @@ export const CompensationBenefits: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">التعويضات والمزايا</h1>
-            <p className="text-muted-foreground mt-2">
-              إدارة شاملة لنظام الرواتب والمكافآت والترقيات
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline">
-              <FileText className="w-4 h-4 ml-2" />
-              تقرير شهري
-            </Button>
-            <Button>
-              <Settings className="w-4 h-4 ml-2" />
+        {/* Enhanced Header */}
+        <SystemHeader
+          title="نظام التعويضات والمزايا الشامل"
+          description="إدارة متكاملة للتعويضات والمزايا مع ربط بأنظمة الأداء والرواتب والحوافز"
+          icon={<Gift className="h-12 w-12 text-white" />}
+          showBackButton={false}
+          customButtons={
+            <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+              <Settings className="h-4 w-4 ml-2" />
               إعدادات النظام
             </Button>
-          </div>
-        </div>
+          }
+        />
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
