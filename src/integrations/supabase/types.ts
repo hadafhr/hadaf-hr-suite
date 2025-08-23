@@ -8223,7 +8223,6 @@ export type Database = {
       employee_directory_public: {
         Row: {
           company_id: string | null
-          email: string | null
           employee_id: string | null
           first_name: string | null
           id: string | null
@@ -8231,7 +8230,6 @@ export type Database = {
         }
         Insert: {
           company_id?: string | null
-          email?: string | null
           employee_id?: string | null
           first_name?: string | null
           id?: string | null
@@ -8239,7 +8237,6 @@ export type Database = {
         }
         Update: {
           company_id?: string | null
-          email?: string | null
           employee_id?: string | null
           first_name?: string | null
           id?: string | null
@@ -8258,7 +8255,6 @@ export type Database = {
       hr_employee_summary: {
         Row: {
           company_id: string | null
-          department_id: string | null
           email: string | null
           employee_id: string | null
           employment_status:
@@ -8269,11 +8265,9 @@ export type Database = {
           id: string | null
           is_active: boolean | null
           last_name: string | null
-          phone: string | null
         }
         Insert: {
           company_id?: string | null
-          department_id?: string | null
           email?: string | null
           employee_id?: string | null
           employment_status?:
@@ -8284,11 +8278,9 @@ export type Database = {
           id?: string | null
           is_active?: boolean | null
           last_name?: string | null
-          phone?: string | null
         }
         Update: {
           company_id?: string | null
-          department_id?: string | null
           email?: string | null
           employee_id?: string | null
           employment_status?:
@@ -8299,7 +8291,6 @@ export type Database = {
           id?: string | null
           is_active?: boolean | null
           last_name?: string | null
-          phone?: string | null
         }
         Relationships: [
           {
@@ -8307,13 +8298,6 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "boud_companies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "boud_employees_department_id_fkey"
-            columns: ["department_id"]
-            isOneToOne: false
-            referencedRelation: "boud_departments"
             referencedColumns: ["id"]
           },
         ]
@@ -8329,7 +8313,6 @@ export type Database = {
           id: string | null
           last_name: string | null
           net_salary: number | null
-          total_deductions: number | null
         }
         Relationships: [
           {
