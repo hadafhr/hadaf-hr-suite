@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BoudLogo } from './BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Menu, User, Settings, LogOut } from 'lucide-react';
 import { 
@@ -13,7 +12,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LoginPortalsDialog } from '@/components/LoginPortalsDialog';
 import { PromoBanner } from '@/components/PromoBanner';
-import budLogo from '@/assets/bud-logo.png';
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -39,13 +37,6 @@ export const Header: React.FC<HeaderProps> = ({
       <PromoBanner />
       <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
-        {/* الشعار الرسمي */}
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center">
-            <BoudLogo size="header" showText={true} />
-          </Link>
-        </div>
-
         {/* التنقل الأساسي */}
         <nav className="hidden md:flex items-center space-x-6 space-x-reverse">
           <Link to="/" className="navigation-item">

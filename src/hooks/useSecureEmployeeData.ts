@@ -81,7 +81,7 @@ export const useSecureEmployeeData = () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase
-        .from('employee_directory')
+        .from('employee_directory_public')
         .select('*')
         .order('first_name');
 
