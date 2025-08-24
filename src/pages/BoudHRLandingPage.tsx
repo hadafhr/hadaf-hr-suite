@@ -767,13 +767,32 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="relative flex justify-center">
               <div className="relative">
                 <div className="w-72 h-[600px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] border-8 border-primary shadow-2xl shadow-primary/25 overflow-hidden">
+                  {/* Inner Border */}
+                  <div className="absolute inset-2 rounded-[2.5rem] border-2 border-primary/30 pointer-events-none z-30"></div>
+                  
                   {/* Phone Screen Header */}
                   <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gray-600 rounded-full z-10"></div>
                   
                   {/* App Content */}
                   <div className="px-4 py-6 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-primary/20 to-accent/20"></div>
+                    {/* Background Pattern with BOUD Logo */}
+                    <div className="absolute inset-0 opacity-3 flex items-center justify-center">
+                      <img 
+                        src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
+                        alt="Background Pattern" 
+                        className="w-96 h-96 object-contain rotate-12 scale-150"
+                      />
+                    </div>
+                    
+                    {/* Geometric Pattern Overlay */}
+                    <div className="absolute inset-0 opacity-5" style={{
+                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 2px, transparent 2px),
+                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 1px, transparent 1px)`,
+                      backgroundSize: '30px 30px'
+                    }}></div>
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5"></div>
                     
                     {/* App Header */}
                     <div className="text-center pt-2 relative z-10">
@@ -781,11 +800,11 @@ const BoudHRLandingPage: React.FC = () => {
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-48 w-auto drop-shadow-lg -mt-8"
+                          className="h-48 w-auto drop-shadow-lg -mt-8 relative z-20"
                         />
                       </div>
-                      <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-16">مرحباً بك في بُعد</h3>
-                      <h4 className="text-lg font-bold text-primary mb-4">BOUD HR</h4>
+                      <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-16 relative z-20">مرحباً بك في بُعد</h3>
+                      <h4 className="text-lg font-bold text-primary mb-4 relative z-20">BOUD HR</h4>
                     </div>
 
                     {/* Login Form */}
@@ -796,9 +815,11 @@ const BoudHRLandingPage: React.FC = () => {
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-14 text-lg border-2 border-primary/30 rounded-2xl focus:border-primary bg-white/80 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg"
+                            className="w-full h-14 text-lg border-2 border-primary/30 rounded-2xl focus:border-primary bg-white/90 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg"
                             readOnly
                           />
+                          {/* Inner border for input */}
+                          <div className="absolute inset-0 rounded-2xl border border-white/50 pointer-events-none"></div>
                         </div>
                         <p className="text-lg text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
                       </div>
@@ -806,7 +827,7 @@ const BoudHRLandingPage: React.FC = () => {
                       <Button 
                         size="lg"
                         onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300"
+                        className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300 border border-white/20"
                       >
                         <ArrowLeft className="w-6 h-6 rotate-180" />
                         دخول
