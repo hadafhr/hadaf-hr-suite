@@ -3,46 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Users, 
-  Building2, 
-  Shield, 
-  Brain,
-  Target,
-  BarChart3,
-  CheckCircle,
-  Star,
-  ArrowLeft,
-  Menu,
-  X,
-  Phone,
-  Mail,
-  MapPin,
-  Globe,
-  Linkedin,
-  Twitter,
-  MessageCircle,
-  Play,
-  Award,
-  Zap,
-  Lock,
-  Cloud,
-  Settings,
-  Building,
-  GraduationCap,
-  Calculator,
-  Heart,
-  Briefcase,
-  FileText,
-  Clock,
-  ChevronDown,
-  User,
-  Bell,
-  DollarSign,
-  PenTool,
-  Video,
-  Smartphone
-} from 'lucide-react';
+import { Users, Building2, Shield, Brain, Target, BarChart3, CheckCircle, Star, ArrowLeft, Menu, X, Phone, Mail, MapPin, Globe, Linkedin, Twitter, MessageCircle, Play, Award, Zap, Lock, Cloud, Settings, Building, GraduationCap, Calculator, Heart, Briefcase, FileText, Clock, ChevronDown, User, Bell, DollarSign, PenTool, Video, Smartphone } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import heroLaptop from '@/assets/hero-laptop.jpg';
@@ -54,142 +15,157 @@ import teamCollaboration from '@/assets/team-collaboration.jpg';
 import ecssPoral from '@/assets/e-css-portal.jpg';
 import eisPortal from '@/assets/eis-portal.jpg';
 import npcsPortal from '@/assets/npcs-portal.jpg';
-
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
-
   const menuItems = {
-    services: [
-      { name: "إدارة الموظفين", href: "/employee-management" },
-      { name: "الخدمة الذاتية", href: "/employee-self-service" },
-      { name: "التعويضات والمزايا", href: "/compensation-benefits" },
-      { name: "حماية الأجور", href: "/wage-protection" },
-      { name: "التقييمات الذكية", href: "/performance-evaluation" },
-      { name: "التدريب والتطوير", href: "/training" }
-    ],
-    about: [
-      { name: "رؤيتنا", href: "#vision" },
-      { name: "من نحن", href: "#who-we-are" },
-      { name: "فريق العمل", href: "#team" },
-      { name: "شركاؤنا", href: "#partners" }
-    ],
-    clients: [
-      { name: "عملاؤنا", href: "#clients" },
-      { name: "قصص نجاح", href: "#success-stories" },
-      { name: "شهادات العملاء", href: "#testimonials" },
-      { name: "دراسات الحالة", href: "#case-studies" }
-    ],
-    contact: [
-      { name: "تواصل معنا", href: "#contact" },
-      { name: "الدعم الفني", href: "/chat-messaging" },
-      { name: "طلب عرض سعر", href: "/service-calculator" },
-      { name: "حجز موعد", href: "#booking" }
-    ]
+    services: [{
+      name: "إدارة الموظفين",
+      href: "/employee-management"
+    }, {
+      name: "الخدمة الذاتية",
+      href: "/employee-self-service"
+    }, {
+      name: "التعويضات والمزايا",
+      href: "/compensation-benefits"
+    }, {
+      name: "حماية الأجور",
+      href: "/wage-protection"
+    }, {
+      name: "التقييمات الذكية",
+      href: "/performance-evaluation"
+    }, {
+      name: "التدريب والتطوير",
+      href: "/training"
+    }],
+    about: [{
+      name: "رؤيتنا",
+      href: "#vision"
+    }, {
+      name: "من نحن",
+      href: "#who-we-are"
+    }, {
+      name: "فريق العمل",
+      href: "#team"
+    }, {
+      name: "شركاؤنا",
+      href: "#partners"
+    }],
+    clients: [{
+      name: "عملاؤنا",
+      href: "#clients"
+    }, {
+      name: "قصص نجاح",
+      href: "#success-stories"
+    }, {
+      name: "شهادات العملاء",
+      href: "#testimonials"
+    }, {
+      name: "دراسات الحالة",
+      href: "#case-studies"
+    }],
+    contact: [{
+      name: "تواصل معنا",
+      href: "#contact"
+    }, {
+      name: "الدعم الفني",
+      href: "/chat-messaging"
+    }, {
+      name: "طلب عرض سعر",
+      href: "/service-calculator"
+    }, {
+      name: "حجز موعد",
+      href: "#booking"
+    }]
   };
-
-  const features = [
-    {
-      title: "نظام إدارة الموظفين الشامل",
-      subtitle: "الحل الأمثل لإدارة رأس المال البشري",
-      description: "حل متكامل وشامل يجمع 22 نظاماً فرعياً في منصة واحدة متطورة لإدارة دورة حياة الموظف بالكامل",
-      marketingText: "🚀 أتمتة كاملة للعمليات • 🎯 تحليلات ذكية ومتقدمة • ⚡ تكامل فوري مع الأنظمة الحكومية • 🔒 أمان عالي المستوى",
-      icon: Users,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
-      route: "/employee-management-info",
-      features: ["التوظيف الذكي", "إدارة الأداء", "الرواتب والمزايا", "التدريب والتطوير", "حماية الأجور", "التكامل الحكومي"],
-      animation: "hover:scale-105 transform transition-all duration-500"
-    },
-    {
-      title: "نظام الخدمة الذاتية السحابي",
-      subtitle: "تمكين الموظفين رقمياً",
-      description: "منصة تفاعلية متطورة تمكن الموظفين من إدارة شؤونهم الشخصية والمهنية بكل سهولة ومرونة من أي مكان وفي أي وقت",
-      marketingText: "📱 واجهة سهلة ومتجاوبة • ⏱️ خدمة 24/7 • 🔄 تحديثات فورية • 📊 تقارير شخصية مفصلة",
-      icon: Settings,
-      color: "text-primary",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=80",
-      route: "/self-service-info",
-      features: ["الملف الشخصي", "طلبات الإجازات", "كشوف الرواتب", "التقييمات الذاتية", "التدريب الإلكتروني", "التواصل المباشر"],
-      animation: "hover:scale-105 transform transition-all duration-500"
-    }
-  ];
-
-  const benefits = [
-    {
-      title: "أتمتة العمليات",
-      description: "توفير 70% من الوقت المستغرق في العمليات اليدوية",
-      icon: Zap,
-      stat: "70%"
-    },
-    {
-      title: "أمان البيانات",
-      description: "حماية متقدمة تتوافق مع معايير الأمان السعودية",
-      icon: Lock,
-      stat: "100%"
-    },
-    {
-      title: "الحوسبة السحابية",
-      description: "وصول آمن من أي مكان وفي أي وقت",
-      icon: Cloud,
-      stat: "24/7"
-    },
-    {
-      title: "الامتثال التنظيمي",
-      description: "ضمان الامتثال لجميع اللوائح والقوانين السعودية",
-      icon: CheckCircle,
-      stat: "100%"
-    }
-  ];
-
-  const testimonials = [
-    {
-      name: "أحمد المحمد",
-      position: "مدير الموارد البشرية",
-      company: "شركة الرياض للتقنية",
-      text: "نظام بُعد HR غيّر طريقة عملنا بالكامل. الواجهة سهلة والمميزات متقدمة جداً.",
-      rating: 5,
-      image: "photo-1519389950473-47ba0277781c"
-    },
-    {
-      name: "فاطمة السعيد",
-      position: "مديرة العمليات",
-      company: "مجموعة الخليج التجارية",
-      text: "التكامل مع الأنظمة الحكومية وفر علينا وقتاً كبيراً وقلل من الأخطاء.",
-      rating: 5,
-      image: "photo-1488972685288-c3fd157d7c7a"
-    },
-    {
-      name: "محمد الشمري",
-      position: "الرئيس التنفيذي",
-      company: "شركة الابتكار الرقمي",
-      text: "الذكاء الاصطناعي في النظام يساعدنا في اتخاذ قرارات أفضل حول الموظفين.",
-      rating: 5,
-      image: "photo-1498050108023-c5249f4df085"
-    }
-  ];
-
-  const stats = [
-    { number: "1000+", label: "شركة تثق بنا" },
-    { number: "100,000+", label: "موظف نديرهم" },
-    { number: "99.9%", label: "وقت التشغيل" },
-    { number: "24/7", label: "دعم متواصل" }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background font-arabic">
+  const features = [{
+    title: "نظام إدارة الموظفين الشامل",
+    subtitle: "الحل الأمثل لإدارة رأس المال البشري",
+    description: "حل متكامل وشامل يجمع 22 نظاماً فرعياً في منصة واحدة متطورة لإدارة دورة حياة الموظف بالكامل",
+    marketingText: "🚀 أتمتة كاملة للعمليات • 🎯 تحليلات ذكية ومتقدمة • ⚡ تكامل فوري مع الأنظمة الحكومية • 🔒 أمان عالي المستوى",
+    icon: Users,
+    color: "text-primary",
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
+    route: "/employee-management-info",
+    features: ["التوظيف الذكي", "إدارة الأداء", "الرواتب والمزايا", "التدريب والتطوير", "حماية الأجور", "التكامل الحكومي"],
+    animation: "hover:scale-105 transform transition-all duration-500"
+  }, {
+    title: "نظام الخدمة الذاتية السحابي",
+    subtitle: "تمكين الموظفين رقمياً",
+    description: "منصة تفاعلية متطورة تمكن الموظفين من إدارة شؤونهم الشخصية والمهنية بكل سهولة ومرونة من أي مكان وفي أي وقت",
+    marketingText: "📱 واجهة سهلة ومتجاوبة • ⏱️ خدمة 24/7 • 🔄 تحديثات فورية • 📊 تقارير شخصية مفصلة",
+    icon: Settings,
+    color: "text-primary",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=80",
+    route: "/self-service-info",
+    features: ["الملف الشخصي", "طلبات الإجازات", "كشوف الرواتب", "التقييمات الذاتية", "التدريب الإلكتروني", "التواصل المباشر"],
+    animation: "hover:scale-105 transform transition-all duration-500"
+  }];
+  const benefits = [{
+    title: "أتمتة العمليات",
+    description: "توفير 70% من الوقت المستغرق في العمليات اليدوية",
+    icon: Zap,
+    stat: "70%"
+  }, {
+    title: "أمان البيانات",
+    description: "حماية متقدمة تتوافق مع معايير الأمان السعودية",
+    icon: Lock,
+    stat: "100%"
+  }, {
+    title: "الحوسبة السحابية",
+    description: "وصول آمن من أي مكان وفي أي وقت",
+    icon: Cloud,
+    stat: "24/7"
+  }, {
+    title: "الامتثال التنظيمي",
+    description: "ضمان الامتثال لجميع اللوائح والقوانين السعودية",
+    icon: CheckCircle,
+    stat: "100%"
+  }];
+  const testimonials = [{
+    name: "أحمد المحمد",
+    position: "مدير الموارد البشرية",
+    company: "شركة الرياض للتقنية",
+    text: "نظام بُعد HR غيّر طريقة عملنا بالكامل. الواجهة سهلة والمميزات متقدمة جداً.",
+    rating: 5,
+    image: "photo-1519389950473-47ba0277781c"
+  }, {
+    name: "فاطمة السعيد",
+    position: "مديرة العمليات",
+    company: "مجموعة الخليج التجارية",
+    text: "التكامل مع الأنظمة الحكومية وفر علينا وقتاً كبيراً وقلل من الأخطاء.",
+    rating: 5,
+    image: "photo-1488972685288-c3fd157d7c7a"
+  }, {
+    name: "محمد الشمري",
+    position: "الرئيس التنفيذي",
+    company: "شركة الابتكار الرقمي",
+    text: "الذكاء الاصطناعي في النظام يساعدنا في اتخاذ قرارات أفضل حول الموظفين.",
+    rating: 5,
+    image: "photo-1498050108023-c5249f4df085"
+  }];
+  const stats = [{
+    number: "1000+",
+    label: "شركة تثق بنا"
+  }, {
+    number: "100,000+",
+    label: "موظف نديرهم"
+  }, {
+    number: "99.9%",
+    label: "وقت التشغيل"
+  }, {
+    number: "24/7",
+    label: "دعم متواصل"
+  }];
+  return <div className="min-h-screen bg-background font-arabic">
       {/* Header */}
       <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3 space-x-reverse">
-              <img 
-                src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" 
-                alt="BOUD HR Logo" 
-                className="h-12 w-auto"
-              />
+              <img src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" alt="BOUD HR Logo" className="h-12 w-auto" />
             </div>
 
             {/* Desktop Navigation */}
@@ -201,14 +177,12 @@ const BoudHRLandingPage: React.FC = () => {
                   من نحن <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.about.map((item, index) => (
-                    <DropdownMenuItem key={index} asChild>
+                  {menuItems.about.map((item, index) => <DropdownMenuItem key={index} asChild>
                       <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
                         <Building2 className="w-4 h-4" />
                         {item.name}
                       </a>
-                    </DropdownMenuItem>
-                  ))}
+                    </DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -217,17 +191,14 @@ const BoudHRLandingPage: React.FC = () => {
                   عملاؤنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.clients.map((item, index) => (
-                    <DropdownMenuItem key={index} asChild>
-                      <button 
-                        onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' }) : navigate(item.href)} 
-                        className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                      >
+                  {menuItems.clients.map((item, index) => <DropdownMenuItem key={index} asChild>
+                      <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
+                    behavior: 'smooth'
+                  }) : navigate(item.href)} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
                         <Star className="w-4 h-4" />
                         {item.name}
                       </button>
-                    </DropdownMenuItem>
-                  ))}
+                    </DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
 
@@ -264,17 +235,14 @@ const BoudHRLandingPage: React.FC = () => {
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.contact.map((item, index) => (
-                    <DropdownMenuItem key={index} asChild>
-                      <button 
-                        onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' }) : navigate(item.href)} 
-                        className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                      >
+                  {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
+                      <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
+                    behavior: 'smooth'
+                  }) : navigate(item.href)} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
                         <MessageCircle className="w-4 h-4" />
                         {item.name}
                       </button>
-                    </DropdownMenuItem>
-                  ))}
+                    </DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
             </nav>
@@ -288,46 +256,29 @@ const BoudHRLandingPage: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
-                  <DropdownMenuItem 
-                    onClick={() => navigate('/admin-login')}
-                    className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer"
-                  >
+                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building2 className="w-4 h-4" />
                     🔘 لوحة تحكم الإدارة
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => navigate('/employee-login')}
-                    className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer"
-                  >
+                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <User className="w-4 h-4" />
                     🔘 لوحة تحكم الموظف
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button 
-                onClick={() => navigate('/subscription-packages')}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
+              <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 انضم الينا
               </Button>
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
           {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-border">
+          {isMobileMenuOpen && <div className="md:hidden py-4 border-t border-border">
               <nav className="flex flex-col space-y-2">
                 <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
@@ -337,11 +288,9 @@ const BoudHRLandingPage: React.FC = () => {
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.about.map((item, index) => (
-                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                    {menuItems.about.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
                         {item.name}
-                      </a>
-                    ))}
+                      </a>)}
                   </div>
                 </details>
                 <details className="group">
@@ -349,11 +298,9 @@ const BoudHRLandingPage: React.FC = () => {
                     تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.contact.map((item, index) => (
-                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
                         {item.name}
-                      </a>
-                    ))}
+                      </a>)}
                   </div>
                 </details>
                 <div className="flex flex-col space-y-2 pt-4">
@@ -365,16 +312,12 @@ const BoudHRLandingPage: React.FC = () => {
                     <User className="w-4 h-4 ml-2" />
                     🔘 لوحة تحكم الموظف
                   </Button>
-                  <Button 
-                    onClick={() => navigate('/subscription-packages')}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                  >
+                  <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
                     انضم الينا
                   </Button>
                 </div>
               </nav>
-            </div>
-          )}
+            </div>}
         </div>
       </header>
 
@@ -400,42 +343,27 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate('/subscription-packages')}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                >
+                <Button size="lg" onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                   ابدأ مجاناً الآن
                   <ArrowLeft className="w-5 h-5 mr-2 rotate-180" />
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  onClick={() => navigate('/demo-request')}
-                  className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300"
-                >
+                <Button size="lg" variant="outline" onClick={() => navigate('/demo-request')} className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300">
                   <Play className="w-5 h-5 ml-2" />
                   احجز عرض تجريبي
                 </Button>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
+                {stats.map((stat, index) => <div key={index} className="text-center">
                     <div className="text-2xl lg:text-3xl font-bold text-primary">{stat.number}</div>
                     <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
             
             <div className="relative">
               <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-accent/20 rounded-3xl overflow-hidden">
-                <img 
-                  src={heroLaptop}
-                  alt="نظام بُعد HR على الكمبيوتر المحمول"
-                  className="w-full h-full object-cover"
-                />
+                <img src={heroLaptop} alt="نظام بُعد HR على الكمبيوتر المحمول" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -459,13 +387,8 @@ const BoudHRLandingPage: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-8">
             {features.map((feature, index) => {
-              const IconComponent = feature.icon;
-              return (
-                <Card 
-                  key={index} 
-                  className={`relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-500 ${feature.animation} group cursor-pointer`}
-                  onClick={() => navigate(feature.route)}
-                >
+            const IconComponent = feature.icon;
+            return <Card key={index} className={`relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-500 ${feature.animation} group cursor-pointer`} onClick={() => navigate(feature.route)}>
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
                       <div className="space-y-3 flex-1">
@@ -493,11 +416,7 @@ const BoudHRLandingPage: React.FC = () => {
                   <CardContent className="pt-0">
                     <div className="space-y-4">
                       <div className="aspect-video rounded-lg overflow-hidden">
-                        <img 
-                          src={feature.image} 
-                          alt={feature.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+                        <img src={feature.image} alt={feature.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                       
                       <div className="p-4 bg-muted/50 rounded-lg">
@@ -507,15 +426,9 @@ const BoudHRLandingPage: React.FC = () => {
                       </div>
                       
                       <div className="flex flex-wrap gap-2">
-                        {feature.features.map((feat, featIndex) => (
-                          <Badge 
-                            key={featIndex} 
-                            variant="secondary" 
-                            className="text-xs bg-background border border-border"
-                          >
+                        {feature.features.map((feat, featIndex) => <Badge key={featIndex} variant="secondary" className="text-xs bg-background border border-border">
                             {feat}
-                          </Badge>
-                        ))}
+                          </Badge>)}
                       </div>
                       
                       <Button className="w-full mt-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -524,9 +437,8 @@ const BoudHRLandingPage: React.FC = () => {
                       </Button>
                     </div>
                   </CardContent>
-                </Card>
-              );
-            })}
+                </Card>;
+          })}
           </div>
         </div>
       </section>
@@ -548,9 +460,8 @@ const BoudHRLandingPage: React.FC = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => {
-              const IconComponent = benefit.icon;
-              return (
-                <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+            const IconComponent = benefit.icon;
+            return <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
                   <CardContent className="pt-8 pb-6">
                     <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-8 h-8 text-primary" />
@@ -559,9 +470,8 @@ const BoudHRLandingPage: React.FC = () => {
                     <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
                     <p className="text-muted-foreground text-sm">{benefit.description}</p>
                   </CardContent>
-                </Card>
-              );
-            })}
+                </Card>;
+          })}
           </div>
         </div>
       </section>
@@ -582,8 +492,7 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-2 hover:border-primary/50 transition-all duration-300">
+            {testimonials.map((testimonial, index) => <Card key={index} className="border-2 hover:border-primary/50 transition-all duration-300">
                 <CardContent className="pt-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -597,15 +506,12 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                   
                   <div className="flex items-center gap-1 mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
+                    {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
                   </div>
                   
                   <p className="text-muted-foreground italic">"{testimonial.text}"</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -715,7 +621,7 @@ const BoudHRLandingPage: React.FC = () => {
                       </div>
                       <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
                         <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                         </svg>
                       </div>
                     </div>
@@ -729,7 +635,7 @@ const BoudHRLandingPage: React.FC = () => {
                       </div>
                       <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
                         <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
                         </svg>
                       </div>
                     </div>
@@ -743,7 +649,7 @@ const BoudHRLandingPage: React.FC = () => {
                       </div>
                       <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
                         <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
                         </svg>
                       </div>
                     </div>
@@ -778,19 +684,15 @@ const BoudHRLandingPage: React.FC = () => {
                   <div className="px-4 py-8 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
                     {/* Background Pattern with BOUD Logo */}
                     <div className="absolute inset-0 opacity-[0.002] flex items-center justify-center">
-                      <img 
-                        src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
-                        alt="Background Pattern" 
-                        className="w-96 h-96 object-contain rotate-12 scale-150"
-                      />
+                      <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="Background Pattern" className="w-96 h-96 object-contain rotate-12 scale-150" />
                     </div>
                     
                     {/* Geometric Pattern Overlay */}
                     <div className="absolute inset-0 opacity-[0.005]" style={{
-                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.05px, transparent 0.05px),
+                    backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.05px, transparent 0.05px),
                                        radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.02px, transparent 0.02px)`,
-                      backgroundSize: '100px 100px'
-                    }}></div>
+                    backgroundSize: '100px 100px'
+                  }}></div>
                     
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] via-transparent to-accent/[0.01]"></div>
@@ -798,11 +700,7 @@ const BoudHRLandingPage: React.FC = () => {
                     {/* App Header */}
                     <div className="text-center pt-4 relative z-10">
                       <div className="flex items-center justify-center -mb-8">
-                        <img 
-                          src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
-                          alt="BOUD HR Logo" 
-                          className="h-56 w-auto drop-shadow-lg -mt-8 relative z-20"
-                        />
+                        <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="BOUD HR Logo" className="h-56 w-auto drop-shadow-lg -mt-32 relative z-20" />
                       </div>
                       <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-20 relative z-20">مرحباً بك في بُعد</h3>
                       <h4 className="text-lg font-bold text-primary mb-4 relative z-20">BOUD HR</h4>
@@ -813,41 +711,25 @@ const BoudHRLandingPage: React.FC = () => {
                       <div className="space-y-3">
                         <label className="text-lg font-bold text-gray-800 block text-center">اسم المنشأة</label>
                         <div className="relative">
-                          <input
-                            type="text"
-                            placeholder="اكتب اسم المنشأة"
-                            className="w-full h-14 text-lg border-2 border-primary/30 rounded-2xl focus:border-primary bg-white/90 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg"
-                            readOnly
-                          />
+                          <input type="text" placeholder="اكتب اسم المنشأة" className="w-full h-14 text-lg border-2 border-primary/30 rounded-2xl focus:border-primary bg-white/90 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg" readOnly />
                           {/* Inner border for input */}
                           <div className="absolute inset-0 rounded-2xl border border-white/50 pointer-events-none"></div>
                         </div>
                         <p className="text-lg text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
                       </div>
 
-                      <Button 
-                        size="lg"
-                        onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300 border border-white/20"
-                      >
+                      <Button size="lg" onClick={() => navigate('/mobile-login')} className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300 border border-white/20">
                         <ArrowLeft className="w-6 h-6 rotate-180" />
                         دخول
                       </Button>
 
                       <div className="flex items-center justify-center">
-                        <Button
-                          size="sm" 
-                          variant="ghost"
-                          className="text-black hover:text-black text-sm py-1 px-3 flex flex-col items-center gap-2 font-bold bg-transparent"
-                        >
-                          عربي | EN
-                          <Globe className="w-3 h-3 text-black" />
-                        </Button>
+                        
                       </div>
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
                       <p className="text-sm text-gray-600 text-center font-bold">
                         © 2025 BOUD HR
                       </p>
@@ -952,12 +834,7 @@ const BoudHRLandingPage: React.FC = () => {
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
         {/* Live Chat Support */}
         <div className="group relative">
-          <Button
-            size="lg"
-            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-            title="تحدث مع خدمة العملاء"
-            onClick={() => navigate("/chat-messaging")}
-          >
+          <Button size="lg" className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105" title="تحدث مع خدمة العملاء" onClick={() => navigate("/chat-messaging")}>
             <MessageCircle className="w-6 h-6 text-white" />
           </Button>
           <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
@@ -967,12 +844,7 @@ const BoudHRLandingPage: React.FC = () => {
 
         {/* AI Assistant */}
         <div className="group relative">
-          <Button
-            size="lg"
-            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-            title="بُعد – مساعدك الذكي"
-            onClick={() => navigate("/ai-hub")}
-          >
+          <Button size="lg" className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105" title="بُعد – مساعدك الذكي" onClick={() => navigate("/ai-hub")}>
             <Brain className="w-6 h-6 text-white" />
           </Button>
           <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
@@ -982,12 +854,7 @@ const BoudHRLandingPage: React.FC = () => {
 
         {/* Call Now */}
         <div className="group relative">
-          <Button
-            size="lg"
-            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse border-2 border-foreground flex items-center justify-center"
-            title="اتصل بنا فوراً"
-            onClick={() => window.open('tel:+966551234567')}
-          >
+          <Button size="lg" className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse" title="اتصل بنا فوراً" onClick={() => window.open('tel:+966551234567')}>
             <Phone className="w-6 h-6 text-white" />
           </Button>
           <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
@@ -995,8 +862,6 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default BoudHRLandingPage;
