@@ -15,13 +15,15 @@ export const PatternBackground: React.FC<PatternBackgroundProps> = ({
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
       <div 
-        className="absolute inset-0"
+        className="absolute top-8 right-8"
         style={{
           backgroundImage: `url(/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png)`,
-          backgroundRepeat: 'repeat',
+          backgroundRepeat: 'no-repeat',
           backgroundSize: `${size}px ${size}px`,
           backgroundPosition: 'center',
-          opacity: opacity
+          opacity: opacity,
+          width: `${size}px`,
+          height: `${size}px`
         }}
       />
     </div>
