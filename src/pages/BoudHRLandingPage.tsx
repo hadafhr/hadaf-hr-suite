@@ -777,7 +777,7 @@ const BoudHRLandingPage: React.FC = () => {
                   {/* App Content */}
                   <div className="px-4 py-8 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
                     {/* Background Pattern with BOUD Logo */}
-                    <div className="absolute inset-0 opacity-[0.1] flex items-center justify-center">
+                    <div className="absolute inset-0 opacity-[0.01] flex items-center justify-center">
                       <img 
                         src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                         alt="Background Pattern" 
@@ -786,14 +786,14 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
                     
                     {/* Geometric Pattern Overlay */}
-                    <div className="absolute inset-0 opacity-[0.2]" style={{
-                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.2px, transparent 0.2px),
-                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.1px, transparent 0.1px)`,
-                      backgroundSize: '60px 60px'
+                    <div className="absolute inset-0 opacity-[0.02]" style={{
+                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.1px, transparent 0.1px),
+                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.05px, transparent 0.05px)`,
+                      backgroundSize: '80px 80px'
                     }}></div>
                     
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.3] via-transparent to-accent/[0.3]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.05] via-transparent to-accent/[0.05]"></div>
                     
                     {/* App Header */}
                     <div className="text-center pt-4 relative z-10">
