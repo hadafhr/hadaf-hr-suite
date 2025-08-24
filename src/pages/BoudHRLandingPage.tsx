@@ -611,211 +611,247 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Mobile App Download Section */}
-      <section id="mobile-app" className="py-20 bg-gradient-to-br from-primary/5 to-accent/10">
-        <div className="container mx-auto px-6">
-          <div className="text-center space-y-6 mb-12">
-            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
-              📱 تطبيق محمول متقدم
-            </Badge>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-              حمّل تطبيق <span className="text-gradient">بُعد HR</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              استمتع بتجربة أفضل مع تطبيقنا المحمول المتاح على جميع المنصات
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="space-y-8">
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-2">تسجيل الحضور بـ GPS</h3>
-                    <p className="text-muted-foreground">سجل حضورك وانصرافك من خلال الموقع الجغرافي المحدد</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Bell className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-2">إشعارات فورية</h3>
-                    <p className="text-muted-foreground">احصل على تنبيهات فورية لجميع التحديثات المهمة</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <FileText className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-2">إدارة الطلبات</h3>
-                    <p className="text-muted-foreground">قدم طلباتك وتابع حالتها من أي مكان</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <GraduationCap className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-2">الدورات التدريبية</h3>
-                    <p className="text-muted-foreground">تصفح وسجل في الدورات التدريبية المتاحة وتابع تقدمك</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Target className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-2">تقييم الأداء</h3>
-                    <p className="text-muted-foreground">استعرض تقييماتك وأهدافك وتابع تطور أدائك الوظيفي</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
-                  <div className="flex items-center gap-3">
-                    <div className="text-right">
-                      <div className="text-sm font-normal">متاح على</div>
-                      <div className="font-semibold">App Store</div>
-                    </div>
-                    <div className="w-8 h-8 bg-background/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                      </svg>
-                    </div>
-                  </div>
-                </Button>
-                
-                <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
-                  <div className="flex items-center gap-3">
-                    <div className="text-right">
-                      <div className="text-sm font-normal">احصل عليه من</div>
-                      <div className="font-semibold">Google Play</div>
-                    </div>
-                    <div className="w-8 h-8 bg-background/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                      </svg>
-                    </div>
-                  </div>
-                </Button>
-                
-                <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90">
-                  <div className="flex items-center gap-3">
-                    <div className="text-right">
-                      <div className="text-sm font-normal">متاح على</div>
-                      <div className="font-semibold">AppGallery</div>
-                    </div>
-                    <div className="w-8 h-8 bg-background/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                      </svg>
-                    </div>
-                  </div>
-                </Button>
-              </div>
-
-              <div className="text-center p-4 rounded-lg bg-accent/20 border border-accent/40">
-                <p className="text-sm text-muted-foreground">
-                  <span className="font-medium">قريباً</span> - التطبيق قيد التطوير النهائي وسيكون متاحاً قريباً على جميع المنصات
-                </p>
-              </div>
-
+      <section id="mobile-app" className="py-24 bg-black relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center space-y-8 mb-16">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+              <Smartphone className="w-5 h-5 text-primary" />
+              <span className="text-white font-semibold">تطبيق محمول متقدم</span>
             </div>
             
-            <div className="relative">
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
-                <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-gray-900 relative overflow-hidden shadow-2xl">
-                  {/* Background Pattern with Logo */}
-                  <div className="absolute inset-0 opacity-5 flex items-center justify-center">
-                    <img 
-                      src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
-                      alt="Background Pattern" 
-                      className="w-80 h-80 object-contain"
-                    />
+            <h2 className="text-5xl lg:text-6xl font-bold text-white">
+              حمّل تطبيق <span className="text-gradient bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">بُعد HR</span>
+            </h2>
+            
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              استمتع بتجربة فريدة مع أقوى تطبيق إدارة موارد بشرية في السعودية
+            </p>
+            
+            <div className="flex items-center justify-center gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">+50K</div>
+                <div className="text-sm text-gray-400">تحميل نشط</div>
+              </div>
+              <div className="w-px h-12 bg-gray-600"></div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">4.9★</div>
+                <div className="text-sm text-gray-400">تقييم المستخدمين</div>
+              </div>
+              <div className="w-px h-12 bg-gray-600"></div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">24/7</div>
+                <div className="text-sm text-gray-400">دعم مستمر</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Features List */}
+            <div className="space-y-6">
+              <div className="grid gap-6">
+                <div className="group p-6 rounded-2xl bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <MapPin className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">تسجيل الحضور بـ GPS</h3>
+                      <p className="text-gray-300 leading-relaxed">تتبع دقيق للحضور والانصراف باستخدام أحدث تقنيات الموقع الجغرافي</p>
+                    </div>
                   </div>
+                </div>
+
+                <div className="group p-6 rounded-2xl bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Bell className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">إشعارات ذكية</h3>
+                      <p className="text-gray-300 leading-relaxed">تنبيهات فورية ومخصصة لجميع المهام والتحديثات المهمة</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="group p-6 rounded-2xl bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <FileText className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">إدارة الطلبات</h3>
+                      <p className="text-gray-300 leading-relaxed">تقديم ومتابعة جميع الطلبات بسهولة ومن أي مكان</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="group p-6 rounded-2xl bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <GraduationCap className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">الدورات التدريبية</h3>
+                      <p className="text-gray-300 leading-relaxed">منصة تعلم متكاملة مع دورات تفاعلية ومتابعة التقدم</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="group p-6 rounded-2xl bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/20 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Target className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">تقييم الأداء</h3>
+                      <p className="text-gray-300 leading-relaxed">نظام تقييم ذكي مع تحليلات مفصلة وخطط التطوير</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Download Buttons */}
+              <div className="pt-8">
+                <h3 className="text-2xl font-bold text-white mb-6 text-center">حمّل التطبيق الآن</h3>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" className="bg-gradient-to-r from-white to-gray-100 hover:from-gray-100 hover:to-white text-black font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <div className="text-sm font-normal">متاح على</div>
+                        <div className="font-bold">App Store</div>
+                      </div>
+                      <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </Button>
                   
-                  {/* Phone Screen Header */}
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-700 rounded-full z-10"></div>
+                  <Button size="lg" className="bg-gradient-to-r from-white to-gray-100 hover:from-gray-100 hover:to-white text-black font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <div className="text-sm font-normal">احصل عليه من</div>
+                        <div className="font-bold">Google Play</div>
+                      </div>
+                      <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </Button>
                   
-                  {/* Phone Screen Content */}
-                  <div className="px-3 relative z-20 h-full">
-                    {/* App Header with Logo */}
-                    <div className="text-center pt-2">
-                      <div className="flex items-center justify-center -mb-1">
+                  <Button size="lg" className="bg-gradient-to-r from-white to-gray-100 hover:from-gray-100 hover:to-white text-black font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <div className="text-sm font-normal">متاح على</div>
+                        <div className="font-bold">AppGallery</div>
+                      </div>
+                      <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Coming Soon Notice */}
+              <div className="text-center p-6 rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 backdrop-blur-sm">
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <Clock className="w-5 h-5 text-primary" />
+                  <span className="font-bold text-primary text-lg">قريباً جداً</span>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  التطبيق في المراحل النهائية من التطوير وسيكون متاحاً قريباً على جميع المنصات
+                </p>
+              </div>
+            </div>
+            
+            {/* Phone Mockup */}
+            <div className="relative flex justify-center">
+              <div className="relative">
+                {/* Glow Effects */}
+                <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-2xl animate-pulse"></div>
+                
+                <div className="relative w-72 h-[600px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] border-8 border-gray-700 shadow-2xl overflow-hidden">
+                  {/* Phone Screen */}
+                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gray-600 rounded-full z-10"></div>
+                  
+                  {/* App Content */}
+                  <div className="px-4 py-6 relative z-20 h-full bg-gradient-to-br from-gray-50 to-white">
+                    {/* App Header */}
+                    <div className="text-center mb-8">
+                      <div className="flex items-center justify-center mb-4">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-44 w-auto drop-shadow-sm -mt-8"
+                          className="h-20 w-auto drop-shadow-lg"
                         />
                       </div>
-                      <h3 className="text-lg font-black text-black text-center -mt-12 mb-0">مرحباً بك في بُعد</h3>
-                      <h4 className="text-sm font-black text-black text-center mb-2">BOUD HR</h4>
+                      <h3 className="text-2xl font-black text-gray-800 mb-2">مرحباً بك في بُعد</h3>
+                      <h4 className="text-lg font-bold text-primary">BOUD HR</h4>
                     </div>
 
                     {/* Login Form */}
-                    <div className="space-y-2 px-1 -mt-1">
-                      {/* Organization Name Input */}
-                      <div className="space-y-1.5">
-                        <label className="text-sm font-black text-black block text-center">اسم المنشأة</label>
+                    <div className="space-y-4 px-2">
+                      <div className="space-y-3">
+                        <label className="text-lg font-bold text-gray-800 block text-center">اسم المنشأة</label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-10 text-sm border-3 border-black rounded-lg focus:border-primary bg-gray-50 px-3 text-center font-bold text-black"
+                            className="w-full h-14 text-lg border-3 border-gray-300 rounded-2xl focus:border-primary bg-white px-4 text-center font-bold text-gray-800 shadow-lg"
                             readOnly
                           />
                         </div>
-                        <p className="text-sm text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
+                        <p className="text-lg text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
                       </div>
 
-                      {/* Login Button */}
                       <Button 
-                        size="sm"
+                        size="lg"
                         onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-primary hover:bg-primary/90 text-white text-lg py-3 font-black rounded-lg flex items-center justify-center gap-2 shadow-sm mt-2"
+                        className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300"
                       >
-                        <ArrowLeft className="w-5 h-5 rotate-180" />
+                        <ArrowLeft className="w-6 h-6 rotate-180" />
                         دخول
                       </Button>
 
-                      {/* Language Toggle */}
-                      <div className="flex items-center justify-center -mt-1">
+                      <div className="flex items-center justify-center">
                         <Button
                           size="sm" 
                           variant="ghost"
-                          className="text-black hover:text-black text-xs py-1 px-3 flex items-center gap-1 font-bold bg-transparent"
+                          className="text-black hover:text-black text-sm py-1 px-3 flex items-center gap-1 font-bold bg-transparent"
                         >
-                          <Globe className="w-2 h-2 text-black" />
+                          <Globe className="w-3 h-3 text-black" />
                           عربي | EN
                         </Button>
                       </div>
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-full px-4">
-                      <p className="text-xs text-black text-center font-bold">
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full px-4">
+                      <p className="text-sm text-gray-600 text-center font-bold">
                         © 2025 BOUD HR
                       </p>
                     </div>
                   </div>
 
                   {/* Phone Bottom Indicator */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full z-10"></div>
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1.5 bg-gray-600 rounded-full z-10"></div>
                 </div>
                 
-                {/* Interactive Label */}
-                <div className="mt-6">
-                  <p className="text-sm font-medium text-foreground mb-2">📱 معاينة واجهة التطبيق</p>
-                  <p className="text-xs text-muted-foreground">انقر على "دخول" لفتح الواجهة الكاملة للتطبيق</p>
+                {/* Interactive Labels */}
+                <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center">
+                  <p className="text-lg font-bold text-primary mb-2">📱 معاينة التطبيق التفاعلية</p>
+                  <p className="text-sm text-gray-400">انقر على "دخول" لتجربة النظام الكامل</p>
                 </div>
               </div>
             </div>
