@@ -736,7 +736,7 @@ const BoudHRLandingPage: React.FC = () => {
                     {/* Footer */}
                     <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
                        <div className="flex flex-col items-center">
-                        <p className="text-sm text-gray-600 text-center font-bold mt-2">
+                        <p className="text-sm text-gray-600 text-center font-bold mt-4">
                           © 2025 BOUD HR
                         </p>
                       </div>
