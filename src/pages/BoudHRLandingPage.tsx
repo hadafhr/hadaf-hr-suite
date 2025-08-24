@@ -160,12 +160,12 @@ const BoudHRLandingPage: React.FC = () => {
   }];
   return <div className="min-h-screen bg-background font-arabic">
       {/* Header */}
-      <header className="bg-background border-none sticky top-0 z-50">
+      <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3 space-x-reverse">
-              <img src="/lovable-uploads/509ef647-954b-471b-b527-9bcbab973890.png" alt="BOUD HR Logo" className="h-56 w-auto" />
+              <img src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" alt="BOUD HR Logo" className="h-56 w-auto" />
             </div>
 
             {/* Desktop Navigation */}
