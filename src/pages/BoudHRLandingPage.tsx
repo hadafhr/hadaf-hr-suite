@@ -719,69 +719,68 @@ const BoudHRLandingPage: React.FC = () => {
             
             <div className="relative">
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
-                <div className="w-48 h-96 bg-gradient-to-b from-gray-900 to-black rounded-3xl mx-auto border-8 border-gray-800 relative overflow-hidden shadow-2xl">
+                <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-gray-300 relative overflow-hidden shadow-2xl">
                   {/* Phone Screen Header */}
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full"></div>
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-400 rounded-full"></div>
                   
                   {/* Phone Screen Content */}
-                  <div className="mt-8 px-4 space-y-4 relative z-10">
+                  <div className="mt-8 px-6 space-y-6 relative z-10 h-full">
                     {/* App Header with Logo */}
-                    <div className="bg-white rounded-xl p-4 shadow-sm">
-                      <div className="flex items-center justify-center mb-3">
+                    <div className="text-center pt-4">
+                      <div className="flex items-center justify-center mb-4">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-12 w-auto"
+                          className="h-16 w-auto"
                         />
                       </div>
-                      <h3 className="text-sm font-bold text-gray-800 text-center">بُعد HR</h3>
-                      <p className="text-xs text-gray-600 text-center">نظام إدارة الموارد البشرية</p>
+                      <h3 className="text-lg font-bold text-primary text-center mb-2">مرحباً بك في بُعد</h3>
+                      <h4 className="text-sm font-semibold text-gray-700 text-center">BOUD HR</h4>
                     </div>
 
-                    {/* App Features Grid */}
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-primary/20 h-16 rounded-lg flex flex-col items-center justify-center p-2">
-                        <MapPin className="w-4 h-4 text-primary mb-1" />
-                        <span className="text-xs text-primary font-medium">الحضور</span>
+                    {/* Login Form */}
+                    <div className="space-y-4 px-2">
+                      {/* Organization Name Input */}
+                      <div className="space-y-2">
+                        <label className="text-xs font-medium text-gray-700 block text-right">اسم المنشأة</label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            placeholder="اكتب اسم المنشأة"
+                            className="w-full h-10 text-xs border-2 border-gray-200 rounded-lg focus:border-primary bg-gray-50 px-3 text-right"
+                            readOnly
+                          />
+                        </div>
+                        <p className="text-xs text-primary text-center">example.boud.com.sa</p>
                       </div>
-                      <div className="bg-primary/20 h-16 rounded-lg flex flex-col items-center justify-center p-2">
-                        <Bell className="w-4 h-4 text-primary mb-1" />
-                        <span className="text-xs text-primary font-medium">الإشعارات</span>
-                      </div>
-                    </div>
 
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-primary/20 h-16 rounded-lg flex flex-col items-center justify-center p-2">
-                        <FileText className="w-4 h-4 text-primary mb-1" />
-                        <span className="text-xs text-primary font-medium">الطلبات</span>
-                      </div>
-                      <div className="bg-primary/20 h-16 rounded-lg flex flex-col items-center justify-center p-2">
-                        <User className="w-4 h-4 text-primary mb-1" />
-                        <span className="text-xs text-primary font-medium">الملف الشخصي</span>
-                      </div>
-                    </div>
-
-                    {/* Live Demo Button */}
-                    <div className="mt-4">
+                      {/* Login Button */}
                       <Button 
                         size="sm"
                         onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-primary hover:bg-primary/90 text-white text-xs py-2 font-medium"
+                        className="w-full bg-primary hover:bg-primary/90 text-white text-sm py-3 font-semibold rounded-lg flex items-center justify-center gap-2"
                       >
-                        <Play className="w-3 h-3 ml-1" />
-                        تجربة مباشرة
+                        <ArrowLeft className="w-4 h-4 rotate-180" />
+                        دخول
                       </Button>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-6">
+                      <p className="text-xs text-gray-500 text-center">
+                        © 2024 BOUD HR
+                      </p>
                     </div>
                   </div>
 
                   {/* Phone Bottom Indicator */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full"></div>
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-400 rounded-full"></div>
                 </div>
                 
                 {/* Interactive Label */}
                 <div className="mt-6">
-                  <p className="text-sm font-medium text-foreground mb-2">📱 معاينة التطبيق</p>
-                  <p className="text-xs text-muted-foreground">انقر على "تجربة مباشرة" لفتح واجهة التطبيق الكاملة</p>
+                  <p className="text-sm font-medium text-foreground mb-2">📱 معاينة واجهة التطبيق</p>
+                  <p className="text-xs text-muted-foreground">انقر على "دخول" لفتح الواجهة الكاملة للتطبيق</p>
                 </div>
               </div>
             </div>
