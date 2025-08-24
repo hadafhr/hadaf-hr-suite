@@ -743,7 +743,7 @@ const BoudHRLandingPage: React.FC = () => {
                           className="h-44 w-auto drop-shadow-sm -mt-8"
                         />
                       </div>
-                      <h3 className="text-lg font-black text-black text-center -mt-10 mb-0">مرحباً بك في بُعد</h3>
+                      <h3 className="text-lg font-black text-black text-center -mt-12 mb-0">مرحباً بك في بُعد</h3>
                       <h4 className="text-sm font-black text-black text-center mb-2">BOUD HR</h4>
                     </div>
 
