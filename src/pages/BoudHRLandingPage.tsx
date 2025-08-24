@@ -695,17 +695,6 @@ const BoudHRLandingPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Mobile Login Button */}
-              <div className="flex justify-center lg:justify-start">
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate('/mobile-login')}
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 font-semibold"
-                >
-                  <Smartphone className="w-5 h-5 ml-2" />
-                  تجربة واجهة التطبيق
-                </Button>
-              </div>
             </div>
             
             <div className="relative">
