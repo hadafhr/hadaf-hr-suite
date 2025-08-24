@@ -399,7 +399,7 @@ export const LandingPage: React.FC = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">منصاتنا وخدماتنا</h2>
+            <h2 className="text-4xl font-bold text-gradient mb-4">منصاتنا</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               مجموعة شاملة من المنصات المتخصصة لتلبية جميع احتياجات إدارة الموارد البشرية
             </p>

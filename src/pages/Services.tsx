@@ -161,7 +161,7 @@ export const Services: React.FC = () => {
           </Button>
           <div className="flex items-center gap-2">
             <Globe className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-semibold">خدماتنا</h1>
+            <h1 className="text-xl font-semibold">المنصات</h1>
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@ export const Services: React.FC = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gradient mb-6">
-            خدماتنا المتكاملة
+            منصاتنا المتكاملة
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             مجموعة شاملة من المنصات المتخصصة لتلبية جميع احتياجات إدارة الموارد البشرية
