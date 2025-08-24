@@ -721,11 +721,11 @@ const BoudHRLandingPage: React.FC = () => {
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
                 <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-gray-900 relative overflow-hidden shadow-2xl">
                   {/* Background Pattern with Logo */}
-                  <div className="absolute inset-0 opacity-8 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-5 flex items-center justify-center">
                     <img 
                       src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                       alt="Background Pattern" 
-                      className="w-40 h-40 object-contain"
+                      className="w-80 h-80 object-contain"
                     />
                   </div>
                   
@@ -733,62 +733,62 @@ const BoudHRLandingPage: React.FC = () => {
                   <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-700 rounded-full z-10"></div>
                   
                   {/* Phone Screen Content */}
-                  <div className="px-4 relative z-20 h-full">
+                  <div className="px-3 relative z-20 h-full">
                     {/* App Header with Logo */}
-                    <div className="text-center pt-1">
-                      <div className="flex items-center justify-center mb-1">
+                    <div className="text-center -mt-2">
+                      <div className="flex items-center justify-center -mb-1">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-48 w-auto drop-shadow-sm"
+                          className="h-44 w-auto drop-shadow-sm"
                         />
                       </div>
-                      <h3 className="text-base font-bold text-primary text-center mb-1">مرحباً بك في بُعد</h3>
-                      <h4 className="text-xs font-semibold text-gray-700 text-center mb-3">BOUD HR</h4>
+                      <h3 className="text-lg font-black text-black text-center -mt-2 mb-0.5">مرحباً بك في بُعد</h3>
+                      <h4 className="text-sm font-black text-black text-center mb-2">BOUD HR</h4>
                     </div>
 
                     {/* Login Form */}
-                    <div className="space-y-3 px-1">
+                    <div className="space-y-2 px-1 -mt-1">
                       {/* Organization Name Input */}
-                      <div className="space-y-2">
-                        <label className="text-xs font-semibold text-gray-800 block text-center">اسم المنشأة</label>
+                      <div className="space-y-1.5">
+                        <label className="text-sm font-black text-black block text-center">اسم المنشأة</label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-9 text-xs border-2 border-gray-900 rounded-lg focus:border-primary bg-gray-50 px-3 text-center font-medium"
+                            className="w-full h-10 text-sm border-3 border-black rounded-lg focus:border-primary bg-gray-50 px-3 text-center font-bold text-black"
                             readOnly
                           />
                         </div>
-                        <p className="text-xs text-primary text-center font-medium">EXAMPLE.BOUD.COM.SA</p>
+                        <p className="text-sm text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
                       </div>
 
                       {/* Login Button */}
                       <Button 
                         size="sm"
                         onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-primary hover:bg-primary/90 text-white text-sm py-2.5 font-bold rounded-lg flex items-center justify-center gap-2 shadow-sm"
+                        className="w-full bg-primary hover:bg-primary/90 text-white text-lg py-3 font-black rounded-lg flex items-center justify-center gap-2 shadow-sm mt-2"
                       >
-                        <ArrowLeft className="w-4 h-4 rotate-180" />
+                        <ArrowLeft className="w-5 h-5 rotate-180" />
                         دخول
                       </Button>
 
                       {/* Language Toggle */}
-                      <div className="flex items-center justify-center pt-1">
+                      <div className="flex items-center justify-center pt-2">
                         <Button
                           size="sm" 
                           variant="ghost"
-                          className="text-gray-600 hover:text-primary text-xs py-1.5 px-3 flex items-center gap-1 font-medium"
+                          className="text-black hover:text-primary text-sm py-2 px-4 flex items-center gap-2 font-bold"
                         >
-                          <Globe className="w-3 h-3" />
+                          <Globe className="w-4 h-4" />
                           عربي | EN
                         </Button>
                       </div>
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-full px-4">
-                      <p className="text-xs text-gray-500 text-center">
+                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-full px-4">
+                      <p className="text-xs text-black text-center font-bold">
                         © 2025 BOUD HR
                       </p>
                     </div>
