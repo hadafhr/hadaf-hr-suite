@@ -984,7 +984,7 @@ const BoudHRLandingPage: React.FC = () => {
         <div className="group relative">
           <Button
             size="lg"
-            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse"
+            className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 animate-pulse border-2 border-gray-900 flex items-center justify-center"
             title="اتصل بنا فوراً"
             onClick={() => window.open('tel:+966551234567')}
           >
