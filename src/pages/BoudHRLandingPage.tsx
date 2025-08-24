@@ -362,8 +362,8 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-accent/20 rounded-3xl overflow-hidden">
-                <img src={heroLaptop} alt="نظام بُعد HR على الكمبيوتر المحمول" className="w-full h-full object-cover" />
+              <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-accent/20 rounded-3xl overflow-hidden shadow-2xl">
+                <img src="/lovable-uploads/28803ffb-96b6-4b07-a150-fa849b317783.png" alt="لوحة تحكم نظام بُعد HR - إدارة الموظفين الشامل" className="w-full h-full object-contain bg-white p-4" />
               </div>
             </div>
           </div>
