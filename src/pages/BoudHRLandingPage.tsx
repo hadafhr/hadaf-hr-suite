@@ -695,7 +695,7 @@ const BoudHRLandingPage: React.FC = () => {
                   }}></div>
                     
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] via-transparent to-accent/[0.01]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] via-transparent to-accent/[0.01] border border-gray-800"></div>
                     
                     {/* App Header */}
                     <div className="text-center pt-4 relative z-10">
