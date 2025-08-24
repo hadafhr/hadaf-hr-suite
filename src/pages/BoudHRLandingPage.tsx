@@ -628,7 +628,7 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-8">
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
@@ -638,7 +638,7 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Bell className="w-6 h-6 text-primary" />
                   </div>
@@ -648,13 +648,33 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <FileText className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground text-lg mb-2">إدارة الطلبات</h3>
                     <p className="text-muted-foreground">قدم طلباتك وتابع حالتها من أي مكان</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-lg mb-2">الدورات التدريبية</h3>
+                    <p className="text-muted-foreground">تصفح وسجل في الدورات التدريبية المتاحة وتابع تقدمك</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border-2 border-black">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Target className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-lg mb-2">تقييم الأداء</h3>
+                    <p className="text-muted-foreground">استعرض تقييماتك وأهدافك وتابع تطور أدائك الوظيفي</p>
                   </div>
                 </div>
               </div>
