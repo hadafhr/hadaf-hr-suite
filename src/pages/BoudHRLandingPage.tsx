@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BoudLogo } from '@/components/BoudLogo';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -185,11 +184,6 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="flex items-center justify-between h-16">
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
-              <BoudLogo 
-                variant="full" 
-                size="xl" 
-                className="h-20 w-auto ml-4"
-              />
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
               <DropdownMenu>
