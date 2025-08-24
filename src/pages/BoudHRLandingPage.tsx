@@ -777,7 +777,7 @@ const BoudHRLandingPage: React.FC = () => {
                   {/* App Content */}
                   <div className="px-4 py-8 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
                     {/* Background Pattern with BOUD Logo */}
-                    <div className="absolute inset-0 opacity-0.5 flex items-center justify-center">
+                    <div className="absolute inset-0 opacity-[0.1] flex items-center justify-center">
                       <img 
                         src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                         alt="Background Pattern" 
@@ -786,14 +786,14 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
                     
                     {/* Geometric Pattern Overlay */}
-                    <div className="absolute inset-0 opacity-1" style={{
-                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.5px, transparent 0.5px),
-                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.3px, transparent 0.3px)`,
-                      backgroundSize: '50px 50px'
+                    <div className="absolute inset-0 opacity-[0.2]" style={{
+                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.2px, transparent 0.2px),
+                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.1px, transparent 0.1px)`,
+                      backgroundSize: '60px 60px'
                     }}></div>
                     
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/1 via-transparent to-accent/1"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.3] via-transparent to-accent/[0.3]"></div>
                     
                     {/* App Header */}
                     <div className="text-center pt-4 relative z-10">
