@@ -850,7 +850,6 @@ const BoudHRLandingPage: React.FC = () => {
                 
                 {/* Interactive Labels */}
                 <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center">
-                  <p className="text-lg font-bold text-primary mb-2">📱 معاينة التطبيق التفاعلية</p>
                 </div>
               </div>
             </div>
