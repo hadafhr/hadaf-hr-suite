@@ -9,17 +9,17 @@ interface PatternBackgroundProps {
 
 export const PatternBackground: React.FC<PatternBackgroundProps> = ({ 
   opacity = 0.03, 
-  size = 150,
+  size = 300,
   className = ""
 }) => {
   return (
-    <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
+    <div className={`absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center ${className}`}>
       <div 
-        className="absolute top-8 right-8"
+        className="absolute"
         style={{
           backgroundImage: `url(/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png)`,
           backgroundRepeat: 'no-repeat',
-          backgroundSize: `${size}px ${size}px`,
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
           opacity: opacity,
           width: `${size}px`,
