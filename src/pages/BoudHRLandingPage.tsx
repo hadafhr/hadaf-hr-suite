@@ -720,18 +720,27 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="relative">
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
                 <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-black relative overflow-hidden shadow-2xl">
+                  {/* Background Pattern with Logo */}
+                  <div className="absolute inset-0 opacity-5 flex items-center justify-center">
+                    <img 
+                      src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
+                      alt="Background Pattern" 
+                      className="w-32 h-32 object-contain"
+                    />
+                  </div>
+                  
                   {/* Phone Screen Header */}
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full"></div>
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full z-10"></div>
                   
                   {/* Phone Screen Content */}
-                  <div className="mt-4 px-6 space-y-3 relative z-10 h-full">
+                  <div className="mt-3 px-6 space-y-3 relative z-20 h-full">
                     {/* App Header with Logo */}
                     <div className="text-center pt-1">
                       <div className="flex items-center justify-center mb-3">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-24 w-auto"
+                          className="h-28 w-auto drop-shadow-sm"
                         />
                       </div>
                       <h3 className="text-lg font-bold text-primary text-center mb-2">مرحباً بك في بُعد</h3>
@@ -751,7 +760,7 @@ const BoudHRLandingPage: React.FC = () => {
                             readOnly
                           />
                         </div>
-                        <p className="text-xs text-primary text-center">example.boud.com.sa</p>
+                        <p className="text-xs text-primary text-center">EXAMPLE.BOUD.COM.SA</p>
                       </div>
 
                       {/* Login Button */}
@@ -763,6 +772,18 @@ const BoudHRLandingPage: React.FC = () => {
                         <ArrowLeft className="w-4 h-4 rotate-180" />
                         دخول
                       </Button>
+
+                      {/* Language Toggle */}
+                      <div className="flex items-center justify-center">
+                        <Button
+                          size="sm" 
+                          variant="ghost"
+                          className="text-gray-500 hover:text-primary text-xs py-2 px-3 flex items-center gap-1"
+                        >
+                          <Globe className="w-3 h-3" />
+                          عربي | EN
+                        </Button>
+                      </div>
                     </div>
 
                     {/* Footer */}
@@ -774,7 +795,7 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
 
                   {/* Phone Bottom Indicator */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full"></div>
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full z-10"></div>
                 </div>
                 
                 {/* Interactive Label */}
