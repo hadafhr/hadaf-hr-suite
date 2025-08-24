@@ -719,19 +719,19 @@ const BoudHRLandingPage: React.FC = () => {
             
             <div className="relative">
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
-                <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-gray-300 relative overflow-hidden shadow-2xl">
+                <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-black relative overflow-hidden shadow-2xl">
                   {/* Phone Screen Header */}
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-400 rounded-full"></div>
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full"></div>
                   
                   {/* Phone Screen Content */}
-                  <div className="mt-8 px-6 space-y-6 relative z-10 h-full">
+                  <div className="mt-6 px-6 space-y-4 relative z-10 h-full">
                     {/* App Header with Logo */}
-                    <div className="text-center pt-4">
+                    <div className="text-center pt-2">
                       <div className="flex items-center justify-center mb-4">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-16 w-auto"
+                          className="h-20 w-auto"
                         />
                       </div>
                       <h3 className="text-lg font-bold text-primary text-center mb-2">مرحباً بك في بُعد</h3>
@@ -742,12 +742,12 @@ const BoudHRLandingPage: React.FC = () => {
                     <div className="space-y-4 px-2">
                       {/* Organization Name Input */}
                       <div className="space-y-2">
-                        <label className="text-xs font-medium text-gray-700 block text-right">اسم المنشأة</label>
+                        <label className="text-xs font-medium text-gray-700 block text-center">اسم المنشأة</label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-10 text-xs border-2 border-gray-200 rounded-lg focus:border-primary bg-gray-50 px-3 text-right"
+                            className="w-full h-10 text-xs border-2 border-gray-200 rounded-lg focus:border-primary bg-gray-50 px-3 text-center"
                             readOnly
                           />
                         </div>
@@ -774,7 +774,7 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
 
                   {/* Phone Bottom Indicator */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-400 rounded-full"></div>
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gray-600 rounded-full"></div>
                 </div>
                 
                 {/* Interactive Label */}
