@@ -719,66 +719,66 @@ const BoudHRLandingPage: React.FC = () => {
             
             <div className="relative">
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
-                <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-black relative overflow-hidden shadow-2xl">
+                <div className="w-48 h-96 bg-white rounded-3xl mx-auto border-8 border-gray-900 relative overflow-hidden shadow-2xl">
                   {/* Background Pattern with Logo */}
-                  <div className="absolute inset-0 opacity-5 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-8 flex items-center justify-center">
                     <img 
                       src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                       alt="Background Pattern" 
-                      className="w-32 h-32 object-contain"
+                      className="w-40 h-40 object-contain"
                     />
                   </div>
                   
                   {/* Phone Screen Header */}
-                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full z-10"></div>
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-700 rounded-full z-10"></div>
                   
                   {/* Phone Screen Content */}
-                  <div className="px-4 space-y-1 relative z-20 h-full">
+                  <div className="px-4 relative z-20 h-full">
                     {/* App Header with Logo */}
-                    <div className="text-center -mt-2">
-                      <div className="flex items-center justify-center">
+                    <div className="text-center pt-1">
+                      <div className="flex items-center justify-center mb-1">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-44 w-auto drop-shadow-sm"
+                          className="h-48 w-auto drop-shadow-sm"
                         />
                       </div>
-                      <h3 className="text-base font-bold text-primary text-center -mt-4">مرحباً بك في بُعد</h3>
-                      <h4 className="text-xs font-semibold text-gray-700 text-center -mt-1">BOUD HR</h4>
+                      <h3 className="text-base font-bold text-primary text-center mb-1">مرحباً بك في بُعد</h3>
+                      <h4 className="text-xs font-semibold text-gray-700 text-center mb-3">BOUD HR</h4>
                     </div>
 
                     {/* Login Form */}
-                    <div className="space-y-3 px-2 -mt-2">
+                    <div className="space-y-3 px-1">
                       {/* Organization Name Input */}
-                      <div className="space-y-1">
-                        <label className="text-xs font-medium text-gray-700 block text-center">اسم المنشأة</label>
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold text-gray-800 block text-center">اسم المنشأة</label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-8 text-xs border-2 border-gray-200 rounded-lg focus:border-primary bg-gray-50 px-3 text-center"
+                            className="w-full h-9 text-xs border-2 border-gray-900 rounded-lg focus:border-primary bg-gray-50 px-3 text-center font-medium"
                             readOnly
                           />
                         </div>
-                        <p className="text-xs text-primary text-center">EXAMPLE.BOUD.COM.SA</p>
+                        <p className="text-xs text-primary text-center font-medium">EXAMPLE.BOUD.COM.SA</p>
                       </div>
 
                       {/* Login Button */}
                       <Button 
                         size="sm"
                         onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-primary hover:bg-primary/90 text-white text-sm py-2 font-semibold rounded-lg flex items-center justify-center gap-2"
+                        className="w-full bg-primary hover:bg-primary/90 text-white text-sm py-2.5 font-bold rounded-lg flex items-center justify-center gap-2 shadow-sm"
                       >
                         <ArrowLeft className="w-4 h-4 rotate-180" />
                         دخول
                       </Button>
 
                       {/* Language Toggle */}
-                      <div className="flex items-center justify-center -mt-1">
+                      <div className="flex items-center justify-center pt-1">
                         <Button
                           size="sm" 
                           variant="ghost"
-                          className="text-gray-500 hover:text-primary text-xs py-1 px-2 flex items-center gap-1"
+                          className="text-gray-600 hover:text-primary text-xs py-1.5 px-3 flex items-center gap-1 font-medium"
                         >
                           <Globe className="w-3 h-3" />
                           عربي | EN
