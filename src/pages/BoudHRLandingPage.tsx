@@ -324,7 +324,7 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative py-20 lg:py-32 overflow-hidden">
-        <PatternBackground opacity={0.02} size={150} />
+        <PatternBackground opacity={0.08} size={350} />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/10"></div>
         <div className="container mx-auto px-6 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -374,7 +374,7 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
-        <PatternBackground opacity={0.015} size={200} />
+        <PatternBackground opacity={0.06} size={280} />
         <div className="container mx-auto px-6">
           <div className="text-center space-y-6 mb-16">
             <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
@@ -448,7 +448,7 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* Benefits Section */}
       <section className="relative py-20">
-        <PatternBackground opacity={0.02} size={180} />
+        <PatternBackground opacity={0.08} size={320} />
         <div className="container mx-auto px-6">
           <div className="text-center space-y-6 mb-16">
             <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">

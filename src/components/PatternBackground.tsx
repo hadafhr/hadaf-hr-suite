@@ -8,7 +8,7 @@ interface PatternBackgroundProps {
 }
 
 export const PatternBackground: React.FC<PatternBackgroundProps> = ({ 
-  opacity = 0.03, 
+  opacity = 0.12, 
   size = 300,
   className = ""
 }) => {
