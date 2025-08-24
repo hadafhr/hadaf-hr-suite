@@ -736,11 +736,7 @@ const BoudHRLandingPage: React.FC = () => {
                     {/* Footer */}
                     <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
                        <div className="flex flex-col items-center">
-                         <div className="relative mb-3">
-                           <div className="w-32 h-12 bg-gradient-to-br from-gray-900 to-black rounded-2xl border-2 border-gray-900 shadow-lg overflow-hidden flex items-center justify-center">
-                             <img src="/lovable-uploads/3bb8cda9-761e-4268-8f44-76b21cecb2a4.png" alt="BOUD HR Logo" className="h-8 w-auto" />
-                           </div>
-                         </div>
+                         <img src="/lovable-uploads/3bb8cda9-761e-4268-8f44-76b21cecb2a4.png" alt="BOUD HR Logo" className="h-8 w-auto mb-3" />
                         <p className="text-sm text-gray-600 text-center font-bold mt-4">
                           © 2025 BOUD HR
                         </p>
