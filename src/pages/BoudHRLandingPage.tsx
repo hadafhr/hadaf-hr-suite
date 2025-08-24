@@ -183,6 +183,15 @@ const BoudHRLandingPage: React.FC = () => {
       <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <img 
+                src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" 
+                alt="BOUD HR Logo" 
+                className="h-12 w-auto"
+              />
+            </div>
+
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
@@ -202,7 +211,6 @@ const BoudHRLandingPage: React.FC = () => {
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
 
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
@@ -378,31 +386,40 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="text-center lg:text-right space-y-8 animate-fade-in">
               <div className="space-y-6">
                 <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
-                  🚀 منصة سعودية 100% متوافقة مع رؤية 2030
+                  🎯 الحل الأول في السعودية
                 </Badge>
-                
-                <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
-                  منصة <span className="text-gradient">بُعد HR</span>
-                  <br />
-                  البُعد الجديد لإدارة رأس المال البشري
+                <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+                  نظام <span className="text-gradient bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">بُعد HR</span>
                 </h1>
-                
-                <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                  منصّة موارد بشرية سحابية، ذكية، ومتكاملة تمكّن منظمتك من إدارة دورة حياة الموظف بالكامل 
-                  من الاستقطاب وحتى نهاية الخدمة، عبر الأتمتة والتحليلات التنبؤية والتكامل الفوري مع الجهات الحكومية.
+                <h2 className="text-2xl lg:text-3xl text-muted-foreground font-medium">
+                  إدارة الموارد البشرية بالذكاء الاصطناعي
+                </h2>
+                <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  حل شامل ومتطور لإدارة الموارد البشرية مدعوم بالذكاء الاصطناعي، يخدم أكثر من 1000+ شركة في السعودية
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8" onClick={() => navigate('/subscription-packages')}>
-                  انضم الينا
-                  <ArrowLeft className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Button 
+                  size="lg" 
+                  onClick={() => navigate('/subscription-packages')}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  ابدأ مجاناً الآن
+                  <ArrowLeft className="w-5 h-5 mr-2 rotate-180" />
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  onClick={() => navigate('/demo-request')}
+                  className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg font-semibold transition-all duration-300"
+                >
+                  <Play className="w-5 h-5 ml-2" />
+                  احجز عرض تجريبي
                 </Button>
               </div>
-              
-              
-              {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
                     <div className="text-2xl lg:text-3xl font-bold text-primary">{stat.number}</div>
@@ -412,131 +429,13 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Hero Visual Elements */}
-            <div className="relative animate-slide-up">
-              <div className="relative">
-                {/* Main Hero Image */}
-                <div className="relative mb-6">
-                  <img 
-                    src="/lovable-uploads/e178bb8e-1473-4998-a200-54739ac16b3e.png" 
-                    alt="فريق عمل متنوع - منصة بُعد HR" 
-                    className="w-full h-80 object-cover rounded-2xl shadow-strong"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                          <Cloud className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <div className="text-sm font-semibold text-foreground">تقنية سحابية متقدمة</div>
-                          <div className="text-xs text-muted-foreground">آمنة ومتاحة 24/7</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Secondary Images Grid */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative">
-                     <img 
-                       src="/lovable-uploads/ebeb1cac-6889-402f-800b-60ea4e5b64c5.png" 
-                       alt="أتمتة الموارد البشرية" 
-                       className="w-full h-32 object-cover rounded-xl shadow-medium"
-                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
-                    <div className="absolute bottom-2 left-2 right-2">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
-                        <div className="flex items-center gap-2">
-                          <Zap className="w-4 h-4 text-primary" />
-                          <span className="text-xs font-medium text-foreground">أتمتة ذكية</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="relative">
-                     <img 
-                       src={cloudComputing} 
-                       alt="الحوسبة السحابية" 
-                       className="w-full h-32 object-cover rounded-xl shadow-medium"
-                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
-                    <div className="absolute bottom-2 left-2 right-2">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2">
-                        <div className="flex items-center gap-2">
-                          <Cloud className="w-4 h-4 text-primary" />
-                          <span className="text-xs font-medium text-foreground">حوسبة سحابية</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gradient">من نحن</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                نحن فريق سعودي-عالمي من خبراء الموارد البشرية، وتقنية السحابة، وعلوم البيانات.
-                اجتمعنا حول رؤية واحدة: إعادة تشكيل إدارة رأس المال البشري في المنطقة العربية.
-              </p>
-              
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 ذكاء عملي</h3>
-                  <p className="text-muted-foreground">نحو تحويل بيانات الموظفين إلى رؤى قابلة للتنفيذ، من خلال خوارزميات AI متقدمة.</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تكامل شامل</h3>
-                  <p className="text-muted-foreground">منصة واحدة تشمل: التوظيف، الرواتب، الأداء، الامتثال، التدريب - مرتبطة آليًا بمنصات: قوى – التأمينات الاجتماعية – مدد – البنوك السعودية.</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 أمن وموثوقية</h3>
-                  <p className="text-muted-foreground">استضافة سحابية داخل المملكة، مع اعتماد معايير الأمان المحلية والعالمية (ISO 27001 وNCA ECC).</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">🔹 تركيز إنساني</h3>
-                  <p className="text-muted-foreground">تصميم كامل للتجربة الوظيفية حول الموظف وراحته، بهدف زيادة الولاء والإنتاجية.</p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 pt-4">
-                <Button className="btn-primary" onClick={() => navigate("/business-platform")}>
-                  تعرف على المزيد
-                </Button>
-                <Button variant="outline" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-                  تواصل معنا
-                </Button>
-              </div>
-            </div>
-            
             <div className="relative">
-              <img 
-                src={teamCollaboration}
-                alt="فريق عمل يتعاون باستخدام تقنيات الموارد البشرية الحديثة"
-                className="w-full h-96 object-cover rounded-2xl shadow-strong"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
-              <div className="absolute top-4 right-4">
-                <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
-                  <div className="flex items-center gap-2 text-white">
-                    <Brain className="w-5 h-5" />
-                    <span className="text-sm font-medium">مدعوم بالذكاء الاصطناعي</span>
-                  </div>
-                </div>
+              <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-accent/20 rounded-3xl overflow-hidden">
+                <img 
+                  src={heroLaptop}
+                  alt="نظام بُعد HR على الكمبيوتر المحمول"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -544,748 +443,169 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="solutions" className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <section id="solutions" className="py-20 bg-muted/50">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="bg-primary/10 text-primary border-primary/20 px-6 py-3 text-base font-medium mb-6">
-              🎯 منصة موحدة لجميع احتياجات الموارد البشرية
+          <div className="text-center space-y-6 mb-16">
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
+              ⭐ حلولنا المتطورة
             </Badge>
-            <h2 className="text-5xl lg:text-6xl font-bold text-gradient mb-6">نظام بُعد</h2>
-            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              حلول شاملة ومتطورة لتلبية جميع احتياجات إدارة الموارد البشرية
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+              منصات متكاملة لإدارة <span className="text-gradient">الموارد البشرية</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              حلول ذكية ومتطورة تخدم جميع احتياجات الشركات في إدارة الموارد البشرية
             </p>
           </div>
-          
-          {/* الأنظمة الرئيسية في الوسط */}
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {features.map((feature, index) => (
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {features.map((feature, index) => {
+              const IconComponent = feature.icon;
+              return (
                 <Card 
                   key={index} 
-                  className={`service-card group cursor-pointer bg-gradient-to-br from-background to-muted/30 border-2 hover:border-primary/30 ${feature.animation} hover:shadow-2xl`}
-                  onMouseEnter={() => setActiveFeature(index)}
+                  className={`relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-500 ${feature.animation} group cursor-pointer`}
                   onClick={() => navigate(feature.route)}
                 >
-                  <CardContent className="p-0 relative overflow-hidden">
-                    {/* صورة تسويقية متحركة */}
-                    <div className="relative w-full h-64 overflow-hidden">
-                      <img 
-                        src={feature.image} 
-                        alt={feature.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                      
-                      {/* شارة متحركة */}
-                      <div className="absolute top-4 right-4">
-                        <Badge className="bg-primary/90 text-white border-0 px-4 py-2 text-sm font-bold animate-pulse">
-                          🚀 جديد ومتطور
-                        </Badge>
-                      </div>
-                      
-                      {/* أيقونة النظام */}
-                      <div className="absolute bottom-4 left-4">
-                        <div className={`w-16 h-16 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                          <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-3 flex-1">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <IconComponent className={`w-6 h-6 ${feature.color}`} />
+                          </div>
+                          <Badge className="bg-primary/10 text-primary border-primary/20 text-xs">
+                            جديد
+                          </Badge>
+                        </div>
+                        <div>
+                          <CardTitle className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                            {feature.title}
+                          </CardTitle>
+                          <p className="text-sm font-medium text-primary mb-2">{feature.subtitle}</p>
+                          <CardDescription className="text-muted-foreground leading-relaxed">
+                            {feature.description}
+                          </CardDescription>
                         </div>
                       </div>
                     </div>
-                    
-                    {/* محتوى النظام */}
-                    <div className="p-8">
-                      <div className="text-center mb-6">
-                        <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-                          {feature.title}
-                        </h3>
-                        <p className="text-lg text-primary font-semibold mb-4">
-                          {feature.subtitle}
+                  </CardHeader>
+                  
+                  <CardContent className="pt-0">
+                    <div className="space-y-4">
+                      <div className="aspect-video rounded-lg overflow-hidden">
+                        <img 
+                          src={feature.image} 
+                          alt={feature.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      
+                      <div className="p-4 bg-muted/50 rounded-lg">
+                        <p className="text-sm text-muted-foreground font-medium">
+                          {feature.marketingText}
                         </p>
                       </div>
                       
-                      {/* الوصف التسويقي */}
-                      <div className="space-y-4 mb-6">
-                        <p className="text-base text-muted-foreground leading-relaxed text-center">
-                          {feature.description}
-                        </p>
-                        
-                        {/* النقاط التسويقية */}
-                        <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
-                          <p className="text-sm text-foreground font-medium text-center leading-relaxed">
-                            {feature.marketingText}
-                          </p>
-                        </div>
-                        
-                        {/* الميزات الرئيسية */}
-                        <div className="grid grid-cols-2 gap-2 mt-4">
-                          {feature.features.map((feat, idx) => (
-                            <div key={idx} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                              <span className="text-sm text-muted-foreground">{feat}</span>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="flex flex-wrap gap-2">
+                        {feature.features.map((feat, featIndex) => (
+                          <Badge 
+                            key={featIndex} 
+                            variant="secondary" 
+                            className="text-xs bg-background border border-border"
+                          >
+                            {feat}
+                          </Badge>
+                        ))}
                       </div>
                       
-                      {/* زر تعرف أكثر */}
-                      <div className="text-center">
-                        <Button 
-                          size="lg"
-                          className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-base font-semibold group-hover:shadow-lg transition-all duration-300"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(feature.route);
-                          }}
-                        >
-                          <span className="mr-2">تعرف أكثر</span>
-                          <ArrowLeft className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                        </Button>
-                      </div>
+                      <Button className="w-full mt-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                        اكتشف المزيد
+                        <ArrowLeft className="w-4 h-4 mr-2 rotate-180" />
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
-          </div>
-          
-          {/* إحصائيات سريعة */}
-          <div className="mt-16 text-center">
-            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/10 max-w-4xl mx-auto">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">22</div>
-                  <div className="text-sm text-muted-foreground">نظام فرعي متكامل</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">100%</div>
-                  <div className="text-sm text-muted-foreground">توافق مع الأنظمة السعودية</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">24/7</div>
-                  <div className="text-sm text-muted-foreground">خدمة متاحة</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">70%</div>
-                  <div className="text-sm text-muted-foreground">توفير في الوقت</div>
-                </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">فوائد بُعد HR</h2>
+          <div className="text-center space-y-6 mb-16">
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
+              💡 لماذا بُعد HR؟
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+              مزايا تجعلنا <span className="text-gradient">الخيار الأول</span>
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              فوائد حقيقية وقابلة للقياس لعملك وموظفيك
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="metric-card group">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <benefit.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold">{benefit.title}</h3>
-                        <span className="text-2xl font-bold text-primary">{benefit.stat}</span>
-                      </div>
-                      <p className="text-muted-foreground">{benefit.description}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Boud Section - Comprehensive */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">لماذا بُعد؟</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              اكتشف الأسباب التي تجعل بُعد HR الخيار الأمثل لإدارة الموارد البشرية في منظمتك مع الحلول الأكثر تطوراً وشمولية
+              نقدم حلول متطورة تساعد في تحسين الكفاءة والإنتاجية
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto">
-            <Tabs defaultValue="automation" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-12 bg-muted/50 p-2 rounded-xl">
-                <TabsTrigger 
-                  value="automation" 
-                  className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-background data-[state=active]:shadow-md"
-                >
-                  <Zap className="w-5 h-5" />
-                  <span className="text-sm font-medium">أتمتة العمليات</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="security" 
-                  className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-background data-[state=active]:shadow-md"
-                >
-                  <Shield className="w-5 h-5" />
-                  <span className="text-sm font-medium">أمان البيانات</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="cloud" 
-                  className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-background data-[state=active]:shadow-md"
-                >
-                  <Cloud className="w-5 h-5" />
-                  <span className="text-sm font-medium">الحوسبة السحابية</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="compliance" 
-                  className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-background data-[state=active]:shadow-md"
-                >
-                  <CheckCircle className="w-5 h-5" />
-                  <span className="text-sm font-medium">الامتثال التنظيمي</span>
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="automation" className="mt-8">
-                <Card className="service-card border-primary/20">
-                  <CardContent className="p-8">
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <Zap className="w-6 h-6 text-primary" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-foreground">أتمتة العمليات الذكية</h3>
-                        </div>
-                        
-                        <p className="text-lg text-muted-foreground leading-relaxed">
-                          نقوم بأتمتة جميع العمليات الروتينية في إدارة الموارد البشرية، مما يوفر 70% من الوقت المخصص للمهام الإدارية ويقلل الأخطاء البشرية إلى الحد الأدنى.
-                        </p>
-                        
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">أتمتة عمليات الرواتب والمزايا والتعويضات بدقة 100%</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">معالجة طلبات الإجازات والغياب والانتدابات تلقائياً</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تقارير ذكية مُحدثة في الوقت الفعلي مع التحليلات</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تذكيرات ذكية للمواعيد والعلاوات والترقيات</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">حساب تلقائي لسلم الرواتب وبدلات الانتداب</span>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-                          <div className="flex items-center gap-2 mb-2">
-                            <BarChart3 className="w-5 h-5 text-primary" />
-                            <span className="font-semibold text-primary">النتائج المحققة</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            توفير 70% من الوقت • تقليل الأخطاء بنسبة 95% • زيادة الإنتاجية بـ 40% • توفير التكاليف بنسبة 60%
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="relative">
-                        <img 
-                          src="/lovable-uploads/ebeb1cac-6889-402f-800b-60ea4e5b64c5.png"
-                          alt="أتمتة العمليات في بُعد HR"
-                          className="w-full h-80 object-cover rounded-xl shadow-strong"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-xl"></div>
-                      </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => {
+              const IconComponent = benefit.icon;
+              return (
+                <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <CardContent className="pt-8 pb-6">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-8 h-8 text-primary" />
                     </div>
+                    <div className="text-3xl font-bold text-primary mb-2">{benefit.stat}</div>
+                    <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                    <p className="text-muted-foreground text-sm">{benefit.description}</p>
                   </CardContent>
                 </Card>
-              </TabsContent>
-
-              <TabsContent value="security" className="mt-8">
-                <Card className="service-card border-primary/20">
-                  <CardContent className="p-8">
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <Shield className="w-6 h-6 text-primary" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-foreground">أمان البيانات المطلق</h3>
-                        </div>
-                        
-                        <p className="text-lg text-muted-foreground leading-relaxed">
-                          نضمن حماية بيانات موظفيك وبيانات الرواتب والمزايا بأعلى معايير الأمان العالمية والمحلية، مع التوافق الكامل مع قوانين حماية البيانات السعودية.
-                        </p>
-                        
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تشفير متقدم 256-bit للبيانات الحساسة والمالية</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">مصادقة ثنائية العامل لجميع المستخدمين والمدراء</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">نسخ احتياطية آمنة كل 15 دقيقة مع استرداد فوري</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">مراقبة أمنية 24/7 ضد التهديدات والاختراقات</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">حماية بيانات التعويضات والمزايا بعزل تام</span>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Award className="w-5 h-5 text-primary" />
-                            <span className="font-semibold text-primary">الشهادات والامتثال</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            ISO 27001 • NCA ECC-1 • GDPR • قانون حماية البيانات السعودي • SAMA • CITC
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="relative">
-                        <img 
-                          src={codingScreen}
-                          alt="أمان البيانات في بُعد HR"
-                          className="w-full h-80 object-cover rounded-xl shadow-strong"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-xl"></div>
-                        <div className="absolute top-4 right-4">
-                          <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
-                            <div className="flex items-center gap-2 text-white">
-                              <Lock className="w-5 h-5" />
-                              <span className="text-sm font-medium">أمان متقدم</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="cloud" className="mt-8">
-                <Card className="service-card border-primary/20">
-                  <CardContent className="p-8">
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <Cloud className="w-6 h-6 text-primary" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-foreground">الحوسبة السحابية المتطورة</h3>
-                        </div>
-                        
-                        <p className="text-lg text-muted-foreground leading-relaxed">
-                          بنية تحتية سحابية متطورة داخل المملكة العربية السعودية، تضمن الأداء العالي والتوافر المستمر لجميع خدمات التعويضات والموارد البشرية.
-                        </p>
-                        
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">استضافة محلية داخل المملكة العربية السعودية</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">توافر 99.9% مع ضمان استمرارية الخدمة</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">قابلية التوسع التلقائي حسب احتياجات المنظمة</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تحديثات تلقائية بدون انقطاع في الخدمة</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">أداء فائق السرعة لمعالجة الرواتب والتقارير</span>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Globe className="w-5 h-5 text-primary" />
-                            <span className="font-semibold text-primary">الوصول من أي مكان</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            وصول آمن من الهاتف المحمول • أجهزة الكمبيوتر • الأجهزة اللوحية • في أي وقت • من أي مكان
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="relative">
-                        <img 
-                          src={cloudComputing}
-                          alt="الحوسبة السحابية في بُعد HR"
-                          className="w-full h-80 object-cover rounded-xl shadow-strong"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-xl"></div>
-                        <div className="absolute top-4 right-4">
-                          <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
-                            <div className="flex items-center gap-2 text-white">
-                              <Cloud className="w-5 h-5" />
-                              <span className="text-sm font-medium">سحابية 100%</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="compliance" className="mt-8">
-                <Card className="service-card border-primary/20">
-                  <CardContent className="p-8">
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <CheckCircle className="w-6 h-6 text-primary" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-foreground">الامتثال التنظيمي الشامل</h3>
-                        </div>
-                        
-                        <p className="text-lg text-muted-foreground leading-relaxed">
-                          نضمن الامتثال الكامل لجميع القوانين واللوائح السعودية والعالمية في مجال التعويضات وحماية الأجور، مع التحديث المستمر لمواكبة أي تغييرات قانونية.
-                        </p>
-                        
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">توافق كامل مع نظام العمل السعودي الجديد والتعديلات</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تكامل مباشر مع منصة قوى والتأمينات الاجتماعية ومدد</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تطبيق سياسات السعودة والحد الأدنى للأجور</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">تحديثات تلقائية للوائح والقوانين الجديدة</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">امتثال كامل لأنظمة حماية الأجور ونظام WPS</span>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Building className="w-5 h-5 text-primary" />
-                            <span className="font-semibold text-primary">الجهات المتكاملة</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            قوى • التأمينات الاجتماعية • مدد • البنوك السعودية • الزكاة والضريبة • نقدي
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="relative">
-                        <img 
-                          src={businessTeam}
-                          alt="الامتثال التنظيمي في بُعد HR"
-                          className="w-full h-80 object-cover rounded-xl shadow-strong"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-xl"></div>
-                        <div className="absolute top-4 right-4">
-                          <div className="bg-primary/90 backdrop-blur-sm rounded-lg p-3">
-                            <div className="flex items-center gap-2 text-white">
-                              <CheckCircle className="w-5 h-5" />
-                              <span className="text-sm font-medium">متوافق 100%</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-
-            {/* Additional Why Choose Section */}
-            <div className="mt-16 grid lg:grid-cols-3 gap-8">
-              <Card className="service-card border-primary/20 text-center">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">دقة بنسبة 99.9%</h3>
-                  <p className="text-muted-foreground">
-                    نضمن دقة عالية في جميع العمليات المالية والحسابات والتقارير مع عدم وجود أخطاء في التعويضات
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="service-card border-primary/20 text-center">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Clock className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">توفير الوقت</h3>
-                  <p className="text-muted-foreground">
-                    توفير 70% من الوقت المخصص للعمليات الإدارية مع أتمتة كاملة لحساب الرواتب والعلاوات والترقيات
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="service-card border-primary/20 text-center">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <DollarSign className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">توفير التكاليف</h3>
-                  <p className="text-muted-foreground">
-                    تقليل التكاليف التشغيلية بنسبة 60% مع حلول شاملة تغطي جميع احتياجات التعويضات والمزايا
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gradient mb-4">ماذا يقول عملاؤنا</h2>
+          <div className="text-center space-y-6 mb-16">
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
+              💬 آراء العملاء
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+              ماذا يقول <span className="text-gradient">عملاؤنا</span>
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              تجارب حقيقية من شركات ومؤسسات تثق في بُعد HR
+              شهادات حقيقية من عملائنا المميزين
             </p>
           </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
+
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="service-card">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-1 mb-4">
+              <Card key={index} className="border-2 hover:border-primary/50 transition-all duration-300">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <User className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{testimonial.name}</h4>
+                      <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                      <p className="text-xs text-primary">{testimonial.company}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 mb-3">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
                   
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
-                  
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=100&q=80"
-                      alt="أحمد المحمد - مدير الموارد البشرية"
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.position}</p>
-                      <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                    </div>
-                  </div>
+                  <p className="text-muted-foreground italic">"{testimonial.text}"</p>
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary via-primary-glow to-accent">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white">
-              ابدأ رحلتك مع بُعد HR اليوم
-            </h2>
-            <p className="text-xl text-white/90 leading-relaxed">
-              انضم إلى أكثر من 1000 شركة تثق في بُعد HR لإدارة مواردها البشرية
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8" onClick={() => navigate("/dashboard")}>
-                ابدأ التجربة المجانية
-              </Button>
-              <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-                تحدث مع خبير
-              </Button>
-            </div>
-            
-            {/* Chat Bot Button */}
-            <div className="pt-8">
-              <Button 
-                size="lg" 
-                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 flex items-center gap-2"
-                onClick={() => navigate("/ai-hub")}
-              >
-                <MessageCircle className="w-5 h-5" />
-                تحدث مع المساعد الذكي
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Us Section */}
-      <section id="contact" className="py-20 bg-background border-t border-border">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">📬 تواصل معنا – نحن هنا لدعمك في كل خطوة</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              سواء كنت صاحب عمل أو موظفًا، يسعدنا خدمتك والرد على استفساراتك عبر أي وسيلة تفضلها.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                  <Phone className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-foreground mb-2">الهاتف</h3>
-                  <p className="text-2xl font-bold text-primary">+966 55 123 4567</p>
-                  <p className="text-sm text-muted-foreground mt-2">متاح 24/7</p>
-                </Card>
-
-                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                  <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-foreground mb-2">البريد الإلكتروني</h3>
-                  <p className="text-lg font-bold text-primary">support@boodhr.sa</p>
-                  <p className="text-sm text-muted-foreground mt-2">رد سريع خلال ساعتين</p>
-                </Card>
-
-                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                  <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-foreground mb-2">الموقع</h3>
-                  <p className="text-primary font-medium">الرياض</p>
-                  <p className="text-sm text-muted-foreground">المملكة العربية السعودية</p>
-                </Card>
-
-                <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-                  <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-bold text-foreground mb-2">ساعات العمل</h3>
-                  <p className="text-primary font-medium">9 صباحاً - 9 مساءً</p>
-                  <p className="text-sm text-muted-foreground">7 أيام في الأسبوع</p>
-                </Card>
-              </div>
-            </div>
-
-            {/* Social Media & Quick Actions */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold text-foreground mb-6 text-center">تابعنا على وسائل التواصل</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  {/* Snapchat */}
-                  <a 
-                    href="https://snapchat.com/add/boodhr" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center p-4 rounded-xl bg-yellow-100 hover:bg-yellow-200 transition-colors group"
-                  >
-                    <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <span className="text-white font-bold text-xl">S</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
-                  </a>
-
-                  {/* Instagram */}
-                  <a 
-                    href="https://instagram.com/boodhr" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center p-4 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 transition-colors group"
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <span className="text-white font-bold text-xl">📷</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
-                  </a>
-
-                  {/* TikTok */}
-                  <a 
-                    href="https://tiktok.com/@boodhr" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors group"
-                  >
-                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <span className="text-white font-bold text-xl">T</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
-                  </a>
-
-                  {/* X (Twitter) */}
-                  <a 
-                    href="https://x.com/boodhr" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center p-4 rounded-xl bg-blue-100 hover:bg-blue-200 transition-colors group"
-                  >
-                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <Twitter className="w-6 h-6 text-white" />
-                    </div>
-                    <span className="text-sm font-medium text-gray-800">@boodhr</span>
-                  </a>
-
-                  {/* LinkedIn */}
-                  <a 
-                    href="https://linkedin.com/company/boodhr" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center p-4 rounded-xl bg-blue-100 hover:bg-blue-200 transition-colors group"
-                  >
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <Linkedin className="w-6 h-6 text-white" />
-                    </div>
-                    <span className="text-sm font-medium text-gray-800">Bood HR</span>
-                  </a>
-
-                  {/* WhatsApp */}
-                  <a 
-                    href="https://wa.me/966551234567" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center p-4 rounded-xl bg-green-100 hover:bg-green-200 transition-colors group"
-                  >
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                      <MessageCircle className="w-6 h-6 text-white" />
-                    </div>
-                    <span className="text-sm font-medium text-gray-800">راسلنا</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="bg-muted/50 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-foreground mb-4 text-center">🛡️ الخصوصية والأمان</h3>
-                <p className="text-sm text-muted-foreground text-center leading-relaxed">
-                  نحن ملتزمون بحماية خصوصيتك وأمان بياناتك وفقاً لأعلى المعايير الدولية ولوائح حماية البيانات السعودية.
-                </p>
-                <div className="flex justify-center mt-4">
-                  <Button variant="outline" size="sm" className="text-xs">
-                    اطّلع على سياسة الخصوصية
-                  </Button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1307,33 +627,42 @@ const BoudHRLandingPage: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
+              {/* Logo Section */}
+              <div className="flex justify-center lg:justify-start mb-8">
+                <img 
+                  src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
+                  alt="BOUD HR Logo" 
+                  className="h-20 w-auto"
+                />
+              </div>
+
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-primary" />
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">تسجيل الحضور بـ GPS</h3>
+                    <h3 className="font-semibold text-foreground text-lg mb-2">تسجيل الحضور بـ GPS</h3>
                     <p className="text-muted-foreground">سجل حضورك وانصرافك من خلال الموقع الجغرافي المحدد</p>
                   </div>
                 </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Bell className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">إشعارات فورية</h3>
+                    <h3 className="font-semibold text-foreground text-lg mb-2">إشعارات فورية</h3>
                     <p className="text-muted-foreground">احصل على تنبيهات فورية لجميع التحديثات المهمة</p>
                   </div>
                 </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+
+                <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <FileText className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">إدارة الطلبات</h3>
+                    <h3 className="font-semibold text-foreground text-lg mb-2">إدارة الطلبات</h3>
                     <p className="text-muted-foreground">قدم طلباتك وتابع حالتها من أي مكان</p>
                   </div>
                 </div>
@@ -1368,15 +697,23 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                 </Button>
               </div>
-              
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <Award className="w-5 h-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="text-sm font-medium text-primary">قريباً</p>
-                    <p className="text-sm text-muted-foreground">التطبيق قيد التطوير النهائي وسيكون متاحاً قريباً على جميع المنصات</p>
-                  </div>
-                </div>
+
+              <div className="text-center p-4 rounded-lg bg-accent/20 border border-accent/40">
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-medium">قريباً</span> - التطبيق قيد التطوير النهائي وسيكون متاحاً قريباً على جميع المنصات
+                </p>
+              </div>
+
+              {/* Mobile Login Button */}
+              <div className="flex justify-center lg:justify-start">
+                <Button 
+                  size="lg" 
+                  onClick={() => navigate('/mobile-login')}
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-4 font-semibold"
+                >
+                  <Smartphone className="w-5 h-5 ml-2" />
+                  تجربة واجهة التطبيق
+                </Button>
               </div>
             </div>
             
@@ -1402,88 +739,6 @@ const BoudHRLandingPage: React.FC = () => {
                       <div className="h-2 bg-foreground/5 rounded w-1/2"></div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Download BOUD HR App Section */}
-      <section className="py-16 bg-gradient-to-br from-primary/5 via-background to-accent/10">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center space-y-8">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Smartphone className="h-6 w-6 text-primary" />
-              </div>
-              <h2 className="text-3xl font-bold text-foreground">
-                حمل تطبيق بُعد HR
-              </h2>
-            </div>
-            
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              احصل على تجربة أفضل مع التطبيق المحمول لإدارة شؤونك من أي مكان وفي أي وقت
-            </p>
-
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors px-8 py-4 text-lg font-medium"
-                onClick={() => navigate('/mobile-login')}
-              >
-                <div className="flex items-center gap-3">
-                  <Smartphone className="w-5 h-5" />
-                  <span>تسجيل دخول التطبيق</span>
-                </div>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors px-8 py-4 text-lg font-medium"
-              >
-                <div className="flex items-center gap-3">
-                  <span>آب ستور</span>
-                </div>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors px-8 py-4 text-lg font-medium"
-              >
-                <div className="flex items-center gap-3">
-                  <span>جوجل بلاي</span>
-                </div>
-              </Button>
-            </div>
-
-            <div className="bg-background/50 backdrop-blur-sm rounded-2xl p-8 border border-border shadow-sm">
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div className="space-y-2">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                    <Clock className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground">متاح 24/7</h3>
-                  <p className="text-sm text-muted-foreground">وصول مستمر لجميع خدماتك</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                    <Bell className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground">تنبيهات فورية</h3>
-                  <p className="text-sm text-muted-foreground">اشعارات لحظية لجميع التحديثات</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                    <Shield className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground">أمان عالي</h3>
-                  <p className="text-sm text-muted-foreground">حماية متقدمة لبياناتك الشخصية</p>
                 </div>
               </div>
             </div>
@@ -1522,41 +777,43 @@ const BoudHRLandingPage: React.FC = () => {
               <ul className="space-y-2">
                 <li><a href="#home" className="text-background/80 hover:text-background transition-colors">الرئيسية</a></li>
                 <li><a href="#solutions" className="text-background/80 hover:text-background transition-colors">الحلول</a></li>
-                <li><a href="#pricing" className="text-background/80 hover:text-background transition-colors">الأسعار</a></li>
-                <li><a href="#about" className="text-background/80 hover:text-background transition-colors">من نحن</a></li>
+                <li><button onClick={() => navigate('/subscription-packages')} className="text-background/80 hover:text-background transition-colors">باقات الاشتراك</button></li>
+                <li><button onClick={() => navigate('/blog')} className="text-background/80 hover:text-background transition-colors">المدونة</button></li>
               </ul>
             </div>
-            
             
             {/* Contact Info */}
             <div>
               <h3 className="text-lg font-semibold mb-4">تواصل معنا</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-primary" />
+                  <Phone className="w-4 h-4" />
                   <span className="text-background/80">+966 55 123 4567</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-primary" />
-                  <span className="text-background/80">support@boodhr.sa</span>
+                  <Mail className="w-4 h-4" />
+                  <span className="text-background/80">info@boud.com.sa</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-primary" />
-                  <span className="text-background/80">الرياض، المملكة العربية السعودية</span>
+                  <MapPin className="w-4 h-4" />
+                  <span className="text-background/80">الرياض، السعودية</span>
                 </div>
               </div>
-              
-              {/* Social Links */}
-              <div className="flex items-center gap-4 mt-6">
-                <a href="#" className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center hover:bg-background/20 transition-colors">
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a href="#" className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center hover:bg-background/20 transition-colors">
+            </div>
+            
+            {/* Social Links */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">تابعنا</h3>
+              <div className="flex gap-3">
+                <Button variant="ghost" size="sm" className="w-10 h-10 p-0 bg-background/10 hover:bg-background/20">
                   <Twitter className="w-4 h-4" />
-                </a>
-                <a href="#" className="w-8 h-8 bg-background/10 rounded-full flex items-center justify-center hover:bg-background/20 transition-colors">
+                </Button>
+                <Button variant="ghost" size="sm" className="w-10 h-10 p-0 bg-background/10 hover:bg-background/20">
+                  <Linkedin className="w-4 h-4" />
+                </Button>
+                <Button variant="ghost" size="sm" className="w-10 h-10 p-0 bg-background/10 hover:bg-background/20">
                   <Globe className="w-4 h-4" />
-                </a>
+                </Button>
               </div>
             </div>
           </div>
