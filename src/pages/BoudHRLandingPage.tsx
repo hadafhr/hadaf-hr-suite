@@ -703,7 +703,7 @@ const BoudHRLandingPage: React.FC = () => {
                         <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="BOUD HR Logo" className="h-60 w-auto drop-shadow-lg -mt-24 relative z-20" />
                       </div>
                       <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-16 relative z-20">مرحباً بك</h3>
-                      <h4 className="text-lg font-bold text-primary mb-4 relative z-20">عبارة تسويقية عن التطبيق السحابي</h4>
+                      <h4 className="text-lg font-bold text-primary mb-4 relative z-20">مستقبل إدارة الموارد البشرية في السحابة</h4>
                     </div>
 
                     {/* Login Form */}
