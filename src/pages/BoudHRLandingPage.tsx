@@ -787,9 +787,9 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-6">
+                    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-full px-4">
                       <p className="text-xs text-gray-500 text-center">
-                        © 2024 BOUD HR
+                        © 2025 BOUD HR
                       </p>
                     </div>
                   </div>
