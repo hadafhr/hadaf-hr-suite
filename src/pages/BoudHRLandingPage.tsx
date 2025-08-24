@@ -718,7 +718,7 @@ const BoudHRLandingPage: React.FC = () => {
                         <p className="text-lg text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
                       </div>
 
-                      <Button size="lg" onClick={() => navigate('/mobile-login')} className="w-full bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300 border border-white/20">
+                      <Button size="lg" onClick={() => navigate('/mobile-login')} className="w-full mt-4 bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300 border border-white/20">
                         <ArrowLeft className="w-6 h-6 rotate-180" />
                         دخول
                       </Button>
