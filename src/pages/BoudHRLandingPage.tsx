@@ -774,13 +774,13 @@ const BoudHRLandingPage: React.FC = () => {
                       </Button>
 
                       {/* Language Toggle */}
-                      <div className="flex items-center justify-center pt-2">
+                      <div className="flex items-center justify-center pt-0">
                         <Button
                           size="sm" 
                           variant="ghost"
-                          className="text-black hover:text-primary text-sm py-2 px-4 flex items-center gap-2 font-bold"
+                          className="text-black hover:text-primary text-xs py-1 px-3 flex items-center gap-1 font-bold"
                         >
-                          <Globe className="w-4 h-4" />
+                          <Globe className="w-3 h-3" />
                           عربي | EN
                         </Button>
                       </div>
