@@ -362,8 +362,18 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+              <div className="aspect-square rounded-2xl overflow-hidden shadow-xl border-2 border-gray-900">
                 <img src="/lovable-uploads/8bafb621-e051-45f9-bbb2-928a25b816b7.png" alt="لوحة تحكم نظام بُعد HR - إدارة الموظفين الشامل" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-6 text-center">
+                <div className="inline-block bg-gradient-to-r from-primary to-primary-glow px-6 py-3 rounded-full">
+                  <p className="text-white font-bold text-lg">
+                    ✨ اكتشف قوة الإدارة الذكية - نظام بُعد HR ✨
+                  </p>
+                </div>
+                <p className="text-muted-foreground mt-3 text-base font-medium">
+                  🚀 حلول متطورة تحول إدارة الموارد البشرية إلى تجربة استثنائية
+                </p>
               </div>
             </div>
           </div>
