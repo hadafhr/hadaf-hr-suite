@@ -40,7 +40,8 @@ import {
   Bell,
   DollarSign,
   PenTool,
-  Video
+  Video,
+  Smartphone
 } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -1401,6 +1402,88 @@ const BoudHRLandingPage: React.FC = () => {
                       <div className="h-2 bg-foreground/5 rounded w-1/2"></div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Download BOUD HR App Section */}
+      <section className="py-16 bg-gradient-to-br from-primary/5 via-background to-accent/10">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center space-y-8">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Smartphone className="h-6 w-6 text-primary" />
+              </div>
+              <h2 className="text-3xl font-bold text-foreground">
+                حمل تطبيق بُعد HR
+              </h2>
+            </div>
+            
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              احصل على تجربة أفضل مع التطبيق المحمول لإدارة شؤونك من أي مكان وفي أي وقت
+            </p>
+
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors px-8 py-4 text-lg font-medium"
+                onClick={() => navigate('/mobile-login')}
+              >
+                <div className="flex items-center gap-3">
+                  <Smartphone className="w-5 h-5" />
+                  <span>تسجيل دخول التطبيق</span>
+                </div>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors px-8 py-4 text-lg font-medium"
+              >
+                <div className="flex items-center gap-3">
+                  <span>آب ستور</span>
+                </div>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors px-8 py-4 text-lg font-medium"
+              >
+                <div className="flex items-center gap-3">
+                  <span>جوجل بلاي</span>
+                </div>
+              </Button>
+            </div>
+
+            <div className="bg-background/50 backdrop-blur-sm rounded-2xl p-8 border border-border shadow-sm">
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div className="space-y-2">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                    <Clock className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground">متاح 24/7</h3>
+                  <p className="text-sm text-muted-foreground">وصول مستمر لجميع خدماتك</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                    <Bell className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground">تنبيهات فورية</h3>
+                  <p className="text-sm text-muted-foreground">اشعارات لحظية لجميع التحديثات</p>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                    <Shield className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground">أمان عالي</h3>
+                  <p className="text-sm text-muted-foreground">حماية متقدمة لبياناتك الشخصية</p>
                 </div>
               </div>
             </div>
