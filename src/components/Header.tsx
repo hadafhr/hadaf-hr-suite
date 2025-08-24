@@ -37,13 +37,17 @@ export const Header: React.FC<HeaderProps> = ({
       <PromoBanner />
       <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
-        {/* التنقل الأساسي */}
-        <nav className="hidden md:flex items-center space-x-6 space-x-reverse">
+        {/* الشعار - يظهر على جميع الشاشات */}
+        <div className="flex items-center">
           <img 
             src="/lovable-uploads/abb82caf-e6f0-4313-98e6-97fdc89131ef.png" 
             alt="شعار بُعد BOUD HR" 
-            className="h-12 w-auto ml-4"
+            className="h-10 w-auto mr-4"
           />
+        </div>
+
+        {/* التنقل الأساسي */}
+        <nav className="hidden md:flex items-center space-x-6 space-x-reverse">
           <Link to="/" className="navigation-item">
             الرئيسية
           </Link>
