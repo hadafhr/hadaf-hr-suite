@@ -734,7 +734,7 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
+                    <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
                        <div className="flex flex-col items-center">
                          <img src="/lovable-uploads/3bb8cda9-761e-4268-8f44-76b21cecb2a4.png" alt="BOUD HR Logo" className="h-8 w-auto mb-3" />
                         <p className="text-sm text-gray-600 text-center font-bold mt-4">
