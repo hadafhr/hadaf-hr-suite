@@ -733,14 +733,14 @@ const BoudHRLandingPage: React.FC = () => {
                   <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full z-10"></div>
                   
                   {/* Phone Screen Content */}
-                  <div className="mt-1 px-6 space-y-2 relative z-20 h-full">
+                  <div className="px-6 space-y-2 relative z-20 h-full">
                     {/* App Header with Logo */}
                     <div className="text-center">
-                      <div className="flex items-center justify-center mb-2 mt-1">
+                      <div className="flex items-center justify-center mb-1">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-28 w-auto drop-shadow-sm"
+                          className="h-36 w-auto drop-shadow-sm"
                         />
                       </div>
                       <h3 className="text-lg font-bold text-primary text-center mb-1">مرحباً بك في بُعد</h3>
