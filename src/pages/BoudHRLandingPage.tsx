@@ -758,7 +758,7 @@ const BoudHRLandingPage: React.FC = () => {
                         <Button
                           size="sm" 
                           variant="ghost"
-                          className="text-white hover:text-primary text-xs py-1 px-3 flex items-center gap-1 font-bold"
+                          className="text-black hover:text-black text-xs py-1 px-3 flex items-center gap-1 font-bold bg-transparent"
                         >
                           <Globe className="w-2 h-2 text-black" />
                           عربي | EN
