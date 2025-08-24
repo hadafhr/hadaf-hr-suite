@@ -801,7 +801,7 @@ const BoudHRLandingPage: React.FC = () => {
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                           alt="BOUD HR Logo" 
-                          className="h-56 w-auto drop-shadow-lg mt-4 relative z-20"
+                          className="h-56 w-auto drop-shadow-lg relative z-20"
                         />
                       </div>
                       <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-20 relative z-20">مرحباً بك في بُعد</h3>
