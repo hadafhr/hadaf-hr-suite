@@ -766,14 +766,17 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Phone Mockup */}
             <div className="relative flex justify-center">
               <div className="relative">
-                <div className="w-72 h-[600px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] border-8 border-gray-700 shadow-2xl overflow-hidden">
+                <div className="w-72 h-[600px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] border-8 border-primary shadow-2xl shadow-primary/25 overflow-hidden">
                   {/* Phone Screen Header */}
                   <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gray-600 rounded-full z-10"></div>
                   
                   {/* App Content */}
-                  <div className="px-4 py-6 relative z-20 h-full bg-gradient-to-br from-gray-50 to-white">
+                  <div className="px-4 py-6 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 opacity-5 bg-gradient-to-br from-primary/20 to-accent/20"></div>
+                    
                     {/* App Header */}
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-2 relative z-10">
                       <div className="flex items-center justify-center -mb-8">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
@@ -786,14 +789,14 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
 
                     {/* Login Form */}
-                    <div className="space-y-4 px-2">
+                    <div className="space-y-4 px-2 relative z-10">
                       <div className="space-y-3">
                         <label className="text-lg font-bold text-gray-800 block text-center">اسم المنشأة</label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-14 text-lg border-3 border-gray-300 rounded-2xl focus:border-primary bg-white px-4 text-center font-bold text-gray-800 shadow-lg"
+                            className="w-full h-14 text-lg border-2 border-primary/30 rounded-2xl focus:border-primary bg-white/80 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg"
                             readOnly
                           />
                         </div>
@@ -822,7 +825,7 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full px-4">
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
                       <p className="text-sm text-gray-600 text-center font-bold">
                         © 2025 BOUD HR
                       </p>
