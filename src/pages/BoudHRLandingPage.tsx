@@ -776,7 +776,7 @@ const BoudHRLandingPage: React.FC = () => {
                   {/* App Content */}
                   <div className="px-4 py-6 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
                     {/* Background Pattern with BOUD Logo */}
-                    <div className="absolute inset-0 opacity-1 flex items-center justify-center">
+                    <div className="absolute inset-0 opacity-0.5 flex items-center justify-center">
                       <img 
                         src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
                         alt="Background Pattern" 
@@ -785,14 +785,14 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
                     
                     {/* Geometric Pattern Overlay */}
-                    <div className="absolute inset-0 opacity-2" style={{
-                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 1px, transparent 1px),
-                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.5px, transparent 0.5px)`,
-                      backgroundSize: '40px 40px'
+                    <div className="absolute inset-0 opacity-1" style={{
+                      backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.5px, transparent 0.5px),
+                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.3px, transparent 0.3px)`,
+                      backgroundSize: '50px 50px'
                     }}></div>
                     
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/2 via-transparent to-accent/2"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/1 via-transparent to-accent/1"></div>
                     
                     {/* App Header */}
                     <div className="text-center pt-2 relative z-10">
