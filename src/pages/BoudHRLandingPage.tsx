@@ -716,7 +716,7 @@ const BoudHRLandingPage: React.FC = () => {
                       <div className="space-y-3">
                         <label className="text-lg font-bold text-gray-800 block text-center">اسم المنشأة</label>
                         <div className="relative">
-                          <input type="text" placeholder="اكتب اسم المنشأة" className="w-full h-14 text-lg border-2 border-primary/30 rounded-2xl focus:border-primary bg-white/90 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg" readOnly />
+                          <input type="text" placeholder="اكتب اسم المنشأة" className="w-full h-14 text-lg border-2 border-gray-900 rounded-2xl focus:border-black bg-white/90 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg" readOnly />
                           {/* Inner border for input */}
                           <div className="absolute inset-0 rounded-2xl border border-white/50 pointer-events-none"></div>
                         </div>
