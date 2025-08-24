@@ -1,181 +1,157 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Fingerprint, Globe, Smartphone } from 'lucide-react';
+import { Globe, ArrowRight, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
 
 export const MobileLogin: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    rememberMe: false
-  });
+  const [organizationName, setOrganizationName] = useState('');
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', formData);
-    navigate('/mobile-dashboard');
-  };
-
-  const handleInputChange = (field: string, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    if (organizationName.trim()) {
+      // Navigate to organization-specific login or handle subdomain logic
+      console.log('Organization:', `${organizationName}.boud.com.sa`);
+      navigate('/employee-login');
+    }
   };
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'ar' ? 'en' : 'ar';
     i18n.changeLanguage(newLang);
-    document.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = newLang;
   };
 
-  const handleBiometricLogin = () => {
-    // Handle biometric login logic
-    console.log('Biometric login requested');
-  };
-
-  const handleNafathLogin = () => {
-    // Handle Nafath login logic
-    console.log('Nafath login requested');
-  };
+  const isArabic = i18n.language === 'ar';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 to-accent/10 flex flex-col">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">B</span>
-          </div>
-          <span className="font-bold text-xl">BOOD HR</span>
-        </div>
-        <Button variant="ghost" size="sm" onClick={toggleLanguage}>
-          <Globe className="h-5 w-5 mr-2" />
-          {i18n.language === 'ar' ? 'EN' : 'عربي'}
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Language Switcher - Top Left */}
+      <div className={`absolute top-8 ${isArabic ? 'right-4' : 'left-4'} z-10`}>
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          onClick={toggleLanguage}
+          className="gap-2 text-[#1A1A1A] hover:text-[#00BFA6] transition-colors"
+        >
+          <Globe className="h-4 w-4" />
+          <span className="text-sm font-medium">
+            {isArabic ? 'English' : 'عربي'}
+          </span>
         </Button>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center p-6">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">{t('welcome')}</CardTitle>
-            <CardDescription>{t('loginSubtitle')}</CardDescription>
-          </CardHeader>
+      {/* Main Content Container */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
+        
+        {/* Logo Section */}
+        <div className="text-center mb-8 mt-8">
+          <div className="mb-6">
+            <img 
+              src="/lovable-uploads/0f5b826b-a1dc-42aa-9554-7ba87e038e25.png" 
+              alt="BOUD HR Logo" 
+              className="h-20 w-auto mx-auto"
+            />
+          </div>
           
-          <CardContent className="space-y-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Username/Email Field */}
-              <div className="space-y-2">
-                <Label htmlFor="username">{t('username')}</Label>
+          {/* Welcome Message */}
+          <h1 className="text-3xl font-bold text-[#00BFA6] mb-2">
+            {isArabic ? 'مرحباً بك' : 'Welcome'}
+          </h1>
+          <p className="text-[#1A1A1A] text-lg opacity-80">
+            {isArabic ? 'في نظام بُعد لإدارة الموارد البشرية' : 'to BOUD HR Management System'}
+          </p>
+        </div>
+
+        {/* Login Form */}
+        <div className="w-full max-w-sm space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Organization Name Field */}
+            <div className="space-y-3">
+              <Label 
+                htmlFor="organizationName" 
+                className="text-base font-medium text-[#1A1A1A] block"
+              >
+                {isArabic ? 'اسم المنشأة' : 'Organization Name'}
+              </Label>
+              <div className="relative">
                 <Input
-                  id="username"
+                  id="organizationName"
                   type="text"
-                  placeholder={t('username')}
-                  value={formData.username}
-                  onChange={(e) => handleInputChange('username', e.target.value)}
-                  className="h-12"
+                  placeholder={isArabic ? 'اسم المنشأة' : 'Organization Name'}
+                  value={organizationName}
+                  onChange={(e) => setOrganizationName(e.target.value)}
+                  className="h-14 text-base border-2 border-[#EAEAEA] rounded-xl focus:border-[#00BFA6] focus:ring-[#00BFA6] pr-4 pl-4"
                   required
                 />
-              </div>
-
-              {/* Password Field */}
-              <div className="space-y-2">
-                <Label htmlFor="password">{t('password')}</Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder={t('password')}
-                    value={formData.password}
-                    onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="h-12 pr-10"
-                    required
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-12 px-3"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </Button>
+                <div className="absolute top-1/2 transform -translate-y-1/2 right-3 text-sm text-[#1A1A1A] opacity-60 pointer-events-none">
+                  .boud.com.sa
                 </div>
               </div>
+              {organizationName && (
+                <p className="text-sm text-[#00BFA6] font-medium animate-fade-in">
+                  {`${organizationName}.boud.com.sa`}
+                </p>
+              )}
+            </div>
 
-              {/* Remember Me & Forgot Password */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="rememberMe"
-                    checked={formData.rememberMe}
-                    onCheckedChange={(checked) => handleInputChange('rememberMe', checked)}
-                  />
-                  <Label htmlFor="rememberMe" className="text-sm">
-                    {t('rememberMe')}
-                  </Label>
-                </div>
-                <Button variant="link" className="text-sm p-0 h-auto">
-                  {t('forgotPassword')}
-                </Button>
-              </div>
+            {/* Continue Button */}
+            <Button 
+              type="submit" 
+              className="w-full h-14 text-lg font-semibold bg-[#00BFA6] hover:bg-[#00BFA6]/90 text-white rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg"
+              disabled={!organizationName.trim()}
+            >
+              <span>{isArabic ? 'متابعة' : 'Continue'}</span>
+              <ArrowRight className={`h-5 w-5 ${isArabic ? 'mr-2 rotate-180' : 'ml-2'}`} />
+            </Button>
+          </form>
 
-              {/* Login Button */}
-              <Button type="submit" className="w-full h-12 text-lg">
-                {t('login')}
-              </Button>
-            </form>
+          {/* Download App Section */}
+          <div className="text-center pt-8 border-t border-[#EAEAEA]">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Smartphone className="h-6 w-6 text-[#00BFA6]" />
+              <p className="text-[#1A1A1A] font-medium">
+                {isArabic ? 'حمل تطبيق بُعد' : 'Download BOUD HR App'}
+              </p>
+            </div>
+            
+            <p className="text-sm text-[#1A1A1A] opacity-70 mb-4">
+              {isArabic 
+                ? 'احصل على تجربة أفضل مع التطبيق المحمول'
+                : 'Get a better experience with our mobile app'
+              }
+            </p>
 
-            {/* Alternative Login Methods */}
-            <div className="space-y-3">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">أو</span>
-                </div>
-              </div>
-
-              {/* Biometric Login */}
-              <Button
-                variant="outline"
-                className="w-full h-12"
-                onClick={handleBiometricLogin}
+            <div className="flex gap-3 justify-center">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-[#00BFA6] text-[#00BFA6] hover:bg-[#00BFA6] hover:text-white transition-colors"
               >
-                <Fingerprint className="h-5 w-5 mr-2" />
-                {t('loginWithBiometrics')}
+                {isArabic ? 'آب ستور' : 'App Store'}
               </Button>
-
-              {/* Nafath Login */}
-              <Button
-                variant="outline"
-                className="w-full h-12"
-                onClick={handleNafathLogin}
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-[#00BFA6] text-[#00BFA6] hover:bg-[#00BFA6] hover:text-white transition-colors"
               >
-                <Smartphone className="h-5 w-5 mr-2" />
-                {t('loginWithNafath')}
+                {isArabic ? 'جوجل بلاي' : 'Google Play'}
               </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
-      <div className="p-4 text-center text-sm text-muted-foreground">
-        <p>© 2024 BOOD HR. جميع الحقوق محفوظة</p>
+      <div className="p-6 text-center">
+        <p className="text-sm text-[#1A1A1A] opacity-60">
+          © 2024 BOUD HR. {isArabic ? 'جميع الحقوق محفوظة' : 'All rights reserved'}
+        </p>
       </div>
     </div>
   );
