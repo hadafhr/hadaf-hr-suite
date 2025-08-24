@@ -694,8 +694,13 @@ const BoudHRLandingPage: React.FC = () => {
                     backgroundSize: '100px 100px'
                   }}></div>
                     
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] via-transparent to-accent/[0.01] border border-gray-800"></div>
+                     {/* Gradient Overlay */}
+                     <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] via-transparent to-accent/[0.01] border border-gray-800"></div>
+                     
+                     {/* Background Logo Pattern */}
+                     <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none z-5">
+                       <img src="/lovable-uploads/1fc0fdbf-df4b-474a-aa0f-2ea63f4e02d7.png" alt="Background Pattern" className="w-80 h-auto" />
+                     </div>
                     
                     {/* App Header */}
                     <div className="text-center pt-4 relative z-10">
