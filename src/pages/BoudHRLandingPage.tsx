@@ -743,20 +743,20 @@ const BoudHRLandingPage: React.FC = () => {
                           className="h-44 w-auto drop-shadow-sm"
                         />
                       </div>
-                      <h3 className="text-base font-bold text-primary text-center -mt-2">مرحباً بك في بُعد</h3>
-                      <h4 className="text-xs font-semibold text-gray-700 text-center">BOUD HR</h4>
+                      <h3 className="text-base font-bold text-primary text-center -mt-4">مرحباً بك في بُعد</h3>
+                      <h4 className="text-xs font-semibold text-gray-700 text-center -mt-1">BOUD HR</h4>
                     </div>
 
                     {/* Login Form */}
-                    <div className="space-y-4 px-2">
+                    <div className="space-y-3 px-2 -mt-2">
                       {/* Organization Name Input */}
-                      <div className="space-y-2">
+                      <div className="space-y-1">
                         <label className="text-xs font-medium text-gray-700 block text-center">اسم المنشأة</label>
                         <div className="relative">
                           <input
                             type="text"
                             placeholder="اكتب اسم المنشأة"
-                            className="w-full h-10 text-xs border-2 border-gray-200 rounded-lg focus:border-primary bg-gray-50 px-3 text-center"
+                            className="w-full h-8 text-xs border-2 border-gray-200 rounded-lg focus:border-primary bg-gray-50 px-3 text-center"
                             readOnly
                           />
                         </div>
@@ -767,18 +767,18 @@ const BoudHRLandingPage: React.FC = () => {
                       <Button 
                         size="sm"
                         onClick={() => navigate('/mobile-login')}
-                        className="w-full bg-primary hover:bg-primary/90 text-white text-sm py-3 font-semibold rounded-lg flex items-center justify-center gap-2"
+                        className="w-full bg-primary hover:bg-primary/90 text-white text-sm py-2 font-semibold rounded-lg flex items-center justify-center gap-2"
                       >
                         <ArrowLeft className="w-4 h-4 rotate-180" />
                         دخول
                       </Button>
 
                       {/* Language Toggle */}
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center justify-center -mt-1">
                         <Button
                           size="sm" 
                           variant="ghost"
-                          className="text-gray-500 hover:text-primary text-xs py-2 px-3 flex items-center gap-1"
+                          className="text-gray-500 hover:text-primary text-xs py-1 px-2 flex items-center gap-1"
                         >
                           <Globe className="w-3 h-3" />
                           عربي | EN
