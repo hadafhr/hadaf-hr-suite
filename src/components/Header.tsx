@@ -51,9 +51,6 @@ export const Header: React.FC<HeaderProps> = ({
           <Link to="/" className="navigation-item">
             الرئيسية
           </Link>
-          <Link to="/services" className="navigation-item">
-            خدماتنا
-          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="navigation-item">
