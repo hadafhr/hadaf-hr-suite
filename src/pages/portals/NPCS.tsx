@@ -23,6 +23,7 @@ import {
   Gift
 } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import { PatternBackground } from '@/components/PatternBackground';
 
 export const NPCS = () => {
   const { t, i18n } = useTranslation();
@@ -155,7 +156,8 @@ export const NPCS = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-background relative" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+      <PatternBackground opacity={0.02} size={130} />
       {/* Header */}
       <header className="bg-card border-b border-border sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">

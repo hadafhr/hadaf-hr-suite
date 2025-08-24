@@ -15,6 +15,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { PatternBackground } from '@/components/PatternBackground';
 
 const employeeServices = [
   {
@@ -94,7 +95,8 @@ export const EmployeeDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-6 relative">
+      <PatternBackground opacity={0.03} size={140} />
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">

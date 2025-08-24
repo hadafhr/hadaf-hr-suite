@@ -57,6 +57,7 @@ import {
   ChevronDown,
   Plus
 } from 'lucide-react';
+import { PatternBackground } from '@/components/PatternBackground';
 import { useToast } from '@/hooks/use-toast';
 
 const performanceData = [
@@ -131,7 +132,8 @@ export const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <PatternBackground opacity={0.025} size={160} />
       {/* Header with Back Button */}
       <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-16 items-center px-6">

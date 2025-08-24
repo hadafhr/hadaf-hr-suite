@@ -24,9 +24,9 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
 
   // اختيار الشعار المناسب - الشعار الرسمي الجديد
   const logoSrc = {
-    full: '/lovable-uploads/9faa3f3d-a72e-48f0-86a7-264e2ad4a286.png', // الشعار الجديد لـ BOUD HR
-    icon: '/lovable-uploads/9faa3f3d-a72e-48f0-86a7-264e2ad4a286.png', // الشعار الجديد لـ BOUD HR
-    pattern: '/lovable-uploads/9faa3f3d-a72e-48f0-86a7-264e2ad4a286.png' // للاستخدام كنمط
+    full: '/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png', // الشعار الجديد لـ BOUD HR
+    icon: '/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png', // الشعار الجديد لـ BOUD HR
+    pattern: '/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png' // للاستخدام كنمط
   };
 
   const finalClassName = className || sizeClasses[size];
@@ -34,11 +34,15 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
   // في حالة النمط المتكرر
   if (variant === 'pattern') {
     return (
-      <div className={`opacity-10 ${finalClassName}`}>
-        <img 
-          src={logoSrc.pattern}
-          alt="" 
-          className={finalClassName}
+      <div className={`fixed inset-0 pointer-events-none z-0 overflow-hidden`}>
+        <div 
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `url(${logoSrc.pattern})`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '120px 120px',
+            backgroundPosition: 'center'
+          }}
         />
       </div>
     );

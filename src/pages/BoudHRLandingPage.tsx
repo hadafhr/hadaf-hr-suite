@@ -15,6 +15,7 @@ import teamCollaboration from '@/assets/team-collaboration.jpg';
 import ecssPoral from '@/assets/e-css-portal.jpg';
 import eisPortal from '@/assets/eis-portal.jpg';
 import npcsPortal from '@/assets/npcs-portal.jpg';
+import { PatternBackground } from '@/components/PatternBackground';
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -323,6 +324,7 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative py-20 lg:py-32 overflow-hidden">
+        <PatternBackground opacity={0.02} size={150} />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/10"></div>
         <div className="container mx-auto px-6 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -371,7 +373,8 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section id="solutions" className="py-20 bg-muted/50">
+      <section id="solutions" className="relative py-20 bg-muted/50">
+        <PatternBackground opacity={0.015} size={200} />
         <div className="container mx-auto px-6">
           <div className="text-center space-y-6 mb-16">
             <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
@@ -444,7 +447,8 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20">
+      <section className="relative py-20">
+        <PatternBackground opacity={0.02} size={180} />
         <div className="container mx-auto px-6">
           <div className="text-center space-y-6 mb-16">
             <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
@@ -477,7 +481,8 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-muted/50">
+      <section className="relative py-20 bg-muted/50">
+        <PatternBackground opacity={0.015} size={160} />
         <div className="container mx-auto px-6">
           <div className="text-center space-y-6 mb-16">
             <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
@@ -517,7 +522,8 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Mobile App Download Section */}
-      <section id="mobile-app" className="py-20 bg-background relative overflow-hidden">
+      <section id="mobile-app" className="relative py-20 bg-background overflow-hidden">
+        <PatternBackground opacity={0.02} size={140} />
         {/* Subtle Background Effects */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
         
