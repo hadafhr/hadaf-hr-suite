@@ -682,10 +682,10 @@ const BoudHRLandingPage: React.FC = () => {
                   
                   {/* App Content */}
                   <div className="px-4 py-8 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
-                    {/* Background Pattern with BOUD Logo */}
-                    <div className="absolute inset-0 opacity-[0.002] flex items-center justify-center">
-                      <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="Background Pattern" className="w-96 h-96 object-contain rotate-12 scale-150" />
-                    </div>
+                     {/* Background Pattern with BOUD Logo */}
+                     <div className="absolute inset-0 opacity-[0.015] flex items-center justify-center">
+                       <img src="/lovable-uploads/07038205-c0e2-4432-b52b-5efb7069cfd7.png" alt="Background Pattern" className="w-96 h-96 object-contain rotate-12 scale-150" />
+                     </div>
                     
                     {/* Geometric Pattern Overlay */}
                     <div className="absolute inset-0 opacity-[0.005]" style={{
