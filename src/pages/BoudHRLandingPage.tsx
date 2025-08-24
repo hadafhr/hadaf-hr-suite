@@ -700,7 +700,7 @@ const BoudHRLandingPage: React.FC = () => {
                     {/* App Header */}
                     <div className="text-center pt-4 relative z-10">
                       <div className="flex items-center justify-center -mb-8">
-                        <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="BOUD HR Logo" className="h-56 w-auto drop-shadow-lg -mt-32 relative z-20" />
+                        <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="BOUD HR Logo" className="h-56 w-auto drop-shadow-lg -mt-28 relative z-20" />
                       </div>
                       <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-20 relative z-20">مرحباً بك في بُعد</h3>
                       <h4 className="text-lg font-bold text-primary mb-4 relative z-20">BOUD HR</h4>
