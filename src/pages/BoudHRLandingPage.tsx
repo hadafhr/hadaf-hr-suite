@@ -696,7 +696,7 @@ const BoudHRLandingPage: React.FC = () => {
                       <GraduationCap className="w-7 h-7 text-white" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">الدورات التدريبية</h3>
+                      <h3 className="font-bold text-white text-xl mb-3 group-hover:text-primary transition-colors">دورات تدريبية وتطويرية</h3>
                       <p className="text-gray-300 leading-relaxed">منصة تعلم متكاملة مع دورات تفاعلية ومتابعة التقدم</p>
                     </div>
                   </div>
