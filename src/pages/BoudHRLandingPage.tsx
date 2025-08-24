@@ -160,7 +160,7 @@ const BoudHRLandingPage: React.FC = () => {
   }];
   return <div className="min-h-screen bg-background font-arabic">
       {/* Header */}
-      <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
+      <header className="bg-background border-none sticky top-0 z-50">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
