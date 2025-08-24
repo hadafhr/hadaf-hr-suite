@@ -766,15 +766,16 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Phone Mockup */}
             <div className="relative flex justify-center">
               <div className="relative">
-                <div className="w-72 h-[600px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] border-8 border-primary shadow-2xl shadow-primary/25 overflow-hidden">
-                  {/* Inner Border */}
-                  <div className="absolute inset-2 rounded-[2.5rem] border-2 border-primary/30 pointer-events-none z-30"></div>
+                <div className="w-72 h-[600px] bg-gradient-to-br from-gray-900 to-black rounded-[3rem] border-4 border-primary shadow-2xl shadow-primary/25 overflow-hidden">
+                  {/* iPhone Notch */}
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30 border-2 border-gray-800"></div>
+                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-28 h-2 bg-gray-800 rounded-full z-40"></div>
                   
-                  {/* Phone Screen Header */}
-                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gray-600 rounded-full z-10"></div>
+                  {/* Inner Border */}
+                  <div className="absolute inset-1 rounded-[2.8rem] border border-primary/20 pointer-events-none z-30"></div>
                   
                   {/* App Content */}
-                  <div className="px-4 py-6 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
+                  <div className="px-4 py-8 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
                     {/* Background Pattern with BOUD Logo */}
                     <div className="absolute inset-0 opacity-0.5 flex items-center justify-center">
                       <img 
@@ -795,7 +796,7 @@ const BoudHRLandingPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/1 via-transparent to-accent/1"></div>
                     
                     {/* App Header */}
-                    <div className="text-center pt-2 relative z-10">
+                    <div className="text-center pt-4 relative z-10">
                       <div className="flex items-center justify-center -mb-8">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
@@ -846,15 +847,15 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
 
                     {/* Footer */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
+                    <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
                       <p className="text-sm text-gray-600 text-center font-bold">
                         © 2025 BOUD HR
                       </p>
                     </div>
                   </div>
 
-                  {/* Phone Bottom Indicator */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1.5 bg-gray-600 rounded-full z-10"></div>
+                  {/* iPhone Home Indicator */}
+                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full z-10"></div>
                 </div>
                 
                 {/* Interactive Labels */}
