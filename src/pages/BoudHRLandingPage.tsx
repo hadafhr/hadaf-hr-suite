@@ -627,16 +627,7 @@ const BoudHRLandingPage: React.FC = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              {/* Logo Section */}
-              <div className="flex justify-center lg:justify-start mb-8">
-                <img 
-                  src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
-                  alt="BOUD HR Logo" 
-                  className="h-20 w-auto"
-                />
-              </div>
-
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div className="flex items-start gap-4 p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-primary" />
