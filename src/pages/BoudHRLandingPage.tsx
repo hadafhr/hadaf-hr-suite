@@ -670,7 +670,7 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
             
             {/* Phone Mockup */}
-            <div className="relative flex justify-center border border-black">
+            <div className="relative flex justify-center">
               <div className="relative">
                 <div className="w-72 h-[600px] bg-gradient-to-br from-gray-900 to-black rounded-[3rem] border-4 border-primary shadow-2xl shadow-primary/25 overflow-hidden">
                   {/* iPhone Notch */}
