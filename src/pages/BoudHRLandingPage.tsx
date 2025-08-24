@@ -735,7 +735,7 @@ const BoudHRLandingPage: React.FC = () => {
                   {/* Phone Screen Content */}
                   <div className="px-3 relative z-20 h-full">
                     {/* App Header with Logo */}
-                    <div className="text-center -mt-2">
+                    <div className="text-center pt-2">
                       <div className="flex items-center justify-center -mb-1">
                         <img 
                           src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" 
