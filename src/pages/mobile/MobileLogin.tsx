@@ -53,7 +53,7 @@ export const MobileLogin: React.FC = () => {
         <div className="text-center mb-8 mt-8">
           <div className="mb-6">
             <img 
-              src="/lovable-uploads/0f5b826b-a1dc-42aa-9554-7ba87e038e25.png" 
+              src="/lovable-uploads/dbf35ad7-663d-4261-9fd0-178e0b804802.png" 
               alt="BOUD HR Logo" 
               className="h-20 w-auto mx-auto"
             />
