@@ -40,9 +40,9 @@ export const Header: React.FC<HeaderProps> = ({
         {/* الشعار - يظهر على جميع الشاشات */}
         <div className="flex items-center">
           <img 
-            src="/lovable-uploads/abb82caf-e6f0-4313-98e6-97fdc89131ef.png" 
+            src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" 
             alt="شعار بُعد BOUD HR" 
-            className="h-10 w-auto mr-4"
+            className="h-55 w-auto mr-4"
           />
         </div>
 
