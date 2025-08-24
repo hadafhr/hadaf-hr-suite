@@ -202,24 +202,6 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
-                  خدماتنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.services.map((item, index) => (
-                    <DropdownMenuItem key={index} asChild>
-                      <button 
-                        onClick={() => navigate(item.href)} 
-                        className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3"
-                      >
-                        <Users className="w-4 h-4" />
-                        {item.name}
-                      </button>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
 
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
@@ -341,18 +323,6 @@ const BoudHRLandingPage: React.FC = () => {
                 <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
                 </a>
-                <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
-                    خدماتنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.services.map((item, index) => (
-                      <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </details>
                 <details className="group">
                   <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
@@ -1474,16 +1444,6 @@ const BoudHRLandingPage: React.FC = () => {
               </ul>
             </div>
             
-            {/* Services */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">خدماتنا</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-background/80 hover:text-background transition-colors">إدارة الموظفين</a></li>
-                <li><a href="#" className="text-background/80 hover:text-background transition-colors">حماية الأجور</a></li>
-                <li><a href="#" className="text-background/80 hover:text-background transition-colors">التقييمات الذكية</a></li>
-                <li><a href="#" className="text-background/80 hover:text-background transition-colors">التكامل الحكومي</a></li>
-              </ul>
-            </div>
             
             {/* Contact Info */}
             <div>
