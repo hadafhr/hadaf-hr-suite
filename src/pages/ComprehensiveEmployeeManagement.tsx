@@ -40,6 +40,7 @@ import {
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
 import { SystemSettings } from '@/components/settings/SystemSettings';
+import { NotificationSystem } from '@/components/NotificationSystem';
 import TeamMembers from '@/components/systems/TeamMembers';
 import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
 import AttendanceDashboard from '@/components/attendance/AttendanceDashboard';
@@ -327,8 +328,15 @@ const ComprehensiveEmployeeManagement = () => {
                   value="requests" 
                   className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
                 >
+                  <CheckSquare className="h-4 w-4 ml-2 flex-shrink-0" />
+                  الطلبات والإشعارات
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="notifications" 
+                  className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
+                >
                   <Megaphone className="h-4 w-4 ml-2 flex-shrink-0" />
-                  الطلبات والاشعارات
+                  مركز الإشعارات
                 </TabsTrigger>
                 <TabsTrigger 
                   value="ai" 
@@ -443,6 +451,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="requests">
             <RequestsNotifications onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="notifications">
+            <NotificationSystem onNavigateToSection={setActiveTab} />
           </TabsContent>
 
           <TabsContent value="ai">
