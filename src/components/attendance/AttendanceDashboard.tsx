@@ -39,16 +39,30 @@ const AttendanceDashboard = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [isClockingIn, setIsClockingIn] = useState(false);
   const [currentLocation, setCurrentLocation] = useState<string>('');
+  const [selectedStatsDialog, setSelectedStatsDialog] = useState<string | null>(null);
+  const [detailsDialogData, setDetailsDialogData] = useState<any[]>([]);
 
   // إحصائيات اليوم
   const [todayStats, setTodayStats] = useState({
-    totalEmployees: 0,
-    present: 0,
-    absent: 0,
-    late: 0,
-    remote: 0,
-    onBreak: 0
+    totalEmployees: 245,
+    present: 189,
+    absent: 8,
+    late: 12,
+    remote: 15,
+    onBreak: 21
   });
+
+  // بيانات وهمية للموظفين - محدثة ومفصلة أكثر
+  const mockEmployees = [
+    { id: 'EMP001', name: 'أحمد محمد العلي', department: 'تقنية المعلومات', status: 'present', location: 'GPS - المكتب الرئيسي', checkInMethod: 'تطبيق الجوال', checkInTime: '08:00', checkOutTime: '17:30' },
+    { id: 'EMP002', name: 'فاطمة أحمد سالم', department: 'الموارد البشرية', status: 'late', location: 'بصمة - المدخل الرئيسي', checkInMethod: 'جهاز البصمة', checkInTime: '08:30', checkOutTime: '17:00' },
+    { id: 'EMP003', name: 'عبدالله يوسف خالد', department: 'المالية', status: 'present', location: 'GPS - المكتب الرئيسي', checkInMethod: 'تطبيق الجوال', checkInTime: '07:45', checkOutTime: '16:45' },
+    { id: 'EMP004', name: 'نورا سالم المطيري', department: 'التسويق', status: 'remote', location: 'GPS - العمل من المنزل', checkInMethod: 'تطبيق الجوال', checkInTime: '09:00', checkOutTime: null },
+    { id: 'EMP005', name: 'محمد خالد الشمري', department: 'المبيعات', status: 'absent', location: null, checkInMethod: null, checkInTime: null, checkOutTime: null },
+    { id: 'EMP006', name: 'سارة أحمد الدوسري', department: 'العمليات', status: 'present', location: 'بصمة - المدخل الجانبي', checkInMethod: 'جهاز البصمة', checkInTime: '08:15', checkOutTime: '17:15' },
+    { id: 'EMP007', name: 'علي حسن القحطاني', department: 'تقنية المعلومات', status: 'late', location: 'GPS - المكتب الرئيسي', checkInMethod: 'تطبيق الجوال', checkInTime: '08:45', checkOutTime: null },
+    { id: 'EMP008', name: 'مريم عبدالله النجار', department: 'الجودة', status: 'present', location: 'بصمة - المدخل الرئيسي', checkInMethod: 'جهاز البصمة', checkInTime: '07:55', checkOutTime: '16:55' }
+  ];
 
   useEffect(() => {
     loadTodayStats();
@@ -57,30 +71,48 @@ const AttendanceDashboard = () => {
   }, [selectedDate]);
 
   const loadTodayStats = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('attendance_records_new')
-        .select('status, is_remote')
-        .eq('attendance_date', selectedDate);
+    // استخدام البيانات الوهمية
+    const stats = {
+      totalEmployees: 245,
+      present: 189,
+      absent: 8,
+      late: 12,
+      remote: 15,
+      onBreak: 21
+    };
+    setTodayStats(stats);
+  };
 
-      if (error) {
-        console.error('Error loading stats:', error);
-        return;
-      }
-
-      const stats = {
-        totalEmployees: data?.length || 0,
-        present: data?.filter(r => r.status === 'present').length || 0,
-        absent: data?.filter(r => r.status === 'absent').length || 0,
-        late: data?.filter(r => r.status === 'late').length || 0,
-        remote: data?.filter(r => r.is_remote).length || 0,
-        onBreak: 0 // سيتم حسابها بناء على أوقات الاستراحة
-      };
-
-      setTodayStats(stats);
-    } catch (error) {
-      console.error('Error loading stats:', error);
+  const handleStatsClick = (statType: string) => {
+    let filteredData: any[] = [];
+    
+    switch (statType) {
+      case 'present':
+        filteredData = mockEmployees.filter(emp => emp.status === 'present');
+        setSelectedStatsDialog('الموظفين الحاضرين');
+        break;
+      case 'absent':
+        filteredData = mockEmployees.filter(emp => emp.status === 'absent');
+        setSelectedStatsDialog('الموظفين الغائبين');
+        break;
+      case 'late':
+        filteredData = mockEmployees.filter(emp => emp.status === 'late');
+        setSelectedStatsDialog('الموظفين المتأخرين');
+        break;
+      case 'remote':
+        filteredData = mockEmployees.filter(emp => emp.status === 'remote');
+        setSelectedStatsDialog('الموظفين العاملين عن بُعد');
+        break;
+      case 'total':
+        filteredData = mockEmployees;
+        setSelectedStatsDialog('جميع الموظفين');
+        break;
+      default:
+        filteredData = mockEmployees.slice(0, 5);
+        setSelectedStatsDialog('الموظفين في الاستراحة');
     }
+    
+    setDetailsDialogData(filteredData);
   };
 
   const loadAttendanceRecords = async () => {
@@ -272,74 +304,98 @@ const AttendanceDashboard = () => {
         </div>
       </div>
 
-      {/* إحصائيات سريعة */}
+      {/* إحصائيات سريعة تفاعلية */}
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-        <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+        <Card 
+          className="bg-gradient-to-r from-blue-500 to-blue-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          onClick={() => handleStatsClick('total')}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 text-sm">إجمالي الموظفين</p>
                 <p className="text-2xl font-bold">{todayStats.totalEmployees}</p>
+                <p className="text-xs text-blue-200 mt-1">اضغط لعرض التفاصيل</p>
               </div>
               <Users className="h-8 w-8 text-blue-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
+        <Card 
+          className="bg-gradient-to-r from-green-500 to-green-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          onClick={() => handleStatsClick('present')}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-sm">حاضرون</p>
                 <p className="text-2xl font-bold">{todayStats.present}</p>
+                <p className="text-xs text-green-200 mt-1">اضغط لعرض الأسماء</p>
               </div>
               <UserCheck className="h-8 w-8 text-green-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-red-500 to-red-600 text-white">
+        <Card 
+          className="bg-gradient-to-r from-red-500 to-red-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          onClick={() => handleStatsClick('absent')}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-red-100 text-sm">غائبون</p>
                 <p className="text-2xl font-bold">{todayStats.absent}</p>
+                <p className="text-xs text-red-200 mt-1">اضغط لعرض الأسماء</p>
               </div>
               <UserX className="h-8 w-8 text-red-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white">
+        <Card 
+          className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          onClick={() => handleStatsClick('late')}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-yellow-100 text-sm">متأخرون</p>
                 <p className="text-2xl font-bold">{todayStats.late}</p>
+                <p className="text-xs text-yellow-200 mt-1">اضغط لعرض الأسماء</p>
               </div>
               <AlertTriangle className="h-8 w-8 text-yellow-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+        <Card 
+          className="bg-gradient-to-r from-purple-500 to-purple-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          onClick={() => handleStatsClick('remote')}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-sm">عمل عن بُعد</p>
                 <p className="text-2xl font-bold">{todayStats.remote}</p>
+                <p className="text-xs text-purple-200 mt-1">اضغط لعرض الأسماء</p>
               </div>
               <MapIcon className="h-8 w-8 text-purple-200" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+        <Card 
+          className="bg-gradient-to-r from-orange-500 to-orange-600 text-white cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          onClick={() => handleStatsClick('break')}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100 text-sm">في الاستراحة</p>
                 <p className="text-2xl font-bold">{todayStats.onBreak}</p>
+                <p className="text-xs text-orange-200 mt-1">اضغط لعرض الأسماء</p>
               </div>
               <Timer className="h-8 w-8 text-orange-200" />
             </div>
@@ -418,57 +474,76 @@ const AttendanceDashboard = () => {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {attendanceRecords.map((record) => (
-                    <div key={record.id} className="border rounded-lg p-4">
+                  {mockEmployees.map((employee) => (
+                    <div key={employee.id} className="border rounded-lg p-6 bg-white hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                          <div className="p-2 bg-primary/10 rounded-full">
-                            <Users className="h-5 w-5 text-primary" />
+                          <div className="p-3 bg-primary/10 rounded-full">
+                            <Users className="h-6 w-6 text-primary" />
                           </div>
                           <div>
-                            <h4 className="font-medium">موظف {record.employee_id.substring(0, 8)}</h4>
+                            <h4 className="font-semibold text-lg">{employee.name}</h4>
                             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                              <span>جدول العمل: {record.work_schedules?.name || 'غير محدد'}</span>
-                              {record.is_remote && (
-                                <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                                  عمل عن بُعد
-                                </Badge>
-                              )}
+                              <span>الإدارة: {employee.department}</span>
+                              <span>الرقم الوظيفي: {employee.id}</span>
+                              {getStatusBadge(employee.status)}
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-8">
                           <div className="text-center">
-                            <div className="text-sm font-medium">وقت الحضور</div>
-                            <div className="text-lg font-bold text-green-600">
-                              {formatTime(record.clock_in_time)}
+                            <div className="text-sm font-medium text-muted-foreground">وقت الحضور</div>
+                            <div className="text-xl font-bold text-green-600">
+                              {employee.checkInTime || '--:--'}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              {employee.checkInMethod || 'لم يسجل'}
                             </div>
                           </div>
                           <div className="text-center">
-                            <div className="text-sm font-medium">وقت الانصراف</div>
-                            <div className="text-lg font-bold text-red-600">
-                              {formatTime(record.clock_out_time)}
+                            <div className="text-sm font-medium text-muted-foreground">وقت الانصراف</div>
+                            <div className="text-xl font-bold text-red-600">
+                              {employee.checkOutTime || '--:--'}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              {employee.checkOutTime ? employee.checkInMethod : 'لم ينصرف بعد'}
                             </div>
                           </div>
                           <div className="text-center">
-                            <div className="text-sm font-medium">ساعات العمل</div>
-                            <div className="text-lg font-bold">
-                              {record.total_hours || calculateWorkingHours(record.clock_in_time, record.clock_out_time)}
+                            <div className="text-sm font-medium text-muted-foreground">ساعات العمل</div>
+                            <div className="text-xl font-bold text-blue-600">
+                              {employee.checkInTime && employee.checkOutTime 
+                                ? calculateWorkingHours(`2024-03-20T${employee.checkInTime}:00`, `2024-03-20T${employee.checkOutTime}:00`)
+                                : '--:--'
+                              }
                             </div>
                           </div>
                           <div className="text-center">
-                            <div className="text-sm font-medium">الحالة</div>
-                            {getStatusBadge(record.status)}
+                            <div className="text-sm font-medium text-muted-foreground">الموقع</div>
+                            <div className="text-sm font-medium max-w-32 text-center">
+                              {employee.location || 'غير محدد'}
+                            </div>
+                            <div className="flex items-center justify-center gap-1  mt-1">
+                              {employee.location?.includes('GPS') ? (
+                                <MapPin className="h-3 w-3 text-blue-500" />
+                              ) : employee.location?.includes('بصمة') ? (
+                                <Timer className="h-3 w-3 text-green-500" />
+                              ) : null}
+                              <span className="text-xs text-muted-foreground">
+                                {employee.location?.includes('GPS') ? 'GPS' : 
+                                 employee.location?.includes('بصمة') ? 'البصمة' : 'غير محدد'}
+                              </span>
+                            </div>
                           </div>
                           <div className="flex gap-2">
                             <Button variant="outline" size="sm">
                               <Eye className="h-4 w-4 ml-1" />
                               عرض
                             </Button>
-                            {!record.clock_out_time && (
+                            {!employee.checkOutTime && (
                               <Button 
                                 size="sm"
-                                onClick={() => handleClockOut(record.id)}
+                                onClick={() => handleClockOut(employee.id)}
                               >
                                 <Clock className="h-4 w-4 ml-1" />
                                 انصراف
@@ -477,13 +552,6 @@ const AttendanceDashboard = () => {
                           </div>
                         </div>
                       </div>
-                      {record.notes && (
-                        <div className="mt-3 p-2 bg-muted rounded">
-                          <p className="text-sm text-muted-foreground">
-                            <strong>ملاحظات:</strong> {record.notes}
-                          </p>
-                        </div>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -491,6 +559,56 @@ const AttendanceDashboard = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        {/* Dialog لعرض تفاصيل الإحصائيات */}
+        <Dialog open={selectedStatsDialog !== null} onOpenChange={() => setSelectedStatsDialog(null)}>
+          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-xl">{selectedStatsDialog}</DialogTitle>
+              <DialogDescription>
+                قائمة بأسماء الموظفين وتفاصيل حضورهم
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              {detailsDialogData.map((employee) => (
+                <div key={employee.id} className="border rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-primary/10 rounded-full">
+                        <Users className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">{employee.name}</h4>
+                        <p className="text-sm text-muted-foreground">{employee.department} - {employee.id}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-6">
+                      <div className="text-center">
+                        <div className="text-xs font-medium text-muted-foreground">الحضور</div>
+                        <div className="text-sm font-bold text-green-600">
+                          {employee.checkInTime || '--:--'}
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xs font-medium text-muted-foreground">الانصراف</div>
+                        <div className="text-sm font-bold text-red-600">
+                          {employee.checkOutTime || '--:--'}
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xs font-medium text-muted-foreground">الموقع</div>
+                        <div className="text-xs">
+                          {employee.location || 'غير محدد'}
+                        </div>
+                      </div>
+                      {getStatusBadge(employee.status)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <TabsContent value="weekly" className="space-y-6">
           <Card>
