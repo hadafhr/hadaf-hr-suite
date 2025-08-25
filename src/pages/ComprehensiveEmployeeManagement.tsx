@@ -34,7 +34,8 @@ import {
   CheckSquare,
   Megaphone,
   Bot,
-  User
+  User,
+  Star
 } from 'lucide-react';
 
 // Import components
@@ -63,6 +64,7 @@ import { RequestsNotifications } from '@/components/systems/RequestsNotification
 import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
 import { Reports } from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
+import TalentManagement from '@/components/systems/TalentManagement';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -283,6 +285,13 @@ const ComprehensiveEmployeeManagement = () => {
                   التدريب والتطوير
                 </TabsTrigger>
                 <TabsTrigger 
+                  value="talents" 
+                  className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
+                >
+                  <Star className="h-4 w-4 ml-2 flex-shrink-0" />
+                  إدارة المواهب
+                </TabsTrigger>
+                <TabsTrigger 
                   value="recruitment" 
                   className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
                 >
@@ -364,7 +373,7 @@ const ComprehensiveEmployeeManagement = () => {
             
             {/* Navigation Helper */}
             <div className="flex justify-center mt-2">
-              <p className="text-xs text-muted-foreground">اسحب لليمين أو اليسار لعرض جميع الأنظمة (22 نظام)</p>
+              <p className="text-xs text-muted-foreground">اسحب لليمين أو اليسار لعرض جميع الأنظمة (23 نظام)</p>
             </div>
           </div>
 
@@ -423,6 +432,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="training">
             <TrainingDevelopment />
+          </TabsContent>
+
+          <TabsContent value="talents">
+            <TalentManagement />
           </TabsContent>
 
           <TabsContent value="recruitment">
