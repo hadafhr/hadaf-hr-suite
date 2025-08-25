@@ -23,9 +23,7 @@ import {
   Shield,
   Settings,
   Eye,
-  Trash2,
-  Mark,
-  MarkAsRead
+  Trash2
 } from 'lucide-react';
 
 interface Notification {
