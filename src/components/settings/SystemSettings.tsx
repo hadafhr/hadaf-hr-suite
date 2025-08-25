@@ -62,7 +62,6 @@ import {
   Link,
   Code,
   Webhook,
-  API,
   Bot,
   MessageSquare,
   Headphones,

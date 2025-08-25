@@ -57,7 +57,8 @@ import {
   Phone,
   Mail,
   Laptop,
-  Globe
+  Globe,
+  Settings
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -580,7 +581,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
                   <CalendarClock className="h-3 w-3 ml-1" />
                   الاجتماعات
                 </Button>
-                <Button variant="ghost" size="sm" className="justify-start text-xs" onClick={() => onNavigateToSection?.('settings')}>
+                <Button variant="outline" size="sm" className="justify-start text-xs" onClick={() => onNavigateToSection?.('settings')}>
                   <Settings className="h-3 w-3 ml-1" />
                   الإعدادات
                 </Button>
