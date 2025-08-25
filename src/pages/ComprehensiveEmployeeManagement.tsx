@@ -35,7 +35,8 @@ import {
   Megaphone,
   Bot,
   User,
-  Star
+  Star,
+  MessageSquare
 } from 'lucide-react';
 
 // Import components
@@ -60,7 +61,7 @@ import { RewardsIncentivesManagement } from '@/components/systems/RewardsIncenti
 import MeetingHub from '@/pages/MeetingHub';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
-import { RequestsNotifications } from '@/components/systems/RequestsNotifications';
+import { CombinedRequestsNotifications } from '@/components/systems/CombinedRequestsNotifications';
 import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
 import { Reports } from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
@@ -337,15 +338,8 @@ const ComprehensiveEmployeeManagement = () => {
                   value="requests" 
                   className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
                 >
-                  <CheckSquare className="h-4 w-4 ml-2 flex-shrink-0" />
+                  <MessageSquare className="h-4 w-4 ml-2 flex-shrink-0" />
                   الطلبات والإشعارات
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="notifications" 
-                  className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
-                >
-                  <Megaphone className="h-4 w-4 ml-2 flex-shrink-0" />
-                  مركز الإشعارات
                 </TabsTrigger>
                 <TabsTrigger 
                   value="ai" 
@@ -373,7 +367,7 @@ const ComprehensiveEmployeeManagement = () => {
             
             {/* Navigation Helper */}
             <div className="flex justify-center mt-2">
-              <p className="text-xs text-muted-foreground">اسحب لليمين أو اليسار لعرض جميع الأنظمة (23 نظام)</p>
+              <p className="text-xs text-muted-foreground">اسحب لليمين أو اليسار لعرض جميع الأنظمة (22 نظام)</p>
             </div>
           </div>
 
@@ -463,11 +457,10 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="requests">
-            <RequestsNotifications onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="notifications">
-            <NotificationSystem onNavigateToSection={setActiveTab} />
+            <CombinedRequestsNotifications 
+              onBack={() => setActiveTab('dashboard')} 
+              onNavigateToSection={setActiveTab}
+            />
           </TabsContent>
 
           <TabsContent value="ai">
