@@ -528,6 +528,13 @@ const ComprehensiveEmployeeManagement = () => {
                   <FileBarChart className="h-4 w-4 ml-2 flex-shrink-0" />
                   التقارير
                 </TabsTrigger>
+                <TabsTrigger 
+                  value="settings" 
+                  className="flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center"
+                >
+                  <Settings className="h-4 w-4 ml-2 flex-shrink-0" />
+                  الإعدادات
+                </TabsTrigger>
               </TabsList>
             </div>
             
@@ -539,8 +546,8 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Dashboard Tab */}
           <TabsContent value="dashboard" className="space-y-6">
-            {/* Statistics Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            <ComprehensiveDashboard onNavigateToSection={setActiveTab} />
+          </TabsContent>
               <Card className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all animate-fade-in">
                 <CardContent className="p-4 text-center">
                   <div className="flex items-center justify-center mb-2">
