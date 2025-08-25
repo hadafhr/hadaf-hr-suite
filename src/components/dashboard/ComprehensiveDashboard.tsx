@@ -294,28 +294,32 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       title: 'انتهاء عقد - سارة أحمد',
       date: '2024-04-15',
       type: 'contract',
-      urgent: true
+      urgent: true,
+      action: () => onNavigateToSection?.('employees')
     },
     {
       id: 2,
       title: 'اجتماع تقييم الأداء',
       date: '2024-04-18',
       type: 'meeting',
-      urgent: false
+      urgent: false,
+      action: () => onNavigateToSection?.('meetings')
     },
     {
       id: 3,
       title: 'بداية برنامج تدريبي جديد',
       date: '2024-04-20',
       type: 'training',
-      urgent: false
+      urgent: false,
+      action: () => onNavigateToSection?.('training')
     },
     {
       id: 4,
       title: 'مراجعة سياسات الشركة',
       date: '2024-04-22',
       type: 'policy',
-      urgent: false
+      urgent: false,
+      action: () => onNavigateToSection?.('governance')
     }
   ];
 
@@ -346,6 +350,30 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       color: 'bg-purple-600 hover:bg-purple-700'
     }
   ];
+
+  // دالة للتنقل بين الأقسام
+  const handleSectionNavigation = (section: string) => {
+    // قائمة الأقسام وما يقابلها في التبويبات
+    const sectionMapping: { [key: string]: string } = {
+      'فريق العمل': 'employees',
+      'الإدارات والأقسام': 'departments', 
+      'الحضور والانصراف': 'attendance',
+      'الجزاءات والعقوبات': 'disciplinary',
+      'الإجازات والعطلات': 'leaves',
+      'الرواتب والأجور': 'payroll',
+      'التكامل والربط': 'government',
+      'التطوير والتنظيم المؤسسي': 'organization',
+      'الموارد البشرية': 'employees',
+      'التوظيف': 'recruitment',
+      'الأداء': 'performance',
+      'العقود': 'employees',
+      'المخالفات': 'disciplinary',
+      'التدريب والتطوير': 'training'
+    };
+    
+    const targetSection = sectionMapping[section] || section.toLowerCase();
+    onNavigateToSection?.(targetSection);
+  };
 
   const getTrendColor = (trend: string) => {
     if (trend.startsWith('+')) return 'text-green-600';
@@ -401,7 +429,11 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       {/* الإحصائيات العامة لجميع الأقسام */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {departmentStats.map((dept, index) => (
-          <Card key={index} className={`${dept.bgColor} ${dept.borderColor} border-2 hover:shadow-lg transition-all cursor-pointer`} onClick={() => onNavigateToSection?.(dept.name.toLowerCase())}>
+          <Card 
+            key={index} 
+            className={`${dept.bgColor} ${dept.borderColor} border-2 hover:shadow-lg transition-all cursor-pointer transform hover:scale-105`} 
+            onClick={() => handleSectionNavigation(dept.name)}
+          >
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
                 <dept.icon className={`h-8 w-8 ${dept.color}`} />
@@ -436,7 +468,11 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       {/* الوحدات الرسومية التفاعلية */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">
         {kpiWidgets.map((widget, index) => (
-          <Card key={index} className="hover:shadow-lg transition-all cursor-pointer" onClick={() => onNavigateToSection?.(widget.title.toLowerCase())}>
+          <Card 
+            key={index} 
+            className="hover:shadow-lg transition-all cursor-pointer transform hover:scale-105" 
+            onClick={() => handleSectionNavigation(widget.title)}
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{widget.title}</CardTitle>
               <widget.icon className={`h-4 w-4 ${widget.color}`} />
@@ -481,7 +517,11 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
             <div className="space-y-3">
               <h4 className="text-sm font-medium">الأحداث القادمة:</h4>
               {upcomingEvents.slice(0, 3).map((event) => (
-                <div key={event.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                <div 
+                  key={event.id} 
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors" 
+                  onClick={event.action}
+                >
                   <div className={`p-1 rounded ${event.urgent ? 'bg-red-100' : 'bg-gray-100'}`}>
                     {getEventIcon(event.type)}
                   </div>

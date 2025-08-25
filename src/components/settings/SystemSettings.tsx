@@ -250,14 +250,42 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({ onBack }) => {
     }
   };
 
+  // جميع الأقسام الـ22 في النظام
   const permissions = [
-    { id: 'employees', name: 'إدارة الموظفين', description: 'إضافة وتعديل وحذف بيانات الموظفين' },
-    { id: 'attendance', name: 'الحضور والانصراف', description: 'مراقبة وإدارة الحضور والانصراف' },
-    { id: 'payroll', name: 'الرواتب', description: 'حساب وإدارة الرواتب والمستحقات' },
-    { id: 'leaves', name: 'الإجازات', description: 'اعتماد ومراجعة طلبات الإجازات' },
-    { id: 'reports', name: 'التقارير', description: 'عرض وتصدير التقارير المختلفة' },
+    // الأقسام الأساسية
+    { id: 'dashboard', name: 'لوحة التحكم', description: 'الوصول إلى لوحة التحكم الشاملة والإحصائيات' },
+    { id: 'employees', name: 'فريق العمل', description: 'إدارة الموظفين وبياناتهم الشخصية والوظيفية' },
+    { id: 'departments', name: 'الإدارات والأقسام', description: 'إنشاء وإدارة الإدارات والأقسام التنظيمية' },
+    { id: 'attendance', name: 'الحضور والانصراف', description: 'مراقبة وإدارة أنظمة الحضور والانصراف' },
+    { id: 'disciplinary', name: 'الجزاءات والعقوبات', description: 'إدارة المخالفات والجزاءات التأديبية' },
+    { id: 'leaves', name: 'الإجازات والعطلات', description: 'معالجة طلبات الإجازات والعطل الرسمية' },
+    { id: 'payroll', name: 'الرواتب والأجور', description: 'حساب وإدارة الرواتب والمستحقات المالية' },
+    { id: 'government', name: 'التكامل والربط', description: 'ربط النظام مع الأنظمة الحكومية والخارجية' },
+    { id: 'organization', name: 'التطوير والتنظيم المؤسسي', description: 'تطوير الهيكل التنظيمي والعمليات' },
+    { id: 'governance', name: 'الحوكمة والامتثال', description: 'ضمان الامتثال للقوانين واللوائح' },
+    { id: 'wageprotection', name: 'حماية الأجور', description: 'إدارة نظام حماية الأجور الحكومي' },
+    { id: 'legal', name: 'الشؤون القانونية', description: 'إدارة القضايا والاستشارات القانونية' },
+    
+    // الأقسام المتقدمة
+    { id: 'performance', name: 'تقييم الأداء', description: 'إدارة عمليات تقييم الأداء والمتابعة' },
+    { id: 'training', name: 'التدريب والتطوير', description: 'تنظيم البرامج التدريبية وتطوير المهارات' },
+    { id: 'recruitment', name: 'التوظيف والتعيين', description: 'إدارة عمليات التوظيف والاستقطاب' },
+    { id: 'insurance', name: 'التأمين', description: 'إدارة التأمينات الطبية والاجتماعية' },
+    { id: 'benefits', name: 'المكافآت والحوافز', description: 'إدارة نظم المكافآت والحوافز' },
+    { id: 'meetings', name: 'الاجتماعات', description: 'تنظيم وإدارة الاجتماعات والمحاضر' },
+    { id: 'signature', name: 'التوقيع الإلكتروني', description: 'إدارة أنظمة التوقيع الإلكتروني' },
+    { id: 'tasks', name: 'المهام والمتابعة', description: 'إدارة المهام والمتابعة التنفيذية' },
+    { id: 'requests', name: 'الطلبات والإشعارات', description: 'معالجة الطلبات وإرسال الإشعارات' },
+    { id: 'ai', name: 'الذكاء الاصطناعي', description: 'استخدام أدوات الذكاء الاصطناعي والتحليل' },
+    { id: 'reports', name: 'التقارير', description: 'إنشاء وعرض التقارير التحليلية' },
+    
+    // صلاحيات إدارية
     { id: 'settings', name: 'الإعدادات', description: 'تعديل إعدادات النظام العامة' },
-    { id: 'users', name: 'إدارة المستخدمين', description: 'إضافة وإدارة مستخدمي النظام' }
+    { id: 'users', name: 'إدارة المستخدمين', description: 'إضافة وإدارة مستخدمي النظام' },
+    { id: 'roles', name: 'إدارة الصلاحيات', description: 'إنشاء وتعديل الأدوار والصلاحيات' },
+    { id: 'integrations', name: 'التكاملات الخارجية', description: 'إدارة الربط مع الأنظمة الخارجية' },
+    { id: 'security', name: 'الأمان والحماية', description: 'إدارة أنظمة الأمان والحماية' },
+    { id: 'backup', name: 'النسخ الاحتياطي', description: 'إدارة النسخ الاحتياطي واستعادة البيانات' }
   ];
 
   return (
@@ -555,24 +583,26 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({ onBack }) => {
                     <Label htmlFor="role-description">الوصف</Label>
                     <Textarea id="role-description" placeholder="وصف مختصر للدور والمسؤوليات" rows={2} />
                   </div>
-                  <div className="space-y-3">
-                    <Label>الصلاحيات:</Label>
-                    <div className="grid grid-cols-2 gap-3">
-                      {permissions.map((permission) => (
-                        <div key={permission.id} className="flex items-start space-x-3">
-                          <Switch id={permission.id} />
-                          <div className="grid gap-1.5 leading-none">
-                            <Label htmlFor={permission.id} className="text-sm font-medium">
-                              {permission.name}
-                            </Label>
-                            <p className="text-xs text-muted-foreground">
-                              {permission.description}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                   <div className="space-y-3">
+                     <Label>الصلاحيات (جميع الأقسام - 22 قسم):</Label>
+                     <ScrollArea className="h-80 w-full border rounded-md p-4">
+                       <div className="grid grid-cols-1 gap-4">
+                         {permissions.map((permission) => (
+                           <div key={permission.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-gray-50">
+                             <Switch id={permission.id} />
+                             <div className="grid gap-1.5 leading-none flex-1">
+                               <Label htmlFor={permission.id} className="text-sm font-medium cursor-pointer">
+                                 {permission.name}
+                               </Label>
+                               <p className="text-xs text-muted-foreground">
+                                 {permission.description}
+                               </p>
+                             </div>
+                           </div>
+                         ))}
+                       </div>
+                     </ScrollArea>
+                   </div>
                   <Button onClick={handleCreateRole} className="w-full">
                     إنشاء الصلاحية
                   </Button>
