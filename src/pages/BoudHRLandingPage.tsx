@@ -17,10 +17,30 @@ import eisPortal from '@/assets/eis-portal.jpg';
 import npcsPortal from '@/assets/npcs-portal.jpg';
 import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
+import { BoudHRAssistant } from '@/components/BoudHRAssistant';
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  const [initialMessage, setInitialMessage] = useState<string>('');
+
+  const handleStartConversation = () => {
+    setAssistantOpen(true);
+  };
+
+  const handleQuestionClick = (question: string) => {
+    setInitialMessage(question);
+    setAssistantOpen(true);
+  };
+
+  // Reset initial message after assistant opens and processes it
+  const handleAssistantOpenChange = (open: boolean) => {
+    setAssistantOpen(open);
+    if (!open) {
+      setInitialMessage('');
+    }
+  };
   const menuItems = {
     services: [{
       name: "إدارة الموظفين",
@@ -523,7 +543,11 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
         {/* AI Assistant Preview Section */}
-        <AIAssistantPreview language="ar" />
+        <AIAssistantPreview 
+          language="ar" 
+          onStartConversation={handleStartConversation}
+          onQuestionClick={handleQuestionClick}
+        />
 
       {/* Mobile App Download Section */}
       <section id="mobile-app" className="relative py-20 bg-background overflow-hidden">
@@ -880,6 +904,14 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* BOUD HR Assistant with controlled state */}
+      <BoudHRAssistant 
+        language="ar" 
+        isOpen={assistantOpen}
+        onOpenChange={handleAssistantOpenChange}
+        initialMessage={initialMessage}
+      />
     </div>;
 };
 export default BoudHRLandingPage;

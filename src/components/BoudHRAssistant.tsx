@@ -26,10 +26,16 @@ interface Message {
 
 interface BoudHRAssistantProps {
   language?: 'ar' | 'en';
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  initialMessage?: string;
 }
 
 export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({ 
-  language = 'ar' 
+  language = 'ar',
+  isOpen: externalIsOpen,
+  onOpenChange,
+  initialMessage
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -41,6 +47,19 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
   const location = useLocation();
 
   const isRTL = language === 'ar';
+
+  // Handle external control of open state
+  useEffect(() => {
+    if (externalIsOpen !== undefined) {
+      setIsOpen(externalIsOpen);
+    }
+  }, [externalIsOpen]);
+
+  // Handle open state changes
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    onOpenChange?.(open);
+  };
 
   // Get current page context
   const getPageContext = () => {
@@ -80,9 +99,46 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Handle initial message
+  useEffect(() => {
+    if (initialMessage && isOpen && messages.length === 1) {
+      // Send the initial message
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        content: initialMessage,
+        isUser: true,
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, userMessage]);
+      setIsLoading(true);
+
+      // Send to AI
+      supabase.functions.invoke('boud-hr-assistant', {
+        body: {
+          message: initialMessage,
+          context: getPageContext(),
+          language: language
+        }
+      }).then(({ data, error }) => {
+        if (!error) {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            content: data.response || (isRTL ? 'عذراً، لم أتمكن من معالجة طلبك.' : 'Sorry, I couldn\'t process your request.'),
+            isUser: false,
+            timestamp: new Date()
+          };
+          setMessages(prev => [...prev, assistantMessage]);
+        }
+      }).finally(() => {
+        setIsLoading(false);
+      });
+    }
+  }, [initialMessage, isOpen, language, messages.length]);
+
   // Update welcome message when page changes
   useEffect(() => {
-    if (messages.length > 0) {
+    if (messages.length > 0 && !initialMessage) {
       const contextMessage: Message = {
         id: Date.now().toString(),
         content: isRTL 
@@ -177,7 +233,7 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
           src="/lovable-uploads/2d27423b-8bca-468b-802c-9a3666f5fe90.png" 
           alt="BOUD HR Assistant" 
           className={`fixed bottom-6 ${isRTL ? 'left-6' : 'right-6'} z-50 w-24 h-24 cursor-pointer hover:scale-110 transition-all duration-300 drop-shadow-lg hover:drop-shadow-xl`}
-          onClick={() => setIsOpen(true)}
+          onClick={() => handleOpenChange(true)}
         />
       )}
 
@@ -213,7 +269,7 @@ export const BoudHRAssistant: React.FC<BoudHRAssistantProps> = ({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => handleOpenChange(false)}
                   className="h-6 w-6 p-0 hover:bg-muted"
                 >
                   <X className="h-3 w-3" />

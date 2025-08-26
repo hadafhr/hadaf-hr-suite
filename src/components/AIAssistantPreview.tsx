@@ -17,10 +17,14 @@ import {
 
 interface AIAssistantPreviewProps {
   language?: 'ar' | 'en';
+  onStartConversation?: () => void;
+  onQuestionClick?: (question: string) => void;
 }
 
 export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({ 
-  language = 'ar' 
+  language = 'ar',
+  onStartConversation,
+  onQuestionClick
 }) => {
   const isRTL = language === 'ar';
 
@@ -172,7 +176,8 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
                 ]).map((question, index) => (
                   <div
                     key={index}
-                    className="px-4 py-2 bg-background/80 rounded-full text-sm text-muted-foreground border border-border/50 hover:border-primary/50 transition-colors cursor-pointer"
+                    onClick={() => onQuestionClick?.(question)}
+                    className="px-4 py-2 bg-background/80 rounded-full text-sm text-muted-foreground border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer"
                   >
                     "{question}"
                   </div>
@@ -188,7 +193,7 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="gap-2">
+              <Button size="lg" className="gap-2" onClick={onStartConversation}>
                 <MessageCircle className="w-5 h-5" />
                 {isRTL ? 'ابدأ المحادثة' : 'Start Conversation'}
               </Button>

@@ -274,8 +274,8 @@ const App = () => {
                <Route path="*" element={<NotFound />} />
             </Routes>
             
-            {/* Global BOUD HR Assistant */}
-            <BoudHRAssistant language={currentLanguage} />
+            {/* Global BOUD HR Assistant - Only show when not on landing page */}
+            {window.location.pathname !== '/' && <BoudHRAssistant language={currentLanguage} />}
           </BrowserRouter>
         </AuthProvider>
       </TooltipProvider>
