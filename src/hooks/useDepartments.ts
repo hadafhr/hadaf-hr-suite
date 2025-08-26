@@ -71,52 +71,7 @@ export interface DepartmentKPI {
 }
 
 export const useDepartments = () => {
-  const [departments, setDepartments] = useState<Department[]>([
-    {
-      id: '1',
-      company_id: 'temp-company-id',
-      department_code: 'HR',
-      name_ar: 'قسم الموارد البشرية',
-      name_en: 'Human Resources Department',
-      description: 'إدارة شؤون الموظفين والتطوير المهني',
-      department_type: 'operational',
-      function_type: 'support',
-      sector_type: 'private',
-      parent_department_id: null,
-      cost_center_code: 'CC-HR-001',
-      location: 'الطابق الثاني - المبنى الرئيسي',
-      budget_allocation: 500000,
-      head_count: 12,
-      sort_order: 1,
-      visibility_level: 'internal',
-      is_active: true,
-      custom_fields: {},
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    },
-    {
-      id: '2',
-      company_id: 'temp-company-id',
-      department_code: 'IT',
-      name_ar: 'قسم تقنية المعلومات',
-      name_en: 'Information Technology Department',
-      description: 'إدارة الأنظمة التقنية والبنية التحتية',
-      department_type: 'operational',
-      function_type: 'support',
-      sector_type: 'private',
-      parent_department_id: null,
-      cost_center_code: 'CC-IT-001',
-      location: 'الطابق الأول - المبنى التقني',
-      budget_allocation: 750000,
-      head_count: 15,
-      sort_order: 2,
-      visibility_level: 'internal',
-      is_active: true,
-      custom_fields: {},
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-  ]);
+  const [departments, setDepartments] = useState<Department[]>([]);
   
   const [positions, setPositions] = useState<DepartmentPosition[]>([]);
   const [departmentEmployees, setDepartmentEmployees] = useState<DepartmentEmployee[]>([]);
@@ -132,88 +87,51 @@ export const useDepartments = () => {
     fetchDepartmentKPIs();
   }, []);
 
-  // Fetch departments with mock data
+  // Fetch departments from database
   const fetchDepartments = async () => {
     try {
       setIsLoading(true);
-      // Mock data is already set in state
+      const { data, error } = await supabase
+        .from('boud_employees')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      // For now, return empty array since departments structure is different
+      setDepartments([]);
       setIsLoading(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch departments');
+      // Start with empty departments for manual input
+      setDepartments([]);
       setIsLoading(false);
     }
   };
 
-  // Fetch department positions with mock data
+  // Start with empty positions for manual input
   const fetchPositions = async () => {
     try {
-      const positions: DepartmentPosition[] = [
-        {
-          id: '1',
-          department_id: '1',
-          company_id: 'temp-company-id',
-          position_code: 'MGR001',
-          title_ar: 'مدير الموارد البشرية',
-          title_en: 'HR Manager',
-          description: 'إدارة القسم والإشراف على فريق العمل',
-          level: 1,
-          reports_to_position_id: null,
-          salary_grade: 'Grade A',
-          required_qualifications: ['خبرة 5 سنوات', 'شهادة جامعية'],
-          responsibilities: ['إدارة الفريق', 'وضع الخطط الاستراتيجية'],
-          is_active: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-      ];
-      setPositions(positions);
+      // For now, keep positions empty for manual input
+      setPositions([]);
     } catch (err) {
       console.error('Error fetching positions:', err);
     }
   };
 
-  // Fetch department employees with mock data
+  // Start with empty department employees for manual input
   const fetchDepartmentEmployees = async () => {
     try {
-      const employees: DepartmentEmployee[] = [
-        {
-          id: '1',
-          department_id: '1',
-          employee_id: '1',
-          position_id: '1',
-          assignment_date: new Date().toISOString().split('T')[0],
-          end_date: undefined,
-          is_primary: true,
-          assignment_type: 'permanent',
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-      ];
-      setDepartmentEmployees(employees);
+      // For now, keep department employees empty for manual input
+      setDepartmentEmployees([]);
     } catch (err) {
       console.error('Error fetching department employees:', err);
     }
   };
 
-  // Fetch department KPIs with mock data
+  // Start with empty KPIs for manual input
   const fetchDepartmentKPIs = async () => {
     try {
-      const kpis: DepartmentKPI[] = [
-        {
-          id: '1',
-          department_id: '1',
-          kpi_name: 'معدل الإنتاجية',
-          kpi_type: 'operational',
-          target_value: 85,
-          current_value: 78,
-          unit_of_measure: '%',
-          frequency: 'monthly',
-          is_active: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-      ];
-      setDepartmentKPIs(kpis);
+      // For now, keep KPIs empty for manual input
+      setDepartmentKPIs([]);
     } catch (err) {
       console.error('Error fetching department KPIs:', err);
     }

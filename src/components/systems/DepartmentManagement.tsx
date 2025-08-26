@@ -134,64 +134,74 @@ export const DepartmentManagement: React.FC<DepartmentManagementProps> = ({ onBa
       </div>
 
       {/* Departments Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredDepartments.map((department) => (
-          <Card key={department.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#009F87]/10 rounded-lg">
-                    <Building className="h-5 w-5 text-[#009F87]" />
+      {departments.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground mb-4">لا توجد أقسام مُنشأة بعد</p>
+          <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
+            <Plus className="h-4 w-4 ml-2" />
+            إضافة قسم جديد يدوياً
+          </Button>
+        </div>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredDepartments.map((department) => (
+            <Card key={department.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-[#009F87]/10 rounded-lg">
+                      <Building className="h-5 w-5 text-[#009F87]" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{department.name}</CardTitle>
+                      <p className="text-sm text-muted-foreground">{department.nameEn}</p>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="text-lg">{department.name}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{department.nameEn}</p>
+                  <Badge variant={department.status === 'نشط' ? 'default' : 'secondary'}>
+                    {department.status}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm text-muted-foreground">
+                  {department.description}
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="bg-[#009F87]/5 p-3 rounded-lg text-center">
+                    <div className="flex items-center justify-center mb-1">
+                      <Users className="h-4 w-4 text-[#009F87] ml-1" />
+                    </div>
+                    <div className="font-semibold text-[#009F87]">{department.employeeCount}</div>
+                    <div className="text-xs text-muted-foreground">موظف</div>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg text-center">
+                    <div className="font-semibold text-green-600">
+                      {department.budget.toLocaleString()} ر.س
+                    </div>
+                    <div className="text-xs text-muted-foreground">الميزانية</div>
                   </div>
                 </div>
-                <Badge variant={department.status === 'نشط' ? 'default' : 'secondary'}>
-                  {department.status}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-sm text-muted-foreground">
-                {department.description}
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="bg-[#009F87]/5 p-3 rounded-lg text-center">
-                  <div className="flex items-center justify-center mb-1">
-                    <Users className="h-4 w-4 text-[#009F87] ml-1" />
-                  </div>
-                  <div className="font-semibold text-[#009F87]">{department.employeeCount}</div>
-                  <div className="text-xs text-muted-foreground">موظف</div>
-                </div>
-                <div className="bg-green-50 p-3 rounded-lg text-center">
-                  <div className="font-semibold text-green-600">
-                    {department.budget.toLocaleString()} ر.س
-                  </div>
-                  <div className="text-xs text-muted-foreground">الميزانية</div>
-                </div>
-              </div>
 
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-blue-900 mb-1">مدير القسم</div>
-                <div className="text-sm text-blue-700">{department.managerName}</div>
-              </div>
+                <div className="bg-blue-50 p-3 rounded-lg">
+                  <div className="text-sm font-medium text-blue-900 mb-1">مدير القسم</div>
+                  <div className="text-sm text-blue-700">{department.managerName}</div>
+                </div>
 
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1">
-                  <Edit className="h-4 w-4 ml-1" />
-                  تحرير
-                </Button>
-                <Button variant="outline" size="sm" className="text-red-600 hover:bg-red-50">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" className="flex-1">
+                    <Edit className="h-4 w-4 ml-1" />
+                    تحرير
+                  </Button>
+                  <Button variant="outline" size="sm" className="text-red-600 hover:bg-red-50">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
