@@ -373,9 +373,6 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-        {/* AI Assistant Preview Section */}
-        <AIAssistantPreview language="ar" />
-
         {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
         <PatternBackground opacity={0.06} size={280} />
@@ -524,6 +521,9 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+        {/* AI Assistant Preview Section */}
+        <AIAssistantPreview language="ar" />
 
       {/* Mobile App Download Section */}
       <section id="mobile-app" className="relative py-20 bg-background overflow-hidden">
