@@ -16,6 +16,7 @@ import ecssPoral from '@/assets/e-css-portal.jpg';
 import eisPortal from '@/assets/eis-portal.jpg';
 import npcsPortal from '@/assets/npcs-portal.jpg';
 import { PatternBackground } from '@/components/PatternBackground';
+import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -372,7 +373,10 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+        {/* AI Assistant Preview Section */}
+        <AIAssistantPreview language="ar" />
+
+        {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
         <PatternBackground opacity={0.06} size={280} />
         <div className="container mx-auto px-6">
