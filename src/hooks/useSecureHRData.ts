@@ -54,15 +54,15 @@ export const useSecureHRData = () => {
         return;
       }
 
-      const mappedData: PublicEmployeeData[] = (data || []).map(emp => ({
+      const mappedData: PublicEmployeeData[] = (data || []).map((emp: any) => ({
         id: emp.id,
-        company_id: emp.company_id,
+        company_id: emp.company_id || undefined,
         employee_id: emp.employee_id,
         first_name: emp.full_name?.split(' ')[0] || '',
         last_name: emp.full_name?.split(' ').slice(1).join(' ') || '',
-        email: emp.email,
-        hire_date: emp.hire_date,
-        is_active: emp.is_active
+        email: emp.email || undefined,
+        hire_date: emp.hire_date || undefined,
+        is_active: emp.is_active ?? true
       }));
 
       setPublicDirectory(mappedData);

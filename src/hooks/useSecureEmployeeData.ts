@@ -111,18 +111,18 @@ export const useSecureEmployeeData = () => {
         return;
       }
 
-      const mappedData: EmployeeDirectoryData[] = (data || []).map(emp => ({
+      const mappedData: EmployeeDirectoryData[] = (data || []).map((emp: any) => ({
         id: emp.id,
         employee_id: emp.employee_id,
         first_name: emp.first_name,
         last_name: emp.last_name,
-        email: emp.email,
-        phone: emp.phone,
-        position_id: emp.position_id,
-        department_id: emp.department_id,
-        hire_date: emp.hire_date,
-        is_active: emp.is_active,
-        company_id: emp.company_id
+        email: emp.email || undefined,
+        phone: emp.phone || undefined,
+        position_id: emp.position_id || undefined,
+        department_id: emp.department_id || undefined,
+        hire_date: emp.hire_date || undefined,
+        is_active: emp.is_active ?? true,
+        company_id: emp.company_id || undefined
       }));
 
       setEmployees(mappedData);
