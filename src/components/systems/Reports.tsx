@@ -1,292 +1,240 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, FileBarChart, BarChart3, PieChart, TrendingUp, Download, Settings, Eye, Save, Share, FileText, Filter, Calendar, Database, Plus, Search } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar, Download, Filter, BarChart3, PieChart, TrendingUp, Users, Clock, DollarSign, Target, FileText, Eye, Share2, Printer, Mail, Settings } from 'lucide-react';
+import { Checkbox } from "@/components/ui/checkbox";
+import { Progress } from "@/components/ui/progress";
+
+interface Report {
+  id: string;
+  name: string;
+  type: string;
+  category: string;
+  description: string;
+  lastGenerated: string;
+  status: 'ready' | 'generating' | 'scheduled';
+  size: string;
+  format: string[];
+  permissions: string[];
+  tags: string[];
+}
 
 interface ReportsProps {
   onBack: () => void;
 }
 
-export const Reports: React.FC<ReportsProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+const Reports = ({ onBack }: ReportsProps) => {
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [generatingReport, setGeneratingReport] = useState<string | null>(null);
 
-  // بيانات التقارير والتحليلات
-  const reportsData = [
-    { month: 'يناير', reports: 85, analytics: 145, exports: 65 },
-    { month: 'فبراير', reports: 92, analytics: 162, exports: 78 },
-    { month: 'مارس', reports: 78, analytics: 138, exports: 52 },
-    { month: 'أبريل', reports: 105, analytics: 175, exports: 89 },
-    { month: 'مايو', reports: 98, analytics: 156, exports: 73 },
-    { month: 'يونيو', reports: 112, analytics: 183, exports: 95 }
+  const reportCategories = [
+    { id: 'all', name: 'جميع التقارير', count: 45 },
+    { id: 'hr', name: 'الموارد البشرية', count: 12 },
+    { id: 'financial', name: 'المالية والرواتب', count: 8 },
+    { id: 'performance', name: 'الأداء والإنتاجية', count: 7 },
+    { id: 'attendance', name: 'الحضور والغياب', count: 6 },
+    { id: 'compliance', name: 'الامتثال والحوكمة', count: 5 },
+    { id: 'analytics', name: 'التحليلات المتقدمة', count: 4 },
+    { id: 'custom', name: 'التقارير المخصصة', count: 3 }
   ];
 
-  const reportsMetrics = [
-    { category: 'التقارير المُنشأة', count: 1680, percentage: 100, color: '#009F87' },
-    { category: 'التحليلات التفاعلية', count: 2850, percentage: 95, color: '#1e40af' },
-    { category: 'التصديرات اليومية', count: 452, percentage: 78, color: '#059669' },
-    { category: 'المستخدمين النشطين', count: 320, percentage: 87, color: '#7c3aed' }
+  const reports: Report[] = [
+    {
+      id: '1',
+      name: 'تقرير الرواتب الشهري',
+      type: 'financial',
+      category: 'financial',
+      description: 'تقرير شامل للرواتب والمكافآت والخصومات',
+      lastGenerated: '2024-01-15',
+      status: 'ready',
+      size: '2.3 MB',
+      format: ['PDF', 'Excel', 'CSV'],
+      permissions: ['hr_manager', 'payroll_officer'],
+      tags: ['شهري', 'رواتب', 'مالي']
+    },
+    {
+      id: '2',
+      name: 'تحليل الحضور والغياب',
+      type: 'attendance',
+      category: 'attendance',
+      description: 'تحليل مفصل لبيانات الحضور والغياب والتأخير',
+      lastGenerated: '2024-01-14',
+      status: 'ready',
+      size: '1.8 MB',
+      format: ['PDF', 'Excel'],
+      permissions: ['hr_manager', 'supervisor'],
+      tags: ['حضور', 'تحليل', 'يومي']
+    },
+    {
+      id: '3',
+      name: 'تقرير الأداء السنوي',
+      type: 'performance',
+      category: 'performance',
+      description: 'تقييم شامل للأداء الوظيفي والإنجازات',
+      lastGenerated: '2024-01-10',
+      status: 'generating',
+      size: '4.1 MB',
+      format: ['PDF', 'PowerPoint'],
+      permissions: ['hr_manager', 'manager'],
+      tags: ['أداء', 'سنوي', 'تقييم']
+    }
   ];
 
-  const reportTypes = [
-    { type: 'تقارير الموظفين', value: 40, count: 672 },
-    { type: 'تقارير مالية', value: 35, count: 588 },
-    { type: 'تقارير الحضور', value: 25, count: 420 }
+  const recentAnalytics = [
+    { title: 'معدل الحضور الشهري', value: '94.2%', change: '+2.1%', trend: 'up' },
+    { title: 'مؤشر الرضا الوظيفي', value: '8.6/10', change: '+0.3', trend: 'up' },
+    { title: 'معدل دوران الموظفين', value: '3.2%', change: '-0.8%', trend: 'down' },
+    { title: 'إنتاجية الفريق', value: '87%', change: '+5%', trend: 'up' }
   ];
 
-  const BOUD_COLORS = ['#009F87', '#1e40af', '#059669'];
+  const handleGenerateReport = async (reportId: string) => {
+    setGeneratingReport(reportId);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    setGeneratingReport(null);
+  };
+
+  const filteredReports = reports.filter(report => {
+    const matchesSearch = report.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         report.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         report.tags.some(tag => tag.includes(searchTerm));
+    const matchesCategory = selectedCategory === 'all' || report.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#009F87] via-[#008072] to-[#009F87] p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  {isRTL ? 'رجوع' : 'Back'}
-                </Button>
-              </div>
-              <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-                  <Share className="h-4 w-4 ml-2" />
-                  {isRTL ? 'استيراد' : 'Import'}
-                </Button>
-                <Button className="bg-[#009F87]/80 border-[#009F87]/30 text-white hover:bg-[#009F87]/90 backdrop-blur-sm">
-                  <Download className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
-                </Button>
-                <Button className="bg-red-600/80 border-red-600/30 text-white hover:bg-red-600/90 backdrop-blur-sm">
-                  <FileBarChart className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
-                </Button>
-                <Button className="bg-blue-600 border-blue-600 text-white hover:bg-blue-600/90 shadow-lg">
-                  <Save className="h-4 w-4 ml-2" />
-                  {isRTL ? 'حفظ' : 'Save'}
-                </Button>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <FileBarChart className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                {isRTL ? 'نظام التقارير والتحليلات الذكي' : 'Smart Reports & Analytics System'}
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                {isRTL ? 'نظام متطور لإنشاء التقارير التفاعلية والتحليلات المتقدمة' : 'Advanced system for interactive reports and business intelligence'}
-              </p>
-            </div>
+    <div className="p-6 space-y-6 bg-gradient-to-br from-background via-background/95 to-primary/5 min-h-screen">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" onClick={onBack}>←</Button>
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              التقارير والتحليلات المتقدمة
+            </h1>
+            <p className="text-muted-foreground">
+              نظام شامل لإنتاج وإدارة التقارير والتحليلات الذكية
+            </p>
           </div>
         </div>
+        <Button className="gap-2 bg-gradient-to-r from-primary to-primary/80">
+          <FileText className="w-4 h-4" />
+          تقرير جديد
+        </Button>
+      </div>
 
-        {/* Analytics Dashboard */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Main Analytics Panel */}
-          <div className="lg:col-span-2">
-            <Card className="bg-gradient-to-br from-slate-900 via-[#009F87] to-blue-900 text-white shadow-2xl rounded-2xl overflow-hidden">
-              <CardContent className="p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Reports Generation */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-green-300">
-                      {isRTL ? 'إنشاء التقارير' : 'Reports Generation'}
-                    </h3>
-                    <div className="relative h-48 bg-gradient-to-br from-[#009F87]/50 to-blue-600/50 rounded-xl p-4 flex items-center justify-center">
-                      <FileBarChart className="h-32 w-32 text-green-300 opacity-80" />
-                      <div className="absolute top-4 right-4 bg-[#009F87]/80 px-3 py-1 rounded-full text-sm">
-                        1680 {isRTL ? 'تقرير' : 'Reports'}
-                      </div>
-                      <div className="absolute bottom-4 left-4 bg-blue-600/80 px-3 py-1 rounded-full text-sm">
-                        100% {isRTL ? 'معدل التوليد' : 'Generation Rate'}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Analytics System */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-blue-300">
-                      {isRTL ? 'نظام التحليلات' : 'Analytics System'}
-                    </h3>
-                    <div className="relative h-48 bg-gradient-to-br from-blue-600/50 to-purple-600/50 rounded-xl p-4 flex items-center justify-center">
-                      <BarChart3 className="h-32 w-32 text-blue-300 opacity-80" />
-                      <div className="absolute top-4 right-4 bg-blue-600/80 px-3 py-1 rounded-full text-sm">
-                        2850 {isRTL ? 'تحليل' : 'Analytics'}
-                      </div>
-                      <div className="absolute bottom-4 left-4 bg-purple-600/80 px-3 py-1 rounded-full text-sm">
-                        95% {isRTL ? 'دقة التحليل' : 'Analysis Accuracy'}
-                      </div>
-                    </div>
-                  </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {recentAnalytics.map((metric, index) => (
+          <Card key={index} className="border-0 shadow-md">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">{metric.title}</p>
+                  <p className="text-2xl font-bold text-primary">{metric.value}</p>
                 </div>
-
-                {/* Reports Trends Chart */}
-                <div className="mt-8">
-                  <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={reportsData}>
-                      <defs>
-                        <linearGradient id="colorReports" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#009F87" stopOpacity={0.8}/>
-                          <stop offset="95%" stopColor="#009F87" stopOpacity={0.1}/>
-                        </linearGradient>
-                        <linearGradient id="colorAnalytics" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#1e40af" stopOpacity={0.8}/>
-                          <stop offset="95%" stopColor="#1e40af" stopOpacity={0.1}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="month" stroke="#9CA3AF" />
-                      <YAxis stroke="#9CA3AF" />
-                      <Tooltip 
-                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
-                        labelStyle={{ color: '#F3F4F6' }}
-                      />
-                      <Area type="monotone" dataKey="reports" stroke="#009F87" fill="url(#colorReports)" />
-                      <Area type="monotone" dataKey="analytics" stroke="#1e40af" fill="url(#colorAnalytics)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Side Statistics */}
-          <div className="space-y-6">
-            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-800">
-                    {isRTL ? 'مؤشرات التقارير' : 'Reports Metrics'}
-                  </h3>
-                  <Settings className="h-5 w-5 text-gray-400" />
-                </div>
-                <div className="space-y-4">
-                  {reportsMetrics.map((metric, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
-                      <div>
-                        <p className="font-semibold text-gray-800">{metric.category}</p>
-                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'عنصر' : 'items'}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-gray-800 mb-4">
-                  {isRTL ? 'أنواع التقارير' : 'Report Types'}
-                </h3>
-                <ResponsiveContainer width="100%" height={200}>
-                  <RechartsPieChart>
-                    <Pie
-                      data={reportTypes}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={40}
-                      outerRadius={80}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {reportTypes.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </RechartsPieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Reports System */}
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-[#009F87] text-white px-6 py-2 rounded-full shadow-lg">
-              <FileBarChart className="h-5 w-5" />
-              <span className="font-medium">{isRTL ? 'نظام تقارير متطور' : 'Advanced Reports System'}</span>
-            </div>
-          </div>
-          
-          <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
-                {isRTL ? 'نظام التقارير والتحليلات المتطور' : 'Advanced Reports & Analytics System'}
-              </h2>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
-                {[
-                  { icon: FileBarChart, label: isRTL ? 'تقارير شاملة' : 'Comprehensive Reports', color: 'bg-[#009F87]', count: 0 },
-                  { icon: BarChart3, label: isRTL ? 'الرسوم البيانية' : 'Charts & Graphs', color: 'bg-blue-600', count: 0 },
-                  { icon: PieChart, label: isRTL ? 'التحليلات المتقدمة' : 'Advanced Analytics', color: 'bg-green-600', count: 0 },
-                  { icon: TrendingUp, label: isRTL ? 'مؤشرات الأداء' : 'Performance KPIs', color: 'bg-purple-600', count: 0 },
-                  { icon: FileText, label: isRTL ? 'التقارير المخصصة' : 'Custom Reports', color: 'bg-yellow-600', count: 45 },
-                  { icon: Filter, label: isRTL ? 'الفلاتر المتقدمة' : 'Advanced Filters', color: 'bg-red-600', count: 0 },
-                  { icon: Calendar, label: isRTL ? 'التقارير المجدولة' : 'Scheduled Reports', color: 'bg-indigo-600', count: 12 },
-                  { icon: Database, label: isRTL ? 'مصادر البيانات' : 'Data Sources', color: 'bg-gray-600', count: 0 }
-                ].map((item, index) => (
-                  <div key={index} className="text-center group cursor-pointer">
-                    <div className={`${item.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform relative`}>
-                      <item.icon className="h-8 w-8 text-white" />
-                      {item.count > 0 && (
-                        <div className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                          {item.count}
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-sm font-medium text-gray-700 group-hover:text-[#009F87] transition-colors">
-                      {item.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                <div className="text-center p-6 bg-gradient-to-br from-[#009F87]/10 to-[#009F87]/20 rounded-xl border border-[#009F87]/20">
-                  <div className="text-3xl font-bold text-[#009F87] mb-2">1,680</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'تقارير مُنشأة' : 'Generated Reports'}</div>
-                </div>
-                
-                <div className="text-center p-6 bg-gradient-to-br from-blue-600/10 to-blue-600/20 rounded-xl border border-blue-600/20">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">2,850</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'تحليلات تفاعلية' : 'Interactive Analytics'}</div>
-                </div>
-                
-                <div className="text-center p-6 bg-gradient-to-br from-green-600/10 to-green-600/20 rounded-xl border border-green-600/20">
-                  <div className="text-3xl font-bold text-green-600 mb-2">452</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'تصديرات يومية' : 'Daily Exports'}</div>
-                </div>
-                
-                <div className="text-center p-6 bg-gradient-to-br from-purple-600/10 to-purple-600/20 rounded-xl border border-purple-600/20">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">320</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'مستخدمين نشطين' : 'Active Users'}</div>
+                <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs ${
+                  metric.trend === 'up' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                }`}>
+                  <TrendingUp className={`w-3 h-3 ${metric.trend === 'down' ? 'rotate-180' : ''}`} />
+                  {metric.change}
                 </div>
               </div>
             </CardContent>
           </Card>
-        </div>
+        ))}
       </div>
+
+      <Tabs defaultValue="reports" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="reports">التقارير المتاحة</TabsTrigger>
+          <TabsTrigger value="generator">منشئ التقارير</TabsTrigger>
+          <TabsTrigger value="analytics">التحليلات الذكية</TabsTrigger>
+          <TabsTrigger value="scheduled">التقارير المجدولة</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="reports" className="space-y-6">
+          <div className="flex gap-4 items-center p-4 bg-card rounded-lg">
+            <Input
+              placeholder="البحث في التقارير..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1"
+            />
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {reportCategories.map(category => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name} ({category.count})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {filteredReports.map((report) => (
+              <Card key={report.id} className="border-0 shadow-lg">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-lg text-primary">{report.name}</CardTitle>
+                      <CardDescription>{report.description}</CardDescription>
+                    </div>
+                    <Badge variant={report.status === 'ready' ? 'default' : 'secondary'}>
+                      {report.status === 'ready' ? 'جاهز' : 'قيد الإنتاج'}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-muted-foreground">آخر إنتاج:</span>
+                      <p className="font-medium">{report.lastGenerated}</p>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">حجم الملف:</span>
+                      <p className="font-medium">{report.size}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      className="flex-1"
+                      disabled={report.status === 'generating' || generatingReport === report.id}
+                      onClick={() => handleGenerateReport(report.id)}
+                    >
+                      {generatingReport === report.id ? 'جاري الإنتاج...' : 'إنتاج'}
+                    </Button>
+                    <Button size="sm" variant="outline">معاينة</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="generator">
+          <Card>
+            <CardHeader>
+              <CardTitle>منشئ التقارير المخصصة</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>قريباً - منشئ التقارير المخصصة باستخدام الذكاء الاصطناعي</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
+
+export default Reports;
