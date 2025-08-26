@@ -49,10 +49,10 @@ import { ComprehensiveAttendance } from '@/components/systems/ComprehensiveAtten
 import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
-import { OrganizationalDevelopment } from '@/components/systems/OrganizationalDevelopment';
+import OrganizationalDevelopment from '@/components/systems/OrganizationalDevelopment';
 import { GovernanceCompliance } from '@/components/systems/GovernanceCompliance';
 import { WageProtectionSystem } from '@/components/systems/WageProtectionSystem';
-import { LegalAffairs } from '@/components/systems/LegalAffairs';
+import LegalAffairs from '@/components/systems/LegalAffairs';
 import { PerformanceEvaluation } from '@/components/systems/PerformanceEvaluation';
 import TrainingDevelopment from '@/components/employee/TrainingDevelopment';
 import SmartHire from '@/pages/SmartHire';
@@ -62,8 +62,8 @@ import MeetingHub from '@/pages/MeetingHub';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
 import { CombinedRequestsNotifications } from '@/components/systems/CombinedRequestsNotifications';
-import { ArtificialIntelligence } from '@/components/systems/ArtificialIntelligence';
-import { Reports } from '@/components/systems/Reports';
+import ArtificialIntelligence from '@/components/systems/ArtificialIntelligence';
+import Reports from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
 import TalentManagementDepartment from '@/components/systems/TalentManagementDepartment';
 
