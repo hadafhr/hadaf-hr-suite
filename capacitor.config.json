@@ -3,7 +3,7 @@
   "appName": "boud-hr-suite",
   "webDir": "dist",
   "server": {
-    "url": "https://3a35ea4e-5218-4868-bcc6-643025691c73.lovableproject.com?forceHideBadge=true",
+    "url": "https://boud.net-suite.lovable.app?forceHideBadge=true",
     "cleartext": true
   },
   "plugins": {
