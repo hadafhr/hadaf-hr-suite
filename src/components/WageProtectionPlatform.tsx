@@ -19,51 +19,11 @@ import {
   Settings,
   BarChart3,
   Clock,
-  Shield
+  Shield,
+  Plus
 } from 'lucide-react';
 
-// Mock data for demonstration
-const mockEmployees = [
-  {
-    id: 1,
-    name: "أحمد محمد علي",
-    position: "مطور برمجيات",
-    basicSalary: 8000,
-    allowances: 1500,
-    deductions: 800,
-    netSalary: 8700,
-    iban: "SA1234567890123456789012",
-    bank: "البنك الأهلي السعودي",
-    status: "مباشر",
-    lastProcessed: "2024-01-15"
-  },
-  {
-    id: 2,
-    name: "فاطمة أحمد السعيد",
-    position: "محاسبة",
-    basicSalary: 6500,
-    allowances: 1000,
-    deductions: 650,
-    netSalary: 6850,
-    iban: "SA9876543210987654321098",
-    bank: "بنك الراجحي",
-    status: "مباشر",
-    lastProcessed: "2024-01-15"
-  },
-  {
-    id: 3,
-    name: "محمد عبدالله الحارثي",
-    position: "مهندس",
-    basicSalary: 9000,
-    allowances: 2000,
-    deductions: 900,
-    netSalary: 10100,
-    iban: "SA5555666677778888999900",
-    bank: "البنك السعودي للاستثمار",
-    status: "منقطع",
-    lastProcessed: "2024-01-10"
-  }
-];
+// Empty state - no default employees data
 
 const complianceMetrics = {
   overall: 95,
@@ -168,7 +128,7 @@ export const WageProtectionPlatform: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">الموظفين المشمولين</p>
-                  <p className="text-2xl font-bold">{mockEmployees.length}</p>
+                  <p className="text-2xl font-bold">0</p>
                 </div>
                 <Users className="w-8 h-8 text-blue-600" />
               </div>
@@ -181,7 +141,7 @@ export const WageProtectionPlatform: React.FC = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">إجمالي الرواتب</p>
                   <p className="text-2xl font-bold">
-                    {mockEmployees.reduce((sum, emp) => sum + emp.netSalary, 0).toLocaleString()} ريال
+                    0 ريال
                   </p>
                 </div>
                 <DollarSign className="w-8 h-8 text-primary" />
@@ -250,56 +210,12 @@ export const WageProtectionPlatform: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {mockEmployees.map((employee) => (
-                    <div key={employee.id} className="border rounded-lg p-4 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{employee.name}</h3>
-                          <p className="text-sm text-muted-foreground">{employee.position}</p>
-                        </div>
-                        <Badge className={getStatusColor(employee.status)}>
-                          {employee.status}
-                        </Badge>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                        <div>
-                          <p className="text-muted-foreground">الراتب الأساسي</p>
-                          <p className="font-medium">{employee.basicSalary.toLocaleString()} ريال</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground">البدلات</p>
-                          <p className="font-medium">{employee.allowances.toLocaleString()} ريال</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground">الخصومات</p>
-                          <p className="font-medium">{employee.deductions.toLocaleString()} ريال</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground">صافي الراتب</p>
-                          <p className="font-medium text-green-600">{employee.netSalary.toLocaleString()} ريال</p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-muted-foreground">رقم الآيبان</p>
-                          <p className="font-medium">{employee.iban}</p>
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground">البنك</p>
-                          <p className="font-medium">{employee.bank}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline">تعديل</Button>
-                        <Button size="sm" variant="outline">عرض التفاصيل</Button>
-                        <Button size="sm" variant="outline">سجل الرواتب</Button>
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">لم يتم إضافة أي موظفين بعد</p>
+                  <Button className="mt-4">
+                    <Plus className="h-4 w-4 ml-2" />
+                    إضافة موظف يدوياً
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -457,7 +373,7 @@ export const WageProtectionPlatform: React.FC = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>عدد الموظفين</span>
-                      <span>{mockEmployees.length}</span>
+                      <span>0</span>
                     </div>
                     <div className="flex justify-between">
                       <span>حالة الملف</span>
