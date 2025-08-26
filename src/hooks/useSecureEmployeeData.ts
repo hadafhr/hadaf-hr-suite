@@ -13,6 +13,9 @@ export interface EmployeeDirectoryData {
   first_name: string;
   last_name: string;
   email?: string;
+  phone?: string;
+  position_id?: string;
+  department_id?: string;
   hire_date?: string;
   is_active?: boolean;
   company_id?: string;
@@ -81,8 +84,21 @@ export const useSecureEmployeeData = () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase
-        .from('employee_directory_public')
-        .select('*')
+        .from('boud_employees')
+        .select(`
+          id,
+          employee_id,
+          first_name,
+          last_name,
+          email,
+          phone,
+          position_id,
+          department_id,
+          hire_date,
+          is_active,
+          company_id
+        `)
+        .eq('is_active', true)
         .order('first_name');
 
       if (error) {
@@ -95,7 +111,21 @@ export const useSecureEmployeeData = () => {
         return;
       }
 
-      setEmployees(data || []);
+      const mappedData: EmployeeDirectoryData[] = (data || []).map(emp => ({
+        id: emp.id,
+        employee_id: emp.employee_id,
+        first_name: emp.first_name,
+        last_name: emp.last_name,
+        email: emp.email,
+        phone: emp.phone,
+        position_id: emp.position_id,
+        department_id: emp.department_id,
+        hire_date: emp.hire_date,
+        is_active: emp.is_active,
+        company_id: emp.company_id
+      }));
+
+      setEmployees(mappedData);
     } catch (error) {
       console.error('Error fetching employee directory:', error);
       toast({

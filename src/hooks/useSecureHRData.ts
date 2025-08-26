@@ -30,9 +30,19 @@ export const useSecureHRData = () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase
-        .from('employee_directory_public')
-        .select('*')
-        .order('first_name');
+        .from('hr_employees')
+        .select(`
+          id,
+          employee_id,
+          full_name,
+          email,
+          phone,
+          hire_date,
+          is_active,
+          company_id
+        `)
+        .eq('is_active', true)
+        .order('full_name');
 
       if (error) {
         console.error('Error fetching public directory:', error);
@@ -44,7 +54,18 @@ export const useSecureHRData = () => {
         return;
       }
 
-      setPublicDirectory(data || []);
+      const mappedData: PublicEmployeeData[] = (data || []).map(emp => ({
+        id: emp.id,
+        company_id: emp.company_id,
+        employee_id: emp.employee_id,
+        first_name: emp.full_name?.split(' ')[0] || '',
+        last_name: emp.full_name?.split(' ').slice(1).join(' ') || '',
+        email: emp.email,
+        hire_date: emp.hire_date,
+        is_active: emp.is_active
+      }));
+
+      setPublicDirectory(mappedData);
     } catch (error) {
       console.error('Error:', error);
       toast({
