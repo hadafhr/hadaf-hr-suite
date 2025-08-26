@@ -884,15 +884,6 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
 
-        {/* AI Assistant */}
-        <div className="group relative">
-          <Button size="lg" className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105" title="بُعد – مساعدك الذكي" onClick={() => navigate("/ai-hub")}>
-            <Brain className="w-6 h-6 text-white" />
-          </Button>
-          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-            بُعد – مساعدك الذكي
-          </div>
-        </div>
 
         {/* Call Now */}
         <div className="group relative">
