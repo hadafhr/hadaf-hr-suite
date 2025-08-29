@@ -349,6 +349,58 @@ const ComprehensiveDisciplinarySystem = () => {
     }, 1000);
   }, []);
 
+  const handleExportReport = async () => {
+    try {
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      
+      doc.setFontSize(16);
+      doc.text('Disciplinary Actions Report', 20, 30);
+      doc.setFontSize(12);
+      doc.text(`Generated on: ${new Date().toLocaleDateString('ar-SA')}`, 20, 45);
+      
+      let yPos = 65;
+      disciplinaryActions.forEach((action, index) => {
+        if (yPos > 270) {
+          doc.addPage();
+          yPos = 30;
+        }
+        
+        doc.text(`${index + 1}. Case: ${action.case_number}`, 20, yPos);
+        doc.text(`Employee: ${action.employee_name}`, 30, yPos + 10);
+        doc.text(`Violation: ${action.violation_code}`, 30, yPos + 20);
+        doc.text(`Status: ${action.status}`, 30, yPos + 30);
+        
+        yPos += 50;
+      });
+      
+      doc.save('disciplinary-actions-report.pdf');
+      toast.success('تم تصدير التقرير بنجاح');
+    } catch (error) {
+      toast.error('حدث خطأ أثناء تصدير التقرير');
+    }
+  };
+
+  const handleViolationAction = (action: string) => {
+    switch (action) {
+      case 'add-violation':
+        toast.success('فتح نموذج إضافة مخالفة جديدة');
+        break;
+      case 'review-appeals':
+        toast.success('مراجعة الاستئنافات المعلقة');
+        break;
+      case 'generate-warning':
+        toast.success('إنتاج إنذار رسمي');
+        break;
+      default:
+        toast.success(`تنفيذ إجراء: ${action}`);
+    }
+  };
+
+  const handleAlertAction = (alertType: string) => {
+    toast.success(`معالجة تنبيه: ${alertType}`);
+  };
+
   const stats = {
     totalViolations: saudiLaborViolationsData.length,
     activeActions: disciplinaryActions.filter(a => a.status === 'active').length,
@@ -428,7 +480,10 @@ const ComprehensiveDisciplinarySystem = () => {
             />
             <Label htmlFor="auto-detection">الرصد التلقائي</Label>
           </div>
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => handleExportReport()}
+          >
             <Download className="h-4 w-4 ml-2" />
             تصدير التقرير
           </Button>

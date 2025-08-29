@@ -164,6 +164,91 @@ export const ComprehensiveAttendance: React.FC<ComprehensiveAttendanceProps> = (
     setShowDetails(prev => ({ ...prev, [status]: !prev[status] }));
   };
 
+  const handleExportPDF = async () => {
+    try {
+      const doc = new jsPDF();
+      
+      doc.setFontSize(16);
+      doc.text('Attendance Report', 20, 30);
+      doc.setFontSize(12);
+      doc.text(`Generated on: ${new Date().toLocaleDateString('ar-SA')}`, 20, 45);
+      
+      let yPos = 65;
+      filteredRecords.forEach((record, index) => {
+        if (yPos > 270) {
+          doc.addPage();
+          yPos = 30;
+        }
+        
+        doc.text(`${index + 1}. ${record.employeeName}`, 20, yPos);
+        doc.text(`Department: ${record.department}`, 30, yPos + 10);
+        doc.text(`Status: ${record.status}`, 30, yPos + 20);
+        doc.text(`Working Hours: ${record.workingHours}`, 30, yPos + 30);
+        
+        yPos += 50;
+      });
+      
+      doc.save('attendance-report.pdf');
+      
+      toast({
+        title: "تم تصدير التقرير بنجاح",
+        description: "تم تحميل ملف PDF لسجلات الحضور"
+      });
+    } catch (error) {
+      toast({
+        title: "خطأ في التصدير",
+        description: "حدث خطأ أثناء تصدير التقرير"
+      });
+    }
+  };
+
+  const handleExportExcel = () => {
+    const csvContent = [
+      ['Employee Name', 'Department', 'Status', 'Check In', 'Check Out', 'Working Hours'].join(','),
+      ...filteredRecords.map(record => [
+        `"${record.employeeName}"`,
+        `"${record.department}"`,
+        `"${record.status}"`,
+        record.checkInTime ? format(record.checkInTime, 'HH:mm') : 'N/A',
+        record.checkOutTime ? format(record.checkOutTime, 'HH:mm') : 'N/A',
+        record.workingHours.toString()
+      ].join(','))
+    ].join('\n');
+    
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = 'attendance-report.csv';
+    link.style.display = 'none';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "تم تصدير البيانات بنجاح",
+      description: "تم تحميل ملف Excel لسجلات الحضور"
+    });
+  };
+
+  const handleRefreshData = () => {
+    setRecords([...mockRecords]);
+    toast({
+      title: "تم تحديث البيانات",
+      description: "تم تحديث سجلات الحضور بنجاح"
+    });
+  };
+
+  const handleViewRecord = (record: AttendanceRecord) => {
+    alert(`عرض تفاصيل سجل الحضور للموظف: ${record.employeeName}`);
+  };
+
+  const handleEditRecord = (record: AttendanceRecord) => {
+    alert(`تعديل سجل الحضور للموظف: ${record.employeeName}`);
+  };
+
   const getStatusIcon = (method: string) => {
     switch (method) {
       case 'gps':
@@ -218,15 +303,23 @@ export const ComprehensiveAttendance: React.FC<ComprehensiveAttendanceProps> = (
         </div>
         
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => handleExportPDF()}
+          >
             <FileText className="h-4 w-4 ml-2" />
             PDF
           </Button>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => handleExportExcel()}
+          >
             <Download className="h-4 w-4 ml-2" />
             Excel
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setRecords([...mockRecords])}>
+          <Button variant="outline" size="sm" onClick={() => handleRefreshData()}>
             <RefreshCw className="h-4 w-4 ml-2" />
             تحديث
           </Button>
@@ -504,10 +597,18 @@ export const ComprehensiveAttendance: React.FC<ComprehensiveAttendanceProps> = (
                         </td>
                         <td className="p-3">
                           <div className="flex items-center justify-center gap-1">
-                            <Button size="sm" variant="ghost">
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={() => handleViewRecord(record)}
+                            >
                               <Eye className="h-4 w-4" />
                             </Button>
-                            <Button size="sm" variant="ghost">
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={() => handleEditRecord(record)}
+                            >
                               <Edit className="h-4 w-4" />
                             </Button>
                           </div>

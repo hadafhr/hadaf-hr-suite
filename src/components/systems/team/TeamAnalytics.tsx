@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 import { 
   TrendingUp,
   TrendingDown,
@@ -221,6 +222,41 @@ const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ employees }) => {
 
   const departments = [...new Set(employees.map(emp => emp.department))];
 
+  const handleExportAnalytics = async () => {
+    try {
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
+      
+      // Add title
+      doc.setFontSize(16);
+      doc.text('Team Analytics Report', 20, 30);
+      
+      // Add date
+      doc.setFontSize(12);
+      doc.text(`Generated: ${new Date().toLocaleDateString('ar-SA')}`, 20, 45);
+      
+      // Add analytics data
+      let yPos = 65;
+      doc.text(`Average Performance: ${analytics.avgPerformance}%`, 20, yPos);
+      yPos += 15;
+      doc.text(`Average Attendance: ${analytics.avgAttendance}%`, 20, yPos);
+      yPos += 15;
+      doc.text(`Task Completion Rate: ${analytics.taskStats.completionRate}%`, 20, yPos);
+      yPos += 15;
+      doc.text(`Retention Rate: ${Math.round(analytics.retentionRate)}%`, 20, yPos);
+      
+      doc.save('team-analytics-report.pdf');
+      
+      toast.success("تم تصدير التحليل بنجاح", {
+        description: "تم تحميل ملف PDF للتحليلات"
+      });
+    } catch (error) {
+      toast.error("خطأ في التصدير", {
+        description: "حدث خطأ أثناء تصدير التحليلات"
+      });
+    }
+  };
+
   const getInsightColor = (type: string) => {
     switch (type) {
       case 'critical': return 'border-red-200 bg-red-50 text-red-800';
@@ -274,8 +310,13 @@ const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ employees }) => {
                 ))}
               </div>
               
-              <Button variant="outline" size="sm">
-                <Download className="h-4 w-4 mr-1" />
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleExportAnalytics()}
+                className="gap-2"
+              >
+                <Download className="h-4 w-4" />
                 تصدير التحليل
               </Button>
             </div>

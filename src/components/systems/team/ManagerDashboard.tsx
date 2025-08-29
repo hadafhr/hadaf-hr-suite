@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 import { 
   Users,
   TrendingUp,
@@ -176,21 +177,27 @@ const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
       .slice(0, 5);
   }, [teamMembers]);
 
-  const getAlertColor = (type: string) => {
-    switch (type) {
-      case 'high': return 'border-red-200 bg-red-50';
-      case 'medium': return 'border-yellow-200 bg-yellow-50';
-      case 'low': return 'border-blue-200 bg-blue-50';
-      default: return 'border-gray-200 bg-gray-50';
-    }
+  const handleViewEmployeeDetails = (employee: Employee) => {
+    toast.success(`عرض تفاصيل الموظف: ${employee.name}`);
+    // في التطبيق الحقيقي سيتم توجيه المستخدم لصفحة تفاصيل الموظف
   };
 
-  const getAlertTextColor = (type: string) => {
-    switch (type) {
-      case 'high': return 'text-red-700';
-      case 'medium': return 'text-yellow-700';
-      case 'low': return 'text-blue-700';
-      default: return 'text-gray-700';
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case 'bulk-approval':
+        toast.success('فتح نافذة اعتماد جماعي للطلبات');
+        break;
+      case 'performance-review':
+        toast.success('بدء عملية تقييم الأداء الشهري');
+        break;
+      case 'team-meeting':
+        toast.success('جدولة اجتماع فريق جديد');
+        break;
+      case 'training-assign':
+        toast.success('تخصيص برامج تدريبية للفريق');
+        break;
+      default:
+        toast.success(`تنفيذ إجراء: ${action}`);
     }
   };
 
@@ -233,7 +240,10 @@ const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
               </Button>
             ))}
           </div>
-          <Button className="flex items-center gap-2">
+          <Button 
+            className="flex items-center gap-2"
+            onClick={() => window.location.href = '/add-employee'}
+          >
             <UserPlus className="h-4 w-4" />
             إضافة موظف
           </Button>
@@ -350,7 +360,12 @@ const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
                           )}
                         </div>
                       </div>
-                      <Button size="sm" variant="outline" className="bg-white/60">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="bg-white/60"
+                        onClick={() => handleViewEmployeeDetails(alert.employees[0])}
+                      >
                         <Eye className="h-4 w-4" />
                       </Button>
                     </div>
@@ -426,6 +441,55 @@ const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
           </CardContent>
         </Card>
       </div>
+
+      {/* Quick Actions Panel */}
+      <Card className="bg-white/80 backdrop-blur-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5 text-primary" />
+            الإجراءات السريعة
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 h-20 flex-col"
+              onClick={() => handleQuickAction('bulk-approval')}
+            >
+              <CheckCircle className="h-6 w-6 text-green-600" />
+              <span className="text-sm">اعتماد جماعي</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 h-20 flex-col"
+              onClick={() => handleQuickAction('performance-review')}
+            >
+              <BarChart3 className="h-6 w-6 text-blue-600" />
+              <span className="text-sm">تقييم الأداء</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 h-20 flex-col"
+              onClick={() => handleQuickAction('team-meeting')}
+            >
+              <MessageSquare className="h-6 w-6 text-purple-600" />
+              <span className="text-sm">اجتماع الفريق</span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 h-20 flex-col"
+              onClick={() => handleQuickAction('training-assign')}
+            >
+              <Award className="h-6 w-6 text-orange-600" />
+              <span className="text-sm">برامج التدريب</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Top Performers and Team Members */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

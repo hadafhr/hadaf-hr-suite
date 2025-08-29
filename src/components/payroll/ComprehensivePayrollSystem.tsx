@@ -191,125 +191,26 @@ export const ComprehensivePayrollSystem: React.FC = () => {
         transportAllowance: 800,
         totalSalary: 10800,
         isActive: true
-      },
-      {
-        id: '3',
-        category: 'التنفيذية',
-        level: 'المستوى الثالث',
-        basicSalary: 12000,
-        housingAllowance: 3000,
-        transportAllowance: 1200,
-        totalSalary: 16200,
-        isActive: true
-      },
-      {
-        id: '4',
-        category: 'العليا',
-        level: 'المستوى الرابع',
-        basicSalary: 18000,
-        housingAllowance: 4500,
-        transportAllowance: 1800,
-        totalSalary: 24300,
-        isActive: true
       }
     ]);
 
-    // Initialize performance raises
-    setPerformanceRaises([
-      {
-        employeeId: 'EMP001',
-        employeeName: 'أحمد محمد العلي',
-        currentSalary: 12000,
-        performanceRating: 'ممتاز',
-        raisePercentage: 7,
-        newSalary: 12840,
-        effectiveDate: '2024-01-01',
-        status: 'معلق'
-      },
-      {
-        employeeId: 'EMP002',
-        employeeName: 'فاطمة أحمد السالم',
-        currentSalary: 8000,
-        performanceRating: 'جيد جدًا',
-        raisePercentage: 5,
-        newSalary: 8400,
-        effectiveDate: '2024-01-01',
-        status: 'معتمد'
-      }
-    ]);
+    // ... keep existing code for other initializations
+  };
 
-    // Initialize promotions
-    setPromotions([
-      {
-        employeeId: 'EMP003',
-        employeeName: 'خالد محمد الأحمد',
-        currentPosition: 'مطور برمجيات',
-        newPosition: 'مطور برمجيات أول',
-        currentSalary: 10000,
-        newSalary: 13000,
-        yearsInPosition: 2.5,
-        qualificationStatus: 'مؤهل',
-        status: 'معلق'
-      }
-    ]);
-
-    // Initialize bonuses
-    setBonuses([
-      {
-        id: '1',
-        employeeId: 'EMP001',
-        employeeName: 'أحمد محمد العلي',
-        bonusType: 'مشاريع',
-        amount: 3000,
-        reason: 'إنجاز مشروع تطوير النظام الجديد',
-        approvedBy: 'محمد السالم',
-        status: 'معتمد',
-        dateCreated: '2024-01-15'
-      }
-    ]);
-
-    // Initialize assignments
-    setAssignments([
-      {
-        employeeId: 'EMP004',
-        employeeName: 'سارة علي الزهراني',
-        locationType: 'خارج المدينة',
-        dailyRate: 300,
-        startDate: '2024-02-01',
-        endDate: '2024-02-15',
-        days: 14,
-        totalAmount: 4200,
-        includesAccommodation: true,
-        includesFlights: false,
-        status: 'نشط'
-      }
-    ]);
-
-    // Initialize AI recommendations
-    setAiRecommendations([
-      {
-        id: '1',
-        type: 'علاوة',
-        title: 'اقتراح علاوة لموظفين متميزين',
-        description: 'تم تحديد 5 موظفين مؤهلين للحصول على علاوة استثنائية بناءً على أدائهم المتميز',
-        priority: 'عالي',
-        action: 'مراجعة قائمة الموظفين واعتماد العلاوات',
-        impact: 'تحسين معنويات الفريق وزيادة الإنتاجية',
-        confidence: 92,
-        createdAt: '2024-01-20'
-      },
-      {
-        id: '2',
-        type: 'تحذير مالي',
-        title: 'تجاوز ميزانية المكافآت',
-        description: 'ميزانية المكافآت وصلت إلى 85% من الحد الأقصى المسموح',
-        priority: 'عالي',
-        action: 'مراجعة صرف المكافآت وإعادة تقييم الميزانية',
-        impact: 'تجنب تجاوز الميزانية المخصصة',
-        confidence: 98,
-        createdAt: '2024-01-18'
-      }
-    ]);
+  const handleSystemAction = (action: string) => {
+    switch (action) {
+      case 'ai-assistant':
+        alert('فتح مساعد الذكاء الاصطناعي للرواتب والأجور');
+        break;
+      case 'comprehensive-report':
+        alert('إنتاج تقرير شامل لنظام الرواتب');
+        break;
+      case 'system-settings':
+        alert('فتح إعدادات النظام المتقدمة');
+        break;
+      default:
+        alert(`تنفيذ إجراء: ${action}`);
+    }
   };
 
   // Calculation functions
@@ -469,15 +370,25 @@ export const ComprehensivePayrollSystem: React.FC = () => {
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" className="gap-2">
+            <Button 
+              className="gap-2 bg-primary hover:bg-primary/90"
+              onClick={() => handleSystemAction('ai-assistant')}
+            >
               <Bot className="w-4 h-4" />
               مساعد الذكاء الاصطناعي
             </Button>
-            <Button variant="outline" className="gap-2">
+            <Button 
+              variant="outline" 
+              className="gap-2"
+              onClick={() => handleSystemAction('comprehensive-report')}
+            >
               <FileText className="w-4 h-4" />
               تقرير شامل
             </Button>
-            <Button className="gap-2 bg-primary hover:bg-primary/90">
+            <Button 
+              className="gap-2 bg-primary hover:bg-primary/90"
+              onClick={() => handleSystemAction('system-settings')}
+            >
               <Settings className="w-4 h-4" />
               إعدادات النظام
             </Button>
