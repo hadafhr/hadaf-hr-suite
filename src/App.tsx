@@ -99,7 +99,7 @@ import { NPCS } from './pages/portals/NPCS';
 // Initialize QueryClient outside of component
 const queryClient = new QueryClient();
 
-const App = () => {
+function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<'ar' | 'en'>('ar');
 
@@ -287,6 +287,6 @@ const App = () => {
       </QueryClientProvider>
     </React.StrictMode>
   );
-};
+}
 
 export default App;
