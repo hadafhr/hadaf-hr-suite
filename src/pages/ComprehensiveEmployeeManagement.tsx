@@ -327,14 +327,14 @@ const ComprehensiveEmployeeManagement = () => {
             </Card>
           </div>
 
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {/* Categories Row - Horizontal Layout */}
+          <div className="flex flex-wrap gap-3 justify-center">
             {hrCategories.map((category) => {
               const CategoryIcon = category.icon;
               const isActive = activeCategory === category.id;
               
               return (
-                <Card key={category.id} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-[#009F87]">
+                <Card key={category.id} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-[#009F87] min-w-[280px] flex-1">
                   <Collapsible open={isActive} onOpenChange={() => setActiveCategory(isActive ? null : category.id)}>
                     <CollapsibleTrigger asChild>
                       <CardHeader className="cursor-pointer hover:bg-gray-50/50 transition-colors p-3">
