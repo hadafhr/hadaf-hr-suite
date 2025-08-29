@@ -248,8 +248,11 @@ const TeamMembers = () => {
   };
 
   const handleExportData = async (format: 'pdf' | 'excel') => {
+    console.log(`Starting export for format: ${format}`);
+    
     try {
       if (format === 'pdf') {
+        console.log('Importing jsPDF...');
         const { jsPDF } = await import('jspdf');
         const doc = new jsPDF();
         
@@ -282,29 +285,51 @@ const TeamMembers = () => {
           yPosition += 70;
         });
         
+        console.log('Saving PDF...');
         // حفظ الملف
         doc.save('team-members-report.pdf');
         
       } else if (format === 'excel') {
-        // تصدير Excel (محاكاة)
+        console.log('Creating CSV data...');
+        // تصدير Excel كـ CSV
         const csvContent = [
           ['Name', 'Department', 'Position', 'Email', 'Phone', 'Status'].join(','),
           ...filteredEmployees.map(emp => 
-            [emp.name, emp.department, emp.position, emp.email, emp.phone, emp.status].join(',')
+            [
+              `"${emp.name}"`,
+              `"${emp.department}"`, 
+              `"${emp.position}"`,
+              `"${emp.email}"`,
+              `"${emp.phone}"`,
+              `"${emp.status}"`
+            ].join(',')
           )
         ].join('\n');
         
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        console.log('Creating blob and download link...');
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob);
+        link.href = url;
         link.download = 'team-members-report.csv';
+        link.style.display = 'none';
+        
+        // إضافة الرابط للـ DOM وتفعيل التحميل
+        document.body.appendChild(link);
         link.click();
+        
+        // تنظيف الرابط
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }, 100);
       }
       
+      console.log(`Export successful for ${format}`);
       alert(`تم تصدير البيانات بصيغة ${format === 'pdf' ? 'PDF' : 'Excel'} بنجاح`);
     } catch (error) {
       console.error('Export error:', error);
-      alert('حدث خطأ أثناء تصدير البيانات');
+      alert('حدث خطأ أثناء تصدير البيانات: ' + error.message);
     }
   };
 
