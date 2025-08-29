@@ -141,6 +141,18 @@ const ComprehensiveEmployeeManagement = () => {
       ]
     },
     {
+      id: 'performance',
+      name: 'الأداء والمكافآت',
+      icon: TrendingUp,
+      color: 'bg-red-500',
+      modules: [
+        { id: 'evaluation', name: 'تقييم الأداء', icon: Target },
+        { id: 'payroll', name: 'الرواتب والأجور', icon: DollarSign },
+        { id: 'rewards', name: 'المكافآت والحوافز', icon: Gift },
+        { id: 'wageprotection', name: 'حماية الأجور', icon: Banknote }
+      ]
+    },
+    {
       id: 'operations',
       name: 'العمليات اليومية للموارد البشرية',
       icon: Clock,
@@ -155,6 +167,15 @@ const ComprehensiveEmployeeManagement = () => {
       ]
     },
     {
+      id: 'relations',
+      name: 'الانضباط والعلاقات العمالية',
+      icon: AlertTriangle,
+      color: 'bg-yellow-500',
+      modules: [
+        { id: 'disciplinary', name: 'الجزاءات والعقوبات', icon: AlertTriangle }
+      ]
+    },
+    {
       id: 'acquisition',
       name: 'التوظيف والتكامل',
       icon: UserPlus,
@@ -163,27 +184,6 @@ const ComprehensiveEmployeeManagement = () => {
         { id: 'recruitment', name: 'التوظيف والتعيين', icon: UserPlus },
         { id: 'insurance', name: 'التأمين', icon: Shield },
         { id: 'government', name: 'التكامل والربط', icon: Plug }
-      ]
-    },
-    {
-      id: 'performance',
-      name: 'الأداء والمكافآت',
-      icon: TrendingUp,
-      color: 'bg-red-500',
-      modules: [
-        { id: 'evaluation', name: 'تقييم الأداء', icon: Target },
-        { id: 'payroll', name: 'الرواتب والأجور', icon: DollarSign },
-        { id: 'rewards', name: 'المكافآت والحوافز', icon: Gift },
-        { id: 'wageprotection', name: 'حماية الأجور', icon: Banknote }
-      ]
-    },
-    {
-      id: 'relations',
-      name: 'الانضباط والعلاقات العمالية',
-      icon: AlertTriangle,
-      color: 'bg-yellow-500',
-      modules: [
-        { id: 'disciplinary', name: 'الجزاءات والعقوبات', icon: AlertTriangle }
       ]
     },
     {
