@@ -1,5 +1,5 @@
 
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -100,11 +100,11 @@ import { NPCS } from './pages/portals/NPCS';
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [currentLanguage, setCurrentLanguage] = React.useState<'ar' | 'en'>('ar');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState<'ar' | 'en'>('ar');
 
   // Detect language from URL or localStorage
-  React.useEffect(() => {
+  useEffect(() => {
     const detectLanguage = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const urlLang = urlParams.get('lang');
