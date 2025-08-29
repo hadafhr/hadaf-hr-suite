@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -99,7 +99,7 @@ import { NPCS } from './pages/portals/NPCS';
 // Initialize QueryClient outside of component
 const queryClient = new QueryClient();
 
-const App: React.FC = () => {
+const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<'ar' | 'en'>('ar');
 
