@@ -81,6 +81,7 @@ import EmployeeManagementInfo from './pages/EmployeeManagementInfo';
 import SelfServiceInfo from './pages/SelfServiceInfo';
 import DemoRequest from './pages/DemoRequest';
 import Contact from './pages/Contact';
+import AddEmployee from './pages/AddEmployee';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -266,6 +267,9 @@ const App = () => {
                 <Route path="/mobile-notifications" element={<MobileNotifications />} />
                 <Route path="/mobile-profile" element={<MobileProfile />} />
 
+                {/* Add Employee Route */}
+                <Route path="/add-employee" element={<AddEmployee />} />
+                
                 {/* BOOD HR Main Portal Routes */}
                 <Route path="/e-css" element={<ECSS />} />
                 <Route path="/eis" element={<EIS />} />

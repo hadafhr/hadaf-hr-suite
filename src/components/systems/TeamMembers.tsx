@@ -231,42 +231,9 @@ const TeamMembers = () => {
 
   // Enhanced functionality
   const handleAddEmployee = () => {
-    console.log('Adding new employee...');
-    
-    // إنشاء موظف جديد كمثال
-    const newEmployeeId = String(employees.length + 1);
-    const newEmployee: Employee = {
-      id: newEmployeeId,
-      name: 'موظف جديد',
-      nameAr: 'موظف جديد',
-      email: `employee${newEmployeeId}@company.com`,
-      phone: '+966500000000',
-      position: 'منصب جديد',
-      department: 'قسم جديد',
-      manager: 'مدير القسم',
-      status: 'active',
-      joinDate: new Date().toISOString().split('T')[0],
-      yearsInCompany: 0,
-      performanceScore: 75,
-      attendanceRate: 100,
-      tasks: 0,
-      completedTasks: 0,
-      salary: 8000,
-      leaveBalance: 30,
-      role: 'employee',
-      skills: [],
-      certifications: [],
-      riskScore: 10,
-      burnoutRisk: 'low'
-    };
-
-    // إضافة الموظف الجديد إلى القائمة
-    setEmployees(prev => [...prev, newEmployee]);
-    
-    // إظهار رسالة نجاح
-    alert(`تم إضافة موظف جديد بنجاح: ${newEmployee.name}`);
-    
-    // في التطبيق الحقيقي سيتم فتح نموذج إضافة موظف مفصل
+    console.log('Navigating to add employee page...');
+    // التوجه إلى صفحة إضافة موظف جديد
+    window.location.href = '/add-employee';
   };
 
   const handleEditEmployee = (employee: Employee) => {
