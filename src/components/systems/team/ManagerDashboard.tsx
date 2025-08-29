@@ -201,6 +201,24 @@ const ManagerDashboard: React.FC<ManagerDashboardProps> = ({
     }
   };
 
+  const getAlertColor = (type: string) => {
+    switch (type) {
+      case 'high': return 'border-red-200 bg-red-50';
+      case 'medium': return 'border-yellow-200 bg-yellow-50';
+      case 'low': return 'border-blue-200 bg-blue-50';
+      default: return 'border-gray-200 bg-gray-50';
+    }
+  };
+
+  const getAlertTextColor = (type: string) => {
+    switch (type) {
+      case 'high': return 'text-red-700';
+      case 'medium': return 'text-yellow-700';
+      case 'low': return 'text-blue-700';
+      default: return 'text-gray-700';
+    }
+  };
+
   if (!currentUser || (currentUser.role !== 'manager' && currentUser.role !== 'hr_admin')) {
     return (
       <Card className="bg-white/80 backdrop-blur-sm">
