@@ -172,13 +172,6 @@ const ComprehensiveEmployeeManagement = () => {
               <Download className="h-4 w-4 ml-2" />
               تصدير التقارير
             </Button>
-            <Button 
-              size="sm"
-              className="bg-[#009F87] hover:bg-[#008072] text-white shadow-lg hover:shadow-xl transition-all"
-            >
-              <UserPlus className="h-4 w-4 ml-2" />
-              إضافة موظف جديد
-            </Button>
           </div>
         </div>
       </div>
