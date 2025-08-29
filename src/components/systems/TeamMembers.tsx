@@ -247,12 +247,65 @@ const TeamMembers = () => {
     }
   };
 
-  const handleExportData = (format: 'pdf' | 'excel') => {
-    console.log(`Exporting data as ${format}`);
-    // في التطبيق الحقيقي سيتم تصدير البيانات
-    setTimeout(() => {
+  const handleExportData = async (format: 'pdf' | 'excel') => {
+    try {
+      if (format === 'pdf') {
+        const { jsPDF } = await import('jspdf');
+        const doc = new jsPDF();
+        
+        // إضافة العنوان
+        doc.setFontSize(16);
+        doc.text('Team Members Report', 20, 30);
+        
+        // إضافة تاريخ التقرير
+        doc.setFontSize(12);
+        doc.text(`Generated on: ${new Date().toLocaleDateString('ar-SA')}`, 20, 45);
+        
+        let yPosition = 65;
+        
+        // إضافة بيانات الموظفين
+        filteredEmployees.forEach((employee, index) => {
+          if (yPosition > 270) {
+            doc.addPage();
+            yPosition = 30;
+          }
+          
+          doc.setFontSize(14);
+          doc.text(`${index + 1}. ${employee.name}`, 20, yPosition);
+          doc.setFontSize(10);
+          doc.text(`Department: ${employee.department}`, 30, yPosition + 10);
+          doc.text(`Position: ${employee.position}`, 30, yPosition + 20);
+          doc.text(`Email: ${employee.email}`, 30, yPosition + 30);
+          doc.text(`Phone: ${employee.phone}`, 30, yPosition + 40);
+          doc.text(`Status: ${employee.status}`, 30, yPosition + 50);
+          
+          yPosition += 70;
+        });
+        
+        // حفظ الملف
+        doc.save('team-members-report.pdf');
+        
+      } else if (format === 'excel') {
+        // تصدير Excel (محاكاة)
+        const csvContent = [
+          ['Name', 'Department', 'Position', 'Email', 'Phone', 'Status'].join(','),
+          ...filteredEmployees.map(emp => 
+            [emp.name, emp.department, emp.position, emp.email, emp.phone, emp.status].join(',')
+          )
+        ].join('\n');
+        
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'team-members-report.csv';
+        link.click();
+      }
+      
       alert(`تم تصدير البيانات بصيغة ${format === 'pdf' ? 'PDF' : 'Excel'} بنجاح`);
-    }, 1000);
+    } catch (error) {
+      console.error('Export error:', error);
+      alert('حدث خطأ أثناء تصدير البيانات');
+    }
   };
 
   const handleImportData = () => {
