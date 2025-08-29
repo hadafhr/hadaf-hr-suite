@@ -237,7 +237,14 @@ const TeamMembers = () => {
 
   const handleEditEmployee = (employee: Employee) => {
     console.log('Editing employee:', employee.id);
+    alert(`فتح نموذج تعديل للموظف: ${employee.name}`);
     // في التطبيق الحقيقي سيتم فتح نموذج تعديل الموظف
+  };
+
+  const handleChatWithEmployee = (employee: Employee) => {
+    console.log('Starting chat with employee:', employee.id);
+    alert(`بدء محادثة مع الموظف: ${employee.name}`);
+    // في التطبيق الحقيقي سيتم فتح نافذة المحادثة
   };
 
   const handleDeleteEmployee = (employeeId: string) => {
@@ -505,6 +512,8 @@ const TeamMembers = () => {
           <EmployeeDirectory 
             employees={filteredEmployees}
             onViewProfile={handleViewProfile}
+            onChatWithEmployee={handleChatWithEmployee}
+            onEditEmployee={handleEditEmployee}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             filterDepartment={filterDepartment}

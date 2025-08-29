@@ -53,6 +53,8 @@ interface Employee {
 interface EmployeeDirectoryProps {
   employees: Employee[];
   onViewProfile: (employee: Employee) => void;
+  onChatWithEmployee?: (employee: Employee) => void;
+  onEditEmployee?: (employee: Employee) => void;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   filterDepartment: string;
@@ -71,6 +73,8 @@ interface EmployeeDirectoryProps {
 const EmployeeDirectory: React.FC<EmployeeDirectoryProps> = ({
   employees,
   onViewProfile,
+  onChatWithEmployee,
+  onEditEmployee,
   searchTerm,
   setSearchTerm,
   filterDepartment,
@@ -174,10 +178,22 @@ const EmployeeDirectory: React.FC<EmployeeDirectoryProps> = ({
               
               {(userRole === 'hr_admin' || userRole === 'manager') && (
                 <>
-                  <Button variant="outline" size="sm" className="px-3">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="px-3"
+                    onClick={() => onChatWithEmployee?.(employee)}
+                    title="بدء محادثة"
+                  >
                     <MessageSquare className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm" className="px-3">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="px-3"
+                    onClick={() => onEditEmployee?.(employee)}
+                    title="تعديل الملف"
+                  >
                     <Edit className="h-4 w-4" />
                   </Button>
                 </>
@@ -233,10 +249,20 @@ const EmployeeDirectory: React.FC<EmployeeDirectoryProps> = ({
               
               {(userRole === 'hr_admin' || userRole === 'manager') && (
                 <>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => onChatWithEmployee?.(employee)}
+                    title="بدء محادثة"
+                  >
                     <MessageSquare className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => onEditEmployee?.(employee)}
+                    title="تعديل الملف"
+                  >
                     <Edit className="h-4 w-4" />
                   </Button>
                 </>
