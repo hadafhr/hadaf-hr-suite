@@ -10,14 +10,28 @@ interface MobileSidebarProps {
   onClose: () => void;
 }
 
-const sidebarItems = [
-  { id: 'dashboard', icon: Home, route: '/mobile-dashboard' },
-  { id: 'requests', icon: FileText, route: '/mobile-requests' },
-  { id: 'tasks', icon: CheckSquare, route: '/mobile-tasks' },
-  { id: 'chat', icon: MessageCircle, route: '/mobile-chat' },
-  { id: 'notifications', icon: Bell, route: '/mobile-notifications' },
-  { id: 'profile', icon: User, route: '/mobile-profile' },
-  { id: 'settings', icon: Settings, route: '/mobile-settings' }
+const hrCategories = [
+  {
+    id: 'strategic',
+    name: 'القيادة والإدارة الاستراتيجية',
+    items: [
+      { id: 'dashboard', icon: Home, route: '/mobile-dashboard' },
+      { id: 'requests', icon: FileText, route: '/mobile-requests' },
+      { id: 'chat', icon: MessageCircle, route: '/mobile-chat' },
+      { id: 'settings', icon: Settings, route: '/mobile-settings' }
+    ]
+  },
+  {
+    id: 'operations', 
+    name: 'العمليات اليومية',
+    items: [
+      { id: 'workforce', icon: User, route: '/mobile-workforce' },
+      { id: 'attendance', icon: CheckSquare, route: '/mobile-attendance' },
+      { id: 'tasks', icon: CheckSquare, route: '/mobile-tasks' },
+      { id: 'notifications', icon: Bell, route: '/mobile-notifications' },
+      { id: 'profile', icon: User, route: '/mobile-profile' }
+    ]
+  }
 ];
 
 export const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose }) => {
@@ -68,21 +82,30 @@ export const MobileSidebar: React.FC<MobileSidebarProps> = ({ isOpen, onClose })
         </div>
 
         {/* Navigation Items */}
-        <div className="flex flex-col p-4 space-y-2">
-          {sidebarItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Button
-                key={item.id}
-                variant="ghost"
-                className="justify-start gap-3 h-12"
-                onClick={() => handleNavigation(item.route)}
-              >
-                <Icon className="h-5 w-5" />
-                {t(item.id)}
-              </Button>
-            );
-          })}
+        <div className="flex flex-col p-4 space-y-4">
+          {hrCategories.map((category) => (
+            <div key={category.id} className="space-y-2">
+              <h3 className="text-sm font-semibold text-muted-foreground px-3">
+                {category.name}
+              </h3>
+              <div className="space-y-1">
+                {category.items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Button
+                      key={item.id}
+                      variant="ghost"
+                      className="justify-start gap-3 h-10 w-full"
+                      onClick={() => handleNavigation(item.route)}
+                    >
+                      <Icon className="h-4 w-4" />
+                      {t(item.id)}
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Footer */}
