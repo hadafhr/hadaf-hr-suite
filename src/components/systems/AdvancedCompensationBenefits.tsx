@@ -259,43 +259,53 @@ export const AdvancedCompensationBenefits: React.FC<AdvancedCompensationBenefits
   };
 
   return (
-    <div className="space-y-6 p-6 bg-gradient-to-br from-[#009F87]/5 to-background">
-      {/* Professional Header */}
-      <div className="bg-white/90 backdrop-blur rounded-xl border border-[#009F87]/20 shadow-lg">
-        <div className="flex items-center justify-between p-6 border-b border-[#009F87]/10">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onBack}
-              className="hover:bg-[#009F87]/10"
-            >
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              العودة
-            </Button>
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-[#009F87]/10 rounded-lg">
-                <Gift className="h-6 w-6 text-[#009F87]" />
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-[#009F87]">إدارة المكافآت والحوافز المتقدمة</h1>
-                <p className="text-muted-foreground">نظام شامل لإدارة وتتبع المكافآت والحوافز والتقدير</p>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Download className="h-4 w-4 ml-2" />
+                  تصدير التقرير
+                </Button>
+                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm">
+                  <BarChart3 className="h-4 w-4 ml-2" />
+                  الإحصائيات
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Plus className="h-4 w-4 ml-2" />
+                  مكافأة جديدة
+                </Button>
               </div>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير التقرير
-            </Button>
-            <Button variant="outline" size="sm">
-              <BarChart3 className="h-4 w-4 ml-2" />
-              الإحصائيات
-            </Button>
-            <Button size="sm" className="bg-[#009F87] hover:bg-[#008072]">
-              <Plus className="h-4 w-4 ml-2" />
-              مكافأة جديدة
-            </Button>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Gift className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام المكافآت والحوافز المتقدم
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لإدارة وتتبع المكافآت والحوافز والتقدير مع أنظمة التقييم المتطورة
+              </p>
+            </div>
           </div>
         </div>
 

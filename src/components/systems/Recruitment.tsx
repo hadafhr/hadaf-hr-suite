@@ -175,33 +175,50 @@ export const Recruitment: React.FC<RecruitmentProps> = ({ onBack }) => {
   });
 
   return (
-    <div className={`min-h-screen bg-background p-6 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                {isRTL ? 'التوظيف والتعيين' : 'Recruitment & Hiring'}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {isRTL ? 'رجوع' : 'Back'}
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Search className="h-4 w-4 ml-2" />
+                  {isRTL ? 'البحث في الوظائف' : 'Search Jobs'}
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Plus className="h-4 w-4 ml-2" />
+                  {isRTL ? 'وظيفة جديدة' : 'New Job Posting'}
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Users className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                {isRTL ? 'نظام التوظيف والتعيين المتقدم' : 'Advanced Recruitment & Hiring System'}
               </h1>
-              <p className="text-muted-foreground">
-                {isRTL ? 'إدارة عمليات التوظيف والمرشحين والوظائف' : 'Manage recruitment processes, candidates and job postings'}
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                {isRTL ? 'منظومة ذكية شاملة لإدارة عمليات التوظيف والمرشحين والوظائف مع أنظمة التقييم والاختيار المتطورة' : 'Comprehensive intelligent system for managing recruitment processes, candidates and job postings with advanced assessment and selection systems'}
               </p>
             </div>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            {isRTL ? 'وظيفة جديدة' : 'New Job Posting'}
-          </Button>
         </div>
 
         {/* Stats Overview */}

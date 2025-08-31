@@ -217,39 +217,33 @@ export const AdvancedPayroll: React.FC<PayrollProps> = ({ onBack }) => {
       
       <div className="relative p-6 backdrop-blur-sm">
         {/* Enhanced Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="bg-white/90 backdrop-blur border-primary/20 hover:bg-primary/10"
-            >
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              العودة
-            </Button>
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-primary/20 backdrop-blur rounded-xl border border-primary/30">
-                <DollarSign className="h-8 w-8 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-primary">نظام الرواتب المتقدم</h1>
-                <p className="text-muted-foreground">إدارة شاملة لرواتب ومكافآت الموظفين</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Button onClick={handleProcessPayroll} className="bg-success hover:bg-success/90 text-white shadow-lg">
-              <CreditCard className="h-4 w-4 ml-2" />
-              معالجة الرواتب
-            </Button>
-            <Dialog open={isPayrollDialogOpen} onOpenChange={setIsPayrollDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة راتب
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
                 </Button>
-              </DialogTrigger>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm" onClick={handleProcessPayroll}>
+                  <CreditCard className="h-4 w-4 ml-2" />
+                  معالجة الرواتب
+                </Button>
+                <Dialog open={isPayrollDialogOpen} onOpenChange={setIsPayrollDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                      <Plus className="h-4 w-4 ml-2" />
+                      إضافة راتب
+                    </Button>
+                  </DialogTrigger>
               <DialogContent className="bg-white/95 backdrop-blur max-w-4xl">
                 <DialogHeader>
                   <DialogTitle className="text-primary">إضافة راتب جديد</DialogTitle>
@@ -310,6 +304,22 @@ export const AdvancedPayroll: React.FC<PayrollProps> = ({ onBack }) => {
                 </div>
               </DialogContent>
             </Dialog>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <DollarSign className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام الرواتب والمكافآت المتقدم
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لإدارة ومعالجة رواتب الموظفين مع أنظمة المكافآت والاستقطاعات المتطورة
+              </p>
+            </div>
           </div>
         </div>
 

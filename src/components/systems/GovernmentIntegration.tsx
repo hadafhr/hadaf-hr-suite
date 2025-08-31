@@ -118,37 +118,54 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
   const errorSystems = systems.filter(s => s.status === 'خطأ').length;
 
   return (
-    <div className="space-y-6 p-6">
-      {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
-        <Button
-          variant="ghost"
-          onClick={onBack}
-          className="hover:bg-[#009F87]/10"
-        >
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          العودة
-        </Button>
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#009F87]/10 rounded-lg">
-            <Globe className="h-6 w-6 text-[#009F87]" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-[#009F87]">التكامل الحكومي</h1>
-            <p className="text-muted-foreground">ربط مع الأنظمة الحكومية وتزامن البيانات</p>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button 
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                  onClick={() => window.location.reload()}
+                >
+                  <RefreshCw className="h-4 w-4 ml-2" />
+                  تحديث جميع الأنظمة
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Globe className="h-4 w-4 ml-2" />
+                  ربط نظام جديد
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Globe className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام التكامل الحكومي المتقدم
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة للربط مع الأنظمة الحكومية وتزامن البيانات مع جميع الجهات الرسمية
+              </p>
+            </div>
           </div>
         </div>
-        <div className="mr-auto">
-          <Button 
-            variant="outline"
-            onClick={() => window.location.reload()}
-            className="hover:bg-[#009F87]/10"
-          >
-            <RefreshCw className="h-4 w-4 ml-2" />
-            تحديث جميع الأنظمة
-          </Button>
-        </div>
-      </div>
 
       {/* Stats Overview */}
       <div className="grid md:grid-cols-4 gap-6">
@@ -240,6 +257,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
             </CardContent>
           </Card>
         ))}
+      </div>
       </div>
     </div>
   );

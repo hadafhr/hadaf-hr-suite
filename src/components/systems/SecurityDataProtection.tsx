@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { 
   Shield, Lock, Eye, AlertTriangle, CheckCircle, 
   Key, FileText, Users, Clock, Settings, 
-  Database, Wifi, Smartphone, Globe
+  Database, Wifi, Smartphone, Globe, ArrowLeft
 } from 'lucide-react';
 
 interface SecurityDataProtectionProps {
@@ -113,30 +113,51 @@ const SecurityDataProtection = ({ onBack }: SecurityDataProtectionProps) => {
   ];
 
   return (
-    <div className="p-6 space-y-6 bg-gradient-to-br from-background via-background/95 to-primary/5 min-h-screen">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" onClick={onBack}>←</Button>
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              الأمان وحماية البيانات
-            </h1>
-            <p className="text-muted-foreground">
-              نظام شامل لحماية البيانات ومراقبة الأمان
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Settings className="h-4 w-4 ml-2" />
+                  إعدادات الأمان
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Shield className="h-4 w-4 ml-2" />
+                  فحص أمني جديد
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Shield className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام الأمان وحماية البيانات المتقدم
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لحماية البيانات ومراقبة الأمان مع أنظمة الكشف والحماية المتطورة
+              </p>
+            </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" className="gap-2">
-            <Settings className="w-4 h-4" />
-            إعدادات الأمان
-          </Button>
-          <Button className="gap-2 bg-gradient-to-r from-primary to-primary/80">
-            <Shield className="w-4 h-4" />
-            فحص أمني جديد
-          </Button>
-        </div>
-      </div>
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -331,6 +352,7 @@ const SecurityDataProtection = ({ onBack }: SecurityDataProtectionProps) => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };
