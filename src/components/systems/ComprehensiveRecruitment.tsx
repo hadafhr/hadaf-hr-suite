@@ -1,543 +1,772 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 import { 
-  Briefcase, Users, Calendar, Search, Plus, FileText, ArrowLeft,
-  Bot, Settings, BarChart3, PieChart, User, Globe, Video,
-  Download, Upload, CheckCircle, Clock, Target, Star
+  ArrowLeft, 
+  Users, 
+  Briefcase, 
+  FileText, 
+  AlertTriangle, 
+  CheckCircle2, 
+  Clock,
+  Download,
+  Plus,
+  Search,
+  Filter,
+  Calendar,
+  Building,
+  BookOpen,
+  Shield,
+  Award,
+  Target,
+  TrendingUp,
+  BarChart3,
+  PieChart,
+  Activity,
+  Zap,
+  Globe,
+  Eye,
+  Settings,
+  Bell,
+  CreditCard,
+  UserCheck,
+  Sparkles,
+  Archive,
+  Edit,
+  Trash2,
+  Share,
+  Lock,
+  Unlock,
+  AlertCircle,
+  Info,
+  UserPlus,
+  Phone,
+  Mail,
+  Crown,
+  Users2,
+  User
 } from 'lucide-react';
-
-interface JobPosting {
-  id: string;
-  title: string;
-  englishTitle: string;
-  department: string;
-  location: string;
-  employmentType: 'full_time' | 'part_time' | 'contract' | 'internship';
-  experience: string;
-  salary: string;
-  postedDate: string;
-  deadline: string;
-  status: 'open' | 'closed' | 'draft';
-  applicants: number;
-}
-
-interface Candidate {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  position: string;
-  experience: string;
-  education: string;
-  status: 'applied' | 'screening' | 'interview' | 'offer' | 'hired' | 'rejected';
-  appliedDate: string;
-  resumeScore: number;
-}
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
 
 interface ComprehensiveRecruitmentProps {
-  onBack?: () => void;
+  onBack: () => void;
+}
+
+interface RecruitmentCandidate {
+  id: string;
+  candidateNumber: string;
+  name: string;
+  position: string;
+  department: 'IT' | 'HR' | 'Finance' | 'Marketing' | 'Operations' | 'Sales';
+  status: 'Applied' | 'Screening' | 'Interview' | 'Offer' | 'Hired' | 'Rejected';
+  level: 'Junior' | 'Mid' | 'Senior' | 'Lead' | 'Manager';
+  experience: string;
+  email: string;
+  phone: string;
+  appliedDate: string;
+  source: string;
+  resumeScore: number;
+  interviewScore: number;
+  yearsOfExperience: number;
+  expectedSalary: number;
+}
+
+interface JobPosition {
+  id: string;
+  name: string;
+  department: string;
+  candidates: number;
+  budget: number;
+  performance: number;
+  description: string;
+}
+
+interface RecruitmentMetric {
+  id: string;
+  metric: string;
+  category: 'Applications' | 'Interviews' | 'Hiring' | 'Performance' | 'Quality';
+  status: 'Excellent' | 'Good' | 'Average' | 'Below Average' | 'Poor';
+  value: number;
+  target: number;
+  trend: 'up' | 'down' | 'stable';
+  lastUpdated: string;
 }
 
 export const ComprehensiveRecruitment: React.FC<ComprehensiveRecruitmentProps> = ({ onBack }) => {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  const jobPostings: JobPosting[] = [
+  // Mock data for demonstration
+  const recruitmentCandidates: RecruitmentCandidate[] = [
     {
       id: '1',
-      title: 'مطور برمجيات أول',
-      englishTitle: 'Senior Software Developer',
-      department: 'تقنية المعلومات',
-      location: 'الرياض',
-      employmentType: 'full_time',
-      experience: '3-5 سنوات',
-      salary: '8,000 - 12,000 ريال',
-      postedDate: '2024-01-15',
-      deadline: '2024-02-15',
-      status: 'open',
-      applicants: 25
-    },
-    {
-      id: '2',
-      title: 'محاسب أول',
-      englishTitle: 'Senior Accountant',
-      department: 'المحاسبة والمالية',
-      location: 'جدة',
-      employmentType: 'full_time',
-      experience: '2-4 سنوات',
-      salary: '6,000 - 9,000 ريال',
-      postedDate: '2024-01-20',
-      deadline: '2024-02-20',
-      status: 'open',
-      applicants: 18
-    },
-    {
-      id: '3',
-      title: 'مصمم جرافيك',
-      englishTitle: 'Graphic Designer',
-      department: 'التسويق',
-      location: 'الدمام',
-      employmentType: 'contract',
-      experience: '1-3 سنوات',
-      salary: '4,000 - 7,000 ريال',
-      postedDate: '2024-01-10',
-      deadline: '2024-02-10',
-      status: 'closed',
-      applicants: 32
-    }
-  ];
-
-  const candidates: Candidate[] = [
-    {
-      id: '1',
-      name: 'أحمد علي محمد',
-      email: 'ahmed.ali@email.com',
-      phone: '+966501234567',
+      candidateNumber: 'CAN-2024-001',
+      name: 'أحمد محمد السعيد',
       position: 'مطور برمجيات أول',
-      experience: '4 سنوات',
-      education: 'بكالوريوس علوم الحاسب',
-      status: 'interview',
-      appliedDate: '2024-01-18',
-      resumeScore: 85
+      department: 'IT',
+      status: 'Interview',
+      level: 'Senior',
+      experience: 'مطور برمجيات خبير',
+      email: 'ahmed.saeed@company.com',
+      phone: '+966501234567',
+      appliedDate: '2024-01-15',
+      source: 'موقع الشركة',
+      resumeScore: 92,
+      interviewScore: 88,
+      yearsOfExperience: 5,
+      expectedSalary: 12000
     },
     {
       id: '2',
-      name: 'فاطمة الزهراني',
-      email: 'fatima.z@email.com',
-      phone: '+966507654321',
-      position: 'محاسب أول',
-      experience: '3 سنوات',
-      education: 'بكالوريوس محاسبة',
-      status: 'offer',
-      appliedDate: '2024-01-22',
-      resumeScore: 92
-    },
-    {
-      id: '3',
-      name: 'محمد السعد',
-      email: 'mohammed.s@email.com',
-      phone: '+966509876543',
-      position: 'مصمم جرافيك',
-      experience: '2 سنة',
-      education: 'بكالوريوس تصميم جرافيك',
-      status: 'hired',
-      appliedDate: '2024-01-12',
-      resumeScore: 88
+      candidateNumber: 'CAN-2024-002',
+      name: 'فاطمة عبدالله النور',
+      position: 'محاسبة رئيسية',
+      department: 'Finance',
+      status: 'Offer',
+      level: 'Mid',
+      experience: 'محاسبة مؤهلة',
+      email: 'fatima.noor@company.com',
+      phone: '+966502345678',
+      appliedDate: '2024-01-10',
+      source: 'لينكد إن',
+      resumeScore: 88,
+      interviewScore: 95,
+      yearsOfExperience: 3,
+      expectedSalary: 10000
     }
   ];
 
-  const handleSystemAction = (action: string) => {
-    console.log(`تنفيذ إجراء: ${action}`);
+  const jobPositions: JobPosition[] = [
+    {
+      id: '1',
+      name: 'وظائف تقنية المعلومات',
+      department: 'محمد أحمد الخالدي',
+      candidates: 15,
+      budget: 500000,
+      performance: 92,
+      description: 'مطورين ومهندسي أنظمة'
+    },
+    {
+      id: '2',
+      name: 'وظائف الموارد البشرية',
+      department: 'نورا أحمد السالم',
+      candidates: 8,
+      budget: 200000,
+      performance: 95,
+      description: 'أخصائيي موارد بشرية وتوظيف'
+    }
+  ];
+
+  const recruitmentMetrics: RecruitmentMetric[] = [
+    {
+      id: '1',
+      metric: 'معدل جودة المرشحين',
+      category: 'Quality',
+      status: 'Excellent',
+      value: 89,
+      target: 85,
+      trend: 'up',
+      lastUpdated: '2024-01-15'
+    },
+    {
+      id: '2',
+      metric: 'معدل إنجاز التوظيف',
+      category: 'Hiring',
+      status: 'Good',
+      value: 94,
+      target: 95,
+      trend: 'stable',
+      lastUpdated: '2024-01-15'
+    }
+  ];
+
+  // Analytics data
+  const performanceData = [
+    { month: 'يناير', applications: 85, interviews: 92, hired: 15 },
+    { month: 'فبراير', applications: 87, interviews: 94, hired: 18 },
+    { month: 'مارس', applications: 89, interviews: 96, hired: 20 },
+    { month: 'أبريل', applications: 88, interviews: 93, hired: 17 },
+    { month: 'مايو', applications: 91, interviews: 95, hired: 22 },
+    { month: 'يونيو', applications: 93, interviews: 97, hired: 25 }
+  ];
+
+  const departmentDistribution = [
+    { name: 'تقنية المعلومات', value: 35, color: '#3b82f6' },
+    { name: 'الموارد البشرية', value: 20, color: '#10b981' },
+    { name: 'المالية', value: 15, color: '#f59e0b' },
+    { name: 'التسويق', value: 18, color: '#8b5cf6' },
+    { name: 'العمليات', value: 12, color: '#ef4444' }
+  ];
+
+  // Calculate statistics
+  const stats = {
+    totalCandidates: 127,
+    activeCandidates: 85,
+    positions: 12,
+    avgPerformance: 89,
+    avgQuality: 94,
+    avgHiringTime: 21
   };
 
-  const getStatusBadge = (status: string) => {
-    const statusConfig = {
-      'open': 'bg-green-500/20 text-green-700 border-green-200',
-      'closed': 'bg-red-500/20 text-red-700 border-red-200',
-      'draft': 'bg-gray-500/20 text-gray-700 border-gray-200',
-      'applied': 'bg-blue-500/20 text-blue-700 border-blue-200',
-      'screening': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
-      'interview': 'bg-purple-500/20 text-purple-700 border-purple-200',
-      'offer': 'bg-orange-500/20 text-orange-700 border-orange-200',
-      'hired': 'bg-green-500/20 text-green-700 border-green-200',
-      'rejected': 'bg-red-500/20 text-red-700 border-red-200'
+  const handleExport = () => {
+    toast({
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير تقرير التوظيف كملف PDF",
+    });
+  };
+
+  const handlePrint = () => {
+    toast({
+      title: "جاري الطباعة",
+      description: "يتم تحضير التقرير للطباعة",
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Applied': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'Screening': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'Interview': return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'Offer': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'Hired': return 'bg-green-100 text-green-800 border-green-200';
+      case 'Rejected': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    const statusMap: { [key: string]: string } = {
+      'Applied': 'تقدم للوظيفة',
+      'Screening': 'فحص أولي',
+      'Interview': 'مقابلة شخصية',
+      'Offer': 'عرض وظيفي',
+      'Hired': 'تم التوظيف',
+      'Rejected': 'مرفوض'
     };
-    
-    return (
-      <Badge variant="outline" className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-500/20 text-gray-700'}>
-        {status}
-      </Badge>
-    );
+    return statusMap[status] || status;
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6" dir="rtl">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary-foreground rounded-2xl shadow-2xl">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative p-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <div className="p-4 bg-white/20 backdrop-blur rounded-2xl shadow-xl">
-                  <Briefcase className="w-12 h-12 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-4xl font-bold text-white mb-2">نظام التوظيف والاستقطاب الذكي</h1>
-                  <p className="text-white/90 text-lg">
-                    منظومة متطورة لاستقطاب المواهب وإدارة عمليات التوظيف بالذكاء الاصطناعي
-                  </p>
-                  <div className="flex gap-4 mt-3">
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">فلترة ذكية</span>
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تقييم آلي</span>
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">مقابلات رقمية</span>
-                  </div>
-                </div>
+  const getDepartmentText = (dept: string) => {
+    const deptMap: { [key: string]: string } = {
+      'IT': 'تقنية المعلومات',
+      'HR': 'الموارد البشرية',
+      'Finance': 'المالية',
+      'Marketing': 'التسويق',
+      'Operations': 'العمليات',
+      'Sales': 'المبيعات'
+    };
+    return deptMap[dept] || dept;
+  };
+
+  const getLevelText = (level: string) => {
+    const levelMap: { [key: string]: string } = {
+      'Junior': 'مبتدئ',
+      'Mid': 'متوسط',
+      'Senior': 'أول',
+      'Lead': 'رئيس',
+      'Manager': 'مدير'
+    };
+    return levelMap[level] || level;
+  };
+
+  const renderHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+      <div className="relative p-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost" 
+              size="sm"
+              onClick={onBack}
+              className="hover:bg-primary/10"
+            >
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              العودة
+            </Button>
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Briefcase className="h-8 w-8 text-primary" />
               </div>
-              
-              <div className="flex gap-3">
-                <Button 
-                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                  onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
-                >
-                  <Bot className="w-5 h-5" />
-                  مساعد ذكي
-                </Button>
-                <Button 
-                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                  onClick={() => handleSystemAction('وظيفة جديدة')}
-                >
-                  <Plus className="w-5 h-5" />
-                  وظيفة جديدة
-                </Button>
-                {onBack && (
-                  <Button 
-                    className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                    onClick={onBack}
-                  >
-                    <ArrowLeft className="w-5 h-5" />
-                    رجوع
-                  </Button>
-                )}
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  التوظيف والاستقطاب
+                </h1>
+                <p className="text-muted-foreground text-lg mt-1">
+                  منظومة شاملة لإدارة عمليات التوظيف والمرشحين مع أدوات التحليل المتقدمة والتقارير التفصيلية
+                </p>
               </div>
             </div>
           </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExport}>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
+            </Button>
+            <Button variant="outline" size="sm" onClick={handlePrint}>
+              <FileText className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Button size="sm">
+              <Plus className="h-4 w-4 ml-2" />
+              مرشح جديد
+            </Button>
+          </div>
         </div>
+      </div>
+    </div>
+  );
 
-        {/* Advanced Statistics Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Briefcase className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">الوظائف المفتوحة</p>
-                  <p className="text-3xl font-bold">{jobPostings.filter(j => j.status === 'open').length}</p>
-                  <p className="text-white/70 text-xs mt-1">وظيفة متاحة</p>
-                </div>
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي المرشحين</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalCandidates}</p>
               </div>
-            </CardContent>
-          </Card>
+              <Users className="h-8 w-8 text-primary/60" />
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">إجمالي المتقدمين</p>
-                  <p className="text-3xl font-bold">{jobPostings.reduce((sum, j) => sum + j.applicants, 0)}</p>
-                  <p className="text-white/70 text-xs mt-1">متقدم جديد</p>
-                </div>
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">مرشحين نشطين</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.activeCandidates}</p>
               </div>
-            </CardContent>
-          </Card>
+              <Activity className="h-8 w-8 text-orange-500/60" />
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Calendar className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">مقابلات مجدولة</p>
-                  <p className="text-3xl font-bold">{candidates.filter(c => c.status === 'interview').length}</p>
-                  <p className="text-white/70 text-xs mt-1">هذا الأسبوع</p>
-                </div>
+        <Card className="border-l-4 border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">الوظائف المفتوحة</p>
+                <p className="text-2xl font-bold text-emerald-600">{stats.positions}</p>
               </div>
-            </CardContent>
-          </Card>
+              <Building className="h-8 w-8 text-emerald-500/60" />
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <CheckCircle className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">تم التوظيف</p>
-                  <p className="text-3xl font-bold">{candidates.filter(c => c.status === 'hired').length}</p>
-                  <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
-                </div>
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متوسط الجودة</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.avgPerformance}%</p>
               </div>
-            </CardContent>
-          </Card>
+              <Target className="h-8 w-8 text-blue-500/60" />
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <FileText className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">في المراجعة</p>
-                  <p className="text-3xl font-bold">{candidates.filter(c => c.status === 'screening').length}</p>
-                  <p className="text-white/70 text-xs mt-1">سيرة ذاتية</p>
-                </div>
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">معدل القبول</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.avgQuality}%</p>
               </div>
-            </CardContent>
-          </Card>
+              <Clock className="h-8 w-8 text-purple-500/60" />
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Target className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">معدل التوظيف</p>
-                  <p className="text-3xl font-bold">24%</p>
-                  <p className="text-white/70 text-xs mt-1">معدل النجاح</p>
-                </div>
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متوسط التوظيف (يوم)</p>
+                <p className="text-2xl font-bold text-green-600">{stats.avgHiringTime}</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <Award className="h-8 w-8 text-green-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* System Overview */}
-        <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-primary/20 shadow-lg">
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl text-primary flex items-center gap-3">
-              <PieChart className="w-7 h-7" />
-              نظرة عامة على النظام
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              أداء التوظيف
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
-              {[
-                { icon: Briefcase, label: 'الوظائف', color: 'text-blue-600', bg: 'bg-blue-100' },
-                { icon: Users, label: 'المرشحين', color: 'text-green-600', bg: 'bg-green-100' },
-                { icon: Calendar, label: 'المقابلات', color: 'text-purple-600', bg: 'bg-purple-100' },
-                { icon: FileText, label: 'السير الذاتية', color: 'text-yellow-600', bg: 'bg-yellow-100' },
-                { icon: Search, label: 'الفلترة', color: 'text-indigo-600', bg: 'bg-indigo-100' },
-                { icon: Globe, label: 'النشر', color: 'text-red-600', bg: 'bg-red-100' },
-                { icon: Star, label: 'قاعدة البيانات', color: 'text-emerald-600', bg: 'bg-emerald-100' },
-                { icon: BarChart3, label: 'التقارير', color: 'text-orange-600', bg: 'bg-orange-100' }
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center p-4 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-primary/30"
-                  onClick={() => handleSystemAction(item.label)}
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={performanceData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="applications" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
+                <Area type="monotone" dataKey="interviews" stackId="2" stroke="#10b981" fill="#10b981" />
+                <Area type="monotone" dataKey="hired" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              توزيع الأقسام
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RechartsPieChart>
+                <Pie
+                  data={departmentDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
                 >
-                  <div className={`p-3 rounded-xl ${item.bg} group-hover:scale-110 transition-transform duration-300`}>
-                    <item.icon className={`w-6 h-6 ${item.color}`} />
+                  {departmentDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* AI Insights */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" />
+            رؤى الذكاء الاصطناعي للتوظيف والاستقطاب
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-semibold text-emerald-800">جودة ممتازة</span>
+              </div>
+              <p className="text-sm text-emerald-700">
+                تحسن ملحوظ في جودة المرشحين المتقدمين بنسبة 15%
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-orange-600" />
+                <span className="text-sm font-semibold text-orange-800">تحسين مطلوب</span>
+              </div>
+              <p className="text-sm text-orange-700">
+                يُنصح بتحسين عملية الفحص الأولي لتسريع الوقت
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
+              </div>
+              <p className="text-sm text-blue-700">
+                التوقعات تشير لتحقيق أهداف التوظيف بنسبة 105%
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Activities */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              النشاطات الحديثة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-green-100">
+                  <UserPlus className="h-4 w-4 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">مرشح جديد</p>
+                  <p className="text-xs text-muted-foreground">سارة أحمد - أخصائية تسويق</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ ساعتين</span>
+              </div>
+              
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-blue-100">
+                  <Award className="h-4 w-4 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">تم قبول المرشح</p>
+                  <p className="text-xs text-muted-foreground">محمد عبدالله - تم التوظيف</p>
+                </div>
+                <span className="text-xs text-muted-foreground">أمس</span>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-orange-100">
+                  <Calendar className="h-4 w-4 text-orange-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">مقابلة مجدولة</p>
+                  <p className="text-xs text-muted-foreground">فاطمة النور - مقابلة نهائية</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ 3 أيام</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Building className="h-5 w-5" />
+              أداء الوظائف
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {jobPositions.slice(0, 4).map((position) => (
+                <div key={position.id} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-full bg-primary/10">
+                      <Building className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{position.name}</p>
+                      <p className="text-sm text-muted-foreground">{position.candidates} مرشح</p>
+                    </div>
                   </div>
-                  <span className="text-sm font-medium mt-2 text-center text-gray-700 group-hover:text-primary transition-colors">
-                    {item.label}
-                  </span>
+                  <div className="text-right">
+                    <p className="font-semibold text-green-600">{position.performance}%</p>
+                    <Progress value={position.performance} className="w-16 h-1 mt-1" />
+                  </div>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
+      </div>
+    </div>
+  );
 
-        {/* Advanced Navigation Tabs */}
-        <Card className="bg-white/90 backdrop-blur shadow-xl border-0">
-          <CardContent className="p-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-6 bg-gradient-to-r from-primary/10 to-primary/5 p-2 rounded-none h-auto border-b">
-                <TabsTrigger 
-                  value="dashboard" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <BarChart3 className="w-5 h-5" />
-                  <span className="font-medium">لوحة التحكم</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="jobs" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <Briefcase className="w-5 h-5" />
-                  <span className="font-medium">الوظائف</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="candidates" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <Users className="w-5 h-5" />
-                  <span className="font-medium">المرشحين</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="interviews" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <Calendar className="w-5 h-5" />
-                  <span className="font-medium">المقابلات</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="analytics" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <BarChart3 className="w-5 h-5" />
-                  <span className="font-medium">التحليلات</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="reports" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <FileText className="w-5 h-5" />
-                  <span className="font-medium">التقارير</span>
-                </TabsTrigger>
-              </TabsList>
+  return (
+    <div className="min-h-screen bg-background">
+      {renderHeader()}
+      
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <div className="border-b border-border">
+            <TabsList className="grid w-full grid-cols-6">
+              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="candidates">المرشحين</TabsTrigger>
+              <TabsTrigger value="positions">الوظائف</TabsTrigger>
+              <TabsTrigger value="interviews">المقابلات</TabsTrigger>
+              <TabsTrigger value="reports">التقارير</TabsTrigger>
+              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+            </TabsList>
+          </div>
 
-              {/* Dashboard Tab */}
-              <TabsContent value="dashboard" className="p-6 space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-blue-700">
-                        <Briefcase className="w-5 h-5" />
-                        إحصائيات التوظيف
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">الوظائف المفتوحة</span>
-                          <span className="font-bold text-green-600">{jobPostings.filter(j => j.status === 'open').length}</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">الوظائف المغلقة</span>
-                          <span className="font-bold text-red-600">{jobPostings.filter(j => j.status === 'closed').length}</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">المسودات</span>
-                          <span className="font-bold text-gray-600">{jobPostings.filter(j => j.status === 'draft').length}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+          <TabsContent value="dashboard">
+            {renderAnalyticsDashboard()}
+          </TabsContent>
 
-                  <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-green-700">
-                        <Users className="w-5 h-5" />
-                        أداء التوظيف
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="text-center">
-                          <p className="text-3xl font-bold text-green-600">24%</p>
-                          <p className="text-sm text-gray-500">معدل نجاح التوظيف</p>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span>متوسط وقت التوظيف:</span>
-                          <span className="font-medium">18 يوم</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
+          <TabsContent value="candidates">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">إدارة المرشحين</h2>
+                <Button onClick={() => setIsAddDialogOpen(true)}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة مرشح
+                </Button>
+              </div>
 
-              {/* Jobs Tab */}
-              <TabsContent value="jobs" className="p-6 space-y-6">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-bold">الوظائف المتاحة</h3>
-                  <Button className="gap-2">
-                    <Plus className="w-4 h-4" />
-                    إضافة وظيفة جديدة
-                  </Button>
-                </div>
-
-                <div className="grid gap-4">
-                  {jobPostings.map((job) => (
-                    <Card key={job.id} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start">
-                          <div className="space-y-2">
-                            <h4 className="font-bold text-lg">{job.title}</h4>
-                            <p className="text-gray-600">{job.department} - {job.location}</p>
-                            <div className="flex gap-4 text-sm">
-                              <span>الخبرة: {job.experience}</span>
-                              <span>الراتب: {job.salary}</span>
-                              <span>المتقدمين: {job.applicants}</span>
-                            </div>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            {getStatusBadge(job.status)}
-                            <Button size="sm" variant="outline">تفاصيل</Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              {/* Candidates Tab */}
-              <TabsContent value="candidates" className="p-6 space-y-6">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-bold">المرشحين</h3>
-                  <div className="flex gap-2">
-                    <Input placeholder="البحث في المرشحين..." className="w-64" />
-                    <Button variant="outline">
-                      <Search className="w-4 h-4" />
-                    </Button>
+              <Card>
+                <CardHeader>
+                  <CardTitle>قائمة المرشحين</CardTitle>
+                  <div className="flex gap-4 mt-4">
+                    <Input
+                      placeholder="البحث في المرشحين..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="max-w-sm"
+                    />
+                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                      <SelectTrigger className="max-w-xs">
+                        <SelectValue placeholder="تصفية حسب الحالة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الحالات</SelectItem>
+                        <SelectItem value="Applied">تقدم للوظيفة</SelectItem>
+                        <SelectItem value="Screening">فحص أولي</SelectItem>
+                        <SelectItem value="Interview">مقابلة</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
-                </div>
-
-                <div className="grid gap-4">
-                  {candidates.map((candidate) => (
-                    <Card key={candidate.id} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start">
-                          <div className="space-y-2">
-                            <h4 className="font-bold text-lg">{candidate.name}</h4>
-                            <p className="text-gray-600">{candidate.position}</p>
-                            <div className="flex gap-4 text-sm">
-                              <span>الخبرة: {candidate.experience}</span>
-                              <span>التعليم: {candidate.education}</span>
-                              <span>نقاط السيرة الذاتية: {candidate.resumeScore}/100</span>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    {recruitmentCandidates.map((candidate) => (
+                      <div key={candidate.id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <User className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">{candidate.name}</h3>
+                            <p className="text-sm text-muted-foreground">{candidate.position}</p>
+                            <div className="flex gap-2 mt-1">
+                              <Badge variant="outline">{getDepartmentText(candidate.department)}</Badge>
+                              <Badge className={getStatusColor(candidate.status)}>
+                                {getStatusText(candidate.status)}
+                              </Badge>
                             </div>
                           </div>
-                          <div className="flex gap-2 items-center">
-                            {getStatusBadge(candidate.status)}
-                            <Button size="sm" variant="outline">عرض</Button>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="positions">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إدارة الوظائف</h2>
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {jobPositions.map((position) => (
+                  <Card key={position.id}>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Building className="h-5 w-5" />
+                        {position.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <p className="text-muted-foreground">{position.description}</p>
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-sm text-muted-foreground">عدد المرشحين</p>
+                            <p className="text-2xl font-bold">{position.candidates}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-muted-foreground">الميزانية</p>
+                            <p className="text-2xl font-bold text-green-600">{position.budget.toLocaleString()}</p>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
 
-              {/* Other placeholder tabs */}
-              <TabsContent value="interviews" className="p-6">
-                <div className="text-center py-12">
-                  <Calendar className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">إدارة المقابلات</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
+                        <div>
+                          <div className="flex justify-between mb-2">
+                            <span className="text-sm text-muted-foreground">الأداء</span>
+                            <span className="text-sm font-medium">{position.performance}%</span>
+                          </div>
+                          <Progress value={position.performance} />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
 
-              <TabsContent value="analytics" className="p-6">
-                <div className="text-center py-12">
-                  <BarChart3 className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">تحليلات التوظيف</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
+          <TabsContent value="interviews">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إدارة المقابلات</h2>
+              <Card>
+                <CardHeader>
+                  <CardTitle>المقابلات المجدولة</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">إدارة المقابلات</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
 
-              <TabsContent value="reports" className="p-6">
-                <div className="text-center py-12">
-                  <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">تقارير التوظيف</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+          <TabsContent value="reports">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">التقارير والإحصائيات</h2>
+              <Card>
+                <CardHeader>
+                  <CardTitle>تقارير التوظيف</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">تقارير التوظيف</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إعدادات النظام</h2>
+              <Card>
+                <CardHeader>
+                  <CardTitle>إعدادات التوظيف</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <Settings className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">إعدادات النظام</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
