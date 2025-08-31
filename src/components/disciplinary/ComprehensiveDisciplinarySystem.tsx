@@ -452,195 +452,345 @@ const ComprehensiveDisciplinarySystem = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mb-4"></div>
+          <p className="text-lg font-medium">جاري تحميل نظام الجزاءات والعقوبات...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6" dir="rtl">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-            <Gavel className="h-8 w-8 text-primary" />
-            نظام الجزاءات والإجراءات التأديبية
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            نظام شامل ومؤتمت وفقاً لنظام العمل السعودي مع ذكاء اصطناعي متقدم
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <Switch 
-              checked={autoDetectionEnabled}
-              onCheckedChange={setAutoDetectionEnabled}
-              id="auto-detection"
-            />
-            <Label htmlFor="auto-detection">الرصد التلقائي</Label>
-          </div>
-          <Button 
-            variant="outline"
-            onClick={() => handleExportReport()}
-          >
-            <Download className="h-4 w-4 ml-2" />
-            تصدير التقرير
-          </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="h-4 w-4 ml-2" />
-                إجراء تأديبي جديد
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100"
+         style={{
+           backgroundImage: `url('/src/assets/boud-pattern-bg.jpg')`,
+           backgroundSize: 'cover',
+           backgroundPosition: 'center',
+           backgroundBlendMode: 'overlay'
+         }}
+         dir="rtl">
+      
+      {/* Enhanced Header */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl mx-6">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Switch 
+                  checked={autoDetectionEnabled}
+                  onCheckedChange={setAutoDetectionEnabled}
+                  id="auto-detection"
+                  className="bg-white/20"
+                />
+                <Label htmlFor="auto-detection" className="text-white">الرصد التلقائي</Label>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                <Search className="h-4 w-4 ml-2" />
+                البحث المتقدم
               </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl">
-              <DialogHeader>
-                <DialogTitle>إنشاء إجراء تأديبي جديد</DialogTitle>
-                <DialogDescription>
-                  اختر المخالفة والموظف المعني وفقاً لنظام العمل السعودي
-                </DialogDescription>
-              </DialogHeader>
-              {/* Dialog content will be here */}
-            </DialogContent>
-          </Dialog>
+              <Button 
+                variant="outline"
+                onClick={() => handleExportReport()}
+                className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm"
+              >
+                <Download className="h-4 w-4 ml-2" />
+                تصدير التقرير
+              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                    <Plus className="h-4 w-4 ml-2" />
+                    إجراء تأديبي جديد
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl">
+                  <DialogHeader>
+                    <DialogTitle>إنشاء إجراء تأديبي جديد</DialogTitle>
+                    <DialogDescription>
+                      اختر المخالفة والموظف المعني وفقاً لنظام العمل السعودي
+                    </DialogDescription>
+                  </DialogHeader>
+                  {/* Dialog content will be here */}
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                <Gavel className="h-12 w-12 text-white" />
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              نظام الجزاءات والإجراءات التأديبية المتطور
+            </h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+              نظام شامل ومؤتمت وفقاً لنظام العمل السعودي مع ذكاء اصطناعي متقدم
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* AI Insights Alert */}
-      {aiInsights.filter(i => i.action_required).length > 0 && (
-        <Alert className="border-l-4 border-l-red-500 bg-red-50">
-          <Brain className="h-4 w-4" />
-          <AlertDescription className="flex items-center justify-between">
-            <span>يوجد {aiInsights.filter(i => i.action_required).length} تنبيهات ذكية تتطلب انتباهكم</span>
-            <Button size="sm" variant="outline">عرض التنبيهات</Button>
-          </AlertDescription>
-        </Alert>
-      )}
+      <div className="max-w-7xl mx-auto px-6">
+        {/* AI Insights Alert */}
+        {aiInsights.filter(i => i.action_required).length > 0 && (
+          <Alert className="border-l-4 border-l-red-500 bg-red-50 mb-6">
+            <Brain className="h-4 w-4" />
+            <AlertDescription className="flex items-center justify-between">
+              <span>يوجد {aiInsights.filter(i => i.action_required).length} تنبيهات ذكية تتطلب انتباهكم</span>
+              <Button size="sm" variant="outline">عرض التنبيهات</Button>
+            </AlertDescription>
+          </Alert>
+        )}
 
-      {/* Statistics Dashboard */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <Card className="text-center">
-          <CardContent className="p-4">
-            <Scale className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-blue-700">{stats.totalViolations}</div>
-            <div className="text-sm text-blue-600">أنواع المخالفات</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardContent className="p-4">
-            <AlertTriangle className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-yellow-700">{stats.activeActions}</div>
-            <div className="text-sm text-yellow-600">إجراءات نشطة</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardContent className="p-4">
-            <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-green-700">{stats.resolvedActions}</div>
-            <div className="text-sm text-green-600">إجراءات محلولة</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardContent className="p-4">
-            <Zap className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-purple-700">{stats.autoGenerated}</div>
-            <div className="text-sm text-purple-600">رصد تلقائي</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardContent className="p-4">
-            <ShieldAlert className="h-8 w-8 text-red-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-red-700">{stats.employeesAtRisk}</div>
-            <div className="text-sm text-red-600">موظفين معرضين للخطر</div>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardContent className="p-4">
-            <MessageSquare className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-orange-700">{stats.pendingAppeals}</div>
-            <div className="text-sm text-orange-600">طعون معلقة</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Main Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-          <TabsTrigger value="violations">قاعدة المخالفات</TabsTrigger>
-          <TabsTrigger value="actions">الإجراءات النشطة</TabsTrigger>
-          <TabsTrigger value="appeals">الطعون</TabsTrigger>
-          <TabsTrigger value="reports">التقارير</TabsTrigger>
-          <TabsTrigger value="settings">الإعدادات</TabsTrigger>
-        </TabsList>
-
-        {/* Dashboard Tab */}
-        <TabsContent value="dashboard" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* AI Insights Panel */}
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Brain className="h-6 w-6 text-purple-600" />
-                  الذكاء الاصطناعي والتنبيهات الذكية
-                </CardTitle>
-                <CardDescription>
-                  تحليلات ذكية وتوصيات لتحسين الانضباط في العمل
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {aiInsights.map((insight, index) => (
-                  <div key={index} className={`p-4 border-l-4 ${getPriorityColor(insight.priority)} bg-gray-50 rounded-lg`}>
-                    <div className="flex items-start gap-3">
-                      {getInsightIcon(insight.type)}
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold">{insight.title}</h4>
-                          <Badge className={getSeverityColor(insight.priority)}>
-                            {getSeverityLabel(insight.priority)}
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">{insight.description}</p>
-                        {insight.action_required && (
-                          <Button size="sm" variant="outline">اتخاذ إجراء</Button>
-                        )}
-                      </div>
+        {/* Analytics Dashboard */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">الإجراءات التأديبية</h3>
+                    <Gavel className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">الإجراءات النشطة</span>
+                      <span className="font-bold text-primary">{stats.activeActions}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">الإجراءات المحلولة</span>
+                      <span className="font-bold text-green-600">{stats.resolvedActions}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">الرصد التلقائي</span>
+                      <span className="font-bold text-blue-600">{stats.autoGenerated}</span>
                     </div>
                   </div>
-                ))}
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            {/* Recent Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="h-5 w-5" />
-                  الإجراءات الأخيرة
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {disciplinaryActions.slice(0, 5).map((action) => (
-                  <div key={action.id} className="flex items-center gap-3 p-3 border rounded-lg">
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">{action.employee_name}</p>
-                      <p className="text-xs text-gray-500">{action.case_number}</p>
-                    </div>
-                    <Badge className={getSeverityColor(action.severity)}>
-                      {getSeverityLabel(action.severity)}
-                    </Badge>
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">التحليلات المتقدمة</h3>
+                    <Brain className="h-6 w-6 text-primary" />
                   </div>
-                ))}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">أنواع المخالفات</span>
+                      <span className="font-bold text-green-600">{stats.totalViolations}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">موظفين معرضين للخطر</span>
+                      <span className="font-bold text-red-600">{stats.employeesAtRisk}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">طعون معلقة</span>
+                      <span className="font-bold text-orange-600">{stats.pendingAppeals}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات النظام</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">{stats.totalViolations}</div>
+                    <div className="text-sm text-gray-600">أنواع المخالفات</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">{stats.resolvedActions}</div>
+                    <div className="text-sm text-gray-600">إجراءات محلولة</div>
+                  </div>
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">{stats.autoGenerated}</div>
+                    <div className="text-sm text-gray-600">رصد تلقائي</div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
-        </TabsContent>
+        </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة الجزاءات والإجراءات التأديبية المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: Scale, label: "قاعدة المخالفات", color: "text-blue-600", count: stats.totalViolations },
+                { icon: AlertTriangle, label: "الإجراءات النشطة", color: "text-orange-600", count: stats.activeActions },
+                { icon: CheckCircle, label: "إجراءات محلولة", color: "text-green-600", count: stats.resolvedActions },
+                { icon: Zap, label: "الرصد التلقائي", color: "text-purple-600", count: stats.autoGenerated },
+                { icon: MessageSquare, label: "الطعون", color: "text-red-600", count: stats.pendingAppeals },
+                { icon: Settings, label: "الإعدادات", color: "text-gray-600", count: 0 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">{Math.round((stats.resolvedActions / (stats.activeActions + stats.resolvedActions)) * 100) || 0}%</div>
+                <div className="text-sm text-gray-600">معدل حل الإجراءات</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">{Math.round((stats.autoGenerated / (stats.activeActions + stats.resolvedActions)) * 100) || 0}%</div>
+                <div className="text-sm text-gray-600">معدل الرصد التلقائي</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">{stats.employeesAtRisk}</div>
+                <div className="text-sm text-gray-600">موظفين معرضين للخطر</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Navigation Tabs */}
+        <Card className="mb-6 border-0 shadow-lg bg-white/80 backdrop-blur">
+          <CardContent className="p-4">
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                variant={activeTab === 'dashboard' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('dashboard')}
+                className={activeTab === 'dashboard' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <BarChart3 className="h-4 w-4 ml-2" />
+                لوحة التحكم
+              </Button>
+              <Button
+                variant={activeTab === 'violations' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('violations')}
+                className={activeTab === 'violations' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <Scale className="h-4 w-4 ml-2" />
+                قاعدة المخالفات
+              </Button>
+              <Button
+                variant={activeTab === 'actions' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('actions')}
+                className={activeTab === 'actions' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <AlertCircle className="h-4 w-4 ml-2" />
+                الإجراءات النشطة
+              </Button>
+              <Button
+                variant={activeTab === 'appeals' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('appeals')}
+                className={activeTab === 'appeals' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <MessageSquare className="h-4 w-4 ml-2" />
+                الطعون
+              </Button>
+              <Button
+                variant={activeTab === 'reports' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('reports')}
+                className={activeTab === 'reports' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <FileText className="h-4 w-4 ml-2" />
+                التقارير
+              </Button>
+              <Button
+                variant={activeTab === 'settings' ? 'default' : 'outline'}
+                onClick={() => setActiveTab('settings')}
+                className={activeTab === 'settings' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <Settings className="h-4 w-4 ml-2" />
+                الإعدادات
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Main Content */}
+        <div className="container mx-auto px-6 py-8">
+          {/* Main Tabs */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+
+            {/* Dashboard Tab */}
+            <TabsContent value="dashboard" className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* AI Insights Panel */}
+                <Card className="lg:col-span-2">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Brain className="h-6 w-6 text-purple-600" />
+                      الذكاء الاصطناعي والتنبيهات الذكية
+                    </CardTitle>
+                    <CardDescription>
+                      تحليلات ذكية وتوصيات لتحسين الانضباط في العمل
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {aiInsights.map((insight, index) => (
+                      <div key={index} className={`p-4 border-l-4 ${getPriorityColor(insight.priority)} bg-gray-50 rounded-lg`}>
+                        <div className="flex items-start gap-3">
+                          {getInsightIcon(insight.type)}
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-semibold">{insight.title}</h4>
+                              <Badge className={getSeverityColor(insight.priority)}>
+                                {getSeverityLabel(insight.priority)}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-2">{insight.description}</p>
+                            {insight.action_required && (
+                              <Button size="sm" variant="outline">اتخاذ إجراء</Button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                {/* Recent Actions */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Clock className="h-5 w-5" />
+                      الإجراءات الأخيرة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {disciplinaryActions.slice(0, 5).map((action) => (
+                      <div key={action.id} className="flex items-center gap-3 p-3 border rounded-lg">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{action.employee_name}</p>
+                          <p className="text-xs text-gray-500">{action.case_number}</p>
+                        </div>
+                        <Badge className={getSeverityColor(action.severity)}>
+                          {getSeverityLabel(action.severity)}
+                        </Badge>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
 
         {/* Violations Database Tab */}
         <TabsContent value="violations" className="space-y-6">
@@ -929,7 +1079,9 @@ const ComprehensiveDisciplinarySystem = () => {
             </CardContent>
           </Card>
         </TabsContent>
-      </Tabs>
+          </Tabs>
+        </div>
+      </div>
     </div>
   );
 };
