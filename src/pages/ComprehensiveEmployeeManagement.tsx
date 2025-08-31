@@ -53,7 +53,7 @@ import { GovernmentIntegration } from '@/components/systems/GovernmentIntegratio
 import OrganizationalDevelopment from '@/components/systems/OrganizationalDevelopment';
 import { GovernanceCompliance } from '@/components/systems/GovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
-import LegalAffairs from '@/components/systems/LegalAffairs';
+import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
 import { PerformanceEvaluation } from '@/components/systems/PerformanceEvaluation';
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
 import SmartHire from '@/pages/SmartHire';
@@ -419,7 +419,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="legal">
-            <LegalAffairs onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveLegalAffairs onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="performance">
