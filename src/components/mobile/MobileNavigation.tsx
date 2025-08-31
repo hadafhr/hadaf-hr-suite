@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 
 const navigationItems = [
-  { id: 'dashboard', icon: Home, route: '/mobile-dashboard', category: 'strategic' },
-  { id: 'workforce', icon: User, route: '/mobile-workforce', category: 'operations' },
-  { id: 'attendance', icon: CheckSquare, route: '/mobile-attendance', category: 'operations' },
-  { id: 'requests', icon: FileText, route: '/mobile-requests', category: 'strategic' },
-  { id: 'chat', icon: MessageCircle, route: '/mobile-chat', category: 'strategic' },
-  { id: 'profile', icon: User, route: '/mobile-profile', category: 'operations' }
+  { id: 'dashboard', icon: Home, route: '/mobile-dashboard' },
+  { id: 'requests', icon: FileText, route: '/mobile-requests' },
+  { id: 'tasks', icon: CheckSquare, route: '/mobile-tasks' },
+  { id: 'chat', icon: MessageCircle, route: '/mobile-chat' },
+  { id: 'notifications', icon: Bell, route: '/mobile-notifications' },
+  { id: 'profile', icon: User, route: '/mobile-profile' }
 ];
 
 export const MobileNavigation: React.FC = () => {
