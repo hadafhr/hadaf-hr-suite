@@ -11,10 +11,10 @@ import {
   Clock, Users, MapPin, Calendar, AlertTriangle, CheckCircle,
   Download, FileText, Search, Filter, Plus, Edit, Eye, Trash2,
   ArrowLeft, RefreshCw, BarChart3, TrendingUp, Timer, User,
-  Building, Smartphone, Fingerprint, Globe, Shield
+  Building, Smartphone, Fingerprint, Globe, Shield, Bot, Settings,
+  PieChart
 } from 'lucide-react';
 import { format } from 'date-fns';
-import jsPDF from 'jspdf';
 
 interface AttendanceRecord {
   id: string;
@@ -98,33 +98,13 @@ export const ComprehensiveAttendance: React.FC<ComprehensiveAttendanceProps> = (
       id: '3',
       employeeId: 'EMP003',
       employeeName: 'محمد الخالدي',
-      department: 'التسويق',
-      position: 'مختص تسويق',
+      department: 'المبيعات',
+      position: 'مندوب مبيعات',
       date: new Date(),
       workingHours: 0,
       overtimeHours: 0,
-      status: 'absent',
-      checkInMethod: 'manual',
-      notes: 'مريض',
-      createdAt: new Date()
-    },
-    {
-      id: '4',
-      employeeId: 'EMP004',
-      employeeName: 'فاطمة عبدالله',
-      department: 'الموارد البشرية',
-      position: 'أخصائية موارد بشرية',
-      date: new Date(),
-      checkInTime: new Date(Date.now() - 8 * 60 * 60 * 1000),
-      workingHours: 8,
-      overtimeHours: 0,
       status: 'remote',
-      checkInMethod: 'gps',
-      checkInLocation: {
-        lat: 21.4225,
-        lng: 39.8262,
-        address: 'جدة، المملكة العربية السعودية'
-      },
+      checkInMethod: 'manual',
       createdAt: new Date()
     }
   ];
@@ -133,524 +113,374 @@ export const ComprehensiveAttendance: React.FC<ComprehensiveAttendanceProps> = (
     setRecords(mockRecords);
   }, []);
 
-  // Filter records
-  const filteredRecords = records.filter(record => {
-    const matchesSearch = 
-      record.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      record.employeeId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      record.department.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = filterStatus === 'all' || record.status === filterStatus;
-    const matchesDepartment = filterDepartment === 'all' || record.department === filterDepartment;
-    
-    return matchesSearch && matchesStatus && matchesDepartment;
-  });
-
-  // Statistics
-  const stats = {
-    total: records.length,
-    present: records.filter(r => r.status === 'present').length,
-    absent: records.filter(r => r.status === 'absent').length,
-    late: records.filter(r => r.status === 'late').length,
-    remote: records.filter(r => r.status === 'remote').length,
-    earlyLeave: records.filter(r => r.status === 'early_leave').length,
-    avgWorkingHours: records.reduce((sum, r) => sum + r.workingHours, 0) / records.length || 0,
-    totalOvertime: records.reduce((sum, r) => sum + r.overtimeHours, 0)
-  };
-
-  // Status card click handlers
-  const handleStatusCardClick = (status: string) => {
-    const statusRecords = records.filter(r => r.status === status);
-    setShowDetails(prev => ({ ...prev, [status]: !prev[status] }));
-  };
-
-  const handleExportPDF = async () => {
-    try {
-      const doc = new jsPDF();
-      
-      doc.setFontSize(16);
-      doc.text('Attendance Report', 20, 30);
-      doc.setFontSize(12);
-      doc.text(`Generated on: ${new Date().toLocaleDateString('ar-SA')}`, 20, 45);
-      
-      let yPos = 65;
-      filteredRecords.forEach((record, index) => {
-        if (yPos > 270) {
-          doc.addPage();
-          yPos = 30;
-        }
-        
-        doc.text(`${index + 1}. ${record.employeeName}`, 20, yPos);
-        doc.text(`Department: ${record.department}`, 30, yPos + 10);
-        doc.text(`Status: ${record.status}`, 30, yPos + 20);
-        doc.text(`Working Hours: ${record.workingHours}`, 30, yPos + 30);
-        
-        yPos += 50;
-      });
-      
-      doc.save('attendance-report.pdf');
-      
-      toast({
-        title: "تم تصدير التقرير بنجاح",
-        description: "تم تحميل ملف PDF لسجلات الحضور"
-      });
-    } catch (error) {
-      toast({
-        title: "خطأ في التصدير",
-        description: "حدث خطأ أثناء تصدير التقرير"
-      });
-    }
-  };
-
-  const handleExportExcel = () => {
-    const csvContent = [
-      ['Employee Name', 'Department', 'Status', 'Check In', 'Check Out', 'Working Hours'].join(','),
-      ...filteredRecords.map(record => [
-        `"${record.employeeName}"`,
-        `"${record.department}"`,
-        `"${record.status}"`,
-        record.checkInTime ? format(record.checkInTime, 'HH:mm') : 'N/A',
-        record.checkOutTime ? format(record.checkOutTime, 'HH:mm') : 'N/A',
-        record.workingHours.toString()
-      ].join(','))
-    ].join('\n');
-    
-    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.download = 'attendance-report.csv';
-    link.style.display = 'none';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    
-    toast({
-      title: "تم تصدير البيانات بنجاح",
-      description: "تم تحميل ملف Excel لسجلات الحضور"
-    });
-  };
-
-  const handleRefreshData = () => {
-    setRecords([...mockRecords]);
-    toast({
-      title: "تم تحديث البيانات",
-      description: "تم تحديث سجلات الحضور بنجاح"
-    });
-  };
-
-  const handleViewRecord = (record: AttendanceRecord) => {
-    alert(`عرض تفاصيل سجل الحضور للموظف: ${record.employeeName}`);
-  };
-
-  const handleEditRecord = (record: AttendanceRecord) => {
-    alert(`تعديل سجل الحضور للموظف: ${record.employeeName}`);
-  };
-
-  const getStatusIcon = (method: string) => {
-    switch (method) {
-      case 'gps':
-        return <MapPin className="h-4 w-4" />;
-      case 'fingerprint':
-        return <Fingerprint className="h-4 w-4" />;
-      case 'facial_recognition':
-        return <User className="h-4 w-4" />;
-      default:
-        return <Smartphone className="h-4 w-4" />;
-    }
+  const handleSystemAction = (action: string) => {
+    toast({ title: "تم تنفيذ الإجراء", description: `${action} - سيتم تطويره قريباً` });
   };
 
   const getStatusBadge = (status: string) => {
-    const config = {
-      present: { label: 'حاضر', className: 'bg-green-100 text-green-800' },
-      absent: { label: 'غائب', className: 'bg-red-100 text-red-800' },
-      late: { label: 'متأخر', className: 'bg-yellow-100 text-yellow-800' },
-      remote: { label: 'عمل عن بعد', className: 'bg-blue-100 text-blue-800' },
-      early_leave: { label: 'انصراف مبكر', className: 'bg-orange-100 text-orange-800' }
+    const statusConfig = {
+      'present': 'bg-green-500/20 text-green-700 border-green-200',
+      'absent': 'bg-red-500/20 text-red-700 border-red-200',
+      'late': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
+      'early_leave': 'bg-orange-500/20 text-orange-700 border-orange-200',
+      'remote': 'bg-blue-500/20 text-blue-700 border-blue-200'
     };
     
-    const statusConfig = config[status as keyof typeof config] || config.present;
-    
     return (
-      <Badge className={statusConfig.className}>
-        {statusConfig.label}
+      <Badge variant="outline" className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-500/20 text-gray-700'}>
+        {status}
       </Badge>
     );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
-      <div className="max-w-7xl mx-auto p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary-foreground rounded-2xl shadow-2xl">
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="relative p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-white/20 backdrop-blur rounded-2xl shadow-xl">
+                  <Clock className="w-12 h-12 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-4xl font-bold text-white mb-2">نظام الحضور والانصراف الشامل</h1>
+                  <p className="text-white/90 text-lg">
+                    نظام متطور لإدارة حضور الموظفين مع تتبع الموقع والذكاء الاصطناعي
+                  </p>
+                  <div className="flex gap-4 mt-3">
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تتبع GPS</span>
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">بصمة الوجه</span>
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تقارير متقدمة</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Button 
+                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
+                  onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
+                >
+                  <Bot className="w-5 h-5" />
+                  مساعد ذكي
+                </Button>
+                <Button 
+                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
+                  onClick={() => handleSystemAction('تقرير شامل')}
+                >
+                  <FileText className="w-5 h-5" />
+                  تقرير شامل
+                </Button>
                 {onBack && (
-                  <Button
-                    variant="outline"
-                    size="sm"
+                  <Button 
+                    className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
                     onClick={onBack}
-                    className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
                   >
-                    <ArrowLeft className="h-4 w-4" />
+                    <ArrowLeft className="w-5 h-5" />
                     رجوع
                   </Button>
                 )}
               </div>
-              <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm" onClick={() => handleExportPDF()}>
-                  <FileText className="h-4 w-4 ml-2" />
-                  تصدير PDF
-                </Button>
-                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm" onClick={() => handleExportExcel()}>
-                  <Download className="h-4 w-4 ml-2" />
-                  تصدير Excel
-                </Button>
-                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg" onClick={() => handleRefreshData()}>
-                  <RefreshCw className="h-4 w-4 ml-2" />
-                  تحديث البيانات
-                </Button>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Clock className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                نظام الحضور والانصراف المتقدم
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                منظومة ذكية شاملة لمتابعة وإدارة حضور الموظفين مع تقنيات التتبع المتطورة والتقارير التفصيلية
-              </p>
             </div>
           </div>
         </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid grid-cols-4 w-full">
-          <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-          <TabsTrigger value="daily">السجلات اليومية</TabsTrigger>
-          <TabsTrigger value="reports">التقارير</TabsTrigger>
-          <TabsTrigger value="settings">الإعدادات</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="dashboard" className="space-y-6">
-          {/* Daily Statistics */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => handleStatusCardClick('present')}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">الحضور</p>
-                    <p className="text-2xl font-bold text-green-600">{stats.present}</p>
-                  </div>
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600" />
-                  </div>
+        {/* Advanced Statistics Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Users className="w-8 h-8 text-white" />
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => handleStatusCardClick('absent')}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">الغياب</p>
-                    <p className="text-2xl font-bold text-red-600">{stats.absent}</p>
-                  </div>
-                  <div className="p-2 bg-red-100 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-red-600" />
-                  </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">إجمالي الموظفين</p>
+                  <p className="text-3xl font-bold">{records.length}</p>
+                  <p className="text-white/70 text-xs mt-1">حاضر اليوم</p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => handleStatusCardClick('late')}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">التأخير</p>
-                    <p className="text-2xl font-bold text-yellow-600">{stats.late}</p>
-                  </div>
-                  <div className="p-2 bg-yellow-100 rounded-lg">
-                    <Timer className="h-6 w-6 text-yellow-600" />
-                  </div>
+          <Card className="bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <CheckCircle className="w-8 h-8 text-white" />
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card 
-              className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => handleStatusCardClick('remote')}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">عمل عن بعد</p>
-                    <p className="text-2xl font-bold text-blue-600">{stats.remote}</p>
-                  </div>
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Globe className="h-6 w-6 text-blue-600" />
-                  </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">حضور منتظم</p>
+                  <p className="text-3xl font-bold">{records.filter(r => r.status === 'present').length}</p>
+                  <p className="text-white/70 text-xs mt-1">95% معدل الحضور</p>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
 
-          {/* Detailed Employee Lists for Each Status */}
-          {Object.entries(showDetails).map(([status, isVisible]) => {
-            if (!isVisible) return null;
-            
-            const statusRecords = records.filter(r => r.status === status);
-            const statusLabels = {
-              present: 'الموظفين الحاضرين',
-              absent: 'الموظفين الغائبين',
-              late: 'الموظفين المتأخرين',
-              remote: 'الموظفين العاملين عن بعد'
-            };
-            
-            return (
-              <Card key={status}>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    {statusLabels[status as keyof typeof statusLabels]}
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setShowDetails(prev => ({ ...prev, [status]: false }))}
-                    >
-                      إخفاء
-                    </Button>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {statusRecords.map(record => (
-                      <div key={record.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-[#009F87]/10 rounded-full flex items-center justify-center">
-                            <User className="h-5 w-5 text-[#009F87]" />
-                          </div>
-                          <div>
-                            <p className="font-medium">{record.employeeName}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {record.employeeId} - {record.department}
-                            </p>
-                          </div>
+          <Card className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Timer className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">ساعات إضافية</p>
+                  <p className="text-3xl font-bold">{records.reduce((sum, r) => sum + r.overtimeHours, 0)}</p>
+                  <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <AlertTriangle className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">تأخير</p>
+                  <p className="text-3xl font-bold">{records.filter(r => r.status === 'late').length}</p>
+                  <p className="text-white/70 text-xs mt-1">حالات التأخير</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">عمل عن بُعد</p>
+                  <p className="text-3xl font-bold">{records.filter(r => r.status === 'remote').length}</p>
+                  <p className="text-white/70 text-xs mt-1">اليوم</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Building className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">في المكتب</p>
+                  <p className="text-3xl font-bold">{records.filter(r => r.checkInMethod === 'gps').length}</p>
+                  <p className="text-white/70 text-xs mt-1">تسجيل GPS</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* System Overview */}
+        <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-primary/20 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl text-primary flex items-center gap-3">
+              <PieChart className="w-7 h-7" />
+              نظرة عامة على النظام
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+              {[
+                { icon: Clock, label: 'الحضور اليومي', color: 'text-blue-600', bg: 'bg-blue-100' },
+                { icon: Calendar, label: 'جدولة النوبات', color: 'text-green-600', bg: 'bg-green-100' },
+                { icon: MapPin, label: 'تتبع الموقع', color: 'text-purple-600', bg: 'bg-purple-100' },
+                { icon: Fingerprint, label: 'البصمة', color: 'text-yellow-600', bg: 'bg-yellow-100' },
+                { icon: Smartphone, label: 'التطبيق المحمول', color: 'text-indigo-600', bg: 'bg-indigo-100' },
+                { icon: BarChart3, label: 'التقارير', color: 'text-red-600', bg: 'bg-red-100' },
+                { icon: Shield, label: 'الأمان', color: 'text-emerald-600', bg: 'bg-emerald-100' },
+                { icon: RefreshCw, label: 'المزامنة', color: 'text-orange-600', bg: 'bg-orange-100' }
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center p-4 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-primary/30"
+                  onClick={() => handleSystemAction(item.label)}
+                >
+                  <div className={`p-3 rounded-xl ${item.bg} group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className={`w-6 h-6 ${item.color}`} />
+                  </div>
+                  <span className="text-sm font-medium mt-2 text-center text-gray-700 group-hover:text-primary transition-colors">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Advanced Navigation Tabs */}
+        <Card className="bg-white/90 backdrop-blur shadow-xl border-0">
+          <CardContent className="p-0">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-6 bg-gradient-to-r from-primary/10 to-primary/5 p-2 rounded-none h-auto border-b">
+                <TabsTrigger 
+                  value="dashboard" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <BarChart3 className="w-5 h-5" />
+                  <span className="font-medium">لوحة التحكم</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="attendance" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Clock className="w-5 h-5" />
+                  <span className="font-medium">سجل الحضور</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="shifts" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Calendar className="w-5 h-5" />
+                  <span className="font-medium">إدارة النوبات</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="location" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <MapPin className="w-5 h-5" />
+                  <span className="font-medium">تتبع الموقع</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="reports" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <FileText className="w-5 h-5" />
+                  <span className="font-medium">التقارير</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="settings" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Settings className="w-5 h-5" />
+                  <span className="font-medium">الإعدادات</span>
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Dashboard Tab */}
+              <TabsContent value="dashboard" className="p-6 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-blue-700">
+                        <Clock className="w-5 h-5" />
+                        نشاط الحضور اليومي
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">الحضور في الوقت</span>
+                          <span className="font-bold text-green-600">92%</span>
                         </div>
-                        <div className="text-left">
-                          {record.checkInTime && (
-                            <p className="text-sm">دخول: {format(record.checkInTime, 'HH:mm')}</p>
-                          )}
-                          {record.checkOutTime && (
-                            <p className="text-sm">خروج: {format(record.checkOutTime, 'HH:mm')}</p>
-                          )}
-                          <div className="flex items-center gap-2 mt-1">
-                            {getStatusIcon(record.checkInMethod)}
-                            <span className="text-xs text-muted-foreground">
-                              {record.checkInMethod === 'gps' ? 'GPS' :
-                               record.checkInMethod === 'fingerprint' ? 'بصمة' :
-                               record.checkInMethod === 'facial_recognition' ? 'تعرف وجه' : 'يدوي'}
-                            </span>
-                          </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">التأخير</span>
+                          <span className="font-bold text-yellow-600">5%</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">الغياب</span>
+                          <span className="font-bold text-red-600">3%</span>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </TabsContent>
+                    </CardContent>
+                  </Card>
 
-        <TabsContent value="daily" className="space-y-6">
-          {/* Filters */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="البحث في السجلات..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10"
-                    />
-                  </div>
+                  <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-green-700">
+                        <Timer className="w-5 h-5" />
+                        الساعات الإضافية
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <p className="text-3xl font-bold text-green-600">{records.reduce((sum, r) => sum + r.overtimeHours, 0)}</p>
+                          <p className="text-sm text-gray-500">ساعة إضافية هذا الشهر</p>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>متوسط الساعات الإضافية:</span>
+                          <span className="font-medium">2.5 ساعة/يوم</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
-                
-                <Select value={filterStatus} onValueChange={setFilterStatus}>
-                  <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="حالة الحضور" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع الحالات</SelectItem>
-                    <SelectItem value="present">حاضر</SelectItem>
-                    <SelectItem value="absent">غائب</SelectItem>
-                    <SelectItem value="late">متأخر</SelectItem>
-                    <SelectItem value="remote">عمل عن بعد</SelectItem>
-                    <SelectItem value="early_leave">انصراف مبكر</SelectItem>
-                  </SelectContent>
-                </Select>
+              </TabsContent>
 
-                <Select value={filterDepartment} onValueChange={setFilterDepartment}>
-                  <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="القسم" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع الأقسام</SelectItem>
-                    <SelectItem value="تقنية المعلومات">تقنية المعلومات</SelectItem>
-                    <SelectItem value="المالية">المالية</SelectItem>
-                    <SelectItem value="التسويق">التسويق</SelectItem>
-                    <SelectItem value="الموارد البشرية">الموارد البشرية</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Daily Records Table */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                سجلات الحضور اليومية ({filteredRecords.length})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-right p-3">الموظف</th>
-                      <th className="text-right p-3">القسم</th>
-                      <th className="text-right p-3">وقت الدخول</th>
-                      <th className="text-right p-3">وقت الخروج</th>
-                      <th className="text-right p-3">ساعات العمل</th>
-                      <th className="text-right p-3">الحالة</th>
-                      <th className="text-right p-3">طريقة التسجيل</th>
-                      <th className="text-right p-3">الموقع</th>
-                      <th className="text-center p-3">الإجراءات</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredRecords.map((record) => (
-                      <tr key={record.id} className="border-b hover:bg-gray-50">
-                        <td className="p-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-[#009F87]/10 rounded-full flex items-center justify-center">
-                              <User className="h-4 w-4 text-[#009F87]" />
-                            </div>
-                            <div>
-                              <p className="font-medium">{record.employeeName}</p>
-                              <p className="text-sm text-muted-foreground">{record.employeeId}</p>
+              {/* Other tabs with placeholder content */}
+              <TabsContent value="attendance" className="p-6">
+                <div className="space-y-4">
+                  {records.map((record) => (
+                    <Card key={record.id} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-2">
+                            <h4 className="font-bold text-lg">{record.employeeName}</h4>
+                            <p className="text-gray-600">{record.department} - {record.position}</p>
+                            <div className="flex gap-4 text-sm">
+                              <span>دخول: {record.checkInTime ? format(record.checkInTime, 'HH:mm') : 'لم يسجل'}</span>
+                              <span>خروج: {record.checkOutTime ? format(record.checkOutTime, 'HH:mm') : 'لم يسجل'}</span>
+                              <span>ساعات العمل: {record.workingHours}</span>
                             </div>
                           </div>
-                        </td>
-                        <td className="p-3">{record.department}</td>
-                        <td className="p-3">
-                          {record.checkInTime ? format(record.checkInTime, 'HH:mm') : '-'}
-                        </td>
-                        <td className="p-3">
-                          {record.checkOutTime ? format(record.checkOutTime, 'HH:mm') : '-'}
-                        </td>
-                        <td className="p-3">
-                          <div>
-                            <span className="font-medium">{record.workingHours}h</span>
-                            {record.overtimeHours > 0 && (
-                              <span className="text-sm text-blue-600 mr-2">
-                                (+{record.overtimeHours}h)
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="p-3">{getStatusBadge(record.status)}</td>
-                        <td className="p-3">
-                          <div className="flex items-center gap-2">
-                            {getStatusIcon(record.checkInMethod)}
-                            <span className="text-sm">
-                              {record.checkInMethod === 'gps' ? 'GPS' :
-                               record.checkInMethod === 'fingerprint' ? 'بصمة' :
-                               record.checkInMethod === 'facial_recognition' ? 'تعرف وجه' : 'يدوي'}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="p-3">
-                          {record.checkInLocation ? (
-                            <div className="flex items-center gap-1">
-                              <MapPin className="h-3 w-3 text-muted-foreground" />
-                              <span className="text-sm text-muted-foreground truncate max-w-[100px]">
-                                {record.checkInLocation.address}
-                              </span>
-                            </div>
-                          ) : '-'}
-                        </td>
-                        <td className="p-3">
-                          <div className="flex items-center justify-center gap-1">
-                            <Button 
-                              size="sm" 
-                              variant="ghost"
-                              onClick={() => handleViewRecord(record)}
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button 
-                              size="sm" 
-                              variant="ghost"
-                              onClick={() => handleEditRecord(record)}
-                            >
-                              <Edit className="h-4 w-4" />
+                          <div className="flex gap-2 items-center">
+                            {getStatusBadge(record.status)}
+                            <Button size="sm" variant="outline">
+                              <Eye className="w-4 h-4" />
                             </Button>
                           </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
 
-        <TabsContent value="reports">
-          <Card>
-            <CardHeader>
-              <CardTitle>تقارير الحضور والانصراف</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>قريباً - تقارير مفصلة وتحليلات الحضور</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
+              {/* Placeholder tabs */}
+              <TabsContent value="shifts" className="p-6">
+                <div className="text-center py-12">
+                  <Calendar className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-medium text-gray-600 mb-2">إدارة النوبات</h3>
+                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+                </div>
+              </TabsContent>
 
-        <TabsContent value="settings">
-          <Card>
-            <CardHeader>
-              <CardTitle>إعدادات الحضور</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>قريباً - إعدادات نظام الحضور والانصراف</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+              <TabsContent value="location" className="p-6">
+                <div className="text-center py-12">
+                  <MapPin className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-medium text-gray-600 mb-2">تتبع الموقع</h3>
+                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="reports" className="p-6">
+                <div className="text-center py-12">
+                  <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-medium text-gray-600 mb-2">التقارير المتقدمة</h3>
+                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="settings" className="p-6">
+                <div className="text-center py-12">
+                  <Settings className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-medium text-gray-600 mb-2">إعدادات النظام</h3>
+                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

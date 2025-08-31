@@ -82,7 +82,11 @@ interface Employee {
   burnoutRisk?: 'low' | 'medium' | 'high';
 }
 
-const TeamMembers = () => {
+interface TeamMembersProps {
+  onBack?: () => void;
+}
+
+const TeamMembers: React.FC<TeamMembersProps> = ({ onBack }) => {
   const [activeView, setActiveView] = useState<'directory' | 'profile' | 'manager' | 'org' | 'analytics'>('directory');
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
