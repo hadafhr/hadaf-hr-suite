@@ -66,7 +66,7 @@ import { CombinedRequestsNotifications } from '@/components/systems/CombinedRequ
 import ArtificialIntelligence from '@/components/systems/ArtificialIntelligence';
 import Reports from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
-import TalentManagementDepartment from '@/components/systems/TalentManagementDepartment';
+import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
 import { TrackingSystem } from '@/components/systems/TrackingSystem';
 
 const ComprehensiveEmployeeManagement = () => {
@@ -431,7 +431,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="talents">
-            <TalentManagementDepartment onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="recruitment">
