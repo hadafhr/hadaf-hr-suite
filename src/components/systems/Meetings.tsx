@@ -168,90 +168,172 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
   });
 
   return (
-    <div className={`min-h-screen bg-background p-6 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                {isRTL ? 'الاجتماعات' : 'Meetings'}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Search className="h-4 w-4 ml-2" />
+                  البحث المتقدم
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Plus className="h-4 w-4 ml-2" />
+                  اجتماع جديد
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Calendar className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام الاجتماعات الذكي المتطور
               </h1>
-              <p className="text-muted-foreground">
-                {isRTL ? 'إدارة الاجتماعات وحجز القاعات والتنسيق' : 'Manage meetings, room bookings and scheduling'}
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لإدارة الاجتماعات وحجز القاعات والتنسيق مع التكامل الكامل مع التقويم والإشعارات
               </p>
             </div>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            {isRTL ? 'اجتماع جديد' : 'New Meeting'}
-          </Button>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'اجتماعات اليوم' : 'Today\'s Meetings'}
-                  </p>
-                  <p className="text-2xl font-bold">7</p>
+        {/* Analytics Dashboard */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">نظام الاجتماعات الذكي</h3>
+                    <Calendar className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">اجتماعات اليوم</span>
+                      <span className="font-bold text-primary">7</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الحضور</span>
+                      <span className="font-bold text-green-600">89%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">متوسط مدة الاجتماع</span>
+                      <span className="font-bold text-blue-600">75 دقيقة</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">إدارة القاعات</h3>
+                    <MapPin className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">قاعات متاحة</span>
+                      <span className="font-bold text-green-600">5</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الاستخدام</span>
+                      <span className="font-bold text-blue-600">78%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">حجوزات الأسبوع</span>
+                      <span className="font-bold text-purple-600">34</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات الاجتماعات</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">7</div>
+                    <div className="text-sm text-gray-600">اجتماعات اليوم</div>
+                  </div>
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">42</div>
+                    <div className="text-sm text-gray-600">مشاركون</div>
+                  </div>
+                  <div className="text-center p-4 bg-orange-50 rounded-lg">
+                    <div className="text-2xl font-bold text-orange-600">15</div>
+                    <div className="text-sm text-gray-600">اجتماعات إلكترونية</div>
+                  </div>
                 </div>
-                <Calendar className="h-8 w-8 text-blue-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'القاعات المتاحة' : 'Available Rooms'}
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">5</p>
-                </div>
-                <MapPin className="h-8 w-8 text-green-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'المشاركون اليوم' : 'Today\'s Participants'}
-                  </p>
-                  <p className="text-2xl font-bold text-purple-600">42</p>
-                </div>
-                <Users className="h-8 w-8 text-purple-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الاجتماعات الإلكترونية' : 'Online Meetings'}
-                  </p>
-                  <p className="text-2xl font-bold text-orange-600">15</p>
-                </div>
-                <Video className="h-8 w-8 text-orange-600" />
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة الاجتماعات المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: Calendar, label: "جدولة الاجتماعات", color: "text-blue-600", count: 7 },
+                { icon: MapPin, label: "حجز القاعات", color: "text-green-600", count: 5 },
+                { icon: Users, label: "إدارة المشاركين", color: "text-purple-600", count: 42 },
+                { icon: Video, label: "الاجتماعات المرئية", color: "text-orange-600", count: 15 },
+                { icon: Clock, label: "التوقيتات الذكية", color: "text-teal-600", count: 0 },
+                { icon: Search, label: "البحث والتصفية", color: "text-red-600", count: 0 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">284</div>
+                <div className="text-sm text-gray-600">إجمالي الاجتماعات هذا الشهر</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">89%</div>
+                <div className="text-sm text-gray-600">معدل الحضور العام</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">75</div>
+                <div className="text-sm text-gray-600">متوسط مدة الاجتماع (دقيقة)</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <Tabs defaultValue="meetings" className="space-y-6">
           <TabsList>

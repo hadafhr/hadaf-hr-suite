@@ -109,90 +109,172 @@ export const DisciplinaryActions: React.FC<DisciplinaryActionsProps> = ({ onBack
   });
 
   return (
-    <div className={`min-h-screen bg-background p-6 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                {isRTL ? 'الإجراءات التأديبية' : 'Disciplinary Actions'}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Search className="h-4 w-4 ml-2" />
+                  البحث المتقدم
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Plus className="h-4 w-4 ml-2" />
+                  إجراء تأديبي جديد
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <AlertTriangle className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام الجزاءات والعقوبات المتقدم
               </h1>
-              <p className="text-muted-foreground">
-                {isRTL ? 'إدارة وتتبع الإجراءات التأديبية للموظفين' : 'Manage and track employee disciplinary actions'}
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لإدارة الإجراءات التأديبية وضمان الانضباط الوظيفي مع أحدث أنظمة المتابعة والتحليل
               </p>
             </div>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            {isRTL ? 'إجراء تأديبي جديد' : 'New Disciplinary Action'}
-          </Button>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'إجمالي الإجراءات' : 'Total Actions'}
-                  </p>
-                  <p className="text-2xl font-bold">12</p>
+        {/* Analytics Dashboard */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">نظام الإجراءات التأديبية</h3>
+                    <AlertTriangle className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">إجمالي الإجراءات</span>
+                      <span className="font-bold text-primary">47</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الامتثال</span>
+                      <span className="font-bold text-green-600">87%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">القضايا المحلولة</span>
+                      <span className="font-bold text-blue-600">41</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">إدارة المخالفات</h3>
+                    <FileText className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">مخالفات متوسطة</span>
+                      <span className="font-bold text-yellow-600">12</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">مخالفات عالية</span>
+                      <span className="font-bold text-red-600">3</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل التحسن</span>
+                      <span className="font-bold text-green-600">+23%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">مؤشرات الانضباط</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">94.2%</div>
+                    <div className="text-sm text-gray-600">معدل الامتثال العام</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">78</div>
+                    <div className="text-sm text-gray-600">قضايا محلولة</div>
+                  </div>
+                  <div className="text-center p-4 bg-yellow-50 rounded-lg">
+                    <div className="text-2xl font-bold text-yellow-600">12</div>
+                    <div className="text-sm text-gray-600">قضايا معلقة</div>
+                  </div>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-orange-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'في الانتظار' : 'Pending'}
-                  </p>
-                  <p className="text-2xl font-bold text-blue-600">3</p>
-                </div>
-                <FileText className="h-8 w-8 text-blue-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'هذا الشهر' : 'This Month'}
-                  </p>
-                  <p className="text-2xl font-bold text-red-600">5</p>
-                </div>
-                <Calendar className="h-8 w-8 text-red-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'حالات عالية الخطورة' : 'High Severity'}
-                  </p>
-                  <p className="text-2xl font-bold text-red-600">2</p>
-                </div>
-                <AlertTriangle className="h-8 w-8 text-red-600" />
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة الجزاءات المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: AlertTriangle, label: "إدارة المخالفات", color: "text-red-600", count: 12 },
+                { icon: FileText, label: "التوثيق الرقمي", color: "text-blue-600", count: 24 },
+                { icon: Search, label: "نظام التتبع", color: "text-green-600", count: 8 },
+                { icon: Calendar, label: "المتابعة الدورية", color: "text-purple-600", count: 15 },
+                { icon: ArrowLeft, label: "تقارير تفصيلية", color: "text-orange-600", count: 6 },
+                { icon: Plus, label: "إجراءات وقائية", color: "text-teal-600", count: 3 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">312</div>
+                <div className="text-sm text-gray-600">إجمالي الحالات المعالجة</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">87%</div>
+                <div className="text-sm text-gray-600">معدل نجاح الإجراءات</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">4.2</div>
+                <div className="text-sm text-gray-600">متوسط وقت المعالجة (أيام)</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <Tabs defaultValue="actions" className="space-y-6">
           <TabsList>

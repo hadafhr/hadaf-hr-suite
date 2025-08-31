@@ -153,90 +153,172 @@ export const LeavesHolidays: React.FC<LeavesHolidaysProps> = ({ onBack }) => {
   });
 
   return (
-    <div className={`min-h-screen bg-background p-6 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                {isRTL ? 'الإجازات والعطل' : 'Leaves & Holidays'}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Search className="h-4 w-4 ml-2" />
+                  البحث المتقدم
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Plus className="h-4 w-4 ml-2" />
+                  طلب إجازة جديد
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Calendar className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام الإجازات والعطلات المتطور
               </h1>
-              <p className="text-muted-foreground">
-                {isRTL ? 'إدارة طلبات الإجازات والعطل الرسمية' : 'Manage leave requests and official holidays'}
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لإدارة طلبات الإجازات والعطل الرسمية مع أنظمة الموافقة والمتابعة الآلية
               </p>
             </div>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            {isRTL ? 'طلب إجازة جديد' : 'New Leave Request'}
-          </Button>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'طلبات الإجازة' : 'Leave Requests'}
-                  </p>
-                  <p className="text-2xl font-bold">24</p>
+        {/* Analytics Dashboard */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">نظام الإجازات المتقدم</h3>
+                    <Calendar className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">إجمالي الطلبات</span>
+                      <span className="font-bold text-primary">156</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الموافقة</span>
+                      <span className="font-bold text-green-600">92%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">متوسط أيام الإجازة</span>
+                      <span className="font-bold text-blue-600">12.3</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">إدارة العطل الرسمية</h3>
+                    <Clock className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">عطل وطنية</span>
+                      <span className="font-bold text-green-600">8</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">عطل دينية</span>
+                      <span className="font-bold text-blue-600">12</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">أيام عمل محفوظة</span>
+                      <span className="font-bold text-purple-600">89%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات الإجازات</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">24</div>
+                    <div className="text-sm text-gray-600">طلبات هذا الشهر</div>
+                  </div>
+                  <div className="text-center p-4 bg-yellow-50 rounded-lg">
+                    <div className="text-2xl font-bold text-yellow-600">7</div>
+                    <div className="text-sm text-gray-600">في انتظار الموافقة</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">15</div>
+                    <div className="text-sm text-gray-600">معتمدة</div>
+                  </div>
                 </div>
-                <Calendar className="h-8 w-8 text-primary" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'في الانتظار' : 'Pending Approval'}
-                  </p>
-                  <p className="text-2xl font-bold text-yellow-600">7</p>
-                </div>
-                <Clock className="h-8 w-8 text-yellow-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'معتمدة' : 'Approved'}
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">15</p>
-                </div>
-                <Calendar className="h-8 w-8 text-green-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'العطل القادمة' : 'Upcoming Holidays'}
-                  </p>
-                  <p className="text-2xl font-bold text-blue-600">3</p>
-                </div>
-                <Calendar className="h-8 w-8 text-blue-600" />
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة الإجازات المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: Calendar, label: "طلبات الإجازة", color: "text-blue-600", count: 24 },
+                { icon: Clock, label: "الموافقات الآلية", color: "text-green-600", count: 15 },
+                { icon: Filter, label: "تصفية الطلبات", color: "text-purple-600", count: 0 },
+                { icon: ArrowLeft, label: "المتابعة المرحلية", color: "text-orange-600", count: 8 },
+                { icon: Plus, label: "العطل الرسمية", color: "text-teal-600", count: 3 },
+                { icon: Search, label: "التقارير التحليلية", color: "text-red-600", count: 0 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">1,247</div>
+                <div className="text-sm text-gray-600">إجمالي أيام الإجازة المعتمدة</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">92%</div>
+                <div className="text-sm text-gray-600">معدل الموافقة على الطلبات</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">2.1</div>
+                <div className="text-sm text-gray-600">متوسط وقت المعالجة (أيام)</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <Tabs defaultValue="requests" className="space-y-6">
           <TabsList>

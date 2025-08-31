@@ -147,73 +147,172 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
   const activeTemplates = signatureTemplates.filter(t => t.status === 'نشط').length;
 
   return (
-    <div className="space-y-6 p-6">
-      {/* Header */}
-      <div className="flex items-center gap-4 mb-6">
-        <Button
-          variant="ghost"
-          onClick={onBack}
-          className="hover:bg-[#009F87]/10"
-        >
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          العودة
-        </Button>
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#009F87]/10 rounded-lg">
-            <PenTool className="h-6 w-6 text-[#009F87]" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-[#009F87]">التوقيع الإلكتروني</h1>
-            <p className="text-muted-foreground">إدارة التوقيعات الإلكترونية والمستندات</p>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  رجوع
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Search className="h-4 w-4 ml-2" />
+                  البحث المتقدم
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Plus className="h-4 w-4 ml-2" />
+                  طلب توقيع جديد
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <PenTool className="h-12 w-12 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                نظام التوقيع الإلكتروني المتطور
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                منظومة ذكية شاملة لإدارة التوقيعات الإلكترونية والمستندات مع التكامل الكامل مع الأنظمة القانونية
+              </p>
+            </div>
           </div>
         </div>
-        <div className="mr-auto">
-          <Button className="bg-[#009F87] hover:bg-[#008072] text-white">
-            <Plus className="h-4 w-4 ml-2" />
-            طلب توقيع جديد
-          </Button>
-        </div>
-      </div>
 
-      {/* Stats Overview */}
-      <div className="grid md:grid-cols-4 gap-6">
-        <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <PenTool className="h-6 w-6 text-[#009F87]" />
+        {/* Analytics Dashboard */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">نظام التوقيع الإلكتروني</h3>
+                    <PenTool className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">طلبات التوقيع</span>
+                      <span className="font-bold text-primary">{signatureRequests.length}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل التوقيع</span>
+                      <span className="font-bold text-green-600">87%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">متوسط وقت التوقيع</span>
+                      <span className="font-bold text-blue-600">2.3 يوم</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">إدارة القوالب</h3>
+                    <FileText className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">قوالب نشطة</span>
+                      <span className="font-bold text-green-600">{activeTemplates}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">استخدام القوالب</span>
+                      <span className="font-bold text-blue-600">154</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">كفاءة المعالجة</span>
+                      <span className="font-bold text-purple-600">96%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-            <div className="text-2xl font-bold text-[#009F87] mb-1">{signatureRequests.length}</div>
-            <div className="text-sm text-muted-foreground">طلبات التوقيع</div>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات التوقيع</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">{signatureRequests.length}</div>
+                    <div className="text-sm text-gray-600">طلبات التوقيع</div>
+                  </div>
+                  <div className="text-center p-4 bg-yellow-50 rounded-lg">
+                    <div className="text-2xl font-bold text-yellow-600">{pendingRequests}</div>
+                    <div className="text-sm text-gray-600">في الانتظار</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">{signedRequests}</div>
+                    <div className="text-sm text-gray-600">مكتملة</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة التوقيع الإلكتروني المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: PenTool, label: "التوقيع الإلكتروني", color: "text-blue-600", count: signatureRequests.length },
+                { icon: FileText, label: "إدارة المستندات", color: "text-green-600", count: activeTemplates },
+                { icon: CheckCircle, label: "التحقق الآمن", color: "text-purple-600", count: 0 },
+                { icon: Clock, label: "المتابعة الآلية", color: "text-orange-600", count: pendingRequests },
+                { icon: Upload, label: "رفع المستندات", color: "text-teal-600", count: 0 },
+                { icon: Search, label: "البحث والأرشفة", color: "text-red-600", count: 0 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">789</div>
+                <div className="text-sm text-gray-600">إجمالي المستندات الموقعة</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">97%</div>
+                <div className="text-sm text-gray-600">معدل الأمان والحماية</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">1.8</div>
+                <div className="text-sm text-gray-600">متوسط وقت المعالجة (أيام)</div>
+              </div>
+            </div>
           </CardContent>
         </Card>
-        <Card className="bg-white/80 backdrop-blur border-yellow-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <Clock className="h-6 w-6 text-yellow-600" />
-            </div>
-            <div className="text-2xl font-bold text-yellow-600 mb-1">{pendingRequests}</div>
-            <div className="text-sm text-muted-foreground">في الانتظار</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white/80 backdrop-blur border-green-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <CheckCircle className="h-6 w-6 text-green-600" />
-            </div>
-            <div className="text-2xl font-bold text-green-600 mb-1">{signedRequests}</div>
-            <div className="text-sm text-muted-foreground">مكتملة</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white/80 backdrop-blur border-blue-200">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center mb-2">
-              <FileText className="h-6 w-6 text-blue-600" />
-            </div>
-            <div className="text-2xl font-bold text-blue-600 mb-1">{activeTemplates}</div>
-            <div className="text-sm text-muted-foreground">قوالب نشطة</div>
-          </CardContent>
-        </Card>
-      </div>
 
       {/* Navigation Tabs */}
       <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
@@ -419,6 +518,7 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
           </CardContent>
         </Card>
       )}
+      </div>
     </div>
   );
 };
