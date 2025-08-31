@@ -11,7 +11,8 @@ import {
   Building, Users, ArrowLeft, Search, Filter, Plus, Edit, Eye, Trash2,
   Download, FileText, RefreshCw, BarChart3, TrendingUp, Settings,
   Target, Award, Crown, Shield, Briefcase, CheckCircle, AlertTriangle,
-  Upload, Activity, Calendar, Clock, Mail, Phone, Grid
+  Upload, Activity, Calendar, Clock, Mail, Phone, Grid, User,
+  MapPin, Smartphone, Fingerprint, Globe, Timer
 } from 'lucide-react';
 import { useDepartments, type Department } from '@/hooks/useDepartments';
 import { EmptyDepartmentsView } from './EmptyDepartmentsView';
@@ -156,6 +157,21 @@ export const DepartmentManagement: React.FC<DepartmentManagementProps> = ({ onBa
     return <EmptyDepartmentsView onDepartmentAdded={() => window.location.reload()} />;
   }
 
+  const getStatusBadge = (status: string) => {
+    const config = {
+      active: { label: 'نشط', className: 'bg-green-100 text-green-800' },
+      inactive: { label: 'غير نشط', className: 'bg-red-100 text-red-800' }
+    };
+    
+    const statusConfig = config[status as keyof typeof config] || config.active;
+    
+    return (
+      <Badge className={statusConfig.className}>
+        {statusConfig.label}
+      </Badge>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
       <div className="max-w-7xl mx-auto p-6">
@@ -176,15 +192,15 @@ export const DepartmentManagement: React.FC<DepartmentManagementProps> = ({ onBa
                 </Button>
               </div>
               <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm" onClick={handleExportPDF}>
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm" onClick={() => handleExportPDF()}>
                   <FileText className="h-4 w-4 ml-2" />
                   تصدير PDF
                 </Button>
-                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm" onClick={handleExportExcel}>
+                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm" onClick={() => handleExportExcel()}>
                   <Download className="h-4 w-4 ml-2" />
                   تصدير Excel
                 </Button>
-                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg" onClick={handleRefreshData}>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg" onClick={() => handleRefreshData()}>
                   <RefreshCw className="h-4 w-4 ml-2" />
                   تحديث البيانات
                 </Button>
@@ -207,276 +223,272 @@ export const DepartmentManagement: React.FC<DepartmentManagementProps> = ({ onBa
           </div>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-4 w-full">
-            <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-            <TabsTrigger value="departments">إدارة الأقسام</TabsTrigger>
-            <TabsTrigger value="reports">التقارير</TabsTrigger>
-            <TabsTrigger value="settings">الإعدادات</TabsTrigger>
-          </TabsList>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid grid-cols-4 w-full">
+          <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+          <TabsTrigger value="daily">السجلات اليومية</TabsTrigger>
+          <TabsTrigger value="reports">التقارير</TabsTrigger>
+          <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+        </TabsList>
 
-          <TabsContent value="dashboard" className="space-y-6">
-            {/* Daily Statistics */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card 
-                className="cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => handleStatusCardClick('total')}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-muted-foreground">إجمالي الأقسام</p>
-                      <p className="text-2xl font-bold text-blue-600">{stats.total}</p>
-                    </div>
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <Building className="h-6 w-6 text-blue-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card 
-                className="cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => handleStatusCardClick('active')}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-muted-foreground">الأقسام النشطة</p>
-                      <p className="text-2xl font-bold text-green-600">{stats.active}</p>
-                    </div>
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <CheckCircle className="h-6 w-6 text-green-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card 
-                className="cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => handleStatusCardClick('inactive')}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-muted-foreground">الأقسام غير النشطة</p>
-                      <p className="text-2xl font-bold text-red-600">{stats.inactive}</p>
-                    </div>
-                    <div className="p-2 bg-red-100 rounded-lg">
-                      <AlertTriangle className="h-6 w-6 text-red-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card 
-                className="cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => handleStatusCardClick('employees')}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                      <p className="text-2xl font-bold text-purple-600">{stats.totalEmployees}</p>
-                    </div>
-                    <div className="p-2 bg-purple-100 rounded-lg">
-                      <Users className="h-6 w-6 text-purple-600" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Detailed Department Lists for Each Status */}
-            {Object.entries(showDetails).map(([status, isVisible]) => {
-              if (!isVisible) return null;
-              
-              const statusDepartments = departments.filter(d => 
-                status === 'active' ? d.is_active : 
-                status === 'inactive' ? !d.is_active : true
-              );
-              const statusLabels = {
-                total: 'جميع الأقسام',
-                active: 'الأقسام النشطة',
-                inactive: 'الأقسام غير النشطة',
-                employees: 'توزيع الموظفين'
-              };
-              
-              return (
-                <Card key={status}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      {statusLabels[status as keyof typeof statusLabels]}
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => setShowDetails(prev => ({ ...prev, [status]: false }))}
-                      >
-                        إخفاء
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {statusDepartments.map(dept => (
-                        <div key={dept.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                              <Building className="h-5 w-5 text-primary" />
-                            </div>
-                            <div>
-                              <p className="font-medium">{dept.name_ar}</p>
-                              <p className="text-sm text-muted-foreground">
-                                {dept.department_code} - {dept.function_type || 'لم يحدد'}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Badge variant={dept.is_active ? "default" : "secondary"}>
-                              {dept.is_active ? 'نشط' : 'غير نشط'}
-                            </Badge>
-                            <Button size="sm" variant="ghost" onClick={() => handleViewDepartment(dept)}>
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="ghost" onClick={() => handleEditDepartment(dept)}>
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </TabsContent>
-
-          <TabsContent value="departments" className="space-y-6">
-            {/* Search and Filter */}
-            <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-xl">
+        <TabsContent value="dashboard" className="space-y-6">
+          {/* Daily Statistics */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card 
+              className="cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleStatusCardClick('total')}
+            >
               <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="relative">
-                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="البحث في الأقسام والإدارات..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10 bg-white/80 border-white/30 focus:bg-white transition-all"
-                    />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">إجمالي الأقسام</p>
+                    <p className="text-2xl font-bold text-blue-600">{stats.total}</p>
                   </div>
-                  <Select value={filterStatus} onValueChange={setFilterStatus}>
-                    <SelectTrigger className="bg-white/80 border-white/30">
-                      <SelectValue placeholder="تصفية حسب الحالة" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">جميع الأقسام</SelectItem>
-                      <SelectItem value="active">الأقسام النشطة</SelectItem>
-                      <SelectItem value="inactive">الأقسام غير النشطة</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button onClick={handleAddDepartment} className="bg-primary hover:bg-primary/90">
-                    <Plus className="h-4 w-4 ml-2" />
-                    إضافة قسم جديد
-                  </Button>
+                  <div className="p-2 bg-blue-100 rounded-lg">
+                    <Building className="h-6 w-6 text-blue-600" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Departments Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredDepartments.map((dept) => (
-                <Card key={dept.id} className="hover:shadow-lg transition-shadow border-0 bg-white/80 backdrop-blur-sm">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">{dept.name_ar}</CardTitle>
-                      <Badge variant={dept.is_active ? "default" : "secondary"}>
-                        {dept.is_active ? 'نشط' : 'غير نشط'}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{dept.name_en}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Building className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">كود القسم: {dept.department_code}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">عدد الموظفين: {dept.head_count || 0}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Crown className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">نوع القسم: {dept.function_type || 'لم يحدد'}</span>
-                      </div>
-                      {dept.budget_allocation && (
-                        <div className="flex items-center gap-2">
-                          <BarChart3 className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm">الميزانية: {dept.budget_allocation.toLocaleString()} ر.س</span>
+            <Card 
+              className="cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleStatusCardClick('active')}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">الأقسام النشطة</p>
+                    <p className="text-2xl font-bold text-green-600">{stats.active}</p>
+                  </div>
+                  <div className="p-2 bg-green-100 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-green-600" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card 
+              className="cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleStatusCardClick('inactive')}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">الأقسام غير النشطة</p>
+                    <p className="text-2xl font-bold text-red-600">{stats.inactive}</p>
+                  </div>
+                  <div className="p-2 bg-red-100 rounded-lg">
+                    <AlertTriangle className="h-6 w-6 text-red-600" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card 
+              className="cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleStatusCardClick('employees')}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
+                    <p className="text-2xl font-bold text-purple-600">{stats.totalEmployees}</p>
+                  </div>
+                  <div className="p-2 bg-purple-100 rounded-lg">
+                    <Users className="h-6 w-6 text-purple-600" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Detailed Department Lists for Each Status */}
+          {Object.entries(showDetails).map(([status, isVisible]) => {
+            if (!isVisible) return null;
+            
+            const statusDepartments = departments.filter(d => 
+              status === 'active' ? d.is_active : 
+              status === 'inactive' ? !d.is_active : true
+            );
+            const statusLabels = {
+              total: 'جميع الأقسام',
+              active: 'الأقسام النشطة',
+              inactive: 'الأقسام غير النشطة',
+              employees: 'توزيع الموظفين'
+            };
+            
+            return (
+              <Card key={status}>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    {statusLabels[status as keyof typeof statusLabels]}
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setShowDetails(prev => ({ ...prev, [status]: false }))}
+                    >
+                      إخفاء
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {statusDepartments.map(dept => (
+                      <div key={dept.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                            <Building className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <p className="font-medium">{dept.name_ar}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {dept.department_code} - {dept.function_type || 'لم يحدد'}
+                            </p>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                    <div className="flex gap-2 mt-4">
-                      <Button size="sm" variant="outline" onClick={() => handleViewDepartment(dept)}>
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button size="sm" variant="outline" onClick={() => handleEditDepartment(dept)}>
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
+                        <div className="flex items-center gap-2">
+                          {getStatusBadge(dept.is_active ? 'active' : 'inactive')}
+                          <Button size="sm" variant="ghost" onClick={() => handleViewDepartment(dept)}>
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost" onClick={() => handleEditDepartment(dept)}>
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </TabsContent>
 
-          <TabsContent value="reports" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>تقارير الأقسام والإدارات</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  اختر نوع التقرير المطلوب لعرض البيانات التفصيلية للأقسام
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Button variant="outline" onClick={handleExportPDF}>
-                    <FileText className="h-4 w-4 ml-2" />
-                    تقرير PDF
-                  </Button>
-                  <Button variant="outline" onClick={handleExportExcel}>
-                    <Download className="h-4 w-4 ml-2" />
-                    تقرير Excel
-                  </Button>
-                  <Button variant="outline">
-                    <BarChart3 className="h-4 w-4 ml-2" />
-                    تقرير تحليلي
-                  </Button>
+        <TabsContent value="daily" className="space-y-6">
+          {/* Search and Filter */}
+          <Card className="bg-white/70 backdrop-blur-sm border-white/20 shadow-xl">
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="relative">
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="البحث في الأقسام والإدارات..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pr-10 bg-white/80 border-white/30 focus:bg-white transition-all"
+                  />
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                <Select value={filterStatus} onValueChange={setFilterStatus}>
+                  <SelectTrigger className="bg-white/80 border-white/30">
+                    <SelectValue placeholder="تصفية حسب الحالة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">جميع الأقسام</SelectItem>
+                    <SelectItem value="active">الأقسام النشطة</SelectItem>
+                    <SelectItem value="inactive">الأقسام غير النشطة</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button onClick={handleAddDepartment} className="bg-primary hover:bg-primary/90">
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة قسم جديد
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
 
-          <TabsContent value="settings" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>إعدادات النظام</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  إعدادات عامة لنظام إدارة الأقسام والإدارات
-                </p>
-                <div className="mt-4">
-                  <Button variant="outline">
-                    <Settings className="h-4 w-4 ml-2" />
-                    الإعدادات العامة
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+          {/* Departments Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredDepartments.map((dept) => (
+              <Card key={dept.id} className="hover:shadow-lg transition-shadow border-0 bg-white/80 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">{dept.name_ar}</CardTitle>
+                    {getStatusBadge(dept.is_active ? 'active' : 'inactive')}
+                  </div>
+                  <p className="text-sm text-muted-foreground">{dept.name_en}</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Building className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">كود القسم: {dept.department_code}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">عدد الموظفين: {dept.head_count || 0}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Crown className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">نوع القسم: {dept.function_type || 'لم يحدد'}</span>
+                    </div>
+                    {dept.budget_allocation && (
+                      <div className="flex items-center gap-2">
+                        <BarChart3 className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm">الميزانية: {dept.budget_allocation.toLocaleString()} ر.س</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button size="sm" variant="outline" onClick={() => handleViewDepartment(dept)}>
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => handleEditDepartment(dept)}>
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="reports" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>تقارير الأقسام والإدارات</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                اختر نوع التقرير المطلوب لعرض البيانات التفصيلية للأقسام
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Button variant="outline" onClick={handleExportPDF}>
+                  <FileText className="h-4 w-4 ml-2" />
+                  تقرير PDF
+                </Button>
+                <Button variant="outline" onClick={handleExportExcel}>
+                  <Download className="h-4 w-4 ml-2" />
+                  تقرير Excel
+                </Button>
+                <Button variant="outline">
+                  <BarChart3 className="h-4 w-4 ml-2" />
+                  تقرير تحليلي
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="settings" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>إعدادات النظام</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">
+                إعدادات عامة لنظام إدارة الأقسام والإدارات
+              </p>
+              <div className="mt-4">
+                <Button variant="outline">
+                  <Settings className="h-4 w-4 ml-2" />
+                  الإعدادات العامة
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
       </div>
     </div>
   );
