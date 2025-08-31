@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { RewardsManager } from '@/components/compensation/RewardsManager';
+import { PayrollCyclesManager } from '@/components/payroll/PayrollCyclesManager';
 import { 
   ArrowLeft, 
   DollarSign, 
@@ -394,18 +395,7 @@ export const ComprehensivePayrollSystem = ({ onBack }: ComprehensivePayrollSyste
             </TabsContent>
 
             <TabsContent value="payroll">
-              <Card>
-                <CardHeader>
-                  <CardTitle>إدارة دورات الرواتب</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Calculator className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">دورات الرواتب</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <PayrollCyclesManager />
             </TabsContent>
 
             <TabsContent value="bonuses">
