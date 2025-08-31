@@ -1,10 +1,64 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Clock, FileText, AlertTriangle, CheckCircle, Users, Eye, Save, Download, Share, Settings, Calendar, MapPin, Building, Bot } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { 
+  ArrowLeft, 
+  Clock, 
+  User, 
+  FileText, 
+  AlertTriangle, 
+  CheckCircle2, 
+  Calendar,
+  Download,
+  Plus,
+  Search,
+  Filter,
+  Building,
+  BookOpen,
+  Shield,
+  Briefcase,
+  Award,
+  Target,
+  TrendingUp,
+  BarChart3,
+  PieChart,
+  Activity,
+  Zap,
+  Globe,
+  Eye,
+  Settings,
+  Bell,
+  CreditCard,
+  UserCheck,
+  Sparkles,
+  Archive,
+  Edit,
+  Trash2,
+  Share,
+  Lock,
+  Unlock,
+  AlertCircle,
+  Info,
+  UserPlus,
+  Phone,
+  Mail,
+  Crown,
+  Users2,
+  MapPin,
+  Timer,
+  Users
+} from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie } from 'recharts';
 
 interface ComprehensiveAttendanceProps {
   onBack: () => void;
@@ -12,277 +66,377 @@ interface ComprehensiveAttendanceProps {
 
 const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  // بيانات الحضور والانصراف
+  // Analytics data
   const attendanceData = [
-    { month: 'يناير', cases: 120, resolved: 115, pending: 5 },
-    { month: 'فبراير', cases: 135, resolved: 128, pending: 7 },
-    { month: 'مارس', cases: 128, resolved: 125, pending: 3 },
-    { month: 'أبريل', cases: 142, resolved: 135, pending: 7 },
-    { month: 'مايو', cases: 130, resolved: 127, pending: 3 },
-    { month: 'يونيو', cases: 138, resolved: 132, pending: 6 }
+    { month: 'يناير', present: 85, late: 12, absent: 3 },
+    { month: 'فبراير', present: 87, late: 10, absent: 2 },
+    { month: 'مارس', present: 89, late: 8, absent: 1 },
+    { month: 'أبريل', present: 88, late: 15, absent: 4 },
+    { month: 'مايو', present: 91, late: 7, absent: 2 },
+    { month: 'يونيو', present: 93, late: 5, absent: 1 }
   ];
 
-  const attendanceMetrics = [
-    { category: 'الحضور المنتظم', count: 832, percentage: 92, color: 'hsl(var(--success))' },
-    { category: 'قيد المراجعة', count: 31, percentage: 3.4, color: 'hsl(var(--warning))' },
-    { category: 'متأخر', count: 25, percentage: 2.8, color: 'hsl(var(--destructive))' },
-    { category: 'حضور مكتمل', count: 857, percentage: 94.8, color: 'hsl(var(--primary))' }
+  const departmentAttendance = [
+    { name: 'تقنية المعلومات', value: 95, color: '#3b82f6' },
+    { name: 'الموارد البشرية', value: 92, color: '#10b981' },
+    { name: 'المالية', value: 88, color: '#f59e0b' },
+    { name: 'التسويق', value: 90, color: '#8b5cf6' },
+    { name: 'العمليات', value: 85, color: '#ef4444' }
   ];
 
-  const casesByType = [
-    { level: 'حضور يومي', value: 45, count: 78 },
-    { level: 'نوبات مسائية', value: 30, count: 52 },
-    { level: 'عمل عن بُعد', value: 25, count: 43 }
-  ];
+  // Calculate statistics
+  const stats = {
+    totalEmployees: 127,
+    presentToday: 118,
+    lateArrivals: 8,
+    avgAttendance: 92,
+    remoteWorkers: 12,
+    avgWorkHours: 8.2
+  };
 
-  const BOUD_COLORS = ['hsl(var(--primary))', 'hsl(var(--warning))', 'hsl(var(--destructive))'];
+  const handleExport = () => {
+    toast({
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير تقرير الحضور والانصراف كملف PDF",
+    });
+  };
 
-  return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  {isRTL ? 'رجوع' : 'Back'}
-                </Button>
+  const handlePrint = () => {
+    toast({
+      title: "جاري الطباعة",
+      description: "يتم تحضير التقرير للطباعة",
+    });
+  };
+
+  const renderHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+      <div className="relative p-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost" 
+              size="sm"
+              onClick={onBack}
+              className="hover:bg-primary/10"
+            >
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              العودة
+            </Button>
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Clock className="h-8 w-8 text-primary" />
               </div>
-              <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-                  <Share className="h-4 w-4 ml-2" />
-                  {isRTL ? 'استيراد' : 'Import'}
-                </Button>
-                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm">
-                  <Download className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
-                </Button>
-                <Button className="bg-destructive/80 border-destructive/30 text-white hover:bg-destructive/90 backdrop-blur-sm">
-                  <FileText className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
-                </Button>
-                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
-                  <Save className="h-4 w-4 ml-2" />
-                  {isRTL ? 'حفظ' : 'Save'}
-                </Button>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  الحضور والانصراف
+                </h1>
+                <p className="text-muted-foreground text-lg mt-1">
+                  منظومة شاملة لإدارة حضور الموظفين مع أدوات التتبع المتقدمة والتقارير التفصيلية
+                </p>
               </div>
             </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Clock className="h-12 w-12 text-white" />
-                </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExport}>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
+            </Button>
+            <Button variant="outline" size="sm" onClick={handlePrint}>
+              <FileText className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Button size="sm">
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة نوبة
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalEmployees}</p>
               </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                {isRTL ? 'نظام الحضور والانصراف الشامل' : 'Comprehensive Attendance System'}
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                {isRTL ? 'نظام متطور لإدارة حضور الموظفين مع تتبع الموقع والذكاء الاصطناعي' : 'Advanced employee attendance management system with location tracking and AI'}
+              <Users className="h-8 w-8 text-primary/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">حاضر اليوم</p>
+                <p className="text-2xl font-bold text-green-600">{stats.presentToday}</p>
+              </div>
+              <CheckCircle2 className="h-8 w-8 text-green-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متأخرين</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.lateArrivals}</p>
+              </div>
+              <AlertTriangle className="h-8 w-8 text-orange-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">معدل الحضور</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.avgAttendance}%</p>
+              </div>
+              <Target className="h-8 w-8 text-blue-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">عمل عن بُعد</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.remoteWorkers}</p>
+              </div>
+              <Globe className="h-8 w-8 text-purple-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-indigo-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متوسط ساعات العمل</p>
+                <p className="text-2xl font-bold text-indigo-600">{stats.avgWorkHours}</p>
+              </div>
+              <Timer className="h-8 w-8 text-indigo-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              إحصائيات الحضور الشهرية
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={attendanceData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="present" stackId="1" stroke="#10b981" fill="#10b981" />
+                <Area type="monotone" dataKey="late" stackId="2" stroke="#f59e0b" fill="#f59e0b" />
+                <Area type="monotone" dataKey="absent" stackId="3" stroke="#ef4444" fill="#ef4444" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              معدل الحضور حسب القسم
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RechartsPieChart>
+                <Pie
+                  data={departmentAttendance}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {departmentAttendance.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* AI Insights */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" />
+            رؤى الذكاء الاصطناعي للحضور والانصراف
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-semibold text-emerald-800">حضور ممتاز</span>
+              </div>
+              <p className="text-sm text-emerald-700">
+                تحسن ملحوظ في معدلات الحضور العامة بنسبة 12% هذا الشهر
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-orange-600" />
+                <span className="text-sm font-semibold text-orange-800">تنبيه تأخير</span>
+              </div>
+              <p className="text-sm text-orange-700">
+                ملاحظة زيادة في حالات التأخير الصباحي في قسم المبيعات
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
+              </div>
+              <p className="text-sm text-blue-700">
+                التوقعات تشير لتحقيق هدف 95% حضور منتظم نهاية الشهر
               </p>
             </div>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Analytics Dashboard */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Main Analytics Panel */}
-          <div className="lg:col-span-2">
-            <Card className="bg-gradient-to-br from-slate-900 via-primary to-secondary text-white shadow-2xl rounded-2xl overflow-hidden">
-              <CardContent className="p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Attendance Framework */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-primary-glow">
-                      {isRTL ? 'إطار الحضور' : 'Attendance Framework'}
-                    </h3>
-                    <div className="relative h-48 bg-gradient-to-br from-primary/50 to-secondary/50 rounded-xl p-4 flex items-center justify-center">
-                      <Clock className="h-32 w-32 text-primary-glow opacity-80" />
-                      <div className="absolute top-4 right-4 bg-primary/80 px-3 py-1 rounded-full text-sm">
-                        832 {isRTL ? 'حضور منتظم' : 'Regular Attendance'}
-                      </div>
-                      <div className="absolute bottom-4 left-4 bg-secondary/80 px-3 py-1 rounded-full text-sm">
-                        92% {isRTL ? 'معدل الحضور' : 'Attendance Rate'}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Shift Management */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-warning">
-                      {isRTL ? 'إدارة النوبات' : 'Shift Management'}
-                    </h3>
-                    <div className="relative h-48 bg-gradient-to-br from-warning/50 to-destructive/50 rounded-xl p-4 flex items-center justify-center">
-                      <Calendar className="h-32 w-32 text-warning opacity-80" />
-                      <div className="absolute top-4 right-4 bg-warning/80 px-3 py-1 rounded-full text-sm">
-                        24 {isRTL ? 'نوبة نشطة' : 'Active Shifts'}
-                      </div>
-                      <div className="absolute bottom-4 left-4 bg-destructive/80 px-3 py-1 rounded-full text-sm">
-                        31 {isRTL ? 'للمراجعة' : 'Under Review'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Attendance Trends Chart */}
-                <div className="mt-8">
-                  <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={attendanceData}>
-                      <defs>
-                        <linearGradient id="colorCases" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
-                        </linearGradient>
-                        <linearGradient id="colorResolved" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--success))" stopOpacity={0.8}/>
-                          <stop offset="95%" stopColor="hsl(var(--success))" stopOpacity={0.1}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="month" stroke="#9CA3AF" />
-                      <YAxis stroke="#9CA3AF" />
-                      <Tooltip 
-                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
-                        labelStyle={{ color: '#F3F4F6' }}
-                      />
-                      <Area type="monotone" dataKey="cases" stroke="hsl(var(--primary))" fill="url(#colorCases)" />
-                      <Area type="monotone" dataKey="resolved" stroke="hsl(var(--success))" fill="url(#colorResolved)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5" />
+            إجراءات سريعة
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <Button variant="outline" className="h-auto flex-col py-4 px-2">
+              <Clock className="h-6 w-6 mb-2" />
+              <span className="text-xs text-center">تسجيل حضور</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col py-4 px-2">
+              <Calendar className="h-6 w-6 mb-2" />
+              <span className="text-xs text-center">إدارة النوبات</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col py-4 px-2">
+              <MapPin className="h-6 w-6 mb-2" />
+              <span className="text-xs text-center">تتبع الموقع</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col py-4 px-2">
+              <FileText className="h-6 w-6 mb-2" />
+              <span className="text-xs text-center">تقرير يومي</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col py-4 px-2">
+              <Settings className="h-6 w-6 mb-2" />
+              <span className="text-xs text-center">إعدادات النظام</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col py-4 px-2">
+              <Bell className="h-6 w-6 mb-2" />
+              <span className="text-xs text-center">التنبيهات</span>
+            </Button>
           </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
-          {/* Side Statistics */}
-          <div className="space-y-6">
-            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-800">
-                    {isRTL ? 'مؤشرات الحضور' : 'Attendance Metrics'}
-                  </h3>
-                  <Settings className="h-5 w-5 text-gray-400" />
-                </div>
-                <div className="space-y-4">
-                  {attendanceMetrics.map((metric, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
-                      <div>
-                        <p className="font-semibold text-gray-800">{metric.category}</p>
-                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'عنصر' : 'items'}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+  return (
+    <div className="min-h-screen bg-background" dir="rtl">
+      <div className="max-w-7xl mx-auto">
+        {renderHeader()}
+        
+        <div className="p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="attendance">سجل الحضور</TabsTrigger>
+              <TabsTrigger value="shifts">إدارة النوبات</TabsTrigger>
+              <TabsTrigger value="reports">التقارير</TabsTrigger>
+            </TabsList>
 
-            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-gray-800 mb-4">
-                  {isRTL ? 'توزيع الحضور' : 'Attendance Distribution'}
-                </h3>
-                <ResponsiveContainer width="100%" height={200}>
-                  <RechartsPieChart>
-                    <Pie
-                      data={casesByType}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={40}
-                      outerRadius={80}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {casesByType.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </RechartsPieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+            <TabsContent value="dashboard">
+              {renderAnalyticsDashboard()}
+            </TabsContent>
 
-        {/* Attendance Affairs System */}
-        <div className="mb-8">
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-2 rounded-full shadow-lg">
-              <Clock className="h-5 w-5" />
-              <span className="font-medium">{isRTL ? 'نظام حضور متطور' : 'Advanced Attendance System'}</span>
-            </div>
-          </div>
-          
-          <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
-                {isRTL ? 'نظام الحضور والانصراف الشامل' : 'Comprehensive Attendance System'}
-              </h2>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
-                {[
-                  { icon: Clock, label: isRTL ? 'الحضور اليومي' : 'Daily Attendance', color: 'bg-primary', count: 8 },
-                  { icon: Calendar, label: isRTL ? 'جدولة النوبات' : 'Shift Scheduling', color: 'bg-secondary', count: 3 },
-                  { icon: MapPin, label: isRTL ? 'تتبع الموقع' : 'Location Tracking', color: 'bg-warning', count: 5 },
-                  { icon: CheckCircle, label: isRTL ? 'الحضور المنتظم' : 'Regular Attendance', color: 'bg-success', count: 0 },
-                  { icon: AlertTriangle, label: isRTL ? 'تنبيهات التأخير' : 'Late Alerts', color: 'bg-destructive', count: 12 },
-                  { icon: Users, label: isRTL ? 'إدارة الموظفين' : 'Employee Management', color: 'bg-primary', count: 2 },
-                  { icon: Building, label: isRTL ? 'إدارة المواقع' : 'Location Management', color: 'bg-warning', count: 6 },
-                  { icon: Settings, label: isRTL ? 'إعدادات النظام' : 'System Settings', color: 'bg-secondary', count: 0 }
-                ].map((item, index) => (
-                  <div key={index} className="text-center group cursor-pointer">
-                    <div className={`${item.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform relative`}>
-                      <item.icon className="h-8 w-8 text-white" />
-                      {item.count > 0 && (
-                        <div className="absolute -top-2 -right-2 bg-destructive text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                          {item.count}
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-sm font-medium text-gray-700 group-hover:text-secondary transition-colors">
-                      {item.label}
-                    </p>
+            <TabsContent value="attendance">
+              <Card>
+                <CardHeader>
+                  <CardTitle>سجل الحضور والانصراف</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <Clock className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">سجل الحضور</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
                   </div>
-                ))}
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-primary/20 rounded-xl border border-primary/20">
-                  <div className="text-3xl font-bold text-primary mb-2">832</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'حضور منتظم' : 'Regular Attendance'}</div>
-                </div>
-                
-                <div className="text-center p-6 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-xl border border-secondary/20">
-                  <div className="text-3xl font-bold text-secondary mb-2">24</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'نوبات نشطة' : 'Active Shifts'}</div>
-                </div>
-                
-                <div className="text-center p-6 bg-gradient-to-br from-success/10 to-success/20 rounded-xl border border-success/20">
-                  <div className="text-3xl font-bold text-success mb-2">92%</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'معدل الحضور' : 'Attendance Rate'}</div>
-                </div>
-                
-                <div className="text-center p-6 bg-gradient-to-br from-warning/10 to-warning/20 rounded-xl border border-warning/20">
-                  <div className="text-3xl font-bold text-warning mb-2">31</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'حضور معلق' : 'Pending Attendance'}</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="shifts">
+              <Card>
+                <CardHeader>
+                  <CardTitle>إدارة النوبات</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">إدارة النوبات</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="reports">
+              <Card>
+                <CardHeader>
+                  <CardTitle>التقارير والإحصائيات</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">التقارير والإحصائيات</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
