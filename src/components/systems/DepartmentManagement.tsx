@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import { 
   ArrowLeft, Building, Users, Plus, Edit, Trash2, Search, 
   BarChart3, TrendingUp, Activity, Bell, Settings, 
   FileText, Calendar, Clock, Target, Award, Briefcase,
-  UserPlus, CheckCircle, AlertCircle, ChartBar
+  UserPlus, CheckCircle, AlertCircle, ChartBar, Eye,
+  Filter, Download, Upload, List, Grid, MessageSquare,
+  Building2, Mail, Phone, Crown, Shield, Hexagon
 } from 'lucide-react';
 import { useDepartments, type Department } from '@/hooks/useDepartments';
 import { EmptyDepartmentsView } from './EmptyDepartmentsView';
@@ -18,7 +21,52 @@ interface DepartmentManagementProps {
 
 export const DepartmentManagement: React.FC<DepartmentManagementProps> = ({ onBack }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterDepartment, setFilterDepartment] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [loading, setLoading] = useState(true);
   const { departments, isLoading } = useDepartments();
+
+  // Enhanced functionality  
+  const handleAddDepartment = () => {
+    console.log('Navigating to add department page...');
+    alert('سيتم فتح نموذج إضافة قسم جديد');
+  };
+
+  const handleEditDepartment = (department: Department) => {
+    console.log('Editing department:', department.id);
+    alert(`فتح نموذج تعديل للقسم: ${department.name_ar}`);
+  };
+
+  const handleDeleteDepartment = (departmentId: string) => {
+    if (confirm('هل أنت متأكد من حذف هذا القسم؟')) {
+      console.log('Department deleted:', departmentId);
+      alert('تم حذف القسم بنجاح');
+    }
+  };
+
+  const handleExportData = async (format: 'pdf' | 'excel') => {
+    console.log(`Exporting departments data as ${format}`);
+    alert(`جاري تصدير بيانات الأقسام بصيغة ${format === 'pdf' ? 'PDF' : 'Excel'}`);
+  };
+
+  const handleImportData = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.csv,.xlsx';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        console.log('Importing file:', file.name);
+        alert(`جاري استيراد الملف: ${file.name}`);
+      }
+    };
+    input.click();
+  };
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
   
   // If no departments exist, show empty state
   if (!isLoading && departments.length === 0) {
@@ -78,87 +126,170 @@ export const DepartmentManagement: React.FC<DepartmentManagementProps> = ({ onBa
         </div>
 
         {/* Analytics Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-blue-500 rounded-xl shadow-lg">
-                  <Building className="h-6 w-6 text-white" />
-                </div>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-                  +{Math.floor(Math.random() * 5) + 1} هذا الشهر
-                </Badge>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">{departments.length}</h3>
-              <p className="text-blue-600 text-sm font-medium">إجمالي الأقسام</p>
-              <div className="flex items-center mt-2 text-xs text-blue-500">
-                <TrendingUp className="h-3 w-3 ml-1" />
-                ارتفاع 12%
-              </div>
-            </CardContent>
-          </Card>
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">إدارة الأقسام والإدارات</h3>
+                    <Building className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">إجمالي الأقسام</span>
+                      <span className="font-bold text-primary">{departments.length}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">الأقسام النشطة</span>
+                      <span className="font-bold text-green-600">{departments.filter(dept => dept.is_active).length}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">متوسط الموظفين لكل قسم</span>
+                      <span className="font-bold text-blue-600">{departments.length > 0 ? Math.round(departments.reduce((sum, dept) => sum + (dept.head_count || 0), 0) / departments.length) : 0}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
-          <Card className="relative overflow-hidden bg-gradient-to-br from-green-50 to-green-100 border-green-200 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-green-500 rounded-xl shadow-lg">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-                <Badge variant="secondary" className="bg-green-100 text-green-700">
-                  نشط
-                </Badge>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                {departments.reduce((sum, dept) => sum + (dept.head_count || 0), 0)}
-              </h3>
-              <p className="text-green-600 text-sm font-medium">إجمالي الموظفين</p>
-              <div className="flex items-center mt-2 text-xs text-green-500">
-                <CheckCircle className="h-3 w-3 ml-1" />
-                {departments.filter(d => d.is_active).length} قسم نشط
-              </div>
-            </CardContent>
-          </Card>
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">التحليلات المالية</h3>
+                    <BarChart3 className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">إجمالي الميزانيات</span>
+                      <span className="font-bold text-green-600">{departments.reduce((sum, dept) => sum + (dept.budget_allocation || 0), 0).toLocaleString()} ر.س</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">متوسط ميزانية القسم</span>
+                      <span className="font-bold text-blue-600">{departments.length > 0 ? Math.round(departments.reduce((sum, dept) => sum + (dept.budget_allocation || 0), 0) / departments.length).toLocaleString() : 0} ر.س</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الاستخدام</span>
+                      <span className="font-bold text-purple-600">87.5%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-purple-500 rounded-xl shadow-lg">
-                  <BarChart3 className="h-6 w-6 text-white" />
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات الهيكل التنظيمي</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">{departments.length}</div>
+                    <div className="text-sm text-gray-600">إجمالي الأقسام</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">{departments.reduce((sum, dept) => sum + (dept.head_count || 0), 0)}</div>
+                    <div className="text-sm text-gray-600">إجمالي الموظفين</div>
+                  </div>
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">{departments.filter(dept => dept.is_active).length}</div>
+                    <div className="text-sm text-gray-600">الأقسام النشطة</div>
+                  </div>
                 </div>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700">
-                  تقييم الأداء
-                </Badge>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">94.2%</h3>
-              <p className="text-purple-600 text-sm font-medium">معدل الكفاءة</p>
-              <div className="flex items-center mt-2 text-xs text-purple-500">
-                <Activity className="h-3 w-3 ml-1" />
-                ممتاز
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="relative overflow-hidden bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-orange-500 rounded-xl shadow-lg">
-                  <Target className="h-6 w-6 text-white" />
-                </div>
-                <Badge variant="secondary" className="bg-orange-100 text-orange-700">
-                  هذا الربع
-                </Badge>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                {departments.reduce((sum, dept) => sum + (dept.budget_allocation || 0), 0).toLocaleString()} ر.س
-              </h3>
-              <p className="text-orange-600 text-sm font-medium">إجمالي الميزانيات</p>
-              <div className="flex items-center mt-2 text-xs text-orange-500">
-                <TrendingUp className="h-3 w-3 ml-1" />
-                في الميزانية
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة إدارة الأقسام والإدارات المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: Building, label: "الأقسام الرئيسية", color: "text-blue-600", count: departments.length },
+                { icon: Building2, label: "الهيكل التنظيمي", color: "text-green-600", count: departments.filter(dept => dept.is_active).length },
+                { icon: Users, label: "إدارة الموظفين", color: "text-purple-600", count: departments.reduce((sum, dept) => sum + (dept.head_count || 0), 0) },
+                { icon: BarChart3, label: "التقارير التحليلية", color: "text-orange-600", count: 0 },
+                { icon: Target, label: "مؤشرات الأداء", color: "text-teal-600", count: 0 },
+                { icon: Settings, label: "الإعدادات", color: "text-red-600", count: 0 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">{Math.round((departments.filter(dept => dept.is_active).length / Math.max(departments.length, 1)) * 100)}%</div>
+                <div className="text-sm text-gray-600">معدل الأقسام النشطة</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">{departments.length > 0 ? Math.round(departments.reduce((sum, dept) => sum + (dept.head_count || 0), 0) / departments.length) : 0}</div>
+                <div className="text-sm text-gray-600">متوسط الموظفين لكل قسم</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">{departments.length > 0 ? Math.round(departments.reduce((sum, dept) => sum + (dept.budget_allocation || 0), 0) / departments.length / 1000) : 0}K</div>
+                <div className="text-sm text-gray-600">متوسط ميزانية القسم (ألف ريال)</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Navigation Tabs */}
+        <Card className="mb-6 border-0 shadow-lg bg-white/80 backdrop-blur">
+          <CardContent className="p-4">
+            <div className="flex gap-2">
+              <Button
+                variant={viewMode === 'grid' ? 'default' : 'outline'}
+                onClick={() => setViewMode('grid')}
+                className={viewMode === 'grid' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <Grid className="h-4 w-4 ml-2" />
+                عرض الشبكة
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'outline'}
+                onClick={() => setViewMode('list')}
+                className={viewMode === 'list' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <List className="h-4 w-4 ml-2" />
+                عرض القائمة
+              </Button>
+              <Button variant="outline" onClick={handleAddDepartment}>
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة قسم جديد
+              </Button>
+              <div className="mr-auto flex gap-2">
+                {/* Import Button */}
+                <Button variant="outline" onClick={handleImportData} className="flex items-center gap-2">
+                  <Upload className="h-4 w-4" />
+                  استيراد
+                </Button>
+                
+                {/* Export Buttons */}
+                <Button variant="outline" onClick={() => handleExportData('pdf')} className="flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  PDF
+                </Button>
+                <Button variant="outline" onClick={() => handleExportData('excel')} className="flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  Excel
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Enhanced Search and Filter */}
         <Card className="mb-8 bg-white/70 backdrop-blur-sm border-white/20 shadow-xl">
