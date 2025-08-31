@@ -44,7 +44,7 @@ import {
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
 import { SystemSettings } from '@/components/settings/SystemSettings';
 import { NotificationSystem } from '@/components/NotificationSystem';
-import TeamMembers from '@/components/systems/TeamMembers';
+import { TeamMembers } from '@/components/systems/TeamMembers';
 import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
 import { ComprehensiveAttendance } from '@/components/systems/ComprehensiveAttendance';
 import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
@@ -379,7 +379,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="employees">
-            <TeamMembers />
+            <TeamMembers onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="departments">
