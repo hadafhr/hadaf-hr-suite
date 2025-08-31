@@ -45,7 +45,12 @@ import {
   Archive,
   PieChart,
   Lightbulb,
-  RefreshCw
+  RefreshCw,
+  Download,
+  Upload,
+  Search,
+  Filter,
+  CreditCard
 } from 'lucide-react';
 
 interface SalaryScale {
@@ -122,7 +127,8 @@ interface AIRecommendation {
 
 export const ComprehensivePayrollSystem: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [selectedEmployee, setSelectedEmployee] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(false);
 
   // States for different data
@@ -194,22 +200,106 @@ export const ComprehensivePayrollSystem: React.FC = () => {
       }
     ]);
 
-    // ... keep existing code for other initializations
+    // Initialize performance raises
+    setPerformanceRaises([
+      {
+        employeeId: '001',
+        employeeName: 'أحمد محمد علي',
+        currentSalary: 8000,
+        performanceRating: 'ممتاز',
+        raisePercentage: 7,
+        newSalary: 8560,
+        effectiveDate: '2024-01-01',
+        status: 'معلق'
+      },
+      {
+        employeeId: '002',
+        employeeName: 'فاطمة أحمد',
+        currentSalary: 7500,
+        performanceRating: 'جيد جدًا',
+        raisePercentage: 5,
+        newSalary: 7875,
+        effectiveDate: '2024-01-01',
+        status: 'معتمد'
+      }
+    ]);
+
+    // Initialize promotions
+    setPromotions([
+      {
+        employeeId: '001',
+        employeeName: 'أحمد محمد علي',
+        currentPosition: 'موظف أول',
+        newPosition: 'مشرف',
+        currentSalary: 8000,
+        newSalary: 10000,
+        yearsInPosition: 3,
+        qualificationStatus: 'مؤهل',
+        status: 'معلق'
+      }
+    ]);
+
+    // Initialize bonuses
+    setBonuses([
+      {
+        id: '1',
+        employeeId: '001',
+        employeeName: 'أحمد محمد علي',
+        bonusType: 'سنوية',
+        amount: 5000,
+        reason: 'تميز في الأداء',
+        approvedBy: 'مدير الموارد البشرية',
+        status: 'معتمد',
+        dateCreated: '2024-01-15'
+      }
+    ]);
+
+    // Initialize assignments
+    setAssignments([
+      {
+        employeeId: '001',
+        employeeName: 'أحمد محمد علي',
+        locationType: 'خارج المدينة',
+        dailyRate: 300,
+        startDate: '2024-01-01',
+        endDate: '2024-01-15',
+        days: 15,
+        totalAmount: 4500,
+        includesAccommodation: true,
+        includesFlights: false,
+        status: 'نشط'
+      }
+    ]);
+
+    // Initialize AI recommendations
+    setAiRecommendations([
+      {
+        id: '1',
+        type: 'علاوة',
+        title: 'توصية بعلاوة استثنائية',
+        description: 'الموظف أحمد محمد يستحق علاوة استثنائية بناءً على أدائه المتميز',
+        priority: 'عالي',
+        action: 'منح علاوة 10% إضافية',
+        impact: 'تحسين الرضا الوظيفي وزيادة الإنتاجية',
+        confidence: 85,
+        createdAt: '2024-01-15'
+      }
+    ]);
   };
 
   const handleSystemAction = (action: string) => {
     switch (action) {
       case 'ai-assistant':
-        alert('فتح مساعد الذكاء الاصطناعي للرواتب والأجور');
+        toast.info('فتح مساعد الذكاء الاصطناعي للرواتب والأجور');
         break;
       case 'comprehensive-report':
-        alert('إنتاج تقرير شامل لنظام الرواتب');
+        toast.info('إنتاج تقرير شامل لنظام الرواتب');
         break;
       case 'system-settings':
-        alert('فتح إعدادات النظام المتقدمة');
+        toast.info('فتح إعدادات النظام المتقدمة');
         break;
       default:
-        alert(`تنفيذ إجراء: ${action}`);
+        toast.info(`تنفيذ إجراء: ${action}`);
     }
   };
 
@@ -317,16 +407,16 @@ export const ComprehensivePayrollSystem: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      'معلق': 'bg-yellow-100 text-yellow-800',
-      'معتمد': 'bg-green-100 text-green-800',
-      'مرفوض': 'bg-red-100 text-red-800',
-      'مدفوع': 'bg-blue-100 text-blue-800',
-      'نشط': 'bg-green-100 text-green-800',
-      'منتهي': 'bg-gray-100 text-gray-800'
+      'معلق': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
+      'معتمد': 'bg-green-500/20 text-green-700 border-green-200',
+      'مرفوض': 'bg-red-500/20 text-red-700 border-red-200',
+      'مدفوع': 'bg-blue-500/20 text-blue-700 border-blue-200',
+      'نشط': 'bg-green-500/20 text-green-700 border-green-200',
+      'منتهي': 'bg-gray-500/20 text-gray-700 border-gray-200'
     };
     
     return (
-      <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-100 text-gray-800'}>
+      <Badge variant="outline" className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-500/20 text-gray-700'}>
         {status}
       </Badge>
     );
@@ -354,269 +444,325 @@ export const ComprehensivePayrollSystem: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary/10 rounded-xl">
-              <DollarSign className="w-8 h-8 text-primary" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary-foreground rounded-2xl shadow-2xl">
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="relative p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-white/20 backdrop-blur rounded-2xl shadow-xl">
+                  <DollarSign className="w-12 h-12 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-4xl font-bold text-white mb-2">نظام الرواتب والأجور الشامل</h1>
+                  <p className="text-white/90 text-lg">
+                    إدارة متكاملة وذكية للتعويضات والمزايا مع تقنيات الذكاء الاصطناعي
+                  </p>
+                  <div className="flex gap-4 mt-3">
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">نظام متقدم</span>
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">ذكي ومتكامل</span>
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">متوافق مع اللوائح</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <Button 
+                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
+                  onClick={() => handleSystemAction('ai-assistant')}
+                >
+                  <Bot className="w-5 h-5" />
+                  مساعد الذكاء الاصطناعي
+                </Button>
+                <Button 
+                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
+                  onClick={() => handleSystemAction('comprehensive-report')}
+                >
+                  <FileText className="w-5 h-5" />
+                  تقرير شامل
+                </Button>
+                <Button 
+                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
+                  onClick={() => handleSystemAction('system-settings')}
+                >
+                  <Settings className="w-5 h-5" />
+                  إعدادات النظام
+                </Button>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">قسم الرواتب والأجور الذكي</h1>
-              <p className="text-muted-foreground mt-1">
-                إدارة شاملة ومتقدمة لنظام التعويضات والمزايا - منصة بُعد
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              className="gap-2 bg-primary hover:bg-primary/90"
-              onClick={() => handleSystemAction('ai-assistant')}
-            >
-              <Bot className="w-4 h-4" />
-              مساعد الذكاء الاصطناعي
-            </Button>
-            <Button 
-              variant="outline" 
-              className="gap-2"
-              onClick={() => handleSystemAction('comprehensive-report')}
-            >
-              <FileText className="w-4 h-4" />
-              تقرير شامل
-            </Button>
-            <Button 
-              className="gap-2 bg-primary hover:bg-primary/90"
-              onClick={() => handleSystemAction('system-settings')}
-            >
-              <Settings className="w-4 h-4" />
-              إعدادات النظام
-            </Button>
           </div>
         </div>
 
-        {/* Key Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-          <Card className="bg-gradient-to-br from-card to-accent/30">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Users className="w-6 h-6 text-primary" />
-                <div>
-                  <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                  <p className="text-2xl font-bold">{stats.totalEmployees}</p>
+        {/* Advanced Statistics Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">إجمالي الموظفين</p>
+                  <p className="text-3xl font-bold">{stats.totalEmployees}</p>
+                  <p className="text-white/70 text-xs mt-1">+12% من الشهر الماضي</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-card to-green-50">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <BarChart3 className="w-6 h-6 text-green-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">استخدام الميزانية</p>
-                  <p className="text-2xl font-bold">{stats.budgetUtilization}%</p>
-                  <Progress value={stats.budgetUtilization} className="mt-1 h-1" />
+          <Card className="bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <BarChart3 className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">استخدام الميزانية</p>
+                  <p className="text-3xl font-bold">{stats.budgetUtilization}%</p>
+                  <Progress value={stats.budgetUtilization} className="mt-2 h-2 bg-white/20" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-card to-blue-50">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <TrendingUp className="w-6 h-6 text-blue-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">علاوات معلقة</p>
-                  <p className="text-2xl font-bold">{stats.pendingRaises}</p>
+          <Card className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">علاوات معلقة</p>
+                  <p className="text-3xl font-bold">{stats.pendingRaises}</p>
+                  <p className="text-white/70 text-xs mt-1">تحتاج مراجعة</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-card to-purple-50">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Award className="w-6 h-6 text-purple-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">ترقيات معلقة</p>
-                  <p className="text-2xl font-bold">{stats.pendingPromotions}</p>
+          <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Award className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">ترقيات معلقة</p>
+                  <p className="text-3xl font-bold">{stats.pendingPromotions}</p>
+                  <p className="text-white/70 text-xs mt-1">في انتظار الاعتماد</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-card to-yellow-50">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <Gift className="w-6 h-6 text-yellow-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">مكافآت نشطة</p>
-                  <p className="text-2xl font-bold">{stats.activeBonuses}</p>
+          <Card className="bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <Gift className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">مكافآت نشطة</p>
+                  <p className="text-3xl font-bold">{stats.activeBonuses}</p>
+                  <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-card to-orange-50">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3">
-                <MapPin className="w-6 h-6 text-orange-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">انتدابات نشطة</p>
-                  <p className="text-2xl font-bold">{stats.activeAssignments}</p>
+          <Card className="bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="p-3 bg-white/20 rounded-xl">
+                  <MapPin className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">انتدابات نشطة</p>
+                  <p className="text-3xl font-bold">{stats.activeAssignments}</p>
+                  <p className="text-white/70 text-xs mt-1">قيد التنفيذ</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Main Navigation Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-7 bg-muted p-1 rounded-xl">
-            <TabsTrigger value="dashboard" className="gap-2">
-              <BarChart3 className="w-4 h-4" />
-              لوحة التحكم
-            </TabsTrigger>
-            <TabsTrigger value="salary-scale" className="gap-2">
-              <Building2 className="w-4 h-4" />
-              سلم الرواتب
-            </TabsTrigger>
-            <TabsTrigger value="raises" className="gap-2">
-              <TrendingUp className="w-4 h-4" />
-              العلاوات السنوية
-            </TabsTrigger>
-            <TabsTrigger value="promotions" className="gap-2">
-              <Crown className="w-4 h-4" />
-              الترقيات
-            </TabsTrigger>
-            <TabsTrigger value="bonuses" className="gap-2">
-              <Gift className="w-4 h-4" />
-              المكافآت والحوافز
-            </TabsTrigger>
-            <TabsTrigger value="assignments" className="gap-2">
-              <MapPin className="w-4 h-4" />
-              بدل الانتداب
-            </TabsTrigger>
-            <TabsTrigger value="ai-insights" className="gap-2">
-              <Bot className="w-4 h-4" />
-              ذكاء اصطناعي
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Dashboard Tab */}
-          <TabsContent value="dashboard" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Budget Overview */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <PieChart className="w-5 h-5" />
-                    نظرة عامة على الميزانية
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">الميزانية الإجمالية</span>
-                      <span className="font-bold">{(stats.totalBudget / 1000000).toFixed(1)}م ريال</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">المستخدم</span>
-                      <span className="font-bold text-blue-600">{(stats.usedBudget / 1000000).toFixed(1)}م ريال</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">المتبقي</span>
-                      <span className="font-bold text-green-600">
-                        {((stats.totalBudget - stats.usedBudget) / 1000000).toFixed(1)}م ريال
-                      </span>
-                    </div>
-                    <Progress value={stats.budgetUtilization} className="h-3" />
+        {/* System Overview */}
+        <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-primary/20 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl text-primary flex items-center gap-3">
+              <PieChart className="w-7 h-7" />
+              نظرة عامة على النظام
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+              {[
+                { icon: Calculator, label: 'حاسبة الرواتب', color: 'text-blue-600', bg: 'bg-blue-100', action: 'salary-calculator' },
+                { icon: TrendingUp, label: 'العلاوات السنوية', color: 'text-green-600', bg: 'bg-green-100', action: 'annual-raises' },
+                { icon: Crown, label: 'نظام الترقيات', color: 'text-purple-600', bg: 'bg-purple-100', action: 'promotions' },
+                { icon: Gift, label: 'المكافآت والحوافز', color: 'text-yellow-600', bg: 'bg-yellow-100', action: 'bonuses' },
+                { icon: Building2, label: 'سلم الرواتب', color: 'text-indigo-600', bg: 'bg-indigo-100', action: 'salary-scale' },
+                { icon: MapPin, label: 'بدل الانتداب', color: 'text-red-600', bg: 'bg-red-100', action: 'assignments' },
+                { icon: Shield, label: 'التأمينات', color: 'text-emerald-600', bg: 'bg-emerald-100', action: 'insurance' },
+                { icon: FileText, label: 'التقارير المالية', color: 'text-orange-600', bg: 'bg-orange-100', action: 'financial-reports' }
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center p-4 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-primary/30"
+                  onClick={() => handleSystemAction(item.action)}
+                >
+                  <div className={`p-3 rounded-xl ${item.bg} group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className={`w-6 h-6 ${item.color}`} />
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Quick Actions */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Zap className="w-5 h-5" />
-                    إجراءات سريعة
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button 
-                      variant="outline" 
-                      className="h-20 flex-col gap-2"
-                      onClick={handleProcessAnnualRaises}
-                      disabled={isLoading}
-                    >
-                      {isLoading ? (
-                        <RefreshCw className="w-6 h-6 animate-spin" />
-                      ) : (
-                        <TrendingUp className="w-6 h-6" />
-                      )}
-                      <span className="text-sm">معالجة العلاوات</span>
-                    </Button>
-                    <Button variant="outline" className="h-20 flex-col gap-2">
-                      <Crown className="w-6 h-6" />
-                      <span className="text-sm">مراجعة الترقيات</span>
-                    </Button>
-                    <Button variant="outline" className="h-20 flex-col gap-2">
-                      <Gift className="w-6 h-6" />
-                      <span className="text-sm">إدارة المكافآت</span>
-                    </Button>
-                    <Button variant="outline" className="h-20 flex-col gap-2">
-                      <FileText className="w-6 h-6" />
-                      <span className="text-sm">تقارير شاملة</span>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                  <span className="text-sm font-medium mt-2 text-center text-gray-700 group-hover:text-primary transition-colors">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
             </div>
+          </CardContent>
+        </Card>
 
-            {/* Recent Activity */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  النشاطات الأخيرة
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {bonuses.slice(0, 3).map((bonus) => (
-                    <div key={bonus.id} className="flex items-center gap-3 p-3 bg-muted rounded-lg">
-                      <Gift className="w-5 h-5 text-yellow-600" />
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">{bonus.employeeName}</p>
-                        <p className="text-xs text-muted-foreground">
-                          مكافأة {bonus.bonusType} - {bonus.amount.toLocaleString()} ريال
-                        </p>
+        {/* Advanced Navigation Tabs */}
+        <Card className="bg-white/90 backdrop-blur shadow-xl border-0">
+          <CardContent className="p-0">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-7 bg-gradient-to-r from-primary/10 to-primary/5 p-2 rounded-none h-auto border-b">
+                <TabsTrigger 
+                  value="dashboard" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <BarChart3 className="w-5 h-5" />
+                  <span className="font-medium">لوحة التحكم</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="salary-scale" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Building2 className="w-5 h-5" />
+                  <span className="font-medium">سلم الرواتب</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="raises" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <TrendingUp className="w-5 h-5" />
+                  <span className="font-medium">العلاوات السنوية</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="promotions" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Crown className="w-5 h-5" />
+                  <span className="font-medium">الترقيات</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="bonuses" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Gift className="w-5 h-5" />
+                  <span className="font-medium">المكافآت والحوافز</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="assignments" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <MapPin className="w-5 h-5" />
+                  <span className="font-medium">بدل الانتداب</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="ai-insights" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Bot className="w-5 h-5" />
+                  <span className="font-medium">رؤى ذكية</span>
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Dashboard Tab */}
+              <TabsContent value="dashboard" className="p-6 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Budget Overview */}
+                  <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-blue-700">
+                        <PieChart className="w-5 h-5" />
+                        نظرة عامة على الميزانية
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">الميزانية الإجمالية</span>
+                          <span className="font-bold text-lg">{(stats.totalBudget / 1000000).toFixed(1)}م ريال</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">المستخدم</span>
+                          <span className="font-bold text-blue-600">{(stats.usedBudget / 1000000).toFixed(1)}م ريال</span>
+                        </div>
+                        <Progress value={stats.budgetUtilization} className="h-3" />
+                        <div className="text-center">
+                          <span className="text-lg font-bold text-blue-700">{stats.budgetUtilization}%</span>
+                          <p className="text-sm text-gray-500">من الميزانية المستخدمة</p>
+                        </div>
                       </div>
-                      {getStatusBadge(bonus.status)}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                    </CardContent>
+                  </Card>
 
-          {/* Salary Scale Tab */}
-          <TabsContent value="salary-scale" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="w-5 h-5" />
-                    سلم الرواتب الموحد
-                  </div>
+                  {/* Recent Activity */}
+                  <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-green-700">
+                        <Clock className="w-5 h-5" />
+                        النشاط الأخير
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
+                          <div className="p-2 bg-green-100 rounded-lg">
+                            <CheckCircle2 className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium">تم اعتماد علاوة سنوية</p>
+                            <p className="text-sm text-gray-500">فاطمة أحمد - منذ ساعتين</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
+                          <div className="p-2 bg-yellow-100 rounded-lg">
+                            <AlertCircle className="w-4 h-4 text-yellow-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium">علاوة في انتظار الاعتماد</p>
+                            <p className="text-sm text-gray-500">أحمد محمد - منذ 4 ساعات</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 p-3 bg-white rounded-lg">
+                          <div className="p-2 bg-blue-100 rounded-lg">
+                            <Gift className="w-4 h-4 text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium">تم صرف مكافأة</p>
+                            <p className="text-sm text-gray-500">محمد سعد - أمس</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+
+              {/* Salary Scale Tab */}
+              <TabsContent value="salary-scale" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">سلم الرواتب</h3>
                   <Dialog open={isSalaryScaleDialogOpen} onOpenChange={setIsSalaryScaleDialogOpen}>
                     <DialogTrigger asChild>
                       <Button className="gap-2">
                         <Plus className="w-4 h-4" />
-                        إضافة مستوى جديد
+                        إضافة سلم جديد
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-md">
@@ -691,78 +837,67 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                       </div>
                     </DialogContent>
                   </Dialog>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الفئة</TableHead>
-                      <TableHead>المستوى</TableHead>
-                      <TableHead>الراتب الأساسي</TableHead>
-                      <TableHead>بدل السكن</TableHead>
-                      <TableHead>بدل المواصلات</TableHead>
-                      <TableHead>الإجمالي</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {salaryScales.map((scale) => (
-                      <TableRow key={scale.id}>
-                        <TableCell>
-                          <Badge variant="outline" className="whitespace-nowrap">
-                            {scale.category}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{scale.level}</TableCell>
-                        <TableCell>{scale.basicSalary.toLocaleString()} ريال</TableCell>
-                        <TableCell>{scale.housingAllowance.toLocaleString()} ريال</TableCell>
-                        <TableCell>{scale.transportAllowance.toLocaleString()} ريال</TableCell>
-                        <TableCell className="font-medium">{scale.totalSalary.toLocaleString()} ريال</TableCell>
-                        <TableCell>
-                          <Badge className={scale.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
-                            {scale.isActive ? 'نشط' : 'معطل'}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
+                </div>
+
+                <div className="grid gap-4">
+                  {salaryScales.map((scale) => (
+                    <Card key={scale.id} className="border-l-4 border-l-primary">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-2">
+                            <h4 className="font-bold text-lg">{scale.category} - {scale.level}</h4>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">الراتب الأساسي:</span>
+                                <p className="font-medium">{scale.basicSalary.toLocaleString()} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">بدل السكن:</span>
+                                <p className="font-medium">{scale.housingAllowance.toLocaleString()} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">بدل النقل:</span>
+                                <p className="font-medium">{scale.transportAllowance.toLocaleString()} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الإجمالي:</span>
+                                <p className="font-bold text-primary">{scale.totalSalary.toLocaleString()} ريال</p>
+                              </div>
+                            </div>
+                          </div>
                           <div className="flex gap-2">
+                            {getStatusBadge(scale.isActive ? 'نشط' : 'غير نشط')}
                             <Button size="sm" variant="outline">
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button size="sm" variant="outline">
-                              <Eye className="w-4 h-4" />
-                            </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
 
-          {/* Performance Raises Tab */}
-          <TabsContent value="raises" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5" />
-                    العلاوات السنوية المرتبطة بالتقييم
+              {/* Annual Raises Tab */}
+              <TabsContent value="raises" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">العلاوات السنوية</h3>
+                  <div className="flex gap-2">
+                    <Button variant="outline" className="gap-2">
+                      <Upload className="w-4 h-4" />
+                      استيراد
+                    </Button>
+                    <Button className="gap-2" onClick={handleProcessAnnualRaises} disabled={isLoading}>
+                      {isLoading ? (
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Plus className="w-4 h-4" />
+                      )}
+                      معالجة العلاوات
+                    </Button>
                   </div>
-                  <Button onClick={handleProcessAnnualRaises} disabled={isLoading} className="gap-2">
-                    {isLoading ? (
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                    ) : (
-                      <CheckCircle2 className="w-4 h-4" />
-                    )}
-                    معالجة العلاوات
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+                </div>
+
                 <div className="mb-4 p-4 bg-muted rounded-lg">
                   <h3 className="font-medium mb-2">معايير العلاوات السنوية:</h3>
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
@@ -789,112 +924,106 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                   </div>
                 </div>
 
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الموظف</TableHead>
-                      <TableHead>الراتب الحالي</TableHead>
-                      <TableHead>تقييم الأداء</TableHead>
-                      <TableHead>نسبة العلاوة</TableHead>
-                      <TableHead>الراتب الجديد</TableHead>
-                      <TableHead>تاريخ التفعيل</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {performanceRaises.map((raise, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{raise.employeeName}</TableCell>
-                        <TableCell>{raise.currentSalary.toLocaleString()} ريال</TableCell>
-                        <TableCell>
-                          <Badge className={
-                            raise.performanceRating === 'ممتاز' ? 'bg-yellow-100 text-yellow-800' :
-                            raise.performanceRating === 'جيد جدًا' ? 'bg-blue-100 text-blue-800' :
-                            raise.performanceRating === 'جيد' ? 'bg-green-100 text-green-800' :
-                            raise.performanceRating === 'مقبول' ? 'bg-orange-100 text-orange-800' :
-                            'bg-red-100 text-red-800'
-                          }>
-                            {raise.performanceRating}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{raise.raisePercentage}%</TableCell>
-                        <TableCell className="font-medium text-green-600">
-                          {raise.newSalary.toLocaleString()} ريال
-                        </TableCell>
-                        <TableCell>{new Date(raise.effectiveDate).toLocaleDateString('ar-SA')}</TableCell>
-                        <TableCell>{getStatusBadge(raise.status)}</TableCell>
-                        <TableCell>
+                <div className="grid gap-4">
+                  {performanceRaises.map((raise, index) => (
+                    <Card key={index} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                              <h4 className="font-bold text-lg">{raise.employeeName}</h4>
+                              {getStatusBadge(raise.status)}
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">الراتب الحالي:</span>
+                                <p className="font-medium">{raise.currentSalary.toLocaleString()} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">تقييم الأداء:</span>
+                                <p className="font-medium">{raise.performanceRating}</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">نسبة العلاوة:</span>
+                                <p className="font-medium text-green-600">{raise.raisePercentage}%</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الراتب الجديد:</span>
+                                <p className="font-bold text-primary">{raise.newSalary.toLocaleString()} ريال</p>
+                              </div>
+                            </div>
+                          </div>
                           <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
-                              <CheckCircle2 className="w-4 h-4" />
-                            </Button>
                             <Button size="sm" variant="outline">
                               <Eye className="w-4 h-4" />
                             </Button>
+                            <Button size="sm" variant="outline">
+                              <Edit className="w-4 h-4" />
+                            </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
 
-          {/* Promotions Tab */}
-          <TabsContent value="promotions" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Crown className="w-5 h-5" />
-                  إدارة الترقيات الوظيفية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Alert className="mb-4">
+              {/* Promotions Tab */}
+              <TabsContent value="promotions" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">إدارة الترقيات الوظيفية</h3>
+                  <Button className="gap-2">
+                    <Plus className="w-4 h-4" />
+                    إضافة ترقية
+                  </Button>
+                </div>
+
+                <Alert>
                   <AlertCircle className="w-4 h-4" />
                   <AlertDescription>
                     يتم منح الترقية التلقائية بعد سنتين في نفس المستوى بشرط الحصول على تقييم "جيد جداً" أو أعلى في سنتين متتاليتين
                   </AlertDescription>
                 </Alert>
 
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الموظف</TableHead>
-                      <TableHead>المنصب الحالي</TableHead>
-                      <TableHead>المنصب الجديد</TableHead>
-                      <TableHead>الراتب الحالي</TableHead>
-                      <TableHead>الراتب الجديد</TableHead>
-                      <TableHead>سنوات الخبرة</TableHead>
-                      <TableHead>حالة التأهيل</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {promotions.map((promotion, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{promotion.employeeName}</TableCell>
-                        <TableCell>{promotion.currentPosition}</TableCell>
-                        <TableCell className="font-medium text-blue-600">{promotion.newPosition}</TableCell>
-                        <TableCell>{promotion.currentSalary.toLocaleString()} ريال</TableCell>
-                        <TableCell className="font-medium text-green-600">
-                          {promotion.newSalary.toLocaleString()} ريال
-                        </TableCell>
-                        <TableCell>{promotion.yearsInPosition} سنة</TableCell>
-                        <TableCell>
-                          <Badge className={
-                            promotion.qualificationStatus === 'مؤهل' ? 
-                            'bg-green-100 text-green-800' : 
-                            'bg-red-100 text-red-800'
-                          }>
-                            {promotion.qualificationStatus}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{getStatusBadge(promotion.status)}</TableCell>
-                        <TableCell>
+                <div className="grid gap-4">
+                  {promotions.map((promotion, index) => (
+                    <Card key={index} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                              <h4 className="font-bold text-lg">{promotion.employeeName}</h4>
+                              {getStatusBadge(promotion.status)}
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">المنصب الحالي:</span>
+                                <p className="font-medium">{promotion.currentPosition}</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">المنصب الجديد:</span>
+                                <p className="font-medium text-blue-600">{promotion.newPosition}</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الراتب الحالي:</span>
+                                <p className="font-medium">{promotion.currentSalary.toLocaleString()} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الراتب الجديد:</span>
+                                <p className="font-bold text-green-600">{promotion.newSalary.toLocaleString()} ريال</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm">
+                              <span className="text-gray-500">سنوات الخبرة: {promotion.yearsInPosition} سنة</span>
+                              <Badge className={
+                                promotion.qualificationStatus === 'مؤهل' ? 
+                                'bg-green-500/20 text-green-700 border-green-200' : 
+                                'bg-red-500/20 text-red-700 border-red-200'
+                              }>
+                                {promotion.qualificationStatus}
+                              </Badge>
+                            </div>
+                          </div>
                           <div className="flex gap-2">
                             <Button size="sm" variant="outline">
                               <CheckCircle2 className="w-4 h-4" />
@@ -903,24 +1032,17 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
 
-          {/* Bonuses Tab */}
-          <TabsContent value="bonuses" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Gift className="w-5 h-5" />
-                    المكافآت والحوافز
-                  </div>
+              {/* Bonuses Tab */}
+              <TabsContent value="bonuses" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">المكافآت والحوافز</h3>
                   <Dialog open={isBonusDialogOpen} onOpenChange={setIsBonusDialogOpen}>
                     <DialogTrigger asChild>
                       <Button className="gap-2">
@@ -994,9 +1116,8 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                       </div>
                     </DialogContent>
                   </Dialog>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+                </div>
+
                 <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card className="p-4">
                     <div className="text-center">
@@ -1018,36 +1139,39 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                   </Card>
                 </div>
 
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الموظف</TableHead>
-                      <TableHead>نوع المكافأة</TableHead>
-                      <TableHead>المبلغ</TableHead>
-                      <TableHead>السبب</TableHead>
-                      <TableHead>معتمد بواسطة</TableHead>
-                      <TableHead>التاريخ</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {bonuses.map((bonus) => (
-                      <TableRow key={bonus.id}>
-                        <TableCell className="font-medium">{bonus.employeeName}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{bonus.bonusType}</Badge>
-                        </TableCell>
-                        <TableCell className="font-medium text-green-600">
-                          {bonus.amount.toLocaleString()} ريال
-                        </TableCell>
-                        <TableCell className="max-w-xs truncate" title={bonus.reason}>
-                          {bonus.reason}
-                        </TableCell>
-                        <TableCell>{bonus.approvedBy}</TableCell>
-                        <TableCell>{new Date(bonus.dateCreated).toLocaleDateString('ar-SA')}</TableCell>
-                        <TableCell>{getStatusBadge(bonus.status)}</TableCell>
-                        <TableCell>
+                <div className="grid gap-4">
+                  {bonuses.map((bonus) => (
+                    <Card key={bonus.id} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                              <h4 className="font-bold text-lg">{bonus.employeeName}</h4>
+                              {getStatusBadge(bonus.status)}
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">نوع المكافأة:</span>
+                                <p className="font-medium">{bonus.bonusType}</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">المبلغ:</span>
+                                <p className="font-bold text-green-600">{bonus.amount.toLocaleString()} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">معتمد بواسطة:</span>
+                                <p className="font-medium">{bonus.approvedBy}</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">التاريخ:</span>
+                                <p className="font-medium">{new Date(bonus.dateCreated).toLocaleDateString('ar-SA')}</p>
+                              </div>
+                            </div>
+                            <div>
+                              <span className="text-gray-500 text-sm">السبب:</span>
+                              <p className="text-sm">{bonus.reason}</p>
+                            </div>
+                          </div>
                           <div className="flex gap-2">
                             <Button size="sm" variant="outline">
                               <CheckCircle2 className="w-4 h-4" />
@@ -1056,24 +1180,17 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
 
-          {/* Assignments Tab */}
-          <TabsContent value="assignments" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5" />
-                    بدلات الانتداب اليومية
-                  </div>
+              {/* Assignments Tab */}
+              <TabsContent value="assignments" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">بدلات الانتداب اليومية</h3>
                   <Dialog open={isAssignmentDialogOpen} onOpenChange={setIsAssignmentDialogOpen}>
                     <DialogTrigger asChild>
                       <Button className="gap-2">
@@ -1162,9 +1279,8 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                       </div>
                     </DialogContent>
                   </Dialog>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+                </div>
+
                 <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card className="p-4 bg-gradient-to-br from-card to-blue-50">
                     <div className="flex items-center gap-3">
@@ -1195,49 +1311,49 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                   </Card>
                 </div>
 
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>الموظف</TableHead>
-                      <TableHead>نوع الموقع</TableHead>
-                      <TableHead>البدل اليومي</TableHead>
-                      <TableHead>تاريخ البداية</TableHead>
-                      <TableHead>تاريخ النهاية</TableHead>
-                      <TableHead>عدد الأيام</TableHead>
-                      <TableHead>الإجمالي</TableHead>
-                      <TableHead>إضافات</TableHead>
-                      <TableHead>الحالة</TableHead>
-                      <TableHead>الإجراءات</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {assignments.map((assignment, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-medium">{assignment.employeeName}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline" className="whitespace-nowrap">
-                            {assignment.locationType}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{assignment.dailyRate} ريال</TableCell>
-                        <TableCell>{new Date(assignment.startDate).toLocaleDateString('ar-SA')}</TableCell>
-                        <TableCell>{new Date(assignment.endDate).toLocaleDateString('ar-SA')}</TableCell>
-                        <TableCell>{assignment.days} يوم</TableCell>
-                        <TableCell className="font-medium text-green-600">
-                          {assignment.totalAmount.toLocaleString()} ريال
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            {assignment.includesAccommodation && (
-                              <Badge className="bg-blue-100 text-blue-800 text-xs">سكن</Badge>
-                            )}
-                            {assignment.includesFlights && (
-                              <Badge className="bg-green-100 text-green-800 text-xs">طيران</Badge>
-                            )}
+                <div className="grid gap-4">
+                  {assignments.map((assignment, index) => (
+                    <Card key={index} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                              <h4 className="font-bold text-lg">{assignment.employeeName}</h4>
+                              {getStatusBadge(assignment.status)}
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">نوع الموقع:</span>
+                                <p className="font-medium">{assignment.locationType}</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">البدل اليومي:</span>
+                                <p className="font-medium">{assignment.dailyRate} ريال</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">عدد الأيام:</span>
+                                <p className="font-medium">{assignment.days} يوم</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الإجمالي:</span>
+                                <p className="font-bold text-green-600">{assignment.totalAmount.toLocaleString()} ريال</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm">
+                              <span className="text-gray-500">
+                                من {new Date(assignment.startDate).toLocaleDateString('ar-SA')} 
+                                إلى {new Date(assignment.endDate).toLocaleDateString('ar-SA')}
+                              </span>
+                              <div className="flex gap-1">
+                                {assignment.includesAccommodation && (
+                                  <Badge className="bg-blue-100 text-blue-800 text-xs">سكن</Badge>
+                                )}
+                                {assignment.includesFlights && (
+                                  <Badge className="bg-green-100 text-green-800 text-xs">طيران</Badge>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                        </TableCell>
-                        <TableCell>{getStatusBadge(assignment.status)}</TableCell>
-                        <TableCell>
                           <div className="flex gap-2">
                             <Button size="sm" variant="outline">
                               <Edit className="w-4 h-4" />
@@ -1246,145 +1362,145 @@ export const ComprehensivePayrollSystem: React.FC = () => {
                               <Eye className="w-4 h-4" />
                             </Button>
                           </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* AI Insights Tab */}
-          <TabsContent value="ai-insights" className="mt-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bot className="w-5 h-5" />
-                    توصيات الذكاء الاصطناعي
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {aiRecommendations.map((recommendation) => (
-                      <div key={recommendation.id} className="p-4 border rounded-lg">
-                        <div className="flex items-start justify-between mb-2">
-                          <h3 className="font-medium">{recommendation.title}</h3>
-                          <Badge className={
-                            recommendation.priority === 'عالي' ? 'bg-red-100 text-red-800' :
-                            recommendation.priority === 'متوسط' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-blue-100 text-blue-800'
-                          }>
-                            {recommendation.priority}
-                          </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          {recommendation.description}
-                        </p>
-                        <div className="space-y-2">
-                          <div className="flex items-start gap-2">
-                            <Target className="w-4 h-4 text-blue-600 mt-0.5" />
-                            <div>
-                              <p className="text-sm font-medium">الإجراء المقترح:</p>
-                              <p className="text-sm text-muted-foreground">{recommendation.action}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              {/* AI Insights Tab */}
+              <TabsContent value="ai-insights" className="p-6 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Bot className="w-5 h-5" />
+                        توصيات الذكاء الاصطناعي
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {aiRecommendations.map((recommendation) => (
+                          <div key={recommendation.id} className="p-4 border rounded-lg">
+                            <div className="flex items-start justify-between mb-2">
+                              <h3 className="font-medium">{recommendation.title}</h3>
+                              <Badge className={
+                                recommendation.priority === 'عالي' ? 'bg-red-100 text-red-800' :
+                                recommendation.priority === 'متوسط' ? 'bg-yellow-100 text-yellow-800' :
+                                'bg-blue-100 text-blue-800'
+                              }>
+                                {recommendation.priority}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground mb-3">
+                              {recommendation.description}
+                            </p>
+                            <div className="space-y-2">
+                              <div className="flex items-start gap-2">
+                                <Target className="w-4 h-4 text-blue-600 mt-0.5" />
+                                <div>
+                                  <p className="text-sm font-medium">الإجراء المقترح:</p>
+                                  <p className="text-sm text-muted-foreground">{recommendation.action}</p>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5" />
+                                <div>
+                                  <p className="text-sm font-medium">التأثير المتوقع:</p>
+                                  <p className="text-sm text-muted-foreground">{recommendation.impact}</p>
+                                </div>
+                              </div>
+                              <div className="flex items-center justify-between mt-3">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs text-muted-foreground">مستوى الثقة:</span>
+                                  <Progress value={recommendation.confidence} className="w-20 h-2" />
+                                  <span className="text-xs font-medium">{recommendation.confidence}%</span>
+                                </div>
+                                <span className="text-xs text-muted-foreground">
+                                  {new Date(recommendation.createdAt).toLocaleDateString('ar-SA')}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                          <div className="flex items-start gap-2">
-                            <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5" />
-                            <div>
-                              <p className="text-sm font-medium">التأثير المتوقع:</p>
-                              <p className="text-sm text-muted-foreground">{recommendation.impact}</p>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <BarChart3 className="w-5 h-5" />
+                        تحليلات ذكية
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-6">
+                        {/* Salary Analysis */}
+                        <div>
+                          <h3 className="font-medium mb-3">تحليل الرواتب</h3>
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">متوسط الراتب الإجمالي</span>
+                              <span className="font-medium">12,500 ريال</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">نمو الرواتب السنوي</span>
+                              <span className="font-medium text-green-600">+5.2%</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">تكلفة الموظف الواحد</span>
+                              <span className="font-medium">15,200 ريال</span>
                             </div>
                           </div>
-                          <div className="flex items-center justify-between mt-3">
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs text-muted-foreground">مستوى الثقة:</span>
-                              <Progress value={recommendation.confidence} className="w-20 h-2" />
-                              <span className="text-xs font-medium">{recommendation.confidence}%</span>
+                        </div>
+
+                        {/* Performance Insights */}
+                        <div>
+                          <h3 className="font-medium mb-3">رؤى الأداء</h3>
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">معدل الموظفين المتميزين</span>
+                              <span className="font-medium">28%</span>
                             </div>
-                            <span className="text-xs text-muted-foreground">
-                              {new Date(recommendation.createdAt).toLocaleDateString('ar-SA')}
-                            </span>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">الموظفين المؤهلين للترقية</span>
+                              <span className="font-medium text-blue-600">15 موظف</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">متوسط الرضا الوظيفي</span>
+                              <span className="font-medium">4.2/5</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Budget Predictions */}
+                        <div>
+                          <h3 className="font-medium mb-3">توقعات الميزانية</h3>
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">توقع التكلفة الشهرية</span>
+                              <span className="font-medium">2.8م ريال</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">توفير متوقع</span>
+                              <span className="font-medium text-green-600">120,000 ريال</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">العائد على الاستثمار</span>
+                              <span className="font-medium">+18%</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BarChart3 className="w-5 h-5" />
-                    تحليلات ذكية
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    {/* Salary Analysis */}
-                    <div>
-                      <h3 className="font-medium mb-3">تحليل الرواتب</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">متوسط الراتب الإجمالي</span>
-                          <span className="font-medium">12,500 ريال</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">نمو الرواتب السنوي</span>
-                          <span className="font-medium text-green-600">+5.2%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">تكلفة الموظف الواحد</span>
-                          <span className="font-medium">15,200 ريال</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Performance Insights */}
-                    <div>
-                      <h3 className="font-medium mb-3">رؤى الأداء</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">معدل الموظفين المتميزين</span>
-                          <span className="font-medium">28%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">الموظفين المؤهلين للترقية</span>
-                          <span className="font-medium text-blue-600">15 موظف</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">متوسط الرضا الوظيفي</span>
-                          <span className="font-medium">4.2/5</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Budget Predictions */}
-                    <div>
-                      <h3 className="font-medium mb-3">توقعات الميزانية</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">توقع التكلفة الشهرية</span>
-                          <span className="font-medium">2.8م ريال</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">توفير متوقع</span>
-                          <span className="font-medium text-green-600">120,000 ريال</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">العائد على الاستثمار</span>
-                          <span className="font-medium">+18%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
