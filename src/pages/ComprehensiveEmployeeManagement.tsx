@@ -51,7 +51,7 @@ import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveS
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
 import OrganizationalDevelopment from '@/components/systems/OrganizationalDevelopment';
-import { GovernanceCompliance } from '@/components/systems/GovernanceCompliance';
+import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
 import { ComprehensiveSmartEvaluation } from '@/components/systems/ComprehensiveSmartEvaluation';
@@ -411,7 +411,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="governance">
-            <GovernanceCompliance onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveGovernanceCompliance onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="wageprotection">
