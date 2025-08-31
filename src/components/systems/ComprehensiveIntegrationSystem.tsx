@@ -1,61 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
 import { Progress } from '@/components/ui/progress';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { toast } from 'sonner';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { 
+  ArrowLeft, 
+  Network, 
   Building2, 
-  CreditCard, 
-  Shield, 
-  Gift, 
-  Activity, 
+  FileText, 
+  AlertTriangle, 
   CheckCircle2, 
-  AlertTriangle,
-  RefreshCw,
-  Settings,
-  Plug,
-  Zap,
-  Eye,
-  Download,
-  Upload,
-  Globe,
-  Network,
-  Database,
-  Lock,
-  Key,
-  FileText,
-  Bell,
-  Calendar,
-  Banknote,
-  Bot,
-  TrendingUp,
-  Users,
   Clock,
-  Server,
-  Wifi,
-  Heart,
-  GraduationCap,
-  BarChart3,
+  Download,
   Plus,
   Search,
   Filter,
+  Calendar,
+  Building,
+  BookOpen,
+  Shield,
+  Briefcase,
+  Award,
+  Target,
+  TrendingUp,
+  BarChart3,
   PieChart,
-  LineChart,
-  ArrowLeft,
-  Brain
+  Activity,
+  Zap,
+  Globe,
+  Eye,
+  Settings,
+  Bell,
+  CreditCard,
+  UserCheck,
+  Sparkles,
+  Archive,
+  Edit,
+  Trash2,
+  Share,
+  Lock,
+  Unlock,
+  AlertCircle,
+  Info,
+  UserPlus,
+  Phone,
+  Mail,
+  Crown,
+  Users2,
+  Database,
+  RefreshCw,
+  Server,
+  Users
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
+
+interface ComprehensiveIntegrationSystemProps {
+  onBack: () => void;
+}
 
 interface IntegrationPlatform {
   id: string;
@@ -64,250 +72,144 @@ interface IntegrationPlatform {
   category: 'government' | 'financial' | 'insurance' | 'complementary';
   status: 'connected' | 'disconnected' | 'error' | 'syncing';
   description: string;
-  icon: React.ReactNode;
   lastSync?: string;
   syncFrequency: string;
-  features: string[];
-  credentials?: {
-    apiKey?: string;
-    username?: string;
-    endpoint?: string;
-  };
-  stats?: {
-    totalRecords?: number;
-    lastUpdate?: string;
-    successRate?: number;
-  };
+  successRate: number;
+  dailyOperations: number;
 }
 
-const integrationPlatforms: IntegrationPlatform[] = [
-  // منصات حكومية
-  {
-    id: 'gosi',
-    name: 'مؤسسة التأمينات الاجتماعية',
-    nameEn: 'GOSI',
-    category: 'government',
-    status: 'connected',
-    description: 'التسجيل التلقائي للموظفين ومزامنة الرواتب',
-    icon: <Building2 className="h-6 w-6" />,
-    lastSync: '2024-01-20 09:30',
-    syncFrequency: 'شهريًا',
-    features: ['تسجيل الموظفين', 'مزامنة الرواتب', 'التنبيهات التلقائية'],
-    stats: { totalRecords: 156, lastUpdate: '2024-01-20', successRate: 98 }
-  },
-  {
-    id: 'mudad',
-    name: 'منصة مدد',
-    nameEn: 'Mudad',
-    category: 'government',
-    status: 'connected',
-    description: 'حماية الأجور ورفع ملفات الرواتب',
-    icon: <Shield className="h-6 w-6" />,
-    lastSync: '2024-01-19 14:15',
-    syncFrequency: 'شهريًا',
-    features: ['حماية الأجور', 'رفع ملفات الرواتب', 'متابعة المطابقة'],
-    stats: { totalRecords: 156, lastUpdate: '2024-01-19', successRate: 100 }
-  },
-  {
-    id: 'qiwa',
-    name: 'منصة قوى',
-    nameEn: 'Qiwa',
-    category: 'government',
-    status: 'syncing',
-    description: 'توثيق العقود ورفع بيانات الموظفين',
-    icon: <Users className="h-6 w-6" />,
-    lastSync: '2024-01-20 08:00',
-    syncFrequency: 'أسبوعيًا',
-    features: ['توثيق العقود', 'رفع البيانات', 'إشعارات التعارض'],
-    stats: { totalRecords: 156, lastUpdate: '2024-01-20', successRate: 95 }
-  },
-  {
-    id: 'absher',
-    name: 'منصة أبشر',
-    nameEn: 'Absher',
-    category: 'government',
-    status: 'connected',
-    description: 'التحقق من صلاحية الهوية والإقامة',
-    icon: <Lock className="h-6 w-6" />,
-    lastSync: '2024-01-20 10:00',
-    syncFrequency: 'يوميًا',
-    features: ['التحقق من الهوية', 'متابعة الصلاحيات', 'التنبيهات'],
-    stats: { totalRecords: 156, lastUpdate: '2024-01-20', successRate: 99 }
-  },
-  {
-    id: 'mlsd',
-    name: 'وزارة الموارد البشرية',
-    nameEn: 'MLSD',
-    category: 'government',
-    status: 'connected',
-    description: 'مزامنة معلومات المنشأة والمخالفات',
-    icon: <Building2 className="h-6 w-6" />,
-    lastSync: '2024-01-19 16:30',
-    syncFrequency: 'أسبوعيًا',
-    features: ['مزامنة المعلومات', 'إشعارات المخالفات', 'التقارير'],
-    stats: { totalRecords: 1, lastUpdate: '2024-01-19', successRate: 100 }
-  },
-  
-  // الأنظمة المالية
-  {
-    id: 'oracle',
-    name: 'أوراكل',
-    nameEn: 'Oracle ERP',
-    category: 'financial',
-    status: 'connected',
-    description: 'نظام تخطيط موارد المؤسسة',
-    icon: <Database className="h-6 w-6" />,
-    lastSync: '2024-01-20 11:00',
-    syncFrequency: 'يوميًا',
-    features: ['ربط الرواتب', 'التقارير المالية', 'المزامنة التلقائية'],
-    stats: { totalRecords: 156, lastUpdate: '2024-01-20', successRate: 97 }
-  },
-  {
-    id: 'sap',
-    name: 'ساب',
-    nameEn: 'SAP',
-    category: 'financial',
-    status: 'disconnected',
-    description: 'نظام إدارة الموارد المؤسسية',
-    icon: <Server className="h-6 w-6" />,
-    syncFrequency: 'يوميًا',
-    features: ['إدارة الرواتب', 'التحليل المالي', 'التكامل الشامل']
-  },
-  {
-    id: 'sadad',
-    name: 'سداد',
-    nameEn: 'Sadad',
-    category: 'financial',
-    status: 'connected',
-    description: 'بوابة المدفوعات الحكومية',
-    icon: <CreditCard className="h-6 w-6" />,
-    lastSync: '2024-01-20 09:15',
-    syncFrequency: 'فوريًا',
-    features: ['الدفع المباشر', 'إشعارات المعاملات', 'سجل المدفوعات'],
-    stats: { totalRecords: 89, lastUpdate: '2024-01-20', successRate: 100 }
-  },
-  
-  // شركات التأمين
-  {
-    id: 'tameeni',
-    name: 'تأميني',
-    nameEn: 'Tameeni',
-    category: 'insurance',
-    status: 'connected',
-    description: 'منصة التأمين الطبي الشاملة',
-    icon: <Shield className="h-6 w-6" />,
-    lastSync: '2024-01-19 15:45',
-    syncFrequency: 'أسبوعيًا',
-    features: ['تسجيل البوليصات', 'إدارة العائلة', 'متابعة الوثائق'],
-    stats: { totalRecords: 156, lastUpdate: '2024-01-19', successRate: 96 }
-  },
-  {
-    id: 'bupa',
-    name: 'بوبا العربية',
-    nameEn: 'Bupa Arabia',
-    category: 'insurance',
-    status: 'connected',
-    description: 'شركة التأمين الطبي',
-    icon: <Heart className="h-6 w-6" />,
-    lastSync: '2024-01-18 14:20',
-    syncFrequency: 'شهريًا',
-    features: ['إدارة الوثائق', 'تحديث البيانات', 'الإشعارات'],
-    stats: { totalRecords: 78, lastUpdate: '2024-01-18', successRate: 94 }
-  },
-  
-  // المنصات التكميلية
-  {
-    id: 'hrdf',
-    name: 'صندوق تنمية الموارد البشرية',
-    nameEn: 'HRDF',
-    category: 'complementary',
-    status: 'connected',
-    description: 'دعم التوظيف والتدريب',
-    icon: <GraduationCap className="h-6 w-6" />,
-    lastSync: '2024-01-17 13:00',
-    syncFrequency: 'شهريًا',
-    features: ['طلبات الدعم', 'متابعة الموافقات', 'الدفعات'],
-    stats: { totalRecords: 12, lastUpdate: '2024-01-17', successRate: 100 }
-  },
-  {
-    id: 'rewards',
-    name: 'منصة المكافآت',
-    nameEn: 'Rewards Platform',
-    category: 'complementary',
-    status: 'connected',
-    description: 'إدارة مكافآت الأداء',
-    icon: <Gift className="h-6 w-6" />,
-    lastSync: '2024-01-20 12:30',
-    syncFrequency: 'يوميًا',
-    features: ['مكافآت الأداء', 'الإرسال التلقائي', 'التقارير'],
-    stats: { totalRecords: 45, lastUpdate: '2024-01-20', successRate: 98 }
-  }
-];
+interface PlatformCategory {
+  id: string;
+  name: string;
+  head: string;
+  platforms: number;
+  connections: number;
+  performance: number;
+  description: string;
+}
 
-export function ComprehensiveIntegrationSystem() {
+interface IntegrationMetric {
+  id: string;
+  metric: string;
+  category: 'Performance' | 'Sync' | 'Platforms' | 'Operations' | 'Compliance';
+  status: 'Excellent' | 'Good' | 'Average' | 'Below Average' | 'Poor';
+  value: number;
+  target: number;
+  trend: 'up' | 'down' | 'stable';
+  lastUpdated: string;
+}
+
+export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSystemProps> = ({ onBack }) => {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const { toast } = useToast();
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  // حساب الإحصائيات أولاً
-  const categoryStats = {
-    government: integrationPlatforms.filter(p => p.category === 'government').length,
-    financial: integrationPlatforms.filter(p => p.category === 'financial').length,
-    insurance: integrationPlatforms.filter(p => p.category === 'insurance').length,
-    complementary: integrationPlatforms.filter(p => p.category === 'complementary').length,
-    connected: integrationPlatforms.filter(p => p.status === 'connected').length,
-    total: integrationPlatforms.length
-  };
-
-  // بيانات المزامنة الشهرية
-  const monthlySyncData = [
-    { month: 'يناير', syncs: 1200, successful: 1164, failed: 36 },
-    { month: 'فبراير', syncs: 1350, successful: 1309, failed: 41 },
-    { month: 'مارس', syncs: 1280, successful: 1242, failed: 38 },
-    { month: 'أبريل', syncs: 1450, successful: 1407, failed: 43 },
-    { month: 'مايو', syncs: 1320, successful: 1281, failed: 39 },
-    { month: 'يونيو', syncs: 1420, successful: 1378, failed: 42 }
+  // Mock data for demonstration
+  const integrationPlatforms: IntegrationPlatform[] = [
+    {
+      id: '1',
+      name: 'مؤسسة التأمينات الاجتماعية',
+      nameEn: 'GOSI',
+      category: 'government',
+      status: 'connected',
+      description: 'التسجيل التلقائي للموظفين ومزامنة الرواتب',
+      lastSync: '2024-01-20 09:30',
+      syncFrequency: 'شهريًا',
+      successRate: 98,
+      dailyOperations: 156
+    },
+    {
+      id: '2',
+      name: 'منصة مدد',
+      nameEn: 'Mudad',
+      category: 'government',
+      status: 'connected',
+      description: 'حماية الأجور ورفع ملفات الرواتب',
+      lastSync: '2024-01-19 14:15',
+      syncFrequency: 'شهريًا',
+      successRate: 100,
+      dailyOperations: 89
+    }
   ];
 
-  // توزيع أنواع المنصات
-  const platformDistribution = [
-    { name: 'المنصات الحكومية', value: 42, color: '#3b82f6' },
-    { name: 'الأنظمة المالية', value: 25, color: '#10b981' },
-    { name: 'شركات التأمين', value: 17, color: '#f59e0b' },
-    { name: 'المنصات التكميلية', value: 16, color: '#ef4444' }
+  const platformCategories: PlatformCategory[] = [
+    {
+      id: '1',
+      name: 'المنصات الحكومية',
+      head: 'محمد أحمد الخالدي',
+      platforms: 5,
+      connections: 4,
+      performance: 92,
+      description: 'ربط مع الجهات الحكومية والمنصات الرسمية'
+    },
+    {
+      id: '2',
+      name: 'الأنظمة المالية',
+      head: 'نورا أحمد السالم',
+      platforms: 3,
+      connections: 2,
+      performance: 95,
+      description: 'تكامل مع الأنظمة المالية والمحاسبية'
+    }
   ];
 
-  // إحصائيات شاملة للتكامل
-  const integrationStats = {
-    totalPlatforms: categoryStats.total,
-    connectedPlatforms: categoryStats.connected,
-    governmentPlatforms: categoryStats.government,
-    financialSystems: categoryStats.financial,
-    successRate: 97,
-    dailyOperations: 1247
-  };
+  const integrationMetrics: IntegrationMetric[] = [
+    {
+      id: '1',
+      metric: 'معدل نجاح التكامل',
+      category: 'Performance',
+      status: 'Excellent',
+      value: 97,
+      target: 95,
+      trend: 'up',
+      lastUpdated: '2024-01-15'
+    },
+    {
+      id: '2',
+      metric: 'معدل المزامنة',
+      category: 'Sync',
+      status: 'Good',
+      value: 94,
+      target: 95,
+      trend: 'stable',
+      lastUpdated: '2024-01-15'
+    }
+  ];
 
-  const filteredPlatforms = integrationPlatforms.filter(platform => {
-    const matchesSearch = platform.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         platform.nameEn.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || platform.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  // Analytics data
+  const performanceData = [
+    { month: 'يناير', performance: 85, sync: 92, platforms: 15 },
+    { month: 'فبراير', performance: 87, sync: 94, platforms: 18 },
+    { month: 'مارس', performance: 89, sync: 96, platforms: 20 },
+    { month: 'أبريل', performance: 88, sync: 93, platforms: 17 },
+    { month: 'مايو', performance: 91, sync: 95, platforms: 22 },
+    { month: 'يونيو', performance: 93, sync: 97, platforms: 25 }
+  ];
 
-  const handleSync = async (platformId: string) => {
-    const platform = integrationPlatforms.find(p => p.id === platformId);
-    if (!platform) return;
-    toast({
-      title: "تمت المزامنة بنجاح",
-      description: `تم مزامنة ${platform.name} بنجاح`,
-    });
+  const departmentDistribution = [
+    { name: 'المنصات الحكومية', value: 35, color: '#3b82f6' },
+    { name: 'الأنظمة المالية', value: 20, color: '#10b981' },
+    { name: 'شركات التأمين', value: 15, color: '#f59e0b' },
+    { name: 'المنصات التكميلية', value: 18, color: '#8b5cf6' },
+    { name: 'أنظمة أخرى', value: 12, color: '#ef4444' }
+  ];
+
+  // Calculate statistics
+  const stats = {
+    totalPlatforms: 12,
+    connectedPlatforms: 10,
+    categories: 4,
+    avgPerformance: 97,
+    avgSync: 94,
+    avgOperations: 1247
   };
 
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير التكامل كملف PDF",
+      description: "تم تصدير تقرير التكامل والربط كملف PDF",
     });
   };
 
@@ -316,6 +218,36 @@ export function ComprehensiveIntegrationSystem() {
       title: "جاري الطباعة",
       description: "يتم تحضير التقرير للطباعة",
     });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'connected': return 'bg-green-100 text-green-800 border-green-200';
+      case 'syncing': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'disconnected': return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'error': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    const statusMap: { [key: string]: string } = {
+      'connected': 'متصل',
+      'syncing': 'يتم المزامنة',
+      'disconnected': 'غير متصل',
+      'error': 'خطأ في الاتصال'
+    };
+    return statusMap[status] || status;
+  };
+
+  const getCategoryText = (category: string) => {
+    const categoryMap: { [key: string]: string } = {
+      'government': 'حكومية',
+      'financial': 'مالية',
+      'insurance': 'تأمين',
+      'complementary': 'تكميلية'
+    };
+    return categoryMap[category] || category;
   };
 
   const renderHeader = () => (
@@ -327,7 +259,7 @@ export function ComprehensiveIntegrationSystem() {
             <Button
               variant="ghost" 
               size="sm"
-              onClick={() => {}}
+              onClick={onBack}
               className="hover:bg-primary/10"
             >
               <ArrowLeft className="h-4 w-4 ml-2" />
@@ -342,7 +274,7 @@ export function ComprehensiveIntegrationSystem() {
                   التكامل والربط
                 </h1>
                 <p className="text-muted-foreground text-lg mt-1">
-                  منظومة شاملة لربط وتكامل الأنظمة مع المنصات الحكومية والخارجية مع أدوات المتابعة المتقدمة
+                  منظومة شاملة لربط وتكامل الأنظمة مع المنصات الحكومية والخارجية مع أدوات التحليل المتقدمة والتقارير التفصيلية
                 </p>
               </div>
             </div>
@@ -358,7 +290,7 @@ export function ComprehensiveIntegrationSystem() {
             </Button>
             <Button size="sm">
               <Plus className="h-4 w-4 ml-2" />
-              إضافة تكامل جديد
+              تكامل جديد
             </Button>
           </div>
         </div>
@@ -368,14 +300,14 @@ export function ComprehensiveIntegrationSystem() {
 
   const renderAnalyticsDashboard = () => (
     <div className="space-y-6">
-      {/* Key Performance Indicators - Exact Team Design */}
+      {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">إجمالي المنصات</p>
-                <p className="text-2xl font-bold text-primary">{integrationStats.totalPlatforms}</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalPlatforms}</p>
               </div>
               <Network className="h-8 w-8 text-primary/60" />
             </div>
@@ -386,10 +318,10 @@ export function ComprehensiveIntegrationSystem() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">المنصات المتصلة</p>
-                <p className="text-2xl font-bold text-orange-600">{integrationStats.connectedPlatforms}</p>
+                <p className="text-sm text-muted-foreground">منصات متصلة</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.connectedPlatforms}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-orange-500/60" />
+              <Activity className="h-8 w-8 text-orange-500/60" />
             </div>
           </CardContent>
         </Card>
@@ -398,10 +330,10 @@ export function ComprehensiveIntegrationSystem() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">المنصات الحكومية</p>
-                <p className="text-2xl font-bold text-emerald-600">{integrationStats.governmentPlatforms}</p>
+                <p className="text-sm text-muted-foreground">الفئات</p>
+                <p className="text-2xl font-bold text-emerald-600">{stats.categories}</p>
               </div>
-              <Building2 className="h-8 w-8 text-emerald-500/60" />
+              <Building className="h-8 w-8 text-emerald-500/60" />
             </div>
           </CardContent>
         </Card>
@@ -410,10 +342,10 @@ export function ComprehensiveIntegrationSystem() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">الأنظمة المالية</p>
-                <p className="text-2xl font-bold text-blue-600">{integrationStats.financialSystems}</p>
+                <p className="text-sm text-muted-foreground">متوسط الأداء</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.avgPerformance}%</p>
               </div>
-              <Database className="h-8 w-8 text-blue-500/60" />
+              <Target className="h-8 w-8 text-blue-500/60" />
             </div>
           </CardContent>
         </Card>
@@ -422,10 +354,10 @@ export function ComprehensiveIntegrationSystem() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">معدل النجاح</p>
-                <p className="text-2xl font-bold text-purple-600">{integrationStats.successRate}%</p>
+                <p className="text-sm text-muted-foreground">متوسط المزامنة</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.avgSync}%</p>
               </div>
-              <Activity className="h-8 w-8 text-purple-500/60" />
+              <Clock className="h-8 w-8 text-purple-500/60" />
             </div>
           </CardContent>
         </Card>
@@ -435,32 +367,33 @@ export function ComprehensiveIntegrationSystem() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">العمليات اليومية</p>
-                <p className="text-2xl font-bold text-green-600">{integrationStats.dailyOperations}</p>
+                <p className="text-2xl font-bold text-green-600">{stats.avgOperations}</p>
               </div>
-              <Zap className="h-8 w-8 text-green-500/60" />
+              <Award className="h-8 w-8 text-green-500/60" />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Charts Section - Exact Team Design */}
+      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BarChart3 className="h-5 w-5" />
-              عمليات المزامنة الشهرية
+              أداء التكامل
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={monthlySyncData}>
+              <AreaChart data={performanceData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="successful" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="failed" stackId="2" stroke="#ef4444" fill="#ef4444" />
+                <Area type="monotone" dataKey="performance" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
+                <Area type="monotone" dataKey="sync" stackId="2" stroke="#10b981" fill="#10b981" />
+                <Area type="monotone" dataKey="platforms" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
@@ -470,14 +403,14 @@ export function ComprehensiveIntegrationSystem() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <PieChart className="h-5 w-5" />
-              توزيع أنواع المنصات
+              توزيع المنصات
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
                 <Pie
-                  data={platformDistribution}
+                  data={departmentDistribution}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
@@ -485,7 +418,7 @@ export function ComprehensiveIntegrationSystem() {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {platformDistribution.map((entry, index) => (
+                  {departmentDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
@@ -496,11 +429,11 @@ export function ComprehensiveIntegrationSystem() {
         </Card>
       </div>
 
-      {/* AI Insights - Exact Team Design */}
+      {/* AI Insights */}
       <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Brain className="h-5 w-5 text-primary" />
+            <Sparkles className="h-5 w-5 text-primary" />
             رؤى الذكاء الاصطناعي للتكامل والربط
           </CardTitle>
         </CardHeader>
@@ -509,10 +442,10 @@ export function ComprehensiveIntegrationSystem() {
             <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">اتصال ممتاز</span>
+                <span className="text-sm font-semibold text-emerald-800">تكامل ممتاز</span>
               </div>
               <p className="text-sm text-emerald-700">
-                جميع المنصات الحكومية متصلة بنجاح مع معدل مزامنة 97%
+                تحسن ملحوظ في مؤشرات التكامل العامة للمنصات بنسبة 15%
               </p>
             </div>
             <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
@@ -530,227 +463,231 @@ export function ComprehensiveIntegrationSystem() {
                 <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
               </div>
               <p className="text-sm text-blue-700">
-                متوقع زيادة كفاءة المزامنة إلى 99% مع التحديثات الجديدة
+                التوقعات تشير لزيادة كفاءة المزامنة إلى 99%
               </p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5" />
-            الإجراءات السريعة
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
-              <RefreshCw className="h-6 w-6" />
-              <span className="text-sm">مزامنة شاملة</span>
-            </Button>
-            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
-              <Settings className="h-6 w-6" />
-              <span className="text-sm">إعدادات الربط</span>
-            </Button>
-            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
-              <Plus className="h-6 w-6" />
-              <span className="text-sm">إضافة منصة</span>
-            </Button>
-            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
-              <BarChart3 className="h-6 w-6" />
-              <span className="text-sm">تقرير شامل</span>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Recent Activities */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              النشاطات الحديثة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-green-100">
+                  <Plus className="h-4 w-4 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">إضافة منصة جديدة</p>
+                  <p className="text-xs text-muted-foreground">منصة أبشر - تم الربط بنجاح</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ ساعتين</span>
+              </div>
+              
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-blue-100">
+                  <RefreshCw className="h-4 w-4 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">مزامنة تلقائية</p>
+                  <p className="text-xs text-muted-foreground">مؤسسة التأمينات - مزامنة شهرية</p>
+                </div>
+                <span className="text-xs text-muted-foreground">أمس</span>
+              </div>
+
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-orange-100">
+                  <AlertTriangle className="h-4 w-4 text-orange-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">تنبيه اتصال</p>
+                  <p className="text-xs text-muted-foreground">نظام SAP - يتطلب إعادة ربط</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ 3 أيام</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Building className="h-5 w-5" />
+              أداء الفئات
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {platformCategories.slice(0, 4).map((category) => (
+                <div key={category.id} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-full bg-primary/10">
+                      <Building className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{category.name}</p>
+                      <p className="text-sm text-muted-foreground">{category.platforms} منصة</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-green-600">{category.performance}%</p>
+                    <Progress value={category.performance} className="w-16 h-1 mt-1" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto">
-        {renderHeader()}
-        
-        <div className="p-8">
-          {/* Main Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6 bg-white rounded-xl shadow-lg border p-2">
-              <TabsTrigger value="dashboard" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-                <BarChart3 className="h-4 w-4" />
-                لوحة التحكم
-              </TabsTrigger>
-              <TabsTrigger value="platforms" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-                <Network className="h-4 w-4" />
-                المنصات
-              </TabsTrigger>
-              <TabsTrigger value="government" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-                <Building2 className="h-4 w-4" />
-                حكومية
-              </TabsTrigger>
-              <TabsTrigger value="financial" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-                <Database className="h-4 w-4" />
-                مالية
-              </TabsTrigger>
-              <TabsTrigger value="sync" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-                <RefreshCw className="h-4 w-4" />
-                المزامنة
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-                <Settings className="h-4 w-4" />
-                الإعدادات
-              </TabsTrigger>
+      {renderHeader()}
+      
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <div className="border-b border-border">
+            <TabsList className="grid w-full grid-cols-6">
+              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="platforms">المنصات</TabsTrigger>
+              <TabsTrigger value="categories">الفئات</TabsTrigger>
+              <TabsTrigger value="sync">المزامنة</TabsTrigger>
+              <TabsTrigger value="reports">التقارير</TabsTrigger>
+              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
             </TabsList>
+          </div>
 
-            {/* Dashboard Tab */}
-            <TabsContent value="dashboard" className="space-y-6">
-              {renderAnalyticsDashboard()}
-            </TabsContent>
+          <TabsContent value="dashboard">
+            {renderAnalyticsDashboard()}
+          </TabsContent>
 
-            <TabsContent value="platforms">
+          <TabsContent value="platforms">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">إدارة المنصات</h2>
+                <Button onClick={() => setIsAddDialogOpen(true)}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة منصة
+                </Button>
+              </div>
+
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="flex items-center gap-2">
-                    <Network className="h-5 w-5" />
-                    قائمة المنصات
-                  </CardTitle>
-                  <div className="flex items-center gap-2">
-                    <div className="relative">
-                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="البحث في المنصات..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-8 w-64"
-                      />
-                    </div>
-                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                      <SelectTrigger className="w-48">
-                        <Filter className="h-4 w-4 mr-2" />
+                <CardHeader>
+                  <CardTitle>قائمة المنصات</CardTitle>
+                  <div className="flex gap-4 mt-4">
+                    <Input
+                      placeholder="البحث في المنصات..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="max-w-sm"
+                    />
+                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                      <SelectTrigger className="max-w-xs">
                         <SelectValue placeholder="تصفية حسب الفئة" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">جميع الفئات</SelectItem>
-                        <SelectItem value="government">المنصات الحكومية</SelectItem>
-                        <SelectItem value="financial">الأنظمة المالية</SelectItem>
-                        <SelectItem value="insurance">شركات التأمين</SelectItem>
-                        <SelectItem value="complementary">المنصات التكميلية</SelectItem>
+                        <SelectItem value="government">حكومية</SelectItem>
+                        <SelectItem value="financial">مالية</SelectItem>
+                        <SelectItem value="insurance">تأمين</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {filteredPlatforms.map((platform) => (
-                      <Card key={platform.id} className="hover:shadow-md transition-shadow">
-                        <CardHeader className="pb-3">
-                          <div className="flex items-start justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className="p-2 bg-primary/10 rounded-lg">
-                                {platform.icon}
-                              </div>
-                              <div>
-                                <CardTitle className="text-lg">{platform.name}</CardTitle>
-                                <CardDescription className="text-sm">{platform.nameEn}</CardDescription>
-                              </div>
-                            </div>
-                            <Badge 
-                              variant={platform.status === 'connected' ? 'default' : 'destructive'}
-                              className={platform.status === 'connected' ? 'bg-success text-success-foreground' : ''}
-                            >
-                              {platform.status === 'connected' ? 'متصل' : 
-                               platform.status === 'syncing' ? 'يتم المزامنة' : 'غير متصل'}
-                            </Badge>
+                  <div className="grid gap-4">
+                    {integrationPlatforms.map((platform) => (
+                      <div key={platform.id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Network className="h-5 w-5 text-primary" />
                           </div>
-                        </CardHeader>
-
-                        <CardContent className="space-y-4">
-                          <p className="text-sm text-muted-foreground">{platform.description}</p>
-                          
-                          {platform.lastSync && (
-                            <div className="text-xs text-muted-foreground">
-                              آخر مزامنة: {platform.lastSync}
+                          <div>
+                            <h3 className="font-semibold">{platform.name}</h3>
+                            <p className="text-sm text-muted-foreground">{platform.description}</p>
+                            <div className="flex gap-2 mt-1">
+                              <Badge variant="outline">{getCategoryText(platform.category)}</Badge>
+                              <Badge className={getStatusColor(platform.status)}>
+                                {getStatusText(platform.status)}
+                              </Badge>
                             </div>
-                          )}
-
-                          {platform.stats && (
-                            <div className="space-y-2">
-                              <div className="flex justify-between text-xs">
-                                <span>{platform.stats.totalRecords} سجل</span>
-                                <span>{platform.stats.successRate}% معدل النجاح</span>
-                              </div>
-                              <Progress value={platform.stats.successRate} className="h-2" />
-                            </div>
-                          )}
-
-                          <div className="flex gap-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleSync(platform.id)}
-                              disabled={platform.status === 'syncing'}
-                              className="flex-1 gap-2"
-                            >
-                              {platform.status === 'syncing' ? (
-                                <RefreshCw className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <RefreshCw className="h-4 w-4" />
-                              )}
-                              مزامنة
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="gap-2"
-                            >
-                              <Settings className="h-4 w-4" />
-                              إعدادات
-                            </Button>
                           </div>
-                        </CardContent>
-                      </Card>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
+            </div>
+          </TabsContent>
 
-            <TabsContent value="government">
+          <TabsContent value="categories">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إدارة الفئات</h2>
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {platformCategories.map((category) => (
+                  <Card key={category.id}>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Building className="h-5 w-5" />
+                        {category.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <p className="text-muted-foreground">{category.description}</p>
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-sm text-muted-foreground">عدد المنصات</p>
+                            <p className="text-2xl font-bold">{category.platforms}</p>
+                          </div>
+                          <div>
+                            <p className="text-sm text-muted-foreground">متصل</p>
+                            <p className="text-2xl font-bold text-green-600">{category.connections}</p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="flex justify-between mb-2">
+                            <span className="text-sm text-muted-foreground">الأداء</span>
+                            <span className="text-sm font-medium">{category.performance}%</span>
+                          </div>
+                          <Progress value={category.performance} />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="sync">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إدارة المزامنة</h2>
               <Card>
                 <CardHeader>
-                  <CardTitle>المنصات الحكومية</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Building2 className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">المنصات الحكومية</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="financial">
-              <Card>
-                <CardHeader>
-                  <CardTitle>الأنظمة المالية</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Database className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">الأنظمة المالية</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="sync">
-              <Card>
-                <CardHeader>
-                  <CardTitle>إدارة المزامنة</CardTitle>
+                  <CardTitle>حالة المزامنة</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
@@ -760,12 +697,33 @@ export function ComprehensiveIntegrationSystem() {
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
+            </div>
+          </TabsContent>
 
-            <TabsContent value="settings">
+          <TabsContent value="reports">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">التقارير والإحصائيات</h2>
               <Card>
                 <CardHeader>
-                  <CardTitle>إعدادات النظام</CardTitle>
+                  <CardTitle>تقارير التكامل</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">تقارير التكامل</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إعدادات النظام</h2>
+              <Card>
+                <CardHeader>
+                  <CardTitle>إعدادات التكامل</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
@@ -775,10 +733,10 @@ export function ComprehensiveIntegrationSystem() {
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
-}
+};
