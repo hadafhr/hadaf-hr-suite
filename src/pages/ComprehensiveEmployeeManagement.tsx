@@ -118,10 +118,10 @@ const ComprehensiveEmployeeManagement = () => {
       icon: Crown,
       color: 'bg-blue-500',
       modules: [
-        { id: 'dashboard', name: 'لوحة التحكم الرئيسية', icon: BarChart3, featured: true },
+        { id: 'dashboard', name: 'لوحة التحكم', icon: BarChart3 },
         { id: 'governance', name: 'الحوكمة والامتثال', icon: Shield },
         { id: 'legal', name: 'الشؤون القانونية', icon: Scale },
-        { id: 'meetings', name: 'الاجتماعات', icon: Video },
+        { id: 'meetings', name: 'الاجتماعات', icon: MessageSquare },
         { id: 'esignature', name: 'التوقيع الإلكتروني', icon: PenTool },
         { id: 'requests', name: 'الطلبات والإشعارات', icon: Bell },
         { id: 'ai', name: 'الذكاء الاصطناعي', icon: Bot },
@@ -141,18 +141,6 @@ const ComprehensiveEmployeeManagement = () => {
       ]
     },
     {
-      id: 'performance',
-      name: 'الأداء والمكافآت',
-      icon: TrendingUp,
-      color: 'bg-red-500',
-      modules: [
-        { id: 'evaluation', name: 'تقييم الأداء', icon: Target },
-        { id: 'payroll', name: 'الرواتب والأجور', icon: DollarSign },
-        { id: 'rewards', name: 'المكافآت والحوافز', icon: Gift },
-        { id: 'wageprotection', name: 'حماية الأجور', icon: Banknote }
-      ]
-    },
-    {
       id: 'operations',
       name: 'العمليات اليومية للموارد البشرية',
       icon: Clock,
@@ -167,15 +155,6 @@ const ComprehensiveEmployeeManagement = () => {
       ]
     },
     {
-      id: 'relations',
-      name: 'الانضباط والعلاقات العمالية',
-      icon: AlertTriangle,
-      color: 'bg-yellow-500',
-      modules: [
-        { id: 'disciplinary', name: 'الجزاءات والعقوبات', icon: AlertTriangle }
-      ]
-    },
-    {
       id: 'acquisition',
       name: 'التوظيف والتكامل',
       icon: UserPlus,
@@ -184,6 +163,27 @@ const ComprehensiveEmployeeManagement = () => {
         { id: 'recruitment', name: 'التوظيف والتعيين', icon: UserPlus },
         { id: 'insurance', name: 'التأمين', icon: Shield },
         { id: 'government', name: 'التكامل والربط', icon: Plug }
+      ]
+    },
+    {
+      id: 'performance',
+      name: 'الأداء والمكافآت',
+      icon: TrendingUp,
+      color: 'bg-red-500',
+      modules: [
+        { id: 'evaluation', name: 'تقييم الأداء', icon: Target },
+        { id: 'payroll', name: 'الرواتب والأجور', icon: DollarSign },
+        { id: 'rewards', name: 'المكافآت والحوافز', icon: Gift },
+        { id: 'wageprotection', name: 'حماية الأجور', icon: Banknote }
+      ]
+    },
+    {
+      id: 'relations',
+      name: 'الانضباط والعلاقات العمالية',
+      icon: AlertTriangle,
+      color: 'bg-yellow-500',
+      modules: [
+        { id: 'disciplinary', name: 'الجزاءات والعقوبات', icon: AlertTriangle }
       ]
     },
     {
@@ -224,13 +224,13 @@ const ComprehensiveEmployeeManagement = () => {
 
       {/* Header */}
       <div className="relative border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="flex h-16 items-center px-6">
+        <div className="flex h-20 items-center px-6">
           {/* BOUD Logo */}
-          <div className="flex items-center gap-3 ml-4">
+          <div className="flex items-center gap-4 ml-4">
             <BoudLogo 
               variant="full" 
-              size="md"
-              className="h-8 w-auto"
+              size="lg"
+              className="h-12 w-auto"
             />
           </div>
           
@@ -240,50 +240,35 @@ const ComprehensiveEmployeeManagement = () => {
             onClick={() => navigate(-1)}
             className="mr-4 hover:bg-[#009F87]/10"
           >
-            <ArrowLeft className="h-3 w-3 ml-2" />
+            <ArrowLeft className="h-4 w-4 ml-2" />
             العودة
           </Button>
           
-          <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-[#009F87]/10 rounded-md">
-              <Users className="h-4 w-4 text-[#009F87]" />
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-[#009F87]/10 rounded-lg">
+              <Users className="h-6 w-6 text-[#009F87]" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-[#009F87]">نظام إدارة الموظفين الشامل</h1>
-              <p className="text-xs text-muted-foreground">إدارة احترافية لدورة حياة الموظف الكاملة</p>
+              <h1 className="text-xl font-bold text-[#009F87]">نظام إدارة الموظفين الشامل</h1>
+              <p className="text-sm text-muted-foreground">إدارة احترافية لدورة حياة الموظف الكاملة</p>
             </div>
           </div>
-          
           <div className="mr-auto flex items-center gap-2">
-            {/* Dashboard Button */}
             <Button 
-              onClick={() => setActiveTab('dashboard')}
-              variant={activeTab === 'dashboard' ? 'default' : 'outline'}
+              variant="outline" 
               size="sm"
-              className={`transition-colors ${
-                activeTab === 'dashboard' 
-                  ? 'bg-[#009F87] text-white hover:bg-[#009F87]/90' 
-                  : 'hover:bg-[#009F87] hover:text-white'
-              }`}
+              className="hover:bg-[#009F87] hover:text-white transition-colors"
             >
-              <BarChart3 className="h-3 w-3 ml-2" />
-              لوحة التحكم
+              <RefreshCw className="h-4 w-4 ml-2" />
+              تحديث البيانات
             </Button>
             <Button 
               variant="outline" 
               size="sm"
               className="hover:bg-[#009F87] hover:text-white transition-colors"
             >
-              <RefreshCw className="h-3 w-3 ml-2" />
-              تحديث
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="hover:bg-[#009F87] hover:text-white transition-colors"
-            >
-              <Download className="h-3 w-3 ml-2" />
-              تصدير
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقارير
             </Button>
           </div>
         </div>
@@ -292,93 +277,47 @@ const ComprehensiveEmployeeManagement = () => {
       <div className="relative p-6">
         {/* Strategic HR Categories Layout */}
         <div className="space-y-6">
-          {/* Quick Access Dashboard Button */}
-          <div className="mb-4">
-            <Card className="border-2 border-[#009F87]/20 bg-gradient-to-r from-[#009F87]/5 to-[#009F87]/10">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-[#009F87] rounded-lg text-white">
-                      <BarChart3 className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-[#009F87]">لوحة التحكم الرئيسية</h3>
-                      <p className="text-xs text-muted-foreground">نظرة شاملة على جميع البيانات والإحصائيات</p>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      setActiveTab('dashboard');
-                      setActiveCategory(null);
-                    }}
-                    variant={activeTab === 'dashboard' ? 'default' : 'outline'}
-                    size="sm"
-                    className={`transition-all ${
-                      activeTab === 'dashboard' 
-                        ? 'bg-[#009F87] text-white hover:bg-[#009F87]/90' 
-                        : 'hover:bg-[#009F87] hover:text-white'
-                    }`}
-                  >
-                    <ArrowLeft className="h-3 w-3 ml-2" />
-                    عرض لوحة التحكم
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Categories Row - Horizontal Layout */}
-          <div className="flex flex-wrap gap-3 justify-center">
+          {/* Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {hrCategories.map((category) => {
               const CategoryIcon = category.icon;
               const isActive = activeCategory === category.id;
               
               return (
-                <Card key={category.id} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-[#009F87] min-w-[280px] flex-1">
+                <Card key={category.id} className="hover:shadow-lg transition-all duration-300">
                   <Collapsible open={isActive} onOpenChange={() => setActiveCategory(isActive ? null : category.id)}>
                     <CollapsibleTrigger asChild>
-                      <CardHeader className="cursor-pointer hover:bg-gray-50/50 transition-colors p-3">
+                      <CardHeader className="cursor-pointer hover:bg-gray-50 transition-colors">
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <div className={`p-1.5 rounded-md ${category.color} text-white`}>
-                              <CategoryIcon className="h-3 w-3" />
+                          <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-lg ${category.color} text-white`}>
+                              <CategoryIcon className="h-5 w-5" />
                             </div>
-                            <CardTitle className="text-xs font-bold text-right">
+                            <CardTitle className="text-sm font-bold text-right">
                               {category.name}
                             </CardTitle>
                           </div>
-                          {isActive ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                          {isActive ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                         </div>
                       </CardHeader>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
-                      <CardContent className="pt-0 px-3 pb-3">
-                        <div className="space-y-1">
+                      <CardContent className="pt-0">
+                        <div className="space-y-2">
                           {category.modules.map((module) => {
                             const ModuleIcon = module.icon;
-                            const isFeatured = (module as any).featured;
                             return (
                               <button
                                 key={module.id}
-                                onClick={() => {
-                                  setActiveTab(module.id);
-                                  if (module.id === 'dashboard') {
-                                    setActiveCategory(null);
-                                  }
-                                }}
-                                className={`w-full flex items-center gap-2 p-2 rounded-md text-right transition-all duration-200 hover:bg-[#009F87]/10 hover:text-[#009F87] ${
+                                onClick={() => setActiveTab(module.id)}
+                                className={`w-full flex items-center gap-3 p-3 rounded-lg text-right transition-all duration-200 hover:bg-[#009F87]/10 hover:text-[#009F87] ${
                                   activeTab === module.id 
-                                    ? 'bg-[#009F87] text-white shadow-sm' 
-                                    : isFeatured
-                                    ? 'bg-[#009F87]/5 text-[#009F87] border border-[#009F87]/20'
+                                    ? 'bg-[#009F87] text-white shadow-md' 
                                     : 'bg-gray-50 text-gray-700'
                                 }`}
                               >
-                                <ModuleIcon className="h-3 w-3 flex-shrink-0" />
-                                <span className="text-xs font-medium">{module.name}</span>
-                                {isFeatured && (
-                                  <Star className="h-2 w-2 text-yellow-500 mr-auto" />
-                                )}
+                                <ModuleIcon className="h-4 w-4 flex-shrink-0" />
+                                <span className="text-sm font-medium">{module.name}</span>
                               </button>
                             );
                           })}
@@ -392,47 +331,12 @@ const ComprehensiveEmployeeManagement = () => {
           </div>
 
           {/* Active Module Content */}
-          <div className="bg-white rounded-xl border border-gray-200 shadow-lg overflow-hidden">
-            {/* Content Header with Back Button */}
-            <div className="border-b bg-gray-50/50 px-6 py-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {activeTab !== 'dashboard' && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setActiveTab('dashboard')}
-                      className="hover:bg-[#009F87]/10 text-[#009F87]"
-                    >
-                      <ArrowLeft className="h-3 w-3 ml-1" />
-                      عودة لوحة التحكم
-                    </Button>
-                  )}
-                  <div className="h-4 w-px bg-gray-300 mx-2" />
-                  <h2 className="text-sm font-semibold text-gray-800">
-                    {hrCategories
-                      .flatMap(cat => cat.modules)
-                      .find(mod => mod.id === activeTab)?.name || 'لوحة التحكم الرئيسية'}
-                  </h2>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => window.location.reload()}
-                  className="hover:bg-[#009F87] hover:text-white"
-                >
-                  <RefreshCw className="h-3 w-3 ml-1" />
-                  تحديث
-                </Button>
-              </div>
-            </div>
-            
-            <div className="p-6">
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                {/* Content for each module */}
-                <TabsContent value="dashboard" className="mt-0">
-                  <ComprehensiveDashboard />
-                </TabsContent>
+          <div className="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              {/* Content for each module */}
+              <TabsContent value="dashboard" className="mt-0">
+                <ComprehensiveDashboard />
+              </TabsContent>
               
               <TabsContent value="employees" className="mt-0">
                 <TeamMembers />
@@ -533,8 +437,7 @@ const ComprehensiveEmployeeManagement = () => {
               <TabsContent value="settings" className="mt-0">
                 <SystemSettings />
               </TabsContent>
-              </Tabs>
-            </div>
+            </Tabs>
           </div>
         </div>
       </div>

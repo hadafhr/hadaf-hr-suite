@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import * as React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -96,15 +97,14 @@ import { ECSS } from './pages/portals/E-CSS';
 import { EIS } from './pages/portals/EIS';
 import { NPCS } from './pages/portals/NPCS';
 
-// Initialize QueryClient outside of component
 const queryClient = new QueryClient();
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'ar' | 'en'>('ar');
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [currentLanguage, setCurrentLanguage] = React.useState<'ar' | 'en'>('ar');
 
   // Detect language from URL or localStorage
-  useEffect(() => {
+  React.useEffect(() => {
     const detectLanguage = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const urlLang = urlParams.get('lang');
@@ -142,24 +142,24 @@ function App() {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<BoudHRLandingPage />} />
-              <Route path="/self-service-login" element={<SelfServiceLogin />} />
-              <Route path="/subscription-packages" element={<SubscriptionPackages />} />
-              <Route path="/subscription-success" element={<SubscriptionSuccess />} />
-              <Route path="/invoices-dashboard" element={<InvoicesDashboard />} />
-              <Route path="/hr/*" element={<HRApp />} />
-              <Route path="/old-home" element={<LandingPage />} />
+          <Routes>
+            <Route path="/" element={<BoudHRLandingPage />} />
+            <Route path="/self-service-login" element={<SelfServiceLogin />} />
+            <Route path="/subscription-packages" element={<SubscriptionPackages />} />
+            <Route path="/subscription-success" element={<SubscriptionSuccess />} />
+            <Route path="/invoices-dashboard" element={<InvoicesDashboard />} />
+            <Route path="/hr/*" element={<HRApp />} />
+            <Route path="/old-home" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/business-login" element={<BusinessLogin />} />
-              <Route path="/individual-login" element={<IndividualLogin />} />
-              <Route path="/admin-login" element={<AdminLogin />} />
-              <Route path="/employee-login" element={<EmployeeLogin />} />
-              <Route path="/employee-management-info" element={<EmployeeManagementInfo />} />
-              <Route path="/self-service-info" element={<SelfServiceInfo />} />
-              <Route path="/demo-request" element={<DemoRequest />} />
-              <Route path="/contact" element={<Contact />} />
+            <Route path="/business-login" element={<BusinessLogin />} />
+            <Route path="/individual-login" element={<IndividualLogin />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/employee-login" element={<EmployeeLogin />} />
+            <Route path="/employee-management-info" element={<EmployeeManagementInfo />} />
+            <Route path="/self-service-info" element={<SelfServiceInfo />} />
+            <Route path="/demo-request" element={<DemoRequest />} />
+            <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
@@ -180,13 +180,13 @@ function App() {
               <Route path="/employer/leave-management" element={<LeaveManagement />} />
               
               {/* Service Routes */}
-              <Route path="/services" element={<Services />} />
-              <Route path="/tutorials" element={<Tutorials />} />
-              <Route path="/earn-with-boad" element={<EarnWithBoad />} />
-              <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/services/individuals" element={<IndividualServices />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/earn-with-boad" element={<EarnWithBoad />} />
+          <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
               <Route path="/services/recruitment" element={<Recruitment />} />
               <Route path="/services/performance" element={<PerformanceEvaluation />} />
@@ -236,46 +236,46 @@ function App() {
               <Route path="/business-management" element={<BusinessManagement />} />
               <Route path="/non-profit-services" element={<NonProfitServices />} />
               
-              {/* Employee Management System Routes */}
-              <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
-              <Route path="/employee-services-department" element={<EmployeeServicesDepartment />} />
-              <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
-              <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
+               {/* Employee Management System Routes */}
+          <Route path="/employee-management-system" element={<EmployeeManagementSystem />} />
+                <Route path="/employee-services-department" element={<EmployeeServicesDepartment />} />
+          <Route path="/comprehensive-employee-management" element={<ComprehensiveEmployeeManagement />} />
+          <Route path="/disciplinary-system" element={<DisciplinarySystem />} />
               <Route path="/employee-requests" element={<EmployeeRequests />} />
               <Route path="/reports-analytics" element={<ReportsAnalytics />} />
               <Route path="/system-settings" element={<SystemSettings />} />
-              <Route path="/employee-portal" element={<EmployeePortal />} />
-              <Route path="/employer-portal" element={<EmployerPortal />} />
-             
-              {/* E-Signature System */}
-              <Route path="/e-signature" element={<ESignatureSystem />} />
-              <Route path="/electronic-signature" element={<ESignatureSystem />} />
-              
-              {/* Meeting Hub System */}
-              <Route path="/meeting-hub" element={<MeetingHub />} />
-              <Route path="/meeting-hub/subscription" element={<MeetingSubscription />} />
-              
-              {/* Admin Configuration */}
-              <Route path="/admin-configuration" element={<AdminConfiguration />} />
-              
-              {/* Mobile App Routes */}
-              <Route path="/mobile-login" element={<MobileLogin />} />
-              <Route path="/mobile-dashboard" element={<MobileDashboard />} />
-              <Route path="/mobile-requests" element={<MobileRequests />} />
-              <Route path="/mobile-tasks" element={<MobileTasks />} />
-              <Route path="/mobile-chat" element={<MobileChat />} />
-              <Route path="/mobile-notifications" element={<MobileNotifications />} />
-              <Route path="/mobile-profile" element={<MobileProfile />} />
+                <Route path="/employee-portal" element={<EmployeePortal />} />
+                <Route path="/employer-portal" element={<EmployerPortal />} />
+               
+                {/* E-Signature System */}
+                <Route path="/e-signature" element={<ESignatureSystem />} />
+                <Route path="/electronic-signature" element={<ESignatureSystem />} />
+                
+                {/* Meeting Hub System */}
+                <Route path="/meeting-hub" element={<MeetingHub />} />
+                <Route path="/meeting-hub/subscription" element={<MeetingSubscription />} />
+                
+                {/* Admin Configuration */}
+                <Route path="/admin-configuration" element={<AdminConfiguration />} />
+                
+                {/* Mobile App Routes */}
+                <Route path="/mobile-login" element={<MobileLogin />} />
+                <Route path="/mobile-dashboard" element={<MobileDashboard />} />
+                <Route path="/mobile-requests" element={<MobileRequests />} />
+                <Route path="/mobile-tasks" element={<MobileTasks />} />
+                <Route path="/mobile-chat" element={<MobileChat />} />
+                <Route path="/mobile-notifications" element={<MobileNotifications />} />
+                <Route path="/mobile-profile" element={<MobileProfile />} />
 
-              {/* Add Employee Route */}
-              <Route path="/add-employee" element={<AddEmployee />} />
-              
-              {/* BOOD HR Main Portal Routes */}
-              <Route path="/e-css" element={<ECSS />} />
-              <Route path="/eis" element={<EIS />} />
-              <Route path="/npcs" element={<NPCS />} />
-             
-              <Route path="*" element={<NotFound />} />
+                {/* Add Employee Route */}
+                <Route path="/add-employee" element={<AddEmployee />} />
+                
+                {/* BOOD HR Main Portal Routes */}
+                <Route path="/e-css" element={<ECSS />} />
+                <Route path="/eis" element={<EIS />} />
+                <Route path="/npcs" element={<NPCS />} />
+               
+               <Route path="*" element={<NotFound />} />
             </Routes>
             
             {/* Global BOUD HR Assistant - Only show when not on landing page */}
@@ -285,6 +285,6 @@ function App() {
       </TooltipProvider>
     </QueryClientProvider>
   );
-}
+};
 
 export default App;
