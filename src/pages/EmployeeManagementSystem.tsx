@@ -1130,7 +1130,7 @@ const EmployeeManagementSystem = () => {
 
           {/* Insurance Management Tab */}
           <TabsContent value="insurance" className="space-y-6">
-            <InsuranceManagement />
+            <InsuranceManagement onBack={() => {}} />
           </TabsContent>
 
           {/* Benefits & Rewards Tab */}
