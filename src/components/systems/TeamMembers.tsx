@@ -32,7 +32,7 @@ import {
   ChevronRight,
   Grid,
   List,
-  
+  ArrowLeft,
   MessageSquare,
   Edit,
   Trash2,
@@ -415,7 +415,7 @@ const TeamMembers = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100"
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100"
          style={{
            backgroundImage: `url('/src/assets/boud-pattern-bg.jpg')`,
            backgroundSize: 'cover',
@@ -423,143 +423,281 @@ const TeamMembers = () => {
            backgroundBlendMode: 'overlay'
          }}>
       
-      {/* Header */}
-      <div className="bg-white/90 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+      {/* Enhanced Header */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl mx-6">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
-              <div className="p-2 bg-primary/10 rounded-xl">
-                <Users className="h-8 w-8 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">فريق العمل</h1>
-                <p className="text-slate-600">إدارة شاملة لجميع أعضاء الفريق</p>
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                رجوع
+              </Button>
             </div>
-            
             <div className="flex items-center gap-3">
-              {/* View Toggle */}
-              <div className="flex items-center bg-slate-100 rounded-lg p-1">
-                <Button
-                  variant={activeView === 'directory' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setActiveView('directory')}
-                  className="flex items-center gap-2"
-                >
-                  <List className="h-4 w-4" />
-                  الدليل
-                </Button>
-                <Button
-                  variant={activeView === 'manager' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setActiveView('manager')}
-                  className="flex items-center gap-2"
-                >
-                  <BarChart3 className="h-4 w-4" />
-                  لوحة المدير
-                </Button>
-                <Button
-                  variant={activeView === 'org' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setActiveView('org')}
-                  className="flex items-center gap-2"
-                >
-                  <Building2 className="h-4 w-4" />
-                  الهيكل التنظيمي
-                </Button>
-                <Button
-                  variant={activeView === 'analytics' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setActiveView('analytics')}
-                  className="flex items-center gap-2"
-                >
-                  <TrendingUp className="h-4 w-4" />
-                  التحليلات
-                </Button>
-              </div>
-              
-              {/* Add Employee Button */}
-              {(userRole === 'hr_admin' || userRole === 'manager') && (
-                <Button onClick={handleAddEmployee} className="flex items-center gap-2">
-                  <UserPlus className="h-4 w-4" />
-                  إضافة موظف
-                </Button>
-              )}
-              
-              {/* Import Button */}
-              <Button variant="outline" onClick={handleImportData} className="flex items-center gap-2">
-                <Upload className="h-4 w-4" />
-                استيراد
+              <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                <Search className="h-4 w-4 ml-2" />
+                البحث المتقدم
               </Button>
-              
-              {/* Export Buttons */}
-              <Button variant="outline" onClick={() => handleExportData('pdf')} className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
-                PDF
-              </Button>
-              
-              <Button variant="outline" onClick={() => handleExportData('excel')} className="flex items-center gap-2">
-                <Download className="h-4 w-4" />
-                Excel
+              <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                <UserPlus className="h-4 w-4 ml-2" />
+                إضافة موظف جديد
               </Button>
             </div>
+          </div>
+          
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                <Users className="h-12 w-12 text-white" />
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              نظام إدارة فريق العمل المتطور
+            </h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+              منظومة ذكية شاملة لإدارة جميع أعضاء الفريق مع أدوات التحليل المتقدمة والتقارير التفصيلية
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-6 py-8">
-        {activeView === 'directory' && (
-          <EmployeeDirectory 
-            employees={filteredEmployees}
-            onViewProfile={handleViewProfile}
-            onChatWithEmployee={handleChatWithEmployee}
-            onEditEmployee={handleEditEmployee}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            filterDepartment={filterDepartment}
-            setFilterDepartment={setFilterDepartment}
-            filterStatus={filterStatus}
-            setFilterStatus={setFilterStatus}
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            departments={departments}
-            statuses={statuses}
-            getStatusBadge={getStatusBadge}
-            getBurnoutRiskColor={getBurnoutRiskColor}
-            userRole={userRole}
-          />
-        )}
-        
-        {activeView === 'profile' && selectedEmployee && (
-          <EmployeeProfile 
-            employee={selectedEmployee}
-            onBack={() => setActiveView('directory')}
-            userRole={userRole}
-            currentUser={currentUser}
-          />
-        )}
-        
-        {activeView === 'manager' && (
-          <ManagerDashboard 
-            employees={employees}
-            currentUser={currentUser}
-            onViewProfile={handleViewProfile}
-          />
-        )}
-        
-        {activeView === 'org' && (
-          <OrganizationalChart 
-            employees={employees}
-            onViewProfile={handleViewProfile}
-          />
-        )}
-        
-        {activeView === 'analytics' && (
-          <TeamAnalytics 
-            employees={employees}
-          />
-        )}
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Analytics Dashboard */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Main Panel */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">إدارة فريق العمل</h3>
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">إجمالي الموظفين</span>
+                      <span className="font-bold text-primary">{employees.length}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">الموظفين النشطين</span>
+                      <span className="font-bold text-green-600">{employees.filter(emp => emp.status === 'active').length}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">متوسط الأداء</span>
+                      <span className="font-bold text-blue-600">{Math.round(employees.reduce((sum, emp) => sum + emp.performanceScore, 0) / employees.length)}%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">التحليلات المتقدمة</h3>
+                    <BarChart3 className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الحضور</span>
+                      <span className="font-bold text-green-600">{Math.round(employees.reduce((sum, emp) => sum + emp.attendanceRate, 0) / employees.length)}%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">المهام المكتملة</span>
+                      <span className="font-bold text-blue-600">{employees.reduce((sum, emp) => sum + emp.completedTasks, 0)}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">معدل الرضا</span>
+                      <span className="font-bold text-purple-600">8.7/10</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات الفريق</h3>
+                <div className="space-y-4">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">{employees.length}</div>
+                    <div className="text-sm text-gray-600">إجمالي الأعضاء</div>
+                  </div>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">{[...new Set(employees.map(emp => emp.department))].length}</div>
+                    <div className="text-sm text-gray-600">الأقسام</div>
+                  </div>
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">{employees.filter(emp => emp.role === 'manager').length}</div>
+                    <div className="text-sm text-gray-600">المدراء</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* System Overview */}
+        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة إدارة فريق العمل المتكاملة</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { icon: Users, label: "دليل الموظفين", color: "text-blue-600", count: employees.length },
+                { icon: Building2, label: "الهيكل التنظيمي", color: "text-green-600", count: [...new Set(employees.map(emp => emp.department))].length },
+                { icon: BarChart3, label: "لوحة المدير", color: "text-purple-600", count: employees.filter(emp => emp.role === 'manager').length },
+                { icon: TrendingUp, label: "التحليلات", color: "text-orange-600", count: 0 },
+                { icon: UserPlus, label: "التوظيف", color: "text-teal-600", count: 0 },
+                { icon: Settings, label: "الإعدادات", color: "text-red-600", count: 0 }
+              ].map((item, index) => (
+                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
+                    <item.icon className="w-6 h-6" />
+                    {item.count > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {item.count}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">{Math.round(employees.reduce((sum, emp) => sum + emp.performanceScore, 0) / employees.length)}%</div>
+                <div className="text-sm text-gray-600">متوسط الأداء العام</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">{Math.round(employees.reduce((sum, emp) => sum + emp.attendanceRate, 0) / employees.length)}%</div>
+                <div className="text-sm text-gray-600">معدل الحضور</div>
+              </div>
+              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">{Math.round(employees.reduce((sum, emp) => sum + emp.yearsInCompany, 0) / employees.length)}</div>
+                <div className="text-sm text-gray-600">متوسط الخبرة (سنوات)</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        {/* Navigation Tabs */}
+        <Card className="mb-6 border-0 shadow-lg bg-white/80 backdrop-blur">
+          <CardContent className="p-4">
+            <div className="flex gap-2">
+              <Button
+                variant={activeView === 'directory' ? 'default' : 'outline'}
+                onClick={() => setActiveView('directory')}
+                className={activeView === 'directory' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <List className="h-4 w-4 ml-2" />
+                دليل الموظفين
+              </Button>
+              <Button
+                variant={activeView === 'manager' ? 'default' : 'outline'}
+                onClick={() => setActiveView('manager')}
+                className={activeView === 'manager' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <BarChart3 className="h-4 w-4 ml-2" />
+                لوحة المدير
+              </Button>
+              <Button
+                variant={activeView === 'org' ? 'default' : 'outline'}
+                onClick={() => setActiveView('org')}
+                className={activeView === 'org' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <Building2 className="h-4 w-4 ml-2" />
+                الهيكل التنظيمي
+              </Button>
+              <Button
+                variant={activeView === 'analytics' ? 'default' : 'outline'}
+                onClick={() => setActiveView('analytics')}
+                className={activeView === 'analytics' ? 'bg-primary hover:bg-primary/90' : ''}
+              >
+                <TrendingUp className="h-4 w-4 ml-2" />
+                التحليلات
+              </Button>
+              <div className="mr-auto flex gap-2">
+                {/* Import Button */}
+                <Button variant="outline" onClick={handleImportData} className="flex items-center gap-2">
+                  <Upload className="h-4 w-4" />
+                  استيراد
+                </Button>
+                
+                {/* Export Buttons */}
+                <Button variant="outline" onClick={() => exportData('pdf')} className="flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  PDF
+                </Button>
+                <Button variant="outline" onClick={() => exportData('excel')} className="flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  Excel
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Main Content */}
+        <div className="container mx-auto px-6 py-8">
+          {activeView === 'directory' && (
+            <EmployeeDirectory 
+              employees={filteredEmployees}
+              onViewProfile={handleViewProfile}
+              onChatWithEmployee={handleChatWithEmployee}
+              onEditEmployee={handleEditEmployee}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              filterDepartment={filterDepartment}
+              setFilterDepartment={setFilterDepartment}
+              filterStatus={filterStatus}
+              setFilterStatus={setFilterStatus}
+              viewMode={viewMode}
+              setViewMode={setViewMode}
+              departments={departments}
+              statuses={statuses}
+              getStatusBadge={getStatusBadge}
+              getBurnoutRiskColor={getBurnoutRiskColor}
+              userRole={userRole}
+            />
+          )}
+          
+          {activeView === 'profile' && selectedEmployee && (
+            <EmployeeProfile 
+              employee={selectedEmployee}
+              onBack={() => setActiveView('directory')}
+              userRole={userRole}
+              currentUser={currentUser}
+            />
+          )}
+          
+          {activeView === 'manager' && (
+            <ManagerDashboard 
+              employees={employees}
+              currentUser={currentUser}
+              onViewProfile={handleViewProfile}
+            />
+          )}
+          
+          {activeView === 'org' && (
+            <OrganizationalChart 
+              employees={employees}
+              onViewProfile={handleViewProfile}
+            />
+          )}
+          
+          {activeView === 'analytics' && (
+            <TeamAnalytics 
+              employees={employees}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
