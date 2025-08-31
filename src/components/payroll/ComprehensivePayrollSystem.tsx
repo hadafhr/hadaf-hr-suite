@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { RewardsManager } from '@/components/compensation/RewardsManager';
 import { PayrollCyclesManager } from '@/components/payroll/PayrollCyclesManager';
+import { FinancialReportsManager } from '@/components/payroll/FinancialReportsManager';
 import { 
   ArrowLeft, 
   DollarSign, 
@@ -403,18 +404,7 @@ export const ComprehensivePayrollSystem = ({ onBack }: ComprehensivePayrollSyste
             </TabsContent>
 
             <TabsContent value="reports">
-              <Card>
-                <CardHeader>
-                  <CardTitle>التقارير المالية</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">التقارير المالية</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <FinancialReportsManager />
             </TabsContent>
           </Tabs>
         </div>
