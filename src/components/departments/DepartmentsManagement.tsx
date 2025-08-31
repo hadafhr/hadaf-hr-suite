@@ -1,629 +1,418 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
-import { toast } from '@/hooks/use-toast';
-import {
-  Building2,
-  Users,
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { 
+  ArrowLeft, 
+  Building, 
+  Users, 
+  FileText, 
+  AlertTriangle, 
+  CheckCircle2, 
+  Clock,
+  Download,
   Plus,
   Search,
-  Edit2,
-  Trash2,
-  ArrowLeft,
-  Upload,
-  Download,
-  Settings,
+  Filter,
+  Calendar,
+  BookOpen,
+  Shield,
+  Briefcase,
+  Award,
   Target,
   TrendingUp,
-  Filter,
-  MoreVertical,
-  Lightbulb,
-  GitBranch,
-  Layers,
-  Crown,
-  MapPin,
-  Calendar,
-  DollarSign,
+  BarChart3,
+  PieChart,
+  Activity,
+  Zap,
+  Globe,
   Eye,
-  EyeOff,
-  Shuffle
+  Settings,
+  Bell,
+  CreditCard,
+  UserCheck,
+  Sparkles,
+  Archive,
+  Edit,
+  Trash2,
+  Share,
+  Lock,
+  Unlock,
+  AlertCircle,
+  Info
 } from 'lucide-react';
-import { useDepartments } from '@/hooks/useDepartments';
-import DepartmentHierarchy from './DepartmentHierarchy';
-import DepartmentDetails from './DepartmentDetails';
-import OrganizationalChart from './OrganizationalChart';
-import AIInsights from './AIInsights';
-import DepartmentKPIs from './DepartmentKPIs';
+import { useTranslation } from 'react-i18next';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie } from 'recharts';
 
 interface DepartmentsManagementProps {
   onBack: () => void;
 }
 
-const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ onBack }) => {
-  const [activeTab, setActiveTab] = useState('overview');
+export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ onBack }) => {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [viewMode, setViewMode] = useState<'list' | 'hierarchy' | 'chart'>('list');
-  const [filterType, setFilterType] = useState('all');
-  const [filterFunction, setFilterFunction] = useState('all');
 
-  const {
-    departments,
-    isLoading,
-    createDepartment,
-    updateDepartment,
-    deleteDepartment,
-    getDepartmentHierarchy,
-    getAIInsights
-  } = useDepartments();
-
-  const [newDepartment, setNewDepartment] = useState({
-    department_code: '',
-    name_ar: '',
-    name_en: '',
-    description: '',
-    function_type: 'operational',
-    sector_type: 'private',
-    parent_department_id: null,
-    cost_center_code: '',
-    location: '',
-    budget_allocation: 0,
-    visibility_level: 'internal',
-    custom_fields: {}
-  });
-
-  // AI Insights and recommendations
-  const [aiInsights, setAIInsights] = useState<any[]>([]);
-  const [showAIPanel, setShowAIPanel] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading && departments.length > 0) {
-      loadAIInsights();
+  // Mock data
+  const departments = [
+    {
+      id: '1',
+      name: 'تقنية المعلومات',
+      employeeCount: 15,
+      performance: 92,
+      budget: 500000
+    },
+    {
+      id: '2', 
+      name: 'الموارد البشرية',
+      employeeCount: 8,
+      performance: 95,
+      budget: 200000
     }
-  }, [departments, isLoading]);
+  ];
 
-  const loadAIInsights = async () => {
-    try {
-      const insights = await getAIInsights();
-      setAIInsights(insights);
-    } catch (error) {
-      console.error('Failed to load AI insights:', error);
-    }
+  const stats = {
+    totalDepartments: 16,
+    activeDepartments: 14,
+    totalPositions: 38,
+    openPositions: 12,
+    avgPerformance: 89,
+    totalBudget: 2500000
   };
 
-  // Filter departments based on search and filters
-  const filteredDepartments = departments.filter(dept => {
-    const matchesSearch = dept.name_ar.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         dept.name_en?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         dept.department_code.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesType = filterType === 'all' || dept.department_type === filterType;
-    const matchesFunction = filterFunction === 'all' || dept.function_type === filterFunction;
-    
-    return matchesSearch && matchesType && matchesFunction && dept.is_active;
-  });
+  const performanceData = [
+    { month: 'يناير', departments: 12, positions: 25, performance: 85 },
+    { month: 'فبراير', departments: 13, positions: 28, performance: 87 },
+    { month: 'مارس', departments: 14, positions: 32, performance: 89 },
+    { month: 'أبريل', departments: 14, positions: 30, performance: 88 },
+    { month: 'مايو', departments: 15, positions: 35, performance: 91 },
+    { month: 'يونيو', departments: 16, positions: 38, performance: 93 }
+  ];
 
-  // Calculate department statistics
-  const departmentStats = {
-    total: departments.filter(d => d.is_active).length,
-    strategic: departments.filter(d => d.function_type === 'strategic' && d.is_active).length,
-    operational: departments.filter(d => d.function_type === 'operational' && d.is_active).length,
-    support: departments.filter(d => d.function_type === 'support' && d.is_active).length,
-    totalEmployees: departments.reduce((sum, d) => sum + (d.head_count || 0), 0),
-    totalBudget: departments.reduce((sum, d) => sum + Number(d.budget_allocation || 0), 0)
+  const departmentTypeDistribution = [
+    { name: 'تقني', value: 35, color: '#3b82f6' },
+    { name: 'إداري', value: 25, color: '#10b981' },
+    { name: 'عمليات', value: 20, color: '#f59e0b' },
+    { name: 'دعم', value: 15, color: '#8b5cf6' },
+    { name: 'استراتيجي', value: 5, color: '#ef4444' }
+  ];
+
+  const handleExport = () => {
+    toast({
+      title: "تصدير البيانات",
+      description: "جاري تصدير البيانات إلى ملف Excel...",
+    });
   };
 
-  const handleCreateDepartment = async () => {
-    try {
-      const departmentToCreate = {
-        ...newDepartment,
-        company_id: 'temp-company-id',
-        department_type: 'operational',
-        is_active: true,
-        head_count: 0,
-        sort_order: 0,
-        function_type: newDepartment.function_type as "strategic" | "operational" | "support",
-        sector_type: newDepartment.sector_type as "governmental" | "private" | "nonprofit",
-        visibility_level: newDepartment.visibility_level as "internal" | "public" | "hr_only"
-      };
-      
-      await createDepartment(departmentToCreate);
-      setIsAddDialogOpen(false);
-      setNewDepartment({
-        department_code: '',
-        name_ar: '',
-        name_en: '',
-        description: '',
-        function_type: 'operational',
-        sector_type: 'private',
-        parent_department_id: null,
-        cost_center_code: '',
-        location: '',
-        budget_allocation: 0,
-        visibility_level: 'internal',
-        custom_fields: {}
-      });
-      toast({
-        title: "تم إنشاء القسم بنجاح",
-        description: "تم إضافة القسم الجديد إلى الهيكل التنظيمي",
-      });
-    } catch (error) {
-      toast({
-        title: "خطأ",
-        description: "فشل في إنشاء القسم",
-        variant: "destructive",
-      });
-    }
+  const handlePrint = () => {
+    toast({
+      title: "طباعة التقرير", 
+      description: "جاري إعداد التقرير للطباعة...",
+    });
   };
 
-  const handleDeleteDepartment = async (id: string) => {
-    if (confirm('هل أنت متأكد من حذف هذا القسم؟')) {
-      try {
-        await deleteDepartment(id);
-        toast({
-          title: "تم حذف القسم",
-          description: "تم حذف القسم بنجاح من الهيكل التنظيمي",
-        });
-      } catch (error) {
-        toast({
-          title: "خطأ",
-          description: "فشل في حذف القسم",
-          variant: "destructive",
-        });
-      }
-    }
-  };
-
-  const getFunctionBadgeColor = (functionType: string) => {
-    switch (functionType) {
-      case 'strategic': return 'bg-primary text-primary-foreground';
-      case 'operational': return 'bg-secondary text-secondary-foreground';
-      case 'support': return 'bg-accent text-accent-foreground';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
-
-  const getVisibilityIcon = (level: string) => {
-    return level === 'public' ? Eye : level === 'hr_only' ? EyeOff : Users;
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="text-muted-foreground">جاري تحميل الإدارات والأقسام...</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
+  const renderProfessionalHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+      <div className="relative p-8">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 space-x-reverse">
-            <Button variant="outline" onClick={onBack} className="p-2">
-              <ArrowLeft className="h-4 w-4" />
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost" 
+              size="sm"
+              onClick={onBack}
+              className="hover:bg-primary/10"
+            >
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              العودة
             </Button>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">الإدارات والأقسام</h1>
-              <p className="text-muted-foreground mt-1">إدارة الهيكل التنظيمي الشامل</p>
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Building className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  الإدارات والأقسام
+                </h1>
+                <p className="text-muted-foreground text-lg mt-1">
+                  نظام متطور لإدارة الهيكل التنظيمي والأقسام والوحدات الإدارية
+                </p>
+              </div>
             </div>
           </div>
-          
-          <div className="flex items-center space-x-2 space-x-reverse">
-            <Button 
-              variant="outline" 
-              onClick={() => setShowAIPanel(!showAIPanel)}
-              className="relative"
-            >
-              <Lightbulb className="h-4 w-4 mr-2" />
-              الذكاء الاصطناعي
-              {aiInsights.length > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 text-xs p-0 flex items-center justify-center">
-                  {aiInsights.length}
-                </Badge>
-              )}
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExport}>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
             </Button>
-            
-            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-primary hover:bg-primary/90">
-                  <Plus className="h-4 w-4 mr-2" />
-                  إضافة قسم جديد
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle>إضافة قسم جديد</DialogTitle>
-                </DialogHeader>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>رمز القسم</Label>
-                    <Input
-                      value={newDepartment.department_code}
-                      onChange={(e) => setNewDepartment(prev => ({...prev, department_code: e.target.value}))}
-                      placeholder="HR, IT, FIN..."
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>نوع الوظيفة</Label>
-                    <Select
-                      value={newDepartment.function_type}
-                      onValueChange={(value) => setNewDepartment(prev => ({...prev, function_type: value}))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="strategic">استراتيجي</SelectItem>
-                        <SelectItem value="operational">تشغيلي</SelectItem>
-                        <SelectItem value="support">دعم</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>الاسم بالعربية</Label>
-                    <Input
-                      value={newDepartment.name_ar}
-                      onChange={(e) => setNewDepartment(prev => ({...prev, name_ar: e.target.value}))}
-                      placeholder="قسم الموارد البشرية"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>الاسم بالإنجليزية</Label>
-                    <Input
-                      value={newDepartment.name_en}
-                      onChange={(e) => setNewDepartment(prev => ({...prev, name_en: e.target.value}))}
-                      placeholder="Human Resources Department"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>رمز مركز التكلفة</Label>
-                    <Input
-                      value={newDepartment.cost_center_code}
-                      onChange={(e) => setNewDepartment(prev => ({...prev, cost_center_code: e.target.value}))}
-                      placeholder="CC-001"
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label>الموقع</Label>
-                    <Input
-                      value={newDepartment.location}
-                      onChange={(e) => setNewDepartment(prev => ({...prev, location: e.target.value}))}
-                      placeholder="المبنى الرئيسي - الطابق الثالث"
-                    />
-                  </div>
-                  
-                  <div className="md:col-span-2 space-y-2">
-                    <Label>الوصف</Label>
-                    <Textarea
-                      value={newDepartment.description}
-                      onChange={(e) => setNewDepartment(prev => ({...prev, description: e.target.value}))}
-                      placeholder="وصف القسم ومهامه الأساسية..."
-                      rows={3}
-                    />
-                  </div>
-                </div>
-                
-                <div className="flex justify-end space-x-2 space-x-reverse">
-                  <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                    إلغاء
-                  </Button>
-                  <Button onClick={handleCreateDepartment}>
-                    إنشاء القسم
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+            <Button variant="outline" size="sm" onClick={handlePrint}>
+              <FileText className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Button size="sm">
+              <Plus className="h-4 w-4 ml-2" />
+              قسم جديد
+            </Button>
           </div>
         </div>
+      </div>
+    </div>
+  );
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-          <Card className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm opacity-90">إجمالي الأقسام</p>
-                  <p className="text-2xl font-bold">{departmentStats.total}</p>
-                </div>
-                <Building2 className="h-8 w-8 opacity-80" />
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي الأقسام</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalDepartments}</p>
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-r from-secondary to-secondary/80 text-secondary-foreground">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm opacity-90">استراتيجي</p>
-                  <p className="text-2xl font-bold">{departmentStats.strategic}</p>
-                </div>
-                <Crown className="h-8 w-8 opacity-80" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-r from-accent to-accent/80 text-accent-foreground">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm opacity-90">تشغيلي</p>
-                  <p className="text-2xl font-bold">{departmentStats.operational}</p>
-                </div>
-                <Layers className="h-8 w-8 opacity-80" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-r from-muted to-muted/80 text-muted-foreground">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm opacity-90">دعم</p>
-                  <p className="text-2xl font-bold">{departmentStats.support}</p>
-                </div>
-                <Users className="h-8 w-8 opacity-80" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm opacity-90">إجمالي الموظفين</p>
-                  <p className="text-2xl font-bold">{departmentStats.totalEmployees}</p>
-                </div>
-                <Users className="h-8 w-8 opacity-80" />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm opacity-90">إجمالي الميزانية</p>
-                  <p className="text-lg font-bold">{departmentStats.totalBudget.toLocaleString()} ر.س</p>
-                </div>
-                <DollarSign className="h-8 w-8 opacity-80" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              <Building className="h-8 w-8 text-primary/60" />
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Main Content */}
-        <div className="flex gap-6">
-          {/* AI Insights Panel */}
-          {showAIPanel && (
-            <Card className="w-80 h-fit">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Lightbulb className="h-5 w-5 mr-2" />
-                  رؤى الذكاء الاصطناعي
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <AIInsights insights={aiInsights} onApplyRecommendation={() => {}} />
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">أقسام نشطة</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.activeDepartments}</p>
+              </div>
+              <Activity className="h-8 w-8 text-orange-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">المناصب الإجمالية</p>
+                <p className="text-2xl font-bold text-emerald-600">{stats.totalPositions}</p>
+              </div>
+              <Users className="h-8 w-8 text-emerald-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">مناصب شاغرة</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.openPositions}</p>
+              </div>
+              <UserCheck className="h-8 w-8 text-blue-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متوسط الأداء (%)</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.avgPerformance}</p>
+              </div>
+              <Target className="h-8 w-8 text-purple-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي الميزانية</p>
+                <p className="text-2xl font-bold text-green-600">{(stats.totalBudget / 1000000).toFixed(1)}م</p>
+              </div>
+              <CreditCard className="h-8 w-8 text-green-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              أداء النظام الإداري
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={performanceData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="departments" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
+                <Area type="monotone" dataKey="positions" stackId="2" stroke="#10b981" fill="#10b981" />
+                <Area type="monotone" dataKey="performance" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              توزيع أنواع الأقسام
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RechartsPieChart>
+                <Pie
+                  data={departmentTypeDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {departmentTypeDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* AI Insights */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" />
+            رؤى الذكاء الاصطناعي الإدارية
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-semibold text-emerald-800">هيكل متوازن</span>
+              </div>
+              <p className="text-sm text-emerald-700">
+                الهيكل التنظيمي متوازن ويحقق كفاءة عالية في توزيع الأدوار
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-orange-600" />
+                <span className="text-sm font-semibold text-orange-800">احتياج إعادة هيكلة</span>
+              </div>
+              <p className="text-sm text-orange-700">
+                قسم العمليات يحتاج لإعادة هيكلة بسبب زيادة الأعباء
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-800">نمو متوقع</span>
+              </div>
+              <p className="text-sm text-blue-700">
+                التوقعات تشير لحاجة 3 أقسام جديدة خلال العام القادم
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-background">
+      {renderProfessionalHeader()}
+      
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <div className="border-b border-border">
+            <TabsList className="grid w-full grid-cols-6">
+              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="departments">الأقسام</TabsTrigger>
+              <TabsTrigger value="positions">المناصب</TabsTrigger>
+              <TabsTrigger value="structure">الهيكل التنظيمي</TabsTrigger>
+              <TabsTrigger value="reports">التقارير</TabsTrigger>
+              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+            </TabsList>
+          </div>
+
+          <TabsContent value="dashboard">
+            {renderAnalyticsDashboard()}
+          </TabsContent>
+
+          <TabsContent value="departments">
+            <h2 className="text-2xl font-bold">إدارة الأقسام</h2>
+            <Card>
+              <CardContent className="p-6">
+                <p>قائمة الأقسام والوحدات التنظيمية</p>
               </CardContent>
             </Card>
-          )}
-          
-          {/* Main Panel */}
-          <div className="flex-1">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="overview">نظرة عامة</TabsTrigger>
-                <TabsTrigger value="hierarchy">الهيكل التنظيمي</TabsTrigger>
-                <TabsTrigger value="chart">المخطط التنظيمي</TabsTrigger>
-                <TabsTrigger value="kpis">مؤشرات الأداء</TabsTrigger>
-              </TabsList>
+          </TabsContent>
 
-              <TabsContent value="overview" className="mt-6">
-                {/* Search and Filters */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="البحث في الأقسام..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                  
-                  <Select value={filterFunction} onValueChange={setFilterFunction}>
-                    <SelectTrigger className="w-40">
-                      <SelectValue placeholder="نوع الوظيفة" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">جميع الأنواع</SelectItem>
-                      <SelectItem value="strategic">استراتيجي</SelectItem>
-                      <SelectItem value="operational">تشغيلي</SelectItem>
-                      <SelectItem value="support">دعم</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  
-                  <div className="flex items-center space-x-2 space-x-reverse">
-                    <Button
-                      variant={viewMode === 'list' ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setViewMode('list')}
-                    >
-                      قائمة
-                    </Button>
-                    <Button
-                      variant={viewMode === 'hierarchy' ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setViewMode('hierarchy')}
-                    >
-                      هيكل
-                    </Button>
-                  </div>
-                </div>
+          <TabsContent value="positions">
+            <h2 className="text-2xl font-bold">إدارة المناصب</h2>
+            <Card>
+              <CardContent className="p-6">
+                <p>المناصب الوظيفية المتاحة</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-                {/* Departments List/Hierarchy View */}
-                {viewMode === 'list' ? (
-                  <div className="grid gap-4">
-                    {filteredDepartments.map((department) => (
-                      <Card key={department.id} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
-                        <CardContent className="p-6">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4 space-x-reverse flex-1">
-                              <div className="bg-primary/10 p-3 rounded-lg">
-                                <Building2 className="h-6 w-6 text-primary" />
-                              </div>
-                              
-                              <div className="flex-1">
-                                <div className="flex items-center space-x-2 space-x-reverse mb-2">
-                                  <h3 className="text-lg font-semibold text-foreground">
-                                    {department.name_ar}
-                                  </h3>
-                                  {department.name_en && (
-                                    <span className="text-sm text-muted-foreground">({department.name_en})</span>
-                                  )}
-                                  <Badge variant="secondary" className="text-xs">
-                                    {department.department_code}
-                                  </Badge>
-                                </div>
-                                
-                                <div className="flex items-center space-x-4 space-x-reverse text-sm text-muted-foreground">
-                                  <Badge className={getFunctionBadgeColor(department.function_type)}>
-                                    {department.function_type === 'strategic' ? 'استراتيجي' :
-                                     department.function_type === 'operational' ? 'تشغيلي' : 'دعم'}
-                                  </Badge>
-                                  
-                                  {department.location && (
-                                    <div className="flex items-center">
-                                      <MapPin className="h-3 w-3 mr-1" />
-                                      {department.location}
-                                    </div>
-                                  )}
-                                  
-                                  <div className="flex items-center">
-                                    <Users className="h-3 w-3 mr-1" />
-                                    {department.head_count || 0} موظف
-                                  </div>
-                                  
-                                  {department.budget_allocation && Number(department.budget_allocation) > 0 && (
-                                    <div className="flex items-center">
-                                      <DollarSign className="h-3 w-3 mr-1" />
-                                      {Number(department.budget_allocation).toLocaleString()} ر.س
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center space-x-2 space-x-reverse">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => setSelectedDepartment(department.id)}
-                              >
-                                <Eye className="h-4 w-4" />
-                                عرض
-                              </Button>
-                              
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => {/* Edit handler */}}
-                              >
-                                <Edit2 className="h-4 w-4" />
-                              </Button>
-                              
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleDeleteDepartment(department.id)}
-                                className="text-destructive hover:text-destructive"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                          
-                          {department.description && (
-                            <div className="mt-4 pt-4 border-t">
-                              <p className="text-sm text-muted-foreground">{department.description}</p>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <Card>
-                    <CardContent className="p-6">
-                      <DepartmentHierarchy 
-                        departments={filteredDepartments}
-                        onSelectDepartment={setSelectedDepartment}
-                      />
-                    </CardContent>
-                  </Card>
-                )}
-              </TabsContent>
+          <TabsContent value="structure">
+            <h2 className="text-2xl font-bold">الهيكل التنظيمي</h2>
+            <Card>
+              <CardContent className="p-6">
+                <p>المخطط التنظيمي للشركة</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-              <TabsContent value="hierarchy" className="mt-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <DepartmentHierarchy 
-                      departments={departments}
-                      onSelectDepartment={setSelectedDepartment}
-                      showAdvanced={true}
-                    />
-                  </CardContent>
-                </Card>
-              </TabsContent>
+          <TabsContent value="reports">
+            <h2 className="text-2xl font-bold">التقارير</h2>
+            <Card>
+              <CardContent className="p-6">
+                <p>تقارير الأقسام والأداء</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-              <TabsContent value="chart" className="mt-6">
-                <Card>
-                  <CardContent className="p-6">
-                    <OrganizationalChart departments={departments} />
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="kpis" className="mt-6">
-                <DepartmentKPIs departments={departments} />
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
-
-        {/* Department Details Modal */}
-        {selectedDepartment && (
-          <DepartmentDetails
-            departmentId={selectedDepartment}
-            isOpen={!!selectedDepartment}
-            onClose={() => setSelectedDepartment(null)}
-          />
-        )}
+          <TabsContent value="settings">
+            <h2 className="text-2xl font-bold">الإعدادات</h2>
+            <Card>
+              <CardContent className="p-6">
+                <p>إعدادات النظام</p>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
 };
 
-export { DepartmentsManagement };
 export default DepartmentsManagement;
