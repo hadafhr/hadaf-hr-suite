@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Building2, 
   CreditCard, 
@@ -243,6 +244,7 @@ const integrationPlatforms: IntegrationPlatform[] = [
 export function ComprehensiveIntegrationSystem() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const { toast } = useToast();
 
   const filteredPlatforms = integrationPlatforms.filter(platform => {
     const matchesSearch = platform.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -263,126 +265,144 @@ export function ComprehensiveIntegrationSystem() {
   const handleSync = async (platformId: string) => {
     const platform = integrationPlatforms.find(p => p.id === platformId);
     if (!platform) return;
-    toast.success(`تمت مزامنة ${platform.name} بنجاح`);
+    toast({
+      title: "تمت المزامنة بنجاح",
+      description: `تم مزامنة ${platform.name} بنجاح`,
+    });
   };
 
-  return (
-    <div className="space-y-6" dir="rtl">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">التكامل والربط</h1>
-          <p className="text-muted-foreground">
-            إدارة شاملة لجميع التكاملات مع المنصات الحكومية والمالية
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button size="sm" className="gap-2">
-            <Plus className="h-4 w-4" />
-            إضافة تكامل
-          </Button>
-          <Button variant="outline" size="sm" className="gap-2">
-            <Settings className="h-4 w-4" />
-            الإعدادات
-          </Button>
+  const handleExport = () => {
+    toast({
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير تقرير التكامل كملف PDF",
+    });
+  };
+
+  const handlePrint = () => {
+    toast({
+      title: "جاري الطباعة",
+      description: "يتم تحضير التقرير للطباعة",
+    });
+  };
+
+  const renderHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+      <div className="relative p-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Network className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  التكامل والربط
+                </h1>
+                <p className="text-muted-foreground text-lg mt-1">
+                  منظومة شاملة لإدارة جميع التكاملات مع المنصات الحكومية والمالية مع أدوات المراقبة المتقدمة
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExport}>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
+            </Button>
+            <Button variant="outline" size="sm" onClick={handlePrint}>
+              <FileText className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Button size="sm">
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة تكامل
+            </Button>
+          </div>
         </div>
       </div>
+    </div>
+  );
 
-      {/* KPI Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              إجمالي المنصات
-            </CardTitle>
-            <Network className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{categoryStats.total}</div>
-            <p className="text-xs text-muted-foreground">
-              +2 منذ الشهر الماضي
-            </p>
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي المنصات</p>
+                <p className="text-2xl font-bold text-primary">{categoryStats.total}</p>
+              </div>
+              <Network className="h-8 w-8 text-primary/60" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              المنصات المتصلة
-            </CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{categoryStats.connected}</div>
-            <p className="text-xs text-muted-foreground">
-              {Math.round((categoryStats.connected / categoryStats.total) * 100)}% معدل الاتصال
-            </p>
+        <Card className="border-l-4 border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">المنصات المتصلة</p>
+                <p className="text-2xl font-bold text-emerald-600">{categoryStats.connected}</p>
+              </div>
+              <CheckCircle2 className="h-8 w-8 text-emerald-500/60" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              المنصات الحكومية
-            </CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{categoryStats.government}</div>
-            <p className="text-xs text-muted-foreground">
-              جميعها متصلة ونشطة
-            </p>
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">المنصات الحكومية</p>
+                <p className="text-2xl font-bold text-blue-600">{categoryStats.government}</p>
+              </div>
+              <Building2 className="h-8 w-8 text-blue-500/60" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              الأنظمة المالية
-            </CardTitle>
-            <Banknote className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{categoryStats.financial}</div>
-            <p className="text-xs text-muted-foreground">
-              تحديث كل 4 ساعات
-            </p>
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">الأنظمة المالية</p>
+                <p className="text-2xl font-bold text-orange-600">{categoryStats.financial}</p>
+              </div>
+              <Banknote className="h-8 w-8 text-orange-500/60" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              معدل النجاح
-            </CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">97%</div>
-            <p className="text-xs text-muted-foreground">
-              +2% من الشهر الماضي
-            </p>
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                <p className="text-2xl font-bold text-purple-600">97%</p>
+              </div>
+              <Activity className="h-8 w-8 text-purple-500/60" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              العمليات اليومية
-            </CardTitle>
-            <RefreshCw className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,247</div>
-            <p className="text-xs text-muted-foreground">
-              +180 من أمس
-            </p>
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">العمليات اليومية</p>
+                <p className="text-2xl font-bold text-green-600">1,247</p>
+              </div>
+              <RefreshCw className="h-8 w-8 text-green-500/60" />
+            </div>
           </CardContent>
         </Card>
       </div>
 
       {/* Charts Section */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -437,42 +457,40 @@ export function ComprehensiveIntegrationSystem() {
       </div>
 
       {/* AI Insights */}
-      <Card>
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Bot className="h-5 w-5" />
-            رؤى الذكاء الاصطناعي
+            <Bot className="h-5 w-5 text-primary" />
+            رؤى الذكاء الاصطناعي للتكامل
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="font-medium text-blue-900 dark:text-blue-100">تحسن الأداء</span>
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-semibold text-emerald-800">استقرار عالي</span>
               </div>
-              <p className="text-sm text-blue-700 dark:text-blue-300">
-                معدل نجاح المزامنة تحسن بنسبة 15% هذا الشهر
+              <p className="text-sm text-emerald-700">
+                جميع المنصات الحكومية تعمل بكفاءة 100% بدون انقطاع
               </p>
             </div>
-
-            <div className="p-4 rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800">
+            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
               <div className="flex items-center gap-2 mb-2">
                 <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="font-medium text-orange-900 dark:text-orange-100">تنبيه</span>
+                <span className="text-sm font-semibold text-orange-800">تنبيه صيانة</span>
               </div>
-              <p className="text-sm text-orange-700 dark:text-orange-300">
-                منصة SAP تحتاج إلى إعادة تكوين الاتصال
+              <p className="text-sm text-orange-700">
+                منصة SAP تحتاج إلى إعادة تكوين الاتصال قريباً
               </p>
             </div>
-
-            <div className="p-4 rounded-lg bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800">
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span className="font-medium text-green-900 dark:text-green-100">استقرار عالي</span>
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-800">تحسن الأداء</span>
               </div>
-              <p className="text-sm text-green-700 dark:text-green-300">
-                جميع المنصات الحكومية تعمل بكفاءة 100%
+              <p className="text-sm text-blue-700">
+                معدل نجاح المزامنة تحسن بنسبة 15% هذا الشهر
               </p>
             </div>
           </div>
@@ -493,7 +511,7 @@ export function ComprehensiveIntegrationSystem() {
               <RefreshCw className="h-4 w-4" />
               مزامنة جميع المنصات
             </Button>
-            <Button variant="outline" className="justify-start gap-2">
+            <Button variant="outline" className="justify-start gap-2" onClick={handleExport}>
               <Download className="h-4 w-4" />
               تحميل تقرير المزامنة
             </Button>
@@ -615,6 +633,13 @@ export function ComprehensiveIntegrationSystem() {
           </div>
         </CardContent>
       </Card>
+    </div>
+  );
+
+  return (
+    <div className="space-y-6" dir="rtl">
+      {renderHeader()}
+      {renderAnalyticsDashboard()}
     </div>
   );
 }
