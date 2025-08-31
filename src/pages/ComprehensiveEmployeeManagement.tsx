@@ -54,7 +54,7 @@ import OrganizationalDevelopment from '@/components/systems/OrganizationalDevelo
 import { GovernanceCompliance } from '@/components/systems/GovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
-import { PerformanceEvaluation } from '@/components/systems/PerformanceEvaluation';
+import { ComprehensiveSmartEvaluation } from '@/components/systems/ComprehensiveSmartEvaluation';
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
 import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
@@ -423,7 +423,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="performance">
-            <PerformanceEvaluation onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="training">
