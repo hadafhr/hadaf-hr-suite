@@ -8,7 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { 
   ArrowLeft, Scale, AlertTriangle, CheckCircle, FileCheck, Gavel, Users, FileText, 
   Eye, Save, Download, Share, Settings, Bot, Brain, Zap, TrendingUp, Shield,
-  Bell, Calendar, Target, Lightbulb, BarChart3, PieChart, Activity, Clock
+  Bell, Calendar, Target, Lightbulb, BarChart3, PieChart, Activity, Clock, CheckCircle2
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, LineChart, Line, BarChart, Bar } from 'recharts';
 import { useToast } from '@/hooks/use-toast';
@@ -29,7 +29,7 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [aiInsights, setAiInsights] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
@@ -173,139 +173,291 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary-glow to-secondary p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/30"></div>
-          <div className="absolute inset-0 bg-white/5 opacity-20"></div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto">
+        {/* Header - Exact Team Design */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+          <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+          <div className="relative p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
                 <Button
-                  variant="outline"
+                  variant="ghost" 
                   size="sm"
                   onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+                  className="hover:bg-primary/10"
                 >
-                  <ArrowLeft className="h-4 w-4" />
-                  {isRTL ? 'رجوع' : 'Back'}
+                  <ArrowLeft className="h-4 w-4 ml-2" />
+                  العودة
                 </Button>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <Scale className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h1 className="text-3xl font-bold text-foreground">
+                      الحوكمة والامتثال
+                    </h1>
+                    <p className="text-muted-foreground text-lg mt-1">
+                      منظومة شاملة لإدارة الحوكمة المؤسسية وضمان الامتثال الكامل للقوانين واللوائح مع أدوات التحليل المتقدمة
+                    </p>
+                  </div>
+                </div>
               </div>
-              
-              <div className="flex items-center gap-3">
-                <Button 
-                  onClick={handleCalculateEligibility}
-                  className="bg-secondary/90 border-secondary/30 text-white hover:bg-secondary backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                >
-                  <Target className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تقييم الامتثال' : 'Evaluate Compliance'}
-                </Button>
-                <Button 
-                  onClick={handleExportExcel}
-                  className="bg-success/90 border-success/30 text-white hover:bg-success backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                >
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={handleExportExcel}>
                   <Download className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
+                  تصدير Excel
                 </Button>
-                <Button 
-                  onClick={handleExportPDF}
-                  className="bg-destructive/90 border-destructive/30 text-white hover:bg-destructive backdrop-blur-sm transition-all duration-300 hover:scale-105"
-                >
+                <Button variant="outline" size="sm" onClick={handleExportPDF}>
                   <FileText className="h-4 w-4 ml-2" />
-                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
+                  تصدير PDF
+                </Button>
+                <Button size="sm" onClick={handleCalculateEligibility}>
+                  <Target className="h-4 w-4 ml-2" />
+                  تقييم الامتثال
                 </Button>
               </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Brain className="h-12 w-12 text-white" />
-                </div>
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Scale className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                {isRTL ? 'نظام الحوكمة والامتثال الذكي' : 'Smart Governance & Compliance System'}
-              </h1>
-              <p className="text-white/90 text-lg max-w-3xl mx-auto">
-                {isRTL ? 'منظومة متطورة مدعومة بالذكاء الاصطناعي لإدارة الحوكمة المؤسسية وضمان الامتثال الشامل للقوانين واللوائح' : 'Advanced AI-powered system for corporate governance management and comprehensive regulatory compliance'}
-              </p>
             </div>
           </div>
         </div>
 
-        {/* AI Insights Summary */}
-        {aiInsights && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-primary/10 to-primary/20 border-primary/20">
-              <CardContent className="p-6 text-center">
-                <Bot className="h-8 w-8 text-primary mx-auto mb-3" />
-                <div className="text-2xl font-bold text-primary mb-1">{aiInsights.overallScore}%</div>
-                <div className="text-sm text-gray-600">{isRTL ? 'النتيجة الإجمالية' : 'Overall Score'}</div>
-              </CardContent>
-            </Card>
+        {/* Main Content */}
+        <div className="p-8">
+          {/* Main Tabs */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-6 bg-white rounded-xl shadow-lg border p-2">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <BarChart3 className="h-4 w-4" />
+                لوحة التحكم
+              </TabsTrigger>
+              <TabsTrigger value="compliance" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <CheckCircle className="h-4 w-4" />
+                الامتثال
+              </TabsTrigger>
+              <TabsTrigger value="governance" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <Scale className="h-4 w-4" />
+                الحوكمة
+              </TabsTrigger>
+              <TabsTrigger value="risks" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <AlertTriangle className="h-4 w-4" />
+                المخاطر
+              </TabsTrigger>
+              <TabsTrigger value="ai-insights" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <Brain className="h-4 w-4" />
+                الذكاء الاصطناعي
+              </TabsTrigger>
+              <TabsTrigger value="reports" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <FileText className="h-4 w-4" />
+                التقارير
+              </TabsTrigger>
+            </TabsList>
 
-            <Card className="bg-gradient-to-br from-success/10 to-success/20 border-success/20">
-              <CardContent className="p-6 text-center">
-                <Shield className="h-8 w-8 text-success mx-auto mb-3" />
-                <div className="text-2xl font-bold text-success mb-1">{aiInsights.riskLevel}</div>
-                <div className="text-sm text-gray-600">{isRTL ? 'مستوى المخاطر' : 'Risk Level'}</div>
-              </CardContent>
-            </Card>
+            {/* Dashboard Tab */}
+            <TabsContent value="dashboard" className="space-y-6">
+              {/* Key Performance Indicators - Exact Team Design */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                <Card className="border-l-4 border-l-primary">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">معدل الامتثال العام</p>
+                        <p className="text-2xl font-bold text-primary">94%</p>
+                      </div>
+                      <CheckCircle className="h-8 w-8 text-primary/60" />
+                    </div>
+                  </CardContent>
+                </Card>
 
-            <Card className="bg-gradient-to-br from-warning/10 to-warning/20 border-warning/20">
-              <CardContent className="p-6 text-center">
-                <Lightbulb className="h-8 w-8 text-warning mx-auto mb-3" />
-                <div className="text-2xl font-bold text-warning mb-1">{aiInsights.recommendations}</div>
-                <div className="text-sm text-gray-600">{isRTL ? 'التوصيات الذكية' : 'Smart Recommendations'}</div>
-              </CardContent>
-            </Card>
+                <Card className="border-l-4 border-l-orange-500">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">المخاطر النشطة</p>
+                        <p className="text-2xl font-bold text-orange-600">20</p>
+                      </div>
+                      <AlertTriangle className="h-8 w-8 text-orange-500/60" />
+                    </div>
+                  </CardContent>
+                </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/10 to-secondary/20 border-secondary/20">
-              <CardContent className="p-6 text-center">
-                <TrendingUp className="h-8 w-8 text-secondary mx-auto mb-3" />
-                <div className="text-2xl font-bold text-secondary mb-1">{aiInsights.predictedCompliance}%</div>
-                <div className="text-sm text-gray-600">{isRTL ? 'التوقع المستقبلي' : 'Future Prediction'}</div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+                <Card className="border-l-4 border-l-emerald-500">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">التدقيقات المكتملة</p>
+                        <p className="text-2xl font-bold text-emerald-600">95</p>
+                      </div>
+                      <FileCheck className="h-8 w-8 text-emerald-500/60" />
+                    </div>
+                  </CardContent>
+                </Card>
 
-        {/* Main Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 bg-white rounded-xl shadow-lg border p-2">
-            <TabsTrigger value="overview" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-              <BarChart3 className="h-4 w-4" />
-              {isRTL ? 'النظرة العامة' : 'Overview'}
-            </TabsTrigger>
-            <TabsTrigger value="compliance" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-              <CheckCircle className="h-4 w-4" />
-              {isRTL ? 'الامتثال' : 'Compliance'}
-            </TabsTrigger>
-            <TabsTrigger value="governance" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-              <Scale className="h-4 w-4" />
-              {isRTL ? 'الحوكمة' : 'Governance'}
-            </TabsTrigger>
-            <TabsTrigger value="risks" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-              <AlertTriangle className="h-4 w-4" />
-              {isRTL ? 'المخاطر' : 'Risks'}
-            </TabsTrigger>
-            <TabsTrigger value="ai-insights" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-              <Brain className="h-4 w-4" />
-              {isRTL ? 'الذكاء الاصطناعي' : 'AI Insights'}
-            </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
-              <FileText className="h-4 w-4" />
-              {isRTL ? 'التقارير' : 'Reports'}
-            </TabsTrigger>
-          </TabsList>
+                <Card className="border-l-4 border-l-blue-500">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">الإجراءات الملتزمة</p>
+                        <p className="text-2xl font-bold text-blue-600">340</p>
+                      </div>
+                      <Gavel className="h-8 w-8 text-blue-500/60" />
+                    </div>
+                  </CardContent>
+                </Card>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
+                <Card className="border-l-4 border-l-purple-500">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">التراخيص النشطة</p>
+                        <p className="text-2xl font-bold text-purple-600">28</p>
+                      </div>
+                      <FileText className="h-8 w-8 text-purple-500/60" />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-l-4 border-l-green-500">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">التوقع المستقبلي</p>
+                        <p className="text-2xl font-bold text-green-600">98%</p>
+                      </div>
+                      <TrendingUp className="h-8 w-8 text-green-500/60" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Charts Section - Exact Team Design */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5" />
+                      اتجاهات الامتثال
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <AreaChart data={complianceData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Area type="monotone" dataKey="compliance" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
+                        <Area type="monotone" dataKey="predicted" stackId="2" stroke="#10b981" fill="#10b981" />
+                        <Area type="monotone" dataKey="violations" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <PieChart className="h-5 w-5" />
+                      توزيع المخاطر
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <RechartsPieChart>
+                        <Pie
+                          data={riskAssessment}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={false}
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="value"
+                        >
+                          {riskAssessment.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </RechartsPieChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* AI Insights - Exact Team Design */}
+              <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-primary" />
+                    رؤى الذكاء الاصطناعي للحوكمة والامتثال
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                        <span className="text-sm font-semibold text-emerald-800">امتثال ممتاز</span>
+                      </div>
+                      <p className="text-sm text-emerald-700">
+                        معدل الامتثال محسّن بنسبة 5% مع انخفاض المخالفات بشكل ملحوظ
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertTriangle className="h-4 w-4 text-orange-600" />
+                        <span className="text-sm font-semibold text-orange-800">تحديث مطلوب</span>
+                      </div>
+                      <p className="text-sm text-orange-700">
+                        يُنصح بتحديث سياسة الأمان السيبراني لمواجهة التهديدات الحديثة
+                      </p>
+                    </div>
+                    <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+                      <div className="flex items-center gap-2 mb-2">
+                        <TrendingUp className="h-4 w-4 text-blue-600" />
+                        <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
+                      </div>
+                      <p className="text-sm text-blue-700">
+                        التوقعات تشير لوصول معدل الامتثال إلى 99% الشهر القادم
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Quick Actions */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Zap className="h-5 w-5" />
+                    الإجراءات السريعة
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Button variant="outline" className="p-4 h-auto flex-col gap-2" onClick={performAIAnalysis} disabled={loading}>
+                      <Brain className="h-6 w-6" />
+                      <span className="text-sm">تحليل ذكي شامل</span>
+                    </Button>
+                    <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+                      <Shield className="h-6 w-6" />
+                      <span className="text-sm">تقييم المخاطر</span>
+                    </Button>
+                    <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+                      <FileCheck className="h-6 w-6" />
+                      <span className="text-sm">تدقيق جديد</span>
+                    </Button>
+                    <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+                      <Gavel className="h-6 w-6" />
+                      <span className="text-sm">مراجعة السياسات</span>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Overview Tab */}
+            <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Analytics Panel */}
               <div className="lg:col-span-2">
@@ -635,7 +787,8 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
               </CardContent>
             </Card>
           </TabsContent>
-        </Tabs>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
