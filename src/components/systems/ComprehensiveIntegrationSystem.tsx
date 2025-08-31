@@ -368,7 +368,7 @@ export function ComprehensiveIntegrationSystem() {
 
   const renderAnalyticsDashboard = () => (
     <div className="space-y-6">
-      {/* Key Performance Indicators */}
+      {/* Key Performance Indicators - Exact Team Design */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
           <CardContent className="p-4">
@@ -382,38 +382,38 @@ export function ComprehensiveIntegrationSystem() {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">المنصات المتصلة</p>
-                <p className="text-2xl font-bold text-blue-600">{integrationStats.connectedPlatforms}</p>
-              </div>
-              <CheckCircle2 className="h-8 w-8 text-blue-500/60" />
-            </div>
-          </CardContent>
-        </Card>
-
         <Card className="border-l-4 border-l-orange-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">المنصات الحكومية</p>
-                <p className="text-2xl font-bold text-orange-600">{integrationStats.governmentPlatforms}</p>
+                <p className="text-sm text-muted-foreground">المنصات المتصلة</p>
+                <p className="text-2xl font-bold text-orange-600">{integrationStats.connectedPlatforms}</p>
               </div>
-              <Building2 className="h-8 w-8 text-orange-500/60" />
+              <CheckCircle2 className="h-8 w-8 text-orange-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="border-l-4 border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">المنصات الحكومية</p>
+                <p className="text-2xl font-bold text-emerald-600">{integrationStats.governmentPlatforms}</p>
+              </div>
+              <Building2 className="h-8 w-8 text-emerald-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-blue-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">الأنظمة المالية</p>
-                <p className="text-2xl font-bold text-green-600">{integrationStats.financialSystems}</p>
+                <p className="text-2xl font-bold text-blue-600">{integrationStats.financialSystems}</p>
               </div>
-              <Database className="h-8 w-8 text-green-500/60" />
+              <Database className="h-8 w-8 text-blue-500/60" />
             </div>
           </CardContent>
         </Card>
@@ -422,28 +422,28 @@ export function ComprehensiveIntegrationSystem() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">معدل النجاح (%)</p>
-                <p className="text-2xl font-bold text-purple-600">{integrationStats.successRate}</p>
+                <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                <p className="text-2xl font-bold text-purple-600">{integrationStats.successRate}%</p>
               </div>
               <Activity className="h-8 w-8 text-purple-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-indigo-500">
+        <Card className="border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">العمليات اليومية</p>
-                <p className="text-2xl font-bold text-indigo-600">{integrationStats.dailyOperations}</p>
+                <p className="text-2xl font-bold text-green-600">{integrationStats.dailyOperations}</p>
               </div>
-              <Zap className="h-8 w-8 text-indigo-500/60" />
+              <Zap className="h-8 w-8 text-green-500/60" />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Charts Section */}
+      {/* Charts Section - Exact Team Design */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -496,7 +496,7 @@ export function ComprehensiveIntegrationSystem() {
         </Card>
       </div>
 
-      {/* AI Insights */}
+      {/* AI Insights - Exact Team Design */}
       <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -509,10 +509,10 @@ export function ComprehensiveIntegrationSystem() {
             <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">اتصال مستقر</span>
+                <span className="text-sm font-semibold text-emerald-800">اتصال ممتاز</span>
               </div>
               <p className="text-sm text-emerald-700">
-                جميع المنصات الحكومية متصلة بنجاح مع معدل استقرار 99.2%
+                جميع المنصات الحكومية متصلة بنجاح مع معدل مزامنة 97%
               </p>
             </div>
             <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
@@ -521,16 +521,16 @@ export function ComprehensiveIntegrationSystem() {
                 <span className="text-sm font-semibold text-orange-800">تحديث مطلوب</span>
               </div>
               <p className="text-sm text-orange-700">
-                يُنصح بتحديث واجهات برمجة التطبيقات لنظام SAP قريباً
+                يُنصح بتحديث بيانات الاتصال لنظام SAP لتحسين الأداء
               </p>
             </div>
             <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">أداء متزايد</span>
+                <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
               </div>
               <p className="text-sm text-blue-700">
-                زيادة بنسبة 15% في عمليات المزامنة التلقائية هذا الشهر
+                متوقع زيادة كفاءة المزامنة إلى 99% مع التحديثات الجديدة
               </p>
             </div>
           </div>
@@ -542,34 +542,26 @@ export function ComprehensiveIntegrationSystem() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Zap className="h-5 w-5" />
-            إجراءات سريعة
+            الإجراءات السريعة
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Plug className="h-6 w-6 mb-2" />
-              <span className="text-xs text-center">إضافة تكامل</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+              <RefreshCw className="h-6 w-6" />
+              <span className="text-sm">مزامنة شاملة</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <RefreshCw className="h-6 w-6 mb-2" />
-              <span className="text-xs text-center">مزامنة شاملة</span>
+            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+              <Settings className="h-6 w-6" />
+              <span className="text-sm">إعدادات الربط</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Eye className="h-6 w-6 mb-2" />
-              <span className="text-xs text-center">مراقبة الحالة</span>
+            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+              <Plus className="h-6 w-6" />
+              <span className="text-sm">إضافة منصة</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Key className="h-6 w-6 mb-2" />
-              <span className="text-xs text-center">إدارة المفاتيح</span>
-            </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Settings className="h-6 w-6 mb-2" />
-              <span className="text-xs text-center">إعدادات النظام</span>
-            </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Bell className="h-6 w-6 mb-2" />
-              <span className="text-xs text-center">التنبيهات</span>
+            <Button variant="outline" className="p-4 h-auto flex-col gap-2">
+              <BarChart3 className="h-6 w-6" />
+              <span className="text-sm">تقرير شامل</span>
             </Button>
           </div>
         </CardContent>
@@ -578,20 +570,42 @@ export function ComprehensiveIntegrationSystem() {
   );
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
+    <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto">
         {renderHeader()}
         
-        <div className="p-6">
+        <div className="p-8">
+          {/* Main Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="platforms">المنصات</TabsTrigger>
-              <TabsTrigger value="monitoring">المراقبة</TabsTrigger>
-              <TabsTrigger value="reports">التقارير</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-6 bg-white rounded-xl shadow-lg border p-2">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <BarChart3 className="h-4 w-4" />
+                لوحة التحكم
+              </TabsTrigger>
+              <TabsTrigger value="platforms" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <Network className="h-4 w-4" />
+                المنصات
+              </TabsTrigger>
+              <TabsTrigger value="government" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <Building2 className="h-4 w-4" />
+                حكومية
+              </TabsTrigger>
+              <TabsTrigger value="financial" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <Database className="h-4 w-4" />
+                مالية
+              </TabsTrigger>
+              <TabsTrigger value="sync" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <RefreshCw className="h-4 w-4" />
+                المزامنة
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+                <Settings className="h-4 w-4" />
+                الإعدادات
+              </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="dashboard">
+            {/* Dashboard Tab */}
+            <TabsContent value="dashboard" className="space-y-6">
               {renderAnalyticsDashboard()}
             </TabsContent>
 
@@ -703,30 +717,60 @@ export function ComprehensiveIntegrationSystem() {
               </Card>
             </TabsContent>
 
-            <TabsContent value="monitoring">
+            <TabsContent value="government">
               <Card>
                 <CardHeader>
-                  <CardTitle>مراقبة النظام</CardTitle>
+                  <CardTitle>المنصات الحكومية</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
-                    <Activity className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">مراقبة النظام</h3>
+                    <Building2 className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">المنصات الحكومية</h3>
                     <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
                   </div>
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="reports">
+            <TabsContent value="financial">
               <Card>
                 <CardHeader>
-                  <CardTitle>التقارير</CardTitle>
+                  <CardTitle>الأنظمة المالية</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
-                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">التقارير</h3>
+                    <Database className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">الأنظمة المالية</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="sync">
+              <Card>
+                <CardHeader>
+                  <CardTitle>إدارة المزامنة</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <RefreshCw className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">إدارة المزامنة</h3>
+                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="settings">
+              <Card>
+                <CardHeader>
+                  <CardTitle>إعدادات النظام</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center py-12">
+                    <Settings className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold mb-2">إعدادات النظام</h3>
                     <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
                   </div>
                 </CardContent>
