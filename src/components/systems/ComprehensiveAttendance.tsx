@@ -16,25 +16,25 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
 
   // بيانات الحضور والانصراف
   const attendanceData = [
-    { month: 'يناير', present: 120, late: 8, absent: 2 },
-    { month: 'فبراير', present: 135, late: 12, absent: 3 },
-    { month: 'مارس', present: 128, late: 5, absent: 1 },
-    { month: 'أبريل', present: 142, late: 10, absent: 4 },
-    { month: 'مايو', present: 130, late: 7, absent: 2 },
-    { month: 'يونيو', present: 138, late: 9, absent: 3 }
+    { month: 'يناير', cases: 120, resolved: 115, pending: 5 },
+    { month: 'فبراير', cases: 135, resolved: 128, pending: 7 },
+    { month: 'مارس', cases: 128, resolved: 125, pending: 3 },
+    { month: 'أبريل', cases: 142, resolved: 135, pending: 7 },
+    { month: 'مايو', cases: 130, resolved: 127, pending: 3 },
+    { month: 'يونيو', cases: 138, resolved: 132, pending: 6 }
   ];
 
   const attendanceMetrics = [
-    { category: 'حضور منتظم', count: 832, percentage: 92, color: 'hsl(var(--success))' },
-    { category: 'تأخير', count: 51, percentage: 5.6, color: 'hsl(var(--warning))' },
-    { category: 'غياب', count: 15, percentage: 1.7, color: 'hsl(var(--destructive))' },
-    { category: 'عمل عن بُعد', count: 67, percentage: 7.4, color: 'hsl(var(--primary))' }
+    { category: 'الحضور المنتظم', count: 832, percentage: 92, color: 'hsl(var(--success))' },
+    { category: 'قيد المراجعة', count: 31, percentage: 3.4, color: 'hsl(var(--warning))' },
+    { category: 'متأخر', count: 25, percentage: 2.8, color: 'hsl(var(--destructive))' },
+    { category: 'حضور مكتمل', count: 857, percentage: 94.8, color: 'hsl(var(--primary))' }
   ];
 
-  const attendanceByDepartment = [
-    { level: 'تقنية المعلومات', value: 35, count: 45 },
-    { level: 'الموارد البشرية', value: 25, count: 32 },
-    { level: 'المبيعات', value: 40, count: 51 }
+  const casesByType = [
+    { level: 'حضور يومي', value: 45, count: 78 },
+    { level: 'نوبات مسائية', value: 30, count: 52 },
+    { level: 'عمل عن بُعد', value: 25, count: 43 }
   ];
 
   const BOUD_COLORS = ['hsl(var(--primary))', 'hsl(var(--warning))', 'hsl(var(--destructive))'];
@@ -101,10 +101,10 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
             <Card className="bg-gradient-to-br from-slate-900 via-primary to-secondary text-white shadow-2xl rounded-2xl overflow-hidden">
               <CardContent className="p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Attendance Tracking */}
+                  {/* Attendance Framework */}
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-primary-glow">
-                      {isRTL ? 'تتبع الحضور' : 'Attendance Tracking'}
+                      {isRTL ? 'إطار الحضور' : 'Attendance Framework'}
                     </h3>
                     <div className="relative h-48 bg-gradient-to-br from-primary/50 to-secondary/50 rounded-xl p-4 flex items-center justify-center">
                       <Clock className="h-32 w-32 text-primary-glow opacity-80" />
@@ -128,7 +128,7 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                         24 {isRTL ? 'نوبة نشطة' : 'Active Shifts'}
                       </div>
                       <div className="absolute bottom-4 left-4 bg-destructive/80 px-3 py-1 rounded-full text-sm">
-                        67 {isRTL ? 'عمل عن بُعد' : 'Remote Work'}
+                        31 {isRTL ? 'للمراجعة' : 'Under Review'}
                       </div>
                     </div>
                   </div>
@@ -139,13 +139,13 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                   <ResponsiveContainer width="100%" height={200}>
                     <AreaChart data={attendanceData}>
                       <defs>
-                        <linearGradient id="colorPresent" x1="0" y1="0" x2="0" y2="1">
+                        <linearGradient id="colorCases" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
                           <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
                         </linearGradient>
-                        <linearGradient id="colorLate" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--warning))" stopOpacity={0.8}/>
-                          <stop offset="95%" stopColor="hsl(var(--warning))" stopOpacity={0.1}/>
+                        <linearGradient id="colorResolved" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--success))" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(var(--success))" stopOpacity={0.1}/>
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -155,8 +155,8 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                         contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
                         labelStyle={{ color: '#F3F4F6' }}
                       />
-                      <Area type="monotone" dataKey="present" stroke="hsl(var(--primary))" fill="url(#colorPresent)" />
-                      <Area type="monotone" dataKey="late" stroke="hsl(var(--warning))" fill="url(#colorLate)" />
+                      <Area type="monotone" dataKey="cases" stroke="hsl(var(--primary))" fill="url(#colorCases)" />
+                      <Area type="monotone" dataKey="resolved" stroke="hsl(var(--success))" fill="url(#colorResolved)" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -179,7 +179,7 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                     <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
                       <div>
                         <p className="font-semibold text-gray-800">{metric.category}</p>
-                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'موظف' : 'employees'}</p>
+                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'عنصر' : 'items'}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
@@ -193,12 +193,12 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
             <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">
-                  {isRTL ? 'الحضور حسب القسم' : 'Attendance by Department'}
+                  {isRTL ? 'توزيع الحضور' : 'Attendance Distribution'}
                 </h3>
                 <ResponsiveContainer width="100%" height={200}>
                   <RechartsPieChart>
                     <Pie
-                      data={attendanceByDepartment}
+                      data={casesByType}
                       cx="50%"
                       cy="50%"
                       innerRadius={40}
@@ -206,7 +206,7 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                       paddingAngle={5}
                       dataKey="value"
                     >
-                      {attendanceByDepartment.map((entry, index) => (
+                      {casesByType.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
                       ))}
                     </Pie>
@@ -218,7 +218,7 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
           </div>
         </div>
 
-        {/* Attendance System */}
+        {/* Attendance Affairs System */}
         <div className="mb-8">
           <div className="text-center mb-6">
             <div className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-2 rounded-full shadow-lg">
@@ -277,8 +277,8 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                 </div>
                 
                 <div className="text-center p-6 bg-gradient-to-br from-warning/10 to-warning/20 rounded-xl border border-warning/20">
-                  <div className="text-3xl font-bold text-warning mb-2">51</div>
-                  <div className="text-sm text-gray-600">{isRTL ? 'حالات تأخير' : 'Late Cases'}</div>
+                  <div className="text-3xl font-bold text-warning mb-2">31</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'حضور معلق' : 'Pending Attendance'}</div>
                 </div>
               </div>
             </CardContent>
