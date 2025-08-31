@@ -46,7 +46,7 @@ import { SystemSettings } from '@/components/settings/SystemSettings';
 import { NotificationSystem } from '@/components/NotificationSystem';
 import { TeamMembers } from '@/components/systems/TeamMembers';
 import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
-import { ComprehensiveAttendance } from '@/components/systems/ComprehensiveAttendance';
+import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendance';
 import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';

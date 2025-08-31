@@ -1,487 +1,292 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import { 
-  Clock, Users, MapPin, Calendar, AlertTriangle, CheckCircle,
-  Download, FileText, Search, Filter, Plus, Edit, Eye, Trash2,
-  ArrowLeft, RefreshCw, BarChart3, TrendingUp, Timer, User,
-  Building, Smartphone, Fingerprint, Globe, Shield, Bot, Settings,
-  PieChart
-} from 'lucide-react';
-import { format } from 'date-fns';
-
-interface AttendanceRecord {
-  id: string;
-  employeeId: string;
-  employeeName: string;
-  department: string;
-  position: string;
-  date: Date;
-  checkInTime?: Date;
-  checkOutTime?: Date;
-  workingHours: number;
-  overtimeHours: number;
-  status: 'present' | 'absent' | 'late' | 'early_leave' | 'remote';
-  checkInMethod: 'gps' | 'fingerprint' | 'manual' | 'facial_recognition';
-  checkInLocation?: {
-    lat: number;
-    lng: number;
-    address: string;
-  };
-  checkOutLocation?: {
-    lat: number;
-    lng: number;
-    address: string;
-  };
-  notes?: string;
-  approvedBy?: string;
-  createdAt: Date;
-}
+import { ArrowLeft, Clock, FileText, AlertTriangle, CheckCircle, Users, Eye, Save, Download, Share, Settings, Calendar, MapPin, Building, Bot } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
 
 interface ComprehensiveAttendanceProps {
-  onBack?: () => void;
+  onBack: () => void;
 }
 
-export const ComprehensiveAttendance: React.FC<ComprehensiveAttendanceProps> = ({ onBack }) => {
-  const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [records, setRecords] = useState<AttendanceRecord[]>([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<string>('all');
-  const [filterDepartment, setFilterDepartment] = useState<string>('all');
-  const [showDetails, setShowDetails] = useState<{[key: string]: boolean}>({});
+const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
 
-  // Mock data
-  const mockRecords: AttendanceRecord[] = [
-    {
-      id: '1',
-      employeeId: 'EMP001',
-      employeeName: 'أحمد محمد العلي',
-      department: 'تقنية المعلومات',
-      position: 'مطور برمجيات',
-      date: new Date(),
-      checkInTime: new Date(Date.now() - 8 * 60 * 60 * 1000),
-      checkOutTime: new Date(Date.now() - 1 * 60 * 60 * 1000),
-      workingHours: 8,
-      overtimeHours: 1,
-      status: 'present',
-      checkInMethod: 'gps',
-      checkInLocation: {
-        lat: 24.7136,
-        lng: 46.6753,
-        address: 'الرياض، المملكة العربية السعودية'
-      },
-      createdAt: new Date()
-    },
-    {
-      id: '2',
-      employeeId: 'EMP002',
-      employeeName: 'سارة المطيري',
-      department: 'المالية',
-      position: 'محاسبة مالية',
-      date: new Date(),
-      checkInTime: new Date(Date.now() - 7.5 * 60 * 60 * 1000),
-      workingHours: 7.5,
-      overtimeHours: 0,
-      status: 'late',
-      checkInMethod: 'fingerprint',
-      createdAt: new Date()
-    },
-    {
-      id: '3',
-      employeeId: 'EMP003',
-      employeeName: 'محمد الخالدي',
-      department: 'المبيعات',
-      position: 'مندوب مبيعات',
-      date: new Date(),
-      workingHours: 0,
-      overtimeHours: 0,
-      status: 'remote',
-      checkInMethod: 'manual',
-      createdAt: new Date()
-    }
+  // بيانات الحضور والانصراف
+  const attendanceData = [
+    { month: 'يناير', present: 120, late: 8, absent: 2 },
+    { month: 'فبراير', present: 135, late: 12, absent: 3 },
+    { month: 'مارس', present: 128, late: 5, absent: 1 },
+    { month: 'أبريل', present: 142, late: 10, absent: 4 },
+    { month: 'مايو', present: 130, late: 7, absent: 2 },
+    { month: 'يونيو', present: 138, late: 9, absent: 3 }
   ];
 
-  useEffect(() => {
-    setRecords(mockRecords);
-  }, []);
+  const attendanceMetrics = [
+    { category: 'حضور منتظم', count: 832, percentage: 92, color: 'hsl(var(--success))' },
+    { category: 'تأخير', count: 51, percentage: 5.6, color: 'hsl(var(--warning))' },
+    { category: 'غياب', count: 15, percentage: 1.7, color: 'hsl(var(--destructive))' },
+    { category: 'عمل عن بُعد', count: 67, percentage: 7.4, color: 'hsl(var(--primary))' }
+  ];
 
-  const handleSystemAction = (action: string) => {
-    toast({ title: "تم تنفيذ الإجراء", description: `${action} - سيتم تطويره قريباً` });
-  };
+  const attendanceByDepartment = [
+    { level: 'تقنية المعلومات', value: 35, count: 45 },
+    { level: 'الموارد البشرية', value: 25, count: 32 },
+    { level: 'المبيعات', value: 40, count: 51 }
+  ];
 
-  const getStatusBadge = (status: string) => {
-    const statusConfig = {
-      'present': 'bg-green-500/20 text-green-700 border-green-200',
-      'absent': 'bg-red-500/20 text-red-700 border-red-200',
-      'late': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
-      'early_leave': 'bg-orange-500/20 text-orange-700 border-orange-200',
-      'remote': 'bg-blue-500/20 text-blue-700 border-blue-200'
-    };
-    
-    return (
-      <Badge variant="outline" className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-500/20 text-gray-700'}>
-        {status}
-      </Badge>
-    );
-  };
+  const BOUD_COLORS = ['hsl(var(--primary))', 'hsl(var(--warning))', 'hsl(var(--destructive))'];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6" dir="rtl">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto p-6">
         {/* Enhanced Header */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary-foreground rounded-2xl shadow-2xl">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative p-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <div className="p-4 bg-white/20 backdrop-blur rounded-2xl shadow-xl">
-                  <Clock className="w-12 h-12 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-4xl font-bold text-white mb-2">نظام الحضور والانصراف الشامل</h1>
-                  <p className="text-white/90 text-lg">
-                    نظام متطور لإدارة حضور الموظفين مع تتبع الموقع والذكاء الاصطناعي
-                  </p>
-                  <div className="flex gap-4 mt-3">
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تتبع GPS</span>
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">بصمة الوجه</span>
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تقارير متقدمة</span>
-                  </div>
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onBack}
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {isRTL ? 'رجوع' : 'Back'}
+                </Button>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                  <Share className="h-4 w-4 ml-2" />
+                  {isRTL ? 'استيراد' : 'Import'}
+                </Button>
+                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm">
+                  <Download className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير Excel' : 'Export Excel'}
+                </Button>
+                <Button className="bg-destructive/80 border-destructive/30 text-white hover:bg-destructive/90 backdrop-blur-sm">
+                  <FileText className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير PDF' : 'Export PDF'}
+                </Button>
+                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
+                  <Save className="h-4 w-4 ml-2" />
+                  {isRTL ? 'حفظ' : 'Save'}
+                </Button>
+              </div>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  <Clock className="h-12 w-12 text-white" />
                 </div>
               </div>
-              
-              <div className="flex gap-3">
-                <Button 
-                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                  onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
-                >
-                  <Bot className="w-5 h-5" />
-                  مساعد ذكي
-                </Button>
-                <Button 
-                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                  onClick={() => handleSystemAction('تقرير شامل')}
-                >
-                  <FileText className="w-5 h-5" />
-                  تقرير شامل
-                </Button>
-                {onBack && (
-                  <Button 
-                    className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                    onClick={onBack}
-                  >
-                    <ArrowLeft className="w-5 h-5" />
-                    رجوع
-                  </Button>
-                )}
-              </div>
+              <h1 className="text-4xl font-bold text-white mb-2">
+                {isRTL ? 'نظام الحضور والانصراف الشامل' : 'Comprehensive Attendance System'}
+              </h1>
+              <p className="text-white/90 text-lg max-w-2xl mx-auto">
+                {isRTL ? 'نظام متطور لإدارة حضور الموظفين مع تتبع الموقع والذكاء الاصطناعي' : 'Advanced employee attendance management system with location tracking and AI'}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Advanced Statistics Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">إجمالي الموظفين</p>
-                  <p className="text-3xl font-bold">{records.length}</p>
-                  <p className="text-white/70 text-xs mt-1">حاضر اليوم</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Analytics Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          {/* Main Analytics Panel */}
+          <div className="lg:col-span-2">
+            <Card className="bg-gradient-to-br from-slate-900 via-primary to-secondary text-white shadow-2xl rounded-2xl overflow-hidden">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Attendance Tracking */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-primary-glow">
+                      {isRTL ? 'تتبع الحضور' : 'Attendance Tracking'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-primary/50 to-secondary/50 rounded-xl p-4 flex items-center justify-center">
+                      <Clock className="h-32 w-32 text-primary-glow opacity-80" />
+                      <div className="absolute top-4 right-4 bg-primary/80 px-3 py-1 rounded-full text-sm">
+                        832 {isRTL ? 'حضور منتظم' : 'Regular Attendance'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-secondary/80 px-3 py-1 rounded-full text-sm">
+                        92% {isRTL ? 'معدل الحضور' : 'Attendance Rate'}
+                      </div>
+                    </div>
+                  </div>
 
-          <Card className="bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <CheckCircle className="w-8 h-8 text-white" />
+                  {/* Shift Management */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-warning">
+                      {isRTL ? 'إدارة النوبات' : 'Shift Management'}
+                    </h3>
+                    <div className="relative h-48 bg-gradient-to-br from-warning/50 to-destructive/50 rounded-xl p-4 flex items-center justify-center">
+                      <Calendar className="h-32 w-32 text-warning opacity-80" />
+                      <div className="absolute top-4 right-4 bg-warning/80 px-3 py-1 rounded-full text-sm">
+                        24 {isRTL ? 'نوبة نشطة' : 'Active Shifts'}
+                      </div>
+                      <div className="absolute bottom-4 left-4 bg-destructive/80 px-3 py-1 rounded-full text-sm">
+                        67 {isRTL ? 'عمل عن بُعد' : 'Remote Work'}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">حضور منتظم</p>
-                  <p className="text-3xl font-bold">{records.filter(r => r.status === 'present').length}</p>
-                  <p className="text-white/70 text-xs mt-1">95% معدل الحضور</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
 
-          <Card className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Timer className="w-8 h-8 text-white" />
+                {/* Attendance Trends Chart */}
+                <div className="mt-8">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={attendanceData}>
+                      <defs>
+                        <linearGradient id="colorPresent" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                        </linearGradient>
+                        <linearGradient id="colorLate" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--warning))" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(var(--warning))" stopOpacity={0.1}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="month" stroke="#9CA3AF" />
+                      <YAxis stroke="#9CA3AF" />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
+                        labelStyle={{ color: '#F3F4F6' }}
+                      />
+                      <Area type="monotone" dataKey="present" stroke="hsl(var(--primary))" fill="url(#colorPresent)" />
+                      <Area type="monotone" dataKey="late" stroke="hsl(var(--warning))" fill="url(#colorLate)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">ساعات إضافية</p>
-                  <p className="text-3xl font-bold">{records.reduce((sum, r) => sum + r.overtimeHours, 0)}</p>
-                  <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
 
-          <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <AlertTriangle className="w-8 h-8 text-white" />
+          {/* Side Statistics */}
+          <div className="space-y-6">
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-800">
+                    {isRTL ? 'مؤشرات الحضور' : 'Attendance Metrics'}
+                  </h3>
+                  <Settings className="h-5 w-5 text-gray-400" />
                 </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">تأخير</p>
-                  <p className="text-3xl font-bold">{records.filter(r => r.status === 'late').length}</p>
-                  <p className="text-white/70 text-xs mt-1">حالات التأخير</p>
+                <div className="space-y-4">
+                  {attendanceMetrics.map((metric, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
+                      <div>
+                        <p className="font-semibold text-gray-800">{metric.category}</p>
+                        <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'موظف' : 'employees'}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          <Card className="bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Globe className="w-8 h-8 text-white" />
-                </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">عمل عن بُعد</p>
-                  <p className="text-3xl font-bold">{records.filter(r => r.status === 'remote').length}</p>
-                  <p className="text-white/70 text-xs mt-1">اليوم</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  {isRTL ? 'الحضور حسب القسم' : 'Attendance by Department'}
+                </h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <RechartsPieChart>
+                    <Pie
+                      data={attendanceByDepartment}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={40}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {attendanceByDepartment.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
-          <Card className="bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Building className="w-8 h-8 text-white" />
+        {/* Attendance System */}
+        <div className="mb-8">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-2 rounded-full shadow-lg">
+              <Clock className="h-5 w-5" />
+              <span className="font-medium">{isRTL ? 'نظام حضور متطور' : 'Advanced Attendance System'}</span>
+            </div>
+          </div>
+          
+          <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+                {isRTL ? 'نظام الحضور والانصراف الشامل' : 'Comprehensive Attendance System'}
+              </h2>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+                {[
+                  { icon: Clock, label: isRTL ? 'الحضور اليومي' : 'Daily Attendance', color: 'bg-primary', count: 8 },
+                  { icon: Calendar, label: isRTL ? 'جدولة النوبات' : 'Shift Scheduling', color: 'bg-secondary', count: 3 },
+                  { icon: MapPin, label: isRTL ? 'تتبع الموقع' : 'Location Tracking', color: 'bg-warning', count: 5 },
+                  { icon: CheckCircle, label: isRTL ? 'الحضور المنتظم' : 'Regular Attendance', color: 'bg-success', count: 0 },
+                  { icon: AlertTriangle, label: isRTL ? 'تنبيهات التأخير' : 'Late Alerts', color: 'bg-destructive', count: 12 },
+                  { icon: Users, label: isRTL ? 'إدارة الموظفين' : 'Employee Management', color: 'bg-primary', count: 2 },
+                  { icon: Building, label: isRTL ? 'إدارة المواقع' : 'Location Management', color: 'bg-warning', count: 6 },
+                  { icon: Settings, label: isRTL ? 'إعدادات النظام' : 'System Settings', color: 'bg-secondary', count: 0 }
+                ].map((item, index) => (
+                  <div key={index} className="text-center group cursor-pointer">
+                    <div className={`${item.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform relative`}>
+                      <item.icon className="h-8 w-8 text-white" />
+                      {item.count > 0 && (
+                        <div className="absolute -top-2 -right-2 bg-destructive text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                          {item.count}
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-sm font-medium text-gray-700 group-hover:text-secondary transition-colors">
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-primary/20 rounded-xl border border-primary/20">
+                  <div className="text-3xl font-bold text-primary mb-2">832</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'حضور منتظم' : 'Regular Attendance'}</div>
                 </div>
-                <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">في المكتب</p>
-                  <p className="text-3xl font-bold">{records.filter(r => r.checkInMethod === 'gps').length}</p>
-                  <p className="text-white/70 text-xs mt-1">تسجيل GPS</p>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-xl border border-secondary/20">
+                  <div className="text-3xl font-bold text-secondary mb-2">24</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'نوبات نشطة' : 'Active Shifts'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-success/10 to-success/20 rounded-xl border border-success/20">
+                  <div className="text-3xl font-bold text-success mb-2">92%</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'معدل الحضور' : 'Attendance Rate'}</div>
+                </div>
+                
+                <div className="text-center p-6 bg-gradient-to-br from-warning/10 to-warning/20 rounded-xl border border-warning/20">
+                  <div className="text-3xl font-bold text-warning mb-2">51</div>
+                  <div className="text-sm text-gray-600">{isRTL ? 'حالات تأخير' : 'Late Cases'}</div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* System Overview */}
-        <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-primary/20 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl text-primary flex items-center gap-3">
-              <PieChart className="w-7 h-7" />
-              نظرة عامة على النظام
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
-              {[
-                { icon: Clock, label: 'الحضور اليومي', color: 'text-blue-600', bg: 'bg-blue-100' },
-                { icon: Calendar, label: 'جدولة النوبات', color: 'text-green-600', bg: 'bg-green-100' },
-                { icon: MapPin, label: 'تتبع الموقع', color: 'text-purple-600', bg: 'bg-purple-100' },
-                { icon: Fingerprint, label: 'البصمة', color: 'text-yellow-600', bg: 'bg-yellow-100' },
-                { icon: Smartphone, label: 'التطبيق المحمول', color: 'text-indigo-600', bg: 'bg-indigo-100' },
-                { icon: BarChart3, label: 'التقارير', color: 'text-red-600', bg: 'bg-red-100' },
-                { icon: Shield, label: 'الأمان', color: 'text-emerald-600', bg: 'bg-emerald-100' },
-                { icon: RefreshCw, label: 'المزامنة', color: 'text-orange-600', bg: 'bg-orange-100' }
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center p-4 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-primary/30"
-                  onClick={() => handleSystemAction(item.label)}
-                >
-                  <div className={`p-3 rounded-xl ${item.bg} group-hover:scale-110 transition-transform duration-300`}>
-                    <item.icon className={`w-6 h-6 ${item.color}`} />
-                  </div>
-                  <span className="text-sm font-medium mt-2 text-center text-gray-700 group-hover:text-primary transition-colors">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Advanced Navigation Tabs */}
-        <Card className="bg-white/90 backdrop-blur shadow-xl border-0">
-          <CardContent className="p-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-6 bg-gradient-to-r from-primary/10 to-primary/5 p-2 rounded-none h-auto border-b">
-                <TabsTrigger 
-                  value="dashboard" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <BarChart3 className="w-5 h-5" />
-                  <span className="font-medium">لوحة التحكم</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="attendance" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <Clock className="w-5 h-5" />
-                  <span className="font-medium">سجل الحضور</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="shifts" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <Calendar className="w-5 h-5" />
-                  <span className="font-medium">إدارة النوبات</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="location" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <MapPin className="w-5 h-5" />
-                  <span className="font-medium">تتبع الموقع</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="reports" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <FileText className="w-5 h-5" />
-                  <span className="font-medium">التقارير</span>
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="settings" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
-                >
-                  <Settings className="w-5 h-5" />
-                  <span className="font-medium">الإعدادات</span>
-                </TabsTrigger>
-              </TabsList>
-
-              {/* Dashboard Tab */}
-              <TabsContent value="dashboard" className="p-6 space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-blue-700">
-                        <Clock className="w-5 h-5" />
-                        نشاط الحضور اليومي
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">الحضور في الوقت</span>
-                          <span className="font-bold text-green-600">92%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">التأخير</span>
-                          <span className="font-bold text-yellow-600">5%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">الغياب</span>
-                          <span className="font-bold text-red-600">3%</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-green-700">
-                        <Timer className="w-5 h-5" />
-                        الساعات الإضافية
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="text-center">
-                          <p className="text-3xl font-bold text-green-600">{records.reduce((sum, r) => sum + r.overtimeHours, 0)}</p>
-                          <p className="text-sm text-gray-500">ساعة إضافية هذا الشهر</p>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span>متوسط الساعات الإضافية:</span>
-                          <span className="font-medium">2.5 ساعة/يوم</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-
-              {/* Other tabs with placeholder content */}
-              <TabsContent value="attendance" className="p-6">
-                <div className="space-y-4">
-                  {records.map((record) => (
-                    <Card key={record.id} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start">
-                          <div className="space-y-2">
-                            <h4 className="font-bold text-lg">{record.employeeName}</h4>
-                            <p className="text-gray-600">{record.department} - {record.position}</p>
-                            <div className="flex gap-4 text-sm">
-                              <span>دخول: {record.checkInTime ? format(record.checkInTime, 'HH:mm') : 'لم يسجل'}</span>
-                              <span>خروج: {record.checkOutTime ? format(record.checkOutTime, 'HH:mm') : 'لم يسجل'}</span>
-                              <span>ساعات العمل: {record.workingHours}</span>
-                            </div>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            {getStatusBadge(record.status)}
-                            <Button size="sm" variant="outline">
-                              <Eye className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              {/* Placeholder tabs */}
-              <TabsContent value="shifts" className="p-6">
-                <div className="text-center py-12">
-                  <Calendar className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">إدارة النوبات</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="location" className="p-6">
-                <div className="text-center py-12">
-                  <MapPin className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">تتبع الموقع</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="reports" className="p-6">
-                <div className="text-center py-12">
-                  <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">التقارير المتقدمة</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="settings" className="p-6">
-                <div className="text-center py-12">
-                  <Settings className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">إعدادات النظام</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
 };
+
+export default ComprehensiveAttendance;
