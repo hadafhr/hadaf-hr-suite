@@ -58,7 +58,7 @@ import { ComprehensiveSmartEvaluation } from '@/components/systems/Comprehensive
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
 import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
-import { RewardsIncentivesManagement } from '@/components/systems/RewardsIncentivesManagement';
+import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import MeetingHub from '@/pages/MeetingHub';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
@@ -443,7 +443,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="benefits">
-            <RewardsIncentivesManagement onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="meetings">
