@@ -136,6 +136,16 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   رجوع
                 </Button>
               </div>
+              
+              {/* الشعار في المنتصف */}
+              <div className="absolute top-6 left-6">
+                <img 
+                  src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
+                  alt="BOUD HR Logo" 
+                  className="h-12 w-auto opacity-90"
+                />
+              </div>
+
               <div className="flex items-center gap-3">
                 <Button 
                   className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
