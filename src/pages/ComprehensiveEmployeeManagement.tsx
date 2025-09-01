@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { 
   Users, 
   Clock, 
@@ -20,30 +24,61 @@ import {
   Calendar,
   MessageSquare,
   Activity,
-  ChevronRight
+  ChevronRight,
+  ArrowLeft,
+  RefreshCw,
+  Download,
+  AlertTriangle,
+  Plug,
+  Network,
+  Banknote,
+  Scale,
+  GraduationCap,
+  Star,
+  UserPlus,
+  Gift,
+  CalendarClock,
+  PenTool,
+  CheckSquare,
+  Bot,
+  FileBarChart,
+  MapPin,
+  User
 } from 'lucide-react';
 import { TeamMembers } from '@/components/systems/TeamMembers';
 import { ComprehensiveAttendanceSystem } from '@/components/systems/ComprehensiveAttendanceSystem';
 import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
 import { ComprehensiveTrainingSystem } from '@/components/systems/ComprehensiveTrainingSystem';
-import { PerformanceEvaluation } from '@/components/systems/PerformanceEvaluation';
-import Reports from '@/components/systems/Reports';
-import SmartPerformanceManagement from '@/components/systems/SmartPerformanceManagement';
-import { ComprehensiveRecruitment } from '@/components/systems/ComprehensiveRecruitment';
-import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
-import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
-import { RiskManagement } from '@/components/systems/RiskManagement';
 import { BoudHRHeader } from '@/components/shared/BoudHRHeader';
+import { BoudLogo } from '@/components/BoudLogo';
+import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
 import { mockEmployees } from '@/data/mockEmployees';
 
 const ComprehensiveEmployeeManagement = () => {
+  const navigate = useNavigate();
   const [activeSystem, setActiveSystem] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
 
   // Calculate statistics from mock data
   const totalEmployees = mockEmployees.length;
   const activeEmployees = mockEmployees.filter(emp => emp.status === 'active').length;
   const avgPerformance = Math.round(mockEmployees.reduce((sum, emp) => sum + emp.performanceScore, 0) / totalEmployees);
   const totalPayroll = mockEmployees.reduce((sum, emp) => sum + emp.salary, 0);
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'active':
+        return <Badge className="bg-success/10 text-success border-success/20">نشط</Badge>;
+      case 'inactive':
+        return <Badge variant="secondary">غير نشط</Badge>;
+      case 'on_leave':
+        return <Badge variant="outline">في إجازة</Badge>;
+      default:
+        return <Badge variant="outline">غير محدد</Badge>;
+    }
+  };
 
   if (activeSystem === 'team') {
     return <TeamMembers onBack={() => setActiveSystem(null)} />;
@@ -59,34 +94,6 @@ const ComprehensiveEmployeeManagement = () => {
 
   if (activeSystem === 'training') {
     return <ComprehensiveTrainingSystem onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'performance') {
-    return <PerformanceEvaluation onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'reports') {
-    return <Reports onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'smartperformance') {
-    return <SmartPerformanceManagement onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'recruitment') {
-    return <ComprehensiveRecruitment onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'talents') {
-    return <ComprehensiveTalentManagement onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'governance') {
-    return <ComprehensiveGovernanceCompliance onBack={() => setActiveSystem(null)} />;
-  }
-
-  if (activeSystem === 'risks') {
-    return <RiskManagement onBack={() => setActiveSystem(null)} />;
   }
 
   return (
@@ -153,7 +160,7 @@ const ComprehensiveEmployeeManagement = () => {
 
       <div className="relative p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          {/* Professional Horizontal Navigation - Optimized for 23 Icons */}
+          {/* Professional Horizontal Navigation - Optimized for 20 Icons */}
           <div className="bg-white/90 backdrop-blur rounded-xl border border-[#009F87]/20 shadow-lg p-4 mb-6">
             <div className="horizontal-icon-nav overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#009F87 transparent' }}>
               <TabsList className="flex w-max gap-3 bg-transparent p-0 h-auto min-w-max">
@@ -270,46 +277,11 @@ const ComprehensiveEmployeeManagement = () => {
                   التوظيف والتعين
                 </TabsTrigger>
                 <TabsTrigger 
-                  value="insurance" 
-                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
-                >
-                  <Shield className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  التأمين
-                </TabsTrigger>
-                <TabsTrigger 
                   value="benefits" 
                   className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
                 >
                   <Gift className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
                   المكافآت والحوافز
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="meetings" 
-                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
-                >
-                  <CalendarClock className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  الاجتماعات
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="signature" 
-                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
-                >
-                  <PenTool className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  التوقيع الإلكتروني
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="tasks" 
-                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
-                >
-                  <CheckSquare className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  المهام والمتابعة
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="requests" 
-                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
-                >
-                  <MessageSquare className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  الطلبات والإشعارات
                 </TabsTrigger>
                 <TabsTrigger 
                   value="ai" 
@@ -326,13 +298,6 @@ const ComprehensiveEmployeeManagement = () => {
                   التقارير
                 </TabsTrigger>
                 <TabsTrigger 
-                  value="tracking" 
-                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
-                >
-                  <MapPin className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  التتبع الميداني
-                </TabsTrigger>
-                <TabsTrigger 
                   value="settings" 
                   className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
                 >
@@ -344,7 +309,7 @@ const ComprehensiveEmployeeManagement = () => {
             
             {/* Navigation Helper */}
             <div className="flex justify-center mt-2">
-              <p className="text-xs text-muted-foreground">اسحب لليمين أو اليسار لعرض جميع الأنظمة (23 نظام)</p>
+              <p className="text-xs text-muted-foreground">اسحب لليمين أو اليسار لعرض جميع الأنظمة (20 نظام)</p>
             </div>
           </div>
 
@@ -358,102 +323,165 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="departments">
-            <DepartmentsManagement onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Building className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">إدارة الأقسام</h3>
+                <p className="text-muted-foreground">عرض وإدارة أقسام الشركة</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="attendance">
-            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveAttendanceSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="disciplinary">
-            <ComprehensiveDisciplinarySystem />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Shield className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">النظام التأديبي</h3>
+                <p className="text-muted-foreground">إدارة الإجراءات التأديبية</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="leaves">
-            <ComprehensiveLeaveSystem />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Calendar className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">إدارة الإجازات</h3>
+                <p className="text-muted-foreground">نظام شامل لإدارة الإجازات</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="payroll">
-            <ComprehensivePayrollSystem />
+            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="government">
-            <GovernmentIntegration onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Network className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">التكامل الحكومي</h3>
+                <p className="text-muted-foreground">الربط مع الأنظمة الحكومية</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="organization">
-            <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Target className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">التطوير التنظيمي</h3>
+                <p className="text-muted-foreground">تطوير الهيكل التنظيمي</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="governance">
-            <ComprehensiveGovernanceCompliance onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Shield className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">الحوكمة والامتثال</h3>
+                <p className="text-muted-foreground">أنظمة الحوكمة والامتثال</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="wageprotection">
-            <ComprehensiveWageProtection onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Shield className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">حماية الأجور</h3>
+                <p className="text-muted-foreground">نظام حماية الأجور</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="legal">
-            <ComprehensiveLegalAffairs onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Scale className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">الشؤون القانونية</h3>
+                <p className="text-muted-foreground">إدارة الشؤون القانونية</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="performance">
-            <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <GraduationCap className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">تقييم الأداء</h3>
+                <p className="text-muted-foreground">نظام التقييم المتقدم</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="training">
-            <ComprehensiveTraining onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveTrainingSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="talents">
-            <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Star className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">إدارة المواهب</h3>
+                <p className="text-muted-foreground">نظام شامل لإدارة المواهب</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="recruitment">
-            <SmartHire />
-          </TabsContent>
-
-          <TabsContent value="insurance">
-            <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <UserPlus className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">التوظيف الذكي</h3>
+                <p className="text-muted-foreground">نظام التوظيف الذكي</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="benefits">
-            <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="meetings">
-            <MeetingHub />
-          </TabsContent>
-
-          <TabsContent value="signature">
-            <ElectronicSignature onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="tasks">
-            <TasksTracking onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="requests">
-            <CombinedRequestsNotifications 
-              onBack={() => setActiveTab('dashboard')} 
-              onNavigateToSection={setActiveTab}
-            />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Gift className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">المكافآت والحوافز</h3>
+                <p className="text-muted-foreground">نظام المكافآت والحوافز</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="ai">
-            <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Bot className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">الذكاء الاصطناعي</h3>
+                <p className="text-muted-foreground">مساعد الذكاء الاصطناعي</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="reports">
-            <Reports onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <FileBarChart className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">التقارير</h3>
+                <p className="text-muted-foreground">تقارير شاملة ومفصلة</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
-              <TabsContent value="tracking">
-                <TrackingSystem onBack={() => setActiveTab('dashboard')} />
-              </TabsContent>
-
           <TabsContent value="settings">
-            <SystemSettings onBack={() => setActiveTab('dashboard')} />
+            <Card className="border-border/20 bg-card/30 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <Settings className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg font-semibold mb-2">إعدادات النظام</h3>
+                <p className="text-muted-foreground">إعدادات النظام العامة</p>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
@@ -516,19 +544,15 @@ const ComprehensiveEmployeeManagement = () => {
                     <div className="text-sm space-y-2">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">الراتب الأساسي:</span>
-                        <span className="font-medium">{selectedEmployee.salary?.basic?.toLocaleString()} ريال</span>
+                        <span className="font-medium">{selectedEmployee.salary?.toLocaleString()} ريال</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">بدل السكن:</span>
-                        <span className="font-medium">{selectedEmployee.salary?.housing?.toLocaleString()} ريال</span>
+                        <span className="text-muted-foreground">نقاط الأداء:</span>
+                        <span className="font-medium">{selectedEmployee.performanceScore}%</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">بدل النقل:</span>
-                        <span className="font-medium">{selectedEmployee.salary?.transport?.toLocaleString()} ريال</span>
-                      </div>
-                      <div className="flex justify-between border-t pt-2 font-semibold">
-                        <span>إجمالي الراتب:</span>
-                        <span>{selectedEmployee.salary?.total?.toLocaleString()} ريال</span>
+                        <span className="text-muted-foreground">معدل الحضور:</span>
+                        <span className="font-medium">{selectedEmployee.attendanceRate}%</span>
                       </div>
                     </div>
                   </CardContent>
