@@ -281,12 +281,12 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
             </CardContent>
           </Card>
           
-          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-blue-200/50 hover:border-blue-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(59,130,246,0.2)] transform hover:scale-105">
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-gray-200/50 hover:border-gray-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.4)] transform hover:scale-105">
             <CardContent className="p-6 text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-100/80 to-blue-50/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
-                <BarChart3 className="h-10 w-10 text-blue-600 drop-shadow-lg" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-gray-800/80 to-gray-900/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <BarChart3 className="h-10 w-10 text-gray-800 drop-shadow-lg" />
               </div>
-              <div className="text-4xl font-black text-blue-600 mb-2 group-hover:scale-110 transition-transform">98.5%</div>
+              <div className="text-4xl font-black text-gray-800 mb-2 group-hover:scale-110 transition-transform">98.5%</div>
               <div className="text-sm font-medium text-muted-foreground">معدل الاتصال الإجمالي</div>
             </CardContent>
           </Card>
@@ -413,7 +413,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   
                   <Button 
                     size="default"
-                    className="group/btn relative overflow-hidden bg-gradient-to-r from-blue-500/90 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 border border-blue-500/30"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-gray-800/90 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-gray-800/25 transform hover:scale-105 transition-all duration-300 border border-gray-800/30"
                     onClick={() => {
                       // وظيفة الإعدادات
                       console.log(`إعدادات نظام: ${system.name}`);
