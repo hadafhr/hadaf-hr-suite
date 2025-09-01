@@ -61,7 +61,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
       lastSync: '2024-03-19 16:20',
       description: 'منصة التوظيف وخدمات الموارد البشرية',
       dataCount: 0,
-      icon: <Network className="h-6 w-6 text-destructive" />
+      icon: <Network className="h-6 w-6 text-primary" />
     },
     {
       id: 'MOI',
@@ -81,7 +81,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
       lastSync: '2024-03-18 09:30',
       description: 'نظام حماية الأجور',
       dataCount: 0,
-      icon: <Server className="h-6 w-6 text-muted-foreground" />
+      icon: <Server className="h-6 w-6 text-primary" />
     }
   ];
 
