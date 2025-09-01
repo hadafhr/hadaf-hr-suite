@@ -198,7 +198,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
             {/* العنوان والوصف المتطوران */}
             <div className="text-center">
               <h1 className="text-5xl font-bold text-white mb-4 tracking-wide">
-                نظام التكامل الحكومي المتقدم
+                قسم التكامل والربط
               </h1>
               <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
                 منظومة ذكية شاملة للربط الآمن والمتطور مع جميع الأنظمة الحكومية وتزامن البيانات مع الجهات الرسمية
