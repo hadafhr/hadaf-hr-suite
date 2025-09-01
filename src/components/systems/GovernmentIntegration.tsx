@@ -123,7 +123,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 opacity-50"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto p-6">
-        {/* هيدر احترافي مطور ومصغر */}
+        {/* هيدر احترافي مع تخطيط جديد */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-8 mb-8 shadow-elegant backdrop-blur-sm border border-primary/20">
           {/* طبقة تراكب متقدمة */}
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-gray-900/90 to-black/95"></div>
@@ -136,34 +136,49 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
           </div>
           
           <div className="relative z-20">
-            {/* الشعار المصغر */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 mb-6">
-                <img 
-                  src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
-                  alt="BOUD HR Logo" 
-                  className="h-20 w-auto brightness-0 invert opacity-95"
-                />
+            {/* التخطيط الجديد: شعار (يمين) - نص (وسط) - رمز (يسار) */}
+            <div className="grid grid-cols-3 items-center mb-8">
+              {/* الشعار في اليمين */}
+              <div className="flex justify-end">
+                <div className="p-3 bg-white/5 rounded-xl backdrop-blur-md border border-white/10">
+                  <img 
+                    src="/lovable-uploads/4b2910fb-b74e-4c5d-b399-8b1109f26b7b.png" 
+                    alt="BOUD HR Logo" 
+                    className="h-16 w-auto"
+                  />
+                </div>
+              </div>
+              
+              {/* النص في الوسط */}
+              <div className="text-center">
+                <h1 className="text-3xl font-bold text-white mb-1 tracking-wide">
+                  قسم التكامل والربط
+                </h1>
+                <p className="text-primary font-semibold text-lg">( API )</p>
+              </div>
+              
+              {/* الرمز في اليسار */}
+              <div className="flex justify-start">
+                <div className="p-3 bg-white/10 rounded-xl backdrop-blur-md border border-white/20 shadow-md">
+                  <Network className="h-12 w-12 text-white" />
+                </div>
               </div>
             </div>
 
-            {/* العنوان والوصف */}
+            {/* الوصف */}
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-white mb-3 tracking-wide">
-                قسم التكامل والربط
-              </h1>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto leading-relaxed">
+              <p className="text-white/80 text-base max-w-2xl mx-auto leading-relaxed">
                 منظومة ذكية شاملة للربط الآمن والمتطور مع جميع الأنظمة الحكومية وتزامن البيانات
               </p>
             </div>
 
-            {/* مجموعة الأزرار المنظمة */}
-            <div className="flex items-center justify-center gap-3 flex-wrap">
+            {/* الأزرار في النهاية بألوان موحدة */}
+            <div className="flex items-center justify-center gap-4 flex-wrap pt-4 border-t border-white/10">
               <Button
                 variant="outline"
                 size="default"
                 onClick={onBack}
-                className="bg-white/5 border-white/20 text-white hover:bg-white/15 backdrop-blur-md transition-all duration-300 shadow-md group"
+                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md transition-all duration-300 shadow-md group"
               >
                 <ArrowLeft className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 رجوع
@@ -171,7 +186,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               
               <Button 
                 size="default"
-                className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-md transition-all duration-300 shadow-md group"
+                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md transition-all duration-300 shadow-md group"
                 onClick={() => window.location.reload()}
               >
                 <RefreshCw className="h-4 w-4 ml-2 group-hover:rotate-180 transition-transform" />
@@ -188,7 +203,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               
               <Button 
                 size="default"
-                className="bg-destructive/70 border-destructive/50 text-white hover:bg-destructive/80 backdrop-blur-md shadow-md group"
+                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md shadow-md group"
                 onClick={() => {}}
               >
                 <Trash2 className="h-4 w-4 ml-2 group-hover:scale-110 transition-transform" />
@@ -197,19 +212,12 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               
               <Button 
                 size="default"
-                className="bg-secondary/70 border-secondary/50 text-white hover:bg-secondary/80 backdrop-blur-md shadow-md group"
+                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md shadow-md group"
                 onClick={() => {}}
               >
                 <Settings className="h-4 w-4 ml-2 group-hover:rotate-90 transition-transform" />
                 الإعدادات
               </Button>
-            </div>
-            
-            {/* أيقونة مركزية */}
-            <div className="mt-6 flex justify-center">
-              <div className="p-3 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20 shadow-md">
-                <Network className="h-12 w-12 text-white" />
-              </div>
             </div>
           </div>
         </div>
