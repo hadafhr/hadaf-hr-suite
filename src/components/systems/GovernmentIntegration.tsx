@@ -133,15 +133,6 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               />
             </div>
 
-            {/* الشعار في أعلى يسار الصفحة */}
-            <div className="absolute -top-4 right-6">
-              <img 
-                src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
-                alt="BOUD HR Logo" 
-                className="h-20 w-auto opacity-95"
-              />
-            </div>
-
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 <Button
