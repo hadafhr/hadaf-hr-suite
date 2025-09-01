@@ -118,105 +118,132 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
   const errorSystems = systems.filter(s => s.status === 'خطأ').length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background" dir="rtl">
-      {/* خلفية متدرجة احترافية */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 opacity-50"></div>
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background relative overflow-hidden" dir="rtl">
+      {/* خلفية متحركة احترافية */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-secondary/3 to-accent/3 opacity-50"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_theme(colors.primary.DEFAULT)_0%,_transparent_50%)] opacity-10"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,_theme(colors.secondary.DEFAULT)_0%,_transparent_50%)] opacity-10"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto p-6">
-        {/* هيدر احترافي مع تخطيط جديد */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-8 mb-8 shadow-elegant backdrop-blur-sm border border-primary/20">
-          {/* طبقة تراكب متقدمة */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-gray-900/90 to-black/95"></div>
+        {/* هيدر فائق الجمال والاحترافية */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-gray-900 to-black p-10 mb-10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] backdrop-blur-xl border border-primary/30">
+          {/* طبقات التدرج المتقدمة */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20 opacity-80"></div>
+          <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(255,255,255,0.05)_180deg,transparent_360deg)]"></div>
           
-          {/* أنماط هندسية خلفية مصغرة أكثر */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-3">
-            <div className="absolute top-1 right-1 w-8 h-8 border border-white/30 rounded-full"></div>
-            <div className="absolute bottom-1 left-1 w-6 h-6 border border-white/30 rotate-45"></div>
-            <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-white/5 rounded-lg rotate-12"></div>
+          {/* عناصر هندسية متحركة */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-20">
+            <div className="absolute top-4 right-4 w-24 h-24 border-2 border-primary/30 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 left-4 w-16 h-16 border border-secondary/40 rotate-45 animate-bounce"></div>
+            <div className="absolute top-1/3 left-1/4 w-12 h-12 bg-accent/10 rounded-lg rotate-12 animate-pulse"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-8 h-8 bg-primary/20 rounded-full animate-bounce"></div>
+            <div className="absolute top-1/2 left-1/2 w-6 h-6 border border-secondary/30 transform -translate-x-1/2 -translate-y-1/2 rotate-45 animate-spin"></div>
           </div>
           
           <div className="relative z-20">
-            {/* التخطيط الجديد: شعار (يمين) - نص (وسط) - رمز (يسار) */}
-            <div className="grid grid-cols-3 items-center mb-8">
-              {/* الشعار في أقصى اليمين */}
-              <div className="flex justify-end pr-0">
-                <div className="p-2 bg-white/5 rounded-xl backdrop-blur-md border border-white/10">
-                  <img 
-                    src="/lovable-uploads/4b2910fb-b74e-4c5d-b399-8b1109f26b7b.png" 
-                    alt="BOUD HR Logo" 
-                    className="h-32 w-auto"
-                  />
+            {/* التخطيط الفائق: شعار - نص - رمز */}
+            <div className="grid grid-cols-12 items-center mb-10 gap-6">
+              {/* الشعار المتطور في أقصى اليمين */}
+              <div className="col-span-3 flex justify-end">
+                <div className="group relative">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                  <div className="relative p-4 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl backdrop-blur-xl border border-white/20 shadow-2xl hover:scale-105 transition-all duration-500">
+                    <img 
+                      src="/lovable-uploads/4b2910fb-b74e-4c5d-b399-8b1109f26b7b.png" 
+                      alt="BOUD HR Logo" 
+                      className="h-24 w-auto filter drop-shadow-2xl hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-500"
+                    />
+                  </div>
                 </div>
               </div>
               
-              {/* النص في الوسط */}
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-white mb-1 tracking-wide">
-                  قسم التكامل والربط
-                </h1>
-                <p className="text-primary font-semibold text-lg">( API )</p>
+              {/* النص المركزي الفائق */}
+              <div className="col-span-6 text-center">
+                <div className="space-y-4">
+                  <div className="relative">
+                    <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white mb-3 tracking-wider animate-fade-in">
+                      قسم التكامل والربط
+                    </h1>
+                    <div className="absolute inset-0 text-6xl font-black text-white/5 blur-sm">
+                      قسم التكامل والربط
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full border border-primary/50 backdrop-blur-xl shadow-2xl">
+                    <span className="text-2xl font-bold text-white tracking-widest">API INTEGRATION</span>
+                  </div>
+                </div>
               </div>
               
-              {/* الرمز في اليسار */}
-              <div className="flex justify-start">
-                <div className="p-3 bg-white/10 rounded-xl backdrop-blur-md border border-white/20 shadow-md">
-                  <Network className="h-12 w-12 text-white" />
+              {/* الرمز المتقدم في اليسار */}
+              <div className="col-span-3 flex justify-start">
+                <div className="group relative">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-secondary/40 to-accent/40 rounded-3xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
+                  <div className="relative p-6 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl backdrop-blur-xl border border-primary/30 shadow-2xl hover:scale-110 transition-all duration-500">
+                    <Network className="h-16 w-16 text-white drop-shadow-2xl animate-pulse" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* الوصف */}
-            <div className="text-center mb-8">
-              <p className="text-white/80 text-base max-w-2xl mx-auto leading-relaxed">
-                منظومة ذكية شاملة للربط الآمن والمتطور مع جميع الأنظمة الحكومية وتزامن البيانات
-              </p>
+            {/* الوصف الجمالي */}
+            <div className="text-center mb-10">
+              <div className="max-w-4xl mx-auto p-6 bg-gradient-to-r from-white/5 to-white/10 rounded-2xl backdrop-blur-xl border border-white/20 shadow-inner">
+                <p className="text-xl text-white/90 leading-relaxed font-medium tracking-wide">
+                  <span className="text-primary font-bold">منظومة ذكية متطورة</span> للربط الآمن والسلس مع جميع الأنظمة الحكومية 
+                  <span className="text-secondary font-bold"> وتزامن البيانات المتقدم</span> مع الجهات الرسمية بتقنية عالية الأمان
+                </p>
+              </div>
             </div>
 
-            {/* الأزرار في النهاية بألوان موحدة */}
-            <div className="flex items-center justify-center gap-4 flex-wrap pt-4 border-t border-white/10">
+            {/* شريط الفاصل الجمالي */}
+            <div className="flex items-center justify-center mb-8">
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+              <div className="mx-6 w-3 h-3 bg-primary rounded-full animate-pulse shadow-lg"></div>
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+            </div>
+
+            {/* مجموعة الأزرار الفائقة الجمال */}
+            <div className="flex items-center justify-center gap-6 flex-wrap">
               <Button
-                variant="outline"
-                size="default"
                 onClick={onBack}
-                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md transition-all duration-300 shadow-md group"
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
               >
-                <ArrowLeft className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                رجوع
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <ArrowLeft className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                <span className="relative z-10">رجوع للوحة التحكم</span>
               </Button>
               
               <Button 
-                size="default"
-                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md transition-all duration-300 shadow-md group"
                 onClick={() => window.location.reload()}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
               >
-                <RefreshCw className="h-4 w-4 ml-2 group-hover:rotate-180 transition-transform" />
-                تحديث الأنظمة
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <RefreshCw className="h-5 w-5 ml-3 group-hover:rotate-180 transition-transform duration-500" />
+                <span className="relative z-10">تحديث الأنظمة</span>
               </Button>
               
               <Button 
-                size="default"
-                className="bg-primary/80 border-primary/60 text-white hover:bg-primary shadow-md group"
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
               >
-                <Plus className="h-4 w-4 ml-2 group-hover:rotate-90 transition-transform" />
-                ربط نظام جديد
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <Plus className="h-5 w-5 ml-3 group-hover:rotate-90 transition-transform duration-300" />
+                <span className="relative z-10">ربط نظام جديد</span>
               </Button>
               
               <Button 
-                size="default"
-                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md shadow-md group"
-                onClick={() => {}}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
               >
-                <Trash2 className="h-4 w-4 ml-2 group-hover:scale-110 transition-transform" />
-                حذف نظام
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <Trash2 className="h-5 w-5 ml-3 group-hover:scale-110 transition-transform duration-300" />
+                <span className="relative z-10">حذف نظام</span>
               </Button>
               
               <Button 
-                size="default"
-                className="bg-primary/80 border-primary/60 text-white hover:bg-primary backdrop-blur-md shadow-md group"
-                onClick={() => {}}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
               >
-                <Settings className="h-4 w-4 ml-2 group-hover:rotate-90 transition-transform" />
-                الإعدادات
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <Settings className="h-5 w-5 ml-3 group-hover:rotate-90 transition-transform duration-500" />
+                <span className="relative z-10">الإعدادات المتقدمة</span>
               </Button>
             </div>
           </div>
