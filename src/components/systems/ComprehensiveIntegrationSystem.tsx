@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { 
   ArrowLeft, 
@@ -57,9 +58,10 @@ import {
   Database,
   RefreshCw,
   Server,
-  Users
+  Users,
+  MoreVertical
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
 
 interface ComprehensiveIntegrationSystemProps {
   onBack: () => void;
@@ -131,6 +133,30 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       syncFrequency: 'شهريًا',
       successRate: 100,
       dailyOperations: 89
+    },
+    {
+      id: '3',
+      name: 'نظام ساب SAP',
+      nameEn: 'SAP System',
+      category: 'financial',
+      status: 'syncing',
+      description: 'تكامل مع نظام الموارد البشرية والمالية',
+      lastSync: '2024-01-18 10:45',
+      syncFrequency: 'يوميًا',
+      successRate: 95,
+      dailyOperations: 234
+    },
+    {
+      id: '4',
+      name: 'بوابة أبشر',
+      nameEn: 'Absher Portal',
+      category: 'government',
+      status: 'connected',
+      description: 'خدمات الهوية الرقمية والتوثيق الإلكتروني',
+      lastSync: '2024-01-20 08:15',
+      syncFrequency: 'أسبوعيًا',
+      successRate: 99,
+      dailyOperations: 78
     }
   ];
 
@@ -152,6 +178,15 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       connections: 2,
       performance: 95,
       description: 'تكامل مع الأنظمة المالية والمحاسبية'
+    },
+    {
+      id: '3',
+      name: 'شركات التأمين',
+      head: 'فاطمة محمد العبدالله',
+      platforms: 2,
+      connections: 1,
+      performance: 88,
+      description: 'ربط مع شركات التأمين الطبي والاجتماعي'
     }
   ];
 
@@ -174,6 +209,16 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       value: 94,
       target: 95,
       trend: 'stable',
+      lastUpdated: '2024-01-15'
+    },
+    {
+      id: '3',
+      metric: 'عدد المنصات المتصلة',
+      category: 'Platforms',
+      status: 'Excellent',
+      value: 10,
+      target: 8,
+      trend: 'up',
       lastUpdated: '2024-01-15'
     }
   ];
@@ -198,9 +243,9 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
 
   // Calculate statistics
   const stats = {
-    totalPlatforms: 12,
-    connectedPlatforms: 10,
-    categories: 4,
+    totalPlatforms: integrationPlatforms.length,
+    connectedPlatforms: integrationPlatforms.filter(p => p.status === 'connected').length,
+    categories: platformCategories.length,
     avgPerformance: 97,
     avgSync: 94,
     avgOperations: 1247
@@ -470,7 +515,7 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
         </CardContent>
       </Card>
 
-      {/* Recent Activities */}
+      {/* Recent Activities & Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -483,35 +528,30 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
             <div className="space-y-4">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
                 <div className="p-2 rounded-full bg-green-100">
-                  <Plus className="h-4 w-4 text-green-600" />
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium">إضافة منصة جديدة</p>
-                  <p className="text-xs text-muted-foreground">منصة أبشر - تم الربط بنجاح</p>
+                  <p className="text-sm font-medium">تم ربط منصة جديدة</p>
+                  <p className="text-xs text-muted-foreground">منصة أبشر - منذ ساعتين</p>
                 </div>
-                <span className="text-xs text-muted-foreground">منذ ساعتين</span>
               </div>
-              
               <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
                 <div className="p-2 rounded-full bg-blue-100">
                   <RefreshCw className="h-4 w-4 text-blue-600" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium">مزامنة تلقائية</p>
-                  <p className="text-xs text-muted-foreground">مؤسسة التأمينات - مزامنة شهرية</p>
+                  <p className="text-sm font-medium">مزامنة البيانات</p>
+                  <p className="text-xs text-muted-foreground">GOSI - منذ 4 ساعات</p>
                 </div>
-                <span className="text-xs text-muted-foreground">أمس</span>
               </div>
-
               <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-orange-100">
-                  <AlertTriangle className="h-4 w-4 text-orange-600" />
+                <div className="p-2 rounded-full bg-yellow-100">
+                  <AlertTriangle className="h-4 w-4 text-yellow-600" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium">تنبيه اتصال</p>
-                  <p className="text-xs text-muted-foreground">نظام SAP - يتطلب إعادة ربط</p>
+                  <p className="text-sm font-medium">تحديث مطلوب</p>
+                  <p className="text-xs text-muted-foreground">منصة مدد - منذ يوم</p>
                 </div>
-                <span className="text-xs text-muted-foreground">منذ 3 أيام</span>
               </div>
             </div>
           </CardContent>
@@ -520,29 +560,28 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Building className="h-5 w-5" />
-              أداء الفئات
+              <Zap className="h-5 w-5" />
+              إجراءات سريعة
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {platformCategories.slice(0, 4).map((category) => (
-                <div key={category.id} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-full bg-primary/10">
-                      <Building className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">{category.name}</p>
-                      <p className="text-sm text-muted-foreground">{category.platforms} منصة</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-green-600">{category.performance}%</p>
-                    <Progress value={category.performance} className="w-16 h-1 mt-1" />
-                  </div>
-                </div>
-              ))}
+            <div className="grid grid-cols-2 gap-3">
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <Plus className="h-5 w-5" />
+                <span className="text-xs">إضافة منصة</span>
+              </Button>
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <RefreshCw className="h-5 w-5" />
+                <span className="text-xs">مزامنة البيانات</span>
+              </Button>
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <Settings className="h-5 w-5" />
+                <span className="text-xs">إعدادات التكامل</span>
+              </Button>
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <BarChart3 className="h-5 w-5" />
+                <span className="text-xs">تقرير الأداء</span>
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -554,186 +593,229 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
     <div className="min-h-screen bg-background">
       {renderHeader()}
       
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
+      <div className="container mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-6">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="platforms">المنصات</TabsTrigger>
-              <TabsTrigger value="categories">الفئات</TabsTrigger>
-              <TabsTrigger value="sync">المزامنة</TabsTrigger>
-              <TabsTrigger value="reports">التقارير</TabsTrigger>
-              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
-            </TabsList>
-          </div>
+          <TabsList className="grid w-full grid-cols-6 bg-muted/50 p-1 rounded-lg">
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-background">
+              لوحة التحكم
+            </TabsTrigger>
+            <TabsTrigger value="platforms" className="data-[state=active]:bg-background">
+              المنصات
+            </TabsTrigger>
+            <TabsTrigger value="categories" className="data-[state=active]:bg-background">
+              الفئات
+            </TabsTrigger>
+            <TabsTrigger value="performance" className="data-[state=active]:bg-background">
+              الأداء
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="data-[state=active]:bg-background">
+              التقارير
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="data-[state=active]:bg-background">
+              الإعدادات
+            </TabsTrigger>
+          </TabsList>
 
-          <TabsContent value="dashboard">
+          <TabsContent value="dashboard" className="space-y-6">
             {renderAnalyticsDashboard()}
           </TabsContent>
 
-          <TabsContent value="platforms">
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
+          <TabsContent value="platforms" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
                 <h2 className="text-2xl font-bold">إدارة المنصات</h2>
-                <Button onClick={() => setIsAddDialogOpen(true)}>
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة منصة
-                </Button>
+                <p className="text-muted-foreground">قائمة شاملة بجميع المنصات المتصلة</p>
               </div>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>قائمة المنصات</CardTitle>
-                  <div className="flex gap-4 mt-4">
-                    <Input
-                      placeholder="البحث في المنصات..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="max-w-sm"
-                    />
-                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                      <SelectTrigger className="max-w-xs">
-                        <SelectValue placeholder="تصفية حسب الفئة" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">جميع الفئات</SelectItem>
-                        <SelectItem value="government">حكومية</SelectItem>
-                        <SelectItem value="financial">مالية</SelectItem>
-                        <SelectItem value="insurance">تأمين</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    {integrationPlatforms.map((platform) => (
-                      <div key={platform.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            <Network className="h-5 w-5 text-primary" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold">{platform.name}</h3>
-                            <p className="text-sm text-muted-foreground">{platform.description}</p>
-                            <div className="flex gap-2 mt-1">
-                              <Badge variant="outline">{getCategoryText(platform.category)}</Badge>
-                              <Badge className={getStatusColor(platform.status)}>
-                                {getStatusText(platform.status)}
-                              </Badge>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <Button onClick={() => setIsAddDialogOpen(true)}>
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة منصة
+              </Button>
             </div>
-          </TabsContent>
 
-          <TabsContent value="categories">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold">إدارة الفئات</h2>
-              
-              <div className="grid gap-6 md:grid-cols-2">
-                {platformCategories.map((category) => (
-                  <Card key={category.id}>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Building className="h-5 w-5" />
-                        {category.name}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <p className="text-muted-foreground">{category.description}</p>
-                        
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <p className="text-sm text-muted-foreground">عدد المنصات</p>
-                            <p className="text-2xl font-bold">{category.platforms}</p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">متصل</p>
-                            <p className="text-2xl font-bold text-green-600">{category.connections}</p>
-                          </div>
-                        </div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="relative flex-1">
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="البحث في المنصات..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pr-10"
+                />
+              </div>
+              <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="تصفية حسب الحالة" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">جميع المنصات</SelectItem>
+                  <SelectItem value="connected">متصلة</SelectItem>
+                  <SelectItem value="syncing">يتم المزامنة</SelectItem>
+                  <SelectItem value="disconnected">غير متصلة</SelectItem>
+                  <SelectItem value="error">خطأ</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
+            <Card>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>المنصة</TableHead>
+                    <TableHead>الفئة</TableHead>
+                    <TableHead>الحالة</TableHead>
+                    <TableHead>آخر مزامنة</TableHead>
+                    <TableHead>معدل النجاح</TableHead>
+                    <TableHead>العمليات اليومية</TableHead>
+                    <TableHead>الإجراءات</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {integrationPlatforms.map((platform) => (
+                    <TableRow key={platform.id}>
+                      <TableCell>
                         <div>
-                          <div className="flex justify-between mb-2">
-                            <span className="text-sm text-muted-foreground">الأداء</span>
-                            <span className="text-sm font-medium">{category.performance}%</span>
-                          </div>
-                          <Progress value={category.performance} />
+                          <div className="font-medium">{platform.name}</div>
+                          <div className="text-sm text-muted-foreground">{platform.nameEn}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">
+                          {getCategoryText(platform.category)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={getStatusColor(platform.status)}>
+                          {getStatusText(platform.status)}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{platform.lastSync}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <Progress value={platform.successRate} className="w-16" />
+                          <span className="text-sm">{platform.successRate}%</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>{platform.dailyOperations}</TableCell>
+                      <TableCell>
+                        <Button variant="ghost" size="sm">
+                          <MoreVertical className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="categories" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold">فئات المنصات</h2>
+                <p className="text-muted-foreground">تصنيف وإدارة فئات المنصات المختلفة</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {platformCategories.map((category) => (
+                <Card key={category.id}>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <span>{category.name}</span>
+                      <Badge variant="secondary">{category.platforms} منصات</Badge>
+                    </CardTitle>
+                    <CardDescription>{category.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">رئيس القسم:</span>
+                        <span className="text-sm font-medium">{category.head}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">الاتصالات النشطة:</span>
+                        <span className="text-sm font-medium">{category.connections}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm">الأداء:</span>
+                        <div className="flex items-center gap-2">
+                          <Progress value={category.performance} className="w-16" />
+                          <span className="text-sm">{category.performance}%</span>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="sync">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold">إدارة المزامنة</h2>
-              <Card>
-                <CardHeader>
-                  <CardTitle>حالة المزامنة</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <RefreshCw className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">إدارة المزامنة</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
+          <TabsContent value="performance" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold">مؤشرات الأداء</h2>
+                <p className="text-muted-foreground">تتبع ومراقبة أداء جميع التكاملات</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {integrationMetrics.map((metric) => (
+                <Card key={metric.id}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg">{metric.metric}</CardTitle>
+                    <Badge variant="outline" className="w-fit">
+                      {metric.category}
+                    </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-2xl font-bold">{metric.value}</span>
+                        <Badge 
+                          className={
+                            metric.status === 'Excellent' ? 'bg-green-100 text-green-800' :
+                            metric.status === 'Good' ? 'bg-blue-100 text-blue-800' :
+                            'bg-yellow-100 text-yellow-800'
+                          }
+                        >
+                          {metric.status === 'Excellent' ? 'ممتاز' :
+                           metric.status === 'Good' ? 'جيد' : 'متوسط'}
+                        </Badge>
+                      </div>
+                      <Progress value={(metric.value / metric.target) * 100} />
+                      <div className="flex items-center justify-between text-sm text-muted-foreground">
+                        <span>الهدف: {metric.target}</span>
+                        <span>آخر تحديث: {metric.lastUpdated}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
           <TabsContent value="reports">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold">التقارير والإحصائيات</h2>
-              <Card>
-                <CardHeader>
-                  <CardTitle>تقارير التكامل</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">تقارير التكامل</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>التقارير والتحليلات</CardTitle>
+                <CardDescription>تقارير شاملة حول أداء التكامل والربط</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">قريباً - تقارير مفصلة عن جميع جوانب التكامل</p>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="settings">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold">إعدادات النظام</h2>
-              <Card>
-                <CardHeader>
-                  <CardTitle>إعدادات التكامل</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Settings className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">إعدادات النظام</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>إعدادات النظام</CardTitle>
+                <CardDescription>تكوين وإعدادات التكامل العامة</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">قريباً - إعدادات متقدمة للتكامل والربط</p>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
