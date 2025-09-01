@@ -168,7 +168,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   <img 
                     src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
                     alt="BOUD HR Logo" 
-                    className="h-32 w-auto opacity-95"
+                    className="h-48 w-auto opacity-95"
                   />
                   <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
                     <Globe className="h-12 w-12 text-white" />
