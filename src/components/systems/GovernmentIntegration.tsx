@@ -163,8 +163,16 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
             
             <div className="text-center">
               <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Globe className="h-12 w-12 text-white" />
+                {/* الشعار الكبير فوق الأيقونة */}
+                <div className="flex flex-col items-center gap-4">
+                  <img 
+                    src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
+                    alt="BOUD HR Logo" 
+                    className="h-32 w-auto opacity-95"
+                  />
+                  <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                    <Globe className="h-12 w-12 text-white" />
+                  </div>
                 </div>
               </div>
               <h1 className="text-4xl font-bold text-white mb-2">
