@@ -10,6 +10,7 @@ import {
   Eye, Save, Download, Share, Settings, Bot, Brain, Zap, TrendingUp, Shield,
   Bell, Calendar, Target, Lightbulb, BarChart3, PieChart, Activity, Clock, CheckCircle2
 } from 'lucide-react';
+import { RiskManagement } from './RiskManagement';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, LineChart, Line, BarChart, Bar } from 'recharts';
 import { useToast } from '@/hooks/use-toast';
 
@@ -767,14 +768,7 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
           </TabsContent>
 
           <TabsContent value="risks">
-            <Card>
-              <CardHeader>
-                <CardTitle>{isRTL ? 'إدارة المخاطر' : 'Risk Management'}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">{isRTL ? 'جاري تطوير وحدة إدارة المخاطر الذكية...' : 'Smart risk management module coming soon...'}</p>
-              </CardContent>
-            </Card>
+            <RiskManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="reports">

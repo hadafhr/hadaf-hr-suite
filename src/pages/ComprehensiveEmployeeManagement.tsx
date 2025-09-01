@@ -473,9 +473,9 @@ const ComprehensiveEmployeeManagement = () => {
             <Reports onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          <TabsContent value="tracking">
-            <TrackingSystem onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
+              <TabsContent value="tracking">
+                <TrackingSystem onBack={() => setActiveTab('dashboard')} />
+              </TabsContent>
 
           <TabsContent value="settings">
             <SystemSettings onBack={() => setActiveTab('dashboard')} />
