@@ -128,11 +128,11 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
           {/* طبقة تراكب متقدمة */}
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-gray-900/90 to-black/95"></div>
           
-          {/* أنماط هندسية خلفية مصغرة */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-5">
-            <div className="absolute top-2 right-2 w-16 h-16 border border-white rounded-full"></div>
-            <div className="absolute bottom-2 left-2 w-12 h-12 border border-white rotate-45"></div>
-            <div className="absolute top-1/4 left-1/3 w-8 h-8 bg-white/10 rounded-lg rotate-12"></div>
+          {/* أنماط هندسية خلفية مصغرة أكثر */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-3">
+            <div className="absolute top-1 right-1 w-8 h-8 border border-white/30 rounded-full"></div>
+            <div className="absolute bottom-1 left-1 w-6 h-6 border border-white/30 rotate-45"></div>
+            <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-white/5 rounded-lg rotate-12"></div>
           </div>
           
           <div className="relative z-20">
