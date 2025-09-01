@@ -133,20 +133,19 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               />
             </div>
 
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
+            {/* الأزرار تحت الشعار مباشرة */}
+            <div className="mt-40 mb-6">
+              <div className="flex items-center justify-center gap-3 flex-wrap">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={onBack}
                   className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 ml-2" />
                   رجوع
                 </Button>
-              </div>
-
-              <div className="flex items-center gap-3">
+                
                 <Button 
                   className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
                   onClick={() => window.location.reload()}
@@ -154,9 +153,26 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   <RefreshCw className="h-4 w-4 ml-2" />
                   تحديث جميع الأنظمة
                 </Button>
+                
                 <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
                   <Globe className="h-4 w-4 ml-2" />
                   ربط نظام جديد
+                </Button>
+                
+                <Button 
+                  className="bg-red-500/80 border-red-400 text-white hover:bg-red-600/90 backdrop-blur-sm"
+                  onClick={() => {}}
+                >
+                  <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
+                  حذف نظام سابق
+                </Button>
+                
+                <Button 
+                  className="bg-blue-500/80 border-blue-400 text-white hover:bg-blue-600/90 backdrop-blur-sm"
+                  onClick={() => {}}
+                >
+                  <Globe className="h-4 w-4 ml-2" />
+                  الإعدادات
                 </Button>
               </div>
             </div>
