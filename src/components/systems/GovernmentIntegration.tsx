@@ -124,6 +124,15 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative z-10">
+            {/* الشعار في أعلى الهيدر */}
+            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-20">
+              <img 
+                src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
+                alt="BOUD HR Logo" 
+                className="h-64 w-auto opacity-95"
+              />
+            </div>
+
             {/* الشعار في أعلى يسار الصفحة */}
             <div className="absolute -top-4 right-6">
               <img 
@@ -161,15 +170,10 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               </div>
             </div>
             
-            <div className="text-center">
+            <div className="text-center mt-20">
               <div className="flex items-center justify-center gap-4 mb-4">
                 {/* الشعار الكبير فوق الأيقونة */}
                 <div className="flex flex-col items-center gap-4">
-                  <img 
-                    src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
-                    alt="BOUD HR Logo" 
-                    className="h-48 w-auto opacity-95"
-                  />
                   <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
                     <Globe className="h-12 w-12 text-white" />
                   </div>
