@@ -1,118 +1,93 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BoudLogo } from '@/components/BoudLogo';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { 
   Users, 
-  UserPlus, 
-  AlertTriangle, 
-  Calendar, 
-  Clock,
-  DollarSign,
-  Building,
-  BarChart3,
-  ArrowLeft,
-  RefreshCw,
-  Download,
+  Clock, 
+  DollarSign, 
+  BookOpen, 
+  FileText, 
+  BarChart3, 
+  Award,
+  UserCheck,
   Settings,
-  Plug,
-  Network,
-  Shield,
-  Banknote,
-  Scale,
+  TrendingUp,
+  Building,
   Target,
-  GraduationCap,
-  FileBarChart,
-  CalendarClock,
-  Gift,
-  PenTool,
-  CheckSquare,
-  Megaphone,
-  Bot,
-  User,
-  Star,
+  Shield,
+  Briefcase,
+  Calendar,
   MessageSquare,
-  MapPin
+  Activity,
+  ChevronRight
 } from 'lucide-react';
-
-// Import components
-import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
-import { SystemSettings } from '@/components/settings/SystemSettings';
-import { NotificationSystem } from '@/components/NotificationSystem';
 import { TeamMembers } from '@/components/systems/TeamMembers';
-import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
-import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendance';
-import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
-import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
-import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
-import OrganizationalDevelopment from '@/components/systems/OrganizationalDevelopment';
-import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
-import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
-import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
-import { ComprehensiveSmartEvaluation } from '@/components/systems/ComprehensiveSmartEvaluation';
-import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
-import SmartHire from '@/pages/SmartHire';
-import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
-import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
-import MeetingHub from '@/pages/MeetingHub';
-import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
-import { TasksTracking } from '@/components/systems/TasksTracking';
-import { CombinedRequestsNotifications } from '@/components/systems/CombinedRequestsNotifications';
-import ArtificialIntelligence from '@/components/systems/ArtificialIntelligence';
+import { ComprehensiveAttendanceSystem } from '@/components/systems/ComprehensiveAttendanceSystem';
+import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
+import { ComprehensiveTrainingSystem } from '@/components/systems/ComprehensiveTrainingSystem';
+import { PerformanceEvaluation } from '@/components/systems/PerformanceEvaluation';
 import Reports from '@/components/systems/Reports';
-import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
+import SmartPerformanceManagement from '@/components/systems/SmartPerformanceManagement';
+import { ComprehensiveRecruitment } from '@/components/systems/ComprehensiveRecruitment';
 import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
-import { TrackingSystem } from '@/components/systems/TrackingSystem';
+import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
+import { RiskManagement } from '@/components/systems/RiskManagement';
+import { BoudHRHeader } from '@/components/shared/BoudHRHeader';
+import { mockEmployees } from '@/data/mockEmployees';
 
 const ComprehensiveEmployeeManagement = () => {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
-  const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+  const [activeSystem, setActiveSystem] = useState<string | null>(null);
 
-  // Mock employee data
-  const mockEmployee = {
-    id: 'EMP001',
-    name: 'أحمد محمد العلي',
-    position: 'مطور برمجيات أول',
-    department: 'تقنية المعلومات',
-    status: 'نشط',
-    joinDate: '2023-01-15',
-    email: 'ahmed.ali@company.com',
-    phone: '+966501234567',
-    avatar: '/placeholder.svg',
-    salary: {
-      basic: 12000,
-      housing: 2000,
-      transport: 800,
-      total: 15300
-    }
-  };
+  // Calculate statistics from mock data
+  const totalEmployees = mockEmployees.length;
+  const activeEmployees = mockEmployees.filter(emp => emp.status === 'active').length;
+  const avgPerformance = Math.round(mockEmployees.reduce((sum, emp) => sum + emp.performanceScore, 0) / totalEmployees);
+  const totalPayroll = mockEmployees.reduce((sum, emp) => sum + emp.salary, 0);
 
-  const handleViewEmployee = (employee: any) => {
-    setSelectedEmployee(employee);
-    setIsViewEmployeeOpen(true);
-  };
+  if (activeSystem === 'team') {
+    return <TeamMembers onBack={() => setActiveSystem(null)} />;
+  }
 
-  const getStatusBadge = (status: string) => {
-    const statusConfig = {
-      'نشط': 'bg-green-100 text-green-800 border-green-200',
-      'في إجازة': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'متوقف': 'bg-red-100 text-red-800 border-red-200',
-      'منتهي الخدمة': 'bg-gray-100 text-gray-800 border-gray-200'
-    };
-    
-    return (
-      <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-100 text-gray-800'}>
-        {status}
-      </Badge>
-    );
-  };
+  if (activeSystem === 'attendance') {
+    return <ComprehensiveAttendanceSystem onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'payroll') {
+    return <ComprehensivePayrollSystem onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'training') {
+    return <ComprehensiveTrainingSystem onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'performance') {
+    return <PerformanceEvaluation onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'reports') {
+    return <Reports onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'smartperformance') {
+    return <SmartPerformanceManagement onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'recruitment') {
+    return <ComprehensiveRecruitment onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'talents') {
+    return <ComprehensiveTalentManagement onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'governance') {
+    return <ComprehensiveGovernanceCompliance onBack={() => setActiveSystem(null)} />;
+  }
+
+  if (activeSystem === 'risks') {
+    return <RiskManagement onBack={() => setActiveSystem(null)} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#009F87]/5 via-background to-[#009F87]/10 relative overflow-hidden">
