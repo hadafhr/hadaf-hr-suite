@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { 
   ArrowLeft, 
@@ -58,8 +57,7 @@ import {
   Database,
   RefreshCw,
   Server,
-  Users,
-  MoreVertical
+  Users
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
 
@@ -593,229 +591,258 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
     <div className="min-h-screen bg-background">
       {renderHeader()}
       
-      <div className="container mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 bg-muted/50 p-1 rounded-lg">
-            <TabsTrigger value="dashboard" className="data-[state=active]:bg-background">
-              لوحة التحكم
-            </TabsTrigger>
-            <TabsTrigger value="platforms" className="data-[state=active]:bg-background">
-              المنصات
-            </TabsTrigger>
-            <TabsTrigger value="categories" className="data-[state=active]:bg-background">
-              الفئات
-            </TabsTrigger>
-            <TabsTrigger value="performance" className="data-[state=active]:bg-background">
-              الأداء
-            </TabsTrigger>
-            <TabsTrigger value="reports" className="data-[state=active]:bg-background">
-              التقارير
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="data-[state=active]:bg-background">
-              الإعدادات
-            </TabsTrigger>
-          </TabsList>
+          <div className="border-b border-border">
+            <TabsList className="grid w-full grid-cols-6">
+              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="platforms">المنصات</TabsTrigger>
+              <TabsTrigger value="categories">الفئات</TabsTrigger>
+              <TabsTrigger value="performance">الأداء</TabsTrigger>
+              <TabsTrigger value="reports">التقارير</TabsTrigger>
+              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+            </TabsList>
+          </div>
 
-          <TabsContent value="dashboard" className="space-y-6">
+          <TabsContent value="dashboard">
             {renderAnalyticsDashboard()}
           </TabsContent>
 
-          <TabsContent value="platforms" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
+          <TabsContent value="platforms">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">إدارة المنصات</h2>
-                <p className="text-muted-foreground">قائمة شاملة بجميع المنصات المتصلة</p>
+                <Button onClick={() => setIsAddDialogOpen(true)}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة منصة
+                </Button>
               </div>
-              <Button onClick={() => setIsAddDialogOpen(true)}>
-                <Plus className="h-4 w-4 ml-2" />
-                إضافة منصة
-              </Button>
-            </div>
 
-            <div className="flex items-center gap-4 mb-6">
-              <div className="relative flex-1">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="البحث في المنصات..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pr-10"
-                />
-              </div>
-              <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="تصفية حسب الحالة" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">جميع المنصات</SelectItem>
-                  <SelectItem value="connected">متصلة</SelectItem>
-                  <SelectItem value="syncing">يتم المزامنة</SelectItem>
-                  <SelectItem value="disconnected">غير متصلة</SelectItem>
-                  <SelectItem value="error">خطأ</SelectItem>
-                </SelectContent>
-              </Select>
+              <Card>
+                <CardHeader>
+                  <CardTitle>قائمة المنصات</CardTitle>
+                  <div className="flex gap-4 mt-4">
+                    <Input
+                      placeholder="البحث في المنصات..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="max-w-sm"
+                    />
+                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                      <SelectTrigger className="max-w-xs">
+                        <SelectValue placeholder="تصفية حسب الفئة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الفئات</SelectItem>
+                        <SelectItem value="government">المنصات الحكومية</SelectItem>
+                        <SelectItem value="financial">الأنظمة المالية</SelectItem>
+                        <SelectItem value="insurance">شركات التأمين</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    {integrationPlatforms.map((platform) => (
+                      <div key={platform.id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Network className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">{platform.name}</h3>
+                            <p className="text-sm text-muted-foreground">{platform.nameEn}</p>
+                            <div className="flex gap-2 mt-1">
+                              <Badge variant="outline">{getCategoryText(platform.category)}</Badge>
+                              <Badge className={getStatusColor(platform.status)}>
+                                {getStatusText(platform.status)}
+                              </Badge>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+          </TabsContent>
 
-            <Card>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>المنصة</TableHead>
-                    <TableHead>الفئة</TableHead>
-                    <TableHead>الحالة</TableHead>
-                    <TableHead>آخر مزامنة</TableHead>
-                    <TableHead>معدل النجاح</TableHead>
-                    <TableHead>العمليات اليومية</TableHead>
-                    <TableHead>الإجراءات</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {integrationPlatforms.map((platform) => (
-                    <TableRow key={platform.id}>
-                      <TableCell>
+          <TabsContent value="categories">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إدارة الفئات</h2>
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {platformCategories.map((category) => (
+                  <Card key={category.id}>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Building className="h-5 w-5" />
+                        {category.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <div className="font-medium">{platform.name}</div>
-                          <div className="text-sm text-muted-foreground">{platform.nameEn}</div>
+                          <span className="text-muted-foreground">رئيس القسم:</span>
+                          <p className="font-medium">{category.head}</p>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">
-                          {getCategoryText(platform.category)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={getStatusColor(platform.status)}>
-                          {getStatusText(platform.status)}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{platform.lastSync}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Progress value={platform.successRate} className="w-16" />
-                          <span className="text-sm">{platform.successRate}%</span>
+                        <div>
+                          <span className="text-muted-foreground">عدد المنصات:</span>
+                          <p className="font-medium">{category.platforms} منصة</p>
                         </div>
-                      </TableCell>
-                      <TableCell>{platform.dailyOperations}</TableCell>
-                      <TableCell>
-                        <Button variant="ghost" size="sm">
-                          <MoreVertical className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="categories" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold">فئات المنصات</h2>
-                <p className="text-muted-foreground">تصنيف وإدارة فئات المنصات المختلفة</p>
+                        <div>
+                          <span className="text-muted-foreground">الاتصالات النشطة:</span>
+                          <p className="font-medium">{category.connections}</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">الأداء:</span>
+                          <p className="font-medium">{category.performance}%</p>
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{category.description}</p>
+                      <Progress value={category.performance} className="w-full" />
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {platformCategories.map((category) => (
-                <Card key={category.id}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span>{category.name}</span>
-                      <Badge variant="secondary">{category.platforms} منصات</Badge>
-                    </CardTitle>
-                    <CardDescription>{category.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">رئيس القسم:</span>
-                        <span className="text-sm font-medium">{category.head}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">الاتصالات النشطة:</span>
-                        <span className="text-sm font-medium">{category.connections}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">الأداء:</span>
-                        <div className="flex items-center gap-2">
-                          <Progress value={category.performance} className="w-16" />
-                          <span className="text-sm">{category.performance}%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="performance" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold">مؤشرات الأداء</h2>
-                <p className="text-muted-foreground">تتبع ومراقبة أداء جميع التكاملات</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {integrationMetrics.map((metric) => (
-                <Card key={metric.id}>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg">{metric.metric}</CardTitle>
-                    <Badge variant="outline" className="w-fit">
-                      {metric.category}
-                    </Badge>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
+          <TabsContent value="performance">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">مؤشرات الأداء</h2>
+              
+              <div className="grid gap-4">
+                {integrationMetrics.map((metric) => (
+                  <Card key={metric.id}>
+                    <CardContent className="p-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-2xl font-bold">{metric.value}</span>
-                        <Badge 
-                          className={
-                            metric.status === 'Excellent' ? 'bg-green-100 text-green-800' :
-                            metric.status === 'Good' ? 'bg-blue-100 text-blue-800' :
-                            'bg-yellow-100 text-yellow-800'
-                          }
-                        >
-                          {metric.status === 'Excellent' ? 'ممتاز' :
-                           metric.status === 'Good' ? 'جيد' : 'متوسط'}
-                        </Badge>
+                        <div>
+                          <h3 className="font-semibold">{metric.metric}</h3>
+                          <p className="text-sm text-muted-foreground">{metric.category}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-2xl font-bold">{metric.value}%</p>
+                          <p className="text-sm text-muted-foreground">الهدف: {metric.target}%</p>
+                        </div>
                       </div>
-                      <Progress value={(metric.value / metric.target) * 100} />
-                      <div className="flex items-center justify-between text-sm text-muted-foreground">
-                        <span>الهدف: {metric.target}</span>
-                        <span>آخر تحديث: {metric.lastUpdated}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                      <Progress value={metric.value} className="mt-2" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </TabsContent>
 
           <TabsContent value="reports">
-            <Card>
-              <CardHeader>
-                <CardTitle>التقارير والتحليلات</CardTitle>
-                <CardDescription>تقارير شاملة حول أداء التكامل والربط</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">قريباً - تقارير مفصلة عن جميع جوانب التكامل</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">التقارير</h2>
+              
+              <div className="grid gap-6 md:grid-cols-3">
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="h-5 w-5" />
+                      تقرير المنصات
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      تقرير شامل بجميع بيانات المنصات والتكامل
+                    </p>
+                    <Button className="w-full" onClick={handleExport}>
+                      <Download className="h-4 w-4 ml-2" />
+                      تحميل التقرير
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5" />
+                      تقرير الأداء
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      تحليل مفصل لمؤشرات الأداء الرئيسية
+                    </p>
+                    <Button className="w-full" onClick={handleExport}>
+                      <Download className="h-4 w-4 ml-2" />
+                      تحميل التقرير
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Clock className="h-5 w-5" />
+                      تقرير المزامنة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      ملخص المزامنة والاتصال لجميع المنصات
+                    </p>
+                    <Button className="w-full" onClick={handleExport}>
+                      <Download className="h-4 w-4 ml-2" />
+                      تحميل التقرير
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="settings">
-            <Card>
-              <CardHeader>
-                <CardTitle>إعدادات النظام</CardTitle>
-                <CardDescription>تكوين وإعدادات التكامل العامة</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">قريباً - إعدادات متقدمة للتكامل والربط</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">الإعدادات</h2>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>إعدادات عامة</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>مدة انتظار الاتصال (ثواني)</Label>
+                    <Input type="number" defaultValue="30" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label>عدد محاولات إعادة الاتصال</Label>
+                    <Input type="number" defaultValue="3" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>تردد المزامنة التلقائية</Label>
+                    <Select defaultValue="daily">
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="hourly">كل ساعة</SelectItem>
+                        <SelectItem value="daily">يومياً</SelectItem>
+                        <SelectItem value="weekly">أسبوعياً</SelectItem>
+                        <SelectItem value="monthly">شهرياً</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <Button>حفظ الإعدادات</Button>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
