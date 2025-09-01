@@ -164,7 +164,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                     <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white mb-3 tracking-wider animate-fade-in">
                       قسم التكامل والربط
                     </h1>
-                    <div className="absolute inset-0 text-6xl font-black text-white/5 blur-sm transform -translate-y-1">
+                    <div className="absolute inset-0 text-6xl font-black text-white/5 blur-sm transform -translate-y-3">
                       قسم التكامل والربط
                     </div>
                   </div>
