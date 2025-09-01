@@ -138,13 +138,13 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
           <div className="relative z-20">
             {/* التخطيط الجديد: شعار (يمين) - نص (وسط) - رمز (يسار) */}
             <div className="grid grid-cols-3 items-center mb-8">
-              {/* الشعار في اليمين */}
-              <div className="flex justify-end">
-                <div className="p-3 bg-white/5 rounded-xl backdrop-blur-md border border-white/10">
+              {/* الشعار في أقصى اليمين */}
+              <div className="flex justify-end pr-0">
+                <div className="p-2 bg-white/5 rounded-xl backdrop-blur-md border border-white/10">
                   <img 
                     src="/lovable-uploads/4b2910fb-b74e-4c5d-b399-8b1109f26b7b.png" 
                     alt="BOUD HR Logo" 
-                    className="h-16 w-auto"
+                    className="h-32 w-auto"
                   />
                 </div>
               </div>
