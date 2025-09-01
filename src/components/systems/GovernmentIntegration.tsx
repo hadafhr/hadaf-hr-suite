@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Globe, Wifi, WifiOff, RefreshCw, CheckCircle, AlertCircle, Settings, Trash2, Plus, Shield, Server, Database, Network, Lock, Eye, Download, BarChart3 } from 'lucide-react';
 
 interface GovernmentSystem {
@@ -21,6 +22,9 @@ interface GovernmentIntegrationProps {
 
 export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ onBack }) => {
   const [syncing, setSyncing] = useState<string | null>(null);
+  const [isAddingSystem, setIsAddingSystem] = useState(false);
+  const [isDeletingSystem, setIsDeletingSystem] = useState(false);
+  const { toast } = useToast();
 
   const systems: GovernmentSystem[] = [
     {
@@ -109,9 +113,88 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
 
   const handleSync = async (systemId: string) => {
     setSyncing(systemId);
+    const system = systems.find(s => s.id === systemId);
+    toast({
+      title: "بدء المزامنة",
+      description: `جاري مزامنة بيانات ${system?.name}...`,
+    });
+    
     // Simulate sync process
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 3000));
     setSyncing(null);
+    
+    toast({
+      title: "تمت المزامنة بنجاح",
+      description: `تم تحديث بيانات ${system?.name} بنجاح`,
+    });
+  };
+
+  const handleAddNewSystem = async () => {
+    setIsAddingSystem(true);
+    toast({
+      title: "إضافة نظام جديد",
+      description: "جاري تحضير نموذج إضافة النظام الجديد...",
+    });
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsAddingSystem(false);
+    
+    toast({
+      title: "جاهز للإضافة",
+      description: "يمكنك الآن إدخال بيانات النظام الجديد",
+    });
+  };
+
+  const handleDeleteSystem = async () => {
+    setIsDeletingSystem(true);
+    toast({
+      title: "حذف نظام",
+      description: "جاري تحضير قائمة الأنظمة المتاحة للحذف...",
+    });
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsDeletingSystem(false);
+    
+    toast({
+      title: "جاهز للحذف",
+      description: "اختر النظام الذي تريد حذفه من القائمة",
+    });
+  };
+
+  const handleSystemSettings = () => {
+    toast({
+      title: "الإعدادات العامة",
+      description: "جاري فتح إعدادات نظام التكامل والربط...",
+    });
+  };
+
+  const handleViewSystem = (system: GovernmentSystem) => {
+    toast({
+      title: `معاينة ${system.name}`,
+      description: `عرض تفاصيل وإحصائيات ${system.nameEn}`,
+    });
+  };
+
+  const handleExportSystem = (system: GovernmentSystem) => {
+    toast({
+      title: `تصدير بيانات ${system.name}`,
+      description: "جاري تحضير ملف التصدير... سيتم تحميله قريباً",
+    });
+    
+    // محاكاة عملية التصدير
+    setTimeout(() => {
+      toast({
+        title: "تم التصدير بنجاح",
+        description: `تم تصدير بيانات ${system.name} بصيغة Excel`,
+      });
+    }, 3000);
+  };
+
+  const handleSystemConfig = (system: GovernmentSystem) => {
+    toast({
+      title: `إعدادات ${system.name}`,
+      description: `فتح لوحة إعدادات ${system.nameEn}`,
+    });
   };
 
   const connectedSystems = systems.filter(s => s.status === 'متصل').length;
@@ -223,22 +306,35 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
               </Button>
               
               <Button 
-                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
+                onClick={handleAddNewSystem}
+                disabled={isAddingSystem}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30 disabled:opacity-50"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <Plus className="h-5 w-5 ml-3 group-hover:rotate-90 transition-transform duration-300" />
-                <span className="relative z-10">ربط نظام جديد</span>
+                {isAddingSystem ? (
+                  <RefreshCw className="h-5 w-5 ml-3 animate-spin" />
+                ) : (
+                  <Plus className="h-5 w-5 ml-3 group-hover:rotate-90 transition-transform duration-300" />
+                )}
+                <span className="relative z-10">{isAddingSystem ? 'جاري التحضير...' : 'ربط نظام جديد'}</span>
               </Button>
               
               <Button 
-                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
+                onClick={handleDeleteSystem}
+                disabled={isDeletingSystem}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30 disabled:opacity-50"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <Trash2 className="h-5 w-5 ml-3 group-hover:scale-110 transition-transform duration-300" />
-                <span className="relative z-10">حذف نظام</span>
+                {isDeletingSystem ? (
+                  <RefreshCw className="h-5 w-5 ml-3 animate-spin" />
+                ) : (
+                  <Trash2 className="h-5 w-5 ml-3 group-hover:scale-110 transition-transform duration-300" />
+                )}
+                <span className="relative z-10">{isDeletingSystem ? 'جاري التحضير...' : 'حذف نظام'}</span>
               </Button>
               
               <Button 
+                onClick={handleSystemSettings}
                 className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
@@ -387,10 +483,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   <Button 
                     size="default"
                     className="group/btn relative overflow-hidden bg-gradient-to-r from-secondary/90 to-secondary hover:from-secondary hover:to-secondary/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-secondary/25 transform hover:scale-105 transition-all duration-300 border border-secondary/30"
-                    onClick={() => {
-                      // وظيفة المعاينة
-                      console.log(`عرض تفاصيل نظام: ${system.name}`);
-                    }}
+                    onClick={() => handleViewSystem(system)}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
                     <Eye className="h-4 w-4 ml-2 group-hover/btn:scale-110 transition-transform duration-300" />
@@ -400,11 +493,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   <Button 
                     size="default"
                     className="group/btn relative overflow-hidden bg-gradient-to-r from-accent/90 to-accent hover:from-accent hover:to-accent/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-accent/25 transform hover:scale-105 transition-all duration-300 border border-accent/30"
-                    onClick={() => {
-                      // وظيفة التصدير
-                      console.log(`تصدير بيانات نظام: ${system.name}`);
-                      // يمكن إضافة منطق تصدير ملف Excel أو PDF هنا
-                    }}
+                    onClick={() => handleExportSystem(system)}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
                     <Download className="h-4 w-4 ml-2 group-hover/btn:translate-y-1 transition-transform duration-300" />
@@ -414,10 +503,7 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
                   <Button 
                     size="default"
                     className="group/btn relative overflow-hidden bg-gradient-to-r from-gray-800/90 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-gray-800/25 transform hover:scale-105 transition-all duration-300 border border-gray-800/30"
-                    onClick={() => {
-                      // وظيفة الإعدادات
-                      console.log(`إعدادات نظام: ${system.name}`);
-                    }}
+                    onClick={() => handleSystemConfig(system)}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
                     <Settings className="h-4 w-4 ml-2 group-hover/btn:rotate-90 transition-transform duration-500" />
