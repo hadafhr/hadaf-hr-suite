@@ -123,92 +123,92 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 opacity-50"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto p-6">
-        {/* هيدر احترافي متطور */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-elegant p-12 mb-8 shadow-elegant backdrop-blur-sm border border-primary/20">
+        {/* هيدر احترافي مطور ومصغر */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-gray-900 to-black p-8 mb-8 shadow-elegant backdrop-blur-sm border border-primary/20">
           {/* طبقة تراكب متقدمة */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-secondary/80 to-accent/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-gray-900/90 to-black/95"></div>
           
-          {/* أنماط هندسية خلفية */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <div className="absolute top-4 right-4 w-32 h-32 border-2 border-white rounded-full"></div>
-            <div className="absolute bottom-4 left-4 w-24 h-24 border border-white rotate-45"></div>
-            <div className="absolute top-1/3 left-1/4 w-16 h-16 bg-white/10 rounded-lg rotate-12"></div>
+          {/* أنماط هندسية خلفية مصغرة */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-5">
+            <div className="absolute top-2 right-2 w-16 h-16 border border-white rounded-full"></div>
+            <div className="absolute bottom-2 left-2 w-12 h-12 border border-white rotate-45"></div>
+            <div className="absolute top-1/4 left-1/3 w-8 h-8 bg-white/10 rounded-lg rotate-12"></div>
           </div>
           
           <div className="relative z-20">
-            {/* الشعار المتطور */}
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center p-6 bg-white/10 rounded-3xl backdrop-blur-md border border-white/20 mb-8">
+            {/* الشعار المصغر */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-2xl backdrop-blur-md border border-white/10 mb-6">
                 <img 
                   src="/lovable-uploads/efcdf377-f1e8-46de-9c53-a32187817fa7.png" 
                   alt="BOUD HR Logo" 
-                  className="h-32 w-auto brightness-0 invert opacity-95"
+                  className="h-20 w-auto brightness-0 invert opacity-95"
                 />
               </div>
             </div>
 
-            {/* مجموعة الأزرار الاحترافية */}
-            <div className="flex items-center justify-center gap-4 flex-wrap mb-12">
+            {/* العنوان والوصف */}
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-bold text-white mb-3 tracking-wide">
+                قسم التكامل والربط
+              </h1>
+              <p className="text-white/80 text-lg max-w-2xl mx-auto leading-relaxed">
+                منظومة ذكية شاملة للربط الآمن والمتطور مع جميع الأنظمة الحكومية وتزامن البيانات
+              </p>
+            </div>
+
+            {/* مجموعة الأزرار المنظمة */}
+            <div className="flex items-center justify-center gap-3 flex-wrap">
               <Button
                 variant="outline"
-                size="lg"
+                size="default"
                 onClick={onBack}
-                className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-md transition-all duration-300 shadow-glow group"
+                className="bg-white/5 border-white/20 text-white hover:bg-white/15 backdrop-blur-md transition-all duration-300 shadow-md group"
               >
-                <ArrowLeft className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                رجوع للوحة التحكم
+                <ArrowLeft className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                رجوع
               </Button>
               
               <Button 
-                size="lg"
-                className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-md transition-all duration-300 shadow-glow group"
+                size="default"
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-md transition-all duration-300 shadow-md group"
                 onClick={() => window.location.reload()}
               >
-                <RefreshCw className="h-5 w-5 ml-2 group-hover:rotate-180 transition-transform" />
-                تحديث جميع الأنظمة
+                <RefreshCw className="h-4 w-4 ml-2 group-hover:rotate-180 transition-transform" />
+                تحديث الأنظمة
               </Button>
               
               <Button 
-                size="lg"
-                className="bg-accent/90 border-accent text-white hover:bg-accent shadow-glow group"
+                size="default"
+                className="bg-primary/80 border-primary/60 text-white hover:bg-primary shadow-md group"
               >
-                <Plus className="h-5 w-5 ml-2 group-hover:rotate-90 transition-transform" />
+                <Plus className="h-4 w-4 ml-2 group-hover:rotate-90 transition-transform" />
                 ربط نظام جديد
               </Button>
               
               <Button 
-                size="lg"
-                className="bg-destructive/80 border-destructive/60 text-white hover:bg-destructive/90 backdrop-blur-md shadow-glow group"
+                size="default"
+                className="bg-destructive/70 border-destructive/50 text-white hover:bg-destructive/80 backdrop-blur-md shadow-md group"
                 onClick={() => {}}
               >
-                <Trash2 className="h-5 w-5 ml-2 group-hover:scale-110 transition-transform" />
-                حذف نظام سابق
+                <Trash2 className="h-4 w-4 ml-2 group-hover:scale-110 transition-transform" />
+                حذف نظام
               </Button>
               
               <Button 
-                size="lg"
-                className="bg-secondary/80 border-secondary/60 text-white hover:bg-secondary/90 backdrop-blur-md shadow-glow group"
+                size="default"
+                className="bg-secondary/70 border-secondary/50 text-white hover:bg-secondary/80 backdrop-blur-md shadow-md group"
                 onClick={() => {}}
               >
-                <Settings className="h-5 w-5 ml-2 group-hover:rotate-90 transition-transform" />
-                الإعدادات المتقدمة
+                <Settings className="h-4 w-4 ml-2 group-hover:rotate-90 transition-transform" />
+                الإعدادات
               </Button>
             </div>
             
-            {/* العنوان والوصف المتطوران */}
-            <div className="text-center">
-              <h1 className="text-5xl font-bold text-white mb-4 tracking-wide">
-                قسم التكامل والربط
-              </h1>
-              <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
-                منظومة ذكية شاملة للربط الآمن والمتطور مع جميع الأنظمة الحكومية وتزامن البيانات مع الجهات الرسمية
-              </p>
-              
-              {/* أيقونة مركزية متحركة */}
-              <div className="mt-8 flex justify-center">
-                <div className="p-4 bg-white/20 rounded-3xl backdrop-blur-md border border-white/30 shadow-glow">
-                  <Network className="h-16 w-16 text-white animate-pulse" />
-                </div>
+            {/* أيقونة مركزية */}
+            <div className="mt-6 flex justify-center">
+              <div className="p-3 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20 shadow-md">
+                <Network className="h-12 w-12 text-white" />
               </div>
             </div>
           </div>
