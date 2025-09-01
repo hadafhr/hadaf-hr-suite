@@ -250,139 +250,178 @@ export const GovernmentIntegration: React.FC<GovernmentIntegrationProps> = ({ on
         </div>
 
         {/* إحصائيات احترافية محدثة */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <Card className="bg-card/95 backdrop-blur-md border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-elegant hover:shadow-glow group">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-primary/30 hover:border-primary/60 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] transform hover:scale-105">
             <CardContent className="p-6 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                <Server className="h-8 w-8 text-primary" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <Server className="h-10 w-10 text-primary drop-shadow-lg" />
               </div>
-              <div className="text-3xl font-bold text-primary mb-1">{systems.length}</div>
-              <div className="text-sm text-muted-foreground">إجمالي الأنظمة المتاحة</div>
+              <div className="text-4xl font-black text-primary mb-2 group-hover:scale-110 transition-transform">{systems.length}</div>
+              <div className="text-sm font-medium text-muted-foreground">إجمالي الأنظمة المتاحة</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-card/95 backdrop-blur-md border-green-200/50 hover:border-green-300/70 transition-all duration-300 shadow-elegant hover:shadow-glow group">
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-green-200/50 hover:border-green-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(34,197,94,0.2)] transform hover:scale-105">
             <CardContent className="p-6 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100/50 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                <CheckCircle className="h-8 w-8 text-green-600" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100/80 to-green-50/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <CheckCircle className="h-10 w-10 text-green-600 drop-shadow-lg" />
               </div>
-              <div className="text-3xl font-bold text-green-600 mb-1">{connectedSystems}</div>
-              <div className="text-sm text-muted-foreground">أنظمة متصلة ونشطة</div>
+              <div className="text-4xl font-black text-green-600 mb-2 group-hover:scale-110 transition-transform">{connectedSystems}</div>
+              <div className="text-sm font-medium text-muted-foreground">أنظمة متصلة ونشطة</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-card/95 backdrop-blur-md border-red-200/50 hover:border-red-300/70 transition-all duration-300 shadow-elegant hover:shadow-glow group">
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-red-200/50 hover:border-red-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(239,68,68,0.2)] transform hover:scale-105">
             <CardContent className="p-6 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100/50 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                <AlertCircle className="h-8 w-8 text-red-600" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100/80 to-red-50/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <AlertCircle className="h-10 w-10 text-red-600 drop-shadow-lg" />
               </div>
-              <div className="text-3xl font-bold text-red-600 mb-1">{errorSystems}</div>
-              <div className="text-sm text-muted-foreground">أخطاء تتطلب انتباه</div>
+              <div className="text-4xl font-black text-red-600 mb-2 group-hover:scale-110 transition-transform">{errorSystems}</div>
+              <div className="text-sm font-medium text-muted-foreground">أخطاء تتطلب انتباه</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-card/95 backdrop-blur-md border-blue-200/50 hover:border-blue-300/70 transition-all duration-300 shadow-elegant hover:shadow-glow group">
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-blue-200/50 hover:border-blue-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(59,130,246,0.2)] transform hover:scale-105">
             <CardContent className="p-6 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100/50 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-                <BarChart3 className="h-8 w-8 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-100/80 to-blue-50/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <BarChart3 className="h-10 w-10 text-blue-600 drop-shadow-lg" />
               </div>
-              <div className="text-3xl font-bold text-blue-600 mb-1">98.5%</div>
-              <div className="text-sm text-muted-foreground">معدل الاتصال الإجمالي</div>
+              <div className="text-4xl font-black text-blue-600 mb-2 group-hover:scale-110 transition-transform">98.5%</div>
+              <div className="text-sm font-medium text-muted-foreground">معدل الاتصال الإجمالي</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* شبكة الأنظمة الحكومية الاحترافية */}
+        {/* شبكة الأنظمة الحكومية الفائقة الجمال */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {systems.map((system) => (
-            <Card key={system.id} className="group bg-card/95 backdrop-blur-md border-primary/20 hover:border-primary/40 transition-all duration-300 shadow-elegant hover:shadow-glow">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
+            <Card key={system.id} className="group relative overflow-hidden bg-gradient-to-br from-card/98 to-card/90 backdrop-blur-xl border border-primary/20 hover:border-primary/50 transition-all duration-700 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transform hover:scale-[1.02] hover:-translate-y-2">
+              
+              {/* تأثير الإضاءة المتحركة */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+              
+              <CardHeader className="pb-6 relative z-10">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
-                      {system.icon}
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-sm group-hover:blur-md transition-all duration-500"></div>
+                      <div className="relative p-4 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 rounded-2xl group-hover:from-primary/20 group-hover:to-secondary/15 transition-all duration-500 shadow-inner">
+                        {system.icon}
+                      </div>
                     </div>
                     <div>
-                      <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                      <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-all duration-300 mb-1">
                         {system.name}
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground font-medium">{system.nameEn}</p>
+                      <p className="text-sm text-muted-foreground font-semibold tracking-wide">{system.nameEn}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    {getStatusIcon(system.status)}
-                    <Badge className={`${getStatusBadge(system.status)} border font-medium px-3 py-1`}>
+                    <div className="p-2 bg-gradient-to-br from-muted/20 to-muted/10 rounded-xl backdrop-blur-sm">
+                      {getStatusIcon(system.status)}
+                    </div>
+                    <Badge className={`${getStatusBadge(system.status)} border-2 font-bold px-4 py-2 text-sm shadow-lg`}>
                       {system.status}
                     </Badge>
                   </div>
                 </div>
               </CardHeader>
               
-              <CardContent className="space-y-6">
-                <div className="text-sm text-muted-foreground leading-relaxed bg-muted/30 p-4 rounded-xl">
-                  {system.description}
+              <CardContent className="space-y-6 relative z-10">
+                {/* وصف النظام */}
+                <div className="p-5 bg-gradient-to-r from-muted/20 via-muted/10 to-muted/20 rounded-2xl border border-muted/30 backdrop-blur-sm">
+                  <p className="text-sm text-foreground/80 leading-relaxed font-medium">{system.description}</p>
                 </div>
                 
-                {/* إحصائيات النظام */}
+                {/* إحصائيات النظام المتطورة */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-4 rounded-xl text-center border border-primary/20 group-hover:border-primary/30 transition-all">
-                    <div className="text-2xl font-bold text-primary mb-1">{system.dataCount}</div>
-                    <div className="text-xs text-muted-foreground font-medium">سجل محدث</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-secondary/5 to-secondary/10 p-4 rounded-xl text-center border border-secondary/20 group-hover:border-secondary/30 transition-all">
-                    <div className="text-lg font-bold text-secondary mb-1">
-                      {system.status === 'متصل' ? 'فعال' : 'معطل'}
+                  <div className="group/stat relative overflow-hidden bg-gradient-to-br from-primary/8 to-primary/15 p-5 rounded-2xl text-center border-2 border-primary/25 hover:border-primary/40 transition-all duration-500 shadow-inner">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover/stat:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div className="relative z-10">
+                      <div className="text-3xl font-black text-primary mb-2 group-hover/stat:scale-110 transition-transform">{system.dataCount}</div>
+                      <div className="text-xs text-muted-foreground font-semibold">سجل محدث</div>
                     </div>
-                    <div className="text-xs text-muted-foreground font-medium">حالة الخدمة</div>
+                  </div>
+                  
+                  <div className="group/stat relative overflow-hidden bg-gradient-to-br from-secondary/8 to-secondary/15 p-5 rounded-2xl text-center border-2 border-secondary/25 hover:border-secondary/40 transition-all duration-500 shadow-inner">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary/0 via-secondary/10 to-secondary/0 translate-x-[-100%] group-hover/stat:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div className="relative z-10">
+                      <div className="text-xl font-black text-secondary mb-2 group-hover/stat:scale-110 transition-transform">
+                        {system.status === 'متصل' ? 'فعال' : 'معطل'}
+                      </div>
+                      <div className="text-xs text-muted-foreground font-semibold">حالة الخدمة</div>
+                    </div>
                   </div>
                 </div>
 
                 {/* معلومات آخر مزامنة */}
-                <div className="bg-gradient-to-r from-muted/30 to-muted/20 p-4 rounded-xl border border-muted/40">
+                <div className="relative overflow-hidden bg-gradient-to-br from-accent/8 to-accent/15 p-5 rounded-2xl border-2 border-accent/25 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-sm font-medium text-foreground mb-1">آخر مزامنة</div>
-                      <div className="text-sm text-muted-foreground">{system.lastSync}</div>
+                      <div className="text-sm font-bold text-foreground mb-2">آخر مزامنة</div>
+                      <div className="text-sm text-muted-foreground font-medium">{system.lastSync}</div>
                     </div>
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <RefreshCw className="h-4 w-4 text-primary" />
+                    <div className="p-3 bg-gradient-to-br from-accent/20 to-accent/10 rounded-2xl shadow-lg">
+                      <RefreshCw className="h-6 w-6 text-accent animate-pulse" />
                     </div>
                   </div>
                 </div>
 
-                {/* أزرار الإجراءات */}
-                <div className="flex gap-3 pt-4">
+                {/* أزرار الإجراءات الوظيفية */}
+                <div className="grid grid-cols-2 gap-3 pt-4">
                   <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex-1 bg-primary/5 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-sm hover:shadow-md group-hover:border-primary/50"
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
                     onClick={() => handleSync(system.id)}
                     disabled={syncing === system.id}
                   >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
                     {syncing === system.id ? (
                       <RefreshCw className="h-4 w-4 ml-2 animate-spin" />
                     ) : (
-                      <RefreshCw className="h-4 w-4 ml-2" />
+                      <RefreshCw className="h-4 w-4 ml-2 group-hover/btn:rotate-180 transition-transform duration-500" />
                     )}
-                    {syncing === system.id ? 'مزامنة...' : 'مزامنة'}
+                    <span className="relative z-10">{syncing === system.id ? 'مزامنة...' : 'مزامنة فورية'}</span>
                   </Button>
                   
                   <Button 
-                    variant="outline"
-                    size="sm" 
-                    className="bg-secondary/5 border-secondary/30 text-secondary hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 shadow-sm hover:shadow-md"
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-secondary/90 to-secondary hover:from-secondary hover:to-secondary/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-secondary/25 transform hover:scale-105 transition-all duration-300 border border-secondary/30"
+                    onClick={() => {
+                      // وظيفة المعاينة
+                      console.log(`عرض تفاصيل نظام: ${system.name}`);
+                    }}
                   >
-                    <Eye className="h-4 w-4 ml-1" />
-                    معاينة
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    <Eye className="h-4 w-4 ml-2 group-hover/btn:scale-110 transition-transform duration-300" />
+                    <span className="relative z-10">معاينة</span>
                   </Button>
                   
                   <Button 
-                    variant="outline"
-                    size="sm" 
-                    className="bg-accent/5 border-accent/30 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 shadow-sm hover:shadow-md"
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-accent/90 to-accent hover:from-accent hover:to-accent/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-accent/25 transform hover:scale-105 transition-all duration-300 border border-accent/30"
+                    onClick={() => {
+                      // وظيفة التصدير
+                      console.log(`تصدير بيانات نظام: ${system.name}`);
+                      // يمكن إضافة منطق تصدير ملف Excel أو PDF هنا
+                    }}
                   >
-                    <Download className="h-4 w-4 ml-1" />
-                    تصدير
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    <Download className="h-4 w-4 ml-2 group-hover/btn:translate-y-1 transition-transform duration-300" />
+                    <span className="relative z-10">تصدير</span>
+                  </Button>
+                  
+                  <Button 
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-blue-500/90 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 border border-blue-500/30"
+                    onClick={() => {
+                      // وظيفة الإعدادات
+                      console.log(`إعدادات نظام: ${system.name}`);
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    <Settings className="h-4 w-4 ml-2 group-hover/btn:rotate-90 transition-transform duration-500" />
+                    <span className="relative z-10">إعدادات</span>
                   </Button>
                 </div>
               </CardContent>
