@@ -40,7 +40,8 @@ import {
   MapPin,
   Heart,
   Briefcase,
-  MessageCircle
+  MessageCircle,
+  Users2
 } from 'lucide-react';
 
 // Import components
@@ -64,6 +65,7 @@ import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
+import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
 import MeetingHub from '@/pages/MeetingHub';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
@@ -222,6 +224,13 @@ const ComprehensiveEmployeeManagement = () => {
                 >
                   <Briefcase className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
                   مخزون المهارات
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="internal-communication" 
+                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
+                >
+                  <Users2 className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  التواصل الداخلي
                 </TabsTrigger>
                 <TabsTrigger 
                   value="admin-communications" 
@@ -419,6 +428,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="skills-inventory">
             <SkillsInventorySystem onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="internal-communication">
+            <InternalCommunication onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="admin-communications">
