@@ -2,31 +2,17 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, Building2, Users, Plus, RefreshCw, Settings, Trash2, 
-  CheckCircle, AlertCircle, Eye, Download, BarChart3, Building, 
-  User, MapPin, Mail, Phone, TrendingUp, Activity, Target, Star,
-  Award, Calendar, Clock, FileText, Briefcase, Network, Shield,
-  Edit, Printer, Search, Filter
-} from 'lucide-react';
+import { ArrowLeft, Building2, Users, RefreshCw, CheckCircle, AlertCircle, Settings, Trash2, Plus, Shield, Server, Database, Network, Lock, Eye, Download, BarChart3, Clock } from 'lucide-react';
 
 interface Department {
   id: string;
   name: string;
   nameEn: string;
-  status: 'نشط' | 'غير نشط' | 'قيد المراجعة';
-  manager: string;
-  employeeCount: number;
-  unitsCount: number;
-  budget: number;
+  status: 'نشط' | 'غير نشط' | 'خطأ';
+  lastSync: string;
   description: string;
-  lastUpdate: string;
+  dataCount: number;
   icon: React.ReactNode;
 }
 
@@ -44,80 +30,62 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
     {
       id: 'HR',
       name: 'إدارة الموارد البشرية',
-      nameEn: 'Human Resources',
+      nameEn: 'Human Resources Department',
       status: 'نشط',
-      manager: 'أحمد محمد علي',
-      employeeCount: 45,
-      unitsCount: 5,
-      budget: 2500000,
-      description: 'إدارة شؤون الموظفين والتوظيف والتطوير',
-      lastUpdate: '2024-03-20 14:30',
-      icon: <Users className="h-6 w-6 text-primary" />
+      lastSync: '2024-03-20 14:30',
+      description: 'إدارة شاملة لجميع شؤون الموظفين والتوظيف والتطوير المهني',
+      dataCount: 245,
+      icon: <Shield className="h-6 w-6 text-primary" />
     },
     {
       id: 'IT',
       name: 'إدارة تقنية المعلومات',
-      nameEn: 'Information Technology',
+      nameEn: 'Information Technology Department',
       status: 'نشط',
-      manager: 'سارة أحمد المطيري',
-      employeeCount: 32,
-      unitsCount: 4,
-      budget: 3200000,
-      description: 'تطوير وصيانة الأنظمة التقنية والبنية التحتية',
-      lastUpdate: '2024-03-20 13:45',
-      icon: <Shield className="h-6 w-6 text-primary" />
+      lastSync: '2024-03-20 13:45',
+      description: 'تطوير وصيانة جميع الأنظمة التقنية والبنية التحتية للمعلومات',
+      dataCount: 189,
+      icon: <Database className="h-6 w-6 text-primary" />
     },
     {
       id: 'FIN',
       name: 'الإدارة المالية والمحاسبة',
-      nameEn: 'Finance & Accounting',
+      nameEn: 'Finance & Accounting Department',
       status: 'نشط',
-      manager: 'محمد خالد الشمري',
-      employeeCount: 28,
-      unitsCount: 3,
-      budget: 1800000,
-      description: 'إدارة الشؤون المالية والمحاسبية والميزانيات',
-      lastUpdate: '2024-03-20 12:15',
+      lastSync: '2024-03-20 12:15',
+      description: 'إدارة جميع الشؤون المالية والمحاسبية وإعداد الميزانيات والتقارير',
+      dataCount: 167,
       icon: <BarChart3 className="h-6 w-6 text-primary" />
     },
     {
       id: 'LEGAL',
       name: 'الإدارة القانونية',
-      nameEn: 'Legal Affairs',
-      status: 'قيد المراجعة',
-      manager: 'فاطمة عبدالله النجار',
-      employeeCount: 18,
-      unitsCount: 2,
-      budget: 1200000,
-      description: 'الشؤون القانونية والامتثال واللوائح',
-      lastUpdate: '2024-03-19 16:20',
+      nameEn: 'Legal Affairs Department',
+      status: 'خطأ',
+      lastSync: '2024-03-19 16:20',
+      description: 'إدارة جميع الشؤون القانونية والامتثال والعقود واللوائح',
+      dataCount: 0,
       icon: <Network className="h-6 w-6 text-primary" />
     },
     {
       id: 'OPS',
-      name: 'إدارة العمليات',
-      nameEn: 'Operations',
+      name: 'إدارة العمليات التشغيلية',
+      nameEn: 'Operations Department',
       status: 'نشط',
-      manager: 'علي حسن الزهراني',
-      employeeCount: 55,
-      unitsCount: 6,
-      budget: 4500000,
-      description: 'إدارة العمليات التشغيلية والإنتاجية',
-      lastUpdate: '2024-03-20 11:00',
-      icon: <Building className="h-6 w-6 text-primary" />
+      lastSync: '2024-03-20 11:00',
+      description: 'إدارة وتنسيق جميع العمليات التشغيلية والإنتاجية اليومية',
+      dataCount: 312,
+      icon: <Lock className="h-6 w-6 text-primary" />
     },
     {
       id: 'MKT',
       name: 'إدارة التسويق والمبيعات',
-      nameEn: 'Marketing & Sales',
+      nameEn: 'Marketing & Sales Department',
       status: 'غير نشط',
-      manager: 'نورا سالم القحطاني',
-      employeeCount: 0,
-      unitsCount: 0,
-      budget: 0,
-      description: 'التسويق والمبيعات وعلاقات العملاء',
-      lastUpdate: '2024-03-18 09:30',
-      icon: <Star className="h-6 w-6 text-primary" />
+      lastSync: '2024-03-18 09:30',
+      description: 'إدارة التسويق والمبيعات وعلاقات العملاء والشراكات الاستراتيجية',
+      dataCount: 0,
+      icon: <Server className="h-6 w-6 text-primary" />
     }
   ];
 
@@ -126,11 +94,11 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
       case 'نشط':
         return <CheckCircle className="h-4 w-4 text-green-600" />;
       case 'غير نشط':
-        return <AlertCircle className="h-4 w-4 text-gray-500" />;
-      case 'قيد المراجعة':
-        return <Clock className="h-4 w-4 text-yellow-600" />;
+        return <Clock className="h-4 w-4 text-gray-500" />;
+      case 'خطأ':
+        return <AlertCircle className="h-4 w-4 text-red-600" />;
       default:
-        return <CheckCircle className="h-4 w-4" />;
+        return <Users className="h-4 w-4" />;
     }
   };
 
@@ -138,7 +106,7 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
     const config = {
       'نشط': 'bg-green-100 text-green-800 border-green-200',
       'غير نشط': 'bg-gray-100 text-gray-800 border-gray-200',
-      'قيد المراجعة': 'bg-yellow-100 text-yellow-800 border-yellow-200'
+      'خطأ': 'bg-red-100 text-red-800 border-red-200'
     };
     return config[status as keyof typeof config] || 'bg-gray-100 text-gray-800';
   };
@@ -151,6 +119,7 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
       description: `جاري تحديث بيانات ${department?.name}...`,
     });
     
+    // Simulate sync process
     await new Promise(resolve => setTimeout(resolve, 3000));
     setSyncing(null);
     
@@ -212,6 +181,7 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
       description: "جاري تحضير ملف التصدير... سيتم تحميله قريباً",
     });
     
+    // محاكاة عملية التصدير
     setTimeout(() => {
       toast({
         title: "تم التصدير بنجاح",
@@ -228,8 +198,7 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
   };
 
   const activeDepartments = departments.filter(d => d.status === 'نشط').length;
-  const totalEmployees = departments.reduce((sum, d) => sum + d.employeeCount, 0);
-  const totalBudget = departments.reduce((sum, d) => sum + d.budget, 0);
+  const errorDepartments = departments.filter(d => d.status === 'خطأ').length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background relative overflow-hidden" dir="rtl">
@@ -303,7 +272,7 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
             <div className="text-center mb-10">
               <div className="max-w-4xl mx-auto p-6 bg-gradient-to-r from-white/5 to-white/10 rounded-2xl backdrop-blur-xl border border-white/20 shadow-inner">
                 <p className="text-xl text-white/90 leading-relaxed font-medium tracking-wide">
-                  <span className="text-primary font-bold">منظومة متطورة وذكية</span> لإدارة جميع الأقسام والوحدات التنظيمية 
+                  <span className="text-primary font-bold">منظومة ذكية متطورة</span> لإدارة جميع الأقسام والوحدات التنظيمية 
                   <span className="text-secondary font-bold"> وتنسيق الهيكل الإداري</span> بكفاءة عالية ومرونة تامة
                 </p>
               </div>
@@ -378,215 +347,167 @@ export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProp
 
         {/* إحصائيات احترافية محدثة */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <Card className="group relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 hover:border-primary/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <CardContent className="relative z-10 p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">إجمالي الإدارات</p>
-                  <p className="text-3xl font-bold text-primary">{departments.length}</p>
-                  <div className="flex items-center gap-1 text-xs text-green-600">
-                    <TrendingUp className="w-3 h-3" />
-                    <span>نشط ومتاح</span>
-                  </div>
-                </div>
-                <div className="p-3 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors duration-300">
-                  <Building2 className="w-8 h-8 text-primary" />
-                </div>
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-primary/30 hover:border-primary/60 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] transform hover:scale-105">
+            <CardContent className="p-6 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <Server className="h-10 w-10 text-primary drop-shadow-lg" />
               </div>
+              <div className="text-4xl font-black text-primary mb-2 group-hover:scale-110 transition-transform">{departments.length}</div>
+              <div className="text-sm font-medium text-muted-foreground">إجمالي الإدارات المتاحة</div>
             </CardContent>
           </Card>
-
-          <Card className="group relative overflow-hidden bg-gradient-to-br from-accent/10 via-accent/5 to-transparent border-accent/20 hover:border-accent/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <CardContent className="relative z-10 p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">الإدارات النشطة</p>
-                  <p className="text-3xl font-bold text-accent">{activeDepartments}</p>
-                  <div className="flex items-center gap-1 text-xs text-green-600">
-                    <CheckCircle className="w-3 h-3" />
-                    <span>متصلة ومتزامنة</span>
-                  </div>
-                </div>
-                <div className="p-3 bg-accent/10 rounded-2xl group-hover:bg-accent/20 transition-colors duration-300">
-                  <CheckCircle className="w-8 h-8 text-accent" />
-                </div>
+          
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-green-200/50 hover:border-green-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(34,197,94,0.2)] transform hover:scale-105">
+            <CardContent className="p-6 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100/80 to-green-50/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <CheckCircle className="h-10 w-10 text-green-600 drop-shadow-lg" />
               </div>
+              <div className="text-4xl font-black text-green-600 mb-2 group-hover:scale-110 transition-transform">{activeDepartments}</div>
+              <div className="text-sm font-medium text-muted-foreground">إدارات نشطة ومتاحة</div>
             </CardContent>
           </Card>
-
-          <Card className="group relative overflow-hidden bg-gradient-to-br from-secondary/10 via-secondary/5 to-transparent border-secondary/20 hover:border-secondary/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <CardContent className="relative z-10 p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">إجمالي الموظفين</p>
-                  <p className="text-3xl font-bold text-secondary">{totalEmployees}</p>
-                  <div className="flex items-center gap-1 text-xs text-blue-600">
-                    <Users className="w-3 h-3" />
-                    <span>موزعين على الإدارات</span>
-                  </div>
-                </div>
-                <div className="p-3 bg-secondary/10 rounded-2xl group-hover:bg-secondary/20 transition-colors duration-300">
-                  <Users className="w-8 h-8 text-secondary" />
-                </div>
+          
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-red-200/50 hover:border-red-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(239,68,68,0.2)] transform hover:scale-105">
+            <CardContent className="p-6 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100/80 to-red-50/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <AlertCircle className="h-10 w-10 text-red-600 drop-shadow-lg" />
               </div>
+              <div className="text-4xl font-black text-red-600 mb-2 group-hover:scale-110 transition-transform">{errorDepartments}</div>
+              <div className="text-sm font-medium text-muted-foreground">أخطاء تتطلب انتباه</div>
             </CardContent>
           </Card>
-
-          <Card className="group relative overflow-hidden bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent border-green-500/20 hover:border-green-500/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <CardContent className="relative z-10 p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">إجمالي الميزانيات</p>
-                  <p className="text-3xl font-bold text-green-600">{(totalBudget / 1000000).toFixed(1)}م</p>
-                  <div className="flex items-center gap-1 text-xs text-green-600">
-                    <BarChart3 className="w-3 h-3" />
-                    <span>ريال سعودي</span>
-                  </div>
-                </div>
-                <div className="p-3 bg-green-500/10 rounded-2xl group-hover:bg-green-500/20 transition-colors duration-300">
-                  <BarChart3 className="w-8 h-8 text-green-600" />
-                </div>
+          
+          <Card className="group bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-xl border-gray-200/50 hover:border-gray-400/70 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.4)] transform hover:scale-105">
+            <CardContent className="p-6 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-gray-800/80 to-gray-900/60 rounded-3xl mb-4 group-hover:scale-110 transition-all duration-500 shadow-inner">
+                <BarChart3 className="h-10 w-10 text-gray-800 drop-shadow-lg" />
               </div>
+              <div className="text-4xl font-black text-gray-800 mb-2 group-hover:scale-110 transition-transform">96.8%</div>
+              <div className="text-sm font-medium text-muted-foreground">معدل الكفاءة الإجمالي</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* شبكة الإدارات الاحترافية */}
+        {/* شبكة الإدارات الفائقة الجمال */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {departments.map((department, index) => (
-            <Card key={department.id} className="group relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-card/90 hover:from-card hover:to-card/80 border-border/50 hover:border-primary/30 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl backdrop-blur-xl">
-              {/* خلفية متدرجة تظهر عند التمرير */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {departments.map((department) => (
+            <Card key={department.id} className="group relative overflow-hidden bg-gradient-to-br from-card/98 to-card/90 backdrop-blur-xl border border-primary/20 hover:border-primary/50 transition-all duration-700 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transform hover:scale-[1.02] hover:-translate-y-2">
               
-              {/* عنصر تزيني على اليمين */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+              {/* تأثير الإضاءة المتحركة */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
               
-              <CardHeader className="relative z-10 pb-4">
+              <CardHeader className="pb-6 relative z-10">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
-                      {department.icon}
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-sm group-hover:blur-md transition-all duration-500"></div>
+                      <div className="relative p-4 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 rounded-2xl group-hover:from-primary/20 group-hover:to-secondary/15 transition-all duration-500 shadow-inner">
+                        {department.icon}
+                      </div>
                     </div>
                     <div>
-                      <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors duration-300">
+                      <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-all duration-300 mb-1">
                         {department.name}
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">{department.nameEn}</p>
+                      <p className="text-sm text-muted-foreground font-semibold tracking-wide">{department.nameEn}</p>
                     </div>
                   </div>
-                  <Badge 
-                    variant="outline" 
-                    className={`${getStatusBadge(department.status)} border text-xs font-medium`}
-                  >
-                    {getStatusIcon(department.status)}
-                    <span className="ml-1">{department.status}</span>
-                  </Badge>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-br from-muted/20 to-muted/10 rounded-xl backdrop-blur-sm">
+                      {getStatusIcon(department.status)}
+                    </div>
+                    <Badge className={`${getStatusBadge(department.status)} border-2 font-bold px-4 py-2 text-sm shadow-lg`}>
+                      {department.status}
+                    </Badge>
+                  </div>
                 </div>
               </CardHeader>
-
-              <CardContent className="relative z-10 space-y-4">
-                {/* معلومات أساسية */}
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
-                    <User className="w-4 h-4 text-primary" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">المدير</p>
-                      <p className="font-medium truncate">{department.manager}</p>
+              
+              <CardContent className="space-y-6 relative z-10">
+                {/* وصف الإدارة */}
+                <div className="p-5 bg-gradient-to-r from-muted/20 via-muted/10 to-muted/20 rounded-2xl border border-muted/30 backdrop-blur-sm">
+                  <p className="text-sm text-foreground/80 leading-relaxed font-medium">{department.description}</p>
+                </div>
+                
+                {/* إحصائيات الإدارة المتطورة */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="group/stat relative overflow-hidden bg-gradient-to-br from-primary/8 to-primary/15 p-5 rounded-2xl text-center border-2 border-primary/25 hover:border-primary/40 transition-all duration-500 shadow-inner">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover/stat:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div className="relative z-10">
+                      <div className="text-3xl font-black text-primary mb-2 group-hover/stat:scale-110 transition-transform">{department.dataCount}</div>
+                      <div className="text-xs text-muted-foreground font-semibold">سجل محدث</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
-                    <Users className="w-4 h-4 text-accent" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">الموظفين</p>
-                      <p className="font-bold text-accent">{department.employeeCount}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
-                    <Network className="w-4 h-4 text-secondary" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">الوحدات</p>
-                      <p className="font-bold text-secondary">{department.unitsCount}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
-                    <BarChart3 className="w-4 h-4 text-green-600" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">الميزانية</p>
-                      <p className="font-bold text-green-600">{(department.budget / 1000000).toFixed(1)}م</p>
+                  
+                  <div className="group/stat relative overflow-hidden bg-gradient-to-br from-secondary/8 to-secondary/15 p-5 rounded-2xl text-center border-2 border-secondary/25 hover:border-secondary/40 transition-all duration-500 shadow-inner">
+                    <div className="absolute inset-0 bg-gradient-to-r from-secondary/0 via-secondary/10 to-secondary/0 translate-x-[-100%] group-hover/stat:translate-x-[100%] transition-transform duration-1000"></div>
+                    <div className="relative z-10">
+                      <div className="text-xl font-black text-secondary mb-2 group-hover/stat:scale-110 transition-transform">
+                        {department.status === 'نشط' ? 'فعال' : 'معطل'}
+                      </div>
+                      <div className="text-xs text-muted-foreground font-semibold">حالة الخدمة</div>
                     </div>
                   </div>
                 </div>
 
-                {/* الوصف */}
-                <div className="p-3 bg-muted/20 rounded-lg border border-border/30">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {department.description}
-                  </p>
-                </div>
-
-                {/* معلومات إضافية */}
-                <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border/30 pt-3">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    <span>آخر تحديث: {department.lastUpdate}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Activity className="w-3 h-3" />
-                    <span>ID: {department.id}</span>
+                {/* معلومات آخر تحديث */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-accent/8 to-accent/15 p-5 rounded-2xl border-2 border-accent/25 backdrop-blur-sm">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm font-bold text-foreground mb-2">آخر تحديث</div>
+                      <div className="text-sm text-muted-foreground font-medium">{department.lastSync}</div>
+                    </div>
+                    <div className="p-3 bg-gradient-to-br from-accent/20 to-accent/10 rounded-2xl shadow-lg">
+                      <RefreshCw className="h-6 w-6 text-accent animate-pulse" />
+                    </div>
                   </div>
                 </div>
 
-                {/* أزرار العمليات */}
-                <div className="grid grid-cols-2 gap-2 pt-3 border-t border-border/30">
-                  <Button
-                    size="sm"
+                {/* أزرار الإجراءات الوظيفية */}
+                <div className="grid grid-cols-2 gap-3 pt-4">
+                  <Button 
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
                     onClick={() => handleSync(department.id)}
                     disabled={syncing === department.id}
-                    className="group/btn relative overflow-hidden bg-primary/90 hover:bg-primary text-white font-medium transition-all duration-300 hover:scale-105"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
                     {syncing === department.id ? (
-                      <RefreshCw className="w-4 h-4 ml-2 animate-spin" />
+                      <RefreshCw className="h-4 w-4 ml-2 animate-spin" />
                     ) : (
-                      <RefreshCw className="w-4 h-4 ml-2" />
+                      <RefreshCw className="h-4 w-4 ml-2 group-hover/btn:rotate-180 transition-transform duration-500" />
                     )}
-                    <span className="relative z-10">
-                      {syncing === department.id ? 'جاري التحديث...' : 'تحديث فوري'}
-                    </span>
+                    <span className="relative z-10">{syncing === department.id ? 'تحديث...' : 'تحديث فوري'}</span>
                   </Button>
-
-                  <Button
-                    size="sm"
-                    variant="outline"
+                  
+                  <Button 
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-secondary/90 to-secondary hover:from-secondary hover:to-secondary/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-secondary/25 transform hover:scale-105 transition-all duration-300 border border-secondary/30"
                     onClick={() => handleViewDepartment(department)}
-                    className="group/btn hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all duration-300 hover:scale-105"
                   >
-                    <Eye className="w-4 h-4 ml-2 group-hover/btn:scale-110 transition-transform duration-200" />
-                    <span>معاينة</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    <Eye className="h-4 w-4 ml-2 group-hover/btn:scale-110 transition-transform duration-300" />
+                    <span className="relative z-10">معاينة</span>
                   </Button>
-
-                  <Button
-                    size="sm"
-                    variant="outline"
+                  
+                  <Button 
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-accent/90 to-accent hover:from-accent hover:to-accent/80 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-accent/25 transform hover:scale-105 transition-all duration-300 border border-accent/30"
                     onClick={() => handleExportDepartment(department)}
-                    className="group/btn hover:bg-accent/10 hover:border-accent/30 hover:text-accent transition-all duration-300 hover:scale-105"
                   >
-                    <Download className="w-4 h-4 ml-2 group-hover/btn:translate-y-1 transition-transform duration-200" />
-                    <span>تصدير</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    <Download className="h-4 w-4 ml-2 group-hover/btn:translate-y-1 transition-transform duration-300" />
+                    <span className="relative z-10">تصدير</span>
                   </Button>
-
-                  <Button
-                    size="sm"
-                    variant="outline"
+                  
+                  <Button 
+                    size="default"
+                    className="group/btn relative overflow-hidden bg-gradient-to-r from-gray-800/90 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-gray-800/25 transform hover:scale-105 transition-all duration-300 border border-gray-800/30"
                     onClick={() => handleDepartmentConfig(department)}
-                    className="group/btn hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-all duration-300 hover:scale-105"
                   >
-                    <Settings className="w-4 h-4 ml-2 group-hover/btn:rotate-90 transition-transform duration-300" />
-                    <span>إعدادات</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    <Settings className="h-4 w-4 ml-2 group-hover/btn:rotate-90 transition-transform duration-500" />
+                    <span className="relative z-10">إعدادات</span>
                   </Button>
                 </div>
               </CardContent>
