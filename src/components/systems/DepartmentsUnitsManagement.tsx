@@ -1,11 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
   Building2, Users, BarChart3, Settings, FileText, Plus, Search, 
-  Filter, Edit, Trash2, Eye, Download, Printer, Share2, 
+  Filter, Edit, Trash2, Eye, Download, Printer, Share2, Upload,
   TrendingUp, AlertTriangle, CheckCircle, ChevronDown, ChevronRight,
-  Network, MapPin, DollarSign, Calendar, Target, ArrowLeft,
-  Building, Briefcase, UserCheck, Activity, Zap, Shield
+  Network, MapPin, DollarSign, Calendar, Target, ArrowLeft, Save,
+  Building, Briefcase, UserCheck, Activity, Zap, Shield, Gauge,
+  PieChart, Clock, Globe, Mail, Phone, Star, Award, Menu, X,
+  RefreshCw, Database, Lock, Heart, CreditCard, Clipboard
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
