@@ -55,7 +55,7 @@ import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendanc
 import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
 import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
 import { GovernmentIntegration } from '@/components/systems/GovernmentIntegration';
-import OrganizationalDevelopment from '@/components/systems/OrganizationalDevelopment';
+import { OrganizationalDevelopment } from '@/components/systems/OrganizationalDevelopment';
 import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
