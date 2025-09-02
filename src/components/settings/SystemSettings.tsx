@@ -15,13 +15,65 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
-import { Settings, Building2, Globe, Users, Shield, Key, Database, Plug, Download, Upload, Bell, Mail, Phone, MapPin, Calendar, Clock, Palette, Languages, Server, Lock, Eye, EyeOff, Plus, Edit, Trash2, Save, RefreshCw, AlertTriangle, CheckCircle, Info, Crown, UserPlus, Zap, Network, Wifi, HardDrive, Monitor, Smartphone, Laptop, Camera, Printer, QrCode, FileText, Link, Code, Webhook, Bot, MessageSquare, Headphones, CreditCard, Banknote } from 'lucide-react';
+import { 
+  Settings,
+  Building2,
+  Globe,
+  Users,
+  Shield,
+  Key,
+  Database,
+  Plug,
+  Download,
+  Upload,
+  Bell,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  Clock,
+  Palette,
+  Languages,
+  Server,
+  Lock,
+  Eye,
+  EyeOff,
+  Plus,
+  Edit,
+  Trash2,
+  Save,
+  RefreshCw,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  Crown,
+  UserPlus,
+  Zap,
+  Network,
+  Wifi,
+  HardDrive,
+  Monitor,
+  Smartphone,
+  Laptop,
+  Camera,
+  Printer,
+  QrCode,
+  FileText,
+  Link,
+  Code,
+  Webhook,
+  Bot,
+  MessageSquare,
+  Headphones,
+  CreditCard,
+  Banknote
+} from 'lucide-react';
+
 interface SystemSettingsProps {
   onBack?: () => void;
 }
-export const SystemSettings: React.FC<SystemSettingsProps> = ({
-  onBack
-}) => {
+
+export const SystemSettings: React.FC<SystemSettingsProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('general');
   const [companySettings, setCompanySettings] = useState({
     name: 'شركة بُعد للتقنية',
@@ -34,276 +86,210 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
     email: 'info@boud.sa',
     website: 'https://boud.sa'
   });
-  const [users, setUsers] = useState([{
-    id: 1,
-    name: 'أحمد محمد السالم',
-    email: 'ahmed@company.com',
-    role: 'super_admin',
-    status: 'active',
-    lastLogin: '2024-03-20 14:30',
-    permissions: ['all']
-  }, {
-    id: 2,
-    name: 'سارة أحمد علي',
-    email: 'sara@company.com',
-    role: 'hr_manager',
-    status: 'active',
-    lastLogin: '2024-03-20 09:15',
-    permissions: ['hr', 'employees', 'reports']
-  }, {
-    id: 3,
-    name: 'محمد عبدالله',
-    email: 'mohammed@company.com',
-    role: 'manager',
-    status: 'inactive',
-    lastLogin: '2024-03-18 16:45',
-    permissions: ['employees', 'attendance']
-  }]);
-  const [customRoles, setCustomRoles] = useState([{
-    id: 1,
-    name: 'مدير الموارد البشرية',
-    code: 'hr_manager',
-    permissions: ['employees', 'payroll', 'leaves', 'reports'],
-    description: 'يمكنه إدارة جميع شؤون الموظفين والرواتب',
-    usersCount: 3
-  }, {
-    id: 2,
-    name: 'مشرف الحضور',
-    code: 'attendance_supervisor',
-    permissions: ['attendance', 'reports'],
-    description: 'مسؤول عن متابعة الحضور والانصراف',
-    usersCount: 2
-  }, {
-    id: 3,
-    name: 'محاسب الرواتب',
-    code: 'payroll_accountant',
-    permissions: ['payroll', 'reports'],
-    description: 'مختص بحساب وإدارة الرواتب',
-    usersCount: 1
-  }]);
-  const [integrations, setIntegrations] = useState([{
-    name: 'منصة قوى (Qiwa)',
-    status: 'connected',
-    description: 'ربط مع منصة قوى لإدارة العمالة',
-    lastSync: '2024-03-20 12:00',
-    icon: Building2
-  }, {
-    name: 'التأمينات الاجتماعية (GOSI)',
-    status: 'connected',
-    description: 'ربط مع نظام التأمينات الاجتماعية',
-    lastSync: '2024-03-20 10:30',
-    icon: Shield
-  }, {
-    name: 'منصة مدد (Mudad)',
-    status: 'pending',
-    description: 'ربط مع منصة مدد لتمديد الإقامات',
-    lastSync: 'لم يتم المزامنة',
-    icon: FileText
-  }, {
-    name: 'خدمات البريد الإلكتروني',
-    status: 'connected',
-    description: 'إرسال الإشعارات والتقارير عبر البريد',
-    lastSync: '2024-03-20 14:15',
-    icon: Mail
-  }, {
-    name: 'خدمات الرسائل النصية (SMS)',
-    status: 'disconnected',
-    description: 'إرسال التنبيهات عبر الرسائل النصية',
-    lastSync: 'غير متصل',
-    icon: MessageSquare
-  }]);
-  const [clientDomains, setClientDomains] = useState([{
-    id: 1,
-    companyName: 'شركة الرياض للتطوير',
-    domain: 'riyadh-dev.boud.sa',
-    status: 'active',
-    employees: 120,
-    createdDate: '2024-01-15',
-    lastAccess: '2024-03-20 16:30'
-  }, {
-    id: 2,
-    companyName: 'مجموعة جدة التجارية',
-    domain: 'jeddah-group.boud.sa',
-    status: 'active',
-    employees: 85,
-    createdDate: '2024-02-10',
-    lastAccess: '2024-03-20 11:45'
-  }, {
-    id: 3,
-    companyName: 'شركة الدمام للصناعات',
-    domain: 'dammam-industries.boud.sa',
-    status: 'pending',
-    employees: 0,
-    createdDate: '2024-03-18',
-    lastAccess: 'لم يتم الوصول'
-  }]);
+
+  const [users, setUsers] = useState([
+    {
+      id: 1,
+      name: 'أحمد محمد السالم',
+      email: 'ahmed@company.com',
+      role: 'super_admin',
+      status: 'active',
+      lastLogin: '2024-03-20 14:30',
+      permissions: ['all']
+    },
+    {
+      id: 2,
+      name: 'سارة أحمد علي',
+      email: 'sara@company.com',
+      role: 'hr_manager',
+      status: 'active',
+      lastLogin: '2024-03-20 09:15',
+      permissions: ['hr', 'employees', 'reports']
+    },
+    {
+      id: 3,
+      name: 'محمد عبدالله',
+      email: 'mohammed@company.com',
+      role: 'manager',
+      status: 'inactive',
+      lastLogin: '2024-03-18 16:45',
+      permissions: ['employees', 'attendance']
+    }
+  ]);
+
+  const [customRoles, setCustomRoles] = useState([
+    {
+      id: 1,
+      name: 'مدير الموارد البشرية',
+      code: 'hr_manager',
+      permissions: ['employees', 'payroll', 'leaves', 'reports'],
+      description: 'يمكنه إدارة جميع شؤون الموظفين والرواتب',
+      usersCount: 3
+    },
+    {
+      id: 2,
+      name: 'مشرف الحضور',
+      code: 'attendance_supervisor',
+      permissions: ['attendance', 'reports'],
+      description: 'مسؤول عن متابعة الحضور والانصراف',
+      usersCount: 2
+    },
+    {
+      id: 3,
+      name: 'محاسب الرواتب',
+      code: 'payroll_accountant',
+      permissions: ['payroll', 'reports'],
+      description: 'مختص بحساب وإدارة الرواتب',
+      usersCount: 1
+    }
+  ]);
+
+  const [integrations, setIntegrations] = useState([
+    {
+      name: 'منصة قوى (Qiwa)',
+      status: 'connected',
+      description: 'ربط مع منصة قوى لإدارة العمالة',
+      lastSync: '2024-03-20 12:00',
+      icon: Building2
+    },
+    {
+      name: 'التأمينات الاجتماعية (GOSI)',
+      status: 'connected',
+      description: 'ربط مع نظام التأمينات الاجتماعية',
+      lastSync: '2024-03-20 10:30',
+      icon: Shield
+    },
+    {
+      name: 'منصة مدد (Mudad)',
+      status: 'pending',
+      description: 'ربط مع منصة مدد لتمديد الإقامات',
+      lastSync: 'لم يتم المزامنة',
+      icon: FileText
+    },
+    {
+      name: 'خدمات البريد الإلكتروني',
+      status: 'connected',
+      description: 'إرسال الإشعارات والتقارير عبر البريد',
+      lastSync: '2024-03-20 14:15',
+      icon: Mail
+    },
+    {
+      name: 'خدمات الرسائل النصية (SMS)',
+      status: 'disconnected',
+      description: 'إرسال التنبيهات عبر الرسائل النصية',
+      lastSync: 'غير متصل',
+      icon: MessageSquare
+    }
+  ]);
+
+  const [clientDomains, setClientDomains] = useState([
+    {
+      id: 1,
+      companyName: 'شركة الرياض للتطوير',
+      domain: 'riyadh-dev.boud.sa',
+      status: 'active',
+      employees: 120,
+      createdDate: '2024-01-15',
+      lastAccess: '2024-03-20 16:30'
+    },
+    {
+      id: 2,
+      companyName: 'مجموعة جدة التجارية',
+      domain: 'jeddah-group.boud.sa',
+      status: 'active',
+      employees: 85,
+      createdDate: '2024-02-10',
+      lastAccess: '2024-03-20 11:45'
+    },
+    {
+      id: 3,
+      companyName: 'شركة الدمام للصناعات',
+      domain: 'dammam-industries.boud.sa',
+      status: 'pending',
+      employees: 0,
+      createdDate: '2024-03-18',
+      lastAccess: 'لم يتم الوصول'
+    }
+  ]);
+
   const handleSaveGeneralSettings = () => {
     toast.success('تم حفظ الإعدادات العامة بنجاح');
   };
+
   const handleCreateUser = () => {
     toast.success('تم إنشاء المستخدم بنجاح');
   };
+
   const handleCreateRole = () => {
     toast.success('تم إنشاء الصلاحية المخصصة بنجاح');
   };
+
   const handleConnectIntegration = (integration: string) => {
     toast.success(`تم ربط ${integration} بنجاح`);
   };
+
   const handleCreateDomain = () => {
     toast.success('تم إنشاء النطاق بنجاح');
   };
+
   const getRoleColor = (role: string) => {
     switch (role) {
-      case 'super_admin':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'hr_manager':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'manager':
-        return 'bg-green-100 text-green-800 border-green-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'super_admin': return 'bg-red-100 text-red-800 border-red-200';
+      case 'hr_manager': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'manager': return 'bg-green-100 text-green-800 border-green-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
+
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active':
-      case 'connected':
-        return 'bg-green-100 text-green-800';
-      case 'inactive':
-      case 'disconnected':
-        return 'bg-red-100 text-red-800';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
+      case 'active': case 'connected': return 'bg-green-100 text-green-800';
+      case 'inactive': case 'disconnected': return 'bg-red-100 text-red-800';
+      case 'pending': return 'bg-yellow-100 text-yellow-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
   // جميع الأقسام الـ22 في النظام
   const permissions = [
-  // الأقسام الأساسية
-  {
-    id: 'dashboard',
-    name: 'لوحة التحكم',
-    description: 'الوصول إلى لوحة التحكم الشاملة والإحصائيات'
-  }, {
-    id: 'employees',
-    name: 'فريق العمل',
-    description: 'إدارة الموظفين وبياناتهم الشخصية والوظيفية'
-  }, {
-    id: 'departments',
-    name: 'الإدارات والأقسام',
-    description: 'إنشاء وإدارة الإدارات والأقسام التنظيمية'
-  }, {
-    id: 'attendance',
-    name: 'الحضور والانصراف',
-    description: 'مراقبة وإدارة أنظمة الحضور والانصراف'
-  }, {
-    id: 'disciplinary',
-    name: 'الجزاءات والعقوبات',
-    description: 'إدارة المخالفات والجزاءات التأديبية'
-  }, {
-    id: 'leaves',
-    name: 'الإجازات والعطلات',
-    description: 'معالجة طلبات الإجازات والعطل الرسمية'
-  }, {
-    id: 'payroll',
-    name: 'الرواتب والأجور',
-    description: 'حساب وإدارة الرواتب والمستحقات المالية'
-  }, {
-    id: 'government',
-    name: 'التكامل والربط',
-    description: 'ربط النظام مع الأنظمة الحكومية والخارجية'
-  }, {
-    id: 'organization',
-    name: 'التطوير والتنظيم المؤسسي',
-    description: 'تطوير الهيكل التنظيمي والعمليات'
-  }, {
-    id: 'governance',
-    name: 'الحوكمة والامتثال',
-    description: 'ضمان الامتثال للقوانين واللوائح'
-  }, {
-    id: 'wageprotection',
-    name: 'حماية الأجور',
-    description: 'إدارة نظام حماية الأجور الحكومي'
-  }, {
-    id: 'legal',
-    name: 'الشؤون القانونية',
-    description: 'إدارة القضايا والاستشارات القانونية'
-  },
-  // الأقسام المتقدمة
-  {
-    id: 'performance',
-    name: 'تقييم الأداء',
-    description: 'إدارة عمليات تقييم الأداء والمتابعة'
-  }, {
-    id: 'training',
-    name: 'التدريب والتطوير',
-    description: 'تنظيم البرامج التدريبية وتطوير المهارات'
-  }, {
-    id: 'recruitment',
-    name: 'التوظيف والتعيين',
-    description: 'إدارة عمليات التوظيف والاستقطاب'
-  }, {
-    id: 'insurance',
-    name: 'التأمين',
-    description: 'إدارة التأمينات الطبية والاجتماعية'
-  }, {
-    id: 'benefits',
-    name: 'المكافآت والحوافز',
-    description: 'إدارة نظم المكافآت والحوافز'
-  }, {
-    id: 'meetings',
-    name: 'الاجتماعات',
-    description: 'تنظيم وإدارة الاجتماعات والمحاضر'
-  }, {
-    id: 'signature',
-    name: 'التوقيع الإلكتروني',
-    description: 'إدارة أنظمة التوقيع الإلكتروني'
-  }, {
-    id: 'tasks',
-    name: 'المهام والمتابعة',
-    description: 'إدارة المهام والمتابعة التنفيذية'
-  }, {
-    id: 'requests',
-    name: 'الطلبات والإشعارات',
-    description: 'معالجة الطلبات وإرسال الإشعارات'
-  }, {
-    id: 'ai',
-    name: 'الذكاء الاصطناعي',
-    description: 'استخدام أدوات الذكاء الاصطناعي والتحليل'
-  }, {
-    id: 'reports',
-    name: 'التقارير',
-    description: 'إنشاء وعرض التقارير التحليلية'
-  },
-  // صلاحيات إدارية
-  {
-    id: 'settings',
-    name: 'الإعدادات',
-    description: 'تعديل إعدادات النظام العامة'
-  }, {
-    id: 'users',
-    name: 'إدارة المستخدمين',
-    description: 'إضافة وإدارة مستخدمي النظام'
-  }, {
-    id: 'roles',
-    name: 'إدارة الصلاحيات',
-    description: 'إنشاء وتعديل الأدوار والصلاحيات'
-  }, {
-    id: 'integrations',
-    name: 'التكاملات الخارجية',
-    description: 'إدارة الربط مع الأنظمة الخارجية'
-  }, {
-    id: 'security',
-    name: 'الأمان والحماية',
-    description: 'إدارة أنظمة الأمان والحماية'
-  }, {
-    id: 'backup',
-    name: 'النسخ الاحتياطي',
-    description: 'إدارة النسخ الاحتياطي واستعادة البيانات'
-  }];
-  return <div className="space-y-6">
+    // الأقسام الأساسية
+    { id: 'dashboard', name: 'لوحة التحكم', description: 'الوصول إلى لوحة التحكم الشاملة والإحصائيات' },
+    { id: 'employees', name: 'فريق العمل', description: 'إدارة الموظفين وبياناتهم الشخصية والوظيفية' },
+    { id: 'departments', name: 'الإدارات والأقسام', description: 'إنشاء وإدارة الإدارات والأقسام التنظيمية' },
+    { id: 'attendance', name: 'الحضور والانصراف', description: 'مراقبة وإدارة أنظمة الحضور والانصراف' },
+    { id: 'disciplinary', name: 'الجزاءات والعقوبات', description: 'إدارة المخالفات والجزاءات التأديبية' },
+    { id: 'leaves', name: 'الإجازات والعطلات', description: 'معالجة طلبات الإجازات والعطل الرسمية' },
+    { id: 'payroll', name: 'الرواتب والأجور', description: 'حساب وإدارة الرواتب والمستحقات المالية' },
+    { id: 'government', name: 'التكامل والربط', description: 'ربط النظام مع الأنظمة الحكومية والخارجية' },
+    { id: 'organization', name: 'التطوير والتنظيم المؤسسي', description: 'تطوير الهيكل التنظيمي والعمليات' },
+    { id: 'governance', name: 'الحوكمة والامتثال', description: 'ضمان الامتثال للقوانين واللوائح' },
+    { id: 'wageprotection', name: 'حماية الأجور', description: 'إدارة نظام حماية الأجور الحكومي' },
+    { id: 'legal', name: 'الشؤون القانونية', description: 'إدارة القضايا والاستشارات القانونية' },
+    
+    // الأقسام المتقدمة
+    { id: 'performance', name: 'تقييم الأداء', description: 'إدارة عمليات تقييم الأداء والمتابعة' },
+    { id: 'training', name: 'التدريب والتطوير', description: 'تنظيم البرامج التدريبية وتطوير المهارات' },
+    { id: 'recruitment', name: 'التوظيف والتعيين', description: 'إدارة عمليات التوظيف والاستقطاب' },
+    { id: 'insurance', name: 'التأمين', description: 'إدارة التأمينات الطبية والاجتماعية' },
+    { id: 'benefits', name: 'المكافآت والحوافز', description: 'إدارة نظم المكافآت والحوافز' },
+    { id: 'meetings', name: 'الاجتماعات', description: 'تنظيم وإدارة الاجتماعات والمحاضر' },
+    { id: 'signature', name: 'التوقيع الإلكتروني', description: 'إدارة أنظمة التوقيع الإلكتروني' },
+    { id: 'tasks', name: 'المهام والمتابعة', description: 'إدارة المهام والمتابعة التنفيذية' },
+    { id: 'requests', name: 'الطلبات والإشعارات', description: 'معالجة الطلبات وإرسال الإشعارات' },
+    { id: 'ai', name: 'الذكاء الاصطناعي', description: 'استخدام أدوات الذكاء الاصطناعي والتحليل' },
+    { id: 'reports', name: 'التقارير', description: 'إنشاء وعرض التقارير التحليلية' },
+    
+    // صلاحيات إدارية
+    { id: 'settings', name: 'الإعدادات', description: 'تعديل إعدادات النظام العامة' },
+    { id: 'users', name: 'إدارة المستخدمين', description: 'إضافة وإدارة مستخدمي النظام' },
+    { id: 'roles', name: 'إدارة الصلاحيات', description: 'إنشاء وتعديل الأدوار والصلاحيات' },
+    { id: 'integrations', name: 'التكاملات الخارجية', description: 'إدارة الربط مع الأنظمة الخارجية' },
+    { id: 'security', name: 'الأمان والحماية', description: 'إدارة أنظمة الأمان والحماية' },
+    { id: 'backup', name: 'النسخ الاحتياطي', description: 'إدارة النسخ الاحتياطي واستعادة البيانات' }
+  ];
+
+  return (
+    <div className="space-y-6">
       {/* رأس الإعدادات */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -311,13 +297,15 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
             <Settings className="h-6 w-6 text-[#009F87]" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#009F87]">إعدادات النظام العامة</h1>
+            <h1 className="text-2xl font-bold text-[#009F87]">إعدادات النظام</h1>
             <p className="text-muted-foreground">إدارة الإعدادات العامة والصلاحيات والتكاملات</p>
           </div>
         </div>
-        {onBack && <Button variant="outline" onClick={onBack}>
+        {onBack && (
+          <Button variant="outline" onClick={onBack}>
             العودة
-          </Button>}
+          </Button>
+        )}
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -367,40 +355,47 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="company-name">اسم المنشأة</Label>
-                  <Input id="company-name" value={companySettings.name} onChange={e => setCompanySettings({
-                  ...companySettings,
-                  name: e.target.value
-                })} />
+                  <Input
+                    id="company-name"
+                    value={companySettings.name}
+                    onChange={(e) => setCompanySettings({...companySettings, name: e.target.value})}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company-address">العنوان</Label>
-                  <Textarea id="company-address" value={companySettings.address} onChange={e => setCompanySettings({
-                  ...companySettings,
-                  address: e.target.value
-                })} rows={2} />
+                  <Textarea
+                    id="company-address"
+                    value={companySettings.address}
+                    onChange={(e) => setCompanySettings({...companySettings, address: e.target.value})}
+                    rows={2}
+                  />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="company-phone">الهاتف</Label>
-                    <Input id="company-phone" value={companySettings.phone} onChange={e => setCompanySettings({
-                    ...companySettings,
-                    phone: e.target.value
-                  })} />
+                    <Input
+                      id="company-phone"
+                      value={companySettings.phone}
+                      onChange={(e) => setCompanySettings({...companySettings, phone: e.target.value})}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="company-email">البريد الإلكتروني</Label>
-                    <Input id="company-email" type="email" value={companySettings.email} onChange={e => setCompanySettings({
-                    ...companySettings,
-                    email: e.target.value
-                  })} />
+                    <Input
+                      id="company-email"
+                      type="email"
+                      value={companySettings.email}
+                      onChange={(e) => setCompanySettings({...companySettings, email: e.target.value})}
+                    />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company-website">الموقع الإلكتروني</Label>
-                  <Input id="company-website" value={companySettings.website} onChange={e => setCompanySettings({
-                  ...companySettings,
-                  website: e.target.value
-                })} />
+                  <Input
+                    id="company-website"
+                    value={companySettings.website}
+                    onChange={(e) => setCompanySettings({...companySettings, website: e.target.value})}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -418,10 +413,7 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="primary-language">اللغة الأساسية</Label>
-                  <Select value={companySettings.primaryLanguage} onValueChange={value => setCompanySettings({
-                  ...companySettings,
-                  primaryLanguage: value
-                })}>
+                  <Select value={companySettings.primaryLanguage} onValueChange={(value) => setCompanySettings({...companySettings, primaryLanguage: value})}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -433,10 +425,7 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="timezone">المنطقة الزمنية</Label>
-                  <Select value={companySettings.timezone} onValueChange={value => setCompanySettings({
-                  ...companySettings,
-                  timezone: value
-                })}>
+                  <Select value={companySettings.timezone} onValueChange={(value) => setCompanySettings({...companySettings, timezone: value})}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -449,10 +438,7 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="currency">العملة</Label>
-                  <Select value={companySettings.currency} onValueChange={value => setCompanySettings({
-                  ...companySettings,
-                  currency: value
-                })}>
+                  <Select value={companySettings.currency} onValueChange={(value) => setCompanySettings({...companySettings, currency: value})}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -526,7 +512,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
           <Card>
             <CardContent className="p-0">
               <div className="divide-y">
-                {users.map(user => <div key={user.id} className="p-4 flex items-center justify-between">
+                {users.map((user) => (
+                  <div key={user.id} className="p-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Avatar>
                         <AvatarImage src={`/api/placeholder/40/40`} />
@@ -540,7 +527,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                     </div>
                     <div className="flex items-center gap-3">
                       <Badge className={getRoleColor(user.role)}>
-                        {user.role === 'super_admin' ? 'مدير النظام' : user.role === 'hr_manager' ? 'مدير الموارد البشرية' : 'مشرف'}
+                        {user.role === 'super_admin' ? 'مدير النظام' : 
+                         user.role === 'hr_manager' ? 'مدير الموارد البشرية' : 'مشرف'}
                       </Badge>
                       <Badge className={getStatusColor(user.status)}>
                         {user.status === 'active' ? 'نشط' : 'غير نشط'}
@@ -554,7 +542,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                         </Button>
                       </div>
                     </div>
-                  </div>)}
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -598,7 +587,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                      <Label>الصلاحيات (جميع الأقسام - 22 قسم):</Label>
                      <ScrollArea className="h-80 w-full border rounded-md p-4">
                        <div className="grid grid-cols-1 gap-4">
-                         {permissions.map(permission => <div key={permission.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-gray-50">
+                         {permissions.map((permission) => (
+                           <div key={permission.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-gray-50">
                              <Switch id={permission.id} />
                              <div className="grid gap-1.5 leading-none flex-1">
                                <Label htmlFor={permission.id} className="text-sm font-medium cursor-pointer">
@@ -608,7 +598,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                                  {permission.description}
                                </p>
                              </div>
-                           </div>)}
+                           </div>
+                         ))}
                        </div>
                      </ScrollArea>
                    </div>
@@ -621,7 +612,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {customRoles.map(role => <Card key={role.id}>
+            {customRoles.map((role) => (
+              <Card key={role.id}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg">{role.name}</CardTitle>
@@ -634,9 +626,11 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                     <div>
                       <Label className="text-sm font-medium">الصلاحيات:</Label>
                       <div className="flex flex-wrap gap-1 mt-1">
-                        {role.permissions.map(permission => <Badge key={permission} variant="outline" className="text-xs">
+                        {role.permissions.map((permission) => (
+                          <Badge key={permission} variant="outline" className="text-xs">
                             {permissions.find(p => p.id === permission)?.name || permission}
-                          </Badge>)}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
                     <div className="flex gap-2 pt-2">
@@ -651,7 +645,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                     </div>
                   </div>
                 </CardContent>
-              </Card>)}
+              </Card>
+            ))}
           </div>
         </TabsContent>
 
@@ -706,14 +701,16 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
           <Card>
             <CardContent className="p-0">
               <div className="divide-y">
-                {clientDomains.map(domain => <div key={domain.id} className="p-4">
+                {clientDomains.map((domain) => (
+                  <div key={domain.id} className="p-4">
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h4 className="font-medium">{domain.companyName}</h4>
                         <p className="text-sm text-muted-foreground">{domain.domain}</p>
                       </div>
                       <Badge className={getStatusColor(domain.status)}>
-                        {domain.status === 'active' ? 'نشط' : domain.status === 'pending' ? 'في الانتظار' : 'غير نشط'}
+                        {domain.status === 'active' ? 'نشط' : 
+                         domain.status === 'pending' ? 'في الانتظار' : 'غير نشط'}
                       </Badge>
                     </div>
                     <div className="grid grid-cols-3 gap-4 text-sm">
@@ -744,7 +741,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                         زيارة الموقع
                       </Button>
                     </div>
-                  </div>)}
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -758,7 +756,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            {integrations.map((integration, index) => <Card key={index}>
+            {integrations.map((integration, index) => (
+              <Card key={index}>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -771,7 +770,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                       </div>
                     </div>
                     <Badge className={getStatusColor(integration.status)}>
-                      {integration.status === 'connected' ? 'متصل' : integration.status === 'pending' ? 'في الانتظار' : 'غير متصل'}
+                      {integration.status === 'connected' ? 'متصل' : 
+                       integration.status === 'pending' ? 'في الانتظار' : 'غير متصل'}
                     </Badge>
                   </div>
                 </CardHeader>
@@ -782,13 +782,21 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                       <span className="font-medium ml-2">{integration.lastSync}</span>
                     </div>
                     <div className="flex gap-2">
-                      {integration.status === 'connected' ? <Button variant="outline" size="sm" className="flex-1">
+                      {integration.status === 'connected' ? (
+                        <Button variant="outline" size="sm" className="flex-1">
                           <RefreshCw className="h-3 w-3 ml-1" />
                           مزامنة
-                        </Button> : <Button size="sm" className="flex-1" onClick={() => handleConnectIntegration(integration.name)}>
+                        </Button>
+                      ) : (
+                        <Button 
+                          size="sm" 
+                          className="flex-1"
+                          onClick={() => handleConnectIntegration(integration.name)}
+                        >
                           <Plug className="h-3 w-3 ml-1" />
                           ربط
-                        </Button>}
+                        </Button>
+                      )}
                       <Button variant="outline" size="sm">
                         <Settings className="h-3 w-3 ml-1" />
                         إعدادات
@@ -796,7 +804,8 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
                     </div>
                   </div>
                 </CardContent>
-              </Card>)}
+              </Card>
+            ))}
           </div>
 
           <Card>
@@ -985,5 +994,6 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({
           </Card>
         </TabsContent>
       </Tabs>
-    </div>;
+    </div>
+  );
 };

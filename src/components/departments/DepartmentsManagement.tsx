@@ -10,41 +10,78 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Building, Users, FileText, AlertTriangle, CheckCircle2, Clock, Download, Plus, Search, Filter, Calendar, BookOpen, Shield, Briefcase, Award, Target, TrendingUp, BarChart3, PieChart, Activity, Zap, Globe, Eye, Settings, Bell, CreditCard, UserCheck, Sparkles, Archive, Edit, Trash2, Share, Lock, Unlock, AlertCircle, Info } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Building, 
+  Users, 
+  FileText, 
+  AlertTriangle, 
+  CheckCircle2, 
+  Clock,
+  Download,
+  Plus,
+  Search,
+  Filter,
+  Calendar,
+  BookOpen,
+  Shield,
+  Briefcase,
+  Award,
+  Target,
+  TrendingUp,
+  BarChart3,
+  PieChart,
+  Activity,
+  Zap,
+  Globe,
+  Eye,
+  Settings,
+  Bell,
+  CreditCard,
+  UserCheck,
+  Sparkles,
+  Archive,
+  Edit,
+  Trash2,
+  Share,
+  Lock,
+  Unlock,
+  AlertCircle,
+  Info
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie } from 'recharts';
+
 interface DepartmentsManagementProps {
   onBack: () => void;
 }
-export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({
-  onBack
-}) => {
-  const {
-    t,
-    i18n
-  } = useTranslation();
-  const {
-    toast
-  } = useToast();
+
+export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ onBack }) => {
+  const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Mock data
-  const departments = [{
-    id: '1',
-    name: 'تقنية المعلومات',
-    employeeCount: 15,
-    performance: 92,
-    budget: 500000
-  }, {
-    id: '2',
-    name: 'الموارد البشرية',
-    employeeCount: 8,
-    performance: 95,
-    budget: 200000
-  }];
+  const departments = [
+    {
+      id: '1',
+      name: 'تقنية المعلومات',
+      employeeCount: 15,
+      performance: 92,
+      budget: 500000
+    },
+    {
+      id: '2', 
+      name: 'الموارد البشرية',
+      employeeCount: 8,
+      performance: 95,
+      budget: 200000
+    }
+  ];
+
   const stats = {
     totalDepartments: 16,
     activeDepartments: 14,
@@ -53,76 +90,50 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({
     avgPerformance: 89,
     totalBudget: 2500000
   };
-  const performanceData = [{
-    month: 'يناير',
-    departments: 12,
-    positions: 25,
-    performance: 85
-  }, {
-    month: 'فبراير',
-    departments: 13,
-    positions: 28,
-    performance: 87
-  }, {
-    month: 'مارس',
-    departments: 14,
-    positions: 32,
-    performance: 89
-  }, {
-    month: 'أبريل',
-    departments: 14,
-    positions: 30,
-    performance: 88
-  }, {
-    month: 'مايو',
-    departments: 15,
-    positions: 35,
-    performance: 91
-  }, {
-    month: 'يونيو',
-    departments: 16,
-    positions: 38,
-    performance: 93
-  }];
-  const departmentTypeDistribution = [{
-    name: 'تقني',
-    value: 35,
-    color: '#3b82f6'
-  }, {
-    name: 'إداري',
-    value: 25,
-    color: '#10b981'
-  }, {
-    name: 'عمليات',
-    value: 20,
-    color: '#f59e0b'
-  }, {
-    name: 'دعم',
-    value: 15,
-    color: '#8b5cf6'
-  }, {
-    name: 'استراتيجي',
-    value: 5,
-    color: '#ef4444'
-  }];
+
+  const performanceData = [
+    { month: 'يناير', departments: 12, positions: 25, performance: 85 },
+    { month: 'فبراير', departments: 13, positions: 28, performance: 87 },
+    { month: 'مارس', departments: 14, positions: 32, performance: 89 },
+    { month: 'أبريل', departments: 14, positions: 30, performance: 88 },
+    { month: 'مايو', departments: 15, positions: 35, performance: 91 },
+    { month: 'يونيو', departments: 16, positions: 38, performance: 93 }
+  ];
+
+  const departmentTypeDistribution = [
+    { name: 'تقني', value: 35, color: '#3b82f6' },
+    { name: 'إداري', value: 25, color: '#10b981' },
+    { name: 'عمليات', value: 20, color: '#f59e0b' },
+    { name: 'دعم', value: 15, color: '#8b5cf6' },
+    { name: 'استراتيجي', value: 5, color: '#ef4444' }
+  ];
+
   const handleExport = () => {
     toast({
       title: "تصدير البيانات",
-      description: "جاري تصدير البيانات إلى ملف Excel..."
+      description: "جاري تصدير البيانات إلى ملف Excel...",
     });
   };
+
   const handlePrint = () => {
     toast({
-      title: "طباعة التقرير",
-      description: "جاري إعداد التقرير للطباعة..."
+      title: "طباعة التقرير", 
+      description: "جاري إعداد التقرير للطباعة...",
     });
   };
-  const renderProfessionalHeader = () => <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+
+  const renderProfessionalHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
       <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
-      <div className="relative p-8 bg-gray-50 rounded-sm">
+      <div className="relative p-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Button variant="ghost" size="sm" onClick={onBack} className="hover:bg-primary/10 mx-0 px-[15px] py-0 my-0">
+            <Button
+              variant="ghost" 
+              size="sm"
+              onClick={onBack}
+              className="hover:bg-primary/10"
+            >
               <ArrowLeft className="h-4 w-4 ml-2" />
               العودة
             </Button>
@@ -156,8 +167,11 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({
           </div>
         </div>
       </div>
-    </div>;
-  const renderAnalyticsDashboard = () => <div className="space-y-6">
+    </div>
+  );
+
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
@@ -267,8 +281,18 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie data={departmentTypeDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
-                  {departmentTypeDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                <Pie
+                  data={departmentTypeDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {departmentTypeDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -317,8 +341,11 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({
           </div>
         </CardContent>
       </Card>
-    </div>;
-  return <div className="min-h-screen bg-background">
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-background">
       {renderProfessionalHeader()}
       
       <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -384,6 +411,8 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({
           </TabsContent>
         </Tabs>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default DepartmentsManagement;
