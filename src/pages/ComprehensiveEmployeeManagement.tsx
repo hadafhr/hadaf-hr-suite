@@ -79,6 +79,7 @@ import Reports from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
 import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
 import { ComprehensiveFieldTracking } from '@/components/systems/ComprehensiveFieldTracking';
+import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTasksFollowup';
 import TeamWork from '@/components/systems/TeamWork';
 
 const ComprehensiveEmployeeManagement = () => {
@@ -529,7 +530,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="tasks">
-            <TasksTracking onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveTasksFollowup onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="requests">
