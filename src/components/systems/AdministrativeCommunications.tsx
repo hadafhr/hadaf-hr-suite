@@ -293,7 +293,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
               تصدير PDF  
             </Button>
             <Button variant="outline" onClick={handlePrint} className="hover:bg-muted/50 transition-colors">
-              <Print className="h-4 w-4 ml-2" />
+              <Printer className="h-4 w-4 ml-2" />
               طباعة
             </Button>
             <Button onClick={handleAddCorrespondence} className="bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
