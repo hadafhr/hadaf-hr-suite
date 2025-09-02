@@ -44,7 +44,11 @@ import {
   Printer
 } from 'lucide-react';
 
-export const AdministrativeCommunications = () => {
+interface AdministrativeCommunicationsProps {
+  onBack?: () => void;
+}
+
+export const AdministrativeCommunications = ({ onBack }: AdministrativeCommunicationsProps) => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
