@@ -1,954 +1,599 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/hooks/use-toast';
 import { 
-  Building2, Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save,
-  BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock,
-  FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin,
-  Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu,
-  FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages,
-  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Network,
-  ArrowLeft, ChevronDown, AlertTriangle, DollarSign, User
+  ArrowLeft, Building2, Users, Plus, RefreshCw, Settings, Trash2, 
+  CheckCircle, AlertCircle, Eye, Download, BarChart3, Building, 
+  User, MapPin, Mail, Phone, TrendingUp, Activity, Target, Star,
+  Award, Calendar, Clock, FileText, Briefcase, Network, Shield,
+  Edit, Printer, Search, Filter
 } from 'lucide-react';
-import { toast } from 'sonner';
-import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
 
-// Mock data for demonstration
-const mockDepartments = [
-  {
-    id: '1',
-    name: 'الموارد البشرية',
-    nameEn: 'Human Resources',
-    code: 'HR-001',
-    parentId: null,
-    managerId: 'emp-001',
-    managerName: 'أحمد محمد',
-    employeeCount: 12,
-    budget: 500000,
-    location: 'المبنى الرئيسي - الطابق الثالث',
-    description: 'إدارة شؤون الموظفين والتوظيف والتطوير',
-    type: 'administrative',
-    status: 'active',
-    color: '#00C897',
-    units: [
-      { id: 'u1', name: 'التوظيف والاختيار', head: 'سارة أحمد', employees: 5 },
-      { id: 'u2', name: 'التدريب والتطوير', head: 'محمد علي', employees: 4 },
-      { id: 'u3', name: 'الرواتب والمزايا', head: 'فاطمة محمد', employees: 3 }
-    ]
-  },
-  {
-    id: '2',
-    name: 'تقنية المعلومات',
-    nameEn: 'Information Technology',
-    code: 'IT-001',
-    parentId: null,
-    managerId: 'emp-002',
-    managerName: 'محمد خالد',
-    employeeCount: 18,
-    budget: 800000,
-    location: 'المبنى الرئيسي - الطابق الثاني',
-    description: 'تطوير وصيانة الأنظمة التقنية',
-    type: 'technical',
-    status: 'active',
-    color: '#4F46E5',
-    units: [
-      { id: 'u4', name: 'تطوير التطبيقات', head: 'علي حسن', employees: 8 },
-      { id: 'u5', name: 'أمن المعلومات', head: 'نورا سالم', employees: 6 },
-      { id: 'u6', name: 'الدعم التقني', head: 'أحمد يوسف', employees: 4 }
-    ]
-  },
-  {
-    id: '3',
-    name: 'المالية والمحاسبة',
-    nameEn: 'Finance & Accounting',
-    code: 'FIN-001',
-    parentId: null,
-    managerId: 'emp-003',
-    managerName: 'فاطمة عبدالله',
-    employeeCount: 10,
-    budget: 300000,
-    location: 'المبنى الرئيسي - الطابق الأول',
-    description: 'إدارة الشؤون المالية والمحاسبية',
-    type: 'financial',
-    status: 'active',
-    color: '#F59E0B',
-    units: [
-      { id: 'u7', name: 'المحاسبة العامة', head: 'خالد أحمد', employees: 6 },
-      { id: 'u8', name: 'الخزينة', head: 'سارة محمد', employees: 4 }
-    ]
-  }
-];
-
-const mockStats = {
-  totalDepartments: 12,
-  totalUnits: 28,
-  totalEmployees: 156,
-  activeManagers: 12,
-  vacantPositions: 8,
-  departmentsWithoutManager: 2
-};
+interface Department {
+  id: string;
+  name: string;
+  nameEn: string;
+  status: 'نشط' | 'غير نشط' | 'قيد المراجعة';
+  manager: string;
+  employeeCount: number;
+  unitsCount: number;
+  budget: number;
+  description: string;
+  lastUpdate: string;
+  icon: React.ReactNode;
+}
 
 interface DepartmentsUnitsManagementProps {
   onBack: () => void;
 }
 
-const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all');
-  const [selectedDepartment, setSelectedDepartment] = useState<any>(null);
-  const [showAddDepartment, setShowAddDepartment] = useState(false);
-  const [showAddUnit, setShowAddUnit] = useState(false);
-  const [expandedDepartments, setExpandedDepartments] = useState<string[]>(['1']);
-  
-  // Form states
-  const [formData, setFormData] = useState({
-    name: '',
-    nameEn: '',
-    code: '',
-    managerId: '',
-    budget: '',
-    location: '',
-    description: '',
-    type: 'administrative',
-    parentId: ''
-  });
+export const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProps> = ({ onBack }) => {
+  const [syncing, setSyncing] = useState<string | null>(null);
+  const [isAddingDepartment, setIsAddingDepartment] = useState(false);
+  const [isDeletingDepartment, setIsDeletingDepartment] = useState(false);
+  const { toast } = useToast();
 
-  const filteredDepartments = useMemo(() => {
-    return mockDepartments.filter(dept => {
-      const matchesSearch = dept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           dept.code.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesFilter = filterType === 'all' || dept.type === filterType;
-      return matchesSearch && matchesFilter;
+  const departments: Department[] = [
+    {
+      id: 'HR',
+      name: 'إدارة الموارد البشرية',
+      nameEn: 'Human Resources',
+      status: 'نشط',
+      manager: 'أحمد محمد علي',
+      employeeCount: 45,
+      unitsCount: 5,
+      budget: 2500000,
+      description: 'إدارة شؤون الموظفين والتوظيف والتطوير',
+      lastUpdate: '2024-03-20 14:30',
+      icon: <Users className="h-6 w-6 text-primary" />
+    },
+    {
+      id: 'IT',
+      name: 'إدارة تقنية المعلومات',
+      nameEn: 'Information Technology',
+      status: 'نشط',
+      manager: 'سارة أحمد المطيري',
+      employeeCount: 32,
+      unitsCount: 4,
+      budget: 3200000,
+      description: 'تطوير وصيانة الأنظمة التقنية والبنية التحتية',
+      lastUpdate: '2024-03-20 13:45',
+      icon: <Shield className="h-6 w-6 text-primary" />
+    },
+    {
+      id: 'FIN',
+      name: 'الإدارة المالية والمحاسبة',
+      nameEn: 'Finance & Accounting',
+      status: 'نشط',
+      manager: 'محمد خالد الشمري',
+      employeeCount: 28,
+      unitsCount: 3,
+      budget: 1800000,
+      description: 'إدارة الشؤون المالية والمحاسبية والميزانيات',
+      lastUpdate: '2024-03-20 12:15',
+      icon: <BarChart3 className="h-6 w-6 text-primary" />
+    },
+    {
+      id: 'LEGAL',
+      name: 'الإدارة القانونية',
+      nameEn: 'Legal Affairs',
+      status: 'قيد المراجعة',
+      manager: 'فاطمة عبدالله النجار',
+      employeeCount: 18,
+      unitsCount: 2,
+      budget: 1200000,
+      description: 'الشؤون القانونية والامتثال واللوائح',
+      lastUpdate: '2024-03-19 16:20',
+      icon: <Network className="h-6 w-6 text-primary" />
+    },
+    {
+      id: 'OPS',
+      name: 'إدارة العمليات',
+      nameEn: 'Operations',
+      status: 'نشط',
+      manager: 'علي حسن الزهراني',
+      employeeCount: 55,
+      unitsCount: 6,
+      budget: 4500000,
+      description: 'إدارة العمليات التشغيلية والإنتاجية',
+      lastUpdate: '2024-03-20 11:00',
+      icon: <Building className="h-6 w-6 text-primary" />
+    },
+    {
+      id: 'MKT',
+      name: 'إدارة التسويق والمبيعات',
+      nameEn: 'Marketing & Sales',
+      status: 'غير نشط',
+      manager: 'نورا سالم القحطاني',
+      employeeCount: 0,
+      unitsCount: 0,
+      budget: 0,
+      description: 'التسويق والمبيعات وعلاقات العملاء',
+      lastUpdate: '2024-03-18 09:30',
+      icon: <Star className="h-6 w-6 text-primary" />
+    }
+  ];
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'نشط':
+        return <CheckCircle className="h-4 w-4 text-green-600" />;
+      case 'غير نشط':
+        return <AlertCircle className="h-4 w-4 text-gray-500" />;
+      case 'قيد المراجعة':
+        return <Clock className="h-4 w-4 text-yellow-600" />;
+      default:
+        return <CheckCircle className="h-4 w-4" />;
+    }
+  };
+
+  const getStatusBadge = (status: string) => {
+    const config = {
+      'نشط': 'bg-green-100 text-green-800 border-green-200',
+      'غير نشط': 'bg-gray-100 text-gray-800 border-gray-200',
+      'قيد المراجعة': 'bg-yellow-100 text-yellow-800 border-yellow-200'
+    };
+    return config[status as keyof typeof config] || 'bg-gray-100 text-gray-800';
+  };
+
+  const handleSync = async (departmentId: string) => {
+    setSyncing(departmentId);
+    const department = departments.find(d => d.id === departmentId);
+    toast({
+      title: "بدء التحديث",
+      description: `جاري تحديث بيانات ${department?.name}...`,
     });
-  }, [searchTerm, filterType]);
-
-  const handleSaveDepartment = () => {
-    // Mock save functionality
-    toast.success('تم حفظ الإدارة بنجاح');
-    setShowAddDepartment(false);
-    setFormData({
-      name: '', nameEn: '', code: '', managerId: '', budget: '', 
-      location: '', description: '', type: 'administrative', parentId: ''
+    
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    setSyncing(null);
+    
+    toast({
+      title: "تم التحديث بنجاح",
+      description: `تم تحديث بيانات ${department?.name} بنجاح`,
     });
   };
 
-  const handleDeleteDepartment = (id: string) => {
-    toast.success('تم حذف الإدارة بنجاح');
+  const handleAddNewDepartment = async () => {
+    setIsAddingDepartment(true);
+    toast({
+      title: "إضافة إدارة جديدة",
+      description: "جاري تحضير نموذج إضافة الإدارة الجديدة...",
+    });
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsAddingDepartment(false);
+    
+    toast({
+      title: "جاهز للإضافة",
+      description: "يمكنك الآن إدخال بيانات الإدارة الجديدة",
+    });
   };
 
-  const handleExportData = (format: string) => {
-    toast.success(`تم تصدير البيانات بصيغة ${format}`);
+  const handleDeleteDepartment = async () => {
+    setIsDeletingDepartment(true);
+    toast({
+      title: "حذف إدارة",
+      description: "جاري تحضير قائمة الإدارات المتاحة للحذف...",
+    });
+    
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsDeletingDepartment(false);
+    
+    toast({
+      title: "جاهز للحذف",
+      description: "اختر الإدارة التي تريد حذفها من القائمة",
+    });
   };
 
-  const toggleDepartment = (deptId: string) => {
-    setExpandedDepartments(prev => 
-      prev.includes(deptId) 
-        ? prev.filter(id => id !== deptId)
-        : [...prev, deptId]
-    );
+  const handleDepartmentSettings = () => {
+    toast({
+      title: "الإعدادات العامة",
+      description: "جاري فتح إعدادات نظام الإدارات والوحدات...",
+    });
   };
 
-  const renderDashboard = () => (
-    <div className="space-y-6 animate-fade-in">
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="dashboard-card bg-gradient-to-br from-primary/10 to-primary/20 border-primary/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">إجمالي الإدارات</p>
-                <p className="text-3xl font-bold text-primary">{mockStats.totalDepartments}</p>
-                <p className="text-xs text-success flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3" />
-                  زيادة 12% هذا الشهر
-                </p>
-              </div>
-              <Building2 className="w-12 h-12 text-primary/70" />
-            </div>
-          </CardContent>
-        </Card>
+  const handleViewDepartment = (department: Department) => {
+    toast({
+      title: `معاينة ${department.name}`,
+      description: `عرض تفاصيل وإحصائيات ${department.nameEn}`,
+    });
+  };
 
-        <Card className="dashboard-card bg-gradient-to-br from-accent/10 to-accent/20 border-accent/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">إجمالي الوحدات</p>
-                <p className="text-3xl font-bold text-accent">{mockStats.totalUnits}</p>
-                <p className="text-xs text-success flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3" />
-                  زيادة 8% هذا الشهر
-                </p>
-              </div>
-              <Network className="w-12 h-12 text-accent/70" />
-            </div>
-          </CardContent>
-        </Card>
+  const handleExportDepartment = (department: Department) => {
+    toast({
+      title: `تصدير بيانات ${department.name}`,
+      description: "جاري تحضير ملف التصدير... سيتم تحميله قريباً",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "تم التصدير بنجاح",
+        description: `تم تصدير بيانات ${department.name} بصيغة Excel`,
+      });
+    }, 3000);
+  };
 
-        <Card className="dashboard-card bg-gradient-to-br from-success/10 to-success/20 border-success/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">إجمالي الموظفين</p>
-                <p className="text-3xl font-bold text-success">{mockStats.totalEmployees}</p>
-                <p className="text-xs text-success flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3" />
-                  زيادة 15% هذا الشهر
-                </p>
-              </div>
-              <Users className="w-12 h-12 text-success/70" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+  const handleDepartmentConfig = (department: Department) => {
+    toast({
+      title: `إعدادات ${department.name}`,
+      description: `فتح لوحة إعدادات ${department.nameEn}`,
+    });
+  };
 
-      {/* Alerts and Insights */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="dashboard-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-warning" />
-              التنبيهات الهامة
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 bg-warning/10 border border-warning/20 rounded-lg">
-              <p className="text-sm font-medium text-warning">إدارات بدون مدير</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                يوجد {mockStats.departmentsWithoutManager} إدارات تحتاج لتعيين مدير
-              </p>
-            </div>
-            <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
-              <p className="text-sm font-medium text-destructive">مناصب شاغرة</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                يوجد {mockStats.vacantPositions} مناصب شاغرة تحتاج للإعلان عنها
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+  const activeDepartments = departments.filter(d => d.status === 'نشط').length;
+  const totalEmployees = departments.reduce((sum, d) => sum + d.employeeCount, 0);
+  const totalBudget = departments.reduce((sum, d) => sum + d.budget, 0);
 
-        <Card className="dashboard-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="w-5 h-5 text-primary" />
-              اقتراحات الذكاء الاصطناعي
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg">
-              <p className="text-sm font-medium text-primary">إعادة الهيكلة المقترحة</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                يُنصح بدمج وحدة التدريب مع وحدة التطوير لتحسين الكفاءة
-              </p>
-            </div>
-            <div className="p-4 bg-success/10 border border-success/20 rounded-lg">
-              <p className="text-sm font-medium text-success">توزيع الموظفين الأمثل</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                توزيع متوازن للموظفين عبر جميع الإدارات
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Performance Chart */}
-      <Card className="dashboard-card">
-        <CardHeader>
-          <CardTitle>توزيع الموظفين حسب الإدارات</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {mockDepartments.map((dept) => (
-              <div key={dept.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <div 
-                    className="w-4 h-4 rounded-full" 
-                    style={{ backgroundColor: dept.color }}
-                  />
-                  <span className="font-medium">{dept.name}</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-muted-foreground">{dept.employeeCount} موظف</span>
-                  <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
-                    <div 
-                      className="h-full rounded-full transition-all duration-500"
-                      style={{ 
-                        width: `${(dept.employeeCount / 20) * 100}%`,
-                        backgroundColor: dept.color 
-                      }}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background relative overflow-hidden" dir="rtl">
+      {/* خلفية متحركة احترافية */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-secondary/3 to-accent/3 opacity-50"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_theme(colors.primary.DEFAULT)_0%,_transparent_50%)] opacity-10"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,_theme(colors.secondary.DEFAULT)_0%,_transparent_50%)] opacity-10"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto p-6">
+        {/* هيدر فائق الجمال والاحترافية */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-gray-900 to-black p-10 mb-10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] backdrop-blur-xl border border-primary/30">
+          {/* طبقات التدرج المتقدمة */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20 opacity-80"></div>
+          <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(255,255,255,0.05)_180deg,transparent_360deg)]"></div>
+          
+          {/* عناصر هندسية متحركة */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-20">
+            <div className="absolute top-4 right-4 w-24 h-24 border-2 border-primary/30 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 left-4 w-16 h-16 border border-secondary/40 rotate-45 animate-bounce"></div>
+            <div className="absolute top-1/3 left-1/4 w-12 h-12 bg-accent/10 rounded-lg rotate-12 animate-pulse"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-8 h-8 bg-primary/20 rounded-full animate-bounce"></div>
+            <div className="absolute top-1/2 left-1/2 w-6 h-6 border border-secondary/30 transform -translate-x-1/2 -translate-y-1/2 rotate-45 animate-spin"></div>
+          </div>
+          
+          <div className="relative z-20">
+            {/* التخطيط الفائق: شعار - نص - رمز */}
+            <div className="grid grid-cols-12 items-center mb-10 gap-6">
+              {/* الشعار المتطور في أقصى اليمين */}
+              <div className="col-span-3 flex justify-end">
+                <div className="group relative">
+                  <div className="absolute -inset-2 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+                  <div className="relative p-4 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl backdrop-blur-xl border border-white/20 shadow-2xl hover:scale-105 transition-all duration-500">
+                    <img 
+                      src="/lovable-uploads/4b2910fb-b74e-4c5d-b399-8b1109f26b7b.png" 
+                      alt="BOUD HR Logo" 
+                      className="h-24 w-auto filter drop-shadow-2xl hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-500"
                     />
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-
-  const renderDepartmentsList = () => (
-    <div className="space-y-6 animate-fade-in">
-      {/* Search and Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <div className="flex flex-1 gap-4 w-full">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="البحث في الإدارات..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          <Select value={filterType} onValueChange={setFilterType}>
-            <SelectTrigger className="w-48">
-              <Filter className="w-4 h-4 ml-2" />
-              <SelectValue placeholder="تصفية حسب النوع" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">جميع الأنواع</SelectItem>
-              <SelectItem value="administrative">إدارية</SelectItem>
-              <SelectItem value="technical">تقنية</SelectItem>
-              <SelectItem value="financial">مالية</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        
-        <div className="flex gap-2">
-          <Button 
-            onClick={() => handleExportData('Excel')}
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-2"
-          >
-            <Download className="w-4 h-4" />
-            تصدير
-          </Button>
-          <Button 
-            onClick={() => setShowAddDepartment(true)}
-            className="flex items-center gap-2 bg-gradient-primary hover:shadow-glow"
-          >
-            <Plus className="w-4 h-4" />
-            إضافة إدارة
-          </Button>
-        </div>
-      </div>
-
-      {/* Departments Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredDepartments.map((department) => (
-          <Card key={department.id} className="dashboard-card hover:shadow-medium transition-all duration-300 cursor-pointer">
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div 
-                    className="w-3 h-8 rounded-full"
-                    style={{ backgroundColor: department.color }}
-                  />
-                  <div>
-                    <CardTitle className="text-lg">{department.name}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{department.code}</p>
+              
+              {/* النص المركزي الفائق */}
+              <div className="col-span-6 text-center">
+                <div className="space-y-4">
+                  <div className="relative">
+                    <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-white mb-3 tracking-wider animate-fade-in">
+                      إدارة الأقسام والوحدات
+                    </h1>
+                    <div className="absolute inset-0 text-6xl font-black text-white/5 blur-sm transform -translate-y-3">
+                      إدارة الأقسام والوحدات
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full border border-primary/50 backdrop-blur-xl shadow-2xl">
+                    <span className="text-2xl font-bold text-white tracking-widest">DEPARTMENTS MANAGEMENT</span>
                   </div>
                 </div>
-                <Badge variant="outline" className="text-xs">
-                  {department.type === 'administrative' ? 'إدارية' : 
-                   department.type === 'technical' ? 'تقنية' : 'مالية'}
-                </Badge>
               </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-muted-foreground" />
-                  <span>{department.employeeCount} موظف</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-muted-foreground" />
-                  <span className="truncate">{department.location}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-muted-foreground" />
-                  <span className="truncate">{department.managerName}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-muted-foreground" />
-                  <span>{department.budget?.toLocaleString()} ريال</span>
+              
+              {/* الرمز المتقدم في اليسار */}
+              <div className="col-span-3 flex justify-start">
+                <div className="group relative">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-secondary/40 to-accent/40 rounded-3xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
+                  <div className="relative p-6 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl backdrop-blur-xl border border-primary/30 shadow-2xl hover:scale-110 transition-all duration-500">
+                    <Building2 className="h-16 w-16 text-white drop-shadow-2xl animate-pulse" />
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <Separator />
-
-              <div>
-                <p className="text-xs font-medium text-muted-foreground mb-2">الوحدات التابعة ({department.units.length})</p>
-                <div className="space-y-2 max-h-24 overflow-y-auto">
-                  {department.units.map((unit) => (
-                    <div key={unit.id} className="flex items-center justify-between p-2 bg-muted/30 rounded text-xs">
-                      <span>{unit.name}</span>
-                      <span className="text-muted-foreground">{unit.employees}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* الوصف الجمالي */}
+            <div className="text-center mb-10">
+              <div className="max-w-4xl mx-auto p-6 bg-gradient-to-r from-white/5 to-white/10 rounded-2xl backdrop-blur-xl border border-white/20 shadow-inner">
+                <p className="text-xl text-white/90 leading-relaxed font-medium tracking-wide">
+                  <span className="text-primary font-bold">منظومة متطورة وذكية</span> لإدارة جميع الأقسام والوحدات التنظيمية 
+                  <span className="text-secondary font-bold"> وتنسيق الهيكل الإداري</span> بكفاءة عالية ومرونة تامة
+                </p>
               </div>
+            </div>
 
-              <div className="flex gap-2 pt-2">
-                <Button 
-                  size="sm" 
-                  variant="outline"
-                  onClick={() => setSelectedDepartment(department)}
-                  className="flex-1 text-xs"
-                >
-                  <Eye className="w-3 h-3 ml-1" />
-                  عرض
-                </Button>
-                <Button size="sm" variant="outline" className="text-xs">
-                  <Edit className="w-3 h-3 ml-1" />
-                  تعديل
-                </Button>
-                <Button 
-                  size="sm" 
-                  variant="outline" 
-                  className="text-xs text-destructive hover:text-destructive"
-                  onClick={() => handleDeleteDepartment(department.id)}
-                >
-                  <Trash2 className="w-3 h-3" />
-                </Button>
+            {/* شريط الفاصل الجمالي */}
+            <div className="flex items-center justify-center mb-8">
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+              <div className="mx-6 w-3 h-3 bg-primary rounded-full animate-pulse shadow-lg"></div>
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+            </div>
+
+            {/* مجموعة الأزرار الفائقة الجمال */}
+            <div className="flex items-center justify-center gap-6 flex-wrap">
+              <Button
+                onClick={onBack}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <ArrowLeft className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                <span className="relative z-10">رجوع للوحة التحكم</span>
+              </Button>
+              
+              <Button 
+                onClick={() => window.location.reload()}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <RefreshCw className="h-5 w-5 ml-3 group-hover:rotate-180 transition-transform duration-500" />
+                <span className="relative z-10">تحديث البيانات</span>
+              </Button>
+              
+              <Button 
+                onClick={handleAddNewDepartment}
+                disabled={isAddingDepartment}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30 disabled:opacity-50"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                {isAddingDepartment ? (
+                  <RefreshCw className="h-5 w-5 ml-3 animate-spin" />
+                ) : (
+                  <Plus className="h-5 w-5 ml-3 group-hover:rotate-90 transition-transform duration-300" />
+                )}
+                <span className="relative z-10">{isAddingDepartment ? 'جاري التحضير...' : 'إضافة إدارة جديدة'}</span>
+              </Button>
+              
+              <Button 
+                onClick={handleDeleteDepartment}
+                disabled={isDeletingDepartment}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30 disabled:opacity-50"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                {isDeletingDepartment ? (
+                  <RefreshCw className="h-5 w-5 ml-3 animate-spin" />
+                ) : (
+                  <Trash2 className="h-5 w-5 ml-3 group-hover:scale-110 transition-transform duration-300" />
+                )}
+                <span className="relative z-10">{isDeletingDepartment ? 'جاري التحضير...' : 'حذف إدارة'}</span>
+              </Button>
+              
+              <Button 
+                onClick={handleDepartmentSettings}
+                className="group relative overflow-hidden bg-gradient-to-r from-primary/90 to-primary hover:from-primary hover:to-primary/80 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-primary/25 transform hover:scale-105 transition-all duration-300 border border-primary/30"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <Settings className="h-5 w-5 ml-3 group-hover:rotate-90 transition-transform duration-500" />
+                <span className="relative z-10">الإعدادات المتقدمة</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* إحصائيات احترافية محدثة */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <Card className="group relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 hover:border-primary/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <CardContent className="relative z-10 p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground">إجمالي الإدارات</p>
+                  <p className="text-3xl font-bold text-primary">{departments.length}</p>
+                  <div className="flex items-center gap-1 text-xs text-green-600">
+                    <TrendingUp className="w-3 h-3" />
+                    <span>نشط ومتاح</span>
+                  </div>
+                </div>
+                <div className="p-3 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors duration-300">
+                  <Building2 className="w-8 h-8 text-primary" />
+                </div>
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
-    </div>
-  );
 
-  const renderOrganizationalChart = () => (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">الهيكل التنظيمي</h3>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => handleExportData('PDF')}>
-            <Download className="w-4 h-4 ml-2" />
-            تحميل PDF
-          </Button>
-          <Button variant="outline" size="sm">
-            <Printer className="w-4 h-4 ml-2" />
-            طباعة
-          </Button>
+          <Card className="group relative overflow-hidden bg-gradient-to-br from-accent/10 via-accent/5 to-transparent border-accent/20 hover:border-accent/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <CardContent className="relative z-10 p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground">الإدارات النشطة</p>
+                  <p className="text-3xl font-bold text-accent">{activeDepartments}</p>
+                  <div className="flex items-center gap-1 text-xs text-green-600">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>متصلة ومتزامنة</span>
+                  </div>
+                </div>
+                <div className="p-3 bg-accent/10 rounded-2xl group-hover:bg-accent/20 transition-colors duration-300">
+                  <CheckCircle className="w-8 h-8 text-accent" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group relative overflow-hidden bg-gradient-to-br from-secondary/10 via-secondary/5 to-transparent border-secondary/20 hover:border-secondary/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <CardContent className="relative z-10 p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground">إجمالي الموظفين</p>
+                  <p className="text-3xl font-bold text-secondary">{totalEmployees}</p>
+                  <div className="flex items-center gap-1 text-xs text-blue-600">
+                    <Users className="w-3 h-3" />
+                    <span>موزعين على الإدارات</span>
+                  </div>
+                </div>
+                <div className="p-3 bg-secondary/10 rounded-2xl group-hover:bg-secondary/20 transition-colors duration-300">
+                  <Users className="w-8 h-8 text-secondary" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group relative overflow-hidden bg-gradient-to-br from-green-500/10 via-green-500/5 to-transparent border-green-500/20 hover:border-green-500/40 transition-all duration-500 hover:scale-105 hover:shadow-2xl backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <CardContent className="relative z-10 p-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-muted-foreground">إجمالي الميزانيات</p>
+                  <p className="text-3xl font-bold text-green-600">{(totalBudget / 1000000).toFixed(1)}م</p>
+                  <div className="flex items-center gap-1 text-xs text-green-600">
+                    <BarChart3 className="w-3 h-3" />
+                    <span>ريال سعودي</span>
+                  </div>
+                </div>
+                <div className="p-3 bg-green-500/10 rounded-2xl group-hover:bg-green-500/20 transition-colors duration-300">
+                  <BarChart3 className="w-8 h-8 text-green-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </div>
 
-      <Card className="dashboard-card">
-        <CardContent className="p-6">
-          <div className="space-y-4">
-            {mockDepartments.map((department) => (
-              <div key={department.id} className="space-y-2">
-                <div 
-                  className="flex items-center gap-3 p-4 bg-card border border-border rounded-lg cursor-pointer hover:shadow-soft transition-all duration-200"
-                  onClick={() => toggleDepartment(department.id)}
-                >
+        {/* شبكة الإدارات الاحترافية */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {departments.map((department, index) => (
+            <Card key={department.id} className="group relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-card/90 hover:from-card hover:to-card/80 border-border/50 hover:border-primary/30 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl backdrop-blur-xl">
+              {/* خلفية متدرجة تظهر عند التمرير */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* عنصر تزيني على اليمين */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+              
+              <CardHeader className="relative z-10 pb-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
+                      {department.icon}
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors duration-300">
+                        {department.name}
+                      </CardTitle>
+                      <p className="text-sm text-muted-foreground">{department.nameEn}</p>
+                    </div>
+                  </div>
+                  <Badge 
+                    variant="outline" 
+                    className={`${getStatusBadge(department.status)} border text-xs font-medium`}
+                  >
+                    {getStatusIcon(department.status)}
+                    <span className="ml-1">{department.status}</span>
+                  </Badge>
+                </div>
+              </CardHeader>
+
+              <CardContent className="relative z-10 space-y-4">
+                {/* معلومات أساسية */}
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
+                    <User className="w-4 h-4 text-primary" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">المدير</p>
+                      <p className="font-medium truncate">{department.manager}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
+                    <Users className="w-4 h-4 text-accent" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">الموظفين</p>
+                      <p className="font-bold text-accent">{department.employeeCount}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
+                    <Network className="w-4 h-4 text-secondary" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">الوحدات</p>
+                      <p className="font-bold text-secondary">{department.unitsCount}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg">
+                    <BarChart3 className="w-4 h-4 text-green-600" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">الميزانية</p>
+                      <p className="font-bold text-green-600">{(department.budget / 1000000).toFixed(1)}م</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* الوصف */}
+                <div className="p-3 bg-muted/20 rounded-lg border border-border/30">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {department.description}
+                  </p>
+                </div>
+
+                {/* معلومات إضافية */}
+                <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border/30 pt-3">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    <span>آخر تحديث: {department.lastUpdate}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Activity className="w-3 h-3" />
+                    <span>ID: {department.id}</span>
+                  </div>
+                </div>
+
+                {/* أزرار العمليات */}
+                <div className="grid grid-cols-2 gap-2 pt-3 border-t border-border/30">
                   <Button
                     size="sm"
-                    variant="ghost"
-                    className="p-1 h-6 w-6"
+                    onClick={() => handleSync(department.id)}
+                    disabled={syncing === department.id}
+                    className="group/btn relative overflow-hidden bg-primary/90 hover:bg-primary text-white font-medium transition-all duration-300 hover:scale-105"
                   >
-                    {expandedDepartments.includes(department.id) ? 
-                      <ChevronDown className="w-4 h-4" /> : 
-                      <ChevronRight className="w-4 h-4" />
-                    }
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700"></div>
+                    {syncing === department.id ? (
+                      <RefreshCw className="w-4 h-4 ml-2 animate-spin" />
+                    ) : (
+                      <RefreshCw className="w-4 h-4 ml-2" />
+                    )}
+                    <span className="relative z-10">
+                      {syncing === department.id ? 'جاري التحديث...' : 'تحديث فوري'}
+                    </span>
                   </Button>
-                  
-                  <div 
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: department.color }}
-                  />
-                  
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4">
-                      <h4 className="font-medium">{department.name}</h4>
-                      <Badge variant="outline" className="text-xs">
-                        {department.employeeCount} موظف
-                      </Badge>
-                      <span className="text-sm text-muted-foreground">
-                        مدير: {department.managerName}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <Building className="w-5 h-5 text-muted-foreground" />
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleViewDepartment(department)}
+                    className="group/btn hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all duration-300 hover:scale-105"
+                  >
+                    <Eye className="w-4 h-4 ml-2 group-hover/btn:scale-110 transition-transform duration-200" />
+                    <span>معاينة</span>
+                  </Button>
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleExportDepartment(department)}
+                    className="group/btn hover:bg-accent/10 hover:border-accent/30 hover:text-accent transition-all duration-300 hover:scale-105"
+                  >
+                    <Download className="w-4 h-4 ml-2 group-hover/btn:translate-y-1 transition-transform duration-200" />
+                    <span>تصدير</span>
+                  </Button>
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleDepartmentConfig(department)}
+                    className="group/btn hover:bg-secondary/10 hover:border-secondary/30 hover:text-secondary transition-all duration-300 hover:scale-105"
+                  >
+                    <Settings className="w-4 h-4 ml-2 group-hover/btn:rotate-90 transition-transform duration-300" />
+                    <span>إعدادات</span>
+                  </Button>
                 </div>
-
-                {expandedDepartments.includes(department.id) && (
-                  <div className="mr-12 space-y-2 animate-accordion-down">
-                    {department.units.map((unit) => (
-                      <div 
-                        key={unit.id}
-                        className="flex items-center gap-3 p-3 bg-muted/30 border border-border/50 rounded-lg"
-                      >
-                        <div className="w-3 h-3 rounded-full bg-muted-foreground/50" />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-4">
-                            <span className="font-medium text-sm">{unit.name}</span>
-                            <Badge variant="secondary" className="text-xs">
-                              {unit.employees} موظف
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">
-                              رئيس الوحدة: {unit.head}
-                            </span>
-                          </div>
-                        </div>
-                        <Briefcase className="w-4 h-4 text-muted-foreground" />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-
-  const renderReports = () => (
-    <div className="space-y-6 animate-fade-in">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          {
-            title: 'تقرير الإدارات الشامل',
-            description: 'تقرير مفصل بجميع الإدارات والوحدات',
-            icon: FileText,
-            color: 'primary'
-          },
-          {
-            title: 'تقرير توزيع الموظفين',
-            description: 'توزيع الموظفين حسب الإدارات والوحدات',
-            icon: Users,
-            color: 'accent'
-          },
-          {
-            title: 'تقرير الهيكل التنظيمي',
-            description: 'مخطط مرئي للهيكل التنظيمي',
-            icon: Network,
-            color: 'success'
-          },
-          {
-            title: 'تقرير المناصب الشاغرة',
-            description: 'قائمة بالمناصب الشاغرة والمطلوب شغلها',
-            icon: AlertTriangle,
-            color: 'warning'
-          },
-          {
-            title: 'تقرير الميزانيات',
-            description: 'توزيع الميزانيات على الإدارات',
-            icon: DollarSign,
-            color: 'destructive'
-          },
-          {
-            title: 'تقرير الأداء الإداري',
-            description: 'مؤشرات أداء الإدارات والوحدات',
-            icon: BarChart3,
-            color: 'secondary'
-          }
-        ].map((report, index) => (
-          <Card key={index} className="dashboard-card hover:shadow-medium transition-all duration-300 cursor-pointer">
-            <CardContent className="p-6 text-center">
-              <report.icon className={`w-12 h-12 mx-auto mb-4 text-${report.color}`} />
-              <h3 className="font-semibold mb-2">{report.title}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{report.description}</p>
-              <div className="flex gap-2">
-                <Button size="sm" className="flex-1">
-                  <Download className="w-4 h-4 ml-2" />
-                  تحميل
-                </Button>
-                <Button size="sm" variant="outline">
-                  <Printer className="w-4 h-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderSettings = () => (
-    <div className="space-y-6 animate-fade-in">
-      <Card className="dashboard-card">
-        <CardHeader>
-          <CardTitle>إعدادات قسم الإدارات والوحدات</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <h4 className="font-medium">صلاحيات المستخدمين</h4>
-              <div className="space-y-3">
-                {[
-                  'إضافة إدارة جديدة',
-                  'تعديل بيانات الإدارة',
-                  'حذف الإدارة',
-                  'عرض التقارير',
-                  'تصدير البيانات'
-                ].map((permission, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <span className="text-sm">{permission}</span>
-                    <Button size="sm" variant="outline">
-                      إدارة
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="font-medium">تخصيص العرض</h4>
-              <div className="space-y-3">
-                <div>
-                  <Label>طريقة عرض الهيكل التنظيمي</Label>
-                  <Select defaultValue="tree">
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="tree">شجرة هرمية</SelectItem>
-                      <SelectItem value="grid">شبكة</SelectItem>
-                      <SelectItem value="list">قائمة</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <div>
-                  <Label>عدد العناصر في الصفحة</Label>
-                  <Select defaultValue="12">
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="6">6</SelectItem>
-                      <SelectItem value="12">12</SelectItem>
-                      <SelectItem value="24">24</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <Separator />
-
-          <div className="flex justify-end gap-4">
-            <Button variant="outline">إلغاء</Button>
-            <Button className="bg-gradient-primary hover:shadow-glow">
-              حفظ الإعدادات
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      {/* Header */}
-      <div className="bg-gradient-primary shadow-soft border-b border-border/50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onBack}
-                className="text-primary-foreground hover:bg-white/20"
-              >
-                <ArrowLeft className="w-4 h-4 ml-2" />
-                العودة
-              </Button>
-              <div>
-                <h1 className="text-2xl font-bold text-primary-foreground">إدارة الإدارات والوحدات</h1>
-                <p className="text-primary-foreground/80 text-sm">نظام إدارة الهيكل التنظيمي الشامل</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-3">
-              <Button 
-                variant="secondary" 
-                size="sm"
-                onClick={() => handleExportData('PDF')}
-                className="bg-white/20 hover:bg-white/30 text-primary-foreground border-white/30"
-              >
-                <Download className="w-4 h-4 ml-2" />
-                تصدير
-              </Button>
-              <Button 
-                variant="secondary" 
-                size="sm"
-                className="bg-white/20 hover:bg-white/30 text-primary-foreground border-white/30"
-              >
-                <Printer className="w-4 h-4 ml-2" />
-                طباعة
-              </Button>
-            </div>
-          </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto px-6 py-8">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-card border border-border">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <BarChart3 className="w-4 h-4" />
-              لوحة التحكم
-            </TabsTrigger>
-            <TabsTrigger value="departments" className="flex items-center gap-2">
-              <Building2 className="w-4 h-4" />
-              الإدارات
-            </TabsTrigger>
-            <TabsTrigger value="chart" className="flex items-center gap-2">
-              <Network className="w-4 h-4" />
-              الهيكل التنظيمي
-            </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              التقارير
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
-              الإعدادات
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="dashboard">
-            {renderDashboard()}
-          </TabsContent>
-
-          <TabsContent value="departments">
-            {renderDepartmentsList()}
-          </TabsContent>
-
-          <TabsContent value="chart">
-            {renderOrganizationalChart()}
-          </TabsContent>
-
-          <TabsContent value="reports">
-            {renderReports()}
-          </TabsContent>
-
-          <TabsContent value="settings">
-            {renderSettings()}
-          </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Add Department Dialog */}
-      <Dialog open={showAddDepartment} onOpenChange={setShowAddDepartment}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>إضافة إدارة جديدة</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-6 p-1">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>اسم الإدارة (عربي) *</Label>
-                <Input 
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  placeholder="مثال: إدارة الموارد البشرية"
-                />
-              </div>
-              <div>
-                <Label>اسم الإدارة (إنجليزي)</Label>
-                <Input 
-                  value={formData.nameEn}
-                  onChange={(e) => setFormData({...formData, nameEn: e.target.value})}
-                  placeholder="Human Resources Department"
-                />
-              </div>
-              <div>
-                <Label>رمز الإدارة *</Label>
-                <Input 
-                  value={formData.code}
-                  onChange={(e) => setFormData({...formData, code: e.target.value})}
-                  placeholder="HR-001"
-                />
-              </div>
-              <div>
-                <Label>نوع الإدارة</Label>
-                <Select value={formData.type} onValueChange={(value) => setFormData({...formData, type: value})}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="administrative">إدارية</SelectItem>
-                    <SelectItem value="technical">تقنية</SelectItem>
-                    <SelectItem value="financial">مالية</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>الميزانية المخصصة</Label>
-                <Input 
-                  type="number"
-                  value={formData.budget}
-                  onChange={(e) => setFormData({...formData, budget: e.target.value})}
-                  placeholder="500000"
-                />
-              </div>
-              <div>
-                <Label>الموقع</Label>
-                <Input 
-                  value={formData.location}
-                  onChange={(e) => setFormData({...formData, location: e.target.value})}
-                  placeholder="المبنى الرئيسي - الطابق الأول"
-                />
-              </div>
-            </div>
-            
-            <div>
-              <Label>وصف الإدارة ومهامها</Label>
-              <Textarea 
-                value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
-                placeholder="وصف مختصر لمهام ومسؤوليات الإدارة..."
-                rows={3}
-              />
-            </div>
-
-            <div className="flex justify-end gap-4">
-              <Button 
-                variant="outline" 
-                onClick={() => setShowAddDepartment(false)}
-              >
-                إلغاء
-              </Button>
-              <Button 
-                onClick={handleSaveDepartment}
-                className="bg-gradient-primary hover:shadow-glow"
-              >
-                حفظ الإدارة
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Department Details Dialog */}
-      <Dialog open={!!selectedDepartment} onOpenChange={() => setSelectedDepartment(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>تفاصيل إدارة {selectedDepartment?.name}</DialogTitle>
-          </DialogHeader>
-          {selectedDepartment && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <Card className="p-4">
-                  <div className="text-center">
-                    <Users className="w-8 h-8 mx-auto mb-2 text-primary" />
-                    <p className="text-2xl font-bold">{selectedDepartment.employeeCount}</p>
-                    <p className="text-xs text-muted-foreground">إجمالي الموظفين</p>
-                  </div>
-                </Card>
-                <Card className="p-4">
-                  <div className="text-center">
-                    <Network className="w-8 h-8 mx-auto mb-2 text-accent" />
-                    <p className="text-2xl font-bold">{selectedDepartment.units.length}</p>
-                    <p className="text-xs text-muted-foreground">الوحدات التابعة</p>
-                  </div>
-                </Card>
-                <Card className="p-4">
-                  <div className="text-center">
-                    <DollarSign className="w-8 h-8 mx-auto mb-2 text-success" />
-                    <p className="text-2xl font-bold">{selectedDepartment.budget?.toLocaleString()}</p>
-                    <p className="text-xs text-muted-foreground">الميزانية (ريال)</p>
-                  </div>
-                </Card>
-                <Card className="p-4">
-                  <div className="text-center">
-                    <CheckCircle className="w-8 h-8 mx-auto mb-2 text-warning" />
-                    <p className="text-2xl font-bold">نشط</p>
-                    <p className="text-xs text-muted-foreground">حالة الإدارة</p>
-                  </div>
-                </Card>
-              </div>
-
-              <Tabs defaultValue="overview" className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="overview">نظرة عامة</TabsTrigger>
-                  <TabsTrigger value="employees">الموظفين</TabsTrigger>
-                  <TabsTrigger value="units">الوحدات</TabsTrigger>
-                  <TabsTrigger value="performance">الأداء</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="overview" className="space-y-4">
-                  <Card>
-                    <CardContent className="p-6">
-                      <h4 className="font-medium mb-4">معلومات الإدارة</h4>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div><span className="font-medium">الرمز:</span> {selectedDepartment.code}</div>
-                        <div><span className="font-medium">النوع:</span> {selectedDepartment.type}</div>
-                        <div><span className="font-medium">المدير:</span> {selectedDepartment.managerName}</div>
-                        <div><span className="font-medium">الموقع:</span> {selectedDepartment.location}</div>
-                      </div>
-                      <div className="mt-4">
-                        <span className="font-medium">الوصف:</span>
-                        <p className="text-sm text-muted-foreground mt-1">{selectedDepartment.description}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-
-                <TabsContent value="employees">
-                  <Card>
-                    <CardContent className="p-6">
-                      <h4 className="font-medium mb-4">قائمة الموظفين</h4>
-                      <p className="text-sm text-muted-foreground">سيتم عرض قائمة مفصلة بالموظفين المرتبطين بهذه الإدارة</p>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-
-                <TabsContent value="units" className="space-y-4">
-                  {selectedDepartment.units.map((unit) => (
-                    <Card key={unit.id}>
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h5 className="font-medium">{unit.name}</h5>
-                            <p className="text-sm text-muted-foreground">رئيس الوحدة: {unit.head}</p>
-                          </div>
-                          <Badge variant="outline">{unit.employees} موظف</Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </TabsContent>
-
-                <TabsContent value="performance">
-                  <Card>
-                    <CardContent className="p-6">
-                      <h4 className="font-medium mb-4">مؤشرات الأداء</h4>
-                      <p className="text-sm text-muted-foreground">سيتم عرض مؤشرات الأداء والإحصائيات المتعلقة بهذه الإدارة</p>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
