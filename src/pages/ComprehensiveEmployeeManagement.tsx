@@ -79,6 +79,7 @@ import Reports from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
 import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
 import { TrackingSystem } from '@/components/systems/TrackingSystem';
+import TeamWork from '@/components/systems/TeamWork';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -205,7 +206,14 @@ const ComprehensiveEmployeeManagement = () => {
                   className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg"
                 >
                   <Users className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">فريق العمل</span>
+                  <span className="text-center leading-tight">الموظفين</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="teamwork" 
+                  className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg"
+                >
+                  <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم فريق العمل</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="departments" 
@@ -428,6 +436,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="employees">
             <TeamMembers onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="teamwork">
+            <TeamWork />
           </TabsContent>
 
           <TabsContent value="departments">
