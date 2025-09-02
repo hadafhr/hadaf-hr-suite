@@ -68,7 +68,7 @@ import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
-import OccupationalSafety from '@/components/systems/OccupationalSafety';
+import { OccupationalSafety } from '@/components/systems/OccupationalSafety';
 import SocialServices from '@/components/systems/SocialServices';
 import MeetingHub from '@/pages/MeetingHub';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
