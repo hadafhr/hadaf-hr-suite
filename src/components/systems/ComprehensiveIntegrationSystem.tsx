@@ -594,11 +594,12 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       <div className="max-w-7xl mx-auto p-6 space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-6">
+            <TabsList className="grid w-full grid-cols-7">
               <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="platforms">المنصات</TabsTrigger>
-              <TabsTrigger value="categories">الفئات</TabsTrigger>
-              <TabsTrigger value="performance">الأداء</TabsTrigger>
+              <TabsTrigger value="hr-systems">تكامل أنظمة الموارد البشرية</TabsTrigger>
+              <TabsTrigger value="financial-systems">تكامل الأنظمة المالية</TabsTrigger>
+              <TabsTrigger value="external-services">ربط الخدمات الخارجية</TabsTrigger>
+              <TabsTrigger value="custom-api">إدارة واجهات برمجة التطبيقات</TabsTrigger>
               <TabsTrigger value="reports">التقارير</TabsTrigger>
               <TabsTrigger value="settings">الإعدادات</TabsTrigger>
             </TabsList>
@@ -608,55 +609,640 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
             {renderAnalyticsDashboard()}
           </TabsContent>
 
-          <TabsContent value="platforms">
+          <TabsContent value="hr-systems">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">إدارة المنصات</h2>
+                <h2 className="text-2xl font-bold">تكامل أنظمة الموارد البشرية</h2>
                 <Button onClick={() => setIsAddDialogOpen(true)}>
                   <Plus className="h-4 w-4 ml-2" />
-                  إضافة منصة
+                  إضافة تكامل جديد
                 </Button>
               </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>قائمة المنصات</CardTitle>
-                  <div className="flex gap-4 mt-4">
-                    <Input
-                      placeholder="البحث في المنصات..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="max-w-sm"
-                    />
-                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                      <SelectTrigger className="max-w-xs">
-                        <SelectValue placeholder="تصفية حسب الفئة" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">جميع الفئات</SelectItem>
-                        <SelectItem value="government">المنصات الحكومية</SelectItem>
-                        <SelectItem value="financial">الأنظمة المالية</SelectItem>
-                        <SelectItem value="insurance">شركات التأمين</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    {integrationPlatforms.map((platform) => (
-                      <div key={platform.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div className="grid gap-6">
+                {/* QIWA Integration */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Building2 className="h-5 w-5" />
+                      منصة قوى (QIWA)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: اليوم 09:30 ص</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">156</p>
+                        <p className="text-sm text-muted-foreground">عقود مرفوعة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">98%</p>
+                        <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">12</p>
+                        <p className="text-sm text-muted-foreground">طلبات معلقة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">3</p>
+                        <p className="text-sm text-muted-foreground">تحديثات مطلوبة</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل السجلات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* MUDAD Integration */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="h-5 w-5" />
+                      منصة مدد (MUDAD)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: أمس 14:15</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">89</p>
+                        <p className="text-sm text-muted-foreground">ملفات رواتب</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">100%</p>
+                        <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">0</p>
+                        <p className="text-sm text-muted-foreground">طلبات معلقة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">1</p>
+                        <p className="text-sm text-muted-foreground">تحديثات مطلوبة</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل السجلات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* GOSI Integration */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <UserCheck className="h-5 w-5" />
+                      مؤسسة التأمينات الاجتماعية (GOSI)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: يتم المزامنة</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: منذ ساعتين</p>
+                      </div>
+                      <Badge className="bg-yellow-100 text-yellow-800">جاري المزامنة</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">234</p>
+                        <p className="text-sm text-muted-foreground">موظفين مسجلين</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">95%</p>
+                        <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">5</p>
+                        <p className="text-sm text-muted-foreground">طلبات معلقة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">2</p>
+                        <p className="text-sm text-muted-foreground">تحديثات مطلوبة</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل السجلات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* TAM Integration */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Users className="h-5 w-5" />
+                      منصة طاقات (TAM)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: اليوم 08:15 ص</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">78</p>
+                        <p className="text-sm text-muted-foreground">بيانات حضور</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">99%</p>
+                        <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">1</p>
+                        <p className="text-sm text-muted-foreground">طلبات معلقة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">0</p>
+                        <p className="text-sm text-muted-foreground">تحديثات مطلوبة</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل السجلات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="financial-systems">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">تكامل الأنظمة المالية</h2>
+                <Button onClick={() => setIsAddDialogOpen(true)}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة نظام مالي
+                </Button>
+              </div>
+
+              <div className="grid gap-6">
+                {/* SAP Integration */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Database className="h-5 w-5" />
+                      نظام ساب (SAP)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: اليوم 10:45 ص</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">1,247</p>
+                        <p className="text-sm text-muted-foreground">معاملات الرواتب</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">97%</p>
+                        <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">15</p>
+                        <p className="text-sm text-muted-foreground">طلبات معلقة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">2</p>
+                        <p className="text-sm text-muted-foreground">أخطاء بسيطة</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تصدير البيانات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Banking Systems */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <CreditCard className="h-5 w-5" />
+                      الأنظمة المصرفية
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid gap-4">
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
                         <div className="flex items-center gap-4">
                           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            <Network className="h-5 w-5 text-primary" />
+                            <CreditCard className="h-5 w-5 text-primary" />
                           </div>
                           <div>
-                            <h3 className="font-semibold">{platform.name}</h3>
-                            <p className="text-sm text-muted-foreground">{platform.nameEn}</p>
+                            <h3 className="font-semibold">البنك الأهلي التجاري</h3>
+                            <p className="text-sm text-muted-foreground">تحويلات الرواتب التلقائية</p>
+                            <Badge className="bg-green-100 text-green-800 mt-1">متصل</Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <CreditCard className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">بنك الرياض</h3>
+                            <p className="text-sm text-muted-foreground">خدمات التحويل والدفع</p>
+                            <Badge className="bg-green-100 text-green-800 mt-1">متصل</Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <CreditCard className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">البنك السعودي للاستثمار</h3>
+                            <p className="text-sm text-muted-foreground">إدارة الحسابات المالية</p>
+                            <Badge className="bg-yellow-100 text-yellow-800 mt-1">قيد الإعداد</Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Accounting Systems */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5" />
+                      أنظمة المحاسبة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: منذ ساعة</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">456</p>
+                        <p className="text-sm text-muted-foreground">قيود محاسبية</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">99%</p>
+                        <p className="text-sm text-muted-foreground">دقة البيانات</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">23</p>
+                        <p className="text-sm text-muted-foreground">تقارير مالية</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">0</p>
+                        <p className="text-sm text-muted-foreground">تناقضات</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تصدير التقارير
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="external-services">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">ربط الخدمات الخارجية</h2>
+                <Button onClick={() => setIsAddDialogOpen(true)}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة خدمة خارجية
+                </Button>
+              </div>
+
+              <div className="grid gap-6">
+                {/* Tameeni Integration */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="h-5 w-5" />
+                      شركات التأمين الطبي (تأمينى)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: اليوم 11:20 ص</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">234</p>
+                        <p className="text-sm text-muted-foreground">موظفين مؤمنين</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">88%</p>
+                        <p className="text-sm text-muted-foreground">معدل الموافقة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">12</p>
+                        <p className="text-sm text-muted-foreground">طلبات جديدة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">3</p>
+                        <p className="text-sm text-muted-foreground">مطالبات معلقة</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تقرير المطالبات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Vehicle Management Systems */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="h-5 w-5" />
+                      أنظمة إدارة المركبات
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">الحالة: متصل</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: منذ 30 دقيقة</p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800">نشط</Badge>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">45</p>
+                        <p className="text-sm text-muted-foreground">مركبات مسجلة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">92%</p>
+                        <p className="text-sm text-muted-foreground">معدل التتبع</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">156</p>
+                        <p className="text-sm text-muted-foreground">رحلات اليوم</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">2</p>
+                        <p className="text-sm text-muted-foreground">تنبيهات</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm">
+                        <RefreshCw className="h-4 w-4 ml-2" />
+                        مزامنة الآن
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Settings className="h-4 w-4 ml-2" />
+                        إعدادات
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <Download className="h-4 w-4 ml-2" />
+                        تقرير الرحلات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Government e-Services */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Globe className="h-5 w-5" />
+                      الخدمات الحكومية الإلكترونية
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid gap-4">
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <UserCheck className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">بوابة أبشر</h3>
+                            <p className="text-sm text-muted-foreground">خدمات الهوية الرقمية</p>
+                            <Badge className="bg-green-100 text-green-800 mt-1">متصل</Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Users className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">منصة مقيم</h3>
+                            <p className="text-sm text-muted-foreground">خدمات الإقامة والعمالة</p>
+                            <Badge className="bg-green-100 text-green-800 mt-1">متصل</Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Building2 className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">منصة بلدي</h3>
+                            <p className="text-sm text-muted-foreground">خدمات الرخص التجارية</p>
+                            <Badge className="bg-yellow-100 text-yellow-800 mt-1">قيد الإعداد</Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="custom-api">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">إدارة واجهات برمجة التطبيقات المخصصة</h2>
+                <Button onClick={() => setIsAddDialogOpen(true)}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة API مخصص
+                </Button>
+              </div>
+
+              <div className="grid gap-6">
+                {/* API Connections List */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Server className="h-5 w-5" />
+                      الاتصالات المخصصة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Database className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">نظام CRM الداخلي</h3>
+                            <p className="text-sm text-muted-foreground">https://api.company-crm.com/v1</p>
                             <div className="flex gap-2 mt-1">
-                              <Badge variant="outline">{getCategoryText(platform.category)}</Badge>
-                              <Badge className={getStatusColor(platform.status)}>
-                                {getStatusText(platform.status)}
-                              </Badge>
+                              <Badge variant="outline">OAuth 2.0</Badge>
+                              <Badge className="bg-green-100 text-green-800">متصل</Badge>
                             </div>
                           </div>
                         </div>
@@ -667,78 +1253,153 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
                           <Button variant="outline" size="sm">
                             <Edit className="h-4 w-4" />
                           </Button>
+                          <Button variant="outline" size="sm">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
 
-          <TabsContent value="categories">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold">إدارة الفئات</h2>
-              
-              <div className="grid gap-6 md:grid-cols-2">
-                {platformCategories.map((category) => (
-                  <Card key={category.id}>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Building className="h-5 w-5" />
-                        {category.name}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className="text-muted-foreground">رئيس القسم:</span>
-                          <p className="font-medium">{category.head}</p>
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Activity className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">نظام إدارة المشاريع</h3>
+                            <p className="text-sm text-muted-foreground">https://api.project-mgmt.com/v2</p>
+                            <div className="flex gap-2 mt-1">
+                              <Badge variant="outline">API Key</Badge>
+                              <Badge className="bg-green-100 text-green-800">متصل</Badge>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <span className="text-muted-foreground">عدد المنصات:</span>
-                          <p className="font-medium">{category.platforms} منصة</p>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">الاتصالات النشطة:</span>
-                          <p className="font-medium">{category.connections}</p>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">الأداء:</span>
-                          <p className="font-medium">{category.performance}%</p>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground">{category.description}</p>
-                      <Progress value={category.performance} className="w-full" />
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </TabsContent>
 
-          <TabsContent value="performance">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold">مؤشرات الأداء</h2>
-              
-              <div className="grid gap-4">
-                {integrationMetrics.map((metric) => (
-                  <Card key={metric.id}>
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{metric.metric}</h3>
-                          <p className="text-sm text-muted-foreground">{metric.category}</p>
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Mail className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">خدمة الرسائل الإلكترونية</h3>
+                            <p className="text-sm text-muted-foreground">https://api.email-service.com/v1</p>
+                            <div className="flex gap-2 mt-1">
+                              <Badge variant="outline">Bearer Token</Badge>
+                              <Badge className="bg-yellow-100 text-yellow-800">خطأ في الاتصال</Badge>
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-right">
-                          <p className="text-2xl font-bold">{metric.value}%</p>
-                          <p className="text-sm text-muted-foreground">الهدف: {metric.target}%</p>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
                         </div>
                       </div>
-                      <Progress value={metric.value} className="mt-2" />
-                    </CardContent>
-                  </Card>
-                ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* API Logs */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="h-5 w-5" />
+                      سجل الطلبات والاستجابات
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <Badge className="bg-green-100 text-green-800">200</Badge>
+                          <span className="text-sm font-medium">GET /api/employees</span>
+                          <span className="text-xs text-muted-foreground">نظام CRM الداخلي</span>
+                        </div>
+                        <span className="text-xs text-muted-foreground">منذ دقيقتين</span>
+                      </div>
+
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <Badge className="bg-green-100 text-green-800">201</Badge>
+                          <span className="text-sm font-medium">POST /api/projects</span>
+                          <span className="text-xs text-muted-foreground">نظام إدارة المشاريع</span>
+                        </div>
+                        <span className="text-xs text-muted-foreground">منذ 5 دقائق</span>
+                      </div>
+
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <Badge className="bg-red-100 text-red-800">500</Badge>
+                          <span className="text-sm font-medium">POST /api/send-email</span>
+                          <span className="text-xs text-muted-foreground">خدمة الرسائل الإلكترونية</span>
+                        </div>
+                        <span className="text-xs text-muted-foreground">منذ 10 دقائق</span>
+                      </div>
+
+                      <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <Badge className="bg-green-100 text-green-800">200</Badge>
+                          <span className="text-sm font-medium">GET /api/sync-status</span>
+                          <span className="text-xs text-muted-foreground">نظام CRM الداخلي</span>
+                        </div>
+                        <span className="text-xs text-muted-foreground">منذ 15 دقيقة</span>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <Button variant="outline" className="w-full">
+                        <Eye className="h-4 w-4 ml-2" />
+                        عرض جميع السجلات
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* API Statistics */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5" />
+                      إحصائيات الاستخدام
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-primary">1,247</p>
+                        <p className="text-sm text-muted-foreground">طلبات اليوم</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-green-600">97%</p>
+                        <p className="text-sm text-muted-foreground">معدل النجاح</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-blue-600">156ms</p>
+                        <p className="text-sm text-muted-foreground">متوسط الاستجابة</p>
+                      </div>
+                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                        <p className="text-2xl font-bold text-orange-600">12</p>
+                        <p className="text-sm text-muted-foreground">أخطاء اليوم</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </TabsContent>
