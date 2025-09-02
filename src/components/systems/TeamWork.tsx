@@ -11,1253 +11,1543 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { 
-  Users, 
-  Plus, 
-  Search, 
-  Filter, 
-  MoreHorizontal,
-  Calendar,
-  Clock,
-  Target,
-  Star,
-  MessageSquare,
-  FileText,
-  Award,
-  TrendingUp,
-  UserPlus,
-  Settings,
-  BarChart3,
-  Activity,
-  CheckCircle,
-  AlertCircle,
-  Users2,
-  Briefcase,
-  Mail,
-  Phone,
-  MapPin,
-  Edit,
-  Trash2,
-  Eye,
-  Download,
-  Upload,
-  Printer,
-  Save,
-  Camera,
-  Building,
-  UserCheck,
-  UserX,
-  Globe,
-  Languages,
-  Archive,
-  RotateCcw,
-  RefreshCw,
-  FileSpreadsheet,
-  ChevronRight,
-  ChevronLeft,
-  Home,
-  PieChart,
-  LineChart,
-  Menu,
-  X,
-  Zap,
-  Layers,
-  Shield,
-  Clock3,
-  CalendarCheck,
-  Gauge
+  Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save,
+  BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock,
+  FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin,
+  Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu,
+  FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 
-// Types for better structure
-interface TeamMember {
-  id: number;
+// Enhanced Types
+interface Employee {
+  id: string;
   employeeNumber: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
   position: string;
   department: string;
   team: string;
-  performance: number;
-  status: 'نشط' | 'في إجازة' | 'متوقف' | 'منهي الخدمة' | 'قيد التجربة';
-  joinDate: string;
-  skills: string[];
-  completedTasks: number;
-  avatar: string;
   email: string;
   phone: string;
+  nationality: string;
+  nationalId: string;
+  passportNumber?: string;
+  birthDate: string;
+  hireDate: string;
+  contractType: 'permanent' | 'temporary' | 'trainee';
   salary: number;
-  lastAttendance: string;
-  profileImage?: File | null;
-  documents: string[];
-}
-
-interface Team {
-  id: number;
-  name: string;
-  department: string;
-  leader: string;
-  leaderId: number;
-  members: number;
-  membersList: number[];
-  projects: number;
+  allowances: number;
+  status: 'active' | 'onLeave' | 'suspended' | 'terminated' | 'probation';
   performance: number;
-  status: 'نشط' | 'في التطوير' | 'متوقف' | 'محفوظ';
-  description: string;
-  avatar: string;
   skills: string[];
+  avatar?: string;
+  documents: DocumentInfo[];
+  address: string;
+  emergencyContact: {
+    name: string;
+    relationship: string;
+    phone: string;
+  };
+  bankDetails: {
+    bankName: string;
+    accountNumber: string;
+    iban: string;
+  };
+  lastAttendance: string;
   completedTasks: number;
   ongoingTasks: number;
-  budget: number;
-  createdDate: string;
-  targets: string[];
+}
+
+interface DocumentInfo {
+  id: string;
+  name: string;
+  type: string;
+  uploadDate: string;
+  url: string;
 }
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   description: string;
-  assignedTo: number[];
-  teamId: number;
-  priority: 'عالية' | 'متوسطة' | 'منخفضة';
-  status: 'جديدة' | 'قيد التنفيذ' | 'مكتملة' | 'متأخرة';
+  assignedTo: string[];
+  assignedTeam: string;
+  priority: 'high' | 'medium' | 'low';
+  status: 'new' | 'inProgress' | 'completed' | 'overdue';
   dueDate: string;
+  startDate: string;
   progress: number;
+  createdBy: string;
   createdAt: string;
+  estimatedHours: number;
+  actualHours: number;
+  tags: string[];
+  attachments: DocumentInfo[];
 }
 
-const TeamWork = () => {
-  const { i18n } = useTranslation();
+interface DashboardStats {
+  totalEmployees: number;
+  activeEmployees: number;
+  terminatedEmployees: number;
+  probationEmployees: number;
+  newHires: number;
+  resignations: number;
+  contractsExpiring: number;
+  averagePerformance: number;
+  departmentDistribution: { name: string; count: number; color: string }[];
+  monthlyHiring: { month: string; hires: number; terminations: number }[];
+}
+
+const TeamWork: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   
-  const [activeTab, setActiveTab] = useState('employee-management');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('all');
-  const [isLoading, setIsLoading] = useState(false);
-  const [teams, setTeams] = useState<Team[]>([]);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  // Core State
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   
-  // Dialog states
-  const [isNewEmployeeDialog, setIsNewEmployeeDialog] = useState(false);
-  const [isEditEmployeeDialog, setIsEditEmployeeDialog] = useState(false);
-  const [isTaskDialog, setIsTaskDialog] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState<TeamMember | null>(null);
+  // Search and Filter States
+  const [searchTerm, setSearchTerm] = useState('');
+  const [departmentFilter, setDepartmentFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [positionFilter, setPositionFilter] = useState('all');
   
-  // Form states
-  const [newEmployeeForm, setNewEmployeeForm] = useState({
-    employeeNumber: '',
-    name: '',
-    position: '',
-    department: '',
-    team: '',
-    email: '',
-    phone: '',
-    salary: '',
-    profileImage: null as File | null
-  });
+  // Dialog States
+  const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
+  const [isEditEmployeeOpen, setIsEditEmployeeOpen] = useState(false);
+  const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  
+  // Form States
+  const [employeeForm, setEmployeeForm] = useState<Partial<Employee>>({});
+  const [taskForm, setTaskForm] = useState<Partial<Task>>({});
+  const [uploadedDocuments, setUploadedDocuments] = useState<File[]>([]);
 
-  // Language and direction support
+  // Language and Direction
   useEffect(() => {
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
     document.documentElement.lang = i18n.language;
   }, [isRTL, i18n.language]);
 
-  // Initialize data on component mount
+  // Initialize Data
   useEffect(() => {
     loadInitialData();
   }, []);
 
-  const loadInitialData = () => {
+  const loadInitialData = useCallback(async () => {
     setIsLoading(true);
-    
-    // Initialize comprehensive teams data
-    const initialTeams: Team[] = [
-      {
-        id: 1,
-        name: 'فريق التطوير التقني',
-        department: 'تقنية المعلومات',
-        leader: 'أحمد محمد العلي',
-        leaderId: 1,
-        members: 12,
-        membersList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        projects: 8,
-        performance: 94,
-        status: 'نشط',
-        description: 'فريق متخصص في تطوير التطبيقات والأنظمة الحديثة باستخدام أحدث التقنيات العالمية',
-        avatar: '/placeholder.svg',
-        skills: ['React', 'Node.js', 'TypeScript', 'Python', 'AWS', 'Docker', 'Kubernetes'],
-        completedTasks: 186,
-        ongoingTasks: 31,
-        budget: 1200000,
-        createdDate: '2023-01-15',
-        targets: ['تطوير 8 تطبيقات جديدة', 'تحسين الأداء بنسبة 40%', 'التدريب على تقنيات الذكاء الاصطناعي']
-      },
-      {
-        id: 2,
-        name: 'فريق التسويق الرقمي والإبداع',
-        department: 'التسويق والمبيعات',
-        leader: 'فاطمة أحمد محمود',
-        leaderId: 2,
-        members: 9,
-        membersList: [2, 13, 14, 15, 16, 17, 18, 19, 20],
-        projects: 12,
-        performance: 91,
-        status: 'نشط',
-        description: 'فريق متخصص في التسويق الرقمي والحملات الإبداعية ووسائل التواصل الاجتماعي',
-        avatar: '/placeholder.svg',
-        skills: ['SEO', 'Social Media', 'Content Creation', 'Analytics', 'Google Ads', 'Graphic Design'],
-        completedTasks: 267,
-        ongoingTasks: 52,
-        budget: 850000,
-        createdDate: '2022-08-20',
-        targets: ['زيادة المتابعين بنسبة 60%', 'تحسين معدل التفاعل إلى 8%', 'إطلاق 5 حملات رقمية جديدة']
-      },
-      {
-        id: 3,
-        name: 'فريق الموارد البشرية والتطوير',
-        department: 'الموارد البشرية',
-        leader: 'محمد علي حسن',
-        leaderId: 3,
-        members: 7,
-        membersList: [3, 21, 22, 23, 24, 25, 26],
-        projects: 5,
-        performance: 96,
-        status: 'نشط',
-        description: 'فريق متخصص في إدارة الموارد البشرية والتوظيف وتطوير المواهب والقيادة',
-        avatar: '/placeholder.svg',
-        skills: ['Recruitment', 'Training', 'Employee Relations', 'HR Analytics', 'Performance Management', 'Leadership Development'],
-        completedTasks: 198,
-        ongoingTasks: 18,
-        budget: 650000,
-        createdDate: '2021-05-10',
-        targets: ['توظيف 35 موظف جديد', 'تطوير 12 برنامج تدريبي', 'تحسين رضا الموظفين إلى 95%']
-      },
-      {
-        id: 4,
-        name: 'فريق المالية والتحليل',
-        department: 'المالية والمحاسبة',
-        leader: 'سارة خالد المطيري',
-        leaderId: 4,
-        members: 6,
-        membersList: [27, 28, 29, 30, 31, 32],
-        projects: 4,
-        performance: 93,
-        status: 'نشط',
-        description: 'فريق متخصص في الإدارة المالية والتحليل والتخطيط المالي الاستراتيجي',
-        avatar: '/placeholder.svg',
-        skills: ['Financial Analysis', 'Budget Planning', 'Risk Management', 'Investment Analysis', 'Financial Reporting'],
-        completedTasks: 145,
-        ongoingTasks: 22,
-        budget: 750000,
-        createdDate: '2022-03-12',
-        targets: ['تحسين الربحية بنسبة 25%', 'تطوير 6 نماذج تحليل مالي', 'خفض التكاليف بنسبة 15%']
-      }
-    ];
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const mockEmployees: Employee[] = [
+        {
+          id: '1',
+          employeeNumber: 'BHR-001',
+          firstName: 'أحمد',
+          lastName: 'محمد العلي',
+          fullName: 'أحمد محمد العلي',
+          position: 'مدير تطوير البرمجيات',
+          department: 'تقنية المعلومات',
+          team: 'فريق التطوير',
+          email: 'ahmed.ali@boudhr.com',
+          phone: '+966501234567',
+          nationality: 'سعودي',
+          nationalId: '1234567890',
+          birthDate: '1990-05-15',
+          hireDate: '2023-01-15',
+          contractType: 'permanent',
+          salary: 18000,
+          allowances: 2000,
+          status: 'active',
+          performance: 95,
+          skills: ['React', 'Node.js', 'TypeScript', 'Leadership'],
+          documents: [
+            { id: '1', name: 'السيرة الذاتية', type: 'pdf', uploadDate: '2023-01-10', url: '#' },
+            { id: '2', name: 'عقد العمل', type: 'pdf', uploadDate: '2023-01-15', url: '#' }
+          ],
+          address: 'الرياض، المملكة العربية السعودية',
+          emergencyContact: {
+            name: 'محمد العلي',
+            relationship: 'والد',
+            phone: '+966501234568'
+          },
+          bankDetails: {
+            bankName: 'البنك الأهلي السعودي',
+            accountNumber: '123456789',
+            iban: 'SA1234567891234567890'
+          },
+          lastAttendance: '2024-01-20 08:15',
+          completedTasks: 45,
+          ongoingTasks: 8
+        },
+        {
+          id: '2',
+          employeeNumber: 'BHR-002',
+          firstName: 'فاطمة',
+          lastName: 'أحمد محمود',
+          fullName: 'فاطمة أحمد محمود',
+          position: 'مديرة التسويق الرقمي',
+          department: 'التسويق',
+          team: 'فريق التسويق الرقمي',
+          email: 'fatima.ahmed@boudhr.com',
+          phone: '+966507654321',
+          nationality: 'سعودية',
+          nationalId: '0987654321',
+          birthDate: '1988-08-22',
+          hireDate: '2022-08-20',
+          contractType: 'permanent',
+          salary: 16500,
+          allowances: 1500,
+          status: 'active',
+          performance: 92,
+          skills: ['Digital Marketing', 'SEO', 'Analytics', 'Content Strategy'],
+          documents: [
+            { id: '3', name: 'السيرة الذاتية', type: 'pdf', uploadDate: '2022-08-15', url: '#' },
+            { id: '4', name: 'الشهادات', type: 'pdf', uploadDate: '2022-08-20', url: '#' }
+          ],
+          address: 'جدة، المملكة العربية السعودية',
+          emergencyContact: {
+            name: 'أحمد محمود',
+            relationship: 'زوج',
+            phone: '+966507654322'
+          },
+          bankDetails: {
+            bankName: 'بنك الراجحي',
+            accountNumber: '987654321',
+            iban: 'SA0987654321098765432'
+          },
+          lastAttendance: '2024-01-20 08:00',
+          completedTasks: 62,
+          ongoingTasks: 12
+        }
+      ];
 
-    // Initialize comprehensive team members data
-    const initialMembers: TeamMember[] = [
-      {
-        id: 1,
-        employeeNumber: 'BHR-001',
-        name: 'أحمد محمد العلي',
-        position: 'مدير فريق التطوير',
-        department: 'تقنية المعلومات',
-        team: 'فريق التطوير التقني',
-        performance: 97,
-        status: 'نشط',
-        joinDate: '2023-01-15',
-        skills: ['React', 'Node.js', 'TypeScript', 'AWS', 'Leadership'],
-        completedTasks: 52,
-        avatar: '/placeholder.svg',
-        email: 'ahmed.ali@boudhr.com',
-        phone: '+966501234567',
-        salary: 18000,
-        lastAttendance: '2024-01-20 08:15',
-        documents: ['CV.pdf', 'Contract.pdf', 'ID_Copy.pdf', 'Certificates.pdf']
-      },
-      {
-        id: 2,
-        employeeNumber: 'BHR-002',
-        name: 'فاطمة أحمد محمود',
-        position: 'مديرة التسويق الرقمي',
-        department: 'التسويق والمبيعات',
-        team: 'فريق التسويق الرقمي والإبداع',
-        performance: 95,
-        status: 'نشط',
-        joinDate: '2022-08-20',
-        skills: ['Digital Marketing', 'SEO', 'Analytics', 'Content Strategy', 'Team Management'],
-        completedTasks: 89,
-        avatar: '/placeholder.svg',
-        email: 'fatima.ahmed@boudhr.com',
-        phone: '+966507654321',
-        salary: 16500,
-        lastAttendance: '2024-01-20 08:00',
-        documents: ['CV.pdf', 'Contract.pdf', 'Marketing_Certificates.pdf']
-      },
-      {
-        id: 3,
-        employeeNumber: 'BHR-003',
-        name: 'محمد علي حسن',
-        position: 'مدير الموارد البشرية',
-        department: 'الموارد البشرية',
-        team: 'فريق الموارد البشرية والتطوير',
-        performance: 98,
-        status: 'نشط',
-        joinDate: '2021-05-10',
-        skills: ['HR Management', 'Recruitment', 'Training', 'Performance Management', 'Leadership'],
-        completedTasks: 67,
-        avatar: '/placeholder.svg',
-        email: 'mohamed.hassan@boudhr.com',
-        phone: '+966502345678',
-        salary: 17500,
-        lastAttendance: '2024-01-20 07:45',
-        documents: ['CV.pdf', 'Contract.pdf', 'HR_Certification.pdf', 'Leadership_Certificate.pdf']
-      },
-      {
-        id: 4,
-        employeeNumber: 'BHR-004',
-        name: 'سارة خالد المطيري',
-        position: 'مديرة الشؤون المالية',
-        department: 'المالية والمحاسبة',
-        team: 'فريق المالية والتحليل',
-        performance: 96,
-        status: 'نشط',
-        joinDate: '2022-03-12',
-        skills: ['Financial Analysis', 'Budget Planning', 'Risk Management', 'Excel Advanced', 'Strategic Planning'],
-        completedTasks: 73,
-        avatar: '/placeholder.svg',
-        email: 'sara.almutairi@boudhr.com',
-        phone: '+966509876543',
-        salary: 17000,
-        lastAttendance: '2024-01-20 08:30',
-        documents: ['CV.pdf', 'Contract.pdf', 'CPA_Certificate.pdf', 'Financial_Training.pdf']
-      },
-      {
-        id: 5,
-        employeeNumber: 'BHR-005',
-        name: 'نورا سالم العتيبي',
-        position: 'مطورة واجهات أمامية',
-        department: 'تقنية المعلومات',
-        team: 'فريق التطوير التقني',
-        performance: 92,
-        status: 'نشط',
-        joinDate: '2023-06-01',
-        skills: ['React', 'Vue.js', 'CSS', 'JavaScript', 'UI/UX Design'],
-        completedTasks: 41,
-        avatar: '/placeholder.svg',
-        email: 'nora.salem@boudhr.com',
-        phone: '+966501122334',
-        salary: 12000,
-        lastAttendance: '2024-01-20 08:20',
-        documents: ['CV.pdf', 'Contract.pdf', 'Frontend_Certificates.pdf']
-      },
-      {
-        id: 6,
-        employeeNumber: 'BHR-006',
-        name: 'خالد عبدالله النجار',
-        position: 'مطور خلفي',
-        department: 'تقنية المعلومات',
-        team: 'فريق التطوير التقني',
-        performance: 89,
-        status: 'نشط',
-        joinDate: '2023-04-15',
-        skills: ['Node.js', 'Python', 'MongoDB', 'PostgreSQL', 'Docker'],
-        completedTasks: 38,
-        avatar: '/placeholder.svg',
-        email: 'khalid.najjar@boudhr.com',
-        phone: '+966503344556',
-        salary: 13500,
-        lastAttendance: '2024-01-20 08:10',
-        documents: ['CV.pdf', 'Contract.pdf', 'Backend_Certificates.pdf']
-      },
-      {
-        id: 7,
-        employeeNumber: 'BHR-007',
-        name: 'رانيا محمد السبيعي',
-        position: 'أخصائية تسويق رقمي',
-        department: 'التسويق والمبيعات',
-        team: 'فريق التسويق الرقمي والإبداع',
-        performance: 94,
-        status: 'نشط',
-        joinDate: '2022-11-08',
-        skills: ['Social Media Marketing', 'Content Creation', 'Google Ads', 'Analytics', 'Photoshop'],
-        completedTasks: 56,
-        avatar: '/placeholder.svg',
-        email: 'rania.subaii@boudhr.com',
-        phone: '+966507788990',
-        salary: 11000,
-        lastAttendance: '2024-01-20 08:25',
-        documents: ['CV.pdf', 'Contract.pdf', 'Digital_Marketing_Certificate.pdf']
-      },
-      {
-        id: 8,
-        employeeNumber: 'BHR-008',
-        name: 'عمر حسام الدوسري',
-        position: 'محلل أعمال',
-        department: 'تقنية المعلومات',
-        team: 'فريق التطوير التقني',
-        performance: 91,
-        status: 'نشط',
-        joinDate: '2023-02-20',
-        skills: ['Business Analysis', 'Requirements Gathering', 'Process Mapping', 'Agile', 'SQL'],
-        completedTasks: 45,
-        avatar: '/placeholder.svg',
-        email: 'omar.dosari@boudhr.com',
-        phone: '+966505566778',
-        salary: 14000,
-        lastAttendance: '2024-01-20 08:05',
-        documents: ['CV.pdf', 'Contract.pdf', 'BA_Certificate.pdf']
-      }
-    ];
+      const mockTasks: Task[] = [
+        {
+          id: '1',
+          title: 'تطوير نظام إدارة الموظفين',
+          description: 'تطوير نظام شامل لإدارة الموظفين مع واجهات حديثة',
+          assignedTo: ['1'],
+          assignedTeam: 'فريق التطوير',
+          priority: 'high',
+          status: 'inProgress',
+          dueDate: '2024-03-15',
+          startDate: '2024-01-05',
+          progress: 65,
+          createdBy: '1',
+          createdAt: '2024-01-05',
+          estimatedHours: 120,
+          actualHours: 78,
+          tags: ['تطوير', 'نظام', 'موارد بشرية'],
+          attachments: []
+        },
+        {
+          id: '2',
+          title: 'حملة التسويق الرقمي',
+          description: 'إطلاق حملة تسويقية جديدة لمنتجات الشركة',
+          assignedTo: ['2'],
+          assignedTeam: 'فريق التسويق الرقمي',
+          priority: 'high',
+          status: 'inProgress',
+          dueDate: '2024-02-28',
+          startDate: '2024-01-10',
+          progress: 45,
+          createdBy: '2',
+          createdAt: '2024-01-10',
+          estimatedHours: 80,
+          actualHours: 36,
+          tags: ['تسويق', 'رقمي', 'حملة'],
+          attachments: []
+        }
+      ];
 
-    // Initialize tasks data
-    const initialTasks: Task[] = [
-      {
-        id: 1,
-        title: 'تطوير نظام إدارة المخزون',
-        description: 'تطوير نظام شامل لإدارة المخزون مع واجهات مستخدم حديثة',
-        assignedTo: [1, 5, 6, 8],
-        teamId: 1,
-        priority: 'عالية',
-        status: 'قيد التنفيذ',
-        dueDate: '2024-03-15',
-        progress: 65,
-        createdAt: '2024-01-05'
-      },
-      {
-        id: 2,
-        title: 'حملة التسويق الرقمي للربع الأول',
-        description: 'إطلاق حملة تسويقية شاملة عبر جميع منصات التواصل الاجتماعي',
-        assignedTo: [2, 7],
-        teamId: 2,
-        priority: 'عالية',
-        status: 'قيد التنفيذ',
-        dueDate: '2024-02-28',
-        progress: 45,
-        createdAt: '2024-01-10'
-      },
-      {
-        id: 3,
-        title: 'تطوير برنامج تدريب القيادة',
-        description: 'إعداد برنامج تدريبي شامل لتطوير مهارات القيادة للموظفين',
-        assignedTo: [3],
-        teamId: 3,
-        priority: 'متوسطة',
-        status: 'جديدة',
-        dueDate: '2024-04-01',
-        progress: 20,
-        createdAt: '2024-01-15'
-      }
-    ];
+      setEmployees(mockEmployees);
+      setTasks(mockTasks);
+    } catch (error) {
+      toast.error(isRTL ? 'حدث خطأ في تحميل البيانات' : 'Error loading data');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isRTL]);
 
-    setTeams(initialTeams);
-    setTeamMembers(initialMembers);
-    setTasks(initialTasks);
-    setIsLoading(false);
+  // Calculate Dashboard Statistics
+  const dashboardStats: DashboardStats = {
+    totalEmployees: employees.length,
+    activeEmployees: employees.filter(emp => emp.status === 'active').length,
+    terminatedEmployees: employees.filter(emp => emp.status === 'terminated').length,
+    probationEmployees: employees.filter(emp => emp.status === 'probation').length,
+    newHires: employees.filter(emp => {
+      const hireDate = new Date(emp.hireDate);
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      return hireDate >= thirtyDaysAgo;
+    }).length,
+    resignations: 2,
+    contractsExpiring: 3,
+    averagePerformance: employees.length > 0 ? 
+      Math.round(employees.reduce((acc, emp) => acc + emp.performance, 0) / employees.length) : 0,
+    departmentDistribution: [
+      { name: 'تقنية المعلومات', count: 12, color: 'hsl(var(--primary))' },
+      { name: 'التسويق', count: 8, color: 'hsl(var(--secondary))' },
+      { name: 'الموارد البشرية', count: 6, color: 'hsl(var(--accent))' },
+      { name: 'المالية', count: 4, color: 'hsl(var(--muted))' }
+    ],
+    monthlyHiring: [
+      { month: 'يناير', hires: 5, terminations: 1 },
+      { month: 'فبراير', hires: 3, terminations: 2 },
+      { month: 'مارس', hires: 7, terminations: 0 },
+      { month: 'أبريل', hires: 4, terminations: 1 }
+    ]
   };
 
-  // Calculate comprehensive performance metrics
-  const performanceMetrics = {
-    totalTeams: teams.length,
-    activeTeams: teams.filter(team => team.status === 'نشط').length,
-    totalMembers: teamMembers.length,
-    activeMembers: teamMembers.filter(member => member.status === 'نشط').length,
-    avgPerformance: teams.length > 0 ? Math.round(teams.reduce((acc, team) => acc + team.performance, 0) / teams.length) : 0,
-    completedProjects: teams.reduce((acc, team) => acc + team.projects, 0),
-    ongoingTasks: tasks.filter(task => task.status === 'قيد التنفيذ').length,
-    completedTasks: tasks.filter(task => task.status === 'مكتملة').length,
-    teamSatisfaction: 94,
-    totalBudget: teams.reduce((acc, team) => acc + team.budget, 0),
-    highPriorityTasks: tasks.filter(task => task.priority === 'عالية').length,
-    employeeRetention: 96.5,
-    avgTaskProgress: tasks.length > 0 ? Math.round(tasks.reduce((acc, task) => acc + task.progress, 0) / tasks.length) : 0
-  };
-
-  // Real CRUD operations with system integration
+  // CRUD Operations
   const handleAddEmployee = useCallback(async () => {
-    if (!newEmployeeForm.name || !newEmployeeForm.employeeNumber || !newEmployeeForm.email) {
+    if (!employeeForm.firstName || !employeeForm.lastName || !employeeForm.email || !employeeForm.employeeNumber) {
       toast.error(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
       return;
     }
 
     setIsLoading(true);
     try {
-      const newEmployee: TeamMember = {
-        id: teamMembers.length + 1,
-        employeeNumber: newEmployeeForm.employeeNumber,
-        name: newEmployeeForm.name,
-        position: newEmployeeForm.position,
-        department: newEmployeeForm.department,
-        team: newEmployeeForm.team,
+      const newEmployee: Employee = {
+        id: Date.now().toString(),
+        employeeNumber: employeeForm.employeeNumber!,
+        firstName: employeeForm.firstName!,
+        lastName: employeeForm.lastName!,
+        fullName: `${employeeForm.firstName} ${employeeForm.lastName}`,
+        position: employeeForm.position || '',
+        department: employeeForm.department || '',
+        team: employeeForm.team || '',
+        email: employeeForm.email!,
+        phone: employeeForm.phone || '',
+        nationality: employeeForm.nationality || '',
+        nationalId: employeeForm.nationalId || '',
+        passportNumber: employeeForm.passportNumber,
+        birthDate: employeeForm.birthDate || '',
+        hireDate: employeeForm.hireDate || new Date().toISOString().split('T')[0],
+        contractType: employeeForm.contractType || 'permanent',
+        salary: employeeForm.salary || 0,
+        allowances: employeeForm.allowances || 0,
+        status: 'active',
         performance: 0,
-        status: 'نشط',
-        joinDate: new Date().toISOString().split('T')[0],
-        skills: [],
+        skills: employeeForm.skills || [],
+        avatar: employeeForm.avatar,
+        documents: [],
+        address: employeeForm.address || '',
+        emergencyContact: employeeForm.emergencyContact || { name: '', relationship: '', phone: '' },
+        bankDetails: employeeForm.bankDetails || { bankName: '', accountNumber: '', iban: '' },
+        lastAttendance: '',
         completedTasks: 0,
-        avatar: '/placeholder.svg',
-        email: newEmployeeForm.email,
-        phone: newEmployeeForm.phone,
-        salary: parseInt(newEmployeeForm.salary) || 0,
-        lastAttendance: new Date().toISOString(),
-        profileImage: newEmployeeForm.profileImage,
-        documents: []
+        ongoingTasks: 0
       };
 
-      setTeamMembers(prev => [...prev, newEmployee]);
-      
-      // Update team member count
-      if (newEmployeeForm.team) {
-        setTeams(prev => prev.map(team => 
-          team.name === newEmployeeForm.team 
-            ? { ...team, members: team.members + 1, membersList: [...team.membersList, newEmployee.id] }
-            : team
-        ));
-      }
-      
-      // Sync with integrated systems
-      await syncWithAllSystems('employee_added', newEmployee);
-      
-      // Reset form
-      setNewEmployeeForm({
-        employeeNumber: '',
-        name: '',
-        position: '',
-        department: '',
-        team: '',
-        email: '',
-        phone: '',
-        salary: '',
-        profileImage: null
-      });
-      
-      toast.success(isRTL ? 'تم إضافة الموظف بنجاح وتحديث جميع الأنظمة المرتبطة' : 'Employee added successfully and all systems updated');
-      setIsNewEmployeeDialog(false);
+      setEmployees(prev => [...prev, newEmployee]);
+      setEmployeeForm({});
+      setIsAddEmployeeOpen(false);
+      toast.success(isRTL ? 'تم إضافة الموظف بنجاح' : 'Employee added successfully');
     } catch (error) {
-      toast.error(isRTL ? 'حدث خطأ أثناء إضافة الموظف' : 'Error adding employee');
+      toast.error(isRTL ? 'حدث خطأ في إضافة الموظف' : 'Error adding employee');
     } finally {
       setIsLoading(false);
     }
-  }, [newEmployeeForm, teamMembers, isRTL]);
+  }, [employeeForm, isRTL]);
 
-  const handleUpdateEmployee = useCallback(async (updatedEmployee: TeamMember) => {
+  const handleEditEmployee = useCallback(async () => {
+    if (!selectedEmployee || !employeeForm.firstName || !employeeForm.lastName) {
+      toast.error(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
+      return;
+    }
+
     setIsLoading(true);
     try {
-      setTeamMembers(prev => prev.map(employee => 
-        employee.id === updatedEmployee.id ? updatedEmployee : employee
+      setEmployees(prev => prev.map(emp => 
+        emp.id === selectedEmployee.id 
+          ? { ...emp, ...employeeForm, fullName: `${employeeForm.firstName} ${employeeForm.lastName}` }
+          : emp
       ));
-      
-      // Sync updates with all integrated systems
-      await syncWithAllSystems('employee_updated', updatedEmployee);
-      
-      toast.success(isRTL ? 'تم تحديث بيانات الموظف بنجاح' : 'Employee updated successfully');
-      setIsEditEmployeeDialog(false);
+      setIsEditEmployeeOpen(false);
       setSelectedEmployee(null);
+      setEmployeeForm({});
+      toast.success(isRTL ? 'تم تحديث بيانات الموظف بنجاح' : 'Employee updated successfully');
     } catch (error) {
-      toast.error(isRTL ? 'حدث خطأ أثناء تحديث الموظف' : 'Error updating employee');
+      toast.error(isRTL ? 'حدث خطأ في تحديث الموظف' : 'Error updating employee');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedEmployee, employeeForm, isRTL]);
+
+  const handleDeleteEmployee = useCallback(async (employeeId: string) => {
+    if (!confirm(isRTL ? 'هل أنت متأكد من حذف هذا الموظف؟' : 'Are you sure you want to delete this employee?')) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      setEmployees(prev => prev.filter(emp => emp.id !== employeeId));
+      toast.success(isRTL ? 'تم حذف الموظف بنجاح' : 'Employee deleted successfully');
+    } catch (error) {
+      toast.error(isRTL ? 'حدث خطأ في حذف الموظف' : 'Error deleting employee');
     } finally {
       setIsLoading(false);
     }
   }, [isRTL]);
 
-  const handleDeleteEmployee = useCallback(async (employeeId: number) => {
-    const confirmMessage = isRTL 
-      ? 'هل أنت متأكد من حذف هذا الموظف؟ سيتم تحديث جميع الأنظمة المرتبطة.' 
-      : 'Are you sure you want to delete this employee? All related systems will be updated.';
-      
-    if (!window.confirm(confirmMessage)) return;
+  const handleAddTask = useCallback(async () => {
+    if (!taskForm.title || !taskForm.assignedTo?.length || !taskForm.dueDate) {
+      toast.error(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
+      return;
+    }
 
     setIsLoading(true);
     try {
-      const employeeToDelete = teamMembers.find(emp => emp.id === employeeId);
-      setTeamMembers(prev => prev.filter(emp => emp.id !== employeeId));
-      
-      // Update team member count
-      if (employeeToDelete?.team) {
-        setTeams(prev => prev.map(team => 
-          team.name === employeeToDelete.team 
-            ? { 
-                ...team, 
-                members: Math.max(0, team.members - 1),
-                membersList: team.membersList.filter(id => id !== employeeId)
-              }
-            : team
-        ));
-      }
-      
-      // Sync with all systems
-      await syncWithAllSystems('employee_deleted', employeeToDelete);
-      
-      toast.success(isRTL ? 'تم حذف الموظف بنجاح وتحديث جميع الأنظمة' : 'Employee deleted successfully and all systems updated');
+      const newTask: Task = {
+        id: Date.now().toString(),
+        title: taskForm.title!,
+        description: taskForm.description || '',
+        assignedTo: taskForm.assignedTo!,
+        assignedTeam: taskForm.assignedTeam || '',
+        priority: taskForm.priority || 'medium',
+        status: 'new',
+        dueDate: taskForm.dueDate!,
+        startDate: taskForm.startDate || new Date().toISOString().split('T')[0],
+        progress: 0,
+        createdBy: '1', // Current user
+        createdAt: new Date().toISOString(),
+        estimatedHours: taskForm.estimatedHours || 0,
+        actualHours: 0,
+        tags: taskForm.tags || [],
+        attachments: []
+      };
+
+      setTasks(prev => [...prev, newTask]);
+      setTaskForm({});
+      setIsAddTaskOpen(false);
+      toast.success(isRTL ? 'تم إضافة المهمة بنجاح' : 'Task added successfully');
     } catch (error) {
-      toast.error(isRTL ? 'حدث خطأ أثناء حذف الموظف' : 'Error deleting employee');
+      toast.error(isRTL ? 'حدث خطأ في إضافة المهمة' : 'Error adding task');
     } finally {
       setIsLoading(false);
     }
-  }, [teamMembers, isRTL]);
+  }, [taskForm, isRTL]);
 
-  // Function to sync with all integrated systems
-  const syncWithAllSystems = async (action: string, data: any) => {
-    try {
-      console.log(`Syncing ${action} with HR System:`, data);
-      console.log(`Syncing ${action} with Payroll System:`, data);
-      console.log(`Syncing ${action} with Attendance System:`, data);
-      console.log(`Syncing ${action} with Performance System:`, data);
-      console.log(`Syncing ${action} with Self-Service System:`, data);
-      console.log(`Syncing ${action} with Insurance System:`, data);
-      
-      // Simulate real-time API calls
-      await Promise.all([
-        // hrAPI.sync(action, data),
-        // payrollAPI.sync(action, data),
-        // attendanceAPI.sync(action, data),
-        // performanceAPI.sync(action, data),
-        // selfServiceAPI.sync(action, data),
-        // insuranceAPI.sync(action, data)
-      ]);
-      
-      return Promise.resolve();
-    } catch (error) {
-      console.error('System sync error:', error);
-      throw error;
-    }
-  };
-
-  // Advanced print functionality
-  const handlePrint = useCallback((type: 'employees' | 'teams' | 'tasks' | 'reports') => {
-    const printContent = generateAdvancedPrintContent(type);
-    const printWindow = window.open('', '_blank');
+  // Filter Functions
+  const filteredEmployees = employees.filter(employee => {
+    const matchesSearch = employee.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         employee.employeeNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         employee.email.toLowerCase().includes(searchTerm.toLowerCase());
     
-    if (printWindow) {
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html dir="${isRTL ? 'rtl' : 'ltr'}" lang="${i18n.language}">
-          <head>
-            <meta charset="UTF-8">
-            <title>${isRTL ? 'طباعة بيانات منصة بُعد HR' : 'BOUD HR Platform Print'}</title>
-            <style>
-              body { 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                direction: ${isRTL ? 'rtl' : 'ltr'}; 
-                margin: 0;
-                padding: 20px;
-                background: white;
-              }
-              .header { 
-                text-align: center; 
-                margin-bottom: 30px; 
-                padding: 20px;
-                background: linear-gradient(135deg, #00C897, #009F87);
-                color: white;
-                border-radius: 8px;
-              }
-              .header h1 {
-                margin: 0;
-                font-size: 24px;
-                font-weight: bold;
-              }
-              .header p {
-                margin: 10px 0 0 0;
-                opacity: 0.9;
-              }
-              table { 
-                width: 100%; 
-                border-collapse: collapse; 
-                margin: 20px 0; 
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                border-radius: 8px;
-                overflow: hidden;
-              }
-              th, td { 
-                border: 1px solid #e0e0e0; 
-                padding: 12px 8px; 
-                text-align: ${isRTL ? 'right' : 'left'};
-                vertical-align: top;
-              }
-              th { 
-                background: #00C897; 
-                color: white;
-                font-weight: 600;
-                font-size: 14px;
-              }
-              tr:nth-child(even) {
-                background: #f9f9f9;
-              }
-              tr:hover {
-                background: #f0f9ff;
-              }
-              .status-active { color: #059669; font-weight: 600; }
-              .status-inactive { color: #dc2626; font-weight: 600; }
-              .performance-high { color: #059669; font-weight: 600; }
-              .performance-medium { color: #d97706; font-weight: 600; }
-              .performance-low { color: #dc2626; font-weight: 600; }
-              .footer {
-                margin-top: 40px;
-                padding: 20px;
-                text-align: center;
-                font-size: 12px;
-                color: #666;
-                border-top: 2px solid #00C897;
-              }
-              @media print {
-                .no-print { display: none; }
-                body { margin: 0; }
-                .header { background: #00C897 !important; }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="header">
-              <h1>منصة بُعد HR - ${type === 'employees' ? 'بيانات الموظفين' : 
-                                   type === 'teams' ? 'بيانات الفرق' : 
-                                   type === 'tasks' ? 'المهام والمشاريع' : 'التقارير'}</h1>
-              <p>تاريخ الطباعة: ${new Date().toLocaleDateString('ar-SA')} | الوقت: ${new Date().toLocaleTimeString('ar-SA')}</p>
-            </div>
-            ${printContent}
-            <div class="footer">
-              <p>تم إنتاج هذا التقرير بواسطة منصة بُعد HR | جميع الحقوق محفوظة © 2024</p>
-            </div>
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.print();
-    }
-  }, [isRTL, i18n.language]);
+    const matchesDepartment = departmentFilter === 'all' || employee.department === departmentFilter;
+    const matchesStatus = statusFilter === 'all' || employee.status === statusFilter;
+    const matchesPosition = positionFilter === 'all' || employee.position === positionFilter;
 
-  const generateAdvancedPrintContent = (type: 'employees' | 'teams' | 'tasks' | 'reports') => {
-    switch (type) {
-      case 'employees':
-        return `
-          <table>
-            <thead>
-              <tr>
-                <th>رقم الموظف</th>
-                <th>الاسم الكامل</th>
-                <th>المنصب</th>
-                <th>القسم</th>
-                <th>الفريق</th>
-                <th>معدل الأداء</th>
-                <th>الحالة</th>
-                <th>تاريخ الانضمام</th>
-                <th>الراتب</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${teamMembers.map(member => `
-                <tr>
-                  <td>${member.employeeNumber}</td>
-                  <td>${member.name}</td>
-                  <td>${member.position}</td>
-                  <td>${member.department}</td>
-                  <td>${member.team}</td>
-                  <td class="${member.performance >= 90 ? 'performance-high' : member.performance >= 75 ? 'performance-medium' : 'performance-low'}">${member.performance}%</td>
-                  <td class="${member.status === 'نشط' ? 'status-active' : 'status-inactive'}">${member.status}</td>
-                  <td>${new Date(member.joinDate).toLocaleDateString('ar-SA')}</td>
-                  <td>${member.salary.toLocaleString()} ريال</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        `;
-      case 'teams':
-        return `
-          <table>
-            <thead>
-              <tr>
-                <th>اسم الفريق</th>
-                <th>القسم</th>
-                <th>قائد الفريق</th>
-                <th>عدد الأعضاء</th>
-                <th>المشاريع النشطة</th>
-                <th>معدل الأداء</th>
-                <th>الحالة</th>
-                <th>الميزانية</th>
-                <th>تاريخ الإنشاء</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${teams.map(team => `
-                <tr>
-                  <td>${team.name}</td>
-                  <td>${team.department}</td>
-                  <td>${team.leader}</td>
-                  <td>${team.members}</td>
-                  <td>${team.projects}</td>
-                  <td class="${team.performance >= 90 ? 'performance-high' : team.performance >= 75 ? 'performance-medium' : 'performance-low'}">${team.performance}%</td>
-                  <td class="${team.status === 'نشط' ? 'status-active' : 'status-inactive'}">${team.status}</td>
-                  <td>${team.budget.toLocaleString()} ريال</td>
-                  <td>${new Date(team.createdDate).toLocaleDateString('ar-SA')}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        `;
-      case 'tasks':
-        return `
-          <table>
-            <thead>
-              <tr>
-                <th>عنوان المهمة</th>
-                <th>الفريق المسؤول</th>
-                <th>الأولوية</th>
-                <th>الحالة</th>
-                <th>نسبة الإنجاز</th>
-                <th>تاريخ الاستحقاق</th>
-                <th>تاريخ الإنشاء</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${tasks.map(task => {
-                const team = teams.find(t => t.id === task.teamId);
-                return `
-                  <tr>
-                    <td>${task.title}</td>
-                    <td>${team?.name || 'غير محدد'}</td>
-                    <td class="${task.priority === 'عالية' ? 'performance-low' : task.priority === 'متوسطة' ? 'performance-medium' : 'performance-high'}">${task.priority}</td>
-                    <td class="${task.status === 'مكتملة' ? 'status-active' : 'status-inactive'}">${task.status}</td>
-                    <td>${task.progress}%</td>
-                    <td>${new Date(task.dueDate).toLocaleDateString('ar-SA')}</td>
-                    <td>${new Date(task.createdAt).toLocaleDateString('ar-SA')}</td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-        `;
-      default:
-        return '<p>لا توجد بيانات للطباعة</p>';
-    }
-  };
-
-  // Advanced export functionality
-  const handleExport = useCallback((type: 'employees' | 'teams' | 'tasks', format: 'csv' | 'excel') => {
-    const timestamp = new Date().toISOString().split('T')[0];
-    let data: any[] = [];
-    let headers: string[] = [];
-    let filename = '';
-
-    switch (type) {
-      case 'employees':
-        data = teamMembers;
-        headers = ['ID', 'رقم الموظف', 'الاسم', 'المنصب', 'القسم', 'الفريق', 'الأداء', 'الحالة', 'الراتب', 'تاريخ الانضمام'];
-        filename = `employees_${timestamp}`;
-        break;
-      case 'teams':
-        data = teams;
-        headers = ['ID', 'اسم الفريق', 'القسم', 'القائد', 'عدد الأعضاء', 'الأداء', 'الحالة', 'الميزانية', 'تاريخ الإنشاء'];
-        filename = `teams_${timestamp}`;
-        break;
-      case 'tasks':
-        data = tasks;
-        headers = ['ID', 'عنوان المهمة', 'الوصف', 'الفريق', 'الأولوية', 'الحالة', 'نسبة الإنجاز', 'تاريخ الاستحقاق'];
-        filename = `tasks_${timestamp}`;
-        break;
-    }
-    
-    if (format === 'csv') {
-      const csvContent = [
-        headers.join(','),
-        ...data.map(item => {
-          if (type === 'employees') {
-            const member = item as TeamMember;
-            return [member.id, member.employeeNumber, member.name, member.position, member.department, member.team, member.performance, member.status, member.salary, member.joinDate].join(',');
-          } else if (type === 'teams') {
-            const team = item as Team;
-            return [team.id, team.name, team.department, team.leader, team.members, team.performance, team.status, team.budget, team.createdDate].join(',');
-          } else {
-            const task = item as Task;
-            const team = teams.find(t => t.id === task.teamId);
-            return [task.id, task.title, task.description, team?.name || 'غير محدد', task.priority, task.status, task.progress, task.dueDate].join(',');
-          }
-        })
-      ].join('\n');
-      
-      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `${filename}.csv`;
-      link.click();
-      
-      toast.success(isRTL ? `تم تصدير البيانات بنجاح بصيغة ${format.toUpperCase()}` : `Data exported successfully as ${format.toUpperCase()}`);
-    }
-  }, [teamMembers, teams, tasks, isRTL]);
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'نشط':
-        return 'bg-success/20 text-success border-success/30';
-      case 'في التطوير':
-      case 'قيد التنفيذ':
-        return 'bg-warning/20 text-warning border-warning/30';
-      case 'متوقف':
-      case 'متأخرة':
-        return 'bg-destructive/20 text-destructive border-destructive/30';
-      case 'مكتملة':
-        return 'bg-success/20 text-success border-success/30';
-      default:
-        return 'bg-muted/20 text-muted-foreground border-muted/30';
-    }
-  };
-
-  const getPerformanceColor = (score: number) => {
-    if (score >= 90) return 'text-success';
-    if (score >= 75) return 'text-warning';
-    return 'text-destructive';
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'عالية':
-        return 'bg-destructive/20 text-destructive border-destructive/30';
-      case 'متوسطة':
-        return 'bg-warning/20 text-warning border-warning/30';
-      case 'منخفضة':
-        return 'bg-success/20 text-success border-success/30';
-      default:
-        return 'bg-muted/20 text-muted-foreground border-muted/30';
-    }
-  };
-
-  // Filter functions
-  const filteredEmployees = teamMembers.filter(employee => {
-    const matchesSearch = employee.name.includes(searchTerm) || 
-                         employee.employeeNumber.includes(searchTerm) ||
-                         employee.position.includes(searchTerm) ||
-                         employee.department.includes(searchTerm);
-    const matchesFilter = selectedFilter === 'all' || employee.status === selectedFilter;
-    return matchesSearch && matchesFilter;
+    return matchesSearch && matchesDepartment && matchesStatus && matchesPosition;
   });
 
-  const filteredTeams = teams.filter(team => {
-    const matchesSearch = team.name.includes(searchTerm) || team.department.includes(searchTerm);
-    const matchesFilter = selectedFilter === 'all' || team.status === selectedFilter;
-    return matchesSearch && matchesFilter;
-  });
+  // Export Functions
+  const exportToExcel = useCallback((data: Employee[]) => {
+    toast.success(isRTL ? 'جاري تصدير البيانات إلى Excel...' : 'Exporting to Excel...');
+  }, [isRTL]);
 
-  const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.includes(searchTerm) || task.description.includes(searchTerm);
-    const matchesFilter = selectedFilter === 'all' || task.status === selectedFilter;
-    return matchesSearch && matchesFilter;
-  });
+  const exportToPDF = useCallback((data: Employee[]) => {
+    toast.success(isRTL ? 'جاري تصدير البيانات إلى PDF...' : 'Exporting to PDF...');
+  }, [isRTL]);
 
-  return (
-    <div className={cn("min-h-screen bg-gradient-to-br from-background to-accent/10", isRTL && "rtl")}>
-      <div className="container mx-auto p-6">
-        <div className="bg-card rounded-xl shadow-soft border border-border/50 overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-primary text-white p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold">
-                    {isRTL ? 'قسم فريق العمل' : 'Team Work Department'}
-                  </h1>
-                  <p className="text-white/80 text-sm">
-                    {isRTL ? 'إدارة شاملة للموظفين والفرق والمهام' : 'Comprehensive employee, team and task management'}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button onClick={() => handlePrint('employees')} variant="ghost" className="text-white hover:bg-white/20">
-                  <Printer className="h-4 w-4" />
-                </Button>
-                <Button onClick={() => handleExport('employees', 'csv')} variant="ghost" className="text-white hover:bg-white/20">
-                  <FileSpreadsheet className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
+  const printData = useCallback(() => {
+    window.print();
+  }, []);
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="bg-muted/30 border-b border-border px-6">
-              <TabsList className="bg-transparent h-auto p-0 gap-0">
-                <TabsTrigger 
-                  value="employee-management" 
-                  className="px-6 py-4 text-foreground data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
-                >
-                  <Users className="h-4 w-4 ml-2" />
-                  {isRTL ? 'إدارة الموظفين' : 'Employee Management'}
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="reports" 
-                  className="px-6 py-4 text-foreground data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
-                >
-                  <BarChart3 className="h-4 w-4 ml-2" />
-                  {isRTL ? 'التقارير' : 'Reports'}
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="tasks" 
-                  className="px-6 py-4 text-foreground data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
-                >
-                  <CheckCircle className="h-4 w-4 ml-2" />
-                  {isRTL ? 'المهام' : 'Tasks'}
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="settings" 
-                  className="px-6 py-4 text-foreground data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none"
-                >
-                  <Settings className="h-4 w-4 ml-2" />
-                  {isRTL ? 'الإعدادات' : 'Settings'}
-                </TabsTrigger>
-              </TabsList>
-            </div>
+  // Render Dashboard Tab
+  const renderDashboard = () => (
+    <div className="space-y-6 animate-fade-in">
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="hover-scale transition-all duration-300 border-l-4 border-l-primary">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              {isRTL ? 'إجمالي الموظفين' : 'Total Employees'}
+            </CardTitle>
+            <Users className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-primary">{dashboardStats.totalEmployees}</div>
+            <p className="text-xs text-muted-foreground">
+              {isRTL ? '+2 هذا الشهر' : '+2 this month'}
+            </p>
+          </CardContent>
+        </Card>
 
-            {/* Tab Content */}
-            <div className="p-6">
-              <TabsContent value="employee-management" className="mt-0">
-                {/* Employee Management Content */}
-                <div className="space-y-6">
-                  {/* Metrics Cards */}
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <Card className="dashboard-card animate-fade-in">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                            <p className="text-2xl font-bold text-primary">{performanceMetrics.totalMembers}</p>
-                          </div>
-                          <Users className="h-8 w-8 text-primary/60" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card className="dashboard-card animate-fade-in">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">الموظفون النشطون</p>
-                            <p className="text-2xl font-bold text-success">{performanceMetrics.activeMembers}</p>
-                          </div>
-                          <UserCheck className="h-8 w-8 text-success/60" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card className="dashboard-card animate-fade-in">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">معدل الأداء</p>
-                            <p className="text-2xl font-bold text-warning">{performanceMetrics.avgPerformance}%</p>
-                          </div>
-                          <TrendingUp className="h-8 w-8 text-warning/60" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card className="dashboard-card animate-fade-in">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">المهام المكتملة</p>
-                            <p className="text-2xl font-bold text-primary">{performanceMetrics.completedTasks}</p>
-                          </div>
-                          <CheckCircle className="h-8 w-8 text-primary/60" />
-                        </div>
-                      </CardContent>
-                    </Card>
+        <Card className="hover-scale transition-all duration-300 border-l-4 border-l-emerald-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              {isRTL ? 'الموظفون النشطون' : 'Active Employees'}
+            </CardTitle>
+            <CheckCircle className="h-4 w-4 text-emerald-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-emerald-600">{dashboardStats.activeEmployees}</div>
+            <p className="text-xs text-muted-foreground">
+              {isRTL ? `${((dashboardStats.activeEmployees / dashboardStats.totalEmployees) * 100).toFixed(1)}% من الإجمالي` : 
+               `${((dashboardStats.activeEmployees / dashboardStats.totalEmployees) * 100).toFixed(1)}% of total`}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="hover-scale transition-all duration-300 border-l-4 border-l-amber-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              {isRTL ? 'قيد التجربة' : 'On Probation'}
+            </CardTitle>
+            <Clock className="h-4 w-4 text-amber-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-amber-600">{dashboardStats.probationEmployees}</div>
+            <p className="text-xs text-muted-foreground">
+              {isRTL ? 'موظفين جدد' : 'new hires'}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="hover-scale transition-all duration-300 border-l-4 border-l-blue-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              {isRTL ? 'متوسط الأداء' : 'Avg Performance'}
+            </CardTitle>
+            <TrendingUp className="h-4 w-4 text-blue-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-blue-600">{dashboardStats.averagePerformance}%</div>
+            <Progress value={dashboardStats.averagePerformance} className="mt-2" />
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="col-span-1">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              {isRTL ? 'توزيع الموظفين حسب القسم' : 'Employee Distribution by Department'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {dashboardStats.departmentDistribution.map((dept, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="w-4 h-4 rounded-full"
+                      style={{ backgroundColor: dept.color }}
+                    />
+                    <span className="text-sm font-medium">{dept.name}</span>
                   </div>
-
-                  {/* Search and Filter */}
-                  <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                    <div className="flex gap-2 w-full md:w-auto">
-                      <div className="relative flex-1 md:w-80">
-                        <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                        <Input
-                          placeholder={isRTL ? 'البحث عن موظف...' : 'Search employee...'}
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="pr-10"
-                        />
-                      </div>
-                      <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                        <SelectTrigger className="w-40">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">جميع الحالات</SelectItem>
-                          <SelectItem value="نشط">نشط</SelectItem>
-                          <SelectItem value="في إجازة">في إجازة</SelectItem>
-                          <SelectItem value="متوقف">متوقف</SelectItem>
-                        </SelectContent>
-                      </Select>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">{dept.count}</span>
+                    <div className="w-16 bg-secondary rounded-full h-2">
+                      <div 
+                        className="h-2 rounded-full transition-all duration-300"
+                        style={{ 
+                          width: `${(dept.count / dashboardStats.totalEmployees) * 100}%`,
+                          backgroundColor: dept.color 
+                        }}
+                      />
                     </div>
-                    <Button onClick={() => setIsNewEmployeeDialog(true)} className="btn-primary">
-                      <UserPlus className="h-4 w-4 ml-2" />
-                      {isRTL ? 'إضافة موظف جديد' : 'Add New Employee'}
-                    </Button>
                   </div>
-
-                  {/* Employee Table */}
-                  <Card>
-                    <CardContent className="p-0">
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>رقم الموظف</TableHead>
-                            <TableHead>الاسم</TableHead>
-                            <TableHead>المنصب</TableHead>
-                            <TableHead>القسم</TableHead>
-                            <TableHead>الفريق</TableHead>
-                            <TableHead>الأداء</TableHead>
-                            <TableHead>الحالة</TableHead>
-                            <TableHead>الإجراءات</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {filteredEmployees.map((employee) => (
-                            <TableRow key={employee.id}>
-                              <TableCell className="font-medium">{employee.employeeNumber}</TableCell>
-                              <TableCell>
-                                <div className="flex items-center gap-3">
-                                  <Avatar className="h-8 w-8">
-                                    <AvatarImage src={employee.avatar} />
-                                    <AvatarFallback>{employee.name.split(' ')[0][0]}</AvatarFallback>
-                                  </Avatar>
-                                  <div>
-                                    <p className="font-medium">{employee.name}</p>
-                                    <p className="text-xs text-muted-foreground">{employee.email}</p>
-                                  </div>
-                                </div>
-                              </TableCell>
-                              <TableCell>{employee.position}</TableCell>
-                              <TableCell>{employee.department}</TableCell>
-                              <TableCell>{employee.team || 'غير محدد'}</TableCell>
-                              <TableCell>
-                                <div className="flex items-center gap-2">
-                                  <div className="w-16 bg-muted rounded-full h-2">
-                                    <div 
-                                      className="h-2 rounded-full bg-primary"
-                                      style={{ width: `${employee.performance}%` }}
-                                    />
-                                  </div>
-                                  <span className={cn("text-sm font-medium", getPerformanceColor(employee.performance))}>
-                                    {employee.performance}%
-                                  </span>
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <Badge className={getStatusColor(employee.status)}>
-                                  {employee.status}
-                                </Badge>
-                              </TableCell>
-                              <TableCell>
-                                <div className="flex items-center gap-1">
-                                  <Button 
-                                    variant="ghost" 
-                                    size="sm"
-                                    onClick={() => {
-                                      setSelectedEmployee(employee);
-                                      setIsEditEmployeeDialog(true);
-                                    }}
-                                  >
-                                    <Edit className="h-4 w-4" />
-                                  </Button>
-                                  <Button 
-                                    variant="ghost" 
-                                    size="sm"
-                                    onClick={() => handleDeleteEmployee(employee.id)}
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                  </Button>
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </CardContent>
-                  </Card>
                 </div>
-              </TabsContent>
-
-              <TabsContent value="reports" className="mt-0">
-                <div className="text-center py-12">
-                  <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">التقارير التفاعلية</h3>
-                  <p className="text-muted-foreground">قريباً - تقارير شاملة وتفاعلية</p>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="tasks" className="mt-0">
-                <div className="text-center py-12">
-                  <CheckCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">إدارة المهام</h3>
-                  <p className="text-muted-foreground">قريباً - نظام إدارة المهام المتطور</p>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="settings" className="mt-0">
-                <div className="text-center py-12">
-                  <Settings className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">إعدادات النظام</h3>
-                  <p className="text-muted-foreground">قريباً - إعدادات متقدمة للنظام</p>
-                </div>
-              </TabsContent>
+              ))}
             </div>
-          </Tabs>
+          </CardContent>
+        </Card>
+
+        <Card className="col-span-1">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              {isRTL ? 'التوظيف الشهري' : 'Monthly Hiring'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {dashboardStats.monthlyHiring.map((month, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">{month.month}</span>
+                    <div className="flex gap-4 text-xs text-muted-foreground">
+                      <span className="text-emerald-600">
+                        {isRTL ? `${month.hires} توظيف` : `${month.hires} hires`}
+                      </span>
+                      <span className="text-red-600">
+                        {isRTL ? `${month.terminations} إنهاء` : `${month.terminations} terminations`}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 h-2">
+                    <div 
+                      className="bg-emerald-500 rounded-sm transition-all duration-300"
+                      style={{ width: `${(month.hires / 10) * 100}%` }}
+                    />
+                    <div 
+                      className="bg-red-500 rounded-sm transition-all duration-300"
+                      style={{ width: `${(month.terminations / 10) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5" />
+            {isRTL ? 'إجراءات سريعة' : 'Quick Actions'}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Button 
+              onClick={() => setIsAddEmployeeOpen(true)}
+              className="h-12 bg-gradient-to-r from-primary to-primary/80"
+            >
+              <UserPlus className="h-4 w-4 mr-2" />
+              {isRTL ? 'إضافة موظف' : 'Add Employee'}
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsAddTaskOpen(true)}
+              className="h-12"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              {isRTL ? 'إضافة مهمة' : 'Add Task'}
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => exportToExcel(employees)}
+              className="h-12"
+            >
+              <FileSpreadsheet className="h-4 w-4 mr-2" />
+              {isRTL ? 'تصدير Excel' : 'Export Excel'}
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={printData}
+              className="h-12"
+            >
+              <Printer className="h-4 w-4 mr-2" />
+              {isRTL ? 'طباعة التقرير' : 'Print Report'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  // Render Employee Management Tab
+  const renderEmployeeManagement = () => (
+    <div className="space-y-6 animate-fade-in">
+      {/* Controls Bar */}
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-card p-4 rounded-lg border">
+        <div className="flex flex-1 gap-4 items-center">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder={isRTL ? 'البحث في الموظفين...' : 'Search employees...'}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          
+          <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue placeholder={isRTL ? 'القسم' : 'Department'} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{isRTL ? 'جميع الأقسام' : 'All Departments'}</SelectItem>
+              <SelectItem value="تقنية المعلومات">{isRTL ? 'تقنية المعلومات' : 'IT'}</SelectItem>
+              <SelectItem value="التسويق">{isRTL ? 'التسويق' : 'Marketing'}</SelectItem>
+              <SelectItem value="الموارد البشرية">{isRTL ? 'الموارد البشرية' : 'HR'}</SelectItem>
+              <SelectItem value="المالية">{isRTL ? 'المالية' : 'Finance'}</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-32">
+              <SelectValue placeholder={isRTL ? 'الحالة' : 'Status'} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{isRTL ? 'جميع الحالات' : 'All Status'}</SelectItem>
+              <SelectItem value="active">{isRTL ? 'نشط' : 'Active'}</SelectItem>
+              <SelectItem value="onLeave">{isRTL ? 'في إجازة' : 'On Leave'}</SelectItem>
+              <SelectItem value="probation">{isRTL ? 'قيد التجربة' : 'Probation'}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex gap-2">
+          <Button onClick={() => setIsAddEmployeeOpen(true)}>
+            <UserPlus className="h-4 w-4 mr-2" />
+            {isRTL ? 'إضافة موظف' : 'Add Employee'}
+          </Button>
+          <Button variant="outline" onClick={() => exportToExcel(filteredEmployees)}>
+            <Download className="h-4 w-4 mr-2" />
+            {isRTL ? 'تصدير' : 'Export'}
+          </Button>
         </div>
       </div>
 
-      {/* Add Employee Dialog */}
-      <Dialog open={isNewEmployeeDialog} onOpenChange={setIsNewEmployeeDialog}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>إضافة موظف جديد</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>رقم الموظف</Label>
-                <Input 
-                  value={newEmployeeForm.employeeNumber}
-                  onChange={(e) => setNewEmployeeForm(prev => ({...prev, employeeNumber: e.target.value}))}
-                  placeholder="BHR-001" 
-                />
+      {/* Employees Table */}
+      <Card>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>{isRTL ? 'الموظف' : 'Employee'}</TableHead>
+                <TableHead>{isRTL ? 'المنصب' : 'Position'}</TableHead>
+                <TableHead>{isRTL ? 'القسم' : 'Department'}</TableHead>
+                <TableHead>{isRTL ? 'الحالة' : 'Status'}</TableHead>
+                <TableHead>{isRTL ? 'الأداء' : 'Performance'}</TableHead>
+                <TableHead>{isRTL ? 'آخر حضور' : 'Last Attendance'}</TableHead>
+                <TableHead className="text-center">{isRTL ? 'الإجراءات' : 'Actions'}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredEmployees.map((employee) => (
+                <TableRow key={employee.id} className="hover:bg-muted/50 transition-colors">
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={employee.avatar} />
+                        <AvatarFallback>
+                          {employee.firstName[0]}{employee.lastName[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium">{employee.fullName}</div>
+                        <div className="text-sm text-muted-foreground">{employee.employeeNumber}</div>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="font-medium">{employee.position}</TableCell>
+                  <TableCell>{employee.department}</TableCell>
+                  <TableCell>
+                    <Badge 
+                      variant={employee.status === 'active' ? 'default' : 
+                              employee.status === 'probation' ? 'secondary' : 'outline'}
+                      className={cn(
+                        employee.status === 'active' && 'bg-emerald-500/10 text-emerald-700 border-emerald-200',
+                        employee.status === 'probation' && 'bg-amber-500/10 text-amber-700 border-amber-200',
+                        employee.status === 'onLeave' && 'bg-blue-500/10 text-blue-700 border-blue-200'
+                      )}
+                    >
+                      {isRTL ? 
+                        (employee.status === 'active' ? 'نشط' : 
+                         employee.status === 'probation' ? 'قيد التجربة' : 
+                         employee.status === 'onLeave' ? 'في إجازة' : employee.status) :
+                        employee.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Progress value={employee.performance} className="flex-1 h-2" />
+                      <span className="text-sm font-medium w-10">{employee.performance}%</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {employee.lastAttendance || isRTL ? 'لا يوجد' : 'N/A'}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center justify-center gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedEmployee(employee);
+                          setIsViewEmployeeOpen(true);
+                        }}
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedEmployee(employee);
+                          setEmployeeForm(employee);
+                          setIsEditEmployeeOpen(true);
+                        }}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteEmployee(employee.id)}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      {filteredEmployees.length === 0 && (
+        <Card>
+          <CardContent className="text-center py-12">
+            <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium mb-2">
+              {isRTL ? 'لا توجد نتائج' : 'No results found'}
+            </h3>
+            <p className="text-muted-foreground">
+              {isRTL ? 'لم يتم العثور على موظفين يطابقون معايير البحث' : 'No employees match your search criteria'}
+            </p>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+
+  // Render Tasks Tab
+  const renderTasks = () => (
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-medium">{isRTL ? 'إدارة المهام' : 'Task Management'}</h3>
+        <Button onClick={() => setIsAddTaskOpen(true)}>
+          <Plus className="h-4 w-4 mr-2" />
+          {isRTL ? 'إضافة مهمة' : 'Add Task'}
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tasks.map((task) => (
+          <Card key={task.id} className="hover-scale transition-all duration-300">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <Badge 
+                  variant={task.priority === 'high' ? 'destructive' : 
+                          task.priority === 'medium' ? 'default' : 'secondary'}
+                >
+                  {isRTL ? 
+                    (task.priority === 'high' ? 'عالية' : 
+                     task.priority === 'medium' ? 'متوسطة' : 'منخفضة') :
+                    task.priority}
+                </Badge>
+                <Badge 
+                  variant="outline"
+                  className={cn(
+                    task.status === 'completed' && 'bg-emerald-500/10 text-emerald-700 border-emerald-200',
+                    task.status === 'inProgress' && 'bg-blue-500/10 text-blue-700 border-blue-200',
+                    task.status === 'new' && 'bg-gray-500/10 text-gray-700 border-gray-200',
+                    task.status === 'overdue' && 'bg-red-500/10 text-red-700 border-red-200'
+                  )}
+                >
+                  {isRTL ? 
+                    (task.status === 'completed' ? 'مكتملة' : 
+                     task.status === 'inProgress' ? 'قيد التنفيذ' : 
+                     task.status === 'new' ? 'جديدة' : 'متأخرة') :
+                    task.status}
+                </Badge>
               </div>
+              <CardTitle className="text-lg">{task.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">{task.description}</p>
+              
               <div className="space-y-2">
-                <Label>الاسم الكامل</Label>
-                <Input 
-                  value={newEmployeeForm.name}
-                  onChange={(e) => setNewEmployeeForm(prev => ({...prev, name: e.target.value}))}
-                  placeholder="أحمد محمد العلي" 
-                />
+                <div className="flex justify-between text-sm">
+                  <span>{isRTL ? 'التقدم' : 'Progress'}</span>
+                  <span>{task.progress}%</span>
+                </div>
+                <Progress value={task.progress} />
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>المنصب</Label>
-                <Input 
-                  value={newEmployeeForm.position}
-                  onChange={(e) => setNewEmployeeForm(prev => ({...prev, position: e.target.value}))}
-                  placeholder="مطور برمجيات" 
-                />
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Calendar className="h-4 w-4" />
+                <span>{isRTL ? 'موعد التسليم:' : 'Due:'} {task.dueDate}</span>
               </div>
-              <div className="space-y-2">
-                <Label>البريد الإلكتروني</Label>
-                <Input 
-                  value={newEmployeeForm.email}
-                  onChange={(e) => setNewEmployeeForm(prev => ({...prev, email: e.target.value}))}
-                  placeholder="ahmed@boudhr.com" 
-                />
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Users className="h-4 w-4" />
+                <span>
+                  {isRTL ? 'مُكلف إلى:' : 'Assigned to:'} {task.assignedTo.length} 
+                  {isRTL ? ' أشخاص' : ' people'}
+                </span>
               </div>
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsNewEmployeeDialog(false)}>
-                إلغاء
+
+              <div className="flex gap-2 pt-2">
+                <Button variant="outline" size="sm" className="flex-1">
+                  <Eye className="h-4 w-4 mr-1" />
+                  {isRTL ? 'عرض' : 'View'}
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1">
+                  <Edit className="h-4 w-4 mr-1" />
+                  {isRTL ? 'تعديل' : 'Edit'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {tasks.length === 0 && (
+        <Card>
+          <CardContent className="text-center py-12">
+            <Target className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium mb-2">
+              {isRTL ? 'لا توجد مهام' : 'No tasks found'}
+            </h3>
+            <p className="text-muted-foreground mb-4">
+              {isRTL ? 'ابدأ بإضافة مهمة جديدة لفريقك' : 'Start by adding a new task for your team'}
+            </p>
+            <Button onClick={() => setIsAddTaskOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              {isRTL ? 'إضافة مهمة' : 'Add Task'}
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+
+  // Render Reports Tab
+  const renderReports = () => (
+    <div className="space-y-6 animate-fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card className="hover-scale transition-all duration-300 cursor-pointer">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              {isRTL ? 'تقرير الموظفين الشامل' : 'Comprehensive Employee Report'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              {isRTL ? 'تفاصيل جميع الموظفين مع البيانات الكاملة' : 'All employee details with complete data'}
+            </p>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={() => exportToPDF(employees)}>
+                <Download className="h-4 w-4 mr-1" />
+                PDF
               </Button>
-              <Button onClick={handleAddEmployee} disabled={isLoading}>
-                {isLoading ? 'جاري الحفظ...' : 'إضافة الموظف'}
+              <Button size="sm" variant="outline" onClick={() => exportToExcel(employees)}>
+                <FileSpreadsheet className="h-4 w-4 mr-1" />
+                Excel
               </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover-scale transition-all duration-300 cursor-pointer">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              {isRTL ? 'تقرير الأداء' : 'Performance Report'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              {isRTL ? 'تحليل أداء الموظفين والفرق' : 'Employee and team performance analysis'}
+            </p>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={() => exportToPDF(employees)}>
+                <Download className="h-4 w-4 mr-1" />
+                PDF
+              </Button>
+              <Button size="sm" variant="outline" onClick={printData}>
+                <Printer className="h-4 w-4 mr-1" />
+                {isRTL ? 'طباعة' : 'Print'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover-scale transition-all duration-300 cursor-pointer">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Target className="h-5 w-5" />
+              {isRTL ? 'تقرير المهام' : 'Tasks Report'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              {isRTL ? 'حالة المهام والإنجازات' : 'Task status and achievements'}
+            </p>
+            <div className="flex gap-2">
+              <Button size="sm" onClick={() => exportToPDF(employees)}>
+                <Download className="h-4 w-4 mr-1" />
+                PDF
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => exportToExcel(employees)}>
+                <FileSpreadsheet className="h-4 w-4 mr-1" />
+                Excel
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  // Render Settings Tab
+  const renderSettings = () => (
+    <div className="space-y-6 animate-fade-in">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              {isRTL ? 'إعدادات عامة' : 'General Settings'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="notifications">{isRTL ? 'الإشعارات' : 'Notifications'}</Label>
+              <Switch id="notifications" defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="auto-save">{isRTL ? 'الحفظ التلقائي' : 'Auto Save'}</Label>
+              <Switch id="auto-save" defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="email-alerts">{isRTL ? 'تنبيهات البريد' : 'Email Alerts'}</Label>
+              <Switch id="email-alerts" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              {isRTL ? 'الصلاحيات' : 'Permissions'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="add-employee">{isRTL ? 'إضافة موظفين' : 'Add Employees'}</Label>
+              <Switch id="add-employee" defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="edit-employee">{isRTL ? 'تعديل بيانات الموظفين' : 'Edit Employee Data'}</Label>
+              <Switch id="edit-employee" defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="delete-employee">{isRTL ? 'حذف الموظفين' : 'Delete Employees'}</Label>
+              <Switch id="delete-employee" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={cn("min-h-screen bg-background p-6", isRTL && "font-arabic")}>
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg border">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+              <Users className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold">{isRTL ? 'قسم فريق العمل' : 'Team Work Department'}</h1>
+              <p className="text-muted-foreground">
+                {isRTL ? 'إدارة شاملة للموظفين والفرق والمهام' : 'Comprehensive management of employees, teams, and tasks'}
+              </p>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => i18n.changeLanguage(isRTL ? 'en' : 'ar')}>
+              <Languages className="h-4 w-4 mr-2" />
+              {isRTL ? 'English' : 'العربية'}
+            </Button>
+            <Button variant="outline" size="sm" onClick={loadInitialData} disabled={isLoading}>
+              <RefreshCw className={cn("h-4 w-4 mr-2", isLoading && "animate-spin")} />
+              {isRTL ? 'تحديث' : 'Refresh'}
+            </Button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="w-full justify-start overflow-x-auto">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <Home className="h-4 w-4" />
+              {isRTL ? 'لوحة التحكم' : 'Dashboard'}
+            </TabsTrigger>
+            <TabsTrigger value="employees" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              {isRTL ? 'إدارة الموظفين' : 'Employees'}
+            </TabsTrigger>
+            <TabsTrigger value="tasks" className="flex items-center gap-2">
+              <Target className="h-4 w-4" />
+              {isRTL ? 'المهام' : 'Tasks'}
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              {isRTL ? 'التقارير' : 'Reports'}
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              {isRTL ? 'الإعدادات' : 'Settings'}
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="dashboard">{renderDashboard()}</TabsContent>
+          <TabsContent value="employees">{renderEmployeeManagement()}</TabsContent>
+          <TabsContent value="tasks">{renderTasks()}</TabsContent>
+          <TabsContent value="reports">{renderReports()}</TabsContent>
+          <TabsContent value="settings">{renderSettings()}</TabsContent>
+        </Tabs>
+
+        {/* Add Employee Dialog */}
+        <Dialog open={isAddEmployeeOpen} onOpenChange={setIsAddEmployeeOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{isRTL ? 'إضافة موظف جديد' : 'Add New Employee'}</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="employeeNumber">{isRTL ? 'رقم الموظف' : 'Employee Number'}</Label>
+                  <Input
+                    id="employeeNumber"
+                    value={employeeForm.employeeNumber || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, employeeNumber: e.target.value }))}
+                    placeholder={isRTL ? 'BHR-001' : 'BHR-001'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="firstName">{isRTL ? 'الاسم الأول' : 'First Name'}</Label>
+                  <Input
+                    id="firstName"
+                    value={employeeForm.firstName || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, firstName: e.target.value }))}
+                    placeholder={isRTL ? 'الاسم الأول' : 'Enter first name'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="lastName">{isRTL ? 'اسم العائلة' : 'Last Name'}</Label>
+                  <Input
+                    id="lastName"
+                    value={employeeForm.lastName || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, lastName: e.target.value }))}
+                    placeholder={isRTL ? 'اسم العائلة' : 'Enter last name'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">{isRTL ? 'البريد الإلكتروني' : 'Email'}</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={employeeForm.email || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder={isRTL ? 'employee@boudhr.com' : 'employee@boudhr.com'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">{isRTL ? 'رقم الهاتف' : 'Phone Number'}</Label>
+                  <Input
+                    id="phone"
+                    value={employeeForm.phone || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder={isRTL ? '+966501234567' : '+966501234567'}
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="position">{isRTL ? 'المنصب' : 'Position'}</Label>
+                  <Input
+                    id="position"
+                    value={employeeForm.position || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, position: e.target.value }))}
+                    placeholder={isRTL ? 'مطور برمجيات' : 'Software Developer'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="department">{isRTL ? 'القسم' : 'Department'}</Label>
+                  <Select value={employeeForm.department || ''} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, department: value }))}>
+                    <SelectTrigger>
+                      <SelectValue placeholder={isRTL ? 'اختر القسم' : 'Select Department'} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="تقنية المعلومات">{isRTL ? 'تقنية المعلومات' : 'IT'}</SelectItem>
+                      <SelectItem value="التسويق">{isRTL ? 'التسويق' : 'Marketing'}</SelectItem>
+                      <SelectItem value="الموارد البشرية">{isRTL ? 'الموارد البشرية' : 'HR'}</SelectItem>
+                      <SelectItem value="المالية">{isRTL ? 'المالية' : 'Finance'}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="salary">{isRTL ? 'الراتب الأساسي' : 'Basic Salary'}</Label>
+                  <Input
+                    id="salary"
+                    type="number"
+                    value={employeeForm.salary || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, salary: Number(e.target.value) }))}
+                    placeholder={isRTL ? '15000' : '15000'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="hireDate">{isRTL ? 'تاريخ التوظيف' : 'Hire Date'}</Label>
+                  <Input
+                    id="hireDate"
+                    type="date"
+                    value={employeeForm.hireDate || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, hireDate: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="contractType">{isRTL ? 'نوع العقد' : 'Contract Type'}</Label>
+                  <Select value={employeeForm.contractType || 'permanent'} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, contractType: value as any }))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="permanent">{isRTL ? 'دائم' : 'Permanent'}</SelectItem>
+                      <SelectItem value="temporary">{isRTL ? 'مؤقت' : 'Temporary'}</SelectItem>
+                      <SelectItem value="trainee">{isRTL ? 'متدرب' : 'Trainee'}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 pt-4 border-t">
+              <Button variant="outline" onClick={() => setIsAddEmployeeOpen(false)}>
+                {isRTL ? 'إلغاء' : 'Cancel'}
+              </Button>
+              <Button onClick={handleAddEmployee} disabled={isLoading}>
+                {isLoading && <RefreshCw className="h-4 w-4 mr-2 animate-spin" />}
+                <Save className="h-4 w-4 mr-2" />
+                {isRTL ? 'حفظ' : 'Save'}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Employee Dialog */}
+        <Dialog open={isEditEmployeeOpen} onOpenChange={setIsEditEmployeeOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{isRTL ? 'تعديل بيانات الموظف' : 'Edit Employee'}</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="editFirstName">{isRTL ? 'الاسم الأول' : 'First Name'}</Label>
+                  <Input
+                    id="editFirstName"
+                    value={employeeForm.firstName || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, firstName: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editLastName">{isRTL ? 'اسم العائلة' : 'Last Name'}</Label>
+                  <Input
+                    id="editLastName"
+                    value={employeeForm.lastName || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, lastName: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editEmail">{isRTL ? 'البريد الإلكتروني' : 'Email'}</Label>
+                  <Input
+                    id="editEmail"
+                    type="email"
+                    value={employeeForm.email || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, email: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editPhone">{isRTL ? 'رقم الهاتف' : 'Phone Number'}</Label>
+                  <Input
+                    id="editPhone"
+                    value={employeeForm.phone || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, phone: e.target.value }))}
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="editPosition">{isRTL ? 'المنصب' : 'Position'}</Label>
+                  <Input
+                    id="editPosition"
+                    value={employeeForm.position || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, position: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editDepartment">{isRTL ? 'القسم' : 'Department'}</Label>
+                  <Select value={employeeForm.department || ''} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, department: value }))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="تقنية المعلومات">{isRTL ? 'تقنية المعلومات' : 'IT'}</SelectItem>
+                      <SelectItem value="التسويق">{isRTL ? 'التسويق' : 'Marketing'}</SelectItem>
+                      <SelectItem value="الموارد البشرية">{isRTL ? 'الموارد البشرية' : 'HR'}</SelectItem>
+                      <SelectItem value="المالية">{isRTL ? 'المالية' : 'Finance'}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="editSalary">{isRTL ? 'الراتب الأساسي' : 'Basic Salary'}</Label>
+                  <Input
+                    id="editSalary"
+                    type="number"
+                    value={employeeForm.salary || ''}
+                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, salary: Number(e.target.value) }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editStatus">{isRTL ? 'الحالة' : 'Status'}</Label>
+                  <Select value={employeeForm.status || 'active'} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, status: value as any }))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">{isRTL ? 'نشط' : 'Active'}</SelectItem>
+                      <SelectItem value="onLeave">{isRTL ? 'في إجازة' : 'On Leave'}</SelectItem>
+                      <SelectItem value="suspended">{isRTL ? 'متوقف' : 'Suspended'}</SelectItem>
+                      <SelectItem value="probation">{isRTL ? 'قيد التجربة' : 'Probation'}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 pt-4 border-t">
+              <Button variant="outline" onClick={() => setIsEditEmployeeOpen(false)}>
+                {isRTL ? 'إلغاء' : 'Cancel'}
+              </Button>
+              <Button onClick={handleEditEmployee} disabled={isLoading}>
+                {isLoading && <RefreshCw className="h-4 w-4 mr-2 animate-spin" />}
+                <Save className="h-4 w-4 mr-2" />
+                {isRTL ? 'حفظ التغييرات' : 'Save Changes'}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* View Employee Dialog */}
+        <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{isRTL ? 'تفاصيل الموظف' : 'Employee Details'}</DialogTitle>
+            </DialogHeader>
+            {selectedEmployee && (
+              <div className="space-y-6 py-4">
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-16 w-16">
+                    <AvatarImage src={selectedEmployee.avatar} />
+                    <AvatarFallback className="text-lg">
+                      {selectedEmployee.firstName[0]}{selectedEmployee.lastName[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-xl font-semibold">{selectedEmployee.fullName}</h3>
+                    <p className="text-muted-foreground">{selectedEmployee.position}</p>
+                    <Badge className="mt-1">{selectedEmployee.department}</Badge>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{isRTL ? 'المعلومات الأساسية' : 'Basic Information'}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'رقم الموظف:' : 'Employee ID:'}</span>
+                        <span className="font-medium">{selectedEmployee.employeeNumber}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'البريد الإلكتروني:' : 'Email:'}</span>
+                        <span className="font-medium">{selectedEmployee.email}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'الهاتف:' : 'Phone:'}</span>
+                        <span className="font-medium">{selectedEmployee.phone}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'تاريخ التوظيف:' : 'Hire Date:'}</span>
+                        <span className="font-medium">{selectedEmployee.hireDate}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'الحالة:' : 'Status:'}</span>
+                        <Badge variant={selectedEmployee.status === 'active' ? 'default' : 'secondary'}>
+                          {isRTL ? 
+                            (selectedEmployee.status === 'active' ? 'نشط' : 
+                             selectedEmployee.status === 'probation' ? 'قيد التجربة' : selectedEmployee.status) :
+                            selectedEmployee.status}
+                        </Badge>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{isRTL ? 'الأداء والإحصائيات' : 'Performance & Stats'}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">{isRTL ? 'تقييم الأداء:' : 'Performance:'}</span>
+                          <span className="font-medium">{selectedEmployee.performance}%</span>
+                        </div>
+                        <Progress value={selectedEmployee.performance} />
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'المهام المكتملة:' : 'Completed Tasks:'}</span>
+                        <span className="font-medium">{selectedEmployee.completedTasks}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'المهام الجارية:' : 'Ongoing Tasks:'}</span>
+                        <span className="font-medium">{selectedEmployee.ongoingTasks}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{isRTL ? 'الراتب الأساسي:' : 'Basic Salary:'}</span>
+                        <span className="font-medium">{selectedEmployee.salary.toLocaleString()} {isRTL ? 'ريال' : 'SAR'}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {selectedEmployee.skills && selectedEmployee.skills.length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{isRTL ? 'المهارات' : 'Skills'}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedEmployee.skills.map((skill, index) => (
+                          <Badge key={index} variant="outline">{skill}</Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Task Dialog */}
+        <Dialog open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>{isRTL ? 'إضافة مهمة جديدة' : 'Add New Task'}</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div>
+                <Label htmlFor="taskTitle">{isRTL ? 'عنوان المهمة' : 'Task Title'}</Label>
+                <Input
+                  id="taskTitle"
+                  value={taskForm.title || ''}
+                  onChange={(e) => setTaskForm(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder={isRTL ? 'أدخل عنوان المهمة' : 'Enter task title'}
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="taskDescription">{isRTL ? 'وصف المهمة' : 'Task Description'}</Label>
+                <Textarea
+                  id="taskDescription"
+                  value={taskForm.description || ''}
+                  onChange={(e) => setTaskForm(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder={isRTL ? 'أدخل وصف المهمة' : 'Enter task description'}
+                  rows={3}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="taskPriority">{isRTL ? 'الأولوية' : 'Priority'}</Label>
+                  <Select value={taskForm.priority || 'medium'} onValueChange={(value) => setTaskForm(prev => ({ ...prev, priority: value as any }))}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="high">{isRTL ? 'عالية' : 'High'}</SelectItem>
+                      <SelectItem value="medium">{isRTL ? 'متوسطة' : 'Medium'}</SelectItem>
+                      <SelectItem value="low">{isRTL ? 'منخفضة' : 'Low'}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="taskDueDate">{isRTL ? 'موعد التسليم' : 'Due Date'}</Label>
+                  <Input
+                    id="taskDueDate"
+                    type="date"
+                    value={taskForm.dueDate || ''}
+                    onChange={(e) => setTaskForm(prev => ({ ...prev, dueDate: e.target.value }))}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="taskAssignees">{isRTL ? 'تكليف إلى' : 'Assign To'}</Label>
+                <Select onValueChange={(value) => setTaskForm(prev => ({ ...prev, assignedTo: [value] }))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={isRTL ? 'اختر الموظف' : 'Select Employee'} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {employees.map((employee) => (
+                      <SelectItem key={employee.id} value={employee.id}>
+                        {employee.fullName} - {employee.position}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="estimatedHours">{isRTL ? 'الساعات المقدرة' : 'Estimated Hours'}</Label>
+                <Input
+                  id="estimatedHours"
+                  type="number"
+                  value={taskForm.estimatedHours || ''}
+                  onChange={(e) => setTaskForm(prev => ({ ...prev, estimatedHours: Number(e.target.value) }))}
+                  placeholder="40"
+                />
+              </div>
+            </div>
+            
+            <div className="flex justify-end gap-2 pt-4 border-t">
+              <Button variant="outline" onClick={() => setIsAddTaskOpen(false)}>
+                {isRTL ? 'إلغاء' : 'Cancel'}
+              </Button>
+              <Button onClick={handleAddTask} disabled={isLoading}>
+                {isLoading && <RefreshCw className="h-4 w-4 mr-2 animate-spin" />}
+                <Save className="h-4 w-4 mr-2" />
+                {isRTL ? 'حفظ المهمة' : 'Save Task'}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };
