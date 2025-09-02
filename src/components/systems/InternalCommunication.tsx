@@ -18,9 +18,10 @@ import {
   User, Briefcase, MapPin, Calendar as CalendarIcon, ThumbsUp, Percent, TrendingDown,
   Code, Heart, Lightbulb, Shield, Zap as ZapIcon, Cpu, Palette, Globe, BarChart, Route,
   GitBranch, Layers, Network, Compass, Map, ArrowUp, ArrowRight, ChevronRight, Trophy, Medal,
+  Video, Monitor,
   Crosshair, Focus, Radar, Telescope, Binoculars, Gem, Diamond, Rocket, PlayCircle, Save,
   Megaphone, Newspaper, Send, Calendar as CalendarIcon2, Vote, MessageCircle, Paperclip,
-  Video, Image, Mic, CheckCircle, XCircle, ClockIcon, Bookmark, Tag, Hash
+  Image, Mic, CheckCircle, XCircle, ClockIcon, Bookmark, Tag, Hash
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, LineChart, Line } from 'recharts';
 
@@ -669,7 +670,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
               <div className="flex items-center gap-3 mb-4">
                 {newsletter.type === 'PDF' && <FileText className="h-8 w-8 text-red-500" />}
                 {newsletter.type === 'Video' && <Video className="h-8 w-8 text-blue-500" />}
-                {newsletter.type === 'Presentation' && <Slideshow className="h-8 w-8 text-green-500" />}
+                {newsletter.type === 'Presentation' && <Monitor className="h-8 w-8 text-green-500" />}
                 <div className="flex-1">
                   <h3 className="font-semibold text-foreground">{newsletter.title}</h3>
                   <p className="text-sm text-muted-foreground">{newsletter.type} • {newsletter.size}</p>
