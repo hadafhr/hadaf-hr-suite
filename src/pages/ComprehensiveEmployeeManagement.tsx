@@ -39,7 +39,8 @@ import {
   MessageSquare,
   MapPin,
   Heart,
-  Briefcase
+  Briefcase,
+  MessageCircle
 } from 'lucide-react';
 
 // Import components
@@ -63,6 +64,7 @@ import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
+import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
 import MeetingHub from '@/pages/MeetingHub';
 import { ElectronicSignature } from '@/components/systems/ElectronicSignature';
 import { TasksTracking } from '@/components/systems/TasksTracking';
@@ -220,6 +222,13 @@ const ComprehensiveEmployeeManagement = () => {
                 >
                   <Briefcase className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
                   مخزون المهارات
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="admin-communications" 
+                  className="group flex-shrink-0 px-6 py-3 rounded-lg whitespace-nowrap font-medium text-sm transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] min-w-[140px] justify-center hover:scale-105 hover:shadow-lg"
+                >
+                  <MessageCircle className="h-4 w-4 ml-2 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  الاتصالات الادارية
                 </TabsTrigger>
                 <TabsTrigger 
                   value="attendance" 
@@ -410,6 +419,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="skills-inventory">
             <SkillsInventorySystem onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="admin-communications">
+            <AdministrativeCommunications onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="attendance">
