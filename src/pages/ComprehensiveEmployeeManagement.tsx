@@ -78,7 +78,7 @@ import ArtificialIntelligence from '@/components/systems/ArtificialIntelligence'
 import Reports from '@/components/systems/Reports';
 import ComprehensiveDisciplinarySystem from '@/components/disciplinary/ComprehensiveDisciplinarySystem';
 import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
-import { TrackingSystem } from '@/components/systems/TrackingSystem';
+import { ComprehensiveFieldTracking } from '@/components/systems/ComprehensiveFieldTracking';
 import TeamWork from '@/components/systems/TeamWork';
 
 const ComprehensiveEmployeeManagement = () => {
@@ -548,7 +548,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
               <TabsContent value="tracking">
-                <TrackingSystem onBack={() => setActiveTab('dashboard')} />
+                <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
               </TabsContent>
 
           <TabsContent value="settings">
