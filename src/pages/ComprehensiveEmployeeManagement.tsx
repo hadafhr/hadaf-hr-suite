@@ -53,7 +53,7 @@ import { TeamMembers } from '@/components/systems/TeamMembers';
 import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
 import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendance';
 import { ComprehensiveLeaveSystem } from '@/components/leave/ComprehensiveLeaveSystem';
-import { ComprehensivePayrollSystem } from '@/components/payroll/ComprehensivePayrollSystem';
+import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
 import { OrganizationalDevelopment } from '@/components/systems/OrganizationalDevelopment';
 import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
@@ -473,7 +473,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="payroll">
-            <ComprehensivePayrollSystem />
+            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="government">
