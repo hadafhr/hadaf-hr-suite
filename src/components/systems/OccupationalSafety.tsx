@@ -781,12 +781,6 @@ const OccupationalSafety = () => {
             ))}
           </div>
         </TabsContent>
-      </Tabs>
-    </div>
-  );
-};
-
-export default OccupationalSafety;
 
         {/* Policies Tab */}
         <TabsContent value="policies" className="space-y-6">
