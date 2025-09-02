@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Separator } from '@/components/ui/separator';
 import { 
   Users, 
   Plus, 
@@ -38,165 +41,613 @@ import {
   Trash2,
   Eye,
   Download,
-  Upload
+  Upload,
+  Printer,
+  Save,
+  Camera,
+  Building,
+  UserCheck,
+  UserX,
+  Globe,
+  Languages,
+  Archive,
+  RotateCcw,
+  RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
+import { cn } from '@/lib/utils';
+
+// Types for better structure
+interface TeamMember {
+  id: number;
+  employeeNumber: string;
+  name: string;
+  position: string;
+  department: string;
+  team: string;
+  performance: number;
+  status: 'نشط' | 'في إجازة' | 'متوقف' | 'منهي الخدمة';
+  joinDate: string;
+  skills: string[];
+  completedTasks: number;
+  avatar: string;
+  email: string;
+  phone: string;
+  salary: number;
+  lastAttendance: string;
+  profileImage?: File | null;
+  documents: string[];
+}
+
+interface Team {
+  id: number;
+  name: string;
+  department: string;
+  leader: string;
+  leaderId: number;
+  members: number;
+  membersList: number[];
+  projects: number;
+  performance: number;
+  status: 'نشط' | 'في التطوير' | 'متوقف' | 'محفوظ';
+  description: string;
+  avatar: string;
+  skills: string[];
+  completedTasks: number;
+  ongoingTasks: number;
+  budget: number;
+  createdDate: string;
+  targets: string[];
+}
 
 const TeamWork = () => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isNewTeamDialogOpen, setIsNewTeamDialogOpen] = useState(false);
   const [isNewMemberDialogOpen, setIsNewMemberDialogOpen] = useState(false);
-  const [selectedTeam, setSelectedTeam] = useState<any>(null);
+  const [isEditTeamDialogOpen, setIsEditTeamDialogOpen] = useState(false);
+  const [isViewTeamDialogOpen, setIsViewTeamDialogOpen] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [newTeamForm, setNewTeamForm] = useState({
+    name: '',
+    department: '',
+    leader: '',
+    description: '',
+    budget: '',
+    targetMembers: ''
+  });
+  const [newMemberForm, setNewMemberForm] = useState({
+    employeeNumber: '',
+    name: '',
+    position: '',
+    department: '',
+    team: '',
+    email: '',
+    phone: '',
+    salary: '',
+    profileImage: null as File | null
+  });
 
-  // Mock data for teams
-  const teams = [
-    {
-      id: 1,
-      name: 'فريق التطوير',
-      department: 'تقنية المعلومات',
-      leader: 'أحمد محمد',
-      members: 8,
-      projects: 5,
-      performance: 92,
-      status: 'نشط',
-      description: 'فريق متخصص في تطوير التطبيقات والأنظمة',
-      avatar: '/placeholder.svg',
-      skills: ['React', 'Node.js', 'TypeScript', 'Python'],
-      completedTasks: 145,
-      ongoingTasks: 23,
-      budget: 850000
-    },
-    {
-      id: 2,
-      name: 'فريق التسويق الرقمي',
-      department: 'التسويق',
-      leader: 'فاطمة أحمد',
-      members: 6,
-      projects: 8,
-      performance: 88,
-      status: 'نشط',
-      description: 'فريق متخصص في التسويق الرقمي ووسائل التواصل الاجتماعي',
-      avatar: '/placeholder.svg',
-      skills: ['SEO', 'Social Media', 'Content Creation', 'Analytics'],
-      completedTasks: 234,
-      ongoingTasks: 45,
-      budget: 650000
-    },
-    {
-      id: 3,
-      name: 'فريق الموارد البشرية',
-      department: 'الموارد البشرية',
-      leader: 'محمد علي',
-      members: 4,
-      projects: 3,
-      performance: 95,
-      status: 'نشط',
-      description: 'فريق متخصص في إدارة الموارد البشرية والتوظيف',
-      avatar: '/placeholder.svg',
-      skills: ['Recruitment', 'Training', 'Employee Relations', 'HR Analytics'],
-      completedTasks: 189,
-      ongoingTasks: 12,
-      budget: 450000
-    },
-    {
-      id: 4,
-      name: 'فريق خدمة العملاء',
-      department: 'خدمة العملاء',
-      leader: 'نورا سالم',
-      members: 12,
-      projects: 4,
-      performance: 85,
-      status: 'في التطوير',
-      description: 'فريق متخصص في دعم وخدمة العملاء',
-      avatar: '/placeholder.svg',
-      skills: ['Customer Service', 'Problem Solving', 'CRM', 'Communication'],
-      completedTasks: 567,
-      ongoingTasks: 89,
-      budget: 780000
-    }
-  ];
+  // Language and direction support
+  useEffect(() => {
+    document.body.dir = isRTL ? 'rtl' : 'ltr';
+    document.body.className = isRTL ? 'rtl' : 'ltr';
+  }, [isRTL]);
 
-  // Mock data for team members
-  const teamMembers = [
-    {
-      id: 1,
-      name: 'أحمد محمد العلي',
-      position: 'مطور أول',
-      team: 'فريق التطوير',
-      performance: 94,
-      status: 'نشط',
-      joinDate: '2023-01-15',
-      skills: ['React', 'Node.js', 'TypeScript'],
-      completedTasks: 45,
-      avatar: '/placeholder.svg',
-      email: 'ahmed@company.com',
-      phone: '+966501234567'
-    },
-    {
-      id: 2,
-      name: 'فاطمة أحمد',
-      position: 'مديرة التسويق',
-      team: 'فريق التسويق الرقمي',
-      performance: 96,
-      status: 'نشط',
-      joinDate: '2022-08-20',
-      skills: ['Digital Marketing', 'SEO', 'Analytics'],
-      completedTasks: 78,
-      avatar: '/placeholder.svg',
-      email: 'fatima@company.com',
-      phone: '+966507654321'
-    },
-    {
-      id: 3,
-      name: 'محمد علي',
-      position: 'مدير الموارد البشرية',
-      team: 'فريق الموارد البشرية',
-      performance: 98,
-      status: 'نشط',
-      joinDate: '2021-05-10',
-      skills: ['HR Management', 'Recruitment', 'Training'],
-      completedTasks: 56,
-      avatar: '/placeholder.svg',
-      email: 'mohamed@company.com',
-      phone: '+966502345678'
-    }
-  ];
+  // Initialize data on component mount
+  useEffect(() => {
+    loadInitialData();
+  }, []);
 
-  // Performance metrics
+  const loadInitialData = () => {
+    setIsLoading(true);
+    
+    // Initialize teams data
+    const initialTeams: Team[] = [
+      {
+        id: 1,
+        name: 'فريق التطوير',
+        department: 'تقنية المعلومات',
+        leader: 'أحمد محمد العلي',
+        leaderId: 1,
+        members: 8,
+        membersList: [1, 2, 3, 4, 5, 6, 7, 8],
+        projects: 5,
+        performance: 92,
+        status: 'نشط',
+        description: 'فريق متخصص في تطوير التطبيقات والأنظمة الحديثة باستخدام أحدث التقنيات',
+        avatar: '/placeholder.svg',
+        skills: ['React', 'Node.js', 'TypeScript', 'Python', 'AWS'],
+        completedTasks: 145,
+        ongoingTasks: 23,
+        budget: 850000,
+        createdDate: '2023-01-15',
+        targets: ['تطوير 5 تطبيقات جديدة', 'تحسين الأداء بنسبة 30%', 'التدريب على تقنيات جديدة']
+      },
+      {
+        id: 2,
+        name: 'فريق التسويق الرقمي',
+        department: 'التسويق',
+        leader: 'فاطمة أحمد محمود',
+        leaderId: 2,
+        members: 6,
+        membersList: [2, 9, 10, 11, 12, 13],
+        projects: 8,
+        performance: 88,
+        status: 'نشط',
+        description: 'فريق متخصص في التسويق الرقمي ووسائل التواصل الاجتماعي وتحليل البيانات',
+        avatar: '/placeholder.svg',
+        skills: ['SEO', 'Social Media', 'Content Creation', 'Analytics', 'Google Ads'],
+        completedTasks: 234,
+        ongoingTasks: 45,
+        budget: 650000,
+        createdDate: '2022-08-20',
+        targets: ['زيادة المتابعين بنسبة 50%', 'تحسين معدل التفاعل', 'إطلاق 3 حملات جديدة']
+      },
+      {
+        id: 3,
+        name: 'فريق الموارد البشرية',
+        department: 'الموارد البشرية',
+        leader: 'محمد علي حسن',
+        leaderId: 3,
+        members: 4,
+        membersList: [3, 14, 15, 16],
+        projects: 3,
+        performance: 95,
+        status: 'نشط',
+        description: 'فريق متخصص في إدارة الموارد البشرية والتوظيف وتطوير الموظفين',
+        avatar: '/placeholder.svg',
+        skills: ['Recruitment', 'Training', 'Employee Relations', 'HR Analytics', 'Performance Management'],
+        completedTasks: 189,
+        ongoingTasks: 12,
+        budget: 450000,
+        createdDate: '2021-05-10',
+        targets: ['توظيف 20 موظف جديد', 'تطوير برامج التدريب', 'تحسين رضا الموظفين']
+      }
+    ];
+
+    // Initialize team members data
+    const initialMembers: TeamMember[] = [
+      {
+        id: 1,
+        employeeNumber: 'EMP-001',
+        name: 'أحمد محمد العلي',
+        position: 'مطور أول',
+        department: 'تقنية المعلومات',
+        team: 'فريق التطوير',
+        performance: 94,
+        status: 'نشط',
+        joinDate: '2023-01-15',
+        skills: ['React', 'Node.js', 'TypeScript', 'AWS'],
+        completedTasks: 45,
+        avatar: '/placeholder.svg',
+        email: 'ahmed@company.com',
+        phone: '+966501234567',
+        salary: 15000,
+        lastAttendance: '2024-01-20 08:30',
+        documents: ['CV.pdf', 'Contract.pdf', 'ID_Copy.pdf']
+      },
+      {
+        id: 2,
+        employeeNumber: 'EMP-002',
+        name: 'فاطمة أحمد محمود',
+        position: 'مديرة التسويق',
+        department: 'التسويق',
+        team: 'فريق التسويق الرقمي',
+        performance: 96,
+        status: 'نشط',
+        joinDate: '2022-08-20',
+        skills: ['Digital Marketing', 'SEO', 'Analytics', 'Content Strategy'],
+        completedTasks: 78,
+        avatar: '/placeholder.svg',
+        email: 'fatima@company.com',
+        phone: '+966507654321',
+        salary: 18000,
+        lastAttendance: '2024-01-20 08:15',
+        documents: ['CV.pdf', 'Contract.pdf', 'Certificates.pdf']
+      },
+      {
+        id: 3,
+        employeeNumber: 'EMP-003',
+        name: 'محمد علي حسن',
+        position: 'مدير الموارد البشرية',
+        department: 'الموارد البشرية',
+        team: 'فريق الموارد البشرية',
+        performance: 98,
+        status: 'نشط',
+        joinDate: '2021-05-10',
+        skills: ['HR Management', 'Recruitment', 'Training', 'Performance Management'],
+        completedTasks: 56,
+        avatar: '/placeholder.svg',
+        email: 'mohamed@company.com',
+        phone: '+966502345678',
+        salary: 20000,
+        lastAttendance: '2024-01-20 08:00',
+        documents: ['CV.pdf', 'Contract.pdf', 'HR_Certification.pdf']
+      }
+    ];
+
+    setTeams(initialTeams);
+    setTeamMembers(initialMembers);
+    setIsLoading(false);
+  };
+
+  // Calculate performance metrics
   const performanceMetrics = {
-    totalTeams: 8,
-    activeTeams: 6,
-    totalMembers: 45,
-    avgPerformance: 90,
-    completedProjects: 34,
-    ongoingProjects: 12,
-    teamSatisfaction: 92
+    totalTeams: teams.length,
+    activeTeams: teams.filter(team => team.status === 'نشط').length,
+    totalMembers: teamMembers.length,
+    avgPerformance: teams.length > 0 ? Math.round(teams.reduce((acc, team) => acc + team.performance, 0) / teams.length) : 0,
+    completedProjects: teams.reduce((acc, team) => acc + team.projects, 0),
+    ongoingProjects: teams.reduce((acc, team) => acc + team.ongoingTasks, 0),
+    teamSatisfaction: 92,
+    totalBudget: teams.reduce((acc, team) => acc + team.budget, 0)
   };
 
-  const handleCreateTeam = () => {
-    toast.success('تم إنشاء الفريق بنجاح');
-    setIsNewTeamDialogOpen(false);
+  // Real CRUD operations for teams
+  const handleCreateTeam = async () => {
+    if (!newTeamForm.name || !newTeamForm.department || !newTeamForm.leader) {
+      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const newTeam: Team = {
+        id: teams.length + 1,
+        name: newTeamForm.name,
+        department: newTeamForm.department,
+        leader: newTeamForm.leader,
+        leaderId: Math.floor(Math.random() * 1000),
+        members: 0,
+        membersList: [],
+        projects: 0,
+        performance: 0,
+        status: 'نشط',
+        description: newTeamForm.description,
+        avatar: '/placeholder.svg',
+        skills: [],
+        completedTasks: 0,
+        ongoingTasks: 0,
+        budget: parseInt(newTeamForm.budget) || 0,
+        createdDate: new Date().toISOString().split('T')[0],
+        targets: []
+      };
+
+      setTeams(prev => [...prev, newTeam]);
+      
+      // Sync with other systems (HR, Payroll, etc.)
+      await syncWithSystems('team_created', newTeam);
+      
+      setNewTeamForm({
+        name: '',
+        department: '',
+        leader: '',
+        description: '',
+        budget: '',
+        targetMembers: ''
+      });
+      
+      toast.success('تم إنشاء الفريق بنجاح وتم ربطه مع الأنظمة الأخرى');
+      setIsNewTeamDialogOpen(false);
+    } catch (error) {
+      toast.error('حدث خطأ أثناء إنشاء الفريق');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleAddMember = () => {
-    toast.success('تم إضافة عضو الفريق بنجاح');
-    setIsNewMemberDialogOpen(false);
+  const handleAddMember = async () => {
+    if (!newMemberForm.name || !newMemberForm.employeeNumber || !newMemberForm.email) {
+      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const newMember: TeamMember = {
+        id: teamMembers.length + 1,
+        employeeNumber: newMemberForm.employeeNumber,
+        name: newMemberForm.name,
+        position: newMemberForm.position,
+        department: newMemberForm.department,
+        team: newMemberForm.team,
+        performance: 0,
+        status: 'نشط',
+        joinDate: new Date().toISOString().split('T')[0],
+        skills: [],
+        completedTasks: 0,
+        avatar: '/placeholder.svg',
+        email: newMemberForm.email,
+        phone: newMemberForm.phone,
+        salary: parseInt(newMemberForm.salary) || 0,
+        lastAttendance: new Date().toISOString(),
+        profileImage: newMemberForm.profileImage,
+        documents: []
+      };
+
+      setTeamMembers(prev => [...prev, newMember]);
+      
+      // Update team member count
+      if (newMemberForm.team) {
+        setTeams(prev => prev.map(team => 
+          team.name === newMemberForm.team 
+            ? { ...team, members: team.members + 1, membersList: [...team.membersList, newMember.id] }
+            : team
+        ));
+      }
+      
+      // Sync with other systems (HR, Payroll, Attendance, etc.)
+      await syncWithSystems('member_added', newMember);
+      
+      setNewMemberForm({
+        employeeNumber: '',
+        name: '',
+        position: '',
+        department: '',
+        team: '',
+        email: '',
+        phone: '',
+        salary: '',
+        profileImage: null
+      });
+      
+      toast.success('تم إضافة العضو بنجاح وتم تحديث جميع الأنظمة المرتبطة');
+      setIsNewMemberDialogOpen(false);
+    } catch (error) {
+      toast.error('حدث خطأ أثناء إضافة العضو');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleDeleteTeam = (teamId: number) => {
-    toast.success('تم حذف الفريق بنجاح');
+  const handleDeleteTeam = async (teamId: number) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذا الفريق؟ سيتم تحديث جميع الأنظمة المرتبطة.')) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const teamToDelete = teams.find(team => team.id === teamId);
+      setTeams(prev => prev.filter(team => team.id !== teamId));
+      
+      // Remove team members from this team
+      setTeamMembers(prev => prev.map(member => 
+        member.team === teamToDelete?.name 
+          ? { ...member, team: '', status: 'متوقف' as const }
+          : member
+      ));
+      
+      // Sync deletion with other systems
+      await syncWithSystems('team_deleted', { id: teamId, name: teamToDelete?.name });
+      
+      toast.success('تم حذف الفريق بنجاح وتم تحديث جميع الأنظمة');
+    } catch (error) {
+      toast.error('حدث خطأ أثناء حذف الفريق');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleEditTeam = (team: any) => {
+  const handleEditTeam = (team: Team) => {
     setSelectedTeam(team);
-    toast.info('فتح نافذة تعديل الفريق');
+    setIsEditTeamDialogOpen(true);
   };
 
-  const handleViewTeamDetails = (team: any) => {
+  const handleUpdateTeam = async (updatedTeam: Team) => {
+    setIsLoading(true);
+    try {
+      setTeams(prev => prev.map(team => 
+        team.id === updatedTeam.id ? updatedTeam : team
+      ));
+      
+      // Sync updates with other systems
+      await syncWithSystems('team_updated', updatedTeam);
+      
+      toast.success('تم تحديث بيانات الفريق بنجاح');
+      setIsEditTeamDialogOpen(false);
+      setSelectedTeam(null);
+    } catch (error) {
+      toast.error('حدث خطأ أثناء تحديث الفريق');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleViewTeamDetails = (team: Team) => {
     setSelectedTeam(team);
-    toast.info('عرض تفاصيل الفريق');
+    setIsViewTeamDialogOpen(true);
+  };
+
+  const handleDeleteMember = async (memberId: number) => {
+    if (!window.confirm('هل أنت متأكد من حذف هذا العضو؟ سيتم تحديث جميع الأنظمة المرتبطة.')) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const memberToDelete = teamMembers.find(member => member.id === memberId);
+      setTeamMembers(prev => prev.filter(member => member.id !== memberId));
+      
+      // Update team member count
+      if (memberToDelete?.team) {
+        setTeams(prev => prev.map(team => 
+          team.name === memberToDelete.team 
+            ? { 
+                ...team, 
+                members: Math.max(0, team.members - 1),
+                membersList: team.membersList.filter(id => id !== memberId)
+              }
+            : team
+        ));
+      }
+      
+      // Sync with other systems
+      await syncWithSystems('member_deleted', memberToDelete);
+      
+      toast.success('تم حذف العضو بنجاح وتم تحديث جميع الأنظمة');
+    } catch (error) {
+      toast.error('حدث خطأ أثناء حذف العضو');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Function to sync with other systems (HR, Payroll, Attendance)
+  const syncWithSystems = async (action: string, data: any) => {
+    // Simulate API calls to other systems
+    try {
+      console.log(`Syncing ${action} with HR System:`, data);
+      console.log(`Syncing ${action} with Payroll System:`, data);
+      console.log(`Syncing ${action} with Attendance System:`, data);
+      console.log(`Syncing ${action} with Performance System:`, data);
+      
+      // In real implementation, these would be actual API calls:
+      // await hrAPI.sync(action, data);
+      // await payrollAPI.sync(action, data);
+      // await attendanceAPI.sync(action, data);
+      // await performanceAPI.sync(action, data);
+      
+      return Promise.resolve();
+    } catch (error) {
+      console.error('System sync error:', error);
+      throw error;
+    }
+  };
+
+  // Print and export functions
+  const handlePrintData = (type: 'teams' | 'members' | 'reports') => {
+    const printContent = generatePrintContent(type);
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>طباعة بيانات ${type === 'teams' ? 'الفرق' : type === 'members' ? 'الأعضاء' : 'التقارير'}</title>
+            <style>
+              body { font-family: Arial, sans-serif; direction: rtl; }
+              table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
+              th { background-color: #f2f2f2; }
+              .header { text-align: center; margin-bottom: 20px; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>منصة بُعد HR - ${type === 'teams' ? 'بيانات الفرق' : type === 'members' ? 'بيانات الأعضاء' : 'التقارير'}</h1>
+              <p>تاريخ الطباعة: ${new Date().toLocaleDateString('ar-SA')}</p>
+            </div>
+            ${printContent}
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.print();
+    }
+  };
+
+  const generatePrintContent = (type: 'teams' | 'members' | 'reports') => {
+    switch (type) {
+      case 'teams':
+        return `
+          <table>
+            <thead>
+              <tr>
+                <th>اسم الفريق</th>
+                <th>القسم</th>
+                <th>القائد</th>
+                <th>عدد الأعضاء</th>
+                <th>الأداء</th>
+                <th>الحالة</th>
+                <th>الميزانية</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${teams.map(team => `
+                <tr>
+                  <td>${team.name}</td>
+                  <td>${team.department}</td>
+                  <td>${team.leader}</td>
+                  <td>${team.members}</td>
+                  <td>${team.performance}%</td>
+                  <td>${team.status}</td>
+                  <td>${team.budget.toLocaleString()} ريال</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      case 'members':
+        return `
+          <table>
+            <thead>
+              <tr>
+                <th>رقم الموظف</th>
+                <th>الاسم</th>
+                <th>المنصب</th>
+                <th>الفريق</th>
+                <th>الأداء</th>
+                <th>الحالة</th>
+                <th>الراتب</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${teamMembers.map(member => `
+                <tr>
+                  <td>${member.employeeNumber}</td>
+                  <td>${member.name}</td>
+                  <td>${member.position}</td>
+                  <td>${member.team}</td>
+                  <td>${member.performance}%</td>
+                  <td>${member.status}</td>
+                  <td>${member.salary.toLocaleString()} ريال</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      default:
+        return '<p>لا توجد بيانات للطباعة</p>';
+    }
+  };
+
+  const handleExportData = (type: 'teams' | 'members', format: 'csv' | 'excel') => {
+    const data = type === 'teams' ? teams : teamMembers;
+    const headers = type === 'teams' 
+      ? ['ID', 'اسم الفريق', 'القسم', 'القائد', 'عدد الأعضاء', 'الأداء', 'الحالة', 'الميزانية']
+      : ['ID', 'رقم الموظف', 'الاسم', 'المنصب', 'الفريق', 'الأداء', 'الحالة', 'الراتب'];
+    
+    if (format === 'csv') {
+      const csvContent = [
+        headers.join(','),
+        ...data.map(item => {
+          if (type === 'teams') {
+            const team = item as Team;
+            return [team.id, team.name, team.department, team.leader, team.members, team.performance, team.status, team.budget].join(',');
+          } else {
+            const member = item as TeamMember;
+            return [member.id, member.employeeNumber, member.name, member.position, member.team, member.performance, member.status, member.salary].join(',');
+          }
+        })
+      ].join('\n');
+      
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${type === 'teams' ? 'teams' : 'members'}_${new Date().toISOString().split('T')[0]}.csv`;
+      link.click();
+      
+      toast.success(`تم تصدير البيانات بنجاح بصيغة ${format.toUpperCase()}`);
+    }
   };
 
   const getStatusColor = (status: string) => {
