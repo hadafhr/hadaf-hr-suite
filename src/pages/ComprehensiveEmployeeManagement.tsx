@@ -80,6 +80,7 @@ import ComprehensiveDisciplinarySystem from '@/components/disciplinary/Comprehen
 import { ComprehensiveTalentManagement } from '@/components/systems/ComprehensiveTalentManagement';
 import { ComprehensiveFieldTracking } from '@/components/systems/ComprehensiveFieldTracking';
 import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTasksFollowup';
+import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealthSafety';
 import TeamWork from '@/components/systems/TeamWork';
 
 const ComprehensiveEmployeeManagement = () => {
@@ -454,7 +455,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="occupational-safety">
-            <OccupationalSafety />
+            <OccupationalHealthSafety onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="social-services">
