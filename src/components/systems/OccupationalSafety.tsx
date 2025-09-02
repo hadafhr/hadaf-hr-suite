@@ -1,1461 +1,1541 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Progress } from '@/components/ui/progress';
-import { Switch } from '@/components/ui/switch';
-import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
-  HardHat, 
-  Shield, 
-  AlertTriangle, 
-  FileText, 
-  Users, 
-  Calendar,
-  Clock,
-  MapPin,
-  Plus,
-  Eye,
-  Edit,
-  Download,
-  Search,
-  Filter,
-  BarChart3,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
-  TrendingUp,
-  Activity,
-  Target,
-  Settings,
-  Bell,
-  BookOpen,
-  Brain,
-  Stethoscope,
-  ClipboardCheck,
-  Upload,
-  Send,
-  MessageSquare,
-  Zap,
-  Award,
-  Camera,
-  Phone,
-  Mail,
-  User,
-  Building,
-  UserCheck,
-  Timer,
-  Trash2,
-  RefreshCw,
-  Star
+  ArrowLeft, FileText, Send, Plus, Settings, BarChart3, Eye, Edit, Trash2, 
+  Download, Upload, Printer, Search, Filter, Calendar, Clock, Bell,
+  User, Briefcase, MapPin, Calendar as CalendarIcon, ThumbsUp, Percent, TrendingDown,
+  Code, Heart, Lightbulb, Shield, Zap as ZapIcon, Cpu, Palette, Globe, BarChart, Route,
+  GitBranch, Layers, Network, Compass, Map, ArrowUp, ArrowRight, ChevronRight, Trophy, Medal,
+  Crosshair, Focus, Radar, Telescope, Binoculars, Gem, Diamond, Rocket, PlayCircle, Save,
+  AlertTriangle, Activity, Stethoscope, HardHat, BookOpen, ClipboardList, FileCheck,
+  UserCheck, UserX, CheckCircle, XCircle, AlertCircle, Timer, Target,
+  TrendingUp, Zap, FileImage, Camera, Mic, Video, Image, Paperclip, Flag, Users
 } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, LineChart, Line } from 'recharts';
+import { toast } from "sonner";
 
-const OccupationalSafety = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [aiChatOpen, setAiChatOpen] = useState(false);
-  const [chatMessage, setChatMessage] = useState('');
-  const [selectedIncident, setSelectedIncident] = useState<any>(null);
-  const [selectedPolicy, setSelectedPolicy] = useState<any>(null);
-  const [selectedTraining, setSelectedTraining] = useState<any>(null);
-  const [selectedExam, setSelectedExam] = useState<any>(null);
-  const [selectedRisk, setSelectedRisk] = useState<any>(null);
-  const { toast } = useToast();
+interface OccupationalSafetyProps {
+  onBack?: () => void;
+}
 
-  // Comprehensive Mock Data
-  const mockIncidents = [
+interface SafetyIncident {
+  id: string;
+  type: 'injury' | 'near_miss' | 'property_damage' | 'environmental';
+  title: string;
+  description: string;
+  location: string;
+  reportedBy: string;
+  reportedDate: string;
+  incidentDate: string;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  status: 'reported' | 'investigating' | 'resolved' | 'closed';
+  investigator?: string;
+  correctiveActions?: string[];
+  attachments: number;
+  daysLost?: number;
+}
+
+interface MedicalExam {
+  id: string;
+  employeeName: string;
+  employeeId: string;
+  examType: 'periodic' | 'pre_employment' | 'post_incident' | 'return_to_work';
+  scheduledDate: string;
+  completedDate?: string;
+  status: 'scheduled' | 'completed' | 'overdue' | 'cancelled';
+  results?: 'fit' | 'fit_with_restrictions' | 'unfit' | 'pending';
+  restrictions?: string;
+  nextExamDate?: string;
+  medicalOfficer?: string;
+}
+
+interface SafetyPolicy {
+  id: string;
+  title: string;
+  category: string;
+  version: string;
+  publishedDate: string;
+  lastUpdated: string;
+  status: 'draft' | 'published' | 'archived';
+  acknowledgments: number;
+  totalEmployees: number;
+  fileUrl?: string;
+  description: string;
+}
+
+interface RiskAssessment {
+  id: string;
+  hazardTitle: string;
+  location: string;
+  category: string;
+  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  probability: number;
+  severity: number;
+  riskScore: number;
+  controlMeasures: string[];
+  assignedTo: string;
+  targetDate: string;
+  status: 'identified' | 'assessing' | 'controlling' | 'monitored';
+  lastReviewed: string;
+}
+
+interface SafetyTraining {
+  id: string;
+  title: string;
+  category: string;
+  duration: number;
+  mandatory: boolean;
+  validityPeriod: number;
+  completedCount: number;
+  totalAssigned: number;
+  completionRate: number;
+  nextScheduled?: string;
+  trainer?: string;
+}
+
+export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }) => {
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("all");
+  const [isAddIncidentOpen, setIsAddIncidentOpen] = useState(false);
+  const [isAddExamOpen, setIsAddExamOpen] = useState(false);
+  const [isAddPolicyOpen, setIsAddPolicyOpen] = useState(false);
+  const [isAddRiskOpen, setIsAddRiskOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+
+  // Mock data for incidents
+  const incidents: SafetyIncident[] = [
     {
-      id: 'INC001',
-      title: 'انزلاق في المختبر',
-      type: 'حادث',
-      severity: 'متوسط',
-      location: 'المختبر الرئيسي - الطابق الثاني',
-      date: '2024-01-15',
-      time: '10:30',
-      reporter: 'أحمد محمد',
-      reporterPosition: 'فني مختبر',
-      status: 'تحت التحقيق',
-      description: 'انزلاق موظف بسبب أرضية مبللة بالقرب من حوض الغسيل',
-      witnesses: ['سارة أحمد', 'محمد علي'],
-      medicalAttention: true,
-      workDaysLost: 2,
-      cost: 1500,
-      rootCause: 'عدم وضع علامات تحذيرية',
-      correctiveActions: 'تركيب علامات تحذيرية وتحسين نظام التصريف',
-      photos: ['photo1.jpg', 'photo2.jpg'],
-      documents: ['medical_report.pdf', 'incident_form.pdf']
+      id: "1",
+      type: "injury",
+      title: "إصابة في اليد أثناء التشغيل",
+      description: "إصابة طفيفة في اليد اليسرى للعامل أثناء تشغيل المعدة",
+      location: "ورشة الإنتاج - الخط الثاني",
+      reportedBy: "أحمد محمد",
+      reportedDate: "2024-01-15",
+      incidentDate: "2024-01-15",
+      severity: "medium",
+      status: "investigating",
+      investigator: "مدير السلامة",
+      attachments: 3,
+      daysLost: 0
     },
     {
-      id: 'INC002', 
-      title: 'تسرب كيميائي بسيط',
-      type: 'شبه حادث',
-      severity: 'منخفض',
-      location: 'المخزن - القسم الكيميائي',
-      date: '2024-01-10',
-      time: '14:15',
-      reporter: 'فاطمة علي',
-      reporterPosition: 'مسؤولة المخزن',
-      status: 'مغلق',
-      description: 'تسرب بسيط من عبوة كيميائية بسبب تلف الغطاء',
-      witnesses: ['خالد محمد'],
-      medicalAttention: false,
-      workDaysLost: 0,
-      cost: 200,
-      rootCause: 'تلف في الغطاء بسبب التخزين غير السليم',
-      correctiveActions: 'استبدال العبوة وتحسين طرق التخزين',
-      photos: ['chemical_leak.jpg'],
-      documents: ['cleanup_report.pdf']
+      id: "2",
+      type: "near_miss",
+      title: "كاد أن يحدث سقوط من الارتفاع",
+      description: "عامل كاد أن يسقط من السقالة بسبب عدم ربط حزام الأمان",
+      location: "موقع البناء - الطابق الثالث",
+      reportedBy: "سارة أحمد",
+      reportedDate: "2024-01-14",
+      incidentDate: "2024-01-14",
+      severity: "high",
+      status: "resolved",
+      attachments: 1,
+      daysLost: 0
     },
     {
-      id: 'INC003',
-      title: 'إصابة بجرح بسيط',
-      type: 'حادث',
-      severity: 'منخفض',
-      location: 'ورشة الصيانة',
-      date: '2024-01-20',
-      time: '09:45',
-      reporter: 'عمر حسن',
-      reporterPosition: 'فني صيانة',
-      status: 'مكتمل',
-      description: 'جرح بسيط في اليد أثناء استخدام أداة حادة',
-      witnesses: ['أحمد سالم'],
-      medicalAttention: true,
-      workDaysLost: 0,
-      cost: 100,
-      rootCause: 'عدم استخدام قفازات الحماية',
-      correctiveActions: 'التأكيد على استخدام معدات الحماية',
-      photos: ['injury.jpg'],
-      documents: ['first_aid_report.pdf']
+      id: "3",
+      type: "property_damage",
+      title: "تلف في المعدة",
+      description: "تلف في معدة الرفع بسبب التحميل الزائد",
+      location: "المستودع الرئيسي",
+      reportedBy: "محمد علي",
+      reportedDate: "2024-01-13",
+      incidentDate: "2024-01-13",
+      severity: "medium",
+      status: "closed",
+      attachments: 2,
+      daysLost: 0
     }
   ];
 
-  const mockPolicies = [
+  // Mock data for medical exams
+  const medicalExams: MedicalExam[] = [
     {
-      id: 'POL001',
-      title: 'سياسة السلامة العامة',
-      category: 'السلامة العامة',
-      version: '2.1',
-      effectiveDate: '2024-01-01',
-      reviewDate: '2024-12-31',
-      approvedBy: 'المدير العام',
-      status: 'نشط',
-      readBy: 145,
-      totalEmployees: 200,
-      description: 'السياسة الأساسية للسلامة والصحة المهنية في المنشأة',
-      document: 'safety_policy_v2.1.pdf',
-      acknowledgments: [
-        { employee: 'أحمد محمد', date: '2024-01-15', position: 'مهندس' },
-        { employee: 'فاطمة علي', date: '2024-01-16', position: 'محاسبة' }
-      ]
+      id: "1",
+      employeeName: "أحمد محمد علي",
+      employeeId: "EMP001",
+      examType: "periodic",
+      scheduledDate: "2024-01-20",
+      status: "scheduled",
+      nextExamDate: "2025-01-20",
+      medicalOfficer: "د. فاطمة أحمد"
     },
     {
-      id: 'POL002',
-      title: 'إجراءات الطوارئ والإخلاء',
-      category: 'الطوارئ',
-      version: '1.5',
-      effectiveDate: '2024-01-15',
-      reviewDate: '2024-06-15',
-      approvedBy: 'مدير السلامة',
-      status: 'نشط',
-      readBy: 178,
-      totalEmployees: 200,
-      description: 'الإجراءات المتبعة في حالات الطوارئ وخطط الإخلاء',
-      document: 'emergency_procedures_v1.5.pdf',
-      acknowledgments: []
+      id: "2",
+      employeeName: "سارة محمد",
+      employeeId: "EMP002",
+      examType: "pre_employment",
+      scheduledDate: "2024-01-10",
+      completedDate: "2024-01-10",
+      status: "completed",
+      results: "fit",
+      medicalOfficer: "د. محمد سالم"
+    },
+    {
+      id: "3",
+      employeeName: "محمد علي",
+      employeeId: "EMP003",
+      examType: "periodic",
+      scheduledDate: "2024-01-05",
+      status: "overdue",
+      nextExamDate: "2024-02-05",
+      medicalOfficer: "د. فاطمة أحمد"
     }
   ];
 
-  const mockTrainings = [
+  // Mock data for policies
+  const policies: SafetyPolicy[] = [
     {
-      id: 'TRN001',
-      title: 'السلامة في بيئة العمل',
-      type: 'إجباري',
-      category: 'السلامة العامة',
-      duration: '4 ساعات',
-      instructor: 'د. محمد الأحمد',
-      instructorQualifications: 'دكتوراه في السلامة المهنية',
-      participants: 25,
-      maxParticipants: 30,
-      date: '2024-02-01',
-      time: '09:00-13:00',
-      location: 'قاعة التدريب الرئيسية',
-      status: 'مجدول',
-      objectives: [
-        'فهم أساسيات السلامة المهنية',
-        'التعرف على المخاطر الشائعة',
-        'تطبيق إجراءات السلامة'
-      ],
-      materials: ['عرض تقديمي', 'كتيب السلامة', 'فيديو توضيحي'],
-      assessment: true,
-      certificate: true,
-      cost: 5000,
-      feedback: []
+      id: "1",
+      title: "دليل السلامة العامة",
+      category: "عام",
+      version: "2.1",
+      publishedDate: "2024-01-01",
+      lastUpdated: "2024-01-10",
+      status: "published",
+      acknowledgments: 45,
+      totalEmployees: 50,
+      description: "الدليل الشامل لقواعد السلامة في مكان العمل"
     },
     {
-      id: 'TRN002',
-      title: 'استخدام معدات الحماية الشخصية',
-      type: 'إجباري',
-      category: 'معدات الحماية',
-      duration: '2 ساعة',
-      instructor: 'أ. سارة محمد',
-      instructorQualifications: 'خبيرة سلامة معتمدة',
-      participants: 15,
-      maxParticipants: 20,
-      date: '2024-01-25',
-      time: '10:00-12:00',
-      location: 'ورشة التدريب العملي',
-      status: 'مكتمل',
-      objectives: [
-        'التعرف على أنواع معدات الحماية',
-        'الاستخدام الصحيح للمعدات',
-        'صيانة وفحص المعدات'
-      ],
-      materials: ['عينات من المعدات', 'دليل المستخدم'],
-      assessment: true,
-      certificate: true,
-      cost: 2000,
-      feedback: [
-        { participant: 'أحمد علي', rating: 5, comment: 'تدريب ممتاز وعملي' },
-        { participant: 'فاطمة سالم', rating: 4, comment: 'مفيد جداً' }
-      ]
+      id: "2",
+      title: "إجراءات الطوارئ",
+      category: "طوارئ",
+      version: "1.5",
+      publishedDate: "2023-12-15",
+      lastUpdated: "2024-01-05",
+      status: "published",
+      acknowledgments: 48,
+      totalEmployees: 50,
+      description: "خطة الاستجابة للطوارئ والإخلاء"
     }
   ];
 
-  const mockMedicalExams = [
+  // Mock data for risk assessments
+  const riskAssessments: RiskAssessment[] = [
     {
-      id: 'MED001',
-      employeeId: 'EMP001',
-      employeeName: 'أحمد محمد',
-      position: 'فني مختبر',
-      department: 'المختبرات',
-      examType: 'فحص دوري سنوي',
-      scheduledDate: '2024-02-01',
-      completedDate: null,
-      status: 'مجدول',
-      clinic: 'مركز الفحوص الطبية المتقدم',
-      doctor: 'د. سامي الأحمد',
-      tests: ['فحص الدم الشامل', 'فحص الأشعة', 'فحص العيون', 'فحص السمع'],
-      results: null,
-      recommendations: null,
-      restrictions: null,
-      nextExamDate: '2025-02-01',
-      cost: 800,
-      notes: 'فحص أولي للموظف الجديد'
-    },
-    {
-      id: 'MED002',
-      employeeId: 'EMP002',
-      employeeName: 'فاطمة علي',
-      position: 'محاسبة',
-      department: 'المالية',
-      examType: 'فحص دوري سنوي',
-      scheduledDate: '2024-01-15',
-      completedDate: '2024-01-15',
-      status: 'مكتمل',
-      clinic: 'مركز الفحوص الطبية المتقدم',
-      doctor: 'د. ليلى محمد',
-      tests: ['فحص الدم الشامل', 'فحص العيون'],
-      results: 'طبيعي',
-      recommendations: 'الحفاظ على النشاط البدني',
-      restrictions: 'لا توجد',
-      nextExamDate: '2025-01-15',
-      cost: 600,
-      notes: 'نتائج ممتازة'
-    }
-  ];
-
-  const mockRisks = [
-    {
-      id: 'RISK001',
-      title: 'مخاطر كيميائية في المختبر',
-      category: 'كيميائية',
-      area: 'المختبر الرئيسي',
-      description: 'التعرض للمواد الكيميائية الخطرة',
-      probabilityScore: 3,
-      impactScore: 4,
+      id: "1",
+      hazardTitle: "مخاطر الكهرباء",
+      location: "ورشة الكهرباء",
+      category: "كهربائي",
+      riskLevel: "high",
+      probability: 3,
+      severity: 4,
       riskScore: 12,
-      riskLevel: 'عالي',
-      identifiedBy: 'مهندس السلامة',
-      identifiedDate: '2024-01-10',
-      status: 'تحت المعالجة',
-      controlMeasures: [
-        'استخدام خزانات الأبخرة',
-        'توفير معدات الحماية الشخصية',
-        'التدريب على التعامل الآمن'
-      ],
-      monitoringFrequency: 'أسبوعي',
-      responsiblePerson: 'أحمد السلامة',
-      targetDate: '2024-03-01',
-      cost: 15000,
-      progress: 60
+      controlMeasures: ["فحص دوري للمعدات", "تدريب العمال", "استخدام معدات الوقاية"],
+      assignedTo: "مدير الصيانة",
+      targetDate: "2024-02-01",
+      status: "controlling",
+      lastReviewed: "2024-01-10"
     },
     {
-      id: 'RISK002',
-      title: 'مخاطر الانزلاق والسقوط',
-      category: 'فيزيائية',
-      area: 'الممرات والمداخل',
-      description: 'الأرضيات المبللة والأسطح الزلقة',
-      probabilityScore: 4,
-      impactScore: 3,
-      riskScore: 12,
-      riskLevel: 'عالي',
-      identifiedBy: 'فريق السلامة',
-      identifiedDate: '2024-01-05',
-      status: 'مكتمل',
-      controlMeasures: [
-        'تركيب علامات تحذيرية',
-        'استخدام أسطح غير زلقة',
-        'التنظيف المنتظم والتجفيف'
-      ],
-      monitoringFrequency: 'يومي',
-      responsiblePerson: 'سارة النظافة',
-      targetDate: '2024-02-01',
-      cost: 5000,
-      progress: 100
+      id: "2",
+      hazardTitle: "مخاطر الحريق",
+      location: "المستودع",
+      category: "حريق",
+      riskLevel: "medium",
+      probability: 2,
+      severity: 4,
+      riskScore: 8,
+      controlMeasures: ["أجهزة الإنذار", "طفايات الحريق", "تدريب الإخلاء"],
+      assignedTo: "ضابط السلامة",
+      targetDate: "2024-01-30",
+      status: "monitored",
+      lastReviewed: "2024-01-12"
     }
   ];
 
-  const mockAIResponses = [
-    'مرحباً! كيف يمكنني مساعدتك في مسائل السلامة المهنية؟',
-    'بناءً على تحليل البيانات، أنصح بزيادة التدريب على السلامة في قسم المختبرات.',
-    'تم رصد زيادة في الحوادث البسيطة. يُنصح بمراجعة إجراءات السلامة.',
-    'جميع الفحوص الطبية الدورية مكتملة لهذا الشهر - أداء ممتاز!',
-    'تذكير: يوجد 3 موظفين لم يجروا الفحص الطبي الدوري المطلوب.'
-  ];
-
-  const mockInspections = [
+  // Mock data for training
+  const trainingPrograms: SafetyTraining[] = [
     {
-      id: 'INS001',
-      area: 'المختبرات',
-      inspector: 'مهندس السلامة',
-      date: '2024-01-20',
-      score: 85,
-      status: 'مكتمل',
-      findings: 3,
-      corrective_actions: 1
+      id: "1",
+      title: "السلامة العامة في مكان العمل",
+      category: "عام",
+      duration: 4,
+      mandatory: true,
+      validityPeriod: 12,
+      completedCount: 42,
+      totalAssigned: 50,
+      completionRate: 84,
+      nextScheduled: "2024-02-01",
+      trainer: "د. أحمد محمد"
     },
     {
-      id: 'INS002',
-      area: 'المكاتب الإدارية', 
-      inspector: 'فريق السلامة',
-      date: '2024-01-18',
-      score: 92,
-      status: 'مكتمل',
-      findings: 1,
-      corrective_actions: 0
-    },
-    {
-      id: 'INS003',
-      area: 'ورشة الصيانة',
-      inspector: 'خبير السلامة',
-      date: '2024-01-22',
-      score: 78,
-      status: 'تحت المراجعة',
-      findings: 5,
-      corrective_actions: 2
+      id: "2",
+      title: "إجراءات الطوارئ والإخلاء",
+      category: "طوارئ",
+      duration: 2,
+      mandatory: true,
+      validityPeriod: 6,
+      completedCount: 38,
+      totalAssigned: 50,
+      completionRate: 76,
+      nextScheduled: "2024-01-25",
+      trainer: "سارة أحمد"
     }
   ];
 
-  // Helper Functions
-  const handleIncidentAction = (action: string, incident: any) => {
-    toast({
-      title: "تم تنفيذ الإجراء",
-      description: `تم ${action} للحادث ${incident.id}`,
-    });
+  // Dashboard metrics data
+  const dashboardMetrics = [
+    { name: 'يناير', incidents: 5, nearMiss: 8, training: 92, compliance: 85 },
+    { name: 'فبراير', incidents: 3, nearMiss: 12, training: 88, compliance: 90 },
+    { name: 'مارس', incidents: 7, nearMiss: 6, training: 95, compliance: 88 },
+    { name: 'أبريل', incidents: 2, nearMiss: 10, training: 90, compliance: 92 },
+    { name: 'مايو', incidents: 4, nearMiss: 9, training: 93, compliance: 89 },
+    { name: 'يونيو', incidents: 1, nearMiss: 15, training: 96, compliance: 95 }
+  ];
+
+  const incidentTypes = [
+    { name: 'إصابات', value: 35, color: '#ef4444' },
+    { name: 'كاد أن يحدث', value: 45, color: '#f59e0b' },
+    { name: 'أضرار الممتلكات', value: 15, color: '#3b82f6' },
+    { name: 'بيئية', value: 5, color: '#10b981' }
+  ];
+
+  // Helper functions
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'low': return 'bg-green-100 text-green-800 border-green-200';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
   };
 
-  const handleAIChat = () => {
-    if (!chatMessage.trim()) return;
-    
-    const randomResponse = mockAIResponses[Math.floor(Math.random() * mockAIResponses.length)];
-    toast({
-      title: "مساعد الذكاء الاصطناعي",
-      description: randomResponse,
-    });
-    setChatMessage('');
+  const getSeverityText = (severity: string) => {
+    switch (severity) {
+      case 'low': return 'منخفض';
+      case 'medium': return 'متوسط';
+      case 'high': return 'عالي';
+      case 'critical': return 'حرج';
+      default: return severity;
+    }
   };
 
-  const handleTrainingAction = (action: string, training: any) => {
-    toast({
-      title: "تم تنفيذ الإجراء",
-      description: `تم ${action} للبرنامج التدريبي ${training.id}`,
-    });
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'scheduled': case 'reported': case 'identified': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'investigating': case 'assessing': case 'controlling': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'completed': case 'resolved': case 'monitored': return 'bg-green-100 text-green-800 border-green-200';
+      case 'overdue': return 'bg-red-100 text-red-800 border-red-200';
+      case 'closed': case 'cancelled': return 'bg-gray-100 text-gray-800 border-gray-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
   };
 
-  const handleInspectionAction = (action: string, inspection: any) => {
-    toast({
-      title: "تم تنفيذ الإجراء", 
-      description: `تم ${action} لتقرير التفتيش ${inspection.id}`,
-    });
+  const getStatusText = (status: string, context?: string) => {
+    switch (status) {
+      case 'scheduled': return 'مجدولة';
+      case 'completed': return 'مكتملة';
+      case 'overdue': return 'متأخرة';
+      case 'cancelled': return 'ملغية';
+      case 'reported': return 'مبلغ عنها';
+      case 'investigating': return 'قيد التحقيق';
+      case 'resolved': return 'محلولة';
+      case 'closed': return 'مغلقة';
+      case 'identified': return 'محددة';
+      case 'assessing': return 'قيد التقييم';
+      case 'controlling': return 'قيد السيطرة';
+      case 'monitored': return 'مراقبة';
+      default: return status;
+    }
   };
 
-  const getSeverityBadge = (severity: string) => {
-    const severityConfig = {
-      'عالي': 'bg-red-100 text-red-800 border-red-200',
-      'متوسط': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'منخفض': 'bg-green-100 text-green-800 border-green-200'
-    };
-    return (
-      <Badge className={severityConfig[severity as keyof typeof severityConfig] || 'bg-gray-100 text-gray-800'}>
-        {severity}
-      </Badge>
-    );
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'injury': return <AlertTriangle className="h-4 w-4 text-red-600" />;
+      case 'near_miss': return <AlertCircle className="h-4 w-4 text-orange-600" />;
+      case 'property_damage': return <Shield className="h-4 w-4 text-blue-600" />;
+      case 'environmental': return <Globe className="h-4 w-4 text-green-600" />;
+      default: return <FileText className="h-4 w-4" />;
+    }
   };
 
-  const getStatusBadge = (status: string) => {
-    const statusConfig = {
-      'مجدول': 'bg-blue-100 text-blue-800 border-blue-200',
-      'مكتمل': 'bg-green-100 text-green-800 border-green-200',
-      'تحت التحقيق': 'bg-orange-100 text-orange-800 border-orange-200',
-      'مغلق': 'bg-gray-100 text-gray-800 border-gray-200'
-    };
-    return (
-      <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-100 text-gray-800'}>
-        {status}
-      </Badge>
-    );
+  // Action handlers
+  const handleExportExcel = () => {
+    toast.success("تم تصدير البيانات إلى Excel بنجاح");
   };
 
-  return (
-    <div className="space-y-6">
-      {/* Header with AI Assistant */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#009F87]/10 rounded-lg">
-            <HardHat className="h-6 w-6 text-[#009F87]" />
+  const handleExportPDF = () => {
+    toast.success("تم تصدير التقرير إلى PDF بنجاح");
+  };
+
+  const handlePrint = () => {
+    toast.success("تم إرسال الصفحة للطباعة");
+  };
+
+  const handleAddIncident = () => {
+    setIsAddIncidentOpen(true);
+  };
+
+  const handleAddExam = () => {
+    setIsAddExamOpen(true);
+  };
+
+  const handleAddPolicy = () => {
+    setIsAddPolicyOpen(true);
+  };
+
+  const handleAddRisk = () => {
+    setIsAddRiskOpen(true);
+  };
+
+  const handleEdit = (item: any) => {
+    setSelectedItem(item);
+    toast.info("فتح للتعديل");
+  };
+
+  const handleDelete = (id: string) => {
+    toast.success("تم الحذف بنجاح");
+  };
+
+  const handleView = (item: any) => {
+    setSelectedItem(item);
+    toast.info("فتح للمعاينة");
+  };
+
+  const handleUpload = () => {
+    toast.success("تم رفع المستند بنجاح");
+  };
+
+  const handleDownload = (item: any) => {
+    toast.success(`تم تحميل: ${item.title || item.name}`);
+  };
+
+  // Header component
+  const renderHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-br from-background via-muted/50 to-background border-b border-border/40">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, hsl(var(--primary)) 0%, transparent 50%),
+                           radial-gradient(circle at 80% 20%, hsl(var(--primary)) 0%, transparent 50%),
+                           radial-gradient(circle at 40% 80%, hsl(var(--primary)) 0%, transparent 50%)`,
+          backgroundSize: '500px 500px, 400px 400px, 300px 300px',
+          animation: 'float 20s ease-in-out infinite'
+        }} />
+      </div>
+      
+      <div className="relative px-6 py-8">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            {onBack && (
+              <Button variant="ghost" onClick={onBack} className="hover:bg-muted/50 transition-colors">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            )}
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-primary/10 rounded-xl">
+                <Shield className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">الصحة والسلامة المهنية</h1>
+                <p className="text-muted-foreground mt-1">إدارة شاملة للسلامة والصحة المهنية في مكان العمل</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-[#009F87]">نظام الصحة والسلامة المهنية</h2>
-            <p className="text-muted-foreground">نظام مؤتمت وذكي لإدارة شاملة للسلامة والصحة المهنية</p>
+          
+          <div className="flex items-center gap-3">
+            <Button variant="outline" onClick={handleExportExcel} className="hover:bg-muted/50 transition-colors">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير Excel
+            </Button>
+            <Button variant="outline" onClick={handleExportPDF} className="hover:bg-muted/50 transition-colors">
+              <FileText className="h-4 w-4 ml-2" />
+              تصدير PDF  
+            </Button>
+            <Button variant="outline" onClick={handlePrint} className="hover:bg-muted/50 transition-colors">
+              <Printer className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Button onClick={handleAddIncident} className="bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة حادث
+            </Button>
           </div>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => setAiChatOpen(!aiChatOpen)}>
-            <Brain className="h-4 w-4 ml-2" />
-            المساعد الذكي
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => handleIncidentAction('تصدير التقارير', {})}>
-            <Download className="h-4 w-4 ml-2" />
-            تصدير التقارير
-          </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="bg-[#009F87] hover:bg-[#009F87]/90">
-                <Plus className="h-4 w-4 ml-2" />
-                إضافة حادث
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                <DialogTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-[#009F87]" />
-                  إبلاغ عن حادث جديد
-                </DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="incident-title">عنوان الحادث</Label>
-                    <Input id="incident-title" placeholder="وصف مختصر للحادث" />
-                  </div>
-                  <div>
-                    <Label htmlFor="incident-type">نوع الحادث</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="اختر نوع الحادث" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="accident">حادث</SelectItem>
-                        <SelectItem value="near-miss">شبه حادث</SelectItem>
-                        <SelectItem value="unsafe-condition">حالة غير آمنة</SelectItem>
-                        <SelectItem value="unsafe-behavior">سلوك غير آمن</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="severity">شدة الحادث</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="اختر الشدة" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="high">عالي</SelectItem>
-                        <SelectItem value="medium">متوسط</SelectItem>
-                        <SelectItem value="low">منخفض</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="location">الموقع</Label>
-                    <Input id="location" placeholder="موقع الحادث" />
-                  </div>
-                </div>
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
                 <div>
-                  <Label htmlFor="description">وصف الحادث</Label>
-                  <Textarea id="description" placeholder="وصف تفصيلي للحادث والظروف المحيطة" rows={4} />
+                  <p className="text-sm font-medium text-muted-foreground">الحوادث هذا الشهر</p>
+                  <p className="text-3xl font-bold text-foreground">4</p>
+                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
+                    <TrendingDown className="h-3 w-3" />
+                    -20% من الشهر الماضي
+                  </p>
                 </div>
-                <div className="flex justify-end gap-2">
-                  <Button variant="outline">إلغاء</Button>
-                  <Button 
-                    className="bg-[#009F87] hover:bg-[#009F87]/90"
-                    onClick={() => {
-                      toast({
-                        title: "تم إرسال التقرير",
-                        description: "تم إرسال تقرير الحادث بنجاح وسيتم مراجعته",
-                      });
-                    }}
-                  >
-                    إرسال التقرير
-                  </Button>
+                <div className="p-3 bg-red-100 rounded-full">
+                  <AlertTriangle className="h-6 w-6 text-red-600" />
                 </div>
               </div>
-            </DialogContent>
-          </Dialog>
+            </CardContent>
+          </Card>
+
+          <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">الأيام بدون حوادث</p>
+                  <p className="text-3xl font-bold text-foreground">127</p>
+                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
+                    <ArrowUp className="h-3 w-3" />
+                    هدف: 200 يوم
+                  </p>
+                </div>
+                <div className="p-3 bg-green-100 rounded-full">
+                  <CheckCircle className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">الفحوصات المجدولة</p>
+                  <p className="text-3xl font-bold text-foreground">12</p>
+                  <p className="text-xs text-orange-600 flex items-center gap-1 mt-1">
+                    <Clock className="h-3 w-3" />
+                    3 متأخرة
+                  </p>
+                </div>
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Stethoscope className="h-6 w-6 text-blue-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">نسبة التدريب</p>
+                  <p className="text-3xl font-bold text-foreground">89%</p>
+                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
+                    <TrendingUp className="h-3 w-3" />
+                    +5% من الشهر الماضي
+                  </p>
+                </div>
+                <div className="p-3 bg-purple-100 rounded-full">
+                  <BookOpen className="h-6 w-6 text-purple-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
+    </div>
+  );
 
-      {/* AI Chat Panel */}
-      {aiChatOpen && (
-        <Card className="border-2 border-[#009F87]/20">
+  // Dashboard content
+  const renderDashboard = () => (
+    <div className="space-y-6">
+      {/* Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="hover:shadow-md transition-shadow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Brain className="h-5 w-5 text-[#009F87]" />
-              المساعد الذكي للسلامة المهنية
+              <BarChart className="h-5 w-5 text-primary" />
+              اتجاهات السلامة الشهرية
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex gap-2">
-              <Input
-                placeholder="اسأل عن أي مسألة تتعلق بالسلامة المهنية..."
-                value={chatMessage}
-                onChange={(e) => setChatMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleAIChat()}
-                className="flex-1"
-              />
-              <Button onClick={handleAIChat} className="bg-[#009F87] hover:bg-[#009F87]/90">
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="mt-4 text-sm text-muted-foreground">
-              <p>يمكنني مساعدتك في:</p>
-              <ul className="list-disc list-inside mt-2 space-y-1">
-                <li>تحليل تقارير الحوادث واقتراح حلول وقائية</li>
-                <li>الإجابة على أسئلة الحقوق في حالة الإصابة</li>
-                <li>معلومات عن الإجازات المرضية</li>
-                <li>التزامات المنشأة وفقاً لنظام العمل السعودي</li>
-              </ul>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={dashboardMetrics}>
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
+                  <XAxis dataKey="name" tick={{ fontSize: 12 }} axisLine={false} />
+                  <YAxis tick={{ fontSize: 12 }} axisLine={false} />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--background))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }}
+                  />
+                  <Area type="monotone" dataKey="incidents" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.8} name="الحوادث" />
+                  <Area type="monotone" dataKey="nearMiss" stackId="1" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.8} name="كاد أن يحدث" />
+                  <Area type="monotone" dataKey="training" stackId="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.8} name="التدريب %" />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
-      )}
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="dashboard" className="flex items-center gap-2">
-            <BarChart3 className="h-4 w-4" />
-            لوحة التحكم
-          </TabsTrigger>
-          <TabsTrigger value="policies" className="flex items-center gap-2">
-            <BookOpen className="h-4 w-4" />
-            السياسات والإجراءات
-          </TabsTrigger>
-          <TabsTrigger value="incidents" className="flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4" />
-            الحوادث والإصابات
-          </TabsTrigger>
-          <TabsTrigger value="medical" className="flex items-center gap-2">
-            <Stethoscope className="h-4 w-4" />
-            الفحوص الطبية
-          </TabsTrigger>
-          <TabsTrigger value="training" className="flex items-center gap-2">
-            <Users className="h-4 w-4" />
-            التدريب والتوعية
-          </TabsTrigger>
-          <TabsTrigger value="risks" className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            إدارة المخاطر
-          </TabsTrigger>
-        </TabsList>
+        <Card className="hover:shadow-md transition-shadow">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Globe className="h-5 w-5 text-primary" />
+              توزيع أنواع الحوادث
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <RechartsPieChart>
+                  <Pie
+                    data={incidentTypes}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    innerRadius={40}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {incidentTypes.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--background))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }}
+                  />
+                </RechartsPieChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* Dashboard Tab */}
-        <TabsContent value="dashboard" className="space-y-6">
-          {/* KPI Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-l-4 border-l-[#009F87]">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
-                  إجمالي الحوادث
-                  <AlertTriangle className="h-4 w-4 text-orange-500" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-[#009F87]">3</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">↓ 40%</span> من الشهر الماضي
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-green-500">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
-                  أيام بدون حوادث
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">15</div>
-                <p className="text-xs text-muted-foreground">
-                  الهدف: 30 يوم
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-blue-500">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
-                  التدريبات المكتملة
-                  <Activity className="h-4 w-4 text-blue-500" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-blue-600">2</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">↑ 100%</span> من الشهر الماضي
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-l-purple-500">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium flex items-center justify-between">
-                  نسبة الامتثال
-                  <Target className="h-4 w-4 text-purple-500" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-purple-600">87%</div>
-                <p className="text-xs text-muted-foreground">
-                  الهدف: 95%
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Recent Activities */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-[#009F87]" />
-                  النشاطات الأخيرة
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span>تم الإبلاغ عن حادث في المختبر</span>
-                  <span className="text-muted-foreground mr-auto">منذ ساعتين</span>
+      {/* Risk Alerts and Recent Activities */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="hover:shadow-md transition-shadow">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-primary" />
+              تنبيهات السلامة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                  <span className="text-sm font-medium text-red-800">خطر عالي</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>اكتمل تدريب السلامة للقسم الثاني</span>
-                  <span className="text-muted-foreground mr-auto">أمس</span>
+                <p className="text-xs text-red-700">3 موظفين متأخرين عن الفحص الطبي</p>
+              </div>
+              
+              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <Clock className="h-4 w-4 text-yellow-600" />
+                  <span className="text-sm font-medium text-yellow-800">يتطلب متابعة</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span>تم جدولة فحص طبي لـ 5 موظفين</span>
-                  <span className="text-muted-foreground mr-auto">منذ 3 أيام</span>
-                </div>
-              </CardContent>
-            </Card>
+                <p className="text-xs text-yellow-700">حادث بانتظار التحقيق منذ 3 أيام</p>
+              </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bell className="h-5 w-5 text-[#009F87]" />
-                  التنبيهات الذكية
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
-                  <p className="text-sm text-yellow-800">3 موظفين لم يجروا الفحص الطبي الدوري</p>
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-center gap-2 mb-1">
+                  <BookOpen className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm font-medium text-blue-800">تدريب</span>
                 </div>
-                <div className="p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
-                  <p className="text-sm text-blue-800">حان موعد مراجعة سياسة السلامة العامة</p>
-                </div>
-                <div className="p-3 bg-green-50 border-l-4 border-green-400 rounded">
-                  <p className="text-sm text-green-800">تم تطبيق جميع الإجراءات التصحيحية للمخاطر</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
+                <p className="text-xs text-blue-700">دورة السلامة العامة تبدأ غداً</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Incidents Tab */}
-        <TabsContent value="incidents" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <Card className="lg:col-span-2 hover:shadow-md transition-shadow">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-primary" />
+              النشاطات الأخيرة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {incidents.slice(0, 4).map((incident) => (
+                <div key={incident.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-muted rounded-full">
+                      {getTypeIcon(incident.type)}
+                    </div>
+                    <div>
+                      <p className="font-medium text-sm">{incident.title}</p>
+                      <p className="text-xs text-muted-foreground">{incident.location}</p>
+                    </div>
+                  </div>
+                  <div className="text-left">
+                    <Badge className={getSeverityColor(incident.severity)}>
+                      {getSeverityText(incident.severity)}
+                    </Badge>
+                    <p className="text-xs text-muted-foreground mt-1">{incident.incidentDate}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  // Incidents tab
+  const renderIncidents = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
               <div className="relative">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   placeholder="البحث في الحوادث..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pr-10 w-80"
+                  className="pr-10"
                 />
               </div>
-              <Button variant="outline" size="sm" onClick={() => handleIncidentAction('تصفية', {})}>
-                <Filter className="h-4 w-4 ml-2" />
-                تصفية
+            </div>
+            <Select value={filterType} onValueChange={setFilterType}>
+              <SelectTrigger className="w-full md:w-48">
+                <SelectValue placeholder="تصفية حسب الحالة" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">جميع الحالات</SelectItem>
+                <SelectItem value="reported">مبلغ عنها</SelectItem>
+                <SelectItem value="investigating">قيد التحقيق</SelectItem>
+                <SelectItem value="resolved">محلولة</SelectItem>
+                <SelectItem value="closed">مغلقة</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleAddIncident}>
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة حادث
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 gap-4">
+        {incidents.map((incident) => (
+          <Card key={incident.id} className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4 flex-1">
+                  <div className="p-2 bg-muted rounded-full">
+                    {getTypeIcon(incident.type)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-semibold text-foreground">{incident.title}</h3>
+                      <Badge className={getSeverityColor(incident.severity)} variant="outline">
+                        {getSeverityText(incident.severity)}
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">{incident.description}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground mb-3">
+                      <p><strong>المكان:</strong> {incident.location}</p>
+                      <p><strong>المبلغ:</strong> {incident.reportedBy}</p>
+                      <p><strong>تاريخ الحادث:</strong> {incident.incidentDate}</p>
+                      <p><strong>المحقق:</strong> {incident.investigator || "غير محدد"}</p>
+                      {incident.attachments > 0 && (
+                        <p className="flex items-center gap-1">
+                          <Paperclip className="h-3 w-3" />
+                          {incident.attachments} مرفق
+                        </p>
+                      )}
+                      {incident.daysLost !== undefined && (
+                        <p><strong>أيام الغياب:</strong> {incident.daysLost}</p>
+                      )}
+                    </div>
+                    <Badge className={getStatusColor(incident.status)}>
+                      {getStatusText(incident.status)}
+                    </Badge>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => handleView(incident)}>
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleEdit(incident)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleDelete(incident.id)} className="hover:bg-destructive/10 hover:text-destructive">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Medical Exams tab
+  const renderMedicalExams = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold">الفحوصات الطبية</h3>
+            <Button onClick={handleAddExam}>
+              <Plus className="h-4 w-4 ml-2" />
+              جدولة فحص
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 gap-4">
+        {medicalExams.map((exam) => (
+          <Card key={exam.id} className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4 flex-1">
+                  <div className="p-2 bg-muted rounded-full">
+                    <Stethoscope className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-semibold text-foreground">{exam.employeeName}</h3>
+                      <Badge variant="secondary">{exam.employeeId}</Badge>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground mb-3">
+                      <p><strong>نوع الفحص:</strong> {exam.examType === 'periodic' ? 'دوري' : exam.examType === 'pre_employment' ? 'قبل التوظيف' : 'أخرى'}</p>
+                      <p><strong>التاريخ المجدول:</strong> {exam.scheduledDate}</p>
+                      {exam.completedDate && (
+                        <p><strong>تاريخ الإنجاز:</strong> {exam.completedDate}</p>
+                      )}
+                      {exam.results && (
+                        <p><strong>النتيجة:</strong> {exam.results === 'fit' ? 'لائق' : exam.results === 'fit_with_restrictions' ? 'لائق مع قيود' : 'غير لائق'}</p>
+                      )}
+                      {exam.nextExamDate && (
+                        <p><strong>الفحص القادم:</strong> {exam.nextExamDate}</p>
+                      )}
+                      <p><strong>الطبيب:</strong> {exam.medicalOfficer}</p>
+                    </div>
+                    <Badge className={getStatusColor(exam.status)}>
+                      {getStatusText(exam.status)}
+                    </Badge>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => handleView(exam)}>
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleEdit(exam)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleDelete(exam.id)} className="hover:bg-destructive/10 hover:text-destructive">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Policies tab
+  const renderPolicies = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold">السياسات والإجراءات</h3>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={handleUpload}>
+                <Upload className="h-4 w-4 ml-2" />
+                رفع سياسة
+              </Button>
+              <Button onClick={handleAddPolicy}>
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة سياسة
               </Button>
             </div>
           </div>
+        </CardContent>
+      </Card>
 
-          <div className="grid gap-4">
-            {mockIncidents.map((incident) => (
-              <Card key={incident.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-[#009F87]">{incident.title}</h3>
-                        {getSeverityBadge(incident.severity)}
-                        {getStatusBadge(incident.status)}
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <FileText className="h-4 w-4" />
-                          {incident.id}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          {incident.location}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {incident.date}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
-                          {incident.reporter}
-                        </div>
-                      </div>
-                      <p className="text-sm">{incident.description}</p>
-                    </div>
-                    <div className="flex gap-2 mr-4">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('عرض', incident)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('تعديل', incident)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('تحميل التقرير', incident)}
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {policies.map((policy) => (
+          <Card key={policy.id} className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <FileText className="h-5 w-5 text-primary" />
+                  <h3 className="font-semibold">{policy.title}</h3>
+                </div>
+                <Badge className={policy.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
+                  {policy.status === 'published' ? 'منشور' : 'مسودة'}
+                </Badge>
+              </div>
+              
+              <p className="text-sm text-muted-foreground mb-4">{policy.description}</p>
+              
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">الإصدار:</span>
+                  <span>{policy.version}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">تاريخ النشر:</span>
+                  <span>{policy.publishedDate}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">الإقرارات:</span>
+                  <span>{policy.acknowledgments}/{policy.totalEmployees}</span>
+                </div>
+              </div>
 
-        {/* Policies Tab */}
-        <TabsContent value="policies" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">إدارة السياسات والإجراءات</h3>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-[#009F87] hover:bg-[#009F87]/90">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة سياسة جديدة
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-muted-foreground">معدل الإقرار</span>
+                  <span className="text-sm font-medium">{Math.round((policy.acknowledgments / policy.totalEmployees) * 100)}%</span>
+                </div>
+                <Progress value={(policy.acknowledgments / policy.totalEmployees) * 100} className="h-2" />
+              </div>
+
+              <div className="flex items-center justify-between mt-4">
+                <div className="flex gap-1">
+                  <Button variant="ghost" size="sm" onClick={() => handleView(policy)}>
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleEdit(policy)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => handleDownload(policy)}>
+                  <Download className="h-4 w-4 ml-2" />
+                  تحميل
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-[#009F87]" />
-                    إضافة سياسة جديدة
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="policy-title">عنوان السياسة</Label>
-                      <Input id="policy-title" placeholder="عنوان السياسة" />
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Risk Management tab
+  const renderRiskManagement = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold">إدارة المخاطر</h3>
+            <Button onClick={handleAddRisk}>
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة مخاطر
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 gap-4">
+        {riskAssessments.map((risk) => (
+          <Card key={risk.id} className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4 flex-1">
+                  <div className="p-2 bg-muted rounded-full">
+                    <AlertTriangle className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-semibold text-foreground">{risk.hazardTitle}</h3>
+                      <Badge className={getSeverityColor(risk.riskLevel)} variant="outline">
+                        {getSeverityText(risk.riskLevel)}
+                      </Badge>
+                      <Badge variant="secondary">نقاط الخطر: {risk.riskScore}</Badge>
                     </div>
-                    <div>
-                      <Label htmlFor="policy-category">الفئة</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر الفئة" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="general">السلامة العامة</SelectItem>
-                          <SelectItem value="emergency">الطوارئ</SelectItem>
-                          <SelectItem value="equipment">معدات الحماية</SelectItem>
-                          <SelectItem value="chemical">السلامة الكيميائية</SelectItem>
-                        </SelectContent>
-                      </Select>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground mb-3">
+                      <p><strong>المكان:</strong> {risk.location}</p>
+                      <p><strong>الفئة:</strong> {risk.category}</p>
+                      <p><strong>المسؤول:</strong> {risk.assignedTo}</p>
+                      <p><strong>الموعد المستهدف:</strong> {risk.targetDate}</p>
+                      <p><strong>آخر مراجعة:</strong> {risk.lastReviewed}</p>
+                      <p><strong>الاحتمالية:</strong> {risk.probability}/5</p>
                     </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="policy-description">وصف السياسة</Label>
-                    <Textarea id="policy-description" placeholder="وصف تفصيلي للسياسة" rows={4} />
-                  </div>
-                  <div>
-                    <Label htmlFor="policy-document">رفع الوثيقة</Label>
-                    <Input id="policy-document" type="file" accept=".pdf,.doc,.docx" />
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">إلغاء</Button>
-                    <Button 
-                      className="bg-[#009F87] hover:bg-[#009F87]/90"
-                      onClick={() => {
-                        toast({
-                          title: "تم إضافة السياسة",
-                          description: "تم إضافة السياسة بنجاح وسيتم إرسالها للموافقة",
-                        });
-                      }}
-                    >
-                      حفظ السياسة
-                    </Button>
+
+                    <div className="mb-3">
+                      <p className="text-sm font-medium mb-1">إجراءات السيطرة:</p>
+                      <ul className="text-sm text-muted-foreground">
+                        {risk.controlMeasures.slice(0, 2).map((measure, index) => (
+                          <li key={index} className="flex items-center gap-1">
+                            <CheckCircle className="h-3 w-3 text-green-600" />
+                            {measure}
+                          </li>
+                        ))}
+                        {risk.controlMeasures.length > 2 && (
+                          <li className="text-xs text-muted-foreground mt-1">
+                            +{risk.controlMeasures.length - 2} إجراءات أخرى
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                    
+                    <Badge className={getStatusColor(risk.status)}>
+                      {getStatusText(risk.status)}
+                    </Badge>
                   </div>
                 </div>
-              </DialogContent>
-            </Dialog>
-          </div>
-
-          <div className="grid gap-4">
-            {mockPolicies.map((policy) => (
-              <Card key={policy.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-[#009F87]">{policy.title}</h3>
-                        <Badge className="bg-blue-100 text-blue-800 border-blue-200">{policy.category}</Badge>
-                        <Badge className="bg-green-100 text-green-800 border-green-200">v{policy.version}</Badge>
-                        {getStatusBadge(policy.status)}
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          ساري من {policy.effectiveDate}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Users className="h-4 w-4" />
-                          {policy.readBy}/{policy.totalEmployees} قرأوا
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
-                          اعتمد بواسطة {policy.approvedBy}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Timer className="h-4 w-4" />
-                          مراجعة في {policy.reviewDate}
-                        </div>
-                      </div>
-                      <p className="text-sm">{policy.description}</p>
-                      <div className="flex items-center gap-2">
-                        <Progress value={(policy.readBy / policy.totalEmployees) * 100} className="flex-1" />
-                        <span className="text-sm text-muted-foreground">
-                          {Math.round((policy.readBy / policy.totalEmployees) * 100)}%
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 mr-4">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('عرض السياسة', policy)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('تحميل السياسة', policy)}
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('إرسال للموظفين', policy)}
-                      >
-                        <Send className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        {/* Medical Examinations Tab */}
-        <TabsContent value="medical" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">الفحوص الطبية الدورية</h3>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-[#009F87] hover:bg-[#009F87]/90">
-                  <Plus className="h-4 w-4 ml-2" />
-                  جدولة فحص طبي
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <Stethoscope className="h-5 w-5 text-[#009F87]" />
-                    جدولة فحص طبي جديد
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="employee-select">اختيار الموظف</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر الموظف" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="emp1">أحمد محمد - فني مختبر</SelectItem>
-                          <SelectItem value="emp2">فاطمة علي - محاسبة</SelectItem>
-                          <SelectItem value="emp3">محمد سالم - مهندس</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="exam-type">نوع الفحص</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر نوع الفحص" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="annual">فحص دوري سنوي</SelectItem>
-                          <SelectItem value="pre-employment">فحص قبل التوظيف</SelectItem>
-                          <SelectItem value="periodic">فحص دوري</SelectItem>
-                          <SelectItem value="special">فحص خاص</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="exam-date">تاريخ الفحص</Label>
-                      <Input id="exam-date" type="date" />
-                    </div>
-                    <div>
-                      <Label htmlFor="clinic">المركز الطبي</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر المركز الطبي" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="center1">مركز الفحوص الطبية المتقدم</SelectItem>
-                          <SelectItem value="center2">مستشفى الملك فهد</SelectItem>
-                          <SelectItem value="center3">المجمع الطبي التخصصي</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="tests">الفحوصات المطلوبة</Label>
-                    <div className="space-y-2 mt-2">
-                      {['فحص الدم الشامل', 'فحص الأشعة', 'فحص العيون', 'فحص السمع', 'تخطيط القلب'].map((test) => (
-                        <div key={test} className="flex items-center space-x-2">
-                          <input type="checkbox" id={test} className="rounded" />
-                          <Label htmlFor={test} className="text-sm">{test}</Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">إلغاء</Button>
-                    <Button 
-                      className="bg-[#009F87] hover:bg-[#009F87]/90"
-                      onClick={() => {
-                        toast({
-                          title: "تم جدولة الفحص",
-                          description: "تم جدولة الفحص الطبي بنجاح وسيتم إرسال التنبيهات",
-                        });
-                      }}
-                    >
-                      جدولة الفحص
-                    </Button>
-                  </div>
+                
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => handleView(risk)}>
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleEdit(risk)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleDelete(risk.id)} className="hover:bg-destructive/10 hover:text-destructive">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
-              </DialogContent>
-            </Dialog>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
 
-          <div className="grid gap-4">
-            {mockMedicalExams.map((exam) => (
-              <Card key={exam.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-[#009F87]">{exam.employeeName}</h3>
-                        <Badge className="bg-blue-100 text-blue-800 border-blue-200">{exam.position}</Badge>
-                        {getStatusBadge(exam.status)}
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Stethoscope className="h-4 w-4" />
-                          {exam.examType}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {exam.scheduledDate}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Building className="h-4 w-4" />
-                          {exam.clinic}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
-                          {exam.doctor}
-                        </div>
-                      </div>
-                      <div className="text-sm">
-                        <p><strong>الفحوصات:</strong> {exam.tests.join(', ')}</p>
-                        {exam.results && <p><strong>النتائج:</strong> {exam.results}</p>}
-                        {exam.recommendations && <p><strong>التوصيات:</strong> {exam.recommendations}</p>}
-                      </div>
-                    </div>
-                    <div className="flex gap-2 mr-4">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('عرض التفاصيل', exam)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('إرسال تذكير', exam)}
-                      >
-                        <Bell className="h-4 w-4" />
-                      </Button>
-                      {exam.status === 'مكتمل' && (
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleIncidentAction('تحميل التقرير', exam)}
-                        >
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+  // Training tab
+  const renderTraining = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold">التدريب والتوعية</h3>
+            <Button>
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة تدريب
+            </Button>
           </div>
-        </TabsContent>
+        </CardContent>
+      </Card>
 
-        {/* Risk Management Tab */}
-        <TabsContent value="risks" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">إدارة المخاطر</h3>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-[#009F87] hover:bg-[#009F87]/90">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة مخاطرة جديدة
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-[#009F87]" />
-                    إضافة مخاطرة جديدة
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="risk-title">عنوان المخاطرة</Label>
-                      <Input id="risk-title" placeholder="وصف المخاطرة" />
-                    </div>
-                    <div>
-                      <Label htmlFor="risk-category">فئة المخاطرة</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر الفئة" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="chemical">كيميائية</SelectItem>
-                          <SelectItem value="physical">فيزيائية</SelectItem>
-                          <SelectItem value="biological">بيولوجية</SelectItem>
-                          <SelectItem value="ergonomic">بيئة العمل</SelectItem>
-                          <SelectItem value="psychosocial">نفسية واجتماعية</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="risk-area">المنطقة المتأثرة</Label>
-                      <Input id="risk-area" placeholder="موقع المخاطرة" />
-                    </div>
-                    <div>
-                      <Label htmlFor="responsible-person">المسؤول عن المعالجة</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر المسؤول" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="safety-eng">مهندس السلامة</SelectItem>
-                          <SelectItem value="facility-mgr">مدير المرافق</SelectItem>
-                          <SelectItem value="dept-mgr">مدير القسم</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="risk-description">وصف المخاطرة</Label>
-                    <Textarea id="risk-description" placeholder="وصف تفصيلي للمخاطرة" rows={3} />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="probability">احتمالية الحدوث (1-5)</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر الاحتمالية" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">1 - منخفض جداً</SelectItem>
-                          <SelectItem value="2">2 - منخفض</SelectItem>
-                          <SelectItem value="3">3 - متوسط</SelectItem>
-                          <SelectItem value="4">4 - عالي</SelectItem>
-                          <SelectItem value="5">5 - عالي جداً</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="impact">شدة التأثير (1-5)</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر شدة التأثير" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">1 - ضعيف</SelectItem>
-                          <SelectItem value="2">2 - بسيط</SelectItem>
-                          <SelectItem value="3">3 - متوسط</SelectItem>
-                          <SelectItem value="4">4 - خطير</SelectItem>
-                          <SelectItem value="5">5 - كارثي</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">إلغاء</Button>
-                    <Button 
-                      className="bg-[#009F87] hover:bg-[#009F87]/90"
-                      onClick={() => {
-                        toast({
-                          title: "تم إضافة المخاطرة",
-                          description: "تم إضافة المخاطرة بنجاح وسيتم تقييمها",
-                        });
-                      }}
-                    >
-                      حفظ المخاطرة
-                    </Button>
-                  </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {trainingPrograms.map((training) => (
+          <Card key={training.id} className="hover:shadow-md transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-primary" />
+                  <h3 className="font-semibold">{training.title}</h3>
                 </div>
-              </DialogContent>
-            </Dialog>
-          </div>
-
-          <div className="grid gap-4">
-            {mockRisks.map((risk) => (
-              <Card key={risk.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-[#009F87]">{risk.title}</h3>
-                        <Badge className="bg-blue-100 text-blue-800 border-blue-200">{risk.category}</Badge>
-                        <Badge className={
-                          risk.riskLevel === 'عالي' ? 'bg-red-100 text-red-800 border-red-200' :
-                          risk.riskLevel === 'متوسط' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
-                          'bg-green-100 text-green-800 border-green-200'
-                        }>
-                          {risk.riskLevel} ({risk.riskScore})
-                        </Badge>
-                        {getStatusBadge(risk.status)}
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          {risk.area}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
-                          {risk.responsiblePerson}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          الهدف: {risk.targetDate}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Activity className="h-4 w-4" />
-                          {risk.progress}% مكتمل
-                        </div>
-                      </div>
-                      <p className="text-sm">{risk.description}</p>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium">التقدم:</span>
-                          <Progress value={risk.progress} className="flex-1" />
-                          <span className="text-sm text-muted-foreground">{risk.progress}%</span>
-                        </div>
-                        <div className="text-sm">
-                          <strong>إجراءات التحكم:</strong>
-                          <ul className="list-disc list-inside mt-1 text-muted-foreground">
-                            {risk.controlMeasures.map((measure, index) => (
-                              <li key={index}>{measure}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 mr-4">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('عرض التفاصيل', risk)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('تحديث التقدم', risk)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleIncidentAction('تقرير المخاطرة', risk)}
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        {/* Training Tab */}
-        <TabsContent value="training" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">برامج التدريب والتوعية</h3>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="bg-[#009F87] hover:bg-[#009F87]/90">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة برنامج تدريبي
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-[#009F87]" />
-                    إضافة برنامج تدريبي جديد
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="training-title">عنوان البرنامج</Label>
-                      <Input id="training-title" placeholder="عنوان البرنامج التدريبي" />
-                    </div>
-                    <div>
-                      <Label htmlFor="training-type">نوع التدريب</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="اختر النوع" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="mandatory">إجباري</SelectItem>
-                          <SelectItem value="optional">اختياري</SelectItem>
-                          <SelectItem value="refresher">تنشيطي</SelectItem>
-                          <SelectItem value="specialized">متخصص</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="training-instructor">المدرب</Label>
-                      <Input id="training-instructor" placeholder="اسم المدرب" />
-                    </div>
-                    <div>
-                      <Label htmlFor="training-duration">المدة</Label>
-                      <Input id="training-duration" placeholder="مثال: 4 ساعات" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="training-date">تاريخ التدريب</Label>
-                      <Input id="training-date" type="date" />
-                    </div>
-                    <div>
-                      <Label htmlFor="training-location">الموقع</Label>
-                      <Input id="training-location" placeholder="قاعة التدريب" />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="training-objectives">أهداف التدريب</Label>
-                    <Textarea id="training-objectives" placeholder="الأهداف التعليمية للبرنامج" rows={3} />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="assessment-required" className="rounded" />
-                    <Label htmlFor="assessment-required" className="text-sm">يتطلب تقييم</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="certificate-issued" className="rounded" />
-                    <Label htmlFor="certificate-issued" className="text-sm">إصدار شهادة</Label>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">إلغاء</Button>
-                    <Button 
-                      className="bg-[#009F87] hover:bg-[#009F87]/90"
-                      onClick={() => {
-                        toast({
-                          title: "تم إضافة البرنامج",
-                          description: "تم إضافة البرنامج التدريبي بنجاح",
-                        });
-                      }}
-                    >
-                      حفظ البرنامج
-                    </Button>
-                  </div>
+                <Badge variant={training.mandatory ? "default" : "secondary"}>
+                  {training.mandatory ? 'إجباري' : 'اختياري'}
+                </Badge>
+              </div>
+              
+              <div className="space-y-2 text-sm mb-4">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">المدة:</span>
+                  <span>{training.duration} ساعات</span>
                 </div>
-              </DialogContent>
-            </Dialog>
-          </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">صالح لمدة:</span>
+                  <span>{training.validityPeriod} شهر</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">المدرب:</span>
+                  <span>{training.trainer}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">الجلسة القادمة:</span>
+                  <span>{training.nextScheduled}</span>
+                </div>
+              </div>
 
-          <div className="grid gap-4">
-            {mockTrainings.map((training) => (
-              <Card key={training.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-[#009F87]">{training.title}</h3>
-                        <Badge className="bg-blue-100 text-blue-800 border-blue-200">{training.type}</Badge>
-                        {getStatusBadge(training.status)}
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          {training.duration}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Users className="h-4 w-4" />
-                          {training.participants}/{training.maxParticipants} مشارك
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {training.date}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          {training.location}
-                        </div>
-                      </div>
-                      <div className="text-sm">
-                        <p><strong>المدرب:</strong> {training.instructor} - {training.instructorQualifications}</p>
-                        <p><strong>الأهداف:</strong> {training.objectives.join(', ')}</p>
-                        <p><strong>المواد:</strong> {training.materials.join(', ')}</p>
-                      </div>
-                      {training.feedback.length > 0 && (
-                        <div className="text-sm">
-                          <strong>تقييمات المشاركين:</strong>
-                          <div className="mt-1 space-y-1">
-                            {training.feedback.map((feedback, index) => (
-                              <div key={index} className="flex items-center gap-2">
-                                <div className="flex">
-                                  {[...Array(5)].map((_, i) => (
-                                    <Star 
-                                      key={i} 
-                                      className={`h-3 w-3 ${i < feedback.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                                    />
-                                  ))}
-                                </div>
-                                <span className="text-muted-foreground">- {feedback.participant}: {feedback.comment}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex gap-2 mr-4">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleTrainingAction('عرض التفاصيل', training)}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => handleTrainingAction('تعديل البرنامج', training)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      {training.status === 'مكتمل' && (
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleTrainingAction('تحميل التقرير', training)}
-                        >
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-muted-foreground">معدل الإنجاز</span>
+                  <span className="text-sm font-medium">{training.completionRate}%</span>
+                </div>
+                <Progress value={training.completionRate} className="h-2" />
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>مكتمل: {training.completedCount}</span>
+                  <span>إجمالي: {training.totalAssigned}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex gap-1">
+                  <Button variant="ghost" size="sm" onClick={() => handleView(training)}>
+                    <Eye className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleEdit(training)}>
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Button variant="outline" size="sm">
+                  <Users className="h-4 w-4 ml-2" />
+                  المشاركين
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  // Reports tab
+  const renderReports = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportPDF}>
+          <CardContent className="p-6 text-center">
+            <AlertTriangle className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">تقرير الحوادث</h3>
+            <p className="text-sm text-muted-foreground mb-4">تقرير شامل لجميع الحوادث والتحقيقات</p>
+            <Button variant="outline" className="w-full">
+              <Download className="h-4 w-4 ml-2" />
+              تحميل التقرير
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportExcel}>
+          <CardContent className="p-6 text-center">
+            <Stethoscope className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">تقرير الفحوصات الطبية</h3>
+            <p className="text-sm text-muted-foreground mb-4">حالة الفحوصات المجدولة والمكتملة</p>
+            <Button variant="outline" className="w-full">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير Excel
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportPDF}>
+          <CardContent className="p-6 text-center">
+            <BookOpen className="h-12 w-12 text-green-600 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">تقرير التدريب</h3>
+            <p className="text-sm text-muted-foreground mb-4">معدلات الإنجاز والامتثال للتدريب</p>
+            <Button variant="outline" className="w-full">
+              <Download className="h-4 w-4 ml-2" />
+              تحميل التقرير
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportExcel}>
+          <CardContent className="p-6 text-center">
+            <Target className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">تقرير إدارة المخاطر</h3>
+            <p className="text-sm text-muted-foreground mb-4">تقييم وحالة المخاطر المحددة</p>
+            <Button variant="outline" className="w-full">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير Excel
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportPDF}>
+          <CardContent className="p-6 text-center">
+            <FileCheck className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">تقرير الامتثال</h3>
+            <p className="text-sm text-muted-foreground mb-4">مستوى الامتثال للسياسات والإجراءات</p>
+            <Button variant="outline" className="w-full">
+              <Download className="h-4 w-4 ml-2" />
+              تحميل التقرير
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportExcel}>
+          <CardContent className="p-6 text-center">
+            <BarChart className="h-12 w-12 text-orange-600 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">تقرير الأداء الشامل</h3>
+            <p className="text-sm text-muted-foreground mb-4">جميع مؤشرات الأداء والإحصائيات</p>
+            <Button variant="outline" className="w-full">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير Excel
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  // Settings tab
+  const renderSettings = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5 text-primary" />
+              إعدادات النظام
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">فئات المخاطر</p>
+                  <p className="text-sm text-muted-foreground">إدارة فئات وأنواع المخاطر</p>
+                </div>
+                <Button variant="outline" size="sm">
+                  <Settings className="h-4 w-4 ml-2" />
+                  تكوين
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">مستويات الخطورة</p>
+                  <p className="text-sm text-muted-foreground">تحديد مستويات تقييم المخاطر</p>
+                </div>
+                <Button variant="outline" size="sm">
+                  <AlertTriangle className="h-4 w-4 ml-2" />
+                  تكوين
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">إشعارات التنبيه</p>
+                  <p className="text-sm text-muted-foreground">تكوين تنبيهات السلامة والإشعارات</p>
+                </div>
+                <Button variant="outline" size="sm">
+                  <Bell className="h-4 w-4 ml-2" />
+                  تكوين
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">قوالب التقارير</p>
+                  <p className="text-sm text-muted-foreground">إدارة قوالب تقارير السلامة</p>
+                </div>
+                <Button variant="outline" size="sm">
+                  <FileText className="h-4 w-4 ml-2" />
+                  إدارة
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <UserCheck className="h-5 w-5 text-primary" />
+              صلاحيات المستخدمين
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">ضباط السلامة</p>
+                  <p className="text-sm text-muted-foreground">إدارة الحوادث والتحقيقات</p>
+                </div>
+                <Select defaultValue="safety_officers">
+                  <SelectTrigger className="w-32">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="safety_officers">ضباط السلامة</SelectItem>
+                    <SelectItem value="hr_managers">مديري الموارد البشرية</SelectItem>
+                    <SelectItem value="all_managers">جميع المديرين</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">الطاقم الطبي</p>
+                  <p className="text-sm text-muted-foreground">إدارة الفحوصات الطبية</p>
+                </div>
+                <Select defaultValue="medical_staff">
+                  <SelectTrigger className="w-32">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="medical_staff">الطاقم الطبي</SelectItem>
+                    <SelectItem value="hr_medical">الموارد البشرية والطبي</SelectItem>
+                    <SelectItem value="designated_only">المعينين فقط</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">مدربي السلامة</p>
+                  <p className="text-sm text-muted-foreground">إدارة برامج التدريب</p>
+                </div>
+                <Select defaultValue="trainers">
+                  <SelectTrigger className="w-32">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="trainers">المدربين المعتمدين</SelectItem>
+                    <SelectItem value="hr_trainers">الموارد البشرية والمدربين</SelectItem>
+                    <SelectItem value="managers">المديرين</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center justify-between p-3 border rounded-lg">
+                <div>
+                  <p className="font-medium">إدارة التقارير</p>
+                  <p className="text-sm text-muted-foreground">إنشاء وتصدير التقارير</p>
+                </div>
+                <Select defaultValue="authorized_staff">
+                  <SelectTrigger className="w-32">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="authorized_staff">الطاقم المرخص</SelectItem>
+                    <SelectItem value="managers_only">المديرين فقط</SelectItem>
+                    <SelectItem value="admin_only">المديرين التنفيذيين</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-background">
+      {renderHeader()}
+      
+      <div className="container mx-auto p-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-8 mb-6">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              لوحة التحكم
+            </TabsTrigger>
+            <TabsTrigger value="policies" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              السياسات
+            </TabsTrigger>
+            <TabsTrigger value="incidents" className="flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4" />
+              الحوادث
+            </TabsTrigger>
+            <TabsTrigger value="medical" className="flex items-center gap-2">
+              <Stethoscope className="h-4 w-4" />
+              الفحوصات الطبية
+            </TabsTrigger>
+            <TabsTrigger value="risks" className="flex items-center gap-2">
+              <Shield className="h-4 w-4" />
+              إدارة المخاطر
+            </TabsTrigger>
+            <TabsTrigger value="training" className="flex items-center gap-2">
+              <BookOpen className="h-4 w-4" />
+              التدريب
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="flex items-center gap-2">
+              <BarChart className="h-4 w-4" />
+              التقارير
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              الإعدادات
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="dashboard" className="mt-6">
+            {renderDashboard()}
+          </TabsContent>
+
+          <TabsContent value="policies" className="mt-6">
+            {renderPolicies()}
+          </TabsContent>
+
+          <TabsContent value="incidents" className="mt-6">
+            {renderIncidents()}
+          </TabsContent>
+
+          <TabsContent value="medical" className="mt-6">
+            {renderMedicalExams()}
+          </TabsContent>
+
+          <TabsContent value="risks" className="mt-6">
+            {renderRiskManagement()}
+          </TabsContent>
+
+          <TabsContent value="training" className="mt-6">
+            {renderTraining()}
+          </TabsContent>
+
+          <TabsContent value="reports" className="mt-6">
+            {renderReports()}
+          </TabsContent>
+
+          <TabsContent value="settings" className="mt-6">
+            {renderSettings()}
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/* Add Incident Dialog */}
+      <Dialog open={isAddIncidentOpen} onOpenChange={setIsAddIncidentOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>تسجيل حادث جديد</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="incidentType">نوع الحادث</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر النوع" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="injury">إصابة</SelectItem>
+                    <SelectItem value="near_miss">كاد أن يحدث</SelectItem>
+                    <SelectItem value="property_damage">أضرار الممتلكات</SelectItem>
+                    <SelectItem value="environmental">بيئي</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="severity">درجة الخطورة</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الدرجة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">منخفض</SelectItem>
+                    <SelectItem value="medium">متوسط</SelectItem>
+                    <SelectItem value="high">عالي</SelectItem>
+                    <SelectItem value="critical">حرج</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="title">عنوان الحادث</Label>
+              <Input id="title" placeholder="أدخل عنوان الحادث" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="location">موقع الحادث</Label>
+                <Input id="location" placeholder="أدخل موقع الحادث" />
+              </div>
+              <div>
+                <Label htmlFor="incidentDate">تاريخ الحادث</Label>
+                <Input id="incidentDate" type="date" />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="description">وصف الحادث</Label>
+              <Textarea id="description" placeholder="اكتب وصف تفصيلي للحادث" rows={4} />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setIsAddIncidentOpen(false)}>
+                إلغاء
+              </Button>
+              <Button onClick={() => {
+                setIsAddIncidentOpen(false);
+                toast.success("تم تسجيل الحادث بنجاح");
+              }}>
+                حفظ الحادث
+              </Button>
+            </div>
           </div>
-        </TabsContent>
-      </Tabs>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Medical Exam Dialog */}
+      <Dialog open={isAddExamOpen} onOpenChange={setIsAddExamOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>جدولة فحص طبي</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="employee">الموظف</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الموظف" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="emp1">أحمد محمد</SelectItem>
+                    <SelectItem value="emp2">سارة أحمد</SelectItem>
+                    <SelectItem value="emp3">محمد علي</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="examType">نوع الفحص</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر النوع" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="periodic">دوري</SelectItem>
+                    <SelectItem value="pre_employment">قبل التوظيف</SelectItem>
+                    <SelectItem value="post_incident">بعد الحادث</SelectItem>
+                    <SelectItem value="return_to_work">العودة للعمل</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="scheduledDate">التاريخ المجدول</Label>
+                <Input id="scheduledDate" type="date" />
+              </div>
+              <div>
+                <Label htmlFor="medicalOfficer">الطبيب المسؤول</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الطبيب" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="doc1">د. فاطمة أحمد</SelectItem>
+                    <SelectItem value="doc2">د. محمد سالم</SelectItem>
+                    <SelectItem value="doc3">د. سارة محمد</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setIsAddExamOpen(false)}>
+                إلغاء
+              </Button>
+              <Button onClick={() => {
+                setIsAddExamOpen(false);
+                toast.success("تم جدولة الفحص بنجاح");
+              }}>
+                حفظ الجدولة
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
-
-export default OccupationalSafety;
