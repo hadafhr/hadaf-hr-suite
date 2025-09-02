@@ -1,1272 +1,1525 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Settings, Heart, Clock, Star, Users, TrendingUp, Award, Brain, 
-         Activity, Shield, MessageCircle, Calendar, Gift, Target, BarChart3, 
-         Plus, Edit, Eye, Download, Filter, Search, Zap, Smile, CheckCircle, 
-         AlertCircle, Trophy, Headphones, PhoneCall, FileText, Camera, Map, 
-         Timer, Coffee, Dumbbell, Gamepad2, Book, Music } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { 
+  ArrowLeft, 
+  Heart, 
+  Trophy, 
+  Users, 
+  Target,
+  Download,
+  Plus,
+  Search,
+  Filter,
+  Calendar,
+  Building,
+  Award,
+  TrendingUp,
+  BarChart3,
+  PieChart,
+  Activity,
+  Zap,
+  Eye,
+  Settings,
+  Bell,
+  UserCheck,
+  Sparkles,
+  Archive,
+  Edit,
+  Trash2,
+  Share,
+  Lock,
+  Unlock,
+  AlertCircle,
+  Info,
+  UserPlus,
+  Phone,
+  Mail,
+  Crown,
+  Users2,
+  Database,
+  RefreshCw,
+  Server,
+  FileText,
+  Smile,
+  HeartHandshake,
+  Dumbbell,
+  Briefcase,
+  Gift,
+  BarChart,
+  ShoppingCart,
+  Star,
+  CheckCircle2,
+  AlertTriangle,
+  Clock,
+  PlayCircle,
+  BookOpen,
+  Headphones,
+  Shield,
+  MapPin,
+  Calendar as CalendarIcon,
+  MessageSquare,
+  ThumbsUp,
+  Percent
+} from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar } from 'recharts';
 
 interface QualityOfLifeSystemProps {
-  onBack?: () => void;
+  onBack: () => void;
+}
+
+interface QualityProgram {
+  id: string;
+  name: string;
+  nameEn: string;
+  category: 'sports' | 'cultural' | 'social' | 'volunteering';
+  status: 'active' | 'inactive' | 'completed' | 'planning';
+  description: string;
+  startDate: string;
+  endDate: string;
+  participants: number;
+  targetParticipants: number;
+  responsibleManager: string;
+  budget: number;
+}
+
+interface SupportService {
+  id: string;
+  type: 'psychological' | 'social' | 'financial' | 'legal';
+  title: string;
+  description: string;
+  status: 'available' | 'busy' | 'offline';
+  provider: string;
+  sessions: number;
+  rating: number;
+}
+
+interface HealthChallenge {
+  id: string;
+  name: string;
+  type: 'steps' | 'sports' | 'wellness' | 'nutrition';
+  description: string;
+  startDate: string;
+  endDate: string;
+  participants: number;
+  points: number;
+  status: 'active' | 'completed' | 'upcoming';
+}
+
+interface WorkLifeRequest {
+  id: string;
+  employeeName: string;
+  requestType: 'flexible_hours' | 'remote_work' | 'compressed_week' | 'job_share';
+  status: 'pending' | 'approved' | 'rejected' | 'under_review';
+  requestDate: string;
+  startDate: string;
+  reason: string;
+  managerApproval: boolean;
+  hrApproval: boolean;
+}
+
+interface RewardItem {
+  id: string;
+  name: string;
+  type: 'voucher' | 'discount' | 'gift' | 'experience';
+  points: number;
+  description: string;
+  provider: string;
+  available: number;
+  claimed: number;
+  status: 'active' | 'inactive' | 'out_of_stock';
+}
+
+interface Survey {
+  id: string;
+  title: string;
+  type: 'satisfaction' | 'engagement' | 'feedback' | 'pulse';
+  status: 'draft' | 'active' | 'completed' | 'analyzing';
+  responses: number;
+  targetResponses: number;
+  startDate: string;
+  endDate: string;
+  averageRating: number;
 }
 
 export const QualityOfLifeSystem: React.FC<QualityOfLifeSystemProps> = ({ onBack }) => {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [selectedInitiative, setSelectedInitiative] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-6" dir="rtl">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={onBack}
-            className="hover:bg-primary/10 border-primary/20"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-              <Heart className="h-8 w-8 text-primary" />
-              جودة الحياة
-            </h1>
-            <p className="text-muted-foreground mt-1">نظام إدارة جودة الحياة الوظيفية المتطور والذكي</p>
+  // Mock data for demonstration
+  const qualityPrograms: QualityProgram[] = [
+    {
+      id: '1',
+      name: 'برنامج اللياقة البدنية',
+      nameEn: 'Fitness Program',
+      category: 'sports',
+      status: 'active',
+      description: 'برنامج شامل للياقة البدنية يشمل تمارين متنوعة وتحديات صحية',
+      startDate: '2024-01-01',
+      endDate: '2024-12-31',
+      participants: 156,
+      targetParticipants: 200,
+      responsibleManager: 'أحمد محمد الخالدي',
+      budget: 25000
+    },
+    {
+      id: '2',
+      name: 'النادي الثقافي',
+      nameEn: 'Cultural Club',
+      category: 'cultural',
+      status: 'active',
+      description: 'أنشطة ثقافية متنوعة تشمل القراءة والمحاضرات والفعاليات الثقافية',
+      startDate: '2024-02-01',
+      endDate: '2024-11-30',
+      participants: 89,
+      targetParticipants: 120,
+      responsibleManager: 'فاطمة أحمد السالم',
+      budget: 15000
+    },
+    {
+      id: '3',
+      name: 'مبادرة العمل التطوعي',
+      nameEn: 'Volunteer Initiative',
+      category: 'volunteering',
+      status: 'planning',
+      description: 'مبادرات تطوعية لخدمة المجتمع والمشاركة في الأعمال الخيرية',
+      startDate: '2024-03-01',
+      endDate: '2024-06-30',
+      participants: 0,
+      targetParticipants: 80,
+      responsibleManager: 'نورا محمد العتيبي',
+      budget: 10000
+    }
+  ];
+
+  const supportServices: SupportService[] = [
+    {
+      id: '1',
+      type: 'psychological',
+      title: 'الاستشارة النفسية',
+      description: 'جلسات استشارية نفسية سرية مع أخصائيين معتمدين',
+      status: 'available',
+      provider: 'د. سارة أحمد المطيري',
+      sessions: 45,
+      rating: 4.8
+    },
+    {
+      id: '2',
+      type: 'social',
+      title: 'الدعم الاجتماعي',
+      description: 'مساعدة في حل المشاكل الاجتماعية والأسرية',
+      status: 'available',
+      provider: 'أ. محمد عبدالله الشمري',
+      sessions: 32,
+      rating: 4.6
+    },
+    {
+      id: '3',
+      type: 'financial',
+      title: 'الاستشارة المالية',
+      description: 'نصائح مالية وتخطيط للميزانية الشخصية',
+      status: 'busy',
+      provider: 'أ. خالد سعد القحطاني',
+      sessions: 28,
+      rating: 4.7
+    }
+  ];
+
+  const healthChallenges: HealthChallenge[] = [
+    {
+      id: '1',
+      name: 'تحدي 10,000 خطوة',
+      type: 'steps',
+      description: 'تحدي يومي للوصول لـ 10,000 خطوة يوميًا',
+      startDate: '2024-01-15',
+      endDate: '2024-02-15',
+      participants: 234,
+      points: 500,
+      status: 'active'
+    },
+    {
+      id: '2',
+      name: 'بطولة كرة القدم',
+      type: 'sports',
+      description: 'بطولة كرة قدم بين أقسام الشركة',
+      startDate: '2024-02-01',
+      endDate: '2024-02-28',
+      participants: 64,
+      points: 1000,
+      status: 'active'
+    },
+    {
+      id: '3',
+      name: 'شهر التأمل والاسترخاء',
+      type: 'wellness',
+      description: 'جلسات تأمل واسترخاء للموظفين',
+      startDate: '2024-03-01',
+      endDate: '2024-03-31',
+      participants: 0,
+      points: 300,
+      status: 'upcoming'
+    }
+  ];
+
+  const workLifeRequests: WorkLifeRequest[] = [
+    {
+      id: '1',
+      employeeName: 'أحمد محمد الخالدي',
+      requestType: 'remote_work',
+      status: 'approved',
+      requestDate: '2024-01-10',
+      startDate: '2024-01-20',
+      reason: 'ظروف عائلية',
+      managerApproval: true,
+      hrApproval: true
+    },
+    {
+      id: '2',
+      employeeName: 'فاطمة أحمد السالم',
+      requestType: 'flexible_hours',
+      status: 'pending',
+      requestDate: '2024-01-15',
+      startDate: '2024-02-01',
+      reason: 'التوازن بين العمل والحياة',
+      managerApproval: false,
+      hrApproval: false
+    }
+  ];
+
+  const rewardItems: RewardItem[] = [
+    {
+      id: '1',
+      name: 'قسيمة شراء 500 ريال',
+      type: 'voucher',
+      points: 2500,
+      description: 'قسيمة شراء من متاجر مختارة',
+      provider: 'متاجر الشراكة',
+      available: 20,
+      claimed: 5,
+      status: 'active'
+    },
+    {
+      id: '2',
+      name: 'خصم 30% على المطاعم',
+      type: 'discount',
+      points: 1000,
+      description: 'خصم على مطاعم مختارة',
+      provider: 'شبكة المطاعم',
+      available: 50,
+      claimed: 12,
+      status: 'active'
+    },
+    {
+      id: '3',
+      name: 'تذكرة سينما مجانية',
+      type: 'experience',
+      points: 800,
+      description: 'تذكرة مجانية لدور السينما',
+      provider: 'سينما الرياض',
+      available: 0,
+      claimed: 30,
+      status: 'out_of_stock'
+    }
+  ];
+
+  const surveys: Survey[] = [
+    {
+      id: '1',
+      title: 'استطلاع رضا الموظفين',
+      type: 'satisfaction',
+      status: 'active',
+      responses: 145,
+      targetResponses: 200,
+      startDate: '2024-01-01',
+      endDate: '2024-01-31',
+      averageRating: 4.2
+    },
+    {
+      id: '2',
+      title: 'مؤشر الانخراط الوظيفي',
+      type: 'engagement',
+      status: 'completed',
+      responses: 189,
+      targetResponses: 180,
+      startDate: '2023-12-01',
+      endDate: '2023-12-31',
+      averageRating: 3.9
+    },
+    {
+      id: '3',
+      title: 'تقييم برامج جودة الحياة',
+      type: 'feedback',
+      status: 'draft',
+      responses: 0,
+      targetResponses: 150,
+      startDate: '2024-02-01',
+      endDate: '2024-02-15',
+      averageRating: 0
+    }
+  ];
+
+  // Analytics data
+  const satisfactionData = [
+    { month: 'يناير', satisfaction: 85, engagement: 82, programs: 15 },
+    { month: 'فبراير', satisfaction: 87, engagement: 84, programs: 18 },
+    { month: 'مارس', satisfaction: 89, engagement: 86, programs: 20 },
+    { month: 'أبريل', satisfaction: 88, engagement: 83, programs: 17 },
+    { month: 'مايو', satisfaction: 91, engagement: 88, programs: 22 },
+    { month: 'يونيو', satisfaction: 93, engagement: 90, programs: 25 }
+  ];
+
+  const programDistribution = [
+    { name: 'البرامج الرياضية', value: 35, color: '#3b82f6' },
+    { name: 'البرامج الثقافية', value: 25, color: '#10b981' },
+    { name: 'البرامج الاجتماعية', value: 20, color: '#f59e0b' },
+    { name: 'العمل التطوعي', value: 15, color: '#8b5cf6' },
+    { name: 'برامج أخرى', value: 5, color: '#ef4444' }
+  ];
+
+  // Calculate statistics
+  const stats = {
+    employeeSatisfaction: 92,
+    activePrograms: qualityPrograms.filter(p => p.status === 'active').length,
+    participationRate: 78,
+    supportRequests: 156,
+    totalRewards: 2847,
+    completedSurveys: surveys.filter(s => s.status === 'completed').length
+  };
+
+  const handleExport = () => {
+    toast({
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير تقرير جودة الحياة كملف PDF",
+    });
+  };
+
+  const handlePrint = () => {
+    toast({
+      title: "جاري الطباعة",
+      description: "يتم تحضير التقرير للطباعة",
+    });
+  };
+
+  const handleAddProgram = () => {
+    toast({
+      title: "تم إضافة البرنامج",
+      description: "تم إضافة برنامج جودة الحياة الجديد بنجاح",
+    });
+    setIsAddDialogOpen(false);
+  };
+
+  const handleEditProgram = (id: string) => {
+    toast({
+      title: "تم تحديث البرنامج",
+      description: "تم تحديث بيانات البرنامج بنجاح",
+    });
+  };
+
+  const handleDeleteProgram = (id: string) => {
+    toast({
+      title: "تم حذف البرنامج",
+      description: "تم حذف البرنامج من النظام",
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active':
+      case 'available':
+      case 'approved': 
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'planning':
+      case 'pending':
+      case 'busy': 
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'inactive':
+      case 'offline':
+      case 'rejected': 
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'completed': 
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'out_of_stock': 
+        return 'bg-red-100 text-red-800 border-red-200';
+      default: 
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    const statusMap: { [key: string]: string } = {
+      'active': 'نشط',
+      'inactive': 'غير نشط',
+      'completed': 'مكتمل',
+      'planning': 'قيد التخطيط',
+      'available': 'متاح',
+      'busy': 'مشغول',
+      'offline': 'غير متاح',
+      'pending': 'قيد المراجعة',
+      'approved': 'موافق عليه',
+      'rejected': 'مرفوض',
+      'out_of_stock': 'غير متوفر',
+      'draft': 'مسودة',
+      'analyzing': 'قيد التحليل',
+      'upcoming': 'قادم'
+    };
+    return statusMap[status] || status;
+  };
+
+  const getCategoryText = (category: string) => {
+    const categoryMap: { [key: string]: string } = {
+      'sports': 'رياضية',
+      'cultural': 'ثقافية',
+      'social': 'اجتماعية',
+      'volunteering': 'تطوعية',
+      'psychological': 'نفسية',
+      'financial': 'مالية',
+      'legal': 'قانونية',
+      'steps': 'خطوات',
+      'wellness': 'عافية',
+      'nutrition': 'تغذية',
+      'remote_work': 'عمل عن بُعد',
+      'flexible_hours': 'ساعات مرنة',
+      'compressed_week': 'أسبوع مضغوط',
+      'job_share': 'مشاركة وظيفية',
+      'voucher': 'قسيمة',
+      'discount': 'خصم',
+      'gift': 'هدية',
+      'experience': 'تجربة',
+      'satisfaction': 'رضا',
+      'engagement': 'انخراط',
+      'feedback': 'تقييم',
+      'pulse': 'نبض'
+    };
+    return categoryMap[category] || category;
+  };
+
+  const renderHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+      <div className="relative p-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost" 
+              size="sm"
+              onClick={onBack}
+              className="hover:bg-primary/10"
+            >
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              العودة
+            </Button>
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <Heart className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  جودة الحياة
+                </h1>
+                <p className="text-muted-foreground text-lg mt-1">
+                  منظومة شاملة لتحسين جودة الحياة الوظيفية وتعزيز رفاهية الموظفين مع برامج متنوعة وخدمات داعمة
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExport}>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
+            </Button>
+            <Button variant="outline" size="sm" onClick={handlePrint}>
+              <FileText className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm">
+                  <Plus className="h-4 w-4 ml-2" />
+                  برنامج جديد
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>إضافة برنامج جودة حياة جديد</DialogTitle>
+                </DialogHeader>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="programName">اسم البرنامج</Label>
+                    <Input id="programName" placeholder="أدخل اسم البرنامج" />
+                  </div>
+                  <div>
+                    <Label htmlFor="category">الفئة</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="اختر الفئة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="sports">رياضية</SelectItem>
+                        <SelectItem value="cultural">ثقافية</SelectItem>
+                        <SelectItem value="social">اجتماعية</SelectItem>
+                        <SelectItem value="volunteering">تطوعية</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="startDate">تاريخ البداية</Label>
+                    <Input id="startDate" type="date" />
+                  </div>
+                  <div>
+                    <Label htmlFor="endDate">تاريخ النهاية</Label>
+                    <Input id="endDate" type="date" />
+                  </div>
+                  <div>
+                    <Label htmlFor="targetParticipants">عدد المشاركين المستهدف</Label>
+                    <Input id="targetParticipants" type="number" placeholder="100" />
+                  </div>
+                  <div>
+                    <Label htmlFor="budget">الميزانية</Label>
+                    <Input id="budget" type="number" placeholder="10000" />
+                  </div>
+                  <div className="col-span-full">
+                    <Label htmlFor="description">الوصف</Label>
+                    <Textarea id="description" placeholder="وصف البرنامج والأهداف" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2 mt-4">
+                  <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+                    إلغاء
+                  </Button>
+                  <Button onClick={handleAddProgram}>
+                    إضافة البرنامج
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
+      </div>
+    </div>
+  );
+
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">رضا الموظفين</p>
+                <p className="text-2xl font-bold text-primary">{stats.employeeSatisfaction}%</p>
+              </div>
+              <Smile className="h-8 w-8 text-primary/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">البرامج النشطة</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.activePrograms}</p>
+              </div>
+              <PlayCircle className="h-8 w-8 text-orange-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">معدل المشاركة</p>
+                <p className="text-2xl font-bold text-emerald-600">{stats.participationRate}%</p>
+              </div>
+              <Users className="h-8 w-8 text-emerald-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">طلبات الدعم</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.supportRequests}</p>
+              </div>
+              <HeartHandshake className="h-8 w-8 text-blue-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي المكافآت</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.totalRewards}</p>
+              </div>
+              <Gift className="h-8 w-8 text-purple-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">الاستطلاعات المكتملة</p>
+                <p className="text-2xl font-bold text-green-600">{stats.completedSurveys}</p>
+              </div>
+              <BarChart className="h-8 w-8 text-green-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              مؤشرات الرضا والانخراط
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={satisfactionData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="satisfaction" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
+                <Area type="monotone" dataKey="engagement" stackId="2" stroke="#10b981" fill="#10b981" />
+                <Area type="monotone" dataKey="programs" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              توزيع البرامج
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RechartsPieChart>
+                <Pie
+                  data={programDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {programDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* AI Insights */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" />
+            رؤى الذكاء الاصطناعي لجودة الحياة
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-semibold text-emerald-800">رضا عالي</span>
+              </div>
+              <p className="text-sm text-emerald-700">
+                ارتفاع ملحوظ في مؤشرات رضا الموظفين بنسبة 12% هذا الشهر
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-orange-600" />
+                <span className="text-sm font-semibold text-orange-800">فرصة تحسين</span>
+              </div>
+              <p className="text-sm text-orange-700">
+                يُنصح بزيادة البرامج الثقافية لتحسين التوازن في المشاركة
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Info className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-800">توصية</span>
+              </div>
+              <p className="text-sm text-blue-700">
+                تفعيل برامج العمل المرن قد يزيد من الرضا الوظيفي بنسبة 8%
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Activities */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              أحدث الأنشطة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Trophy className="h-5 w-5 text-orange-600" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">انتهاء تحدي 10,000 خطوة</p>
+                  <p className="text-xs text-muted-foreground">234 مشارك - نسبة النجاح 87%</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ ساعة</span>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <MessageSquare className="h-5 w-5 text-blue-600" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">استطلاع رضا جديد</p>
+                  <p className="text-xs text-muted-foreground">145 استجابة من أصل 200</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ 3 ساعات</span>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <Gift className="h-5 w-5 text-purple-600" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium">استبدال مكافآت جديدة</p>
+                  <p className="text-xs text-muted-foreground">15 قسيمة شراء تم استبدالها</p>
+                </div>
+                <span className="text-xs text-muted-foreground">منذ 5 ساعات</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Target className="h-5 w-5" />
+              إجراءات سريعة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3">
+              <Button variant="outline" className="h-20 flex-col gap-1">
+                <Plus className="h-5 w-5" />
+                <span className="text-xs">برنامج جديد</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex-col gap-1">
+                <BarChart className="h-5 w-5" />
+                <span className="text-xs">إنشاء استطلاع</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex-col gap-1">
+                <HeartHandshake className="h-5 w-5" />
+                <span className="text-xs">خدمة دعم</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex-col gap-1">
+                <Dumbbell className="h-5 w-5" />
+                <span className="text-xs">تحدي رياضي</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  const renderProgramsTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Search className="h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="البحث في البرامج..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-64"
+            />
+          </div>
+          <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">جميع البرامج</SelectItem>
+              <SelectItem value="sports">رياضية</SelectItem>
+              <SelectItem value="cultural">ثقافية</SelectItem>
+              <SelectItem value="social">اجتماعية</SelectItem>
+              <SelectItem value="volunteering">تطوعية</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="gap-2" onClick={() => console.log('AI Assistant')}>
-            <Brain className="h-4 w-4" />
-            المساعد الذكي
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-1" />
+            تصدير
           </Button>
-          <Button variant="outline" className="gap-2" onClick={() => console.log('Settings')}>
-            <Settings className="h-4 w-4" />
-            الإعدادات
+          <Button variant="outline" size="sm">
+            <FileText className="h-4 w-4 ml-1" />
+            طباعة
           </Button>
         </div>
       </div>
 
-      {/* Main Content */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-6 mb-8">
-          <TabsTrigger value="dashboard" className="flex items-center gap-2">
-            <BarChart3 className="h-4 w-4" />
-            لوحة التحكم
-          </TabsTrigger>
-          <TabsTrigger value="initiatives" className="flex items-center gap-2">
-            <Star className="h-4 w-4" />
-            المبادرات
-          </TabsTrigger>
-          <TabsTrigger value="support" className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            الدعم النفسي
-          </TabsTrigger>
-          <TabsTrigger value="health" className="flex items-center gap-2">
-            <Activity className="h-4 w-4" />
-            الصحة البدنية
-          </TabsTrigger>
-          <TabsTrigger value="balance" className="flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            التوازن
-          </TabsTrigger>
-          <TabsTrigger value="rewards" className="flex items-center gap-2">
-            <Award className="h-4 w-4" />
-            المكافآت
-          </TabsTrigger>
-        </TabsList>
-
-        {/* Dashboard Tab */}
-        <TabsContent value="dashboard" className="space-y-6">
-          {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-primary/20 hover:border-primary/40 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">نسبة رضا الموظفين</CardTitle>
-                <Smile className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-primary">87%</div>
-                <div className="flex items-center gap-2 mt-2">
-                  <Progress value={87} className="flex-1" />
-                  <Badge variant="secondary" className="bg-green-100 text-green-800">
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    +5%
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-secondary/20 hover:border-secondary/40 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">المبادرات النشطة</CardTitle>
-                <Target className="h-4 w-4 text-secondary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-secondary">24</div>
-                <div className="flex items-center gap-2 mt-2">
-                  <div className="text-sm text-muted-foreground">
-                    12 رياضية، 8 ثقافية، 4 اجتماعية
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-blue-200 hover:border-blue-400 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">نسبة المشاركة</CardTitle>
-                <Users className="h-4 w-4 text-blue-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-blue-600">72%</div>
-                <div className="flex items-center gap-2 mt-2">
-                  <Progress value={72} className="flex-1" />
-                  <span className="text-sm text-muted-foreground">432 موظف</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-purple-200 hover:border-purple-400 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">النقاط المكتسبة</CardTitle>
-                <Trophy className="h-4 w-4 text-purple-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-purple-600">18,450</div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  هذا الشهر: +2,340 نقطة
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Activity Overview */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-primary" />
-                  نظرة عامة على الأنشطة
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Dumbbell className="h-4 w-4 text-blue-600" />
-                      <span>الأنشطة الرياضية</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Progress value={85} className="w-20" />
-                      <span className="text-sm font-medium">85%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Book className="h-4 w-4 text-green-600" />
-                      <span>الأنشطة الثقافية</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Progress value={72} className="w-20" />
-                      <span className="text-sm font-medium">72%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Heart className="h-4 w-4 text-red-600" />
-                      <span>الأنشطة الاجتماعية</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Progress value={68} className="w-20" />
-                      <span className="text-sm font-medium">68%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Brain className="h-4 w-4 text-purple-600" />
-                      <span>الدعم النفسي</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Progress value={45} className="w-20" />
-                      <span className="text-sm font-medium">45%</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5 text-orange-600" />
-                  التنبيهات والتوصيات الذكية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Zap className="h-4 w-4 text-blue-600" />
-                      <span className="font-medium text-blue-800">توصية ذكية</span>
-                    </div>
-                    <p className="text-sm text-blue-700">
-                      زيادة برامج الصحة البدنية بنسبة 15% لتحسين المشاركة
-                    </p>
-                  </div>
-                  <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <AlertCircle className="h-4 w-4 text-yellow-600" />
-                      <span className="font-medium text-yellow-800">تنبيه</span>
-                    </div>
-                    <p className="text-sm text-yellow-700">
-                      انخفاض في استخدام خدمات الدعم النفسي هذا الشهر
-                    </p>
-                  </div>
-                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span className="font-medium text-green-800">إنجاز</span>
-                    </div>
-                    <p className="text-sm text-green-700">
-                      تم تجاوز هدف المشاركة الشهرية بنسبة 12%
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Recent Activities */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-primary" />
-                الأنشطة الأخيرة
-              </CardTitle>
-              <Button variant="outline" size="sm" onClick={() => console.log('View All Activities')}>
-                <Eye className="h-4 w-4 mr-2" />
-                عرض الكل
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  { icon: Dumbbell, title: "تحدي 10,000 خطوة", participants: 156, type: "رياضي", status: "active" },
-                  { icon: Book, title: "ورشة إدارة الوقت", participants: 89, type: "ثقافي", status: "completed" },
-                  { icon: Coffee, title: "جلسة استراحة ذهنية", participants: 67, type: "استرخاء", status: "active" },
-                  { icon: Heart, title: "برنامج الدعم الأسري", participants: 43, type: "اجتماعي", status: "active" }
-                ].map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors">
-                    <div className="flex items-center gap-3">
-                      <activity.icon className="h-5 w-5 text-primary" />
-                      <div>
-                        <h4 className="font-medium">{activity.title}</h4>
-                        <p className="text-sm text-muted-foreground">{activity.participants} مشارك • {activity.type}</p>
-                      </div>
-                    </div>
-                    <Badge variant={activity.status === 'active' ? 'default' : 'secondary'}>
-                      {activity.status === 'active' ? 'نشط' : 'مكتمل'}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Quality of Life Initiatives Tab */}
-        <TabsContent value="initiatives" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">إدارة مبادرات جودة الحياة</h2>
-            <div className="flex gap-2">
-              <Button className="gap-2" onClick={() => console.log('Add Initiative')}>
-                <Plus className="h-4 w-4" />
-                إضافة مبادرة جديدة
-              </Button>
-              <Button variant="outline" className="gap-2" onClick={() => console.log('Generate Report')}>
-                <FileText className="h-4 w-4" />
-                تقرير المبادرات
-              </Button>
-            </div>
-          </div>
-
-          {/* Initiative Categories */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 border-blue-200 hover:border-blue-400">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
-                  <Dumbbell className="h-5 w-5" />
-                  البرامج الرياضية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <span>المبادرات النشطة</span>
-                    <Badge variant="secondary">12</Badge>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span>إجمالي المشاركين</span>
-                    <span className="font-medium">287</span>
-                  </div>
-                  <Progress value={85} className="mt-2" />
-                  <div className="flex gap-2 mt-3">
-                    <Button size="sm" variant="outline" onClick={() => console.log('View Sports Programs')}>
-                      <Eye className="h-3 w-3 mr-1" />
-                      عرض
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={() => console.log('Edit Sports Programs')}>
-                      <Edit className="h-3 w-3 mr-1" />
-                      تعديل
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 border-green-200 hover:border-green-400">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600">
-                  <Book className="h-5 w-5" />
-                  البرامج الثقافية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <span>المبادرات النشطة</span>
-                    <Badge variant="secondary">8</Badge>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span>إجمالي المشاركين</span>
-                    <span className="font-medium">195</span>
-                  </div>
-                  <Progress value={72} className="mt-2" />
-                  <div className="flex gap-2 mt-3">
-                    <Button size="sm" variant="outline" onClick={() => console.log('View Cultural Programs')}>
-                      <Eye className="h-3 w-3 mr-1" />
-                      عرض
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={() => console.log('Edit Cultural Programs')}>
-                      <Edit className="h-3 w-3 mr-1" />
-                      تعديل
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 border-purple-200 hover:border-purple-400">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-purple-600">
-                  <Heart className="h-5 w-5" />
-                  البرامج الاجتماعية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <span>المبادرات النشطة</span>
-                    <Badge variant="secondary">4</Badge>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span>إجمالي المشاركين</span>
-                    <span className="font-medium">156</span>
-                  </div>
-                  <Progress value={68} className="mt-2" />
-                  <div className="flex gap-2 mt-3">
-                    <Button size="sm" variant="outline" onClick={() => console.log('View Social Programs')}>
-                      <Eye className="h-3 w-3 mr-1" />
-                      عرض
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={() => console.log('Edit Social Programs')}>
-                      <Edit className="h-3 w-3 mr-1" />
-                      تعديل
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Active Initiatives List */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>المبادرات النشطة</CardTitle>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={() => console.log('Filter Initiatives')}>
-                  <Filter className="h-4 w-4 mr-2" />
-                  تصفية
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => console.log('Search Initiatives')}>
-                  <Search className="h-4 w-4 mr-2" />
-                  بحث
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  { 
-                    name: "تحدي اللياقة الشهري", 
-                    category: "رياضي", 
-                    participants: 156, 
-                    startDate: "2024-01-01", 
-                    endDate: "2024-01-31",
-                    status: "active",
-                    satisfaction: 92
-                  },
-                  { 
-                    name: "ورشة التطوير الذاتي", 
-                    category: "ثقافي", 
-                    participants: 89, 
-                    startDate: "2024-01-15", 
-                    endDate: "2024-02-15",
-                    status: "active",
-                    satisfaction: 88
-                  },
-                  { 
-                    name: "برنامج الدعم الأسري", 
-                    category: "اجتماعي", 
-                    participants: 43, 
-                    startDate: "2024-01-01", 
-                    endDate: "2024-12-31",
-                    status: "active",
-                    satisfaction: 95
-                  }
-                ].map((initiative, index) => (
-                  <div key={index} className="p-4 border rounded-lg hover:bg-muted/50 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h4 className="font-medium">{initiative.name}</h4>
-                          <Badge variant="outline">{initiative.category}</Badge>
-                          <Badge variant={initiative.status === 'active' ? 'default' : 'secondary'}>
-                            {initiative.status === 'active' ? 'نشط' : 'مكتمل'}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                          <span>المشاركون: {initiative.participants}</span>
-                          <span>من {initiative.startDate} إلى {initiative.endDate}</span>
-                          <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 text-yellow-500" />
-                            <span>الرضا: {initiative.satisfaction}%</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" onClick={() => console.log('View Initiative', initiative.name)}>
-                          <Eye className="h-3 w-3" />
-                        </Button>
-                        <Button size="sm" variant="outline" onClick={() => console.log('Edit Initiative', initiative.name)}>
-                          <Edit className="h-3 w-3" />
-                        </Button>
-                        <Button size="sm" variant="outline" onClick={() => console.log('Download Report', initiative.name)}>
-                          <Download className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Psychological Support Tab */}
-        <TabsContent value="support" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">الدعم النفسي والاجتماعي</h2>
-            <div className="flex gap-2">
-              <Button className="gap-2" onClick={() => console.log('Add Support Service')}>
-                <Plus className="h-4 w-4" />
-                إضافة خدمة دعم
-              </Button>
-              <Button variant="outline" className="gap-2" onClick={() => console.log('Support Analytics')}>
-                <BarChart3 className="h-4 w-4" />
-                تحليلات الدعم
-              </Button>
-            </div>
-          </div>
-
-          {/* Support Services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-blue-200 hover:border-blue-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
-                  <MessageCircle className="h-5 w-5" />
-                  الاستشارات النفسية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">الجلسات المتاحة</span>
-                    <Badge variant="secondary">24/7</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المستشارون</span>
-                    <span className="font-medium">8 متخصصين</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">معدل الاستجابة</span>
-                    <span className="font-medium text-green-600">&lt; 30 دقيقة</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Book Consultation')}>
-                    <Calendar className="h-4 w-4" />
-                    حجز استشارة
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-green-200 hover:border-green-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600">
-                  <PhoneCall className="h-5 w-5" />
-                  خط الدعم المباشر
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">وقت التشغيل</span>
-                    <Badge variant="secondary">24/7</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">اللغات المتاحة</span>
-                    <span className="font-medium">العربية، الإنجليزية</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">السرية</span>
-                    <span className="font-medium text-blue-600">مضمونة 100%</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Call Support')}>
-                    <PhoneCall className="h-4 w-4" />
-                    اتصال مباشر
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-purple-200 hover:border-purple-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-purple-600">
-                  <Headphones className="h-5 w-5" />
-                  جلسات الاسترخاء
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">أنواع الجلسات</span>
-                    <Badge variant="secondary">6 أنواع</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المدة</span>
-                    <span className="font-medium">15-60 دقيقة</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">التقييم</span>
-                    <div className="flex items-center gap-1">
-                      <Star className="h-3 w-3 text-yellow-500" />
-                      <span className="font-medium">4.8/5</span>
-                    </div>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Start Relaxation')}>
-                    <Music className="h-4 w-4" />
-                    بدء جلسة استرخاء
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Support Statistics */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-primary" />
-                  إحصائيات الدعم النفسي
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>الاستشارات هذا الشهر</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={68} className="w-20" />
-                      <span className="font-medium">127</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>جلسات الاسترخاء</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={82} className="w-20" />
-                      <span className="font-medium">234</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>المكالمات الطارئة</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={15} className="w-20" />
-                      <span className="font-medium">23</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>معدل الرضا</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={94} className="w-20" />
-                      <span className="font-medium">94%</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  التقارير الإجمالية (مجهولة المصدر)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <AlertCircle className="h-4 w-4 text-blue-600" />
-                      <span className="font-medium text-blue-800">الضغوط الأكثر شيوعاً</span>
-                    </div>
-                    <p className="text-sm text-blue-700">ضغط العمل (35%)، التوازن الأسري (28%)، القلق المهني (22%)</p>
-                  </div>
-                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <span className="font-medium text-green-800">التحسن الملحوظ</span>
-                    </div>
-                    <p className="text-sm text-green-700">انخفاض مستوى التوتر بنسبة 23% بعد 3 جلسات في المتوسط</p>
-                  </div>
-                  <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Heart className="h-4 w-4 text-purple-600" />
-                      <span className="font-medium text-purple-800">التوصيات</span>
-                    </div>
-                    <p className="text-sm text-purple-700">زيادة ورش إدارة الضغوط وتعزيز برامج التوازن</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        {/* Physical Health Tab */}
-        <TabsContent value="health" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">برامج الصحة البدنية</h2>
-            <div className="flex gap-2">
-              <Button className="gap-2" onClick={() => console.log('Add Health Program')}>
-                <Plus className="h-4 w-4" />
-                إضافة برنامج صحي
-              </Button>
-              <Button variant="outline" className="gap-2" onClick={() => console.log('Sync Health Devices')}>
-                <Activity className="h-4 w-4" />
-                مزامنة الأجهزة
-              </Button>
-            </div>
-          </div>
-
-          {/* Health Challenges */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-green-200 hover:border-green-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600">
-                  <Target className="h-5 w-5" />
-                  تحدي 10,000 خطوة
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المشاركون</span>
-                    <Badge variant="secondary">156 موظف</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">معدل الإنجاز</span>
-                    <span className="font-medium text-green-600">78%</span>
-                  </div>
-                  <Progress value={78} className="mt-2" />
-                  <div className="flex justify-between items-center text-xs text-muted-foreground">
-                    <span>بدء: 1 يناير</span>
-                    <span>انتهاء: 31 يناير</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Join Challenge')}>
-                    <Dumbbell className="h-4 w-4" />
-                    انضمام للتحدي
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-blue-200 hover:border-blue-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
-                  <Activity className="h-5 w-5" />
-                  برنامج اللياقة اليومي
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">التمارين المتاحة</span>
-                    <Badge variant="secondary">25 تمرين</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المستوى</span>
-                    <span className="font-medium">مبتدئ إلى متقدم</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المدة</span>
-                    <span className="font-medium">15-45 دقيقة</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Start Workout')}>
-                    <Timer className="h-4 w-4" />
-                    بدء التمرين
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-purple-200 hover:border-purple-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-purple-600">
-                  <Heart className="h-5 w-5" />
-                  تتبع الصحة العامة
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">الأجهزة المدعومة</span>
-                    <Badge variant="secondary">Apple, Google, Fitbit</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المؤشرات</span>
-                    <span className="font-medium">نبض، نوم، سعرات</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">التزامنة</span>
-                    <span className="font-medium text-green-600">مفعلة</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('View Health Data')}>
-                    <BarChart3 className="h-4 w-4" />
-                    عرض البيانات
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Health Statistics */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-primary" />
-                  الإحصائيات الصحية
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>متوسط الخطوات اليومية</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={85} className="w-20" />
-                      <span className="font-medium">8,500</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>معدل النشاط الأسبوعي</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={72} className="w-20" />
-                      <span className="font-medium">4.3 أيام</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>السعرات المحروقة</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={68} className="w-20" />
-                      <span className="font-medium">1,850</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>جودة النوم</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={82} className="w-20" />
-                      <span className="font-medium">7.2 ساعات</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="h-5 w-5 text-primary" />
-                  الإنجازات والمكافآت
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { title: "محقق هدف الخطوات", points: 50, achieved: true },
-                    { title: "أسبوع نشط", points: 100, achieved: true },
-                    { title: "تحدي شهري", points: 200, achieved: false },
-                    { title: "رياضي الشهر", points: 500, achieved: false }
-                  ].map((achievement, index) => (
-                    <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${
-                      achievement.achieved ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200'
-                    }`}>
-                      <div className="flex items-center gap-3">
-                        <Trophy className={`h-4 w-4 ${achievement.achieved ? 'text-green-600' : 'text-gray-400'}`} />
-                        <span className={achievement.achieved ? 'font-medium' : 'text-muted-foreground'}>
-                          {achievement.title}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm">{achievement.points} نقطة</span>
-                        {achievement.achieved && <CheckCircle className="h-4 w-4 text-green-600" />}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        {/* Work-Life Balance Tab */}
-        <TabsContent value="balance" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">التوازن بين العمل والحياة</h2>
-            <div className="flex gap-2">
-              <Button className="gap-2" onClick={() => console.log('Request Flexible Work')}>
-                <Plus className="h-4 w-4" />
-                طلب مرونة عمل
-              </Button>
-              <Button variant="outline" className="gap-2" onClick={() => console.log('Balance Analytics')}>
-                <BarChart3 className="h-4 w-4" />
-                تحليلات التوازن
-              </Button>
-            </div>
-          </div>
-
-          {/* Balance Programs */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-blue-200 hover:border-blue-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-600">
-                  <Clock className="h-5 w-5" />
-                  مرونة أوقات العمل
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المشاركون</span>
-                    <Badge variant="secondary">89 موظف</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">نوع المرونة</span>
-                    <span className="font-medium">دوام مرن، عمل هجين</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">معدل الرضا</span>
-                    <span className="font-medium text-green-600">96%</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Apply Flexible Hours')}>
-                    <Calendar className="h-4 w-4" />
-                    تقديم طلب
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-green-200 hover:border-green-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600">
-                  <Map className="h-5 w-5" />
-                  العمل عن بُعد
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المؤهلون</span>
-                    <Badge variant="secondary">156 موظف</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">الأيام المتاحة</span>
-                    <span className="font-medium">3 أيام/أسبوع</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">الإنتاجية</span>
-                    <span className="font-medium text-green-600">+12%</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('Request Remote Work')}>
-                    <Coffee className="h-4 w-4" />
-                    طلب عمل عن بُعد
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-purple-200 hover:border-purple-400 transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-purple-600">
-                  <Heart className="h-5 w-5" />
-                  الدعم الأسري
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">البرامج المتاحة</span>
-                    <Badge variant="secondary">8 برامج</Badge>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">الخدمات</span>
-                    <span className="font-medium">حضانة، استشارات</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">المستفيدون</span>
-                    <span className="font-medium">67 عائلة</span>
-                  </div>
-                  <Button className="w-full gap-2" onClick={() => console.log('View Family Support')}>
-                    <Users className="h-4 w-4" />
-                    عرض الخدمات
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Balance Metrics */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 text-primary" />
-                  مؤشرات التوازن
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>مؤشر التوازن العام</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={84} className="w-20" />
-                      <span className="font-medium">84%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>ساعات العمل الإضافية</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={25} className="w-20" />
-                      <span className="font-medium text-green-600">-25%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>رضا الموظفين</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={91} className="w-20" />
-                      <span className="font-medium">91%</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>معدل الاحتفاظ</span>
-                    <div className="flex items-center gap-2">
-                      <Progress value={96} className="w-20" />
-                      <span className="font-medium">96%</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-primary" />
-                  تأثير برامج التوازن
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <TrendingUp className="h-4 w-4 text-green-600" />
-                      <span className="font-medium text-green-800">تحسن الإنتاجية</span>
-                    </div>
-                    <p className="text-sm text-green-700">زيادة الإنتاجية بنسبة 15% مع برامج المرونة</p>
-                  </div>
-                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Heart className="h-4 w-4 text-blue-600" />
-                      <span className="font-medium text-blue-800">تحسن الصحة النفسية</span>
-                    </div>
-                    <p className="text-sm text-blue-700">انخفاض مستوى التوتر بنسبة 28%</p>
-                  </div>
-                  <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Users className="h-4 w-4 text-purple-600" />
-                      <span className="font-medium text-purple-800">تحسن العلاقات الأسرية</span>
-                    </div>
-                    <p className="text-sm text-purple-700">92% من الموظفين يقضون وقتاً أكثر مع العائلة</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        {/* Rewards Tab */}
-        <TabsContent value="rewards" className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">المكافآت والتحفيز</h2>
-            <div className="flex gap-2">
-              <Button className="gap-2" onClick={() => console.log('Add Reward')}>
-                <Plus className="h-4 w-4" />
-                إضافة مكافأة
-              </Button>
-              <Button variant="outline" className="gap-2" onClick={() => console.log('Rewards Report')}>
-                <FileText className="h-4 w-4" />
-                تقرير المكافآت
-              </Button>
-            </div>
-          </div>
-
-          {/* Points Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card className="border-yellow-200 hover:border-yellow-400 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">نقاطك الحالية</CardTitle>
-                <Star className="h-4 w-4 text-yellow-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-yellow-600">2,450</div>
-                <p className="text-xs text-muted-foreground">
-                  +340 هذا الأسبوع
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-blue-200 hover:border-blue-400 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">المرتبة</CardTitle>
-                <Trophy className="h-4 w-4 text-blue-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-blue-600">#12</div>
-                <p className="text-xs text-muted-foreground">
-                  من أصل 600 موظف
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-green-200 hover:border-green-400 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">المكافآت المستبدلة</CardTitle>
-                <Gift className="h-4 w-4 text-green-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">8</div>
-                <p className="text-xs text-muted-foreground">
-                  هذا العام
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-purple-200 hover:border-purple-400 transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">المستوى</CardTitle>
-                <Award className="h-4 w-4 text-purple-600" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-purple-600">الذهبي</div>
-                <p className="text-xs text-muted-foreground">
-                  550 نقطة للمستوى التالي
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Available Rewards */}
-          <Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {qualityPrograms.map((program) => (
+          <Card key={program.id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Gift className="h-5 w-5 text-primary" />
-                المكافآت المتاحة
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <Badge className={getStatusColor(program.status)}>
+                  {getStatusText(program.status)}
+                </Badge>
+                <Badge variant="outline">
+                  {getCategoryText(program.category)}
+                </Badge>
+              </div>
+              <CardTitle className="text-lg">{program.name}</CardTitle>
+              <CardDescription>{program.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[
-                  { 
-                    name: "قسيمة تسوق 100 ريال", 
-                    points: 500, 
-                    category: "تسوق", 
-                    available: true,
-                    description: "قسيمة تسوق من المتاجر الشريكة"
-                  },
-                  { 
-                    name: "يوم إجازة إضافي", 
-                    points: 800, 
-                    category: "إجازة", 
-                    available: true,
-                    description: "يوم إجازة مدفوع إضافي"
-                  },
-                  { 
-                    name: "وجبة مجانية للفريق", 
-                    points: 600, 
-                    category: "طعام", 
-                    available: true,
-                    description: "وجبة مجانية لك ولفريقك"
-                  },
-                  { 
-                    name: "دورة تدريبية مدفوعة", 
-                    points: 1200, 
-                    category: "تدريب", 
-                    available: false,
-                    description: "دورة تدريبية في مجال اختصاصك"
-                  },
-                  { 
-                    name: "تذكرة سينما", 
-                    points: 200, 
-                    category: "ترفيه", 
-                    available: true,
-                    description: "تذكرة سينما لأحدث الأفلام"
-                  },
-                  { 
-                    name: "جهاز رياضي", 
-                    points: 2000, 
-                    category: "صحة", 
-                    available: false,
-                    description: "جهاز رياضي منزلي"
-                  }
-                ].map((reward, index) => (
-                  <div key={index} className={`p-4 border rounded-lg ${
-                    reward.available ? 'hover:shadow-md transition-shadow' : 'opacity-50'
-                  }`}>
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h4 className="font-medium mb-1">{reward.name}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{reward.description}</p>
-                        <Badge variant="outline" className="text-xs">{reward.category}</Badge>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Star className="h-4 w-4 text-yellow-500" />
-                        <span className="font-medium">{reward.points} نقطة</span>
-                      </div>
-                      <Button 
-                        size="sm" 
-                        disabled={!reward.available}
-                        onClick={() => console.log('Redeem Reward', reward.name)}
-                      >
-                        {reward.available ? 'استبدال' : 'غير متاح'}
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المشاركين:</span>
+                  <span className="font-medium">{program.participants} / {program.targetParticipants}</span>
+                </div>
+                <Progress 
+                  value={(program.participants / program.targetParticipants) * 100} 
+                  className="h-2"
+                />
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المسؤول:</span>
+                  <span className="font-medium">{program.responsibleManager}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">الميزانية:</span>
+                  <span className="font-medium">{program.budget.toLocaleString()} ريال</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">التاريخ:</span>
+                  <span className="font-medium">{program.startDate} - {program.endDate}</span>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <Button size="sm" variant="outline" onClick={() => handleEditProgram(program.id)}>
+                  <Edit className="h-4 w-4 ml-1" />
+                  تعديل
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Eye className="h-4 w-4 ml-1" />
+                  عرض
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => handleDeleteProgram(program.id)}>
+                  <Trash2 className="h-4 w-4 ml-1" />
+                  حذف
+                </Button>
               </div>
             </CardContent>
           </Card>
+        ))}
+      </div>
+    </div>
+  );
 
-          {/* Leaderboard */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Trophy className="h-5 w-5 text-primary" />
-                  لوحة المتصدرين
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { name: "أحمد محمد", points: 4850, rank: 1, department: "تقنية المعلومات" },
-                    { name: "فاطمة عبدالله", points: 4320, rank: 2, department: "التسويق" },
-                    { name: "محمد خليدي", points: 3960, rank: 3, department: "المبيعات" },
-                    { name: "نورا سالم", points: 3650, rank: 4, department: "الموارد البشرية" },
-                    { name: "سارة المطيري", points: 3420, rank: 5, department: "المالية" }
-                  ].map((employee, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                          employee.rank === 1 ? 'bg-yellow-100 text-yellow-800' :
-                          employee.rank === 2 ? 'bg-gray-100 text-gray-800' :
-                          employee.rank === 3 ? 'bg-orange-100 text-orange-800' :
-                          'bg-blue-100 text-blue-800'
-                        }`}>
-                          {employee.rank}
-                        </div>
-                        <div>
-                          <h4 className="font-medium">{employee.name}</h4>
-                          <p className="text-sm text-muted-foreground">{employee.department}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Star className="h-4 w-4 text-yellow-500" />
-                        <span className="font-medium">{employee.points}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+  const renderSupportServicesTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">خدمات الدعم</h2>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-1" />
+            تصدير
+          </Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 ml-1" />
+            خدمة جديدة
+          </Button>
+        </div>
+      </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-primary" />
-                  طرق كسب النقاط
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { activity: "المشاركة في الأنشطة الرياضية", points: "50-200", frequency: "يومي" },
-                    { activity: "حضور ورش التطوير", points: "100-300", frequency: "أسبوعي" },
-                    { activity: "المشاركة في المبادرات الاجتماعية", points: "150-400", frequency: "شهري" },
-                    { activity: "تحقيق أهداف الأداء", points: "200-500", frequency: "شهري" },
-                    { activity: "مساعدة الزملاء", points: "25-100", frequency: "يومي" },
-                    { activity: "تقديم اقتراحات تحسين", points: "300-800", frequency: "عند الحاجة" }
-                  ].map((method, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                      <div className="flex-1">
-                        <h4 className="font-medium text-sm">{method.activity}</h4>
-                        <p className="text-xs text-muted-foreground">{method.frequency}</p>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Star className="h-3 w-3 text-yellow-500" />
-                        <span className="text-sm font-medium">{method.points}</span>
-                      </div>
-                    </div>
-                  ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {supportServices.map((service) => (
+          <Card key={service.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <Badge className={getStatusColor(service.status)}>
+                  {getStatusText(service.status)}
+                </Badge>
+                <Badge variant="outline">
+                  {getCategoryText(service.type)}
+                </Badge>
+              </div>
+              <CardTitle className="flex items-center gap-2">
+                <HeartHandshake className="h-5 w-5" />
+                {service.title}
+              </CardTitle>
+              <CardDescription>{service.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المختص:</span>
+                  <span className="font-medium">{service.provider}</span>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-      </Tabs>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">الجلسات:</span>
+                  <span className="font-medium">{service.sessions}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">التقييم:</span>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                    <span className="font-medium">{service.rating}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <Button size="sm" className="flex-1">
+                  <MessageSquare className="h-4 w-4 ml-1" />
+                  حجز جلسة
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Eye className="h-4 w-4 ml-1" />
+                  التفاصيل
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderHealthFitnessTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">الصحة واللياقة</h2>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-1" />
+            تصدير
+          </Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 ml-1" />
+            تحدي جديد
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {healthChallenges.map((challenge) => (
+          <Card key={challenge.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <Badge className={getStatusColor(challenge.status)}>
+                  {getStatusText(challenge.status)}
+                </Badge>
+                <Badge variant="outline">
+                  {getCategoryText(challenge.type)}
+                </Badge>
+              </div>
+              <CardTitle className="flex items-center gap-2">
+                <Dumbbell className="h-5 w-5" />
+                {challenge.name}
+              </CardTitle>
+              <CardDescription>{challenge.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المشاركين:</span>
+                  <span className="font-medium">{challenge.participants}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">النقاط:</span>
+                  <span className="font-medium text-primary">{challenge.points}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المدة:</span>
+                  <span className="font-medium">{challenge.startDate} - {challenge.endDate}</span>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <Button size="sm" className="flex-1">
+                  <UserPlus className="h-4 w-4 ml-1" />
+                  انضمام
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Eye className="h-4 w-4 ml-1" />
+                  التفاصيل
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderWorkLifeBalanceTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">التوازن بين العمل والحياة</h2>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-1" />
+            تصدير
+          </Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 ml-1" />
+            طلب جديد
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4">
+        {workLifeRequests.map((request) => (
+          <Card key={request.id}>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Briefcase className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium">{request.employeeName}</h3>
+                    <p className="text-sm text-muted-foreground">{getCategoryText(request.requestType)}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Badge className={getStatusColor(request.status)}>
+                    {getStatusText(request.status)}
+                  </Badge>
+                  <div className="text-sm text-muted-foreground">
+                    {request.requestDate}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">تاريخ البداية</p>
+                  <p className="font-medium">{request.startDate}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">موافقة المدير</p>
+                  <p className="font-medium">{request.managerApproval ? 'نعم' : 'لا'}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">موافقة الموارد البشرية</p>
+                  <p className="font-medium">{request.hrApproval ? 'نعم' : 'لا'}</p>
+                </div>
+              </div>
+              <div className="mt-4">
+                <p className="text-sm text-muted-foreground">السبب</p>
+                <p className="text-sm">{request.reason}</p>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <Button size="sm" variant="outline">
+                  <Eye className="h-4 w-4 ml-1" />
+                  عرض
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Edit className="h-4 w-4 ml-1" />
+                  تعديل
+                </Button>
+                <Button size="sm" variant="outline">
+                  <CheckCircle2 className="h-4 w-4 ml-1" />
+                  موافقة
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderRewardsTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">المكافآت والتقدير</h2>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-1" />
+            تصدير
+          </Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 ml-1" />
+            مكافأة جديدة
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {rewardItems.map((reward) => (
+          <Card key={reward.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <Badge className={getStatusColor(reward.status)}>
+                  {getStatusText(reward.status)}
+                </Badge>
+                <Badge variant="outline">
+                  {getCategoryText(reward.type)}
+                </Badge>
+              </div>
+              <CardTitle className="flex items-center gap-2">
+                <Gift className="h-5 w-5" />
+                {reward.name}
+              </CardTitle>
+              <CardDescription>{reward.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">النقاط المطلوبة:</span>
+                  <span className="font-bold text-primary">{reward.points}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المزود:</span>
+                  <span className="font-medium">{reward.provider}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">المتاح:</span>
+                  <span className="font-medium">{reward.available}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">تم الاستبدال:</span>
+                  <span className="font-medium">{reward.claimed}</span>
+                </div>
+                <Progress 
+                  value={reward.available > 0 ? ((reward.claimed / (reward.claimed + reward.available)) * 100) : 100} 
+                  className="h-2"
+                />
+              </div>
+              <div className="flex gap-2 mt-4">
+                <Button size="sm" className="flex-1" disabled={reward.status === 'out_of_stock'}>
+                  <ShoppingCart className="h-4 w-4 ml-1" />
+                  استبدال
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Eye className="h-4 w-4 ml-1" />
+                  التفاصيل
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderSurveysTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">الاستطلاعات</h2>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-1" />
+            تصدير
+          </Button>
+          <Button size="sm">
+            <Plus className="h-4 w-4 ml-1" />
+            استطلاع جديد
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4">
+        {surveys.map((survey) => (
+          <Card key={survey.id}>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <BarChart className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium">{survey.title}</h3>
+                    <p className="text-sm text-muted-foreground">{getCategoryText(survey.type)}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Badge className={getStatusColor(survey.status)}>
+                    {getStatusText(survey.status)}
+                  </Badge>
+                  {survey.averageRating > 0 && (
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                      <span className="font-medium">{survey.averageRating}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-muted-foreground">الاستجابات</span>
+                  <span className="text-sm font-medium">{survey.responses} / {survey.targetResponses}</span>
+                </div>
+                <Progress 
+                  value={(survey.responses / survey.targetResponses) * 100} 
+                  className="h-2"
+                />
+              </div>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">تاريخ البداية</p>
+                  <p className="font-medium">{survey.startDate}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">تاريخ النهاية</p>
+                  <p className="font-medium">{survey.endDate}</p>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-4">
+                <Button size="sm" variant="outline">
+                  <Eye className="h-4 w-4 ml-1" />
+                  عرض النتائج
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Edit className="h-4 w-4 ml-1" />
+                  تعديل
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Download className="h-4 w-4 ml-1" />
+                  تصدير PDF
+                </Button>
+                <Button size="sm" variant="outline">
+                  <Share className="h-4 w-4 ml-1" />
+                  مشاركة
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderSettingsTab = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">إعدادات جودة الحياة</h2>
+        <Button size="sm">
+          <Archive className="h-4 w-4 ml-1" />
+          حفظ الإعدادات
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>إعدادات البرامج</CardTitle>
+            <CardDescription>إعدادات عامة لبرامج جودة الحياة</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="autoApprove">الموافقة التلقائية على البرامج</Label>
+              <Button variant="outline" size="sm">
+                <Settings className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="notifications">إشعارات البرامج</Label>
+              <Button variant="outline" size="sm">
+                <Bell className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="budget">إدارة الميزانية</Label>
+              <Button variant="outline" size="sm">
+                <Database className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>إعدادات المكافآت</CardTitle>
+            <CardDescription>إدارة نظام النقاط والمكافآت</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="pointsSystem">نظام النقاط</Label>
+              <Button variant="outline" size="sm">
+                <Trophy className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="rewardCatalog">كتالوج المكافآت</Label>
+              <Button variant="outline" size="sm">
+                <ShoppingCart className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="redemption">قواعد الاستبدال</Label>
+              <Button variant="outline" size="sm">
+                <Gift className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>إعدادات الاستطلاعات</CardTitle>
+            <CardDescription>قوالب وإعدادات الاستطلاعات</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="templates">قوالب الاستطلاعات</Label>
+              <Button variant="outline" size="sm">
+                <FileText className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="anonymous">الاستطلاعات المجهولة</Label>
+              <Button variant="outline" size="sm">
+                <Shield className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="analytics">التحليلات المتقدمة</Label>
+              <Button variant="outline" size="sm">
+                <BarChart3 className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>إعدادات الصلاحيات</CardTitle>
+            <CardDescription>إدارة صلاحيات المستخدمين</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="hrAccess">صلاحيات الموارد البشرية</Label>
+              <Button variant="outline" size="sm">
+                <UserCheck className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="managerAccess">صلاحيات المديرين</Label>
+              <Button variant="outline" size="sm">
+                <Crown className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="employeeAccess">صلاحيات الموظفين</Label>
+              <Button variant="outline" size="sm">
+                <Users className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-background">
+      {renderHeader()}
+      
+      <div className="container mx-auto px-6 py-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-8 bg-muted/50 p-1 h-auto">
+            <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3">
+              <BarChart3 className="h-4 w-4" />
+              <span className="text-xs">لوحة التحكم</span>
+            </TabsTrigger>
+            <TabsTrigger value="programs" className="flex flex-col gap-1 py-3">
+              <Trophy className="h-4 w-4" />
+              <span className="text-xs">البرامج والمبادرات</span>
+            </TabsTrigger>
+            <TabsTrigger value="support" className="flex flex-col gap-1 py-3">
+              <HeartHandshake className="h-4 w-4" />
+              <span className="text-xs">خدمات الدعم</span>
+            </TabsTrigger>
+            <TabsTrigger value="health" className="flex flex-col gap-1 py-3">
+              <Dumbbell className="h-4 w-4" />
+              <span className="text-xs">الصحة واللياقة</span>
+            </TabsTrigger>
+            <TabsTrigger value="worklife" className="flex flex-col gap-1 py-3">
+              <Briefcase className="h-4 w-4" />
+              <span className="text-xs">التوازن الوظيفي</span>
+            </TabsTrigger>
+            <TabsTrigger value="rewards" className="flex flex-col gap-1 py-3">
+              <Gift className="h-4 w-4" />
+              <span className="text-xs">المكافآت</span>
+            </TabsTrigger>
+            <TabsTrigger value="surveys" className="flex flex-col gap-1 py-3">
+              <BarChart className="h-4 w-4" />
+              <span className="text-xs">الاستطلاعات</span>
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex flex-col gap-1 py-3">
+              <Settings className="h-4 w-4" />
+              <span className="text-xs">الإعدادات</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="dashboard" className="space-y-6">
+            {renderAnalyticsDashboard()}
+          </TabsContent>
+
+          <TabsContent value="programs" className="space-y-6">
+            {renderProgramsTab()}
+          </TabsContent>
+
+          <TabsContent value="support" className="space-y-6">
+            {renderSupportServicesTab()}
+          </TabsContent>
+
+          <TabsContent value="health" className="space-y-6">
+            {renderHealthFitnessTab()}
+          </TabsContent>
+
+          <TabsContent value="worklife" className="space-y-6">
+            {renderWorkLifeBalanceTab()}
+          </TabsContent>
+
+          <TabsContent value="rewards" className="space-y-6">
+            {renderRewardsTab()}
+          </TabsContent>
+
+          <TabsContent value="surveys" className="space-y-6">
+            {renderSurveysTab()}
+          </TabsContent>
+
+          <TabsContent value="settings" className="space-y-6">
+            {renderSettingsTab()}
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 };
