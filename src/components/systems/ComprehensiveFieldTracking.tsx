@@ -58,15 +58,7 @@ import {
   RefreshCw,
   Server,
   Users,
-  Route,
-  Map,
-  Camera,
-  Upload,
-  MapPinned,
-  Locate,
-  Timer,
-  FileImage,
-  Printer
+  Route
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
 
@@ -155,16 +147,25 @@ interface AttendanceRecord {
   status: 'present' | 'late' | 'absent' | 'partial';
 }
 
-export const ComprehensiveFieldTracking = ({ onBack }: ComprehensiveFieldTrackingProps) => {
+interface TrackingMetric {
+  id: string;
+  metric: string;
+  category: 'Performance' | 'Tasks' | 'Employees' | 'Attendance' | 'Safety';
+  status: 'Excellent' | 'Good' | 'Average' | 'Below Average' | 'Poor';
+  value: number;
+  target: number;
+  trend: 'up' | 'down' | 'stable';
+  lastUpdated: string;
+}
+
+export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProps> = ({ onBack }) => {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
-  const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
-  const [isIncidentDialogOpen, setIsIncidentDialogOpen] = useState(false);
-  const [isAttendanceDialogOpen, setIsAttendanceDialogOpen] = useState(false);
-  const { toast } = useToast();
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  // Mock data for Field Employees
+  // Mock data for demonstration
   const fieldEmployees: FieldEmployee[] = [
     {
       id: '1',
@@ -206,7 +207,6 @@ export const ComprehensiveFieldTracking = ({ onBack }: ComprehensiveFieldTrackin
     }
   ];
 
-  // Mock data for Field Tasks
   const fieldTasks: FieldTask[] = [
     {
       id: '1',
@@ -220,8 +220,7 @@ export const ComprehensiveFieldTracking = ({ onBack }: ComprehensiveFieldTrackin
       },
       priority: 'high',
       status: 'in-progress',
-      dueDate: '2024-01-15 16:00:00',
-      evidence: []
+      dueDate: '2024-01-15 16:00:00'
     },
     {
       id: '2',
@@ -235,12 +234,10 @@ export const ComprehensiveFieldTracking = ({ onBack }: ComprehensiveFieldTrackin
       },
       priority: 'medium',
       status: 'pending',
-      dueDate: '2024-01-15 17:00:00',
-      evidence: []
+      dueDate: '2024-01-15 17:00:00'
     }
   ];
 
-  // Mock data for Field Incidents
   const fieldIncidents: FieldIncident[] = [
     {
       id: '1',
@@ -255,125 +252,542 @@ export const ComprehensiveFieldTracking = ({ onBack }: ComprehensiveFieldTrackin
       },
       severity: 'low',
       status: 'investigating',
-      reportedAt: '2024-01-15 10:30:00',
-      evidence: []
+      reportedAt: '2024-01-15 10:30:00'
     }
   ];
 
-  // Mock data for Attendance Records
-  const attendanceRecords: AttendanceRecord[] = [
+  const trackingMetrics: TrackingMetric[] = [
     {
       id: '1',
-      employeeId: '1',
-      date: '2024-01-15',
-      checkIn: {
-        time: '08:00:00',
-        location: {
-          lat: 24.7136,
-          lng: 46.6753,
-          address: 'الرياض - حي الملز'
-        },
-        verified: true
-      },
-      workingHours: 8,
-      overtime: 0,
-      status: 'present'
+      metric: 'معدل إنجاز المهام',
+      category: 'Performance',
+      status: 'Excellent',
+      value: 94,
+      target: 90,
+      trend: 'up',
+      lastUpdated: '2024-01-15'
+    },
+    {
+      id: '2',
+      metric: 'دقة الحضور الجغرافي',
+      category: 'Attendance',
+      status: 'Good',
+      value: 88,
+      target: 90,
+      trend: 'stable',
+      lastUpdated: '2024-01-15'
     }
   ];
+
+  // Analytics data
+  const trackingData = [
+    { month: 'يناير', tasks: 85, attendance: 92, incidents: 3 },
+    { month: 'فبراير', tasks: 87, attendance: 94, incidents: 2 },
+    { month: 'مارس', tasks: 89, attendance: 96, incidents: 1 },
+    { month: 'أبريل', tasks: 88, attendance: 93, incidents: 4 },
+    { month: 'مايو', tasks: 91, attendance: 95, incidents: 2 },
+    { month: 'يونيو', tasks: 93, attendance: 97, incidents: 1 }
+  ];
+
+  const departmentDistribution = [
+    { name: 'المبيعات الميدانية', value: 35, color: '#3b82f6' },
+    { name: 'خدمة العملاء', value: 25, color: '#10b981' },
+    { name: 'الصيانة الميدانية', value: 20, color: '#f59e0b' },
+    { name: 'التسليم والشحن', value: 15, color: '#8b5cf6' },
+    { name: 'أقسام أخرى', value: 5, color: '#ef4444' }
+  ];
+
+  // Calculate statistics
+  const stats = {
+    activeEmployees: fieldEmployees.filter(e => e.status === 'active').length,
+    totalTasks: fieldTasks.length,
+    completedTasks: fieldTasks.filter(t => t.status === 'completed').length,
+    pendingTasks: fieldTasks.filter(t => t.status === 'pending').length,
+    totalIncidents: fieldIncidents.length,
+    averageResponse: 95
+  };
+
+  const handleExport = () => {
+    toast({
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير تقرير التتبع الميداني كملف PDF",
+    });
+  };
+
+  const handlePrint = () => {
+    toast({
+      title: "جاري الطباعة",
+      description: "يتم تحضير التقرير للطباعة",
+    });
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      case 'on-break': return 'bg-yellow-100 text-yellow-800';
-      case 'offline': return 'bg-red-100 text-red-800';
-      case 'connected': return 'bg-green-100 text-green-800';
-      case 'disconnected': return 'bg-red-100 text-red-800';
-      case 'error': return 'bg-red-100 text-red-800';
-      case 'syncing': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active': return 'bg-green-100 text-green-800 border-green-200';
+      case 'on-break': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'inactive': return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'offline': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
+  };
+
+  const getStatusText = (status: string) => {
+    const statusMap: { [key: string]: string } = {
+      'active': 'نشط',
+      'on-break': 'في استراحة',
+      'inactive': 'غير نشط',
+      'offline': 'غير متصل'
+    };
+    return statusMap[status] || status;
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'low': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'high': return 'bg-red-100 text-red-800 border-red-200';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low': return 'bg-green-100 text-green-800 border-green-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-red-100 text-red-800';
-      case 'high': return 'bg-orange-100 text-orange-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'low': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
+      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low': return 'bg-green-100 text-green-800 border-green-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
-  const handleAddTask = () => {
-    toast({
-      title: "تمت إضافة المهمة",
-      description: "تم إنشاء مهمة ميدانية جديدة بنجاح",
-    });
-    setIsTaskDialogOpen(false);
-  };
-
-  const handleReportIncident = () => {
-    toast({
-      title: "تم الإبلاغ عن الحادث",
-      description: "تم تسجيل الحادث وإرساله للمراجعة",
-    });
-    setIsIncidentDialogOpen(false);
-  };
-
-  const handleExportReport = () => {
-    toast({
-      title: "جاري تصدير التقرير",
-      description: "سيتم تنزيل التقرير قريباً",
-    });
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/80">
-      <div className="container mx-auto p-6 space-y-8">
-        {/* Header Section */}
-        <div className="text-center space-y-4 py-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-            <MapPin className="h-8 w-8 text-primary" />
-          </div>
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              نظام التتبع الميداني
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              تتبع وإدارة الموظفين الميدانيين في الوقت الفعلي مع تحليلات ذكية شاملة
-            </p>
-          </div>
-          <div className="flex justify-center gap-4 pt-4">
-            <Button 
-              onClick={handleExportReport}
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
+  const renderHeader = () => (
+    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+      <div className="relative p-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost" 
+              size="sm"
+              onClick={onBack}
+              className="hover:bg-primary/10"
             >
-              <Download className="ml-2 h-5 w-5" />
-              تصدير التقارير
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              العودة
             </Button>
-            <Button size="lg" variant="outline" className="hover:bg-primary/5 border-primary/20">
-              <Settings className="ml-2 h-5 w-5" />
-              الإعدادات المتقدمة
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <MapPin className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  التتبع الميداني
+                </h1>
+                <p className="text-muted-foreground text-lg mt-1">
+                  منظومة شاملة لتتبع وإدارة الموظفين الميدانيين في الوقت الفعلي مع تحليلات ذكية شاملة
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExport}>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
             </Button>
-            <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
+            <Button variant="outline" size="sm" onClick={handlePrint}>
+              <FileText className="h-4 w-4 ml-2" />
+              طباعة
+            </Button>
+            <Button size="sm">
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة مهمة
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAnalyticsDashboard = () => (
+    <div className="space-y-6">
+      {/* Key Performance Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <Card className="border-l-4 border-l-primary">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">الموظفين النشطين</p>
+                <p className="text-2xl font-bold text-primary">{stats.activeEmployees}</p>
+              </div>
+              <Users className="h-8 w-8 text-primary/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">إجمالي المهام</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.totalTasks}</p>
+              </div>
+              <Target className="h-8 w-8 text-orange-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-emerald-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">المهام المكتملة</p>
+                <p className="text-2xl font-bold text-emerald-600">{stats.completedTasks}</p>
+              </div>
+              <CheckCircle2 className="h-8 w-8 text-emerald-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">المهام المعلقة</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.pendingTasks}</p>
+              </div>
+              <Clock className="h-8 w-8 text-blue-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">الحوادث المبلغة</p>
+                <p className="text-2xl font-bold text-purple-600">{stats.totalIncidents}</p>
+              </div>
+              <AlertTriangle className="h-8 w-8 text-purple-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متوسط الاستجابة</p>
+                <p className="text-2xl font-bold text-green-600">{stats.averageResponse}%</p>
+              </div>
+              <Activity className="h-8 w-8 text-green-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              أداء التتبع الميداني
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={trackingData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="tasks" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
+                <Area type="monotone" dataKey="attendance" stackId="2" stroke="#10b981" fill="#10b981" />
+                <Area type="monotone" dataKey="incidents" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5" />
+              توزيع الأقسام
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RechartsPieChart>
+                <Pie
+                  data={departmentDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {departmentDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* AI Insights */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-primary" />
+            رؤى الذكاء الاصطناعي للتتبع الميداني
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <span className="text-sm font-semibold text-emerald-800">أداء متميز</span>
+              </div>
+              <p className="text-sm text-emerald-700">
+                تحسن ملحوظ في معدل إنجاز المهام الميدانية بنسبة 12%
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle className="h-4 w-4 text-orange-600" />
+                <span className="text-sm font-semibold text-orange-800">تنبيه</span>
+              </div>
+              <p className="text-sm text-orange-700">
+                يُنصح بتحسين دقة نظام تتبع الحضور في منطقة النخيل
+              </p>
+            </div>
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
+              </div>
+              <p className="text-sm text-blue-700">
+                التوقعات تشير لزيادة كفاءة العمل الميداني إلى 98%
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Activities & Quick Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              النشاطات الحديثة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-green-100">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">تم إنجاز مهمة ميدانية</p>
+                  <p className="text-xs text-muted-foreground">أحمد العلي - منذ ساعة</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-blue-100">
+                  <MapPin className="h-4 w-4 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">تحديث الموقع</p>
+                  <p className="text-xs text-muted-foreground">سارة المطيري - منذ 30 دقيقة</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-yellow-100">
+                  <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">تقرير حادث</p>
+                  <p className="text-xs text-muted-foreground">فريق الصيانة - منذ ساعتين</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="h-5 w-5" />
+              إجراءات سريعة
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-3">
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <Plus className="h-5 w-5" />
+                <span className="text-xs">إضافة مهمة</span>
+              </Button>
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <MapPin className="h-5 w-5" />
+                <span className="text-xs">تتبع مباشر</span>
+              </Button>
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <AlertTriangle className="h-5 w-5" />
+                <span className="text-xs">تقرير حادث</span>
+              </Button>
+              <Button variant="outline" className="h-16 flex-col gap-2">
+                <BarChart3 className="h-5 w-5" />
+                <span className="text-xs">تقرير الأداء</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  const renderEmployeeTracking = () => (
+    <div className="space-y-6">
+      {/* Search and Filter */}
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="البحث عن موظف..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pr-10"
+              />
+            </div>
+            <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+              <SelectTrigger className="w-full md:w-[180px]">
+                <SelectValue placeholder="تصفية حسب الحالة" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">جميع الحالات</SelectItem>
+                <SelectItem value="active">نشط</SelectItem>
+                <SelectItem value="on-break">في استراحة</SelectItem>
+                <SelectItem value="offline">غير متصل</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button>
+              <Filter className="h-4 w-4 ml-2" />
+              فلترة
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Employee List */}
+      <div className="grid gap-4">
+        {fieldEmployees.map((employee) => (
+          <Card key={employee.id}>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{employee.name}</h3>
+                    <p className="text-sm text-muted-foreground">{employee.position} - {employee.department}</p>
+                    <p className="text-xs text-muted-foreground">{employee.currentLocation.address}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <Badge className={getStatusColor(employee.status)}>
+                      {getStatusText(employee.status)}
+                    </Badge>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      آخر تسجيل حضور: {employee.lastCheckIn}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <Button size="sm" variant="outline">
+                      <Eye className="h-4 w-4 ml-2" />
+                      عرض
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      <MapPin className="h-4 w-4 ml-2" />
+                      تتبع
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <p className="text-sm text-muted-foreground">ساعات العمل</p>
+                    <p className="font-semibold">{employee.workingHours}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">المهام المنجزة</p>
+                    <p className="font-semibold">{employee.tasksCompleted}/{employee.totalTasks}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">الحوادث</p>
+                    <p className="font-semibold">{employee.incidents}</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderLiveTracking = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <MapPin className="h-5 w-5" />
+            خريطة التتبع المباشر
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
+            <div className="text-center">
+              <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground">سيتم عرض الخريطة التفاعلية هنا</p>
+              <Button className="mt-4">
+                <Globe className="h-4 w-4 ml-2" />
+                تحميل الخريطة
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderTasksAssignments = () => (
+    <div className="space-y-6">
+      {/* Add Task Button */}
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold">إدارة المهام والتكليفات</h3>
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" variant="outline" className="hover:bg-primary/5 border-primary/20">
-                  <Plus className="ml-2 h-5 w-5" />
-                  إضافة مهمة
+                <Button>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة مهمة جديدة
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-md">
+              <DialogContent>
                 <DialogHeader>
                   <DialogTitle>إضافة مهمة ميدانية جديدة</DialogTitle>
                 </DialogHeader>
@@ -401,875 +815,335 @@ export const ComprehensiveFieldTracking = ({ onBack }: ComprehensiveFieldTrackin
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <Label htmlFor="task-priority">الأولوية</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="اختر الأولوية" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="high">عالية</SelectItem>
-                        <SelectItem value="medium">متوسطة</SelectItem>
-                        <SelectItem value="low">منخفضة</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button onClick={handleAddTask} className="flex-1">
-                      إضافة المهمة
-                    </Button>
-                    <Button variant="outline" onClick={() => setIsTaskDialogOpen(false)}>
-                      إلغاء
-                    </Button>
-                  </div>
+                  <Button onClick={() => {
+                    toast({ title: "تم إضافة المهمة", description: "تم إنشاء مهمة جديدة بنجاح" });
+                    setIsAddDialogOpen(false);
+                  }}>
+                    إضافة المهمة
+                  </Button>
                 </div>
               </DialogContent>
             </Dialog>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/10 hover:shadow-lg transition-all duration-300">
+      {/* Tasks List */}
+      <div className="grid gap-4">
+        {fieldTasks.map((task) => (
+          <Card key={task.id}>
             <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">الموظفين النشطين</p>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-3xl font-bold text-primary">
-                      {fieldEmployees.filter(emp => emp.status === 'active').length}
-                    </span>
-                    <Badge className="bg-green-100 text-green-800">+12%</Badge>
-                  </div>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="font-semibold">{task.title}</h3>
+                  <p className="text-sm text-muted-foreground">{task.description}</p>
                 </div>
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <UserCheck className="h-6 w-6 text-primary" />
+                <div className="flex items-center gap-2">
+                  <Badge className={getPriorityColor(task.priority)}>
+                    {task.priority === 'high' ? 'عالية' : task.priority === 'medium' ? 'متوسطة' : 'منخفضة'}
+                  </Badge>
+                  <Badge className={getStatusColor(task.status)}>
+                    {task.status === 'pending' ? 'معلقة' : 
+                     task.status === 'in-progress' ? 'قيد التنفيذ' : 
+                     task.status === 'completed' ? 'مكتملة' : 'متأخرة'}
+                  </Badge>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <p className="text-muted-foreground">مكلف إلى:</p>
+                  <p className="font-medium">{task.assignedTo}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">الموقع:</p>
+                  <p className="font-medium">{task.location.address}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">موعد الاستحقاق:</p>
+                  <p className="font-medium">{task.dueDate}</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="sm" variant="outline">
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                  <Button size="sm" variant="outline">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
+        ))}
+      </div>
+    </div>
+  );
 
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-100 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">الزيارات المكتملة</p>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-3xl font-bold text-blue-600">127</span>
-                    <Badge className="bg-green-100 text-green-800">+8%</Badge>
+  const renderAttendanceField = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>الحضور والانصراف الجغرافي</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="border-l-4 border-l-green-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">حضور اليوم</p>
+                    <p className="text-2xl font-bold text-green-600">8</p>
                   </div>
+                  <UserCheck className="h-8 w-8 text-green-500/60" />
                 </div>
-                <div className="p-3 bg-blue-100 rounded-full">
-                  <Target className="h-6 w-6 text-blue-600" />
+              </CardContent>
+            </Card>
+            
+            <Card className="border-l-4 border-l-yellow-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">متأخرين</p>
+                    <p className="text-2xl font-bold text-yellow-600">2</p>
+                  </div>
+                  <Clock className="h-8 w-8 text-yellow-500/60" />
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-l-4 border-l-red-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">غائبين</p>
+                    <p className="text-2xl font-bold text-red-600">1</p>
+                  </div>
+                  <AlertTriangle className="h-8 w-8 text-red-500/60" />
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-l-4 border-l-blue-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">ساعات إضافية</p>
+                    <p className="text-2xl font-bold text-blue-600">24</p>
+                  </div>
+                  <Clock className="h-8 w-8 text-blue-500/60" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="mt-6">
+            <Button>
+              <Download className="h-4 w-4 ml-2" />
+              تصدير تقرير الحضور
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderIncidentReporting = () => (
+    <div className="space-y-6">
+      {/* Incident Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card className="border-l-4 border-l-red-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">حوادث هذا الشهر</p>
+                <p className="text-2xl font-bold text-red-600">3</p>
+              </div>
+              <AlertTriangle className="h-8 w-8 text-red-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="border-l-4 border-l-yellow-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">قيد المراجعة</p>
+                <p className="text-2xl font-bold text-yellow-600">1</p>
+              </div>
+              <Eye className="h-8 w-8 text-yellow-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">تم حلها</p>
+                <p className="text-2xl font-bold text-green-600">2</p>
+              </div>
+              <CheckCircle2 className="h-8 w-8 text-green-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground">متوسط الحل</p>
+                <p className="text-2xl font-bold text-blue-600">2.5 ساعة</p>
+              </div>
+              <Clock className="h-8 w-8 text-blue-500/60" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Incidents List */}
+      <div className="grid gap-4">
+        {fieldIncidents.map((incident) => (
+          <Card key={incident.id}>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="font-semibold">{incident.title}</h3>
+                  <p className="text-sm text-muted-foreground">{incident.description}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge className={getSeverityColor(incident.severity)}>
+                    {incident.severity === 'critical' ? 'حرج' : 
+                     incident.severity === 'high' ? 'عالي' : 
+                     incident.severity === 'medium' ? 'متوسط' : 'منخفض'}
+                  </Badge>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <p className="text-muted-foreground">مبلغ من:</p>
+                  <p className="font-medium">{incident.reportedBy}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">الموقع:</p>
+                  <p className="font-medium">{incident.location.address}</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">تاريخ الإبلاغ:</p>
+                  <p className="font-medium">{incident.reportedAt}</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="sm" variant="outline">
+                    <Eye className="h-4 w-4 ml-2" />
+                    عرض التفاصيل
+                  </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
+        ))}
+      </div>
+    </div>
+  );
 
-          <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-100 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">المهام المعلقة</p>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-3xl font-bold text-orange-600">
-                      {fieldTasks.filter(task => task.status === 'pending').length}
-                    </span>
-                    <Badge className="bg-red-100 text-red-800">+3</Badge>
-                  </div>
-                </div>
-                <div className="p-3 bg-orange-100 rounded-full">
-                  <Clock className="h-6 w-6 text-orange-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+  const renderReports = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Button variant="outline" className="h-32 flex-col gap-4">
+          <BarChart3 className="h-8 w-8" />
+          <div className="text-center">
+            <p className="font-semibold">تقرير الأداء الميداني</p>
+            <p className="text-xs text-muted-foreground">تحليل شامل لأداء الفرق</p>
+          </div>
+        </Button>
+        
+        <Button variant="outline" className="h-32 flex-col gap-4">
+          <MapPin className="h-8 w-8" />
+          <div className="text-center">
+            <p className="font-semibold">تقرير التتبع الجغرافي</p>
+            <p className="text-xs text-muted-foreground">مواقع ومسارات الموظفين</p>
+          </div>
+        </Button>
+        
+        <Button variant="outline" className="h-32 flex-col gap-4">
+          <AlertTriangle className="h-8 w-8" />
+          <div className="text-center">
+            <p className="font-semibold">تقرير الحوادث</p>
+            <p className="text-xs text-muted-foreground">تحليل الحوادث والمخاطر</p>
+          </div>
+        </Button>
+      </div>
+    </div>
+  );
 
-          <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-100 hover:shadow-lg transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">الحوادث المبلغة</p>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-3xl font-bold text-red-600">
-                      {fieldIncidents.length}
-                    </span>
-                    <Badge className="bg-green-100 text-green-800">-2</Badge>
-                  </div>
-                </div>
-                <div className="p-3 bg-red-100 rounded-full">
-                  <AlertTriangle className="h-6 w-6 text-red-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+  const renderSettings = () => (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>إعدادات التتبع الميداني</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <Label htmlFor="tracking-interval">فترة التحديث (بالدقائق)</Label>
+              <Input id="tracking-interval" type="number" defaultValue="5" />
+            </div>
+            <div>
+              <Label htmlFor="geofence-radius">نطاق الحضور (بالمتر)</Label>
+              <Input id="geofence-radius" type="number" defaultValue="100" />
+            </div>
+          </div>
+          <Button>
+            <Settings className="h-4 w-4 ml-2" />
+            حفظ الإعدادات
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
-        {/* Main Tabs */}
+  return (
+    <div className="min-h-screen bg-background">
+      {renderHeader()}
+      
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7 bg-muted/50 p-1 rounded-lg">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <BarChart3 className="h-4 w-4" />
-              لوحة القيادة
-            </TabsTrigger>
-            <TabsTrigger value="live-tracking" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <Map className="h-4 w-4" />
-              التتبع المباشر
-            </TabsTrigger>
-            <TabsTrigger value="tasks" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <Target className="h-4 w-4" />
-              المهام والمواعيد
-            </TabsTrigger>
-            <TabsTrigger value="attendance" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <UserCheck className="h-4 w-4" />
-              الحضور الميداني
-            </TabsTrigger>
-            <TabsTrigger value="incidents" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <AlertTriangle className="h-4 w-4" />
-              الإبلاغ عن الحوادث
-            </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <FileText className="h-4 w-4" />
-              التقارير
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-              <Settings className="h-4 w-4" />
-              الإعدادات
-            </TabsTrigger>
-          </TabsList>
+          <div className="border-b border-border">
+            <TabsList className="grid w-full grid-cols-7">
+              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="live-tracking">التتبع المباشر</TabsTrigger>
+              <TabsTrigger value="tasks-assignments">المهام والتكليفات</TabsTrigger>
+              <TabsTrigger value="attendance-field">حضور ميداني</TabsTrigger>
+              <TabsTrigger value="incident-reporting">تقارير الحوادث</TabsTrigger>
+              <TabsTrigger value="reports">التقارير</TabsTrigger>
+              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+            </TabsList>
+          </div>
 
-          {/* Dashboard Tab */}
           <TabsContent value="dashboard" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Activity Chart */}
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-primary" />
-                    نشاط الموظفين الميدانيين
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-80">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={[
-                        { month: 'يناير', active: 45, tasks: 120, incidents: 3 },
-                        { month: 'فبراير', active: 52, tasks: 145, incidents: 2 },
-                        { month: 'مارس', active: 48, tasks: 135, incidents: 4 },
-                        { month: 'أبريل', active: 55, tasks: 160, incidents: 1 },
-                        { month: 'مايو', active: 60, tasks: 180, incidents: 2 },
-                        { month: 'يونيو', active: 58, tasks: 175, incidents: 1 },
-                      ]}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="month" />
-                        <YAxis />
-                        <Tooltip />
-                        <Area type="monotone" dataKey="active" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.1} />
-                        <Area type="monotone" dataKey="tasks" stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.1} />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Distribution Chart */}
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <PieChart className="h-5 w-5 text-primary" />
-                    توزيع المهام حسب القسم
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-80">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RechartsPieChart>
-                        <Pie
-                          data={[
-                            { name: 'المبيعات', value: 35, color: 'hsl(var(--primary))' },
-                            { name: 'خدمة العملاء', value: 25, color: '#3B82F6' },
-                            { name: 'التوصيل', value: 20, color: '#F59E0B' },
-                            { name: 'الصيانة', value: 15, color: '#EF4444' },
-                            { name: 'أخرى', value: 5, color: '#8B5CF6' },
-                          ]}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={120}
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {[
-                            { name: 'المبيعات', value: 35, color: 'hsl(var(--primary))' },
-                            { name: 'خدمة العملاء', value: 25, color: '#3B82F6' },
-                            { name: 'التوصيل', value: 20, color: '#F59E0B' },
-                            { name: 'الصيانة', value: 15, color: '#EF4444' },
-                            { name: 'أخرى', value: 5, color: '#8B5CF6' },
-                          ].map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                      </RechartsPieChart>
-                    </ResponsiveContainer>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Performance Metrics */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-primary" />
-                  مؤشرات الأداء الميداني
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">معدل الحضور الميداني</span>
-                      <span className="text-sm font-bold text-green-600">94%</span>
-                    </div>
-                    <Progress value={94} className="h-2" />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">دقة التتبع</span>
-                      <span className="text-sm font-bold text-blue-600">98%</span>
-                    </div>
-                    <Progress value={98} className="h-2" />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">إنجاز المهام في الوقت</span>
-                      <span className="text-sm font-bold text-orange-600">87%</span>
-                    </div>
-                    <Progress value={87} className="h-2" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {renderAnalyticsDashboard()}
           </TabsContent>
 
-          {/* Live Tracking Tab */}
           <TabsContent value="live-tracking" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Map className="h-5 w-5 text-primary" />
-                  التتبع المباشر للموظفين
-                </CardTitle>
-                <CardDescription>
-                  تتبع مواقع الموظفين الميدانيين في الوقت الفعلي
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {/* Map Placeholder */}
-                <div className="bg-gray-100 rounded-lg h-96 flex items-center justify-center mb-6">
-                  <div className="text-center">
-                    <Map className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500">خريطة التتبع المباشر</p>
-                    <p className="text-sm text-gray-400">سيتم عرض مواقع الموظفين هنا</p>
-                  </div>
-                </div>
-
-                {/* Active Employees List */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">الموظفين النشطين حالياً</h3>
-                  {fieldEmployees.filter(emp => emp.status === 'active').map((employee) => (
-                    <Card key={employee.id} className="border-l-4 border-l-primary">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <h4 className="font-semibold">{employee.name}</h4>
-                            <p className="text-sm text-muted-foreground">{employee.position}</p>
-                            <p className="text-xs text-muted-foreground flex items-center gap-1">
-                              <MapPin className="h-3 w-3" />
-                              {employee.currentLocation.address}
-                            </p>
-                          </div>
-                          <div className="text-right space-y-1">
-                            <Badge className={getStatusColor(employee.status)}>
-                              {employee.status === 'active' ? 'نشط' : employee.status}
-                            </Badge>
-                            <p className="text-xs text-muted-foreground">
-                              آخر تحديث: {new Date(employee.currentLocation.timestamp).toLocaleString('ar')}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            {renderLiveTracking()}
           </TabsContent>
 
-          {/* Tasks & Assignments Tab */}
-          <TabsContent value="tasks" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <Target className="h-5 w-5 text-primary" />
-                      إدارة المهام والمواعيد الميدانية
-                    </CardTitle>
-                    <CardDescription>
-                      تعيين ومتابعة المهام الميدانية للموظفين
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
-                      <DialogTrigger asChild>
-                        <Button>
-                          <Plus className="ml-2 h-4 w-4" />
-                          إضافة مهمة
-                        </Button>
-                      </DialogTrigger>
-                    </Dialog>
-                    <Button variant="outline" onClick={handleExportReport}>
-                      <Download className="ml-2 h-4 w-4" />
-                      تصدير
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {/* Search and Filter */}
-                <div className="flex gap-4 mb-6">
-                  <Input
-                    placeholder="البحث في المهام..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="flex-1"
-                  />
-                  <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="تصفية المهام" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">جميع المهام</SelectItem>
-                      <SelectItem value="pending">معلقة</SelectItem>
-                      <SelectItem value="in-progress">قيد التنفيذ</SelectItem>
-                      <SelectItem value="completed">مكتملة</SelectItem>
-                      <SelectItem value="delayed">متأخرة</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Tasks List */}
-                <div className="space-y-4">
-                  {fieldTasks.map((task) => (
-                    <Card key={task.id} className="hover:shadow-md transition-all duration-200">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between">
-                          <div className="space-y-2 flex-1">
-                            <div className="flex items-center gap-2">
-                              <h3 className="font-semibold">{task.title}</h3>
-                              <Badge className={getPriorityColor(task.priority)}>
-                                {task.priority === 'high' ? 'عالية' : 
-                                 task.priority === 'medium' ? 'متوسطة' : 'منخفضة'}
-                              </Badge>
-                              <Badge className={getStatusColor(task.status)}>
-                                {task.status === 'pending' ? 'معلقة' :
-                                 task.status === 'in-progress' ? 'قيد التنفيذ' :
-                                 task.status === 'completed' ? 'مكتملة' : 'متأخرة'}
-                              </Badge>
-                            </div>
-                            <p className="text-sm text-muted-foreground">{task.description}</p>
-                            <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                              <span className="flex items-center gap-1">
-                                <UserCheck className="h-3 w-3" />
-                                {task.assignedTo}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <MapPin className="h-3 w-3" />
-                                {task.location.address}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {new Date(task.dueDate).toLocaleString('ar')}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          <TabsContent value="tasks-assignments" className="space-y-6">
+            {renderTasksAssignments()}
           </TabsContent>
 
-          {/* Attendance Tab */}
-          <TabsContent value="attendance" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <UserCheck className="h-5 w-5 text-primary" />
-                      إدارة الحضور الميداني
-                    </CardTitle>
-                    <CardDescription>
-                      تتبع حضور وانصراف الموظفين في المواقع الميدانية
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button>
-                      <Plus className="ml-2 h-4 w-4" />
-                      إضافة سجل حضور
-                    </Button>
-                    <Button variant="outline" onClick={handleExportReport}>
-                      <Download className="ml-2 h-4 w-4" />
-                      تصدير
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {/* Attendance Records */}
-                <div className="space-y-4">
-                  {attendanceRecords.map((record) => {
-                    const employee = fieldEmployees.find(emp => emp.id === record.employeeId);
-                    return (
-                      <Card key={record.id} className="border-l-4 border-l-green-500">
-                        <CardContent className="p-4">
-                          <div className="flex items-center justify-between">
-                            <div className="space-y-1">
-                              <h4 className="font-semibold">{employee?.name}</h4>
-                              <p className="text-sm text-muted-foreground">{employee?.position}</p>
-                              <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                                <span className="flex items-center gap-1">
-                                  <Calendar className="h-3 w-3" />
-                                  {record.date}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                  <Clock className="h-3 w-3" />
-                                  دخول: {record.checkIn.time}
-                                </span>
-                                {record.checkOut && (
-                                  <span className="flex items-center gap-1">
-                                    <Clock className="h-3 w-3" />
-                                    خروج: {record.checkOut.time}
-                                  </span>
-                                )}
-                                <span className="flex items-center gap-1">
-                                  <MapPin className="h-3 w-3" />
-                                  {record.checkIn.location.address}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="text-right space-y-1">
-                              <Badge className={getStatusColor(record.status)}>
-                                {record.status === 'present' ? 'حاضر' :
-                                 record.status === 'late' ? 'متأخر' :
-                                 record.status === 'absent' ? 'غائب' : 'حضور جزئي'}
-                              </Badge>
-                              <p className="text-xs text-muted-foreground">
-                                ساعات العمل: {record.workingHours}
-                              </p>
-                              {record.overtime > 0 && (
-                                <p className="text-xs text-orange-600">
-                                  إضافي: {record.overtime} ساعة
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+          <TabsContent value="attendance-field" className="space-y-6">
+            {renderAttendanceField()}
           </TabsContent>
 
-          {/* Incidents Tab */}
-          <TabsContent value="incidents" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <AlertTriangle className="h-5 w-5 text-primary" />
-                      إدارة الحوادث والبلاغات
-                    </CardTitle>
-                    <CardDescription>
-                      تسجيل ومتابعة الحوادث والمشاكل في العمل الميداني
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Dialog open={isIncidentDialogOpen} onOpenChange={setIsIncidentDialogOpen}>
-                      <DialogTrigger asChild>
-                        <Button>
-                          <Plus className="ml-2 h-4 w-4" />
-                          إبلاغ عن حادث
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-md">
-                        <DialogHeader>
-                          <DialogTitle>إبلاغ عن حادث ميداني</DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4">
-                          <div>
-                            <Label htmlFor="incident-title">عنوان الحادث</Label>
-                            <Input id="incident-title" placeholder="أدخل عنوان الحادث" />
-                          </div>
-                          <div>
-                            <Label htmlFor="incident-type">نوع الحادث</Label>
-                            <Select>
-                              <SelectTrigger>
-                                <SelectValue placeholder="اختر نوع الحادث" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="accident">حادث</SelectItem>
-                                <SelectItem value="delay">تأخير</SelectItem>
-                                <SelectItem value="safety">سلامة</SelectItem>
-                                <SelectItem value="equipment">معدات</SelectItem>
-                                <SelectItem value="other">أخرى</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          <div>
-                            <Label htmlFor="incident-severity">الخطورة</Label>
-                            <Select>
-                              <SelectTrigger>
-                                <SelectValue placeholder="اختر مستوى الخطورة" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="critical">حرجة</SelectItem>
-                                <SelectItem value="high">عالية</SelectItem>
-                                <SelectItem value="medium">متوسطة</SelectItem>
-                                <SelectItem value="low">منخفضة</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          <div>
-                            <Label htmlFor="incident-description">تفاصيل الحادث</Label>
-                            <Textarea id="incident-description" placeholder="أدخل تفاصيل الحادث" />
-                          </div>
-                          <div className="flex gap-2">
-                            <Button onClick={handleReportIncident} className="flex-1">
-                              إرسال البلاغ
-                            </Button>
-                            <Button variant="outline" onClick={() => setIsIncidentDialogOpen(false)}>
-                              إلغاء
-                            </Button>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                    <Button variant="outline" onClick={handleExportReport}>
-                      <Download className="ml-2 h-4 w-4" />
-                      تصدير
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {/* Incidents List */}
-                <div className="space-y-4">
-                  {fieldIncidents.map((incident) => (
-                    <Card key={incident.id} className="hover:shadow-md transition-all duration-200">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between">
-                          <div className="space-y-2 flex-1">
-                            <div className="flex items-center gap-2">
-                              <h3 className="font-semibold">{incident.title}</h3>
-                              <Badge className={getSeverityColor(incident.severity)}>
-                                {incident.severity === 'critical' ? 'حرجة' :
-                                 incident.severity === 'high' ? 'عالية' :
-                                 incident.severity === 'medium' ? 'متوسطة' : 'منخفضة'}
-                              </Badge>
-                              <Badge variant="outline">
-                                {incident.type === 'accident' ? 'حادث' :
-                                 incident.type === 'delay' ? 'تأخير' :
-                                 incident.type === 'safety' ? 'سلامة' :
-                                 incident.type === 'equipment' ? 'معدات' : 'أخرى'}
-                              </Badge>
-                            </div>
-                            <p className="text-sm text-muted-foreground">{incident.description}</p>
-                            <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                              <span className="flex items-center gap-1">
-                                <UserCheck className="h-3 w-3" />
-                                بلغ بواسطة: {incident.reportedBy}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <MapPin className="h-3 w-3" />
-                                {incident.location.address}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {new Date(incident.reportedAt).toLocaleString('ar')}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
-                              <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <FileImage className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          <TabsContent value="incident-reporting" className="space-y-6">
+            {renderIncidentReporting()}
           </TabsContent>
 
-          {/* Reports Tab */}
           <TabsContent value="reports" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-primary" />
-                  تقارير النشاط الميداني
-                </CardTitle>
-                <CardDescription>
-                  إنشاء وتصدير التقارير التحليلية للعمل الميداني
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <Card className="hover:shadow-md transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-4 text-center">
-                      <BarChart3 className="h-8 w-8 text-primary mx-auto mb-2" />
-                      <h3 className="font-semibold mb-1">تقرير نشاط الموظفين</h3>
-                      <p className="text-sm text-muted-foreground mb-3">إحصائيات شاملة لنشاط الموظفين الميدانيين</p>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={handleExportReport}>
-                          <Download className="h-4 w-4 ml-1" />
-                          PDF
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Printer className="h-4 w-4 ml-1" />
-                          طباعة
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="hover:shadow-md transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-4 text-center">
-                      <Target className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                      <h3 className="font-semibold mb-1">تقرير إنجاز المهام</h3>
-                      <p className="text-sm text-muted-foreground mb-3">تفاصيل المهام المكتملة والمعلقة</p>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={handleExportReport}>
-                          <Download className="h-4 w-4 ml-1" />
-                          Excel
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Printer className="h-4 w-4 ml-1" />
-                          طباعة
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="hover:shadow-md transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-4 text-center">
-                      <UserCheck className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                      <h3 className="font-semibold mb-1">تقرير الحضور</h3>
-                      <p className="text-sm text-muted-foreground mb-3">سجل الحضور والانصراف الميداني</p>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={handleExportReport}>
-                          <Download className="h-4 w-4 ml-1" />
-                          PDF
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Printer className="h-4 w-4 ml-1" />
-                          طباعة
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="hover:shadow-md transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-4 text-center">
-                      <AlertTriangle className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                      <h3 className="font-semibold mb-1">تقرير الحوادث</h3>
-                      <p className="text-sm text-muted-foreground mb-3">سجل الحوادث والمشاكل المبلغة</p>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={handleExportReport}>
-                          <Download className="h-4 w-4 ml-1" />
-                          PDF
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Printer className="h-4 w-4 ml-1" />
-                          طباعة
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="hover:shadow-md transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-4 text-center">
-                      <TrendingUp className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                      <h3 className="font-semibold mb-1">تقرير الأداء</h3>
-                      <p className="text-sm text-muted-foreground mb-3">تحليل أداء الموظفين الميدانيين</p>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={handleExportReport}>
-                          <Download className="h-4 w-4 ml-1" />
-                          Excel
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Printer className="h-4 w-4 ml-1" />
-                          طباعة
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="hover:shadow-md transition-all duration-200 cursor-pointer">
-                    <CardContent className="p-4 text-center">
-                      <Map className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                      <h3 className="font-semibold mb-1">تقرير المواقع</h3>
-                      <p className="text-sm text-muted-foreground mb-3">إحصائيات المواقع والمناطق المغطاة</p>
-                      <div className="flex gap-2">
-                        <Button size="sm" className="flex-1" onClick={handleExportReport}>
-                          <Download className="h-4 w-4 ml-1" />
-                          PDF
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
-                          <Printer className="h-4 w-4 ml-1" />
-                          طباعة
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CardContent>
-            </Card>
+            {renderReports()}
           </TabsContent>
 
-          {/* Settings Tab */}
           <TabsContent value="settings" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Settings className="h-5 w-5 text-primary" />
-                    إعدادات التتبع
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="tracking-frequency">تكرار التحديث (بالثواني)</Label>
-                    <Input id="tracking-frequency" type="number" defaultValue="30" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="geofence-radius">نطاق السياج الجغرافي (بالمتر)</Label>
-                    <Input id="geofence-radius" type="number" defaultValue="500" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="work-hours-start">بداية ساعات العمل</Label>
-                    <Input id="work-hours-start" type="time" defaultValue="08:00" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="work-hours-end">نهاية ساعات العمل</Label>
-                    <Input id="work-hours-end" type="time" defaultValue="17:00" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Bell className="h-5 w-5 text-primary" />
-                    إعدادات التنبيهات
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="late-threshold">حد التأخير (بالدقائق)</Label>
-                    <Input id="late-threshold" type="number" defaultValue="15" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="absence-threshold">حد الغياب (بالساعات)</Label>
-                    <Input id="absence-threshold" type="number" defaultValue="2" />
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="email-notifications" defaultChecked />
-                    <Label htmlFor="email-notifications">إشعارات البريد الإلكتروني</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input type="checkbox" id="sms-notifications" defaultChecked />
-                    <Label htmlFor="sms-notifications">إشعارات الرسائل النصية</Label>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-primary" />
-                  صلاحيات المستخدمين
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card>
-                      <CardContent className="p-4">
-                        <h4 className="font-semibold mb-2">مدير النظام</h4>
-                        <ul className="text-sm space-y-1">
-                          <li>• عرض جميع البيانات</li>
-                          <li>• تعديل الإعدادات</li>
-                          <li>• إدارة المستخدمين</li>
-                          <li>• حذف البيانات</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4">
-                        <h4 className="font-semibold mb-2">مشرف الميدان</h4>
-                        <ul className="text-sm space-y-1">
-                          <li>• عرض بيانات فريقه</li>
-                          <li>• تعيين المهام</li>
-                          <li>• مراجعة التقارير</li>
-                          <li>• إدارة الحوادث</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4">
-                        <h4 className="font-semibold mb-2">موظف ميداني</h4>
-                        <ul className="text-sm space-y-1">
-                          <li>• عرض مهامه الشخصية</li>
-                          <li>• تسجيل الحضور</li>
-                          <li>• إبلاغ عن الحوادث</li>
-                          <li>• رفع الأدلة</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {renderSettings()}
           </TabsContent>
         </Tabs>
       </div>
