@@ -1,26 +1,30 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { 
-  Building2, Users, BarChart3, Settings, FileText, Plus, Search, 
-  Filter, Edit, Trash2, Eye, Download, Printer, Share2, Upload,
-  TrendingUp, AlertTriangle, CheckCircle, ChevronDown, ChevronRight,
-  Network, MapPin, DollarSign, Calendar, Target, ArrowLeft, Save,
-  Building, Briefcase, UserCheck, Activity, Zap, Shield, Gauge,
-  PieChart, Clock, Globe, Mail, Phone, Star, Award, Menu, X,
-  RefreshCw, Database, Lock, Heart, CreditCard, Clipboard
-} from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Separator } from '@/components/ui/separator';
+import { 
+  Building2, Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save,
+  BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock,
+  FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin,
+  Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu,
+  FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages,
+  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Network,
+  ArrowLeft, ChevronDown, AlertTriangle, DollarSign, User
+} from 'lucide-react';
 import { toast } from 'sonner';
-import { useDepartments } from '@/hooks/useDepartments';
+import { useTranslation } from 'react-i18next';
+import { cn } from '@/lib/utils';
 
 // Mock data for demonstration
 const mockDepartments = [
@@ -379,7 +383,7 @@ const DepartmentsUnitsManagement: React.FC<DepartmentsUnitsManagementProps> = ({
                   <span className="truncate">{department.location}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <UserCheck className="w-4 h-4 text-muted-foreground" />
+                  <User className="w-4 h-4 text-muted-foreground" />
                   <span className="truncate">{department.managerName}</span>
                 </div>
                 <div className="flex items-center gap-2">
