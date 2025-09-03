@@ -1,508 +1,133 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/hooks/use-toast';
 import { 
-  FileText,
-  Download,
-  Eye,
-  Calendar,
-  Users,
-  Building,
-  BarChart3,
-  PieChart,
-  TrendingUp,
-  Filter,
-  Search,
-  Printer,
-  Mail,
-  RefreshCw
+  FileText, Download, Printer, Building, Clock, 
+  TrendingUp, BarChart3, Eye, Award
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const TeamReports: React.FC = () => {
-  const { toast } = useToast();
-  const [selectedReport, setSelectedReport] = useState('employee-list');
-  const [dateRange, setDateRange] = useState('current-month');
-  const [department, setDepartment] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+const TeamReports = () => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
 
-  // Mock data for reports
-  const headcountData = [
-    { month: 'يناير', employees: 120, hired: 8, left: 3 },
-    { month: 'فبراير', employees: 125, hired: 7, left: 2 },
-    { month: 'مارس', employees: 128, hired: 5, left: 2 },
-    { month: 'أبريل', employees: 130, hired: 4, left: 2 },
-    { month: 'مايو', employees: 127, hired: 2, left: 5 },
-    { month: 'يونيو', employees: 132, hired: 8, left: 3 }
-  ];
-
-  const departmentDistribution = [
-    { name: 'تقنية المعلومات', value: 35, color: '#3b82f6' },
-    { name: 'الموارد البشرية', value: 20, color: '#10b981' },
-    { name: 'المالية', value: 15, color: '#f59e0b' },
-    { name: 'التسويق', value: 18, color: '#8b5cf6' },
-    { name: 'العمليات', value: 12, color: '#ef4444' }
+  const departmentData = [
+    { name: isRTL ? 'تقنية المعلومات' : 'IT', employees: 45 },
+    { name: isRTL ? 'الموارد البشرية' : 'HR', employees: 28 },
+    { name: isRTL ? 'المالية' : 'Finance', employees: 32 },
+    { name: isRTL ? 'التسويق' : 'Marketing', employees: 38 },
+    { name: isRTL ? 'المبيعات' : 'Sales', employees: 52 }
   ];
 
   const reportTypes = [
     {
-      id: 'employee-list',
-      name: 'قائمة الموظفين',
-      description: 'قائمة شاملة بجميع الموظفين مع البيانات الأساسية',
-      icon: Users
+      title: isRTL ? 'تقرير التوزيع الوظيفي' : 'Job Distribution Report',
+      description: isRTL ? 'توزيع الموظفين حسب الأقسام والمناصب' : 'Employee distribution by departments and positions',
+      icon: Building,
+      lastGenerated: '2024-06-01'
     },
     {
-      id: 'headcount-analysis',
-      name: 'تحليل القوى العاملة',
-      description: 'تحليل عدد الموظفين والتوزيع حسب الأقسام والمناصب',
-      icon: BarChart3
+      title: isRTL ? 'تقرير فترة التجربة' : 'Trial Period Report',
+      description: isRTL ? 'قائمة الموظفين تحت التجربة وحالتهم' : 'List of employees on trial period and their status',
+      icon: Clock,
+      lastGenerated: '2024-06-01'
     },
     {
-      id: 'turnover-report',
-      name: 'تقرير معدل الدوران',
-      description: 'معدل دوران الموظفين والأسباب والتوجهات',
-      icon: TrendingUp
+      title: isRTL ? 'تقرير الدوران الوظيفي' : 'Employee Turnover Report',
+      description: isRTL ? 'إحصائيات الانضمام والمغادرة للموظفين' : 'Statistics on employee joining and leaving',
+      icon: TrendingUp,
+      lastGenerated: '2024-06-01'
     },
     {
-      id: 'probation-report',
-      name: 'تقرير فترة التجربة',
-      description: 'الموظفين في فترة التجربة وحالة التقييم',
-      icon: Calendar
-    },
-    {
-      id: 'performance-summary',
-      name: 'ملخص الأداء',
-      description: 'ملخص أداء الفرق والموظفين حسب المعايير',
-      icon: PieChart
-    },
-    {
-      id: 'nationality-report',
-      name: 'تقرير الجنسيات',
-      description: 'توزيع الموظفين حسب الجنسية ومتطلبات السعودة',
-      icon: Building
+      title: isRTL ? 'تقرير الأداء الشامل' : 'Comprehensive Performance Report',
+      description: isRTL ? 'تحليل شامل لأداء الموظفين والفرق' : 'Comprehensive analysis of employee and team performance',
+      icon: Award,
+      lastGenerated: '2024-06-01'
     }
   ];
 
-  const sampleEmployees = [
-    { id: 'EMP-001', name: 'أحمد محمد السعيد', department: 'IT', position: 'مطور برمجيات أول', status: 'نشط', hireDate: '2022-01-15' },
-    { id: 'EMP-002', name: 'فاطمة عبدالله النور', department: 'Finance', position: 'محاسبة رئيسية', status: 'نشط', hireDate: '2021-03-10' },
-    { id: 'EMP-003', name: 'محمد علي الأحمد', department: 'HR', position: 'أخصائي موارد بشرية', status: 'نشط', hireDate: '2023-06-20' },
-    { id: 'EMP-004', name: 'نورا سالم المطيري', department: 'Marketing', position: 'منسقة تسويق', status: 'إجازة', hireDate: '2022-09-05' }
-  ];
-
-  const handleExportReport = (format: 'pdf' | 'excel') => {
-    toast({
-      title: "تم تصدير التقرير بنجاح",
-      description: `تم تصدير التقرير بصيغة ${format.toUpperCase()}`,
-    });
-  };
-
-  const handlePrintReport = () => {
-    toast({
-      title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
-    });
-  };
-
-  const handleEmailReport = () => {
-    toast({
-      title: "تم إرسال التقرير",
-      description: "تم إرسال التقرير عبر البريد الإلكتروني",
-    });
-  };
-
-  const renderReportFilters = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Filter className="h-5 w-5" />
-          فلاتر التقرير
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div>
-            <Label>نوع التقرير</Label>
-            <Select value={selectedReport} onValueChange={setSelectedReport}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {reportTypes.map((report) => (
-                  <SelectItem key={report.id} value={report.id}>
-                    {report.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label>الفترة الزمنية</Label>
-            <Select value={dateRange} onValueChange={setDateRange}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="current-month">الشهر الحالي</SelectItem>
-                <SelectItem value="last-month">الشهر الماضي</SelectItem>
-                <SelectItem value="current-quarter">الربع الحالي</SelectItem>
-                <SelectItem value="current-year">السنة الحالية</SelectItem>
-                <SelectItem value="custom">فترة مخصصة</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label>القسم</Label>
-            <Select value={department} onValueChange={setDepartment}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">كل الأقسام</SelectItem>
-                <SelectItem value="IT">تقنية المعلومات</SelectItem>
-                <SelectItem value="HR">الموارد البشرية</SelectItem>
-                <SelectItem value="Finance">المالية</SelectItem>
-                <SelectItem value="Marketing">التسويق</SelectItem>
-                <SelectItem value="Operations">العمليات</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div>
-            <Label>البحث</Label>
-            <div className="relative">
-              <Search className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="البحث..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10"
-              />
-            </div>
-          </div>
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900">
+            {isRTL ? 'تقارير الفريق' : 'Team Reports'}
+          </h2>
+          <p className="text-gray-600 mt-1">
+            {isRTL ? 'تقارير شاملة قابلة للطباعة والتصدير عن حالة الفريق والأداء' : 'Comprehensive printable and exportable reports on team status and performance'}
+          </p>
         </div>
-      </CardContent>
-    </Card>
-  );
-
-  const renderReportActions = () => (
-    <Card>
-      <CardContent className="p-4">
-        <div className="flex flex-wrap gap-2">
-          <Button onClick={() => handleExportReport('pdf')}>
-            <Download className="h-4 w-4 ml-2" />
-            تصدير PDF
-          </Button>
-          <Button variant="outline" onClick={() => handleExportReport('excel')}>
-            <FileText className="h-4 w-4 ml-2" />
-            تصدير Excel
-          </Button>
-          <Button variant="outline" onClick={handlePrintReport}>
-            <Printer className="h-4 w-4 ml-2" />
-            طباعة
-          </Button>
-          <Button variant="outline" onClick={handleEmailReport}>
-            <Mail className="h-4 w-4 ml-2" />
-            إرسال بالبريد
-          </Button>
+        
+        <div className="flex items-center gap-3">
           <Button variant="outline">
-            <RefreshCw className="h-4 w-4 ml-2" />
-            تحديث البيانات
+            <Printer className="h-4 w-4 mr-2" />
+            {isRTL ? 'طباعة' : 'Print'}
+          </Button>
+          <Button>
+            <Download className="h-4 w-4 mr-2" />
+            {isRTL ? 'تصدير PDF' : 'Export PDF'}
           </Button>
         </div>
-      </CardContent>
-    </Card>
-  );
+      </div>
 
-  const renderReportPreview = () => {
-    const selectedReportData = reportTypes.find(r => r.id === selectedReport);
-    
-    return (
-      <Card>
+      {/* Department Distribution Chart */}
+      <Card className="shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Eye className="h-5 w-5" />
-            معاينة التقرير: {selectedReportData?.name}
+            <BarChart3 className="h-5 w-5" />
+            {isRTL ? 'توزيع الموظفين حسب الأقسام' : 'Employee Distribution by Department'}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {selectedReport === 'employee-list' && renderEmployeeListReport()}
-          {selectedReport === 'headcount-analysis' && renderHeadcountAnalysisReport()}
-          {selectedReport === 'turnover-report' && renderTurnoverReport()}
-          {selectedReport === 'probation-report' && renderProbationReport()}
-          {selectedReport === 'performance-summary' && renderPerformanceSummaryReport()}
-          {selectedReport === 'nationality-report' && renderNationalityReport()}
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={departmentData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="employees" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </CardContent>
       </Card>
-    );
-  };
 
-  const renderEmployeeListReport = () => (
-    <div className="space-y-4">
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-50">
-              <th className="border border-gray-300 p-2 text-right">رقم الموظف</th>
-              <th className="border border-gray-300 p-2 text-right">الاسم</th>
-              <th className="border border-gray-300 p-2 text-right">القسم</th>
-              <th className="border border-gray-300 p-2 text-right">المنصب</th>
-              <th className="border border-gray-300 p-2 text-right">الحالة</th>
-              <th className="border border-gray-300 p-2 text-right">تاريخ التوظيف</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sampleEmployees.map((employee) => (
-              <tr key={employee.id} className="hover:bg-gray-50">
-                <td className="border border-gray-300 p-2">{employee.id}</td>
-                <td className="border border-gray-300 p-2">{employee.name}</td>
-                <td className="border border-gray-300 p-2">{employee.department}</td>
-                <td className="border border-gray-300 p-2">{employee.position}</td>
-                <td className="border border-gray-300 p-2">
-                  <Badge className={employee.status === 'نشط' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}>
-                    {employee.status}
-                  </Badge>
-                </td>
-                <td className="border border-gray-300 p-2">{employee.hireDate}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Report Generation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {reportTypes.map((report, index) => (
+          <Card key={index} className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <report.icon className="h-8 w-8 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 mb-2">{report.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{report.description}</p>
+                  
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge variant="outline" className="text-xs">PDF</Badge>
+                    <p className="text-xs text-gray-500">
+                      {isRTL ? 'آخر إنشاء:' : 'Last generated:'} {report.lastGenerated}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Button size="sm" className="flex-1">
+                      <FileText className="h-4 w-4 mr-2" />
+                      {isRTL ? 'إنشاء التقرير' : 'Generate Report'}
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-    </div>
-  );
-
-  const renderHeadcountAnalysisReport = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-primary">127</p>
-            <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-emerald-600">15</p>
-            <p className="text-sm text-muted-foreground">موظفين جدد</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-red-600">5</p>
-            <p className="text-sm text-muted-foreground">مغادرين</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-blue-600">8</p>
-            <p className="text-sm text-muted-foreground">في فترة التجربة</p>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>تطور عدد الموظفين</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={headcountData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Area type="monotone" dataKey="employees" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>توزيع الأقسام</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <RechartsPieChart>
-                <Pie
-                  data={departmentDistribution}
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                  label
-                >
-                  {departmentDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </RechartsPieChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-
-  const renderTurnoverReport = () => (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-l-4 border-l-red-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-red-600">3.2%</p>
-            <p className="text-sm text-muted-foreground">معدل الدوران الشهري</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-yellow-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-yellow-600">15.8%</p>
-            <p className="text-sm text-muted-foreground">معدل الدوران السنوي</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-blue-600">2.1 سنة</p>
-            <p className="text-sm text-muted-foreground">متوسط مدة الخدمة</p>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h4 className="font-semibold mb-2">أسباب المغادرة الرئيسية:</h4>
-        <ul className="space-y-1 text-sm">
-          <li>• فرص وظيفية أفضل (40%)</li>
-          <li>• عدم الرضا عن الراتب (25%)</li>
-          <li>• ظروف شخصية (20%)</li>
-          <li>• عدم الرضا عن بيئة العمل (15%)</li>
-        </ul>
-      </div>
-    </div>
-  );
-
-  const renderProbationReport = () => (
-    <div className="space-y-4">
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-50">
-              <th className="border border-gray-300 p-2 text-right">الموظف</th>
-              <th className="border border-gray-300 p-2 text-right">القسم</th>
-              <th className="border border-gray-300 p-2 text-right">تاريخ البدء</th>
-              <th className="border border-gray-300 p-2 text-right">تاريخ الانتهاء</th>
-              <th className="border border-gray-300 p-2 text-right">الحالة</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border border-gray-300 p-2">سارة أحمد المطيري</td>
-              <td className="border border-gray-300 p-2">التسويق</td>
-              <td className="border border-gray-300 p-2">2024-01-01</td>
-              <td className="border border-gray-300 p-2">2024-03-31</td>
-              <td className="border border-gray-300 p-2">
-                <Badge className="bg-yellow-100 text-yellow-800">جاري التقييم</Badge>
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-300 p-2">خالد محمد العمري</td>
-              <td className="border border-gray-300 p-2">تقنية المعلومات</td>
-              <td className="border border-gray-300 p-2">2024-02-01</td>
-              <td className="border border-gray-300 p-2">2024-04-30</td>
-              <td className="border border-gray-300 p-2">
-                <Badge className="bg-green-100 text-green-800">مُوصى بالتثبيت</Badge>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-
-  const renderPerformanceSummaryReport = () => (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="border-l-4 border-l-green-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-green-600">89%</p>
-            <p className="text-sm text-muted-foreground">متوسط الأداء العام</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-blue-600">15</p>
-            <p className="text-sm text-muted-foreground">موظفين متميزين</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-yellow-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-yellow-600">8</p>
-            <p className="text-sm text-muted-foreground">بحاجة لتحسين</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-purple-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-purple-600">95%</p>
-            <p className="text-sm text-muted-foreground">معدل إكمال الأهداف</p>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-
-  const renderNationalityReport = () => (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-l-4 border-l-green-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-green-600">78%</p>
-            <p className="text-sm text-muted-foreground">نسبة السعودة</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-blue-600">99</p>
-            <p className="text-sm text-muted-foreground">موظفين سعوديين</p>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-purple-500">
-          <CardContent className="p-4">
-            <p className="text-2xl font-bold text-purple-600">28</p>
-            <p className="text-sm text-muted-foreground">موظفين غير سعوديين</p>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h4 className="font-semibold mb-2">توزيع الجنسيات الأخرى:</h4>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-          <div>مصريين: 8</div>
-          <div>أردنيين: 5</div>
-          <div>سوريين: 4</div>
-          <div>لبنانيين: 3</div>
-          <div>فلسطينيين: 3</div>
-          <div>يمنيين: 2</div>
-          <div>هنود: 2</div>
-          <div>باكستانيين: 1</div>
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="space-y-6">
-      {renderReportFilters()}
-      {renderReportActions()}
-      {renderReportPreview()}
     </div>
   );
 };

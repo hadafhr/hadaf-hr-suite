@@ -1,209 +1,174 @@
 import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Search, Filter, Grid, List, Eye, Edit, Mail, Phone } from 'lucide-react';
+import { 
+  Search, Filter, Eye, Edit, Trash2, Mail, Phone, MapPin, 
+  Calendar, Building, Users, Download, Upload, Plus
+} from 'lucide-react';
 
-interface TeamMember {
-  id: string;
-  employeeNumber: string;
-  name: string;
-  position: string;
-  department: string;
-  status: string;
-  level: string;
-  email: string;
-  phone: string;
-  performanceScore: number;
-  attendanceRate: number;
-}
-
-interface EmployeeDirectoryProps {
-  members: TeamMember[];
-  onSelectEmployee: (employee: TeamMember) => void;
-}
-
-const EmployeeDirectory: React.FC<EmployeeDirectoryProps> = ({ members, onSelectEmployee }) => {
+const EmployeeDirectory = () => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [selectedDepartment, setSelectedDepartment] = useState('all');
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Active': return 'bg-green-100 text-green-800 border-green-200';
-      case 'On Leave': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'Inactive': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'Terminated': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  const employees = [
+    {
+      id: 'EMP001',
+      name: isRTL ? 'أحمد محمد علي' : 'Ahmed Mohammed Ali',
+      position: isRTL ? 'مطور برمجيات أول' : 'Senior Software Developer',
+      department: isRTL ? 'تقنية المعلومات' : 'IT',
+      email: 'ahmed.mohammed@company.com',
+      phone: '+966501234567',
+      status: 'active',
+      joinDate: '2023-01-15',
+      location: isRTL ? 'الرياض' : 'Riyadh',
+      avatar: '/placeholder.svg'
+    },
+    {
+      id: 'EMP002',
+      name: isRTL ? 'سارة أحمد حسن' : 'Sara Ahmed Hassan',
+      position: isRTL ? 'مدير مشروع' : 'Project Manager',
+      department: isRTL ? 'تقنية المعلومات' : 'IT',
+      email: 'sara.ahmed@company.com',
+      phone: '+966501234568',
+      status: 'active',
+      joinDate: '2022-08-10',
+      location: isRTL ? 'جدة' : 'Jeddah',
+      avatar: '/placeholder.svg'
+    },
+    {
+      id: 'EMP003',
+      name: isRTL ? 'محمد علي الأحمد' : 'Mohammed Ali Al-Ahmad',
+      position: isRTL ? 'أخصائي موارد بشرية' : 'HR Specialist',
+      department: isRTL ? 'الموارد البشرية' : 'HR',
+      email: 'mohammed.ali@company.com',
+      phone: '+966501234569',
+      status: 'trial',
+      joinDate: '2024-05-20',
+      location: isRTL ? 'الدمام' : 'Dammam',
+      avatar: '/placeholder.svg'
     }
-  };
+  ];
 
-  const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
-      'Active': 'نشط',
-      'On Leave': 'في إجازة',
-      'Inactive': 'غير نشط',
-      'Terminated': 'منتهي الخدمة'
+  const getStatusBadge = (status: string) => {
+    const statusMap = {
+      active: { label: isRTL ? 'نشط' : 'Active', color: 'bg-green-100 text-green-800' },
+      trial: { label: isRTL ? 'تحت التجربة' : 'Trial Period', color: 'bg-orange-100 text-orange-800' },
+      leave: { label: isRTL ? 'في إجازة' : 'On Leave', color: 'bg-blue-100 text-blue-800' },
+      terminated: { label: isRTL ? 'منتهية الخدمة' : 'Terminated', color: 'bg-red-100 text-red-800' }
     };
-    return statusMap[status] || status;
-  };
-
-  const getDepartmentText = (dept: string) => {
-    const deptMap: { [key: string]: string } = {
-      'IT': 'تقنية المعلومات',
-      'HR': 'الموارد البشرية',
-      'Finance': 'المالية',
-      'Marketing': 'التسويق',
-      'Operations': 'العمليات',
-      'Sales': 'المبيعات'
-    };
-    return deptMap[dept] || dept;
+    
+    const statusInfo = statusMap[status as keyof typeof statusMap];
+    return (
+      <Badge className={statusInfo.color}>
+        {statusInfo.label}
+      </Badge>
+    );
   };
 
   return (
     <div className="space-y-6">
-      {/* Search and Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <div className="flex gap-4 flex-1">
-          <div className="relative flex-1">
-            <Search className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="البحث عن الموظفين..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-10"
-            />
-          </div>
-          <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-            <SelectTrigger className="w-48">
-              <SelectValue placeholder="تصفية حسب..." />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">جميع الموظفين</SelectItem>
-              <SelectItem value="active">نشط</SelectItem>
-              <SelectItem value="on-leave">في إجازة</SelectItem>
-              <SelectItem value="it">تقنية المعلومات</SelectItem>
-              <SelectItem value="hr">الموارد البشرية</SelectItem>
-              <SelectItem value="finance">المالية</SelectItem>
-            </SelectContent>
-          </Select>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900">
+            {isRTL ? 'دليل الموظفين' : 'Employee Directory'}
+          </h2>
+          <p className="text-gray-600 mt-1">
+            {isRTL ? 'قائمة شاملة بجميع الموظفين مع إمكانية البحث والفلترة' : 'Complete employee listing with search and filtering capabilities'}
+          </p>
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant={viewMode === 'grid' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('grid')}
-          >
-            <Grid className="h-4 w-4" />
+        
+        <div className="flex items-center gap-3">
+          <Button variant="outline" className="flex items-center gap-2">
+            <Upload className="h-4 w-4" />
+            {isRTL ? 'استيراد' : 'Import'}
           </Button>
-          <Button
-            variant={viewMode === 'list' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewMode('list')}
-          >
-            <List className="h-4 w-4" />
+          <Button variant="outline" className="flex items-center gap-2">
+            <Download className="h-4 w-4" />
+            {isRTL ? 'تصدير' : 'Export'}
+          </Button>
+          <Button className="flex items-center gap-2 bg-primary hover:bg-primary/90">
+            <Plus className="h-4 w-4" />
+            {isRTL ? 'إضافة موظف' : 'Add Employee'}
           </Button>
         </div>
       </div>
 
-      {/* Employee Grid/List */}
-      {viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {members.map((member) => (
-            <Card key={member.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6">
-                <div className="text-center space-y-4">
-                  <div className="relative mx-auto w-20 h-20">
-                    <Avatar className="w-20 h-20">
-                      <AvatarImage src="" alt={member.name} />
-                      <AvatarFallback className="text-lg">
-                        {member.name.split(' ')[0]?.[0]}{member.name.split(' ')[1]?.[0]}
-                      </AvatarFallback>
-                    </Avatar>
-                  </div>
-                  
+      {/* Employee Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {employees.map((employee) => (
+          <Card key={employee.id} className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={employee.avatar} alt={employee.name} />
+                    <AvatarFallback>
+                      {employee.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
                   <div>
-                    <h3 className="font-semibold text-lg">{member.name}</h3>
-                    <p className="text-muted-foreground text-sm">{member.position}</p>
-                    <p className="text-muted-foreground text-xs">{getDepartmentText(member.department)}</p>
-                  </div>
-
-                  <div className="flex justify-center">
-                    <Badge variant="secondary" className={getStatusColor(member.status)}>
-                      {getStatusText(member.status)}
-                    </Badge>
-                  </div>
-
-                  <div className="flex justify-center gap-2 pt-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => onSelectEmployee(member)}
-                    >
-                      <Eye className="h-4 w-4 ml-1" />
-                      عرض
-                    </Button>
-                    <Button size="sm" variant="outline">
-                      <Mail className="h-4 w-4" />
-                    </Button>
+                    <h3 className="font-semibold text-gray-900">{employee.name}</h3>
+                    <p className="text-sm text-gray-500">{employee.id}</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="p-0">
-            <div className="divide-y">
-              {members.map((member) => (
-                <div key={member.id} className="p-4 hover:bg-muted/50 transition-colors">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src="" alt={member.name} />
-                        <AvatarFallback>
-                          {member.name.split(' ')[0]?.[0]}{member.name.split(' ')[1]?.[0]}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h4 className="font-semibold">{member.name}</h4>
-                        <p className="text-sm text-muted-foreground">{member.position}</p>
-                        <p className="text-xs text-muted-foreground">{getDepartmentText(member.department)}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4">
-                      <Badge variant="secondary" className={getStatusColor(member.status)}>
-                        {getStatusText(member.status)}
-                      </Badge>
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => onSelectEmployee(member)}
-                        >
-                          <Eye className="h-4 w-4 ml-1" />
-                          عرض
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <Mail className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <Phone className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                {getStatusBadge(employee.status)}
+              </div>
+            </CardHeader>
+            
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Building className="h-4 w-4" />
+                  <span>{employee.position}</span>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Users className="h-4 w-4" />
+                  <span>{employee.department}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Mail className="h-4 w-4" />
+                  <span className="truncate">{employee.email}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Phone className="h-4 w-4" />
+                  <span>{employee.phone}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <MapPin className="h-4 w-4" />
+                  <span>{employee.location}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Calendar className="h-4 w-4" />
+                  <span>{isRTL ? 'تاريخ الانضمام:' : 'Joined:'} {employee.joinDate}</span>
+                </div>
+              </div>
+              
+              <div className="pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline" className="flex-1">
+                    <Eye className="h-4 w-4 mr-2" />
+                    {isRTL ? 'عرض' : 'View'}
+                  </Button>
+                  <Button size="sm" variant="outline" className="flex-1">
+                    <Edit className="h-4 w-4 mr-2" />
+                    {isRTL ? 'تعديل' : 'Edit'}
+                  </Button>
+                  <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };
