@@ -196,6 +196,19 @@ const ComprehensiveEmployeeManagement = () => {
     toast.success('تم ترتيب التبويبات أبجدياً');
   }, [tabsConfig]);
 
+  // Save layout configuration to localStorage
+  const saveLayoutConfiguration = useCallback(() => {
+    console.log('حفظ تخطيط التبويبات');
+    localStorage.setItem('employee-management-layout', JSON.stringify(tabsConfig));
+    toast.success('تم حفظ تخطيط التبويبات بنجاح');
+  }, [tabsConfig]);
+
+  // Open customization options
+  const openCustomization = useCallback(() => {
+    console.log('فتح خيارات التخصيص');
+    toast.success('سيتم فتح خيارات التخصيص قريباً');
+  }, []);
+
   // Toggle tab visibility
   const toggleTabVisibility = useCallback((tabId: string) => {
     console.log('تبديل رؤية التبويب:', tabId);
@@ -359,6 +372,7 @@ const ComprehensiveEmployeeManagement = () => {
                   variant="ghost"
                   size="sm"
                   className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
+                  onClick={saveLayoutConfiguration}
                 >
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
@@ -367,6 +381,7 @@ const ComprehensiveEmployeeManagement = () => {
                   variant="ghost"
                   size="sm"
                   className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
+                  onClick={openCustomization}
                 >
                   <Settings className="h-3 w-3 ml-1" />
                   تخصيص
