@@ -26,8 +26,8 @@ export const UnifiedLogin: React.FC = () => {
 
   // Mock authentication for admin
   const mockAuthentication = (username: string, password: string) => {
-    if (username === 'admin' && password === 'Sa123465') {
-      return { success: true, user: { email: 'admin@boud.com.sa' } };
+    if (username === 'admin@boud.com' && password === 'Sa123465') {
+      return { success: true, user: { email: 'admin@boud.com' } };
     }
     return { success: false, error: 'بيانات الدخول غير صحيحة' };
   };
@@ -35,7 +35,7 @@ export const UnifiedLogin: React.FC = () => {
   // Mock role determination based on email or username
   const determineUserRole = (emailOrUsername: string) => {
     // فريق بُعد - الإدارة العليا
-    if (emailOrUsername === 'admin' || emailOrUsername.includes('admin@boud.com.sa') || emailOrUsername.includes('@boud.com.sa')) {
+    if (emailOrUsername === 'admin@boud.com' || emailOrUsername.includes('admin@boud.com') || emailOrUsername.includes('@boud.com.sa')) {
       return 'super_admin';
     }
     // باقي المستخدمين - حسابات المنشآت
@@ -251,7 +251,7 @@ export const UnifiedLogin: React.FC = () => {
               </p>
               <div className="space-y-1 text-muted-foreground">
                 <p>{isArabic ? 'مستخدم الشركة:' : 'Company User:'} employee@company.com / password123</p>
-                <p>{isArabic ? 'مدير النظام:' : 'System Admin:'} admin / Sa123465</p>
+                <p>{isArabic ? 'مدير النظام:' : 'System Admin:'} admin@boud.com / Sa123465</p>
               </div>
             </div>
           </form>
