@@ -133,7 +133,8 @@ const ComprehensiveEmployeeManagement = () => {
     { id: 'signatures', label: 'التوقيع الإلكتروني', icon: PenTool, visible: true },
     { id: 'talent', label: 'إدارة المواهب', icon: Star, visible: true },
     { id: 'field-tracking', label: 'تتبع العمل الميداني', icon: MapPin, visible: true },
-    { id: 'health', label: 'الصحة والسلامة المهنية', icon: HardHat, visible: true }
+    { id: 'health', label: 'الصحة والسلامة المهنية', icon: HardHat, visible: true },
+    { id: 'settings', label: 'الإعدادات', icon: Settings, visible: true }
   ];
 
   const [tabsConfig, setTabsConfig] = useState(() => {
