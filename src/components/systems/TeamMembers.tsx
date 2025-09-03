@@ -5,6 +5,11 @@ import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Users, FileText, Download, Plus } from 'lucide-react';
 import TeamDashboard from './team/TeamDashboard';
 import EmployeeDirectory from './team/EmployeeDirectory';
+import EmployeeProfile from './team/EmployeeProfile';
+import AddEmployee from './team/AddEmployee';
+import TasksNotes from './team/TasksNotes';
+import TeamReports from './team/TeamReports';
+import TeamSettings from './team/TeamSettings';
 
 interface TeamMembersProps {
   onBack: () => void;
@@ -141,7 +146,10 @@ export const TeamMembers: React.FC<TeamMembersProps> = ({ onBack }) => {
               <FileText className="h-4 w-4 ml-2" />
               طباعة
             </Button>
-            <Button size="sm">
+            <Button 
+              size="sm"
+              onClick={() => setActiveTab('add')}
+            >
               <Plus className="h-4 w-4 ml-2" />
               موظف جديد
             </Button>
@@ -179,35 +187,23 @@ export const TeamMembers: React.FC<TeamMembersProps> = ({ onBack }) => {
           </TabsContent>
 
           <TabsContent value="profile">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                {selectedEmployee ? `عرض تفاصيل: ${selectedEmployee.name}` : 'اختر موظفاً لعرض تفاصيله'}
-              </p>
-            </div>
+            <EmployeeProfile employee={selectedEmployee} />
           </TabsContent>
 
           <TabsContent value="add">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">نموذج إضافة موظف جديد</p>
-            </div>
+            <AddEmployee />
           </TabsContent>
 
           <TabsContent value="tasks">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">إدارة المهام والملاحظات</p>
-            </div>
+            <TasksNotes />
           </TabsContent>
 
           <TabsContent value="reports">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">التقارير والإحصائيات</p>
-            </div>
+            <TeamReports />
           </TabsContent>
 
           <TabsContent value="settings">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">إعدادات النظام</p>
-            </div>
+            <TeamSettings />
           </TabsContent>
         </Tabs>
       </div>
