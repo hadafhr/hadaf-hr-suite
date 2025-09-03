@@ -26,6 +26,8 @@ const TeamMembers = ({ onBack }: TeamMembersProps) => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const [activeTab, setActiveTab] = useState('dashboard');
+  
+  // Team Members Management System - Force Update
 
   const tabs = [
     {
