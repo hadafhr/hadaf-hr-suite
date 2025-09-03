@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { 
   ArrowLeft, GraduationCap, BookOpen, Users, TrendingUp, 
   Video, ClipboardCheck, FileText, Settings, Brain, 
-  Award, Target, Play, Download, Share
+  Award, Target, Play, Download, Share, Plus
 } from 'lucide-react';
 import TrainingDashboard from './training/TrainingDashboard';
 import TrainingPrograms from './training/TrainingPrograms';
@@ -94,130 +94,127 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
   ];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-background to-muted/30 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
+    <div className={`min-h-screen bg-background ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="hero-section relative overflow-hidden rounded-2xl p-8 mb-8" style={{ boxShadow: 'var(--shadow-strong)' }}>
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
-          
-          <div className="relative z-10">
-            {/* Header Controls */}
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+          <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+          <div className="relative p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
                 <Button
-                  variant="outline"
+                  variant="ghost" 
                   size="sm"
                   onClick={onBack}
-                  className="glass-card text-white border-white/20 hover:bg-white/20 transition-all duration-300"
+                  className="hover:bg-primary/10"
                 >
-                  <ArrowLeft className="h-4 w-4" />
-                  {isRTL ? 'رجوع' : 'Back'}
+                  <ArrowLeft className="h-4 w-4 ml-2" />
+                  العودة
                 </Button>
-                <Badge variant="secondary" className="glass-card text-white border-white/20">
-                  {isRTL ? 'نظام التدريب المتقدم' : 'Advanced Training System'}
-                </Badge>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <Button className="btn-hero">
-                  <Share className="h-4 w-4 mr-2" />
-                  {isRTL ? 'مشاركة' : 'Share'}
-                </Button>
-                <Button className="btn-primary">
-                  <Download className="h-4 w-4 mr-2" />
-                  {isRTL ? 'تصدير' : 'Export'}
-                </Button>
-                <Button className="bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:opacity-90 transition-all duration-300" style={{ boxShadow: 'var(--shadow-glow)' }}>
-                  <Brain className="h-4 w-4 mr-2" />
-                  {isRTL ? 'مساعد ذكي' : 'AI Assistant'}
-                </Button>
-              </div>
-            </div>
-            
-            {/* Main Header Content */}
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-6 mb-6">
-                <div className="p-4 glass-card rounded-2xl border-white/20" style={{ boxShadow: 'var(--shadow-glow)' }}>
-                  <GraduationCap className="h-16 w-16 text-white" />
-                </div>
-                <div className="hidden md:flex items-center gap-4">
-                  {trainingStats.slice(0, 3).map((stat, idx) => (
-                    <div key={idx} className="p-3 glass-card rounded-xl border-white/10 animate-float" style={{ animationDelay: `${idx * 0.2}s` }}>
-                      <stat.icon className="h-8 w-8 text-white/80" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-                {isRTL ? 'مركز التدريب والتطوير المتقدم' : 'Advanced Training & Development Center'}
-              </h1>
-              <p className="text-white/80 text-xl max-w-3xl mx-auto leading-relaxed">
-                {isRTL 
-                  ? 'منصة متكاملة لإدارة برامج التدريب وتطوير المهارات مع تتبع شامل للأداء وتقييم فعالية التعلم'
-                  : 'Integrated platform for managing training programs and skill development with comprehensive performance tracking and learning effectiveness evaluation'
-                }
-              </p>
-              
-              {/* Training Performance Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                {trainingStats.map((stat, idx) => (
-                  <div key={idx} className="metric-card animate-fade-in bg-white/10 backdrop-blur-sm border-white/20" style={{ animationDelay: `${idx * 0.1}s` }}>
-                    <div className="text-2xl font-bold text-white">{stat.value}</div>
-                    <div className="text-white/80 text-sm">{stat.label}</div>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <GraduationCap className="h-8 w-8 text-primary" />
                   </div>
-                ))}
+                  <div>
+                    <h1 className="text-3xl font-bold text-foreground">
+                      {isRTL ? 'التدريب والتطوير' : 'Training & Development'}
+                    </h1>
+                    <p className="text-muted-foreground text-lg mt-1">
+                      {isRTL 
+                        ? 'منظومة شاملة لإدارة برامج التدريب وتطوير المهارات مع أدوات التحليل المتقدمة والتقارير التفصيلية'
+                        : 'Comprehensive platform for managing training programs and skill development with advanced analytics and detailed reports'
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تصدير التقرير' : 'Export Report'}
+                </Button>
+                <Button variant="outline" size="sm">
+                  <FileText className="h-4 w-4 ml-2" />
+                  {isRTL ? 'طباعة' : 'Print'}
+                </Button>
+                <Button size="sm">
+                  <Plus className="h-4 w-4 ml-2" />
+                  {isRTL ? 'تدريب جديد' : 'New Training'}
+                </Button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Training Features Overview */}
-        <div className="mb-8">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-secondary to-boud-dark text-white px-8 py-3 rounded-2xl" style={{ boxShadow: 'var(--shadow-medium)' }}>
-              <BookOpen className="h-6 w-6" />
-              <span className="font-bold text-lg">{isRTL ? 'منظومة التدريب الذكية' : 'Smart Training Ecosystem'}</span>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
-            {tabs.slice(0, 8).map((tab, index) => (
-              <div key={index} className="group cursor-pointer" onClick={() => setActiveTab(tab.id)}>
-                <div className={`${activeTab === tab.id ? 'bg-gradient-to-r from-primary to-accent' : 'bg-gradient-to-r from-secondary to-muted-foreground'} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 relative overflow-hidden`} style={{ boxShadow: 'var(--shadow-soft)' }}>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <tab.icon className="h-10 w-10 text-white relative z-10" />
+        {/* Key Performance Indicators */}
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+            <Card className="border-l-4 border-l-primary">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">{isRTL ? 'برامج نشطة' : 'Active Programs'}</p>
+                    <p className="text-2xl font-bold text-primary">42</p>
+                  </div>
+                  <BookOpen className="h-8 w-8 text-primary/60" />
                 </div>
-                <p className={`text-center font-medium ${activeTab === tab.id ? 'text-primary' : 'text-muted-foreground'} group-hover:text-primary transition-colors duration-300 text-sm`}>
-                  {tab.label}
-                </p>
-              </div>
-            ))}
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-orange-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">{isRTL ? 'موظف في التدريب' : 'Employees in Training'}</p>
+                    <p className="text-2xl font-bold text-orange-600">127</p>
+                  </div>
+                  <Users className="h-8 w-8 text-orange-500/60" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-emerald-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">{isRTL ? 'شهادات مكتملة' : 'Completed Certifications'}</p>
+                    <p className="text-2xl font-bold text-emerald-600">89</p>
+                  </div>
+                  <Award className="h-8 w-8 text-emerald-500/60" />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-l-blue-500">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-muted-foreground">{isRTL ? 'ساعات تدريبية' : 'Training Hours'}</p>
+                    <p className="text-2xl font-bold text-blue-600">2,340</p>
+                  </div>
+                  <Play className="h-8 w-8 text-blue-500/60" />
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
         {/* Main Content */}
-        <Card className="border-0 overflow-hidden dashboard-card">
+        <Card className="border border-border">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              {/* Advanced Tab Navigation */}
-              <div className="bg-gradient-to-r from-secondary via-boud-dark to-secondary p-6">
-                <TabsList className="bg-transparent border-none p-0 h-auto space-x-2 w-full justify-start overflow-x-auto horizontal-icon-nav">
+              {/* Simple Tab Navigation */}
+              <div className="bg-muted/30 border-b border-border">
+                <TabsList className="bg-transparent border-none p-1 h-auto w-full justify-start overflow-x-auto">
                   {tabs.map((tab) => (
                     <TabsTrigger
                       key={tab.id}
                       value={tab.id}
-                      className="tab-item-optimized glass-card border-white/20 text-white hover:bg-white/20 data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 rounded-xl font-medium"
+                      className="flex-shrink-0 data-[state=active]:bg-background data-[state=active]:text-foreground transition-all duration-200 rounded-md px-4 py-2 text-sm font-medium"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="p-1.5 bg-white/10 rounded-lg">
-                          <tab.icon className="h-4 w-4" />
-                        </div>
-                        <div className="text-left">
-                          <div className="font-semibold">{tab.label}</div>
-                          <div className="text-xs text-white/70">{tab.description}</div>
-                        </div>
+                      <div className="flex items-center gap-2">
+                        <tab.icon className="h-4 w-4" />
+                        <span>{tab.label}</span>
                       </div>
                     </TabsTrigger>
                   ))}
