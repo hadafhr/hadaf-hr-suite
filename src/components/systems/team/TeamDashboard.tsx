@@ -1,20 +1,100 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Activity, Building, Target, Clock, Award, BarChart3, PieChart } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { 
+  Users, UserCheck, UserPlus, TrendingUp, TrendingDown, 
+  AlertTriangle, Clock, CheckCircle, XCircle, FileText,
+  Calendar, Target, Award, Briefcase
+} from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
-interface TeamDashboardProps {
-  stats: {
-    totalMembers: number;
-    activeMembers: number;
-    departments: number;
-    avgPerformance: number;
-    avgAttendance: number;
-    avgExperience: number;
-  };
-}
+const TeamDashboard = () => {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
 
-const TeamDashboard: React.FC<TeamDashboardProps> = ({ stats }) => {
+  // Mock data for dashboard
+  const kpiData = [
+    {
+      title: isRTL ? 'إجمالي الموظفين' : 'Total Employees',
+      value: 356,
+      change: '+12',
+      trend: 'up',
+      icon: Users,
+      color: 'bg-blue-500'
+    },
+    {
+      title: isRTL ? 'الموظفين النشطين' : 'Active Employees', 
+      value: 334,
+      change: '+8',
+      trend: 'up',
+      icon: UserCheck,
+      color: 'bg-green-500'
+    },
+    {
+      title: isRTL ? 'تحت التجربة' : 'Under Probation',
+      value: 25,
+      change: '+3',
+      trend: 'up',
+      icon: Clock,
+      color: 'bg-yellow-500'
+    },
+    {
+      title: isRTL ? 'منتهي الخدمة' : 'Terminated',
+      value: 11,
+      change: '-2',
+      trend: 'down',
+      icon: XCircle,
+      color: 'bg-red-500'
+    }
+  ];
+
+  const departmentData = [
+    { name: isRTL ? 'الموارد البشرية' : 'HR', employees: 45, color: '#8b5cf6' },
+    { name: isRTL ? 'التقنية' : 'IT', employees: 78, color: '#3b82f6' },
+    { name: isRTL ? 'المالية' : 'Finance', employees: 32, color: '#10b981' },
+    { name: isRTL ? 'التسويق' : 'Marketing', employees: 56, color: '#f59e0b' },
+    { name: isRTL ? 'العمليات' : 'Operations', employees: 89, color: '#ef4444' },
+    { name: isRTL ? 'المبيعات' : 'Sales', employees: 67, color: '#8b5cf6' }
+  ];
+
+  const performanceData = [
+    { month: 'Jan', performance: 85, satisfaction: 78 },
+    { month: 'Feb', performance: 88, satisfaction: 82 },
+    { month: 'Mar', performance: 87, satisfaction: 85 },
+    { month: 'Apr', performance: 92, satisfaction: 88 },
+    { month: 'May', performance: 94, satisfaction: 90 },
+    { month: 'Jun', performance: 96, satisfaction: 94 }
+  ];
+
+  const alerts = [
+    {
+      type: 'urgent',
+      title: isRTL ? 'انتهاء فترة التجربة' : 'Probation Period Ending',
+      message: isRTL ? '5 موظفين تنتهي فترة تجربتهم خلال أسبوع' : '5 employees probation ending in a week',
+      count: 5
+    },
+    {
+      type: 'warning', 
+      title: isRTL ? 'وثائق مفقودة' : 'Missing Documents',
+      message: isRTL ? '12 موظف لديهم وثائق ناقصة' : '12 employees have incomplete documents',
+      count: 12
+    },
+    {
+      type: 'info',
+      title: isRTL ? 'تقييمات الأداء' : 'Performance Reviews',
+      message: isRTL ? '23 موظف يحتاجون تقييم أداء' : '23 employees need performance review',
+      count: 23
+    }
+  ];
+
+  const recentActivities = [
+    { type: 'add', message: isRTL ? 'تم إضافة موظف جديد: أحمد محمد' : 'New employee added: Ahmed Mohamed', time: '2 hours ago' },
+    { type: 'update', message: isRTL ? 'تم تحديث راتب: سارة أحمد' : 'Salary updated: Sara Ahmed', time: '4 hours ago' },
+    { type: 'document', message: isRTL ? 'تم رفع عقد جديد: محمد علي' : 'New contract uploaded: Mohamed Ali', time: '1 day ago' },
+    { type: 'promotion', message: isRTL ? 'ترقية موظف: ليلى حسن' : 'Employee promoted: Laila Hassan', time: '2 days ago' }
+  ];
   const performanceData = [
     { month: 'يناير', performance: 85, attendance: 92, projects: 15 },
     { month: 'فبراير', performance: 87, attendance: 94, projects: 18 },
