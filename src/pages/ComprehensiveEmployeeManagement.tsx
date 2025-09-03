@@ -136,7 +136,22 @@ const ComprehensiveEmployeeManagement = () => {
 
   const [tabsConfig, setTabsConfig] = useState(() => {
     const saved = localStorage.getItem('employee-management-tabs');
-    return saved ? JSON.parse(saved) : defaultTabs;
+    try {
+      const parsedTabs = saved ? JSON.parse(saved) : defaultTabs;
+      // Validate and ensure all tabs have required properties
+      const validatedTabs = parsedTabs.filter(tab => 
+        tab && 
+        typeof tab === 'object' && 
+        tab.id && 
+        tab.label && 
+        tab.icon &&
+        typeof tab.visible === 'boolean'
+      );
+      return validatedTabs.length > 0 ? validatedTabs : defaultTabs;
+    } catch (error) {
+      console.error('Error parsing saved tabs config:', error);
+      return defaultTabs;
+    }
   });
 
   // Drag and drop states
@@ -457,7 +472,9 @@ const ComprehensiveEmployeeManagement = () => {
             
             <div className="w-full">
               <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
-                {tabsConfig.filter(tab => tab.visible).map((tab) => {
+                {tabsConfig.filter(tab => tab && tab.visible === true).map((tab) => {
+                  if (!tab || !tab.id || !tab.label || !tab.icon) return null;
+                  
                   const IconComponent = tab.icon;
                   const isDragged = draggedTab === tab.id;
                   const isDraggedOver = dragOverTab === tab.id;
