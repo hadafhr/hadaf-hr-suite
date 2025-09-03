@@ -155,7 +155,7 @@
   }
   
   .service-card {
-    @apply bg-white border border-border rounded-xl p-6 shadow-soft hover:shadow-medium hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden;
+    @apply bg-white border border-border rounded-xl p-6 shadow-soft hover:shadow-medium hover:-translate-y-2 transition-all duration-300 relative overflow-hidden;
   }
   
   .dashboard-card {
