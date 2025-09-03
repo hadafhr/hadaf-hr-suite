@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Award, Gift, TrendingUp, Plus, Calendar, DollarSign } from 'lucide-react';
+import { Award, Gift, TrendingUp, Plus, Calendar, DollarSign, ArrowLeft, Download, Settings, Sparkles } from 'lucide-react';
 
 interface Reward {
   id: string;
@@ -150,77 +150,138 @@ export const RewardsManager: React.FC = () => {
   }, {} as Record<string, number>);
 
   return (
-    <div className="space-y-6">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-blue-600" />
-              <div>
-                <p className="text-sm text-muted-foreground">إجمالي المكافآت</p>
-                <p className="text-2xl font-bold">{stats.total}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-yellow-600" />
-              <div>
-                <p className="text-sm text-muted-foreground">معلقة</p>
-                <p className="text-2xl font-bold">{stats.pending}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <Gift className="w-5 h-5 text-green-600" />
-              <div>
-                <p className="text-sm text-muted-foreground">تم الصرف</p>
-                <p className="text-2xl font-bold">{stats.paid}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-purple-600" />
-              <div>
-                <p className="text-sm text-muted-foreground">إجمالي المبلغ</p>
-                <p className="text-xl font-bold">{stats.totalAmount.toLocaleString()}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="min-h-screen bg-white" dir="rtl">
+      {/* خلفية احترافية متحركة بألوان الهوية البصرية */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/8 to-primary/3 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-primary/10 to-primary/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-muted/15 to-primary/3 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-primary/5 rounded-full blur-xl animate-bounce-gentle"></div>
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-muted/20 rounded-full blur-lg animate-float"></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-primary/8 rounded-full blur-md animate-pulse"></div>
       </div>
 
-      <Tabs defaultValue="manage" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="manage">إدارة المكافآت</TabsTrigger>
-          <TabsTrigger value="analytics">التحليلات</TabsTrigger>
-          <TabsTrigger value="settings">إعدادات المكافآت</TabsTrigger>
-        </TabsList>
+      {/* المحتوى الرئيسي */}
+      <div className="relative z-10 container mx-auto px-6 py-8">
+        {/* الشريط العلوي الاحترافي */}
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            <div className="h-8 w-px bg-border/30"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <Gift className="h-8 w-8 text-white relative z-10" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  نظام المكافآت والحوافز الشامل
+                </h1>
+                <p className="text-muted-foreground text-lg">
+                  النظام المتقدم لإدارة المكافآت والحوافز التحفيزية
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+              <Sparkles className="h-4 w-4 ml-2" />
+              نظام متطور
+            </Badge>
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300 px-6 py-2"
+            >
+              <Download className="h-4 w-4 ml-2" />
+              تصدير
+            </Button>
+          </div>
+        </div>
 
-        <TabsContent value="manage" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle>إدارة المكافآت والحوافز</CardTitle>
-                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button>
-                      <Plus className="w-4 h-4 ml-2" />
-                      إضافة مكافأة جديدة
-                    </Button>
-                  </DialogTrigger>
+        <div className="space-y-6">
+          {/* Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft hover:shadow-glow transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-glow rounded-2xl flex items-center justify-center shadow-glow">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground font-medium">إجمالي المكافآت</p>
+                    <p className="text-3xl font-bold text-foreground">{stats.total}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft hover:shadow-glow transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center shadow-glow">
+                    <Calendar className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground font-medium">معلقة</p>
+                    <p className="text-3xl font-bold text-foreground">{stats.pending}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft hover:shadow-glow transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-glow">
+                    <Gift className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground font-medium">تم الصرف</p>
+                    <p className="text-3xl font-bold text-foreground">{stats.paid}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft hover:shadow-glow transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-glow">
+                    <DollarSign className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground font-medium">إجمالي المبلغ</p>
+                    <p className="text-2xl font-bold text-foreground">{stats.totalAmount.toLocaleString()}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+      </div>
+
+          <Tabs defaultValue="manage" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft">
+              <TabsTrigger value="manage" className="data-[state=active]:bg-primary data-[state=active]:text-white">إدارة المكافآت</TabsTrigger>
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-primary data-[state=active]:text-white">التحليلات</TabsTrigger>
+              <TabsTrigger value="settings" className="data-[state=active]:bg-primary data-[state=active]:text-white">إعدادات المكافآت</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="manage" className="space-y-4">
+              <Card className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft">
+                <CardHeader className="bg-gradient-to-r from-primary/5 to-primary-glow/5 border-b border-border/20">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-foreground flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-xl flex items-center justify-center">
+                        <Gift className="h-4 w-4 text-white" />
+                      </div>
+                      إدارة المكافآت والحوافز
+                    </CardTitle>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300">
+                          <Plus className="w-4 h-4 ml-2" />
+                          إضافة مكافأة جديدة
+                        </Button>
+                      </DialogTrigger>
                   <DialogContent className="sm:max-w-[500px]">
                     <DialogHeader>
                       <DialogTitle>إضافة مكافأة جديدة</DialogTitle>
@@ -367,28 +428,35 @@ export const RewardsManager: React.FC = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="analytics" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(rewardTypes).map(([type, typeInfo]) => (
-              <Card key={type}>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Award className="w-5 h-5 text-primary" />
-                    <h3 className="font-medium">{typeInfo.label}</h3>
-                  </div>
-                  <p className="text-2xl font-bold">{rewardsByType[type] || 0}</p>
-                  <p className="text-sm text-muted-foreground">النطاق: {typeInfo.range}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
+            <TabsContent value="analytics" className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Object.entries(rewardTypes).map(([type, typeInfo]) => (
+                  <Card key={type} className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft hover:shadow-glow transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-xl flex items-center justify-center">
+                          <Award className="w-5 h-5 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground">{typeInfo.label}</h3>
+                      </div>
+                      <p className="text-3xl font-bold text-foreground mb-2">{rewardsByType[type] || 0}</p>
+                      <p className="text-sm text-muted-foreground">النطاق: {typeInfo.range}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
 
-        <TabsContent value="settings" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>إعدادات نظام المكافآت</CardTitle>
-            </CardHeader>
+            <TabsContent value="settings" className="space-y-4">
+              <Card className="bg-white/90 backdrop-blur-sm border border-border/20 shadow-soft">
+                <CardHeader className="bg-gradient-to-r from-primary/5 to-primary-glow/5 border-b border-border/20">
+                  <CardTitle className="text-foreground flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-xl flex items-center justify-center">
+                      <Settings className="h-4 w-4 text-white" />
+                    </div>
+                    إعدادات نظام المكافآت
+                  </CardTitle>
+                </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <h4 className="font-medium mb-2">نطاقات المكافآت السنوية</h4>
@@ -418,11 +486,15 @@ export const RewardsManager: React.FC = () => {
                 </div>
               </div>
 
-              <Button>حفظ الإعدادات</Button>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                  <Button className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300">
+                    حفظ الإعدادات
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
     </div>
   );
 };
