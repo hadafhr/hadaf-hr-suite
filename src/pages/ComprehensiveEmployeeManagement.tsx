@@ -82,6 +82,7 @@ import { ComprehensiveFieldTracking } from '@/components/systems/ComprehensiveFi
 import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTasksFollowup';
 import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealthSafety';
 import TeamWork from '@/components/systems/TeamWork';
+import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -265,6 +266,13 @@ const ComprehensiveEmployeeManagement = () => {
                 >
                   <Clock className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">الحضور والانصراف</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="employee-services" 
+                  className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg"
+                >
+                  <User className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم خدمات الموظفين</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="disciplinary" 
@@ -464,6 +472,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="attendance">
             <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="employee-services">
+            <EmployeeServicesDepartment />
           </TabsContent>
 
           <TabsContent value="disciplinary">
