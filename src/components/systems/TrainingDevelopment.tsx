@@ -97,8 +97,8 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
     <div className={`min-h-screen bg-gradient-to-br from-background to-muted/30 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary-glow to-secondary p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-subtle opacity-20"></div>
+        <div className="hero-section relative overflow-hidden rounded-2xl p-8 mb-8" style={{ boxShadow: 'var(--shadow-strong)' }}>
+          <div className="absolute inset-0 bg-black/10"></div>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
           
           <div className="relative z-10">
@@ -109,7 +109,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
                   variant="outline"
                   size="sm"
                   onClick={onBack}
-                  className="glass-card text-white border-white/20 hover:bg-white/20 transition-smooth"
+                  className="glass-card text-white border-white/20 hover:bg-white/20 transition-all duration-300"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   {isRTL ? 'رجوع' : 'Back'}
@@ -128,7 +128,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
                   <Download className="h-4 w-4 mr-2" />
                   {isRTL ? 'تصدير' : 'Export'}
                 </Button>
-                <Button className="bg-gradient-primary text-primary-foreground hover:opacity-90 transition-smooth shadow-elegant">
+                <Button className="bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:opacity-90 transition-all duration-300" style={{ boxShadow: 'var(--shadow-glow)' }}>
                   <Brain className="h-4 w-4 mr-2" />
                   {isRTL ? 'مساعد ذكي' : 'AI Assistant'}
                 </Button>
@@ -138,7 +138,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
             {/* Main Header Content */}
             <div className="text-center">
               <div className="flex items-center justify-center gap-6 mb-6">
-                <div className="p-4 glass-card rounded-2xl border-white/20 shadow-glow">
+                <div className="p-4 glass-card rounded-2xl border-white/20" style={{ boxShadow: 'var(--shadow-glow)' }}>
                   <GraduationCap className="h-16 w-16 text-white" />
                 </div>
                 <div className="hidden md:flex items-center gap-4">
@@ -150,7 +150,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
                 </div>
               </div>
               
-              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight text-gradient">
+              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
                 {isRTL ? 'مركز التدريب والتطوير المتقدم' : 'Advanced Training & Development Center'}
               </h1>
               <p className="text-white/80 text-xl max-w-3xl mx-auto leading-relaxed">
@@ -163,7 +163,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
               {/* Training Performance Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                 {trainingStats.map((stat, idx) => (
-                  <div key={idx} className="metric-card animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
+                  <div key={idx} className="metric-card animate-fade-in bg-white/10 backdrop-blur-sm border-white/20" style={{ animationDelay: `${idx * 0.1}s` }}>
                     <div className="text-2xl font-bold text-white">{stat.value}</div>
                     <div className="text-white/80 text-sm">{stat.label}</div>
                   </div>
@@ -176,7 +176,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
         {/* Training Features Overview */}
         <div className="mb-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-3 rounded-2xl shadow-lg">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-secondary to-boud-dark text-white px-8 py-3 rounded-2xl" style={{ boxShadow: 'var(--shadow-medium)' }}>
               <BookOpen className="h-6 w-6" />
               <span className="font-bold text-lg">{isRTL ? 'منظومة التدريب الذكية' : 'Smart Training Ecosystem'}</span>
             </div>
@@ -185,11 +185,11 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
             {tabs.slice(0, 8).map((tab, index) => (
               <div key={index} className="group cursor-pointer" onClick={() => setActiveTab(tab.id)}>
-                <div className={`${activeTab === tab.id ? 'bg-gradient-to-r from-primary to-chart-2' : 'bg-gradient-to-r from-slate-600 to-slate-700'} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300 relative overflow-hidden`}>
+                <div className={`${activeTab === tab.id ? 'bg-gradient-to-r from-primary to-accent' : 'bg-gradient-to-r from-secondary to-muted-foreground'} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 relative overflow-hidden`} style={{ boxShadow: 'var(--shadow-soft)' }}>
                   <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <tab.icon className="h-10 w-10 text-white relative z-10" />
                 </div>
-                <p className={`text-center font-medium ${activeTab === tab.id ? 'text-primary' : 'text-gray-700'} group-hover:text-primary transition-colors duration-300 text-sm`}>
+                <p className={`text-center font-medium ${activeTab === tab.id ? 'text-primary' : 'text-muted-foreground'} group-hover:text-primary transition-colors duration-300 text-sm`}>
                   {tab.label}
                 </p>
               </div>
@@ -198,17 +198,17 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
         </div>
 
         {/* Main Content */}
-        <Card className="shadow-2xl border-0 overflow-hidden bg-gradient-to-br from-white to-slate-50">
+        <Card className="border-0 overflow-hidden dashboard-card">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               {/* Advanced Tab Navigation */}
-              <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 p-6">
-                <TabsList className="bg-transparent border-none p-0 h-auto space-x-2 w-full justify-start overflow-x-auto">
+              <div className="bg-gradient-to-r from-secondary via-boud-dark to-secondary p-6">
+                <TabsList className="bg-transparent border-none p-0 h-auto space-x-2 w-full justify-start overflow-x-auto horizontal-icon-nav">
                   {tabs.map((tab) => (
                     <TabsTrigger
                       key={tab.id}
                       value={tab.id}
-                      className="flex-shrink-0 bg-white/10 border border-white/20 text-white hover:bg-white/20 data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 rounded-xl px-6 py-3 text-sm font-medium backdrop-blur-sm"
+                      className="tab-item-optimized glass-card border-white/20 text-white hover:bg-white/20 data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 rounded-xl font-medium"
                     >
                       <div className="flex items-center gap-3">
                         <div className="p-1.5 bg-white/10 rounded-lg">
