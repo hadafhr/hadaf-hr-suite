@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,7 +8,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Megaphone, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat } from 'lucide-react';
+import { 
+  Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, 
+  BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, 
+  Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, 
+  Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, 
+  Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain
+} from 'lucide-react';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -345,7 +352,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="attendance">
-            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} className="text-black bg-[#f7f5f5] rounded-full font-bold text-base" />
+            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="employee-services">
@@ -361,7 +368,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="payroll">
-            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} className="text-black text-center font-bold text-xs" />
+            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="government">

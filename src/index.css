@@ -2,77 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/* تصميم نظام الألوان لنظام بُعد HR */
+/* نظام الألوان الموحد لمنصة بُعد HR - الهوية البصرية الجديدة */
 
 @layer base {
   :root {
-    /* خلفيات أساسية - أبيض نقي */
+    /* خلفيات أساسية - أبيض نقي حسب المطلوب */
     --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-
-    /* البطاقات والمكونات - رمادي فاتح */
-    --card: 0 0% 96%;
-    --card-foreground: 0 0% 0%;
-
+    --foreground: 0 0% 8%;
+    
+    /* البطاقات والمكونات - أبيض مع لمسة رمادي فاتح جداً */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-
-    /* اللون الأساسي - أخضر فيروزي BOUD #00C897 */
-    --primary: 167 100% 39%;
+    --popover-foreground: 0 0% 8%;
+    
+    /* اللون الأساسي - الأخضر الفيروزي الداكن حسب الهوية الجديدة */
+    --primary: 175 100% 31%;        /* #009F87 - الأخضر الفيروزي الداكن */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 167 80% 55%;
-    --primary-dark: 167 100% 32%;
+    --primary-glow: 175 85% 40%;    /* تدرج أفتح للتأثيرات */
+    --primary-dark: 175 100% 25%;   /* تدرج أغمق للحالات الخاصة */
     
-    /* أسود داكن BOUD #141414 */
-    --boud-dark: 0 0% 8%;
+    /* الأسود الداكن للعناوين والنصوص */
+    --foreground-dark: 0 0% 8%;     /* #141414 - الأسود الداكن */
+    --text-primary: 0 0% 8%;
     
-    /* رمادي فاتح BOUD #F3F3F3 */
-    --boud-light: 0 0% 95%;
+    /* الرمادي الفاتح جداً للتفاصيل الثانوية */
+    --muted: 0 0% 96%;             /* #F5F5F5 - رمادي فاتح جداً */
+    --muted-foreground: 0 0% 45%;  /* رمادي متوسط للنصوص الثانوية */
     
-    /* تأكيد BOUD #00A37A */
-    --boud-accent: 172 100% 32%;
+    /* اللون الثانوي - متناسق مع الهوية */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
     
-    /* اللون الثانوي - رمادي متوسط */
-    --secondary: 0 0% 29%;
-    --secondary-foreground: 0 0% 100%;
-    
-    /* ألوان الدعم - رمادي فاتح */
-    --accent: 172 100% 31%;
+    /* لون التأكيد - متدرج من الأساسي */
+    --accent: 175 100% 31%;        /* مطابق للأساسي */
     --accent-foreground: 0 0% 100%;
-    
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 29%;
 
-    /* ألوان الحالة */
-    --success: 142 69% 47%;
+    /* ألوان الحالة - محدودة ومتناسقة */
+    --success: 142 69% 35%;        /* أخضر داكن متناسق */
     --success-foreground: 0 0% 100%;
     
-    --warning: 28 100% 63%;
-    --warning-foreground: 0 0% 0%;
+    --warning: 38 92% 50%;         /* برتقالي داكن */
+    --warning-foreground: 0 0% 8%;
     
-    --destructive: 359 80% 62%;
+    --destructive: 0 84% 45%;      /* أحمر داكن */
     --destructive-foreground: 0 0% 100%;
 
     /* الحدود والمدخلات */
-    --border: 0 0% 69%;
-    --input: 0 0% 96%;
-    --ring: 172 100% 31%;
+    --border: 0 0% 90%;            /* رمادي فاتح للحدود */
+    --input: 0 0% 98%;             /* أبيض مع لمسة رمادي */
+    --ring: 175 100% 31%;          /* مطابق للأساسي */
 
-    /* التدرجات الجميلة */
+    /* التدرجات الموحدة - استخدام الألوان المسموحة فقط */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(0 0% 100%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--accent)) 100%);
-    --gradient-success: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(120 80% 35%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 97%) 100%);
     
-    /* الظلال */
-    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.1);
-    --shadow-medium: 0 8px 40px -8px hsl(var(--primary) / 0.15);
-    --shadow-strong: 0 16px 60px -12px hsl(var(--primary) / 0.2);
-    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+    /* الظلال الأنيقة */
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 8% / 0.08);
+    --shadow-medium: 0 4px 16px -4px hsl(0 0% 8% / 0.12);
+    --shadow-strong: 0 8px 32px -8px hsl(0 0% 8% / 0.16);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.15);
+    --shadow-primary: 0 4px 16px -4px hsl(var(--primary) / 0.25);
 
-    /* متغيرات التحريك */
+    /* متغيرات التحريك المحسنة */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 12px;
 
@@ -87,47 +85,51 @@
   }
 
   .dark {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 100%;
+    /* الوضع الليلي - مع الحفاظ على الهوية البصرية */
+    --background: 0 0% 8%;          /* خلفية داكنة */
+    --foreground: 0 0% 95%;         /* نص فاتح */
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 100%;
+    --card: 0 0% 12%;               /* بطاقات داكنة */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 172 100% 31%;
+    --primary: 175 100% 31%;        /* نفس الأخضر الفيروزي */
     --primary-foreground: 0 0% 100%;
+    --primary-glow: 175 85% 40%;
 
-    --secondary: 0 0% 29%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 172 100% 31%;
+    --accent: 175 100% 31%;         /* مطابق للأساسي */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 359 80% 62%;
+    --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 142 69% 47%;
+    --success: 142 69% 35%;
     --success-foreground: 0 0% 100%;
     
-    --warning: 28 100% 63%;
-    --warning-foreground: 0 0% 0%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 8%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --ring: 172 100% 31%;
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 172 100% 31%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 175 100% 31%;
+    
+    /* الشريط الجانبي */
+    --sidebar-background: 0 0% 12%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 175 100% 31%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 172 100% 31%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 175 100% 31%;
   }
 }
 
@@ -143,37 +145,41 @@
 }
 
 @layer components {
-  /* مكونات مخصصة للنظام */
+  /* مكونات النظام الموحد - التصميم الجديد */
   .hero-section {
-    @apply bg-gradient-to-br from-primary via-primary-glow to-secondary;
+    @apply bg-gradient-to-br from-primary to-primary-glow;
   }
   
   .glass-card {
-    @apply bg-card/60 backdrop-blur-sm border border-border/50;
+    @apply bg-white/90 backdrop-blur-sm border border-border shadow-soft;
   }
   
   .service-card {
-    @apply bg-gradient-to-br from-card to-accent p-6 rounded-xl border border-border/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1;
+    @apply bg-white border border-border rounded-xl p-6 shadow-soft hover:shadow-medium hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden;
   }
   
   .dashboard-card {
-    @apply bg-card border border-border rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300;
+    @apply bg-white border border-border rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300;
   }
   
   .metric-card {
-    @apply bg-gradient-to-br from-card to-accent/30 border border-border/50 rounded-lg p-4 hover:shadow-soft transition-all duration-300;
+    @apply bg-white border border-border rounded-lg p-4 shadow-soft hover:shadow-medium hover:scale-105 transition-all duration-300;
   }
   
   .btn-hero {
-    @apply bg-gradient-to-r from-secondary to-warning text-secondary-foreground font-semibold px-8 py-3 rounded-xl hover:scale-105 transition-all duration-300 shadow-medium;
+    @apply bg-primary text-white font-semibold px-8 py-3 rounded-xl hover:bg-primary-dark hover:scale-105 hover:shadow-primary transition-all duration-300;
   }
   
   .btn-primary {
-    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground font-medium px-6 py-2.5 rounded-lg hover:shadow-glow transition-all duration-300;
+    @apply bg-primary text-white font-medium px-6 py-2.5 rounded-lg hover:bg-primary-dark hover:shadow-primary transition-all duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-foreground border border-border font-medium px-6 py-2.5 rounded-lg hover:bg-muted hover:shadow-soft transition-all duration-300;
   }
   
   .navigation-item {
-    @apply px-4 py-2 rounded-lg text-foreground hover:text-primary hover:bg-primary/10 font-medium transition-all duration-300;
+    @apply px-4 py-2 rounded-lg text-foreground hover:text-primary hover:bg-primary/5 font-medium transition-all duration-300;
   }
   
   /* تأثيرات التحريك */
@@ -322,15 +328,15 @@
   display: none;
 }
 
-/* Enhanced Service Card Animations */
+/* تحسينات بطاقات الخدمة - التصميم الموحد */
 .service-card {
   @apply relative overflow-hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-card:hover {
-  transform: translateY(-8px) !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 20px 40px -8px hsl(0 0% 8% / 0.15) !important;
 }
 
 .service-card::before {
@@ -340,8 +346,8 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+  transition: left 0.5s ease;
   z-index: 1;
 }
 
@@ -349,14 +355,28 @@
   left: 100%;
 }
 
-/* Text Gradient Effect */
+/* تأثير خاص للبطاقات النشطة */
+.service-card.active {
+  @apply border-primary shadow-primary;
+  background: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(var(--primary) / 0.02) 100%);
+}
+
+/* تأثير النص المتدرج - الهوية الموحدة */
 .text-gradient {
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-foreground)), hsl(var(--accent)));
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% 200%;
   animation: gradient-shift 3s ease infinite;
+}
+
+/* تأثير النص للعناوين الرئيسية */
+.title-gradient {
+  background: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(var(--primary)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 @keyframes gradient-shift {
