@@ -15,6 +15,9 @@ import BoudHRAssistant from "@/components/BoudHRAssistant";
 import { Login } from "@/pages/Login";
 import { BusinessLogin } from "@/pages/BusinessLogin";
 import { IndividualLogin } from "@/pages/IndividualLogin";
+import { UnifiedLogin } from "@/pages/UnifiedLogin";
+import { CompanyDashboard } from "@/pages/CompanyDashboard";
+import { AdminDashboard } from "@/pages/AdminDashboard";
 import { Services } from "@/pages/Services";
 import { IndividualServices } from "@/pages/ServicePlatforms/IndividualServices";
 import { EmployeeManagement } from "@/pages/ServicePlatforms/EmployeeManagement";
@@ -150,6 +153,11 @@ const App = () => {
             <Route path="/invoices-dashboard" element={<InvoicesDashboard />} />
             <Route path="/hr/*" element={<HRApp />} />
             <Route path="/old-home" element={<LandingPage />} />
+              {/* Unified Login System */}
+              <Route path="/unified-login" element={<UnifiedLogin />} />
+              <Route path="/company-dashboard" element={<CompanyDashboard />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              {/* Legacy Login Routes */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             <Route path="/business-login" element={<BusinessLogin />} />
