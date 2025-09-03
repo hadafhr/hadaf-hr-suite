@@ -338,14 +338,16 @@ const ComprehensiveEmployeeManagement = () => {
                     size="sm"
                     className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
                     title="نقل لليمين"
+                    onClick={moveTabRight}
                   >
-                    <ArrowLeft className="h-4 w-4 rotate-180" />
+                    <ArrowRight className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
                     title="نقل لليسار"
+                    onClick={moveTabLeft}
                   >
                     <ArrowLeft className="h-4 w-4" />
                   </Button>
