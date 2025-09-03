@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
@@ -7,50 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { toast } from 'sonner';
-import { 
-  Users, 
-  UserPlus, 
-  AlertTriangle, 
-  Calendar, 
-  Clock,
-  DollarSign,
-  Building,
-  BarChart3,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
-  ArrowDown,
-  RefreshCw,
-  Download,
-  Settings,
-  Plug,
-  Network,
-  Shield,
-  Banknote,
-  Scale,
-  Target,
-  GraduationCap,
-  FileBarChart,
-  CalendarClock,
-  Gift,
-  PenTool,
-  CheckSquare,
-  Bot,
-  User,
-  Star,
-  MessageSquare,
-  MapPin,
-  Heart,
-  Briefcase,
-  MessageCircle,
-  Users2,
-  HardHat,
-  Grid3X3,
-  Save
-} from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Megaphone, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat } from 'lucide-react';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -91,237 +48,11 @@ import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTa
 import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealthSafety';
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
-
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
-  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
-  
-  // Default tabs configuration
-  const defaultTabs = [
-    { id: 'teamwork', label: 'قسم فريق العمل', icon: Users2, visible: true },
-    { id: 'departments', label: 'قسم الإدارات والوحدات', icon: Building, visible: true },
-    { id: 'quality-of-life', label: 'قسم جودة الحياة', icon: Heart, visible: true },
-    { id: 'skills-inventory', label: 'قسم مخزون المهارات', icon: Briefcase, visible: true },
-    { id: 'internal-communication', label: 'قسم التواصل الداخلي', icon: Users2, visible: true },
-    { id: 'admin-communications', label: 'الاتصالات الادارية', icon: MessageCircle, visible: true },
-    { id: 'occupational-safety', label: 'السلامة المهنية', icon: HardHat, visible: true },
-    { id: 'social-services', label: 'الخدمات الاجتماعية', icon: Heart, visible: true },
-    { id: 'attendance', label: 'الحضور والانصراف', icon: Clock, visible: true },
-    { id: 'employee-services', label: 'قسم خدمات الموظفين', icon: User, visible: true },
-    { id: 'disciplinary', label: 'الجزاءات والعقوبات', icon: AlertTriangle, visible: true },
-    { id: 'leaves', label: 'الإجازات والعطلات', icon: Calendar, visible: true },
-    { id: 'payroll', label: 'الرواتب والأجور', icon: DollarSign, visible: true },
-    { id: 'government', label: 'التكامل والربط', icon: Plug, visible: true },
-    { id: 'organization', label: 'التطوير والتنظيم المؤسسي', icon: Network, visible: true },
-    { id: 'governance', label: 'الحوكمة والامتثال', icon: Shield, visible: true },
-    { id: 'wageprotection', label: 'حماية الأجور', icon: Banknote, visible: true },
-    { id: 'legal', label: 'الشؤون القانونية', icon: Scale, visible: true },
-    { id: 'performance', label: 'تقييم الأداء الذكي', icon: Target, visible: true },
-    { id: 'training', label: 'نظام التدريب الشامل', icon: GraduationCap, visible: true },
-    { id: 'recruitment', label: 'التوظيف الذكي', icon: UserPlus, visible: true },
-    { id: 'insurance', label: 'إدارة التأمينات', icon: Shield, visible: true },
-    { id: 'rewards', label: 'المكافآت والحوافز', icon: Gift, visible: true },
-    { id: 'tasks', label: 'متابعة المهام', icon: CheckSquare, visible: true },
-    { id: 'ai', label: 'الذكاء الاصطناعي', icon: Bot, visible: true },
-    { id: 'reports', label: 'التقارير', icon: FileBarChart, visible: true },
-    { id: 'meetings', label: 'مركز الاجتماعات', icon: Calendar, visible: true },
-    { id: 'signatures', label: 'التوقيع الإلكتروني', icon: PenTool, visible: true },
-    { id: 'talent', label: 'إدارة المواهب', icon: Star, visible: true },
-    { id: 'field-tracking', label: 'تتبع العمل الميداني', icon: MapPin, visible: true },
-    { id: 'health', label: 'الصحة والسلامة المهنية', icon: HardHat, visible: true },
-    { id: 'settings', label: 'الإعدادات العامة', icon: Settings, visible: true }
-  ];
-
-  const [tabsConfig, setTabsConfig] = useState(() => {
-    const saved = localStorage.getItem('employee-management-tabs');
-    try {
-      const parsedTabs = saved ? JSON.parse(saved) : defaultTabs;
-      // Validate and ensure all tabs have required properties
-      const validatedTabs = parsedTabs.filter(tab => 
-        tab && 
-        typeof tab === 'object' && 
-        tab.id && 
-        tab.label && 
-        tab.icon &&
-        typeof tab.visible === 'boolean'
-      );
-      return validatedTabs.length > 0 ? validatedTabs : defaultTabs;
-    } catch (error) {
-      console.error('Error parsing saved tabs config:', error);
-      return defaultTabs;
-    }
-  });
-
-  // Drag and drop states
-  const [draggedTab, setDraggedTab] = useState<string | null>(null);
-  const [dragOverTab, setDragOverTab] = useState<string | null>(null);
-
-  // Save tabs configuration to localStorage
-  const saveTabsConfig = useCallback(() => {
-    console.log('حفظ التخطيط:', tabsConfig);
-    localStorage.setItem('employee-management-tabs', JSON.stringify(tabsConfig));
-    toast.success('تم حفظ التخطيط بنجاح');
-  }, [tabsConfig]);
-
-  // Reset to default configuration
-  const resetTabsConfig = useCallback(() => {
-    console.log('إعادة تعيين التخطيط إلى الافتراضي');
-    setTabsConfig(defaultTabs);
-    localStorage.removeItem('employee-management-tabs');
-    toast.success('تم إعادة تعيين التخطيط إلى الافتراضي');
-  }, []);
-
-  // Move tab left
-  const moveTabLeft = useCallback(() => {
-    console.log('نقل التبويب يساراً:', activeTab);
-    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
-    if (currentIndex > 0) {
-      const newTabs = [...tabsConfig];
-      const temp = newTabs[currentIndex];
-      newTabs[currentIndex] = newTabs[currentIndex - 1];
-      newTabs[currentIndex - 1] = temp;
-      setTabsConfig(newTabs);
-      toast.success('تم نقل التبويب إلى اليسار');
-    } else {
-      toast.error('لا يمكن نقل التبويب أكثر إلى اليسار');
-    }
-  }, [activeTab, tabsConfig]);
-
-  // Move tab right
-  const moveTabRight = useCallback(() => {
-    console.log('نقل التبويب يميناً:', activeTab);
-    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
-    if (currentIndex < tabsConfig.length - 1) {
-      const newTabs = [...tabsConfig];
-      const temp = newTabs[currentIndex];
-      newTabs[currentIndex] = newTabs[currentIndex + 1];
-      newTabs[currentIndex + 1] = temp;
-      setTabsConfig(newTabs);
-      toast.success('تم نقل التبويب إلى اليمين');
-    } else {
-      toast.error('لا يمكن نقل التبويب أكثر إلى اليمين');
-    }
-  }, [activeTab, tabsConfig]);
-
-  // Sort tabs alphabetically
-  const sortTabsAlphabetically = useCallback(() => {
-    console.log('ترتيب التبويبات أبجدياً');
-    const sortedTabs = [...tabsConfig].sort((a, b) => 
-      a.label.localeCompare(b.label, 'ar')
-    );
-    setTabsConfig(sortedTabs);
-    toast.success('تم ترتيب التبويبات أبجدياً');
-  }, [tabsConfig]);
-
-  // Save layout configuration to localStorage
-  const saveLayoutConfiguration = useCallback(() => {
-    console.log('حفظ تخطيط التبويبات');
-    localStorage.setItem('employee-management-layout', JSON.stringify(tabsConfig));
-    toast.success('تم حفظ تخطيط التبويبات بنجاح');
-  }, [tabsConfig]);
-
-  // Open customization options
-  const openCustomization = useCallback(() => {
-    console.log('فتح خيارات التخصيص');
-    toast.success('سيتم فتح خيارات التخصيص قريباً');
-  }, []);
-
-  // Drag and drop handlers
-  const handleDragStart = (e: React.DragEvent, tabId: string) => {
-    setDraggedTab(tabId);
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', tabId);
-  };
-
-  const handleDragOver = (e: React.DragEvent, tabId: string) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    setDragOverTab(tabId);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDragOverTab(null);
-  };
-
-  const handleDrop = (e: React.DragEvent, dropTabId: string) => {
-    e.preventDefault();
-    
-    if (!draggedTab || draggedTab === dropTabId) {
-      setDraggedTab(null);
-      setDragOverTab(null);
-      return;
-    }
-
-    const draggedIndex = tabsConfig.findIndex(tab => tab.id === draggedTab);
-    const dropIndex = tabsConfig.findIndex(tab => tab.id === dropTabId);
-
-    if (draggedIndex === -1 || dropIndex === -1) return;
-
-    const newTabs = [...tabsConfig];
-    const draggedTabData = newTabs[draggedIndex];
-    
-    // Remove dragged tab from its original position
-    newTabs.splice(draggedIndex, 1);
-    // Insert dragged tab at new position
-    newTabs.splice(dropIndex, 0, draggedTabData);
-
-    setTabsConfig(newTabs);
-    setDraggedTab(null);
-    setDragOverTab(null);
-    
-    toast.success('تم إعادة ترتيب التبويب بنجاح');
-  };
-
-  const handleDragEnd = () => {
-    setDraggedTab(null);
-    setDragOverTab(null);
-  };
-
-  // Move tab up (to earlier position in array)
-  const moveTabUp = useCallback(() => {
-    console.log('نقل التبويب للأعلى:', activeTab);
-    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
-    if (currentIndex > 0) {
-      const newTabs = [...tabsConfig];
-      const temp = newTabs[currentIndex];
-      newTabs[currentIndex] = newTabs[currentIndex - 1];
-      newTabs[currentIndex - 1] = temp;
-      setTabsConfig(newTabs);
-      toast.success('تم نقل التبويب للأعلى');
-    } else {
-      toast.error('لا يمكن نقل التبويب أكثر للأعلى');
-    }
-  }, [activeTab, tabsConfig]);
-
-  // Move tab down (to later position in array)
-  const moveTabDown = useCallback(() => {
-    console.log('نقل التبويب للأسفل:', activeTab);
-    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
-    if (currentIndex < tabsConfig.length - 1) {
-      const newTabs = [...tabsConfig];
-      const temp = newTabs[currentIndex];
-      newTabs[currentIndex] = newTabs[currentIndex + 1];
-      newTabs[currentIndex + 1] = temp;
-      setTabsConfig(newTabs);
-      toast.success('تم نقل التبويب للأسفل');
-    } else {
-      toast.error('لا يمكن نقل التبويب أكثر للأسفل');
-    }
-  }, [activeTab, tabsConfig]);
-
-  // Toggle tab visibility
-  const toggleTabVisibility = useCallback((tabId: string) => {
-    console.log('تبديل رؤية التبويب:', tabId);
-    setTabsConfig(prev => 
-      prev.map(tab => 
-        tab.id === tabId ? { ...tab, visible: !tab.visible } : tab
-      )
-    );
-  }, []);
 
   // Mock employee data
   const mockEmployee = {
@@ -341,12 +72,10 @@ const ComprehensiveEmployeeManagement = () => {
       total: 15300
     }
   };
-
   const handleViewEmployee = (employee: any) => {
     setSelectedEmployee(employee);
     setIsViewEmployeeOpen(true);
   };
-
   const getStatusBadge = (status: string) => {
     const statusConfig = {
       'نشط': 'bg-green-100 text-green-800 border-green-200',
@@ -354,22 +83,19 @@ const ComprehensiveEmployeeManagement = () => {
       'متوقف': 'bg-red-100 text-red-800 border-red-200',
       'منتهي الخدمة': 'bg-gray-100 text-gray-800 border-gray-200'
     };
-    
-    return (
-      <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-100 text-gray-800'}>
+    return <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-100 text-gray-800'}>
         {status}
-      </Badge>
-    );
+      </Badge>;
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#009F87]/5 via-background to-[#009F87]/10 relative overflow-hidden">
+  return <div className="min-h-screen bg-gradient-to-br from-[#009F87]/5 via-background to-[#009F87]/10 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#009F87]/5 rounded-full animate-pulse"></div>
         <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#009F87]/10 rounded-full animate-bounce"></div>
         <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-[#009F87]/5 rounded-full animate-float"></div>
-        <div className="absolute top-1/4 right-1/3 w-24 h-24 bg-[#009F87]/5 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/4 right-1/3 w-24 h-24 bg-[#009F87]/5 rounded-full animate-float" style={{
+        animationDelay: '2s'
+      }}></div>
       </div>
 
       {/* Header */}
@@ -377,19 +103,10 @@ const ComprehensiveEmployeeManagement = () => {
         <div className="flex h-20 items-center px-6">
           {/* BOUD Logo */}
           <div className="flex items-center gap-4 ml-4">
-            <BoudLogo 
-              variant="full" 
-              size="lg"
-              className="h-12 w-auto"
-            />
+            <BoudLogo variant="full" size="lg" className="h-12 w-auto" />
           </div>
           
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate(-1)}
-            className="mr-4 hover:bg-[#009F87]/10"
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mr-4 hover:bg-[#009F87]/10">
             <ArrowLeft className="h-4 w-4 ml-2" />
             العودة
           </Button>
@@ -404,19 +121,11 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
           </div>
           <div className="mr-auto flex items-center gap-2">
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="hover:bg-[#009F87] hover:text-white transition-colors"
-            >
+            <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white transition-colors">
               <RefreshCw className="h-4 w-4 ml-2" />
               تحديث البيانات
             </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="hover:bg-[#009F87] hover:text-white transition-colors"
-            >
+            <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white transition-colors">
               <Download className="h-4 w-4 ml-2" />
               تصدير التقارير
             </Button>
@@ -432,125 +141,167 @@ const ComprehensiveEmployeeManagement = () => {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1 bg-gray-50 rounded-lg p-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                    title="ترتيب الأيقونات"
-                    onClick={sortTabsAlphabetically}
-                  >
-                    <Grid3X3 className="h-4 w-4" />
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="ترتيب الأيقونات">
+                    <Settings className="h-4 w-4" />
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                    title="إعادة ترتيب"
-                    onClick={resetTabsConfig}
-                  >
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="إعادة ترتيب">
                     <RefreshCw className="h-4 w-4" />
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                    title="نقل للأعلى"
-                    onClick={moveTabUp}
-                  >
-                    <ArrowUp className="h-4 w-4" />
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليمين">
+                    <ArrowLeft className="h-4 w-4 rotate-180" />
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                    title="نقل للأسفل"
-                    onClick={moveTabDown}
-                  >
-                    <ArrowDown className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                    title="نقل لليمين"
-                    onClick={moveTabRight}
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                    title="نقل لليسار"
-                    onClick={moveTabLeft}
-                  >
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليسار">
                     <ArrowLeft className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
               
               <div className="flex items-center gap-1">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                  onClick={saveLayoutConfiguration}
-                >
+                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                  onClick={openCustomization}
-                >
+                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
                   <Settings className="h-3 w-3 ml-1" />
                   تخصيص
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
-                  onClick={() => setActiveTab('dashboard')}
-                  title="لوحة التحكم"
-                >
-                  <BarChart3 className="h-3 w-3 ml-1" />
-                  لوحة التحكم
                 </Button>
               </div>
             </div>
             
             <div className="w-full">
               <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
-                {tabsConfig.filter(tab => tab && tab.visible === true).map((tab) => {
-                  if (!tab || !tab.id || !tab.label || !tab.icon) return null;
-                  
-                  const IconComponent = tab.icon;
-                  const isDragged = draggedTab === tab.id;
-                  const isDraggedOver = dragOverTab === tab.id;
-                  
-                  return (
-                    <TabsTrigger 
-                      key={tab.id}
-                      value={tab.id}
-                      draggable={true}
-                      onDragStart={(e) => handleDragStart(e, tab.id)}
-                      onDragOver={(e) => handleDragOver(e, tab.id)}
-                      onDragLeave={handleDragLeave}
-                      onDrop={(e) => handleDrop(e, tab.id)}
-                      onDragEnd={handleDragEnd}
-                      className={`group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg cursor-move ${
-                        isDragged ? 'opacity-50 scale-95' : ''
-                      } ${
-                        isDraggedOver ? 'border-[#009F87] border-2 bg-[#009F87]/5' : ''
-                      }`}
-                    >
-                      <IconComponent className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">{tab.label}</span>
-                    </TabsTrigger>
-                  );
-                })}
+                <TabsTrigger value="dashboard" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <BarChart3 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">لوحة التحكم</span>
+                </TabsTrigger>
+                <TabsTrigger value="teamwork" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم فريق العمل</span>
+                </TabsTrigger>
+                <TabsTrigger value="departments" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم الإدارات والوحدات</span>
+                </TabsTrigger>
+                <TabsTrigger value="quality-of-life" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم جودة الحياة</span>
+                </TabsTrigger>
+                <TabsTrigger value="skills-inventory" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Briefcase className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم مخزون المهارات</span>
+                </TabsTrigger>
+                <TabsTrigger value="internal-communication" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم التواصل الداخلي</span>
+                </TabsTrigger>
+                <TabsTrigger value="admin-communications" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <MessageCircle className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الاتصالات الادارية</span>
+                </TabsTrigger>
+                <TabsTrigger value="occupational-safety" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <HardHat className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">السلامة المهنية</span>
+                </TabsTrigger>
+                <TabsTrigger value="social-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الخدمات الاجتماعية</span>
+                </TabsTrigger>
+                <TabsTrigger value="attendance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Clock className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الحضور والانصراف</span>
+                </TabsTrigger>
+                <TabsTrigger value="employee-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <User className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">قسم خدمات الموظفين</span>
+                </TabsTrigger>
+                <TabsTrigger value="disciplinary" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <AlertTriangle className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الجزاءات والعقوبات</span>
+                </TabsTrigger>
+                <TabsTrigger value="leaves" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Calendar className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الإجازات والعطلات</span>
+                </TabsTrigger>
+                <TabsTrigger value="payroll" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الرواتب والأجور</span>
+                </TabsTrigger>
+                <TabsTrigger value="government" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Plug className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التكامل والربط</span>
+                </TabsTrigger>
+                <TabsTrigger value="organization" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Network className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التطوير والتنظيم المؤسسي</span>
+                </TabsTrigger>
+                <TabsTrigger value="governance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الحوكمة والامتثال</span>
+                </TabsTrigger>
+                <TabsTrigger value="wageprotection" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Banknote className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">حماية الأجور</span>
+                </TabsTrigger>
+                <TabsTrigger value="legal" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Scale className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الشؤون القانونية</span>
+                </TabsTrigger>
+                <TabsTrigger value="performance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Target className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">تقييم الأداء</span>
+                </TabsTrigger>
+                <TabsTrigger value="training" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <GraduationCap className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التدريب والتطوير</span>
+                </TabsTrigger>
+                <TabsTrigger value="talents" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Star className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">إدارة المواهب</span>
+                </TabsTrigger>
+                <TabsTrigger value="recruitment" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <UserPlus className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التوظيف والتعين</span>
+                </TabsTrigger>
+                <TabsTrigger value="insurance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التأمين</span>
+                </TabsTrigger>
+                <TabsTrigger value="benefits" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Gift className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110 bg-black rounded-sm" />
+                  <span className="text-center leading-tight">المكافآت والحوافز</span>
+                </TabsTrigger>
+                <TabsTrigger value="meetings" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <CalendarClock className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الاجتماعات</span>
+                </TabsTrigger>
+                <TabsTrigger value="signature" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <PenTool className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التوقيع الإلكتروني</span>
+                </TabsTrigger>
+                <TabsTrigger value="tasks" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <CheckSquare className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">المهام والمتابعة</span>
+                </TabsTrigger>
+                <TabsTrigger value="requests" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <MessageSquare className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الطلبات والإشعارات</span>
+                </TabsTrigger>
+                <TabsTrigger value="ai" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Bot className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الذكاء الاصطناعي</span>
+                </TabsTrigger>
+                <TabsTrigger value="reports" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <FileBarChart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التقارير</span>
+                </TabsTrigger>
+                <TabsTrigger value="tracking" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <MapPin className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">التتبع الميداني</span>
+                </TabsTrigger>
+                <TabsTrigger value="settings" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Settings className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الإعدادات</span>
+                </TabsTrigger>
               </TabsList>
             </div>
           </div>
@@ -594,7 +345,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="attendance">
-            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} className="text-black bg-[#f7f5f5] rounded-full font-bold text-base" />
           </TabsContent>
 
           <TabsContent value="employee-services">
@@ -610,7 +361,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="payroll">
-            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
+            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} className="text-black text-center font-bold text-xs" />
           </TabsContent>
 
           <TabsContent value="government">
@@ -670,10 +421,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="requests">
-            <CombinedRequestsNotifications 
-              onBack={() => setActiveTab('dashboard')} 
-              onNavigateToSection={setActiveTab}
-            />
+            <CombinedRequestsNotifications onBack={() => setActiveTab('dashboard')} onNavigateToSection={setActiveTab} />
           </TabsContent>
 
           <TabsContent value="ai">
@@ -703,8 +451,7 @@ const ComprehensiveEmployeeManagement = () => {
               تفاصيل الموظف
             </DialogTitle>
           </DialogHeader>
-          {selectedEmployee && (
-            <div className="space-y-4">
+          {selectedEmployee && <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
                   <AvatarImage src={selectedEmployee.avatar} />
@@ -770,12 +517,9 @@ const ComprehensiveEmployeeManagement = () => {
                   </CardContent>
                 </Card>
               </div>
-            </div>
-          )}
+            </div>}
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 };
-
 export default ComprehensiveEmployeeManagement;
