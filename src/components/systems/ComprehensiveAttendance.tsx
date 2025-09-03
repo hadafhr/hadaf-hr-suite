@@ -83,11 +83,11 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
   ];
 
   const departmentAttendance = [
-    { name: 'تقنية المعلومات', value: 95, color: '#3b82f6' },
-    { name: 'الموارد البشرية', value: 92, color: '#10b981' },
-    { name: 'المالية', value: 88, color: '#f59e0b' },
-    { name: 'التسويق', value: 90, color: '#8b5cf6' },
-    { name: 'العمليات', value: 85, color: '#ef4444' }
+    { name: 'تقنية المعلومات', value: 95, color: 'hsl(var(--primary))' },
+    { name: 'الموارد البشرية', value: 92, color: 'hsl(var(--primary-glow))' },
+    { name: 'المالية', value: 88, color: 'hsl(var(--warning))' },
+    { name: 'التسويق', value: 90, color: 'hsl(var(--success))' },
+    { name: 'العمليات', value: 85, color: 'hsl(var(--muted-foreground))' }
   ];
 
   // Calculate statistics
@@ -166,7 +166,7 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="border-l-4 border-l-primary">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -178,62 +178,62 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="dashboard-card border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">حاضر اليوم</p>
-                <p className="text-2xl font-bold text-green-600">{stats.presentToday}</p>
+                <p className="text-2xl font-bold text-success">{stats.presentToday}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-green-500/60" />
+              <CheckCircle2 className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="dashboard-card border-l-4 border-l-warning">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">متأخرين</p>
-                <p className="text-2xl font-bold text-orange-600">{stats.lateArrivals}</p>
+                <p className="text-2xl font-bold text-warning">{stats.lateArrivals}</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-orange-500/60" />
+              <AlertTriangle className="h-8 w-8 text-warning/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">معدل الحضور</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.avgAttendance}%</p>
+                <p className="text-2xl font-bold text-primary">{stats.avgAttendance}%</p>
               </div>
-              <Target className="h-8 w-8 text-blue-500/60" />
+              <Target className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">عمل عن بُعد</p>
-                <p className="text-2xl font-bold text-purple-600">{stats.remoteWorkers}</p>
+                <p className="text-2xl font-bold text-primary">{stats.remoteWorkers}</p>
               </div>
-              <Globe className="h-8 w-8 text-purple-500/60" />
+              <Globe className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-indigo-500">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">متوسط ساعات العمل</p>
-                <p className="text-2xl font-bold text-indigo-600">{stats.avgWorkHours}</p>
+                <p className="text-2xl font-bold text-primary">{stats.avgWorkHours}</p>
               </div>
-              <Timer className="h-8 w-8 text-indigo-500/60" />
+              <Timer className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
@@ -241,32 +241,38 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="dashboard-card">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <BarChart3 className="h-5 w-5 text-primary" />
               إحصائيات الحضور الشهرية
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={attendanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Area type="monotone" dataKey="present" stackId="1" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="late" stackId="2" stroke="#f59e0b" fill="#f59e0b" />
-                <Area type="monotone" dataKey="absent" stackId="3" stroke="#ef4444" fill="#ef4444" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="month" stroke="hsl(var(--foreground))" />
+                <YAxis stroke="hsl(var(--foreground))" />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px'
+                  }}
+                />
+                <Area type="monotone" dataKey="present" stackId="1" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
+                <Area type="monotone" dataKey="late" stackId="2" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
+                <Area type="monotone" dataKey="absent" stackId="3" stroke="hsl(var(--destructive))" fill="hsl(var(--destructive))" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dashboard-card">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <PieChart className="h-5 w-5 text-primary" />
               معدل الحضور حسب القسم
             </CardTitle>
           </CardHeader>
@@ -279,14 +285,20 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill="hsl(var(--primary))"
                   dataKey="value"
                 >
                   {departmentAttendance.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px'
+                  }}
+                />
               </RechartsPieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -294,39 +306,39 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
       </div>
 
       {/* AI Insights */}
-      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+      <Card className="dashboard-card border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-foreground">
             <Sparkles className="h-5 w-5 text-primary" />
             رؤى الذكاء الاصطناعي للحضور والانصراف
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+            <div className="p-4 rounded-lg bg-success/10 border border-success/20">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">حضور ممتاز</span>
+                <CheckCircle2 className="h-4 w-4 text-success" />
+                <span className="text-sm font-semibold text-success">حضور ممتاز</span>
               </div>
-              <p className="text-sm text-emerald-700">
+              <p className="text-sm text-muted-foreground">
                 تحسن ملحوظ في معدلات الحضور العامة بنسبة 12% هذا الشهر
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+            <div className="p-4 rounded-lg bg-warning/10 border border-warning/20">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تنبيه تأخير</span>
+                <AlertTriangle className="h-4 w-4 text-warning" />
+                <span className="text-sm font-semibold text-warning">تنبيه تأخير</span>
               </div>
-              <p className="text-sm text-orange-700">
+              <p className="text-sm text-muted-foreground">
                 ملاحظة زيادة في حالات التأخير الصباحي في قسم المبيعات
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
+                <TrendingUp className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">توقعات إيجابية</span>
               </div>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-muted-foreground">
                 التوقعات تشير لتحقيق هدف 95% حضور منتظم نهاية الشهر
               </p>
             </div>
@@ -335,37 +347,37 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
       </Card>
 
       {/* Quick Actions */}
-      <Card>
+      <Card className="dashboard-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <Zap className="h-5 w-5 text-primary" />
             إجراءات سريعة
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Clock className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-primary/20 hover:bg-primary/10 hover:border-primary">
+              <Clock className="h-6 w-6 mb-2 text-primary" />
               <span className="text-xs text-center">تسجيل حضور</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Calendar className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-primary/20 hover:bg-primary/10 hover:border-primary">
+              <Calendar className="h-6 w-6 mb-2 text-primary" />
               <span className="text-xs text-center">إدارة النوبات</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <MapPin className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-primary/20 hover:bg-primary/10 hover:border-primary">
+              <MapPin className="h-6 w-6 mb-2 text-primary" />
               <span className="text-xs text-center">تتبع الموقع</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <FileText className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-primary/20 hover:bg-primary/10 hover:border-primary">
+              <FileText className="h-6 w-6 mb-2 text-primary" />
               <span className="text-xs text-center">تقرير يومي</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Settings className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-primary/20 hover:bg-primary/10 hover:border-primary">
+              <Settings className="h-6 w-6 mb-2 text-primary" />
               <span className="text-xs text-center">إعدادات النظام</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Bell className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-primary/20 hover:bg-primary/10 hover:border-primary">
+              <Bell className="h-6 w-6 mb-2 text-primary" />
               <span className="text-xs text-center">التنبيهات</span>
             </Button>
           </div>
@@ -375,32 +387,37 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
   );
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30" dir="rtl">
       <div className="max-w-7xl mx-auto">
         {renderHeader()}
         
         <div className="p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="attendance">سجل الحضور</TabsTrigger>
-              <TabsTrigger value="shifts">إدارة النوبات</TabsTrigger>
-              <TabsTrigger value="reports">التقارير</TabsTrigger>
-            </TabsList>
+            <div className="bg-white rounded-xl border border-border shadow-soft p-6">
+              <TabsList className="grid w-full grid-cols-4 bg-muted rounded-lg p-2">
+                <TabsTrigger value="dashboard" className="data-[state=active]:bg-primary data-[state=active]:text-white">لوحة التحكم</TabsTrigger>
+                <TabsTrigger value="attendance" className="data-[state=active]:bg-primary data-[state=active]:text-white">سجل الحضور</TabsTrigger>
+                <TabsTrigger value="shifts" className="data-[state=active]:bg-primary data-[state=active]:text-white">إدارة النوبات</TabsTrigger>
+                <TabsTrigger value="reports" className="data-[state=active]:bg-primary data-[state=active]:text-white">التقارير</TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value="dashboard">
               {renderAnalyticsDashboard()}
             </TabsContent>
 
             <TabsContent value="attendance">
-              <Card>
+              <Card className="dashboard-card">
                 <CardHeader>
-                  <CardTitle>سجل الحضور والانصراف</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Clock className="h-5 w-5 text-primary" />
+                    سجل الحضور والانصراف
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
-                    <Clock className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">سجل الحضور</h3>
+                    <Clock className="h-16 w-16 mx-auto mb-4 text-primary/60" />
+                    <h3 className="text-xl font-semibold mb-2 text-foreground">سجل الحضور</h3>
                     <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
                   </div>
                 </CardContent>
@@ -408,14 +425,17 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
             </TabsContent>
 
             <TabsContent value="shifts">
-              <Card>
+              <Card className="dashboard-card">
                 <CardHeader>
-                  <CardTitle>إدارة النوبات</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Calendar className="h-5 w-5 text-primary" />
+                    إدارة النوبات
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
-                    <Calendar className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">إدارة النوبات</h3>
+                    <Calendar className="h-16 w-16 mx-auto mb-4 text-primary/60" />
+                    <h3 className="text-xl font-semibold mb-2 text-foreground">إدارة النوبات</h3>
                     <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
                   </div>
                 </CardContent>
@@ -423,14 +443,17 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
             </TabsContent>
 
             <TabsContent value="reports">
-              <Card>
+              <Card className="dashboard-card">
                 <CardHeader>
-                  <CardTitle>التقارير والإحصائيات</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <FileText className="h-5 w-5 text-primary" />
+                    التقارير والإحصائيات
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">
-                    <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                    <h3 className="text-xl font-semibold mb-2">التقارير والإحصائيات</h3>
+                    <FileText className="h-16 w-16 mx-auto mb-4 text-primary/60" />
+                    <h3 className="text-xl font-semibold mb-2 text-foreground">التقارير والإحصائيات</h3>
                     <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
                   </div>
                 </CardContent>

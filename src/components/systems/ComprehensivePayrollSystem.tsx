@@ -254,11 +254,11 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   ];
 
   const departmentSalaryDistribution = [
-    { name: 'تقنية المعلومات', value: 35, color: '#3b82f6' },
-    { name: 'الموارد البشرية', value: 20, color: '#10b981' },
-    { name: 'المالية والمحاسبة', value: 18, color: '#f59e0b' },
-    { name: 'المبيعات والتسويق', value: 15, color: '#8b5cf6' },
-    { name: 'أقسام أخرى', value: 12, color: '#ef4444' }
+    { name: 'تقنية المعلومات', value: 35, color: 'hsl(var(--primary))' },
+    { name: 'الموارد البشرية', value: 20, color: 'hsl(var(--primary-glow))' },
+    { name: 'المالية والمحاسبة', value: 18, color: 'hsl(var(--warning))' },
+    { name: 'المبيعات والتسويق', value: 15, color: 'hsl(var(--success))' },
+    { name: 'أقسام أخرى', value: 12, color: 'hsl(var(--muted-foreground))' }
   ];
 
   // Calculate statistics
@@ -303,13 +303,13 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     switch (status) {
       case 'processed':
       case 'completed':
-      case 'approved': return 'bg-green-100 text-green-800 border-green-200';
+      case 'approved': return 'bg-success/10 text-success border-success/20';
       case 'processing':
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'draft': return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'pending': return 'bg-warning/10 text-warning border-warning/20';
+      case 'draft': return 'bg-muted text-muted-foreground border-border';
       case 'rejected':
-      case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'cancelled': return 'bg-destructive/10 text-destructive border-destructive/20';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -384,7 +384,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="border-l-4 border-l-primary">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -397,67 +397,67 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="dashboard-card border-l-4 border-l-warning">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">الرواتب المعالجة</p>
-                <p className="text-2xl font-bold text-orange-600">{stats.processedSalaries}</p>
+                <p className="text-2xl font-bold text-warning">{stats.processedSalaries}</p>
                 <p className="text-xs text-muted-foreground">موظف</p>
               </div>
-              <Calculator className="h-8 w-8 text-orange-500/60" />
+              <Calculator className="h-8 w-8 text-warning/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500">
+        <Card className="dashboard-card border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">موافقات معلقة</p>
-                <p className="text-2xl font-bold text-emerald-600">{stats.pendingApprovals}</p>
+                <p className="text-2xl font-bold text-success">{stats.pendingApprovals}</p>
                 <p className="text-xs text-muted-foreground">طلب</p>
               </div>
-              <Clock className="h-8 w-8 text-emerald-500/60" />
+              <Clock className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">مدفوعات متأخرة</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.overduePayments}</p>
+                <p className="text-2xl font-bold text-primary">{stats.overduePayments}</p>
                 <p className="text-xs text-muted-foreground">دفعة</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-blue-500/60" />
+              <AlertTriangle className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="dashboard-card border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">متوسط الراتب</p>
-                <p className="text-2xl font-bold text-purple-600">{stats.avgSalary.toLocaleString()}</p>
+                <p className="text-2xl font-bold text-primary">{stats.avgSalary.toLocaleString()}</p>
                 <p className="text-xs text-muted-foreground">ريال</p>
               </div>
-              <Target className="h-8 w-8 text-purple-500/60" />
+              <Target className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="dashboard-card border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                <p className="text-2xl font-bold text-green-600">{stats.totalEmployees}</p>
+                <p className="text-2xl font-bold text-success">{stats.totalEmployees}</p>
                 <p className="text-xs text-muted-foreground">موظف</p>
               </div>
-              <Users className="h-8 w-8 text-green-500/60" />
+              <Users className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
@@ -465,32 +465,39 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="dashboard-card">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <BarChart3 className="h-5 w-5 text-primary" />
               اتجاه الرواتب الشهرية
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={salaryTrendData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip formatter={(value) => [`${Number(value).toLocaleString()} ريال`, '']} />
-                <Area type="monotone" dataKey="total" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="basic" stackId="2" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="allowances" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="month" stroke="hsl(var(--foreground))" />
+                <YAxis stroke="hsl(var(--foreground))" />
+                <Tooltip 
+                  formatter={(value) => [`${Number(value).toLocaleString()} ريال`, '']}
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px'
+                  }}
+                />
+                <Area type="monotone" dataKey="total" stackId="1" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
+                <Area type="monotone" dataKey="basic" stackId="2" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
+                <Area type="monotone" dataKey="allowances" stackId="3" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dashboard-card">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <PieChart className="h-5 w-5 text-primary" />
               توزيع الرواتب حسب الأقسام
             </CardTitle>
           </CardHeader>
@@ -503,14 +510,20 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill="hsl(var(--primary))"
                   dataKey="value"
                 >
                   {departmentSalaryDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => [`${value}%`, '']} />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'hsl(var(--card))',
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px'
+                  }}
+                />
               </RechartsPieChart>
             </ResponsiveContainer>
           </CardContent>
