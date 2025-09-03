@@ -90,6 +90,109 @@ const ComprehensiveEmployeeManagement = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
+  
+  // Default tabs configuration
+  const defaultTabs = [
+    { id: 'teamwork', label: 'قسم فريق العمل', icon: Users2, visible: true },
+    { id: 'departments', label: 'قسم الإدارات والوحدات', icon: Building, visible: true },
+    { id: 'quality-of-life', label: 'قسم جودة الحياة', icon: Heart, visible: true },
+    { id: 'skills-inventory', label: 'قسم مخزون المهارات', icon: Briefcase, visible: true },
+    { id: 'internal-communication', label: 'قسم التواصل الداخلي', icon: Users2, visible: true },
+    { id: 'admin-communications', label: 'الاتصالات الادارية', icon: MessageCircle, visible: true },
+    { id: 'occupational-safety', label: 'السلامة المهنية', icon: HardHat, visible: true },
+    { id: 'social-services', label: 'الخدمات الاجتماعية', icon: Heart, visible: true },
+    { id: 'attendance', label: 'الحضور والانصراف', icon: Clock, visible: true },
+    { id: 'employee-services', label: 'قسم خدمات الموظفين', icon: User, visible: true },
+    { id: 'disciplinary', label: 'الجزاءات والعقوبات', icon: AlertTriangle, visible: true },
+    { id: 'leaves', label: 'الإجازات والعطلات', icon: Calendar, visible: true },
+    { id: 'payroll', label: 'الرواتب والأجور', icon: DollarSign, visible: true },
+    { id: 'government', label: 'التكامل والربط', icon: Plug, visible: true },
+    { id: 'organization', label: 'التطوير والتنظيم المؤسسي', icon: Network, visible: true },
+    { id: 'governance', label: 'الحوكمة والامتثال', icon: Shield, visible: true },
+    { id: 'wageprotection', label: 'حماية الأجور', icon: Banknote, visible: true },
+    { id: 'legal', label: 'الشؤون القانونية', icon: Scale, visible: true },
+    { id: 'performance', label: 'تقييم الأداء الذكي', icon: Target, visible: true },
+    { id: 'training', label: 'نظام التدريب الشامل', icon: GraduationCap, visible: true },
+    { id: 'recruitment', label: 'التوظيف الذكي', icon: UserPlus, visible: true },
+    { id: 'insurance', label: 'إدارة التأمينات', icon: Shield, visible: true },
+    { id: 'rewards', label: 'المكافآت والحوافز', icon: Gift, visible: true },
+    { id: 'tasks', label: 'متابعة المهام', icon: CheckSquare, visible: true },
+    { id: 'announcements', label: 'الإعلانات والتبليغات', icon: Megaphone, visible: true },
+    { id: 'ai', label: 'الذكاء الاصطناعي', icon: Bot, visible: true },
+    { id: 'reports', label: 'التقارير', icon: FileBarChart, visible: true },
+    { id: 'meetings', label: 'مركز الاجتماعات', icon: Calendar, visible: true },
+    { id: 'signatures', label: 'التوقيع الإلكتروني', icon: PenTool, visible: true },
+    { id: 'talent', label: 'إدارة المواهب', icon: Star, visible: true },
+    { id: 'field-tracking', label: 'تتبع العمل الميداني', icon: MapPin, visible: true },
+    { id: 'health', label: 'الصحة والسلامة المهنية', icon: HardHat, visible: true }
+  ];
+
+  const [tabsConfig, setTabsConfig] = useState(() => {
+    const saved = localStorage.getItem('employee-management-tabs');
+    return saved ? JSON.parse(saved) : defaultTabs;
+  });
+
+  // Save tabs configuration to localStorage
+  const saveTabsConfig = useCallback(() => {
+    localStorage.setItem('employee-management-tabs', JSON.stringify(tabsConfig));
+    toast.success('تم حفظ التخطيط بنجاح');
+  }, [tabsConfig]);
+
+  // Reset to default configuration
+  const resetTabsConfig = useCallback(() => {
+    setTabsConfig(defaultTabs);
+    localStorage.removeItem('employee-management-tabs');
+    toast.success('تم إعادة تعيين التخطيط إلى الافتراضي');
+  }, []);
+
+  // Move tab left
+  const moveTabLeft = useCallback(() => {
+    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
+    if (currentIndex > 0) {
+      const newTabs = [...tabsConfig];
+      const temp = newTabs[currentIndex];
+      newTabs[currentIndex] = newTabs[currentIndex - 1];
+      newTabs[currentIndex - 1] = temp;
+      setTabsConfig(newTabs);
+      toast.success('تم نقل التبويب إلى اليسار');
+    } else {
+      toast.error('لا يمكن نقل التبويب أكثر إلى اليسار');
+    }
+  }, [activeTab, tabsConfig]);
+
+  // Move tab right
+  const moveTabRight = useCallback(() => {
+    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
+    if (currentIndex < tabsConfig.length - 1) {
+      const newTabs = [...tabsConfig];
+      const temp = newTabs[currentIndex];
+      newTabs[currentIndex] = newTabs[currentIndex + 1];
+      newTabs[currentIndex + 1] = temp;
+      setTabsConfig(newTabs);
+      toast.success('تم نقل التبويب إلى اليمين');
+    } else {
+      toast.error('لا يمكن نقل التبويب أكثر إلى اليمين');
+    }
+  }, [activeTab, tabsConfig]);
+
+  // Sort tabs alphabetically
+  const sortTabsAlphabetically = useCallback(() => {
+    const sortedTabs = [...tabsConfig].sort((a, b) => 
+      a.label.localeCompare(b.label, 'ar')
+    );
+    setTabsConfig(sortedTabs);
+    toast.success('تم ترتيب التبويبات أبجدياً');
+  }, [tabsConfig]);
+
+  // Toggle tab visibility
+  const toggleTabVisibility = useCallback((tabId: string) => {
+    setTabsConfig(prev => 
+      prev.map(tab => 
+        tab.id === tabId ? { ...tab, visible: !tab.visible } : tab
+      )
+    );
+  }, []);
 
   // Mock employee data
   const mockEmployee = {
