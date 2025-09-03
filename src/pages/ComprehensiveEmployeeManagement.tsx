@@ -141,12 +141,14 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Save tabs configuration to localStorage
   const saveTabsConfig = useCallback(() => {
+    console.log('حفظ التخطيط:', tabsConfig);
     localStorage.setItem('employee-management-tabs', JSON.stringify(tabsConfig));
     toast.success('تم حفظ التخطيط بنجاح');
   }, [tabsConfig]);
 
   // Reset to default configuration
   const resetTabsConfig = useCallback(() => {
+    console.log('إعادة تعيين التخطيط إلى الافتراضي');
     setTabsConfig(defaultTabs);
     localStorage.removeItem('employee-management-tabs');
     toast.success('تم إعادة تعيين التخطيط إلى الافتراضي');
@@ -154,6 +156,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Move tab left
   const moveTabLeft = useCallback(() => {
+    console.log('نقل التبويب يساراً:', activeTab);
     const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
     if (currentIndex > 0) {
       const newTabs = [...tabsConfig];
@@ -169,6 +172,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Move tab right
   const moveTabRight = useCallback(() => {
+    console.log('نقل التبويب يميناً:', activeTab);
     const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
     if (currentIndex < tabsConfig.length - 1) {
       const newTabs = [...tabsConfig];
@@ -184,6 +188,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Sort tabs alphabetically
   const sortTabsAlphabetically = useCallback(() => {
+    console.log('ترتيب التبويبات أبجدياً');
     const sortedTabs = [...tabsConfig].sort((a, b) => 
       a.label.localeCompare(b.label, 'ar')
     );
@@ -193,6 +198,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Toggle tab visibility
   const toggleTabVisibility = useCallback((tabId: string) => {
+    console.log('تبديل رؤية التبويب:', tabId);
     setTabsConfig(prev => 
       prev.map(tab => 
         tab.id === tabId ? { ...tab, visible: !tab.visible } : tab
