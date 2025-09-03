@@ -11,6 +11,8 @@ interface TeamMembersProps {
 const TeamMembers = ({ onBack }: TeamMembersProps) => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
+  
+  // Force refresh to show under development page
 
   return (
     <div className={`min-h-screen bg-background ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
