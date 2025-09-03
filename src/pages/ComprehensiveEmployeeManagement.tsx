@@ -21,6 +21,8 @@ import {
   BarChart3,
   ArrowLeft,
   ArrowRight,
+  ArrowUp,
+  ArrowDown,
   RefreshCw,
   Download,
   Settings,
@@ -280,6 +282,38 @@ const ComprehensiveEmployeeManagement = () => {
     setDragOverTab(null);
   };
 
+  // Move tab up (to earlier position in array)
+  const moveTabUp = useCallback(() => {
+    console.log('نقل التبويب للأعلى:', activeTab);
+    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
+    if (currentIndex > 0) {
+      const newTabs = [...tabsConfig];
+      const temp = newTabs[currentIndex];
+      newTabs[currentIndex] = newTabs[currentIndex - 1];
+      newTabs[currentIndex - 1] = temp;
+      setTabsConfig(newTabs);
+      toast.success('تم نقل التبويب للأعلى');
+    } else {
+      toast.error('لا يمكن نقل التبويب أكثر للأعلى');
+    }
+  }, [activeTab, tabsConfig]);
+
+  // Move tab down (to later position in array)
+  const moveTabDown = useCallback(() => {
+    console.log('نقل التبويب للأسفل:', activeTab);
+    const currentIndex = tabsConfig.findIndex(tab => tab.id === activeTab);
+    if (currentIndex < tabsConfig.length - 1) {
+      const newTabs = [...tabsConfig];
+      const temp = newTabs[currentIndex];
+      newTabs[currentIndex] = newTabs[currentIndex + 1];
+      newTabs[currentIndex + 1] = temp;
+      setTabsConfig(newTabs);
+      toast.success('تم نقل التبويب للأسفل');
+    } else {
+      toast.error('لا يمكن نقل التبويب أكثر للأسفل');
+    }
+  }, [activeTab, tabsConfig]);
+
   // Toggle tab visibility
   const toggleTabVisibility = useCallback((tabId: string) => {
     console.log('تبديل رؤية التبويب:', tabId);
@@ -416,6 +450,24 @@ const ComprehensiveEmployeeManagement = () => {
                     onClick={resetTabsConfig}
                   >
                     <RefreshCw className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
+                    title="نقل للأعلى"
+                    onClick={moveTabUp}
+                  >
+                    <ArrowUp className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors"
+                    title="نقل للأسفل"
+                    onClick={moveTabDown}
+                  >
+                    <ArrowDown className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="ghost"
