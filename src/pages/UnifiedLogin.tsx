@@ -3,13 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Eye, EyeOff, Mail, Lock, Loader2, ChevronDown, Building2, User, Shield } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, Loader2, Building2, Shield, LogIn } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { sanitizeInput, isValidEmail } from '@/utils/sanitizeHtml';
@@ -32,9 +26,11 @@ export const UnifiedLogin: React.FC = () => {
 
   // Mock role determination based on email
   const determineUserRole = (email: string) => {
-    if (email.includes('admin@boud.com.sa') || email.includes('superadmin')) {
+    // فريق بُعد - الإدارة العليا
+    if (email.includes('admin@boud.com.sa') || email.includes('@boud.com.sa')) {
       return 'super_admin';
     }
+    // باقي المستخدمين - حسابات المنشآت
     return 'company_user';
   };
 
@@ -43,7 +39,7 @@ export const UnifiedLogin: React.FC = () => {
     if (user) {
       const role = determineUserRole(user.email || '');
       if (role === 'super_admin') {
-        navigate('/admin-dashboard', { replace: true });
+        navigate('/super-admin-dashboard', { replace: true });
       } else {
         navigate('/company-dashboard', { replace: true });
       }
@@ -86,7 +82,7 @@ export const UnifiedLogin: React.FC = () => {
         // Determine role and redirect
         const role = determineUserRole(formData.email);
         if (role === 'super_admin') {
-          navigate('/admin-dashboard', { replace: true });
+          navigate('/super-admin-dashboard', { replace: true });
         } else {
           navigate('/company-dashboard', { replace: true });
         }
@@ -211,45 +207,24 @@ export const UnifiedLogin: React.FC = () => {
               </Button>
             </div>
 
-            {/* Login Dropdown Menu - Updated */}
-            <div className="space-y-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button 
-                    type="button"
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3" 
-                    disabled={loading}
-                  >
-                    <Mail className="h-4 w-4 mr-2" />
-                    {isArabic ? 'تسجيل الدخول' : 'Sign In'}
-                    <ChevronDown className="h-4 w-4 ml-2" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-full min-w-[250px] bg-background border border-border shadow-xl z-[9999]" align="center" side="bottom">
-                  <DropdownMenuItem 
-                    className="cursor-pointer hover:bg-muted/80 p-4 focus:bg-muted/80 border-b border-border/50"
-                    onClick={() => navigate('/company-dashboard')}
-                  >
-                    <Building2 className="h-5 w-5 mr-3 text-primary" />
-                    <span className="font-medium text-base">{isArabic ? 'لوحة تحكم المنشأة' : 'Company Dashboard'}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    className="cursor-pointer hover:bg-muted/80 p-4 focus:bg-muted/80 border-b border-border/50"
-                    onClick={() => navigate('/hr-dashboard')}
-                  >
-                    <User className="h-5 w-5 mr-3 text-primary" />
-                    <span className="font-medium text-base">{isArabic ? 'لوحة تحكم الموظف' : 'Employee Dashboard'}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    className="cursor-pointer hover:bg-muted/80 p-4 focus:bg-muted/80"
-                    onClick={() => navigate('/admin-dashboard')}
-                  >
-                    <Shield className="h-5 w-5 mr-3 text-primary" />
-                    <span className="font-medium text-base">{isArabic ? 'لوحة مدير النظام' : 'Admin Dashboard'}</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            {/* Login Button */}
+            <Button 
+              type="submit" 
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 transition-all duration-300 hover:scale-105" 
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                  {isArabic ? 'جارٍ تسجيل الدخول...' : 'Signing in...'}
+                </>
+              ) : (
+                <>
+                  <LogIn className="h-5 w-5 mr-2" />
+                  {isArabic ? 'تسجيل الدخول' : 'Sign In'}
+                </>
+              )}
+            </Button>
 
             {/* Demo Credentials */}
             <div className="bg-muted/30 p-4 rounded-lg text-sm space-y-2">

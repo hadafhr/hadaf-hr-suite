@@ -1,36 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { 
-  Users, 
-  Building2, 
-  Calendar, 
-  FileText,
-  Settings,
-  Bell,
-  Search,
-  Plus,
-  TrendingUp,
-  Clock,
-  CheckCircle,
-  AlertCircle,
-  Target,
-  Award,
-  DollarSign,
-  BarChart3,
-  MapPin,
-  User,
-  LogOut,
-  ChevronDown,
-  Menu
-} from 'lucide-react';
-import { BoudLogo } from '@/components/BoudLogo';
-import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
-import { useAuth } from '@/hooks/useAuth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,7 +10,16 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { PatternBackground } from '@/components/PatternBackground';
+import {
+  Users, UserCheck, Calendar, Clock, DollarSign, FileText,
+  Bell, Settings, LogOut, Building2, Menu, X, User, CheckCircle,
+  BarChart3, Plus, Search, ChevronDown
+} from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import { BoudLogo } from '@/components/BoudLogo';
+import { useNavigate } from 'react-router-dom';
 
 export const CompanyDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -91,7 +72,6 @@ export const CompanyDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background flex relative">
-      <PatternBackground opacity={0.02} size={120} />
       
       {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-background/95 backdrop-blur-sm border-r border-border transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
