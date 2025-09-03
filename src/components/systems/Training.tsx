@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, BookOpen, Users, Clock, Search, Plus, Award } from 'lucide-react';
+import { ArrowLeft, BookOpen, Users, Clock, Search, Plus, Award, Sparkles, Target } from 'lucide-react';
 
 interface TrainingProps {
   onBack: () => void;
@@ -162,106 +162,158 @@ export const Training: React.FC<TrainingProps> = ({ onBack }) => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  {isRTL ? 'رجوع' : 'Back'}
-                </Button>
+    <div className="min-h-screen bg-white" dir="rtl">
+      {/* خلفية احترافية متحركة بألوان الهوية البصرية */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/8 to-primary/3 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-primary/10 to-primary/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-muted/15 to-primary/3 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-primary/5 rounded-full blur-xl animate-bounce-gentle"></div>
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-muted/20 rounded-full blur-lg animate-float"></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-primary/8 rounded-full blur-md animate-pulse"></div>
+      </div>
+
+      {/* المحتوى الرئيسي */}
+      <div className="relative z-10 container mx-auto px-6 py-8">
+        {/* الشريط العلوي الاحترافي */}
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onBack}
+              className="border-muted-foreground/20 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 px-4 py-2"
+            >
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              {isRTL ? 'رجوع' : 'Back'}
+            </Button>
+            <div className="h-8 w-px bg-border/30"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <BookOpen className="h-8 w-8 text-white relative z-10" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
               </div>
-              <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-                  <Search className="h-4 w-4 ml-2" />
-                  {isRTL ? 'البحث في الدورات' : 'Search Courses'}
-                </Button>
-                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
-                  <Plus className="h-4 w-4 ml-2" />
-                  {isRTL ? 'دورة جديدة' : 'New Course'}
-                </Button>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  {isRTL ? 'نظام التدريب والتطوير' : 'Training & Development System'}
+                </h1>
+                <p className="text-muted-foreground text-lg">
+                  {isRTL ? 'النظام الشامل لإدارة البرامج التدريبية وتطوير المهارات' : 'Comprehensive system for training programs and skills development'}
+                </p>
               </div>
             </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <BookOpen className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                {isRTL ? 'نظام التدريب والتطوير المتقدم' : 'Advanced Training & Development System'}
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                {isRTL ? 'منظومة ذكية شاملة لإدارة البرامج التدريبية وتطوير المهارات مع أنظمة التقييم والشهادات المتطورة' : 'Comprehensive intelligent system for managing training programs and skills development with advanced assessment and certification systems'}
-              </p>
-            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+              <Sparkles className="h-4 w-4 ml-2" />
+              {isRTL ? 'نظام متطور' : 'Advanced System'}
+            </Badge>
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300 px-6 py-2"
+            >
+              <Download className="h-4 w-4 ml-2" />
+              {isRTL ? 'تصدير' : 'Export'}
+            </Button>
           </div>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الدورات النشطة' : 'Active Courses'}
-                  </p>
-                  <p className="text-2xl font-bold">12</p>
+        {/* العنوان الرئيسي الاحترافي */}
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-primary to-primary-glow rounded-full shadow-glow mb-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent animate-pulse"></div>
+            <BookOpen className="h-14 w-14 text-white relative z-10" />
+            <div className="absolute -top-3 -right-3 w-8 h-8 bg-accent rounded-full animate-pulse"></div>
+            <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-white/30 rounded-full animate-bounce"></div>
+          </div>
+          <h1 className="text-6xl font-bold text-foreground mb-6 relative">
+            {isRTL ? 'نظام التدريب والتطوير الاحترافي' : 'Professional Training & Development System'}
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-40 h-1.5 bg-gradient-to-r from-primary to-primary-glow rounded-full"></div>
+          </h1>
+          <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-8">
+            {isRTL ? 'منظومة ذكية شاملة لإدارة البرامج التدريبية وتطوير المهارات مع أنظمة التقييم والشهادات المتطورة' : 'Comprehensive intelligent system for managing training programs and skills development with advanced assessment and certification systems'}
+          </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-6 py-3 text-base font-medium hover:bg-primary/10 transition-all duration-300">
+              <Sparkles className="h-5 w-5 ml-2" />
+              {isRTL ? 'نظام ذكي' : 'Smart System'}
+            </Badge>
+            <Badge variant="outline" className="border-muted-foreground/30 text-muted-foreground bg-muted/20 px-6 py-3 text-base font-medium hover:bg-muted/30 transition-all duration-300">
+              <Target className="h-5 w-5 ml-2" />
+              {isRTL ? 'واجهة احترافية' : 'Professional Interface'}
+            </Badge>
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-6 py-3 text-base font-medium hover:bg-primary/10 transition-all duration-300">
+              <Award className="h-5 w-5 ml-2" />
+              {isRTL ? 'إدارة متقدمة' : 'Advanced Management'}
+            </Badge>
+          </div>
+        </div>
+
+        {/* الإحصائيات السريعة الاحترافية */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {[
+            { 
+              title: isRTL ? 'الدورات النشطة' : 'Active Courses',
+              value: '12',
+              description: isRTL ? 'جميع الدورات النشطة في النظام' : 'All active courses in the system',
+              icon: BookOpen,
+              trend: '+3',
+              color: 'from-primary to-primary-glow'
+            },
+            { 
+              title: isRTL ? 'إجمالي المتدربين' : 'Total Trainees',
+              value: '156',
+              description: isRTL ? 'المتدربين المسجلين حالياً' : 'Currently enrolled trainees',
+              icon: Users,
+              trend: '+23',
+              color: 'from-primary to-primary-glow'
+            },
+            { 
+              title: isRTL ? 'ساعات التدريب' : 'Training Hours',
+              value: '2,340',
+              description: isRTL ? 'إجمالي ساعات التدريب المنجزة' : 'Total completed training hours',
+              icon: Clock,
+              trend: '+156',
+              color: 'from-muted-foreground to-muted-foreground'
+            },
+            { 
+              title: isRTL ? 'الشهادات الممنوحة' : 'Certificates Issued',
+              value: '89',
+              description: isRTL ? 'عدد الشهادات الممنوحة' : 'Number of certificates issued',
+              icon: Award,
+              trend: '+12',
+              color: 'from-primary to-primary-glow'
+            }
+          ].map((metric, index) => (
+            <Card key={index} className="group hover:shadow-glow hover:scale-105 transition-all duration-700 border border-border/20 bg-white/98 backdrop-blur-sm animate-fade-in overflow-hidden relative" 
+                  style={{animationDelay: `${index * 0.2}s`}}>
+              {/* تأثير الخلفية المتحركة */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-xl -translate-y-12 translate-x-12 group-hover:scale-150 transition-transform duration-1000"></div>
+              
+              <CardContent className="p-8 relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`p-5 rounded-3xl bg-gradient-to-br ${metric.color} shadow-soft group-hover:shadow-glow group-hover:scale-110 transition-all duration-700 relative overflow-hidden`}>
+                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <metric.icon className="h-8 w-8 text-white relative z-10" />
+                  </div>
+                  <Badge variant="outline" className="border-muted-foreground/20 text-muted-foreground bg-muted/10 hover:bg-muted/20 transition-colors duration-300 px-4 py-2">
+                    {metric.trend}
+                  </Badge>
                 </div>
-                <BookOpen className="h-8 w-8 text-blue-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'إجمالي المتدربين' : 'Total Trainees'}
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">156</p>
+                <div className="space-y-4">
+                  <p className="text-4xl font-bold text-foreground group-hover:text-primary transition-colors duration-500">{metric.value}</p>
+                  <p className="text-lg text-foreground font-semibold">{metric.title}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{metric.description}</p>
                 </div>
-                <Users className="h-8 w-8 text-green-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'ساعات التدريب' : 'Training Hours'}
-                  </p>
-                  <p className="text-2xl font-bold text-purple-600">2,340</p>
+                {/* مؤشر التقدم */}
+                <div className="mt-6 w-full bg-muted/20 rounded-full h-2 overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-primary to-primary-glow rounded-full transform origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-1000 ease-out"></div>
                 </div>
-                <Clock className="h-8 w-8 text-purple-600" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {isRTL ? 'الشهادات الممنوحة' : 'Certificates Issued'}
-                  </p>
-                  <p className="text-2xl font-bold text-orange-600">89</p>
-                </div>
-                <Award className="h-8 w-8 text-orange-600" />
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <Tabs defaultValue="courses" className="space-y-6">

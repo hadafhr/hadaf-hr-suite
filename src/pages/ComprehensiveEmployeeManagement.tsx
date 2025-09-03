@@ -13,7 +13,7 @@ import {
   BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, 
   Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, 
   Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, 
-  Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain
+  Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles
 } from 'lucide-react';
 
 // Import components
@@ -94,54 +94,66 @@ const ComprehensiveEmployeeManagement = () => {
         {status}
       </Badge>;
   };
-  return <div className="min-h-screen bg-gradient-to-br from-[#009F87]/5 via-background to-[#009F87]/10 relative overflow-hidden">
-      {/* Animated Background Elements */}
+  return (
+    <div className="min-h-screen bg-white" dir="rtl">
+      {/* خلفية احترافية متحركة بألوان الهوية البصرية */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-96 h-96 bg-[#009F87]/5 rounded-full animate-pulse"></div>
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#009F87]/10 rounded-full animate-bounce"></div>
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-[#009F87]/5 rounded-full animate-float"></div>
-        <div className="absolute top-1/4 right-1/3 w-24 h-24 bg-[#009F87]/5 rounded-full animate-float" style={{
-        animationDelay: '2s'
-      }}></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/8 to-primary/3 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-primary/10 to-primary/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-muted/15 to-primary/3 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-primary/5 rounded-full blur-xl animate-bounce-gentle"></div>
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-muted/20 rounded-full blur-lg animate-float"></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-primary/8 rounded-full blur-md animate-pulse"></div>
       </div>
 
-      {/* Header */}
-      <div className="relative border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="flex h-20 items-center px-6">
-          {/* BOUD Logo */}
-          <div className="flex items-center gap-4 ml-4">
-            <BoudLogo variant="full" size="lg" className="h-12 w-auto" />
-          </div>
-          
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mr-4 hover:bg-[#009F87]/10">
-            <ArrowLeft className="h-4 w-4 ml-2" />
-            العودة
-          </Button>
-          
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-[#009F87]/10 rounded-lg">
-              <Users className="h-6 w-6 text-[#009F87]" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-[#009F87]">نظام إدارة الموظفين الشامل</h1>
-              <p className="text-sm text-muted-foreground">إدارة احترافية لدورة حياة الموظف الكاملة</p>
-            </div>
-          </div>
-          <div className="mr-auto flex items-center gap-2">
-            <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white transition-colors">
-              <RefreshCw className="h-4 w-4 ml-2" />
-              تحديث البيانات
+      {/* المحتوى الرئيسي */}
+      <div className="relative z-10 container mx-auto px-6 py-8">
+        {/* الشريط العلوي الاحترافي */}
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate(-1)}
+              className="border-muted-foreground/20 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 px-4 py-2"
+            >
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
             </Button>
-            <Button variant="outline" size="sm" className="hover:bg-[#009F87] hover:text-white transition-colors">
+            <div className="h-8 w-px bg-border/30"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <Users className="h-8 w-8 text-white relative z-10" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  نظام إدارة الموظفين الشامل
+                </h1>
+                <p className="text-muted-foreground text-lg">
+                  النظام الشامل والمتقدم لإدارة الموظفين والفرق
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+              <Sparkles className="h-4 w-4 ml-2" />
+              نظام متطور
+            </Badge>
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300 px-6 py-2"
+            >
               <Download className="h-4 w-4 ml-2" />
-              تصدير التقارير
+              تصدير
             </Button>
           </div>
         </div>
-      </div>
 
-      <div className="relative p-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <div className="relative p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           {/* Professional Grid Navigation - All Tabs Visible */}
           <div className="bg-white/90 backdrop-blur rounded-xl border border-[#009F87]/20 shadow-lg p-4 mb-6">
             {/* Control Icons for Tab Organization */}
@@ -446,11 +458,11 @@ const ComprehensiveEmployeeManagement = () => {
           <TabsContent value="settings">
             <SystemSettings onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
-        </Tabs>
-      </div>
+          </Tabs>
+        </div>
 
-      {/* Employee Details Dialog */}
-      <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
+        {/* Employee Details Dialog */}
+        <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white/95 backdrop-blur">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-3 text-[#009F87]">
@@ -526,7 +538,10 @@ const ComprehensiveEmployeeManagement = () => {
               </div>
             </div>}
         </DialogContent>
-      </Dialog>
-    </div>;
+        </Dialog>
+      </div>
+    </div>
+  );
 };
+
 export default ComprehensiveEmployeeManagement;
