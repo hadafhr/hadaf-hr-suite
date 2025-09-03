@@ -1,326 +1,146 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 import { 
-  ArrowLeft,
-  User,
+  User, 
+  Mail, 
+  Phone, 
+  Calendar, 
+  MapPin, 
+  FileText, 
+  Download,
+  Edit,
+  Save,
+  Building,
   Briefcase,
   DollarSign,
   Clock,
-  Calendar,
-  Award,
-  BookOpen,
-  FileText,
-  Shield,
-  AlertTriangle,
-  CheckCircle,
-  Mail,
-  Phone,
-  MapPin,
-  Edit,
-  Download,
-  TrendingUp,
   Target,
-  Users,
-  Building2,
-  Star,
-  Trophy,
-  FileText as Certificate,
-  Wrench,
-  Heart,
-  Car,
-  Home
+  Award,
+  Upload,
+  Eye,
+  Trash2
 } from 'lucide-react';
 
-interface Employee {
+interface TeamMember {
   id: string;
+  employeeNumber: string;
   name: string;
-  nameAr: string;
-  email: string;
-  phone: string;
   position: string;
   department: string;
+  status: string;
+  level: string;
   manager: string;
-  status: 'active' | 'on_leave' | 'terminated';
-  joinDate: string;
-  yearsInCompany: number;
-  profilePicture?: string;
+  email: string;
+  phone: string;
+  startDate: string;
+  contractType: string;
   performanceScore: number;
   attendanceRate: number;
-  tasks: number;
-  completedTasks: number;
+  yearsOfExperience: number;
   salary: number;
-  leaveBalance: number;
-  role: 'employee' | 'manager' | 'hr_admin';
-  skills: string[];
-  certifications: string[];
-  riskScore?: number;
-  burnoutRisk?: 'low' | 'medium' | 'high';
 }
 
 interface EmployeeProfileProps {
-  employee: Employee;
-  onBack: () => void;
-  userRole: 'employee' | 'manager' | 'hr_admin';
-  currentUser: Employee | null;
+  employee: TeamMember | null;
+  onEdit?: () => void;
 }
 
-const EmployeeProfile: React.FC<EmployeeProfileProps> = ({
-  employee,
-  onBack,
-  userRole,
-  currentUser
-}) => {
-  const [activeTab, setActiveTab] = useState('personal');
-  
-  const canViewSensitiveData = userRole === 'hr_admin' || 
-                               (userRole === 'manager' && employee.manager === currentUser?.name) ||
-                               employee.id === currentUser?.id;
+const EmployeeProfile: React.FC<EmployeeProfileProps> = ({ employee, onEdit }) => {
+  const { toast } = useToast();
+  const [isEditing, setIsEditing] = useState(false);
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'active':
-        return <Badge className="bg-green-100 text-green-800 border-green-200">نشط</Badge>;
-      case 'on_leave':
-        return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">في إجازة</Badge>;
-      case 'terminated':
-        return <Badge className="bg-red-100 text-red-800 border-red-200">منتهي الخدمة</Badge>;
-      default:
-        return <Badge variant="secondary">{status}</Badge>;
-    }
+  if (!employee) {
+    return (
+      <div className="text-center py-12">
+        <User className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+        <p className="text-muted-foreground">اختر موظفاً لعرض تفاصيله</p>
+      </div>
+    );
+  }
+
+  const handleSave = () => {
+    setIsEditing(false);
+    toast({
+      title: "تم الحفظ بنجاح",
+      description: "تم تحديث بيانات الموظف",
+    });
   };
 
-  const personalData = {
-    nationalId: '1234567890',
-    dateOfBirth: '1990-05-15',
-    nationality: 'سعودي',
-    maritalStatus: 'متزوج',
-    address: 'الرياض، المملكة العربية السعودية',
-    emergencyContact: {
-      name: 'فاطمة أحمد',
-      relationship: 'الزوجة',
-      phone: '+966501234567'
-    }
+  const handleExport = () => {
+    toast({
+      title: "تم التصدير بنجاح",
+      description: `تم تصدير ملف ${employee.name} كملف PDF`,
+    });
   };
-
-  const contractData = {
-    contractType: 'دائم',
-    startDate: employee.joinDate,
-    endDate: null,
-    probationPeriod: '3 أشهر',
-    workingHours: '8 ساعات يومياً',
-    basicSalary: employee.salary,
-    housingAllowance: employee.salary * 0.25,
-    transportAllowance: 500,
-    totalPackage: employee.salary + (employee.salary * 0.25) + 500
-  };
-
-  const attendanceData = {
-    thisMonth: {
-      present: 20,
-      absent: 2,
-      late: 3,
-      earlyLeave: 1,
-      overtime: 15
-    },
-    thisYear: {
-      totalWorkingDays: 240,
-      attendedDays: 230,
-      absentDays: 10,
-      lateCount: 25,
-      overtimeHours: 120
-    }
-  };
-
-  const leaveData = {
-    annual: { total: 30, used: 12, remaining: 18 },
-    sick: { total: 30, used: 5, remaining: 25 },
-    emergency: { total: 5, used: 2, remaining: 3 },
-    maternity: { total: 10, used: 0, remaining: 10 }
-  };
-
-  const performanceData = {
-    currentScore: employee.performanceScore,
-    previousScore: 85,
-    trend: 'up',
-    goals: [
-      { title: 'إكمال مشروع التطوير', progress: 80, dueDate: '2024-02-28' },
-      { title: 'تطوير المهارات التقنية', progress: 65, dueDate: '2024-03-15' },
-      { title: 'تحسين التعاون مع الفريق', progress: 90, dueDate: '2024-01-30' }
-    ],
-    reviews: [
-      { date: '2024-01-15', score: 88, reviewer: 'محمد أحمد الخالدي', comments: 'أداء متميز في المشاريع الأخيرة' },
-      { date: '2023-07-15', score: 85, reviewer: 'محمد أحمد الخالدي', comments: 'تحسن ملحوظ في الأداء' }
-    ]
-  };
-
-  const trainingData = [
-    { title: 'دورة React المتقدمة', provider: 'معهد التقنية', date: '2024-01-10', status: 'مكتمل', certificate: true },
-    { title: 'إدارة المشاريع', provider: 'الأكاديمية الرقمية', date: '2023-12-15', status: 'مكتمل', certificate: true },
-    { title: 'الأمن السيبراني', provider: 'جامعة الملك سعود', date: '2024-02-01', status: 'جاري', certificate: false }
-  ];
-
-  const disciplinaryData = [
-    { date: '2023-11-20', type: 'إنذار شفهي', reason: 'تأخير متكرر', action: 'تحسن الأداء', status: 'مغلق' }
-  ];
-
-  const assetsData = [
-    { item: 'لابتوب Dell Latitude', serialNumber: 'DL12345', assignedDate: '2022-01-15', status: 'نشط' },
-    { item: 'هاتف iPhone 13', serialNumber: 'IP67890', assignedDate: '2022-06-10', status: 'نشط' },
-    { item: 'شاشة Samsung 27 بوصة', serialNumber: 'SM11111', assignedDate: '2022-01-15', status: 'نشط' }
-  ];
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20">
+      {/* Employee Header */}
+      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
         <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-6">
-            <Button 
-              onClick={onBack}
-              variant="outline" 
-              className="flex items-center gap-2 bg-white/60"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              العودة للدليل
-            </Button>
-            
-            <div className="flex items-center gap-3">
-              {canViewSensitiveData && (
-                <>
-                  <Button variant="outline" className="bg-white/60">
-                    <Edit className="h-4 w-4 mr-2" />
-                    تعديل
-                  </Button>
-                  <Button variant="outline" className="bg-white/60">
-                    <Download className="h-4 w-4 mr-2" />
-                    تصدير
-                  </Button>
-                </>
-              )}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <Avatar className="h-20 w-20 border-4 border-primary/20">
+                <AvatarImage src="/lovable-uploads/employee-avatars/ahmed-mohamed.jpg" />
+                <AvatarFallback className="bg-primary/10 text-primary text-lg">
+                  {employee.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <h2 className="text-2xl font-bold text-foreground">{employee.name}</h2>
+                <p className="text-lg text-muted-foreground">{employee.position}</p>
+                <p className="text-sm text-muted-foreground">رقم الموظف: {employee.employeeNumber}</p>
+                <div className="flex gap-2 mt-2">
+                  <Badge className={employee.status === 'Active' ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-800'}>
+                    {employee.status === 'Active' ? 'نشط' : employee.status}
+                  </Badge>
+                  <Badge variant="outline">{employee.department}</Badge>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div className="flex items-start gap-6">
-            {/* Profile Picture */}
-            <Avatar className="h-24 w-24 ring-4 ring-white shadow-lg">
-              <AvatarImage src={employee.profilePicture} alt={employee.name} />
-              <AvatarFallback className="bg-primary/20 text-primary font-bold text-2xl">
-                {employee.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-            
-            {/* Basic Info */}
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-3">
-                <h1 className="text-3xl font-bold text-slate-900">{employee.name}</h1>
-                {getStatusBadge(employee.status)}
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                <div className="flex items-center gap-2 text-slate-600">
-                  <Briefcase className="h-4 w-4" />
-                  <span>{employee.position}</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-600">
-                  <Building2 className="h-4 w-4" />
-                  <span>{employee.department}</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-600">
-                  <Mail className="h-4 w-4" />
-                  <span>{employee.email}</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-600">
-                  <Phone className="h-4 w-4" />
-                  <span>{employee.phone}</span>
-                </div>
-              </div>
-              
-              {/* Quick Stats */}
-              <div className="grid grid-cols-4 gap-4">
-                <div className="bg-white/60 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-primary">{employee.performanceScore}%</div>
-                  <div className="text-sm text-slate-600">الأداء</div>
-                </div>
-                <div className="bg-white/60 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-green-600">{employee.attendanceRate}%</div>
-                  <div className="text-sm text-slate-600">الحضور</div>
-                </div>
-                <div className="bg-white/60 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-blue-600">{employee.completedTasks}/{employee.tasks}</div>
-                  <div className="text-sm text-slate-600">المهام</div>
-                </div>
-                <div className="bg-white/60 rounded-lg p-3 text-center">
-                  <div className="text-2xl font-bold text-purple-600">{employee.yearsInCompany}</div>
-                  <div className="text-sm text-slate-600">سنة خدمة</div>
-                </div>
-              </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={handleExport}>
+                <Download className="h-4 w-4 ml-2" />
+                تصدير PDF
+              </Button>
+              <Button 
+                variant={isEditing ? "default" : "outline"} 
+                size="sm" 
+                onClick={isEditing ? handleSave : () => setIsEditing(!isEditing)}
+              >
+                {isEditing ? <Save className="h-4 w-4 ml-2" /> : <Edit className="h-4 w-4 ml-2" />}
+                {isEditing ? "حفظ" : "تحرير"}
+              </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Detailed Information Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid grid-cols-6 lg:grid-cols-12 w-full bg-white/80 backdrop-blur-sm">
-          <TabsTrigger value="personal" className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            البيانات الشخصية
-          </TabsTrigger>
-          <TabsTrigger value="job" className="flex items-center gap-2">
-            <Briefcase className="h-4 w-4" />
-            تفاصيل الوظيفة
-          </TabsTrigger>
-          <TabsTrigger value="contract" className="flex items-center gap-2">
-            <FileText className="h-4 w-4" />
-            العقد والراتب
-          </TabsTrigger>
-          <TabsTrigger value="attendance" className="flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            الحضور
-          </TabsTrigger>
-          <TabsTrigger value="leave" className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" />
-            الإجازات
-          </TabsTrigger>
-          <TabsTrigger value="performance" className="flex items-center gap-2">
-            <TrendingUp className="h-4 w-4" />
-            الأداء
-          </TabsTrigger>
-          <TabsTrigger value="training" className="flex items-center gap-2">
-            <BookOpen className="h-4 w-4" />
-            التدريب
-          </TabsTrigger>
-          <TabsTrigger value="disciplinary" className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            الإجراءات التأديبية
-          </TabsTrigger>
-          <TabsTrigger value="rewards" className="flex items-center gap-2">
-            <Award className="h-4 w-4" />
-            المكافآت
-          </TabsTrigger>
-          <TabsTrigger value="tasks" className="flex items-center gap-2">
-            <Target className="h-4 w-4" />
-            المهام
-          </TabsTrigger>
-          <TabsTrigger value="assets" className="flex items-center gap-2">
-            <Wrench className="h-4 w-4" />
-            الأصول
-          </TabsTrigger>
-          <TabsTrigger value="legal" className="flex items-center gap-2">
-            <Shield className="h-4 w-4" />
-            السجلات القانونية
-          </TabsTrigger>
+      {/* Profile Tabs */}
+      <Tabs defaultValue="personal" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-7">
+          <TabsTrigger value="personal">البيانات الشخصية</TabsTrigger>
+          <TabsTrigger value="job">معلومات الوظيفة</TabsTrigger>
+          <TabsTrigger value="financial">البيانات المالية</TabsTrigger>
+          <TabsTrigger value="attendance">الحضور والإجازات</TabsTrigger>
+          <TabsTrigger value="performance">الأداء والتقييم</TabsTrigger>
+          <TabsTrigger value="documents">المستندات</TabsTrigger>
+          <TabsTrigger value="history">سجل الأنشطة</TabsTrigger>
         </TabsList>
 
-        {/* Personal Data Tab */}
+        {/* Personal Information */}
         <TabsContent value="personal">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-white/80 backdrop-blur-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="h-5 w-5" />
@@ -328,317 +148,345 @@ const EmployeeProfile: React.FC<EmployeeProfileProps> = ({
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {canViewSensitiveData ? (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-slate-600">رقم الهوية</label>
-                        <p className="font-medium">{personalData.nationalId}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-slate-600">تاريخ الميلاد</label>
-                        <p className="font-medium">{personalData.dateOfBirth}</p>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-slate-600">الجنسية</label>
-                        <p className="font-medium">{personalData.nationality}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-slate-600">الحالة الاجتماعية</label>
-                        <p className="font-medium">{personalData.maritalStatus}</p>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-slate-600">العنوان</label>
-                      <p className="font-medium">{personalData.address}</p>
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center py-8">
-                    <Shield className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-600">ليس لديك صلاحية لعرض هذه المعلومات</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>الاسم الكامل</Label>
+                    <Input value={employee.name} disabled={!isEditing} />
                   </div>
-                )}
+                  <div>
+                    <Label>رقم الهوية</Label>
+                    <Input value="1234567890" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>الجنسية</Label>
+                    <Input value="سعودي" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>الحالة الاجتماعية</Label>
+                    <Input value="متزوج" disabled={!isEditing} />
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/80 backdrop-blur-sm">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Heart className="h-5 w-5" />
-                  جهة الاتصال في الطوارئ
+                  <Phone className="h-5 w-5" />
+                  معلومات الاتصال
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {canViewSensitiveData ? (
-                  <>
-                    <div>
-                      <label className="text-sm font-medium text-slate-600">الاسم</label>
-                      <p className="font-medium">{personalData.emergencyContact.name}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-slate-600">صلة القرابة</label>
-                      <p className="font-medium">{personalData.emergencyContact.relationship}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-slate-600">رقم الهاتف</label>
-                      <p className="font-medium">{personalData.emergencyContact.phone}</p>
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center py-8">
-                    <Shield className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-600">ليس لديك صلاحية لعرض هذه المعلومات</p>
-                  </div>
-                )}
+                <div>
+                  <Label>البريد الإلكتروني</Label>
+                  <Input value={employee.email} disabled={!isEditing} />
+                </div>
+                <div>
+                  <Label>رقم الهاتف</Label>
+                  <Input value={employee.phone} disabled={!isEditing} />
+                </div>
+                <div>
+                  <Label>العنوان</Label>
+                  <Textarea value="الرياض، المملكة العربية السعودية" disabled={!isEditing} />
+                </div>
               </CardContent>
             </Card>
           </div>
         </TabsContent>
 
-        {/* Performance Tab */}
-        <TabsContent value="performance">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="bg-white/80 backdrop-blur-sm">
+        {/* Job Information */}
+        <TabsContent value="job">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5" />
-                  نظرة عامة على الأداء
+                  <Briefcase className="h-5 w-5" />
+                  تفاصيل الوظيفة
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-center mb-6">
-                  <div className="text-4xl font-bold text-primary mb-2">{performanceData.currentScore}%</div>
-                  <div className="text-slate-600">النتيجة الحالية</div>
-                  <div className={`text-sm flex items-center justify-center gap-1 mt-2 ${
-                    performanceData.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                  }`}>
-                    <TrendingUp className="h-4 w-4" />
-                    {performanceData.trend === 'up' ? 'تحسن' : 'انخفاض'} من {performanceData.previousScore}%
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>الجودة</span>
-                      <span>90%</span>
-                    </div>
-                    <Progress value={90} className="h-2" />
+                    <Label>المسمى الوظيفي</Label>
+                    <Input value={employee.position} disabled={!isEditing} />
                   </div>
                   <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>الإنتاجية</span>
-                      <span>85%</span>
-                    </div>
-                    <Progress value={85} className="h-2" />
+                    <Label>القسم</Label>
+                    <Input value={employee.department} disabled={!isEditing} />
                   </div>
                   <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>التعاون</span>
-                      <span>95%</span>
-                    </div>
-                    <Progress value={95} className="h-2" />
+                    <Label>المستوى الوظيفي</Label>
+                    <Input value={employee.level} disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>المدير المباشر</Label>
+                    <Input value={employee.manager} disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>تاريخ التوظيف</Label>
+                    <Input value={employee.startDate} disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>نوع العقد</Label>
+                    <Input value={employee.contractType} disabled={!isEditing} />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="lg:col-span-2 bg-white/80 backdrop-blur-sm">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="h-5 w-5" />
+                  الخبرة والمهارات
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>سنوات الخبرة</Label>
+                  <Input value={`${employee.yearsOfExperience} سنوات`} disabled={!isEditing} />
+                </div>
+                <div>
+                  <Label>المهارات الأساسية</Label>
+                  <Textarea value="JavaScript, React, Node.js, TypeScript" disabled={!isEditing} />
+                </div>
+                <div>
+                  <Label>الشهادات المهنية</Label>
+                  <Textarea value="AWS Solutions Architect, PMP" disabled={!isEditing} />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Financial Information */}
+        <TabsContent value="financial">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <DollarSign className="h-5 w-5" />
+                  معلومات الراتب
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>الراتب الأساسي</Label>
+                    <Input value={`${employee.salary.toLocaleString()} ريال`} disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>بدل السكن</Label>
+                    <Input value="2000 ريال" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>بدل النقل</Label>
+                    <Input value="1000 ريال" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <Label>الإجمالي الشهري</Label>
+                    <Input value={`${(employee.salary + 3000).toLocaleString()} ريال`} disabled />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="h-5 w-5" />
+                  معلومات البنك
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>اسم البنك</Label>
+                  <Input value="البنك الأهلي السعودي" disabled={!isEditing} />
+                </div>
+                <div>
+                  <Label>رقم الحساب</Label>
+                  <Input value="1234567890123456" disabled={!isEditing} />
+                </div>
+                <div>
+                  <Label>رقم الآيبان</Label>
+                  <Input value="SA1234567890123456789012" disabled={!isEditing} />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Attendance & Leave */}
+        <TabsContent value="attendance">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="h-5 w-5" />
+                  معدل الحضور
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary">{employee.attendanceRate}%</div>
+                  <p className="text-muted-foreground">معدل الحضور الشهري</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>أرصدة الإجازات</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between">
+                  <span>الإجازة السنوية</span>
+                  <Badge>21 يوم متبقي</Badge>
+                </div>
+                <div className="flex justify-between">
+                  <span>الإجازة المرضية</span>
+                  <Badge>30 يوم متبقي</Badge>
+                </div>
+                <div className="flex justify-between">
+                  <span>الإجازة الاضطرارية</span>
+                  <Badge>5 أيام متبقية</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Performance */}
+        <TabsContent value="performance">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="h-5 w-5" />
-                  الأهداف الحالية
+                  التقييم الحالي
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {performanceData.goals.map((goal, index) => (
-                    <div key={index} className="p-4 bg-slate-50 rounded-lg">
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-medium">{goal.title}</h4>
-                        <Badge variant="outline">{goal.dueDate}</Badge>
-                      </div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Progress value={goal.progress} className="flex-1 h-2" />
-                        <span className="text-sm font-medium">{goal.progress}%</span>
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary">{employee.performanceScore}%</div>
+                  <p className="text-muted-foreground">درجة الأداء العام</p>
+                  <Badge className="mt-2 bg-emerald-100 text-emerald-800">ممتاز</Badge>
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </TabsContent>
 
-        {/* Training Tab */}
-        <TabsContent value="training">
-          <Card className="bg-white/80 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                سجل التدريب
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {trainingData.map((training, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-3 h-3 rounded-full ${
-                        training.status === 'مكتمل' ? 'bg-green-500' : 'bg-blue-500'
-                      }`}></div>
-                      <div>
-                        <h4 className="font-medium">{training.title}</h4>
-                        <p className="text-sm text-slate-600">{training.provider} • {training.date}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Badge variant={training.status === 'مكتمل' ? 'default' : 'secondary'}>
-                        {training.status}
-                      </Badge>
-                      {training.certificate && (
-                        <Certificate className="h-4 w-4 text-yellow-600" />
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Assets Tab */}
-        <TabsContent value="assets">
-          <Card className="bg-white/80 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Wrench className="h-5 w-5" />
-                الأصول المخصصة
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {assetsData.map((asset, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
-                    <div>
-                      <h4 className="font-medium">{asset.item}</h4>
-                      <p className="text-sm text-slate-600">الرقم التسلسلي: {asset.serialNumber}</p>
-                      <p className="text-sm text-slate-600">تاريخ التخصيص: {asset.assignedDate}</p>
-                    </div>
-                    <Badge className="bg-green-100 text-green-800 border-green-200">
-                      {asset.status}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Leave Tab */}
-        <TabsContent value="leave">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Object.entries(leaveData).map(([type, data]) => (
-              <Card key={type} className="bg-white/80 backdrop-blur-sm">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg">
-                    {type === 'annual' ? 'الإجازة السنوية' :
-                     type === 'sick' ? 'الإجازة المرضية' :
-                     type === 'emergency' ? 'إجازة الطوارئ' : 'إجازة الأمومة'}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center mb-4">
-                    <div className="text-3xl font-bold text-primary">{data.remaining}</div>
-                    <div className="text-sm text-slate-600">يوم متبقي</div>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>المجموع:</span>
-                      <span className="font-medium">{data.total} يوم</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>المستخدم:</span>
-                      <span className="font-medium">{data.used} يوم</span>
-                    </div>
-                    <Progress value={(data.used / data.total) * 100} className="h-2 mt-2" />
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-
-        {/* Add other tabs content here following the same pattern */}
-        <TabsContent value="job">
-          <Card className="bg-white/80 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle>تفاصيل الوظيفة</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">المنصب</label>
-                    <p className="font-medium">{employee.position}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">القسم</label>
-                    <p className="font-medium">{employee.department}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">المدير المباشر</label>
-                    <p className="font-medium">{employee.manager}</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">تاريخ الالتحاق</label>
-                    <p className="font-medium">{employee.joinDate}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">سنوات الخدمة</label>
-                    <p className="font-medium">{employee.yearsInCompany} سنة</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">الدور</label>
-                    <Badge>{employee.role === 'manager' ? 'مدير' : employee.role === 'hr_admin' ? 'إداري موارد بشرية' : 'موظف'}</Badge>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Add remaining tabs */}
-        {['contract', 'attendance', 'disciplinary', 'rewards', 'tasks', 'legal'].map(tab => (
-          <TabsContent key={tab} value={tab}>
-            <Card className="bg-white/80 backdrop-blur-sm">
+            <Card>
               <CardHeader>
-                <CardTitle>
-                  {tab === 'contract' ? 'العقد والراتب' :
-                   tab === 'attendance' ? 'الحضور والغياب' :
-                   tab === 'disciplinary' ? 'الإجراءات التأديبية' :
-                   tab === 'rewards' ? 'المكافآت والحوافز' :
-                   tab === 'tasks' ? 'المهام المخصصة' : 'السجلات القانونية'}
-                </CardTitle>
+                <CardTitle>تاريخ التقييمات</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <div className="text-lg font-medium text-slate-600 mb-2">
-                    جاري التطوير
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">تقييم 2024 - Q1</span>
+                    <Badge>92%</Badge>
                   </div>
-                  <p className="text-slate-500">
-                    هذا القسم قيد التطوير وسيكون متاحاً قريباً
-                  </p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">تقييم 2023 - Q4</span>
+                    <Badge>89%</Badge>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">تقييم 2023 - Q3</span>
+                    <Badge>91%</Badge>
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
-        ))}
+          </div>
+        </TabsContent>
+
+        {/* Documents */}
+        <TabsContent value="documents">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  المستندات الرسمية
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {[
+                  { name: 'العقد الوظيفي', date: '2022-01-15', type: 'PDF' },
+                  { name: 'صورة الهوية', date: '2022-01-15', type: 'JPG' },
+                  { name: 'الشهادات العلمية', date: '2022-01-15', type: 'PDF' },
+                  { name: 'التقرير الطبي', date: '2024-01-01', type: 'PDF' }
+                ].map((doc, index) => (
+                  <div key={index} className="flex items-center justify-between p-2 border rounded">
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-4 w-4 text-muted-foreground" />
+                      <div>
+                        <p className="text-sm font-medium">{doc.name}</p>
+                        <p className="text-xs text-muted-foreground">{doc.date}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="sm">
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm">
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>إضافة مستند جديد</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <Label>نوع المستند</Label>
+                    <Input placeholder="اختر نوع المستند" />
+                  </div>
+                  <div>
+                    <Label>الوصف</Label>
+                    <Textarea placeholder="وصف المستند" />
+                  </div>
+                  <Button className="w-full">
+                    <Upload className="h-4 w-4 ml-2" />
+                    رفع المستند
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Activity History */}
+        <TabsContent value="history">
+          <Card>
+            <CardHeader>
+              <CardTitle>سجل الأنشطة والتحديثات</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {[
+                  { date: '2024-01-20', action: 'تحديث بيانات الاتصال', user: 'محمد أحمد' },
+                  { date: '2024-01-15', action: 'إضافة تقييم الأداء Q1', user: 'نورا السالم' },
+                  { date: '2024-01-10', action: 'تحديث الراتب الأساسي', user: 'فاطمة العبدالله' },
+                  { date: '2024-01-05', action: 'رفع شهادة تدريبية جديدة', user: 'أحمد محمد' }
+                ].map((activity, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div>
+                      <p className="font-medium">{activity.action}</p>
+                      <p className="text-sm text-muted-foreground">بواسطة: {activity.user}</p>
+                    </div>
+                    <Badge variant="outline">{activity.date}</Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
