@@ -38,7 +38,6 @@ import {
   Gift,
   PenTool,
   CheckSquare,
-  Megaphone,
   Bot,
   User,
   Star,
@@ -126,7 +125,6 @@ const ComprehensiveEmployeeManagement = () => {
     { id: 'insurance', label: 'إدارة التأمينات', icon: Shield, visible: true },
     { id: 'rewards', label: 'المكافآت والحوافز', icon: Gift, visible: true },
     { id: 'tasks', label: 'متابعة المهام', icon: CheckSquare, visible: true },
-    { id: 'announcements', label: 'الإعلانات والتبليغات', icon: Megaphone, visible: true },
     { id: 'ai', label: 'الذكاء الاصطناعي', icon: Bot, visible: true },
     { id: 'reports', label: 'التقارير', icon: FileBarChart, visible: true },
     { id: 'meetings', label: 'مركز الاجتماعات', icon: Calendar, visible: true },
@@ -134,7 +132,7 @@ const ComprehensiveEmployeeManagement = () => {
     { id: 'talent', label: 'إدارة المواهب', icon: Star, visible: true },
     { id: 'field-tracking', label: 'تتبع العمل الميداني', icon: MapPin, visible: true },
     { id: 'health', label: 'الصحة والسلامة المهنية', icon: HardHat, visible: true },
-    { id: 'settings', label: 'الإعدادات', icon: Settings, visible: true }
+    { id: 'settings', label: 'الإعدادات العامة', icon: Settings, visible: true }
   ];
 
   const [tabsConfig, setTabsConfig] = useState(() => {
