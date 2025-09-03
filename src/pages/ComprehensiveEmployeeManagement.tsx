@@ -20,6 +20,7 @@ import {
   Building,
   BarChart3,
   ArrowLeft,
+  ArrowRight,
   RefreshCw,
   Download,
   Settings,
@@ -45,7 +46,9 @@ import {
   Briefcase,
   MessageCircle,
   Users2,
-  HardHat
+  HardHat,
+  Grid3X3,
+  Save
 } from 'lucide-react';
 
 // Import components
