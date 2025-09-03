@@ -190,51 +190,55 @@ const DepartmentsManagement = ({ onBack }: DepartmentsManagementProps) => {
       </div>
 
       {/* المحتوى الرئيسي */}
-      <div className="relative z-10 container mx-auto px-6 py-8">
-        {/* الشريط العلوي الاحترافي */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
-          <div className="flex items-center gap-6">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="border-muted-foreground/20 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 px-4 py-2"
-            >
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              {isRTL ? 'رجوع' : 'Back'}
-            </Button>
-            <div className="h-8 w-px bg-border/30"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <Building2 className="h-8 w-8 text-white relative z-10" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
+      <div className="relative z-10">
+        {/* Header بنفس تصميم ComprehensiveFieldTracking */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
+          <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
+          <div className="relative p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <Button
+                  variant="ghost" 
+                  size="sm"
+                  onClick={onBack}
+                  className="hover:bg-primary/10"
+                >
+                  <ArrowLeft className="h-4 w-4 ml-2" />
+                  العودة
+                </Button>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <Building2 className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h1 className="text-3xl font-bold text-foreground">
+                      إدارة الإدارات والوحدات
+                    </h1>
+                    <p className="text-muted-foreground text-lg mt-1">
+                      منظومة شاملة لإدارة الهيكل التنظيمي والإدارات مع تحليلات ذكية شاملة
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">
-                  {isRTL ? 'إدارة الإدارات والوحدات' : 'Departments & Units Management'}
-                </h1>
-                <p className="text-muted-foreground text-lg">
-                  {isRTL ? 'النظام الشامل لإدارة الهيكل التنظيمي والإدارات' : 'Comprehensive system for organizational structure and departments management'}
-                </p>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => setActiveTab('reports')}>
+                  <Download className="h-4 w-4 ml-2" />
+                  تصدير التقرير
+                </Button>
+                <Button variant="outline" size="sm">
+                  <FileText className="h-4 w-4 ml-2" />
+                  طباعة
+                </Button>
+                <Button size="sm">
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة إدارة
+                </Button>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
-              <Sparkles className="h-4 w-4 ml-2" />
-              {isRTL ? 'نظام متطور' : 'Advanced System'}
-            </Badge>
-            <Button 
-              size="sm" 
-              className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300 px-6 py-2"
-              onClick={() => setActiveTab('reports')}
-            >
-              <Download className="h-4 w-4 ml-2" />
-              {isRTL ? 'تصدير' : 'Export'}
-            </Button>
-          </div>
         </div>
+
+        <div className="container mx-auto px-6 py-8">
 
         {/* العنوان الرئيسي الاحترافي */}
         <div className="text-center mb-16 animate-fade-in">
@@ -497,6 +501,7 @@ const DepartmentsManagement = ({ onBack }: DepartmentsManagementProps) => {
               </div>
             </Tabs>
           </Card>
+        </div>
         </div>
       </div>
     </div>
