@@ -328,35 +328,60 @@ const TeamMembers = ({ onBack }: TeamMembersProps) => {
           </Card>
         </div>
 
-        {/* Tabs Section */}
-        <Card className="border border-gray-200 bg-white">
-          <CardContent className="p-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="border-b border-gray-200 px-6 py-4">
-                <TabsList className="bg-gray-100 p-1">
-                  {tabs.map((tab) => (
-                    <TabsTrigger
-                      key={tab.id}
-                      value={tab.id}
-                      className="data-[state=active]:bg-teal-500 data-[state=active]:text-white"
-                    >
-                      <tab.icon className="h-4 w-4 mr-2" />
-                      {tab.label}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+        {/* قسم التبويبات الاحترافي مع تأثيرات بصرية */}
+        <div className="dashboard-card overflow-hidden animate-fade-in">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <div className="border-b border-border/30 px-6 py-4 bg-gradient-to-r from-muted/30 to-primary/5">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-soft">
+                    <Database className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-foreground">{isRTL ? 'أقسام النظام' : 'System Sections'}</h3>
+                    <p className="text-sm text-muted-foreground">{isRTL ? 'الوصول الكامل لجميع الوظائف' : 'Complete access to all functions'}</p>
+                  </div>
+                </div>
+                <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5">
+                  {tabs.find(tab => tab.id === activeTab)?.label}
+                </Badge>
               </div>
-
-              <div className="p-6">
-                {tabs.map((tab) => (
-                  <TabsContent key={tab.id} value={tab.id} className="mt-0">
-                    <tab.component />
-                  </TabsContent>
+              
+              <TabsList className="bg-card/60 backdrop-blur-sm border border-border/30 p-1 shadow-soft">
+                {tabs.map((tab, index) => (
+                  <TabsTrigger
+                    key={tab.id}
+                    value={tab.id}
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-white data-[state=active]:shadow-glow hover:bg-muted/50 transition-all duration-300 animate-fade-in"
+                    style={{animationDelay: `${index * 0.1}s`}}
+                  >
+                    <tab.icon className="h-4 w-4 ml-2" />
+                    {tab.label}
+                  </TabsTrigger>
                 ))}
-              </div>
-            </Tabs>
-          </CardContent>
-        </Card>
+              </TabsList>
+            </div>
+
+            <div className="p-6 bg-gradient-to-br from-card/50 to-muted/20">
+              {tabs.map((tab) => (
+                <TabsContent key={tab.id} value={tab.id} className="mt-0 animate-fade-in">
+                  <div className="glass-card p-6 rounded-xl">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                        <tab.icon className="h-4 w-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-foreground">{tab.label}</h4>
+                        <p className="text-sm text-muted-foreground">{tab.description}</p>
+                      </div>
+                    </div>
+                    <tab.component />
+                  </div>
+                </TabsContent>
+              ))}
+            </div>
+          </Tabs>
+        </div>
       </div>
     </div>
   );
