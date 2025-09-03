@@ -3,7 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
-import { Eye, EyeOff, Mail, Lock, Loader2, Globe } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Eye, EyeOff, Mail, Lock, Loader2, ChevronDown, Building2, User, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { sanitizeInput, isValidEmail } from '@/utils/sanitizeHtml';
@@ -205,24 +211,51 @@ export const UnifiedLogin: React.FC = () => {
               </Button>
             </div>
 
-            {/* Login Button */}
-            <Button 
-              type="submit" 
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3" 
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  {isArabic ? 'جارٍ تسجيل الدخول...' : 'Signing in...'}
-                </>
-              ) : (
-                <>
-                  <Mail className="h-4 w-4 mr-2" />
-                  {isArabic ? 'تسجيل الدخول' : 'Sign In'}
-                </>
-              )}
-            </Button>
+            {/* Login Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3" 
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      {isArabic ? 'جارٍ تسجيل الدخول...' : 'Signing in...'}
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="h-4 w-4 mr-2" />
+                      {isArabic ? 'تسجيل الدخول' : 'Sign In'}
+                      <ChevronDown className="h-4 w-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-full bg-background border border-border shadow-lg z-50" align="center">
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-muted/50 p-3"
+                  onClick={() => navigate('/company-dashboard')}
+                >
+                  <Building2 className="h-4 w-4 mr-2 text-primary" />
+                  {isArabic ? 'لوحة تحكم المنشأة' : 'Company Dashboard'}
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-muted/50 p-3"
+                  onClick={() => navigate('/hr-dashboard')}
+                >
+                  <User className="h-4 w-4 mr-2 text-primary" />
+                  {isArabic ? 'لوحة تحكم الموظف' : 'Employee Dashboard'}
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-muted/50 p-3"
+                  onClick={() => navigate('/admin-dashboard')}
+                >
+                  <Shield className="h-4 w-4 mr-2 text-primary" />
+                  {isArabic ? 'لوحة مدير النظام' : 'Admin Dashboard'}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Demo Credentials */}
             <div className="bg-muted/30 p-4 rounded-lg text-sm space-y-2">
