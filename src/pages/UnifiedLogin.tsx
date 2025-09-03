@@ -24,10 +24,18 @@ export const UnifiedLogin: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
 
-  // Mock role determination based on email
-  const determineUserRole = (email: string) => {
+  // Mock authentication for admin
+  const mockAuthentication = (username: string, password: string) => {
+    if (username === 'admin' && password === 'Sa123465') {
+      return { success: true, user: { email: 'admin@boud.com.sa' } };
+    }
+    return { success: false, error: 'بيانات الدخول غير صحيحة' };
+  };
+
+  // Mock role determination based on email or username
+  const determineUserRole = (emailOrUsername: string) => {
     // فريق بُعد - الإدارة العليا
-    if (email.includes('admin@boud.com.sa') || email.includes('@boud.com.sa')) {
+    if (emailOrUsername === 'admin' || emailOrUsername.includes('admin@boud.com.sa') || emailOrUsername.includes('@boud.com.sa')) {
       return 'super_admin';
     }
     // باقي المستخدمين - حسابات المنشآت
@@ -50,9 +58,7 @@ export const UnifiedLogin: React.FC = () => {
     const newErrors: string[] = [];
     
     if (!formData.email) {
-      newErrors.push(isArabic ? 'البريد الإلكتروني مطلوب' : 'Email is required');
-    } else if (!isValidEmail(formData.email)) {
-      newErrors.push(isArabic ? 'البريد الإلكتروني غير صحيح' : 'Invalid email format');
+      newErrors.push(isArabic ? 'اسم المستخدم أو البريد الإلكتروني مطلوب' : 'Username or email is required');
     }
     
     if (!formData.password) {
@@ -73,22 +79,34 @@ export const UnifiedLogin: React.FC = () => {
     setLoading(true);
     
     try {
-      const { error } = await signIn(
-        sanitizeInput(formData.email),
-        formData.password
-      );
+      // Check for admin credentials first
+      const mockAuth = mockAuthentication(formData.email, formData.password);
       
-      if (!error) {
-        // Determine role and redirect
-        const role = determineUserRole(formData.email);
-        if (role === 'super_admin') {
-          navigate('/super-admin-dashboard', { replace: true });
+      if (mockAuth.success) {
+        // Admin login successful - redirect to super admin dashboard
+        navigate('/super-admin-dashboard', { replace: true });
+      } else {
+        // Try normal authentication for regular users
+        const { error } = await signIn(
+          sanitizeInput(formData.email),
+          formData.password
+        );
+        
+        if (!error) {
+          // Determine role and redirect
+          const role = determineUserRole(formData.email);
+          if (role === 'super_admin') {
+            navigate('/super-admin-dashboard', { replace: true });
+          } else {
+            navigate('/company-dashboard', { replace: true });
+          }
         } else {
-          navigate('/company-dashboard', { replace: true });
+          setErrors([isArabic ? 'بيانات الدخول غير صحيحة' : 'Invalid credentials']);
         }
       }
     } catch (error) {
       console.error('Login error:', error);
+      setErrors([isArabic ? 'حدث خطأ في تسجيل الدخول' : 'Login error occurred']);
     }
     
     setLoading(false);
@@ -233,7 +251,7 @@ export const UnifiedLogin: React.FC = () => {
               </p>
               <div className="space-y-1 text-muted-foreground">
                 <p>{isArabic ? 'مستخدم الشركة:' : 'Company User:'} employee@company.com / password123</p>
-                <p>{isArabic ? 'مدير النظام:' : 'Super Admin:'} admin@boud.com.sa / Sa123465</p>
+                <p>{isArabic ? 'مدير النظام:' : 'System Admin:'} admin / Sa123465</p>
               </div>
             </div>
           </form>
