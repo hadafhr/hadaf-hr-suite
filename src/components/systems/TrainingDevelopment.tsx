@@ -94,11 +94,11 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
   ];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className={`min-h-screen bg-gradient-to-br from-background to-muted/30 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto p-6">
-        {/* Advanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-900 to-cyan-900 p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-chart-2/20"></div>
+        {/* Header */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary-glow to-secondary p-8 mb-8 shadow-2xl">
+          <div className="absolute inset-0 bg-gradient-subtle opacity-20"></div>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
           
           <div className="relative z-10">
@@ -109,26 +109,26 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
                   variant="outline"
                   size="sm"
                   onClick={onBack}
-                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300"
+                  className="glass-card text-white border-white/20 hover:bg-white/20 transition-smooth"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   {isRTL ? 'رجوع' : 'Back'}
                 </Button>
-                <Badge variant="secondary" className="bg-white/10 text-white border-white/20">
+                <Badge variant="secondary" className="glass-card text-white border-white/20">
                   {isRTL ? 'نظام التدريب المتقدم' : 'Advanced Training System'}
                 </Badge>
               </div>
               
               <div className="flex items-center gap-3">
-                <Button className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300">
+                <Button className="btn-hero">
                   <Share className="h-4 w-4 mr-2" />
-                  {isRTL ? 'مشاركة المحتوى' : 'Share Content'}
+                  {isRTL ? 'مشاركة' : 'Share'}
                 </Button>
-                <Button className="bg-primary hover:bg-primary/90 shadow-lg transition-all duration-300">
+                <Button className="btn-primary">
                   <Download className="h-4 w-4 mr-2" />
-                  {isRTL ? 'تصدير التقارير' : 'Export Reports'}
+                  {isRTL ? 'تصدير' : 'Export'}
                 </Button>
-                <Button className="bg-gradient-to-r from-chart-2 to-chart-3 hover:from-chart-2/90 hover:to-chart-3/90 text-white shadow-lg transition-all duration-300">
+                <Button className="bg-gradient-primary text-primary-foreground hover:opacity-90 transition-smooth shadow-elegant">
                   <Brain className="h-4 w-4 mr-2" />
                   {isRTL ? 'مساعد ذكي' : 'AI Assistant'}
                 </Button>
@@ -138,19 +138,19 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
             {/* Main Header Content */}
             <div className="text-center">
               <div className="flex items-center justify-center gap-6 mb-6">
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 shadow-lg">
+                <div className="p-4 glass-card rounded-2xl border-white/20 shadow-glow">
                   <GraduationCap className="h-16 w-16 text-white" />
                 </div>
                 <div className="hidden md:flex items-center gap-4">
                   {trainingStats.slice(0, 3).map((stat, idx) => (
-                    <div key={idx} className="p-3 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
+                    <div key={idx} className="p-3 glass-card rounded-xl border-white/10 animate-float" style={{ animationDelay: `${idx * 0.2}s` }}>
                       <stat.icon className="h-8 w-8 text-white/80" />
                     </div>
                   ))}
                 </div>
               </div>
               
-              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
+              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight text-gradient">
                 {isRTL ? 'مركز التدريب والتطوير المتقدم' : 'Advanced Training & Development Center'}
               </h1>
               <p className="text-white/80 text-xl max-w-3xl mx-auto leading-relaxed">
@@ -163,7 +163,7 @@ const TrainingDevelopment = ({ onBack }: TrainingDevelopmentProps) => {
               {/* Training Performance Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                 {trainingStats.map((stat, idx) => (
-                  <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                  <div key={idx} className="metric-card animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
                     <div className="text-2xl font-bold text-white">{stat.value}</div>
                     <div className="text-white/80 text-sm">{stat.label}</div>
                   </div>
