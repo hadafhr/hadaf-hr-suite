@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft, BookOpen, Users, Clock, Search, Plus, Award, Sparkles, Target } from 'lucide-react';
+import { ArrowLeft, BookOpen, Users, Clock, Search, Plus, Award, Sparkles, Target, Download } from 'lucide-react';
 
 interface TrainingProps {
   onBack: () => void;
