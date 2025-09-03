@@ -285,6 +285,10 @@ const BoudHRLandingPage: React.FC = () => {
                     <User className="w-4 h-4" />
                     🔘 لوحة تحكم الموظف
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/unified-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                    <Shield className="w-4 h-4" />
+                    🔘 لوحة مدير النظام
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
