@@ -21,7 +21,6 @@ import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendanc
 import { ComprehensiveLeaveManagementSystem } from '@/components/systems/ComprehensiveLeaveManagementSystem';
 import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
-import { OrganizationalDevelopment } from '@/components/systems/OrganizationalDevelopment';
 import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
@@ -35,7 +34,7 @@ import { ComprehensiveTrainingDevelopment } from '@/components/systems/Comprehen
 import { ComprehensiveQualityOfLife } from '@/components/systems/ComprehensiveQualityOfLife';
 import ArtificialIntelligenceSystem from '@/components/systems/ArtificialIntelligenceSystem';
 import ComprehensiveReports from '@/components/systems/ComprehensiveReports';
-import ComprehensiveOrganizationalDevelopment from '@/components/systems/ComprehensiveOrganizationalDevelopment';
+import { OrganizationalDevelopment } from '@/pages/ServicePlatforms/OrganizationalDevelopment';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
@@ -391,7 +390,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="organization">
-            <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
+            <OrganizationalDevelopment />
           </TabsContent>
 
           <TabsContent value="governance">
@@ -459,7 +458,7 @@ const ComprehensiveEmployeeManagement = () => {
               </TabsContent>
 
               <TabsContent value="organizational-development">
-                <ComprehensiveOrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
+                <OrganizationalDevelopment />
               </TabsContent>
 
           <TabsContent value="settings">
