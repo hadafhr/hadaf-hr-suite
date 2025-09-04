@@ -256,7 +256,7 @@ export const ComprehensiveRecruitmentHiring: React.FC<ComprehensiveRecruitmentHi
             </div>
           </div>
         </CardContent>
-      </div>
+      </Card>
     </div>
   );
 
