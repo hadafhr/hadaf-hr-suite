@@ -73,7 +73,7 @@ export const ComprehensiveRecruitmentHiring: React.FC<ComprehensiveRecruitmentHi
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-foreground">
-                  التوظيف والتعيين - نظام ATS متكامل
+                  قسم التوظيف والتعيين
                 </h1>
                 <p className="text-muted-foreground text-lg mt-1">
                   نظام تتبع المتقدمين المتكامل - من التقديم إلى أول يوم عمل
