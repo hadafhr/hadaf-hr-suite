@@ -49,6 +49,7 @@ import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTa
 import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealthSafety';
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
+import { EmployeeMovementsSystem } from '@/components/systems/EmployeeMovementsSystem';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -306,6 +307,10 @@ const ComprehensiveEmployeeManagement = () => {
                   <MapPin className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight"> قسم التتبع الميداني</span>
                 </TabsTrigger>
+                <TabsTrigger value="movements" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <RefreshCw className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight"> قسم الحركة والتنقلات</span>
+                </TabsTrigger>
               </TabsList>
             </div>
           </div>
@@ -438,6 +443,10 @@ const ComprehensiveEmployeeManagement = () => {
 
               <TabsContent value="tracking">
                 <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
+              </TabsContent>
+
+              <TabsContent value="movements">
+                <EmployeeMovementsSystem onBack={() => setActiveTab('dashboard')} />
               </TabsContent>
 
           <TabsContent value="settings">
