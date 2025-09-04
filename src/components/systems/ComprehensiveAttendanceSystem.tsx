@@ -52,7 +52,8 @@ import {
   FileSpreadsheet,
   Printer,
   Database,
-  Layers
+  Layers,
+  DollarSign
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 
@@ -835,6 +836,242 @@ export const ComprehensiveAttendanceSystem: React.FC<ComprehensiveAttendanceSyst
     </div>
   );
 
+  // Integration Section
+  const renderIntegration = () => (
+    <div className="space-y-6">
+      {/* Integration Header */}
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">التكامل مع الأنظمة</h2>
+        <p className="text-gray-600">ربط تلقائي لنظام الحضور مع الرواتب والتقييم والإجازات</p>
+      </div>
+
+      {/* Integration Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* Payroll Integration */}
+        <Card className="hover:shadow-lg transition-shadow duration-300 border-2 border-green-100">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <DollarSign className="h-8 w-8 text-green-600" />
+            </div>
+            <CardTitle className="text-xl text-gray-900">نظام الرواتب</CardTitle>
+            <p className="text-sm text-gray-600">ربط تلقائي مع حسابات الراتب</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">العمل الإضافي</span>
+              <Badge className="bg-green-100 text-green-700">مُفعل</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">خصم الغياب</span>
+              <Badge className="bg-green-100 text-green-700">مُفعل</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">خصم التأخير</span>
+              <Badge className="bg-green-100 text-green-700">مُفعل</Badge>
+            </div>
+            <div className="bg-green-50 p-3 rounded-lg">
+              <div className="text-sm font-medium text-gray-900">آخر تحديث</div>
+              <div className="text-xs text-gray-600">2024-12-19 14:30</div>
+            </div>
+            <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+              <Settings className="h-4 w-4 mr-2" />
+              إعدادات الربط
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Performance Integration */}
+        <Card className="hover:shadow-lg transition-shadow duration-300 border-2 border-blue-100">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Target className="h-8 w-8 text-blue-600" />
+            </div>
+            <CardTitle className="text-xl text-gray-900">تقييم الأداء</CardTitle>
+            <p className="text-sm text-gray-600">ربط مؤشرات الحضور بالتقييم</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">مؤشر الالتزام</span>
+              <Badge className="bg-blue-100 text-blue-700">مُفعل</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">مؤشر الانضباط</span>
+              <Badge className="bg-blue-100 text-blue-700">مُفعل</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">ساعات العمل الفعلية</span>
+              <Badge className="bg-blue-100 text-blue-700">مُفعل</Badge>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <div className="text-sm font-medium text-gray-900">معدل الأداء</div>
+              <div className="text-lg font-bold text-blue-600">94.5%</div>
+            </div>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              <Target className="h-4 w-4 mr-2" />
+              إعدادات المؤشرات
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Leave Integration */}
+        <Card className="hover:shadow-lg transition-shadow duration-300 border-2 border-purple-100">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Calendar className="h-8 w-8 text-purple-600" />
+            </div>
+            <CardTitle className="text-xl text-gray-900">إدارة الإجازات</CardTitle>
+            <p className="text-sm text-gray-600">تحديث أرصدة الإجازات تلقائياً</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">الإجازات السنوية</span>
+              <Badge className="bg-purple-100 text-purple-700">مُفعل</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">الإجازات المرضية</span>
+              <Badge className="bg-purple-100 text-purple-700">مُفعل</Badge>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">إجازات الطوارئ</span>
+              <Badge className="bg-purple-100 text-purple-700">مُفعل</Badge>
+            </div>
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <div className="text-sm font-medium text-gray-900">الرصيد المتاح</div>
+              <div className="text-lg font-bold text-purple-600">22 يوم</div>
+            </div>
+            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+              <Calendar className="h-4 w-4 mr-2" />
+              إعدادات الإجازات
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Integration Rules */}
+      <Card className="hover:shadow-lg transition-shadow duration-300">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Layers className="h-5 w-5 text-primary" />
+            <span>قواعد التكامل التلقائي</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Payroll Rules */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-gray-900 border-b pb-2">قواعد الرواتب</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <div>
+                    <div className="font-medium text-sm">العمل الإضافي</div>
+                    <div className="text-xs text-gray-600">بعد 8 ساعات يومياً</div>
+                  </div>
+                  <div className="text-green-600 font-semibold">+50%</div>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                  <div>
+                    <div className="font-medium text-sm">خصم الغياب</div>
+                    <div className="text-xs text-gray-600">غياب بدون إذن</div>
+                  </div>
+                  <div className="text-red-600 font-semibold">-يوم كامل</div>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                  <div>
+                    <div className="font-medium text-sm">خصم التأخير</div>
+                    <div className="text-xs text-gray-600">أكثر من 15 دقيقة</div>
+                  </div>
+                  <div className="text-orange-600 font-semibold">-نسبي</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Rules */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-gray-900 border-b pb-2">قواعد التقييم</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                  <div>
+                    <div className="font-medium text-sm">مؤشر الالتزام</div>
+                    <div className="text-xs text-gray-600">معدل الحضور الشهري</div>
+                  </div>
+                  <div className="text-blue-600 font-semibold">KPI</div>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-indigo-50 rounded-lg">
+                  <div>
+                    <div className="font-medium text-sm">مؤشر الانضباط</div>
+                    <div className="text-xs text-gray-600">التأخير والانصراف المبكر</div>
+                  </div>
+                  <div className="text-indigo-600 font-semibold">KRI</div>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-cyan-50 rounded-lg">
+                  <div>
+                    <div className="font-medium text-sm">الإنتاجية</div>
+                    <div className="text-xs text-gray-600">ساعات العمل الفعلية</div>
+                  </div>
+                  <div className="text-cyan-600 font-semibold">KQI</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Integration Status Dashboard */}
+      <Card className="hover:shadow-lg transition-shadow duration-300">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Activity className="h-5 w-5 text-primary" />
+            <span>حالة التكامل المباشر</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-2xl font-bold text-green-600">248</div>
+              <div className="text-sm text-gray-600">سجل راتب محدث</div>
+              <div className="text-xs text-green-600 mt-1">آخر ساعة</div>
+            </div>
+            <div className="text-center p-4 bg-blue-50 rounded-lg">
+              <div className="text-2xl font-bold text-blue-600">156</div>
+              <div className="text-sm text-gray-600">مؤشر أداء محدث</div>
+              <div className="text-xs text-blue-600 mt-1">آخر ساعة</div>
+            </div>
+            <div className="text-center p-4 bg-purple-50 rounded-lg">
+              <div className="text-2xl font-bold text-purple-600">32</div>
+              <div className="text-sm text-gray-600">رصيد إجازة محدث</div>
+              <div className="text-xs text-purple-600 mt-1">آخر ساعة</div>
+            </div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl font-bold text-gray-600">99.8%</div>
+              <div className="text-sm text-gray-600">معدل نجاح التكامل</div>
+              <div className="text-xs text-gray-600 mt-1">24 ساعة الماضية</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Quick Actions */}
+      <div className="flex flex-wrap gap-4 justify-center">
+        <Button className="bg-primary text-white">
+          <RefreshCw className="h-4 w-4 mr-2" />
+          تحديث جميع الأنظمة
+        </Button>
+        <Button variant="outline">
+          <FileSpreadsheet className="h-4 w-4 mr-2" />
+          تصدير تقرير التكامل
+        </Button>
+        <Button variant="outline">
+          <Settings className="h-4 w-4 mr-2" />
+          إعدادات التكامل المتقدمة
+        </Button>
+        <Button variant="outline">
+          <Brain className="h-4 w-4 mr-2" />
+          تحليل ذكي للتكامل
+        </Button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-6">
       <div className="max-w-7xl mx-auto">
@@ -934,11 +1171,7 @@ export const ComprehensiveAttendanceSystem: React.FC<ComprehensiveAttendanceSyst
               </TabsContent>
               
               <TabsContent value="integration" className="m-0">
-                <div className="text-center py-12">
-                  <Database className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">التكامل مع الأنظمة</h3>
-                  <p className="text-gray-600">ربط نظام الحضور مع الرواتب والتقييم والإجازات</p>
-                </div>
+                {renderIntegration()}
               </TabsContent>
               
               <TabsContent value="settings" className="m-0">
