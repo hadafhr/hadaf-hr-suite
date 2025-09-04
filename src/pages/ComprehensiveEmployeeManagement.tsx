@@ -33,7 +33,8 @@ import { ComprehensiveRewardsIncentives } from '@/components/systems/Comprehensi
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { ComprehensiveTrainingDevelopment } from '@/components/systems/ComprehensiveTrainingDevelopment';
 import { ComprehensiveQualityOfLife } from '@/components/systems/ComprehensiveQualityOfLife';
-import ComprehensiveAIReports from '@/components/systems/ComprehensiveAIReports';
+import ArtificialIntelligenceSystem from '@/components/systems/ArtificialIntelligenceSystem';
+import ComprehensiveReports from '@/components/systems/ComprehensiveReports';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
@@ -441,11 +442,11 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="ai">
-            <ComprehensiveAIReports onBack={() => setActiveTab('dashboard')} />
+            <ArtificialIntelligenceSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="reports">
-            <ComprehensiveAIReports onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveReports onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
               <TabsContent value="tracking">
