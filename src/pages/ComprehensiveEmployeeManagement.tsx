@@ -31,6 +31,9 @@ import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
+import { ComprehensiveTrainingDevelopment } from '@/components/systems/ComprehensiveTrainingDevelopment';
+import { ComprehensiveQualityOfLife } from '@/components/systems/ComprehensiveQualityOfLife';
+import ComprehensiveAIReports from '@/components/systems/ComprehensiveAIReports';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
@@ -334,7 +337,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="quality-of-life">
-            <QualityOfLifeSystem onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveQualityOfLife />
           </TabsContent>
 
           <TabsContent value="skills-inventory">
@@ -406,7 +409,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="training">
-            <ComprehensiveTraining onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveTrainingDevelopment />
           </TabsContent>
 
           <TabsContent value="talents">
@@ -438,11 +441,11 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="ai">
-            <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveAIReports onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="reports">
-            <Reports onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveAIReports onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
               <TabsContent value="tracking">
