@@ -613,6 +613,472 @@ export const ComprehensiveTalentManagement: React.FC<ComprehensiveTalentManageme
     </div>
   );
 
+  const renderAIDashboard = () => (
+    <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Brain className="h-5 w-5 text-primary" />
+          لوحة الذكاء الاصطناعي - التحليلات التنبؤية
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+            <div className="flex items-center gap-2 mb-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              <span className="text-sm font-semibold text-emerald-800">توصية ذكية</span>
+            </div>
+            <p className="text-sm text-emerald-700">
+              8 مواهب جاهزة للترقية خلال الربع القادم بنسبة نجاح 85%
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangle className="h-4 w-4 text-orange-600" />
+              <span className="text-sm font-semibold text-orange-800">تحذير</span>
+            </div>
+            <p className="text-sm text-orange-700">
+              5 مواهب عالية قد تترك المنظمة خلال 6 أشهر - تحتاج تدخل عاجل
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingUp className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-semibold text-blue-800">فرصة نمو</span>
+            </div>
+            <p className="text-sm text-blue-700">
+              فجوة مهارات في القيادة الرقمية - استثمار في التدريب مطلوب
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-purple-50 border border-purple-200">
+            <div className="flex items-center gap-2 mb-2">
+              <Rocket className="h-4 w-4 text-purple-600" />
+              <span className="text-sm font-semibold text-purple-800">تنبؤ</span>
+            </div>
+            <p className="text-sm text-purple-700">
+              احتياج 12 قائد جديد خلال السنتين القادمتين - بدء برنامج الإعداد
+            </p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const renderTalentPool = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">مصفوفة الأداء والإمكانات (9-Box Matrix)</h3>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm">تصنيف ذكي بالـ AI</Button>
+          <Button size="sm">تحديث التصنيف</Button>
+        </div>
+      </div>
+
+      {/* 9-Box Matrix */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-3 gap-2 mb-6" style={{ height: '400px' }}>
+            {/* High Performance - High Potential */}
+            <div className="bg-emerald-100 border-2 border-emerald-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-emerald-800 mb-2">النجوم ⭐</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">أحمد محمد علي</div>
+                <div className="bg-white p-2 rounded text-sm">فاطمة السالم</div>
+              </div>
+            </div>
+            
+            {/* High Performance - Medium Potential */}
+            <div className="bg-blue-100 border-2 border-blue-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-blue-800 mb-2">أداء عالي 🚀</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">سارة الأحمد</div>
+              </div>
+            </div>
+
+            {/* High Performance - Low Potential */}
+            <div className="bg-yellow-100 border-2 border-yellow-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-yellow-800 mb-2">خبراء 💎</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">خالد المري</div>
+              </div>
+            </div>
+
+            {/* Medium Performance - High Potential */}
+            <div className="bg-purple-100 border-2 border-purple-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-purple-800 mb-2">إمكانات عالية 🌟</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">نورا الكندري</div>
+              </div>
+            </div>
+
+            {/* Medium Performance - Medium Potential */}
+            <div className="bg-gray-100 border-2 border-gray-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-gray-800 mb-2">الأساس 👥</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">محمد الخليفي</div>
+                <div className="bg-white p-2 rounded text-sm">علي الصالح</div>
+              </div>
+            </div>
+
+            {/* Medium Performance - Low Potential */}
+            <div className="bg-orange-100 border-2 border-orange-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-orange-800 mb-2">مطلوب دعم 📈</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">مريم الزهراني</div>
+              </div>
+            </div>
+
+            {/* Low Performance - High Potential */}
+            <div className="bg-teal-100 border-2 border-teal-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-teal-800 mb-2">علامات استفهام ❓</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">حسام الدين</div>
+              </div>
+            </div>
+
+            {/* Low Performance - Medium Potential */}
+            <div className="bg-red-100 border-2 border-red-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-red-800 mb-2">تحت التحسين ⚠️</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">عبدالله النعيمي</div>
+              </div>
+            </div>
+
+            {/* Low Performance - Low Potential */}
+            <div className="bg-rose-100 border-2 border-rose-300 rounded-lg p-4 flex flex-col">
+              <h4 className="font-semibold text-rose-800 mb-2">مطلوب قرار 🔄</h4>
+              <div className="space-y-2 flex-1">
+                <div className="bg-white p-2 rounded text-sm">يوسف الهاجري</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex justify-center">
+            <div className="flex items-center gap-8 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-gradient-to-r from-gray-300 to-emerald-300"></div>
+                <span>إمكانات منخفضة → عالية</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-gradient-to-t from-rose-300 to-emerald-300"></div>
+                <span>أداء منخفض → عالي</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderCareerPaths = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">المسارات الوظيفية الفردية</h3>
+        <Button>
+          <Plus className="h-4 w-4 ml-2" />
+          إنشاء مسار جديد
+        </Button>
+      </div>
+
+      <div className="grid gap-6">
+        {careerPaths.map((path) => (
+          <Card key={path.id}>
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h4 className="font-semibold text-lg">{path.employeeName}</h4>
+                  <p className="text-muted-foreground">{path.currentPosition} ← {path.targetPosition}</p>
+                </div>
+                <Badge variant="outline">
+                  التقدم: {path.progress}%
+                </Badge>
+              </div>
+
+              {/* Career Path Visualization */}
+              <div className="space-y-4">
+                <h5 className="font-medium">مراحل المسار الوظيفي:</h5>
+                {path.milestones.map((milestone, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                      milestone.completed 
+                        ? 'bg-emerald-500 text-white' 
+                        : 'bg-gray-200 text-gray-600'
+                    }`}>
+                      {milestone.completed ? '✓' : index + 1}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start mb-2">
+                        <h6 className="font-medium">{milestone.title}</h6>
+                        <span className="text-xs text-muted-foreground">{milestone.timeline}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {milestone.skills.map((skill, skillIndex) => (
+                          <Badge key={skillIndex} variant="secondary" className="text-xs">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 pt-4 border-t">
+                <div className="flex justify-between items-center">
+                  <div className="text-sm text-muted-foreground">
+                    <Calendar className="h-4 w-4 inline ml-1" />
+                    المدة المتوقعة للإنجاز: {path.estimatedCompletion}
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">تحديث المسار</Button>
+                    <Button variant="outline" size="sm">تقييم التقدم</Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderInternalMobility = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">التوظيف الداخلي</h3>
+        <Button>
+          <Plus className="h-4 w-4 ml-2" />
+          إضافة وظيفة شاغرة
+        </Button>
+      </div>
+
+      <div className="grid gap-6">
+        {internalJobs.map((job) => (
+          <Card key={job.id}>
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h4 className="font-semibold text-lg">{job.title}</h4>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
+                    <span className="flex items-center gap-1">
+                      <Building2 className="h-3 w-3" />
+                      {job.department}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MapPin className="h-3 w-3" />
+                      {job.location}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      آخر موعد: {job.applicationDeadline}
+                    </span>
+                  </div>
+                </div>
+                <Badge variant={job.status === 'Open' ? 'default' : 'secondary'}>
+                  {job.status === 'Open' ? 'مفتوحة' : job.status === 'Under Review' ? 'قيد المراجعة' : 'مغلقة'}
+                </Badge>
+              </div>
+
+              <p className="text-sm text-muted-foreground mb-4">{job.description}</p>
+
+              <div className="space-y-3 mb-4">
+                <div>
+                  <Label className="text-sm font-medium">المتطلبات:</Label>
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {job.requirements.map((req, index) => (
+                      <Badge key={index} variant="outline" className="text-xs">
+                        {req}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {job.applicants.length > 0 && (
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">المتقدمون الداخليون ({job.applicants.length}):</Label>
+                  {job.applicants.map((applicant, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarFallback>{applicant.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-medium">{applicant.name}</p>
+                          <p className="text-xs text-muted-foreground">{applicant.currentPosition}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium">نسبة التطابق: {applicant.matchScore}%</p>
+                        <Progress value={applicant.matchScore} className="w-20 h-1 mt-1" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex justify-end gap-2 mt-6 pt-4 border-t">
+                <Button variant="outline" size="sm">مراجعة الطلبات</Button>
+                <Button variant="outline" size="sm">تعديل الوظيفة</Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderKnowledgeTransfer = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">نقل المعرفة المؤسسية</h3>
+        <Button>
+          <Plus className="h-4 w-4 ml-2" />
+          خطة نقل معرفة جديدة
+        </Button>
+      </div>
+
+      <div className="grid gap-6">
+        {knowledgeTransfers.map((transfer) => (
+          <Card key={transfer.id}>
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h4 className="font-semibold text-lg">{transfer.knowledgeArea}</h4>
+                  <p className="text-muted-foreground mt-1">
+                    من: {transfer.fromEmployee} ← إلى: {transfer.toEmployee}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Badge variant={
+                    transfer.priority === 'High' ? 'destructive' : 
+                    transfer.priority === 'Medium' ? 'secondary' : 'default'
+                  }>
+                    {transfer.priority === 'High' ? 'عالية' : transfer.priority === 'Medium' ? 'متوسطة' : 'منخفضة'}
+                  </Badge>
+                  <Badge variant={
+                    transfer.status === 'Completed' ? 'secondary' : 
+                    transfer.status === 'In Progress' ? 'default' : 'outline'
+                  }>
+                    {transfer.status === 'Completed' ? 'مكتملة' : 
+                     transfer.status === 'In Progress' ? 'جارية' : 'مخططة'}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-4">
+                <div>
+                  <Label className="text-sm font-medium">مهام نقل المعرفة:</Label>
+                  <div className="space-y-2 mt-2">
+                    {transfer.tasks.map((task, index) => (
+                      <div key={index} className="flex items-center gap-2 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                        <span>{task}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span>التقدم</span>
+                  <span>{transfer.progress}%</span>
+                </div>
+                <Progress value={transfer.progress} className="h-2" />
+              </div>
+
+              <div className="flex justify-between items-center pt-4 border-t">
+                <div className="text-sm text-muted-foreground">
+                  <Clock className="h-3 w-3 inline ml-1" />
+                  الموعد النهائي: {transfer.deadline}
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">تحديث التقدم</Button>
+                  <Button variant="outline" size="sm">عرض التفاصيل</Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderFutureLeaders = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">برامج القادة المستقبليين</h3>
+        <Button>
+          <Plus className="h-4 w-4 ml-2" />
+          ترشيح للبرنامج
+        </Button>
+      </div>
+
+      <div className="grid gap-6">
+        {futureLeaders.map((leader) => (
+          <Card key={leader.id}>
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start mb-6">
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-12 w-12">
+                    <AvatarFallback>{leader.employeeName.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h4 className="font-semibold text-lg">{leader.employeeName}</h4>
+                    <p className="text-muted-foreground">{leader.program}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      المرشد: {leader.mentorName}
+                    </p>
+                  </div>
+                </div>
+                <Badge variant="outline">
+                  التقدم: {leader.progress}%
+                </Badge>
+              </div>
+
+              {/* Competencies Progress */}
+              <div className="space-y-4 mb-6">
+                <Label className="text-sm font-medium">الكفاءات القيادية:</Label>
+                {leader.competencies.map((competency, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>{competency.name}</span>
+                      <span>{competency.current}/{competency.target}</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Progress value={(competency.current / competency.target) * 100} className="flex-1 h-2" />
+                      <span className="text-xs text-muted-foreground">
+                        {Math.round((competency.current / competency.target) * 100)}%
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-muted/50 p-4 rounded-lg mb-4">
+                <Label className="text-sm font-medium">المعلم القادم:</Label>
+                <p className="text-sm mt-1">{leader.nextMilestone}</p>
+              </div>
+
+              <div className="flex justify-between items-center pt-4 border-t">
+                <div className="text-sm text-muted-foreground">
+                  <Calendar className="h-3 w-3 inline ml-1" />
+                  بدء البرنامج: {leader.startDate}
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">تقييم التقدم</Button>
+                  <Button variant="outline" size="sm">تحديث البرنامج</Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderSystemOverview = () => (
     <Card>
       <CardHeader>
@@ -898,71 +1364,76 @@ export const ComprehensiveTalentManagement: React.FC<ComprehensiveTalentManageme
       
       <div className="container mx-auto p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              لوحة المعلومات
+          <TabsList className="grid w-full grid-cols-7 gap-1 p-1">
+            <TabsTrigger value="dashboard" className="flex items-center gap-1 text-xs">
+              <BarChart3 className="h-3 w-3" />
+              لوحة التحكم
             </TabsTrigger>
-            <TabsTrigger value="talents" className="flex items-center gap-2">
-              <Star className="h-4 w-4" />
-              ملفات المواهب
+            <TabsTrigger value="talent-pool" className="flex items-center gap-1 text-xs">
+              <Users className="h-3 w-3" />
+              تصنيف المواهب
             </TabsTrigger>
-            <TabsTrigger value="development" className="flex items-center gap-2">
-              <Rocket className="h-4 w-4" />
-              خطط التطوير
+            <TabsTrigger value="career-paths" className="flex items-center gap-1 text-xs">
+              <Route className="h-3 w-3" />
+              المسارات الوظيفية
             </TabsTrigger>
-            <TabsTrigger value="succession" className="flex items-center gap-2">
-              <UserCheck className="h-4 w-4" />
-              خطط الخلافة
+            <TabsTrigger value="internal-mobility" className="flex items-center gap-1 text-xs">
+              <Building2 className="h-3 w-3" />
+              التوظيف الداخلي
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              التقارير
+            <TabsTrigger value="succession" className="flex items-center gap-1 text-xs">
+              <Crown className="h-3 w-3" />
+              خلافة القيادات
+            </TabsTrigger>
+            <TabsTrigger value="knowledge-transfer" className="flex items-center gap-1 text-xs">
+              <BookOpen className="h-3 w-3" />
+              نقل المعرفة
+            </TabsTrigger>
+            <TabsTrigger value="future-leaders" className="flex items-center gap-1 text-xs">
+              <GraduationCap className="h-3 w-3" />
+              برامج القادة المستقبليين
             </TabsTrigger>
           </TabsList>
 
+          {/* لوحة التحكم الرئيسية */}
           <TabsContent value="dashboard" className="space-y-6">
             {renderAnalyticsDashboard()}
-            {renderSystemOverview()}
+            {renderAIDashboard()}
           </TabsContent>
 
-          <TabsContent value="talents" className="space-y-6">
-            {renderTalentProfiles()}
+          {/* تصنيف المواهب - 9-Box Matrix */}
+          <TabsContent value="talent-pool" className="space-y-6">
+            {renderTalentPool()}
           </TabsContent>
 
-          <TabsContent value="development" className="space-y-6">
-            {renderDevelopmentPlans()}
+          {/* المسارات الوظيفية */}
+          <TabsContent value="career-paths" className="space-y-6">
+            {renderCareerPaths()}
           </TabsContent>
 
+          {/* التوظيف الداخلي */}
+          <TabsContent value="internal-mobility" className="space-y-6">
+            {renderInternalMobility()}
+          </TabsContent>
+
+          {/* خلافة القيادات */}
           <TabsContent value="succession" className="space-y-6">
             {renderSuccessionPlanning()}
           </TabsContent>
 
-          <TabsContent value="reports" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>تقارير إدارة المواهب</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <Button variant="outline" className="h-20 flex-col">
-                    <FileText className="h-6 w-6 mb-2" />
-                    تقرير المواهب الشامل
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <BarChart3 className="h-6 w-6 mb-2" />
-                    تحليل الأداء والإمكانات
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <Users className="h-6 w-6 mb-2" />
-                    تقرير خطط الخلافة
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+          {/* نقل المعرفة */}
+          <TabsContent value="knowledge-transfer" className="space-y-6">
+            {renderKnowledgeTransfer()}
+          </TabsContent>
+
+          {/* برامج القادة المستقبليين */}
+          <TabsContent value="future-leaders" className="space-y-6">
+            {renderFutureLeaders()}
           </TabsContent>
         </Tabs>
       </div>
     </div>
   );
 };
+
+export default ComprehensiveTalentManagement;
