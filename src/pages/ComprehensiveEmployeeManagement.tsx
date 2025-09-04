@@ -21,6 +21,7 @@ import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendanc
 import { ComprehensiveLeaveManagementSystem } from '@/components/systems/ComprehensiveLeaveManagementSystem';
 import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
+import { OrganizationalDevelopment } from '@/components/systems/OrganizationalDevelopment';
 import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
@@ -30,11 +31,6 @@ import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
-import { ComprehensiveTrainingDevelopment } from '@/components/systems/ComprehensiveTrainingDevelopment';
-import { ComprehensiveQualityOfLife } from '@/components/systems/ComprehensiveQualityOfLife';
-import ArtificialIntelligenceSystem from '@/components/systems/ArtificialIntelligenceSystem';
-import ComprehensiveReports from '@/components/systems/ComprehensiveReports';
-import { OrganizationalDevelopment } from '@/pages/ServicePlatforms/OrganizationalDevelopment';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
@@ -53,11 +49,6 @@ import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTa
 import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealthSafety';
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
-import { EmployeeMovementsSystem } from '@/components/systems/EmployeeMovementsSystem';
-import { ComprehensivePerformanceEvaluation } from '@/components/systems/ComprehensivePerformanceEvaluation';
-import { ComprehensiveAttendanceSystem } from '@/components/systems/ComprehensiveAttendanceSystem';
-import { ComprehensiveInternalCommunication } from '@/components/systems/ComprehensiveInternalCommunication';
-import { ComprehensiveRecruitmentHiring } from '@/components/systems/ComprehensiveRecruitmentHiring';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -170,14 +161,6 @@ const ComprehensiveEmployeeManagement = () => {
               </div>
               
               <div className="flex items-center gap-1">
-                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" onClick={() => setActiveTab('dashboard')}>
-                  <BarChart3 className="h-3 w-3 ml-1" />
-                  لوحة التحكم
-                </Button>
-                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" onClick={() => setActiveTab('settings')}>
-                  <Settings className="h-3 w-3 ml-1" />
-                  الإعدادات العامة
-                </Button>
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
@@ -190,7 +173,11 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
             
             <div className="w-full">
-              <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 bg-transparent p-0 h-auto w-full">
+              <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
+                <TabsTrigger value="dashboard" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <BarChart3 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">لوحة التحكم</span>
+                </TabsTrigger>
                 <TabsTrigger value="teamwork" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">قسم فريق العمل</span>
@@ -309,15 +296,15 @@ const ComprehensiveEmployeeManagement = () => {
                 </TabsTrigger>
                 <TabsTrigger value="reports" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <FileBarChart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> قسم التقارير الشاملة</span>
+                  <span className="text-center leading-tight"> قسم التقارير الشاملة</span>
                 </TabsTrigger>
                 <TabsTrigger value="tracking" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <MapPin className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> قسم التتبع الميداني</span>
+                  
                 </TabsTrigger>
-                <TabsTrigger value="organizational-development" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">التطوير المؤسسي الشامل</span>
+                <TabsTrigger value="settings" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Settings className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight"> الإعدادات العامة</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -338,7 +325,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="quality-of-life">
-            <ComprehensiveQualityOfLife />
+            <QualityOfLifeSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="skills-inventory">
@@ -346,7 +333,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="internal-communication">
-            <ComprehensiveInternalCommunication />
+            <InternalCommunication onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="admin-communications">
@@ -362,11 +349,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="attendance">
-            <ComprehensiveAttendanceSystem onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="recruitment">
-            <ComprehensiveRecruitmentHiring onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="employee-services">
@@ -390,7 +373,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="organization">
-            <OrganizationalDevelopment />
+            <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="governance">
@@ -406,15 +389,19 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="performance">
-            <ComprehensivePerformanceEvaluation onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="training">
-            <ComprehensiveTrainingDevelopment />
+            <ComprehensiveTraining onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="talents">
             <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="recruitment">
+            <SmartHire />
           </TabsContent>
 
           <TabsContent value="insurance">
@@ -442,23 +429,15 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="ai">
-            <ArtificialIntelligenceSystem onBack={() => setActiveTab('dashboard')} />
+            <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="reports">
-            <ComprehensiveReports onBack={() => setActiveTab('dashboard')} />
+            <Reports onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
               <TabsContent value="tracking">
                 <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
-              </TabsContent>
-
-              <TabsContent value="movements">
-                <EmployeeMovementsSystem onBack={() => setActiveTab('dashboard')} />
-              </TabsContent>
-
-              <TabsContent value="organizational-development">
-                <OrganizationalDevelopment />
               </TabsContent>
 
           <TabsContent value="settings">
