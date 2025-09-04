@@ -361,7 +361,7 @@ const ComprehensiveEmployeeManagement = () => {
             <ComprehensiveAttendanceSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          <TabsContent value="recruitment-hiring">
+          <TabsContent value="recruitment">
             <ComprehensiveRecruitmentHiring onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
@@ -411,10 +411,6 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="talents">
             <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="recruitment">
-            <SmartHire />
           </TabsContent>
 
           <TabsContent value="insurance">
