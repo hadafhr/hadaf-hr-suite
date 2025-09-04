@@ -35,7 +35,7 @@ import { ComprehensiveTrainingDevelopment } from '@/components/systems/Comprehen
 import { ComprehensiveQualityOfLife } from '@/components/systems/ComprehensiveQualityOfLife';
 import ArtificialIntelligenceSystem from '@/components/systems/ArtificialIntelligenceSystem';
 import ComprehensiveReports from '@/components/systems/ComprehensiveReports';
-import OrganizationalDevelopmentSystem from '@/components/systems/OrganizationalDevelopmentSystem';
+import ComprehensiveOrganizationalDevelopment from '@/components/systems/ComprehensiveOrganizationalDevelopment';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
@@ -459,7 +459,7 @@ const ComprehensiveEmployeeManagement = () => {
               </TabsContent>
 
               <TabsContent value="organizational-development">
-                <OrganizationalDevelopmentSystem onBack={() => setActiveTab('dashboard')} />
+                <ComprehensiveOrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
               </TabsContent>
 
           <TabsContent value="settings">
