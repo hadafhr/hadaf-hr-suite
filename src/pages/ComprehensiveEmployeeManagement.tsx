@@ -52,6 +52,7 @@ import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import { EmployeeMovementsSystem } from '@/components/systems/EmployeeMovementsSystem';
 import { ComprehensivePerformanceEvaluation } from '@/components/systems/ComprehensivePerformanceEvaluation';
 import { ComprehensiveAttendanceSystem } from '@/components/systems/ComprehensiveAttendanceSystem';
+import { ComprehensiveInternalCommunication } from '@/components/systems/ComprehensiveInternalCommunication';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -340,7 +341,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="internal-communication">
-            <InternalCommunication onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveInternalCommunication />
           </TabsContent>
 
           <TabsContent value="admin-communications">
