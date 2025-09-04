@@ -6013,6 +6013,308 @@ export type Database = {
         }
         Relationships: []
       }
+      od_happiness_measurements: {
+        Row: {
+          comments: string | null
+          created_at: string | null
+          department: string
+          employee_count: number | null
+          id: string
+          measurement_date: string | null
+          score: number
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          comments?: string | null
+          created_at?: string | null
+          department: string
+          employee_count?: number | null
+          id?: string
+          measurement_date?: string | null
+          score: number
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          comments?: string | null
+          created_at?: string | null
+          department?: string
+          employee_count?: number | null
+          id?: string
+          measurement_date?: string | null
+          score?: number
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      od_impact_measurements: {
+        Row: {
+          after_value: number | null
+          before_value: number | null
+          created_at: string | null
+          id: string
+          improvement_percentage: number | null
+          initiative_id: string | null
+          measurement_date: string | null
+          measurement_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          after_value?: number | null
+          before_value?: number | null
+          created_at?: string | null
+          id?: string
+          improvement_percentage?: number | null
+          initiative_id?: string | null
+          measurement_date?: string | null
+          measurement_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          after_value?: number | null
+          before_value?: number | null
+          created_at?: string | null
+          id?: string
+          improvement_percentage?: number | null
+          initiative_id?: string | null
+          measurement_date?: string | null
+          measurement_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "od_impact_measurements_initiative_id_fkey"
+            columns: ["initiative_id"]
+            isOneToOne: false
+            referencedRelation: "od_initiatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      od_initiative_approvals: {
+        Row: {
+          approved_date: string | null
+          comments: string | null
+          created_at: string | null
+          entity: string
+          id: string
+          initiative_id: string | null
+          role_name: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          approved_date?: string | null
+          comments?: string | null
+          created_at?: string | null
+          entity: string
+          id?: string
+          initiative_id?: string | null
+          role_name: string
+          status: string
+          updated_at?: string | null
+        }
+        Update: {
+          approved_date?: string | null
+          comments?: string | null
+          created_at?: string | null
+          entity?: string
+          id?: string
+          initiative_id?: string | null
+          role_name?: string
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "od_initiative_approvals_initiative_id_fkey"
+            columns: ["initiative_id"]
+            isOneToOne: false
+            referencedRelation: "od_initiatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      od_initiative_steps: {
+        Row: {
+          completed: boolean | null
+          created_at: string | null
+          description: string | null
+          id: string
+          initiative_id: string | null
+          order_index: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          completed?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          initiative_id?: string | null
+          order_index: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          completed?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          initiative_id?: string | null
+          order_index?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "od_initiative_steps_initiative_id_fkey"
+            columns: ["initiative_id"]
+            isOneToOne: false
+            referencedRelation: "od_initiatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      od_initiatives: {
+        Row: {
+          budget: number | null
+          created_at: string | null
+          department: string
+          description: string
+          end_date: string
+          id: string
+          phase: string
+          progress: number | null
+          regulations: string[] | null
+          start_date: string
+          status: string
+          title: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          budget?: number | null
+          created_at?: string | null
+          department: string
+          description: string
+          end_date: string
+          id?: string
+          phase: string
+          progress?: number | null
+          regulations?: string[] | null
+          start_date: string
+          status: string
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          budget?: number | null
+          created_at?: string | null
+          department?: string
+          description?: string
+          end_date?: string
+          id?: string
+          phase?: string
+          progress?: number | null
+          regulations?: string[] | null
+          start_date?: string
+          status?: string
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      od_leaderboard: {
+        Row: {
+          badge: string | null
+          created_at: string | null
+          department: string
+          employee_count: number | null
+          id: string
+          improvement_percentage: number | null
+          period_month: number
+          period_year: number
+          score: number
+          updated_at: string | null
+        }
+        Insert: {
+          badge?: string | null
+          created_at?: string | null
+          department: string
+          employee_count?: number | null
+          id?: string
+          improvement_percentage?: number | null
+          period_month: number
+          period_year: number
+          score: number
+          updated_at?: string | null
+        }
+        Update: {
+          badge?: string | null
+          created_at?: string | null
+          department?: string
+          employee_count?: number | null
+          id?: string
+          improvement_percentage?: number | null
+          period_month?: number
+          period_year?: number
+          score?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      od_org_structure: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          employee_count: number | null
+          id: string
+          manager_name: string | null
+          name: string
+          parent_id: string | null
+          type: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          employee_count?: number | null
+          id?: string
+          manager_name?: string | null
+          name: string
+          parent_id?: string | null
+          type: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          employee_count?: number | null
+          id?: string
+          manager_name?: string | null
+          name?: string
+          parent_id?: string | null
+          type?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "od_org_structure_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "od_org_structure"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       org_units: {
         Row: {
           budget_amount: number | null
