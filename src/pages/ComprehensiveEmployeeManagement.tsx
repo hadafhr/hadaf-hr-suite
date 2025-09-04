@@ -161,6 +161,10 @@ const ComprehensiveEmployeeManagement = () => {
               </div>
               
               <div className="flex items-center gap-1">
+                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" onClick={() => setActiveTab('dashboard')}>
+                  <BarChart3 className="h-3 w-3 ml-1" />
+                  لوحة التحكم
+                </Button>
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
