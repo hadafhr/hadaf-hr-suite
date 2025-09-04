@@ -25,6 +25,7 @@ import {
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, RadialBarChart, RadialBar } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useEligibilityCalculation } from '@/hooks/useEligibilityCalculation';
 
 interface ComprehensiveRewardsIncentivesProps {
   onBack: () => void;
@@ -66,6 +67,13 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const isRTL = i18n.language === 'ar';
+  const { 
+    isCalculating, 
+    eligibilityResults, 
+    calculateAllEligibility, 
+    calculateAttendanceEligibility, 
+    calculatePerformanceEligibility 
+  } = useEligibilityCalculation();
 
   // State management
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -321,11 +329,11 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <div className="flex items-center gap-3">
                 <Button 
                   className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                  onClick={() => runAIAnalysis(selectedEmployee?.id || '', 'eligibility')}
-                  disabled={isLoading}
+                  onClick={calculateAllEligibility}
+                  disabled={isCalculating}
                 >
-                  <Brain className="h-4 w-4 ml-2" />
-                  {isLoading ? 'جاري التحليل...' : 'تحليل ذكي'}
+                  <Calculator className="h-4 w-4 ml-2" />
+                  {isCalculating ? 'جاري الحساب...' : 'حساب الأهلية'}
                 </Button>
                 <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm">
                   <Download className="h-4 w-4 ml-2" />
