@@ -50,6 +50,7 @@ import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealt
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import { EmployeeMovementsSystem } from '@/components/systems/EmployeeMovementsSystem';
+import { ComprehensivePerformanceEvaluation } from '@/components/systems/ComprehensivePerformanceEvaluation';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -394,7 +395,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="performance">
-            <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
+            <ComprehensivePerformanceEvaluation onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="training">
