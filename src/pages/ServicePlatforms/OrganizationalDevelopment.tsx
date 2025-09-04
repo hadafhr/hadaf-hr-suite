@@ -159,7 +159,7 @@ export const OrganizationalDevelopment: React.FC = () => {
       const formattedData = data?.map(item => ({
         id: item.id,
         department: item.department,
-        score: parseFloat(item.score),
+        score: parseFloat(item.score.toString()),
         measurement_date: item.measurement_date,
         employee_count: item.employee_count
       })) || [];
