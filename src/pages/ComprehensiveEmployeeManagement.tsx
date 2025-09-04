@@ -51,6 +51,7 @@ import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import { EmployeeMovementsSystem } from '@/components/systems/EmployeeMovementsSystem';
 import { ComprehensivePerformanceEvaluation } from '@/components/systems/ComprehensivePerformanceEvaluation';
+import { ComprehensiveAttendanceSystem } from '@/components/systems/ComprehensiveAttendanceSystem';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -355,7 +356,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="attendance">
-            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
+            <ComprehensiveAttendanceSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="employee-services">
