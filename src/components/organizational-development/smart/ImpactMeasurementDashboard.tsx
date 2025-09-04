@@ -15,7 +15,8 @@ import {
   Filter,
   Calendar,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  Brain
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
@@ -47,7 +48,10 @@ export const ImpactMeasurementDashboard = () => {
         .order('measurement_date', { ascending: false });
 
       if (error) throw error;
-      setImpactData(data || []);
+      setImpactData((data || []).map(item => ({
+        ...item,
+        measurement_type: item.measurement_type as 'performance' | 'cost' | 'satisfaction'
+      })));
     } catch (error) {
       console.error('Error loading impact data:', error);
       toast({

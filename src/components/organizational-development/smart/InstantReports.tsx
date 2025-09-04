@@ -17,7 +17,7 @@ import {
   Calendar,
   Clock,
   Mail,
-  PresentationChart,
+  Presentation,
   Brain,
   TrendingUp,
   Users,
@@ -54,7 +54,7 @@ export const InstantReports = () => {
       id: 'executive-summary',
       name: 'الملخص التنفيذي',
       description: 'ملخص شامل للمؤشرات الرئيسية وحالة التطوير المؤسسي',
-      icon: PresentationChart,
+      icon: Presentation,
       sections: ['المؤشرات الرئيسية', 'تقدم المبادرات', 'مؤشر السعادة', 'التوصيات'],
       estimatedTime: '2 دقيقة',
       format: ['PDF', 'PowerPoint']
