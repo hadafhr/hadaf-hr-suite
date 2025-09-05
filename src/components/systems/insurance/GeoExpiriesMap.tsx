@@ -159,7 +159,7 @@ const GeoExpiriesMap = () => {
                 <Checkbox 
                   id="expiries-layer" 
                   checked={selectedLayers.expiries}
-                  onCheckedChange={(checked) => setSelectedLayers(prev => ({ ...prev, expiries: checked }))}
+                  onCheckedChange={(checked) => setSelectedLayers(prev => ({ ...prev, expiries: !!checked }))}
                 />
                 <label htmlFor="expiries-layer" className="text-sm font-medium">
                   🔴 {isRTL ? 'علامات الانتهاء' : 'Expiry Pins'}
@@ -169,7 +169,7 @@ const GeoExpiriesMap = () => {
                 <Checkbox 
                   id="heatmap-layer" 
                   checked={selectedLayers.heatmap}
-                  onCheckedChange={(checked) => setSelectedLayers(prev => ({ ...prev, heatmap: checked }))}
+                  onCheckedChange={(checked) => setSelectedLayers(prev => ({ ...prev, heatmap: !!checked }))}
                 />
                 <label htmlFor="heatmap-layer" className="text-sm font-medium">
                   🔥 {isRTL ? 'خريطة الكثافة' : 'Coverage Heatmap'}
@@ -179,7 +179,7 @@ const GeoExpiriesMap = () => {
                 <Checkbox 
                   id="compliance-layer" 
                   checked={selectedLayers.compliance}
-                  onCheckedChange={(checked) => setSelectedLayers(prev => ({ ...prev, compliance: checked }))}
+                  onCheckedChange={(checked) => setSelectedLayers(prev => ({ ...prev, compliance: !!checked }))}
                 />
                 <label htmlFor="compliance-layer" className="text-sm font-medium">
                   ⚖️ {isRTL ? 'طبقة الامتثال' : 'Compliance Overlay'}
@@ -297,7 +297,7 @@ const GeoExpiriesMap = () => {
                 <Checkbox 
                   id="clustering" 
                   checked={clusteringEnabled}
-                  onCheckedChange={setClusteringEnabled}
+                  onCheckedChange={(checked) => setClusteringEnabled(!!checked)}
                 />
                 <label htmlFor="clustering" className="text-sm font-medium">
                   {isRTL ? 'التجميع الذكي' : 'Smart Clustering'}
@@ -450,7 +450,7 @@ const GeoExpiriesMap = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 rounded-full bg-green-500"></div>
-                      <span className="text-sm">> 90 {isRTL ? 'أيام' : 'days'}</span>
+                      <span className="text-sm">{'>'} 90 {isRTL ? 'أيام' : 'days'}</span>
                     </div>
                   </div>
                 </div>
