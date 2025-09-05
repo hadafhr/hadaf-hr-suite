@@ -159,6 +159,20 @@ const ComprehensiveEmployeeManagement = () => {
               </div>
               
               <div className="flex items-center gap-1">
+                {/* Dashboard Tab - Moved to top */}
+                <Button 
+                  variant={activeTab === 'dashboard' ? "default" : "ghost"} 
+                  size="sm" 
+                  className={`h-8 px-3 text-xs transition-all duration-300 ${
+                    activeTab === 'dashboard' 
+                      ? "bg-[#009F87] text-white shadow-md hover:bg-[#009F87]/90" 
+                      : "hover:bg-[#009F87]/10 hover:text-[#009F87]"
+                  }`}
+                  onClick={() => setActiveTab('dashboard')}
+                >
+                  <BarChart3 className="h-3 w-3 ml-1" />
+                  لوحة التحكم
+                </Button>
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
@@ -172,10 +186,6 @@ const ComprehensiveEmployeeManagement = () => {
             
             <div className="w-full">
               <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
-                <TabsTrigger value="dashboard" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <BarChart3 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">لوحة التحكم</span>
-                </TabsTrigger>
                 <TabsTrigger value="teamwork" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">قسم فريق العمل</span>
