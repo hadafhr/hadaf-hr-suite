@@ -86,7 +86,6 @@ import SelfServiceInfo from './pages/SelfServiceInfo';
 import DemoRequest from './pages/DemoRequest';
 import Contact from './pages/Contact';
 import AddEmployee from './pages/AddEmployee';
-import HRManagementSystem from './pages/HRManagementSystem';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -282,9 +281,6 @@ const App = () => {
 
                 {/* Add Employee Route */}
                 <Route path="/add-employee" element={<AddEmployee />} />
-                
-                {/* HR Management System Route */}
-                <Route path="/hr-management-system" element={<HRManagementSystem />} />
                 
                 {/* BOOD HR Main Portal Routes */}
                 <Route path="/e-css" element={<ECSS />} />

@@ -58,15 +58,38 @@ export const SystemAdminDashboard: React.FC = () => {
     }
   ];
 
-
-  const systemManagement = [
+  const hrSections = [
     {
-      title: isArabic ? 'نظام إدارة الموارد البشرية' : 'HR Management System',
-      description: isArabic ? 'النظام الشامل لإدارة الموارد البشرية' : 'Comprehensive human resources management system',
+      title: isArabic ? 'إدارة الموظفين الداخليين' : 'Internal Employee Management',
+      description: isArabic ? 'إدارة موظفي بُعد والاختبارات الداخلية' : 'Manage Boud employees and internal testing',
       icon: Users,
-      route: '/hr-management-system',
+      route: '/comprehensive-employee-management',
       color: 'bg-primary'
     },
+    {
+      title: isArabic ? 'الحضور والغياب' : 'Attendance Management',
+      description: isArabic ? 'نظام الحضور الداخلي واختبار الميزات' : 'Internal attendance system and feature testing',
+      icon: Clock,
+      route: '/attendance-management',
+      color: 'bg-blue-600'
+    },
+    {
+      title: isArabic ? 'الرواتب والمزايا' : 'Payroll & Benefits',
+      description: isArabic ? 'إدارة رواتب بُعد واختبار النظام' : 'Boud payroll management and system testing',
+      icon: DollarSign,
+      route: '/payroll-management',
+      color: 'bg-green-600'
+    },
+    {
+      title: isArabic ? 'تقييم الأداء' : 'Performance Evaluation',
+      description: isArabic ? 'تقييم أداء الموظفين الداخليين' : 'Internal employee performance evaluation',
+      icon: TrendingUp,
+      route: '/performance-evaluation',
+      color: 'bg-purple-600'
+    }
+  ];
+
+  const systemManagement = [
     {
       title: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management',
       description: isArabic ? 'إدارة اشتراكات العملاء والفواتير' : 'Client subscription and billing management',
@@ -131,6 +154,24 @@ export const SystemAdminDashboard: React.FC = () => {
         
         <nav className="mt-8 px-4">
           <div className="space-y-8">
+            {/* HR Management Section */}
+            <div>
+              <h3 className="px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                {isArabic ? 'إدارة الموارد البشرية' : 'HR Management'}
+              </h3>
+              <div className="mt-3 space-y-1">
+                {hrSections.map((section, index) => (
+                  <button
+                    key={index}
+                    onClick={() => navigate(section.route)}
+                    className="w-full flex items-center px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                  >
+                    <section.icon className="ml-3 h-4 w-4" />
+                    {section.title}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* System Management Section */}
             <div>
@@ -279,6 +320,35 @@ export const SystemAdminDashboard: React.FC = () => {
               ))}
             </div>
 
+            {/* HR Management Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-primary" />
+                  {isArabic ? 'أنظمة إدارة الموارد البشرية' : 'HR Management Systems'}
+                </CardTitle>
+                <CardDescription>
+                  {isArabic ? 'جميع أنظمة الموارد البشرية متاحة للاختبار والإدارة الداخلية' : 'All HR systems available for testing and internal management'}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {hrSections.map((section, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      className="h-20 flex flex-col items-center justify-center space-y-2 hover:bg-muted/50"
+                      onClick={() => navigate(section.route)}
+                    >
+                      <div className={`w-8 h-8 rounded-full ${section.color} flex items-center justify-center`}>
+                        <section.icon className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-xs text-center">{section.title}</span>
+                    </Button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
             {/* System Management Section */}
             <Card>

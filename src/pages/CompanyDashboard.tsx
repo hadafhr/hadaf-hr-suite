@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -27,11 +27,6 @@ export const CompanyDashboard: React.FC = () => {
   const { signOut, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isArabic = i18n.language === 'ar';
-
-  // Redirect to HR Management System immediately
-  useEffect(() => {
-    navigate('/hr-management-system');
-  }, [navigate]);
 
   const handleLogout = async () => {
     await signOut();
