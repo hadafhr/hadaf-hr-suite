@@ -241,6 +241,7 @@ const App = () => {
               <Route path="/employee-self-service" element={<SelfServiceFeature />} />
               <Route path="/compensation-benefits" element={<CompensationBenefitsPlatform />} />
               <Route path="/performance-evaluation" element={<PerformanceEvaluation />} />
+              <Route path="/legal-affairs" element={<LegalAffairs />} />
               <Route path="/training" element={<Training />} />
               <Route path="/platform-development" element={<PlatformDevelopment />} />
               <Route path="/business-management" element={<BusinessManagement />} />
