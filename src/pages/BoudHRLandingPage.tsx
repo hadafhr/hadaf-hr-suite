@@ -877,15 +877,6 @@ const BoudHRLandingPage: React.FC = () => {
       
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-        {/* Live Chat Support */}
-        <div className="group relative">
-          <Button size="lg" className="w-14 h-14 rounded-full bg-black hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105" title="تحدث مع خدمة العملاء" onClick={() => navigate("/chat-messaging")}>
-            <MessageCircle className="w-6 h-6 text-white" />
-          </Button>
-          <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-foreground text-background px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-            تحدث مع خدمة العملاء
-          </div>
-        </div>
 
 
         {/* Call Now */}
