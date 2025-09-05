@@ -18,7 +18,7 @@ import { IndividualLogin } from "@/pages/IndividualLogin";
 import { UnifiedLogin } from "@/pages/UnifiedLogin";
 import { CompanyDashboard } from "@/pages/CompanyDashboard";
 import { AdminDashboard } from "@/pages/AdminDashboard";
-import { SystemAdminDashboard } from "@/pages/SystemAdminDashboard";
+import { SuperAdminDashboard } from "@/pages/SuperAdminDashboard";
 import { Services } from "@/pages/Services";
 import { IndividualServices } from "@/pages/ServicePlatforms/IndividualServices";
 import { EmployeeManagement } from "@/pages/ServicePlatforms/EmployeeManagement";
@@ -159,7 +159,7 @@ const App = () => {
               <Route path="/unified-login" element={<UnifiedLogin />} />
               <Route path="/company-dashboard" element={<CompanyDashboard />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
-              <Route path="/super-admin-dashboard" element={<SystemAdminDashboard />} />
+              <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
               {/* Legacy Login Routes */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />

@@ -165,12 +165,12 @@ export const EmployeeSelfService = () => {
                 </div>
               </div>
               <div>
-                  <CardTitle className="text-xl">
-                    نظام بُعد HR المتكامل
-                  </CardTitle>
-                  <p className="text-lg text-muted-foreground mt-2">
-                    الخدمة الذاتية للموظفين
-                  </p>
+                <CardTitle className="text-3xl font-bold text-primary">
+                  نظام بُعد HR المتكامل
+                </CardTitle>
+                <p className="text-lg text-muted-foreground mt-2">
+                  تم إنجاز النظام بنسبة 100% مع جميع الميزات المطلوبة
+                </p>
               </div>
             </div>
             

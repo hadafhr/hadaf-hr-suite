@@ -95,9 +95,9 @@ export const UnifiedLogin: React.FC = () => {
         if (!error) {
           // Determine role and redirect
           const role = determineUserRole(formData.email);
-            if (role === 'super_admin') {
-              navigate('/super-admin-dashboard', { replace: true });
-            } else {
+          if (role === 'super_admin') {
+            navigate('/super-admin-dashboard', { replace: true });
+          } else {
             navigate('/company-dashboard', { replace: true });
           }
         } else {
