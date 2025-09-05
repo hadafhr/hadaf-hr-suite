@@ -116,9 +116,7 @@ const ComprehensiveEmployeeManagement = () => {
                 <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">
-                  نظام إدارة الموظفين الشامل
-                </h1>
+                <h1 className="text-3xl font-bold text-foreground">نظام إدارة الموارد البشرية المتكامل</h1>
                 <p className="text-muted-foreground text-lg">
                   النظام الشامل والمتقدم لإدارة الموظفين والفرق
                 </p>
