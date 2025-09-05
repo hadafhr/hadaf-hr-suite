@@ -14,11 +14,11 @@ import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { 
   Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save,
-  BarChart3, PieChart, TrendingUp,Activity, CheckCircle, AlertCircle, Clock,
+  BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock,
   FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin,
   Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu,
   FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages,
-  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Share
+  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Share, ArrowLeft
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
@@ -3493,11 +3493,11 @@ const TeamWork: React.FC = () => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => i18n.changeLanguage(isRTL ? 'en' : 'ar')}
+                onClick={() => {/* Add back functionality */}}
                 className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
               >
-                <Languages className="h-4 w-4 ml-2" />
-                {isRTL ? 'English' : 'العربية'}
+                <ArrowLeft className="h-4 w-4" />
+                {isRTL ? 'رجوع' : 'Back'}
               </Button>
             </div>
             
@@ -3518,16 +3518,14 @@ const TeamWork: React.FC = () => {
                 <Eye className="h-4 w-4 ml-2" />
                 {isRTL ? 'معاينة' : 'Preview'}
               </Button>
+              <Button className="bg-secondary/80 border-secondary/30 text-white hover:bg-secondary/90 backdrop-blur-sm">
+                <Save className="h-4 w-4 ml-2" />
+                {isRTL ? 'حفظ كمسودة' : 'Save Draft'}
+              </Button>
               <Button className="bg-primary border-primary text-white hover:bg-primary-glow shadow-lg">
                 <Save className="h-4 w-4 ml-2" />
                 {isRTL ? 'حفظ' : 'Save'}
               </Button>
-              
-              <div className="h-6 w-px bg-white/30" />
-              
-              <div className="flex items-center gap-2 text-sm text-white/90">
-                <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-                {isRTL ? 'متصل' : 'Online'}
             </div>
           </div>
           
@@ -3545,7 +3543,6 @@ const TeamWork: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
       </div>
 
       {/* Main Content */}
