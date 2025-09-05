@@ -39,62 +39,6 @@ export const HRManagementSystem: React.FC = () => {
       route: '/comprehensive-employee-management',
       color: 'bg-primary',
       active: true
-    },
-    {
-      title: isArabic ? 'الحضور والانصراف' : 'Attendance Management',
-      description: isArabic ? 'تتبع الحضور والغياب والساعات الإضافية' : 'Track attendance, absences, and overtime',
-      icon: Clock,
-      route: '/attendance-management',
-      color: 'bg-blue-600',
-      active: true
-    },
-    {
-      title: isArabic ? 'إدارة الإجازات' : 'Leave Management',
-      description: isArabic ? 'طلبات الإجازات والموافقات والأرصدة' : 'Leave requests, approvals, and balances',
-      icon: Calendar,
-      route: '/leave-management',
-      color: 'bg-green-600',
-      active: true
-    },
-    {
-      title: isArabic ? 'إدارة الرواتب' : 'Payroll Management',
-      description: isArabic ? 'معالجة الرواتب والمزايا والخصومات' : 'Process salaries, benefits, and deductions',
-      icon: DollarSign,
-      route: '/payroll-management',
-      color: 'bg-emerald-600',
-      active: true
-    },
-    {
-      title: isArabic ? 'تقييم الأداء' : 'Performance Evaluation',
-      description: isArabic ? 'تقييم الأداء والمراجعات الدورية' : 'Performance reviews and periodic evaluations',
-      icon: TrendingUp,
-      route: '/performance-evaluation',
-      color: 'bg-purple-600',
-      active: true
-    },
-    {
-      title: isArabic ? 'التدريب والتطوير' : 'Training & Development',
-      description: isArabic ? 'برامج التدريب وخطط التطوير' : 'Training programs and development plans',
-      icon: BookOpen,
-      route: '/training-management',
-      color: 'bg-indigo-600',
-      active: false
-    },
-    {
-      title: isArabic ? 'الاستقطاب والتوظيف' : 'Recruitment',
-      description: isArabic ? 'إدارة الوظائف الشاغرة والمتقدمين' : 'Manage job openings and applicants',
-      icon: Target,
-      route: '/recruitment-management',
-      color: 'bg-orange-600',
-      active: false
-    },
-    {
-      title: isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics',
-      description: isArabic ? 'تقارير مفصلة وتحليلات بيانات الموارد البشرية' : 'Detailed reports and HR data analytics',
-      icon: BarChart3,
-      route: '/hr-reports-analytics',
-      color: 'bg-teal-600',
-      active: true
     }
   ];
 
