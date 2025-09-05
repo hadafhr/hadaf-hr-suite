@@ -173,11 +173,19 @@ const ComprehensiveEmployeeManagement = () => {
                   <BarChart3 className="h-3 w-3 ml-1" />
                   لوحة التحكم
                 </Button>
-                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-8 px-3 text-xs transition-all duration-300 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 hover:border-[#009F87]/30 rounded-lg"
+                >
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
                 </Button>
-                <Button variant="ghost" size="sm" className="h-8 px-2 text-xs hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-8 px-3 text-xs transition-all duration-300 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 hover:border-[#009F87]/30 rounded-lg"
+                >
                   <Settings className="h-3 w-3 ml-1" />
                   تخصيص
                 </Button>
