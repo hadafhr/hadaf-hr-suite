@@ -100,6 +100,7 @@ import { MobileProfile } from './pages/mobile/MobileProfile';
 import { ECSS } from './pages/portals/E-CSS';
 import { EIS } from './pages/portals/EIS';
 import { NPCS } from './pages/portals/NPCS';
+import { LegalAffairs } from './pages/HR/LegalAffairs';
 
 const queryClient = new QueryClient();
 
