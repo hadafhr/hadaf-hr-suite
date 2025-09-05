@@ -114,7 +114,7 @@ export const CompanyDashboard: React.FC = () => {
               <Menu className="h-5 w-5" />
             </Button>
             <h1 className="text-xl font-semibold text-foreground">
-              {isArabic ? 'لوحة التحكم الرئيسية' : 'Company Dashboard'}
+              {isArabic ? 'لوحة تحكم المنشأة' : 'Client Admin Dashboard'}
             </h1>
           </div>
 

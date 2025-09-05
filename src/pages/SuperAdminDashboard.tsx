@@ -50,32 +50,60 @@ export const SuperAdminDashboard: React.FC = () => {
 
   const adminActions = [
     {
-      title: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management',
-      description: isArabic ? 'تفعيل وإيقاف وتجديد الاشتراكات' : 'Activate, suspend, and renew subscriptions',
-      icon: CreditCard,
-      action: () => console.log('Manage subscriptions'),
+      title: isArabic ? 'إدارة الموظفين الداخليين' : 'Internal Employee Management',
+      description: isArabic ? 'إدارة موظفي بُعد والاختبارات الداخلية' : 'Manage Boud employees and internal testing',
+      icon: Users,
+      action: () => window.location.href = '/comprehensive-employee-management',
       color: 'bg-primary'
     },
     {
-      title: isArabic ? 'إدارة العملاء' : 'Client Management',
-      description: isArabic ? 'إضافة وحذف المنشآت وإعادة ضبط الحسابات' : 'Add/remove companies and reset accounts',
-      icon: Users,
-      action: () => console.log('Manage clients'),
+      title: isArabic ? 'الحضور والغياب' : 'Attendance Management',
+      description: isArabic ? 'نظام الحضور الداخلي واختبار الميزات' : 'Internal attendance system and feature testing',
+      icon: Clock,
+      action: () => window.location.href = '/attendance-management',
       color: 'bg-blue-600'
     },
     {
-      title: isArabic ? 'تطوير الأنظمة' : 'System Development',
-      description: isArabic ? 'التحكم في الميزات والتطوير' : 'Feature control and development',
-      icon: Database,
-      action: () => console.log('System dev'),
+      title: isArabic ? 'الرواتب والمزايا' : 'Payroll & Benefits',
+      description: isArabic ? 'إدارة رواتب بُعد واختبار النظام' : 'Boud payroll management and system testing',
+      icon: DollarSign,
+      action: () => window.location.href = '/payroll-management',
       color: 'bg-green-600'
     },
     {
-      title: isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics',
-      description: isArabic ? 'إحصائيات الاستخدام والبيانات المالية' : 'Usage statistics and financial data',
+      title: isArabic ? 'تقييم الأداء' : 'Performance Evaluation',
+      description: isArabic ? 'تقييم أداء الموظفين الداخليين' : 'Internal employee performance evaluation',
       icon: TrendingUp,
-      action: () => console.log('Reports'),
+      action: () => window.location.href = '/performance-evaluation',
+      color: 'bg-purple-600'
+    },
+    {
+      title: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management',
+      description: isArabic ? 'إدارة اشتراكات العملاء والفواتير' : 'Client subscription and billing management',
+      icon: CreditCard,
+      action: () => window.location.href = '/subscription-management',
       color: 'bg-orange-600'
+    },
+    {
+      title: isArabic ? 'إدارة المنشآت' : 'Client Companies Management',
+      description: isArabic ? 'إضافة وحذف المنشآت وإعادة الضبط' : 'Add/remove companies and account reset',
+      icon: Building,
+      action: () => window.location.href = '/client-companies-management',
+      color: 'bg-indigo-600'
+    },
+    {
+      title: isArabic ? 'الإعدادات العامة' : 'General System Settings',
+      description: isArabic ? 'النطاقات، التكامل، السياسات العامة' : 'Domains, integrations, general policies',
+      icon: Settings,
+      action: () => window.location.href = '/system-settings',
+      color: 'bg-gray-600'
+    },
+    {
+      title: isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics',
+      description: isArabic ? 'تحليلات الاستخدام والبيانات المالية' : 'Usage analytics and financial data',
+      icon: Database,
+      action: () => window.location.href = '/reports-analytics',
+      color: 'bg-teal-600'
     }
   ];
 
@@ -206,7 +234,7 @@ export const SuperAdminDashboard: React.FC = () => {
             <div>
               <h1 className="text-lg font-semibold flex items-center gap-2">
                 <Shield className="h-5 w-5 text-primary" />
-                {isArabic ? 'لوحة تحكم الإدارة العليا' : 'Super Admin Dashboard'}
+                {isArabic ? 'لوحة تحكم النظام' : 'System Admin Dashboard'}
               </h1>
               <p className="text-sm text-muted-foreground">
                 {isArabic ? 'إدارة شاملة لمنصة بُعد والعملاء' : 'Comprehensive management of BuAD platform and clients'}

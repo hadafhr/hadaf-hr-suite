@@ -277,17 +277,17 @@ const BoudHRLandingPage: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
-                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building2 className="w-4 h-4" />
-                    🔘 لوحة تحكم الإدارة
+                    🏢 لوحة تحكم المنشأة
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/employee-self-service')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <User className="w-4 h-4" />
-                    🔘 لوحة تحكم الموظف
+                    👤 لوحة الموظف
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/unified-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/super-admin-dashboard')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Shield className="w-4 h-4" />
-                    🔘 لوحة مدير النظام
+                    🔧 لوحة تحكم النظام
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -329,13 +329,17 @@ const BoudHRLandingPage: React.FC = () => {
                   </div>
                 </details>
                 <div className="flex flex-col space-y-2 pt-4">
-                  <Button variant="ghost" onClick={() => navigate('/admin-login')}>
+                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')}>
                     <Building2 className="w-4 h-4 ml-2" />
-                    🔘 لوحة تحكم الإدارة
+                    🏢 لوحة تحكم المنشأة
                   </Button>
-                  <Button variant="ghost" onClick={() => navigate('/employee-login')}>
+                  <Button variant="ghost" onClick={() => navigate('/employee-self-service')}>
                     <User className="w-4 h-4 ml-2" />
-                    🔘 لوحة تحكم الموظف
+                    👤 لوحة الموظف
+                  </Button>
+                  <Button variant="ghost" onClick={() => navigate('/super-admin-dashboard')}>
+                    <Shield className="w-4 h-4 ml-2" />
+                    🔧 لوحة تحكم النظام
                   </Button>
                   <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
                     انضم الينا
