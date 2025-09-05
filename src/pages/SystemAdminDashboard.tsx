@@ -61,6 +61,13 @@ export const SystemAdminDashboard: React.FC = () => {
 
   const systemManagement = [
     {
+      title: isArabic ? 'نظام إدارة الموارد البشرية' : 'HR Management System',
+      description: isArabic ? 'النظام الشامل لإدارة الموارد البشرية' : 'Comprehensive human resources management system',
+      icon: Users,
+      route: '/hr-management-system',
+      color: 'bg-primary'
+    },
+    {
       title: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management',
       description: isArabic ? 'إدارة اشتراكات العملاء والفواتير' : 'Client subscription and billing management',
       icon: CreditCard,
