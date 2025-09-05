@@ -104,7 +104,7 @@ const ComprehensiveEmployeeManagement = () => {
         {/* الشريط العلوي الاحترافي */}
         <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/')} className="border-muted-foreground/20 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 px-4 py-2">
+            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-muted-foreground/20 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 px-4 py-2">
               <ArrowLeft className="h-4 w-4 ml-2" />
               رجوع
             </Button>
