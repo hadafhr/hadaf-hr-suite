@@ -22,6 +22,7 @@ import {
   Brain, Sparkles, BarChart3, Lightbulb, Gauge, Layers, Shield,
   Smartphone, Calendar as CalendarDays, MapPin, Clock4, Users2, BookOpen
 } from 'lucide-react';
+import { SystemHeader } from '@/components/shared/SystemHeader';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, RadialBarChart, RadialBar } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -308,59 +309,17 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
   return (
     <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header with AI Branding */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary-glow to-secondary p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/30"></div>
-          <div className="absolute inset-0 bg-white/5 opacity-20"></div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  رجوع
-                </Button>
-              </div>
-              <div className="flex items-center gap-3">
-                <Button 
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                  onClick={calculateAllEligibility}
-                  disabled={isCalculating}
-                >
-                  <Calculator className="h-4 w-4 ml-2" />
-                  {isCalculating ? 'جاري الحساب...' : 'حساب الأهلية'}
-                </Button>
-                <Button className="bg-primary/80 border-primary/30 text-white hover:bg-primary/90 backdrop-blur-sm">
-                  <Download className="h-4 w-4 ml-2" />
-                  تصدير التقرير
-                </Button>
-                <Button className="bg-red-600/80 border-red-600/30 text-white hover:bg-red-600/90 backdrop-blur-sm">
-                  <Settings className="h-4 w-4 ml-2" />
-                  إعدادات النظام
-                </Button>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Sparkles className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                نظام إدارة المكافآت والحوافز الذكي
-              </h1>
-              <p className="text-white/90 text-lg max-w-3xl mx-auto">
-                نظام ذكي متطور لإدارة المكافآت والحوافز مع نظام النقاط والتكامل مع المتاجر الخارجية
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Enhanced Header */}
+        <SystemHeader
+          onBack={onBack}
+          title="نظام إدارة المكافآت والحوافز الذكي"
+          description="نظام ذكي متطور لإدارة المكافآت والحوافز مع نظام النقاط والتكامل مع المتاجر الخارجية"
+          icon={<Gift className="h-12 w-12 text-white" />}
+          onCalculateEligibility={() => {
+            calculateAllEligibility();
+          }}
+          showBackButton={true}
+        />
 
         {/* AI-Powered Analytics Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
