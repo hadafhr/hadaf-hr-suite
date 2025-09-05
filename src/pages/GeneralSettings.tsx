@@ -110,26 +110,22 @@ export const GeneralSettings: React.FC = () => {
     }
   ];
 
-  const customButtons = [
-    {
-      label: isRTL ? 'حفظ الإعدادات' : 'Save Settings',
-      onClick: handleSaveSettings,
-      icon: Save,
-      variant: 'default' as const
-    },
-    {
-      label: isRTL ? 'تصدير الإعدادات' : 'Export Settings',
-      onClick: handleExportSettings,
-      icon: Download,
-      variant: 'outline' as const
-    },
-    {
-      label: isRTL ? 'استيراد الإعدادات' : 'Import Settings',
-      onClick: handleImportSettings,
-      icon: Upload,
-      variant: 'outline' as const
-    }
-  ];
+  const customButtons = (
+    <div className="flex items-center gap-2">
+      <Button onClick={handleSaveSettings} className="gap-2">
+        <Save className="w-4 h-4" />
+        {isRTL ? 'حفظ الإعدادات' : 'Save Settings'}
+      </Button>
+      <Button onClick={handleExportSettings} variant="outline" className="gap-2">
+        <Download className="w-4 h-4" />
+        {isRTL ? 'تصدير الإعدادات' : 'Export Settings'}
+      </Button>
+      <Button onClick={handleImportSettings} variant="outline" className="gap-2">
+        <Upload className="w-4 h-4" />
+        {isRTL ? 'استيراد الإعدادات' : 'Import Settings'}
+      </Button>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -137,7 +133,7 @@ export const GeneralSettings: React.FC = () => {
       <SystemHeader
         title={isRTL ? 'الإعدادات العامة' : 'General Settings'}
         description={isRTL ? 'إدارة جميع إعدادات النظام والمنشآت مع دعم الفروع والتقارير المجمعة' : 'Manage all system and organization settings with multi-branch support and consolidated reports'}
-        icon={Settings}
+        icon={<Settings className="w-6 h-6" />}
         onBack={handleGoBack}
         showBackButton={true}
         customButtons={customButtons}
