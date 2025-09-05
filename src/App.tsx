@@ -16,7 +16,6 @@ import { Login } from "@/pages/Login";
 import { BusinessLogin } from "@/pages/BusinessLogin";
 import { IndividualLogin } from "@/pages/IndividualLogin";
 import { UnifiedLogin } from "@/pages/UnifiedLogin";
-import { CompanyDashboard } from "@/pages/CompanyDashboard";
 import { AdminDashboard } from "@/pages/AdminDashboard";
 import { SuperAdminDashboard } from "@/pages/SuperAdminDashboard";
 import { Services } from "@/pages/Services";
@@ -35,7 +34,6 @@ import { PlatformDevelopment } from "@/pages/ServicePlatforms/PlatformDevelopmen
 import { NonProfitServices } from "@/pages/ServicePlatforms/NonProfitServices";
 import { UserManagement } from "@/pages/UserManagement";
 import EmployeeSelfService from "@/pages/ServicePlatforms/EmployeeSelfService";
-import { EmployeeDashboard } from "@/pages/EmployeeDashboard";
 import { EmployerDashboard } from "@/pages/EmployerDashboard";
 import { EmployeeProfile } from "@/pages/Employee/Profile";
 import { LeaveRequest } from "@/pages/Employee/LeaveRequest";
@@ -157,7 +155,6 @@ const App = () => {
             <Route path="/old-home" element={<LandingPage />} />
               {/* Unified Login System */}
               <Route path="/unified-login" element={<UnifiedLogin />} />
-              <Route path="/company-dashboard" element={<CompanyDashboard />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
               {/* Legacy Login Routes */}
@@ -172,7 +169,6 @@ const App = () => {
             <Route path="/demo-request" element={<DemoRequest />} />
             <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               
               {/* Employee Routes */}
