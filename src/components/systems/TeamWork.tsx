@@ -14,11 +14,11 @@ import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { 
   Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save,
-  BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock,
+  BarChart3, PieChart, TrendingUp,Activity, CheckCircle, AlertCircle, Clock,
   FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin,
   Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu,
   FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages,
-  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock
+  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Share
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
@@ -3484,43 +3484,68 @@ const TeamWork: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-border/40 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+      {/* Enhanced Header with BOUD Branding */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary-glow to-success p-8 mb-8 shadow-2xl">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-glow rounded-xl flex items-center justify-center shadow-glow">
-                <Users className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                  {isRTL ? 'إدارة فريق العمل' : 'Team Management'}
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  {isRTL ? 'النظام الشامل لإدارة الموظفين والفرق' : 'Comprehensive employee and team management system'}
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => i18n.changeLanguage(isRTL ? 'en' : 'ar')}
+                className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
               >
-                <Languages className="w-4 h-4 mr-2" />
+                <Languages className="h-4 w-4 ml-2" />
                 {isRTL ? 'English' : 'العربية'}
               </Button>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
+                <Share className="h-4 w-4 ml-2" />
+                {isRTL ? 'استيراد' : 'Import'}
+              </Button>
+              <Button className="bg-success/80 border-success/30 text-white hover:bg-success/90 backdrop-blur-sm">
+                <Download className="h-4 w-4 ml-2" />
+                {isRTL ? 'تصدير Excel' : 'Export Excel'}
+              </Button>
+              <Button className="bg-destructive/80 border-destructive/30 text-white hover:bg-destructive/90 backdrop-blur-sm">
+                <FileText className="h-4 w-4 ml-2" />
+                {isRTL ? 'تصدير PDF' : 'Export PDF'}
+              </Button>
+              <Button className="bg-warning/80 border-warning/30 text-white hover:bg-warning/90 backdrop-blur-sm">
+                <Eye className="h-4 w-4 ml-2" />
+                {isRTL ? 'معاينة' : 'Preview'}
+              </Button>
+              <Button className="bg-primary border-primary text-white hover:bg-primary-glow shadow-lg">
+                <Save className="h-4 w-4 ml-2" />
+                {isRTL ? 'حفظ' : 'Save'}
+              </Button>
               
-              <div className="h-6 w-px bg-border" />
+              <div className="h-6 w-px bg-white/30" />
               
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-white/90">
                 <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
                 {isRTL ? 'متصل' : 'Online'}
-              </div>
             </div>
           </div>
+          
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+                <Users className="h-12 w-12 text-white" />
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              {isRTL ? 'إدارة فريق العمل المتقدم' : 'Advanced Team Management'}
+            </h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+              {isRTL ? 'النظام الشامل لإدارة الموظفين والفرق مع الذكاء الاصطناعي المتطور' : 'Comprehensive employee and team management system with advanced AI'}
+            </p>
+          </div>
         </div>
+      </div>
       </div>
 
       {/* Main Content */}
