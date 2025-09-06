@@ -149,47 +149,43 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
       <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  رجوع
-                </Button>
+        {/* Header - Matching AI System Design */}
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+            <div className="h-8 w-px bg-gray-300"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <PenTool className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
-              <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-                  <Search className="h-4 w-4 ml-2" />
-                  البحث المتقدم
-                </Button>
-                <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
-                  <Plus className="h-4 w-4 ml-2" />
-                  طلب توقيع جديد
-                </Button>
+              <div>
+                <h1 className="text-3xl font-bold text-black">
+                  نظام التوقيع الإلكتروني المتطور
+                </h1>
+                <p className="text-gray-600 text-lg">
+                  منظومة ذكية شاملة لإدارة التوقيعات الإلكترونية والمستندات
+                </p>
               </div>
             </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <PenTool className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                نظام التوقيع الإلكتروني المتطور
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                منظومة ذكية شاملة لإدارة التوقيعات الإلكترونية والمستندات مع التكامل الكامل مع الأنظمة القانونية
-              </p>
-            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+              <PenTool className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <Search className="h-4 w-4 ml-2" />
+              البحث المتقدم
+            </Button>
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <Plus className="h-4 w-4 ml-2" />
+              طلب توقيع جديد
+            </Button>
           </div>
         </div>
 
