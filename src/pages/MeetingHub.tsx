@@ -291,44 +291,43 @@ export default function MeetingHub() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 p-6" dir="rtl">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
+        {/* Header - Matching AI System Design */}
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            <Button variant="outline" size="sm" onClick={() => navigate('/')} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+            <div className="h-8 w-px bg-gray-300"></div>
             <div className="flex items-center gap-4">
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/')}
-                className="flex items-center gap-2 hover:bg-muted"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                العودة للرئيسية
-              </Button>
+              <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <Video className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+              </div>
               <div>
-                <h1 className="text-4xl font-bold text-foreground mb-2">
-                  نظام الاجتماعات الذكي
+                <h1 className="text-3xl font-bold text-black">
+                  نظام الاجتماعات الذكي المتطور
                 </h1>
-                <p className="text-muted-foreground text-lg">
-                  منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال
+                <p className="text-gray-600 text-lg">
+                  منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال المتقدم
                 </p>
               </div>
             </div>
-            <div className="flex gap-3">
-              <Button 
-                onClick={() => navigate('/meeting-hub/subscription')}
-                variant="outline"
-                className="flex items-center gap-2 hover:bg-primary/10 transition-colors"
-              >
-                <Settings className="h-4 w-4" />
-                إدارة الاشتراك
-              </Button>
-              <Button 
-                onClick={handleStartNewMeeting}
-                className="bg-primary hover:bg-primary/90 flex items-center gap-2 shadow-md hover:shadow-lg transition-all"
-              >
-                <Video className="h-4 w-4" />
-                بدء اجتماع جديد
-              </Button>
-            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+              <Video className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => navigate('/meeting-hub/subscription')}>
+              <Settings className="h-4 w-4 ml-2" />
+              إدارة الاشتراك
+            </Button>
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={handleStartNewMeeting}>
+              <Video className="h-4 w-4 ml-2" />
+              بدء اجتماع جديد
+            </Button>
           </div>
         </div>
 
