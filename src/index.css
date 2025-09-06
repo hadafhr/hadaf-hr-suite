@@ -8,55 +8,53 @@
   :root {
     /* خلفيات أساسية - أبيض نقي حسب المطلوب */
     --background: 0 0% 100%;
-    --foreground: 0 0% 11%;
+    --foreground: 0 0% 8%;
     
     /* البطاقات والمكونات - أبيض مع لمسة رمادي فاتح جداً */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 11%;
+    --card-foreground: 0 0% 8%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 11%;
+    --popover-foreground: 0 0% 8%;
     
-    /* اللون الأساسي - الأخضر المطلوب #3CB593 */
-    --primary: 164 49% 56%;        /* #3CB593 - الأخضر المطلوب */
+    /* اللون الأساسي - الأخضر الفيروزي الداكن حسب الهوية الجديدة */
+    --primary: 175 100% 31%;        /* #009F87 - الأخضر الفيروزي الداكن */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 164 49% 66%;    /* تدرج أفتح للتأثيرات */
-    --primary-dark: 164 49% 46%;   /* تدرج أغمق للـ hover */
+    --primary-glow: 175 85% 40%;    /* تدرج أفتح للتأثيرات */
+    --primary-dark: 175 100% 25%;   /* تدرج أغمق للحالات الخاصة */
     
-    /* نظام الألوان النصية المطلوب */
-    --text-primary: 0 0% 11%;      /* #1C1C1C - العناوين */
-    --text-secondary: 0 0% 27%;    /* #444444 - النصوص العادية */
-    --text-muted: 0 0% 42%;        /* #6B6B6B - النصوص الثانوية */
+    /* الأسود الداكن للعناوين والنصوص */
+    --foreground-dark: 0 0% 8%;     /* #141414 - الأسود الداكن */
+    --text-primary: 0 0% 8%;
     
-    /* الفاصل الرمادي الفاتح المطلوب */
-    --separator: 0 0% 96%;         /* #F4F4F4 - الفاصل */
+    /* الرمادي الفاتح جداً للتفاصيل الثانوية */
+    --muted: 0 0% 96%;             /* #F5F5F5 - رمادي فاتح جداً */
+    --muted-foreground: 0 0% 45%;  /* رمادي متوسط للنصوص الثانوية */
     
-    /* الألوان الثانوية */
-    --secondary: 0 0% 100%;
-    --secondary-foreground: 164 49% 56%;
+    /* اللون الثانوي - متناسق مع الهوية */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
     
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 42%;
-    
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 11%;
+    /* لون التأكيد - متدرج من الأساسي */
+    --accent: 175 100% 31%;        /* مطابق للأساسي */
+    --accent-foreground: 0 0% 100%;
 
-    /* ألوان الحالة */
-    --success: 142 69% 35%;
+    /* ألوان الحالة - محدودة ومتناسقة */
+    --success: 142 69% 35%;        /* أخضر داكن متناسق */
     --success-foreground: 0 0% 100%;
     
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 11%;
+    --warning: 38 92% 50%;         /* برتقالي داكن */
+    --warning-foreground: 0 0% 8%;
     
-    --destructive: 0 84% 45%;
+    --destructive: 0 84% 45%;      /* أحمر داكن */
     --destructive-foreground: 0 0% 100%;
 
     /* الحدود والمدخلات */
-    --border: 0 0% 96%;            /* مطابق للفاصل */
-    --input: 0 0% 98%;
-    --ring: 164 49% 56%;
+    --border: 0 0% 90%;            /* رمادي فاتح للحدود */
+    --input: 0 0% 98%;             /* أبيض مع لمسة رمادي */
+    --ring: 175 100% 31%;          /* مطابق للأساسي */
 
-    /* التدرجات الموحدة */
+    /* التدرجات الموحدة - استخدام الألوان المسموحة فقط */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(0 0% 100%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
@@ -74,18 +72,16 @@
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    /* نصف قطر الحواف - 12px كما هو مطلوب */
     --radius: 12px;
 
-    /* الشريط الجانبي */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 11%;
-    --sidebar-primary: 164 49% 56%;
+    --sidebar-background: 0 0% 96%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 172 100% 31%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 0 0% 11%;
-    --sidebar-border: 0 0% 96%;
-    --sidebar-ring: 164 49% 56%;
+    --sidebar-accent-foreground: 0 0% 29%;
+    --sidebar-border: 0 0% 69%;
+    --sidebar-ring: 172 100% 31%;
   }
 
   .dark {
