@@ -15,7 +15,8 @@ import {
   TrendingUp,
   DollarSign,
   Calendar,
-  Award
+  Award,
+  ArrowLeft
 } from 'lucide-react';
 import { SocialServicesDashboard } from './socialServices/SocialServicesDashboard';
 import { SupportPrograms } from './socialServices/SupportPrograms';
@@ -27,6 +28,11 @@ import { SocialServicesSettings } from './socialServices/SocialServicesSettings'
 
 const SocialServices = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  const onBack = () => {
+    // Navigation back functionality can be added here
+    console.log('Navigate back');
+  };
 
   const tabs = [
     {
@@ -84,39 +90,43 @@ const SocialServices = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5">
-      {/* Header */}
-      <div className="bg-white border-b border-border/40 shadow-sm">
-        <div className="p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <div className="p-3 bg-gradient-to-r from-primary/10 to-primary/20 rounded-xl">
-                <Heart className="h-8 w-8 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">
-                  الخدمات الاجتماعية
-                </h1>
-                <p className="text-muted-foreground mt-1">
-                  إدارة شاملة لبرامج الدعم الاجتماعي والرعاية
-                </p>
-              </div>
+      {/* Header - Matching AI System Design */}
+      <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+        <div className="flex items-center gap-6">
+          <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+            <ArrowLeft className="h-4 w-4 ml-2" />
+            رجوع
+          </Button>
+          <div className="h-8 w-px bg-gray-300"></div>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+              <Heart className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
             </div>
-            
-            <div className="flex items-center space-x-3 rtl:space-x-reverse">
-              <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
-                <Users className="h-3 w-3 mr-1" />
-                1,247 موظف مستفيد
-              </Badge>
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                <TrendingUp className="h-3 w-3 mr-1" />
-                23 برنامج نشط
-              </Badge>
-              <Button size="sm" className="bg-primary hover:bg-primary/90">
-                <Bell className="h-4 w-4 mr-2" />
-                الإشعارات
-              </Button>
+            <div>
+              <h1 className="text-3xl font-bold text-black">
+                نظام الخدمات الاجتماعية المتطور
+              </h1>
+              <p className="text-gray-600 text-lg">
+                إدارة شاملة لبرامج الدعم الاجتماعي والرعاية بتقنيات ذكية
+              </p>
             </div>
           </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+            <Heart className="h-4 w-4 ml-2" />
+            نظام متقدم
+          </Badge>
+          <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Bell className="h-4 w-4 ml-2" />
+            الإشعارات
+          </Button>
+          <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Award className="h-4 w-4 ml-2" />
+            التقارير
+          </Button>
         </div>
       </div>
 
