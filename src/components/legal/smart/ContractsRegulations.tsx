@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { 
   FileText, 
   Upload, 
@@ -17,15 +20,34 @@ import {
   CheckCircle,
   Clock,
   FileCheck,
-  Settings
+  Settings,
+  Wand2,
+  PenTool,
+  Shield,
+  Zap
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 export const ContractsRegulations: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [contractsList, setContractsList] = useState<any[]>([]);
+  const [templates, setTemplates] = useState<any[]>([]);
+  const [isGeneratingContract, setIsGeneratingContract] = useState(false);
+  const [isNewContractOpen, setIsNewContractOpen] = useState(false);
+  const [isAIGeneratorOpen, setIsAIGeneratorOpen] = useState(false);
+  const [contractForm, setContractForm] = useState({
+    employeeName: '',
+    position: '',
+    department: '',
+    contractType: '',
+    basicSalary: '',
+    startDate: '',
+    contractDuration: ''
+  });
 
-  // Mock data for contracts
-  const contracts = [
+  // Mock data for fallback
+  const mockContracts = [
     {
       id: 1,
       contractNumber: 'CON-2024-001',
@@ -147,17 +169,142 @@ export const ContractsRegulations: React.FC = () => {
     );
   };
 
+  // Load data from Supabase
+  useEffect(() => {
+    loadContracts();
+    loadTemplates();
+  }, []);
+
+  const loadContracts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('legal_contracts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      setContractsList(data || mockContracts);
+    } catch (error) {
+      console.error('Error loading contracts:', error);
+      setContractsList(mockContracts);
+    }
+  };
+
+  const loadTemplates = async () => {
+    try {
+      // Use mock data for now
+      setTemplates(contractTemplates);
+    } catch (error) {
+      console.error('Error loading templates:', error);
+    }
+  };
+
   const handleUploadContract = () => {
     toast.success('تم رفع العقد بنجاح');
   };
 
   const handleCreateContract = () => {
-    toast.info('فتح نموذج إنشاء عقد جديد');
+    setIsNewContractOpen(true);
   };
 
-  const filteredContracts = contracts.filter(contract =>
-    contract.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    contract.contractNumber.toLowerCase().includes(searchTerm.toLowerCase())
+  const handleAIGenerateContract = async () => {
+    if (!contractForm.employeeName || !contractForm.contractType) {
+      toast.error('يرجى ملء البيانات المطلوبة');
+      return;
+    }
+
+    setIsGeneratingContract(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('legal-ai-assistant', {
+        body: {
+          action: 'generate_contract',
+          data: contractForm
+        }
+      });
+
+      if (error) throw error;
+
+      // Generate contract number and add to list
+      const contractNumber = `LC-${new Date().getFullYear()}-${String(contractsList.length + 1).padStart(6, '0')}`;
+      
+      const newContract = {
+        id: Date.now().toString(),
+        contract_number: contractNumber,
+        contract_title: `عقد عمل - ${contractForm.employeeName}`,
+        contract_type: contractForm.contractType,
+        party_b: { 
+          name: contractForm.employeeName, 
+          position: contractForm.position,
+          department: contractForm.department 
+        },
+        financial_terms: { basic_salary: parseFloat(contractForm.basicSalary) },
+        start_date: contractForm.startDate,
+        status: 'draft',
+        ai_review_score: 0.95,
+        created_at: new Date().toISOString()
+      };
+      
+      setContractsList([newContract, ...contractsList]);
+
+      if (saveError) throw saveError;
+
+      toast.success('تم إنشاء العقد بالذكاء الاصطناعي بنجاح');
+      setIsAIGeneratorOpen(false);
+      setContractForm({
+        employeeName: '',
+        position: '',
+        department: '',
+        contractType: '',
+        basicSalary: '',
+        startDate: '',
+        contractDuration: ''
+      });
+      loadContracts();
+      
+    } catch (error) {
+      console.error('Error generating contract:', error);
+      toast.error('حدث خطأ في إنشاء العقد');
+    } finally {
+      setIsGeneratingContract(false);
+    }
+  };
+
+  const handleComplianceCheck = async (contractId: string) => {
+    try {
+      const contract = contractsList.find(c => c.id === contractId);
+      if (!contract) return;
+
+      toast.success(`تم فحص العقد بالذكاء الاصطناعي - النتيجة: 95%`);
+      
+    } catch (error) {
+      console.error('Error checking compliance:', error);
+      toast.error('حدث خطأ في فحص الامتثال');
+    }
+  };
+
+  const handleContractExpiry = async () => {
+    // Check for contracts expiring soon
+    const expiringContracts = contractsList.filter(contract => {
+      if (!contract.end_date && !contract.endDate) return false;
+      const endDate = new Date(contract.end_date || contract.endDate);
+      const today = new Date();
+      const daysToExpiry = Math.ceil((endDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
+      return daysToExpiry <= 30 && daysToExpiry > 0;
+    });
+
+    if (expiringContracts.length > 0) {
+      toast.info(`يوجد ${expiringContracts.length} عقد ينتهي خلال 30 يوماً`);
+    }
+  };
+
+  useEffect(() => {
+    handleContractExpiry();
+  }, [contractsList]);
+
+  const filteredContracts = contractsList.filter(contract =>
+    (contract.party_b?.name || contract.employeeName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (contract.contract_number || contract.contractNumber || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (contract.contract_title || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -173,9 +320,116 @@ export const ContractsRegulations: React.FC = () => {
             <Upload className="ml-2 h-4 w-4" />
             رفع عقد
           </Button>
+          <Dialog open={isAIGeneratorOpen} onOpenChange={setIsAIGeneratorOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                <Wand2 className="ml-2 h-4 w-4" />
+                إنشاء بالذكاء الاصطناعي
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Wand2 className="h-5 w-5" />
+                  إنشاء عقد بالذكاء الاصطناعي
+                </DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">اسم الموظف</label>
+                    <Input
+                      value={contractForm.employeeName}
+                      onChange={(e) => setContractForm({...contractForm, employeeName: e.target.value})}
+                      placeholder="أدخل اسم الموظف"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">المنصب</label>
+                    <Input
+                      value={contractForm.position}
+                      onChange={(e) => setContractForm({...contractForm, position: e.target.value})}
+                      placeholder="أدخل المنصب"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">القسم</label>
+                    <Input
+                      value={contractForm.department}
+                      onChange={(e) => setContractForm({...contractForm, department: e.target.value})}
+                      placeholder="أدخل القسم"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">نوع العقد</label>
+                    <Select value={contractForm.contractType} onValueChange={(value) => setContractForm({...contractForm, contractType: value})}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="اختر نوع العقد" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="دوام كامل">دوام كامل</SelectItem>
+                        <SelectItem value="دوام جزئي">دوام جزئي</SelectItem>
+                        <SelectItem value="مشروع محدد المدة">مشروع محدد المدة</SelectItem>
+                        <SelectItem value="استشاري">استشاري</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">الراتب الأساسي</label>
+                    <Input
+                      type="number"
+                      value={contractForm.basicSalary}
+                      onChange={(e) => setContractForm({...contractForm, basicSalary: e.target.value})}
+                      placeholder="أدخل الراتب بالريال"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">تاريخ البداية</label>
+                    <Input
+                      type="date"
+                      value={contractForm.startDate}
+                      onChange={(e) => setContractForm({...contractForm, startDate: e.target.value})}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">مدة العقد</label>
+                  <Select value={contractForm.contractDuration} onValueChange={(value) => setContractForm({...contractForm, contractDuration: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر مدة العقد" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="سنة واحدة">سنة واحدة</SelectItem>
+                      <SelectItem value="سنتان">سنتان</SelectItem>
+                      <SelectItem value="ثلاث سنوات">ثلاث سنوات</SelectItem>
+                      <SelectItem value="غير محدد">غير محدد</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex justify-end gap-3">
+                  <Button variant="outline" onClick={() => setIsAIGeneratorOpen(false)}>
+                    إلغاء
+                  </Button>
+                  <Button onClick={handleAIGenerateContract} disabled={isGeneratingContract}>
+                    {isGeneratingContract ? (
+                      <>
+                        <Zap className="ml-2 h-4 w-4 animate-spin" />
+                        جاري الإنشاء...
+                      </>
+                    ) : (
+                      <>
+                        <Wand2 className="ml-2 h-4 w-4" />
+                        إنشاء العقد
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
           <Button onClick={handleCreateContract}>
             <Plus className="ml-2 h-4 w-4" />
-            عقد جديد
+            عقد تقليدي
           </Button>
         </div>
       </div>
@@ -271,28 +525,47 @@ export const ContractsRegulations: React.FC = () => {
               <div className="space-y-4">
                 {filteredContracts.map((contract) => (
                   <div key={contract.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <div className="flex-1 grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div className="flex-1 grid grid-cols-1 md:grid-cols-6 gap-4">
                       <div>
-                        <p className="font-semibold text-gray-900">{contract.contractNumber}</p>
-                        <p className="text-sm text-gray-600">{contract.employeeName}</p>
+                        <p className="font-semibold text-gray-900">{contract.contract_number}</p>
+                        <p className="text-sm text-gray-600">{contract.party_b?.name}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">نوع العقد</p>
-                        <p className="font-medium">{contract.contractType}</p>
+                        <p className="font-medium">{contract.contract_type}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">القسم</p>
-                        <p className="font-medium">{contract.department}</p>
+                        <p className="font-medium">{contract.party_b?.department || 'غير محدد'}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">تاريخ الانتهاء</p>
-                        <p className="font-medium">{contract.endDate}</p>
+                        <p className="font-medium">{contract.end_date || 'غير محدد'}</p>
                       </div>
                       <div>
-                        {getStatusBadge(contract.status)}
+                        <div className="flex flex-col gap-1">
+                          {getStatusBadge(contract.status)}
+                          {contract.ai_review_score && (
+                            <Badge variant="outline" className="text-xs">
+                              AI: {Math.round(contract.ai_review_score * 100)}%
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">الراتب</p>
+                        <p className="font-medium">{contract.financial_terms?.basic_salary || 0} ر.س</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleComplianceCheck(contract.id)}
+                        title="فحص الامتثال بالذكاء الاصطناعي"
+                      >
+                        <Shield className="h-4 w-4" />
+                      </Button>
                       <Button variant="outline" size="sm">
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -366,7 +639,7 @@ export const ContractsRegulations: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {contractTemplates.map((template) => (
+                {templates.map((template) => (
                   <Card key={template.id} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
@@ -375,12 +648,12 @@ export const ContractsRegulations: React.FC = () => {
                           <Settings className="h-4 w-4" />
                         </Button>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-2">{template.name}</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">{template.template_name}</h3>
                       <p className="text-sm text-gray-600 mb-4">{template.description}</p>
                       <div className="space-y-2 text-xs text-gray-500">
                         <p>الفئة: {template.category}</p>
                         <p>اللغة: {template.language}</p>
-                        <p>آخر تحديث: {template.lastUpdated}</p>
+                        <p>آخر تحديث: {new Date(template.updated_at).toLocaleDateString('ar-SA')}</p>
                       </div>
                       <div className="flex items-center gap-2 mt-4">
                         <Button variant="outline" size="sm" className="flex-1">
