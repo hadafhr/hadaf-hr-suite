@@ -16,7 +16,9 @@ import {
   MessageSquare,
   Shield,
   AlertTriangle,
-  FileBarChart
+  FileBarChart,
+  Home,
+  PenTool
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -109,13 +111,6 @@ export const SmartLegalAffairs: React.FC = () => {
       component: AIAnalytics
     }
   ];
-    {
-      id: 'reports',
-      label: 'التقارير',
-      icon: FileBarChart,
-      component: <LegalReports />
-    }
-  ];
 
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-8" dir="rtl">
@@ -203,7 +198,7 @@ export const SmartLegalAffairs: React.FC = () => {
         {tabsConfig.map((tab) => (
           <TabsContent key={tab.id} value={tab.id} className="mt-6">
             <div className="bg-background rounded-xl border shadow-sm p-6">
-              {tab.component}
+              <tab.component />
             </div>
           </TabsContent>
         ))}
