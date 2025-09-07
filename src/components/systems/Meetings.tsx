@@ -16,7 +16,7 @@ import {
   ArrowLeft, Calendar, Clock, Users, Search, Plus, Video, MapPin, 
   Mic, MicOff, Camera, CameraOff, Share2, MessageSquare, FileText, 
   Download, Upload, Settings, Phone, PhoneOff, Grid3X3, Maximize2,
-  Record, StopCircle, Play, Pause, BarChart3, Brain, TrendingUp,
+  Circle, StopCircle, Play, Pause, BarChart3, Brain, TrendingUp,
   CheckCircle, AlertTriangle, Star, Bell, Archive, Edit, Trash2,
   Send, Paperclip, Image, FileIcon, Monitor, Presentation, MoreVertical,
   Eye, EyeOff, UserCheck, UserX, Volume2, VolumeX, Minimize2, Copy,
@@ -802,7 +802,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
               variant={isRecording ? "destructive" : "default"}
               onClick={isRecording ? stopRecording : startRecording}
             >
-              {isRecording ? <StopCircle className="h-4 w-4" /> : <Record className="h-4 w-4" />}
+              {isRecording ? <StopCircle className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
             </Button>
             <Button
               size="sm"
@@ -851,7 +851,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                       )}
                       {participant.permissions.isHost && (
                         <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
-                          <Crown className="h-3 w-3 text-white" />
+                          <Star className="h-3 w-3 text-white" />
                         </div>
                       )}
                     </div>
@@ -940,7 +940,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                         )}
                         {participant.permissions.isHost && (
-                          <Crown className="h-4 w-4 text-yellow-500" />
+                          <Star className="h-4 w-4 text-yellow-500" />
                         )}
                         <MoreVertical className="h-4 w-4 text-gray-400" />
                       </div>
@@ -1275,7 +1275,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                                     <span className="font-medium text-blue-800">اجتماع مجدول</span>
                                     {meeting.recordingEnabled && (
                                       <div className="flex items-center gap-1 text-blue-600">
-                                        <Record className="h-4 w-4" />
+                                        <Circle className="h-4 w-4" />
                                         <span className="text-xs">تسجيل مفعل</span>
                                       </div>
                                     )}
@@ -1657,7 +1657,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                                   <div className="text-sm text-gray-500 capitalize">{participant.role}</div>
                                 </div>
                                 {participant.permissions.isHost && (
-                                  <Crown className="h-4 w-4 text-yellow-500" />
+                                  <Star className="h-4 w-4 text-yellow-500" />
                                 )}
                               </div>
                             ))}
@@ -1904,65 +1904,64 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-                            {statusBadge.text}
-                          </Badge>
-                          <Badge className={priorityBadge.className}>
-                            {priorityBadge.text}
-                          </Badge>
-                        </div>
+          </TabsContent>
+
+          <TabsContent value="rooms">
+            <div className="grid lg:grid-cols-3 gap-6">
+              {meetingRooms.map((room) => {
+                const statusBadge = getRoomStatusBadge(room.status);
+                return (
+                  <Card key={room.id} className="hover:shadow-md transition-shadow">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-lg">{room.name}</CardTitle>
+                        <Badge className={statusBadge.className}>
+                          {statusBadge.text}
+                        </Badge>
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-3">
-                          <div>
-                            <h4 className="font-medium text-sm text-muted-foreground mb-1">
-                              {isRTL ? 'الوصف' : 'Description'}
-                            </h4>
-                            <p className="text-sm">{meeting.description}</p>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-sm text-muted-foreground">{isRTL ? 'المكان:' : 'Location:'}</span>
-                            <span className="text-sm font-medium">{meeting.location}</span>
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex justify-between">
-                            <span className="text-sm text-muted-foreground">{isRTL ? 'التاريخ:' : 'Date:'}</span>
-                            <span className="text-sm font-medium">{meeting.date}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-sm text-muted-foreground">{isRTL ? 'الوقت:' : 'Time:'}</span>
-                            <span className="text-sm font-medium">{meeting.time}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-sm text-muted-foreground">{isRTL ? 'المدة:' : 'Duration:'}</span>
-                            <span className="text-sm">{meeting.duration}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-sm text-muted-foreground">{isRTL ? 'المشاركون:' : 'Attendees:'}</span>
-                            <span className="text-sm font-medium">{meeting.attendees.length}</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-4">
-                        <h4 className="font-medium text-sm text-muted-foreground mb-2">
-                          {isRTL ? 'المشاركون' : 'Attendees'}
-                        </h4>
-                        <div className="flex flex-wrap gap-1">
-                          {meeting.attendees.slice(0, 3).map((attendee, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {attendee}
-                            </Badge>
-                          ))}
-                          {meeting.attendees.length > 3 && (
-                            <Badge variant="outline" className="text-xs">
-                              +{meeting.attendees.length - 3} {isRTL ? 'آخرون' : 'more'}
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <div className="space-y-3">
+                           <div>
+                             <h4 className="font-medium text-sm text-muted-foreground mb-1">
+                               {isRTL ? 'الوصف' : 'Description'}
+                             </h4>
+                             <p className="text-sm">قاعة اجتماعات مجهزة بأحدث التقنيات</p>
+                           </div>
+                           <div className="flex justify-between">
+                             <span className="text-sm text-muted-foreground">{isRTL ? 'المكان:' : 'Location:'}</span>
+                             <span className="text-sm font-medium">{room.location}</span>
+                           </div>
+                         </div>
+                         <div className="space-y-3">
+                           <div className="flex justify-between">
+                             <span className="text-sm text-muted-foreground">{isRTL ? 'السعة:' : 'Capacity:'}</span>
+                             <span className="text-sm font-medium">{room.capacity} شخص</span>
+                           </div>
+                           <div className="flex justify-between">
+                             <span className="text-sm text-muted-foreground">{isRTL ? 'الحالة:' : 'Status:'}</span>
+                             <span className="text-sm font-medium">{room.status === 'available' ? 'متاحة' : 'محجوزة'}</span>
+                           </div>
+                         </div>
+                       </div>
+                       
+                       <div className="mt-4">
+                         <h4 className="font-medium text-sm text-muted-foreground mb-2">
+                           {isRTL ? 'التسهيلات' : 'Facilities'}
+                         </h4>
+                         <div className="flex flex-wrap gap-1">
+                           <Badge variant="outline" className="text-xs">
+                             شاشة عرض
+                           </Badge>
+                           <Badge variant="outline" className="text-xs">
+                             نظام صوتي
+                           </Badge>
+                           <Badge variant="outline" className="text-xs">
+                             واي فاي
+                           </Badge>
+                         </div>
+                       </div>
 
                       <div className="flex gap-2 mt-6">
                         <Button size="sm" variant="outline">
@@ -2038,8 +2037,5 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
     </div>
   );
 };
-        </Tabs>
-      </div>
-    </div>
-  );
-};
+
+export default Meetings;
