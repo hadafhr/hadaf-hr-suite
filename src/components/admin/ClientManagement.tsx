@@ -36,7 +36,8 @@ import {
   AlertCircle,
   CheckCircle,
   Clock,
-  DollarSign
+  DollarSign,
+  Loader2
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -46,66 +47,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
+import { useClientManagement, Client, NewClient } from '@/hooks/useClientManagement';
 
-interface Client {
-  id: string;
-  name: string;
-  contactPerson: string;
-  email: string;
-  phone: string;
-  employees: number;
-  plan: 'basic' | 'professional' | 'enterprise' | 'enterprise+';
-  status: 'active' | 'suspended' | 'pending' | 'trial';
-  joinDate: string;
-  lastLogin: string;
-  monthlyRevenue: number;
-  industry: string;
-}
-
-const mockClients: Client[] = [
-  {
-    id: '1',
-    name: 'شركة الراجحي للتقنية',
-    contactPerson: 'أحمد الراجحي',
-    email: 'ahmed@alrajhi-tech.com',
-    phone: '+966501234567',
-    employees: 2500,
-    plan: 'enterprise+',
-    status: 'active',
-    joinDate: '2023-01-15',
-    lastLogin: '2024-01-10',
-    monthlyRevenue: 25000,
-    industry: 'تقنية المعلومات'
-  },
-  {
-    id: '2',
-    name: 'مؤسسة النور التجارية',
-    contactPerson: 'فاطمة النور',
-    email: 'fatima@alnoor.com.sa',
-    phone: '+966507654321',
-    employees: 150,
-    plan: 'professional',
-    status: 'active',
-    joinDate: '2023-03-20',
-    lastLogin: '2024-01-09',
-    monthlyRevenue: 5500,
-    industry: 'التجارة'
-  },
-  {
-    id: '3',
-    name: 'شركة المستقبل للاستشارات',
-    contactPerson: 'محمد المستقبل',
-    email: 'mohammed@future-consulting.sa',
-    phone: '+966509876543',
-    employees: 75,
-    plan: 'basic',
-    status: 'trial',
-    joinDate: '2024-01-05',
-    lastLogin: '2024-01-08',
-    monthlyRevenue: 0,
-    industry: 'استشارات'
-  }
-];
 
 export const ClientManagement: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -115,6 +58,26 @@ export const ClientManagement: React.FC = () => {
   const [isAddClientOpen, setIsAddClientOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [isViewClientOpen, setIsViewClientOpen] = useState(false);
+  const [newClient, setNewClient] = useState<NewClient>({
+    name: '',
+    contact_person: '',
+    email: '',
+    phone: '',
+    employees: 0,
+    plan: 'basic',
+    industry: '',
+    monthly_revenue: 0
+  });
+  
+  const { 
+    clients, 
+    isLoading, 
+    error, 
+    addClient, 
+    suspendClient, 
+    activateClient,
+    deleteClient
+  } = useClientManagement();
 
   const getPlanBadge = (plan: string) => {
     const variants = {
@@ -165,21 +128,62 @@ export const ClientManagement: React.FC = () => {
     setIsViewClientOpen(true);
   };
 
-  const handleSuspendClient = (clientId: string) => {
-    toast.success(isArabic ? 'تم تعليق العميل بنجاح' : 'Client suspended successfully');
+  const handleSuspendClient = async (clientId: string) => {
+    await suspendClient(clientId);
   };
 
-  const handleActivateClient = (clientId: string) => {
-    toast.success(isArabic ? 'تم تفعيل العميل بنجاح' : 'Client activated successfully');
+  const handleActivateClient = async (clientId: string) => {
+    await activateClient(clientId);
   };
 
-  const filteredClients = mockClients.filter(client => {
+  const handleDeleteClient = async (clientId: string) => {
+    if (window.confirm(isArabic ? 'هل أنت متأكد من حذف هذا العميل؟' : 'Are you sure you want to delete this client?')) {
+      await deleteClient(clientId);
+    }
+  };
+
+  const handleAddClient = async () => {
+    const success = await addClient(newClient);
+    if (success) {
+      setIsAddClientOpen(false);
+      setNewClient({
+        name: '',
+        contact_person: '',
+        email: '',
+        phone: '',
+        employees: 0,
+        plan: 'basic',
+        industry: '',
+        monthly_revenue: 0
+      });
+    }
+  };
+
+  const filteredClients = clients.filter(client => {
     const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         client.contactPerson.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         client.contact_person.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          client.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || client.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin" />
+        <span className="ml-2">{isArabic ? 'جاري التحميل...' : 'Loading...'}</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <AlertCircle className="h-8 w-8 text-red-500" />
+        <span className="ml-2 text-red-500">{error}</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -204,7 +208,7 @@ export const ClientManagement: React.FC = () => {
             <div className="flex items-center space-x-2 space-x-reverse">
               <Building2 className="h-8 w-8 text-primary" />
               <div>
-                <p className="text-2xl font-bold">{mockClients.length}</p>
+                <p className="text-2xl font-bold">{clients.length}</p>
                 <p className="text-sm text-muted-foreground">{isArabic ? 'إجمالي العملاء' : 'Total Clients'}</p>
               </div>
             </div>
@@ -216,7 +220,7 @@ export const ClientManagement: React.FC = () => {
             <div className="flex items-center space-x-2 space-x-reverse">
               <CheckCircle className="h-8 w-8 text-green-600" />
               <div>
-                <p className="text-2xl font-bold">{mockClients.filter(c => c.status === 'active').length}</p>
+                <p className="text-2xl font-bold">{clients.filter(c => c.status === 'active').length}</p>
                 <p className="text-sm text-muted-foreground">{isArabic ? 'عملاء نشطون' : 'Active Clients'}</p>
               </div>
             </div>
@@ -229,7 +233,7 @@ export const ClientManagement: React.FC = () => {
               <Users className="h-8 w-8 text-blue-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {mockClients.reduce((sum, client) => sum + client.employees, 0).toLocaleString()}
+                  {clients.reduce((sum, client) => sum + client.employees, 0).toLocaleString()}
                 </p>
                 <p className="text-sm text-muted-foreground">{isArabic ? 'إجمالي الموظفين' : 'Total Employees'}</p>
               </div>
@@ -243,7 +247,7 @@ export const ClientManagement: React.FC = () => {
               <DollarSign className="h-8 w-8 text-green-600" />
               <div>
                 <p className="text-2xl font-bold">
-                  {mockClients.reduce((sum, client) => sum + client.monthlyRevenue, 0).toLocaleString()} ر.س
+                  {clients.reduce((sum, client) => sum + client.monthly_revenue, 0).toLocaleString()} ر.س
                 </p>
                 <p className="text-sm text-muted-foreground">{isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue'}</p>
               </div>
@@ -307,7 +311,7 @@ export const ClientManagement: React.FC = () => {
                   </TableCell>
                   <TableCell>
                     <div>
-                      <div className="font-medium">{client.contactPerson}</div>
+                      <div className="font-medium">{client.contact_person}</div>
                       <div className="text-sm text-muted-foreground">{client.phone}</div>
                     </div>
                   </TableCell>
@@ -320,8 +324,8 @@ export const ClientManagement: React.FC = () => {
                   <TableCell>{getPlanBadge(client.plan)}</TableCell>
                   <TableCell>{getStatusBadge(client.status)}</TableCell>
                   <TableCell>
-                    {client.monthlyRevenue > 0 
-                      ? `${client.monthlyRevenue.toLocaleString()} ر.س`
+                    {client.monthly_revenue > 0 
+                      ? `${client.monthly_revenue.toLocaleString()} ر.س`
                       : isArabic ? 'تجريبي' : 'Trial'
                     }
                   </TableCell>
@@ -352,6 +356,13 @@ export const ClientManagement: React.FC = () => {
                             {isArabic ? 'تفعيل' : 'Activate'}
                           </DropdownMenuItem>
                         )}
+                        <DropdownMenuItem 
+                          onClick={() => handleDeleteClient(client.id)}
+                          className="text-red-600 focus:text-red-600"
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          {isArabic ? 'حذف' : 'Delete'}
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -377,7 +388,7 @@ export const ClientManagement: React.FC = () => {
                 </div>
                 <div>
                   <Label className="text-sm font-medium">{isArabic ? 'المسؤول' : 'Contact Person'}</Label>
-                  <p className="text-sm text-muted-foreground">{selectedClient.contactPerson}</p>
+                  <p className="text-sm text-muted-foreground">{selectedClient.contact_person}</p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium">{isArabic ? 'البريد الإلكتروني' : 'Email'}</Label>
@@ -399,15 +410,126 @@ export const ClientManagement: React.FC = () => {
                 </div>
                 <div>
                   <Label className="text-sm font-medium">{isArabic ? 'تاريخ الانضمام' : 'Join Date'}</Label>
-                  <p className="text-sm text-muted-foreground">{selectedClient.joinDate}</p>
+                  <p className="text-sm text-muted-foreground">{selectedClient.join_date}</p>
                 </div>
                 <div>
                   <Label className="text-sm font-medium">{isArabic ? 'آخر تسجيل دخول' : 'Last Login'}</Label>
-                  <p className="text-sm text-muted-foreground">{selectedClient.lastLogin}</p>
+                  <p className="text-sm text-muted-foreground">{selectedClient.last_login || isArabic ? 'غير متوفر' : 'N/A'}</p>
                 </div>
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Client Dialog */}
+      <Dialog open={isAddClientOpen} onOpenChange={setIsAddClientOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>{isArabic ? 'إضافة عميل جديد' : 'Add New Client'}</DialogTitle>
+            <DialogDescription>
+              {isArabic ? 'أدخل بيانات العميل الجديد' : 'Enter the new client details'}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="name">{isArabic ? 'اسم الشركة' : 'Company Name'}</Label>
+              <Input
+                id="name"
+                value={newClient.name}
+                onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
+                placeholder={isArabic ? 'أدخل اسم الشركة' : 'Enter company name'}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="contact_person">{isArabic ? 'المسؤول' : 'Contact Person'}</Label>
+              <Input
+                id="contact_person"
+                value={newClient.contact_person}
+                onChange={(e) => setNewClient({ ...newClient, contact_person: e.target.value })}
+                placeholder={isArabic ? 'أدخل اسم المسؤول' : 'Enter contact person name'}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="email">{isArabic ? 'البريد الإلكتروني' : 'Email'}</Label>
+              <Input
+                id="email"
+                type="email"
+                value={newClient.email}
+                onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
+                placeholder={isArabic ? 'أدخل البريد الإلكتروني' : 'Enter email address'}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="phone">{isArabic ? 'الهاتف' : 'Phone'}</Label>
+              <Input
+                id="phone"
+                value={newClient.phone}
+                onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
+                placeholder={isArabic ? 'أدخل رقم الهاتف' : 'Enter phone number'}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="employees">{isArabic ? 'عدد الموظفين' : 'Number of Employees'}</Label>
+              <Input
+                id="employees"
+                type="number"
+                value={newClient.employees}
+                onChange={(e) => setNewClient({ ...newClient, employees: parseInt(e.target.value) || 0 })}
+                placeholder="0"
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="plan">{isArabic ? 'الخطة' : 'Plan'}</Label>
+              <Select value={newClient.plan} onValueChange={(value: any) => setNewClient({ ...newClient, plan: value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder={isArabic ? 'اختر الخطة' : 'Select plan'} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="basic">{isArabic ? 'أساسي' : 'Basic'}</SelectItem>
+                  <SelectItem value="professional">{isArabic ? 'احترافي' : 'Professional'}</SelectItem>
+                  <SelectItem value="enterprise">{isArabic ? 'مؤسسي' : 'Enterprise'}</SelectItem>
+                  <SelectItem value="enterprise+">{isArabic ? 'مؤسسي+' : 'Enterprise+'}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="industry">{isArabic ? 'المجال' : 'Industry'}</Label>
+              <Input
+                id="industry"
+                value={newClient.industry}
+                onChange={(e) => setNewClient({ ...newClient, industry: e.target.value })}
+                placeholder={isArabic ? 'أدخل مجال الشركة' : 'Enter company industry'}
+              />
+            </div>
+            
+            <div>
+              <Label htmlFor="monthly_revenue">{isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue'}</Label>
+              <Input
+                id="monthly_revenue"
+                type="number"
+                value={newClient.monthly_revenue}
+                onChange={(e) => setNewClient({ ...newClient, monthly_revenue: parseFloat(e.target.value) || 0 })}
+                placeholder="0"
+              />
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAddClientOpen(false)}>
+              {isArabic ? 'إلغاء' : 'Cancel'}
+            </Button>
+            <Button onClick={handleAddClient}>
+              {isArabic ? 'إضافة العميل' : 'Add Client'}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

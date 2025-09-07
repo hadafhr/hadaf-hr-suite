@@ -2029,6 +2029,60 @@ export type Database = {
           },
         ]
       }
+      clients: {
+        Row: {
+          contact_person: string
+          created_at: string
+          created_by: string | null
+          email: string
+          employees: number | null
+          id: string
+          industry: string | null
+          join_date: string
+          last_login: string | null
+          monthly_revenue: number | null
+          name: string
+          phone: string | null
+          plan: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          contact_person: string
+          created_at?: string
+          created_by?: string | null
+          email: string
+          employees?: number | null
+          id?: string
+          industry?: string | null
+          join_date?: string
+          last_login?: string | null
+          monthly_revenue?: number | null
+          name: string
+          phone?: string | null
+          plan?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          contact_person?: string
+          created_at?: string
+          created_by?: string | null
+          email?: string
+          employees?: number | null
+          id?: string
+          industry?: string | null
+          join_date?: string
+          last_login?: string | null
+          monthly_revenue?: number | null
+          name?: string
+          phone?: string | null
+          plan?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       companies: {
         Row: {
           address: string | null
