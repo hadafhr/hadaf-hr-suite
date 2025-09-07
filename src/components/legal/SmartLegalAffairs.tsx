@@ -24,6 +24,9 @@ import { toast } from 'sonner';
 import { LegalDashboard } from './smart/LegalDashboard';
 import { ContractsRegulations } from './smart/ContractsRegulations';
 import { LaborCases } from './smart/LaborCases';
+import { ComplianceMonitoring } from './smart/ComplianceMonitoring';
+import { ESignature } from './smart/ESignature';
+import { AIAnalytics } from './smart/AIAnalytics';
 import { LegalConsultations } from './smart/LegalConsultations';
 import { DisciplinaryActions } from './smart/DisciplinaryActions';
 import { ComplianceAudit } from './smart/ComplianceAudit';
@@ -72,39 +75,40 @@ export const SmartLegalAffairs: React.FC = () => {
     {
       id: 'dashboard',
       label: 'لوحة التحكم',
-      icon: BarChart3,
-      component: <LegalDashboard />
+      icon: Home,
+      component: LegalDashboard
     },
     {
       id: 'contracts',
-      label: 'العقود واللوائح',
+      label: 'إدارة العقود الذكية',
       icon: FileText,
-      component: <ContractsRegulations />
+      component: ContractsRegulations
     },
     {
       id: 'cases',
-      label: 'القضايا العمالية',
-      icon: Gavel,
-      component: <LaborCases />
-    },
-    {
-      id: 'consultations',
-      label: 'الاستشارات القانونية',
-      icon: MessageSquare,
-      component: <LegalConsultations />
-    },
-    {
-      id: 'disciplinary',
-      label: 'الإجراءات التأديبية',
-      icon: AlertTriangle,
-      component: <DisciplinaryActions />
+      label: 'القضايا والنزاعات',
+      icon: Scale,
+      component: LaborCases
     },
     {
       id: 'compliance',
-      label: 'الامتثال والتدقيق',
+      label: 'مراقبة الامتثال',
       icon: Shield,
-      component: <ComplianceAudit />
+      component: ComplianceMonitoring
     },
+    {
+      id: 'signature',
+      label: 'التوقيع الإلكتروني',
+      icon: PenTool,
+      component: ESignature
+    },
+    {
+      id: 'analytics',
+      label: 'التحليلات الذكية',
+      icon: BarChart3,
+      component: AIAnalytics
+    }
+  ];
     {
       id: 'reports',
       label: 'التقارير',
