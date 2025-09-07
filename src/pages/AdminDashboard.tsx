@@ -89,6 +89,7 @@ export const AdminDashboard: React.FC = () => {
     { label: isArabic ? 'إدارة العملاء' : 'Client Management', icon: Building2, route: '/client-management' },
     { label: isArabic ? 'مراقبة النظام' : 'System Monitoring', icon: Monitor, route: '/system-monitoring' },
     { label: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management', icon: Crown, route: '/subscription-management' },
+    { label: isArabic ? 'إدارة النظام' : 'HR Management', icon: Users, route: '/hr-management' },
     { label: isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics', icon: BarChart3, route: '/admin-analytics' },
     { label: isArabic ? 'تطوير النظام' : 'System Development', icon: Zap, route: '/system-development' },
     { label: isArabic ? 'إعدادات الأمان' : 'Security Settings', icon: Shield, route: '/security-settings' }

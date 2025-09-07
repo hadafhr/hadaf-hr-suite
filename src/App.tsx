@@ -84,6 +84,7 @@ import SelfServiceInfo from './pages/SelfServiceInfo';
 import DemoRequest from './pages/DemoRequest';
 import Contact from './pages/Contact';
 import AddEmployee from './pages/AddEmployee';
+import { HRManagement } from './pages/HRManagement';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -156,6 +157,7 @@ const App = () => {
               {/* Unified Login System */}
               <Route path="/unified-login" element={<UnifiedLogin />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route path="/hr-management" element={<HRManagement />} />
               <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
               {/* Legacy Login Routes */}
               <Route path="/login" element={<Login />} />
