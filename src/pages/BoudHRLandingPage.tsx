@@ -279,7 +279,7 @@ const BoudHRLandingPage: React.FC = () => {
                 <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
                   <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building2 className="w-4 h-4" />
-                    🔘 لوحة تحكم الإدارة
+                     مدير النظام
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <User className="w-4 h-4" />
