@@ -109,20 +109,26 @@ const Reports = ({ onBack }: ReportsProps) => {
 
   return (
     <div className="p-6 space-y-6 bg-gradient-to-br from-background via-background/95 to-primary/5 min-h-screen">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" onClick={onBack}>←</Button>
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              التقارير والتحليلات المتقدمة
-            </h1>
-            <p className="text-muted-foreground">
-              نظام شامل لإنتاج وإدارة التقارير والتحليلات الذكية
-            </p>
+      <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+        <div className="flex items-center gap-6">
+          <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+            <BarChart3 className="h-4 w-4 ml-2" />
+            رجوع
+          </Button>
+          <div className="h-8 w-px bg-gray-300"></div>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <BarChart3 className="h-8 w-8 text-white relative z-10" />
+              <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">التقارير والتحليلات المتقدمة</h1>
+              <p className="text-gray-600 text-lg">نظام شامل لإنتاج وإدارة التقارير والتحليلات الذكية</p>
+            </div>
           </div>
         </div>
-        <Button className="gap-2 bg-gradient-to-r from-primary to-primary/80">
-          <FileText className="w-4 h-4" />
+        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#258f68] text-white px-8 py-3 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <FileText className="h-5 w-5 ml-2" />
           تقرير جديد
         </Button>
       </div>
