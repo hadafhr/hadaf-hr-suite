@@ -66,7 +66,9 @@ import {
   MessageSquare,
   Headphones,
   CreditCard,
-  Banknote
+  Banknote,
+  ArrowLeft,
+  Cog
 } from 'lucide-react';
 
 interface SystemSettingsProps {
@@ -291,21 +293,46 @@ export const SystemSettings: React.FC<SystemSettingsProps> = ({ onBack }) => {
   return (
     <div className="space-y-6">
       {/* رأس الإعدادات */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-[#009F87]/10 rounded-lg">
-            <Settings className="h-6 w-6 text-[#009F87]" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-[#009F87]">إعدادات النظام</h1>
-            <p className="text-muted-foreground">إدارة الإعدادات العامة والصلاحيات والتكاملات</p>
+      <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+        <div className="flex items-center gap-6">
+          {onBack && (
+            <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+          )}
+          <div className="h-8 w-px bg-gray-300"></div>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+              <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
+                <Settings className="h-8 w-8" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-black">
+                إعدادات النظام
+              </h1>
+              <p className="text-gray-600 text-lg">
+                إدارة الإعدادات العامة والصلاحيات والتكاملات
+              </p>
+            </div>
           </div>
         </div>
-        {onBack && (
-          <Button variant="outline" onClick={onBack}>
-            العودة
+        <div className="flex items-center gap-3">
+          <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+            <Cog className="h-4 w-4 ml-2" />
+            نظام متقدم
+          </Badge>
+          <Button 
+            onClick={handleSaveGeneralSettings}
+            className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <Save className="h-4 w-4 ml-2" />
+            حفظ الإعدادات
           </Button>
-        )}
+        </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
