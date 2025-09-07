@@ -301,50 +301,54 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
     <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto p-6">
         {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#009F87] via-[#008072] to-[#009F87] p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  رجوع
-                </Button>
-              </div>
-              <div className="flex items-center gap-3">
-                <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-                  <Share className="h-4 w-4 ml-2" />
-                  استيراد
-                </Button>
-                <Button className="bg-[#009F87]/80 border-[#009F87]/30 text-white hover:bg-[#009F87]/90 backdrop-blur-sm">
-                  <Download className="h-4 w-4 ml-2" />
-                  تصدير Excel
-                </Button>
-                <Button className="bg-red-600/80 border-red-600/30 text-white hover:bg-red-600/90 backdrop-blur-sm">
-                  <Megaphone className="h-4 w-4 ml-2" />
-                  تصدير PDF
-                </Button>
-              </div>
-            </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <MessageSquare className="h-12 w-12 text-white" />
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+            <div className="h-8 w-px bg-gray-300"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
+                  <MessageSquare className="h-8 w-8" />
                 </div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                نظام الطلبات والإشعارات المتكامل
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                إدارة شاملة للطلبات والإشعارات مع التكامل الكامل مع جميع أنظمة الموارد البشرية
-              </p>
+              <div>
+                <h1 className="text-3xl font-bold text-black">
+                  نظام الطلبات والإشعارات المتكامل
+                </h1>
+                <p className="text-gray-600 text-lg">
+                  إدارة شاملة للطلبات والإشعارات مع التكامل الكامل مع جميع أنظمة الموارد البشرية
+                </p>
+              </div>
             </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+              <MessageSquare className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <Button 
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Share className="h-4 w-4 ml-2" />
+              استيراد
+            </Button>
+            <Button 
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Download className="h-4 w-4 ml-2" />
+              تصدير Excel
+            </Button>
+            <Button 
+              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Megaphone className="h-4 w-4 ml-2" />
+              تصدير PDF
+            </Button>
           </div>
         </div>
 
