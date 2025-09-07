@@ -309,12 +309,11 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Main Dashboard Tabs */}
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-7">
+              <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="overview">{isArabic ? 'نظرة عامة' : 'Overview'}</TabsTrigger>
                 <TabsTrigger value="clients">{isArabic ? 'العملاء' : 'Clients'}</TabsTrigger>
                 <TabsTrigger value="monitoring">{isArabic ? 'مراقبة النظام' : 'System Monitor'}</TabsTrigger>
                 <TabsTrigger value="subscriptions">{isArabic ? 'الاشتراكات' : 'Subscriptions'}</TabsTrigger>
-                <TabsTrigger value="hr-management">{isArabic ? 'إدارة النظام' : 'System Management'}</TabsTrigger>
                 <TabsTrigger value="development">{isArabic ? 'التطوير' : 'Development'}</TabsTrigger>
                 <TabsTrigger value="analytics">{isArabic ? 'التحليلات' : 'Analytics'}</TabsTrigger>
               </TabsList>
@@ -389,9 +388,6 @@ export const AdminDashboard: React.FC = () => {
                 <SubscriptionManagement />
               </TabsContent>
 
-              <TabsContent value="hr-management" className="space-y-6">
-                <HRManagementSystem />
-              </TabsContent>
 
               <TabsContent value="development" className="space-y-6">
                 <Card className="p-6">
