@@ -75,7 +75,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
 
       // Filter upcoming meetings (today and future)
       const upcoming = allMeetings.filter(meeting => 
-        meeting.meeting_date >= todayStr && 
+        meeting.start_time >= todayStr && 
         (meeting.status === 'scheduled' || meeting.status === 'ongoing')
       ).slice(0, 5);
 
@@ -273,9 +273,9 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                     <div className="flex-1">
                       <h4 className="font-medium text-foreground">{meeting.title}</h4>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-                        <span>{formatDate(meeting.meeting_date)}</span>
-                        <span>{formatTime(meeting.meeting_time)}</span>
-                        <span>{meeting.duration} دقيقة</span>
+                        <span>{formatDate(meeting.start_time)}</span>
+                        <span>{formatTime(meeting.start_time)}</span>
+                        <span>{meeting.location || 'عبر الإنترنت'}</span>
                       </div>
                       <div className="flex gap-2 mt-2">
                         <Badge className={getStatusBadge(meeting.status).className}>
@@ -320,9 +320,9 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                     <div className="flex-1">
                       <h4 className="font-medium text-foreground">{meeting.title}</h4>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-                        <span>{formatDate(meeting.meeting_date)}</span>
-                        <span>{meeting.duration} دقيقة</span>
-                        <span>بواسطة: {meeting.organizer_name}</span>
+                        <span>{formatDate(meeting.start_time)}</span>
+                        <span>{meeting.location || 'عبر الإنترنت'}</span>
+                        <span>بواسطة: {meeting.created_by}</span>
                       </div>
                       <div className="flex gap-2 mt-2">
                         <Badge className={getStatusBadge(meeting.status).className}>
@@ -331,7 +331,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                         <Badge className={getMeetingTypeBadge(meeting.meeting_type).className}>
                           {getMeetingTypeBadge(meeting.meeting_type).text}
                         </Badge>
-                        {meeting.recording_enabled && (
+                        {meeting.is_recorded && (
                           <Badge variant="secondary" className="bg-green-100 text-green-800">
                             مسجل
                           </Badge>

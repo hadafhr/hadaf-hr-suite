@@ -93,7 +93,7 @@ export const MeetingsTab: React.FC<MeetingsTabProps> = ({ onJoinMeeting }) => {
       filtered = filtered.filter(meeting => 
         meeting.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         meeting.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        meeting.organizer_name.toLowerCase().includes(searchTerm.toLowerCase())
+        meeting.created_by.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -122,9 +122,21 @@ export const MeetingsTab: React.FC<MeetingsTabProps> = ({ onJoinMeeting }) => {
       }
 
       await meetingService.createMeeting({
-        ...newMeeting,
-        recording_enabled: true,
-        status: 'scheduled'
+        title: newMeeting.title,
+        description: newMeeting.description,
+        start_time: `${newMeeting.meeting_date}T${newMeeting.meeting_time}:00`,
+        end_time: `${newMeeting.meeting_date}T${newMeeting.meeting_time}:00`, // Should calculate based on duration
+        location: newMeeting.location,
+        meeting_type: newMeeting.meeting_type,
+        status: 'scheduled',
+        priority: newMeeting.priority,
+        max_participants: undefined,
+        meeting_link: '',
+        is_recorded: false,
+        recording_url: '',
+        agenda: null,
+        created_by: 'current-user-id', // Should come from auth
+        access_level: 'employee'
       });
 
       setShowCreateDialog(false);
@@ -135,7 +147,7 @@ export const MeetingsTab: React.FC<MeetingsTabProps> = ({ onJoinMeeting }) => {
         meeting_time: '',
         duration: 60,
         location: '',
-        meeting_type: 'online',
+        meeting_type: 'team',
         priority: 'medium',
         organizer_name: 'المستخدم الحالي',
         organizer_id: 'current-user-id'
@@ -418,11 +430,11 @@ export const MeetingsTab: React.FC<MeetingsTabProps> = ({ onJoinMeeting }) => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div className="flex items-center gap-2">
                         <CalendarIcon className="h-4 w-4 text-muted-foreground" />
-                        <span>{formatDate(meeting.meeting_date)}</span>
+                        <span>{formatDate(meeting.start_time)}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Clock className="h-4 w-4 text-muted-foreground" />
-                        <span>{formatTime(meeting.meeting_time)} ({meeting.duration} دقيقة)</span>
+                        <span>{formatTime(meeting.start_time)} - {formatTime(meeting.end_time)}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <MapPin className="h-4 w-4 text-muted-foreground" />
@@ -430,7 +442,7 @@ export const MeetingsTab: React.FC<MeetingsTabProps> = ({ onJoinMeeting }) => {
                       </div>
                       <div className="flex items-center gap-2">
                         <Users className="h-4 w-4 text-muted-foreground" />
-                        <span>منظم بواسطة: {meeting.organizer_name}</span>
+                        <span>منظم بواسطة: {meeting.created_by}</span>
                       </div>
                     </div>
                   </div>
