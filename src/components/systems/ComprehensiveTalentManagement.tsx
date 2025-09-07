@@ -394,48 +394,48 @@ export const ComprehensiveTalentManagement: React.FC<ComprehensiveTalentManageme
   };
 
   const renderHeader = () => (
-    <div className="relative overflow-hidden bg-white border-b border-gray-200">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#3CB593]/5 to-transparent"></div>
-      <div className="relative p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onBack}
-              className="text-black hover:bg-gray-100"
-            >
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              العودة
-            </Button>
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-full bg-[#3CB593]/10 border border-[#3CB593]/20">
-                <div className="relative">
-                  <Star className="h-8 w-8 text-[#3CB593]" />
-                  <div className="absolute inset-0 rounded-full border-2 border-[#3CB593]"></div>
-                </div>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-black">
-                  قسم إدارة المواهب
-                </h1>
-                <p className="text-gray-600 text-sm mt-1">
-                  منظومة متكاملة لإدارة وتطوير المواهب والمسارات الوظيفية مع خطط الخلافة والتوظيف الداخلي
-                </p>
-              </div>
+    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+      <div className="flex items-center gap-6">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+          <ArrowLeft className="h-4 w-4 ml-2" />
+          رجوع
+        </Button>
+        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+            <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
+              <Star className="h-12 w-12" />
             </div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير التقرير
-            </Button>
-            <Button size="sm" className="bg-[#3CB593] hover:bg-[#3CB593]/90 text-white">
-              <Plus className="h-4 w-4 ml-2" />
-              إضافة موهبة
-            </Button>
+          <div>
+            <h1 className="text-3xl font-bold text-black">
+              قسم إدارة المواهب
+            </h1>
+            <p className="text-gray-600 text-lg">
+              منظومة متكاملة لإدارة وتطوير المواهب والمسارات الوظيفية مع خطط الخلافة
+            </p>
           </div>
         </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+          <Star className="h-4 w-4 ml-2" />
+          نظام متقدم
+        </Badge>
+        <Button 
+          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <Download className="h-4 w-4 ml-2" />
+          تصدير التقرير
+        </Button>
+        <Button 
+          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <Plus className="h-4 w-4 ml-2" />
+          إضافة موهبة
+        </Button>
       </div>
     </div>
   );
