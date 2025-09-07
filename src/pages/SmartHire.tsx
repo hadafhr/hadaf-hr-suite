@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,7 +27,8 @@ import {
   MessageSquare,
   Filter,
   Shield,
-  Settings
+  Settings,
+  ArrowLeft
 } from 'lucide-react';
 import { AutoMessaging } from '@/components/smartHire/AutoMessaging';
 import { InterviewScheduling } from '@/components/smartHire/InterviewScheduling';
@@ -67,6 +69,7 @@ interface Applicant {
 }
 
 const SmartHire: React.FC = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = React.useState('dashboard');
   const [newJobDialog, setNewJobDialog] = React.useState(false);
   const [selectedJob, setSelectedJob] = React.useState<Job | null>(null);
@@ -262,6 +265,10 @@ const SmartHire: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
           <div className="flex items-center gap-6">
+            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
             <div className="h-8 w-px bg-gray-300"></div>
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
