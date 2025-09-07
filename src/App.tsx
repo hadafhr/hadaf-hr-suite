@@ -85,6 +85,12 @@ import DemoRequest from './pages/DemoRequest';
 import Contact from './pages/Contact';
 import AddEmployee from './pages/AddEmployee';
 import { HRManagement } from './pages/HRManagement';
+import { ClientManagement } from './pages/ClientManagement';
+import { SystemMonitoring } from './pages/SystemMonitoring';
+import { SubscriptionManagement } from './pages/SubscriptionManagement';
+import { AdminAnalytics } from './pages/AdminAnalytics';
+import { SystemDevelopment } from './pages/SystemDevelopment';
+import { SecuritySettings } from './pages/SecuritySettings';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -158,6 +164,12 @@ const App = () => {
               <Route path="/unified-login" element={<UnifiedLogin />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/hr-management" element={<HRManagement />} />
+              <Route path="/client-management" element={<ClientManagement />} />
+              <Route path="/system-monitoring" element={<SystemMonitoring />} />
+              <Route path="/subscription-management" element={<SubscriptionManagement />} />
+              <Route path="/admin-analytics" element={<AdminAnalytics />} />
+              <Route path="/system-development" element={<SystemDevelopment />} />
+              <Route path="/security-settings" element={<SecuritySettings />} />
               <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
               {/* Legacy Login Routes */}
               <Route path="/login" element={<Login />} />
