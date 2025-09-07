@@ -148,30 +148,18 @@ interface MeetingAnalytics {
   recommendations: string[];
 }
 
-interface MeetingRoom {
-  id: string;
-  name: string;
-  capacity: number;
-  location: string;
-  equipment: string[];
-  status: 'available' | 'occupied' | 'maintenance';
-  currentBooking?: {
-    title: string;
-    time: string;
-    organizer: string;
-  };
-}
-
 export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const { toast } = useToast();
+  
+  // States for meeting management
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
-  
-  // Meeting management states
   const [activeMeeting, setActiveMeeting] = useState<Meeting | null>(null);
   const [inMeetingView, setInMeetingView] = useState(false);
+  
+  // In-meeting states
   const [isRecording, setIsRecording] = useState(false);
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -179,14 +167,10 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
   const [sharedFiles, setSharedFiles] = useState<SharedFile[]>([]);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
-  const [selectedParticipant, setSelectedParticipant] = useState<string | null>(null);
-  
-  // Video/Audio states
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [gridView, setGridView] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   
   // Dialog states
   const [showCreateMeeting, setShowCreateMeeting] = useState(false);
@@ -195,7 +179,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
   const [showAnalytics, setShowAnalytics] = useState(false);
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
   
-  // Form states
+  // Form state
   const [newMeetingData, setNewMeetingData] = useState({
     title: '',
     description: '',
@@ -203,57 +187,12 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
     time: '',
     duration: '60',
     type: 'online' as 'in_person' | 'online' | 'hybrid',
-    attendees: [] as string[],
     agenda: [''],
     recordingEnabled: true,
     priority: 'medium' as 'high' | 'medium' | 'low'
   });
   
-  // Analytics data
-  const [analytics, setAnalytics] = useState<MeetingAnalytics>({
-    totalMeetings: 284,
-    averageAttendance: 89,
-    averageDuration: 75,
-    completionRate: 94,
-    monthlyTrend: [
-      { month: 'يناير', meetings: 45, attendance: 87 },
-      { month: 'فبراير', meetings: 52, attendance: 91 },
-      { month: 'مارس', meetings: 48, attendance: 88 },
-      { month: 'أبريل', meetings: 55, attendance: 92 },
-      { month: 'مايو', meetings: 49, attendance: 89 },
-      { month: 'يونيو', meetings: 35, attendance: 86 }
-    ],
-    topParticipants: [
-      { name: 'أحمد محمد', attendance: 98 },
-      { name: 'سارة أحمد', attendance: 95 },
-      { name: 'محمد خالد', attendance: 92 },
-      { name: 'فاطمة علي', attendance: 90 }
-    ],
-    productivityScore: 87,
-    recommendations: [
-      'تقليل عدد الاجتماعات في يوم الخميس لتحسين الإنتاجية',
-      'زيادة مدة الاستراحة بين الاجتماعات المتتالية',
-      'استخدام الذكاء الاصطناعي لتلخيص النقاط الرئيسية',
-      'تفعيل التذكيرات المسبقة لتقليل الغيابات'
-    ]
-  });
-  
-  // Refs for video/audio
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  
-  // Timer for recording
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isRecording) {
-      interval = setInterval(() => {
-        setRecordingDuration(prev => prev + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isRecording]);
-
+  // Sample data
   const [meetings, setMeetings] = useState<Meeting[]>([
     {
       id: '1',
@@ -265,7 +204,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
       duration: '90 دقيقة',
       location: 'قاعة الاجتماعات الرئيسية',
       type: 'in_person',
-      status: 'scheduled',
+      status: 'ongoing',
       attendees: [
         { 
           id: '1', name: 'سارة أحمد', email: 'sarah@company.com', role: 'participant',
@@ -275,12 +214,12 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
         { 
           id: '2', name: 'محمد خالد', email: 'mohammed@company.com', role: 'participant',
           permissions: { canSpeak: true, canShare: false, canChat: true, isHost: false },
-          isOnline: false, videoEnabled: false, audioEnabled: true
+          isOnline: true, videoEnabled: false, audioEnabled: true
         },
         { 
-          id: '3', name: 'فاطمة علي', email: 'fatima@company.com', role: 'viewer',
-          permissions: { canSpeak: false, canShare: false, canChat: true, isHost: false },
-          isOnline: true, videoEnabled: false, audioEnabled: false
+          id: '3', name: 'فاطمة علي', email: 'fatima@company.com', role: 'organizer',
+          permissions: { canSpeak: true, canShare: true, canChat: true, isHost: true },
+          isOnline: true, videoEnabled: true, audioEnabled: true
         }
       ],
       priority: 'high',
@@ -295,7 +234,16 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
         canChat: true,
         canManageParticipants: true
       },
-      chatHistory: [],
+      chatHistory: [
+        {
+          id: '1',
+          senderId: '3',
+          senderName: 'فاطمة علي',
+          message: 'مرحباً بالجميع في اجتماع مراجعة الأداء',
+          timestamp: '2024-02-15T10:05:00Z',
+          type: 'text'
+        }
+      ],
       sharedFiles: [],
       aiInsights: [
         {
@@ -319,34 +267,24 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
       duration: '120 دقيقة',
       location: 'رابط زوم',
       type: 'online',
-      status: 'ongoing',
+      status: 'scheduled',
       attendees: [
         { 
           id: '4', name: 'علي أحمد', email: 'ali@company.com', role: 'organizer',
           permissions: { canSpeak: true, canShare: true, canChat: true, isHost: true },
-          isOnline: true, videoEnabled: true, audioEnabled: true
+          isOnline: false, videoEnabled: true, audioEnabled: true
         },
         { 
           id: '5', name: 'نور محمد', email: 'noor@company.com', role: 'participant',
           permissions: { canSpeak: true, canShare: true, canChat: true, isHost: false },
-          isOnline: true, videoEnabled: true, audioEnabled: true
+          isOnline: false, videoEnabled: true, audioEnabled: true
         }
       ],
       priority: 'medium',
       recordingEnabled: true,
-      recordingUrl: 'https://storage.company.com/recordings/meeting-2.mp4',
       meetingUrl: 'https://zoom.us/j/123456789',
       passcode: '789012',
-      chatHistory: [
-        {
-          id: '1',
-          senderId: '4',
-          senderName: 'علي أحمد',
-          message: 'مرحباً بالجميع في ورشة التدريب',
-          timestamp: '2024-02-16T14:05:00Z',
-          type: 'text'
-        }
-      ],
+      chatHistory: [],
       sharedFiles: [
         {
           id: '1',
@@ -420,76 +358,83 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
     }
   ]);
 
-  const meetingRooms: MeetingRoom[] = [
-    {
-      id: '1',
-      name: 'قاعة الاجتماعات الرئيسية',
-      capacity: 20,
-      location: 'الطابق الثالث',
-      equipment: ['بروجكتور', 'شاشة تفاعلية', 'نظام صوتي', 'كاميرا فيديو'],
-      status: 'occupied',
-      currentBooking: {
-        title: 'اجتماع فريق التسويق',
-        time: '10:00 - 12:00',
-        organizer: 'محمد خالد'
-      }
-    },
-    {
-      id: '2',
-      name: 'قاعة الاجتماعات الفرعية أ',
-      capacity: 8,
-      location: 'الطابق الثاني',
-      equipment: ['بروجكتور', 'لوحة بيضاء', 'نظام صوتي'],
-      status: 'available'
-    },
-    {
-      id: '3',
-      name: 'قاعة الاجتماعات الفرعية ب',
-      capacity: 6,
-      location: 'الطابق الثاني',
-      equipment: ['شاشة LCD', 'لوحة بيضاء'],
-      status: 'maintenance'
-    }
-  ];
+  const [analytics] = useState<MeetingAnalytics>({
+    totalMeetings: 284,
+    averageAttendance: 89,
+    averageDuration: 75,
+    completionRate: 94,
+    monthlyTrend: [
+      { month: 'يناير', meetings: 45, attendance: 87 },
+      { month: 'فبراير', meetings: 52, attendance: 91 },
+      { month: 'مارس', meetings: 48, attendance: 88 },
+      { month: 'أبريل', meetings: 55, attendance: 92 },
+      { month: 'مايو', meetings: 49, attendance: 89 },
+      { month: 'يونيو', meetings: 35, attendance: 86 }
+    ],
+    topParticipants: [
+      { name: 'أحمد محمد', attendance: 98 },
+      { name: 'سارة أحمد', attendance: 95 },
+      { name: 'محمد خالد', attendance: 92 },
+      { name: 'فاطمة علي', attendance: 90 }
+    ],
+    productivityScore: 87,
+    recommendations: [
+      'تقليل عدد الاجتماعات في يوم الخميس لتحسين الإنتاجية',
+      'زيادة مدة الاستراحة بين الاجتماعات المتتالية',
+      'استخدام الذكاء الاصطناعي لتلخيص النقاط الرئيسية',
+      'تفعيل التذكيرات المسبقة لتقليل الغيابات'
+    ]
+  });
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Timer for recording
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isRecording) {
+      interval = setInterval(() => {
+        setRecordingDuration(prev => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRecording]);
+
+  // Helper functions
   const getMeetingTypeBadge = (type: string) => {
     const typeConfig = {
-      in_person: { text: isRTL ? 'حضوري' : 'In-Person', className: 'bg-blue-100 text-blue-800' },
-      online: { text: isRTL ? 'إلكتروني' : 'Online', className: 'bg-purple-100 text-purple-800' },
-      hybrid: { text: isRTL ? 'مدمج' : 'Hybrid', className: 'bg-green-100 text-green-800' }
+      in_person: { text: 'حضوري', className: 'bg-blue-100 text-blue-800' },
+      online: { text: 'إلكتروني', className: 'bg-purple-100 text-purple-800' },
+      hybrid: { text: 'مدمج', className: 'bg-green-100 text-green-800' }
     };
     return typeConfig[type as keyof typeof typeConfig];
   };
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      scheduled: { text: isRTL ? 'مجدول' : 'Scheduled', className: 'bg-blue-100 text-blue-800' },
-      ongoing: { text: isRTL ? 'جاري' : 'Ongoing', className: 'bg-green-100 text-green-800' },
-      completed: { text: isRTL ? 'مكتمل' : 'Completed', className: 'bg-gray-100 text-gray-800' },
-      cancelled: { text: isRTL ? 'ملغي' : 'Cancelled', className: 'bg-red-100 text-red-800' }
+      scheduled: { text: 'مجدول', className: 'bg-blue-100 text-blue-800' },
+      ongoing: { text: 'جاري', className: 'bg-green-100 text-green-800' },
+      completed: { text: 'مكتمل', className: 'bg-gray-100 text-gray-800' },
+      cancelled: { text: 'ملغي', className: 'bg-red-100 text-red-800' }
     };
     return statusConfig[status as keyof typeof statusConfig];
   };
 
   const getPriorityBadge = (priority: string) => {
     const priorityConfig = {
-      high: { text: isRTL ? 'عالي' : 'High', className: 'bg-red-100 text-red-800' },
-      medium: { text: isRTL ? 'متوسط' : 'Medium', className: 'bg-yellow-100 text-yellow-800' },
-      low: { text: isRTL ? 'منخفض' : 'Low', className: 'bg-green-100 text-green-800' }
+      high: { text: 'عالي', className: 'bg-red-100 text-red-800' },
+      medium: { text: 'متوسط', className: 'bg-yellow-100 text-yellow-800' },
+      low: { text: 'منخفض', className: 'bg-green-100 text-green-800' }
     };
     return priorityConfig[priority as keyof typeof priorityConfig];
   };
 
-  const getRoomStatusBadge = (status: string) => {
-    const statusConfig = {
-      available: { text: isRTL ? 'متاحة' : 'Available', className: 'bg-green-100 text-green-800' },
-      occupied: { text: isRTL ? 'محجوزة' : 'Occupied', className: 'bg-red-100 text-red-800' },
-      maintenance: { text: isRTL ? 'صيانة' : 'Maintenance', className: 'bg-yellow-100 text-yellow-800' }
-    };
-    return statusConfig[status as keyof typeof statusConfig];
+  const formatDuration = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Meeting Management Functions
+  // Meeting management functions
   const createMeeting = async () => {
     const newMeeting: Meeting = {
       id: Date.now().toString(),
@@ -528,7 +473,6 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
       time: '',
       duration: '60',
       type: 'online',
-      attendees: [],
       agenda: [''],
       recordingEnabled: true,
       priority: 'medium'
@@ -540,7 +484,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
     });
 
     // Generate AI insights for new meeting
-    generateAIInsights(newMeeting.id);
+    setTimeout(() => generateAIInsights(newMeeting.id), 1000);
   };
 
   const joinMeeting = (meeting: Meeting) => {
@@ -588,7 +532,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
     
     // Generate AI minutes after recording stops
     if (activeMeeting) {
-      generateMeetingMinutes(activeMeeting.id);
+      setTimeout(() => generateMeetingMinutes(activeMeeting.id), 2000);
     }
     
     toast({
@@ -664,8 +608,6 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
 
   const generateMeetingMinutes = async (meetingId: string) => {
     // Simulate AI generation of meeting minutes
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
     const minutes: MeetingMinutes = {
       id: Date.now().toString(),
       meetingId,
@@ -715,8 +657,6 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
 
   const generateAIInsights = async (meetingId: string) => {
     // Simulate AI analysis
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
     const insights: AIInsight[] = [
       {
         id: Date.now().toString(),
@@ -745,12 +685,6 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
     ));
   };
 
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const filteredMeetings = meetings.filter(meeting => {
     const matchesSearch = meeting.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          meeting.organizer.toLowerCase().includes(searchTerm.toLowerCase());
@@ -759,433 +693,376 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
   });
 
   // In-Meeting View Component
-  const InMeetingView = () => (
-    <div className="fixed inset-0 bg-black z-50">
-      <div className="h-full flex flex-col">
-        {/* Meeting Header */}
-        <div className="bg-gray-900 px-4 py-2 flex items-center justify-between text-white">
-          <div className="flex items-center gap-4">
-            <h2 className="font-semibold">{activeMeeting?.title}</h2>
-            {isRecording && (
-              <div className="flex items-center gap-2 bg-red-600 px-3 py-1 rounded-full">
-                <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
-                <span className="text-sm">تسجيل {formatDuration(recordingDuration)}</span>
-              </div>
-            )}
+  if (inMeetingView && activeMeeting) {
+    return (
+      <div className="fixed inset-0 bg-black z-50">
+        <div className="h-full flex flex-col">
+          {/* Meeting Header */}
+          <div className="bg-gray-900 px-4 py-2 flex items-center justify-between text-white">
+            <div className="flex items-center gap-4">
+              <h2 className="font-semibold">{activeMeeting.title}</h2>
+              {isRecording && (
+                <div className="flex items-center gap-2 bg-red-600 px-3 py-1 rounded-full">
+                  <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                  <span className="text-sm">تسجيل {formatDuration(recordingDuration)}</span>
+                </div>
+              )}
+            </div>
+            
+            {/* Meeting Controls */}
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                variant={isAudioEnabled ? "default" : "destructive"}
+                onClick={() => setIsAudioEnabled(!isAudioEnabled)}
+              >
+                {isAudioEnabled ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
+              </Button>
+              <Button
+                size="sm"
+                variant={isVideoEnabled ? "default" : "destructive"}
+                onClick={() => setIsVideoEnabled(!isVideoEnabled)}
+              >
+                {isVideoEnabled ? <Camera className="h-4 w-4" /> : <CameraOff className="h-4 w-4" />}
+              </Button>
+              <Button
+                size="sm"
+                variant={isScreenSharing ? "secondary" : "default"}
+                onClick={() => setIsScreenSharing(!isScreenSharing)}
+              >
+                <Monitor className="h-4 w-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant={isRecording ? "destructive" : "default"}
+                onClick={isRecording ? stopRecording : startRecording}
+              >
+                {isRecording ? <StopCircle className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setGridView(!gridView)}
+              >
+                <Grid3X3 className="h-4 w-4" />
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                onClick={leaveMeeting}
+              >
+                <PhoneOff className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
-          
-          {/* Meeting Controls */}
-          <div className="flex items-center gap-2">
-            <Button
-              size="sm"
-              variant={isAudioEnabled ? "default" : "destructive"}
-              onClick={() => setIsAudioEnabled(!isAudioEnabled)}
-            >
-              {isAudioEnabled ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
-            </Button>
-            <Button
-              size="sm"
-              variant={isVideoEnabled ? "default" : "destructive"}
-              onClick={() => setIsVideoEnabled(!isVideoEnabled)}
-            >
-              {isVideoEnabled ? <Camera className="h-4 w-4" /> : <CameraOff className="h-4 w-4" />}
-            </Button>
-            <Button
-              size="sm"
-              variant={isScreenSharing ? "secondary" : "default"}
-              onClick={() => setIsScreenSharing(!isScreenSharing)}
-            >
-              <Monitor className="h-4 w-4" />
-            </Button>
-            <Button
-              size="sm"
-              variant={isRecording ? "destructive" : "default"}
-              onClick={isRecording ? stopRecording : startRecording}
-            >
-              {isRecording ? <StopCircle className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setGridView(!gridView)}
-            >
-              <Grid3X3 className="h-4 w-4" />
-            </Button>
-            <Button
-              size="sm"
-              variant="destructive"
-              onClick={leaveMeeting}
-            >
-              <PhoneOff className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
 
-        <div className="flex-1 flex">
-          {/* Main Video Area */}
-          <div className="flex-1 bg-gray-800 relative">
-            {gridView ? (
-              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 h-full">
-                {participants.map((participant) => (
-                  <div key={participant.id} className="bg-gray-700 rounded-lg relative overflow-hidden">
-                    <div className="aspect-video bg-gray-600 flex items-center justify-center">
-                      {participant.videoEnabled ? (
-                        <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white">
-                          <Camera className="h-8 w-8" />
+          <div className="flex-1 flex">
+            {/* Main Video Area */}
+            <div className="flex-1 bg-gray-800 relative">
+              {gridView ? (
+                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 h-full">
+                  {participants.map((participant) => (
+                    <div key={participant.id} className="bg-gray-700 rounded-lg relative overflow-hidden">
+                      <div className="aspect-video bg-gray-600 flex items-center justify-center">
+                        {participant.videoEnabled ? (
+                          <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white">
+                            <Camera className="h-8 w-8" />
+                            <span className="ml-2">فيديو نشط</span>
+                          </div>
+                        ) : (
+                          <Avatar className="w-16 h-16">
+                            <AvatarImage src={participant.avatar} />
+                            <AvatarFallback>{participant.name[0]}</AvatarFallback>
+                          </Avatar>
+                        )}
+                      </div>
+                      <div className="absolute bottom-2 left-2 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                        {participant.name}
+                      </div>
+                      <div className="absolute top-2 right-2 flex gap-1">
+                        {!participant.audioEnabled && (
+                          <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                            <MicOff className="h-3 w-3 text-white" />
+                          </div>
+                        )}
+                        {participant.permissions.isHost && (
+                          <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <Star className="h-3 w-3 text-white" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-3/4 h-3/4 bg-gray-700 rounded-lg flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <Video className="h-16 w-16 mx-auto mb-4" />
+                      <p>عرض المتحدث الرئيسي</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Presentation Mode Overlay */}
+              {isPresentationMode && (
+                <div className="absolute inset-4 bg-white rounded-lg flex items-center justify-center">
+                  <div className="text-center">
+                    <Presentation className="h-24 w-24 mx-auto mb-4 text-gray-400" />
+                    <h3 className="text-xl font-semibold mb-2">وضع العرض التقديمي</h3>
+                    <p className="text-gray-600">يتم عرض العرض التقديمي هنا</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="w-80 bg-white border-l">
+              <Tabs defaultValue="chat" className="h-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="chat">المحادثة</TabsTrigger>
+                  <TabsTrigger value="participants">المشاركون</TabsTrigger>
+                  <TabsTrigger value="files">الملفات</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="chat" className="flex flex-col h-full mt-0">
+                  <ScrollArea className="flex-1 p-4">
+                    <div className="space-y-3">
+                      {chatMessages.map((message) => (
+                        <div key={message.id} className="flex gap-3">
+                          <Avatar className="w-8 h-8">
+                            <AvatarFallback>{message.senderName[0]}</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-medium text-sm">{message.senderName}</span>
+                              <span className="text-xs text-gray-500">
+                                {new Date(message.timestamp).toLocaleTimeString('ar-SA')}
+                              </span>
+                            </div>
+                            <p className="text-sm bg-gray-100 p-2 rounded">{message.message}</p>
+                          </div>
                         </div>
-                      ) : (
-                        <Avatar className="w-16 h-16">
+                      ))}
+                    </div>
+                  </ScrollArea>
+                  <div className="p-4 border-t">
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <Paperclip className="h-4 w-4" />
+                      </Button>
+                      <Input
+                        placeholder="اكتب رسالة..."
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                        className="flex-1"
+                      />
+                      <Button size="sm" onClick={sendMessage}>
+                        <Send className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="participants" className="p-4">
+                  <div className="space-y-3">
+                    {participants.map((participant) => (
+                      <div key={participant.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                        <Avatar className="w-10 h-10">
                           <AvatarImage src={participant.avatar} />
                           <AvatarFallback>{participant.name[0]}</AvatarFallback>
                         </Avatar>
-                      )}
-                    </div>
-                    <div className="absolute bottom-2 left-2 bg-black/50 text-white px-2 py-1 rounded text-sm">
-                      {participant.name}
-                    </div>
-                    <div className="absolute top-2 right-2 flex gap-1">
-                      {!participant.audioEnabled && (
-                        <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                          <MicOff className="h-3 w-3 text-white" />
-                        </div>
-                      )}
-                      {participant.permissions.isHost && (
-                        <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center">
-                          <Star className="h-3 w-3 text-white" />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="h-full flex items-center justify-center">
-                <div className="w-3/4 h-3/4 bg-gray-700 rounded-lg flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <Video className="h-16 w-16 mx-auto mb-4" />
-                    <p>عرض المتحدث الرئيسي</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Sidebar */}
-          <div className="w-80 bg-white border-l">
-            <Tabs defaultValue="chat" className="h-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="chat">المحادثة</TabsTrigger>
-                <TabsTrigger value="participants">المشاركون</TabsTrigger>
-                <TabsTrigger value="files">الملفات</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="chat" className="flex flex-col h-full">
-                <ScrollArea className="flex-1 p-4">
-                  <div className="space-y-3">
-                    {chatMessages.map((message) => (
-                      <div key={message.id} className="flex gap-3">
-                        <Avatar className="w-8 h-8">
-                          <AvatarFallback>{message.senderName[0]}</AvatarFallback>
-                        </Avatar>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-sm">{message.senderName}</span>
-                            <span className="text-xs text-gray-500">
-                              {new Date(message.timestamp).toLocaleTimeString('ar-SA')}
-                            </span>
-                          </div>
-                          <p className="text-sm">{message.message}</p>
+                          <div className="font-medium">{participant.name}</div>
+                          <div className="text-sm text-gray-500 capitalize">{participant.role}</div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {participant.isOnline && (
+                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                          )}
+                          {participant.permissions.isHost && (
+                            <Star className="h-4 w-4 text-yellow-500" />
+                          )}
                         </div>
                       </div>
                     ))}
                   </div>
-                </ScrollArea>
-                <div className="p-4 border-t">
-                  <div className="flex gap-2">
+                </TabsContent>
+
+                <TabsContent value="files" className="p-4">
+                  <div className="space-y-3">
                     <Button
-                      size="sm"
-                      variant="outline"
                       onClick={() => fileInputRef.current?.click()}
+                      className="w-full"
+                      variant="outline"
                     >
-                      <Paperclip className="h-4 w-4" />
+                      <Upload className="h-4 w-4 ml-2" />
+                      رفع ملف
                     </Button>
-                    <Input
-                      placeholder="اكتب رسالة..."
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                      className="flex-1"
-                    />
-                    <Button size="sm" onClick={sendMessage}>
-                      <Send className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="participants" className="p-4">
-                <div className="space-y-3">
-                  {participants.map((participant) => (
-                    <div key={participant.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
-                      <Avatar className="w-10 h-10">
-                        <AvatarImage src={participant.avatar} />
-                        <AvatarFallback>{participant.name[0]}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="font-medium">{participant.name}</div>
-                        <div className="text-sm text-gray-500 capitalize">{participant.role}</div>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        {participant.isOnline && (
-                          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        )}
-                        {participant.permissions.isHost && (
-                          <Star className="h-4 w-4 text-yellow-500" />
-                        )}
-                        <MoreVertical className="h-4 w-4 text-gray-400" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="files" className="p-4">
-                <div className="space-y-3">
-                  <Button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full"
-                    variant="outline"
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    رفع ملف جديد
-                  </Button>
-                  
-                  {sharedFiles.map((file) => (
-                    <div key={file.id} className="flex items-center gap-3 p-3 border rounded-lg">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <FileIcon className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-medium text-sm">{file.name}</div>
-                        <div className="text-xs text-gray-500">
-                          {file.uploadedBy} • {new Date(file.timestamp).toLocaleTimeString('ar-SA')}
+                    
+                    {sharedFiles.map((file) => (
+                      <div key={file.id} className="flex items-center gap-3 p-2 border rounded-lg">
+                        <FileIcon className="h-8 w-8 text-blue-500" />
+                        <div className="flex-1">
+                          <div className="font-medium text-sm">{file.name}</div>
+                          <div className="text-xs text-gray-500">
+                            {file.uploadedBy} • {new Date(file.timestamp).toLocaleString('ar-SA')}
+                          </div>
                         </div>
+                        <Button size="sm" variant="outline">
+                          <Download className="h-4 w-4" />
+                        </Button>
                       </div>
-                      <Button size="sm" variant="outline">
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
+                    ))}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
         </div>
-      </div>
-      
-      {/* Hidden file input */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        className="hidden"
-        onChange={shareFile}
-        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov"
-      />
-    </div>
-  );
 
-  if (inMeetingView) {
-    return <InMeetingView />;
+        {/* Hidden file input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          className="hidden"
+          onChange={shareFile}
+          accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov"
+        />
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-secondary to-primary-glow p-8 mb-8 shadow-2xl">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onBack}
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  رجوع
-                </Button>
-              </div>
-              <div className="flex items-center gap-3">
-                <Button 
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
-                  onClick={() => setShowAnalytics(true)}
-                >
-                  <BarChart3 className="h-4 w-4 ml-2" />
-                  التحليلات والتقارير
-                </Button>
-                <Dialog open={showJoinMeeting} onOpenChange={setShowJoinMeeting}>
-                  <DialogTrigger asChild>
-                    <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-                      <Video className="h-4 w-4 ml-2" />
-                      الانضمام لاجتماع
-                    </Button>
-                  </DialogTrigger>
-                </Dialog>
-                <Dialog open={showCreateMeeting} onOpenChange={setShowCreateMeeting}>
-                  <DialogTrigger asChild>
-                    <Button className="bg-secondary border-secondary text-white hover:bg-secondary/90 shadow-lg">
-                      <Plus className="h-4 w-4 ml-2" />
-                      اجتماع جديد
-                    </Button>
-                  </DialogTrigger>
-                </Dialog>
+        {/* Header */}
+        <div className="bg-white border-b border-gray-200 px-8 py-6 mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onBack}
+                className="text-gray-600 hover:text-gray-900"
+              >
+                <ArrowLeft className="h-4 w-4 ml-2" />
+                رجوع
+              </Button>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button 
+                variant="outline"
+                onClick={() => setShowAnalytics(true)}
+              >
+                <BarChart3 className="h-4 w-4 ml-2" />
+                التحليلات والتقارير
+              </Button>
+              <Dialog open={showJoinMeeting} onOpenChange={setShowJoinMeeting}>
+                <DialogTrigger asChild>
+                  <Button variant="outline">
+                    <Video className="h-4 w-4 ml-2" />
+                    الانضمام لاجتماع
+                  </Button>
+                </DialogTrigger>
+              </Dialog>
+              <Dialog open={showCreateMeeting} onOpenChange={setShowCreateMeeting}>
+                <DialogTrigger asChild>
+                  <Button>
+                    <Plus className="h-4 w-4 ml-2" />
+                    اجتماع جديد
+                  </Button>
+                </DialogTrigger>
+              </Dialog>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="p-4 bg-blue-50 rounded-2xl">
+                <Calendar className="h-12 w-12 text-blue-600" />
               </div>
             </div>
-            
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  <Calendar className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-2">
-                نظام الاجتماعات الذكي المتطور
-              </h1>
-              <p className="text-white/90 text-lg max-w-2xl mx-auto">
-                منظومة ذكية شاملة لإدارة الاجتماعات وحجز القاعات والتنسيق مع التكامل الكامل مع التقويم والإشعارات
-              </p>
-            </div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              نظام الاجتماعات الذكي المتطور
+            </h1>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              منظومة ذكية شاملة لإدارة الاجتماعات وحجز القاعات والتنسيق مع التكامل الكامل مع التقويم والإشعارات
+            </p>
           </div>
         </div>
 
-        {/* Analytics Dashboard */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-8">
-          {/* Main Panel */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-gray-800">نظام الاجتماعات الذكي</h3>
-                    <Calendar className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">اجتماعات اليوم</span>
-                      <span className="font-bold text-primary">7</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">معدل الحضور</span>
-                      <span className="font-bold text-green-600">89%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">متوسط مدة الاجتماع</span>
-                      <span className="font-bold text-blue-600">75 دقيقة</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-gray-800">إدارة القاعات</h3>
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">قاعات متاحة</span>
-                      <span className="font-bold text-green-600">5</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">معدل الاستخدام</span>
-                      <span className="font-bold text-blue-600">78%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">حجوزات الأسبوع</span>
-                      <span className="font-bold text-purple-600">34</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Side Statistics */}
-          <div className="space-y-6">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-gray-800 mb-4">إحصائيات الاجتماعات</h3>
-                <div className="space-y-4">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">7</div>
-                    <div className="text-sm text-gray-600">اجتماعات اليوم</div>
-                  </div>
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">42</div>
-                    <div className="text-sm text-gray-600">مشاركون</div>
-                  </div>
-                  <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">15</div>
-                    <div className="text-sm text-gray-600">اجتماعات إلكترونية</div>
-                  </div>
+        {/* Dashboard Analytics */}
+        <div className="grid lg:grid-cols-4 gap-6 mb-8">
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">الاجتماعات الجارية</p>
+                  <p className="text-2xl font-bold text-green-600">{meetings.filter(m => m.status === 'ongoing').length}</p>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+                <div className="p-3 bg-green-100 rounded-full">
+                  <Video className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">الاجتماعات المجدولة</p>
+                  <p className="text-2xl font-bold text-blue-600">{meetings.filter(m => m.status === 'scheduled').length}</p>
+                </div>
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Calendar className="h-6 w-6 text-blue-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">الاجتماعات المكتملة</p>
+                  <p className="text-2xl font-bold text-gray-600">{meetings.filter(m => m.status === 'completed').length}</p>
+                </div>
+                <div className="p-3 bg-gray-100 rounded-full">
+                  <CheckCircle className="h-6 w-6 text-gray-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">معدل الحضور</p>
+                  <p className="text-2xl font-bold text-purple-600">{analytics.averageAttendance}%</p>
+                </div>
+                <div className="p-3 bg-purple-100 rounded-full">
+                  <Users className="h-6 w-6 text-purple-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* System Overview */}
-        <Card className="mb-8 border-0 shadow-lg bg-gradient-to-r from-white to-gray-50">
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة الاجتماعات المتكاملة</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {[
-                { icon: Calendar, label: "جدولة الاجتماعات", color: "text-blue-600", count: 7 },
-                { icon: MapPin, label: "حجز القاعات", color: "text-green-600", count: 5 },
-                { icon: Users, label: "إدارة المشاركين", color: "text-purple-600", count: 42 },
-                { icon: Video, label: "الاجتماعات المرئية", color: "text-orange-600", count: 15 },
-                { icon: Clock, label: "التوقيتات الذكية", color: "text-teal-600", count: 0 },
-                { icon: Search, label: "البحث والتصفية", color: "text-red-600", count: 0 }
-              ].map((item, index) => (
-                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
-                  <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
-                    <item.icon className="w-6 h-6" />
-                    {item.count > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        {item.count}
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-sm font-medium text-gray-700">{item.label}</div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
-              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">284</div>
-                <div className="text-sm text-gray-600">إجمالي الاجتماعات هذا الشهر</div>
-              </div>
-              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">89%</div>
-                <div className="text-sm text-gray-600">معدل الحضور العام</div>
-              </div>
-              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
-                <div className="text-2xl font-bold text-purple-600">75</div>
-                <div className="text-sm text-gray-600">متوسط مدة الاجتماع (دقيقة)</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
+        {/* Main Content */}
         <Tabs defaultValue="meetings" className="space-y-6">
           <TabsList>
-            <TabsTrigger value="meetings">{isRTL ? 'الاجتماعات' : 'Meetings'}</TabsTrigger>
-            <TabsTrigger value="rooms">{isRTL ? 'قاعات الاجتماعات' : 'Meeting Rooms'}</TabsTrigger>
-            <TabsTrigger value="calendar">{isRTL ? 'التقويم' : 'Calendar'}</TabsTrigger>
+            <TabsTrigger value="meetings">الاجتماعات</TabsTrigger>
+            <TabsTrigger value="rooms">قاعات الاجتماعات</TabsTrigger>
+            <TabsTrigger value="calendar">التقويم</TabsTrigger>
           </TabsList>
 
           <TabsContent value="meetings">
@@ -1193,15 +1070,26 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
-                    placeholder={isRTL ? 'البحث في الاجتماعات...' : 'Search meetings...'}
+                    placeholder="البحث في الاجتماعات..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10"
                   />
                 </div>
               </div>
+              <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="تصفية حسب الحالة" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">جميع الاجتماعات</SelectItem>
+                  <SelectItem value="ongoing">جاري</SelectItem>
+                  <SelectItem value="scheduled">مجدول</SelectItem>
+                  <SelectItem value="completed">مكتمل</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Meetings List */}
@@ -1233,7 +1121,7 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                           
                           <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                              <p className="text-sm text-muted-foreground mb-2">{meeting.organizer}</p>
+                              <p className="text-sm text-gray-600 mb-2">{meeting.organizer}</p>
                               <p className="text-sm mb-2">{meeting.description}</p>
                               
                               <div className="flex items-center gap-4 text-sm text-gray-600">
@@ -1317,23 +1205,21 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                                     )}
                                   </div>
                                   <div className="flex gap-2">
-                                    {meeting.minutes && (
-                                      <Button 
-                                        size="sm" 
-                                        variant="outline"
-                                        onClick={() => {
-                                          setSelectedMeeting(meeting);
-                                          setShowMeetingDetails(true);
-                                        }}
-                                        className="flex-1"
-                                      >
-                                        <FileText className="h-4 w-4 ml-2" />
-                                        المحضر
-                                      </Button>
-                                    )}
+                                    <Button 
+                                      size="sm" 
+                                      onClick={() => {
+                                        setSelectedMeeting(meeting);
+                                        setShowMeetingDetails(true);
+                                      }}
+                                      variant="outline"
+                                      className="flex-1"
+                                    >
+                                      <FileText className="h-4 w-4 ml-2" />
+                                      المحضر
+                                    </Button>
                                     {meeting.recordingUrl && (
                                       <Button 
-                                        size="sm" 
+                                        size="sm"
                                         variant="outline"
                                         className="flex-1"
                                       >
@@ -1346,30 +1232,6 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                               )}
                             </div>
                           </div>
-                          
-                          {/* AI Insights */}
-                          {meeting.aiInsights && meeting.aiInsights.length > 0 && (
-                            <div className="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-3">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Brain className="h-4 w-4 text-purple-600" />
-                                <span className="font-medium text-purple-800">رؤى الذكاء الاصطناعي</span>
-                              </div>
-                              <div className="grid md:grid-cols-2 gap-2">
-                                {meeting.aiInsights.slice(0, 2).map((insight) => (
-                                  <div key={insight.id} className="bg-white rounded p-2">
-                                    <div className="flex items-center justify-between mb-1">
-                                      <span className="text-sm font-medium">{insight.title}</span>
-                                      <div className="flex items-center gap-1">
-                                        <Star className="h-3 w-3 text-yellow-500" />
-                                        <span className="text-xs">{insight.score}%</span>
-                                      </div>
-                                    </div>
-                                    <p className="text-xs text-gray-600">{insight.suggestion}</p>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
                         </div>
                       </div>
                     </CardHeader>
@@ -1378,30 +1240,13 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
               })}
             </div>
 
-            {filteredMeetings.length === 0 && (
-              <div className="text-center py-12">
-                <Calendar className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-600 mb-2">لا توجد اجتماعات</h3>
-                <p className="text-gray-500">لم يتم العثور على اجتماعات تطابق معايير البحث</p>
-                <Button 
-                  className="mt-4"
-                  onClick={() => setShowCreateMeeting(true)}
-                >
-                  <Plus className="h-4 w-4 ml-2" />
-                  إنشاء اجتماع جديد
-                </Button>
-              </div>
-            )}
-            
-            {/* Dialogs */}
-            
             {/* Create Meeting Dialog */}
             <Dialog open={showCreateMeeting} onOpenChange={setShowCreateMeeting}>
               <DialogContent className="max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>إنشاء اجتماع جديد</DialogTitle>
                   <DialogDescription>
-                    املأ البيانات التالية لإنشاء اجتماع جديد وإرسال الدعوات للمشاركين
+                    قم بتعبئة تفاصيل الاجتماع وإرسال الدعوات للمشاركين
                   </DialogDescription>
                 </DialogHeader>
                 
@@ -1410,9 +1255,9 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                     <div>
                       <label className="block text-sm font-medium mb-1">عنوان الاجتماع</label>
                       <Input
+                        placeholder="أدخل عنوان الاجتماع"
                         value={newMeetingData.title}
                         onChange={(e) => setNewMeetingData(prev => ({ ...prev, title: e.target.value }))}
-                        placeholder="أدخل عنوان الاجتماع"
                       />
                     </div>
                     <div>
@@ -1436,12 +1281,11 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-1">وصف الاجتماع</label>
+                    <label className="block text-sm font-medium mb-1">الوصف</label>
                     <Textarea
+                      placeholder="وصف موجز عن موضوع الاجتماع"
                       value={newMeetingData.description}
                       onChange={(e) => setNewMeetingData(prev => ({ ...prev, description: e.target.value }))}
-                      placeholder="أدخل وصف تفصيلي للاجتماع..."
-                      rows={3}
                     />
                   </div>
                   
@@ -1466,9 +1310,9 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                       <label className="block text-sm font-medium mb-1">المدة (دقيقة)</label>
                       <Input
                         type="number"
+                        placeholder="60"
                         value={newMeetingData.duration}
                         onChange={(e) => setNewMeetingData(prev => ({ ...prev, duration: e.target.value }))}
-                        placeholder="60"
                       />
                     </div>
                   </div>
@@ -1479,25 +1323,27 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                       {newMeetingData.agenda.map((item, index) => (
                         <div key={index} className="flex gap-2">
                           <Input
+                            placeholder={`النقطة ${index + 1}`}
                             value={item}
                             onChange={(e) => {
                               const newAgenda = [...newMeetingData.agenda];
                               newAgenda[index] = e.target.value;
                               setNewMeetingData(prev => ({ ...prev, agenda: newAgenda }));
                             }}
-                            placeholder={`النقطة ${index + 1}`}
                           />
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="outline"
-                            onClick={() => {
-                              const newAgenda = newMeetingData.agenda.filter((_, i) => i !== index);
-                              setNewMeetingData(prev => ({ ...prev, agenda: newAgenda }));
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
+                          {newMeetingData.agenda.length > 1 && (
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                const newAgenda = newMeetingData.agenda.filter((_, i) => i !== index);
+                                setNewMeetingData(prev => ({ ...prev, agenda: newAgenda }));
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          )}
                         </div>
                       ))}
                       <Button
@@ -1836,7 +1682,12 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                                 <span className="text-sm text-gray-600">الحضور:</span>
                                 <span className="font-medium">{month.attendance}%</span>
                               </div>
-                              <Progress value={month.attendance} className="w-32" />
+                              <div className="w-32 bg-gray-200 rounded-full h-2">
+                                <div 
+                                  className="bg-blue-600 h-2 rounded-full" 
+                                  style={{ width: `${month.attendance}%` }}
+                                ></div>
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -1844,25 +1695,30 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                     </CardContent>
                   </Card>
                   
-                  {/* Top Participants & AI Recommendations */}
+                  {/* Top Participants */}
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
-                        <CardTitle>المشاركون الأكثر نشاطاً</CardTitle>
+                        <CardTitle>أكثر المشاركين نشاطاً</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-3">
                           {analytics.topParticipants.map((participant, index) => (
-                            <div key={index} className="flex items-center justify-between">
+                            <div key={participant.name} className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                  <span className="font-bold text-blue-600">{index + 1}</span>
+                                  <span className="text-sm font-medium text-blue-600">{index + 1}</span>
                                 </div>
                                 <span className="font-medium">{participant.name}</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Progress value={participant.attendance} className="w-20" />
-                                <span className="text-sm font-medium">{participant.attendance}%</span>
+                                <span className="text-sm text-gray-600">{participant.attendance}%</span>
+                                <div className="w-16 bg-gray-200 rounded-full h-2">
+                                  <div 
+                                    className="bg-blue-600 h-2 rounded-full" 
+                                    style={{ width: `${participant.attendance}%` }}
+                                  ></div>
+                                </div>
                               </div>
                             </div>
                           ))}
@@ -1872,19 +1728,14 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
                     
                     <Card>
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <Brain className="h-5 w-5 text-purple-600" />
-                          توصيات الذكاء الاصطناعي
-                        </CardTitle>
+                        <CardTitle>توصيات الذكاء الاصطناعي</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-3">
                           {analytics.recommendations.map((recommendation, index) => (
-                            <div key={index} className="border rounded-lg p-3 bg-purple-50">
-                              <div className="flex items-start gap-2">
-                                <TrendingUp className="h-4 w-4 text-purple-600 mt-1" />
-                                <p className="text-sm">{recommendation}</p>
-                              </div>
+                            <div key={index} className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
+                              <Brain className="h-5 w-5 text-purple-600 mt-0.5" />
+                              <p className="text-sm text-purple-800">{recommendation}</p>
                             </div>
                           ))}
                         </div>
@@ -1908,115 +1759,69 @@ export const Meetings: React.FC<MeetingsProps> = ({ onBack }) => {
 
           <TabsContent value="rooms">
             <div className="grid lg:grid-cols-3 gap-6">
-              {meetingRooms.map((room) => {
-                const statusBadge = getRoomStatusBadge(room.status);
-                return (
-                  <Card key={room.id} className="hover:shadow-md transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{room.name}</CardTitle>
-                        <Badge className={statusBadge.className}>
-                          {statusBadge.text}
-                        </Badge>
+              {[
+                {
+                  id: '1',
+                  name: 'قاعة الاجتماعات الرئيسية',
+                  capacity: 20,
+                  location: 'الطابق الثالث',
+                  status: 'occupied' as const
+                },
+                {
+                  id: '2',
+                  name: 'قاعة الاجتماعات الفرعية أ',
+                  capacity: 8,
+                  location: 'الطابق الثاني',
+                  status: 'available' as const
+                },
+                {
+                  id: '3',
+                  name: 'قاعة الاجتماعات الفرعية ب',
+                  capacity: 6,
+                  location: 'الطابق الثاني',
+                  status: 'maintenance' as const
+                }
+              ].map((room) => (
+                <Card key={room.id} className="hover:shadow-md transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{room.name}</CardTitle>
+                      <Badge className={
+                        room.status === 'available' ? 'bg-green-100 text-green-800' :
+                        room.status === 'occupied' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }>
+                        {room.status === 'available' ? 'متاحة' :
+                         room.status === 'occupied' ? 'محجوزة' : 'صيانة'}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <MapPin className="h-4 w-4" />
+                        <span>{room.location}</span>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                         <div className="space-y-3">
-                           <div>
-                             <h4 className="font-medium text-sm text-muted-foreground mb-1">
-                               {isRTL ? 'الوصف' : 'Description'}
-                             </h4>
-                             <p className="text-sm">قاعة اجتماعات مجهزة بأحدث التقنيات</p>
-                           </div>
-                           <div className="flex justify-between">
-                             <span className="text-sm text-muted-foreground">{isRTL ? 'المكان:' : 'Location:'}</span>
-                             <span className="text-sm font-medium">{room.location}</span>
-                           </div>
-                         </div>
-                         <div className="space-y-3">
-                           <div className="flex justify-between">
-                             <span className="text-sm text-muted-foreground">{isRTL ? 'السعة:' : 'Capacity:'}</span>
-                             <span className="text-sm font-medium">{room.capacity} شخص</span>
-                           </div>
-                           <div className="flex justify-between">
-                             <span className="text-sm text-muted-foreground">{isRTL ? 'الحالة:' : 'Status:'}</span>
-                             <span className="text-sm font-medium">{room.status === 'available' ? 'متاحة' : 'محجوزة'}</span>
-                           </div>
-                         </div>
-                       </div>
-                       
-                       <div className="mt-4">
-                         <h4 className="font-medium text-sm text-muted-foreground mb-2">
-                           {isRTL ? 'التسهيلات' : 'Facilities'}
-                         </h4>
-                         <div className="flex flex-wrap gap-1">
-                           <Badge variant="outline" className="text-xs">
-                             شاشة عرض
-                           </Badge>
-                           <Badge variant="outline" className="text-xs">
-                             نظام صوتي
-                           </Badge>
-                           <Badge variant="outline" className="text-xs">
-                             واي فاي
-                           </Badge>
-                         </div>
-                       </div>
-
-                      <div className="flex gap-2 mt-6">
-                        <Button size="sm" variant="outline">
-                          {isRTL ? 'عرض التفاصيل' : 'View Details'}
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          {isRTL ? 'انضمام' : 'Join Meeting'}
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          {isRTL ? 'تحرير' : 'Edit'}
-                        </Button>
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Users className="h-4 w-4" />
+                        <span>سعة {room.capacity} شخص</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="rooms">
-            <div className="grid lg:grid-cols-3 gap-6">
-              {meetingRooms.map((room) => {
-                const statusBadge = getRoomStatusBadge(room.status);
-                return (
-                  <Card key={room.id} className="hover:shadow-md transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{room.name}</CardTitle>
-                        <Badge className={statusBadge.className}>
-                          {statusBadge.text}
-                        </Badge>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge variant="outline" className="text-xs">شاشة عرض</Badge>
+                        <Badge variant="outline" className="text-xs">نظام صوتي</Badge>
+                        <Badge variant="outline" className="text-xs">واي فاي</Badge>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <MapPin className="h-4 w-4" />
-                          <span>{room.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <Users className="h-4 w-4" />
-                          <span>سعة {room.capacity} شخص</span>
-                        </div>
-                        <Button 
-                          className="w-full" 
-                          variant={room.status === 'available' ? 'default' : 'outline'}
-                          disabled={room.status !== 'available'}
-                        >
-                          {room.status === 'available' ? 'حجز القاعة' : 'غير متاحة'}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                      <Button 
+                        className="w-full" 
+                        variant={room.status === 'available' ? 'default' : 'outline'}
+                        disabled={room.status !== 'available'}
+                      >
+                        {room.status === 'available' ? 'حجز القاعة' : 'غير متاحة'}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
