@@ -246,8 +246,6 @@ export const ContractsRegulations: React.FC = () => {
       
       setContractsList([newContract, ...contractsList]);
 
-      if (saveError) throw saveError;
-
       toast.success('تم إنشاء العقد بالذكاء الاصطناعي بنجاح');
       setIsAIGeneratorOpen(false);
       setContractForm({
