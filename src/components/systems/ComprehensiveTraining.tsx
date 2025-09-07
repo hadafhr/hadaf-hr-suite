@@ -142,53 +142,52 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Enhanced Header */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary-foreground rounded-2xl shadow-2xl">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative p-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <div className="p-4 bg-white/20 backdrop-blur rounded-2xl shadow-xl">
-                  <BookOpen className="w-12 h-12 text-white" />
+        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+          <div className="flex items-center gap-6">
+            {onBack && (
+              <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+                <ArrowLeft className="h-4 w-4 ml-2" />
+                رجوع
+              </Button>
+            )}
+            <div className="h-8 w-px bg-gray-300"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
+                  <BookOpen className="h-12 w-12" />
                 </div>
-                <div>
-                  <h1 className="text-4xl font-bold text-white mb-2">نظام التدريب والتطوير الشامل</h1>
-                  <p className="text-white/90 text-lg">
-                    منظومة متكاملة لإدارة التدريب وتطوير المهارات مع شهادات معتمدة
-                  </p>
-                  <div className="flex gap-4 mt-3">
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تدريب رقمي</span>
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">شهادات معتمدة</span>
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-white text-sm">تقييم الأداء</span>
-                  </div>
-                </div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
-              
-              <div className="flex gap-3">
-                <Button 
-                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                  onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
-                >
-                  <Bot className="w-5 h-5" />
-                  مساعد ذكي
-                </Button>
-                <Button 
-                  className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                  onClick={() => handleSystemAction('دورة جديدة')}
-                >
-                  <Plus className="w-5 h-5" />
-                  دورة جديدة
-                </Button>
-                {onBack && (
-                  <Button 
-                    className="gap-2 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur"
-                    onClick={onBack}
-                  >
-                    <ArrowLeft className="w-5 h-5" />
-                    رجوع
-                  </Button>
-                )}
+              <div>
+                <h1 className="text-3xl font-bold text-black">
+                  نظام التدريب والتطوير الشامل
+                </h1>
+                <p className="text-gray-600 text-lg">
+                  منظومة متكاملة لإدارة التدريب وتطوير المهارات مع شهادات معتمدة
+                </p>
               </div>
             </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+              <BookOpen className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <Button 
+              onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
+              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Bot className="h-4 w-4 ml-2" />
+              مساعد ذكي
+            </Button>
+            <Button 
+              onClick={() => handleSystemAction('دورة جديدة')}
+              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Plus className="h-4 w-4 ml-2" />
+              دورة جديدة
+            </Button>
           </div>
         </div>
 
