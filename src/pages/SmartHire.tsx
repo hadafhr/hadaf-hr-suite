@@ -257,125 +257,124 @@ const SmartHire: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-6" dir="rtl">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-background p-6" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-2">
-                🤖 منصة التوظيف الذكي SmartHire
-              </h1>
-              <p className="text-lg text-slate-600 dark:text-slate-300">
-                منصة توظيف مؤتمتة مدعومة بالذكاء الاصطناعي
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Dialog open={newJobDialog} onOpenChange={setNewJobDialog}>
-                <DialogTrigger asChild>
-                  <Button className="flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    إضافة وظيفة جديدة
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl" dir="rtl">
-                  <DialogHeader>
-                    <DialogTitle>إنشاء وظيفة جديدة</DialogTitle>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="title">المسمى الوظيفي</Label>
-                        <Input
-                          id="title"
-                          value={jobForm.title}
-                          onChange={(e) => setJobForm(prev => ({ ...prev, title: e.target.value }))}
-                          placeholder="مثال: مطور Full Stack"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="department">القسم</Label>
-                        <Input
-                          id="department"
-                          value={jobForm.department}
-                          onChange={(e) => setJobForm(prev => ({ ...prev, department: e.target.value }))}
-                          placeholder="مثال: تقنية المعلومات"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="location">الموقع</Label>
-                        <Input
-                          id="location"
-                          value={jobForm.location}
-                          onChange={(e) => setJobForm(prev => ({ ...prev, location: e.target.value }))}
-                          placeholder="مثال: الرياض"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="type">نوع الوظيفة</Label>
-                        <Select value={jobForm.type} onValueChange={(value: any) => setJobForm(prev => ({ ...prev, type: value }))}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="full-time">دوام كامل</SelectItem>
-                            <SelectItem value="part-time">دوام جزئي</SelectItem>
-                            <SelectItem value="contract">تعاقد</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Bot className="h-8 w-8 text-primary" />
+            <h1 className="text-3xl font-bold text-gradient">
+              منصة التوظيف الذكي SmartHire
+            </h1>
+          </div>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+            منصة توظيف مؤتمتة مدعومة بالذكاء الاصطناعي لإدارة العملية التوظيف بكفاءة عالية
+          </p>
+          <div className="flex justify-center">
+            <Dialog open={newJobDialog} onOpenChange={setNewJobDialog}>
+              <DialogTrigger asChild>
+                <Button className="flex items-center gap-2">
+                  <Plus className="w-4 h-4" />
+                  إضافة وظيفة جديدة
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl" dir="rtl">
+                <DialogHeader>
+                  <DialogTitle>إنشاء وظيفة جديدة</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <Label htmlFor="description">الوصف الوظيفي</Label>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={generateJobDescription}
-                          disabled={!jobForm.title || isGeneratingDescription}
-                          className="flex items-center gap-2"
-                        >
-                          <Bot className="w-4 h-4" />
-                          {isGeneratingDescription ? 'جاري التوليد...' : 'توليد بالذكاء الاصطناعي'}
-                        </Button>
-                      </div>
-                      <Textarea
-                        id="description"
-                        value={jobForm.description}
-                        onChange={(e) => setJobForm(prev => ({ ...prev, description: e.target.value }))}
-                        placeholder="سيتم توليد الوصف تلقائياً..."
-                        rows={8}
+                      <Label htmlFor="title">المسمى الوظيفي</Label>
+                      <Input
+                        id="title"
+                        value={jobForm.title}
+                        onChange={(e) => setJobForm(prev => ({ ...prev, title: e.target.value }))}
+                        placeholder="مثال: مطور Full Stack"
                       />
                     </div>
-
                     <div>
-                      <Label htmlFor="requirements">المتطلبات (سطر لكل متطلب)</Label>
-                      <Textarea
-                        id="requirements"
-                        value={jobForm.requirements}
-                        onChange={(e) => setJobForm(prev => ({ ...prev, requirements: e.target.value }))}
-                        placeholder="React.js&#10;Node.js&#10;خبرة 3+ سنوات"
-                        rows={4}
+                      <Label htmlFor="department">القسم</Label>
+                      <Input
+                        id="department"
+                        value={jobForm.department}
+                        onChange={(e) => setJobForm(prev => ({ ...prev, department: e.target.value }))}
+                        placeholder="مثال: تقنية المعلومات"
                       />
-                    </div>
-
-                    <div className="flex justify-end gap-2">
-                      <Button variant="outline" onClick={() => setNewJobDialog(false)}>
-                        إلغاء
-                      </Button>
-                      <Button onClick={handleCreateJob}>
-                        إنشاء الوظيفة
-                      </Button>
                     </div>
                   </div>
-                </DialogContent>
-              </Dialog>
-            </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="location">الموقع</Label>
+                      <Input
+                        id="location"
+                        value={jobForm.location}
+                        onChange={(e) => setJobForm(prev => ({ ...prev, location: e.target.value }))}
+                        placeholder="مثال: الرياض"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="type">نوع الوظيفة</Label>
+                      <Select value={jobForm.type} onValueChange={(value: any) => setJobForm(prev => ({ ...prev, type: value }))}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="full-time">دوام كامل</SelectItem>
+                          <SelectItem value="part-time">دوام جزئي</SelectItem>
+                          <SelectItem value="contract">تعاقد</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label htmlFor="description">الوصف الوظيفي</Label>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={generateJobDescription}
+                        disabled={!jobForm.title || isGeneratingDescription}
+                        className="flex items-center gap-2"
+                      >
+                        <Bot className="w-4 h-4" />
+                        {isGeneratingDescription ? 'جاري التوليد...' : 'توليد بالذكاء الاصطناعي'}
+                      </Button>
+                    </div>
+                    <Textarea
+                      id="description"
+                      value={jobForm.description}
+                      onChange={(e) => setJobForm(prev => ({ ...prev, description: e.target.value }))}
+                      placeholder="سيتم توليد الوصف تلقائياً..."
+                      rows={8}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="requirements">المتطلبات (سطر لكل متطلب)</Label>
+                    <Textarea
+                      id="requirements"
+                      value={jobForm.requirements}
+                      onChange={(e) => setJobForm(prev => ({ ...prev, requirements: e.target.value }))}
+                      placeholder="React.js&#10;Node.js&#10;خبرة 3+ سنوات"
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-2">
+                    <Button variant="outline" onClick={() => setNewJobDialog(false)}>
+                      إلغاء
+                    </Button>
+                    <Button onClick={handleCreateJob}>
+                      إنشاء الوظيفة
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
 
