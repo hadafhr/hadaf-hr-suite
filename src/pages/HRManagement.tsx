@@ -14,7 +14,7 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { PatternBackground } from '@/components/PatternBackground';
-import { HRManagementSystem } from '@/components/admin/HRManagementSystem';
+import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
 import { 
   User,
   LogOut,
@@ -98,7 +98,7 @@ export const HRManagement: React.FC = () => {
       {/* Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-6">
         <div className="max-w-7xl mx-auto">
-          <HRManagementSystem />
+          <ComprehensiveDashboard />
         </div>
       </main>
     </div>
