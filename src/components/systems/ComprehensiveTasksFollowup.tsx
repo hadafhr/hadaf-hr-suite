@@ -371,57 +371,57 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   };
 
   const renderHeader = () => (
-    <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
-      <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
-      <div className="relative p-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Button
-              variant="ghost" 
-              size="sm"
-              onClick={onBack}
-              className="hover:bg-primary/10"
-            >
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              العودة
-            </Button>
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-                <CheckSquare className="h-8 w-8 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">
-                  المهام والمتابعة
-                </h1>
-                <p className="text-muted-foreground text-lg mt-1">
-                  منظومة شاملة لإدارة المهام والمتابعة مع أدوات التعاون والتحليل المتقدمة والتقارير التفصيلية
-                </p>
-              </div>
+    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+      <div className="flex items-center gap-6">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300">
+          <ArrowLeft className="h-4 w-4 ml-2" />
+          العودة
+        </Button>
+        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="flex items-center gap-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+            <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
+              <CheckSquare className="h-8 w-8" />
             </div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleExport}>
-              <Download className="h-4 w-4 ml-2" />
-              تصدير التقرير
-            </Button>
-            <Button variant="outline" size="sm" onClick={handlePrint}>
-              <FileText className="h-4 w-4 ml-2" />
-              طباعة
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleUpload}>
-              <Upload className="h-4 w-4 ml-2" />
-              رفع
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleDownload}>
-              <Download className="h-4 w-4 ml-2" />
-              تحميل
-            </Button>
-            <Button size="sm" onClick={() => setIsAddDialogOpen(true)}>
-              <Plus className="h-4 w-4 ml-2" />
-              مهمة جديدة
-            </Button>
+          <div>
+            <h1 className="text-3xl font-bold text-black">
+              المهام والمتابعة
+            </h1>
+            <p className="text-gray-600 text-lg">
+              منظومة شاملة لإدارة المهام والمتابعة مع أدوات التعاون والتحليل المتقدمة والتقارير التفصيلية
+            </p>
           </div>
         </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+          <CheckSquare className="h-4 w-4 ml-2" />
+          نظام متقدم
+        </Badge>
+        <Button 
+          onClick={handleExport}
+          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <Download className="h-4 w-4 ml-2" />
+          تصدير التقرير
+        </Button>
+        <Button 
+          onClick={handlePrint}
+          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <FileText className="h-4 w-4 ml-2" />
+          طباعة
+        </Button>
+        <Button 
+          onClick={() => setIsAddDialogOpen(true)}
+          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <Plus className="h-4 w-4 ml-2" />
+          مهمة جديدة
+        </Button>
       </div>
     </div>
   );
