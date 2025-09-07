@@ -372,111 +372,6 @@ export const AdminDashboard: React.FC = () => {
                     </ResponsiveContainer>
                   </Card>
                 </div>
-
-                {/* Recent Clients */}
-                <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {isArabic ? 'العملاء الجدد' : 'Recent Clients'}
-                    </h3>
-                    <Button variant="outline" size="sm" onClick={() => navigate('/client-management')}>
-                      {isArabic ? 'عرض الكل' : 'View All'}
-                    </Button>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="border-b border-border">
-                          <th className="text-left py-2">{isArabic ? 'اسم الشركة' : 'Company Name'}</th>
-                          <th className="text-left py-2">{isArabic ? 'عدد الموظفين' : 'Employees'}</th>
-                          <th className="text-left py-2">{isArabic ? 'الحالة' : 'Status'}</th>
-                          <th className="text-left py-2">{isArabic ? 'الباقة' : 'Plan'}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {recentClients.map((client, index) => (
-                          <tr key={index} className="border-b border-border/50">
-                            <td className="py-3">{client.name}</td>
-                            <td className="py-3">{client.employees}</td>
-                            <td className="py-3">
-                              <Badge variant={client.status === 'Active' ? 'default' : 'secondary'}>
-                                {client.status}
-                              </Badge>
-                            </td>
-                            <td className="py-3">{client.plan}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="subscriptions" className="space-y-6">
-                <SubscriptionManagement />
-              </TabsContent>
-                <div className="grid lg:grid-cols-2 gap-6">
-                  {/* Subscription Distribution */}
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <h3 className="text-lg font-semibold text-foreground mb-4">
-                      {isArabic ? 'توزيع الاشتراكات' : 'Subscription Distribution'}
-                    </h3>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <PieChart>
-                        <Pie
-                          data={subscriptionData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={120}
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {subscriptionData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div className="flex justify-center space-x-4 space-x-reverse mt-4">
-                      {subscriptionData.map((entry, index) => (
-                        <div key={index} className="flex items-center space-x-2 space-x-reverse">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: entry.color }}
-                          />
-                          <span className="text-sm">{entry.name}: {entry.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </Card>
-
-                  {/* Subscription Management Actions */}
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <h3 className="text-lg font-semibold text-foreground mb-4">
-                      {isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}
-                    </h3>
-                    <div className="space-y-4">
-                      <Button className="w-full justify-start" onClick={() => navigate('/subscription-packages')}>
-                        <Plus className="h-4 w-4 mr-2" />
-                        {isArabic ? 'إنشاء باقة جديدة' : 'Create New Package'}
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Settings className="h-4 w-4 mr-2" />
-                        {isArabic ? 'تعديل الباقات الحالية' : 'Modify Existing Packages'}
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <FileText className="h-4 w-4 mr-2" />
-                        {isArabic ? 'تقرير الاشتراكات' : 'Subscription Reports'}
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Database className="h-4 w-4 mr-2" />
-                        {isArabic ? 'إدارة التجديد التلقائي' : 'Manage Auto-Renewal'}
-                      </Button>
-                    </div>
-                  </Card>
-                </div>
               </TabsContent>
 
               <TabsContent value="clients" className="space-y-6">
@@ -487,92 +382,35 @@ export const AdminDashboard: React.FC = () => {
                 <SystemMonitoring />
               </TabsContent>
 
-              <TabsContent value="development" className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <h3 className="text-lg font-semibold text-foreground mb-4">
-                      {isArabic ? 'تطوير الميزات' : 'Feature Development'}
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                        <span>{isArabic ? 'نظام الذكي الاصطناعي' : 'AI System'}</span>
-                        <Badge>In Progress</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                        <span>{isArabic ? 'تطبيق الجوال' : 'Mobile App'}</span>
-                        <Badge variant="secondary">Testing</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                        <span>{isArabic ? 'التكامل مع الأنظمة الخارجية' : 'External Integrations'}</span>
-                        <Badge variant="destructive">Planned</Badge>
-                      </div>
-                    </div>
-                  </Card>
+              <TabsContent value="subscriptions" className="space-y-6">
+                <SubscriptionManagement />
+              </TabsContent>
 
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <h3 className="text-lg font-semibold text-foreground mb-4">
-                      {isArabic ? 'اختبار الميزات' : 'Feature Testing'}
-                    </h3>
-                    <div className="space-y-4">
-                      <Button className="w-full justify-start">
-                        <Zap className="h-4 w-4 mr-2" />
-                        {isArabic ? 'تفعيل وضع الاختبار' : 'Enable Test Mode'}
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Database className="h-4 w-4 mr-2" />
-                        {isArabic ? 'قاعدة بيانات تجريبية' : 'Test Database'}
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Globe className="h-4 w-4 mr-2" />
-                        {isArabic ? 'بيئة التطوير' : 'Development Environment'}
-                      </Button>
-                    </div>
-                  </Card>
-                </div>
+              <TabsContent value="development" className="space-y-6">
+                <Card className="p-6">
+                  <h3 className="text-lg font-semibold mb-4">
+                    {isArabic ? 'تطوير النظام' : 'System Development'}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {isArabic ? 'أدوات تطوير النظام والميزات الجديدة' : 'System development tools and new features'}
+                  </p>
+                </Card>
               </TabsContent>
 
               <TabsContent value="analytics" className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-semibold">{isArabic ? 'إحصائيات الاستخدام' : 'Usage Statistics'}</h4>
-                      <Activity className="h-5 w-5 text-blue-500" />
-                    </div>
-                    <p className="text-2xl font-bold">78.5%</p>
-                    <p className="text-sm text-muted-foreground">{isArabic ? 'نشاط العملاء' : 'Client Activity'}</p>
-                  </Card>
-
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-semibold">{isArabic ? 'تقييم الأداء' : 'Performance Score'}</h4>
-                      <TrendingUp className="h-5 w-5 text-green-500" />
-                    </div>
-                    <p className="text-2xl font-bold">9.2/10</p>
-                    <p className="text-sm text-muted-foreground">{isArabic ? 'رضا العملاء' : 'Client Satisfaction'}</p>
-                  </Card>
-
-                  <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-semibold">{isArabic ? 'الدعم الفني' : 'Technical Support'}</h4>
-                      <CheckCircle className="h-5 w-5 text-emerald-500" />
-                    </div>
-                    <p className="text-2xl font-bold">98.7%</p>
-                    <p className="text-sm text-muted-foreground">{isArabic ? 'معدل الحل' : 'Resolution Rate'}</p>
-                  </Card>
-                </div>
+                <Card className="p-6">
+                  <h3 className="text-lg font-semibold mb-4">
+                    {isArabic ? 'التحليلات المتقدمة' : 'Advanced Analytics'}
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {isArabic ? 'تحليلات متقدمة ومعلومات إحصائية شاملة' : 'Advanced analytics and comprehensive statistical insights'}
+                  </p>
+                </Card>
               </TabsContent>
             </Tabs>
           </div>
         </main>
       </div>
-
-      {/* Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        ></div>
-      )}
     </div>
   );
 };
