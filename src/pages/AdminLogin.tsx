@@ -30,7 +30,7 @@ const AdminLogin: React.FC = () => {
 
     if (formData.email === 'admin@boud.com.sa' && formData.password === 'Sa123465') {
       toast.success('تم تسجيل الدخول بنجاح');
-      navigate('/comprehensive-employee-management');
+      navigate('/admin-dashboard');
     } else {
       toast.error('بيانات الدخول غير صحيحة');
     }

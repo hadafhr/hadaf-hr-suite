@@ -29,7 +29,9 @@ import {
   Globe,
   Zap,
   Crown,
-  RefreshCw
+  RefreshCw,
+  Monitor,
+  Server
 } from 'lucide-react';
 import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
@@ -57,6 +59,9 @@ import {
   LineChart,
   Line
 } from 'recharts';
+import { SystemMonitoring } from '@/components/admin/SystemMonitoring';
+import { ClientManagement } from '@/components/admin/ClientManagement';
+import { SubscriptionManagement } from '@/components/admin/SubscriptionManagement';
 
 export const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -80,11 +85,11 @@ export const AdminDashboard: React.FC = () => {
 
   const sidebarItems = [
     { label: isArabic ? 'لوحة التحكم' : 'Dashboard', icon: BarChart3, route: '/admin-dashboard', active: true },
-    { label: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management', icon: Crown, route: '/subscription-management' },
     { label: isArabic ? 'إدارة العملاء' : 'Client Management', icon: Building2, route: '/client-management' },
-    { label: isArabic ? 'تطوير النظام' : 'System Development', icon: Zap, route: '/system-development' },
+    { label: isArabic ? 'مراقبة النظام' : 'System Monitoring', icon: Monitor, route: '/system-monitoring' },
+    { label: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management', icon: Crown, route: '/subscription-management' },
     { label: isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics', icon: BarChart3, route: '/admin-analytics' },
-    { label: isArabic ? 'مراقبة النظام' : 'System Monitoring', icon: Activity, route: '/system-monitoring' },
+    { label: isArabic ? 'تطوير النظام' : 'System Development', icon: Zap, route: '/system-development' },
     { label: isArabic ? 'إعدادات الأمان' : 'Security Settings', icon: Shield, route: '/security-settings' }
   ];
 
@@ -183,7 +188,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="flex items-center space-x-2 space-x-reverse">
               <Shield className="h-6 w-6 text-primary" />
               <h1 className="text-xl font-semibold text-foreground">
-                {isArabic ? 'لوحة تحكم المدير العام' : 'Super Admin Dashboard'}
+                {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator Dashboard'}
               </h1>
             </div>
           </div>
@@ -277,7 +282,7 @@ export const AdminDashboard: React.FC = () => {
                 {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
               </h2>
               <p className="text-muted-foreground">
-                {isArabic ? 'نظرة شاملة على حالة النظام والعملاء' : 'Complete overview of system status and clients'}
+                {isArabic ? 'لوحة التحكم الشاملة لإدارة منصة بُعد والعملاء والاشتراكات' : 'Comprehensive control panel for managing BuAD platform, clients, and subscriptions'}
               </p>
             </div>
 
@@ -302,10 +307,11 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Main Dashboard Tabs */}
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-5">
+              <TabsList className="grid w-full grid-cols-6">
                 <TabsTrigger value="overview">{isArabic ? 'نظرة عامة' : 'Overview'}</TabsTrigger>
-                <TabsTrigger value="subscriptions">{isArabic ? 'الاشتراكات' : 'Subscriptions'}</TabsTrigger>
                 <TabsTrigger value="clients">{isArabic ? 'العملاء' : 'Clients'}</TabsTrigger>
+                <TabsTrigger value="monitoring">{isArabic ? 'مراقبة النظام' : 'System Monitor'}</TabsTrigger>
+                <TabsTrigger value="subscriptions">{isArabic ? 'الاشتراكات' : 'Subscriptions'}</TabsTrigger>
                 <TabsTrigger value="development">{isArabic ? 'التطوير' : 'Development'}</TabsTrigger>
                 <TabsTrigger value="analytics">{isArabic ? 'التحليلات' : 'Analytics'}</TabsTrigger>
               </TabsList>
@@ -407,6 +413,8 @@ export const AdminDashboard: React.FC = () => {
               </TabsContent>
 
               <TabsContent value="subscriptions" className="space-y-6">
+                <SubscriptionManagement />
+              </TabsContent>
                 <div className="grid lg:grid-cols-2 gap-6">
                   {/* Subscription Distribution */}
                   <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
@@ -472,20 +480,11 @@ export const AdminDashboard: React.FC = () => {
               </TabsContent>
 
               <TabsContent value="clients" className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <Button className="h-24 flex flex-col items-center justify-center space-y-2 bg-blue-500 hover:bg-blue-600">
-                    <Plus className="h-6 w-6" />
-                    <span>{isArabic ? 'إضافة عميل جديد' : 'Add New Client'}</span>
-                  </Button>
-                  <Button variant="outline" className="h-24 flex flex-col items-center justify-center space-y-2">
-                    <Settings className="h-6 w-6" />
-                    <span>{isArabic ? 'إعادة تعيين كلمة المرور' : 'Reset Client Password'}</span>
-                  </Button>
-                  <Button variant="outline" className="h-24 flex flex-col items-center justify-center space-y-2">
-                    <Activity className="h-6 w-6" />
-                    <span>{isArabic ? 'مراقبة النشاط' : 'Monitor Activity'}</span>
-                  </Button>
-                </div>
+                <ClientManagement />
+              </TabsContent>
+
+              <TabsContent value="monitoring" className="space-y-6">
+                <SystemMonitoring />
               </TabsContent>
 
               <TabsContent value="development" className="space-y-6">
