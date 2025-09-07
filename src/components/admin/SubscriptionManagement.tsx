@@ -230,10 +230,6 @@ export const SubscriptionManagement: React.FC = () => {
             {isArabic ? 'إدارة اشتراكات العملاء والباقات والمدفوعات' : 'Manage client subscriptions, packages, and payments'}
           </p>
         </div>
-        <Button className="bg-primary">
-          <Plus className="h-4 w-4 mr-2" />
-          {isArabic ? 'باقة جديدة' : 'New Package'}
-        </Button>
       </div>
 
       {/* Stats Cards */}
