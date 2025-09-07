@@ -63,6 +63,8 @@ import { SystemMonitoring } from '@/components/admin/SystemMonitoring';
 import { ClientManagement } from '@/components/admin/ClientManagement';
 import { SubscriptionManagement } from '@/components/admin/SubscriptionManagement';
 import { HRManagementSystem } from '@/components/admin/HRManagementSystem';
+import { AIInsightsDashboard } from '@/components/admin/AIInsightsDashboard';
+import { SystemAnalytics } from '@/components/admin/SystemAnalytics';
 
 export const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -277,27 +279,29 @@ export const AdminDashboard: React.FC = () => {
 
         {/* Dashboard Content */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
-          <div className="max-w-7xl mx-auto space-y-6">
+          <div className="max-w-7xl mx-auto space-y-8">
             {/* Welcome Section */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-2">
+              <h2 className="text-3xl font-bold text-foreground mb-2">
                 {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
               </h2>
-              <p className="text-muted-foreground">
-                {isArabic ? 'لوحة التحكم الشاملة لإدارة منصة بُعد والعملاء والاشتراكات' : 'Comprehensive control panel for managing BuAD platform, clients, and subscriptions'}
+              <p className="text-muted-foreground text-lg">
+                {isArabic ? 'لوحة التحكم الشاملة المدعومة بالذكاء الاصطناعي لإدارة منصة بُعد' : 'AI-Powered comprehensive control panel for managing BuAD platform'}
               </p>
             </div>
 
             {/* System Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {systemStats.map((stat, index) => (
-                <Card key={index} className="p-6 backdrop-blur-sm bg-background/80 border border-border/50 hover:shadow-lg transition-shadow">
+                <Card key={index} className="p-6 backdrop-blur-sm bg-background/80 border border-border/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
                   <div className="flex items-center justify-between mb-2">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
                       <p className="text-2xl font-bold text-foreground">{stat.value}</p>
                     </div>
-                    <stat.icon className={`h-8 w-8 ${stat.color}`} />
+                    <div className="p-3 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10">
+                      <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                    </div>
                   </div>
                   <div className="flex items-center">
                     <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
@@ -306,6 +310,114 @@ export const AdminDashboard: React.FC = () => {
                 </Card>
               ))}
             </div>
+
+            {/* AI Insights Dashboard */}
+            <AIInsightsDashboard />
+
+            {/* System Analytics */}
+            <SystemAnalytics />
+
+            {/* Additional AI Features */}
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Real-time Monitoring */}
+              <Card className="p-6 bg-gradient-to-br from-background to-muted/20">
+                <div className="flex items-center space-x-3 space-x-reverse mb-4">
+                  <Monitor className="h-6 w-6 text-primary" />
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {isArabic ? 'مراقبة النظام في الوقت الفعلي' : 'Real-time System Monitoring'}
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
+                    <span className="font-medium">{isArabic ? 'استخدام الخادم' : 'Server Usage'}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-bold">23%</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
+                    <span className="font-medium">{isArabic ? 'قاعدة البيانات' : 'Database Load'}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-bold">45%</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
+                    <span className="font-medium">{isArabic ? 'الذاكرة' : 'Memory Usage'}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-bold">67%</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
+                    <span className="font-medium">{isArabic ? 'الشبكة' : 'Network Load'}</span>
+                    <div className="flex items-center space-x-2 space-x-reverse">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-bold">12%</span>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* AI Assistant Actions */}
+              <Card className="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20">
+                <div className="flex items-center space-x-3 space-x-reverse mb-4">
+                  <Zap className="h-6 w-6 text-primary" />
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {isArabic ? 'إجراءات المساعد الذكي' : 'AI Assistant Actions'}
+                  </h3>
+                </div>
+                <div className="space-y-3">
+                  <Button className="w-full justify-start" variant="outline">
+                    <Database className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تحسين قاعدة البيانات' : 'Optimize Database'}
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <Users className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تحليل سلوك المستخدمين' : 'Analyze User Behavior'}
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <TrendingUp className="h-4 w-4 mr-2" />
+                    {isArabic ? 'توليد تقرير التنبؤات' : 'Generate Predictions Report'}
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <Shield className="h-4 w-4 mr-2" />
+                    {isArabic ? 'فحص أمني شامل' : 'Security Audit'}
+                  </Button>
+                </div>
+              </Card>
+            </div>
+
+            {/* Performance Indicators */}
+            <Card className="p-6 bg-gradient-to-r from-background to-muted/10">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-foreground">
+                  {isArabic ? 'مؤشرات الأداء الرئيسية' : 'Key Performance Indicators'}
+                </h3>
+                <Button variant="outline" size="sm">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  {isArabic ? 'تحديث' : 'Refresh'}
+                </Button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
+                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">99.8%</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-300">{isArabic ? 'وقت التشغيل' : 'Uptime'}</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-green-50 to-green-100 dark:from-green-950 dark:to-green-900">
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">2.3s</div>
+                  <div className="text-sm text-green-700 dark:text-green-300">{isArabic ? 'زمن الاستجابة' : 'Response Time'}</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900">
+                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">15.2K</div>
+                  <div className="text-sm text-purple-700 dark:text-purple-300">{isArabic ? 'المعاملات اليومية' : 'Daily Transactions'}</div>
+                </div>
+                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900">
+                  <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">97.5%</div>
+                  <div className="text-sm text-orange-700 dark:text-orange-300">{isArabic ? 'معدل النجاح' : 'Success Rate'}</div>
+                </div>
+              </div>
+            </Card>
 
           </div>
         </main>
