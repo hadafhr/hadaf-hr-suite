@@ -30,7 +30,7 @@ interface Employee {
   id: string;
   user_id: string;
   company_id: string;
-  department_id: string;
+  selected_sections: string[];
   first_name: string;
   last_name: string;
   email: string;
@@ -39,10 +39,7 @@ interface Employee {
   is_active: boolean;
   created_at: string;
   role?: string;
-  department_name?: string;
   position_title?: string;
-  boud_departments?: { department_name: string };
-  boud_job_positions?: { position_title: string };
 }
 
 export const UserManagement: React.FC = () => {
@@ -63,7 +60,7 @@ export const UserManagement: React.FC = () => {
     last_name: '',
     email: '',
     phone: '',
-    department_id: '',
+    selected_sections: [] as string[],
     position_title: '',
     role: 'employee'
   });
@@ -129,7 +126,7 @@ export const UserManagement: React.FC = () => {
           id: '1',
           user_id: 'user-1',
           company_id: 'company-1',
-          department_id: 'dept-1',
+          selected_sections: ['hr_management', 'payroll_management'],
           first_name: 'أحمد',
           last_name: 'محمد',
           email: 'ahmed@company.com',
@@ -138,14 +135,13 @@ export const UserManagement: React.FC = () => {
           is_active: true,
           created_at: '2024-01-01T00:00:00Z',
           role: 'hr_manager',
-          department_name: 'الموارد البشرية',
           position_title: 'مدير الموارد البشرية'
         },
         {
           id: '2',
           user_id: 'user-2', 
           company_id: 'company-1',
-          department_id: 'dept-2',
+          selected_sections: ['financial_management', 'accounting'],
           first_name: 'فاطمة',
           last_name: 'أحمد',
           email: 'fatima@company.com',
@@ -154,14 +150,13 @@ export const UserManagement: React.FC = () => {
           is_active: true,
           created_at: '2024-01-02T00:00:00Z',
           role: 'department_manager',
-          department_name: 'المالية',
           position_title: 'مديرة المالية'
         },
         {
           id: '3',
           user_id: 'user-3',
           company_id: 'company-1', 
-          department_id: 'dept-3',
+          selected_sections: ['team_management', 'project_management'],
           first_name: 'محمد',
           last_name: 'علي',
           email: 'mohammed@company.com',
@@ -170,7 +165,6 @@ export const UserManagement: React.FC = () => {
           is_active: true,
           created_at: '2024-01-03T00:00:00Z',
           role: 'employee',
-          department_name: 'التقنية',
           position_title: 'مطور'
         }
       ];
@@ -327,7 +321,7 @@ export const UserManagement: React.FC = () => {
         id: `emp-${Date.now()}`,
         user_id: `user-${Date.now()}`,
         company_id: 'company-1',
-        department_id: newUser.department_id,
+        selected_sections: newUser.selected_sections,
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -336,7 +330,6 @@ export const UserManagement: React.FC = () => {
         is_active: true,
         created_at: new Date().toISOString(),
         role: newUser.role,
-        department_name: departments.find(d => d.id === newUser.department_id)?.department_name || 'غير محدد',
         position_title: newUser.position_title || 'غير محدد'
       };
 
@@ -354,7 +347,7 @@ export const UserManagement: React.FC = () => {
         last_name: '',
         email: '',
         phone: '',
-        department_id: '',
+        selected_sections: [],
         position_title: '',
         role: 'employee'
       });
@@ -453,7 +446,10 @@ export const UserManagement: React.FC = () => {
                               </div>
                               <div className="flex items-center gap-1">
                                 <Building2 className="w-4 h-4" />
-                                <span>القسم: {employee.department_name}</span>
+                                <span>الأقسام: {employee.selected_sections.length > 0 ? 
+                                  employee.selected_sections.map(sectionId => 
+                                    systemSections.find(s => s.id === sectionId)?.name
+                                  ).filter(Boolean).join('، ') : 'غير محدد'}</span>
                               </div>
                             </div>
                             <div className="flex items-center gap-2 mt-2">
@@ -571,21 +567,49 @@ export const UserManagement: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-1 gap-4">
                 <div>
-                  <Label htmlFor="department">القسم</Label>
-                  <Select value={newUser.department_id} onValueChange={(value) => setNewUser({...newUser, department_id: value})}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="اختر القسم" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {departments.map((dept) => (
-                        <SelectItem key={dept.id} value={dept.id}>
-                          {dept.department_name}
-                        </SelectItem>
+                  <Label htmlFor="sections">أقسام النظام</Label>
+                  <div className="border rounded-lg p-4 max-h-64 overflow-y-auto">
+                    <div className="space-y-2">
+                      {systemSections.map((section) => (
+                        <div key={section.id} className="flex items-center space-x-2 space-x-reverse">
+                          <input
+                            type="checkbox"
+                            id={section.id}
+                            checked={newUser.selected_sections.includes(section.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setNewUser({
+                                  ...newUser,
+                                  selected_sections: [...newUser.selected_sections, section.id]
+                                });
+                              } else {
+                                setNewUser({
+                                  ...newUser,
+                                  selected_sections: newUser.selected_sections.filter(id => id !== section.id)
+                                });
+                              }
+                            }}
+                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          />
+                          <label htmlFor={section.id} className="flex-1 cursor-pointer">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium text-gray-900">{section.name}</span>
+                              <span className={`px-2 py-1 text-xs rounded-full ${section.color}`}>
+                                {section.description}
+                              </span>
+                            </div>
+                          </label>
+                        </div>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </div>
+                  </div>
+                  {newUser.selected_sections.length > 0 && (
+                    <div className="mt-2 text-sm text-gray-600">
+                      تم تحديد {newUser.selected_sections.length} من أصل {systemSections.length} قسم
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="role">الدور</Label>
@@ -629,7 +653,7 @@ export const UserManagement: React.FC = () => {
                       last_name: '',
                       email: '',
                       phone: '',
-                      department_id: '',
+                      selected_sections: [],
                       position_title: '',
                       role: 'employee'
                     });
@@ -754,37 +778,39 @@ export const UserManagement: React.FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-primary" />
-                الأقسام ({departments.length} قسم)
+                أقسام النظام ({systemSections.length} قسم)
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {departments.map((department) => {
-                  const departmentEmployees = employees.filter(emp => emp.department_id === department.id);
+                {systemSections.map((section) => {
+                  const sectionEmployees = employees.filter(emp => emp.selected_sections.includes(section.id));
                   
                   return (
-                    <Card key={department.id} className="border border-muted">
+                    <Card key={section.id} className="border border-muted">
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">
-                          <h3 className="font-semibold text-lg">{department.department_name}</h3>
+                          <h3 className="font-semibold text-lg">{section.name}</h3>
                           <Badge variant="outline">
-                            {departmentEmployees.length} موظف
+                            {sectionEmployees.length} موظف
                           </Badge>
                         </div>
                       </CardHeader>
                       <CardContent className="pt-0">
                         <div className="text-sm text-muted-foreground space-y-2">
-                          <p>رمز القسم: {department.department_code}</p>
+                          <p className={`px-2 py-1 rounded-full text-xs ${section.color}`}>
+                            {section.description}
+                          </p>
                           <div className="space-y-1">
-                            {departmentEmployees.slice(0, 3).map((emp) => (
+                            {sectionEmployees.slice(0, 3).map((emp) => (
                               <div key={emp.id} className="flex items-center justify-between">
                                 <span className="text-xs">{emp.first_name} {emp.last_name}</span>
                                 {getRoleBadge(emp.role || 'employee')}
                               </div>
                             ))}
-                            {departmentEmployees.length > 3 && (
+                            {sectionEmployees.length > 3 && (
                               <p className="text-xs text-muted-foreground">
-                                و {departmentEmployees.length - 3} موظفين آخرين...
+                                و {sectionEmployees.length - 3} موظفين آخرين...
                               </p>
                             )}
                           </div>
@@ -822,7 +848,10 @@ export const UserManagement: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-muted-foreground" />
-                    <span>{selectedUser.department_name}</span>
+                    <span>الأقسام: {selectedUser.selected_sections.length > 0 ? 
+                      selectedUser.selected_sections.map(sectionId => 
+                        systemSections.find(s => s.id === sectionId)?.name
+                      ).filter(Boolean).join('، ') : 'غير محدد'}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Crown className="w-4 h-4 text-muted-foreground" />
