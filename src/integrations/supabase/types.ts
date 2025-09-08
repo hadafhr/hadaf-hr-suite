@@ -2527,6 +2527,42 @@ export type Database = {
         }
         Relationships: []
       }
+      department_permissions: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          permission_code: string
+          permission_name_ar: string
+          permission_name_en: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          permission_code: string
+          permission_name_ar: string
+          permission_name_en?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          permission_code?: string
+          permission_name_ar?: string
+          permission_name_en?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       development_plans: {
         Row: {
           actual_completion_date: string | null
@@ -8085,6 +8121,93 @@ export type Database = {
           },
         ]
       }
+      user_company_roles: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string | null
+          company_id: string
+          created_at: string | null
+          department_id: string | null
+          id: string
+          is_active: boolean | null
+          role: Database["public"]["Enums"]["company_role"]
+          updated_at: string | null
+          user_id: string
+          valid_from: string | null
+          valid_until: string | null
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          company_id: string
+          created_at?: string | null
+          department_id?: string | null
+          id?: string
+          is_active?: boolean | null
+          role: Database["public"]["Enums"]["company_role"]
+          updated_at?: string | null
+          user_id: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          company_id?: string
+          created_at?: string | null
+          department_id?: string | null
+          id?: string
+          is_active?: boolean | null
+          role?: Database["public"]["Enums"]["company_role"]
+          updated_at?: string | null
+          user_id?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
+      user_department_permissions: {
+        Row: {
+          company_id: string
+          created_at: string | null
+          department_id: string | null
+          expires_at: string | null
+          granted_at: string | null
+          granted_by: string | null
+          id: string
+          is_active: boolean | null
+          permission_code: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string | null
+          department_id?: string | null
+          expires_at?: string | null
+          granted_at?: string | null
+          granted_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          permission_code: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string | null
+          department_id?: string | null
+          expires_at?: string | null
+          granted_at?: string | null
+          granted_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          permission_code?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -8475,6 +8598,16 @@ export type Database = {
         Args: { _user_id: string }
         Returns: string
       }
+      grant_department_permission: {
+        Args: {
+          _company_id: string
+          _department_id: string
+          _expires_at?: string
+          _permission_code: string
+          _user_id: string
+        }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -8490,6 +8623,15 @@ export type Database = {
         }
         Returns: boolean
       }
+      revoke_department_permission: {
+        Args: {
+          _company_id: string
+          _department_id: string
+          _permission_code: string
+          _user_id: string
+        }
+        Returns: boolean
+      }
       secure_employee_access_check: {
         Args: { _employee_id: string; _user_id: string }
         Returns: boolean
@@ -8499,6 +8641,15 @@ export type Database = {
           p_attendance_id: string
           p_is_check_out?: boolean
           p_location: Json
+        }
+        Returns: boolean
+      }
+      user_has_department_permission: {
+        Args: {
+          _company_id: string
+          _department_id: string
+          _permission_code: string
+          _user_id: string
         }
         Returns: boolean
       }
@@ -8523,6 +8674,15 @@ export type Database = {
         | "early_leave"
         | "overtime"
       claim_status: "pending" | "approved" | "rejected" | "processing" | "paid"
+      company_role:
+        | "super_admin"
+        | "hr_manager"
+        | "hr_admin"
+        | "department_manager"
+        | "team_leader"
+        | "senior_employee"
+        | "employee"
+        | "trainee"
       contract_status:
         | "draft"
         | "active"
@@ -8809,6 +8969,16 @@ export const Constants = {
         "overtime",
       ],
       claim_status: ["pending", "approved", "rejected", "processing", "paid"],
+      company_role: [
+        "super_admin",
+        "hr_manager",
+        "hr_admin",
+        "department_manager",
+        "team_leader",
+        "senior_employee",
+        "employee",
+        "trainee",
+      ],
       contract_status: [
         "draft",
         "active",
