@@ -281,6 +281,10 @@ const BoudHRLandingPage: React.FC = () => {
                     <Building2 className="w-4 h-4" />
                      مدير النظام
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                    <Building className="w-4 h-4" />
+                    🏢 لوحة تحكم المنشأة
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <User className="w-4 h-4" />
                     🔘 لوحة تحكم الموظف
@@ -328,6 +332,10 @@ const BoudHRLandingPage: React.FC = () => {
                   <Button variant="ghost" onClick={() => navigate('/admin-login')}>
                     <Building2 className="w-4 h-4 ml-2" />
                     🔘 لوحة تحكم الإدارة
+                  </Button>
+                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')}>
+                    <Building className="w-4 h-4 ml-2" />
+                    🏢 لوحة تحكم المنشأة
                   </Button>
                   <Button variant="ghost" onClick={() => navigate('/employee-login')}>
                     <User className="w-4 h-4 ml-2" />
