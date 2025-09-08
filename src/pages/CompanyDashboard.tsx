@@ -172,11 +172,14 @@ export const CompanyDashboard: React.FC = () => {
               ))}
             </TabsList>
 
-            {tabsConfig.map((tab) => (
-              <TabsContent key={tab.id} value={tab.id} className="space-y-6 mt-6">
-                <tab.component />
-              </TabsContent>
-            ))}
+            {tabsConfig.map((tab) => {
+              const Component = tab.component;
+              return (
+                <TabsContent key={tab.id} value={tab.id} className="space-y-6 mt-6">
+                  <Component />
+                </TabsContent>
+              );
+            })}
           </Tabs>
         </div>
       </div>
