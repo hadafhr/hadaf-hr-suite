@@ -55,6 +55,9 @@ export const UserManagement: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<Employee | null>(null);
   const [permissionDialogOpen, setPermissionDialogOpen] = useState(false);
   const [addUserDialogOpen, setAddUserDialogOpen] = useState(false);
+  const [systemPermissionsDialog, setSystemPermissionsDialog] = useState(false);
+  const [selectedUserForPermissions, setSelectedUserForPermissions] = useState<Employee | null>(null);
+  const [userPermissions, setUserPermissions] = useState<{[key: string]: string[]}>({});
   const [newUser, setNewUser] = useState({
     first_name: '',
     last_name: '',
@@ -75,6 +78,40 @@ export const UserManagement: React.FC = () => {
     { value: 'senior_employee', label: 'موظف أول', color: 'bg-purple-100 text-purple-800', description: 'موظف بخبرة عالية' },
     { value: 'employee', label: 'موظف', color: 'bg-gray-100 text-gray-800', description: 'موظف عادي' },
     { value: 'trainee', label: 'متدرب', color: 'bg-orange-100 text-orange-800', description: 'موظف تحت التدريب' }
+  ];
+
+  // System management sections (30 sections)
+  const systemSections = [
+    { id: 'team_management', name: 'فريق العمل', description: 'إدارة فرق العمل والمشاريع', color: 'bg-blue-100 text-blue-800' },
+    { id: 'departments_units', name: 'الإدارات والوحدات', description: 'إدارة الأقسام والوحدات التنظيمية', color: 'bg-green-100 text-green-800' },
+    { id: 'hr_management', name: 'الموارد البشرية', description: 'إدارة شؤون الموظفين', color: 'bg-purple-100 text-purple-800' },
+    { id: 'payroll_management', name: 'إدارة الرواتب', description: 'معالجة الرواتب والبدلات', color: 'bg-yellow-100 text-yellow-800' },
+    { id: 'attendance_management', name: 'إدارة الحضور', description: 'تتبع الحضور والانصراف', color: 'bg-indigo-100 text-indigo-800' },
+    { id: 'leave_management', name: 'إدارة الإجازات', description: 'طلبات الإجازات والموافقات', color: 'bg-pink-100 text-pink-800' },
+    { id: 'performance_management', name: 'إدارة الأداء', description: 'تقييم الأداء والمتابعة', color: 'bg-cyan-100 text-cyan-800' },
+    { id: 'training_development', name: 'التدريب والتطوير', description: 'برامج التدريب والتأهيل', color: 'bg-orange-100 text-orange-800' },
+    { id: 'recruitment', name: 'التوظيف', description: 'إدارة عمليات التوظيف', color: 'bg-red-100 text-red-800' },
+    { id: 'disciplinary_actions', name: 'الإجراءات التأديبية', description: 'متابعة المخالفات والعقوبات', color: 'bg-gray-100 text-gray-800' },
+    { id: 'employee_documents', name: 'وثائق الموظفين', description: 'إدارة ملفات الموظفين', color: 'bg-teal-100 text-teal-800' },
+    { id: 'benefits_insurance', name: 'المزايا والتأمين', description: 'إدارة مزايا الموظفين والتأمين', color: 'bg-violet-100 text-violet-800' },
+    { id: 'financial_management', name: 'الإدارة المالية', description: 'إدارة العمليات المالية', color: 'bg-emerald-100 text-emerald-800' },
+    { id: 'accounting', name: 'المحاسبة', description: 'العمليات المحاسبية والتقارير', color: 'bg-lime-100 text-lime-800' },
+    { id: 'budgeting', name: 'إعداد الميزانية', description: 'تخطيط ومتابعة الميزانيات', color: 'bg-amber-100 text-amber-800' },
+    { id: 'procurement', name: 'المشتريات', description: 'إدارة عمليات الشراء', color: 'bg-rose-100 text-rose-800' },
+    { id: 'inventory_management', name: 'إدارة المخزون', description: 'متابعة المخزون والأصول', color: 'bg-sky-100 text-sky-800' },
+    { id: 'project_management', name: 'إدارة المشاريع', description: 'تخطيط ومتابعة المشاريع', color: 'bg-indigo-100 text-indigo-800' },
+    { id: 'quality_control', name: 'ضمان الجودة', description: 'مراقبة وضمان الجودة', color: 'bg-green-100 text-green-800' },
+    { id: 'it_management', name: 'إدارة تقنية المعلومات', description: 'إدارة الأنظمة والتقنية', color: 'bg-blue-100 text-blue-800' },
+    { id: 'data_analytics', name: 'تحليل البيانات', description: 'تحليل البيانات والتقارير', color: 'bg-purple-100 text-purple-800' },
+    { id: 'customer_service', name: 'خدمة العملاء', description: 'إدارة علاقات العملاء', color: 'bg-pink-100 text-pink-800' },
+    { id: 'sales_management', name: 'إدارة المبيعات', description: 'متابعة المبيعات والعملاء', color: 'bg-orange-100 text-orange-800' },
+    { id: 'marketing', name: 'التسويق', description: 'الحملات التسويقية والترويج', color: 'bg-red-100 text-red-800' },
+    { id: 'legal_compliance', name: 'الشؤون القانونية', description: 'الامتثال القانوني واللوائح', color: 'bg-gray-100 text-gray-800' },
+    { id: 'risk_management', name: 'إدارة المخاطر', description: 'تحليل وإدارة المخاطر', color: 'bg-yellow-100 text-yellow-800' },
+    { id: 'security_safety', name: 'الأمن والسلامة', description: 'إجراءات الأمن والسلامة المهنية', color: 'bg-red-100 text-red-800' },
+    { id: 'facilities_management', name: 'إدارة المرافق', description: 'صيانة وإدارة المباني والمرافق', color: 'bg-teal-100 text-teal-800' },
+    { id: 'environmental_management', name: 'الإدارة البيئية', description: 'السياسات البيئية والاستدامة', color: 'bg-green-100 text-green-800' },
+    { id: 'strategic_planning', name: 'التخطيط الاستراتيجي', description: 'وضع الاستراتيجيات والخطط طويلة المدى', color: 'bg-indigo-100 text-indigo-800' }
   ];
 
   // Fetch employees and related data
@@ -148,6 +185,20 @@ export const UserManagement: React.FC = () => {
 
       setEmployees(mockEmployees);
       setDepartments(mockDepartments);
+
+      // Initialize user permissions (mock data)
+      const mockPermissions: {[key: string]: string[]} = {};
+      mockEmployees.forEach(emp => {
+        mockPermissions[emp.id] = [];
+        if (emp.role === 'super_admin') {
+          mockPermissions[emp.id] = systemSections.map(s => s.id);
+        } else if (emp.role === 'hr_manager') {
+          mockPermissions[emp.id] = ['hr_management', 'payroll_management', 'attendance_management', 'leave_management'];
+        } else if (emp.role === 'department_manager') {
+          mockPermissions[emp.id] = ['team_management', 'departments_units', 'performance_management'];
+        }
+      });
+      setUserPermissions(mockPermissions);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -241,6 +292,29 @@ export const UserManagement: React.FC = () => {
     setPermissionDialogOpen(true);
   };
 
+  const openSystemPermissionsDialog = (employee: Employee) => {
+    setSelectedUserForPermissions(employee);
+    setSystemPermissionsDialog(true);
+  };
+
+  const toggleSystemPermission = (employeeId: string, sectionId: string) => {
+    setUserPermissions(prev => {
+      const currentPermissions = prev[employeeId] || [];
+      const hasPermission = currentPermissions.includes(sectionId);
+      
+      const updatedPermissions = hasPermission 
+        ? currentPermissions.filter(p => p !== sectionId)
+        : [...currentPermissions, sectionId];
+      
+      return {
+        ...prev,
+        [employeeId]: updatedPermissions
+      };
+    });
+    
+    toast.success(`تم ${userPermissions[employeeId]?.includes(sectionId) ? 'إزالة' : 'إضافة'} الصلاحية بنجاح`);
+  };
+
   const handleAddUser = async () => {
     try {
       if (!newUser.first_name || !newUser.last_name || !newUser.email) {
@@ -267,6 +341,12 @@ export const UserManagement: React.FC = () => {
       };
 
       setEmployees([...employees, newEmployee]);
+      
+      // Initialize permissions for new employee
+      setUserPermissions(prev => ({
+        ...prev,
+        [newEmployee.id]: []
+      }));
       
       // إعادة تعيين النموذج
       setNewUser({
@@ -298,9 +378,10 @@ export const UserManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       <Tabs value={activeUserTab} onValueChange={setActiveUserTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="users">إدارة المستخدمين</TabsTrigger>
           <TabsTrigger value="add-user">إضافة مستخدم</TabsTrigger>
+          <TabsTrigger value="system-permissions">صلاحيات النظام</TabsTrigger>
           <TabsTrigger value="roles">الأدوار والمناصب</TabsTrigger>
           <TabsTrigger value="departments">الأقسام</TabsTrigger>
         </TabsList>
@@ -396,6 +477,14 @@ export const UserManagement: React.FC = () => {
                             >
                               <Shield className="w-4 h-4 mr-2" />
                               إدارة المستخدم
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => openSystemPermissionsDialog(employee)}
+                            >
+                              <Settings className="w-4 h-4 mr-2" />
+                              صلاحيات النظام
                             </Button>
                             <Select 
                               value={employee.role || 'employee'} 
@@ -548,6 +637,79 @@ export const UserManagement: React.FC = () => {
                 >
                   إعادة تعيين
                 </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* System Permissions Management */}
+        <TabsContent value="system-permissions" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="w-5 h-5 text-primary" />
+                أقسام إدارة النظام ({systemSections.length} قسم)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-sm text-muted-foreground mb-4">
+                  يمكنك إعطاء صلاحيات للموظفين على أقسام النظام المختلفة حسب احتياجات العمل
+                </div>
+                
+                <div className="grid gap-6">
+                  {employees.map((employee) => (
+                    <Card key={employee.id} className="border border-muted">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                              <span className="text-white font-bold">
+                                {employee.first_name?.charAt(0) || 'م'}
+                              </span>
+                            </div>
+                            <div>
+                              <h3 className="font-semibold">{employee.first_name} {employee.last_name}</h3>
+                              <p className="text-sm text-muted-foreground">{employee.email}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {getRoleBadge(employee.role || 'employee')}
+                            <Badge variant="outline">
+                              {userPermissions[employee.id]?.length || 0} صلاحية
+                            </Badge>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                          {systemSections.map((section) => {
+                            const hasPermission = userPermissions[employee.id]?.includes(section.id) || false;
+                            return (
+                              <div 
+                                key={section.id} 
+                                className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-colors ${
+                                  hasPermission ? 'border-primary bg-primary/5' : 'border-muted hover:border-muted-foreground/20'
+                                }`}
+                                onClick={() => toggleSystemPermission(employee.id, section.id)}
+                              >
+                                <div className="flex-1">
+                                  <p className="text-sm font-medium">{section.name}</p>
+                                  <p className="text-xs text-muted-foreground">{section.description}</p>
+                                </div>
+                                <Switch 
+                                  checked={hasPermission}
+                                  onChange={() => {}}
+                                  className="ml-2"
+                                />
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -714,6 +876,58 @@ export const UserManagement: React.FC = () => {
                       />
                       {getStatusBadge(selectedUser.is_active)}
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* System Permissions Dialog */}
+      <Dialog open={systemPermissionsDialog} onOpenChange={setSystemPermissionsDialog}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Settings className="w-5 h-5 text-primary" />
+              صلاحيات النظام: {selectedUserForPermissions?.first_name} {selectedUserForPermissions?.last_name}
+            </DialogTitle>
+          </DialogHeader>
+          
+          {selectedUserForPermissions && (
+            <div className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">الصلاحيات الحالية</CardTitle>
+                    <Badge variant="outline">
+                      {userPermissions[selectedUserForPermissions.id]?.length || 0} صلاحية
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {systemSections.map((section) => {
+                      const hasPermission = userPermissions[selectedUserForPermissions.id]?.includes(section.id) || false;
+                      return (
+                        <div 
+                          key={section.id}
+                          className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer transition-colors ${
+                            hasPermission ? 'border-primary bg-primary/5' : 'border-muted hover:border-muted-foreground/20'
+                          }`}
+                          onClick={() => toggleSystemPermission(selectedUserForPermissions.id, section.id)}
+                        >
+                          <div className="flex-1">
+                            <h4 className="font-medium">{section.name}</h4>
+                            <p className="text-sm text-muted-foreground">{section.description}</p>
+                          </div>
+                          <Switch 
+                            checked={hasPermission}
+                            onChange={() => {}}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
