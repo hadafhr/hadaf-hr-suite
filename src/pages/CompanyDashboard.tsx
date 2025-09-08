@@ -69,7 +69,7 @@ export const CompanyDashboard: React.FC = () => {
         {/* Enhanced Header */}
         <SystemHeader
           title="🏢 لوحة تحكم المنشأة"
-          description="الواجهة الرسمية لإدارة أنظمة الموارد البشرية والاشتراكات والدعم الفني"
+          description="الواجهة الرسمية لإدارة نظام إدارة الموارد البشرية المتكاملة"
           icon={<Building2 className="h-12 w-12 text-white" />}
           showBackButton={false}
         />
