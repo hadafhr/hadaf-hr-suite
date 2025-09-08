@@ -8,6 +8,7 @@ import { CompanyOverview } from '@/components/company/CompanyOverview';
 import { SubscriptionManager } from '@/components/company/SubscriptionManager';
 import { TechnicalSupport } from '@/components/company/TechnicalSupport';
 import { UserManagement } from '@/components/company/UserManagement';
+import { HRSystemManagement } from '@/components/company/HRSystemManagement';
 import { 
   Building2, 
   Users, 
@@ -60,6 +61,12 @@ export const CompanyDashboard: React.FC = () => {
       label: 'إدارة المستخدمين',
       icon: <Users className="w-4 h-4" />,
       component: UserManagement
+    },
+    {
+      id: 'hr-system',
+      label: 'إدارة النظام',
+      icon: <Settings className="w-4 h-4" />,
+      component: HRSystemManagement
     }
   ];
 
@@ -152,7 +159,7 @@ export const CompanyDashboard: React.FC = () => {
         {/* Main Content with Tabs */}
         <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6">
+            <TabsList className="grid w-full grid-cols-5 mb-6">
               {tabsConfig.map((tab) => (
                 <TabsTrigger 
                   key={tab.id} 
