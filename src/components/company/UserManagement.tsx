@@ -6,35 +6,24 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { 
   Users, 
-  Plus,
   Search,
-  Filter,
   Settings,
-  Edit,
-  Trash2,
   UserCheck,
   UserX,
   Shield,
-  Key,
   Mail,
   Phone,
   Calendar,
-  Activity,
-  Eye,
-  Download,
-  Upload,
   RefreshCw,
   Building2,
   Crown,
-  AlertCircle,
-  CheckCircle2
+  Activity
 } from 'lucide-react';
 
 interface Employee {
@@ -52,8 +41,6 @@ interface Employee {
   role?: string;
   department_name?: string;
   position_title?: string;
-  permissions_count?: number;
-  user_permissions?: any[];
   boud_departments?: { department_name: string };
   boud_job_positions?: { position_title: string };
 }
@@ -63,11 +50,9 @@ export const UserManagement: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRole, setSelectedRole] = useState('all');
   const [loading, setLoading] = useState(true);
-  const [employees, setEmployees] = useState<any[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [departments, setDepartments] = useState<any[]>([]);
-  const [permissions, setPermissions] = useState<any[]>([]);
-  const [userPermissions, setUserPermissions] = useState<any[]>([]);
-  const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedUser, setSelectedUser] = useState<Employee | null>(null);
   const [permissionDialogOpen, setPermissionDialogOpen] = useState(false);
 
   // Available roles with Arabic labels
@@ -91,17 +76,29 @@ export const UserManagement: React.FC = () => {
     try {
       setLoading(true);
 
-      // Fetch employees with their department and position info
+      // Fetch employees with their department and position info  
       const { data: employeesData, error: employeesError } = await supabase
         .from('boud_employees')
         .select(`
           *,
-          boud_departments!inner(id, department_name),
+          boud_departments(id, department_name),
           boud_job_positions(id, position_title)
         `)
         .eq('is_active', true);
 
       if (employeesError) throw employeesError;
+
+      // Fetch user roles separately (if table exists)
+      let userRoles: any[] = [];
+      try {
+        const { data: rolesData } = await supabase
+          .from('boud_user_roles')
+          .select('*')
+          .eq('is_active', true);
+        userRoles = rolesData || [];
+      } catch (error) {
+        console.warn('User roles table not found, using default roles');
+      }
 
       // Fetch departments
       const { data: departmentsData, error: departmentsError } = await supabase
@@ -111,55 +108,19 @@ export const UserManagement: React.FC = () => {
 
       if (departmentsError) throw departmentsError;
 
-      // Fetch available permissions
-      const { data: permissionsData, error: permissionsError } = await supabase
-        .from('department_permissions')
-        .select('*')
-        .eq('is_active', true)
-        .order('category', { ascending: true })
-        .order('permission_name_ar', { ascending: true });
-
-      if (permissionsError) throw permissionsError;
-
-      // Fetch user roles
-      const { data: userRolesData, error: userRolesError } = await supabase
-        .from('user_company_roles')
-        .select('*')
-        .eq('is_active', true);
-
-      if (userRolesError) throw userRolesError;
-
-      // Fetch user department permissions
-      const { data: userPermissionsData, error: userPermissionsError } = await supabase
-        .from('user_department_permissions')
-        .select(`
-          *,
-          boud_departments(department_name),
-          department_permissions(permission_name_ar, category)
-        `)
-        .eq('is_active', true);
-
-      if (userPermissionsError) throw userPermissionsError;
-
-      // Merge role data with employees
+      // Transform employees data
       const employeesWithRoles = employeesData?.map(emp => {
-        const userRole = userRolesData?.find(role => role.user_id === emp.user_id);
-        const empPermissions = userPermissionsData?.filter(perm => perm.user_id === emp.user_id);
-        
+        const userRole = userRoles.find(role => role.user_id === emp.user_id);
         return {
           ...emp,
           role: userRole?.role || 'employee',
           department_name: emp.boud_departments?.department_name || 'غير محدد',
           position_title: emp.boud_job_positions?.position_title || 'غير محدد',
-          permissions_count: empPermissions?.length || 0,
-          user_permissions: empPermissions || []
         };
       }) || [];
 
       setEmployees(employeesWithRoles);
       setDepartments(departmentsData || []);
-      setPermissions(permissionsData || []);
-      setUserPermissions(userPermissionsData || []);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -169,67 +130,19 @@ export const UserManagement: React.FC = () => {
     }
   };
 
-  const handleGrantPermission = async (userId: string, companyId: string, departmentId: string | null, permissionCode: string) => {
+  const handleUpdateUserRole = async (userId: string, companyId: string, newRole: string) => {
     try {
-      const { error } = await supabase.rpc('grant_department_permission', {
-        _user_id: userId,
-        _company_id: companyId,
-        _department_id: departmentId,
-        _permission_code: permissionCode
-      });
-
-      if (error) throw error;
-
-      toast.success('تم منح الصلاحية بنجاح');
-      fetchData(); // Refresh data
-    } catch (error) {
-      console.error('Error granting permission:', error);
-      toast.error('حدث خطأ في منح الصلاحية');
-    }
-  };
-
-  const handleRevokePermission = async (userId: string, companyId: string, departmentId: string | null, permissionCode: string) => {
-    try {
-      const { error } = await supabase.rpc('revoke_department_permission', {
-        _user_id: userId,
-        _company_id: companyId,
-        _department_id: departmentId,
-        _permission_code: permissionCode
-      });
-
-      if (error) throw error;
-
-      toast.success('تم سحب الصلاحية بنجاح');
-      fetchData(); // Refresh data
-    } catch (error) {
-      console.error('Error revoking permission:', error);
-      toast.error('حدث خطأ في سحب الصلاحية');
-    }
-  };
-
-  const handleUpdateUserRole = async (userId: string, companyId: string, newRole: string, departmentId: string | null = null) => {
-    try {
-      // First, deactivate existing roles
-      const { error: updateError } = await supabase
-        .from('user_company_roles')
-        .update({ is_active: false })
-        .eq('user_id', userId)
-        .eq('company_id', companyId);
-
-      if (updateError) throw updateError;
-
-      // Insert new role with proper type assertion
-      const { error: insertError } = await supabase
-        .from('user_company_roles')
-        .insert({
+      // Update existing role or insert new one
+      const { error: upsertError } = await supabase
+        .from('boud_user_roles')
+        .upsert({
           user_id: userId,
           company_id: companyId,
-          role: newRole as any, // Type assertion for enum
-          department_id: departmentId,
+          role: newRole as any,
           is_active: true
         });
 
-      if (insertError) throw insertError;
+      if (upsertError) throw upsertError;
 
       toast.success('تم تحديث دور المستخدم بنجاح');
       fetchData(); // Refresh data
@@ -296,7 +209,7 @@ export const UserManagement: React.FC = () => {
     return matchesSearch && matchesRole;
   });
 
-  const openPermissionDialog = (employee: any) => {
+  const openPermissionDialog = (employee: Employee) => {
     setSelectedUser(employee);
     setPermissionDialogOpen(true);
   };
@@ -315,8 +228,8 @@ export const UserManagement: React.FC = () => {
       <Tabs value={activeUserTab} onValueChange={setActiveUserTab} className="w-full">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="users">إدارة المستخدمين</TabsTrigger>
-          <TabsTrigger value="roles">الأدوار والصلاحيات</TabsTrigger>
-          <TabsTrigger value="permissions">صلاحيات الأقسام</TabsTrigger>
+          <TabsTrigger value="roles">الأدوار والمناصب</TabsTrigger>
+          <TabsTrigger value="departments">الأقسام</TabsTrigger>
         </TabsList>
 
         {/* Users Management */}
@@ -390,12 +303,8 @@ export const UserManagement: React.FC = () => {
                               </div>
                             </div>
                             <div className="flex items-center gap-2 mt-2">
-                              {getRoleBadge(employee.role)}
+                              {getRoleBadge(employee.role || 'employee')}
                               {getStatusBadge(employee.is_active)}
-                              <Badge variant="outline" className="text-xs">
-                                <Shield className="w-3 h-3 mr-1" />
-                                {employee.permissions_count} صلاحية
-                              </Badge>
                             </div>
                           </div>
                         </div>
@@ -413,11 +322,11 @@ export const UserManagement: React.FC = () => {
                               onClick={() => openPermissionDialog(employee)}
                             >
                               <Shield className="w-4 h-4 mr-2" />
-                              إدارة الصلاحيات
+                              إدارة المستخدم
                             </Button>
                             <Select 
-                              value={employee.role} 
-                              onValueChange={(newRole) => handleUpdateUserRole(employee.user_id, employee.company_id, newRole, employee.department_id)}
+                              value={employee.role || 'employee'} 
+                              onValueChange={(newRole) => handleUpdateUserRole(employee.user_id, employee.company_id, newRole)}
                             >
                               <SelectTrigger className="h-8 text-xs">
                                 <SelectValue />
@@ -447,150 +356,79 @@ export const UserManagement: React.FC = () => {
           </Card>
         </TabsContent>
 
-        {/* Roles & Permissions */}
+        {/* Roles & Positions */}
         <TabsContent value="roles" className="space-y-6">
-          <div className="grid lg:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Crown className="w-5 h-5 text-primary" />
-                  الأدوار المتاحة
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {roles.map((role) => {
-                    const employeeCount = employees.filter(emp => emp.role === role.value).length;
-                    return (
-                      <div key={role.value} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <div className="w-3 h-3 bg-primary rounded-full"></div>
-                          <div>
-                            <p className="font-medium">{role.label}</p>
-                            <p className="text-sm text-gray-600">{role.description}</p>
-                            <p className="text-xs text-gray-500 mt-1">
-                              {employeeCount} مستخدم
-                            </p>
-                          </div>
-                        </div>
-                        <Badge className={role.color}>
-                          {employeeCount}
-                        </Badge>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Crown className="w-5 h-5 text-primary" />
+                الأدوار المتاحة
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {roles.map((role) => {
+                  const employeeCount = employees.filter(emp => emp.role === role.value).length;
+                  return (
+                    <div key={role.value} className="flex items-center justify-between p-4 bg-gradient-to-r from-background to-muted rounded-lg border">
+                      <div>
+                        <p className="font-medium">{role.label}</p>
+                        <p className="text-sm text-muted-foreground">{role.description}</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {employeeCount} مستخدم
+                        </p>
                       </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Key className="w-5 h-5 text-primary" />
-                  إحصائيات الصلاحيات
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {Object.entries(
-                    (permissions as any[]).reduce((acc: Record<string, any[]>, permission: any) => {
-                      if (!acc[permission.category]) {
-                        acc[permission.category] = [];
-                      }
-                      acc[permission.category].push(permission);
-                      return acc;
-                    }, {})
-                  ).map(([category, perms]) => {
-                    const categoryName = {
-                      'hr': 'الموارد البشرية',
-                      'finance': 'المالية',
-                      'reports': 'التقارير',
-                      'management': 'الإدارة',
-                      'analytics': 'التحليلات',
-                      'performance': 'الأداء',
-                      'development': 'التطوير',
-                      'system': 'النظام'
-                    }[category] || category;
-
-                    return (
-                      <div key={category} className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-medium text-sm text-gray-700">
-                            {categoryName}
-                          </h4>
-                          <Badge variant="outline" className="text-xs">
-                            {Array.isArray(perms) ? perms.length : 0} صلاحية
-                          </Badge>
-                        </div>
-                        <div className="text-xs text-gray-500 space-y-1">
-                          {Array.isArray(perms) && perms.slice(0, 3).map((permission: any) => (
-                            <div key={permission.id}>{permission.permission_name_ar}</div>
-                          ))}
-                          {Array.isArray(perms) && perms.length > 3 && (
-                            <div>و {String(Array.isArray(perms) ? perms.length - 3 : 0)} صلاحيات أخرى...</div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                      <Badge className={role.color}>
+                        {employeeCount}
+                      </Badge>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
-        {/* Department Permissions */}
-        <TabsContent value="permissions" className="space-y-6">
+        {/* Departments */}
+        <TabsContent value="departments" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-primary" />
-                صلاحيات الأقسام ({departments.length} قسم)
+                الأقسام ({departments.length} قسم)
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {departments.map((department) => {
-                  const deptPermissions = userPermissions.filter(up => up.department_id === department.id);
-                  const uniqueUsers = [...new Set(deptPermissions.map(up => up.user_id))].length;
+                  const departmentEmployees = employees.filter(emp => emp.department_id === department.id);
                   
                   return (
-                    <Card key={department.id} className="border border-gray-200">
+                    <Card key={department.id} className="border border-muted">
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">
                           <h3 className="font-semibold text-lg">{department.department_name}</h3>
                           <Badge variant="outline">
-                            {uniqueUsers} مستخدم
+                            {departmentEmployees.length} موظف
                           </Badge>
                         </div>
                       </CardHeader>
                       <CardContent className="pt-0">
-                        <div className="text-sm text-gray-600 space-y-2">
+                        <div className="text-sm text-muted-foreground space-y-2">
                           <p>رمز القسم: {department.department_code}</p>
-                          <p>إجمالي الصلاحيات: {deptPermissions.length}</p>
-                          
-                          {deptPermissions.length > 0 && (
-                            <div className="mt-3">
-                              <p className="font-medium text-gray-700 mb-2">الصلاحيات الشائعة:</p>
-                              <div className="space-y-1">
-                                {Object.entries(
-                                  deptPermissions.reduce((acc, perm) => {
-                                    const permCode = perm.permission_code;
-                                    acc[permCode] = (acc[permCode] || 0) + 1;
-                                    return acc;
-                                  }, {} as Record<string, number>)
-                                ).slice(0, 3).map(([permCode, count]) => {
-                                  const permission = permissions.find(p => p.permission_code === permCode);
-                                  return (
-                                    <div key={permCode} className="flex items-center justify-between text-xs">
-                                      <span>{permission?.permission_name_ar || permCode}</span>
-                                      <Badge variant="outline" className="text-xs">{String(count)}</Badge>
-                                    </div>
-                                  );
-                                })}
+                          <div className="space-y-1">
+                            {departmentEmployees.slice(0, 3).map((emp) => (
+                              <div key={emp.id} className="flex items-center justify-between">
+                                <span className="text-xs">{emp.first_name} {emp.last_name}</span>
+                                {getRoleBadge(emp.role || 'employee')}
                               </div>
-                            </div>
-                          )}
+                            ))}
+                            {departmentEmployees.length > 3 && (
+                              <p className="text-xs text-muted-foreground">
+                                و {departmentEmployees.length - 3} موظفين آخرين...
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
@@ -602,121 +440,86 @@ export const UserManagement: React.FC = () => {
         </TabsContent>
       </Tabs>
 
-      {/* Permission Management Dialog */}
+      {/* User Management Dialog */}
       <Dialog open={permissionDialogOpen} onOpenChange={setPermissionDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-primary" />
-              إدارة صلاحيات: {selectedUser?.first_name} {selectedUser?.last_name}
+              إدارة المستخدم: {selectedUser?.first_name} {selectedUser?.last_name}
             </DialogTitle>
           </DialogHeader>
           
           {selectedUser && (
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">معلومات المستخدم</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-gray-500" />
-                      <span>{selectedUser.email}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Building2 className="w-4 h-4 text-gray-500" />
-                      <span>{selectedUser.department_name}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Crown className="w-4 h-4 text-gray-500" />
-                      {getRoleBadge(selectedUser.role)}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">إحصائيات الصلاحيات</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span>إجمالي الصلاحيات:</span>
-                      <Badge>{selectedUser.permissions_count}</Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span>صلاحيات الأقسام:</span>
-                      <Badge variant="outline">
-                        {[...new Set(selectedUser.user_permissions?.map((p: any) => p.department_id))].length} قسم
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">إدارة الصلاحيات حسب القسم</h3>
-                
-                {departments.map((department) => {
-                  const userDeptPermissions = userPermissions.filter(
-                    up => up.user_id === selectedUser.user_id && up.department_id === department.id
-                  );
+            <div className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">معلومات المستخدم</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-muted-foreground" />
+                    <span>{selectedUser.email}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-muted-foreground" />
+                    <span>{selectedUser.department_name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Crown className="w-4 h-4 text-muted-foreground" />
+                    {getRoleBadge(selectedUser.role || 'employee')}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <span>انضم في: {formatDate(selectedUser.created_at)}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-muted-foreground" />
+                    {getStatusBadge(selectedUser.is_active)}
+                  </div>
                   
-                  return (
-                    <Card key={department.id} className="border border-gray-200">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-medium">{department.department_name}</h4>
-                          <Badge variant="outline">
-                            {userDeptPermissions.length} صلاحية
-                          </Badge>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {permissions.map((permission) => {
-                            const hasPermission = userDeptPermissions.some(
-                              up => up.permission_code === permission.permission_code
-                            );
-                            
-                            return (
-                              <div key={permission.id} className="flex items-center space-x-2 space-x-reverse">
-                                <Checkbox
-                                  id={`${department.id}-${permission.permission_code}`}
-                                  checked={hasPermission}
-                                  onCheckedChange={(checked) => {
-                                    if (checked) {
-                                      handleGrantPermission(
-                                        selectedUser.user_id,
-                                        selectedUser.company_id,
-                                        department.id,
-                                        permission.permission_code
-                                      );
-                                    } else {
-                                      handleRevokePermission(
-                                        selectedUser.user_id,
-                                        selectedUser.company_id,
-                                        department.id,
-                                        permission.permission_code
-                                      );
-                                    }
-                                  }}
-                                />
-                                <Label
-                                  htmlFor={`${department.id}-${permission.permission_code}`}
-                                  className="text-sm cursor-pointer"
-                                >
-                                  {permission.permission_name_ar}
-                                </Label>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
+                  <div className="mt-4">
+                    <Label htmlFor="role-select" className="text-sm font-medium">
+                      تحديث دور المستخدم:
+                    </Label>
+                    <Select 
+                      value={selectedUser.role || 'employee'} 
+                      onValueChange={(newRole) => {
+                        handleUpdateUserRole(selectedUser.user_id, selectedUser.company_id, newRole);
+                        setSelectedUser({...selectedUser, role: newRole});
+                      }}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {roles.map((role) => (
+                          <SelectItem key={role.value} value={role.value}>
+                            {role.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between">
+                    <Label htmlFor="status-toggle" className="text-sm font-medium">
+                      حالة المستخدم:
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        id="status-toggle"
+                        checked={selectedUser.is_active}
+                        onCheckedChange={() => {
+                          toggleEmployeeStatus(selectedUser.id, selectedUser.is_active);
+                          setSelectedUser({...selectedUser, is_active: !selectedUser.is_active});
+                        }}
+                      />
+                      {getStatusBadge(selectedUser.is_active)}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           )}
         </DialogContent>
