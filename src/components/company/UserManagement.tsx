@@ -110,7 +110,8 @@ export const UserManagement: React.FC = () => {
     { id: 'artificial_intelligence', name: 'قسم الذكاء الاصطناعي', description: 'تطبيقات الذكاء الاصطناعي', color: 'bg-violet-100 text-violet-800' },
     { id: 'comprehensive_reports', name: 'قسم التقارير الشاملة', description: 'إعداد التقارير الشاملة', color: 'bg-emerald-100 text-emerald-800' },
     { id: 'field_tracking', name: 'قسم التتبع الميداني', description: 'تتبع العمل الميداني', color: 'bg-lime-100 text-lime-800' },
-    { id: 'general_settings', name: 'الإعدادات العامة', description: 'إدارة الإعدادات العامة للنظام', color: 'bg-amber-100 text-amber-800' }
+    { id: 'general_settings', name: 'الإعدادات العامة', description: 'إدارة الإعدادات العامة للنظام', color: 'bg-amber-100 text-amber-800' },
+    { id: 'employee_dashboard', name: 'لوحة تحكم الموظف', description: 'لوحة تحكم شخصية للموظفين', color: 'bg-slate-100 text-slate-800' }
   ];
 
   // Fetch employees and related data
