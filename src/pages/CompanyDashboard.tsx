@@ -159,24 +159,27 @@ export const CompanyDashboard: React.FC = () => {
         {/* Main Content with Tabs */}
         <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6">
+            <TabsList className="grid w-full grid-cols-5 mb-6 bg-muted/30 p-2 rounded-lg">
               {tabsConfig.map((tab) => (
                 <TabsTrigger 
                   key={tab.id} 
                   value={tab.id}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-300 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md hover:bg-white/50"
                 >
                   {tab.icon}
-                  {tab.label}
+                  <span className="font-medium">{tab.label}</span>
                 </TabsTrigger>
               ))}
             </TabsList>
 
-            {tabsConfig.map((tab) => (
-              <TabsContent key={tab.id} value={tab.id} className="space-y-6">
-                <tab.component />
-              </TabsContent>
-            ))}
+            {tabsConfig.map((tab) => {
+              const Component = tab.component;
+              return (
+                <TabsContent key={tab.id} value={tab.id} className="space-y-6 mt-6">
+                  <Component />
+                </TabsContent>
+              );
+            })}
           </Tabs>
         </div>
       </div>
