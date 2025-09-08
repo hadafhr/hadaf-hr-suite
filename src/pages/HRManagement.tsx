@@ -81,6 +81,10 @@ export const HRManagement: React.FC = () => {
                 <User className="h-4 w-4 mr-2" />
                 {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/company-dashboard')}>
+                <Building2 className="h-4 w-4 mr-2" />
+                {isArabic ? 'لوحة تحكم المنشأة' : 'Company Dashboard'}
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <Settings className="h-4 w-4 mr-2" />
                 {isArabic ? 'إعدادات النظام' : 'System Settings'}
