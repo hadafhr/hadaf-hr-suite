@@ -54,6 +54,16 @@ export const UserManagement: React.FC = () => {
   const [departments, setDepartments] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState<Employee | null>(null);
   const [permissionDialogOpen, setPermissionDialogOpen] = useState(false);
+  const [addUserDialogOpen, setAddUserDialogOpen] = useState(false);
+  const [newUser, setNewUser] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    department_id: '',
+    position_title: '',
+    role: 'employee'
+  });
 
   // Available roles with Arabic labels
   const roles = [
@@ -76,51 +86,68 @@ export const UserManagement: React.FC = () => {
     try {
       setLoading(true);
 
-      // Fetch employees with their department and position info  
-      const { data: employeesData, error: employeesError } = await supabase
-        .from('boud_employees')
-        .select(`
-          *,
-          boud_departments(id, department_name),
-          boud_job_positions(id, position_title)
-        `)
-        .eq('is_active', true);
+      // استخدام بيانات افتراضية مؤقتاً
+      const mockEmployees = [
+        {
+          id: '1',
+          user_id: 'user-1',
+          company_id: 'company-1',
+          department_id: 'dept-1',
+          first_name: 'أحمد',
+          last_name: 'محمد',
+          email: 'ahmed@company.com',
+          phone: '+966501234567',
+          employee_id: 'EMP001',
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          role: 'hr_manager',
+          department_name: 'الموارد البشرية',
+          position_title: 'مدير الموارد البشرية'
+        },
+        {
+          id: '2',
+          user_id: 'user-2', 
+          company_id: 'company-1',
+          department_id: 'dept-2',
+          first_name: 'فاطمة',
+          last_name: 'أحمد',
+          email: 'fatima@company.com',
+          phone: '+966501234568',
+          employee_id: 'EMP002',
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          role: 'department_manager',
+          department_name: 'المالية',
+          position_title: 'مديرة المالية'
+        },
+        {
+          id: '3',
+          user_id: 'user-3',
+          company_id: 'company-1', 
+          department_id: 'dept-3',
+          first_name: 'محمد',
+          last_name: 'علي',
+          email: 'mohammed@company.com',
+          phone: '+966501234569',
+          employee_id: 'EMP003',
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          role: 'employee',
+          department_name: 'التقنية',
+          position_title: 'مطور'
+        }
+      ];
 
-      if (employeesError) throw employeesError;
+      const mockDepartments = [
+        { id: 'dept-1', department_name: 'الموارد البشرية', department_code: 'HR' },
+        { id: 'dept-2', department_name: 'المالية', department_code: 'FIN' },
+        { id: 'dept-3', department_name: 'التقنية', department_code: 'IT' },
+        { id: 'dept-4', department_name: 'التسويق', department_code: 'MKT' },
+        { id: 'dept-5', department_name: 'المبيعات', department_code: 'SALES' }
+      ];
 
-      // Fetch user roles separately (if table exists)
-      let userRoles: any[] = [];
-      try {
-        const { data: rolesData } = await supabase
-          .from('boud_user_roles')
-          .select('*')
-          .eq('is_active', true);
-        userRoles = rolesData || [];
-      } catch (error) {
-        console.warn('User roles table not found, using default roles');
-      }
-
-      // Fetch departments
-      const { data: departmentsData, error: departmentsError } = await supabase
-        .from('boud_departments')
-        .select('*')
-        .eq('is_active', true);
-
-      if (departmentsError) throw departmentsError;
-
-      // Transform employees data
-      const employeesWithRoles = employeesData?.map(emp => {
-        const userRole = userRoles.find(role => role.user_id === emp.user_id);
-        return {
-          ...emp,
-          role: userRole?.role || 'employee',
-          department_name: emp.boud_departments?.department_name || 'غير محدد',
-          position_title: emp.boud_job_positions?.position_title || 'غير محدد',
-        };
-      }) || [];
-
-      setEmployees(employeesWithRoles);
-      setDepartments(departmentsData || []);
+      setEmployees(mockEmployees);
+      setDepartments(mockDepartments);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -214,6 +241,51 @@ export const UserManagement: React.FC = () => {
     setPermissionDialogOpen(true);
   };
 
+  const handleAddUser = async () => {
+    try {
+      if (!newUser.first_name || !newUser.last_name || !newUser.email) {
+        toast.error('يجب ملء الحقول المطلوبة');
+        return;
+      }
+
+      // إضافة المستخدم الجديد للقائمة
+      const newEmployee: Employee = {
+        id: `emp-${Date.now()}`,
+        user_id: `user-${Date.now()}`,
+        company_id: 'company-1',
+        department_id: newUser.department_id,
+        first_name: newUser.first_name,
+        last_name: newUser.last_name,
+        email: newUser.email,
+        phone: newUser.phone,
+        employee_id: `EMP${(employees.length + 1).toString().padStart(3, '0')}`,
+        is_active: true,
+        created_at: new Date().toISOString(),
+        role: newUser.role,
+        department_name: departments.find(d => d.id === newUser.department_id)?.department_name || 'غير محدد',
+        position_title: newUser.position_title || 'غير محدد'
+      };
+
+      setEmployees([...employees, newEmployee]);
+      
+      // إعادة تعيين النموذج
+      setNewUser({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        department_id: '',
+        position_title: '',
+        role: 'employee'
+      });
+
+      toast.success('تم إضافة المستخدم بنجاح');
+    } catch (error) {
+      console.error('Error adding user:', error);
+      toast.error('حدث خطأ في إضافة المستخدم');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -226,8 +298,9 @@ export const UserManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       <Tabs value={activeUserTab} onValueChange={setActiveUserTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="users">إدارة المستخدمين</TabsTrigger>
+          <TabsTrigger value="add-user">إضافة مستخدم</TabsTrigger>
           <TabsTrigger value="roles">الأدوار والمناصب</TabsTrigger>
           <TabsTrigger value="departments">الأقسام</TabsTrigger>
         </TabsList>
@@ -351,6 +424,130 @@ export const UserManagement: React.FC = () => {
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Add User */}
+        <TabsContent value="add-user" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-primary" />
+                إضافة مستخدم جديد
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="first_name">الاسم الأول</Label>
+                  <Input
+                    id="first_name"
+                    value={newUser.first_name}
+                    onChange={(e) => setNewUser({...newUser, first_name: e.target.value})}
+                    placeholder="أدخل الاسم الأول"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="last_name">الاسم الأخير</Label>
+                  <Input
+                    id="last_name"
+                    value={newUser.last_name}
+                    onChange={(e) => setNewUser({...newUser, last_name: e.target.value})}
+                    placeholder="أدخل الاسم الأخير"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="email">البريد الإلكتروني</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={newUser.email}
+                    onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+                    placeholder="أدخل البريد الإلكتروني"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">رقم الهاتف</Label>
+                  <Input
+                    id="phone"
+                    value={newUser.phone}
+                    onChange={(e) => setNewUser({...newUser, phone: e.target.value})}
+                    placeholder="أدخل رقم الهاتف"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="department">القسم</Label>
+                  <Select value={newUser.department_id} onValueChange={(value) => setNewUser({...newUser, department_id: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر القسم" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {departments.map((dept) => (
+                        <SelectItem key={dept.id} value={dept.id}>
+                          {dept.department_name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="role">الدور</Label>
+                  <Select value={newUser.role} onValueChange={(value) => setNewUser({...newUser, role: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر الدور" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {roles.map((role) => (
+                        <SelectItem key={role.value} value={role.value}>
+                          {role.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="position">المنصب</Label>
+                <Input
+                  id="position"
+                  value={newUser.position_title}
+                  onChange={(e) => setNewUser({...newUser, position_title: e.target.value})}
+                  placeholder="أدخل المنصب"
+                />
+              </div>
+
+              <div className="flex gap-2 pt-4">
+                <Button 
+                  onClick={handleAddUser}
+                  className="flex-1"
+                >
+                  إضافة المستخدم
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setNewUser({
+                      first_name: '',
+                      last_name: '',
+                      email: '',
+                      phone: '',
+                      department_id: '',
+                      position_title: '',
+                      role: 'employee'
+                    });
+                  }}
+                >
+                  إعادة تعيين
+                </Button>
               </div>
             </CardContent>
           </Card>
