@@ -259,14 +259,6 @@ export const AdminDashboard: React.FC = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <User className="h-4 w-4 mr-2" />
-                  {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="h-4 w-4 mr-2" />
-                  {isArabic ? 'إعدادات النظام' : 'System Settings'}
-                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="h-4 w-4 mr-2" />
