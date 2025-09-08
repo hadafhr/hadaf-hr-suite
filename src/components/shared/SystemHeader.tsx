@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Calculator, Download, FileText } from 'lucide-react';
+import { ArrowLeft, Calculator, Download, FileText, Home } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface SystemHeaderProps {
   onBack?: () => void;
@@ -13,6 +14,7 @@ interface SystemHeaderProps {
   onExportExcel?: () => void;
   onExportPDF?: () => void;
   showBackButton?: boolean;
+  showDashboardButton?: boolean;
   customButtons?: React.ReactNode;
 }
 
@@ -25,9 +27,11 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
   onExportExcel,
   onExportPDF,
   showBackButton = true,
+  showDashboardButton = true,
   customButtons
 }) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleCalculateEligibility = () => {
     if (onCalculateEligibility) {
@@ -65,6 +69,17 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
   return (
     <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
       <div className="flex items-center gap-6">
+        {showDashboardButton && (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => navigate('/company-dashboard')} 
+            className="border-[#3CB593]/30 bg-[#3CB593]/5 text-[#3CB593] hover:bg-[#3CB593]/10 hover:border-[#3CB593]/50 transition-all duration-300"
+          >
+            <Home className="h-4 w-4 ml-2" />
+            لوحة التحكم
+          </Button>
+        )}
         {showBackButton && onBack && (
           <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
             <ArrowLeft className="h-4 w-4 ml-2" />
