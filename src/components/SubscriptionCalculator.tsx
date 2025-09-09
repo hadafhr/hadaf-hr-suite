@@ -151,22 +151,6 @@ export const SubscriptionCalculator: React.FC = () => {
     supportFeeAnnual: 5000, // ﷼
   };
 
-  // Animate total price changes
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimatedTotal(calculations.finalTotal);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [calculations.finalTotal]);
-
-  // Configuration (would come from admin panel)
-  const config = {
-    annualDiscount: 15, // 15%
-    setupFee: 2500, // ﷼
-    supportFeeMonthly: 500, // ﷼
-    supportFeeAnnual: 5000, // ﷼
-  };
-
   const currentTier = useMemo(() => {
     return PRICING_TIERS.find(tier => 
       employees >= tier.minEmployees && 
@@ -249,6 +233,34 @@ export const SubscriptionCalculator: React.FC = () => {
       description: "يمكنك مشاركة هذا الرابط مع فريقك",
     });
   };
+
+  const contactSales = () => {
+    toast({
+      title: "تواصل معنا",
+      description: "سيتم توجيهكم لصفحة التواصل",
+    });
+    // Navigate to contact page or open contact modal
+  };
+
+  const requestDemo = () => {
+    toast({
+      title: "طلب عرض توضيحي",
+      description: "سيتم توجيهكم لصفحة طلب العرض التوضيحي",
+    });
+    // Navigate to demo request page or open demo modal
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Animate total price changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimatedTotal(calculations.finalTotal);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [calculations]);
 
   return (
     <div className="min-h-screen bg-white" dir="rtl">
