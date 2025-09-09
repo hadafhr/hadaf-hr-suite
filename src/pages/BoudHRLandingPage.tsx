@@ -545,105 +545,6 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Vision Content */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Vision Images */}
-            <div className="relative animate-fade-in" style={{animationDelay: '0.6s'}}>
-              {/* Main Vision Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
-                <img 
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80" 
-                  alt="رؤية مستقبلية لتقنية الموارد البشرية"
-                  className="w-full h-96 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-secondary/20"></div>
-                
-                {/* Floating Vision Icons */}
-                <div className="absolute top-6 right-6 w-16 h-16 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg animate-bounce" style={{animationDelay: '1s'}}>
-                  <Eye className="w-8 h-8 text-primary" />
-                </div>
-                <div className="absolute bottom-6 left-6 w-16 h-16 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg animate-bounce" style={{animationDelay: '1.5s'}}>
-                  <Rocket className="w-8 h-8 text-secondary" />
-                </div>
-              </div>
-
-              {/* Floating Vision Elements */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-2xl overflow-hidden shadow-xl hover-scale animate-fade-in bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm flex items-center justify-center" style={{animationDelay: '0.8s'}}>
-                <img 
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80" 
-                  alt="الابتكار التقني"
-                  className="w-full h-full object-cover rounded-2xl opacity-80"
-                />
-              </div>
-              
-              <div className="absolute -bottom-8 -left-8 w-40 h-32 rounded-2xl overflow-hidden shadow-xl hover-scale animate-fade-in" style={{animationDelay: '1s'}}>
-                <img 
-                  src="https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=400&q=80" 
-                  alt="المستقبل الرقمي"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-accent/40 to-transparent"></div>
-              </div>
-            </div>
-
-            {/* Right Side - Vision Text */}
-            <div className="space-y-8 animate-fade-in" style={{animationDelay: '0.8s'}}>
-              {/* Main Vision Statement */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-primary/10 hover:shadow-2xl transition-all duration-500">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                    <Lightbulb className="w-6 h-6 text-white animate-pulse" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground">رؤيتنا الاستراتيجية</h3>
-                </div>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  أن نكون الشريك التقني الأول في المملكة العربية السعودية لحلول إدارة الموارد البشرية المتطورة والمبتكرة، ونمكن المؤسسات من تحقيق التحول الرقمي الشامل
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2">🏆 الريادة التقنية</Badge>
-                  <Badge className="bg-secondary/10 text-secondary border-secondary/20 px-4 py-2">🚀 الابتكار المستمر</Badge>
-                  <Badge className="bg-accent/10 text-accent border-accent/20 px-4 py-2">🌟 التميز والجودة</Badge>
-                </div>
-              </div>
-
-              {/* Vision Goals */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20 hover:scale-105 transition-transform duration-300">
-                  <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center mb-4">
-                    <Globe className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="font-bold text-foreground mb-2">التوسع العالمي</h4>
-                  <p className="text-sm text-muted-foreground">نسعى للوصول إلى الأسواق العالمية</p>
-                </div>
-
-                <div className="bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-2xl p-6 border border-secondary/20 hover:scale-105 transition-transform duration-300">
-                  <div className="w-10 h-10 bg-secondary rounded-xl flex items-center justify-center mb-4">
-                    <Crown className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="font-bold text-foreground mb-2">قيادة السوق</h4>
-                  <p className="text-sm text-muted-foreground">الريادة في حلول الموارد البشرية</p>
-                </div>
-              </div>
-
-              {/* Vision Stats */}
-              <div className="bg-gradient-to-r from-primary via-secondary to-accent rounded-3xl p-8 text-white shadow-2xl">
-                <div className="grid grid-cols-3 gap-6 text-center">
-                  <div className="space-y-2">
-                    <div className="text-3xl font-bold animate-pulse">2030</div>
-                    <div className="text-sm opacity-90">رؤية المملكة</div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-3xl font-bold animate-pulse">100%</div>
-                    <div className="text-sm opacity-90">رقمنة شاملة</div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-3xl font-bold animate-pulse">∞</div>
-                    <div className="text-sm opacity-90">إمكانيات لا محدودة</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Floating Animation Elements */}
