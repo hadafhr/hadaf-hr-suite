@@ -425,91 +425,219 @@ const BoudHRLandingPage: React.FC = () => {
       </div>
 
         {/* Features Section */}
-      <section id="solutions" className="relative py-20 bg-muted/50">
-        <PatternBackground opacity={0.06} size={280} />
-        <div className="container mx-auto px-6">
-          <div className="text-center space-y-8 mb-20">
+      <section id="solutions" className="relative py-32 bg-gradient-to-br from-background via-muted/30 to-background overflow-hidden">
+        {/* Advanced Background Effects */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.10),transparent_50%)]"></div>
+        <PatternBackground opacity={0.04} size={400} />
+        
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-primary-glow/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          {/* Enhanced Hero Header */}
+          <div className="text-center space-y-12 mb-32">
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
-              <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
-                <Target className="w-5 h-5 mr-2" />
-                حلولنا المتطورة
+              <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 via-primary-glow/20 to-primary/30 rounded-3xl blur-3xl opacity-40 animate-pulse"></div>
+              <Badge className="relative bg-gradient-to-r from-primary/20 via-primary-glow/15 to-primary/20 text-primary border-primary/40 px-8 py-4 text-lg font-bold backdrop-blur-lg shadow-2xl hover:shadow-primary/20 transition-all duration-500">
+                <Target className="w-6 h-6 mr-3 animate-spin-slow" />
+                Enterprise Solutions 2024 ✨
               </Badge>
             </div>
             
-            <div className="space-y-4">
-              <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
-                منصات متكاملة لإدارة 
-                <br />
-                <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
-                  الموارد البشرية
+            <div className="space-y-8">
+              <h2 className="text-6xl lg:text-8xl font-black text-foreground leading-tight">
+                <span className="block opacity-90">Next-Generation</span>
+                <span className="block bg-gradient-to-r from-primary via-primary-glow to-purple-600 bg-clip-text text-transparent animate-gradient-x">
+                  HR Ecosystem
+                </span>
+                <span className="block text-4xl lg:text-5xl font-semibold text-muted-foreground mt-4">
+                  Powered by AI Intelligence
                 </span>
               </h2>
               
-              <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+              <div className="flex items-center justify-center gap-4">
+                <div className="h-1 w-16 bg-gradient-to-r from-transparent to-primary rounded-full"></div>
+                <div className="h-1.5 w-32 bg-gradient-to-r from-primary via-primary-glow to-purple-600 rounded-full animate-pulse"></div>
+                <div className="h-1 w-16 bg-gradient-to-l from-transparent to-primary rounded-full"></div>
+              </div>
             </div>
             
-            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
-              حلول ذكية ومتطورة تخدم جميع احتياجات الشركات في إدارة الموارد البشرية
-              <br />
-              <span className="text-primary font-semibold">بتقنيات الذكاء الاصطناعي المتقدمة</span>
-            </p>
+            <div className="max-w-5xl mx-auto space-y-6">
+              <p className="text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-medium">
+                Transform your workforce management with our revolutionary AI-powered platform
+              </p>
+              <p className="text-xl text-primary font-semibold bg-primary/5 rounded-2xl p-6 backdrop-blur-sm border border-primary/20">
+                🚀 Trusted by 10,000+ Global Enterprises • 99.9% Uptime • ISO 27001 Certified
+              </p>
+            </div>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto mt-16">
+              {[
+                { number: "10K+", label: "Active Companies", icon: "🏢" },
+                { number: "1M+", label: "Users Managed", icon: "👥" },
+                { number: "99.9%", label: "System Uptime", icon: "⚡" },
+                { number: "24/7", label: "Expert Support", icon: "🛟" }
+              ].map((stat, index) => (
+                <div key={index} className="group">
+                  <div className="bg-gradient-to-br from-primary/10 to-primary-glow/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
+                    <div className="text-3xl mb-2">{stat.icon}</div>
+                    <div className="text-3xl lg:text-4xl font-bold text-primary mb-1 group-hover:scale-110 transition-transform duration-300">{stat.number}</div>
+                    <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          {/* Enhanced Feature Cards */}
+          <div className="grid lg:grid-cols-2 gap-12">
             {features.map((feature, index) => {
-            const IconComponent = feature.icon;
-            return <Card key={index} className={`relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-500 ${feature.animation} group cursor-pointer`} onClick={() => navigate(feature.route)}>
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-3 flex-1">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <IconComponent className={`w-6 h-6 ${feature.color}`} />
+              const IconComponent = feature.icon;
+              return (
+                <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
+                  <Card className="relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-xl hover:scale-105">
+                    {/* Premium Border Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary-glow/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
+                    <div className="absolute inset-[1px] bg-gradient-to-br from-background/95 to-muted/50 rounded-2xl"></div>
+                    
+                    {/* Floating Elements */}
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500"></div>
+                    
+                    <div className="relative z-10">
+                      <CardHeader className="pb-6 pt-8">
+                        <div className="flex items-start justify-between mb-6">
+                          <div className="flex items-center gap-4">
+                            <div className="relative">
+                              <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-glow rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                              <div className="relative w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-2xl flex items-center justify-center shadow-xl">
+                                <IconComponent className="w-8 h-8 text-white" />
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              <Badge className="bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 text-emerald-700 border-emerald-400/30 text-sm font-bold px-4 py-1">
+                                ⚡ Enterprise Ready
+                              </Badge>
+                              <Badge className="bg-gradient-to-r from-blue-500/20 to-blue-400/20 text-blue-700 border-blue-400/30 text-sm font-bold px-4 py-1 ml-2">
+                                🤖 AI-Powered
+                              </Badge>
+                            </div>
                           </div>
-                          <Badge className="bg-primary/10 text-primary border-primary/20 text-xs">
-                            جديد
-                          </Badge>
                         </div>
-                        <div>
-                          <CardTitle className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        
+                        <div className="space-y-4">
+                          <CardTitle className="text-2xl lg:text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
                             {feature.title}
                           </CardTitle>
-                          <p className="text-sm font-medium text-primary mb-2">{feature.subtitle}</p>
-                          <CardDescription className="text-muted-foreground leading-relaxed">
+                          <p className="text-lg font-semibold text-primary bg-primary/5 rounded-lg px-4 py-2">
+                            {feature.subtitle}
+                          </p>
+                          <CardDescription className="text-base text-muted-foreground leading-relaxed">
                             {feature.description}
                           </CardDescription>
                         </div>
-                      </div>
+                      </CardHeader>
+                      
+                      <CardContent className="pt-0 space-y-6">
+                        {/* Premium Image Container */}
+                        <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary-glow/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                          <img 
+                            src={feature.image} 
+                            alt={feature.title} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                          
+                          {/* Overlay Play Button */}
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+                              <Play className="w-8 h-8 text-primary ml-1" />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Enhanced Marketing Content */}
+                        <div className="bg-gradient-to-br from-primary/5 via-primary-glow/3 to-transparent rounded-2xl p-6 border border-primary/10">
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary-glow rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Rocket className="w-3 h-3 text-white" />
+                            </div>
+                            <p className="text-base font-semibold text-foreground leading-relaxed">
+                              {feature.marketingText}
+                            </p>
+                          </div>
+                          
+                          {/* ROI Highlight */}
+                          <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950/50 dark:to-emerald-900/30 rounded-xl p-4 border border-emerald-200/50 dark:border-emerald-800/50">
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
+                                <span className="text-xs text-white font-bold">✓</span>
+                              </div>
+                              <span className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">ROI Guarantee</span>
+                            </div>
+                            <p className="text-sm text-emerald-700 dark:text-emerald-200">
+                              Average 340% ROI within 6 months • 60% cost reduction in HR operations
+                            </p>
+                          </div>
+                        </div>
+                        
+                        {/* Enhanced Features Grid */}
+                        <div className="grid grid-cols-2 gap-3">
+                          {feature.features.map((feat, featIndex) => (
+                            <div key={featIndex} className="flex items-center gap-2 p-3 bg-muted/30 rounded-xl border border-border/50 hover:bg-muted/50 transition-colors duration-300">
+                              <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                              <span className="text-sm font-medium text-foreground">{feat}</span>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        {/* Premium CTA */}
+                        <div className="flex gap-3 pt-4">
+                          <Button className="flex-1 bg-gradient-to-r from-primary via-primary-glow to-primary hover:from-primary/90 hover:via-primary-glow/90 hover:to-primary/90 text-white font-bold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500 group-hover:scale-105">
+                            <span>Explore Solution</span>
+                            <ArrowLeft className="w-5 h-5 mr-2 rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
+                          </Button>
+                          <Button variant="outline" className="px-6 py-4 border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 rounded-xl font-semibold transition-all duration-300">
+                            <Video className="w-5 h-5" />
+                          </Button>
+                        </div>
+                      </CardContent>
                     </div>
-                  </CardHeader>
-                  
-                  <CardContent className="pt-0">
-                    <div className="space-y-4">
-                      <div className="aspect-video rounded-lg overflow-hidden">
-                        <img src={feature.image} alt={feature.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      </div>
-                      
-                      <div className="p-4 bg-muted/50 rounded-lg">
-                        <p className="text-sm text-muted-foreground font-medium">
-                          {feature.marketingText}
-                        </p>
-                      </div>
-                      
-                      <div className="flex flex-wrap gap-2">
-                        {feature.features.map((feat, featIndex) => <Badge key={featIndex} variant="secondary" className="text-xs bg-background border border-border">
-                            {feat}
-                          </Badge>)}
-                      </div>
-                      
-                      <Button className="w-full mt-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                        اكتشف المزيد
-                        <ArrowLeft className="w-4 h-4 mr-2 rotate-180" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>;
-          })}
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Call-to-Action */}
+          <div className="text-center mt-24">
+            <div className="bg-gradient-to-br from-primary/10 via-primary-glow/5 to-purple-600/10 rounded-3xl p-12 border border-primary/20 backdrop-blur-xl">
+              <div className="space-y-6">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <Award className="w-6 h-6 text-primary" />
+                  <Badge className="bg-gradient-to-r from-primary/20 to-primary-glow/20 text-primary border-primary/30 text-sm font-bold px-4 py-2">
+                    Industry Leader 2024
+                  </Badge>
+                </div>
+                <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                  Ready to Transform Your HR Operations?
+                </h3>
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Join thousands of companies already using our platform to achieve exceptional results
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                  <Button size="lg" className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500">
+                    Start Free Trial
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5 font-semibold py-4 px-8 rounded-xl transition-all duration-300">
+                    Schedule Demo
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
