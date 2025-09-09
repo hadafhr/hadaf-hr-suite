@@ -1635,7 +1635,7 @@ const TeamWork: React.FC = () => {
     </div>
   );
 
-  // Reports Tab
+  // Reports Tab  
   const renderReports = () => (
     <div className="space-y-6 animate-in fade-in-50 duration-500">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
@@ -1643,6 +1643,35 @@ const TeamWork: React.FC = () => {
           <h2 className="text-2xl font-bold">{isRTL ? 'التقارير والإحصائيات' : 'Reports & Analytics'}</h2>
           <p className="text-muted-foreground">{isRTL ? 'تقارير شاملة وإحصائيات مفصلة' : 'Comprehensive reports and detailed analytics'}</p>
         </div>
+        <div className="flex gap-2">
+          <Button onClick={() => exportToPDF(employees)} className="bg-gradient-to-r from-primary to-primary-glow">
+            <Download className="w-4 h-4 mr-2" />
+            {isRTL ? 'تصدير PDF' : 'Export PDF'}
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="p-6 text-center">
+          <Users className="w-8 h-8 text-primary mx-auto mb-2" />
+          <h3 className="font-semibold">{isRTL ? 'تقرير الموظفين' : 'Employee Report'}</h3>
+          <p className="text-2xl font-bold text-primary">{employees.length}</p>
+        </Card>
+        <Card className="p-6 text-center">
+          <Target className="w-8 h-8 text-success mx-auto mb-2" />
+          <h3 className="font-semibold">{isRTL ? 'تقرير المهام' : 'Tasks Report'}</h3>
+          <p className="text-2xl font-bold text-success">{tasks.length}</p>
+        </Card>
+        <Card className="p-6 text-center">
+          <TrendingUp className="w-8 h-8 text-warning mx-auto mb-2" />
+          <h3 className="font-semibold">{isRTL ? 'تقرير الأداء' : 'Performance Report'}</h3>
+          <p className="text-2xl font-bold text-warning">{dashboardStats.averagePerformance}%</p>
+        </Card>
+        <Card className="p-6 text-center">
+          <Calendar className="w-8 h-8 text-accent mx-auto mb-2" />
+          <h3 className="font-semibold">{isRTL ? 'تقرير الحضور' : 'Attendance Report'}</h3>
+          <p className="text-2xl font-bold text-accent">98%</p>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
