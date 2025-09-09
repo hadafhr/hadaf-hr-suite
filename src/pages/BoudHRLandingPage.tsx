@@ -414,6 +414,40 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* About Us Header Section */}
+      <section className="py-16 bg-gradient-to-br from-background via-primary/5 to-accent/10">
+        <div className="container mx-auto px-6">
+          <div className="text-center space-y-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6">
+              <Building2 className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+              من نحن
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              نحن شركة تقنية سعودية رائدة في مجال حلول إدارة الموارد البشرية المدعومة بالذكاء الاصطناعي
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision Header Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center space-y-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6">
+              <Target className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
+              رؤيتنا
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              أن نكون الشريك التقني الأول في المملكة العربية السعودية لحلول إدارة الموارد البشرية المتطورة والمبتكرة
+            </p>
+          </div>
+        </div>
+      </section>
+
         {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
         <PatternBackground opacity={0.06} size={280} />
