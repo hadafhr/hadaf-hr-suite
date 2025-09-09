@@ -414,7 +414,8 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-
+      {/* Vision Section */}
+      <VisionSection />
 
         {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
@@ -816,7 +817,6 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* About Sections */}
       <div id="about-sections">
-        <VisionSection />
         <AboutUsSection />
         <TeamSection />
         <PartnersSection />
