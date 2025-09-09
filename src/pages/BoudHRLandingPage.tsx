@@ -461,8 +461,8 @@ const BoudHRLandingPage: React.FC = () => {
               {/* Main Image */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl hover-scale">
                 <img 
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80" 
-                  alt="فريق بُعد HR - متخصصون في إدارة الموارد البشرية"
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                  alt="فريق بُعد HR السعودي - متخصصون في إدارة الموارد البشرية"
                   className="w-full h-96 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
@@ -479,16 +479,16 @@ const BoudHRLandingPage: React.FC = () => {
               {/* Side Images */}
               <div className="absolute -top-8 -right-8 w-32 h-32 rounded-2xl overflow-hidden shadow-xl hover-scale animate-fade-in" style={{animationDelay: '0.6s'}}>
                 <img 
-                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=300&q=80" 
-                  alt="تقنية متقدمة"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80" 
+                  alt="مطور سعودي في العمل"
                   className="w-full h-full object-cover"
                 />
               </div>
               
               <div className="absolute -bottom-8 -left-8 w-40 h-32 rounded-2xl overflow-hidden shadow-xl hover-scale animate-fade-in" style={{animationDelay: '0.8s'}}>
                 <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80" 
-                  alt="فريق العمل"
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" 
+                  alt="فريق العمل السعودي"
                   className="w-full h-full object-cover"
                 />
               </div>
