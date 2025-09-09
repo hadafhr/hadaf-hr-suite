@@ -417,6 +417,13 @@ const BoudHRLandingPage: React.FC = () => {
       {/* Vision Section */}
       <VisionSection />
 
+      {/* About Sections */}
+      <div id="about-sections">
+        <AboutUsSection />
+        <TeamSection />
+        <PartnersSection />
+      </div>
+
         {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
         <PatternBackground opacity={0.06} size={280} />
@@ -815,12 +822,6 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* About Sections */}
-      <div id="about-sections">
-        <AboutUsSection />
-        <TeamSection />
-        <PartnersSection />
-      </div>
 
       {/* Footer */}
       <footer className="bg-foreground text-background py-16">
