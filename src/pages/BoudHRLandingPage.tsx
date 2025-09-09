@@ -419,12 +419,6 @@ const BoudHRLandingPage: React.FC = () => {
       <section className="relative py-20 overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
-            <div className="absolute top-40 right-20 w-24 h-24 bg-secondary/10 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-            <div className="absolute bottom-20 left-1/3 w-20 h-20 bg-accent/10 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
-            <div className="absolute bottom-40 right-1/4 w-28 h-28 bg-primary/5 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-          </div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
