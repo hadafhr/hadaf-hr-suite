@@ -415,18 +415,104 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* About Us Header Section */}
-      <section className="py-16 bg-gradient-to-br from-background via-primary/5 to-accent/10">
-        <div className="container mx-auto px-6">
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6">
-              <Building2 className="w-8 h-8 text-white" />
+      <section className="py-20 bg-gradient-to-br from-background via-primary/5 to-accent/10 relative overflow-hidden">
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/20 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-24 h-24 bg-accent/30 rounded-full animate-bounce"></div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-glow/25 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Content Side */}
+            <div className="text-center lg:text-right space-y-8 animate-fade-in">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary via-primary-glow to-primary/80 rounded-3xl mb-6 shadow-xl hover-scale">
+                <Building2 className="w-10 h-10 text-white animate-pulse" />
+              </div>
+              
+              <div className="space-y-6">
+                <h2 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+                  من <span className="text-gradient bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">نحن</span>
+                </h2>
+                <p className="text-xl lg:text-2xl text-muted-foreground font-medium leading-relaxed">
+                  شركة تقنية سعودية رائدة في مجال حلول إدارة الموارد البشرية
+                </p>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                  نحن فريق من الخبراء والمطورين الذين يؤمنون بقوة التكنولوجيا في تحويل مستقبل إدارة الموارد البشرية. منذ تأسيسنا، نسعى لتقديم حلول مبتكرة تلبي احتياجات الشركات السعودية وتساهم في تحقيق رؤية المملكة 2030.
+                </p>
+              </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover-scale animate-fade-in" style={{animationDelay: '0.2s'}}>
+                  <div className="text-3xl font-bold text-primary mb-2">2020</div>
+                  <div className="text-sm text-muted-foreground">سنة التأسيس</div>
+                </div>
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover-scale animate-fade-in" style={{animationDelay: '0.4s'}}>
+                  <div className="text-3xl font-bold text-primary mb-2">50+</div>
+                  <div className="text-sm text-muted-foreground">خبير تقني</div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-              من نحن
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              نحن شركة تقنية سعودية رائدة في مجال حلول إدارة الموارد البشرية المدعومة بالذكاء الاصطناعي
-            </p>
+
+            {/* Visual Side */}
+            <div className="relative animate-fade-in" style={{animationDelay: '0.3s'}}>
+              {/* Main Image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl hover-scale">
+                <img 
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80" 
+                  alt="فريق بُعد HR - متخصصون في إدارة الموارد البشرية"
+                  className="w-full h-96 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+                
+                {/* Floating Elements */}
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-lg animate-pulse">
+                  <Users className="w-6 h-6 text-primary" />
+                </div>
+                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-3 shadow-lg animate-bounce">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+              </div>
+
+              {/* Side Images */}
+              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-2xl overflow-hidden shadow-xl hover-scale animate-fade-in" style={{animationDelay: '0.6s'}}>
+                <img 
+                  src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=300&q=80" 
+                  alt="تقنية متقدمة"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="absolute -bottom-8 -left-8 w-40 h-32 rounded-2xl overflow-hidden shadow-xl hover-scale animate-fade-in" style={{animationDelay: '0.8s'}}>
+                <img 
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80" 
+                  alt="فريق العمل"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="absolute top-1/2 -left-6 w-12 h-12 bg-primary/20 rounded-full animate-pulse"></div>
+              <div className="absolute -top-4 left-1/3 w-8 h-8 bg-accent/30 rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
+            </div>
+          </div>
+
+          {/* Achievement Badges */}
+          <div className="mt-16 flex flex-wrap justify-center gap-4 animate-fade-in" style={{animationDelay: '1s'}}>
+            <div className="bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg hover-scale flex items-center gap-2">
+              <Award className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium text-muted-foreground">🇸🇦 صنع في السعودية</span>
+            </div>
+            <div className="bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg hover-scale flex items-center gap-2">
+              <Shield className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium text-muted-foreground">معتمد من وزارة الموارد البشرية</span>
+            </div>
+            <div className="bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg hover-scale flex items-center gap-2">
+              <Star className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium text-muted-foreground">أكثر من 1000+ عميل راضٍ</span>
+            </div>
           </div>
         </div>
       </section>
