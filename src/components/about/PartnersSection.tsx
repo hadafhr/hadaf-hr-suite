@@ -228,16 +228,6 @@ export const PartnersSection: React.FC = () => {
 
         {/* Partnership Programs */}
         <div className="mb-20">
-          <div className="text-center space-y-6 mb-12">
-            <div className="relative inline-block">
-              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
-              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
-                برامج <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الشراكة</span>
-              </h3>
-            </div>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
-            <p className="text-lg text-muted-foreground">اختر برنامج الشراكة المناسب لاحتياجات مؤسستك</p>
-          </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {partnershipPrograms.map((program, index) => (
