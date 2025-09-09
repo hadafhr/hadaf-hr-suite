@@ -10,9 +10,12 @@ import {
   Search,
   FileText,
   Calculator,
-  AlertTriangle,
+  CreditCard,
   Clock,
-  TrendingUp
+  TrendingUp,
+  HelpCircle,
+  Package,
+  Users
 } from 'lucide-react';
 
 interface AIAssistantPreviewProps {
@@ -30,65 +33,65 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
 
   const features = isRTL ? [
     {
-      icon: MessageCircle,
-      title: 'الرد الفوري',
-      description: 'إجابات سريعة ودقيقة على جميع استفساراتك'
+      icon: HelpCircle,
+      title: 'استفسارات النظام',
+      description: 'إجابات شاملة عن ميزات وخصائص أنظمة بُعد HR'
     },
     {
-      icon: Search,
-      title: 'البحث الذكي',
-      description: 'العثور على المعلومات في النظام بسرعة'
+      icon: Package,
+      title: 'معلومات الباقات',
+      description: 'تفاصيل كاملة عن جميع باقات الاشتراك والأسعار'
     },
     {
       icon: Calculator,
-      title: 'العمليات الحسابية',
-      description: 'حساب الرواتب والمستحقات تلقائياً'
+      title: 'حساب التكلفة',
+      description: 'حساب تكلفة الاشتراك المناسب لعدد موظفيك'
     },
     {
       icon: FileText,
-      title: 'توليد التقارير',
-      description: 'إنشاء تقارير مخصصة حسب احتياجاتك'
+      title: 'شرح الميزات',
+      description: 'توضيح مفصل لجميع ميزات النظام وكيفية استخدامها'
     },
     {
-      icon: AlertTriangle,
-      title: 'التنبيهات الذكية',
-      description: 'تنبيهات للمواعيد المهمة والالتزامات'
+      icon: Zap,
+      title: 'مقارنة الخطط',
+      description: 'مقارنة شاملة بين الباقات لاختيار الأنسب'
     },
     {
-      icon: TrendingUp,
-      title: 'التحليلات المتقدمة',
-      description: 'تحليل البيانات واقتراحات التحسين'
+      icon: CreditCard,
+      title: 'طرق الاشتراك',
+      description: 'معلومات عن طرق الدفع وآلية الاشتراك'
     }
   ] : [
     {
-      icon: MessageCircle,
-      title: 'Instant Response',
-      description: 'Quick and accurate answers to all your inquiries'
+      icon: HelpCircle,
+      title: 'System Inquiries',
+      description: 'Comprehensive answers about BOUD HR system features'
     },
     {
-      icon: Search,
-      title: 'Smart Search',
-      description: 'Find information in the system quickly'
+      icon: Package,
+      title: 'Package Information',
+      description: 'Complete details about all subscription packages and pricing'
     },
     {
       icon: Calculator,
-      title: 'Calculations',
-      description: 'Automatic salary and benefits calculations'
+      title: 'Cost Calculation',
+      description: 'Calculate suitable subscription cost for your employee count'
     },
     {
       icon: FileText,
-      title: 'Report Generation',
-      description: 'Create custom reports based on your needs'
+      title: 'Feature Explanation',
+      description: 'Detailed explanation of all system features and usage'
     },
     {
-      icon: AlertTriangle,
-      title: 'Smart Alerts',
-      description: 'Alerts for important dates and obligations'
+      icon: Zap,
+      title: 'Plan Comparison',
+      description: 'Comprehensive comparison between packages to choose best fit'
     },
     {
-      icon: TrendingUp,
-      title: 'Advanced Analytics',
-      description: 'Data analysis and improvement suggestions'
+      icon: CreditCard,
+      title: 'Subscription Methods',
+      description: 'Information about payment methods and subscription process'
     }
   ];
 
@@ -108,12 +111,12 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
             </div>
             <div>
               <h2 className="text-4xl font-bold text-primary mb-2">
-                {isRTL ? 'مساعد بُعد HR الذكي' : 'BOUD HR AI Assistant'}
+                {isRTL ? 'مساعد بُعد HR للاستفسارات' : 'BOUD HR Inquiry Assistant'}
               </h2>
               <div className="flex items-center justify-center gap-2 text-muted-foreground">
                 <Sparkles className="w-4 h-4" />
                 <span className="text-sm">
-                  {isRTL ? 'مدعوم بالذكاء الاصطناعي المتقدم' : 'Powered by Advanced AI'}
+                  {isRTL ? 'متخصص في النظام والباقات والاشتراك' : 'Specialized in System, Packages & Subscriptions'}
                 </span>
               </div>
             </div>
@@ -121,8 +124,8 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             {isRTL 
-              ? 'مساعدك الذكي المتاح 24/7 للإجابة على جميع استفساراتك في الموارد البشرية، وإرشادك خطوة بخطوة، وتقديم الحلول الذكية لجميع احتياجاتك الإدارية'
-              : 'Your 24/7 AI assistant ready to answer all your HR inquiries, guide you step-by-step, and provide smart solutions for all your administrative needs'
+              ? 'مساعدك المتخصص للإجابة على جميع استفساراتك حول أنظمة بُعد HR، الباقات المتاحة، الأسعار، الميزات، وطرق الاشتراك. احصل على معلومات دقيقة ومساعدة فورية لاختيار الحل المناسب لشركتك'
+              : 'Your specialized assistant to answer all inquiries about BOUD HR systems, available packages, pricing, features, and subscription methods. Get accurate information and instant help to choose the right solution for your company'
             }
           </p>
         </div>
@@ -157,22 +160,26 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
           <CardHeader className="text-center pb-4">
             <CardTitle className="flex items-center justify-center gap-3 text-2xl">
               <Brain className="w-8 h-8 text-primary" />
-              {isRTL ? 'جرب المساعد الذكي الآن' : 'Try the AI Assistant Now'}
+              {isRTL ? 'اسأل عن أي شيء متعلق بالنظام' : 'Ask Anything About The System'}
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center">
             <div className="space-y-4 mb-8">
               <div className="flex flex-wrap justify-center gap-2">
                 {(isRTL ? [
-                  'كيف أحسب راتب الموظف؟',
-                  'ما هو الجزاء المناسب للتأخير؟',
-                  'كيف أقدم طلب إجازة؟',
-                  'شرح نظام تقييم الأداء'
+                  'ما هي الباقات المتاحة وأسعارها؟',
+                  'كم تكلفة النظام لـ 50 موظف؟',
+                  'ما الفرق بين الباقة الأساسية والمتقدمة؟',
+                  'كيف يمكنني الاشتراك في النظام؟',
+                  'ما هي ميزات نظام إدارة الحضور؟',
+                  'هل يوجد فترة تجريبية مجانية؟'
                 ] : [
-                  'How to calculate employee salary?',
-                  'What penalty for tardiness?',
-                  'How to submit leave request?',
-                  'Explain performance evaluation'
+                  'What packages are available and their prices?',
+                  'How much does the system cost for 50 employees?',
+                  'What\'s the difference between basic and advanced?',
+                  'How can I subscribe to the system?',
+                  'What are the attendance management features?',
+                  'Is there a free trial period?'
                 ]).map((question, index) => (
                   <div
                     key={index}
@@ -187,7 +194,7 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
               <div className="flex items-center justify-center gap-2 text-green-600">
                 <Clock className="w-4 h-4" />
                 <span className="text-sm font-medium">
-                  {isRTL ? 'متاح 24/7 | رد فوري | بدقة عالية' : 'Available 24/7 | Instant Response | High Accuracy'}
+                  {isRTL ? 'متاح 24/7 | معلومات دقيقة | إرشاد متخصص' : 'Available 24/7 | Accurate Information | Expert Guidance'}
                 </span>
               </div>
             </div>
@@ -195,12 +202,12 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button size="lg" className="gap-2" onClick={onStartConversation}>
                 <MessageCircle className="w-5 h-5" />
-                {isRTL ? 'ابدأ المحادثة' : 'Start Conversation'}
+                {isRTL ? 'ابدأ الاستفسار' : 'Start Inquiry'}
               </Button>
               <p className="text-sm text-muted-foreground">
                 {isRTL 
-                  ? 'انقر على أيقونة المساعد الذكي في أسفل الصفحة'
-                  : 'Click the AI assistant icon at the bottom of the page'
+                  ? 'انقر على أيقونة المساعد للحصول على معلومات مفصلة'
+                  : 'Click the assistant icon for detailed information'
                 }
               </p>
             </div>
