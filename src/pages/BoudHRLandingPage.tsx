@@ -22,12 +22,17 @@ import { VisionSection } from '@/components/about/VisionSection';
 import { AboutUsSection } from '@/components/about/AboutUsSection';
 import { TeamSection } from '@/components/about/TeamSection';
 import { PartnersSection } from '@/components/about/PartnersSection';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { useTranslation } from 'react-i18next';
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string>('');
+  const isRTL = i18n.language === 'ar';
 
   const handleStartConversation = () => {
     setAssistantOpen(true);
@@ -308,8 +313,24 @@ const BoudHRLandingPage: React.FC = () => {
       <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-18">
+            
+            {/* Language & Theme Controls - Positioned based on direction */}
+            {isRTL ? (
+              <div className="flex items-center gap-3 order-3">
+                <LanguageSwitcher />
+                <div className="w-px h-6 bg-border/40"></div>
+                <ThemeToggle />
+              </div>
+            ) : (
+              <div className="flex items-center gap-3 order-1">
+                <LanguageSwitcher />
+                <div className="w-px h-6 bg-border/40"></div>
+                <ThemeToggle />
+              </div>
+            )}
+
             {/* Professional Logo Section */}
-            <div className="flex items-center space-x-4 space-x-reverse">
+            <div className="flex items-center space-x-4 space-x-reverse order-2">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center shadow-lg">
                   <Building2 className="w-6 h-6 text-white" />
@@ -398,7 +419,7 @@ const BoudHRLandingPage: React.FC = () => {
             </nav>
 
             {/* CTA Buttons */}
-            <div className="hidden md:flex items-center space-x-3 space-x-reverse">
+            <div className={`hidden md:flex items-center space-x-3 space-x-reverse ${isRTL ? 'order-1' : 'order-3'}`}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2">
@@ -426,13 +447,20 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <button className="md:hidden p-2 order-4" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && <div className="md:hidden py-4 border-t border-border">
+              {/* Mobile Language & Theme Controls */}
+              <div className="flex items-center justify-center gap-4 pb-4 mb-4 border-b border-border/40">
+                <LanguageSwitcher />
+                <div className="w-px h-6 bg-border/40"></div>
+                <ThemeToggle />
+              </div>
+              
               <nav className="flex flex-col space-y-2">
                 <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
