@@ -118,23 +118,45 @@ export const PartnersSection: React.FC = () => {
     <section id="partners" className="py-20 bg-white">
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6">
-            <Handshake className="w-8 h-8 text-white" />
+        <div className="text-center space-y-8 mb-20">
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
+            <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
+              <Handshake className="w-5 h-5 mr-2" />
+              شركاؤنا في النجاح
+            </Badge>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            شركاؤنا في النجاح
-          </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-            نفخر بشراكاتنا الاستراتيجية مع كبرى المؤسسات والشركات التي تشاركنا رؤيتنا في تطوير قطاع الموارد البشرية وتحقيق التحول الرقمي
+          
+          <div className="space-y-4">
+            <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
+              شراكاتنا الاستراتيجية مع 
+              <br />
+              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+                كبرى المؤسسات
+              </span>
+            </h2>
+            
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+          </div>
+          
+          <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+            نشاركنا رؤيتنا في تطوير قطاع الموارد البشرية وتحقيق التحول الرقمي
+            <br />
+            <span className="text-primary font-semibold">لتقديم حلول متكاملة ومتطورة للسوق السعودي</span>
           </p>
         </div>
 
         {/* Strategic Partners */}
         <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">الشركاء الاستراتيجيون</h3>
-            <p className="text-lg text-gray-600">مؤسسات رائدة نتعاون معها لتقديم أفضل الحلول والخدمات</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                الشركاء <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الاستراتيجيون</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">مؤسسات رائدة نتعاون معها لتقديم أفضل الحلول والخدمات</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
@@ -176,9 +198,15 @@ export const PartnersSection: React.FC = () => {
 
         {/* Client Partners */}
         <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">عملاؤنا المتميزون</h3>
-            <p className="text-lg text-gray-600">شركات رائدة تثق بحلولنا وتشاركنا قصص النجاح</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                عملاؤنا <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">المتميزون</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">شركات رائدة تثق بحلولنا وتشاركنا قصص النجاح</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -200,9 +228,15 @@ export const PartnersSection: React.FC = () => {
 
         {/* Partnership Programs */}
         <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">برامج الشراكة</h3>
-            <p className="text-lg text-gray-600">اختر برنامج الشراكة المناسب لاحتياجات مؤسستك</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                برامج <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الشراكة</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">اختر برنامج الشراكة المناسب لاحتياجات مؤسستك</p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
@@ -236,9 +270,15 @@ export const PartnersSection: React.FC = () => {
 
         {/* Partnership Benefits */}
         <div className="bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50 rounded-2xl p-8 lg:p-12 mb-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">لماذا نحن الشريك المناسب؟</h3>
-            <p className="text-lg text-gray-600">القيم والمبادئ التي تجعل شراكتنا قوية ومثمرة</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                لماذا نحن الشريك <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">المناسب؟</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">القيم والمبادئ التي تجعل شراكتنا قوية ومثمرة</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

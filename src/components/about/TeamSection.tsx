@@ -94,23 +94,45 @@ export const TeamSection: React.FC = () => {
     <section id="team" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50">
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6">
-            <Users className="w-8 h-8 text-white" />
+        <div className="text-center space-y-8 mb-20">
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
+            <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
+              <Users className="w-5 h-5 mr-2" />
+              فريق العمل
+            </Badge>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            فريق العمل
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            نفخر بفريقنا المتميز من الخبراء والمبدعين الذين يجمعون بين الخبرة العملية والشغف بالابتكار لتقديم أفضل الحلول التقنية
+          
+          <div className="space-y-4">
+            <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
+              فريقنا المتميز من 
+              <br />
+              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+                الخبراء والمبدعين
+              </span>
+            </h2>
+            
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+          </div>
+          
+          <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+            يجمعون بين الخبرة العملية والشغف بالابتكار لتقديم أفضل الحلول التقنية
+            <br />
+            <span className="text-primary font-semibold">مع فهم عميق لاحتياجات السوق المحلي</span>
           </p>
         </div>
 
         {/* Leadership Team */}
         <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">القيادة التنفيذية</h3>
-            <p className="text-lg text-gray-600">الفريق القيادي الذي يوجه رؤية الشركة ويحقق أهدافها الاستراتيجية</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                القيادة <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">التنفيذية</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">الفريق القيادي الذي يوجه رؤية الشركة ويحقق أهدافها الاستراتيجية</p>
           </div>
 
           <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
@@ -163,9 +185,15 @@ export const TeamSection: React.FC = () => {
 
         {/* Departments */}
         <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">أقسام الشركة</h3>
-            <p className="text-lg text-gray-600">فرق متخصصة تعمل بتناغم لتحقيق التميز في كل جانب من جوانب عملنا</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                أقسام <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الشركة</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">فرق متخصصة تعمل بتناغم لتحقيق التميز في كل جانب من جوانب عملنا</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
@@ -202,9 +230,15 @@ export const TeamSection: React.FC = () => {
 
         {/* Company Culture */}
         <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">ثقافة الشركة</h3>
-            <p className="text-lg text-gray-600">القيم والمبادئ التي تحكم بيئة عملنا وتجعلها مكاناً مميزاً للإبداع والنمو</p>
+          <div className="text-center space-y-6 mb-12">
+            <div className="relative inline-block">
+              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
+                ثقافة <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الشركة</span>
+              </h3>
+            </div>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
+            <p className="text-lg text-muted-foreground">القيم والمبادئ التي تحكم بيئة عملنا وتجعلها مكاناً مميزاً للإبداع والنمو</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
