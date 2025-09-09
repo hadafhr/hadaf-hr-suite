@@ -170,6 +170,125 @@ const BoudHRLandingPage: React.FC = () => {
     text: "الذكاء الاصطناعي في النظام يساعدنا في اتخاذ قرارات أفضل حول الموظفين.",
     rating: 5,
     image: "photo-1498050108023-c5249f4df085"
+  }, {
+    name: "سارة العتيبي",
+    position: "مديرة المالية",
+    company: "شركة النجاح للاستثمار",
+    text: "حسابات الرواتب أصبحت دقيقة وسريعة، والتقارير المالية مفصلة ومفيدة جداً.",
+    rating: 5,
+    image: "photo-1494790108755-2616c27f21c"
+  }, {
+    name: "خالد القحطاني",
+    position: "مدير تقنية المعلومات",
+    company: "مجموعة الشرق الأوسط",
+    text: "النظام آمن وموثوق، والدعم الفني ممتاز ومتوفر على مدار الساعة.",
+    rating: 5,
+    image: "photo-1507003211169-0a1dd7228f2d"
+  }, {
+    name: "نورا الحربي",
+    position: "مديرة التطوير البشري",
+    company: "شركة الإبداع التقني",
+    text: "منصة التدريب الإلكتروني ساعدت موظفينا على تطوير مهاراتهم بشكل مستمر.",
+    rating: 5,
+    image: "photo-1438761681033-6461ffad8d80"
+  }, {
+    name: "عبدالله المطيري",
+    position: "مدير العمليات التشغيلية",
+    company: "شركة الخليج للصناعات",
+    text: "إدارة الحضور والانصراف أصبحت أسهل وأكثر دقة مع نظام بُعد HR.",
+    rating: 4,
+    image: "photo-1472099645785-5658abf4ff4e"
+  }, {
+    name: "هند العمري",
+    position: "مديرة شؤون الموظفين",
+    company: "مؤسسة الرواد التجارية",
+    text: "النظام سهل الاستخدام ووفر علينا الكثير من الوقت في إدارة الموظفين.",
+    rating: 5,
+    image: "photo-1487412720507-e7ab37603c6f"
+  }, {
+    name: "ماجد الزهراني",
+    position: "الرئيس التنفيذي",
+    company: "شركة التطوير المتقدم",
+    text: "التحليلات والتقارير تساعدنا في اتخاذ قرارات استراتيجية أفضل للشركة.",
+    rating: 5,
+    image: "photo-1500648767791-00dcc994a43e"
+  }, {
+    name: "ريم الشهري",
+    position: "مديرة التوظيف",
+    company: "شركة الآفاق الجديدة",
+    text: "عملية التوظيف أصبحت أكثر كفاءة ونتمكن من اختيار أفضل المرشحين بسهولة.",
+    rating: 4,
+    image: "photo-1544725176-7c40e5a71c5e"
+  }, {
+    name: "عمر الدوسري",
+    position: "مدير الأداء المؤسسي",
+    company: "مجموعة الأعمال المتطورة",
+    text: "نظام تقييم الأداء منظم ويساعد في تطوير الموظفين وتحفيزهم بشكل فعال.",
+    rating: 5,
+    image: "photo-1566492031773-4f4e44671d66"
+  }, {
+    name: "دانا الخالدي",
+    position: "مديرة الامتثال",
+    company: "شركة الحلول الذكية",
+    text: "النظام يضمن الامتثال للقوانين السعودية والمعايير الدولية بشكل تلقائي.",
+    rating: 5,
+    image: "photo-1517841905240-472988babdf9"
+  }, {
+    name: "سعد الغامدي",
+    position: "مدير التخطيط الاستراتيجي",
+    company: "شركة المستقبل للتنمية",
+    text: "البيانات والتحليلات تساعدنا في التخطيط طويل المدى لاستراتيجية الموارد البشرية.",
+    rating: 4,
+    image: "photo-1507591064344-4c6ce005b128"
+  }, {
+    name: "لطيفة البقمي",
+    position: "مديرة التدريب والتطوير",
+    company: "مؤسسة الإنجاز الرقمي",
+    text: "برامج التدريب المدمجة في النظام فعالة وتلبي احتياجات الموظفين المختلفة.",
+    rating: 5,
+    image: "photo-1531123897727-8f129e1688ce"
+  }, {
+    name: "يوسف الرشيد",
+    position: "مدير الأمن السيبراني",
+    company: "شركة الحماية التقنية",
+    text: "مستوى الأمان والحماية في النظام عالي جداً ويلبي جميع متطلباتنا الأمنية.",
+    rating: 5,
+    image: "photo-1463453091185-61582044d556"
+  }, {
+    name: "أمل الفيصل",
+    position: "مديرة الجودة",
+    company: "شركة الامتياز للخدمات",
+    text: "جودة النظام عالية والتحديثات المستمرة تضيف قيمة حقيقية لعملنا اليومي.",
+    rating: 4,
+    image: "photo-1524504388940-b1c1722653e1"
+  }, {
+    name: "طلال السبيعي",
+    position: "مدير المبيعات",
+    company: "شركة التسويق المتقدم",
+    text: "النظام ساعد فريق المبيعات في تتبع أدائهم وتحقيق أهدافهم بكفاءة أكبر.",
+    rating: 5,
+    image: "photo-1507591064344-4c6ce005b128"
+  }, {
+    name: "منيرة العنزي",
+    position: "مديرة المشاريع",
+    company: "مجموعة التقنيات المبتكرة",
+    text: "إدارة فرق المشاريع أصبحت أكثر تنظيماً والتعاون بين الأقسام محسن بشكل كبير.",
+    rating: 5,
+    image: "photo-1573497019940-1c28c88b4f3e"
+  }, {
+    name: "فهد الحارثي",
+    position: "مدير الاستراتيجية",
+    company: "شركة الرؤية المستقبلية",
+    text: "النظام يدعم رؤية الشركة 2030 ويساعدنا في تطبيق أفضل الممارسات العالمية.",
+    rating: 4,
+    image: "photo-1472099645785-5658abf4ff4e"
+  }, {
+    name: "شريفة الحكمي",
+    position: "مديرة الابتكار",
+    company: "مؤسسة الإبداع الرقمي",
+    text: "المميزات المتطورة والذكاء الاصطناعي يجعل النظام في المقدمة عالمياً.",
+    rating: 5,
+    image: "photo-1494790108755-2616c27f21c"
   }];
   const stats = [{
     number: "1000+",
@@ -741,27 +860,67 @@ const BoudHRLandingPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => <Card key={index} className="border-2 hover:border-primary/50 transition-all duration-300">
-                <CardContent className="pt-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <User className="w-6 h-6 text-primary" />
+          {/* Animated Testimonials Carousel */}
+          <div className="relative overflow-hidden">
+            {/* First Row - Moving Right */}
+            <div className="flex gap-6 animate-[scroll-right_40s_linear_infinite] mb-6">
+              {testimonials.slice(0, 10).concat(testimonials.slice(0, 10)).map((testimonial, index) => (
+                <Card key={`row1-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                        <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                        <p className="text-xs text-primary font-medium">{testimonial.company}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.position}</p>
-                      <p className="text-xs text-primary">{testimonial.company}</p>
+                    
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      ))}
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-1 mb-3">
-                    {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
-                  </div>
-                  
-                  <p className="text-muted-foreground italic">"{testimonial.text}"</p>
-                </CardContent>
-              </Card>)}
+                    
+                    <p className="text-muted-foreground italic leading-relaxed">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Second Row - Moving Left */}
+            <div className="flex gap-6 animate-[scroll-left_35s_linear_infinite]">
+              {testimonials.slice(10, 20).concat(testimonials.slice(10, 20)).map((testimonial, index) => (
+                <Card key={`row2-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                        <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                        <p className="text-xs text-primary font-medium">{testimonial.company}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    
+                    <p className="text-muted-foreground italic leading-relaxed">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Gradient Overlays */}
+            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background/80 to-transparent pointer-events-none z-10"></div>
+            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background/80 to-transparent pointer-events-none z-10"></div>
           </div>
         </div>
       </section>

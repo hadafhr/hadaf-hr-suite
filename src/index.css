@@ -421,3 +421,22 @@
     transform: translate(0px, 0px) scale(1);
   }
 }
+
+/* Testimonials scrolling animations */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
