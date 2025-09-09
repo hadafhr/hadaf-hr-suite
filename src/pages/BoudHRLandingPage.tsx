@@ -415,41 +415,6 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
 
-      {/* Vision Section - Professional & Animated */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          {/* Header */}
-          <div className="text-center space-y-8 mb-16 animate-fade-in">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary via-secondary to-accent rounded-3xl mb-8 shadow-2xl hover-scale animate-bounce" style={{animationDuration: '3s'}}>
-              <Target className="w-10 h-10 text-white" />
-            </div>
-            <div className="space-y-4">
-              <Badge className="bg-gradient-to-r from-primary/20 to-secondary/20 text-primary border-primary/30 px-6 py-3 text-lg font-bold animate-fade-in" style={{animationDelay: '0.2s'}}>
-                🎯 رؤيتنا للمستقبل
-              </Badge>
-              <h2 className="text-5xl lg:text-7xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-fade-in" style={{animationDelay: '0.4s'}}>
-                رؤيتنا
-              </h2>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Floating Animation Elements */}
-        <div className="absolute top-1/4 right-10 animate-bounce" style={{animationDelay: '2s', animationDuration: '4s'}}>
-          <div className="w-8 h-8 bg-primary/20 rounded-full"></div>
-        </div>
-        <div className="absolute bottom-1/4 left-10 animate-bounce" style={{animationDelay: '3s', animationDuration: '5s'}}>
-          <div className="w-6 h-6 bg-secondary/20 rounded-full"></div>
-        </div>
-        <div className="absolute top-1/2 left-1/2 animate-bounce" style={{animationDelay: '1s', animationDuration: '6s'}}>
-          <div className="w-4 h-4 bg-accent/20 rounded-full"></div>
-        </div>
-      </section>
 
         {/* Features Section */}
       <section id="solutions" className="relative py-20 bg-muted/50">
