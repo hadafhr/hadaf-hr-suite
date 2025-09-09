@@ -779,7 +779,7 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="relative py-20">
+      <section className="relative py-20 bg-muted/50">
         <PatternBackground opacity={0.08} size={320} />
         <div className="container mx-auto px-6">
           <div className="text-center space-y-8 mb-20">
