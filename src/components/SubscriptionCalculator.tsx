@@ -209,6 +209,26 @@ export const SubscriptionCalculator: React.FC = () => {
     }).format(amount).replace('ر.س.', '') + ' ﷼';
   };
 
+  const contactSales = () => {
+    toast({
+      title: "تواصل معنا",
+      description: "سيتم توجيهكم لصفحة التواصل",
+    });
+    // Navigate to contact page or open contact modal
+  };
+
+  const requestDemo = () => {
+    toast({
+      title: "طلب عرض توضيحي",
+      description: "سيتم توجيهكم لصفحة طلب العرض التوضيحي",
+    });
+    // Navigate to demo request page or open demo modal
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const generatePDF = () => {
     // This would generate a PDF with the calculation details
     toast({
@@ -232,26 +252,6 @@ export const SubscriptionCalculator: React.FC = () => {
       title: "تم نسخ الرابط",
       description: "يمكنك مشاركة هذا الرابط مع فريقك",
     });
-  };
-
-  const contactSales = () => {
-    toast({
-      title: "تواصل معنا",
-      description: "سيتم توجيهكم لصفحة التواصل",
-    });
-    // Navigate to contact page or open contact modal
-  };
-
-  const requestDemo = () => {
-    toast({
-      title: "طلب عرض توضيحي",
-      description: "سيتم توجيهكم لصفحة طلب العرض التوضيحي",
-    });
-    // Navigate to demo request page or open demo modal
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Animate total price changes
