@@ -233,26 +233,6 @@ export const PartnersSection: React.FC = () => {
             {partnershipPrograms.map((program, index) => (
               <Card key={index} className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-lg relative overflow-hidden">
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${program.color}`} />
-                <CardContent className="p-8">
-                  <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${program.color} rounded-xl mb-6`}>
-                    <program.icon className="w-7 h-7 text-white" />
-                  </div>
-                  <h4 className="text-xl font-bold text-gray-900 mb-4">{program.title}</h4>
-                  <p className="text-gray-600 mb-6">{program.description}</p>
-                  
-                  <div className="space-y-3">
-                    {program.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-sm text-gray-600">
-                        <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
-
-                  <Button className="w-full mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary">
-                    اطلب الشراكة
-                  </Button>
-                </CardContent>
               </Card>
             ))}
           </div>
