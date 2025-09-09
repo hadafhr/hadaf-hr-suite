@@ -169,21 +169,6 @@ export const AboutUsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-8 lg:p-12 text-white">
-            <h3 className="text-3xl font-bold mb-4">هل تريد الانضمام إلى رحلتنا؟</h3>
-            <p className="text-xl mb-8 opacity-90">اكتشف كيف يمكن لحلولنا أن تحدث فرقاً في مؤسستك</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-gray-100">
-                طلب عرض توضيحي
-              </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                تحدث مع خبير
-              </Button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
