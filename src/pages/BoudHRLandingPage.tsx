@@ -185,12 +185,21 @@ const BoudHRLandingPage: React.FC = () => {
     label: "دعم متواصل"
   }];
   return <div className="min-h-screen bg-background font-arabic">
-      {/* Header */}
-      <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
+      {/* Professional Enterprise Header */}
+      <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3 space-x-reverse">
+          <div className="flex items-center justify-between h-18">
+            {/* Professional Logo Section */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center shadow-lg">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-foreground">بُعد HR</h1>
+                  <p className="text-xs text-muted-foreground">منصة الموارد البشرية المتكاملة</p>
+                </div>
+              </div>
             </div>
 
             {/* Desktop Navigation */}
@@ -364,19 +373,28 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section id="home" className="relative py-20 lg:py-32 overflow-hidden">
-        <PatternBackground opacity={0.08} size={350} />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/10"></div>
-        <div className="container mx-auto px-6 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Professional Hero Section */}
+      <section id="home" className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-background via-slate-50/20 to-background">
+        <PatternBackground opacity={0.03} size={500} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)]"></div>
+        <div className="absolute top-20 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-40 h-40 bg-primary-glow/5 rounded-full blur-3xl"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="text-center lg:text-right space-y-8 animate-fade-in">
               <div className="space-y-6">
-                <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium">
-                  🎯 الحل الأول في السعودية
+                <Badge className="bg-gradient-to-r from-primary/12 to-primary-glow/8 text-primary border-primary/25 px-6 py-3 text-base font-semibold shadow-lg">
+                  <Crown className="w-5 h-5 mr-2" />
+                  الرائد في حلول الموارد البشرية
                 </Badge>
-                <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                  نظام <span className="text-gradient bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">بُعد HR</span>
+                <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-foreground">
+                  <span className="block mb-2">منصة</span>
+                  <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
+                    بُعد HR
+                  </span>
+                  <span className="block text-3xl lg:text-4xl font-semibold text-muted-foreground mt-4">
+                    الحل الشامل لإدارة الموارد البشرية
+                  </span>
                 </h1>
                 <h2 className="text-2xl lg:text-3xl text-muted-foreground font-medium">
                   إدارة الموارد البشرية بالذكاء الاصطناعي
@@ -424,71 +442,70 @@ const BoudHRLandingPage: React.FC = () => {
         <PartnersSection />
       </div>
 
-        {/* Features Section */}
-      <section id="solutions" className="relative py-32 bg-gradient-to-br from-background via-muted/30 to-background overflow-hidden">
-        {/* Advanced Background Effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.15),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.10),transparent_50%)]"></div>
-        <PatternBackground opacity={0.04} size={400} />
+        {/* Professional HR Solutions Section */}
+      <section id="solutions" className="relative py-24 bg-gradient-to-br from-background via-slate-50/30 to-background overflow-hidden">
+        {/* Enterprise-grade Background Pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,hsl(var(--primary)/0.08),transparent_60%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_75%,hsl(var(--primary-glow)/0.06),transparent_60%)]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,hsl(var(--primary)/0.03),transparent)]"></div>
+        <PatternBackground opacity={0.02} size={600} />
         
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-primary-glow/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        {/* Professional Accent Elements */}
+        <div className="absolute top-16 left-8 w-24 h-24 bg-gradient-to-br from-primary/8 to-primary-glow/4 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-16 right-8 w-32 h-32 bg-gradient-to-br from-primary-glow/6 to-primary/3 rounded-full blur-2xl"></div>
+        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-primary rounded-full animate-pulse opacity-40"></div>
+        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-primary-glow rounded-full animate-pulse opacity-60 delay-500"></div>
         
         <div className="container mx-auto px-6 relative z-10">
-          {/* Enhanced Hero Header */}
-          <div className="text-center space-y-12 mb-32">
-            <div className="relative">
-              <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 via-primary-glow/20 to-primary/30 rounded-3xl blur-3xl opacity-40 animate-pulse"></div>
-              <Badge className="relative bg-gradient-to-r from-primary/20 via-primary-glow/15 to-primary/20 text-primary border-primary/40 px-8 py-4 text-lg font-bold backdrop-blur-lg shadow-2xl hover:shadow-primary/20 transition-all duration-500">
-                <Target className="w-6 h-6 mr-3 animate-spin-slow" />
-                حلول المؤسسات 2024 ✨
+          {/* Professional Section Header */}
+          <div className="text-center space-y-8 mb-20">
+            <div className="relative inline-block">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 via-primary-glow/8 to-primary/10 rounded-xl blur-xl opacity-50"></div>
+              <Badge className="relative bg-gradient-to-r from-primary/12 via-primary-glow/8 to-primary/12 text-primary border-primary/25 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
+                <Target className="w-5 h-5 mr-2" />
+                حلول المؤسسات المتقدمة
               </Badge>
             </div>
             
-            <div className="space-y-8">
-              <h2 className="text-6xl lg:text-8xl font-black text-foreground leading-tight">
-                <span className="block opacity-90">الجيل القادم من</span>
-                <span className="block bg-gradient-to-r from-primary via-primary-glow to-purple-600 bg-clip-text text-transparent animate-gradient-x">
-                  أنظمة الموارد البشرية
-                </span>
-                <span className="block text-4xl lg:text-5xl font-semibold text-muted-foreground mt-4">
-                  مدعوم بالذكاء الاصطناعي المتقدم
+            <div className="space-y-6">
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight animate-fade-in">
+                <span className="block mb-2">منصة إدارة الموارد البشرية</span>
+                <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+                  المتكاملة والذكية
                 </span>
               </h2>
               
-              <div className="flex items-center justify-center gap-4">
-                <div className="h-1 w-16 bg-gradient-to-r from-transparent to-primary rounded-full"></div>
-                <div className="h-1.5 w-32 bg-gradient-to-r from-primary via-primary-glow to-purple-600 rounded-full animate-pulse"></div>
-                <div className="h-1 w-16 bg-gradient-to-l from-transparent to-primary rounded-full"></div>
-              </div>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
             </div>
             
-            <div className="max-w-5xl mx-auto space-y-6">
-              <p className="text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-medium">
-                حوّل إدارة القوى العاملة لديك بمنصتنا الثورية المدعومة بالذكاء الاصطناعي
+            <div className="max-w-4xl mx-auto space-y-4">
+              <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed font-medium">
+                حلول شاملة ومتطورة لإدارة رأس المال البشري بكفاءة وأمان عالي
               </p>
-              <p className="text-xl text-primary font-semibold bg-primary/5 rounded-2xl p-6 backdrop-blur-sm border border-primary/20">
-                🚀 موثوق من قبل أكثر من 10 آلاف شركة عالمية • 99.9% وقت تشغيل • معتمد ISO 27001
+              <p className="text-lg text-primary font-semibold bg-gradient-to-r from-primary/8 to-primary-glow/5 rounded-xl p-4 backdrop-blur-sm border border-primary/20">
+                ✅ معتمد حكومياً • 🏢 +1000 منشأة تثق بنا • 🔒 أمان متقدم • ⚡ دعم 24/7
               </p>
             </div>
 
-            {/* Key Metrics */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto mt-16">
+            {/* Professional Statistics */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
               {[
-                { number: "10K+", label: "شركة نشطة", icon: "🏢" },
-                { number: "1M+", label: "مستخدم مُدار", icon: "👥" },
-                { number: "99.9%", label: "وقت التشغيل", icon: "⚡" },
-                { number: "24/7", label: "دعم الخبراء", icon: "🛟" }
-              ].map((stat, index) => (
-                <div key={index} className="group">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary-glow/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
-                    <div className="text-3xl mb-2">{stat.icon}</div>
-                    <div className="text-3xl lg:text-4xl font-bold text-primary mb-1 group-hover:scale-110 transition-transform duration-300">{stat.number}</div>
-                    <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                { number: "1000+", label: "شركة تثق بنا", icon: Building2, color: "from-blue-500/10 to-blue-600/5" },
+                { number: "100K+", label: "موظف نديرهم", icon: Users, color: "from-green-500/10 to-green-600/5" },
+                { number: "99.9%", label: "وقت التشغيل", icon: Shield, color: "from-purple-500/10 to-purple-600/5" },
+                { number: "24/7", label: "دعم متواصل", icon: Heart, color: "from-red-500/10 to-red-600/5" }
+              ].map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <div key={index} className="group">
+                    <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg`}>
+                      <IconComponent className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
+                      <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">{stat.number}</div>
+                      <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
