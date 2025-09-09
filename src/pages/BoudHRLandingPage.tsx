@@ -18,6 +18,10 @@ import npcsPortal from '@/assets/npcs-portal.jpg';
 import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 import { BoudHRAssistant } from '@/components/BoudHRAssistant';
+import { VisionSection } from '@/components/about/VisionSection';
+import { AboutUsSection } from '@/components/about/AboutUsSection';
+import { TeamSection } from '@/components/about/TeamSection';
+import { PartnersSection } from '@/components/about/PartnersSection';
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -199,10 +203,12 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
                   {menuItems.about.map((item, index) => <DropdownMenuItem key={index} asChild>
-                      <a href={item.href} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                      <button onClick={() => document.getElementById(item.href.substring(1))?.scrollIntoView({
+                        behavior: 'smooth'
+                      })} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
                         <Building2 className="w-4 h-4" />
                         {item.name}
-                      </a>
+                      </button>
                     </DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -797,6 +803,12 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* About Sections */}
+      <VisionSection />
+      <AboutUsSection />
+      <TeamSection />
+      <PartnersSection />
 
       {/* Footer */}
       <footer className="bg-foreground text-background py-16">
