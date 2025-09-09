@@ -104,10 +104,9 @@ export const TeamSection: React.FC = () => {
           </div>
           
           <div className="space-y-4">
-            <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
-              فريقنا المتميز من 
-              <br />
-              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+            <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in text-center">
+              <span className="block mb-2">فريقنا المتميز من</span>
+              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in block">
                 الخبراء والمبدعين
               </span>
             </h2>
