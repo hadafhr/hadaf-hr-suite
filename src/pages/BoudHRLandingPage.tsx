@@ -442,18 +442,18 @@ const BoudHRLandingPage: React.FC = () => {
               <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 via-primary-glow/20 to-primary/30 rounded-3xl blur-3xl opacity-40 animate-pulse"></div>
               <Badge className="relative bg-gradient-to-r from-primary/20 via-primary-glow/15 to-primary/20 text-primary border-primary/40 px-8 py-4 text-lg font-bold backdrop-blur-lg shadow-2xl hover:shadow-primary/20 transition-all duration-500">
                 <Target className="w-6 h-6 mr-3 animate-spin-slow" />
-                Enterprise Solutions 2024 ✨
+                حلول المؤسسات 2024 ✨
               </Badge>
             </div>
             
             <div className="space-y-8">
               <h2 className="text-6xl lg:text-8xl font-black text-foreground leading-tight">
-                <span className="block opacity-90">Next-Generation</span>
+                <span className="block opacity-90">الجيل القادم من</span>
                 <span className="block bg-gradient-to-r from-primary via-primary-glow to-purple-600 bg-clip-text text-transparent animate-gradient-x">
-                  HR Ecosystem
+                  أنظمة الموارد البشرية
                 </span>
                 <span className="block text-4xl lg:text-5xl font-semibold text-muted-foreground mt-4">
-                  Powered by AI Intelligence
+                  مدعوم بالذكاء الاصطناعي المتقدم
                 </span>
               </h2>
               
@@ -466,20 +466,20 @@ const BoudHRLandingPage: React.FC = () => {
             
             <div className="max-w-5xl mx-auto space-y-6">
               <p className="text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-medium">
-                Transform your workforce management with our revolutionary AI-powered platform
+                حوّل إدارة القوى العاملة لديك بمنصتنا الثورية المدعومة بالذكاء الاصطناعي
               </p>
               <p className="text-xl text-primary font-semibold bg-primary/5 rounded-2xl p-6 backdrop-blur-sm border border-primary/20">
-                🚀 Trusted by 10,000+ Global Enterprises • 99.9% Uptime • ISO 27001 Certified
+                🚀 موثوق من قبل أكثر من 10 آلاف شركة عالمية • 99.9% وقت تشغيل • معتمد ISO 27001
               </p>
             </div>
 
             {/* Key Metrics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto mt-16">
               {[
-                { number: "10K+", label: "Active Companies", icon: "🏢" },
-                { number: "1M+", label: "Users Managed", icon: "👥" },
-                { number: "99.9%", label: "System Uptime", icon: "⚡" },
-                { number: "24/7", label: "Expert Support", icon: "🛟" }
+                { number: "10K+", label: "شركة نشطة", icon: "🏢" },
+                { number: "1M+", label: "مستخدم مُدار", icon: "👥" },
+                { number: "99.9%", label: "وقت التشغيل", icon: "⚡" },
+                { number: "24/7", label: "دعم الخبراء", icon: "🛟" }
               ].map((stat, index) => (
                 <div key={index} className="group">
                   <div className="bg-gradient-to-br from-primary/10 to-primary-glow/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
@@ -518,10 +518,10 @@ const BoudHRLandingPage: React.FC = () => {
                             </div>
                             <div className="space-y-2">
                               <Badge className="bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 text-emerald-700 border-emerald-400/30 text-sm font-bold px-4 py-1">
-                                ⚡ Enterprise Ready
+                                ⚡ جاهز للمؤسسات
                               </Badge>
                               <Badge className="bg-gradient-to-r from-blue-500/20 to-blue-400/20 text-blue-700 border-blue-400/30 text-sm font-bold px-4 py-1 ml-2">
-                                🤖 AI-Powered
+                                🤖 مدعوم بالذكاء الاصطناعي
                               </Badge>
                             </div>
                           </div>
@@ -576,10 +576,10 @@ const BoudHRLandingPage: React.FC = () => {
                               <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
                                 <span className="text-xs text-white font-bold">✓</span>
                               </div>
-                              <span className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">ROI Guarantee</span>
+                              <span className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">ضمان العائد على الاستثمار</span>
                             </div>
                             <p className="text-sm text-emerald-700 dark:text-emerald-200">
-                              Average 340% ROI within 6 months • 60% cost reduction in HR operations
+                              متوسط 340% عائد استثمار خلال 6 أشهر • 60% تقليل في تكاليف العمليات
                             </p>
                           </div>
                         </div>
@@ -597,7 +597,7 @@ const BoudHRLandingPage: React.FC = () => {
                         {/* Premium CTA */}
                         <div className="flex gap-3 pt-4">
                           <Button className="flex-1 bg-gradient-to-r from-primary via-primary-glow to-primary hover:from-primary/90 hover:via-primary-glow/90 hover:to-primary/90 text-white font-bold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500 group-hover:scale-105">
-                            <span>Explore Solution</span>
+                            <span>استكشف الحل</span>
                             <ArrowLeft className="w-5 h-5 mr-2 rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
                           </Button>
                           <Button variant="outline" className="px-6 py-4 border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 rounded-xl font-semibold transition-all duration-300">
@@ -619,21 +619,21 @@ const BoudHRLandingPage: React.FC = () => {
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <Award className="w-6 h-6 text-primary" />
                   <Badge className="bg-gradient-to-r from-primary/20 to-primary-glow/20 text-primary border-primary/30 text-sm font-bold px-4 py-2">
-                    Industry Leader 2024
+                    رائد الصناعة 2024
                   </Badge>
                 </div>
                 <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                  Ready to Transform Your HR Operations?
+                  هل أنت مستعد لتحويل عمليات الموارد البشرية؟
                 </h3>
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Join thousands of companies already using our platform to achieve exceptional results
+                  انضم إلى آلاف الشركات التي تستخدم منصتنا لتحقيق نتائج استثنائية
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
                   <Button size="lg" className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500">
-                    Start Free Trial
+                    ابدأ التجربة المجانية
                   </Button>
                   <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5 font-semibold py-4 px-8 rounded-xl transition-all duration-300">
-                    Schedule Demo
+                    احجز عرض توضيحي
                   </Button>
                 </div>
               </div>
