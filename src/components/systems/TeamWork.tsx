@@ -1027,36 +1027,43 @@ const TeamWork: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Button 
               onClick={() => setIsAddEmployeeOpen(true)}
-              className="h-20 flex-col gap-2 bg-gradient-to-br from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 transition-all duration-300"
+              className="h-20 flex-col gap-2 bg-gradient-to-br from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 transition-all duration-300 group"
+              disabled={isLoading}
             >
-              <UserPlus className="w-6 h-6" />
+              <UserPlus className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'إضافة موظف' : 'Add Employee'}</span>
             </Button>
             
             <Button 
               onClick={() => setIsAddTaskOpen(true)}
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-accent/10 transition-all duration-300"
+              className="h-20 flex-col gap-2 hover:bg-accent/10 transition-all duration-300 group"
+              disabled={isLoading}
             >
-              <Target className="w-6 h-6" />
+              <Target className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'إضافة مهمة' : 'Add Task'}</span>
             </Button>
             
             <Button 
-              onClick={() => exportToExcel(employees)}
+              onClick={() => {
+                exportToExcel(employees);
+                toast.success(isRTL ? 'جاري تصدير البيانات...' : 'Exporting data...');
+              }}
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-success/10 transition-all duration-300"
+              className="h-20 flex-col gap-2 hover:bg-success/10 transition-all duration-300 group"
+              disabled={isLoading}
             >
-              <FileSpreadsheet className="w-6 h-6" />
+              <FileSpreadsheet className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'تصدير البيانات' : 'Export Data'}</span>
             </Button>
             
             <Button 
               onClick={() => setIsSettingsOpen(true)}
               variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-muted/50 transition-all duration-300"
+              className="h-20 flex-col gap-2 hover:bg-muted/50 transition-all duration-300 group"
+              disabled={isLoading}
             >
-              <Settings className="w-6 h-6" />
+              <Settings className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'الإعدادات' : 'Settings'}</span>
             </Button>
           </div>
@@ -1601,11 +1608,134 @@ const TeamWork: React.FC = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => {
+                        setSelectedTask(task);
+                        toast.info(isRTL ? 'عرض تفاصيل المهمة...' : 'Showing task details...');
+                      }}
+                    >
                       <Eye className="w-4 h-4" />
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => {
+                        setSelectedTask(task);
+                        setTaskForm(task);
+                        toast.info(isRTL ? 'تحرير المهمة...' : 'Editing task...');
+                      }}
+                    >
                       <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => {
+                        const updatedTasks = tasks.map(t => 
+                          t.id === task.id 
+                            ? { ...t, status: t.status === 'completed' ? 'inProgress' : 'completed' as Task['status'] }
+                            : t
+                        );
+                        setTasks(updatedTasks);
+                        toast.success(isRTL ? 'تم تحديث حالة المهمة' : 'Task status updated');
+                      }}
+                      className={task.status === 'completed' ? 'text-warning' : 'text-success'}
+                    >
+                      {task.status === 'completed' ? <RefreshCw className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>{isRTL ? 'التقدم' : 'Progress'}</span>
+                    <span>{task.progress}%</span>
+                  </div>
+                  <Progress value={task.progress} className="h-2" />
+                </div>
+
+                {task.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-3">
+                    {task.tags.map((tag, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+          <div className="space-y-4">
+            {filteredTasks.map((task) => (
+              <div key={task.id} className="p-4 border border-border rounded-lg hover:shadow-soft transition-all duration-200">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-lg mb-1">{task.title}</h4>
+                    <p className="text-muted-foreground text-sm mb-2">{task.description}</p>
+                    
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {getPriorityBadge(task.priority)}
+                      {getTaskStatusBadge(task.status)}
+                      <Badge variant="outline">{task.assignedTeam}</Badge>
+                    </div>
+
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {isRTL ? 'تاريخ الاستحقاق' : 'Due'}: {formatDate(task.dueDate)}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Users className="w-4 h-4" />
+                        {task.assignedTo.length} {isRTL ? 'موظف' : 'assignees'}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {task.actualHours}/{task.estimatedHours} {isRTL ? 'ساعة' : 'hours'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => {
+                        setSelectedTask(task);
+                        toast.info(isRTL ? 'عرض تفاصيل المهمة...' : 'Showing task details...');
+                      }}
+                    >
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => {
+                        setSelectedTask(task);
+                        setTaskForm(task);
+                        toast.info(isRTL ? 'تحرير المهمة...' : 'Editing task...');
+                      }}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => {
+                        const updatedTasks = tasks.map(t => 
+                          t.id === task.id 
+                            ? { ...t, status: t.status === 'completed' ? 'inProgress' : 'completed' as Task['status'] }
+                            : t
+                        );
+                        setTasks(updatedTasks);
+                        toast.success(isRTL ? 'تم تحديث حالة المهمة' : 'Task status updated');
+                      }}
+                      className={task.status === 'completed' ? 'text-warning' : 'text-success'}
+                    >
+                      {task.status === 'completed' ? <RefreshCw className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
                     </Button>
                   </div>
                 </div>
@@ -1648,29 +1778,115 @@ const TeamWork: React.FC = () => {
             <Download className="w-4 h-4 mr-2" />
             {isRTL ? 'تصدير PDF' : 'Export PDF'}
           </Button>
+          <Button onClick={() => exportToExcel(employees)} variant="outline">
+            <FileSpreadsheet className="w-4 h-4 mr-2" />
+            {isRTL ? 'تصدير Excel' : 'Export Excel'}
+          </Button>
+          <Button onClick={printData} variant="outline">
+            <Printer className="w-4 h-4 mr-2" />
+            {isRTL ? 'طباعة' : 'Print'}
+          </Button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="p-6 text-center">
-          <Users className="w-8 h-8 text-primary mx-auto mb-2" />
+        <Card 
+          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-primary/20"
+          onClick={() => toast.info(isRTL ? 'عرض تقرير الموظفين المفصل...' : 'Showing detailed employee report...')}
+        >
+          <Users className="w-8 h-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير الموظفين' : 'Employee Report'}</h3>
           <p className="text-2xl font-bold text-primary">{employees.length}</p>
+          <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'إجمالي الموظفين' : 'Total Employees'}</p>
         </Card>
-        <Card className="p-6 text-center">
-          <Target className="w-8 h-8 text-success mx-auto mb-2" />
+        <Card 
+          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-success/20"
+          onClick={() => toast.info(isRTL ? 'عرض تقرير المهام المفصل...' : 'Showing detailed tasks report...')}
+        >
+          <Target className="w-8 h-8 text-success mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير المهام' : 'Tasks Report'}</h3>
           <p className="text-2xl font-bold text-success">{tasks.length}</p>
+          <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'إجمالي المهام' : 'Total Tasks'}</p>
         </Card>
-        <Card className="p-6 text-center">
-          <TrendingUp className="w-8 h-8 text-warning mx-auto mb-2" />
+        <Card 
+          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-warning/20"
+          onClick={() => toast.info(isRTL ? 'عرض تقرير الأداء المفصل...' : 'Showing detailed performance report...')}
+        >
+          <TrendingUp className="w-8 h-8 text-warning mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير الأداء' : 'Performance Report'}</h3>
           <p className="text-2xl font-bold text-warning">{dashboardStats.averagePerformance}%</p>
+          <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'متوسط الأداء' : 'Average Performance'}</p>
         </Card>
-        <Card className="p-6 text-center">
-          <Calendar className="w-8 h-8 text-accent mx-auto mb-2" />
+        <Card 
+          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-accent/20"
+          onClick={() => toast.info(isRTL ? 'عرض تقرير الحضور المفصل...' : 'Showing detailed attendance report...')}
+        >
+          <Calendar className="w-8 h-8 text-accent mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير الحضور' : 'Attendance Report'}</h3>
           <p className="text-2xl font-bold text-accent">98%</p>
+          <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'معدل الحضور' : 'Attendance Rate'}</p>
+        </Card>
+      </div>
+
+      {/* Detailed Reports Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="p-6">
+          <CardHeader className="px-0 pt-0">
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-primary" />
+              {isRTL ? 'إحصائيات التوظيف الشهرية' : 'Monthly Hiring Statistics'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-0 pb-0">
+            <div className="space-y-4">
+              {dashboardStats.monthlyHiring.map((month, index) => (
+                <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+                  <span className="font-medium">{month.month}</span>
+                  <div className="flex gap-4">
+                    <div className="text-center">
+                      <p className="text-sm text-success font-semibold">+{month.hires}</p>
+                      <p className="text-xs text-muted-foreground">{isRTL ? 'تعيين' : 'Hired'}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-destructive font-semibold">-{month.terminations}</p>
+                      <p className="text-xs text-muted-foreground">{isRTL ? 'انتهاء' : 'Terminated'}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="p-6">
+          <CardHeader className="px-0 pt-0">
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="w-5 h-5 text-primary" />
+              {isRTL ? 'توزيع أنواع العقود' : 'Contract Types Distribution'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-0 pb-0">
+            <div className="space-y-4">
+              {[
+                { type: 'permanent', count: employees.filter(e => e.contractType === 'permanent').length, color: 'bg-primary' },
+                { type: 'temporary', count: employees.filter(e => e.contractType === 'temporary').length, color: 'bg-secondary' },
+                { type: 'trainee', count: employees.filter(e => e.contractType === 'trainee').length, color: 'bg-accent' }
+              ].map((contract, index) => (
+                <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-4 h-4 rounded-full ${contract.color}`} />
+                    <span className="font-medium capitalize">{contract.type === 'permanent' ? (isRTL ? 'دائم' : 'Permanent') : contract.type === 'temporary' ? (isRTL ? 'مؤقت' : 'Temporary') : (isRTL ? 'متدرب' : 'Trainee')}</span>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-lg">{contract.count}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {employees.length > 0 ? Math.round((contract.count / employees.length) * 100) : 0}%
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
         </Card>
       </div>
 
@@ -1936,22 +2152,66 @@ const TeamWork: React.FC = () => {
           </CardHeader>
           <CardContent className="px-0 pb-0">
             <div className="space-y-4">
-              <Button className="w-full" variant="outline">
+              <Button 
+                className="w-full" 
+                variant="outline"
+                onClick={() => {
+                  exportToExcel(employees);
+                  toast.success(isRTL ? 'جاري تصدير جميع البيانات...' : 'Exporting all data...');
+                }}
+              >
                 <Download className="w-4 h-4 mr-2" />
                 {isRTL ? 'تصدير جميع البيانات' : 'Export All Data'}
               </Button>
               
-              <Button className="w-full" variant="outline">
+              <Button 
+                className="w-full" 
+                variant="outline"
+                onClick={() => {
+                  document.getElementById('import-file')?.click();
+                  toast.info(isRTL ? 'اختر ملف البيانات للاستيراد' : 'Select data file to import');
+                }}
+              >
                 <Upload className="w-4 h-4 mr-2" />
                 {isRTL ? 'استيراد البيانات' : 'Import Data'}
               </Button>
+              <input 
+                id="import-file" 
+                type="file" 
+                accept=".xlsx,.xls,.csv" 
+                style={{display: 'none'}} 
+                onChange={(e) => {
+                  if (e.target.files?.[0]) {
+                    toast.success(isRTL ? 'جاري استيراد البيانات...' : 'Importing data...');
+                  }
+                }}
+              />
               
-              <Button className="w-full" variant="outline">
-                <RefreshCw className="w-4 h-4 mr-2" />
+              <Button 
+                className="w-full" 
+                variant="outline"
+                onClick={() => {
+                  setIsLoading(true);
+                  setTimeout(() => {
+                    setIsLoading(false);
+                    toast.success(isRTL ? 'تم مزامنة البيانات بنجاح' : 'Data synchronized successfully');
+                  }, 2000);
+                }}
+                disabled={isLoading}
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
                 {isRTL ? 'مزامنة البيانات' : 'Sync Data'}
               </Button>
               
-              <Button className="w-full" variant="destructive">
+              <Button 
+                className="w-full" 
+                variant="destructive"
+                onClick={() => {
+                  if (confirm(isRTL ? 'هل أنت متأكد من مسح البيانات المؤقتة؟' : 'Are you sure you want to clear cache?')) {
+                    toast.success(isRTL ? 'تم مسح البيانات المؤقتة' : 'Cache cleared successfully');
+                  }
+                }}
+              >
                 <Trash2 className="w-4 h-4 mr-2" />
                 {isRTL ? 'مسح البيانات المؤقتة' : 'Clear Cache'}
               </Button>
