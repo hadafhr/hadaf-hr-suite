@@ -319,9 +319,14 @@ const BoudHRLandingPage: React.FC = () => {
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.about.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                    {menuItems.about.map((item, index) => <button key={index} onClick={() => {
+                        document.getElementById(item.href.substring(1))?.scrollIntoView({
+                          behavior: 'smooth'
+                        });
+                        setIsMobileMenuOpen(false);
+                      }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
                         {item.name}
-                      </a>)}
+                      </button>)}
                   </div>
                 </details>
                 <details className="group">
