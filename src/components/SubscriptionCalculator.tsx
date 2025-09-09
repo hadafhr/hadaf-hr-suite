@@ -40,6 +40,7 @@ import {
   Star
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useDownloadPrint } from '@/hooks/useDownloadPrint';
 
 interface PricingTier {
   minEmployees: number;
@@ -230,24 +231,109 @@ export const SubscriptionCalculator: React.FC = () => {
   };
 
   const generatePDF = () => {
-    // This would generate a PDF with the calculation details
-    toast({
-      title: "تم إنشاء PDF",
-      description: "سيتم تحميل ملف العرض التفصيلي خلال لحظات",
+    const { downloadFile } = useDownloadPrint();
+    
+    const pdfData = {
+      title: "عرض أسعار نظام الموارد البشرية",
+      employees,
+      isAnnual,
+      includeSetup,
+      includeSupport,
+      currentTier,
+      calculations,
+      config,
+      date: new Date().toLocaleDateString('ar-SA'),
+      breakdown: {
+        basePrice: isAnnual ? calculations.basePrice * 12 : calculations.basePrice,
+        discount: isAnnual ? calculations.basePrice * 12 * config.annualDiscount / 100 : 0,
+        setupCost: calculations.setupCost,
+        supportCost: calculations.supportCost,
+        finalTotal: calculations.finalTotal
+      }
+    };
+
+    downloadFile({
+      data: pdfData,
+      filename: `عرض_أسعار_${employees}_موظف_${new Date().getTime()}`,
+      format: 'pdf'
     });
   };
 
   const sendByEmail = () => {
-    // This would send the calculation by email
+    const subject = encodeURIComponent('عرض أسعار نظام الموارد البشرية');
+    const body = encodeURIComponent(`
+مرحباً،
+
+يسعدني مشاركة عرض الأسعار التفصيلي لنظام الموارد البشرية:
+
+📊 تفاصيل الحساب:
+• عدد الموظفين: ${employees}
+• نوع الاشتراك: ${isAnnual ? 'سنوي' : 'شهري'}
+• التكلفة الإجمالية: ${formatCurrency(calculations.finalTotal)}
+• سعر الموظف الواحد: ${formatCurrency(currentTier.pricePerEmployee)}
+
+${includeSetup ? `• رسوم التأسيس: ${formatCurrency(config.setupFee)}` : ''}
+${includeSupport ? `• الدعم الفني: ${formatCurrency(calculations.supportCost)}` : ''}
+
+${isAnnual && calculations.savings > 0 ? `💰 توفير سنوي: ${formatCurrency(calculations.savings)}` : ''}
+
+للحصول على عرض مخصص أو لحجز عرض توضيحي، يرجى التواصل معنا.
+
+مع تحيات فريق بُعد للموارد البشرية
+    `);
+    
+    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+    
     toast({
-      title: "تم الإرسال بالبريد الإلكتروني",
-      description: "سيتم إرسال تفاصيل العرض إلى بريدكم الإلكتروني",
+      title: "تم فتح البريد الإلكتروني",
+      description: "يمكنك الآن إرسال عرض الأسعار بالبريد",
     });
   };
 
   const shareCalculation = () => {
     const url = `${window.location.origin}/service-calculator?employees=${employees}&annual=${isAnnual}&setup=${includeSetup}&support=${includeSupport}`;
-    navigator.clipboard.writeText(url);
+    
+    if (navigator.share && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      navigator.share({
+        title: 'حاسبة أسعار نظام الموارد البشرية',
+        text: `احسب تكلفة نظام الموارد البشرية لـ ${employees} موظف - ${formatCurrency(calculations.finalTotal)} ${isAnnual ? 'سنوياً' : 'شهرياً'}`,
+        url: url
+      }).then(() => {
+        toast({
+          title: "تم المشاركة",
+          description: "تم مشاركة الرابط بنجاح",
+        });
+      }).catch(() => {
+        copyToClipboard(url);
+      });
+    } else {
+      copyToClipboard(url);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        toast({
+          title: "تم نسخ الرابط",
+          description: "يمكنك مشاركة هذا الرابط مع فريقك",
+        });
+      }).catch(() => {
+        fallbackCopyToClipboard(text);
+      });
+    } else {
+      fallbackCopyToClipboard(text);
+    }
+  };
+
+  const fallbackCopyToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
     toast({
       title: "تم نسخ الرابط",
       description: "يمكنك مشاركة هذا الرابط مع فريقك",
