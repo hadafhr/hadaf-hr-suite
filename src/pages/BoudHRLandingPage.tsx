@@ -202,10 +202,20 @@ const BoudHRLandingPage: React.FC = () => {
                   من نحن <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.about.map((item, index) => <DropdownMenuItem key={index} asChild>
-                      <button onClick={() => document.getElementById(item.href.substring(1))?.scrollIntoView({
-                        behavior: 'smooth'
-                      })} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                   {menuItems.about.map((item, index) => <DropdownMenuItem key={index} asChild>
+                      <button onClick={() => {
+                        const element = document.getElementById(item.href.substring(1));
+                        if (element) {
+                          const headerOffset = 80;
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                          
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                          });
+                        }
+                      }} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
                         <Building2 className="w-4 h-4" />
                         {item.name}
                       </button>
@@ -320,9 +330,17 @@ const BoudHRLandingPage: React.FC = () => {
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
                     {menuItems.about.map((item, index) => <button key={index} onClick={() => {
-                        document.getElementById(item.href.substring(1))?.scrollIntoView({
-                          behavior: 'smooth'
-                        });
+                        const element = document.getElementById(item.href.substring(1));
+                        if (element) {
+                          const headerOffset = 80;
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                          
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                          });
+                        }
                         setIsMobileMenuOpen(false);
                       }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
                         {item.name}
@@ -810,10 +828,12 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
       {/* About Sections */}
-      <VisionSection />
-      <AboutUsSection />
-      <TeamSection />
-      <PartnersSection />
+      <div id="about-sections">
+        <VisionSection />
+        <AboutUsSection />
+        <TeamSection />
+        <PartnersSection />
+      </div>
 
       {/* Footer */}
       <footer className="bg-foreground text-background py-16">
