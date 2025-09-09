@@ -12,6 +12,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LoginPortalsDialog } from '@/components/LoginPortalsDialog';
 import { PromoBanner } from '@/components/PromoBanner';
+import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -25,7 +28,9 @@ export const Header: React.FC<HeaderProps> = ({
   onLogout 
 }) => {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
+  const isRTL = i18n.language === 'ar';
 
   const handleLoginClick = () => {
     setIsLoginDialogOpen(true);
@@ -37,8 +42,23 @@ export const Header: React.FC<HeaderProps> = ({
       <PromoBanner />
       <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
+        {/* Language & Theme Controls - Positioned based on direction */}
+        {isRTL ? (
+          <div className="flex items-center gap-2 order-3">
+            <LanguageSwitcher />
+            <div className="w-px h-6 bg-border/40 mx-1"></div>
+            <ThemeToggle />
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 order-1">
+            <LanguageSwitcher />
+            <div className="w-px h-6 bg-border/40 mx-1"></div>
+            <ThemeToggle />
+          </div>
+        )}
+
         {/* الشعار - يظهر على جميع الشاشات */}
-        <div className="flex items-center">
+        <div className={`flex items-center ${isRTL ? 'order-2' : 'order-2'}`}>
           <img 
             src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" 
             alt="شعار بُعد BOUD HR" 
@@ -81,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* منطقة تسجيل الدخول */}
-        <div className="flex items-center space-x-4 space-x-reverse">
+        <div className={`flex items-center space-x-4 space-x-reverse ${isRTL ? 'order-1' : 'order-3'}`}>
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

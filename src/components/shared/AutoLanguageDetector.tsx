@@ -7,7 +7,7 @@ export const AutoLanguageDetector = () => {
   useEffect(() => {
     const detectLanguage = () => {
       // جلب اللغة المحفوظة من localStorage أولاً
-      const savedLanguage = localStorage.getItem('boud-hr-language');
+      const savedLanguage = localStorage.getItem('app.lang');
       if (savedLanguage) {
         i18n.changeLanguage(savedLanguage);
         return;
@@ -28,14 +28,14 @@ export const AutoLanguageDetector = () => {
       }
 
       // حفظ اللغة المحددة
-      localStorage.setItem('boud-hr-language', i18n.language);
+      localStorage.setItem('app.lang', i18n.language);
     };
 
     detectLanguage();
 
     // الاستماع لتغييرات اللغة
     const handleLanguageChange = (language: string) => {
-      localStorage.setItem('boud-hr-language', language);
+      localStorage.setItem('app.lang', language);
       
       if (language === 'ar') {
         document.documentElement.setAttribute('dir', 'rtl');
