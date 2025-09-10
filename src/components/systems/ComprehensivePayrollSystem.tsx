@@ -3,10 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -24,46 +23,23 @@ import {
   Filter,
   Calendar,
   Building,
-  BookOpen,
   Shield,
-  Briefcase,
   Award,
   Target,
   TrendingUp,
   BarChart3,
   PieChart,
-  Activity,
-  Zap,
-  Globe,
   Eye,
   Settings,
-  Bell,
   CreditCard,
-  UserCheck,
-  Sparkles,
-  Archive,
-  Edit,
-  Trash2,
-  Share,
-  Lock,
-  Unlock,
-  AlertCircle,
-  Info,
-  UserPlus,
-  Phone,
-  Mail,
-  Crown,
-  Users2,
-  Database,
-  RefreshCw,
-  Server,
   Users,
   Receipt,
-  Banknote,
-  Wallet,
-  User
+  User,
+  Edit,
+  Trash2,
+  Share
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
 
 interface ComprehensivePayrollSystemProps {
   onBack: () => void;
@@ -99,17 +75,6 @@ interface PayrollRun {
   created_date: string;
 }
 
-interface PayrollMetric {
-  id: string;
-  metric: string;
-  category: 'Cost' | 'Processing' | 'Compliance' | 'Benefits' | 'Deductions';
-  value: number;
-  target: number;
-  trend: 'up' | 'down' | 'stable';
-  unit: string;
-  lastUpdated: string;
-}
-
 export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProps> = ({ onBack }) => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -118,8 +83,35 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<PayrollEmployee | null>(null);
   const [isEmployeeProfileOpen, setIsEmployeeProfileOpen] = useState(false);
+  const [isAddDeductionOpen, setIsAddDeductionOpen] = useState(false);
+  const [isAddBenefitOpen, setIsAddBenefitOpen] = useState(false);
+  const [isPayrollSheetOpen, setIsPayrollSheetOpen] = useState(false);
+  const [newEmployee, setNewEmployee] = useState({
+    name: '',
+    employee_id: '',
+    department: '',
+    position: '',
+    basic_salary: 0,
+    housing_allowance: 0,
+    transport_allowance: 0,
+    other_allowances: 0
+  });
+  const [newDeduction, setNewDeduction] = useState({
+    type: '',
+    employee_id: '',
+    amount: 0,
+    description: '',
+    frequency: 'monthly'
+  });
+  const [newBenefit, setNewBenefit] = useState({
+    type: '',
+    employee_id: '',
+    amount: 0,
+    description: '',
+    frequency: 'monthly'
+  });
 
-  // Mock data for demonstration
+  // Enhanced mock data with more employees
   const payrollEmployees: PayrollEmployee[] = [
     {
       id: '1',
@@ -165,6 +157,51 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       net_salary: 12800,
       status: 'approved',
       last_processed: '2024-01-12'
+    },
+    {
+      id: '4',
+      name: 'سارة علي الزهراني',
+      employee_id: 'EMP004',
+      department: 'التسويق',
+      position: 'مدير تسويق',
+      basic_salary: 15000,
+      housing_allowance: 2500,
+      transport_allowance: 1000,
+      other_allowances: 800,
+      total_deductions: 1500,
+      net_salary: 17800,
+      status: 'processed',
+      last_processed: '2024-01-15'
+    },
+    {
+      id: '5',
+      name: 'عبدالله محمد القحطاني',
+      employee_id: 'EMP005',
+      department: 'المبيعات',
+      position: 'مندوب مبيعات أول',
+      basic_salary: 8500,
+      housing_allowance: 1200,
+      transport_allowance: 800,
+      other_allowances: 1500,
+      total_deductions: 850,
+      net_salary: 11150,
+      status: 'processed',
+      last_processed: '2024-01-15'
+    },
+    {
+      id: '6',
+      name: 'نورا أحمد الغامدي',
+      employee_id: 'EMP006',
+      department: 'خدمة العملاء',
+      position: 'أخصائي خدمة عملاء',
+      basic_salary: 7000,
+      housing_allowance: 1000,
+      transport_allowance: 500,
+      other_allowances: 200,
+      total_deductions: 700,
+      net_salary: 8000,
+      status: 'pending',
+      last_processed: '2024-01-10'
     }
   ];
 
@@ -194,52 +231,6 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       status: 'processing',
       processed_by: 'محمد أحمد الخالدي',
       created_date: '2024-02-15'
-    },
-    {
-      id: '3',
-      period_name: 'مارس 2024',
-      start_date: '2024-03-01',
-      end_date: '2024-03-31',
-      total_employees: 160,
-      total_gross: 0,
-      total_deductions: 0,
-      total_net: 0,
-      status: 'draft',
-      processed_by: '',
-      created_date: '2024-03-01'
-    }
-  ];
-
-  const payrollMetrics: PayrollMetric[] = [
-    {
-      id: '1',
-      metric: 'إجمالي تكلفة الرواتب',
-      category: 'Cost',
-      value: 1920000,
-      target: 2000000,
-      trend: 'stable',
-      unit: 'ريال',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '2',
-      metric: 'الرواتب المعالجة',
-      category: 'Processing',
-      value: 156,
-      target: 160,
-      trend: 'up',
-      unit: 'موظف',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '3',
-      metric: 'معدل الامتثال',
-      category: 'Compliance',
-      value: 98,
-      target: 100,
-      trend: 'up',
-      unit: '%',
-      lastUpdated: '2024-01-15'
     }
   ];
 
@@ -248,9 +239,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     { month: 'يناير', total: 1890000, basic: 1400000, allowances: 490000, deductions: 189000 },
     { month: 'فبراير', total: 1920000, basic: 1420000, allowances: 500000, deductions: 192000 },
     { month: 'مارس', total: 1950000, basic: 1450000, allowances: 500000, deductions: 195000 },
-    { month: 'أبريل', total: 1980000, basic: 1470000, allowances: 510000, deductions: 198000 },
-    { month: 'مايو', total: 2010000, basic: 1490000, allowances: 520000, deductions: 201000 },
-    { month: 'يونيو', total: 2040000, basic: 1510000, allowances: 530000, deductions: 204000 }
+    { month: 'أبريل', total: 1980000, basic: 1470000, allowances: 510000, deductions: 198000 }
   ];
 
   const departmentSalaryDistribution = [
@@ -261,14 +250,14 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     { name: 'أقسام أخرى', value: 12, color: 'hsl(var(--muted-foreground))' }
   ];
 
-  // Calculate statistics
+  // Statistics calculations
   const stats = {
-    totalPayrollCost: 1920000,
-    processedSalaries: 156,
-    pendingApprovals: 12,
-    overduePayments: 3,
-    avgSalary: 12308,
-    totalEmployees: 160
+    totalPayrollCost: payrollEmployees.reduce((sum, emp) => sum + emp.net_salary, 0),
+    processedSalaries: payrollEmployees.filter(emp => emp.status === 'processed').length,
+    pendingApprovals: payrollEmployees.filter(emp => emp.status === 'pending').length,
+    overduePayments: payrollEmployees.filter(emp => emp.status === 'rejected').length,
+    avgSalary: Math.round(payrollEmployees.reduce((sum, emp) => sum + emp.net_salary, 0) / payrollEmployees.length),
+    totalEmployees: payrollEmployees.length
   };
 
   const handleExport = (type: string) => {
@@ -332,6 +321,73 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     setIsEmployeeProfileOpen(true);
   };
 
+  const handleAddEmployee = () => {
+    const employee: PayrollEmployee = {
+      id: Date.now().toString(),
+      name: newEmployee.name,
+      employee_id: newEmployee.employee_id,
+      department: newEmployee.department,
+      position: newEmployee.position,
+      basic_salary: newEmployee.basic_salary,
+      housing_allowance: newEmployee.housing_allowance,
+      transport_allowance: newEmployee.transport_allowance,
+      other_allowances: newEmployee.other_allowances,
+      total_deductions: 0,
+      net_salary: newEmployee.basic_salary + newEmployee.housing_allowance + newEmployee.transport_allowance + newEmployee.other_allowances,
+      status: 'pending',
+      last_processed: new Date().toISOString().split('T')[0]
+    };
+    
+    toast({
+      title: "تم إضافة الموظف",
+      description: `تم إضافة ${employee.name} بنجاح`,
+    });
+    
+    setIsAddDialogOpen(false);
+    setNewEmployee({
+      name: '',
+      employee_id: '',
+      department: '',
+      position: '',
+      basic_salary: 0,
+      housing_allowance: 0,
+      transport_allowance: 0,
+      other_allowances: 0
+    });
+  };
+
+  const handleAddDeduction = () => {
+    toast({
+      title: "تم إضافة الخصم",
+      description: `تم إضافة خصم ${newDeduction.type} بقيمة ${newDeduction.amount} ريال`,
+    });
+    
+    setIsAddDeductionOpen(false);
+    setNewDeduction({
+      type: '',
+      employee_id: '',
+      amount: 0,
+      description: '',
+      frequency: 'monthly'
+    });
+  };
+
+  const handleAddBenefit = () => {
+    toast({
+      title: "تم إضافة المزية",
+      description: `تم إضافة مزية ${newBenefit.type} بقيمة ${newBenefit.amount} ريال`,
+    });
+    
+    setIsAddBenefitOpen(false);
+    setNewBenefit({
+      type: '',
+      employee_id: '',
+      amount: 0,
+      description: '',
+      frequency: 'monthly'
+    });
+  };
+
   const renderHeader = () => (
     <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
       <div className="flex items-center gap-6">
@@ -361,9 +417,9 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           <DollarSign className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقارير
+        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsPayrollSheetOpen(true)}>
+          <Receipt className="h-4 w-4 ml-2" />
+          كشف الرواتب
         </Button>
         <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={handleProcessPayroll}>
           <Calculator className="h-4 w-4 ml-2" />
@@ -491,7 +547,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-foreground">
               <PieChart className="h-5 w-5 text-primary" />
-              توزيع الرواتب حسب الأقسام
+              توزيع الرواتب حسب القسم
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -502,266 +558,294 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                   cx="50%"
                   cy="50%"
                   labelLine={false}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                   outerRadius={80}
-                  fill="hsl(var(--primary))"
+                  fill="#8884d8"
                   dataKey="value"
                 >
                   {departmentSalaryDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip 
-                  contentStyle={{
-                    backgroundColor: 'hsl(var(--card))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
-                  }}
-                />
+                <Tooltip />
               </RechartsPieChart>
             </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* AI Insights */}
-      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            رؤى الذكاء الاصطناعي للرواتب
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-              <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">معالجة ممتازة</span>
-              </div>
-              <p className="text-sm text-emerald-700">
-                تم معالجة 98% من الرواتب بدون أخطاء هذا الشهر
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تحذير ميزانية</span>
-              </div>
-              <p className="text-sm text-orange-700">
-                تكلفة الرواتب تتجه لتجاوز الميزانية بنسبة 5%
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">توصية ذكية</span>
-              </div>
-              <p className="text-sm text-blue-700">
-                يُنصح بمراجعة هيكل العلاوات في قسم التقنية
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Recent Activities & Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Activity className="h-5 w-5" />
-              النشاطات الحديثة
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-green-100">
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">تم معالجة رواتب يناير</p>
-                  <p className="text-xs text-muted-foreground">156 موظف - منذ ساعتين</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-blue-100">
-                  <Receipt className="h-4 w-4 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">إنشاء قسائم الراتب</p>
-                  <p className="text-xs text-muted-foreground">جميع الموظفين - منذ 4 ساعات</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-yellow-100">
-                  <Clock className="h-4 w-4 text-yellow-600" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium">موافقة معلقة على العلاوات</p>
-                  <p className="text-xs text-muted-foreground">12 طلب - منذ يوم</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5" />
-              إجراءات سريعة
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="h-16 flex-col gap-2" onClick={handleProcessPayroll}>
-                <Calculator className="h-5 w-5" />
-                <span className="text-xs">معالجة الرواتب</span>
-              </Button>
-              <Button variant="outline" className="h-16 flex-col gap-2" onClick={handleGeneratePayslips}>
-                <Receipt className="h-5 w-5" />
-                <span className="text-xs">إنشاء قسائم الراتب</span>
-              </Button>
-              <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => handleExport('WPS')}>
-                <Download className="h-5 w-5" />
-                <span className="text-xs">تصدير ملف WPS</span>
-              </Button>
-              <Button variant="outline" className="h-16 flex-col gap-2" onClick={() => handleExport('التقارير')}>
-                <BarChart3 className="h-5 w-5" />
-                <span className="text-xs">تقارير الرواتب</span>
-              </Button>
-            </div>
           </CardContent>
         </Card>
       </div>
     </div>
   );
 
-  const renderEmployeeProfile = () => {
-    if (!selectedEmployee) return null;
-
-    return (
-      <Dialog open={isEmployeeProfileOpen} onOpenChange={setIsEmployeeProfileOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <User className="h-5 w-5" />
-              الملف الشخصي للرواتب - {selectedEmployee.name}
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-6">
-            {/* Basic Info */}
+  // Comprehensive Payroll Sheet Dialog
+  const renderPayrollSheet = () => (
+    <Dialog open={isPayrollSheetOpen} onOpenChange={setIsPayrollSheetOpen}>
+      <DialogContent className="max-w-7xl max-h-[90vh] overflow-auto">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Receipt className="h-6 w-6 text-primary" />
+            كشف الرواتب التفصيلي - يناير 2024
+          </DialogTitle>
+        </DialogHeader>
+        
+        <div className="space-y-6">
+          {/* Summary Cards */}
+          <div className="grid grid-cols-4 gap-4">
             <Card>
-              <CardHeader>
-                <CardTitle>المعلومات الأساسية</CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>الاسم</Label>
-                  <p className="font-medium">{selectedEmployee.name}</p>
-                </div>
-                <div>
-                  <Label>الرقم الوظيفي</Label>
-                  <p className="font-medium">{selectedEmployee.employee_id}</p>
-                </div>
-                <div>
-                  <Label>القسم</Label>
-                  <p className="font-medium">{selectedEmployee.department}</p>
-                </div>
-                <div>
-                  <Label>المنصب</Label>
-                  <p className="font-medium">{selectedEmployee.position}</p>
-                </div>
+              <CardContent className="p-4 text-center">
+                <p className="text-2xl font-bold text-primary">{payrollEmployees.length}</p>
+                <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
               </CardContent>
             </Card>
-
-            {/* Salary Details */}
             <Card>
-              <CardHeader>
-                <CardTitle>تفاصيل الراتب</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 bg-blue-50 rounded-lg">
-                    <p className="text-sm text-muted-foreground">الراتب الأساسي</p>
-                    <p className="text-2xl font-bold text-blue-600">{selectedEmployee.basic_salary.toLocaleString()}</p>
-                  </div>
-                  <div className="p-4 bg-green-50 rounded-lg">
-                    <p className="text-sm text-muted-foreground">بدل السكن</p>
-                    <p className="text-2xl font-bold text-green-600">{selectedEmployee.housing_allowance.toLocaleString()}</p>
-                  </div>
-                  <div className="p-4 bg-orange-50 rounded-lg">
-                    <p className="text-sm text-muted-foreground">بدل النقل</p>
-                    <p className="text-2xl font-bold text-orange-600">{selectedEmployee.transport_allowance.toLocaleString()}</p>
-                  </div>
-                  <div className="p-4 bg-purple-50 rounded-lg">
-                    <p className="text-sm text-muted-foreground">بدلات أخرى</p>
-                    <p className="text-2xl font-bold text-purple-600">{selectedEmployee.other_allowances.toLocaleString()}</p>
-                  </div>
-                </div>
-                
-                <div className="border-t pt-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-red-50 rounded-lg">
-                      <p className="text-sm text-muted-foreground">إجمالي الخصومات</p>
-                      <p className="text-2xl font-bold text-red-600">{selectedEmployee.total_deductions.toLocaleString()}</p>
-                    </div>
-                    <div className="p-4 bg-emerald-50 rounded-lg">
-                      <p className="text-sm text-muted-foreground">صافي الراتب</p>
-                      <p className="text-3xl font-bold text-emerald-600">{selectedEmployee.net_salary.toLocaleString()}</p>
-                    </div>
-                  </div>
-                </div>
+              <CardContent className="p-4 text-center">
+                <p className="text-2xl font-bold text-success">
+                  {payrollEmployees.reduce((sum, emp) => sum + emp.basic_salary + emp.housing_allowance + emp.transport_allowance + emp.other_allowances, 0).toLocaleString()}
+                </p>
+                <p className="text-sm text-muted-foreground">إجمالي الرواتب الإجمالية</p>
               </CardContent>
             </Card>
-
-            {/* Salary History */}
             <Card>
-              <CardHeader>
-                <CardTitle>تاريخ الرواتب</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {[1,2,3].map((month) => (
-                    <div key={month} className="flex items-center justify-between p-3 border rounded-lg">
-                      <div>
-                        <p className="font-medium">{month === 1 ? 'يناير 2024' : month === 2 ? 'ديسمبر 2023' : 'نوفمبر 2023'}</p>
-                        <p className="text-sm text-muted-foreground">آخر معالجة: {selectedEmployee.last_processed}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-lg">{selectedEmployee.net_salary.toLocaleString()} ريال</p>
-                        <Badge className={getStatusColor(selectedEmployee.status)}>
-                          {getStatusText(selectedEmployee.status)}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <CardContent className="p-4 text-center">
+                <p className="text-2xl font-bold text-destructive">
+                  {payrollEmployees.reduce((sum, emp) => sum + emp.total_deductions, 0).toLocaleString()}
+                </p>
+                <p className="text-sm text-muted-foreground">إجمالي الخصومات</p>
               </CardContent>
             </Card>
+            <Card>
+              <CardContent className="p-4 text-center">
+                <p className="text-2xl font-bold text-emerald-600">
+                  {payrollEmployees.reduce((sum, emp) => sum + emp.net_salary, 0).toLocaleString()}
+                </p>
+                <p className="text-sm text-muted-foreground">صافي الرواتب</p>
+              </CardContent>
+            </Card>
+          </div>
 
-            {/* Actions */}
-            <div className="flex gap-2 justify-end">
-              <Button variant="outline" onClick={() => handleExport('قسيمة الراتب')}>
-                <Download className="h-4 w-4 ml-2" />
-                تحميل قسيمة الراتب
-              </Button>
-              <Button variant="outline">
-                <Edit className="h-4 w-4 ml-2" />
-                تعديل الراتب
-              </Button>
-              <Button variant="outline">
-                <Calculator className="h-4 w-4 ml-2" />
-                حساب العلاوة
-              </Button>
+          {/* Detailed Payroll Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>كشف الرواتب التفصيلي</CardTitle>
+              <div className="flex gap-2">
+                <Button onClick={() => handleExport('كشف الرواتب')}>
+                  <Download className="h-4 w-4 ml-2" />
+                  تصدير Excel
+                </Button>
+                <Button variant="outline" onClick={handlePrint}>
+                  <FileText className="h-4 w-4 ml-2" />
+                  طباعة
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse border border-border">
+                  <thead>
+                    <tr className="bg-muted">
+                      <th className="border border-border p-2 text-right">الرقم الوظيفي</th>
+                      <th className="border border-border p-2 text-right">اسم الموظف</th>
+                      <th className="border border-border p-2 text-right">القسم</th>
+                      <th className="border border-border p-2 text-right">المنصب</th>
+                      <th className="border border-border p-2 text-right">الراتب الأساسي</th>
+                      <th className="border border-border p-2 text-right">بدل السكن</th>
+                      <th className="border border-border p-2 text-right">بدل النقل</th>
+                      <th className="border border-border p-2 text-right">بدلات أخرى</th>
+                      <th className="border border-border p-2 text-right">إجمالي الراتب</th>
+                      <th className="border border-border p-2 text-right">التأمينات</th>
+                      <th className="border border-border p-2 text-right">خصومات أخرى</th>
+                      <th className="border border-border p-2 text-right">إجمالي الخصم</th>
+                      <th className="border border-border p-2 text-right">صافي الراتب</th>
+                      <th className="border border-border p-2 text-right">الحالة</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {payrollEmployees.map((employee, index) => {
+                      const grossSalary = employee.basic_salary + employee.housing_allowance + employee.transport_allowance + employee.other_allowances;
+                      const gosiDeduction = Math.round(grossSalary * 0.10);
+                      const otherDeductions = employee.total_deductions - gosiDeduction;
+                      
+                      return (
+                        <tr key={employee.id} className={index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
+                          <td className="border border-border p-2">{employee.employee_id}</td>
+                          <td className="border border-border p-2 font-medium">{employee.name}</td>
+                          <td className="border border-border p-2">{employee.department}</td>
+                          <td className="border border-border p-2">{employee.position}</td>
+                          <td className="border border-border p-2 text-right font-medium">{employee.basic_salary.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right">{employee.housing_allowance.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right">{employee.transport_allowance.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right">{employee.other_allowances.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right font-bold text-success">{grossSalary.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right text-destructive">{gosiDeduction.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right text-destructive">{otherDeductions.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right font-medium text-destructive">{employee.total_deductions.toLocaleString()}</td>
+                          <td className="border border-border p-2 text-right font-bold text-primary text-lg">{employee.net_salary.toLocaleString()}</td>
+                          <td className="border border-border p-2">
+                            <Badge className={getStatusColor(employee.status)}>
+                              {getStatusText(employee.status)}
+                            </Badge>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr className="bg-primary/10 font-bold">
+                      <td colSpan={4} className="border border-border p-2 text-right font-bold">المجموع الإجمالي:</td>
+                      <td className="border border-border p-2 text-right font-bold">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.basic_salary, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.housing_allowance, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.transport_allowance, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.other_allowances, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold text-success">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.basic_salary + emp.housing_allowance + emp.transport_allowance + emp.other_allowances, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold text-destructive">
+                        {Math.round(payrollEmployees.reduce((sum, emp) => sum + (emp.basic_salary + emp.housing_allowance + emp.transport_allowance + emp.other_allowances) * 0.10, 0)).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold text-destructive">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.total_deductions - Math.round((emp.basic_salary + emp.housing_allowance + emp.transport_allowance + emp.other_allowances) * 0.10), 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold text-destructive">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.total_deductions, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2 text-right font-bold text-primary text-lg">
+                        {payrollEmployees.reduce((sum, emp) => sum + emp.net_salary, 0).toLocaleString()}
+                      </td>
+                      <td className="border border-border p-2"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+
+  // Add Employee Dialog
+  const renderAddEmployeeDialog = () => (
+    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>إضافة موظف جديد</DialogTitle>
+        </DialogHeader>
+        
+        <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">اسم الموظف</Label>
+              <Input
+                id="name"
+                value={newEmployee.name}
+                onChange={(e) => setNewEmployee({ ...newEmployee, name: e.target.value })}
+                placeholder="أدخل اسم الموظف"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="employee_id">الرقم الوظيفي</Label>
+              <Input
+                id="employee_id"
+                value={newEmployee.employee_id}
+                onChange={(e) => setNewEmployee({ ...newEmployee, employee_id: e.target.value })}
+                placeholder="EMP001"
+              />
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
-    );
-  };
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="department">القسم</Label>
+              <Select value={newEmployee.department} onValueChange={(value) => setNewEmployee({ ...newEmployee, department: value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="اختر القسم" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="تقنية المعلومات">تقنية المعلومات</SelectItem>
+                  <SelectItem value="الموارد البشرية">الموارد البشرية</SelectItem>
+                  <SelectItem value="المالية">المالية</SelectItem>
+                  <SelectItem value="التسويق">التسويق</SelectItem>
+                  <SelectItem value="المبيعات">المبيعات</SelectItem>
+                  <SelectItem value="خدمة العملاء">خدمة العملاء</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="position">المنصب</Label>
+              <Input
+                id="position"
+                value={newEmployee.position}
+                onChange={(e) => setNewEmployee({ ...newEmployee, position: e.target.value })}
+                placeholder="أدخل المنصب الوظيفي"
+              />
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="basic_salary">الراتب الأساسي</Label>
+              <Input
+                id="basic_salary"
+                type="number"
+                value={newEmployee.basic_salary}
+                onChange={(e) => setNewEmployee({ ...newEmployee, basic_salary: Number(e.target.value) })}
+                placeholder="0"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="housing_allowance">بدل السكن</Label>
+              <Input
+                id="housing_allowance"
+                type="number"
+                value={newEmployee.housing_allowance}
+                onChange={(e) => setNewEmployee({ ...newEmployee, housing_allowance: Number(e.target.value) })}
+                placeholder="0"
+              />
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="transport_allowance">بدل النقل</Label>
+              <Input
+                id="transport_allowance"
+                type="number"
+                value={newEmployee.transport_allowance}
+                onChange={(e) => setNewEmployee({ ...newEmployee, transport_allowance: Number(e.target.value) })}
+                placeholder="0"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="other_allowances">بدلات أخرى</Label>
+              <Input
+                id="other_allowances"
+                type="number"
+                value={newEmployee.other_allowances}
+                onChange={(e) => setNewEmployee({ ...newEmployee, other_allowances: Number(e.target.value) })}
+                placeholder="0"
+              />
+            </div>
+          </div>
+          
+          <div className="flex gap-2 justify-end pt-4">
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+              إلغاء
+            </Button>
+            <Button onClick={handleAddEmployee}>
+              إضافة الموظف
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -937,10 +1021,16 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">إدارة الخصومات والمزايا</h2>
-                <Button onClick={() => setIsAddDialogOpen(true)}>
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة خصم/مزية
-                </Button>
+                <div className="flex gap-2">
+                  <Button onClick={() => setIsAddDeductionOpen(true)} variant="outline">
+                    <Plus className="h-4 w-4 ml-2" />
+                    إضافة خصم
+                  </Button>
+                  <Button onClick={() => setIsAddBenefitOpen(true)}>
+                    <Plus className="h-4 w-4 ml-2" />
+                    إضافة مزية
+                  </Button>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -953,43 +1043,22 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-3 border border-red-200 rounded-lg bg-red-50">
-                      <div>
-                        <p className="font-medium">خصم قرض</p>
-                        <p className="text-sm text-muted-foreground">أحمد محمد العلي</p>
+                    {[
+                      { employee: 'أحمد محمد العلي', type: 'خصم قرض', amount: 500, frequency: 'شهري' },
+                      { employee: 'محمد خالد الخالدي', type: 'خصم غياب', amount: 200, frequency: 'لمرة واحدة' },
+                      { employee: 'فاطمة أحمد السالم', type: 'خصم تأديبي', amount: 300, frequency: 'لمرة واحدة' }
+                    ].map((deduction, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 border border-red-200 rounded-lg bg-red-50">
+                        <div>
+                          <p className="font-medium">{deduction.type}</p>
+                          <p className="text-sm text-muted-foreground">{deduction.employee}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-red-600">{deduction.amount} ريال</p>
+                          <p className="text-xs text-muted-foreground">{deduction.frequency}</p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-red-600">500 ريال</p>
-                        <p className="text-xs text-muted-foreground">شهري</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-3 border border-red-200 rounded-lg bg-red-50">
-                      <div>
-                        <p className="font-medium">خصم غياب</p>
-                        <p className="text-sm text-muted-foreground">محمد خالد الخالدي</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-red-600">200 ريال</p>
-                        <p className="text-xs text-muted-foreground">لمرة واحدة</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-3 border border-red-200 rounded-lg bg-red-50">
-                      <div>
-                        <p className="font-medium">خصم تأديبي</p>
-                        <p className="text-sm text-muted-foreground">فاطمة أحمد السالم</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-red-600">300 ريال</p>
-                        <p className="text-xs text-muted-foreground">لمرة واحدة</p>
-                      </div>
-                    </div>
-                    
-                    <Button variant="outline" className="w-full">
-                      <Plus className="h-4 w-4 ml-2" />
-                      إضافة خصم جديد
-                    </Button>
+                    ))}
                   </CardContent>
                 </Card>
 
@@ -1002,43 +1071,22 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-3 border border-green-200 rounded-lg bg-green-50">
-                      <div>
-                        <p className="font-medium">مكافأة أداء</p>
-                        <p className="text-sm text-muted-foreground">أحمد محمد العلي</p>
+                    {[
+                      { employee: 'أحمد محمد العلي', type: 'مكافأة أداء', amount: 1000, frequency: 'ربع سنوي' },
+                      { employee: 'فاطمة أحمد السالم', type: 'عمولة مبيعات', amount: 800, frequency: 'شهري' },
+                      { employee: 'محمد خالد الخالدي', type: 'بدل إضافي', amount: 400, frequency: 'شهري' }
+                    ].map((benefit, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 border border-green-200 rounded-lg bg-green-50">
+                        <div>
+                          <p className="font-medium">{benefit.type}</p>
+                          <p className="text-sm text-muted-foreground">{benefit.employee}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-green-600">{benefit.amount} ريال</p>
+                          <p className="text-xs text-muted-foreground">{benefit.frequency}</p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-green-600">1000 ريال</p>
-                        <p className="text-xs text-muted-foreground">ربع سنوي</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-3 border border-green-200 rounded-lg bg-green-50">
-                      <div>
-                        <p className="font-medium">عمولة مبيعات</p>
-                        <p className="text-sm text-muted-foreground">فاطمة أحمد السالم</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-green-600">800 ريال</p>
-                        <p className="text-xs text-muted-foreground">شهري</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-3 border border-green-200 rounded-lg bg-green-50">
-                      <div>
-                        <p className="font-medium">بدل إضافي</p>
-                        <p className="text-sm text-muted-foreground">محمد خالد الخالدي</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-green-600">400 ريال</p>
-                        <p className="text-xs text-muted-foreground">شهري</p>
-                      </div>
-                    </div>
-                    
-                    <Button variant="outline" className="w-full">
-                      <Plus className="h-4 w-4 ml-2" />
-                      إضافة مزية جديدة
-                    </Button>
+                    ))}
                   </CardContent>
                 </Card>
               </div>
@@ -1106,126 +1154,34 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 </Button>
               </div>
 
-              <div className="grid gap-6">
-                {/* WPS Status */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5" />
-                      حالة نظام حماية الأجور
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="text-center p-3 bg-green-50 rounded-lg">
-                        <p className="text-2xl font-bold text-green-600">98%</p>
-                        <p className="text-sm text-muted-foreground">معدل الامتثال</p>
-                      </div>
-                      <div className="text-center p-3 bg-blue-50 rounded-lg">
-                        <p className="text-2xl font-bold text-blue-600">156</p>
-                        <p className="text-sm text-muted-foreground">ملفات مرفوعة</p>
-                      </div>
-                      <div className="text-center p-3 bg-orange-50 rounded-lg">
-                        <p className="text-2xl font-bold text-orange-600">3</p>
-                        <p className="text-sm text-muted-foreground">أخطاء معلقة</p>
-                      </div>
-                      <div className="text-center p-3 bg-purple-50 rounded-lg">
-                        <p className="text-2xl font-bold text-purple-600">15</p>
-                        <p className="text-sm text-muted-foreground">يوم متبقي</p>
-                      </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="h-5 w-5" />
+                    حالة نظام حماية الأجور
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="text-center p-3 bg-green-50 rounded-lg">
+                      <p className="text-2xl font-bold text-green-600">98%</p>
+                      <p className="text-sm text-muted-foreground">معدل الامتثال</p>
                     </div>
-                  </CardContent>
-                </Card>
-
-                {/* GOSI Integration */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Building className="h-5 w-5" />
-                      التكامل مع التأمينات الاجتماعية
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <div className="p-2 rounded-full bg-green-100">
-                          <CheckCircle2 className="h-5 w-5 text-green-600" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">مساهمات التأمينات</h3>
-                          <p className="text-sm text-muted-foreground">يناير 2024 - تم الرفع بنجاح</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold">189,000 ريال</p>
-                        <p className="text-sm text-muted-foreground">إجمالي المساهمات</p>
-                      </div>
+                    <div className="text-center p-3 bg-blue-50 rounded-lg">
+                      <p className="text-2xl font-bold text-blue-600">156</p>
+                      <p className="text-sm text-muted-foreground">ملفات مرفوعة</p>
                     </div>
-
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <div className="p-2 rounded-full bg-yellow-100">
-                          <Clock className="h-5 w-5 text-yellow-600" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">مساهمات فبراير</h3>
-                          <p className="text-sm text-muted-foreground">قيد المعالجة</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold">192,000 ريال</p>
-                        <p className="text-sm text-muted-foreground">متوقع</p>
-                      </div>
+                    <div className="text-center p-3 bg-orange-50 rounded-lg">
+                      <p className="text-2xl font-bold text-orange-600">3</p>
+                      <p className="text-sm text-muted-foreground">أخطاء معلقة</p>
                     </div>
-                  </CardContent>
-                </Card>
-
-                {/* Compliance Alerts */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <AlertTriangle className="h-5 w-5" />
-                      تنبيهات الامتثال
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                        <AlertTriangle className="h-4 w-4 text-orange-600" />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">موعد رفع ملف WPS يقترب</p>
-                          <p className="text-xs text-muted-foreground">يجب رفع ملف فبراير خلال 15 يوم</p>
-                        </div>
-                        <Button variant="outline" size="sm">
-                          رفع الملف
-                        </Button>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <AlertCircle className="h-4 w-4 text-red-600" />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">خطأ في بيانات 3 موظفين</p>
-                          <p className="text-xs text-muted-foreground">يجب تصحيح البيانات قبل الرفع</p>
-                        </div>
-                        <Button variant="outline" size="sm">
-                          إصلاح الأخطاء
-                        </Button>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        <div className="flex-1">
-                          <p className="text-sm font-medium">تم رفع ملف يناير بنجاح</p>
-                          <p className="text-xs text-muted-foreground">جميع البيانات صحيحة ومقبولة</p>
-                        </div>
-                        <Button variant="outline" size="sm">
-                          عرض التفاصيل
-                        </Button>
-                      </div>
+                    <div className="text-center p-3 bg-purple-50 rounded-lg">
+                      <p className="text-2xl font-bold text-purple-600">15</p>
+                      <p className="text-sm text-muted-foreground">يوم متبقي</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
@@ -1234,113 +1190,30 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
               <h2 className="text-2xl font-bold">تقارير الرواتب</h2>
               
               <div className="grid gap-6 md:grid-cols-3">
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <FileText className="h-5 w-5" />
-                      سجل الرواتب
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      تقرير شامل بجميع بيانات رواتب الموظفين
-                    </p>
-                    <Button className="w-full" onClick={() => handleExport('سجل الرواتب')}>
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل التقرير
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <BarChart3 className="h-5 w-5" />
-                      التكلفة حسب القسم
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      تحليل توزيع تكاليف الرواتب على الأقسام
-                    </p>
-                    <Button className="w-full" onClick={() => handleExport('التكلفة حسب القسم')}>
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل التقرير
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Clock className="h-5 w-5" />
-                      تقرير الإضافي
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      تفاصيل ساعات العمل الإضافية والمكافآت
-                    </p>
-                    <Button className="w-full" onClick={() => handleExport('تقرير الإضافي')}>
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل التقرير
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <TrendingUp className="h-5 w-5" />
-                      الاتجاهات التاريخية
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      تحليل اتجاهات الرواتب عبر الفترات الزمنية
-                    </p>
-                    <Button className="w-full" onClick={() => handleExport('الاتجاهات التاريخية')}>
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل التقرير
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5" />
-                      تقرير الامتثال
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      حالة الامتثال للوائح والأنظمة
-                    </p>
-                    <Button className="w-full" onClick={() => handleExport('تقرير الامتثال')}>
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل التقرير
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <AlertTriangle className="h-5 w-5" />
-                      الخصومات والمزايا
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      تقرير مفصل بالخصومات والمزايا
-                    </p>
-                    <Button className="w-full" onClick={() => handleExport('الخصومات والمزايا')}>
-                      <Download className="h-4 w-4 ml-2" />
-                      تحميل التقرير
-                    </Button>
-                  </CardContent>
-                </Card>
+                {[
+                  { title: 'سجل الرواتب', icon: FileText, desc: 'تقرير شامل بجميع بيانات رواتب الموظفين' },
+                  { title: 'التكلفة حسب القسم', icon: BarChart3, desc: 'تحليل توزيع تكاليف الرواتب على الأقسام' },
+                  { title: 'تقرير الإضافي', icon: Clock, desc: 'تفاصيل ساعات العمل الإضافية والمكافآت' },
+                  { title: 'الاتجاهات التاريخية', icon: TrendingUp, desc: 'تحليل اتجاهات الرواتب عبر الفترات الزمنية' },
+                  { title: 'تقرير الامتثال', icon: Shield, desc: 'حالة الامتثال للوائح والأنظمة' },
+                  { title: 'الخصومات والمزايا', icon: AlertTriangle, desc: 'تقرير مفصل بالخصومات والمزايا' }
+                ].map((report) => (
+                  <Card key={report.title} className="cursor-pointer hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <report.icon className="h-5 w-5" />
+                        {report.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">{report.desc}</p>
+                      <Button className="w-full" onClick={() => handleExport(report.title)}>
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
           </TabsContent>
@@ -1384,20 +1257,6 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                         </Select>
                       </div>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label>العملة</Label>
-                      <Select defaultValue="SAR">
-                        <SelectTrigger className="max-w-xs">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="SAR">الريال السعودي</SelectItem>
-                          <SelectItem value="USD">الدولار الأمريكي</SelectItem>
-                          <SelectItem value="EUR">اليورو</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
                   </CardContent>
                 </Card>
 
@@ -1411,53 +1270,9 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                         <Label>نسبة بدل السكن (%)</Label>
                         <Input type="number" defaultValue="25" />
                       </div>
-                      
                       <div className="space-y-2">
                         <Label>نسبة بدل النقل (%)</Label>
                         <Input type="number" defaultValue="10" />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label>نسبة التأمينات الاجتماعية (%)</Label>
-                        <Input type="number" defaultValue="10" />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label>حد الإعفاء الضريبي</Label>
-                        <Input type="number" defaultValue="0" />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>صلاحيات الرواتب</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 border rounded-lg">
-                        <div>
-                          <p className="font-medium">مدراء الموارد البشرية</p>
-                          <p className="text-sm text-muted-foreground">إدارة كاملة للرواتب</p>
-                        </div>
-                        <Badge className="bg-green-100 text-green-800">نشط</Badge>
-                      </div>
-                      
-                      <div className="flex items-center justify-between p-3 border rounded-lg">
-                        <div>
-                          <p className="font-medium">موظفو الرواتب</p>
-                          <p className="text-sm text-muted-foreground">معالجة وإدخال البيانات</p>
-                        </div>
-                        <Badge className="bg-green-100 text-green-800">نشط</Badge>
-                      </div>
-                      
-                      <div className="flex items-center justify-between p-3 border rounded-lg">
-                        <div>
-                          <p className="font-medium">المدراء المباشرون</p>
-                          <p className="text-sm text-muted-foreground">عرض رواتب الفريق فقط</p>
-                        </div>
-                        <Badge className="bg-yellow-100 text-yellow-800">محدود</Badge>
                       </div>
                     </div>
                   </CardContent>
@@ -1473,7 +1288,188 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
         </Tabs>
       </div>
 
-      {renderEmployeeProfile()}
+      {/* Render all dialogs */}
+      {renderPayrollSheet()}
+      {renderAddEmployeeDialog()}
+      
+      {/* Add Deduction Dialog */}
+      <Dialog open={isAddDeductionOpen} onOpenChange={setIsAddDeductionOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>إضافة خصم جديد</DialogTitle>
+          </DialogHeader>
+          
+          <div className="grid gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="deduction_type">نوع الخصم</Label>
+                <Select value={newDeduction.type} onValueChange={(value) => setNewDeduction({ ...newDeduction, type: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر نوع الخصم" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="قرض">خصم قرض</SelectItem>
+                    <SelectItem value="غياب">خصم غياب</SelectItem>
+                    <SelectItem value="تأديبي">خصم تأديبي</SelectItem>
+                    <SelectItem value="تأمين">خصم تأمين</SelectItem>
+                    <SelectItem value="أخرى">خصومات أخرى</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="deduction_employee">الموظف</Label>
+                <Select value={newDeduction.employee_id} onValueChange={(value) => setNewDeduction({ ...newDeduction, employee_id: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الموظف" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {payrollEmployees.map((employee) => (
+                      <SelectItem key={employee.id} value={employee.id}>
+                        {employee.name} - {employee.employee_id}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="deduction_amount">المبلغ</Label>
+                <Input
+                  id="deduction_amount"
+                  type="number"
+                  value={newDeduction.amount}
+                  onChange={(e) => setNewDeduction({ ...newDeduction, amount: Number(e.target.value) })}
+                  placeholder="0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="deduction_frequency">التكرار</Label>
+                <Select value={newDeduction.frequency} onValueChange={(value) => setNewDeduction({ ...newDeduction, frequency: value })}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="monthly">شهري</SelectItem>
+                    <SelectItem value="once">لمرة واحدة</SelectItem>
+                    <SelectItem value="quarterly">ربع سنوي</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="deduction_description">الوصف</Label>
+              <Textarea
+                id="deduction_description"
+                value={newDeduction.description}
+                onChange={(e) => setNewDeduction({ ...newDeduction, description: e.target.value })}
+                placeholder="أدخل وصف الخصم"
+              />
+            </div>
+            
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" onClick={() => setIsAddDeductionOpen(false)}>
+                إلغاء
+              </Button>
+              <Button onClick={handleAddDeduction}>
+                إضافة الخصم
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Benefit Dialog */}
+      <Dialog open={isAddBenefitOpen} onOpenChange={setIsAddBenefitOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>إضافة مزية جديدة</DialogTitle>
+          </DialogHeader>
+          
+          <div className="grid gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="benefit_type">نوع المزية</Label>
+                <Select value={newBenefit.type} onValueChange={(value) => setNewBenefit({ ...newBenefit, type: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر نوع المزية" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="أداء">مكافأة أداء</SelectItem>
+                    <SelectItem value="مبيعات">عمولة مبيعات</SelectItem>
+                    <SelectItem value="إضافي">بدل إضافي</SelectItem>
+                    <SelectItem value="علاوة">علاوة سنوية</SelectItem>
+                    <SelectItem value="أخرى">مزايا أخرى</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="benefit_employee">الموظف</Label>
+                <Select value={newBenefit.employee_id} onValueChange={(value) => setNewBenefit({ ...newBenefit, employee_id: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الموظف" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {payrollEmployees.map((employee) => (
+                      <SelectItem key={employee.id} value={employee.id}>
+                        {employee.name} - {employee.employee_id}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="benefit_amount">المبلغ</Label>
+                <Input
+                  id="benefit_amount"
+                  type="number"
+                  value={newBenefit.amount}
+                  onChange={(e) => setNewBenefit({ ...newBenefit, amount: Number(e.target.value) })}
+                  placeholder="0"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="benefit_frequency">التكرار</Label>
+                <Select value={newBenefit.frequency} onValueChange={(value) => setNewBenefit({ ...newBenefit, frequency: value })}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="monthly">شهري</SelectItem>
+                    <SelectItem value="once">لمرة واحدة</SelectItem>
+                    <SelectItem value="quarterly">ربع سنوي</SelectItem>
+                    <SelectItem value="annual">سنوي</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="benefit_description">الوصف</Label>
+              <Textarea
+                id="benefit_description"
+                value={newBenefit.description}
+                onChange={(e) => setNewBenefit({ ...newBenefit, description: e.target.value })}
+                placeholder="أدخل وصف المزية"
+              />
+            </div>
+            
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" onClick={() => setIsAddBenefitOpen(false)}>
+                إلغاء
+              </Button>
+              <Button onClick={handleAddBenefit}>
+                إضافة المزية
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
