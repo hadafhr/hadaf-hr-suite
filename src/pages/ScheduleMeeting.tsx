@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Calendar, Clock, CheckCircle, User, Building, Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
+import { Calendar, Clock, CheckCircle, User, Building, Mail, Phone, MapPin, MessageSquare, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { ar } from 'date-fns/locale';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,6 +24,8 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { BoudLogo } from '@/components/BoudLogo';
+import { PatternBackground } from '@/components/PatternBackground';
 
 const meetingSchema = z.object({
   fullName: z.string().min(2, 'الاسم الكامل مطلوب'),
@@ -56,6 +59,7 @@ const saudiCities = [
 export const ScheduleMeeting: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<MeetingForm>({
     resolver: zodResolver(meetingSchema),
@@ -87,8 +91,9 @@ export const ScheduleMeeting: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
-        <Card className="max-w-md w-full text-center shadow-strong">
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4 relative">
+        <PatternBackground opacity={0.08} size={400} />
+        <Card className="max-w-md w-full text-center shadow-strong relative z-10">
           <CardContent className="p-8">
             <div className="mb-6">
               <CheckCircle className="h-16 w-16 text-primary mx-auto mb-4" />
@@ -115,8 +120,28 @@ export const ScheduleMeeting: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-12 px-4 relative">
+      <PatternBackground opacity={0.08} size={400} />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
+        {/* Header with Logo and Back Button */}
+        <div className="flex items-center justify-between mb-8">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 hover:bg-primary/10"
+          >
+            <ArrowRight className="h-4 w-4" />
+            العودة
+          </Button>
+          
+          <div className="flex-1 flex justify-center">
+            <BoudLogo variant="full" size="lg" showText />
+          </div>
+          
+          <div className="w-20"></div> {/* Spacer for balance */}
+        </div>
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -132,7 +157,7 @@ export const ScheduleMeeting: React.FC = () => {
         </div>
 
         {/* Form */}
-        <Card className="shadow-strong">
+        <Card className="shadow-strong bg-background/95 backdrop-blur-sm border-border/50">
           <CardContent className="p-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -369,7 +394,7 @@ export const ScheduleMeeting: React.FC = () => {
 
         {/* Benefits Section */}
         <div className="mt-12 grid md:grid-cols-3 gap-6">
-          <Card className="text-center p-6">
+          <Card className="text-center p-6 bg-background/95 backdrop-blur-sm border-border/50 hover:shadow-lg transition-all duration-300">
             <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Calendar className="h-6 w-6 text-primary" />
             </div>
@@ -379,7 +404,7 @@ export const ScheduleMeeting: React.FC = () => {
             </p>
           </Card>
 
-          <Card className="text-center p-6">
+          <Card className="text-center p-6 bg-background/95 backdrop-blur-sm border-border/50 hover:shadow-lg transition-all duration-300">
             <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <User className="h-6 w-6 text-primary" />
             </div>
@@ -389,7 +414,7 @@ export const ScheduleMeeting: React.FC = () => {
             </p>
           </Card>
 
-          <Card className="text-center p-6">
+          <Card className="text-center p-6 bg-background/95 backdrop-blur-sm border-border/50 hover:shadow-lg transition-all duration-300">
             <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="h-6 w-6 text-primary" />
             </div>
