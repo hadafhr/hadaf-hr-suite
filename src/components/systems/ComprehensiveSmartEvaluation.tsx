@@ -752,6 +752,622 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
     </div>
   );
 
+  const renderCompetencyManagement = () => {
+    const [competencies, setCompetencies] = useState([
+      {
+        id: '1',
+        name: 'القيادة الاستراتيجية',
+        category: 'Leadership' as const,
+        description: 'القدرة على وضع رؤية استراتيجية وقيادة الفرق نحو تحقيق الأهداف',
+        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
+        importance: 'Critical' as const,
+        assessmentCriteria: [
+          'وضع الرؤية الاستراتيجية',
+          'تحفيز الفرق',
+          'اتخاذ القرارات الصعبة',
+          'إدارة التغيير'
+        ]
+      },
+      {
+        id: '2',
+        name: 'التفكير التحليلي',
+        category: 'Technical' as const,
+        description: 'القدرة على تحليل المعلومات المعقدة وحل المشكلات بطريقة منطقية',
+        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
+        importance: 'Important' as const,
+        assessmentCriteria: [
+          'تحليل البيانات',
+          'حل المشكلات',
+          'التفكير النقدي',
+          'اتخاذ القرارات المدروسة'
+        ]
+      },
+      {
+        id: '3',
+        name: 'التواصل الفعال',
+        category: 'Communication' as const,
+        description: 'القدرة على التواصل بوضوح وفعالية مع مختلف المستويات والجمهور',
+        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
+        importance: 'Critical' as const,
+        assessmentCriteria: [
+          'التواصل الشفهي',
+          'التواصل الكتابي',
+          'الاستماع الفعال',
+          'العرض والتقديم'
+        ]
+      }
+    ]);
+
+    const [showAddDialog, setShowAddDialog] = useState(false);
+    const [newCompetency, setNewCompetency] = useState({
+      name: '',
+      category: 'Technical' as const,
+      description: '',
+      importance: 'Important' as const,
+      assessmentCriteria: ['']
+    });
+
+    const handleAddCompetency = () => {
+      const competency = {
+        id: Date.now().toString(),
+        ...newCompetency,
+        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
+        assessmentCriteria: newCompetency.assessmentCriteria.filter(c => c.trim() !== '')
+      };
+      setCompetencies([...competencies, competency]);
+      setNewCompetency({
+        name: '',
+        category: 'Technical',
+        description: '',
+        importance: 'Important',
+        assessmentCriteria: ['']
+      });
+      setShowAddDialog(false);
+      toast({ title: 'تمت إضافة الكفاءة بنجاح', variant: 'default' });
+    };
+
+    const getCategoryColor = (category: string) => {
+      switch (category) {
+        case 'Technical': return 'bg-blue-100 text-blue-800 border-blue-200';
+        case 'Leadership': return 'bg-purple-100 text-purple-800 border-purple-200';
+        case 'Communication': return 'bg-green-100 text-green-800 border-green-200';
+        case 'Behavioral': return 'bg-orange-100 text-orange-800 border-orange-200';
+        default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      }
+    };
+
+    const getImportanceColor = (importance: string) => {
+      switch (importance) {
+        case 'Critical': return 'bg-red-100 text-red-800 border-red-200';
+        case 'Important': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        case 'Moderate': return 'bg-gray-100 text-gray-800 border-gray-200';
+        default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      }
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">إدارة الكفاءات والمهارات</h2>
+            <p className="text-muted-foreground">تحديد وإدارة الكفاءات المطلوبة لكل منصب</p>
+          </div>
+          <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة كفاءة جديدة
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>إضافة كفاءة جديدة</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="name">اسم الكفاءة</Label>
+                    <Input
+                      id="name"
+                      value={newCompetency.name}
+                      onChange={(e) => setNewCompetency({...newCompetency, name: e.target.value})}
+                      placeholder="مثال: القيادة الاستراتيجية"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="category">الفئة</Label>
+                    <Select
+                      value={newCompetency.category}
+                      onValueChange={(value: any) => setNewCompetency({...newCompetency, category: value})}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Technical">تقنية</SelectItem>
+                        <SelectItem value="Leadership">قيادية</SelectItem>
+                        <SelectItem value="Communication">تواصل</SelectItem>
+                        <SelectItem value="Behavioral">سلوكية</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="description">الوصف</Label>
+                  <Textarea
+                    id="description"
+                    value={newCompetency.description}
+                    onChange={(e) => setNewCompetency({...newCompetency, description: e.target.value})}
+                    placeholder="وصف مفصل للكفاءة ومتطلباتها"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="importance">مستوى الأهمية</Label>
+                  <Select
+                    value={newCompetency.importance}
+                    onValueChange={(value: any) => setNewCompetency({...newCompetency, importance: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Critical">حرجة</SelectItem>
+                      <SelectItem value="Important">مهمة</SelectItem>
+                      <SelectItem value="Moderate">متوسطة</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label>معايير التقييم</Label>
+                  {newCompetency.assessmentCriteria.map((criteria, index) => (
+                    <div key={index} className="flex gap-2 mt-2">
+                      <Input
+                        value={criteria}
+                        onChange={(e) => {
+                          const newCriteria = [...newCompetency.assessmentCriteria];
+                          newCriteria[index] = e.target.value;
+                          setNewCompetency({...newCompetency, assessmentCriteria: newCriteria});
+                        }}
+                        placeholder="معيار التقييم"
+                      />
+                      {index === newCompetency.assessmentCriteria.length - 1 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setNewCompetency({
+                            ...newCompetency,
+                            assessmentCriteria: [...newCompetency.assessmentCriteria, '']
+                          })}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setShowAddDialog(false)}>
+                    إلغاء
+                  </Button>
+                  <Button onClick={handleAddCompetency}>
+                    إضافة الكفاءة
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+        {/* Competencies Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {competencies.map((competency) => (
+            <Card key={competency.id} className="hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between">
+                  <CardTitle className="text-lg">{competency.name}</CardTitle>
+                  <div className="flex gap-1">
+                    <Badge className={getCategoryColor(competency.category)}>
+                      {competency.category === 'Technical' ? 'تقنية' :
+                       competency.category === 'Leadership' ? 'قيادية' :
+                       competency.category === 'Communication' ? 'تواصل' : 'سلوكية'}
+                    </Badge>
+                    <Badge className={getImportanceColor(competency.importance)}>
+                      {competency.importance === 'Critical' ? 'حرجة' :
+                       competency.importance === 'Important' ? 'مهمة' : 'متوسطة'}
+                    </Badge>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">{competency.description}</p>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <Label className="text-xs font-medium text-muted-foreground">مستويات الكفاءة</Label>
+                    <div className="flex gap-1 mt-1">
+                      {competency.levels.map((level, index) => (
+                        <div key={index} className="flex-1 h-2 bg-gray-200 rounded">
+                          <div className="h-full bg-gradient-to-r from-red-400 via-yellow-400 to-green-500 rounded" style={{width: `${((index + 1) / competency.levels.length) * 100}%`}}></div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                      <span>{competency.levels[0]}</span>
+                      <span>{competency.levels[competency.levels.length - 1]}</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label className="text-xs font-medium text-muted-foreground">معايير التقييم</Label>
+                    <ul className="mt-1 space-y-1">
+                      {competency.assessmentCriteria.map((criteria, index) => (
+                        <li key={index} className="text-xs flex items-center gap-2">
+                          <CheckCircle2 className="h-3 w-3 text-green-500" />
+                          {criteria}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex gap-2 pt-2">
+                    <Button variant="outline" size="sm" className="flex-1">
+                      <Edit className="h-3 w-3 ml-1" />
+                      تحرير
+                    </Button>
+                    <Button variant="outline" size="sm" className="flex-1">
+                      <Eye className="h-3 w-3 ml-1" />
+                      عرض
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderReportsSection = () => {
+    const [selectedReport, setSelectedReport] = useState('');
+    const [reportData, setReportData] = useState<any>(null);
+    const [isGenerating, setIsGenerating] = useState(false);
+
+    const reportTypes = [
+      {
+        id: 'performance_summary',
+        title: 'تقرير ملخص الأداء',
+        description: 'تقرير شامل عن أداء جميع الموظفين',
+        icon: BarChart3,
+        color: 'text-blue-600'
+      },
+      {
+        id: 'competency_gaps',
+        title: 'تحليل فجوات الكفاءات',
+        description: 'تحديد الكفاءات المفقودة في المؤسسة',
+        icon: Target,
+        color: 'text-red-600'
+      },
+      {
+        id: 'development_recommendations',
+        title: 'توصيات التطوير',
+        description: 'اقتراحات مخصصة لتطوير أداء الموظفين',
+        icon: TrendingUp,
+        color: 'text-green-600'
+      },
+      {
+        id: 'smart_analytics',
+        title: 'تحليلات ذكية',
+        description: 'رؤى مدعومة بالذكاء الاصطناعي',
+        icon: Brain,
+        color: 'text-purple-600'
+      },
+      {
+        id: 'calibration_report',
+        title: 'تقرير المعايرة',
+        description: 'تقييم اتساق المعايير عبر الإدارات',
+        icon: Shield,
+        color: 'text-orange-600'
+      },
+      {
+        id: 'engagement_analysis',
+        title: 'تحليل المشاركة',
+        description: 'قياس مستوى مشاركة وانخراط الموظفين',
+        icon: Activity,
+        color: 'text-pink-600'
+      }
+    ];
+
+    const generateReport = async (reportType: string) => {
+      setIsGenerating(true);
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Generate mock data based on report type
+        const mockData = {
+          performance_summary: {
+            totalEmployees: 156,
+            avgPerformance: 78.5,
+            topPerformers: 23,
+            improvementNeeded: 12,
+            departmentStats: [
+              { name: 'التسويق', avgScore: 82, employees: 25 },
+              { name: 'المبيعات', avgScore: 79, employees: 30 },
+              { name: 'التطوير', avgScore: 85, employees: 40 },
+              { name: 'الموارد البشرية', avgScore: 76, employees: 15 }
+            ],
+            trends: [
+              { month: 'يناير', score: 75 },
+              { month: 'فبراير', score: 77 },
+              { month: 'مارس', score: 79 },
+              { month: 'أبريل', score: 78 },
+              { month: 'مايو', score: 81 },
+              { month: 'يونيو', score: 78.5 }
+            ]
+          },
+          competency_gaps: {
+            criticalGaps: [
+              { competency: 'القيادة الاستراتيجية', currentLevel: 2.5, targetLevel: 4.0, gap: 1.5 },
+              { competency: 'التحول الرقمي', currentLevel: 2.8, targetLevel: 4.5, gap: 1.7 },
+              { competency: 'إدارة المشاريع', currentLevel: 3.2, targetLevel: 4.0, gap: 0.8 }
+            ],
+            departments: [
+              { name: 'التسويق', gaps: 3, priority: 'High' },
+              { name: 'المبيعات', gaps: 2, priority: 'Medium' },
+              { name: 'التطوير', gaps: 1, priority: 'Low' }
+            ]
+          },
+          smart_analytics: {
+            insights: [
+              'ارتفاع في الأداء العام بنسبة 12% مقارنة بالربع السابق',
+              'انخفاض في معدل دوران الموظفين بنسبة 8%',
+              'زيادة في مستوى الرضا الوظيفي إلى 85%'
+            ],
+            predictions: [
+              'متوقع ارتفاع الأداء بنسبة 5% في الربع القادم',
+              'احتمالية ترقية 15 موظف في الشهور القادمة',
+              'الحاجة لتدريب إضافي في مجال التكنولوجيا'
+            ]
+          }
+        };
+
+        setReportData(mockData[reportType as keyof typeof mockData] || {});
+      } catch (error) {
+        toast({ title: 'حدث خطأ في إنشاء التقرير', variant: 'destructive' });
+      } finally {
+        setIsGenerating(false);
+      }
+    };
+
+    const exportReport = (format: 'pdf' | 'excel') => {
+      toast({ title: `تم تصدير التقرير بصيغة ${format.toUpperCase()}`, variant: 'default' });
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">التقارير والتحليلات</h2>
+            <p className="text-muted-foreground">إنشاء وتصدير تقارير شاملة عن الأداء</p>
+          </div>
+          {reportData && (
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => exportReport('pdf')}>
+                <Download className="h-4 w-4 ml-2" />
+                تصدير PDF
+              </Button>
+              <Button variant="outline" onClick={() => exportReport('excel')}>
+                <Download className="h-4 w-4 ml-2" />
+                تصدير Excel
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* Report Types */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {reportTypes.map((report) => {
+            const Icon = report.icon;
+            return (
+              <Card 
+                key={report.id} 
+                className={`cursor-pointer transition-all hover:shadow-lg ${
+                  selectedReport === report.id ? 'ring-2 ring-primary border-primary' : ''
+                }`}
+                onClick={() => setSelectedReport(report.id)}
+              >
+                <CardContent className="p-6 text-center">
+                  <Icon className={`h-12 w-12 mx-auto mb-4 ${report.color}`} />
+                  <h3 className="font-semibold mb-2">{report.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{report.description}</p>
+                  <Button 
+                    size="sm" 
+                    disabled={isGenerating}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      generateReport(report.id);
+                    }}
+                    className="w-full"
+                  >
+                    {isGenerating ? (
+                      <RefreshCw className="h-4 w-4 animate-spin ml-2" />
+                    ) : (
+                      <FileText className="h-4 w-4 ml-2" />
+                    )}
+                    إنشاء التقرير
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Report Results */}
+        {reportData && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                نتائج التقرير
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {selectedReport === 'performance_summary' && reportData.departmentStats && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <p className="text-2xl font-bold text-blue-600">{reportData.totalEmployees}</p>
+                        <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <p className="text-2xl font-bold text-green-600">{reportData.avgPerformance}%</p>
+                        <p className="text-sm text-muted-foreground">متوسط الأداء</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <p className="text-2xl font-bold text-emerald-600">{reportData.topPerformers}</p>
+                        <p className="text-sm text-muted-foreground">أداء متميز</p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-4 text-center">
+                        <p className="text-2xl font-bold text-red-600">{reportData.improvementNeeded}</p>
+                        <p className="text-sm text-muted-foreground">يحتاج تحسين</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">إحصائيات الإدارات</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {reportData.departmentStats.map((dept: any, index: number) => (
+                            <div key={index} className="flex items-center justify-between">
+                              <div>
+                                <p className="font-medium">{dept.name}</p>
+                                <p className="text-sm text-muted-foreground">{dept.employees} موظف</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-lg font-bold">{dept.avgScore}%</p>
+                                <Progress value={dept.avgScore} className="w-24" />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">اتجاه الأداء</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ResponsiveContainer width="100%" height={200}>
+                          <AreaChart data={reportData.trends}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="month" />
+                            <YAxis />
+                            <Tooltip />
+                            <Area type="monotone" dataKey="score" stroke="#3b82f6" fill="#3b82f6" />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              )}
+
+              {selectedReport === 'competency_gaps' && reportData.criticalGaps && (
+                <div className="space-y-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">الفجوات الحرجة في الكفاءات</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {reportData.criticalGaps.map((gap: any, index: number) => (
+                          <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                            <div>
+                              <h4 className="font-medium">{gap.competency}</h4>
+                              <p className="text-sm text-muted-foreground">
+                                المستوى الحالي: {gap.currentLevel} | المطلوب: {gap.targetLevel}
+                              </p>
+                            </div>
+                            <Badge variant={gap.gap > 1.5 ? 'destructive' : gap.gap > 1 ? 'default' : 'secondary'}>
+                              فجوة: {gap.gap}
+                            </Badge>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+
+              {selectedReport === 'smart_analytics' && reportData.insights && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <Lightbulb className="h-5 w-5 text-yellow-500" />
+                          الرؤى الذكية
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          {reportData.insights.map((insight: string, index: number) => (
+                            <div key={index} className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
+                              <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5" />
+                              <p className="text-sm">{insight}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg flex items-center gap-2">
+                          <TrendingUp className="h-5 w-5 text-green-500" />
+                          التوقعات المستقبلية
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          {reportData.predictions.map((prediction: string, index: number) => (
+                            <div key={index} className="flex items-start gap-2 p-3 bg-green-50 rounded-lg">
+                              <Zap className="h-4 w-4 text-green-600 mt-0.5" />
+                              <p className="text-sm">{prediction}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       {renderProfessionalHeader()}
@@ -794,38 +1410,11 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           </TabsContent>
 
           <TabsContent value="competencies" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>إدارة الكفاءات والمهارات</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">قريباً: نظام شامل لإدارة وتقييم الكفاءات والمهارات</p>
-              </CardContent>
-            </Card>
+            {renderCompetencyManagement()}
           </TabsContent>
 
           <TabsContent value="reports" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>التقارير والتحليلات</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <Button variant="outline" className="h-20 flex-col">
-                    <Brain className="h-6 w-6 mb-2" />
-                    تقرير التحليل الذكي
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <BarChart3 className="h-6 w-6 mb-2" />
-                    تقرير الأداء الشامل
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <Target className="h-6 w-6 mb-2" />
-                    تقرير الكفاءات
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            {renderReportsSection()}
           </TabsContent>
         </Tabs>
       </div>
