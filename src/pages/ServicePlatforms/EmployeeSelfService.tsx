@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
+import { BoudLogo } from '@/components/BoudLogo';
 import { 
   User,
   FileText,
@@ -416,11 +417,7 @@ export const EmployeeSelfService: React.FC = () => {
               
               {/* BOUD Logo */}
               <div className="flex items-center gap-3">
-                <img 
-                  src="/public/lovable-uploads/a53728d1-12f4-46c1-8428-dc575579fb1e.png" 
-                  alt="شعار بُعد BOUD" 
-                  className="h-12 w-auto"
-                />
+                <BoudLogo variant="icon" size="md" />
               </div>
               
               <div>
