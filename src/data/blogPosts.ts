@@ -1,5 +1,15 @@
 import { BlogPost } from '@/types/blog';
 
+// Import blog images
+import saudiLaborLawImg from '@/assets/blog-saudi-labor-law.jpg';
+import performanceEvaluationImg from '@/assets/blog-performance-evaluation.jpg';
+import endServiceBenefitsImg from '@/assets/blog-end-service-benefits.jpg';
+import aiRecruitmentImg from '@/assets/blog-ai-recruitment.jpg';
+import organizationalCultureImg from '@/assets/blog-organizational-culture.jpg';
+import salaryManagementImg from '@/assets/blog-salary-management.jpg';
+import leaveManagementImg from '@/assets/blog-leave-management.jpg';
+import leadershipDevelopmentImg from '@/assets/blog-leadership-development.jpg';
+
 export const blogPosts: BlogPost[] = [
   {
     id: '1',
@@ -71,7 +81,7 @@ export const blogPosts: BlogPost[] = [
 
 فهم أحكام إنهاء العقود في نظام العمل السعودي أمر ضروري لضمان حماية حقوق جميع الأطراف. ننصح بالحصول على استشارة قانونية متخصصة في الحالات المعقدة.
     `,
-    image: '/lovable-uploads/photo-1521791136064-7986c2920216',
+    image: saudiLaborLawImg,
     date: '2024-01-15',
     readTime: 8,
     slug: 'saudi-labor-law-contract-termination'
@@ -117,7 +127,7 @@ export const blogPosts: BlogPost[] = [
 
 تطبيق هذه الممارسات الخمس يساهم في بناء ثقافة الأداء العالي داخل المنشأة. الهدف ليس مجرد تقييم الأداء، بل تطوير القدرات وتحقيق النمو المستدام للموظفين والمنشأة معاً.
     `,
-    image: '/lovable-uploads/photo-1552664730-d307ca884978',
+    image: performanceEvaluationImg,
     date: '2024-01-20',
     readTime: 12,
     slug: 'performance-evaluation-best-practices'
@@ -175,7 +185,7 @@ export const blogPosts: BlogPost[] = [
 - يتم تقريب المدة لأقرب شهر
 - المكافأة تُصرف عند انتهاء الخدمة فقط
     `,
-    image: '/lovable-uploads/photo-1454165804606-c3d57bc86b40',
+    image: endServiceBenefitsImg,
     date: '2024-01-25',
     readTime: 6,
     slug: 'end-of-service-benefits-calculation-saudi'
@@ -237,7 +247,7 @@ export const blogPosts: BlogPost[] = [
 
 التوظيف الذكي ليس مجرد تطبيق تقنيات جديدة، بل إعادة تفكير شاملة في كيفية جذب وتقييم المواهب. الشركات التي تتبنى هذا النهج ستحظى بميزة تنافسية كبيرة في سوق العمل.
     `,
-    image: '/lovable-uploads/photo-1485827404703-89b55fcc595e',
+    image: aiRecruitmentImg,
     date: '2024-02-01',
     readTime: 10,
     slug: 'smart-recruitment-ai-strategies'
@@ -337,7 +347,7 @@ export const blogPosts: BlogPost[] = [
 
 بناء ثقافة مؤسسية قوية استثمار طويل المدى يحتاج إلى التزام والمثابرة. الشركات التي تنجح في ذلك تحصد فوائد هائلة في الأداء والنمو والاستدامة.
     `,
-    image: '/lovable-uploads/photo-1519389950473-47ba0277781c',
+    image: organizationalCultureImg,
     date: '2024-02-05',
     readTime: 15,
     slug: 'building-strong-organizational-culture'
@@ -464,7 +474,7 @@ export const blogPosts: BlogPost[] = [
 
 إدارة الرواتب والمزايا الفعالة تتطلب نهجاً استراتيجياً يوازن بين احتياجات المنظمة وتوقعات الموظفين. النجاح يأتي من الفهم العميق للسوق والتطبيق العادل والتواصل الفعال.
     `,
-    image: '/lovable-uploads/photo-1460925895917-afdab827c52f',
+    image: salaryManagementImg,
     date: '2024-02-10',
     readTime: 12,
     slug: 'salary-benefits-management-best-practices'
@@ -545,7 +555,7 @@ export const blogPosts: BlogPost[] = [
 - تقليل معدل دوران الموظفين
 - الامتثال للقوانين واللوائح
     `,
-    image: '/lovable-uploads/photo-1506905925346-21bda4d32df4',
+    image: leaveManagementImg,
     date: '2024-02-15',
     readTime: 8,
     slug: 'leave-absence-management-best-practices'
@@ -672,7 +682,7 @@ export const blogPosts: BlogPost[] = [
 
 تطوير المدراء الجدد استثمار مهم لنجاح المنظمة. البرنامج الشامل والدعم المستمر يضمنان إعداد قادة أكفاء قادرين على تحقيق النتائج وقيادة الفرق بفعالية.
     `,
-    image: '/lovable-uploads/photo-1507003211169-0a1dd7228f2d',
+    image: leadershipDevelopmentImg,
     date: '2024-02-20',
     readTime: 11,
     slug: 'leadership-skills-development-new-managers'
