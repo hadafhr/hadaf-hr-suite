@@ -629,45 +629,232 @@ const SmartHire: React.FC = () => {
             </Card>
           </TabsContent>
 
-          {/* Analytics Tab */}
+          {/* Messaging Tab */}
+          <TabsContent value="messaging" className="space-y-6">
+            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold">التواصل التلقائي</h3>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Settings className="w-4 h-4 ml-2" />
+                    إعدادات
+                  </Button>
+                  <Button size="sm">
+                    <Plus className="w-4 h-4 ml-2" />
+                    إضافة نموذج
+                  </Button>
+                </div>
+              </div>
+              <AutoMessaging />
+            </Card>
+          </TabsContent>
+
+          {/* Interviews Tab */}
+          <TabsContent value="interviews" className="space-y-6">
+            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold">جدولة المقابلات</h3>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Calendar className="w-4 h-4 ml-2" />
+                    التقويم
+                  </Button>
+                  <Button size="sm">
+                    <Plus className="w-4 w-4 ml-2" />
+                    مقابلة جديدة
+                  </Button>
+                </div>
+              </div>
+              <InterviewScheduling />
+            </Card>
+          </TabsContent>
+
+          {/* Permissions Tab */}
+          <TabsContent value="permissions" className="space-y-6">
+            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold">إدارة الصلاحيات</h3>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Shield className="w-4 h-4 ml-2" />
+                    الأمان
+                  </Button>
+                  <Button size="sm">
+                    <Plus className="w-4 h-4 ml-2" />
+                    دور جديد
+                  </Button>
+                </div>
+              </div>
+              <PermissionManagement />
+            </Card>
+          </TabsContent>
+
+          {/* Application Form Tab */}
+          <TabsContent value="application" className="space-y-6">
+            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold">نموذج التقديم</h3>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Eye className="w-4 h-4 ml-2" />
+                    معاينة
+                  </Button>
+                  <Button size="sm">
+                    <Settings className="w-4 h-4 ml-2" />
+                    تخصيص
+                  </Button>
+                </div>
+              </div>
+              <ApplicationForm />
+            </Card>
+          </TabsContent>
+
+          {/* Enhanced Analytics Tab */}
           <TabsContent value="analytics" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4">أداء التوظيف</h3>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  أداء التوظيف
+                </h3>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
                     <span>معدل التحويل</span>
                     <span className="font-semibold text-green-600">18.5%</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                     <span>متوسط وقت التوظيف</span>
                     <span className="font-semibold text-blue-600">21 يوم</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
                     <span>رضا المرشحين</span>
                     <span className="font-semibold text-purple-600">4.7/5</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                    <span>معدل الاحتفاظ</span>
+                    <span className="font-semibold text-orange-600">89%</span>
                   </div>
                 </div>
               </Card>
 
               <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4">أداء الذكاء الاصطناعي</h3>
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-blue-600" />
+                  أداء الذكاء الاصطناعي
+                </h3>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
                     <span>دقة التوصيات</span>
                     <span className="font-semibold text-green-600">94.2%</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                     <span>توفير الوقت</span>
                     <span className="font-semibold text-blue-600">68%</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
                     <span>تحسن جودة المرشحين</span>
                     <span className="font-semibold text-purple-600">45%</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-indigo-50 rounded-lg">
+                    <span>دقة فرز السير الذاتية</span>
+                    <span className="font-semibold text-indigo-600">91.7%</span>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-orange-600" />
+                  إحصائيات شاملة
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                    <span>الوظائف المنتهية الصلاحية</span>
+                    <span className="font-semibold text-red-600">3</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+                    <span>المقابلات المجدولة اليوم</span>
+                    <span className="font-semibold text-yellow-600">7</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                    <span>العروض المقبولة</span>
+                    <span className="font-semibold text-green-600">23</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                    <span>متوسط الراتب المطلوب</span>
+                    <span className="font-semibold text-blue-600">15,500 ريال</span>
                   </div>
                 </div>
               </Card>
             </div>
+
+            {/* Additional Analytics Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+                <h3 className="text-lg font-semibold mb-4">اتجاهات التوظيف الشهرية</h3>
+                <div className="space-y-3">
+                  {[
+                    { month: 'يناير', applications: 45, hired: 8 },
+                    { month: 'فبراير', applications: 52, hired: 12 },
+                    { month: 'مارس', applications: 38, hired: 7 },
+                    { month: 'أبريل', applications: 63, hired: 15 },
+                    { month: 'مايو', applications: 71, hired: 18 },
+                    { month: 'يونيو', applications: 58, hired: 11 }
+                  ].map((data, index) => (
+                    <div key={index} className="flex items-center justify-between p-2 border-b">
+                      <span className="font-medium">{data.month}</span>
+                      <div className="flex gap-4 text-sm">
+                        <span className="text-blue-600">{data.applications} متقدم</span>
+                        <span className="text-green-600">{data.hired} تم توظيفهم</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+                <h3 className="text-lg font-semibold mb-4">أداء الأقسام</h3>
+                <div className="space-y-3">
+                  {[
+                    { department: 'تقنية المعلومات', openPositions: 8, hired: 5, efficiency: 92 },
+                    { department: 'المبيعات', openPositions: 5, hired: 7, efficiency: 88 },
+                    { department: 'التسويق', openPositions: 3, hired: 2, efficiency: 85 },
+                    { department: 'المالية', openPositions: 2, hired: 3, efficiency: 95 },
+                    { department: 'الموارد البشرية', openPositions: 1, hired: 1, efficiency: 90 }
+                  ].map((dept, index) => (
+                    <div key={index} className="p-3 border rounded-lg">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-medium">{dept.department}</span>
+                        <Badge className="bg-green-100 text-green-800">{dept.efficiency}% كفاءة</Badge>
+                      </div>
+                      <div className="flex justify-between text-sm text-slate-600">
+                        <span>{dept.openPositions} وظائف مفتوحة</span>
+                        <span>{dept.hired} تم التوظيف</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </div>
+
+            {/* Export Options */}
+            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+              <h3 className="text-lg font-semibold mb-4">تصدير التقارير</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Button variant="outline" className="h-20 flex-col gap-2">
+                  <FileText className="w-6 h-6 text-blue-600" />
+                  <span>تقرير شامل PDF</span>
+                </Button>
+                <Button variant="outline" className="h-20 flex-col gap-2">
+                  <TrendingUp className="w-6 h-6 text-green-600" />
+                  <span>تحليل الأداء Excel</span>
+                </Button>
+                <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Bot className="w-6 h-6 text-purple-600" />
+                  <span>تقرير الذكاء الاصطناعي</span>
+                </Button>
+              </div>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
