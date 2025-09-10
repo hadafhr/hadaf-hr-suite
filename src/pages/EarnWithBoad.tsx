@@ -18,6 +18,8 @@ import {
   Target,
   Handshake
 } from 'lucide-react';
+import { BackButton } from '@/components/BackButton';
+import { BoudLogo } from '@/components/BoudLogo';
 
 export const EarnWithBoad: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -163,8 +165,19 @@ export const EarnWithBoad: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="container mx-auto px-4 py-8">
+    <>
+      {/* Header with Back Button and Logo */}
+      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <BackButton />
+            <BoudLogo size="header" showText />
+          </div>
+        </div>
+      </div>
+      
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 flex items-center justify-center gap-4">
@@ -423,5 +436,6 @@ export const EarnWithBoad: React.FC = () => {
         </Card>
       </div>
     </div>
+  </>
   );
 };
