@@ -139,7 +139,15 @@ const EmployeeLogin: React.FC = () => {
                   </div>
                 </div>
 
-                <Button 
+                <div className="bg-muted/30 p-3 rounded-lg text-sm">
+                  <p className="font-medium text-foreground mb-2">بيانات الدخول التجريبية:</p>
+                  <div className="space-y-1">
+                    <p className="text-muted-foreground">البريد الإلكتروني: employee@boud.com</p>
+                    <p className="text-muted-foreground">كلمة المرور: Test123!</p>
+                  </div>
+                </div>
+
+                <Button
                   type="submit" 
                   className="w-full bg-primary hover:bg-primary/90"
                   disabled={isLoading}
