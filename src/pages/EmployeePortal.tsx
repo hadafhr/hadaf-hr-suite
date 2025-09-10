@@ -39,7 +39,9 @@ import {
   FileCheck,
   UserCheck,
   BookOpen,
-  Target
+  Target,
+  ScrollText,
+  Banknote
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -1028,31 +1030,90 @@ const EmployeePortal = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <FileText className="h-6 w-6" />
-                    عقد العمل
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <FileText className="h-6 w-6" />
-                    شهادة الراتب
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <FileText className="h-6 w-6" />
-                    شهادة خبرة
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <FileText className="h-6 w-6" />
-                    بيانات التأمين
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <FileText className="h-6 w-6" />
-                    إجازات السنة
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <FileText className="h-6 w-6" />
-                    تقارير الأداء
-                  </Button>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* عقد العمل */}
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-blue-600/20 rounded-full -translate-y-10 translate-x-10"></div>
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <ScrollText className="h-7 w-7 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-2">عقد العمل</h3>
+                        <p className="text-sm text-muted-foreground">تحميل عقد العمل المُوقع</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* شهادة الراتب */}
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-500/10 to-green-600/20 rounded-full -translate-y-10 translate-x-10"></div>
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Banknote className="h-7 w-7 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-2">شهادة الراتب</h3>
+                        <p className="text-sm text-muted-foreground">تحميل شهادة الراتب</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* شهادة خبرة */}
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/10 to-purple-600/20 rounded-full -translate-y-10 translate-x-10"></div>
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Award className="h-7 w-7 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-2">شهادة خبرة</h3>
+                        <p className="text-sm text-muted-foreground">تحميل شهادة الخبرة</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* بيانات التأمين */}
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-cyan-500/10 to-cyan-600/20 rounded-full -translate-y-10 translate-x-10"></div>
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Shield className="h-7 w-7 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-2">بيانات التأمين</h3>
+                        <p className="text-sm text-muted-foreground">تحميل بيانات التأمين الطبي</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* إجازات السنة */}
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-500/10 to-orange-600/20 rounded-full -translate-y-10 translate-x-10"></div>
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Calendar className="h-7 w-7 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-2">إجازات السنة</h3>
+                        <p className="text-sm text-muted-foreground">تقرير الإجازات السنوية</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* تقارير الأداء */}
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-yellow-500/10 to-yellow-600/20 rounded-full -translate-y-10 translate-x-10"></div>
+                      <div className="relative">
+                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                          <Target className="h-7 w-7 text-white" />
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-2">تقارير الأداء</h3>
+                        <p className="text-sm text-muted-foreground">تحميل تقييم الأداء السنوي</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
