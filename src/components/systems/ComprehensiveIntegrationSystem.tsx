@@ -105,8 +105,26 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  
+  // Enhanced state management
+  const [hrSystems, setHrSystems] = useState([]);
+  const [financialSystems, setFinancialSystems] = useState([]);
+  const [externalServices, setExternalServices] = useState([]);
+  const [customApis, setCustomApis] = useState([]);
+  const [apiLogs, setApiLogs] = useState([]);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [newIntegration, setNewIntegration] = useState({
+    name: '',
+    nameEn: '',
+    type: '',
+    url: '',
+    authMethod: '',
+    status: 'disconnected',
+    description: ''
+  });
 
-  // Mock data for demonstration
+  // Mock data for demonstration - Enhanced with more comprehensive data
   const integrationPlatforms: IntegrationPlatform[] = [
     {
       id: '1',
@@ -157,6 +175,292 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       dailyOperations: 78
     }
   ];
+
+  // Initialize default data for all sections
+  React.useEffect(() => {
+    // HR Systems default data
+    setHrSystems([
+      {
+        id: 'hr1',
+        name: 'منصة قوى (QIWA)',
+        status: 'connected',
+        lastSync: 'اليوم 09:30 ص',
+        contracts: 156,
+        successRate: 98,
+        pending: 12,
+        updates: 3
+      },
+      {
+        id: 'hr2',
+        name: 'منصة مدد (MUDAD)',
+        status: 'connected',
+        lastSync: 'أمس 14:15',
+        contracts: 89,
+        successRate: 100,
+        pending: 0,
+        updates: 1
+      },
+      {
+        id: 'hr3',
+        name: 'مؤسسة التأمينات الاجتماعية (GOSI)',
+        status: 'syncing',
+        lastSync: 'منذ ساعتين',
+        contracts: 234,
+        successRate: 95,
+        pending: 5,
+        updates: 2
+      },
+      {
+        id: 'hr4',
+        name: 'منصة طاقات (TAM)',
+        status: 'connected',
+        lastSync: 'اليوم 08:15 ص',
+        contracts: 78,
+        successRate: 99,
+        pending: 1,
+        updates: 0
+      }
+    ]);
+
+    // Financial Systems default data
+    setFinancialSystems([
+      {
+        id: 'fin1',
+        name: 'نظام ساب (SAP)',
+        status: 'connected',
+        lastSync: 'اليوم 10:45 ص',
+        transactions: 1247,
+        successRate: 97,
+        pending: 15,
+        errors: 2
+      },
+      {
+        id: 'fin2',
+        name: 'البنك الأهلي التجاري',
+        status: 'connected',
+        type: 'banking',
+        description: 'تحويلات الرواتب التلقائية'
+      },
+      {
+        id: 'fin3',
+        name: 'بنك الرياض',
+        status: 'connected',
+        type: 'banking',
+        description: 'خدمات التحويل والدفع'
+      },
+      {
+        id: 'fin4',
+        name: 'أنظمة المحاسبة',
+        status: 'connected',
+        lastSync: 'منذ ساعة',
+        entries: 456,
+        accuracy: 99,
+        reports: 23,
+        conflicts: 0
+      }
+    ]);
+
+    // External Services default data
+    setExternalServices([
+      {
+        id: 'ext1',
+        name: 'شركات التأمين الطبي (تأمينى)',
+        status: 'connected',
+        lastSync: 'اليوم 11:20 ص',
+        insured: 234,
+        approvalRate: 88,
+        newRequests: 12,
+        pendingClaims: 3
+      },
+      {
+        id: 'ext2',
+        name: 'أنظمة إدارة المركبات',
+        status: 'connected',
+        lastSync: 'منذ 30 دقيقة',
+        vehicles: 45,
+        trackingRate: 92,
+        todayTrips: 156,
+        alerts: 2
+      },
+      {
+        id: 'ext3',
+        name: 'بوابة أبشر',
+        status: 'connected',
+        type: 'government',
+        description: 'خدمات الهوية الرقمية'
+      },
+      {
+        id: 'ext4',
+        name: 'منصة مقيم',
+        status: 'connected',
+        type: 'government',
+        description: 'خدمات الإقامة والعمالة'
+      },
+      {
+        id: 'ext5',
+        name: 'منصة بلدي',
+        status: 'setup',
+        type: 'government',
+        description: 'خدمات الرخص التجارية'
+      }
+    ]);
+
+    // Custom APIs default data
+    setCustomApis([
+      {
+        id: 'api1',
+        name: 'نظام CRM الداخلي',
+        url: 'https://api.company-crm.com/v1',
+        authMethod: 'OAuth 2.0',
+        status: 'connected'
+      },
+      {
+        id: 'api2',
+        name: 'نظام إدارة المشاريع',
+        url: 'https://api.project-mgmt.com/v2',
+        authMethod: 'API Key',
+        status: 'connected'
+      },
+      {
+        id: 'api3',
+        name: 'خدمة الرسائل الإلكترونية',
+        url: 'https://api.email-service.com/v1',
+        authMethod: 'Bearer Token',
+        status: 'error'
+      }
+    ]);
+
+    // API Logs default data
+    setApiLogs([
+      { id: 1, method: 'GET', endpoint: '/api/employees', system: 'نظام CRM الداخلي', status: 200, time: 'منذ دقيقتين' },
+      { id: 2, method: 'POST', endpoint: '/api/projects', system: 'نظام إدارة المشاريع', status: 201, time: 'منذ 5 دقائق' },
+      { id: 3, method: 'POST', endpoint: '/api/send-email', system: 'خدمة الرسائل الإلكترونية', status: 500, time: 'منذ 10 دقائق' },
+      { id: 4, method: 'GET', endpoint: '/api/sync-status', system: 'نظام CRM الداخلي', status: 200, time: 'منذ 15 دقيقة' }
+    ]);
+  }, []);
+
+  // CRUD Functions
+  const handleAddIntegration = () => {
+    if (!newIntegration.name || !newIntegration.type) {
+      toast({
+        title: "خطأ",
+        description: "يرجى ملء جميع الحقول المطلوبة",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const newItem = {
+      ...newIntegration,
+      id: Date.now().toString(),
+      status: 'disconnected'
+    };
+
+    // Add to appropriate array based on type
+    switch (newIntegration.type) {
+      case 'hr':
+        setHrSystems(prev => [...prev, newItem]);
+        break;
+      case 'financial':
+        setFinancialSystems(prev => [...prev, newItem]);
+        break;
+      case 'external':
+        setExternalServices(prev => [...prev, newItem]);
+        break;
+      case 'api':
+        setCustomApis(prev => [...prev, newItem]);
+        break;
+    }
+
+    setNewIntegration({
+      name: '',
+      nameEn: '',
+      type: '',
+      url: '',
+      authMethod: '',
+      status: 'disconnected',
+      description: ''
+    });
+    setIsAddDialogOpen(false);
+
+    toast({
+      title: "تم بنجاح",
+      description: "تم إضافة التكامل الجديد بنجاح"
+    });
+  };
+
+  const handleEditIntegration = (item, type) => {
+    setEditingItem({ ...item, type });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateIntegration = () => {
+    if (!editingItem) return;
+
+    const updateFn = {
+      hr: setHrSystems,
+      financial: setFinancialSystems,
+      external: setExternalServices,
+      api: setCustomApis
+    }[editingItem.type];
+
+    if (updateFn) {
+      updateFn(prev => prev.map(item => 
+        item.id === editingItem.id ? { ...editingItem } : item
+      ));
+    }
+
+    setIsEditDialogOpen(false);
+    setEditingItem(null);
+
+    toast({
+      title: "تم التحديث",
+      description: "تم تحديث التكامل بنجاح"
+    });
+  };
+
+  const handleDeleteIntegration = (id, type) => {
+    const updateFn = {
+      hr: setHrSystems,
+      financial: setFinancialSystems,
+      external: setExternalServices,
+      api: setCustomApis
+    }[type];
+
+    if (updateFn) {
+      updateFn(prev => prev.filter(item => item.id !== id));
+      toast({
+        title: "تم الحذف",
+        description: "تم حذف التكامل بنجاح"
+      });
+    }
+  };
+
+  const handleSync = (id, type) => {
+    const updateFn = {
+      hr: setHrSystems,
+      financial: setFinancialSystems,
+      external: setExternalServices,
+      api: setCustomApis
+    }[type];
+
+    if (updateFn) {
+      updateFn(prev => prev.map(item => 
+        item.id === id ? { ...item, status: 'syncing', lastSync: 'الآن' } : item
+      ));
+
+      // Simulate sync completion after 2 seconds
+      setTimeout(() => {
+        updateFn(prev => prev.map(item => 
+          item.id === id ? { ...item, status: 'connected', lastSync: new Date().toLocaleString('ar-SA') } : item
+        ));
+        toast({
+          title: "تمت المزامنة",
+          description: "تم إجراء المزامنة بنجاح"
+        });
+      }, 2000);
+    }
+  };
 
   const platformCategories: PlatformCategory[] = [
     {
@@ -1499,6 +1803,132 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
             </div>
           </TabsContent>
         </Tabs>
+        
+        {/* Add Integration Dialog */}
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>إضافة تكامل جديد</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label>اسم النظام</Label>
+                <Input 
+                  value={newIntegration.name}
+                  onChange={(e) => setNewIntegration({...newIntegration, name: e.target.value})}
+                  placeholder="اسم النظام"
+                />
+              </div>
+              <div>
+                <Label>النوع</Label>
+                <Select value={newIntegration.type} onValueChange={(value) => setNewIntegration({...newIntegration, type: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر النوع" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="hr">أنظمة الموارد البشرية</SelectItem>
+                    <SelectItem value="financial">الأنظمة المالية</SelectItem>
+                    <SelectItem value="external">الخدمات الخارجية</SelectItem>
+                    <SelectItem value="api">واجهة API مخصصة</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {newIntegration.type === 'api' && (
+                <>
+                  <div>
+                    <Label>رابط API</Label>
+                    <Input 
+                      value={newIntegration.url}
+                      onChange={(e) => setNewIntegration({...newIntegration, url: e.target.value})}
+                      placeholder="https://api.example.com"
+                    />
+                  </div>
+                  <div>
+                    <Label>طريقة المصادقة</Label>
+                    <Select value={newIntegration.authMethod} onValueChange={(value) => setNewIntegration({...newIntegration, authMethod: value})}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="اختر طريقة المصادقة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="OAuth 2.0">OAuth 2.0</SelectItem>
+                        <SelectItem value="API Key">API Key</SelectItem>
+                        <SelectItem value="Bearer Token">Bearer Token</SelectItem>
+                        <SelectItem value="Basic Auth">Basic Auth</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+              <div>
+                <Label>الوصف</Label>
+                <Textarea 
+                  value={newIntegration.description}
+                  onChange={(e) => setNewIntegration({...newIntegration, description: e.target.value})}
+                  placeholder="وصف النظام..."
+                />
+              </div>
+              <div className="flex gap-2 pt-4">
+                <Button onClick={handleAddIntegration} className="flex-1">
+                  إضافة
+                </Button>
+                <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="flex-1">
+                  إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Integration Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>تحرير التكامل</DialogTitle>
+            </DialogHeader>
+            {editingItem && (
+              <div className="space-y-4">
+                <div>
+                  <Label>اسم النظام</Label>
+                  <Input 
+                    value={editingItem.name}
+                    onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
+                  />
+                </div>
+                {editingItem.url && (
+                  <div>
+                    <Label>رابط API</Label>
+                    <Input 
+                      value={editingItem.url}
+                      onChange={(e) => setEditingItem({...editingItem, url: e.target.value})}
+                    />
+                  </div>
+                )}
+                <div>
+                  <Label>الحالة</Label>
+                  <Select value={editingItem.status} onValueChange={(value) => setEditingItem({...editingItem, status: value})}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="connected">متصل</SelectItem>
+                      <SelectItem value="disconnected">غير متصل</SelectItem>
+                      <SelectItem value="syncing">يتم المزامنة</SelectItem>
+                      <SelectItem value="error">خطأ</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex gap-2 pt-4">
+                  <Button onClick={handleUpdateIntegration} className="flex-1">
+                    حفظ
+                  </Button>
+                  <Button variant="outline" onClick={() => setIsEditDialogOpen(false)} className="flex-1">
+                    إلغاء
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
