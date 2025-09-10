@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { LiveStreamInterface } from '@/components/training/LiveStreamInterface';
 import { 
   BookOpen, Users, Clock, Search, Plus, Award, ArrowLeft, Edit2, Trash2,
   Bot, Settings, FileText, BarChart3, PieChart, Calendar, Eye, Filter,
@@ -852,6 +853,15 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                             </div>
                           </div>
                           <div className="flex gap-2 items-center">
+                            <Button 
+                              size="sm" 
+                              variant="default" 
+                              onClick={() => setActiveTab(`live-${course.id}`)}
+                              className="gap-2 bg-red-500 hover:bg-red-600 text-white"
+                            >
+                              <Video className="w-4 h-4" />
+                              البث المباشر
+                            </Button>
                             <Button size="sm" variant="outline" onClick={() => setEditingCourse(course)}>
                               <Edit2 className="w-4 h-4" />
                             </Button>
@@ -886,6 +896,35 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                   ))}
                 </div>
               </TabsContent>
+
+              {/* Live Stream Tabs for each course */}
+              {courses.map((course) => (
+                <TabsContent key={`live-${course.id}`} value={`live-${course.id}`} className="p-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <Button 
+                        variant="outline" 
+                        onClick={() => setActiveTab('courses')}
+                        className="gap-2"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        العودة للدورات
+                      </Button>
+                      <div>
+                        <h3 className="text-xl font-bold">{course.title}</h3>
+                        <p className="text-gray-600">بث مباشر مع {course.instructor}</p>
+                      </div>
+                    </div>
+                    
+                    <LiveStreamInterface 
+                      courseId={course.id}
+                      courseTitle={course.title}
+                      instructorName={course.instructor}
+                      isInstructor={false}
+                    />
+                  </div>
+                </TabsContent>
+              ))}
 
               {/* Enrollments Tab */}
               <TabsContent value="enrollments" className="p-6 space-y-6">
