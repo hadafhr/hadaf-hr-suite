@@ -76,6 +76,48 @@ interface Certificate {
   instructorName: string;
 }
 
+interface Schedule {
+  id: string;
+  courseId: string;
+  courseTitle: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  room: string;
+  type: 'lecture' | 'lab' | 'exam' | 'workshop';
+  instructor: string;
+  status: 'scheduled' | 'ongoing' | 'completed' | 'cancelled';
+  attendees: number;
+  maxCapacity: number;
+}
+
+interface Evaluation {
+  id: string;
+  courseId: string;
+  courseTitle: string;
+  studentId: string;
+  studentName: string;
+  evaluationType: 'quiz' | 'assignment' | 'final_exam' | 'project';
+  grade: number;
+  maxGrade: number;
+  feedback: string;
+  evaluationDate: string;
+  instructor: string;
+}
+
+interface DigitalContent {
+  id: string;
+  title: string;
+  courseId: string;
+  type: 'video' | 'pdf' | 'presentation' | 'interactive';
+  url: string;
+  duration?: string;
+  size: string;
+  uploadDate: string;
+  downloads: number;
+  status: 'active' | 'inactive';
+}
+
 interface ComprehensiveTrainingProps {
   onBack?: () => void;
 }
@@ -87,8 +129,11 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
   const [showAddCourse, setShowAddCourse] = useState(false);
   const [showAddInstructor, setShowAddInstructor] = useState(false);
   const [showEnrollDialog, setShowEnrollDialog] = useState(false);
+  const [showScheduleDialog, setShowScheduleDialog] = useState(false);
+  const [showEvaluationDialog, setShowEvaluationDialog] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
+  const [editingSchedule, setEditingSchedule] = useState<any>(null);
   const [newCourse, setNewCourse] = useState<Partial<Course>>({
     title: '',
     englishTitle: '',
@@ -117,6 +162,21 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
     employeeId: '',
     courseId: '',
     department: ''
+  });
+  const [newSchedule, setNewSchedule] = useState({
+    courseId: '',
+    date: '',
+    startTime: '',
+    endTime: '',
+    room: '',
+    type: 'lecture'
+  });
+  const [newEvaluation, setNewEvaluation] = useState({
+    courseId: '',
+    studentId: '',
+    grade: 0,
+    feedback: '',
+    evaluationType: 'quiz'
   });
 
   const courses: Course[] = [
@@ -300,6 +360,142 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
     }
   ];
 
+  const schedules: Schedule[] = [
+    {
+      id: '1',
+      courseId: '1',
+      courseTitle: 'إدارة المشاريع الحديثة',
+      date: '2024-02-15',
+      startTime: '09:00',
+      endTime: '12:00',
+      room: 'قاعة A-101',
+      type: 'lecture',
+      instructor: 'د. أحمد العلي',
+      status: 'scheduled',
+      attendees: 18,
+      maxCapacity: 25
+    },
+    {
+      id: '2',
+      courseId: '2',
+      courseTitle: 'تطوير المهارات القيادية',
+      date: '2024-03-01',
+      startTime: '14:00',
+      endTime: '17:00',
+      room: 'قاعة B-205',
+      type: 'workshop',
+      instructor: 'سارة محمد',
+      status: 'scheduled',
+      attendees: 15,
+      maxCapacity: 20
+    },
+    {
+      id: '3',
+      courseId: '3',
+      courseTitle: 'الأمن السيبراني للمؤسسات',
+      date: '2024-02-10',
+      startTime: '10:00',
+      endTime: '13:00',
+      room: 'معمل الحاسوب C-150',
+      type: 'lab',
+      instructor: 'م. عبد الله الحارثي',
+      status: 'completed',
+      attendees: 30,
+      maxCapacity: 30
+    }
+  ];
+
+  const evaluations: Evaluation[] = [
+    {
+      id: '1',
+      courseId: '1',
+      courseTitle: 'إدارة المشاريع الحديثة',
+      studentId: 'EMP001',
+      studentName: 'أحمد محمد علي',
+      evaluationType: 'quiz',
+      grade: 85,
+      maxGrade: 100,
+      feedback: 'أداء ممتاز في فهم أساسيات إدارة المشاريع',
+      evaluationDate: '2024-02-05',
+      instructor: 'د. أحمد العلي'
+    },
+    {
+      id: '2',
+      courseId: '3',
+      courseTitle: 'الأمن السيبراني للمؤسسات',
+      studentId: 'EMP002',
+      studentName: 'فاطمة الزهراني',
+      evaluationType: 'final_exam',
+      grade: 92,
+      maxGrade: 100,
+      feedback: 'فهم عميق لمفاهيم الأمن السيبراني وتطبيقاتها',
+      evaluationDate: '2024-01-30',
+      instructor: 'م. عبد الله الحارثي'
+    },
+    {
+      id: '3',
+      courseId: '2',
+      courseTitle: 'تطوير المهارات القيادية',
+      studentId: 'EMP003',
+      studentName: 'محمد السالم',
+      evaluationType: 'project',
+      grade: 88,
+      maxGrade: 100,
+      feedback: 'مشروع متميز يعكس فهماً جيداً للمهارات القيادية',
+      evaluationDate: '2024-02-12',
+      instructor: 'سارة محمد'
+    }
+  ];
+
+  const digitalContents: DigitalContent[] = [
+    {
+      id: '1',
+      title: 'مقدمة في إدارة المشاريع',
+      courseId: '1',
+      type: 'video',
+      url: '/content/project-management-intro.mp4',
+      duration: '45 دقيقة',
+      size: '250 MB',
+      uploadDate: '2024-01-15',
+      downloads: 156,
+      status: 'active'
+    },
+    {
+      id: '2',
+      title: 'دليل القيادة الفعالة',
+      courseId: '2',
+      type: 'pdf',
+      url: '/content/leadership-guide.pdf',
+      size: '5.2 MB',
+      uploadDate: '2024-01-20',
+      downloads: 89,
+      status: 'active'
+    },
+    {
+      id: '3',
+      title: 'أساسيات الأمن السيبراني',
+      courseId: '3',
+      type: 'presentation',
+      url: '/content/cybersecurity-basics.pptx',
+      size: '12.8 MB',
+      uploadDate: '2024-01-10',
+      downloads: 234,
+      status: 'active'
+    },
+    {
+      id: '4',
+      title: 'محاكي التسويق التفاعلي',
+      courseId: '4',
+      type: 'interactive',
+      url: '/content/marketing-simulator',
+      duration: 'تفاعلي',
+      size: '45 MB',
+      uploadDate: '2024-02-01',
+      downloads: 67,
+      status: 'active'
+    }
+  ];
+
   const certificates: Certificate[] = [
     {
       id: '1',
@@ -341,6 +537,63 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
   // Functions
   const handleSystemAction = (action: string) => {
     console.log(`تنفيذ إجراء: ${action}`);
+    handleModuleClick(action);
+  };
+
+  const handleAddSchedule = () => {
+    console.log('إضافة جدولة جديدة:', newSchedule);
+    setShowScheduleDialog(false);
+    setNewSchedule({
+      courseId: '',
+      date: '',
+      startTime: '',
+      endTime: '',
+      room: '',
+      type: 'lecture'
+    });
+  };
+
+  const handleAddEvaluation = () => {
+    console.log('إضافة تقييم جديد:', newEvaluation);
+    setShowEvaluationDialog(false);
+    setNewEvaluation({
+      courseId: '',
+      studentId: '',
+      grade: 0,
+      feedback: '',
+      evaluationType: 'quiz'
+    });
+  };
+
+  const handleModuleClick = (module: string) => {
+    switch (module) {
+      case 'المناهج':
+        setActiveTab('courses');
+        break;
+      case 'المتدربين':
+        setActiveTab('enrollments');
+        break;
+      case 'الشهادات':
+        setActiveTab('certificates');
+        break;
+      case 'الجدولة':
+        setShowScheduleDialog(true);
+        break;
+      case 'المدربين':
+        setActiveTab('instructors');
+        break;
+      case 'البث المباشر':
+        setActiveTab(`live-${courses[0]?.id || '1'}`);
+        break;
+      case 'التدريب الرقمي':
+        setActiveTab('digital-content');
+        break;
+      case 'التقييم':
+        setShowEvaluationDialog(true);
+        break;
+      default:
+        console.log(`تم النقر على: ${module}`);
+    }
   };
 
   const handleAddCourse = () => {
@@ -659,6 +912,13 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                 >
                   <FileText className="w-5 h-5" />
                   <span className="font-medium">التقارير</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="digital-content" 
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                >
+                  <Globe className="w-5 h-5" />
+                  <span className="font-medium">المحتوى الرقمي</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -1320,9 +1580,354 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                   </CardContent>
                 </Card>
               </TabsContent>
+
+              {/* Digital Content Tab */}
+              <TabsContent value="digital-content" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">المحتوى الرقمي</h3>
+                  <div className="flex gap-2">
+                    <div className="relative">
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Input
+                        placeholder="البحث في المحتوى..."
+                        className="pr-10 w-64"
+                      />
+                    </div>
+                    <Button className="gap-2">
+                      <Upload className="w-4 h-4" />
+                      رفع محتوى جديد
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  {digitalContents.map((content) => (
+                    <Card key={content.id} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3 flex-1">
+                            <div className="flex items-center gap-3">
+                              <div className={`p-2 rounded-lg ${
+                                content.type === 'video' ? 'bg-red-100 text-red-600' :
+                                content.type === 'pdf' ? 'bg-blue-100 text-blue-600' :
+                                content.type === 'presentation' ? 'bg-green-100 text-green-600' :
+                                'bg-purple-100 text-purple-600'
+                              }`}>
+                                {content.type === 'video' ? <Video className="w-5 h-5" /> :
+                                 content.type === 'pdf' ? <FileText className="w-5 h-5" /> :
+                                 content.type === 'presentation' ? <FileText className="w-5 h-5" /> :
+                                 <Globe className="w-5 h-5" />}
+                              </div>
+                              <h4 className="font-bold text-lg">{content.title}</h4>
+                              <Badge variant="outline" className={
+                                content.status === 'active' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-700'
+                              }>
+                                {content.status === 'active' ? 'نشط' : 'غير نشط'}
+                              </Badge>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <span><strong>النوع:</strong> {
+                                content.type === 'video' ? 'فيديو' :
+                                content.type === 'pdf' ? 'ملف PDF' :
+                                content.type === 'presentation' ? 'عرض تقديمي' :
+                                'محتوى تفاعلي'
+                              }</span>
+                              <span><strong>الحجم:</strong> {content.size}</span>
+                              <span><strong>التحميلات:</strong> {content.downloads}</span>
+                              <span><strong>تاريخ الرفع:</strong> {content.uploadDate}</span>
+                            </div>
+                            {content.duration && (
+                              <div className="text-sm text-gray-600">
+                                <strong>المدة:</strong> {content.duration}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex gap-2 items-center">
+                            <Button size="sm" variant="outline">
+                              <Download className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline">
+                              <Edit2 className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="destructive">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    هل أنت متأكد من حذف هذا المحتوى؟ هذا الإجراء لا يمكن التراجع عنه.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => console.log('حذف المحتوى:', content.id)}>
+                                    حذف
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
             </Tabs>
           </CardContent>
         </Card>
+
+        {/* Schedule Dialog */}
+        <Dialog open={showScheduleDialog} onOpenChange={setShowScheduleDialog}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>إدارة الجدولة</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="scheduleDate">تاريخ الجلسة</Label>
+                  <Input
+                    id="scheduleDate"
+                    type="date"
+                    value={newSchedule.date}
+                    onChange={(e) => setNewSchedule({...newSchedule, date: e.target.value})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="scheduleRoom">القاعة</Label>
+                  <Input
+                    id="scheduleRoom"
+                    value={newSchedule.room}
+                    onChange={(e) => setNewSchedule({...newSchedule, room: e.target.value})}
+                    placeholder="مثال: قاعة A-101"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="startTime">وقت البداية</Label>
+                  <Input
+                    id="startTime"
+                    type="time"
+                    value={newSchedule.startTime}
+                    onChange={(e) => setNewSchedule({...newSchedule, startTime: e.target.value})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="endTime">وقت النهاية</Label>
+                  <Input
+                    id="endTime"
+                    type="time"
+                    value={newSchedule.endTime}
+                    onChange={(e) => setNewSchedule({...newSchedule, endTime: e.target.value})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="sessionType">نوع الجلسة</Label>
+                  <Select value={newSchedule.type} onValueChange={(value: 'lecture' | 'lab' | 'exam' | 'workshop') => setNewSchedule({...newSchedule, type: value})}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="lecture">محاضرة</SelectItem>
+                      <SelectItem value="lab">معمل</SelectItem>
+                      <SelectItem value="exam">امتحان</SelectItem>
+                      <SelectItem value="workshop">ورشة عمل</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="scheduleCourse">الدورة</Label>
+                <Select value={newSchedule.courseId} onValueChange={(value) => setNewSchedule({...newSchedule, courseId: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الدورة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {courses.map((course) => (
+                      <SelectItem key={course.id} value={course.id}>
+                        {course.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Current Schedules */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold">الجدولة الحالية</h4>
+                <div className="grid gap-3 max-h-64 overflow-y-auto">
+                  {schedules.map((schedule) => (
+                    <Card key={schedule.id} className="p-4">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h5 className="font-medium">{schedule.courseTitle}</h5>
+                          <div className="text-sm text-gray-600 space-y-1">
+                            <p>📅 {schedule.date} | ⏰ {schedule.startTime} - {schedule.endTime}</p>
+                            <p>🏢 {schedule.room} | 👥 {schedule.attendees}/{schedule.maxCapacity}</p>
+                          </div>
+                        </div>
+                        <Badge variant="outline" className={
+                          schedule.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          schedule.status === 'ongoing' ? 'bg-blue-100 text-blue-700' :
+                          schedule.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                          'bg-yellow-100 text-yellow-700'
+                        }>
+                          {schedule.status === 'completed' ? 'مكتمل' :
+                           schedule.status === 'ongoing' ? 'جاري' :
+                           schedule.status === 'cancelled' ? 'ملغي' :
+                           'مجدول'}
+                        </Badge>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={() => setShowScheduleDialog(false)}>
+                  إغلاق
+                </Button>
+                <Button onClick={handleAddSchedule} className="gap-2">
+                  <Save className="w-4 h-4" />
+                  حفظ الجدولة
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Evaluation Dialog */}
+        <Dialog open={showEvaluationDialog} onOpenChange={setShowEvaluationDialog}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>إدارة التقييمات</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="evalCourse">الدورة</Label>
+                  <Select value={newEvaluation.courseId} onValueChange={(value) => setNewEvaluation({...newEvaluation, courseId: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر الدورة" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {courses.map((course) => (
+                        <SelectItem key={course.id} value={course.id}>
+                          {course.title}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="evalStudent">الطالب</Label>
+                  <Select value={newEvaluation.studentId} onValueChange={(value) => setNewEvaluation({...newEvaluation, studentId: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر الطالب" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {enrollments.map((enrollment) => (
+                        <SelectItem key={enrollment.id} value={enrollment.employeeId}>
+                          {enrollment.employeeName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="evalType">نوع التقييم</Label>
+                  <Select value={newEvaluation.evaluationType} onValueChange={(value: 'quiz' | 'assignment' | 'final_exam' | 'project') => setNewEvaluation({...newEvaluation, evaluationType: value})}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="quiz">اختبار قصير</SelectItem>
+                      <SelectItem value="assignment">واجب</SelectItem>
+                      <SelectItem value="final_exam">امتحان نهائي</SelectItem>
+                      <SelectItem value="project">مشروع</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="evalGrade">الدرجة</Label>
+                  <Input
+                    id="evalGrade"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={newEvaluation.grade}
+                    onChange={(e) => setNewEvaluation({...newEvaluation, grade: parseInt(e.target.value)})}
+                    placeholder="الدرجة من 100"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="evalFeedback">التعليقات والملاحظات</Label>
+                <Textarea
+                  id="evalFeedback"
+                  value={newEvaluation.feedback}
+                  onChange={(e) => setNewEvaluation({...newEvaluation, feedback: e.target.value})}
+                  placeholder="أدخل التعليقات والملاحظات على الأداء"
+                />
+              </div>
+
+              {/* Current Evaluations */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold">التقييمات الحالية</h4>
+                <div className="grid gap-3 max-h-64 overflow-y-auto">
+                  {evaluations.map((evaluation) => (
+                    <Card key={evaluation.id} className="p-4">
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <h5 className="font-medium">{evaluation.studentName}</h5>
+                            <Badge variant="outline" className={
+                              evaluation.grade >= 90 ? 'bg-green-100 text-green-700' :
+                              evaluation.grade >= 80 ? 'bg-blue-100 text-blue-700' :
+                              evaluation.grade >= 70 ? 'bg-yellow-100 text-yellow-700' :
+                              'bg-red-100 text-red-700'
+                            }>
+                              {evaluation.grade}%
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-gray-600">{evaluation.courseTitle}</p>
+                          <p className="text-sm text-gray-600">
+                            {evaluation.evaluationType === 'quiz' ? 'اختبار قصير' :
+                             evaluation.evaluationType === 'assignment' ? 'واجب' :
+                             evaluation.evaluationType === 'final_exam' ? 'امتحان نهائي' :
+                             'مشروع'} - {evaluation.evaluationDate}
+                          </p>
+                          <p className="text-sm">{evaluation.feedback}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={() => setShowEvaluationDialog(false)}>
+                  إغلاق
+                </Button>
+                <Button onClick={handleAddEvaluation} className="gap-2">
+                  <Save className="w-4 h-4" />
+                  حفظ التقييم
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Add Course Dialog */}
         <Dialog open={showAddCourse} onOpenChange={setShowAddCourse}>
