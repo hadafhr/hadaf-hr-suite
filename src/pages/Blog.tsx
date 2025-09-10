@@ -4,6 +4,8 @@ import { blogPosts, blogCategories } from '@/data/blogPosts';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Search, BookOpen } from 'lucide-react';
+import { BackButton } from '@/components/BackButton';
+import { BoudLogo } from '@/components/BoudLogo';
 
 export const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,10 +21,21 @@ export const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header with Back Button and Logo */}
+      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <BackButton />
+            <BoudLogo size="header" showText={true} />
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/5">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
+            <BoudLogo size="lg" />
             <BookOpen className="w-12 h-12 text-primary" />
             <h1 className="text-4xl md:text-5xl font-bold text-foreground">
               مدونة بُعد

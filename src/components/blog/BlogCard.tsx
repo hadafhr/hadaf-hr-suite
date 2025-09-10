@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Calendar } from 'lucide-react';
+import { BoudLogo } from '@/components/BoudLogo';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -35,9 +36,12 @@ export const BlogCard = ({ post }: BlogCardProps) => {
           </div>
         </div>
         
-        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-          {post.title}
-        </h3>
+        <div className="flex items-center gap-2 mb-3">
+          <BoudLogo size="sm" />
+          <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+            {post.title}
+          </h3>
+        </div>
         
         <p className="text-muted-foreground text-sm leading-relaxed mb-4">
           {post.summary}
