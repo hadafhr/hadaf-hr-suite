@@ -37,6 +37,7 @@ import {
   Eye,
   Settings,
   Bell,
+  BellOff,
   CreditCard,
   UserCheck,
   Sparkles,
@@ -47,7 +48,9 @@ import {
   Lock,
   Unlock,
   AlertCircle,
-  Info
+  Info,
+  RefreshCw,
+  Pause
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie } from 'recharts';
@@ -73,23 +76,110 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
     type: ''
   });
 
-  // Mock data
-  const departments = [
+  // Mock data - enhanced
+  const [departments, setDepartments] = useState([
     {
       id: '1',
       name: 'تقنية المعلومات',
+      description: 'قسم متخصص في تطوير وصيانة الأنظمة التقنية',
       employeeCount: 15,
       performance: 92,
-      budget: 500000
+      budget: 500000,
+      manager: 'أحمد محمد',
+      type: 'تقني',
+      status: 'نشط',
+      createdDate: '2023-01-15',
+      location: 'الدور الثالث'
     },
     {
       id: '2', 
       name: 'الموارد البشرية',
+      description: 'إدارة شؤون الموظفين والتوظيف والتطوير',
       employeeCount: 8,
       performance: 95,
-      budget: 200000
+      budget: 200000,
+      manager: 'سارة أحمد',
+      type: 'إداري',
+      status: 'نشط',
+      createdDate: '2023-02-10',
+      location: 'الدور الثاني'
+    },
+    {
+      id: '3',
+      name: 'المبيعات والتسويق',
+      description: 'تطوير استراتيجيات المبيعات والتسويق الرقمي',
+      employeeCount: 12,
+      performance: 88,
+      budget: 350000,
+      manager: 'محمد العلي',
+      type: 'عمليات',
+      status: 'نشط',
+      createdDate: '2023-01-20',
+      location: 'الدور الأول'
     }
-  ];
+  ]);
+
+  const [positions, setPositions] = useState([
+    {
+      id: '1',
+      title: 'مطور برمجيات أول',
+      department: 'تقنية المعلومات',
+      level: 'أول',
+      salary: 15000,
+      requirements: 'خبرة 5 سنوات في البرمجة',
+      status: 'متاح',
+      type: 'دائم'
+    },
+    {
+      id: '2',
+      title: 'أخصائي موارد بشرية',
+      department: 'الموارد البشرية',
+      level: 'متوسط',
+      salary: 8000,
+      requirements: 'شهادة في الموارد البشرية',
+      status: 'مشغول',
+      type: 'دائم'
+    },
+    {
+      id: '3',
+      title: 'منسق مبيعات',
+      department: 'المبيعات والتسويق',
+      level: 'مبتدئ',
+      salary: 6000,
+      requirements: 'خبرة سنتين في المبيعات',
+      status: 'متاح',
+      type: 'مؤقت'
+    }
+  ]);
+
+  const [reports, setReports] = useState([
+    {
+      id: '1',
+      title: 'تقرير الأداء الشهري',
+      type: 'أداء',
+      department: 'جميع الأقسام',
+      createdDate: '2024-01-15',
+      status: 'مكتمل'
+    },
+    {
+      id: '2',
+      title: 'تقرير الميزانيات',
+      type: 'مالي',
+      department: 'جميع الأقسام', 
+      createdDate: '2024-01-10',
+      status: 'قيد المراجعة'
+    }
+  ]);
+
+  const [systemSettings, setSystemSettings] = useState({
+    language: 'ar',
+    timezone: 'riyadh',
+    currency: 'sar',
+    notifications: true,
+    autoSync: true,
+    theme: 'light',
+    backupFrequency: 'daily'
+  });
 
   const stats = {
     totalDepartments: 16,
@@ -536,48 +626,478 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
           </TabsContent>
 
           <TabsContent value="departments">
-            <h2 className="text-2xl font-bold">إدارة الأقسام</h2>
-            <Card>
-              <CardContent className="p-6">
-                <p>قائمة الأقسام والوحدات التنظيمية</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">إدارة الأقسام</h2>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="البحث في الأقسام..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-64"
+                  />
+                  <Button onClick={() => setIsAddDialogOpen(true)}>
+                    <Plus className="h-4 w-4 ml-2" />
+                    إضافة قسم
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {departments.filter(dept => 
+                  dept.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ).map((dept) => (
+                  <Card key={dept.id} className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg">{dept.name}</h3>
+                          <p className="text-sm text-muted-foreground mb-2">{dept.description}</p>
+                          <Badge variant="outline" className="mb-2">{dept.type}</Badge>
+                        </div>
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="ghost">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>المدير:</span>
+                          <span>{dept.manager}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>عدد الموظفين:</span>
+                          <span>{dept.employeeCount}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>الأداء:</span>
+                          <span>{dept.performance}%</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>الميزانية:</span>
+                          <span>{dept.budget.toLocaleString()} ر.س</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>الموقع:</span>
+                          <span>{dept.location}</span>
+                        </div>
+                        <Progress value={dept.performance} className="mt-2" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="positions">
-            <h2 className="text-2xl font-bold">إدارة المناصب</h2>
-            <Card>
-              <CardContent className="p-6">
-                <p>المناصب الوظيفية المتاحة</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">إدارة المناصب</h2>
+                <Button onClick={() => {
+                  const newPosition = {
+                    id: Date.now().toString(),
+                    title: 'منصب جديد',
+                    department: 'غير محدد',
+                    level: 'متوسط',
+                    salary: 8000,
+                    requirements: 'متطلبات المنصب',
+                    status: 'متاح',
+                    type: 'دائم'
+                  };
+                  setPositions([...positions, newPosition]);
+                  toast({
+                    title: "تم إنشاء المنصب",
+                    description: "تم إضافة منصب جديد بنجاح"
+                  });
+                }}>
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة منصب
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {positions.map((position) => (
+                  <Card key={position.id}>
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h3 className="font-semibold">{position.title}</h3>
+                          <p className="text-sm text-muted-foreground">{position.department}</p>
+                        </div>
+                        <Badge variant={position.status === 'متاح' ? 'default' : 'secondary'}>
+                          {position.status}
+                        </Badge>
+                      </div>
+                      
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>المستوى:</span>
+                          <span>{position.level}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>الراتب:</span>
+                          <span>{position.salary.toLocaleString()} ر.س</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>النوع:</span>
+                          <span>{position.type}</span>
+                        </div>
+                        <div className="mt-2">
+                          <span className="font-medium">المتطلبات:</span>
+                          <p className="text-muted-foreground">{position.requirements}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="structure">
-            <h2 className="text-2xl font-bold">الهيكل التنظيمي</h2>
-            <Card>
-              <CardContent className="p-6">
-                <p>المخطط التنظيمي للشركة</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">الهيكل التنظيمي</h2>
+                <Button onClick={() => {
+                  toast({
+                    title: "تحديث الهيكل",
+                    description: "جاري تحديث المخطط التنظيمي..."
+                  });
+                }}>
+                  <RefreshCw className="h-4 w-4 ml-2" />
+                  تحديث الهيكل
+                </Button>
+              </div>
+
+              <Card>
+                <CardContent className="p-6">
+                  <div className="text-center space-y-6">
+                    {/* CEO Level */}
+                    <div className="flex justify-center">
+                      <div className="bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
+                        <Building className="h-8 w-8 mx-auto mb-2" />
+                        <h3 className="font-semibold">الرئيس التنفيذي</h3>
+                        <p className="text-sm">إدارة عليا</p>
+                      </div>
+                    </div>
+
+                    {/* Department Level */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {departments.map((dept) => (
+                        <div key={dept.id} className="relative">
+                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-px h-4 bg-border"></div>
+                          <Card className="hover:shadow-lg transition-shadow">
+                            <CardContent className="p-4 text-center">
+                              <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mx-auto mb-2">
+                                <Users className="h-6 w-6" />
+                              </div>
+                              <h4 className="font-semibold text-sm">{dept.name}</h4>
+                              <p className="text-xs text-muted-foreground">{dept.manager}</p>
+                              <p className="text-xs text-muted-foreground">{dept.employeeCount} موظف</p>
+                              <Badge variant="outline" className="mt-2 text-xs">{dept.type}</Badge>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Teams Level */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                      {['فريق التطوير', 'فريق التصميم', 'فريق الدعم', 'فريق المبيعات'].map((team, index) => (
+                        <Card key={index} className="bg-muted">
+                          <CardContent className="p-3 text-center">
+                            <div className="w-8 h-8 bg-background rounded-full flex items-center justify-center mx-auto mb-1">
+                              <UserCheck className="h-4 w-4" />
+                            </div>
+                            <p className="text-xs font-medium">{team}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="reports">
-            <h2 className="text-2xl font-bold">التقارير</h2>
-            <Card>
-              <CardContent className="p-6">
-                <p>تقارير الأقسام والأداء</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">التقارير</h2>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => {
+                    const newReport = {
+                      id: Date.now().toString(),
+                      title: 'تقرير مخصص',
+                      type: 'مخصص',
+                      department: 'جميع الأقسام',
+                      createdDate: new Date().toISOString().split('T')[0],
+                      status: 'جديد'
+                    };
+                    setReports([...reports, newReport]);
+                    toast({
+                      title: "تقرير جديد",
+                      description: "تم إنشاء تقرير مخصص جديد"
+                    });
+                  }}>
+                    <Plus className="h-4 w-4 ml-2" />
+                    تقرير جديد
+                  </Button>
+                  <Button onClick={handleExport}>
+                    <Download className="h-4 w-4 ml-2" />
+                    تصدير الكل
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => {
+                  toast({
+                    title: "تقرير الأداء",
+                    description: "عرض تقرير أداء الأقسام الشامل"
+                  });
+                }}>
+                  <CardContent className="p-4 text-center">
+                    <BarChart3 className="h-8 w-8 mx-auto mb-2 text-primary" />
+                    <h3 className="font-semibold">تقرير الأداء</h3>
+                    <p className="text-sm text-muted-foreground">أداء جميع الأقسام</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => {
+                  toast({
+                    title: "التقرير المالي",
+                    description: "عرض تقرير الميزانيات والنفقات"
+                  });
+                }}>
+                  <CardContent className="p-4 text-center">
+                    <CreditCard className="h-8 w-8 mx-auto mb-2 text-green-600" />
+                    <h3 className="font-semibold">التقرير المالي</h3>
+                    <p className="text-sm text-muted-foreground">ميزانيات الأقسام</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => {
+                  toast({
+                    title: "تقرير الموظفين", 
+                    description: "إحصائيات وبيانات الموظفين"
+                  });
+                }}>
+                  <CardContent className="p-4 text-center">
+                    <Users className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                    <h3 className="font-semibold">تقرير الموظفين</h3>
+                    <p className="text-sm text-muted-foreground">إحصائيات الموظفين</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => {
+                  toast({
+                    title: "تقرير مخصص",
+                    description: "إنشاء تقرير حسب المتطلبات"
+                  });
+                }}>
+                  <CardContent className="p-4 text-center">
+                    <FileText className="h-8 w-8 mx-auto mb-2 text-purple-600" />
+                    <h3 className="font-semibold">تقرير مخصص</h3>
+                    <p className="text-sm text-muted-foreground">تخصيص حسب الحاجة</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>التقارير الأخيرة</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {reports.map((report) => (
+                      <div key={report.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
+                        <div className="flex-1">
+                          <h4 className="font-medium">{report.title}</h4>
+                          <p className="text-sm text-muted-foreground">{report.department} - {report.createdDate}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={report.status === 'مكتمل' ? 'default' : 'secondary'}>
+                            {report.status}
+                          </Badge>
+                          <Button size="sm" variant="ghost">
+                            <Download className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="settings">
-            <h2 className="text-2xl font-bold">الإعدادات</h2>
-            <Card>
-              <CardContent className="p-6">
-                <p>إعدادات النظام</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold">إعدادات النظام</h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>الإعدادات العامة</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>لغة النظام</Label>
+                      <Select value={systemSettings.language} onValueChange={(value) => 
+                        setSystemSettings(prev => ({...prev, language: value}))
+                      }>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="ar">العربية</SelectItem>
+                          <SelectItem value="en">English</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>المنطقة الزمنية</Label>
+                      <Select value={systemSettings.timezone} onValueChange={(value) => 
+                        setSystemSettings(prev => ({...prev, timezone: value}))
+                      }>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="riyadh">الرياض (GMT+3)</SelectItem>
+                          <SelectItem value="dubai">دبي (GMT+4)</SelectItem>
+                          <SelectItem value="cairo">القاهرة (GMT+2)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>العملة الافتراضية</Label>
+                      <Select value={systemSettings.currency} onValueChange={(value) => 
+                        setSystemSettings(prev => ({...prev, currency: value}))
+                      }>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
+                          <SelectItem value="aed">درهم إماراتي (AED)</SelectItem>
+                          <SelectItem value="egp">جنيه مصري (EGP)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>تفضيلات النظام</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>الإشعارات</Label>
+                        <p className="text-sm text-muted-foreground">تفعيل إشعارات النظام</p>
+                      </div>
+                      <Button 
+                        variant={systemSettings.notifications ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSystemSettings(prev => ({...prev, notifications: !prev.notifications}))}
+                      >
+                        {systemSettings.notifications ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
+                      </Button>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label>التزامن التلقائي</Label>
+                        <p className="text-sm text-muted-foreground">مزامنة البيانات تلقائياً</p>
+                      </div>
+                      <Button 
+                        variant={systemSettings.autoSync ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSystemSettings(prev => ({...prev, autoSync: !prev.autoSync}))}
+                      >
+                        {systemSettings.autoSync ? <Activity className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                      </Button>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>نسخ احتياطي</Label>
+                      <Select value={systemSettings.backupFrequency} onValueChange={(value) => 
+                        setSystemSettings(prev => ({...prev, backupFrequency: value}))
+                      }>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="daily">يومي</SelectItem>
+                          <SelectItem value="weekly">أسبوعي</SelectItem>
+                          <SelectItem value="monthly">شهري</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>إجراءات النظام</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-4">
+                    <Button onClick={() => {
+                      toast({
+                        title: "تم حفظ الإعدادات",
+                        description: "تم حفظ جميع الإعدادات بنجاح"
+                      });
+                    }}>
+                      <Settings className="h-4 w-4 ml-2" />
+                      حفظ الإعدادات
+                    </Button>
+
+                    <Button variant="outline" onClick={() => {
+                      toast({
+                        title: "إعادة تعيين",
+                        description: "تم إعادة الإعدادات للقيم الافتراضية"
+                      });
+                    }}>
+                      <RefreshCw className="h-4 w-4 ml-2" />
+                      إعادة تعيين
+                    </Button>
+
+                    <Button variant="outline" onClick={() => {
+                      toast({
+                        title: "نسخة احتياطية",
+                        description: "جاري إنشاء نسخة احتياطية..."
+                      });
+                    }}>
+                      <Archive className="h-4 w-4 ml-2" />
+                      نسخة احتياطية
+                    </Button>
+
+                    <Button variant="outline" onClick={() => {
+                      toast({
+                        title: "تصدير الإعدادات",
+                        description: "جاري تصدير إعدادات النظام..."
+                      });
+                    }}>
+                      <Download className="h-4 w-4 ml-2" />
+                      تصدير الإعدادات
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
 
