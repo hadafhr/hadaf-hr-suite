@@ -44,6 +44,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { BoudLogo } from '@/components/BoudLogo';
+import employeeAvatarImage from '@/assets/employee-avatar.jpg';
 
 const EmployeePortal = () => {
   const navigate = useNavigate();
@@ -349,46 +350,123 @@ const EmployeePortal = () => {
       </div>
 
       <div className="p-6">
-        {/* Employee Info Header */}
-        <Card className="mb-6">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-6">
-              <div className="relative">
-                <Avatar className="h-24 w-24">
-                  <AvatarImage src="/placeholder.svg?height=96&width=96" />
-                  <AvatarFallback className="text-xl bg-primary text-primary-foreground">
-                    {employee.name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <Badge className="absolute -bottom-1 -right-1 bg-green-500 text-white">
-                  {employee.status}
-                </Badge>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-foreground">{employee.name}</h2>
-                <p className="text-lg text-primary font-medium">{employee.position}</p>
-                <p className="text-sm text-muted-foreground">{employee.department}</p>
-                <div className="flex items-center gap-4 mt-3">
-                  <span className="text-sm text-muted-foreground">رقم الموظف: {employee.employeeNumber}</span>
-                  <span className="text-sm text-muted-foreground">الهوية الوطنية: {employee.nationalId}</span>
+        {/* Employee Info Header - محسن بصرياً */}
+        <Card className="mb-6 bg-gradient-to-r from-background via-background to-muted/20 border-0 shadow-lg animate-fade-in">
+          <CardContent className="p-0 overflow-hidden relative">
+            {/* خلفية متدرجة */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10"></div>
+            
+            {/* المحتوى الرئيسي */}
+            <div className="relative p-8">
+              <div className="flex items-center gap-8">
+                {/* صورة الموظف المحسنة */}
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/60 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-300"></div>
+                  <div className="relative">
+                    <Avatar className="h-32 w-32 border-4 border-background shadow-2xl hover-scale transition-all duration-300">
+                      <AvatarImage 
+                        src={employeeAvatarImage} 
+                        alt={employee.name}
+                        className="object-cover"
+                      />
+                      <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold">
+                        {employee.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    {/* شارة الحالة المحسنة */}
+                    <div className="absolute -bottom-2 -right-2 animate-pulse">
+                      <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg border-2 border-background px-3 py-1">
+                        <div className="flex items-center gap-1">
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                          {employee.status}
+                        </div>
+                      </Badge>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="text-left space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <Mail className="h-4 w-4 text-primary" />
-                  {employee.email}
+
+                {/* معلومات الموظف الأساسية */}
+                <div className="flex-1 space-y-3">
+                  <div className="space-y-2">
+                    <h2 className="text-3xl font-bold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
+                      {employee.name}
+                    </h2>
+                    <div className="flex items-center gap-3">
+                      <p className="text-xl font-semibold text-primary bg-gradient-to-r from-primary to-primary/80 bg-clip-text">
+                        {employee.position}
+                      </p>
+                      <div className="h-6 w-px bg-border"></div>
+                      <p className="text-lg text-muted-foreground font-medium">{employee.department}</p>
+                    </div>
+                  </div>
+                  
+                  {/* بطاقات معلومات سريعة */}
+                  <div className="flex flex-wrap items-center gap-3 mt-6">
+                    <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
+                      <UserCheck className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium">رقم الموظف: {employee.employeeNumber}</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
+                      <FileCheck className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium">الهوية: {employee.nationalId}</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
+                      <Shield className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium">تأمين: {employee.insuranceNumber}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <Phone className="h-4 w-4 text-primary" />
-                  {employee.phone}
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="h-4 w-4 text-primary" />
-                  {employee.address}
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <Shield className="h-4 w-4 text-primary" />
-                  رقم التأمين: {employee.insuranceNumber}
+
+                {/* معلومات الاتصال المحسنة */}
+                <div className="space-y-4 min-w-fit">
+                  <div className="bg-background/40 backdrop-blur border border-border/50 rounded-2xl p-6 space-y-4 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <h3 className="font-semibold text-foreground flex items-center gap-2 mb-4">
+                      <Target className="h-5 w-5 text-primary" />
+                      معلومات الاتصال
+                    </h3>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
+                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                          <Mail className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">البريد الإلكتروني</p>
+                          <p className="text-sm font-medium">{employee.email}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
+                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                          <Phone className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">رقم الهاتف</p>
+                          <p className="text-sm font-medium" dir="ltr">{employee.phone}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
+                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                          <MapPin className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">العنوان</p>
+                          <p className="text-sm font-medium">{employee.address}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
+                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                          <Briefcase className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">الفئة الوظيفية</p>
+                          <p className="text-sm font-medium">{employee.jobCategory}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -396,20 +474,58 @@ const EmployeePortal = () => {
         </Card>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-12 h-auto p-1">
-            <TabsTrigger value="dashboard" className="text-xs">لوحة التحكم</TabsTrigger>
-            <TabsTrigger value="tasks" className="text-xs">المهام</TabsTrigger>
-            <TabsTrigger value="courses" className="text-xs">الدورات</TabsTrigger>
-            <TabsTrigger value="attendance" className="text-xs">الدوام الشهري</TabsTrigger>
-            <TabsTrigger value="insurance" className="text-xs">التأمين</TabsTrigger>
-            <TabsTrigger value="job-category" className="text-xs">الفئة الوظيفية</TabsTrigger>
-            <TabsTrigger value="requests" className="text-xs">طلباتي</TabsTrigger>
-            <TabsTrigger value="custody" className="text-xs">العهدة</TabsTrigger>
-            <TabsTrigger value="career-path" className="text-xs">المسار الوظيفي</TabsTrigger>
-            <TabsTrigger value="payroll" className="text-xs">الراتب</TabsTrigger>
-            <TabsTrigger value="performance" className="text-xs">الأداء</TabsTrigger>
-            <TabsTrigger value="documents" className="text-xs">المستندات</TabsTrigger>
-          </TabsList>
+          <div className="bg-background/60 backdrop-blur border border-border/50 rounded-2xl p-2 shadow-lg">
+            <TabsList className="grid w-full grid-cols-12 h-auto p-1 bg-transparent gap-1">
+              <TabsTrigger value="dashboard" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <User className="w-3 h-3 mb-1" />
+                لوحة التحكم
+              </TabsTrigger>
+              <TabsTrigger value="tasks" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <CheckSquare className="w-3 h-3 mb-1" />
+                المهام
+              </TabsTrigger>
+              <TabsTrigger value="courses" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <GraduationCap className="w-3 h-3 mb-1" />
+                الدورات
+              </TabsTrigger>
+              <TabsTrigger value="attendance" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <CalendarDays className="w-3 h-3 mb-1" />
+                الدوام الشهري
+              </TabsTrigger>
+              <TabsTrigger value="insurance" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <Shield className="w-3 h-3 mb-1" />
+                التأمين
+              </TabsTrigger>
+              <TabsTrigger value="job-category" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <Briefcase className="w-3 h-3 mb-1" />
+                الفئة الوظيفية
+              </TabsTrigger>
+              <TabsTrigger value="requests" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <FileText className="w-3 h-3 mb-1" />
+                طلباتي
+              </TabsTrigger>
+              <TabsTrigger value="custody" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <Package className="w-3 h-3 mb-1" />
+                العهدة
+              </TabsTrigger>
+              <TabsTrigger value="career-path" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <TrendingUp className="w-3 h-3 mb-1" />
+                المسار الوظيفي
+              </TabsTrigger>
+              <TabsTrigger value="payroll" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <CreditCard className="w-3 h-3 mb-1" />
+                الراتب
+              </TabsTrigger>
+              <TabsTrigger value="performance" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <Award className="w-3 h-3 mb-1" />
+                الأداء
+              </TabsTrigger>
+              <TabsTrigger value="documents" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <FileText className="w-3 h-3 mb-1" />
+                المستندات
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* تبويب المهام */}
           <TabsContent value="tasks" className="space-y-6">
