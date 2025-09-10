@@ -5,14 +5,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, User, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { ArrowLeft, User, Eye, EyeOff, Loader2, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 
 const EmployeeLogin: React.FC = () => {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [formData, setFormData] = useState({
-    employeeId: '123465',
-    password: 'Sa123465'
+    email: '',
+    password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,17 +28,36 @@ const EmployeeLogin: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate authentication
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const { error } = await signIn(formData.email, formData.password);
+      
+      if (error) {
+        toast.error('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+        setIsLoading(false);
+        return;
+      }
 
-    if (formData.employeeId === '123465' && formData.password === 'Sa123465') {
+      // Check if user is an employee
+      const { data: employee, error: employeeError } = await supabase
+        .from('boud_employees')
+        .select('*')
+        .eq('email', formData.email)
+        .eq('is_active', true)
+        .single();
+
+      if (employeeError || !employee) {
+        toast.error('عذراً، لا يمكن العثور على بيانات الموظف');
+        setIsLoading(false);
+        return;
+      }
+
       toast.success('مرحباً بك في نظام الخدمة الذاتية');
-      navigate('/employee-self-service');
-    } else {
-      toast.error('الرقم الوظيفي أو كلمة المرور غير صحيحة');
+      navigate('/employee-portal');
+    } catch (error) {
+      toast.error('حدث خطأ أثناء تسجيل الدخول');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   return (
@@ -74,15 +96,19 @@ const EmployeeLogin: React.FC = () => {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <Label htmlFor="employeeId">الرقم الوظيفي</Label>
-                  <Input
-                    id="employeeId"
-                    value={formData.employeeId}
-                    onChange={(e) => handleInputChange('employeeId', e.target.value)}
-                    placeholder="123465"
-                    required
-                    className="mt-1"
-                  />
+                  <Label htmlFor="email">البريد الإلكتروني</Label>
+                  <div className="relative mt-1">
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      placeholder="employee@company.com"
+                      required
+                      className="pl-10"
+                    />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  </div>
                 </div>
 
                 <div>
@@ -93,7 +119,7 @@ const EmployeeLogin: React.FC = () => {
                       type={showPassword ? 'text' : 'password'}
                       value={formData.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
-                      placeholder="Sa123465"
+                      placeholder="أدخل كلمة المرور"
                       required
                       className="pl-10"
                     />
@@ -111,12 +137,6 @@ const EmployeeLogin: React.FC = () => {
                       )}
                     </Button>
                   </div>
-                </div>
-
-                <div className="bg-muted/30 p-3 rounded-lg text-sm">
-                  <p className="font-medium text-foreground mb-1">بيانات الدخول الافتراضية:</p>
-                  <p className="text-muted-foreground">الرقم الوظيفي: 123465</p>
-                  <p className="text-muted-foreground">كلمة المرور: Sa123465</p>
                 </div>
 
                 <Button 
