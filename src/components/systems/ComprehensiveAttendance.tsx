@@ -71,6 +71,121 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [newAttendanceRecord, setNewAttendanceRecord] = useState({
+    employee_name: '',
+    employee_id: '',
+    department: '',
+    check_in: '',
+    check_out: '',
+    status: 'present',
+    notes: ''
+  });
+  const [newShift, setNewShift] = useState({
+    name: '',
+    start_time: '',
+    end_time: '',
+    break_duration: '60',
+    description: '',
+    days: []
+  });
+
+  // Mock attendance records
+  const attendanceRecords = [
+    {
+      id: '1',
+      employee_name: 'أحمد محمد',
+      employee_id: 'EMP001',
+      department: 'تقنية المعلومات',
+      check_in: '08:15',
+      check_out: '17:30',
+      working_hours: '8.25',
+      status: 'present',
+      date: '2024-01-15',
+      overtime: '0.5',
+      late_minutes: 15,
+      location: 'المكتب الرئيسي'
+    },
+    {
+      id: '2',
+      employee_name: 'فاطمة علي',
+      employee_id: 'EMP002',
+      department: 'الموارد البشرية',
+      check_in: '08:00',
+      check_out: '17:00',
+      working_hours: '8.0',
+      status: 'present',
+      date: '2024-01-15',
+      overtime: '0',
+      late_minutes: 0,
+      location: 'المكتب الرئيسي'
+    },
+    {
+      id: '3',
+      employee_name: 'محمد حسن',
+      employee_id: 'EMP003',
+      department: 'المبيعات',
+      check_in: '09:30',
+      check_out: '18:30',
+      working_hours: '8.0',
+      status: 'late',
+      date: '2024-01-15',
+      overtime: '1.0',
+      late_minutes: 90,
+      location: 'عمل عن بُعد'
+    },
+    {
+      id: '4',
+      employee_name: 'نور الدين',
+      employee_id: 'EMP004',
+      department: 'المالية',
+      check_in: '',
+      check_out: '',
+      working_hours: '0',
+      status: 'absent',
+      date: '2024-01-15',
+      overtime: '0',
+      late_minutes: 0,
+      location: ''
+    }
+  ];
+
+  // Mock shift schedules
+  const shiftSchedules = [
+    {
+      id: '1',
+      name: 'النوبة الصباحية',
+      start_time: '08:00',
+      end_time: '17:00',
+      break_duration: 60,
+      description: 'نوبة العمل الأساسية للموظفين الإداريين',
+      days: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'],
+      employees_count: 85,
+      is_active: true
+    },
+    {
+      id: '2',
+      name: 'النوبة المسائية',
+      start_time: '14:00',
+      end_time: '23:00',
+      break_duration: 60,
+      description: 'نوبة المساء لقسم خدمة العملاء',
+      days: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'],
+      employees_count: 25,
+      is_active: true
+    },
+    {
+      id: '3',
+      name: 'نوبة نهاية الأسبوع',
+      start_time: '09:00',
+      end_time: '18:00',
+      break_duration: 60,
+      description: 'نوبة العمل في عطلة نهاية الأسبوع',
+      days: ['الجمعة', 'السبت'],
+      employees_count: 15,
+      is_active: true
+    }
+  ];
 
   // Analytics data
   const attendanceData = [
@@ -112,6 +227,74 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
       title: "جاري الطباعة",
       description: "يتم تحضير التقرير للطباعة",
     });
+  };
+
+  const handleAddAttendance = () => {
+    if (!newAttendanceRecord.employee_name || !newAttendanceRecord.employee_id) {
+      toast({
+        title: "خطأ",
+        description: "يرجى ملء جميع الحقول المطلوبة",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "تم إضافة السجل بنجاح",
+      description: `تم إضافة سجل حضور للموظف ${newAttendanceRecord.employee_name}`,
+    });
+
+    setNewAttendanceRecord({
+      employee_name: '',
+      employee_id: '',
+      department: '',
+      check_in: '',
+      check_out: '',
+      status: 'present',
+      notes: ''
+    });
+    setIsAddDialogOpen(false);
+  };
+
+  const handleAddShift = () => {
+    if (!newShift.name || !newShift.start_time || !newShift.end_time) {
+      toast({
+        title: "خطأ",
+        description: "يرجى ملء جميع الحقول المطلوبة",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    toast({
+      title: "تم إضافة النوبة بنجاح",
+      description: `تم إضافة نوبة ${newShift.name}`,
+    });
+
+    setNewShift({
+      name: '',
+      start_time: '',
+      end_time: '',
+      break_duration: '60',
+      description: '',
+      days: []
+    });
+  };
+
+  const getStatusBadge = (status: string) => {
+    const statusConfig = {
+      present: { label: 'حاضر', variant: 'default' as const, color: 'bg-green-100 text-green-800' },
+      late: { label: 'متأخر', variant: 'secondary' as const, color: 'bg-yellow-100 text-yellow-800' },
+      absent: { label: 'غائب', variant: 'destructive' as const, color: 'bg-red-100 text-red-800' },
+      remote: { label: 'عمل عن بُعد', variant: 'outline' as const, color: 'bg-blue-100 text-blue-800' }
+    };
+
+    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.present;
+    return (
+      <Badge variant={config.variant} className={config.color}>
+        {config.label}
+      </Badge>
+    );
   };
 
   const renderHeader = () => (
@@ -400,57 +583,631 @@ const ComprehensiveAttendance = ({ onBack }: ComprehensiveAttendanceProps) => {
             </TabsContent>
 
             <TabsContent value="attendance">
-              <Card className="dashboard-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-foreground">
-                    <Clock className="h-5 w-5 text-primary" />
-                    سجل الحضور والانصراف
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Clock className="h-16 w-16 mx-auto mb-4 text-primary/60" />
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">سجل الحضور</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+              <div className="space-y-6">
+                {/* Controls */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                  <div className="flex-1">
+                    <Input
+                      placeholder="البحث عن موظف..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="max-w-sm"
+                    />
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex gap-2">
+                    <Input
+                      type="date"
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="max-w-xs"
+                    />
+                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="تصفية حسب الحالة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الحالات</SelectItem>
+                        <SelectItem value="present">حاضر</SelectItem>
+                        <SelectItem value="late">متأخر</SelectItem>
+                        <SelectItem value="absent">غائب</SelectItem>
+                        <SelectItem value="remote">عمل عن بُعد</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="bg-primary hover:bg-primary/90">
+                          <Plus className="h-4 w-4 ml-2" />
+                          إضافة سجل حضور
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>إضافة سجل حضور جديد</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="employee_name">اسم الموظف</Label>
+                            <Input
+                              id="employee_name"
+                              value={newAttendanceRecord.employee_name}
+                              onChange={(e) => setNewAttendanceRecord({...newAttendanceRecord, employee_name: e.target.value})}
+                              placeholder="أدخل اسم الموظف"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="employee_id">رقم الموظف</Label>
+                            <Input
+                              id="employee_id"
+                              value={newAttendanceRecord.employee_id}
+                              onChange={(e) => setNewAttendanceRecord({...newAttendanceRecord, employee_id: e.target.value})}
+                              placeholder="مثال: EMP001"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="department">القسم</Label>
+                            <Select value={newAttendanceRecord.department} onValueChange={(value) => setNewAttendanceRecord({...newAttendanceRecord, department: value})}>
+                              <SelectTrigger>
+                                <SelectValue placeholder="اختر القسم" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="تقنية المعلومات">تقنية المعلومات</SelectItem>
+                                <SelectItem value="الموارد البشرية">الموارد البشرية</SelectItem>
+                                <SelectItem value="المالية">المالية</SelectItem>
+                                <SelectItem value="المبيعات">المبيعات</SelectItem>
+                                <SelectItem value="التسويق">التسويق</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="check_in">وقت الوصول</Label>
+                              <Input
+                                id="check_in"
+                                type="time"
+                                value={newAttendanceRecord.check_in}
+                                onChange={(e) => setNewAttendanceRecord({...newAttendanceRecord, check_in: e.target.value})}
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="check_out">وقت المغادرة</Label>
+                              <Input
+                                id="check_out"
+                                type="time"
+                                value={newAttendanceRecord.check_out}
+                                onChange={(e) => setNewAttendanceRecord({...newAttendanceRecord, check_out: e.target.value})}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <Label htmlFor="status">الحالة</Label>
+                            <Select value={newAttendanceRecord.status} onValueChange={(value) => setNewAttendanceRecord({...newAttendanceRecord, status: value})}>
+                              <SelectTrigger>
+                                <SelectValue placeholder="اختر الحالة" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="present">حاضر</SelectItem>
+                                <SelectItem value="late">متأخر</SelectItem>
+                                <SelectItem value="absent">غائب</SelectItem>
+                                <SelectItem value="remote">عمل عن بُعد</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label htmlFor="notes">ملاحظات</Label>
+                            <Textarea
+                              id="notes"
+                              value={newAttendanceRecord.notes}
+                              onChange={(e) => setNewAttendanceRecord({...newAttendanceRecord, notes: e.target.value})}
+                              placeholder="أدخل أي ملاحظات إضافية"
+                            />
+                          </div>
+                          <Button onClick={handleAddAttendance} className="w-full">
+                            إضافة السجل
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </div>
+
+                {/* Attendance Records Table */}
+                <Card className="dashboard-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Clock className="h-5 w-5 text-primary" />
+                      سجل الحضور والانصراف - {selectedDate}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {attendanceRecords
+                        .filter(record => 
+                          (selectedFilter === 'all' || record.status === selectedFilter) &&
+                          (searchTerm === '' || record.employee_name.includes(searchTerm) || record.employee_id.includes(searchTerm))
+                        )
+                        .map((record) => (
+                        <div key={record.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                              <User className="h-5 w-5 text-primary" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold">{record.employee_name}</h4>
+                              <p className="text-sm text-muted-foreground">{record.employee_id} - {record.department}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <div className="text-sm">
+                              <p className="font-medium">الوصول: {record.check_in || 'لم يسجل'}</p>
+                              <p className="text-muted-foreground">المغادرة: {record.check_out || 'لم يسجل'}</p>
+                            </div>
+                            <div className="text-sm">
+                              <p>ساعات العمل: {record.working_hours}</p>
+                              <p className="text-muted-foreground">الإضافي: {record.overtime}س</p>
+                            </div>
+                            <div className="text-sm">
+                              <p>التأخير: {record.late_minutes}د</p>
+                              <p className="text-muted-foreground">{record.location}</p>
+                            </div>
+                            {getStatusBadge(record.status)}
+                            <div className="flex gap-2">
+                              <Button variant="outline" size="sm">
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             <TabsContent value="shifts">
-              <Card className="dashboard-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-foreground">
-                    <Calendar className="h-5 w-5 text-primary" />
-                    إدارة النوبات
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <Calendar className="h-16 w-16 mx-auto mb-4 text-primary/60" />
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">إدارة النوبات</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+              <div className="space-y-6">
+                {/* Shift Management Header */}
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold">إدارة النوبات</h2>
+                    <p className="text-muted-foreground">إدارة جداول العمل والنوبات</p>
                   </div>
-                </CardContent>
-              </Card>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="bg-primary hover:bg-primary/90">
+                        <Plus className="h-4 w-4 ml-2" />
+                        إضافة نوبة جديدة
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-lg">
+                      <DialogHeader>
+                        <DialogTitle>إضافة نوبة عمل جديدة</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="shift_name">اسم النوبة</Label>
+                          <Input
+                            id="shift_name"
+                            value={newShift.name}
+                            onChange={(e) => setNewShift({...newShift, name: e.target.value})}
+                            placeholder="مثل: النوبة الصباحية"
+                          />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="start_time">وقت البداية</Label>
+                            <Input
+                              id="start_time"
+                              type="time"
+                              value={newShift.start_time}
+                              onChange={(e) => setNewShift({...newShift, start_time: e.target.value})}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="end_time">وقت النهاية</Label>
+                            <Input
+                              id="end_time"
+                              type="time"
+                              value={newShift.end_time}
+                              onChange={(e) => setNewShift({...newShift, end_time: e.target.value})}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="break_duration">مدة الاستراحة (بالدقائق)</Label>
+                          <Input
+                            id="break_duration"
+                            type="number"
+                            value={newShift.break_duration}
+                            onChange={(e) => setNewShift({...newShift, break_duration: e.target.value})}
+                            placeholder="60"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="description">الوصف</Label>
+                          <Textarea
+                            id="description"
+                            value={newShift.description}
+                            onChange={(e) => setNewShift({...newShift, description: e.target.value})}
+                            placeholder="وصف النوبة..."
+                          />
+                        </div>
+                        <Button onClick={handleAddShift} className="w-full">
+                          إضافة النوبة
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
+                {/* Shift Statistics */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card className="dashboard-card">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground">إجمالي النوبات</p>
+                          <p className="text-2xl font-bold text-primary">{shiftSchedules.length}</p>
+                        </div>
+                        <Calendar className="h-8 w-8 text-primary/60" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="dashboard-card">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground">النوبات النشطة</p>
+                          <p className="text-2xl font-bold text-success">{shiftSchedules.filter(s => s.is_active).length}</p>
+                        </div>
+                        <CheckCircle2 className="h-8 w-8 text-success/60" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="dashboard-card">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
+                          <p className="text-2xl font-bold text-primary">{shiftSchedules.reduce((sum, shift) => sum + shift.employees_count, 0)}</p>
+                        </div>
+                        <Users className="h-8 w-8 text-primary/60" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Shift Schedules */}
+                <div className="grid gap-6">
+                  {shiftSchedules.map((shift) => (
+                    <Card key={shift.id} className="dashboard-card">
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <CardTitle className="flex items-center gap-2">
+                              <Calendar className="h-5 w-5 text-primary" />
+                              {shift.name}
+                            </CardTitle>
+                            <p className="text-muted-foreground mt-1">{shift.description}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Badge variant={shift.is_active ? "default" : "secondary"}>
+                              {shift.is_active ? "نشط" : "غير نشط"}
+                            </Badge>
+                            <div className="flex gap-1">
+                              <Button variant="outline" size="sm">
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                              <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-4 w-4 text-primary" />
+                              <span className="text-sm font-medium">التوقيت</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              من {shift.start_time} إلى {shift.end_time}
+                            </p>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Timer className="h-4 w-4 text-primary" />
+                              <span className="text-sm font-medium">الاستراحة</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {shift.break_duration} دقيقة
+                            </p>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Users className="h-4 w-4 text-primary" />
+                              <span className="text-sm font-medium">عدد الموظفين</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {shift.employees_count} موظف
+                            </p>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4 text-primary" />
+                              <span className="text-sm font-medium">أيام العمل</span>
+                            </div>
+                            <div className="flex flex-wrap gap-1">
+                              {shift.days.map((day, index) => (
+                                <Badge key={index} variant="outline" className="text-xs">
+                                  {day}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="reports">
-              <Card className="dashboard-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-foreground">
-                    <FileText className="h-5 w-5 text-primary" />
-                    التقارير والإحصائيات
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12">
-                    <FileText className="h-16 w-16 mx-auto mb-4 text-primary/60" />
-                    <h3 className="text-xl font-semibold mb-2 text-foreground">التقارير والإحصائيات</h3>
-                    <p className="text-muted-foreground">سيتم تطوير هذا القسم قريباً</p>
+              <div className="space-y-6">
+                {/* Reports Header */}
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold">التقارير والإحصائيات</h2>
+                    <p className="text-muted-foreground">تقارير شاملة لحضور الموظفين</p>
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex gap-2">
+                    <Button onClick={handleExport} className="bg-primary hover:bg-primary/90">
+                      <Download className="h-4 w-4 ml-2" />
+                      تصدير التقارير
+                    </Button>
+                    <Button onClick={handlePrint} variant="outline">
+                      <FileText className="h-4 w-4 ml-2" />
+                      طباعة
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Report Types */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <Card className="dashboard-card hover:border-primary/50 cursor-pointer transition-colors">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <BarChart3 className="h-5 w-5 text-primary" />
+                        تقرير الحضور اليومي
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        تقرير مفصل عن حضور الموظفين اليومي
+                      </p>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>الحاضرين اليوم:</span>
+                          <span className="font-semibold text-success">{stats.presentToday}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>المتأخرين:</span>
+                          <span className="font-semibold text-warning">{stats.lateArrivals}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>الغائبين:</span>
+                          <span className="font-semibold text-destructive">{stats.totalEmployees - stats.presentToday}</span>
+                        </div>
+                      </div>
+                      <Button className="w-full mt-4" variant="outline">
+                        عرض التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="dashboard-card hover:border-primary/50 cursor-pointer transition-colors">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Calendar className="h-5 w-5 text-primary" />
+                        تقرير الحضور الشهري
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        إحصائيات شاملة للحضور الشهري
+                      </p>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>معدل الحضور:</span>
+                          <span className="font-semibold text-primary">{stats.avgAttendance}%</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>متوسط ساعات العمل:</span>
+                          <span className="font-semibold">{stats.avgWorkHours}س</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>العمل عن بُعد:</span>
+                          <span className="font-semibold text-primary">{stats.remoteWorkers}</span>
+                        </div>
+                      </div>
+                      <Button className="w-full mt-4" variant="outline">
+                        عرض التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="dashboard-card hover:border-primary/50 cursor-pointer transition-colors">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Building className="h-5 w-5 text-primary" />
+                        تقرير الأقسام
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        أداء الحضور حسب الأقسام
+                      </p>
+                      <div className="space-y-2">
+                        {departmentAttendance.slice(0, 3).map((dept, index) => (
+                          <div key={index} className="flex justify-between text-sm">
+                            <span>{dept.name}:</span>
+                            <span className="font-semibold" style={{ color: dept.color }}>
+                              {dept.value}%
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <Button className="w-full mt-4" variant="outline">
+                        عرض التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="dashboard-card hover:border-primary/50 cursor-pointer transition-colors">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Timer className="h-5 w-5 text-primary" />
+                        تقرير ساعات العمل
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        تحليل ساعات العمل والإضافي
+                      </p>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>إجمالي الساعات:</span>
+                          <span className="font-semibold">1,024</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>ساعات إضافية:</span>
+                          <span className="font-semibold text-warning">128</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>متوسط يومي:</span>
+                          <span className="font-semibold">{stats.avgWorkHours}س</span>
+                        </div>
+                      </div>
+                      <Button className="w-full mt-4" variant="outline">
+                        عرض التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="dashboard-card hover:border-primary/50 cursor-pointer transition-colors">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <AlertTriangle className="h-5 w-5 text-primary" />
+                        تقرير التأخير والغياب
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        تحليل حالات التأخير والغياب
+                      </p>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>حالات التأخير:</span>
+                          <span className="font-semibold text-warning">24</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>أيام الغياب:</span>
+                          <span className="font-semibold text-destructive">8</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>معدل الالتزام:</span>
+                          <span className="font-semibold text-success">96%</span>
+                        </div>
+                      </div>
+                      <Button className="w-full mt-4" variant="outline">
+                        عرض التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="dashboard-card hover:border-primary/50 cursor-pointer transition-colors">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <Settings className="h-5 w-5 text-primary" />
+                        تقرير مخصص
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        إنشاء تقرير حسب المتطلبات
+                      </p>
+                      <div className="space-y-2">
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="اختر نوع التقرير" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="daily">يومي</SelectItem>
+                            <SelectItem value="weekly">أسبوعي</SelectItem>
+                            <SelectItem value="monthly">شهري</SelectItem>
+                            <SelectItem value="annual">سنوي</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <Select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="اختر القسم" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">جميع الأقسام</SelectItem>
+                            <SelectItem value="it">تقنية المعلومات</SelectItem>
+                            <SelectItem value="hr">الموارد البشرية</SelectItem>
+                            <SelectItem value="finance">المالية</SelectItem>
+                            <SelectItem value="sales">المبيعات</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <Button className="w-full mt-4">
+                        إنشاء التقرير
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Quick Statistics */}
+                <Card className="dashboard-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="h-5 w-5 text-primary" />
+                      ملخص الأداء الحالي
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-primary mb-2">{stats.avgAttendance}%</div>
+                        <div className="text-sm text-muted-foreground">معدل الحضور العام</div>
+                        <Progress value={stats.avgAttendance} className="mt-2" />
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-success mb-2">{stats.presentToday}</div>
+                        <div className="text-sm text-muted-foreground">حاضر اليوم</div>
+                        <Progress value={(stats.presentToday / stats.totalEmployees) * 100} className="mt-2" />
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-warning mb-2">{stats.lateArrivals}</div>
+                        <div className="text-sm text-muted-foreground">متأخر اليوم</div>
+                        <Progress value={(stats.lateArrivals / stats.totalEmployees) * 100} className="mt-2" />
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-primary mb-2">{stats.avgWorkHours}</div>
+                        <div className="text-sm text-muted-foreground">متوسط ساعات العمل</div>
+                        <Progress value={(stats.avgWorkHours / 8) * 100} className="mt-2" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
