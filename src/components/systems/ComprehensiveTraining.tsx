@@ -4,10 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { 
-  BookOpen, Users, Clock, Search, Plus, Award, ArrowLeft,
-  Bot, Settings, FileText, BarChart3, PieChart, Calendar,
-  User, Globe, Video, Download, Upload, CheckCircle
+  BookOpen, Users, Clock, Search, Plus, Award, ArrowLeft, Edit2, Trash2,
+  Bot, Settings, FileText, BarChart3, PieChart, Calendar, Eye, Filter,
+  User, Globe, Video, Download, Upload, CheckCircle, X, Save, Star
 } from 'lucide-react';
 
 interface Course {
@@ -24,6 +29,9 @@ interface Course {
   startDate: string;
   endDate: string;
   format: 'online' | 'offline' | 'hybrid';
+  price?: number;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  rating?: number;
 }
 
 interface Enrollment {
@@ -35,6 +43,36 @@ interface Enrollment {
   progress: number;
   status: 'enrolled' | 'in_progress' | 'completed' | 'dropped';
   department: string;
+  completionDate?: string;
+  grade?: number;
+}
+
+interface Instructor {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  specialization: string[];
+  experience: number;
+  rating: number;
+  status: 'active' | 'inactive';
+  bio: string;
+  coursesCount: number;
+  studentsCount: number;
+  joinDate: string;
+}
+
+interface Certificate {
+  id: string;
+  employeeName: string;
+  employeeId: string;
+  courseTitle: string;
+  issueDate: string;
+  expiryDate?: string;
+  certificateNumber: string;
+  status: 'active' | 'expired' | 'revoked';
+  grade: number;
+  instructorName: string;
 }
 
 interface ComprehensiveTrainingProps {
@@ -45,6 +83,40 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [showAddCourse, setShowAddCourse] = useState(false);
+  const [showAddInstructor, setShowAddInstructor] = useState(false);
+  const [showEnrollDialog, setShowEnrollDialog] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
+  const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
+  const [newCourse, setNewCourse] = useState<Partial<Course>>({
+    title: '',
+    englishTitle: '',
+    description: '',
+    instructor: '',
+    duration: '',
+    capacity: 20,
+    category: '',
+    startDate: '',
+    endDate: '',
+    format: 'online',
+    level: 'beginner',
+    price: 0
+  });
+  const [newInstructor, setNewInstructor] = useState<Partial<Instructor>>({
+    name: '',
+    email: '',
+    phone: '',
+    specialization: [],
+    experience: 0,
+    bio: '',
+    status: 'active'
+  });
+  const [newEnrollment, setNewEnrollment] = useState({
+    employeeName: '',
+    employeeId: '',
+    courseId: '',
+    department: ''
+  });
 
   const courses: Course[] = [
     {
@@ -60,7 +132,10 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
       category: 'إدارة',
       startDate: '2024-02-01',
       endDate: '2024-02-29',
-      format: 'hybrid'
+      format: 'hybrid',
+      level: 'intermediate',
+      price: 1200,
+      rating: 4.5
     },
     {
       id: '2',
@@ -75,7 +150,10 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
       category: 'قيادة',
       startDate: '2024-03-01',
       endDate: '2024-03-15',
-      format: 'offline'
+      format: 'offline',
+      level: 'beginner',
+      price: 950,
+      rating: 4.7
     },
     {
       id: '3',
@@ -90,7 +168,28 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
       category: 'تقنية',
       startDate: '2024-01-01',
       endDate: '2024-01-31',
-      format: 'online'
+      format: 'online',
+      level: 'advanced',
+      price: 1500,
+      rating: 4.8
+    },
+    {
+      id: '4',
+      title: 'التسويق الرقمي المتقدم',
+      englishTitle: 'Advanced Digital Marketing',
+      description: 'دورة شاملة في استراتيجيات التسويق الرقمي الحديثة ووسائل التواصل الاجتماعي',
+      instructor: 'مريم الأحمدي',
+      duration: '35 ساعة',
+      capacity: 22,
+      enrolled: 20,
+      status: 'active',
+      category: 'تسويق',
+      startDate: '2024-02-15',
+      endDate: '2024-03-10',
+      format: 'hybrid',
+      level: 'intermediate',
+      price: 1100,
+      rating: 4.6
     }
   ];
 
@@ -103,7 +202,8 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
       enrollmentDate: '2024-02-01',
       progress: 75,
       status: 'in_progress',
-      department: 'تقنية المعلومات'
+      department: 'تقنية المعلومات',
+      grade: 85
     },
     {
       id: '2',
@@ -113,12 +213,177 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
       enrollmentDate: '2024-01-01',
       progress: 100,
       status: 'completed',
-      department: 'الأمن السيبراني'
+      department: 'الأمن السيبراني',
+      completionDate: '2024-01-31',
+      grade: 92
+    },
+    {
+      id: '3',
+      employeeName: 'محمد السالم',
+      employeeId: 'EMP003',
+      courseTitle: 'تطوير المهارات القيادية',
+      enrollmentDate: '2024-02-15',
+      progress: 45,
+      status: 'in_progress',
+      department: 'الموارد البشرية',
+      grade: 78
+    },
+    {
+      id: '4',
+      employeeName: 'نورا الخالدي',
+      employeeId: 'EMP004',
+      courseTitle: 'التسويق الرقمي المتقدم',
+      enrollmentDate: '2024-02-20',
+      progress: 30,
+      status: 'enrolled',
+      department: 'التسويق'
     }
   ];
 
+  const instructors: Instructor[] = [
+    {
+      id: '1',
+      name: 'د. أحمد العلي',
+      email: 'ahmed.ali@company.com',
+      phone: '+966501234567',
+      specialization: ['إدارة المشاريع', 'القيادة', 'التخطيط الاستراتيجي'],
+      experience: 15,
+      rating: 4.8,
+      status: 'active',
+      bio: 'خبير في إدارة المشاريع مع خبرة أكثر من 15 عامًا في القطاعين العام والخاص',
+      coursesCount: 12,
+      studentsCount: 450,
+      joinDate: '2020-01-15'
+    },
+    {
+      id: '2',
+      name: 'سارة محمد',
+      email: 'sara.mohammed@company.com',
+      phone: '+966507654321',
+      specialization: ['القيادة', 'إدارة الفرق', 'التطوير المهني'],
+      experience: 12,
+      rating: 4.7,
+      status: 'active',
+      bio: 'مدربة معتمدة في تطوير المهارات القيادية والإدارية مع شهادات دولية',
+      coursesCount: 8,
+      studentsCount: 320,
+      joinDate: '2021-03-10'
+    },
+    {
+      id: '3',
+      name: 'م. عبد الله الحارثي',
+      email: 'abdullah.harthi@company.com',
+      phone: '+966512345678',
+      specialization: ['الأمن السيبراني', 'أمن المعلومات', 'الشبكات'],
+      experience: 18,
+      rating: 4.9,
+      status: 'active',
+      bio: 'خبير أمن سيبراني معتمد مع خبرة واسعة في حماية البيانات والشبكات',
+      coursesCount: 15,
+      studentsCount: 600,
+      joinDate: '2019-08-20'
+    },
+    {
+      id: '4',
+      name: 'مريم الأحمدي',
+      email: 'maryam.ahmadi@company.com',
+      phone: '+966509876543',
+      specialization: ['التسويق الرقمي', 'وسائل التواصل الاجتماعي', 'التجارة الإلكترونية'],
+      experience: 10,
+      rating: 4.6,
+      status: 'active',
+      bio: 'متخصصة في التسويق الرقمي مع خبرة في إدارة الحملات الإعلانية الناجحة',
+      coursesCount: 6,
+      studentsCount: 280,
+      joinDate: '2022-05-12'
+    }
+  ];
+
+  const certificates: Certificate[] = [
+    {
+      id: '1',
+      employeeName: 'فاطمة الزهراني',
+      employeeId: 'EMP002',
+      courseTitle: 'الأمن السيبراني للمؤسسات',
+      issueDate: '2024-02-01',
+      expiryDate: '2027-02-01',
+      certificateNumber: 'CRT-2024-001',
+      status: 'active',
+      grade: 92,
+      instructorName: 'م. عبد الله الحارثي'
+    },
+    {
+      id: '2',
+      employeeName: 'خالد الشمري',
+      employeeId: 'EMP005',
+      courseTitle: 'إدارة المشاريع الحديثة',
+      issueDate: '2024-01-15',
+      expiryDate: '2027-01-15',
+      certificateNumber: 'CRT-2024-002',
+      status: 'active',
+      grade: 88,
+      instructorName: 'د. أحمد العلي'
+    },
+    {
+      id: '3',
+      employeeName: 'هند العتيبي',
+      employeeId: 'EMP006',
+      courseTitle: 'تطوير المهارات القيادية',
+      issueDate: '2023-12-20',
+      certificateNumber: 'CRT-2023-015',
+      status: 'active',
+      grade: 95,
+      instructorName: 'سارة محمد'
+    }
+  ];
+
+  // Functions
   const handleSystemAction = (action: string) => {
     console.log(`تنفيذ إجراء: ${action}`);
+  };
+
+  const handleAddCourse = () => {
+    console.log('إضافة دورة جديدة:', newCourse);
+    setShowAddCourse(false);
+    setNewCourse({
+      title: '',
+      englishTitle: '',
+      description: '',
+      instructor: '',
+      duration: '',
+      capacity: 20,
+      category: '',
+      startDate: '',
+      endDate: '',
+      format: 'online',
+      level: 'beginner',
+      price: 0
+    });
+  };
+
+  const handleAddInstructor = () => {
+    console.log('إضافة مدرب جديد:', newInstructor);
+    setShowAddInstructor(false);
+    setNewInstructor({
+      name: '',
+      email: '',
+      phone: '',
+      specialization: [],
+      experience: 0,
+      bio: '',
+      status: 'active'
+    });
+  };
+
+  const handleEnroll = () => {
+    console.log('تسجيل جديد:', newEnrollment);
+    setShowEnrollDialog(false);
+    setNewEnrollment({
+      employeeName: '',
+      employeeId: '',
+      courseId: '',
+      department: ''
+    });
   };
 
   const getStatusBadge = (status: string) => {
@@ -128,7 +393,10 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
       'upcoming': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
       'enrolled': 'bg-blue-500/20 text-blue-700 border-blue-200',
       'in_progress': 'bg-orange-500/20 text-orange-700 border-orange-200',
-      'dropped': 'bg-red-500/20 text-red-700 border-red-200'
+      'dropped': 'bg-red-500/20 text-red-700 border-red-200',
+      'expired': 'bg-gray-500/20 text-gray-700 border-gray-200',
+      'revoked': 'bg-red-500/20 text-red-700 border-red-200',
+      'inactive': 'bg-gray-500/20 text-gray-700 border-gray-200'
     };
     
     return (
@@ -136,6 +404,29 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
         {status}
       </Badge>
     );
+  };
+
+  const getLevelBadge = (level: string) => {
+    const levelConfig = {
+      'beginner': 'bg-green-500/20 text-green-700 border-green-200',
+      'intermediate': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
+      'advanced': 'bg-red-500/20 text-red-700 border-red-200'
+    };
+    
+    return (
+      <Badge variant="outline" className={levelConfig[level as keyof typeof levelConfig]}>
+        {level === 'beginner' ? 'مبتدئ' : level === 'intermediate' ? 'متوسط' : 'متقدم'}
+      </Badge>
+    );
+  };
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <Star
+        key={i}
+        className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+      />
+    ));
   };
 
   return (
@@ -182,7 +473,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
               مساعد ذكي
             </Button>
             <Button 
-              onClick={() => handleSystemAction('دورة جديدة')}
+              onClick={() => setShowAddCourse(true)}
               className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Plus className="h-4 w-4 ml-2" />
@@ -231,7 +522,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                 </div>
                 <div className="text-right">
                   <p className="text-white/80 text-sm mb-1">شهادات مكتملة</p>
-                  <p className="text-3xl font-bold">{enrollments.filter(e => e.status === 'completed').length}</p>
+                  <p className="text-3xl font-bold">{certificates.length}</p>
                   <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
                 </div>
               </div>
@@ -261,7 +552,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                 </div>
                 <div className="text-right">
                   <p className="text-white/80 text-sm mb-1">المدربين</p>
-                  <p className="text-3xl font-bold">8</p>
+                  <p className="text-3xl font-bold">{instructors.length}</p>
                   <p className="text-white/70 text-xs mt-1">مدرب معتمد</p>
                 </div>
               </div>
@@ -372,7 +663,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
 
               {/* Dashboard Tab */}
               <TabsContent value="dashboard" className="p-6 space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                   <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-blue-700">
@@ -415,39 +706,179 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                           <span>متوسط التقييم:</span>
                           <span className="font-medium">4.7/5</span>
                         </div>
+                        <div className="flex justify-between text-sm">
+                          <span>المتدربون النشطون:</span>
+                          <span className="font-medium">{enrollments.filter(e => e.status === 'in_progress').length}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-purple-50 to-violet-50 border-purple-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-purple-700">
+                        <Award className="w-5 h-5" />
+                        الشهادات والإنجازات
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <p className="text-3xl font-bold text-purple-600">{certificates.length}</p>
+                          <p className="text-sm text-gray-500">شهادة صادرة</p>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>الشهادات النشطة:</span>
+                          <span className="font-medium">{certificates.filter(c => c.status === 'active').length}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>متوسط الدرجات:</span>
+                          <span className="font-medium">
+                            {certificates.reduce((sum, c) => sum + c.grade, 0) / certificates.length}%
+                          </span>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Calendar className="w-5 h-5" />
+                      الإجراءات السريعة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <Button 
+                        onClick={() => setShowAddCourse(true)}
+                        className="flex items-center gap-2 h-16"
+                        variant="outline"
+                      >
+                        <Plus className="w-5 h-5" />
+                        إضافة دورة
+                      </Button>
+                      <Button 
+                        onClick={() => setShowEnrollDialog(true)}
+                        className="flex items-center gap-2 h-16"
+                        variant="outline"
+                      >
+                        <Users className="w-5 h-5" />
+                        تسجيل متدرب
+                      </Button>
+                      <Button 
+                        onClick={() => setShowAddInstructor(true)}
+                        className="flex items-center gap-2 h-16"
+                        variant="outline"
+                      >
+                        <User className="w-5 h-5" />
+                        إضافة مدرب
+                      </Button>
+                      <Button 
+                        onClick={() => setActiveTab('reports')}
+                        className="flex items-center gap-2 h-16"
+                        variant="outline"
+                      >
+                        <BarChart3 className="w-5 h-5" />
+                        التقارير
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
 
               {/* Courses Tab */}
               <TabsContent value="courses" className="p-6 space-y-6">
                 <div className="flex justify-between items-center">
                   <h3 className="text-2xl font-bold">الدورات التدريبية</h3>
-                  <Button className="gap-2">
-                    <Plus className="w-4 h-4" />
-                    إضافة دورة جديدة
-                  </Button>
+                  <div className="flex gap-2">
+                    <div className="relative">
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Input
+                        placeholder="البحث في الدورات..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pr-10 w-64"
+                      />
+                    </div>
+                    <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+                      <SelectTrigger className="w-32">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الدورات</SelectItem>
+                        <SelectItem value="active">نشطة</SelectItem>
+                        <SelectItem value="upcoming">قادمة</SelectItem>
+                        <SelectItem value="completed">مكتملة</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button onClick={() => setShowAddCourse(true)} className="gap-2">
+                      <Plus className="w-4 h-4" />
+                      إضافة دورة
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="grid gap-4">
-                  {courses.map((course) => (
+                  {courses
+                    .filter(course => 
+                      (selectedFilter === 'all' || course.status === selectedFilter) &&
+                      (searchTerm === '' || course.title.includes(searchTerm) || course.category.includes(searchTerm))
+                    )
+                    .map((course) => (
                     <Card key={course.id} className="hover:shadow-lg transition-shadow">
                       <CardContent className="p-6">
                         <div className="flex justify-between items-start">
-                          <div className="space-y-2">
-                            <h4 className="font-bold text-lg">{course.title}</h4>
+                          <div className="space-y-3 flex-1">
+                            <div className="flex items-center gap-3">
+                              <h4 className="font-bold text-lg">{course.title}</h4>
+                              {getLevelBadge(course.level)}
+                              {getStatusBadge(course.status)}
+                            </div>
                             <p className="text-gray-600">{course.description}</p>
-                            <div className="flex gap-4 text-sm">
-                              <span>المدرب: {course.instructor}</span>
-                              <span>المدة: {course.duration}</span>
-                              <span>المسجلين: {course.enrolled}/{course.capacity}</span>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <span><strong>المدرب:</strong> {course.instructor}</span>
+                              <span><strong>المدة:</strong> {course.duration}</span>
+                              <span><strong>المسجلين:</strong> {course.enrolled}/{course.capacity}</span>
+                              <span><strong>التكلفة:</strong> {course.price} ريال</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-600">التقييم:</span>
+                              <div className="flex gap-1">
+                                {course.rating && renderStars(course.rating)}
+                              </div>
+                              <span className="text-sm text-gray-600">({course.rating})</span>
                             </div>
                           </div>
                           <div className="flex gap-2 items-center">
-                            {getStatusBadge(course.status)}
-                            <Button size="sm" variant="outline">تفاصيل</Button>
+                            <Button size="sm" variant="outline" onClick={() => setEditingCourse(course)}>
+                              <Edit2 className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="destructive">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    هل أنت متأكد من حذف هذه الدورة؟ هذا الإجراء لا يمكن التراجع عنه.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => console.log('حذف الدورة:', course.id)}>
+                                    حذف
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </div>
                         </div>
                       </CardContent>
@@ -456,24 +887,93 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                 </div>
               </TabsContent>
 
-              {/* Other placeholder tabs */}
-              <TabsContent value="enrollments" className="p-6">
-                <div className="space-y-4">
+              {/* Enrollments Tab */}
+              <TabsContent value="enrollments" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">تسجيلات المتدربين</h3>
+                  <div className="flex gap-2">
+                    <div className="relative">
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Input
+                        placeholder="البحث في التسجيلات..."
+                        className="pr-10 w-64"
+                      />
+                    </div>
+                    <Button onClick={() => setShowEnrollDialog(true)} className="gap-2">
+                      <Plus className="w-4 h-4" />
+                      تسجيل جديد
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
                   {enrollments.map((enrollment) => (
                     <Card key={enrollment.id} className="hover:shadow-lg transition-shadow">
                       <CardContent className="p-6">
                         <div className="flex justify-between items-start">
-                          <div className="space-y-2">
-                            <h4 className="font-bold text-lg">{enrollment.employeeName}</h4>
-                            <p className="text-gray-600">{enrollment.courseTitle}</p>
-                            <div className="flex gap-4 text-sm">
-                              <span>القسم: {enrollment.department}</span>
-                              <span>التقدم: {enrollment.progress}%</span>
+                          <div className="space-y-3 flex-1">
+                            <div className="flex items-center gap-3">
+                              <h4 className="font-bold text-lg">{enrollment.employeeName}</h4>
+                              {getStatusBadge(enrollment.status)}
+                            </div>
+                            <p className="text-gray-600"><strong>الدورة:</strong> {enrollment.courseTitle}</p>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <span><strong>رقم الموظف:</strong> {enrollment.employeeId}</span>
+                              <span><strong>القسم:</strong> {enrollment.department}</span>
+                              <span><strong>تاريخ التسجيل:</strong> {enrollment.enrollmentDate}</span>
+                              {enrollment.completionDate && (
+                                <span><strong>تاريخ الإكمال:</strong> {enrollment.completionDate}</span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <div className="flex-1">
+                                <div className="flex justify-between text-sm mb-1">
+                                  <span>التقدم</span>
+                                  <span>{enrollment.progress}%</span>
+                                </div>
+                                <div className="w-full bg-gray-200 rounded-full h-2">
+                                  <div 
+                                    className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                                    style={{ width: `${enrollment.progress}%` }}
+                                  ></div>
+                                </div>
+                              </div>
+                              {enrollment.grade && (
+                                <div className="text-center">
+                                  <span className="text-2xl font-bold text-green-600">{enrollment.grade}%</span>
+                                  <p className="text-xs text-gray-500">الدرجة</p>
+                                </div>
+                              )}
                             </div>
                           </div>
                           <div className="flex gap-2 items-center">
-                            {getStatusBadge(enrollment.status)}
-                            <Button size="sm" variant="outline">عرض</Button>
+                            <Button size="sm" variant="outline">
+                              <Edit2 className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="destructive">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    هل أنت متأكد من حذف هذا التسجيل؟ هذا الإجراء لا يمكن التراجع عنه.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => console.log('حذف التسجيل:', enrollment.id)}>
+                                    حذف
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
                           </div>
                         </div>
                       </CardContent>
@@ -482,32 +982,590 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                 </div>
               </TabsContent>
 
-              <TabsContent value="certificates" className="p-6">
-                <div className="text-center py-12">
-                  <Award className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">إدارة الشهادات</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+              {/* Certificates Tab */}
+              <TabsContent value="certificates" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">إدارة الشهادات</h3>
+                  <div className="flex gap-2">
+                    <div className="relative">
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Input
+                        placeholder="البحث في الشهادات..."
+                        className="pr-10 w-64"
+                      />
+                    </div>
+                    <Button className="gap-2">
+                      <Download className="w-4 h-4" />
+                      تصدير التقرير
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  {certificates.map((certificate) => (
+                    <Card key={certificate.id} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3 flex-1">
+                            <div className="flex items-center gap-3">
+                              <Award className="w-6 h-6 text-yellow-500" />
+                              <h4 className="font-bold text-lg">{certificate.employeeName}</h4>
+                              {getStatusBadge(certificate.status)}
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                              <span><strong>رقم الموظف:</strong> {certificate.employeeId}</span>
+                              <span><strong>الدورة:</strong> {certificate.courseTitle}</span>
+                              <span><strong>المدرب:</strong> {certificate.instructorName}</span>
+                              <span><strong>رقم الشهادة:</strong> {certificate.certificateNumber}</span>
+                              <span><strong>تاريخ الإصدار:</strong> {certificate.issueDate}</span>
+                              {certificate.expiryDate && (
+                                <span><strong>تاريخ الانتهاء:</strong> {certificate.expiryDate}</span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium">الدرجة النهائية:</span>
+                                <Badge variant="outline" className="bg-green-100 text-green-700 border-green-300">
+                                  {certificate.grade}%
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex gap-2 items-center">
+                            <Button size="sm" variant="outline">
+                              <Download className="w-4 h-4" />
+                              تحميل
+                            </Button>
+                            <Button size="sm" variant="outline">
+                              <Eye className="w-4 h-4" />
+                              عرض
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="destructive">
+                                  <X className="w-4 h-4" />
+                                  إلغاء
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>إلغاء الشهادة</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    هل أنت متأكد من إلغاء هذه الشهادة؟ هذا الإجراء سيجعل الشهادة غير صالحة.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>تراجع</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => console.log('إلغاء الشهادة:', certificate.id)}>
+                                    إلغاء الشهادة
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </TabsContent>
 
-              <TabsContent value="instructors" className="p-6">
-                <div className="text-center py-12">
-                  <User className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">إدارة المدربين</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+              {/* Instructors Tab */}
+              <TabsContent value="instructors" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">إدارة المدربين</h3>
+                  <div className="flex gap-2">
+                    <div className="relative">
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Input
+                        placeholder="البحث في المدربين..."
+                        className="pr-10 w-64"
+                      />
+                    </div>
+                    <Button onClick={() => setShowAddInstructor(true)} className="gap-2">
+                      <Plus className="w-4 h-4" />
+                      إضافة مدرب
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  {instructors.map((instructor) => (
+                    <Card key={instructor.id} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-3 flex-1">
+                            <div className="flex items-center gap-3">
+                              <User className="w-6 h-6 text-blue-500" />
+                              <h4 className="font-bold text-lg">{instructor.name}</h4>
+                              {getStatusBadge(instructor.status)}
+                            </div>
+                            <p className="text-gray-600">{instructor.bio}</p>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                              <span><strong>البريد:</strong> {instructor.email}</span>
+                              <span><strong>الهاتف:</strong> {instructor.phone}</span>
+                              <span><strong>سنوات الخبرة:</strong> {instructor.experience}</span>
+                              <span><strong>تاريخ الانضمام:</strong> {instructor.joinDate}</span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium">التخصصات:</span>
+                                <div className="flex flex-wrap gap-2">
+                                  {instructor.specialization.map((spec, index) => (
+                                    <Badge key={index} variant="secondary" className="text-xs">
+                                      {spec}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm text-gray-600">التقييم:</span>
+                                  <div className="flex gap-1">
+                                    {renderStars(instructor.rating)}
+                                  </div>
+                                  <span className="text-sm text-gray-600">({instructor.rating})</span>
+                                </div>
+                                <span className="text-sm text-gray-600">
+                                  <strong>{instructor.coursesCount}</strong> دورة - <strong>{instructor.studentsCount}</strong> طالب
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex gap-2 items-center">
+                            <Button size="sm" variant="outline" onClick={() => setEditingInstructor(instructor)}>
+                              <Edit2 className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="outline">
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button size="sm" variant="destructive">
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    هل أنت متأكد من حذف هذا المدرب؟ هذا الإجراء لا يمكن التراجع عنه.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                                  <AlertDialogAction onClick={() => console.log('حذف المدرب:', instructor.id)}>
+                                    حذف
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </TabsContent>
 
-              <TabsContent value="reports" className="p-6">
-                <div className="text-center py-12">
-                  <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-xl font-medium text-gray-600 mb-2">تقارير التدريب</h3>
-                  <p className="text-gray-500">سيتم تطوير هذا القسم قريبًا</p>
+              {/* Reports Tab */}
+              <TabsContent value="reports" className="p-6 space-y-6">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-bold">تقارير التدريب</h3>
+                  <Button className="gap-2">
+                    <Download className="w-4 h-4" />
+                    تصدير جميع التقارير
+                  </Button>
                 </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {[
+                    {
+                      title: 'تقرير الدورات الشامل',
+                      description: 'تقرير مفصل عن جميع الدورات وحالتها',
+                      icon: BookOpen,
+                      color: 'text-blue-600',
+                      bg: 'bg-blue-50',
+                      border: 'border-blue-200'
+                    },
+                    {
+                      title: 'تقرير أداء المتدربين',
+                      description: 'إحصائيات شاملة عن تقدم وأداء المتدربين',
+                      icon: Users,
+                      color: 'text-green-600',
+                      bg: 'bg-green-50',
+                      border: 'border-green-200'
+                    },
+                    {
+                      title: 'تقرير الشهادات الصادرة',
+                      description: 'قائمة بجميع الشهادات المصدرة والمعلقة',
+                      icon: Award,
+                      color: 'text-purple-600',
+                      bg: 'bg-purple-50',
+                      border: 'border-purple-200'
+                    },
+                    {
+                      title: 'تقرير أداء المدربين',
+                      description: 'إحصائيات وتقييمات المدربين',
+                      icon: User,
+                      color: 'text-orange-600',
+                      bg: 'bg-orange-50',
+                      border: 'border-orange-200'
+                    },
+                    {
+                      title: 'التقرير المالي',
+                      description: 'تقرير الإيرادات والتكاليف',
+                      icon: BarChart3,
+                      color: 'text-indigo-600',
+                      bg: 'bg-indigo-50',
+                      border: 'border-indigo-200'
+                    },
+                    {
+                      title: 'تقرير مخصص',
+                      description: 'إنشاء تقرير مخصص حسب المعايير',
+                      icon: Settings,
+                      color: 'text-gray-600',
+                      bg: 'bg-gray-50',
+                      border: 'border-gray-200'
+                    }
+                  ].map((report, index) => (
+                    <Card key={index} className={`hover:shadow-lg transition-all cursor-pointer ${report.bg} ${report.border}`}>
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          <div className={`p-3 rounded-xl ${report.bg} border ${report.border}`}>
+                            <report.icon className={`w-6 h-6 ${report.color}`} />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-bold text-lg mb-2">{report.title}</h4>
+                            <p className="text-sm text-gray-600 mb-4">{report.description}</p>
+                            <div className="flex gap-2">
+                              <Button size="sm" variant="outline" className="gap-2">
+                                <Eye className="w-4 h-4" />
+                                عرض
+                              </Button>
+                              <Button size="sm" variant="outline" className="gap-2">
+                                <Download className="w-4 h-4" />
+                                تحميل
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>إحصائيات سريعة</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-blue-600">{courses.length}</p>
+                        <p className="text-sm text-gray-600">إجمالي الدورات</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-green-600">{enrollments.length}</p>
+                        <p className="text-sm text-gray-600">إجمالي التسجيلات</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-purple-600">{certificates.length}</p>
+                        <p className="text-sm text-gray-600">الشهادات الصادرة</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-orange-600">{instructors.length}</p>
+                        <p className="text-sm text-gray-600">المدربين النشطين</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
             </Tabs>
           </CardContent>
         </Card>
+
+        {/* Add Course Dialog */}
+        <Dialog open={showAddCourse} onOpenChange={setShowAddCourse}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>إضافة دورة تدريبية جديدة</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title">عنوان الدورة</Label>
+                  <Input
+                    id="title"
+                    value={newCourse.title}
+                    onChange={(e) => setNewCourse({...newCourse, title: e.target.value})}
+                    placeholder="أدخل عنوان الدورة"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="englishTitle">العنوان الإنجليزي</Label>
+                  <Input
+                    id="englishTitle"
+                    value={newCourse.englishTitle}
+                    onChange={(e) => setNewCourse({...newCourse, englishTitle: e.target.value})}
+                    placeholder="Enter English title"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="description">وصف الدورة</Label>
+                <Textarea
+                  id="description"
+                  value={newCourse.description}
+                  onChange={(e) => setNewCourse({...newCourse, description: e.target.value})}
+                  placeholder="أدخل وصف مفصل للدورة"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="instructor">المدرب</Label>
+                  <Select value={newCourse.instructor} onValueChange={(value) => setNewCourse({...newCourse, instructor: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر المدرب" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {instructors.map((instructor) => (
+                        <SelectItem key={instructor.id} value={instructor.name}>
+                          {instructor.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="category">فئة الدورة</Label>
+                  <Select value={newCourse.category} onValueChange={(value) => setNewCourse({...newCourse, category: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="اختر الفئة" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="إدارة">إدارة</SelectItem>
+                      <SelectItem value="قيادة">قيادة</SelectItem>
+                      <SelectItem value="تقنية">تقنية</SelectItem>
+                      <SelectItem value="تسويق">تسويق</SelectItem>
+                      <SelectItem value="مالية">مالية</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="duration">المدة</Label>
+                  <Input
+                    id="duration"
+                    value={newCourse.duration}
+                    onChange={(e) => setNewCourse({...newCourse, duration: e.target.value})}
+                    placeholder="مثال: 40 ساعة"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="capacity">السعة القصوى</Label>
+                  <Input
+                    id="capacity"
+                    type="number"
+                    value={newCourse.capacity}
+                    onChange={(e) => setNewCourse({...newCourse, capacity: parseInt(e.target.value)})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="price">التكلفة (ريال)</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={newCourse.price}
+                    onChange={(e) => setNewCourse({...newCourse, price: parseInt(e.target.value)})}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="format">نوع التدريب</Label>
+                  <Select value={newCourse.format} onValueChange={(value: 'online' | 'offline' | 'hybrid') => setNewCourse({...newCourse, format: value})}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="online">عبر الإنترنت</SelectItem>
+                      <SelectItem value="offline">حضوري</SelectItem>
+                      <SelectItem value="hybrid">مدمج</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="level">المستوى</Label>
+                  <Select value={newCourse.level} onValueChange={(value: 'beginner' | 'intermediate' | 'advanced') => setNewCourse({...newCourse, level: value})}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="beginner">مبتدئ</SelectItem>
+                      <SelectItem value="intermediate">متوسط</SelectItem>
+                      <SelectItem value="advanced">متقدم</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="startDate">تاريخ البداية</Label>
+                  <Input
+                    id="startDate"
+                    type="date"
+                    value={newCourse.startDate}
+                    onChange={(e) => setNewCourse({...newCourse, startDate: e.target.value})}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={() => setShowAddCourse(false)}>
+                  إلغاء
+                </Button>
+                <Button onClick={handleAddCourse} className="gap-2">
+                  <Save className="w-4 h-4" />
+                  حفظ الدورة
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Instructor Dialog */}
+        <Dialog open={showAddInstructor} onOpenChange={setShowAddInstructor}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>إضافة مدرب جديد</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="instructorName">اسم المدرب</Label>
+                  <Input
+                    id="instructorName"
+                    value={newInstructor.name}
+                    onChange={(e) => setNewInstructor({...newInstructor, name: e.target.value})}
+                    placeholder="أدخل اسم المدرب"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="instructorEmail">البريد الإلكتروني</Label>
+                  <Input
+                    id="instructorEmail"
+                    type="email"
+                    value={newInstructor.email}
+                    onChange={(e) => setNewInstructor({...newInstructor, email: e.target.value})}
+                    placeholder="instructor@example.com"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="instructorPhone">رقم الهاتف</Label>
+                  <Input
+                    id="instructorPhone"
+                    value={newInstructor.phone}
+                    onChange={(e) => setNewInstructor({...newInstructor, phone: e.target.value})}
+                    placeholder="+966xxxxxxxxx"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="instructorExperience">سنوات الخبرة</Label>
+                  <Input
+                    id="instructorExperience"
+                    type="number"
+                    value={newInstructor.experience}
+                    onChange={(e) => setNewInstructor({...newInstructor, experience: parseInt(e.target.value)})}
+                    placeholder="5"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="instructorBio">نبذة تعريفية</Label>
+                <Textarea
+                  id="instructorBio"
+                  value={newInstructor.bio}
+                  onChange={(e) => setNewInstructor({...newInstructor, bio: e.target.value})}
+                  placeholder="أدخل نبذة تعريفية عن المدرب وخبراته"
+                />
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={() => setShowAddInstructor(false)}>
+                  إلغاء
+                </Button>
+                <Button onClick={handleAddInstructor} className="gap-2">
+                  <Save className="w-4 h-4" />
+                  حفظ المدرب
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Enroll Dialog */}
+        <Dialog open={showEnrollDialog} onOpenChange={setShowEnrollDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>تسجيل متدرب جديد</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="employeeName">اسم الموظف</Label>
+                  <Input
+                    id="employeeName"
+                    value={newEnrollment.employeeName}
+                    onChange={(e) => setNewEnrollment({...newEnrollment, employeeName: e.target.value})}
+                    placeholder="أدخل اسم الموظف"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="employeeId">رقم الموظف</Label>
+                  <Input
+                    id="employeeId"
+                    value={newEnrollment.employeeId}
+                    onChange={(e) => setNewEnrollment({...newEnrollment, employeeId: e.target.value})}
+                    placeholder="EMP001"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="courseSelect">الدورة التدريبية</Label>
+                <Select value={newEnrollment.courseId} onValueChange={(value) => setNewEnrollment({...newEnrollment, courseId: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الدورة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {courses.filter(c => c.status === 'active' || c.status === 'upcoming').map((course) => (
+                      <SelectItem key={course.id} value={course.id}>
+                        {course.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="department">القسم</Label>
+                <Input
+                  id="department"
+                  value={newEnrollment.department}
+                  onChange={(e) => setNewEnrollment({...newEnrollment, department: e.target.value})}
+                  placeholder="أدخل اسم القسم"
+                />
+              </div>
+              <div className="flex justify-end gap-2 pt-4">
+                <Button variant="outline" onClick={() => setShowEnrollDialog(false)}>
+                  إلغاء
+                </Button>
+                <Button onClick={handleEnroll} className="gap-2">
+                  <Save className="w-4 h-4" />
+                  تسجيل
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
