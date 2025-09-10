@@ -63,6 +63,15 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [newDepartmentForm, setNewDepartmentForm] = useState({
+    name: '',
+    description: '',
+    manager: '',
+    budget: '',
+    type: ''
+  });
 
   // Mock data
   const departments = [
@@ -109,16 +118,96 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
   ];
 
   const handleExport = () => {
+    // Create and download Excel file with department data
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + "القسم,عدد الموظفين,الأداء,الميزانية\n"
+      + departments.map(dept => 
+          `${dept.name},${dept.employeeCount},${dept.performance}%,${dept.budget}`
+        ).join("\n");
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `departments_report_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
     toast({
-      title: "تصدير البيانات",
-      description: "جاري تصدير البيانات إلى ملف Excel...",
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير بيانات الأقسام إلى ملف CSV",
     });
   };
 
   const handlePrint = () => {
+    const printWindow = window.open('', '_blank');
+    printWindow?.document.write(`
+      <html>
+        <head><title>تقرير الأقسام</title></head>
+        <body>
+          <h1>تقرير إدارة الأقسام</h1>
+          <table border="1">
+            <tr><th>القسم</th><th>عدد الموظفين</th><th>الأداء</th><th>الميزانية</th></tr>
+            ${departments.map(dept => 
+              `<tr><td>${dept.name}</td><td>${dept.employeeCount}</td><td>${dept.performance}%</td><td>${dept.budget}</td></tr>`
+            ).join('')}
+          </table>
+        </body>
+      </html>
+    `);
+    printWindow?.print();
+    
     toast({
-      title: "طباعة التقرير", 
-      description: "جاري إعداد التقرير للطباعة...",
+      title: "جاري الطباعة", 
+      description: "تم إرسال التقرير إلى الطابعة",
+    });
+  };
+
+  const handleAddDepartment = () => {
+    if (!newDepartmentForm.name || !newDepartmentForm.type) {
+      toast({
+        title: "خطأ في البيانات",
+        description: "يرجى ملء الحقول المطلوبة",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Add default values if not provided
+    const newDepartment = {
+      id: Date.now().toString(),
+      name: newDepartmentForm.name,
+      description: newDepartmentForm.description || 'وصف القسم الجديد',
+      employeeCount: 0,
+      performance: 85, // Default performance
+      budget: parseInt(newDepartmentForm.budget) || 100000, // Default budget
+      type: newDepartmentForm.type,
+      manager: newDepartmentForm.manager || 'غير محدد'
+    };
+
+    // Here you would typically add to your state or API
+    toast({
+      title: "تم إنشاء القسم بنجاح",
+      description: `تم إضافة قسم ${newDepartment.name} بنجاح`,
+    });
+
+    setIsAddDialogOpen(false);
+    setNewDepartmentForm({ name: '', description: '', manager: '', budget: '', type: '' });
+  };
+
+  const handleNotifications = () => {
+    setIsNotificationsOpen(!isNotificationsOpen);
+    toast({
+      title: "الإشعارات",
+      description: "لديك 3 إشعارات جديدة",
+    });
+  };
+
+  const handleSettings = () => {
+    setIsSettingsOpen(!isSettingsOpen);
+    toast({
+      title: "الإعدادات",
+      description: "فتح إعدادات النظام",
     });
   };
 
@@ -131,7 +220,8 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
         </Button>
         <div className="h-8 w-px bg-gray-300"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group cursor-pointer"
+               onClick={() => setActiveTab('dashboard')}>
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
             <Building className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
             <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
@@ -147,18 +237,105 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+        {/* Settings Button */}
+        <Button variant="outline" size="sm" onClick={handleSettings} className="border-gray-300 hover:bg-blue-50 hover:border-blue-300">
+          <Settings className="h-4 w-4 ml-2" />
+          الإعدادات
+        </Button>
+        
+        {/* Notifications Button */}
+        <Button variant="outline" size="sm" onClick={handleNotifications} className="border-gray-300 hover:bg-yellow-50 hover:border-yellow-300">
+          <Bell className="h-4 w-4 ml-2" />
+          الإشعارات
+        </Button>
+
+        {/* Print Button */}
+        <Button variant="outline" size="sm" onClick={handlePrint} className="border-gray-300 hover:bg-purple-50 hover:border-purple-300">
+          <FileText className="h-4 w-4 ml-2" />
+          طباعة
+        </Button>
+
+        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium cursor-pointer"
+               onClick={() => setActiveTab('reports')}>
           <Building className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+        
+        <Button onClick={handleExport} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
           <Download className="h-4 w-4 ml-2" />
           تصدير التقارير
         </Button>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Plus className="h-4 w-4 ml-2" />
-          قسم جديد
-        </Button>
+        
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <Plus className="h-4 w-4 ml-2" />
+              قسم جديد
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>إضافة قسم جديد</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="name">اسم القسم *</Label>
+                <Input
+                  id="name"
+                  value={newDepartmentForm.name}
+                  onChange={(e) => setNewDepartmentForm(prev => ({...prev, name: e.target.value}))}
+                  placeholder="أدخل اسم القسم"
+                />
+              </div>
+              <div>
+                <Label htmlFor="type">نوع القسم *</Label>
+                <Select value={newDepartmentForm.type} onValueChange={(value) => setNewDepartmentForm(prev => ({...prev, type: value}))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر نوع القسم" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="تقني">تقني</SelectItem>
+                    <SelectItem value="إداري">إداري</SelectItem>
+                    <SelectItem value="عمليات">عمليات</SelectItem>
+                    <SelectItem value="دعم">دعم</SelectItem>
+                    <SelectItem value="استراتيجي">استراتيجي</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="manager">مدير القسم</Label>
+                <Input
+                  id="manager"
+                  value={newDepartmentForm.manager}
+                  onChange={(e) => setNewDepartmentForm(prev => ({...prev, manager: e.target.value}))}
+                  placeholder="اسم مدير القسم (اختياري)"
+                />
+              </div>
+              <div>
+                <Label htmlFor="budget">الميزانية</Label>
+                <Input
+                  id="budget"
+                  type="number"
+                  value={newDepartmentForm.budget}
+                  onChange={(e) => setNewDepartmentForm(prev => ({...prev, budget: e.target.value}))}
+                  placeholder="100000 (افتراضي)"
+                />
+              </div>
+              <div>
+                <Label htmlFor="description">الوصف</Label>
+                <Textarea
+                  id="description"
+                  value={newDepartmentForm.description}
+                  onChange={(e) => setNewDepartmentForm(prev => ({...prev, description: e.target.value}))}
+                  placeholder="وصف القسم الجديد (اختياري)"
+                />
+              </div>
+              <Button onClick={handleAddDepartment} className="w-full">
+                إنشاء القسم
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
@@ -403,6 +580,117 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Notifications Dialog */}
+        <Dialog open={isNotificationsOpen} onOpenChange={setIsNotificationsOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Bell className="h-5 w-5" />
+                الإشعارات
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex items-center gap-2 mb-1">
+                  <Info className="h-4 w-4 text-blue-600" />
+                  <span className="font-semibold text-blue-800">قسم جديد</span>
+                </div>
+                <p className="text-sm text-blue-700">تم إضافة قسم الذكاء الاصطناعي بنجاح</p>
+                <p className="text-xs text-blue-600 mt-1">منذ ساعتين</p>
+              </div>
+              <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
+                <div className="flex items-center gap-2 mb-1">
+                  <AlertTriangle className="h-4 w-4 text-orange-600" />
+                  <span className="font-semibold text-orange-800">تحديث مطلوب</span>
+                </div>
+                <p className="text-sm text-orange-700">قسم العمليات يحتاج إعادة تقييم الميزانية</p>
+                <p className="text-xs text-orange-600 mt-1">منذ يوم واحد</p>
+              </div>
+              <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                <div className="flex items-center gap-2 mb-1">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  <span className="font-semibold text-green-800">إنجاز</span>
+                </div>
+                <p className="text-sm text-green-700">تم تحديث هيكل قسم الموارد البشرية</p>
+                <p className="text-xs text-green-600 mt-1">منذ 3 أيام</p>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Settings Dialog */}
+        <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Settings className="h-5 w-5" />
+                إعدادات النظام
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>لغة النظام</Label>
+                <Select defaultValue="ar">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ar">العربية</SelectItem>
+                    <SelectItem value="en">English</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>المنطقة الزمنية</Label>
+                <Select defaultValue="riyadh">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="riyadh">الرياض (GMT+3)</SelectItem>
+                    <SelectItem value="dubai">دبي (GMT+4)</SelectItem>
+                    <SelectItem value="cairo">القاهرة (GMT+2)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>العملة الافتراضية</Label>
+                <Select defaultValue="sar">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sar">ريال سعودي (SAR)</SelectItem>
+                    <SelectItem value="aed">درهم إماراتي (AED)</SelectItem>
+                    <SelectItem value="egp">جنيه مصري (EGP)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-center justify-between">
+                <Label>الإشعارات</Label>
+                <Button variant="outline" size="sm">
+                  <Bell className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center justify-between">
+                <Label>التزامن التلقائي</Label>
+                <Button variant="outline" size="sm">
+                  <Activity className="h-4 w-4" />
+                </Button>
+              </div>
+              <Button onClick={() => {
+                setIsSettingsOpen(false);
+                toast({
+                  title: "تم حفظ الإعدادات",
+                  description: "تم حفظ إعدادات النظام بنجاح"
+                });
+              }} className="w-full">
+                حفظ الإعدادات
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
