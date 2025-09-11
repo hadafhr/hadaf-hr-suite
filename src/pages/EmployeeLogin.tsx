@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,7 +12,11 @@ import { supabase } from '@/integrations/supabase/client';
 
 const EmployeeLogin: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { signIn } = useAuth();
+  
+  // Get the redirect path from state if available
+  const redirectPath = location.state?.from || '/employee-portal';
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -36,7 +40,7 @@ const EmployeeLogin: React.FC = () => {
         // If auth fails, check if this is the test account
         if (formData.email === 'employee@boud.com' && formData.password === 'Test123!') {
           toast.success('مرحباً بك في نظام الخدمة الذاتية (حساب تجريبي)');
-          navigate('/employee-portal');
+          navigate(redirectPath);
           return;
         }
         
@@ -67,7 +71,7 @@ const EmployeeLogin: React.FC = () => {
       }
 
       toast.success('مرحباً بك في نظام الخدمة الذاتية');
-      navigate('/employee-portal');
+      navigate(redirectPath);
     } catch (error) {
       console.error('Login error:', error);
       toast.error('حدث خطأ أثناء تسجيل الدخول');
