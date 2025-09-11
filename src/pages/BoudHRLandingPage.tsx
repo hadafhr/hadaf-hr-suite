@@ -19,6 +19,7 @@ import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 import { BoudHRAssistant } from '@/components/BoudHRAssistant';
 import { VisionSection } from '@/components/about/VisionSection';
+import { BoudLogo } from '@/components/BoudLogo';
 
 import { TeamSection } from '@/components/about/TeamSection';
 import { PartnersSection } from '@/components/about/PartnersSection';
@@ -308,9 +309,7 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center shadow-lg">
-                  <Building2 className="w-6 h-6 text-white" />
-                </div>
+                <BoudLogo size="sm" />
                 <div>
                   <h1 className="text-xl font-bold text-foreground">بُعد HR</h1>
                   <p className="text-xs text-muted-foreground">منصة الموارد البشرية المتكاملة</p>
