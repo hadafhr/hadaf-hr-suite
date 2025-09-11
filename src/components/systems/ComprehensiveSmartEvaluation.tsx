@@ -532,12 +532,7 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
         </h2>
         <Button 
           className="bg-primary"
-          onClick={() => {
-            toast({
-              title: "إنشاء برنامج تقييم جديد",
-              description: "سيتم فتح نموذج إنشاء برنامج تقييم جديد",
-            });
-          }}
+          onClick={() => setIsNewProgramDialogOpen(true)}
         >
           <Plus className="h-4 w-4 ml-2" />
           برنامج جديد
@@ -545,11 +540,18 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          { name: 'التقييم السنوي 2024', type: 'annual', startDate: '2024-01-01', endDate: '2024-12-31', status: 'نشط' },
-          { name: 'التقييم النصف سنوي', type: 'semi_annual', startDate: '2024-06-01', endDate: '2024-11-30', status: 'قيد التنفيذ' },
-          { name: 'التقييم الربع سنوي Q1', type: 'quarterly', startDate: '2024-01-01', endDate: '2024-03-31', status: 'مكتمل' },
-        ].map((program, index) => (
+        {isLoadingPrograms ? (
+          <div className="col-span-full text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-2 text-muted-foreground">جاري تحميل برامج التقييم...</p>
+          </div>
+        ) : evaluationPrograms.length === 0 ? (
+          <div className="col-span-full text-center py-8">
+            <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <p className="text-lg font-medium text-muted-foreground mb-2">لا توجد برامج تقييم</p>
+            <p className="text-sm text-muted-foreground">انقر على "برنامج جديد" لإنشاء برنامج تقييم جديد</p>
+          </div>
+        ) : evaluationPrograms.map((program, index) => (
           <Card key={index} className="hover:shadow-lg transition-all duration-300">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
@@ -1777,6 +1779,28 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* New Evaluation Program Dialog */}
+      <Dialog open={isNewProgramDialogOpen} onOpenChange={setIsNewProgramDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Plus className="h-5 w-5" />
+              إنشاء برنامج تقييم جديد
+            </DialogTitle>
+            <DialogDescription>
+              قم بإنشاء برنامج تقييم جديد للموظفين
+            </DialogDescription>
+          </DialogHeader>
+          <NewEvaluationProgramForm 
+            onSuccess={() => {
+              setIsNewProgramDialogOpen(false);
+              fetchEvaluationPrograms();
+            }}
+            onCancel={() => setIsNewProgramDialogOpen(false)}
+          />
         </DialogContent>
       </Dialog>
     </div>
