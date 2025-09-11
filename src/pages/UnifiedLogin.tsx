@@ -138,7 +138,7 @@ export const UnifiedLogin: React.FC = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate('/')}
               className="hover:bg-primary/10 text-foreground"
             >
               <ArrowLeft className={`h-4 w-4 ${isArabic ? 'ml-2' : 'mr-2'}`} />
