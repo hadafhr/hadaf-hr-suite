@@ -403,6 +403,68 @@ export type Database = {
         }
         Relationships: []
       }
+      automated_decisions: {
+        Row: {
+          automatic_amount: number | null
+          created_at: string | null
+          decision_details: Json
+          decision_type: Database["public"]["Enums"]["decision_type"]
+          employee_id: string
+          evaluation_id: string | null
+          executed_at: string | null
+          hr_approved_at: string | null
+          hr_approved_by: string | null
+          hr_rejection_reason: string | null
+          id: string
+          payroll_updated: boolean | null
+          score_threshold: number | null
+          status: Database["public"]["Enums"]["decision_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          automatic_amount?: number | null
+          created_at?: string | null
+          decision_details: Json
+          decision_type: Database["public"]["Enums"]["decision_type"]
+          employee_id: string
+          evaluation_id?: string | null
+          executed_at?: string | null
+          hr_approved_at?: string | null
+          hr_approved_by?: string | null
+          hr_rejection_reason?: string | null
+          id?: string
+          payroll_updated?: boolean | null
+          score_threshold?: number | null
+          status?: Database["public"]["Enums"]["decision_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          automatic_amount?: number | null
+          created_at?: string | null
+          decision_details?: Json
+          decision_type?: Database["public"]["Enums"]["decision_type"]
+          employee_id?: string
+          evaluation_id?: string | null
+          executed_at?: string | null
+          hr_approved_at?: string | null
+          hr_approved_by?: string | null
+          hr_rejection_reason?: string | null
+          id?: string
+          payroll_updated?: boolean | null
+          score_threshold?: number | null
+          status?: Database["public"]["Enums"]["decision_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automated_decisions_evaluation_id_fkey"
+            columns: ["evaluation_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bank_accounts: {
         Row: {
           account_number: string
@@ -2565,75 +2627,53 @@ export type Database = {
       }
       development_plans: {
         Row: {
-          actual_completion_date: string | null
-          approval_date: string | null
-          approved_by: string | null
-          budget_allocated: number | null
-          budget_used: number | null
-          company_id: string
-          created_at: string
+          created_at: string | null
           created_by: string | null
-          description: string | null
           development_activities: Json | null
           employee_id: string
+          evaluation_id: string | null
           id: string
-          mentor_id: string | null
-          objective: string | null
-          progress_percentage: number | null
-          skills_to_develop: string[] | null
-          start_date: string
           status: string | null
-          target_completion_date: string
-          title: string
-          updated_at: string
+          timeline_months: number | null
+          training_recommendations: Json | null
+          updated_at: string | null
+          weak_indicators: string[] | null
         }
         Insert: {
-          actual_completion_date?: string | null
-          approval_date?: string | null
-          approved_by?: string | null
-          budget_allocated?: number | null
-          budget_used?: number | null
-          company_id: string
-          created_at?: string
+          created_at?: string | null
           created_by?: string | null
-          description?: string | null
           development_activities?: Json | null
           employee_id: string
+          evaluation_id?: string | null
           id?: string
-          mentor_id?: string | null
-          objective?: string | null
-          progress_percentage?: number | null
-          skills_to_develop?: string[] | null
-          start_date?: string
           status?: string | null
-          target_completion_date: string
-          title: string
-          updated_at?: string
+          timeline_months?: number | null
+          training_recommendations?: Json | null
+          updated_at?: string | null
+          weak_indicators?: string[] | null
         }
         Update: {
-          actual_completion_date?: string | null
-          approval_date?: string | null
-          approved_by?: string | null
-          budget_allocated?: number | null
-          budget_used?: number | null
-          company_id?: string
-          created_at?: string
+          created_at?: string | null
           created_by?: string | null
-          description?: string | null
           development_activities?: Json | null
           employee_id?: string
+          evaluation_id?: string | null
           id?: string
-          mentor_id?: string | null
-          objective?: string | null
-          progress_percentage?: number | null
-          skills_to_develop?: string[] | null
-          start_date?: string
           status?: string | null
-          target_completion_date?: string
-          title?: string
-          updated_at?: string
+          timeline_months?: number | null
+          training_recommendations?: Json | null
+          updated_at?: string | null
+          weak_indicators?: string[] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "development_plans_evaluation_id_fkey"
+            columns: ["evaluation_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       disciplinary_actions: {
         Row: {
@@ -2818,6 +2858,53 @@ export type Database = {
             columns: ["service_id"]
             isOneToOne: false
             referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      electronic_signatures: {
+        Row: {
+          created_at: string | null
+          device_info: string | null
+          evaluation_id: string | null
+          id: string
+          ip_address: string | null
+          signature_data: string | null
+          signature_timestamp: string | null
+          signer_id: string
+          signer_role: string
+          status: Database["public"]["Enums"]["signature_status"] | null
+        }
+        Insert: {
+          created_at?: string | null
+          device_info?: string | null
+          evaluation_id?: string | null
+          id?: string
+          ip_address?: string | null
+          signature_data?: string | null
+          signature_timestamp?: string | null
+          signer_id: string
+          signer_role: string
+          status?: Database["public"]["Enums"]["signature_status"] | null
+        }
+        Update: {
+          created_at?: string | null
+          device_info?: string | null
+          evaluation_id?: string | null
+          id?: string
+          ip_address?: string | null
+          signature_data?: string | null
+          signature_timestamp?: string | null
+          signer_id?: string
+          signer_role?: string
+          status?: Database["public"]["Enums"]["signature_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "electronic_signatures_evaluation_id_fkey"
+            columns: ["evaluation_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations"
             referencedColumns: ["id"]
           },
         ]
@@ -3545,6 +3632,200 @@ export type Database = {
         }
         Relationships: []
       }
+      evaluation_forms: {
+        Row: {
+          created_at: string | null
+          evaluation_factors: Json
+          form_name: string
+          id: string
+          indicators: string[] | null
+          max_score: number | null
+          program_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          evaluation_factors: Json
+          form_name: string
+          id?: string
+          indicators?: string[] | null
+          max_score?: number | null
+          program_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          evaluation_factors?: Json
+          form_name?: string
+          id?: string
+          indicators?: string[] | null
+          max_score?: number | null
+          program_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluation_forms_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "evaluation_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      evaluation_programs: {
+        Row: {
+          company_id: string
+          created_at: string | null
+          created_by: string | null
+          end_date: string
+          evaluation_type: Database["public"]["Enums"]["evaluation_type"]
+          id: string
+          is_active: boolean | null
+          notification_settings: Json | null
+          program_name: string
+          rater_types: Database["public"]["Enums"]["rater_type"][] | null
+          start_date: string
+          target_departments: string[] | null
+          target_positions: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          company_id: string
+          created_at?: string | null
+          created_by?: string | null
+          end_date: string
+          evaluation_type: Database["public"]["Enums"]["evaluation_type"]
+          id?: string
+          is_active?: boolean | null
+          notification_settings?: Json | null
+          program_name: string
+          rater_types?: Database["public"]["Enums"]["rater_type"][] | null
+          start_date: string
+          target_departments?: string[] | null
+          target_positions?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          company_id?: string
+          created_at?: string | null
+          created_by?: string | null
+          end_date?: string
+          evaluation_type?: Database["public"]["Enums"]["evaluation_type"]
+          id?: string
+          is_active?: boolean | null
+          notification_settings?: Json | null
+          program_name?: string
+          rater_types?: Database["public"]["Enums"]["rater_type"][] | null
+          start_date?: string
+          target_departments?: string[] | null
+          target_positions?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      evaluations: {
+        Row: {
+          achievements: Json | null
+          company_id: string
+          competencies: Json | null
+          created_at: string | null
+          created_by: string | null
+          employee_comments: string | null
+          employee_id: string
+          evaluation_duration: string | null
+          evaluation_period_end: string
+          evaluation_period_start: string
+          evaluation_purpose: string | null
+          final_score: number | null
+          form_id: string | null
+          goals: Json | null
+          hr_comments: string | null
+          hr_evaluation_score: number | null
+          id: string
+          indicator_scores: Json | null
+          manager_comments: string | null
+          manager_evaluation_score: number | null
+          manager_recommendation: string | null
+          overall_score: number | null
+          program_id: string | null
+          self_evaluation_score: number | null
+          status: Database["public"]["Enums"]["evaluation_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          achievements?: Json | null
+          company_id: string
+          competencies?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          employee_comments?: string | null
+          employee_id: string
+          evaluation_duration?: string | null
+          evaluation_period_end: string
+          evaluation_period_start: string
+          evaluation_purpose?: string | null
+          final_score?: number | null
+          form_id?: string | null
+          goals?: Json | null
+          hr_comments?: string | null
+          hr_evaluation_score?: number | null
+          id?: string
+          indicator_scores?: Json | null
+          manager_comments?: string | null
+          manager_evaluation_score?: number | null
+          manager_recommendation?: string | null
+          overall_score?: number | null
+          program_id?: string | null
+          self_evaluation_score?: number | null
+          status?: Database["public"]["Enums"]["evaluation_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          achievements?: Json | null
+          company_id?: string
+          competencies?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          employee_comments?: string | null
+          employee_id?: string
+          evaluation_duration?: string | null
+          evaluation_period_end?: string
+          evaluation_period_start?: string
+          evaluation_purpose?: string | null
+          final_score?: number | null
+          form_id?: string | null
+          goals?: Json | null
+          hr_comments?: string | null
+          hr_evaluation_score?: number | null
+          id?: string
+          indicator_scores?: Json | null
+          manager_comments?: string | null
+          manager_evaluation_score?: number | null
+          manager_recommendation?: string | null
+          overall_score?: number | null
+          program_id?: string | null
+          self_evaluation_score?: number | null
+          status?: Database["public"]["Enums"]["evaluation_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluations_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "evaluation_forms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "evaluations_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "evaluation_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       expense_claim_items: {
         Row: {
           account_id: string | null
@@ -3907,56 +4188,6 @@ export type Database = {
         }
         Relationships: []
       }
-      hr_approvals: {
-        Row: {
-          approver_id: string | null
-          approver_role: Database["public"]["Enums"]["hr_role"]
-          comments: string | null
-          created_at: string
-          decided_at: string | null
-          decision: string | null
-          id: string
-          is_escalated: boolean | null
-          request_id: string
-          sla_hours: number | null
-          step_number: number
-        }
-        Insert: {
-          approver_id?: string | null
-          approver_role: Database["public"]["Enums"]["hr_role"]
-          comments?: string | null
-          created_at?: string
-          decided_at?: string | null
-          decision?: string | null
-          id?: string
-          is_escalated?: boolean | null
-          request_id: string
-          sla_hours?: number | null
-          step_number: number
-        }
-        Update: {
-          approver_id?: string | null
-          approver_role?: Database["public"]["Enums"]["hr_role"]
-          comments?: string | null
-          created_at?: string
-          decided_at?: string | null
-          decision?: string | null
-          id?: string
-          is_escalated?: boolean | null
-          request_id?: string
-          sla_hours?: number | null
-          step_number?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "hr_approvals_request_id_fkey"
-            columns: ["request_id"]
-            isOneToOne: false
-            referencedRelation: "hr_requests"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       hr_employees: {
         Row: {
           bank_name: string | null
@@ -4089,6 +4320,47 @@ export type Database = {
             columns: ["org_unit_id"]
             isOneToOne: false
             referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hr_evaluation_approvals: {
+        Row: {
+          approval_notes: string | null
+          approval_status: Database["public"]["Enums"]["decision_status"]
+          approved_at: string | null
+          created_at: string | null
+          decision_id: string | null
+          hr_officer_id: string
+          id: string
+          rejection_reason: string | null
+        }
+        Insert: {
+          approval_notes?: string | null
+          approval_status: Database["public"]["Enums"]["decision_status"]
+          approved_at?: string | null
+          created_at?: string | null
+          decision_id?: string | null
+          hr_officer_id: string
+          id?: string
+          rejection_reason?: string | null
+        }
+        Update: {
+          approval_notes?: string | null
+          approval_status?: Database["public"]["Enums"]["decision_status"]
+          approved_at?: string | null
+          created_at?: string | null
+          decision_id?: string | null
+          hr_officer_id?: string
+          id?: string
+          rejection_reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hr_evaluation_approvals_decision_id_fkey"
+            columns: ["decision_id"]
+            isOneToOne: false
+            referencedRelation: "automated_decisions"
             referencedColumns: ["id"]
           },
         ]
@@ -4309,6 +4581,60 @@ export type Database = {
           used_budget?: number | null
         }
         Relationships: []
+      }
+      indicator_values: {
+        Row: {
+          actual_value: number | null
+          calculated_score: number | null
+          created_at: string | null
+          evaluation_id: string | null
+          id: string
+          indicator_id: string | null
+          is_auto_calculated: boolean | null
+          notes: string | null
+          target_value: number | null
+          weight_percentage: number | null
+        }
+        Insert: {
+          actual_value?: number | null
+          calculated_score?: number | null
+          created_at?: string | null
+          evaluation_id?: string | null
+          id?: string
+          indicator_id?: string | null
+          is_auto_calculated?: boolean | null
+          notes?: string | null
+          target_value?: number | null
+          weight_percentage?: number | null
+        }
+        Update: {
+          actual_value?: number | null
+          calculated_score?: number | null
+          created_at?: string | null
+          evaluation_id?: string | null
+          id?: string
+          indicator_id?: string | null
+          is_auto_calculated?: boolean | null
+          notes?: string | null
+          target_value?: number | null
+          weight_percentage?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "indicator_values_evaluation_id_fkey"
+            columns: ["evaluation_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "indicator_values_indicator_id_fkey"
+            columns: ["indicator_id"]
+            isOneToOne: false
+            referencedRelation: "performance_indicators"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       insurance_claims: {
         Row: {
@@ -6853,6 +7179,60 @@ export type Database = {
         }
         Relationships: []
       }
+      performance_indicators: {
+        Row: {
+          auto_calculation: boolean | null
+          calculation_formula: string | null
+          category: string
+          company_id: string
+          created_at: string | null
+          description: string | null
+          id: string
+          indicator_code: string
+          indicator_name: string
+          indicator_type: Database["public"]["Enums"]["indicator_type"]
+          is_active: boolean | null
+          linked_system: string | null
+          target_value: number | null
+          updated_at: string | null
+          weight_percentage: number | null
+        }
+        Insert: {
+          auto_calculation?: boolean | null
+          calculation_formula?: string | null
+          category: string
+          company_id: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          indicator_code: string
+          indicator_name: string
+          indicator_type: Database["public"]["Enums"]["indicator_type"]
+          is_active?: boolean | null
+          linked_system?: string | null
+          target_value?: number | null
+          updated_at?: string | null
+          weight_percentage?: number | null
+        }
+        Update: {
+          auto_calculation?: boolean | null
+          calculation_formula?: string | null
+          category?: string
+          company_id?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          indicator_code?: string
+          indicator_name?: string
+          indicator_type?: Database["public"]["Enums"]["indicator_type"]
+          is_active?: boolean | null
+          linked_system?: string | null
+          target_value?: number | null
+          updated_at?: string | null
+          weight_percentage?: number | null
+        }
+        Relationships: []
+      }
       performance_kpis: {
         Row: {
           calculation_method: string | null
@@ -8706,6 +9086,13 @@ export type Database = {
         | "thursday"
         | "friday"
         | "saturday"
+      decision_status: "pending" | "approved" | "rejected" | "executed"
+      decision_type:
+        | "promotion"
+        | "bonus"
+        | "warning"
+        | "salary_freeze"
+        | "development_plan"
       disciplinary_action:
         | "verbal_warning"
         | "written_warning"
@@ -8727,6 +9114,18 @@ export type Database = {
         | "delivered"
         | "documented"
       employee_status: "active" | "inactive" | "terminated" | "suspended"
+      evaluation_status:
+        | "draft"
+        | "in_progress"
+        | "completed"
+        | "approved"
+        | "archived"
+      evaluation_type:
+        | "annual"
+        | "semi_annual"
+        | "quarterly"
+        | "monthly"
+        | "custom"
       hr_role:
         | "employee"
         | "line_manager"
@@ -8750,6 +9149,7 @@ export type Database = {
         | "semi_annual"
         | "annual"
         | "one_time"
+      indicator_type: "KPI" | "KRI" | "KSI" | "KQI" | "KVI" | "KCI"
       insurance_status: "active" | "inactive" | "suspended" | "expired"
       insurance_type:
         | "health"
@@ -8782,6 +9182,7 @@ export type Database = {
       meeting_type: "board" | "executive" | "department" | "team" | "one_on_one"
       participant_role: "organizer" | "required" | "optional" | "presenter"
       premium_frequency: "monthly" | "quarterly" | "semi_annual" | "annual"
+      rater_type: "self" | "manager" | "hr" | "360"
       request_status: "pending" | "approved" | "rejected" | "cancelled"
       reward_status: "pending" | "approved" | "paid" | "rejected" | "processing"
       reward_type:
@@ -8805,6 +9206,7 @@ export type Database = {
         | "chairs"
         | "carpets"
       session_status: "scheduled" | "completed" | "postponed" | "cancelled"
+      signature_status: "pending" | "signed" | "rejected"
       task_status: "pending" | "in_progress" | "completed" | "cancelled"
       user_access_level: "admin" | "executive" | "manager" | "employee"
       user_role:
@@ -9005,6 +9407,14 @@ export const Constants = {
         "friday",
         "saturday",
       ],
+      decision_status: ["pending", "approved", "rejected", "executed"],
+      decision_type: [
+        "promotion",
+        "bonus",
+        "warning",
+        "salary_freeze",
+        "development_plan",
+      ],
       disciplinary_action: [
         "verbal_warning",
         "written_warning",
@@ -9029,6 +9439,20 @@ export const Constants = {
         "documented",
       ],
       employee_status: ["active", "inactive", "terminated", "suspended"],
+      evaluation_status: [
+        "draft",
+        "in_progress",
+        "completed",
+        "approved",
+        "archived",
+      ],
+      evaluation_type: [
+        "annual",
+        "semi_annual",
+        "quarterly",
+        "monthly",
+        "custom",
+      ],
       hr_role: [
         "employee",
         "line_manager",
@@ -9054,6 +9478,7 @@ export const Constants = {
         "annual",
         "one_time",
       ],
+      indicator_type: ["KPI", "KRI", "KSI", "KQI", "KVI", "KCI"],
       insurance_status: ["active", "inactive", "suspended", "expired"],
       insurance_type: [
         "health",
@@ -9090,6 +9515,7 @@ export const Constants = {
       meeting_type: ["board", "executive", "department", "team", "one_on_one"],
       participant_role: ["organizer", "required", "optional", "presenter"],
       premium_frequency: ["monthly", "quarterly", "semi_annual", "annual"],
+      rater_type: ["self", "manager", "hr", "360"],
       request_status: ["pending", "approved", "rejected", "cancelled"],
       reward_status: ["pending", "approved", "paid", "rejected", "processing"],
       reward_type: [
@@ -9115,6 +9541,7 @@ export const Constants = {
         "carpets",
       ],
       session_status: ["scheduled", "completed", "postponed", "cancelled"],
+      signature_status: ["pending", "signed", "rejected"],
       task_status: ["pending", "in_progress", "completed", "cancelled"],
       user_access_level: ["admin", "executive", "manager", "employee"],
       user_role: [
