@@ -57,10 +57,9 @@ export const VisionSection: React.FC = () => {
           </div>
           
           <div className="space-y-4">
-            <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
-              نؤمن بقوة التكنولوجيا في 
-              <br />
-              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in mt-2 inline-block">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.1] tracking-tight animate-fade-in">
+              <span className="block mb-3 text-shadow-lg">نؤمن بقوة التكنولوجيا في</span>
+              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in block font-extrabold tracking-wide">
                 تحويل مستقبل الموارد البشرية
               </span>
             </h2>
