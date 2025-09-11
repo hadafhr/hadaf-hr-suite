@@ -57,7 +57,7 @@ export const NewEvaluationProgramForm: React.FC<NewEvaluationProgramFormProps> =
       setIsSubmitting(true);
       
       const { error } = await supabase
-        .from('evaluations')
+        .from('evaluation_programs')
         .insert([{
           title: formData.title,
           description: formData.description || null,

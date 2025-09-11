@@ -6,7 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from '@/components/ui/dialog';
+import { NewEvaluationProgramForm } from './NewEvaluationProgramForm';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
@@ -88,6 +89,7 @@ interface EvaluationProgram {
   targetDepartments: string[];
   raterTypes: string[];
   isActive: boolean;
+  status: 'draft' | 'active' | 'completed' | 'archived';
 }
 
 interface Evaluation {
@@ -133,6 +135,48 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   const [isIndicatorDialogOpen, setIsIndicatorDialogOpen] = useState(false);
   const [isEditIndicatorDialogOpen, setIsEditIndicatorDialogOpen] = useState(false);
   const [editingIndicator, setEditingIndicator] = useState<PerformanceIndicator | null>(null);
+  const [isNewProgramDialogOpen, setIsNewProgramDialogOpen] = useState(false);
+  const [isLoadingPrograms, setIsLoadingPrograms] = useState(false);
+  const [evaluationPrograms, setEvaluationPrograms] = useState<EvaluationProgram[]>([]);
+
+  // Fetch evaluation programs
+  const fetchEvaluationPrograms = async () => {
+    setIsLoadingPrograms(true);
+    try {
+      const { data, error } = await supabase
+        .from('evaluation_programs') 
+        .select('*');
+      
+      if (error) throw error;
+      
+      const programs: EvaluationProgram[] = data?.map((item: any) => ({
+        id: item.id,
+        name: item.title,
+        type: item.evaluation_type,
+        startDate: item.start_date,
+        endDate: item.end_date,
+        targetDepartments: [],
+        raterTypes: [],
+        isActive: item.status === 'active',
+        status: item.status
+      })) || [];
+      
+      setEvaluationPrograms(programs);
+    } catch (error) {
+      console.error('Error fetching evaluation programs:', error);
+      toast({
+        title: "خطأ",
+        description: "فشل في تحميل برامج التقييم",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingPrograms(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvaluationPrograms();
+  }, []);
 
   // بيانات وهمية للعرض التوضيحي
   const mockIndicators: PerformanceIndicator[] = [
