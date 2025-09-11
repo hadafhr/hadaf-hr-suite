@@ -60,7 +60,7 @@ export const VisionSection: React.FC = () => {
             <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
               نؤمن بقوة التكنولوجيا في 
               <br />
-              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in mt-2 inline-block">
                 تحويل مستقبل الموارد البشرية
               </span>
             </h2>
