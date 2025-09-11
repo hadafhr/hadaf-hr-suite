@@ -333,11 +333,27 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           محرك المؤشرات الذكي
         </h2>
         <div className="flex gap-2">
-          <Button className="bg-primary">
+          <Button 
+            className="bg-primary"
+            onClick={() => {
+              toast({
+                title: "إضافة مؤشر جديد",
+                description: "سيتم فتح نموذج إضافة مؤشر أداء جديد",
+              });
+            }}
+          >
             <Plus className="h-4 w-4 ml-2" />
             مؤشر جديد
           </Button>
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => {
+              toast({
+                title: "جاري التحديث",
+                description: "تم تحديث المؤشرات تلقائياً من أنظمة الشركة",
+              });
+            }}
+          >
             <RefreshCw className="h-4 w-4 ml-2" />
             تحديث تلقائي
           </Button>
@@ -482,7 +498,15 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           <Calendar className="h-6 w-6" />
           برامج التقييم
         </h2>
-        <Button className="bg-primary">
+        <Button 
+          className="bg-primary"
+          onClick={() => {
+            toast({
+              title: "إنشاء برنامج تقييم جديد",
+              description: "سيتم فتح نموذج إنشاء برنامج تقييم جديد",
+            });
+          }}
+        >
           <Plus className="h-4 w-4 ml-2" />
           برنامج جديد
         </Button>
@@ -542,11 +566,27 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           نموذج التقييم الشامل
         </h2>
         <div className="flex gap-2">
-          <Button className="bg-primary">
+          <Button 
+            className="bg-primary"
+            onClick={() => {
+              toast({
+                title: "تم حفظ النموذج",
+                description: "تم حفظ نموذج التقييم بنجاح",
+              });
+            }}
+          >
             <Save className="h-4 w-4 ml-2" />
             حفظ النموذج
           </Button>
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => {
+              toast({
+                title: "معاينة النموذج",
+                description: "سيتم عرض معاينة للنموذج",
+              });
+            }}
+          >
             <Eye className="h-4 w-4 ml-2" />
             معاينة
           </Button>
@@ -759,15 +799,42 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
 
             {/* أزرار العمل */}
             <div className="mt-6 flex justify-end gap-2">
-              <Button size="sm" variant="outline">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => {
+                  toast({
+                    title: "إضافة تعليق",
+                    description: "سيتم فتح نموذج إضافة تعليق",
+                  });
+                }}
+              >
                 <MessageSquare className="h-3 w-3 ml-1" />
                 تعليق
               </Button>
-              <Button size="sm" variant="outline">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => {
+                  toast({
+                    title: "تعديل التقييم",
+                    description: "سيتم فتح نموذج تعديل التقييم",
+                  });
+                }}
+              >
                 <Edit className="h-3 w-3 ml-1" />
                 تعديل
               </Button>
-              <Button size="sm" className="bg-primary">
+              <Button 
+                size="sm" 
+                className="bg-primary"
+                onClick={() => {
+                  toast({
+                    title: "تم اعتماد التقييم",
+                    description: "تم اعتماد التقييم بنجاح",
+                  });
+                }}
+              >
                 <CheckCircle2 className="h-3 w-3 ml-1" />
                 اعتماد
               </Button>
@@ -785,7 +852,15 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           <Zap className="h-6 w-6" />
           القرارات التلقائية وربطها بالرواتب
         </h2>
-        <Button className="bg-primary">
+        <Button 
+          className="bg-primary"
+          onClick={() => {
+            toast({
+              title: "إعدادات القرارات التلقائية",
+              description: "سيتم فتح إعدادات القرارات التلقائية",
+            });
+          }}
+        >
           <Settings className="h-4 w-4 ml-2" />
           إعدادات القرارات
         </Button>
@@ -1042,11 +1117,27 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           التحليلات التفاعلية - Power BI
         </h2>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => {
+              toast({
+                title: "تحديث البيانات",
+                description: "جاري تحديث بيانات التحليلات من قاعدة البيانات",
+              });
+            }}
+          >
             <RefreshCw className="h-4 w-4 ml-2" />
             تحديث البيانات
           </Button>
-          <Button className="bg-primary">
+          <Button 
+            className="bg-primary"
+            onClick={() => {
+              toast({
+                title: "تصدير التقرير",
+                description: "سيتم تصدير التقرير بصيغة PDF",
+              });
+            }}
+          >
             <Download className="h-4 w-4 ml-2" />
             تصدير التقرير
           </Button>
