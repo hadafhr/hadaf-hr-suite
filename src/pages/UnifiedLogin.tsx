@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
-import { Eye, EyeOff, Mail, Lock, Loader2, Building2, Shield, LogIn } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, Loader2, Building2, Shield, LogIn, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { sanitizeInput, isValidEmail } from '@/utils/sanitizeHtml';
@@ -130,7 +130,26 @@ export const UnifiedLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/50 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/50 flex flex-col relative">
+      {/* Header */}
+      <header className="relative z-20 bg-background/80 backdrop-blur-sm border-b border-border/50 p-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate(-1)}
+              className="hover:bg-primary/10 text-foreground"
+            >
+              <ArrowLeft className={`h-4 w-4 ${isArabic ? 'ml-2' : 'mr-2'}`} />
+              {isArabic ? 'العودة' : 'Back'}
+            </Button>
+            <BoudLogo variant="full" size="header" />
+          </div>
+          <LanguageSwitcher />
+        </div>
+      </header>
+
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full mix-blend-multiply animate-blob"></div>
@@ -138,11 +157,9 @@ export const UnifiedLogin: React.FC = () => {
         <div className="absolute top-40 left-40 w-80 h-80 bg-accent/10 rounded-full mix-blend-multiply animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Language Switcher */}
-        <div className="flex justify-end mb-4">
-          <LanguageSwitcher />
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-md relative z-10">
 
         {/* Logo and Welcome */}
         <div className="text-center mb-8">
@@ -284,6 +301,7 @@ export const UnifiedLogin: React.FC = () => {
               </>
             )}
           </p>
+        </div>
         </div>
       </div>
     </div>
