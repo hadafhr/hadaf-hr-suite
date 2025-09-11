@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useEmployeePortal } from '@/hooks/useEmployeePortal';
+import { toast } from '@/hooks/use-toast';
 import { 
   User,
   FileText,
@@ -55,27 +57,140 @@ const EmployeePortal = () => {
   const [chatMessages, setChatMessages] = useState<Array<{id: number, sender: string, message: string, timestamp: string}>>([]);
   const [newMessage, setNewMessage] = useState('');
   const [chatType, setChatType] = useState<'manager' | 'hr'>('manager');
+  
+  // استخدام Hook المخصص لبيانات الموظف
+  const {
+    loading,
+    employee,
+    attendanceRecords,
+    leaveRequests,
+    payrollItems,
+    dashboardStats,
+    actions
+  } = useEmployeePortal();
 
-  // بيانات الموظف (محسنة)
-  const employee = {
-    id: 'EMP001',
-    name: 'أحمد محمد العلي',
-    position: 'مطور برمجيات أول',
-    department: 'تقنية المعلومات',
-    email: 'ahmed.ali@company.com',
-    phone: '+966501234567',
-    address: 'الرياض، المملكة العربية السعودية',
-    joinDate: '2023-01-15',
-    employeeNumber: 'E-2023-001',
-    directManager: 'محمد أحمد السالم',
-    avatar: '/placeholder.svg',
-    status: 'نشط',
-    jobCategory: 'درجة 7 - متخصص',
-    insuranceNumber: 'INS123456789',
-    nationalId: '1234567890'
+  // حالات إضافية للنماذج
+  const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
+  const [leaveFormData, setLeaveFormData] = useState<{
+    leave_type: 'annual' | 'sick' | 'emergency' | 'maternity' | 'paternity' | 'unpaid' | '';
+    start_date: string;
+    end_date: string;
+    reason: string;
+    total_days: number;
+  }>({
+    leave_type: '',
+    start_date: '',
+    end_date: '',
+    reason: '',
+    total_days: 0
+  });
+  const [isClockingIn, setIsClockingIn] = useState(false);
+
+  // وظائف معالجة النماذج
+  const handleLeaveRequest = async () => {
+    if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
+      toast({
+        title: 'خطأ في البيانات',
+        description: 'يرجى ملء جميع الحقول المطلوبة',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    const startDate = new Date(leaveFormData.start_date);
+    const endDate = new Date(leaveFormData.end_date);
+    const totalDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+    const success = await actions.submitLeaveRequest({
+      leave_type: leaveFormData.leave_type as 'annual' | 'sick' | 'emergency' | 'maternity' | 'paternity' | 'unpaid',
+      start_date: leaveFormData.start_date,
+      end_date: leaveFormData.end_date,
+      reason: leaveFormData.reason,
+      total_days: totalDays
+    });
+
+    if (success) {
+      setIsLeaveDialogOpen(false);
+      setLeaveFormData({
+        leave_type: '',
+        start_date: '',
+        end_date: '',
+        reason: '',
+        total_days: 0
+      });
+    }
   };
 
-  // المهام
+  const handleClockIn = async () => {
+    setIsClockingIn(true);
+    try {
+      const location = await actions.getCurrentLocation();
+      await actions.clockIn(location);
+    } catch (error) {
+      // Try without location if GPS fails
+      await actions.clockIn();
+    }
+    setIsClockingIn(false);
+  };
+
+  const handleClockOut = async () => {
+    setIsClockingIn(true);
+    try {
+      const location = await actions.getCurrentLocation();
+      await actions.clockOut(location);
+    } catch (error) {
+      // Try without location if GPS fails
+      await actions.clockOut();
+    }
+    setIsClockingIn(false);
+  };
+
+  // تحويل البيانات الحقيقية للتوافق مع واجهة المستخدم
+  const employeeDisplayData = employee ? {
+    id: employee.id,
+    name: employee.full_name_arabic || `${employee.first_name} ${employee.last_name}`,
+    position: employee.boud_job_positions?.position_title || 'غير محدد',
+    department: employee.boud_departments?.department_name || 'غير محدد',
+    email: employee.email || '',
+    phone: employee.phone || '',
+    address: 'المملكة العربية السعودية',
+    joinDate: employee.hire_date || '',
+    employeeNumber: employee.employee_id || '',
+    directManager: 'سيتم تحديده قريباً',
+    avatar: employee.profile_picture_url || '/placeholder.svg',
+    status: employee.employment_status === 'active' ? 'نشط' : 'غير نشط',
+    jobCategory: 'درجة وظيفية',
+    insuranceNumber: 'INS' + employee.employee_id,
+    nationalId: employee.national_id || ''
+  } : null;
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-lg">جاري تحميل بيانات الموظف...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (!employee) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold mb-2">خطأ في تحميل البيانات</h2>
+          <p className="text-muted-foreground mb-4">لم يتم العثور على بيانات الموظف</p>
+          <Button onClick={() => window.location.reload()}>إعادة المحاولة</Button>
+        </div>
+      </div>
+    );
+  }
+
+  // المهام (ستكون ديناميكية لاحقاً)
   const tasks = [
     { id: 1, title: 'إنهاء مشروع النظام المصرفي', dueDate: '2024-01-15', status: 'قيد التنفيذ', priority: 'عالية' },
     { id: 2, title: 'مراجعة الكود البرمجي للفريق', dueDate: '2024-01-12', status: 'مكتمل', priority: 'متوسطة' },
@@ -89,14 +204,23 @@ const EmployeePortal = () => {
     { id: 3, title: 'البرمجة المتقدمة', duration: '50 ساعة', progress: 0, status: 'مسجل', startDate: '2024-01-25' }
   ];
 
-  // جدول الدوام الشهري
-  const attendanceData = [
-    { date: '2024-01-01', checkIn: '08:00', checkOut: '17:00', status: 'حاضر', hours: '9:00' },
-    { date: '2024-01-02', checkIn: '08:15', checkOut: '17:00', status: 'متأخر', hours: '8:45' },
-    { date: '2024-01-03', checkIn: '-', checkOut: '-', status: 'إجازة', hours: '0:00' },
-    { date: '2024-01-04', checkIn: '08:00', checkOut: '17:00', status: 'حاضر', hours: '9:00' },
-    { date: '2024-01-05', checkIn: '08:00', checkOut: '17:00', status: 'حاضر', hours: '9:00' }
-  ];
+  // تحويل بيانات الحضور للواجهة
+  const attendanceData = attendanceRecords.map(record => ({
+    date: new Date(record.attendance_date).toLocaleDateString('ar-SA'),
+    checkIn: record.clock_in_time ? new Date(record.clock_in_time).toLocaleTimeString('ar-SA', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    }) : '-',
+    checkOut: record.clock_out_time ? new Date(record.clock_out_time).toLocaleTimeString('ar-SA', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    }) : '-',
+    status: record.status === 'present' ? 'حاضر' : 
+            record.status === 'late' ? 'متأخر' : 
+            record.status === 'absent' ? 'غائب' : 
+            record.status === 'overtime' ? 'ساعات إضافية' : 'إجازة',
+    hours: record.total_hours ? `${record.total_hours.toFixed(1)} ساعة` : '0:00'
+  }));
 
   // بيانات التأمين
   const insuranceData = {
@@ -183,23 +307,20 @@ const EmployeePortal = () => {
     }
   };
 
-  // الطلبات النشطة
-  const activeRequests = [
-    {
-      id: 'REQ001',
-      type: 'إجازة سنوية',
-      date: '2024-01-15',
-      status: 'قيد المراجعة',
-      details: 'إجازة سنوية لمدة 5 أيام'
-    },
-    {
-      id: 'REQ002',
-      type: 'شهادة راتب',
-      date: '2024-01-10',
-      status: 'تمت الموافقة',
-      details: 'شهادة راتب للبنك'
-    }
-  ];
+  // تحويل طلبات الإجازة للواجهة
+  const activeRequests = leaveRequests.map(request => ({
+    id: request.id,
+    type: request.leave_type === 'annual' ? 'إجازة سنوية' : 
+          request.leave_type === 'sick' ? 'إجازة مرضية' : 
+          request.leave_type === 'emergency' ? 'إجازة طارئة' : 
+          request.leave_type === 'maternity' ? 'إجازة وضع' :
+          request.leave_type === 'paternity' ? 'إجازة أبوة' : 'إجازة أخرى',
+    date: new Date(request.applied_date).toLocaleDateString('ar-SA'),
+    status: request.status === 'pending' ? 'قيد المراجعة' : 
+            request.status === 'approved' ? 'تمت الموافقة' : 
+            request.status === 'cancelled' ? 'ملغي' : 'مرفوض',
+    details: `${request.reason || 'لا يوجد سبب محدد'} (${request.total_days} أيام)`
+  }));
 
   // السجل التأديبي
   const disciplinaryRecord = [
@@ -212,12 +333,12 @@ const EmployeePortal = () => {
     }
   ];
 
-  // إحصائيات الأداء
+  // إحصائيات الأداء من البيانات الحقيقية
   const performanceStats = {
     overallRating: 85,
     projectsCompleted: 12,
     trainingCompleted: 8,
-    attendanceRate: 96
+    attendanceRate: dashboardStats.attendanceRate
   };
 
   const getStatusBadge = (status: string) => {
@@ -226,6 +347,8 @@ const EmployeePortal = () => {
         return <Badge className="bg-blue-100 text-blue-800">قيد المراجعة</Badge>;
       case 'تمت الموافقة':
         return <Badge className="bg-green-100 text-green-800">تمت الموافقة</Badge>;
+      case 'ملغي':
+        return <Badge className="bg-gray-100 text-gray-800">ملغي</Badge>;
       case 'مرفوض':
         return <Badge className="bg-red-100 text-red-800">مرفوض</Badge>;
       default:
@@ -366,21 +489,21 @@ const EmployeePortal = () => {
                   <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/60 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-300"></div>
                   <div className="relative">
                     <Avatar className="h-32 w-32 border-4 border-background shadow-2xl hover-scale transition-all duration-300">
-                      <AvatarImage 
-                        src={employeeAvatarImage} 
-                        alt={employee.name}
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold">
-                        {employee.name.charAt(0)}
-                      </AvatarFallback>
+                        <AvatarImage 
+                          src={employeeDisplayData?.avatar} 
+                          alt={employeeDisplayData?.name}
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold">
+                          {employeeDisplayData?.name?.charAt(0)}
+                        </AvatarFallback>
                     </Avatar>
                     {/* شارة الحالة المحسنة */}
                     <div className="absolute -bottom-2 -right-2 animate-pulse">
                       <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg border-2 border-background px-3 py-1">
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                          {employee.status}
+                          {employeeDisplayData?.status}
                         </div>
                       </Badge>
                     </div>
@@ -391,14 +514,14 @@ const EmployeePortal = () => {
                 <div className="flex-1 space-y-3">
                   <div className="space-y-2">
                     <h2 className="text-3xl font-bold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
-                      {employee.name}
+                      {employeeDisplayData.name}
                     </h2>
                     <div className="flex items-center gap-3">
                       <p className="text-xl font-semibold text-primary bg-gradient-to-r from-primary to-primary/80 bg-clip-text">
-                        {employee.position}
+                        {employeeDisplayData.position}
                       </p>
                       <div className="h-6 w-px bg-border"></div>
-                      <p className="text-lg text-muted-foreground font-medium">{employee.department}</p>
+                      <p className="text-lg text-muted-foreground font-medium">{employeeDisplayData.department}</p>
                     </div>
                   </div>
                   
@@ -406,15 +529,15 @@ const EmployeePortal = () => {
                   <div className="flex flex-wrap items-center gap-3 mt-6">
                     <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
                       <UserCheck className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">رقم الموظف: {employee.employeeNumber}</span>
+                      <span className="text-sm font-medium">رقم الموظف: {employeeDisplayData.employeeNumber}</span>
                     </div>
                     <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
                       <FileCheck className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">الهوية: {employee.nationalId}</span>
+                      <span className="text-sm font-medium">الهوية: {employeeDisplayData.nationalId}</span>
                     </div>
                     <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
                       <Shield className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">تأمين: {employee.insuranceNumber}</span>
+                      <span className="text-sm font-medium">تأمين: {employeeDisplayData.insuranceNumber}</span>
                     </div>
                   </div>
                 </div>
@@ -434,7 +557,7 @@ const EmployeePortal = () => {
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">البريد الإلكتروني</p>
-                          <p className="text-sm font-medium">{employee.email}</p>
+                          <p className="text-sm font-medium">{employeeDisplayData.email}</p>
                         </div>
                       </div>
                       
@@ -444,7 +567,7 @@ const EmployeePortal = () => {
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">رقم الهاتف</p>
-                          <p className="text-sm font-medium" dir="ltr">{employee.phone}</p>
+                          <p className="text-sm font-medium" dir="ltr">{employeeDisplayData.phone}</p>
                         </div>
                       </div>
                       
@@ -454,7 +577,7 @@ const EmployeePortal = () => {
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">العنوان</p>
-                          <p className="text-sm font-medium">{employee.address}</p>
+                          <p className="text-sm font-medium">{employeeDisplayData.address}</p>
                         </div>
                       </div>
                       
@@ -464,7 +587,7 @@ const EmployeePortal = () => {
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">الفئة الوظيفية</p>
-                          <p className="text-sm font-medium">{employee.jobCategory}</p>
+                          <p className="text-sm font-medium">{employeeDisplayData.jobCategory}</p>
                         </div>
                       </div>
                     </div>
@@ -692,23 +815,23 @@ const EmployeePortal = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label>المنصب الحالي</Label>
-                    <p className="font-medium">{employee.position}</p>
+                    <p className="font-medium">{employeeDisplayData?.position}</p>
                   </div>
                   <div>
                     <Label>القسم</Label>
-                    <p className="font-medium">{employee.department}</p>
+                    <p className="font-medium">{employeeDisplayData?.department}</p>
                   </div>
                   <div>
                     <Label>الفئة الوظيفية</Label>
-                    <p className="font-medium">{employee.jobCategory}</p>
+                    <p className="font-medium">{employeeDisplayData?.jobCategory}</p>
                   </div>
                   <div>
                     <Label>المدير المباشر</Label>
-                    <p className="font-medium">{employee.directManager}</p>
+                    <p className="font-medium">{employeeDisplayData?.directManager}</p>
                   </div>
                   <div>
                     <Label>تاريخ التوظيف</Label>
-                    <p className="font-medium">{employee.joinDate}</p>
+                    <p className="font-medium">{employeeDisplayData?.joinDate}</p>
                   </div>
                   <div>
                     <Label>سنوات الخبرة</Label>
@@ -1119,6 +1242,96 @@ const EmployeePortal = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Dialog for Leave Request */}
+        <Dialog open={isLeaveDialogOpen} onOpenChange={setIsLeaveDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-primary" />
+                طلب إجازة جديد
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="leave_type">نوع الإجازة *</Label>
+                <Select 
+                  value={leaveFormData.leave_type} 
+                  onValueChange={(value) => setLeaveFormData(prev => ({ ...prev, leave_type: value as any }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر نوع الإجازة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="annual">إجازة سنوية</SelectItem>
+                    <SelectItem value="sick">إجازة مرضية</SelectItem>
+                    <SelectItem value="emergency">إجازة طارئة</SelectItem>
+                    <SelectItem value="maternity">إجازة وضع</SelectItem>
+                    <SelectItem value="paternity">إجازة أبوة</SelectItem>
+                    <SelectItem value="unpaid">إجازة بدون راتب</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="start_date">تاريخ البداية *</Label>
+                  <Input
+                    id="start_date"
+                    type="date"
+                    value={leaveFormData.start_date}
+                    onChange={(e) => setLeaveFormData(prev => ({ ...prev, start_date: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="end_date">تاريخ النهاية *</Label>
+                  <Input
+                    id="end_date"
+                    type="date"
+                    value={leaveFormData.end_date}
+                    onChange={(e) => setLeaveFormData(prev => ({ ...prev, end_date: e.target.value }))}
+                    min={leaveFormData.start_date}
+                  />
+                </div>
+              </div>
+
+              {leaveFormData.start_date && leaveFormData.end_date && (
+                <div className="text-sm text-muted-foreground bg-muted/50 p-2 rounded">
+                  عدد الأيام: {Math.ceil((new Date(leaveFormData.end_date).getTime() - new Date(leaveFormData.start_date).getTime()) / (1000 * 60 * 60 * 24)) + 1} يوم
+                </div>
+              )}
+
+              <div>
+                <Label htmlFor="reason">السبب (اختياري)</Label>
+                <Textarea
+                  id="reason"
+                  placeholder="اكتب سبب الإجازة..."
+                  value={leaveFormData.reason}
+                  onChange={(e) => setLeaveFormData(prev => ({ ...prev, reason: e.target.value }))}
+                  rows={3}
+                />
+              </div>
+
+              <div className="flex gap-2 pt-4">
+                <Button 
+                  onClick={handleLeaveRequest}
+                  disabled={!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date}
+                  className="flex-1"
+                >
+                  <Send className="h-4 w-4 ml-2" />
+                  إرسال الطلب
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setIsLeaveDialogOpen(false)}
+                >
+                  إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
