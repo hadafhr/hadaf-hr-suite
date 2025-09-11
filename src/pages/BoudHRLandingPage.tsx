@@ -322,31 +322,6 @@ const BoudHRLandingPage: React.FC = () => {
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
-              <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium flex items-center gap-1 hover:text-primary transition-colors">
-                  من نحن <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                   {menuItems.about.map((item, index) => <DropdownMenuItem key={index} asChild>
-                      <button onClick={() => {
-                        const element = document.getElementById(item.href.substring(1));
-                        if (element) {
-                          const headerOffset = 80;
-                          const elementPosition = element.getBoundingClientRect().top;
-                          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                          
-                          window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                          });
-                        }
-                      }} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
-                        <Building2 className="w-4 h-4" />
-                        {item.name}
-                      </button>
-                    </DropdownMenuItem>)}
-                </DropdownMenuContent>
-              </DropdownMenu>
 
 
               <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
