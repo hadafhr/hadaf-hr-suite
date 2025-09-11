@@ -19,7 +19,7 @@ import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 import { BoudHRAssistant } from '@/components/BoudHRAssistant';
 import { VisionSection } from '@/components/about/VisionSection';
-import { AboutUsSection } from '@/components/about/AboutUsSection';
+
 import { TeamSection } from '@/components/about/TeamSection';
 import { PartnersSection } from '@/components/about/PartnersSection';
 const BoudHRLandingPage: React.FC = () => {
@@ -68,9 +68,6 @@ const BoudHRLandingPage: React.FC = () => {
     about: [{
       name: "رؤيتنا",
       href: "#vision"
-    }, {
-      name: "من نحن",
-      href: "#who-we-are"
     }, {
       name: "فريق العمل",
       href: "#team"
@@ -556,7 +553,6 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* About Sections */}
       <div id="about-sections">
-        <AboutUsSection />
         <TeamSection />
         <PartnersSection />
       </div>
