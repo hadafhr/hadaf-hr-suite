@@ -19,8 +19,6 @@ import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 import { BoudHRAssistant } from '@/components/BoudHRAssistant';
 import { VisionSection } from '@/components/about/VisionSection';
-import { BoudLogo } from '@/components/BoudLogo';
-
 import { TeamSection } from '@/components/about/TeamSection';
 import { PartnersSection } from '@/components/about/PartnersSection';
 const BoudHRLandingPage: React.FC = () => {
@@ -29,11 +27,9 @@ const BoudHRLandingPage: React.FC = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState<string>('');
-
   const handleStartConversation = () => {
     setAssistantOpen(true);
   };
-
   const handleQuestionClick = (question: string) => {
     setInitialMessage(question);
     setAssistantOpen(true);
@@ -309,11 +305,10 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <BoudLogo size="sm" />
-                <div>
-                  <h1 className="text-xl font-bold text-foreground">بُعد HR</h1>
-                  <p className="text-xs text-muted-foreground">منصة الموارد البشرية المتكاملة</p>
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center shadow-lg">
+                  <Building2 className="w-6 h-6 text-white" />
                 </div>
+                
               </div>
             </div>
 
@@ -414,19 +409,18 @@ const BoudHRLandingPage: React.FC = () => {
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
                     {menuItems.about.map((item, index) => <button key={index} onClick={() => {
-                        const element = document.getElementById(item.href.substring(1));
-                        if (element) {
-                          const headerOffset = 80;
-                          const elementPosition = element.getBoundingClientRect().top;
-                          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                          
-                          window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                          });
-                        }
-                        setIsMobileMenuOpen(false);
-                      }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
+                  const element = document.getElementById(item.href.substring(1));
+                  if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                  setIsMobileMenuOpen(false);
+                }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
                         {item.name}
                       </button>)}
                   </div>
@@ -477,15 +471,7 @@ const BoudHRLandingPage: React.FC = () => {
                   <Crown className="w-5 h-5 mr-2" />
                   الرائد في حلول الموارد البشرية
                 </Badge>
-                <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-foreground">
-                  <span className="block mb-2">منصة</span>
-                  <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
-                    بُعد HR
-                  </span>
-                  <span className="block text-3xl lg:text-4xl font-semibold text-muted-foreground mt-4">
-                    الحل الشامل لإدارة الموارد البشرية
-                  </span>
-                </h1>
+                
                 <h2 className="text-2xl lg:text-3xl text-muted-foreground font-medium">
                   إدارة الموارد البشرية بالذكاء الاصطناعي
                 </h2>
@@ -578,32 +564,44 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Professional Statistics */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
-              {[
-                { number: "1000+", label: "شركة تثق بنا", icon: Building2, color: "from-blue-500/10 to-blue-600/5" },
-                { number: "100K+", label: "موظف نديرهم", icon: Users, color: "from-green-500/10 to-green-600/5" },
-                { number: "99.9%", label: "وقت التشغيل", icon: Shield, color: "from-purple-500/10 to-purple-600/5" },
-                { number: "24/7", label: "دعم متواصل", icon: Heart, color: "from-red-500/10 to-red-600/5" }
-              ].map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <div key={index} className="group">
+              {[{
+              number: "1000+",
+              label: "شركة تثق بنا",
+              icon: Building2,
+              color: "from-blue-500/10 to-blue-600/5"
+            }, {
+              number: "100K+",
+              label: "موظف نديرهم",
+              icon: Users,
+              color: "from-green-500/10 to-green-600/5"
+            }, {
+              number: "99.9%",
+              label: "وقت التشغيل",
+              icon: Shield,
+              color: "from-purple-500/10 to-purple-600/5"
+            }, {
+              number: "24/7",
+              label: "دعم متواصل",
+              icon: Heart,
+              color: "from-red-500/10 to-red-600/5"
+            }].map((stat, index) => {
+              const IconComponent = stat.icon;
+              return <div key={index} className="group">
                     <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg`}>
                       <IconComponent className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
                       <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">{stat.number}</div>
                       <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                     </div>
-                  </div>
-                );
-              })}
+                  </div>;
+            })}
             </div>
           </div>
 
           {/* Enhanced Feature Cards */}
           <div className="grid lg:grid-cols-2 gap-12">
             {features.map((feature, index) => {
-              const IconComponent = feature.icon;
-              return (
-                <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
+            const IconComponent = feature.icon;
+            return <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
                   <Card className="relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-xl hover:scale-105">
                     {/* Premium Border Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary-glow/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
@@ -650,11 +648,7 @@ const BoudHRLandingPage: React.FC = () => {
                         {/* Premium Image Container */}
                         <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
                           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary-glow/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                          <img 
-                            src={feature.image} 
-                            alt={feature.title} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                          />
+                          <img src={feature.image} alt={feature.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                           
                           {/* Overlay Play Button */}
@@ -692,12 +686,10 @@ const BoudHRLandingPage: React.FC = () => {
                         
                         {/* Enhanced Features Grid */}
                         <div className="grid grid-cols-2 gap-3">
-                          {feature.features.map((feat, featIndex) => (
-                            <div key={featIndex} className="flex items-center gap-2 p-3 bg-muted/30 rounded-xl border border-border/50 hover:bg-muted/50 transition-colors duration-300">
+                          {feature.features.map((feat, featIndex) => <div key={featIndex} className="flex items-center gap-2 p-3 bg-muted/30 rounded-xl border border-border/50 hover:bg-muted/50 transition-colors duration-300">
                               <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                               <span className="text-sm font-medium text-foreground">{feat}</span>
-                            </div>
-                          ))}
+                            </div>)}
                         </div>
                         
                         {/* Premium CTA */}
@@ -713,9 +705,8 @@ const BoudHRLandingPage: React.FC = () => {
                       </CardContent>
                     </div>
                   </Card>
-                </div>
-              );
-            })}
+                </div>;
+          })}
           </div>
 
           {/* Bottom Call-to-Action */}
@@ -834,8 +825,7 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="relative overflow-hidden">
             {/* First Row - Moving Right */}
             <div className="flex gap-6 animate-[scroll-right_40s_linear_infinite] mb-6">
-              {testimonials.slice(0, 10).concat(testimonials.slice(0, 10)).map((testimonial, index) => (
-                <Card key={`row1-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
+              {testimonials.slice(0, 10).concat(testimonials.slice(0, 10)).map((testimonial, index) => <Card key={`row1-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
                   <CardContent className="pt-6">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -849,21 +839,17 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center gap-1 mb-3">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
+                      {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
                     </div>
                     
                     <p className="text-muted-foreground italic leading-relaxed">"{testimonial.text}"</p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
 
             {/* Second Row - Moving Left */}
             <div className="flex gap-6 animate-[scroll-left_35s_linear_infinite]">
-              {testimonials.slice(10, 20).concat(testimonials.slice(10, 20)).map((testimonial, index) => (
-                <Card key={`row2-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
+              {testimonials.slice(10, 20).concat(testimonials.slice(10, 20)).map((testimonial, index) => <Card key={`row2-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
                   <CardContent className="pt-6">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -877,15 +863,12 @@ const BoudHRLandingPage: React.FC = () => {
                     </div>
                     
                     <div className="flex items-center gap-1 mb-3">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
+                      {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
                     </div>
                     
                     <p className="text-muted-foreground italic leading-relaxed">"{testimonial.text}"</p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
 
             {/* Gradient Overlays */}
@@ -896,11 +879,7 @@ const BoudHRLandingPage: React.FC = () => {
       </section>
 
         {/* AI Assistant Preview Section */}
-        <AIAssistantPreview 
-          language="ar" 
-          onStartConversation={handleStartConversation}
-          onQuestionClick={handleQuestionClick}
-        />
+        <AIAssistantPreview language="ar" onStartConversation={handleStartConversation} onQuestionClick={handleQuestionClick} />
 
       {/* Mobile App Download Section */}
       <section id="mobile-app" className="relative py-20 bg-background overflow-hidden">
@@ -1241,12 +1220,7 @@ const BoudHRLandingPage: React.FC = () => {
       
 
       {/* BOUD HR Assistant with controlled state */}
-      <BoudHRAssistant 
-        language="ar" 
-        isOpen={assistantOpen}
-        onOpenChange={handleAssistantOpenChange}
-        initialMessage={initialMessage}
-      />
+      <BoudHRAssistant language="ar" isOpen={assistantOpen} onOpenChange={handleAssistantOpenChange} initialMessage={initialMessage} />
     </div>;
 };
 export default BoudHRLandingPage;
