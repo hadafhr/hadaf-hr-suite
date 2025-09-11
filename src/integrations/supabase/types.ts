@@ -3632,6 +3632,124 @@ export type Database = {
         }
         Relationships: []
       }
+      evaluation_criteria: {
+        Row: {
+          created_at: string
+          criteria_code: string
+          criteria_name: string
+          criteria_name_en: string | null
+          description: string | null
+          display_order: number | null
+          evaluation_levels: Json
+          factor_id: string | null
+          id: string
+          is_active: boolean
+          updated_at: string
+          weight_percentage: number
+        }
+        Insert: {
+          created_at?: string
+          criteria_code: string
+          criteria_name: string
+          criteria_name_en?: string | null
+          description?: string | null
+          display_order?: number | null
+          evaluation_levels?: Json
+          factor_id?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          weight_percentage?: number
+        }
+        Update: {
+          created_at?: string
+          criteria_code?: string
+          criteria_name?: string
+          criteria_name_en?: string | null
+          description?: string | null
+          display_order?: number | null
+          evaluation_levels?: Json
+          factor_id?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          weight_percentage?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluation_criteria_factor_id_fkey"
+            columns: ["factor_id"]
+            isOneToOne: false
+            referencedRelation: "evaluation_factors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      evaluation_factors: {
+        Row: {
+          category: string
+          company_id: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          evaluation_method: string
+          factor_code: string
+          factor_name: string
+          factor_name_en: string | null
+          id: string
+          is_active: boolean
+          is_mandatory: boolean
+          max_score: number | null
+          min_score: number | null
+          updated_at: string
+          weight_percentage: number
+        }
+        Insert: {
+          category?: string
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          evaluation_method?: string
+          factor_code: string
+          factor_name: string
+          factor_name_en?: string | null
+          id?: string
+          is_active?: boolean
+          is_mandatory?: boolean
+          max_score?: number | null
+          min_score?: number | null
+          updated_at?: string
+          weight_percentage?: number
+        }
+        Update: {
+          category?: string
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          evaluation_method?: string
+          factor_code?: string
+          factor_name?: string
+          factor_name_en?: string | null
+          id?: string
+          is_active?: boolean
+          is_mandatory?: boolean
+          max_score?: number | null
+          min_score?: number | null
+          updated_at?: string
+          weight_percentage?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluation_factors_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       evaluation_forms: {
         Row: {
           created_at: string | null
@@ -3723,6 +3841,104 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      evaluation_template_factors: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          factor_id: string | null
+          id: string
+          is_required: boolean
+          template_id: string | null
+          weight_percentage: number
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          factor_id?: string | null
+          id?: string
+          is_required?: boolean
+          template_id?: string | null
+          weight_percentage?: number
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          factor_id?: string | null
+          id?: string
+          is_required?: boolean
+          template_id?: string | null
+          weight_percentage?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluation_template_factors_factor_id_fkey"
+            columns: ["factor_id"]
+            isOneToOne: false
+            referencedRelation: "evaluation_factors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "evaluation_template_factors_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "evaluation_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      evaluation_templates: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean
+          is_default: boolean
+          passing_score: number
+          template_name: string
+          template_type: string
+          total_weight: number
+          updated_at: string
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          passing_score?: number
+          template_name: string
+          template_type?: string
+          total_weight?: number
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          passing_score?: number
+          template_name?: string
+          template_type?: string
+          total_weight?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evaluation_templates_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       evaluations: {
         Row: {
