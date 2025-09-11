@@ -96,32 +96,60 @@ export const useEmployeePortal = () => {
 
   // Fetch employee profile
   const fetchEmployeeProfile = async () => {
-    if (!user) return;
+    if (!user) {
+      console.log('No user found in fetchEmployeeProfile');
+      setLoading(false);
+      return;
+    }
+
+    console.log('Fetching employee profile for user:', user.id);
 
     try {
-      const { data, error } = await supabase
+      // First try with inner join
+      let { data, error } = await supabase
         .from('boud_employees')
         .select(`
           *,
-          boud_departments!inner(department_name),
-          boud_job_positions!inner(position_title)
+          boud_departments(department_name),
+          boud_job_positions(position_title)
         `)
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
+
+      console.log('Employee query result:', { data, error });
 
       if (error) {
         console.error('Error fetching employee profile:', error);
         toast({
           title: 'خطأ',
-          description: 'فشل في تحميل بيانات الموظف',
+          description: `فشل في تحميل بيانات الموظف: ${error.message}`,
           variant: 'destructive'
         });
+        setLoading(false);
+        return;
+      }
+
+      if (!data) {
+        console.log('No employee record found for user:', user.id);
+        toast({
+          title: 'تنبيه',
+          description: 'لم يتم العثور على بيانات الموظف. يرجى التواصل مع إدارة الموارد البشرية.',
+          variant: 'destructive'
+        });
+        setLoading(false);
         return;
       }
 
       setEmployee(data);
+      console.log('Employee data set successfully:', data);
     } catch (error) {
-      console.error('Error fetching employee profile:', error);
+      console.error('Unexpected error in fetchEmployeeProfile:', error);
+      toast({
+        title: 'خطأ غير متوقع',
+        description: 'حدث خطأ غير متوقع. يرجى إعادة تحميل الصفحة.',
+        variant: 'destructive'
+      });
+      setLoading(false);
     }
   };
 
@@ -428,9 +456,13 @@ export const useEmployeePortal = () => {
   // Initialize data
   useEffect(() => {
     const initializeData = async () => {
+      console.log('Initialize data called, user:', user);
       if (user) {
         setLoading(true);
         await fetchEmployeeProfile();
+        setLoading(false);
+      } else {
+        console.log('No user available, setting loading to false');
         setLoading(false);
       }
     };
