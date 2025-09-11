@@ -59,12 +59,13 @@ export const NewEvaluationProgramForm: React.FC<NewEvaluationProgramFormProps> =
       const { error } = await supabase
         .from('evaluation_programs')
         .insert([{
-          title: formData.title,
+          program_name: formData.title,
           description: formData.description || null,
-          evaluation_type: formData.evaluation_type,
+          evaluation_type: formData.evaluation_type as 'annual' | 'semi_annual' | 'quarterly' | 'monthly' | 'custom',
           start_date: format(formData.start_date, 'yyyy-MM-dd'),
           end_date: format(formData.end_date, 'yyyy-MM-dd'),
-          status: 'active',
+          company_id: 'default-company-id', // This should be dynamic based on user's company
+          is_active: true,
           created_by: (await supabase.auth.getUser()).data.user?.id
         }]);
 
@@ -116,8 +117,7 @@ export const NewEvaluationProgramForm: React.FC<NewEvaluationProgramFormProps> =
               <SelectItem value="semi_annual">نصف سنوي</SelectItem>
               <SelectItem value="quarterly">ربع سنوي</SelectItem>
               <SelectItem value="monthly">شهري</SelectItem>
-              <SelectItem value="probation">فترة تجريبية</SelectItem>
-              <SelectItem value="project_based">قائم على مشروع</SelectItem>
+              <SelectItem value="custom">قائم على مشروع</SelectItem>
             </SelectContent>
           </Select>
         </div>

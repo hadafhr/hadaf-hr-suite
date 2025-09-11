@@ -137,7 +137,6 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   const [editingIndicator, setEditingIndicator] = useState<PerformanceIndicator | null>(null);
   const [isNewProgramDialogOpen, setIsNewProgramDialogOpen] = useState(false);
   const [isLoadingPrograms, setIsLoadingPrograms] = useState(false);
-  const [evaluationPrograms, setEvaluationPrograms] = useState<EvaluationProgram[]>([]);
 
   // Fetch evaluation programs
   const fetchEvaluationPrograms = async () => {
@@ -151,14 +150,14 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
       
       const programs: EvaluationProgram[] = data?.map((item: any) => ({
         id: item.id,
-        name: item.title,
+        name: item.program_name || item.title,
         type: item.evaluation_type,
         startDate: item.start_date,
         endDate: item.end_date,
         targetDepartments: [],
         raterTypes: [],
-        isActive: item.status === 'active',
-        status: item.status
+        isActive: item.is_active,
+        status: item.is_active ? 'active' : 'draft'
       })) || [];
       
       setEvaluationPrograms(programs);
@@ -602,11 +601,13 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                 <span>{program.name}</span>
                 <Badge 
                   variant={
-                    program.status === 'نشط' ? 'default' : 
-                    program.status === 'قيد التنفيذ' ? 'secondary' : 'outline'
+                    program.status === 'active' ? 'default' : 
+                    program.status === 'draft' ? 'secondary' : 'outline'
                   }
                 >
-                  {program.status}
+                  {program.status === 'active' ? 'نشط' : 
+                   program.status === 'draft' ? 'مسودة' : 
+                   program.status === 'completed' ? 'مكتمل' : 'مؤرشف'}
                 </Badge>
               </CardTitle>
             </CardHeader>
