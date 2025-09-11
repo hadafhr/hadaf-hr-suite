@@ -129,6 +129,8 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   const [loading, setLoading] = useState(false);
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
   const [selectedScores, setSelectedScores] = useState<{[key: string]: number}>({});
+  const [selectedIndicator, setSelectedIndicator] = useState<PerformanceIndicator | null>(null);
+  const [isIndicatorDialogOpen, setIsIndicatorDialogOpen] = useState(false);
 
   // بيانات وهمية للعرض التوضيحي
   const mockIndicators: PerformanceIndicator[] = [
@@ -474,18 +476,16 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                                    >
                                      <Edit className="h-3 w-3" />
                                    </Button>
-                                   <Button 
-                                     size="sm" 
-                                     variant="ghost"
-                                     onClick={() => {
-                                       toast({
-                                         title: "عرض تفاصيل المؤشر",
-                                         description: `المؤشر: ${indicator.name}\nالهدف: ${indicator.targetValue}\nالفعلي: ${indicator.actualValue}\nالنتيجة: ${indicator.calculatedScore}`,
-                                       });
-                                     }}
-                                   >
-                                     <Eye className="h-3 w-3" />
-                                   </Button>
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost"
+                                      onClick={() => {
+                                        setSelectedIndicator(indicator);
+                                        setIsIndicatorDialogOpen(true);
+                                      }}
+                                    >
+                                      <Eye className="h-3 w-3" />
+                                    </Button>
                                    <Button 
                                      size="sm" 
                                      variant="ghost"
@@ -1415,6 +1415,169 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
           {renderElectronicSignatures()}
         </TabsContent>
       </Tabs>
+
+      {/* نافذة تفاصيل المؤشر */}
+      <Dialog open={isIndicatorDialogOpen} onOpenChange={setIsIndicatorDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Target className="h-5 w-5 text-primary" />
+              تفاصيل المؤشر: {selectedIndicator?.name}
+            </DialogTitle>
+          </DialogHeader>
+          
+          {selectedIndicator && (
+            <div className="space-y-6">
+              {/* معلومات أساسية */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">رمز المؤشر</Label>
+                  <div className="p-2 bg-gray-50 rounded border">
+                    {selectedIndicator.code}
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">نوع المؤشر</Label>
+                  <div className="p-2 bg-gray-50 rounded border">
+                    <Badge variant="outline">{selectedIndicator.type}</Badge>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">الفئة</Label>
+                  <div className="p-2 bg-gray-50 rounded border">
+                    {selectedIndicator.category}
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium text-gray-700">الوزن</Label>
+                  <div className="p-2 bg-gray-50 rounded border">
+                    {selectedIndicator.weight}%
+                  </div>
+                </div>
+              </div>
+
+              {/* القيم والنتائج */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">القيم والنتائج</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="text-center p-4 bg-blue-50 rounded">
+                      <div className="text-2xl font-bold text-blue-600">
+                        {selectedIndicator.targetValue}
+                      </div>
+                      <div className="text-sm text-blue-800">القيمة المستهدفة</div>
+                    </div>
+                    <div className="text-center p-4 bg-green-50 rounded">
+                      <div className="text-2xl font-bold text-green-600">
+                        {selectedIndicator.actualValue}
+                      </div>
+                      <div className="text-sm text-green-800">القيمة الفعلية</div>
+                    </div>
+                    <div className="text-center p-4 bg-orange-50 rounded">
+                      <div className="text-2xl font-bold text-orange-600">
+                        {selectedIndicator.calculatedScore}
+                      </div>
+                      <div className="text-sm text-orange-800">النتيجة المحسوبة</div>
+                    </div>
+                  </div>
+                  
+                  {/* شريط التقدم */}
+                  <div className="mt-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">نسبة الإنجاز</span>
+                      <span className="text-sm text-gray-600">
+                        {((selectedIndicator.actualValue / selectedIndicator.targetValue) * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    <Progress 
+                      value={Math.min((selectedIndicator.actualValue / selectedIndicator.targetValue) * 100, 100)} 
+                      className="h-3"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* النظام المرتبط */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">معلومات النظام</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-gray-700">النظام المرتبط</Label>
+                      <div className="flex items-center gap-2 p-2 bg-gray-50 rounded border">
+                        <Database className="h-4 w-4 text-gray-500" />
+                        {selectedIndicator.linkedSystem}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-gray-700">الحساب التلقائي</Label>
+                      <div className="p-2 bg-gray-50 rounded border">
+                        {selectedIndicator.autoCalculation ? (
+                          <Badge variant="default" className="bg-green-500">
+                            <CheckCircle2 className="h-3 w-3 ml-1" />
+                            مفعل
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline">
+                            <Clock className="h-3 w-3 ml-1" />
+                            يدوي
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* إجراءات */}
+              <div className="flex gap-2 pt-4 border-t">
+                <Button 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => {
+                    toast({
+                      title: "تعديل المؤشر",
+                      description: `سيتم فتح نموذج تعديل المؤشر: ${selectedIndicator.name}`,
+                    });
+                    setIsIndicatorDialogOpen(false);
+                  }}
+                >
+                  <Edit className="h-4 w-4 ml-2" />
+                  تعديل المؤشر
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => {
+                    setLoading(true);
+                    setTimeout(() => {
+                      setLoading(false);
+                      toast({
+                        title: "تم تحديث المؤشر",
+                        description: `تم تحديث بيانات المؤشر: ${selectedIndicator.name} من ${selectedIndicator.linkedSystem}`,
+                      });
+                    }, 1500);
+                    setIsIndicatorDialogOpen(false);
+                  }}
+                >
+                  <RefreshCw className="h-4 w-4 ml-2" />
+                  تحديث البيانات
+                </Button>
+                <Button 
+                  className="bg-primary"
+                  onClick={() => setIsIndicatorDialogOpen(false)}
+                >
+                  إغلاق
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
