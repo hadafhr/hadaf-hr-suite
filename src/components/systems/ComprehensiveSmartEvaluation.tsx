@@ -128,6 +128,7 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   const [automatedDecisions, setAutomatedDecisions] = useState<AutomatedDecision[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
+  const [selectedScores, setSelectedScores] = useState<{[key: string]: number}>({});
 
   // بيانات وهمية للعرض التوضيحي
   const mockIndicators: PerformanceIndicator[] = [
@@ -459,19 +460,50 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                                   )}
                                 </div>
                               </td>
-                              <td className="p-3">
-                                <div className="flex items-center justify-center gap-1">
-                                  <Button size="sm" variant="ghost">
-                                    <Edit className="h-3 w-3" />
-                                  </Button>
-                                  <Button size="sm" variant="ghost">
-                                    <Eye className="h-3 w-3" />
-                                  </Button>
-                                  <Button size="sm" variant="ghost">
-                                    <RefreshCw className="h-3 w-3" />
-                                  </Button>
-                                </div>
-                              </td>
+                               <td className="p-3">
+                                 <div className="flex items-center justify-center gap-1">
+                                   <Button 
+                                     size="sm" 
+                                     variant="ghost"
+                                     onClick={() => {
+                                       toast({
+                                         title: "تعديل المؤشر",
+                                         description: `سيتم فتح نموذج تعديل المؤشر: ${indicator.name}`,
+                                       });
+                                     }}
+                                   >
+                                     <Edit className="h-3 w-3" />
+                                   </Button>
+                                   <Button 
+                                     size="sm" 
+                                     variant="ghost"
+                                     onClick={() => {
+                                       toast({
+                                         title: "عرض تفاصيل المؤشر",
+                                         description: `المؤشر: ${indicator.name}\nالهدف: ${indicator.targetValue}\nالفعلي: ${indicator.actualValue}\nالنتيجة: ${indicator.calculatedScore}`,
+                                       });
+                                     }}
+                                   >
+                                     <Eye className="h-3 w-3" />
+                                   </Button>
+                                   <Button 
+                                     size="sm" 
+                                     variant="ghost"
+                                     onClick={() => {
+                                       setLoading(true);
+                                       setTimeout(() => {
+                                         setLoading(false);
+                                         toast({
+                                           title: "تم تحديث المؤشر",
+                                           description: `تم تحديث بيانات المؤشر: ${indicator.name} من ${indicator.linkedSystem}`,
+                                         });
+                                       }, 1500);
+                                     }}
+                                   >
+                                     <RefreshCw className="h-3 w-3" />
+                                   </Button>
+                                 </div>
+                               </td>
                             </tr>
                           );
                         })}
@@ -541,16 +573,36 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                 <Users className="h-4 w-4" />
                 جميع الموظفين
               </div>
-              <div className="flex gap-2">
-                <Button size="sm" variant="outline" className="flex-1">
-                  <Edit className="h-3 w-3 ml-1" />
-                  تعديل
-                </Button>
-                <Button size="sm" variant="outline" className="flex-1">
-                  <Eye className="h-3 w-3 ml-1" />
-                  عرض
-                </Button>
-              </div>
+               <div className="flex gap-2">
+                 <Button 
+                   size="sm" 
+                   variant="outline" 
+                   className="flex-1"
+                   onClick={() => {
+                     toast({
+                       title: "تعديل برنامج التقييم",
+                       description: `سيتم فتح نموذج تعديل برنامج: ${program.name}`,
+                     });
+                   }}
+                 >
+                   <Edit className="h-3 w-3 ml-1" />
+                   تعديل
+                 </Button>
+                 <Button 
+                   size="sm" 
+                   variant="outline" 
+                   className="flex-1"
+                   onClick={() => {
+                     toast({
+                       title: "عرض تفاصيل البرنامج",
+                       description: `البرنامج: ${program.name}\nالفترة: ${program.startDate} إلى ${program.endDate}\nالحالة: ${program.status}`,
+                     });
+                   }}
+                 >
+                   <Eye className="h-3 w-3 ml-1" />
+                   عرض
+                 </Button>
+               </div>
             </CardContent>
           </Card>
         ))}
@@ -613,18 +665,34 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                   <Badge variant="outline">{factor.weight}%</Badge>
                 </div>
                 <p className="text-sm text-gray-600 mb-3">{factor.description}</p>
-                <div className="grid grid-cols-5 gap-2">
-                  {[1, 2, 3, 4, 5].map((score) => (
-                    <div key={score} className="text-center">
-                      <div className="w-8 h-8 rounded-full border-2 border-gray-300 mx-auto mb-1 flex items-center justify-center cursor-pointer hover:border-primary">
-                        {score}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {score === 1 ? 'ضعيف' : score === 2 ? 'مقبول' : score === 3 ? 'جيد' : score === 4 ? 'جيد جداً' : 'ممتاز'}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                 <div className="grid grid-cols-5 gap-2">
+                   {[1, 2, 3, 4, 5].map((score) => (
+                     <div key={score} className="text-center">
+                       <div 
+                         className={`w-8 h-8 rounded-full border-2 mx-auto mb-1 flex items-center justify-center cursor-pointer transition-all duration-200 ${
+                           selectedScores[`${factor.name}-${index}`] === score 
+                             ? 'border-primary bg-primary text-white shadow-md' 
+                             : 'border-gray-300 hover:border-primary hover:bg-primary/10'
+                         }`}
+                         onClick={() => {
+                           setSelectedScores(prev => ({
+                             ...prev,
+                             [`${factor.name}-${index}`]: score
+                           }));
+                           toast({
+                             title: "تم تحديد التقييم",
+                             description: `تم تقييم "${factor.name}" بدرجة ${score} من 5`,
+                           });
+                         }}
+                       >
+                         {score}
+                       </div>
+                       <div className="text-xs text-gray-500">
+                         {score === 1 ? 'ضعيف' : score === 2 ? 'مقبول' : score === 3 ? 'جيد' : score === 4 ? 'جيد جداً' : 'ممتاز'}
+                       </div>
+                     </div>
+                   ))}
+                 </div>
               </div>
             ))}
           </CardContent>
@@ -643,7 +711,15 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                     <div className="font-medium text-sm">{indicator.name}</div>
                     <div className="text-xs text-gray-500">{indicator.code}</div>
                   </div>
-                  <Switch defaultChecked />
+                   <Switch 
+                     defaultChecked 
+                     onCheckedChange={(checked) => {
+                       toast({
+                         title: checked ? "تم تفعيل المؤشر" : "تم إلغاء تفعيل المؤشر",
+                         description: `المؤشر: ${indicator.name}`,
+                       });
+                     }}
+                   />
                 </div>
               ))}
             </div>
