@@ -131,6 +131,8 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   const [selectedScores, setSelectedScores] = useState<{[key: string]: number}>({});
   const [selectedIndicator, setSelectedIndicator] = useState<PerformanceIndicator | null>(null);
   const [isIndicatorDialogOpen, setIsIndicatorDialogOpen] = useState(false);
+  const [isEditIndicatorDialogOpen, setIsEditIndicatorDialogOpen] = useState(false);
+  const [editingIndicator, setEditingIndicator] = useState<PerformanceIndicator | null>(null);
 
   // بيانات وهمية للعرض التوضيحي
   const mockIndicators: PerformanceIndicator[] = [
@@ -464,16 +466,14 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                               </td>
                                <td className="p-3">
                                  <div className="flex items-center justify-center gap-1">
-                                   <Button 
-                                     size="sm" 
-                                     variant="ghost"
-                                     onClick={() => {
-                                       toast({
-                                         title: "تعديل المؤشر",
-                                         description: `سيتم فتح نموذج تعديل المؤشر: ${indicator.name}`,
-                                       });
-                                     }}
-                                   >
+                                    <Button 
+                                      size="sm" 
+                                      variant="ghost"
+                                      onClick={() => {
+                                        setEditingIndicator(indicator);
+                                        setIsEditIndicatorDialogOpen(true);
+                                      }}
+                                    >
                                      <Edit className="h-3 w-3" />
                                    </Button>
                                     <Button 
@@ -1572,6 +1572,207 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                   onClick={() => setIsIndicatorDialogOpen(false)}
                 >
                   إغلاق
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog تعديل المؤشر */}
+      <Dialog open={isEditIndicatorDialogOpen} onOpenChange={setIsEditIndicatorDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Edit className="h-5 w-5" />
+              تعديل المؤشر: {editingIndicator?.name}
+            </DialogTitle>
+          </DialogHeader>
+          {editingIndicator && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="indicatorCode">رمز المؤشر</Label>
+                  <Input
+                    id="indicatorCode"
+                    value={editingIndicator.code}
+                    onChange={(e) => setEditingIndicator({
+                      ...editingIndicator,
+                      code: e.target.value
+                    })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="indicatorName">اسم المؤشر</Label>
+                  <Input
+                    id="indicatorName"
+                    value={editingIndicator.name}
+                    onChange={(e) => setEditingIndicator({
+                      ...editingIndicator,
+                      name: e.target.value
+                    })}
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="indicatorType">نوع المؤشر</Label>
+                  <Select
+                    value={editingIndicator.type}
+                    onValueChange={(value: any) => setEditingIndicator({
+                      ...editingIndicator,
+                      type: value
+                    })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="KPI">KPI - مؤشرات الأداء الرئيسية</SelectItem>
+                      <SelectItem value="KRI">KRI - مؤشرات المخاطر الرئيسية</SelectItem>
+                      <SelectItem value="KSI">KSI - مؤشرات النجاح الرئيسية</SelectItem>
+                      <SelectItem value="KQI">KQI - مؤشرات الجودة الرئيسية</SelectItem>
+                      <SelectItem value="KVI">KVI - مؤشرات القيمة الرئيسية</SelectItem>
+                      <SelectItem value="KCI">KCI - مؤشرات القدرات الرئيسية</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="indicatorCategory">الفئة</Label>
+                  <Input
+                    id="indicatorCategory"
+                    value={editingIndicator.category}
+                    onChange={(e) => setEditingIndicator({
+                      ...editingIndicator,
+                      category: e.target.value
+                    })}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="indicatorDescription">الوصف</Label>
+                <Textarea
+                  id="indicatorDescription"
+                  value={editingIndicator.description}
+                  onChange={(e) => setEditingIndicator({
+                    ...editingIndicator,
+                    description: e.target.value
+                  })}
+                  rows={3}
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="targetValue">القيمة المستهدفة</Label>
+                  <Input
+                    id="targetValue"
+                    type="number"
+                    value={editingIndicator.targetValue}
+                    onChange={(e) => setEditingIndicator({
+                      ...editingIndicator,
+                      targetValue: Number(e.target.value)
+                    })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="actualValue">القيمة الفعلية</Label>
+                  <Input
+                    id="actualValue"
+                    type="number"
+                    value={editingIndicator.actualValue}
+                    onChange={(e) => setEditingIndicator({
+                      ...editingIndicator,
+                      actualValue: Number(e.target.value)
+                    })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="weight">الوزن (%)</Label>
+                  <Input
+                    id="weight"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={editingIndicator.weight}
+                    onChange={(e) => setEditingIndicator({
+                      ...editingIndicator,
+                      weight: Number(e.target.value)
+                    })}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="linkedSystem">النظام المرتبط</Label>
+                  <Select
+                    value={editingIndicator.linkedSystem}
+                    onValueChange={(value) => setEditingIndicator({
+                      ...editingIndicator,
+                      linkedSystem: value
+                    })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="نظام المهام">نظام المهام</SelectItem>
+                      <SelectItem value="نظام الحضور">نظام الحضور</SelectItem>
+                      <SelectItem value="نظام الجزاءات">نظام الجزاءات</SelectItem>
+                      <SelectItem value="إدارة الأهداف">إدارة الأهداف</SelectItem>
+                      <SelectItem value="نظام خدمة العملاء">نظام خدمة العملاء</SelectItem>
+                      <SelectItem value="نظام التدريب">نظام التدريب</SelectItem>
+                      <SelectItem value="نظام التقييمات">نظام التقييمات</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center space-x-2 pt-6">
+                  <Switch
+                    id="autoCalculation"
+                    checked={editingIndicator.autoCalculation}
+                    onCheckedChange={(checked) => setEditingIndicator({
+                      ...editingIndicator,
+                      autoCalculation: checked
+                    })}
+                  />
+                  <Label htmlFor="autoCalculation">حساب تلقائي</Label>
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-4 border-t">
+                <Button 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => setIsEditIndicatorDialogOpen(false)}
+                >
+                  إلغاء
+                </Button>
+                <Button 
+                  className="bg-primary flex-1"
+                  onClick={() => {
+                    // تحديث المؤشر في القائمة
+                    const updatedIndicators = indicators.map(ind => 
+                      ind.id === editingIndicator.id ? {
+                        ...editingIndicator,
+                        calculatedScore: Math.round((editingIndicator.actualValue / editingIndicator.targetValue) * editingIndicator.weight)
+                      } : ind
+                    );
+                    setIndicators(updatedIndicators);
+                    
+                    toast({
+                      title: "تم حفظ التعديلات",
+                      description: `تم تحديث المؤشر: ${editingIndicator.name} بنجاح`,
+                    });
+                    
+                    setIsEditIndicatorDialogOpen(false);
+                    setEditingIndicator(null);
+                  }}
+                >
+                  <Save className="h-4 w-4 ml-2" />
+                  حفظ التعديلات
                 </Button>
               </div>
             </div>
