@@ -85,23 +85,20 @@ export interface EmployeeKPIMeasurement {
 export interface DevelopmentPlan {
   id: string;
   employee_id: string;
-  company_id: string;
-  title: string;
+  evaluation_id?: string;
+  title?: string;
   description?: string;
-  objective?: string;
-  skills_to_develop: string[];
+  weak_indicators?: string[];
+  skills_to_develop?: string[];
   development_activities: any;
-  budget_allocated: number;
-  budget_used: number;
-  start_date: string;
-  target_completion_date: string;
-  actual_completion_date?: string;
+  training_recommendations: any;
+  timeline_months: number;
+  progress_percentage?: number;
+  start_date?: string;
+  target_completion_date?: string;
+  budget_allocated?: number;
   status: string;
-  progress_percentage: number;
-  mentor_id?: string;
   created_by?: string;
-  approved_by?: string;
-  approval_date?: string;
   created_at: string;
   updated_at: string;
 }

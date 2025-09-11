@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,7 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { SystemHeader } from '@/components/shared/SystemHeader';
+import { Switch } from '@/components/ui/switch';
+import { BoudLogo } from '@/components/BoudLogo';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { 
@@ -36,713 +37,494 @@ import {
   Clock,
   Star,
   Zap,
-  BookOpen,
-  PieChart,
-  Activity,
-  TrendingDown,
-  UserCheck,
-  Shield,
   Lightbulb,
   ChartLine,
   FileText,
   MessageSquare,
   ThumbsUp,
-  ThumbsDown
+  ThumbsDown,
+  Calculator,
+  Database,
+  PenTool,
+  Shield,
+  TrendingDown,
+  RotateCcw,
+  Save,
+  Send,
+  Signature,
+  UserCheck,
+  Activity,
+  PieChart,
+  Layers,
+  Gauge
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 
 interface ComprehensiveSmartEvaluationProps {
   onBack: () => void;
 }
 
-interface Employee {
+interface PerformanceIndicator {
   id: string;
+  code: string;
   name: string;
-  position: string;
-  department: string;
-  avatar: string;
-  performanceScore: number;
-  lastEvaluation: string;
-  nextEvaluation: string;
-  manager: string;
-  joinDate: string;
-  skills: string[];
-  goals: Goal[];
-  competencies: Competency[];
-}
-
-interface Goal {
-  id: string;
-  title: string;
+  type: 'KPI' | 'KRI' | 'KSI' | 'KQI' | 'KVI' | 'KCI';
+  category: string;
   description: string;
-  progress: number;
-  dueDate: string;
-  status: 'On Track' | 'At Risk' | 'Behind' | 'Completed';
-  priority: 'High' | 'Medium' | 'Low';
+  targetValue: number;
+  actualValue: number;
+  weight: number;
+  autoCalculation: boolean;
+  linkedSystem: string;
+  calculatedScore: number;
 }
 
-interface Competency {
+interface EvaluationProgram {
   id: string;
   name: string;
-  category: 'Technical' | 'Behavioral' | 'Leadership' | 'Communication';
-  currentLevel: number;
-  targetLevel: number;
-  importance: 'Critical' | 'Important' | 'Moderate';
+  type: 'annual' | 'semi_annual' | 'quarterly' | 'monthly' | 'custom';
+  startDate: string;
+  endDate: string;
+  targetDepartments: string[];
+  raterTypes: string[];
+  isActive: boolean;
 }
 
-interface AIAnalysis {
-  summary: string;
-  fullAnalysis: string;
-  recommendations: string[];
-  rating: number | null;
-  keyPoints: string[];
-  timestamp: string;
+interface Evaluation {
+  id: string;
+  employeeId: string;
+  employeeName: string;
+  programId: string;
+  status: 'draft' | 'in_progress' | 'completed' | 'approved';
+  selfScore: number;
+  managerScore: number;
+  hrScore: number;
+  finalScore: number;
+  purpose: string;
+  duration: string;
+  employeeComments: string;
+  managerComments: string;
+  managerRecommendation: string;
+  createdAt: string;
+}
+
+interface AutomatedDecision {
+  id: string;
+  evaluationId: string;
+  type: 'promotion' | 'bonus' | 'warning' | 'salary_freeze';
+  scoreThreshold: number;
+  amount: number;
+  status: 'pending' | 'approved' | 'rejected' | 'executed';
+  hrApprovalBy?: string;
+  hrApprovalNotes?: string;
 }
 
 export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluationProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('all');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [aiAnalysis, setAiAnalysis] = useState<AIAnalysis | null>(null);
-  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [indicators, setIndicators] = useState<PerformanceIndicator[]>([]);
+  const [evaluationPrograms, setEvaluationPrograms] = useState<EvaluationProgram[]>([]);
+  const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
+  const [automatedDecisions, setAutomatedDecisions] = useState<AutomatedDecision[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedEvaluation, setSelectedEvaluation] = useState<Evaluation | null>(null);
 
-  // Mock data for demonstration
-  const employees: Employee[] = [
+  // بيانات وهمية للعرض التوضيحي
+  const mockIndicators: PerformanceIndicator[] = [
     {
       id: '1',
-      name: 'أحمد محمد علي',
-      position: 'مطور أول',
-      department: 'تقنية المعلومات',
-      avatar: '/lovable-uploads/employee-1.jpg',
-      performanceScore: 92,
-      lastEvaluation: '2024-01-15',
-      nextEvaluation: '2024-04-15',
-      manager: 'سعد الأحمد',
-      joinDate: '2021-03-10',
-      skills: ['React', 'Node.js', 'TypeScript', 'Leadership'],
-      goals: [
-        {
-          id: 'g1',
-          title: 'تطوير نظام إدارة المشاريع',
-          description: 'بناء نظام شامل لإدارة المشاريع',
-          progress: 75,
-          dueDate: '2024-03-30',
-          status: 'On Track',
-          priority: 'High'
-        }
-      ],
-      competencies: [
-        {
-          id: 'c1',
-          name: 'البرمجة',
-          category: 'Technical',
-          currentLevel: 4,
-          targetLevel: 5,
-          importance: 'Critical'
-        },
-        {
-          id: 'c2',
-          name: 'القيادة',
-          category: 'Leadership',
-          currentLevel: 3,
-          targetLevel: 4,
-          importance: 'Important'
-        }
-      ]
+      code: 'KPI001',
+      name: 'الإنتاجية',
+      type: 'KPI',
+      category: 'الأداء',
+      description: 'قياس مستوى الإنتاجية الشهرية',
+      targetValue: 100,
+      actualValue: 92,
+      weight: 25,
+      autoCalculation: true,
+      linkedSystem: 'نظام المهام',
+      calculatedScore: 23
     },
     {
       id: '2',
-      name: 'فاطمة السالم',
-      position: 'محلل أعمال',
-      department: 'العمليات',
-      avatar: '/lovable-uploads/employee-2.jpg',
-      performanceScore: 88,
-      lastEvaluation: '2024-01-20',
-      nextEvaluation: '2024-04-20',
-      manager: 'نورا الكندري',
-      joinDate: '2021-06-15',
-      skills: ['Analysis', 'Project Management', 'Communication'],
-      goals: [
-        {
-          id: 'g2',
-          title: 'تحسين عمليات الشركة',
-          description: 'تحليل وتحسين العمليات الحالية',
-          progress: 60,
-          dueDate: '2024-04-15',
-          status: 'On Track',
-          priority: 'Medium'
-        }
-      ],
-      competencies: [
-        {
-          id: 'c3',
-          name: 'التحليل',
-          category: 'Technical',
-          currentLevel: 5,
-          targetLevel: 5,
-          importance: 'Critical'
-        }
-      ]
+      code: 'KPI002',
+      name: 'الانضباط',
+      type: 'KPI',
+      category: 'السلوك',
+      description: 'معدل الحضور والالتزام بالمواعيد',
+      targetValue: 95,
+      actualValue: 98,
+      weight: 20,
+      autoCalculation: true,
+      linkedSystem: 'نظام الحضور',
+      calculatedScore: 20
+    },
+    {
+      id: '3',
+      code: 'KRI001',
+      name: 'إنذارات الأداء',
+      type: 'KRI',
+      category: 'المخاطر',
+      description: 'عدد الإنذارات المتعلقة بالأداء',
+      targetValue: 0,
+      actualValue: 1,
+      weight: 15,
+      autoCalculation: true,
+      linkedSystem: 'نظام الجزاءات',
+      calculatedScore: 10
+    },
+    {
+      id: '4',
+      code: 'KSI001',
+      name: 'إنجاز الأهداف',
+      type: 'KSI',
+      category: 'النجاح',
+      description: 'نسبة إنجاز الأهداف المحددة',
+      targetValue: 100,
+      actualValue: 88,
+      weight: 20,
+      autoCalculation: false,
+      linkedSystem: 'إدارة الأهداف',
+      calculatedScore: 17
+    },
+    {
+      id: '5',
+      code: 'KQI001',
+      name: 'رضا العملاء',
+      type: 'KQI',
+      category: 'الجودة',
+      description: 'تقييم العملاء للخدمة المقدمة',
+      targetValue: 90,
+      actualValue: 94,
+      weight: 15,
+      autoCalculation: false,
+      linkedSystem: 'نظام خدمة العملاء',
+      calculatedScore: 15
+    },
+    {
+      id: '6',
+      code: 'KVI001',
+      name: 'العائد من التدريب',
+      type: 'KVI',
+      category: 'القيمة',
+      description: 'العائد المحقق من الاستثمار في التدريب',
+      targetValue: 150,
+      actualValue: 180,
+      weight: 10,
+      autoCalculation: true,
+      linkedSystem: 'نظام التدريب',
+      calculatedScore: 12
+    },
+    {
+      id: '7',
+      code: 'KCI001',
+      name: 'المهارات الفنية',
+      type: 'KCI',
+      category: 'القدرات',
+      description: 'مستوى المهارات التقنية',
+      targetValue: 85,
+      actualValue: 90,
+      weight: 15,
+      autoCalculation: false,
+      linkedSystem: 'نظام التقييمات',
+      calculatedScore: 15
     }
   ];
 
-  const performanceData = [
-    { month: 'يناير', individual: 88, team: 85, department: 82 },
-    { month: 'فبراير', individual: 90, team: 87, department: 84 },
-    { month: 'مارس', individual: 92, team: 89, department: 86 },
-    { month: 'أبريل', individual: 89, team: 88, department: 85 },
-    { month: 'مايو', individual: 94, team: 91, department: 88 },
-    { month: 'يونيو', individual: 96, team: 93, department: 90 }
-  ];
-
-  const competencyRadarData = [
-    { competency: 'التقنية', current: 85, target: 90 },
-    { competency: 'القيادة', current: 70, target: 85 },
-    { competency: 'التواصل', current: 80, target: 85 },
-    { competency: 'الابتكار', current: 75, target: 80 },
-    { competency: 'العمل الجماعي', current: 90, target: 95 },
-    { competency: 'حل المشاكل', current: 88, target: 90 }
-  ];
-
-  const performanceDistribution = [
-    { range: 'ممتاز (90-100)', count: 15, color: '#10b981' },
-    { range: 'جيد جداً (80-89)', count: 25, color: '#3b82f6' },
-    { range: 'جيد (70-79)', count: 18, color: '#f59e0b' },
-    { range: 'مقبول (60-69)', count: 8, color: '#ef4444' },
-    { range: 'ضعيف (أقل من 60)', count: 2, color: '#6b7280' }
-  ];
-
-  const getDashboardStats = () => {
-    return {
-      totalEmployees: employees.length,
-      avgPerformance: employees.reduce((acc, emp) => acc + emp.performanceScore, 0) / employees.length,
-      completedEvaluations: employees.filter(emp => new Date(emp.lastEvaluation) > new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)).length,
-      upcomingEvaluations: employees.filter(emp => new Date(emp.nextEvaluation) < new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)).length,
-      highPerformers: employees.filter(emp => emp.performanceScore >= 90).length,
-      improvementNeeded: employees.filter(emp => emp.performanceScore < 70).length
-    };
-  };
-
-  const stats = getDashboardStats();
-
-  const generateAIAnalysis = async (employee: Employee, analysisType: string) => {
-    setIsAnalyzing(true);
-    try {
-      const { data, error } = await supabase.functions.invoke('ai-performance-analysis', {
-        body: {
-          employeeData: {
-            name: employee.name,
-            position: employee.position,
-            department: employee.department,
-            performanceScore: employee.performanceScore,
-            skills: employee.skills,
-            goals: employee.goals,
-            competencies: employee.competencies,
-            joinDate: employee.joinDate,
-            lastEvaluation: employee.lastEvaluation
-          },
-          analysisType,
-          context: `تقييم للموظف ${employee.name} في منصب ${employee.position}`
-        }
-      });
-
-      if (error) throw error;
-
-      setAiAnalysis(data);
-      toast({
-        title: "تم إنتاج التحليل بنجاح",
-        description: "تم تحليل بيانات الموظف باستخدام الذكاء الاصطناعي",
-      });
-    } catch (error) {
-      console.error('Error generating AI analysis:', error);
-      toast({
-        title: "خطأ في التحليل",
-        description: "حدث خطأ أثناء تحليل البيانات",
-        variant: "destructive",
-      });
-    } finally {
-      setIsAnalyzing(false);
+  const mockEvaluations: Evaluation[] = [
+    {
+      id: '1',
+      employeeId: 'emp1',
+      employeeName: 'أحمد محمد علي',
+      programId: 'prog1',
+      status: 'completed',
+      selfScore: 88,
+      managerScore: 92,
+      hrScore: 90,
+      finalScore: 90,
+      purpose: 'تقييم سنوي',
+      duration: '12 شهر',
+      employeeComments: 'أعتقد أنني حققت معظم الأهداف المطلوبة وأسعى للتطوير المستمر',
+      managerComments: 'أداء ممتاز مع إمكانيات عالية للنمو والتطوير',
+      managerRecommendation: 'ترقية',
+      createdAt: '2024-01-15'
+    },
+    {
+      id: '2',
+      employeeId: 'emp2',
+      employeeName: 'فاطمة السالم',
+      programId: 'prog1',
+      status: 'in_progress',
+      selfScore: 85,
+      managerScore: 0,
+      hrScore: 0,
+      finalScore: 0,
+      purpose: 'تقييم نصف سنوي',
+      duration: '6 أشهر',
+      employeeComments: 'أعمل على تحسين مهاراتي في التحليل',
+      managerComments: '',
+      managerRecommendation: '',
+      createdAt: '2024-02-01'
     }
-  };
+  ];
 
-  const getStatusBadge = (status: string) => {
-    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-      'On Track': 'default',
-      'At Risk': 'secondary',
-      'Behind': 'destructive',
-      'Completed': 'outline'
-    };
-    return <Badge variant={variants[status] || 'default'}>{status}</Badge>;
-  };
+  const mockDecisions: AutomatedDecision[] = [
+    {
+      id: '1',
+      evaluationId: '1',
+      type: 'promotion',
+      scoreThreshold: 90,
+      amount: 0,
+      status: 'pending',
+      hrApprovalBy: undefined,
+      hrApprovalNotes: undefined
+    },
+    {
+      id: '2',
+      evaluationId: '1',
+      type: 'bonus',
+      scoreThreshold: 90,
+      amount: 5000,
+      status: 'pending',
+      hrApprovalBy: undefined,
+      hrApprovalNotes: undefined
+    }
+  ];
 
-  const getPriorityBadge = (priority: string) => {
-    const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-      'High': 'destructive',
-      'Medium': 'secondary',
-      'Low': 'outline'
-    };
-    return <Badge variant={variants[priority] || 'default'}>{priority}</Badge>;
-  };
+  useEffect(() => {
+    setIndicators(mockIndicators);
+    setEvaluations(mockEvaluations);
+    setAutomatedDecisions(mockDecisions);
+  }, []);
 
-  const renderProfessionalHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+  const renderHeader = () => (
+    <div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-primary/10 to-blue-50 rounded-3xl border border-primary/20">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-primary/30 hover:bg-primary/5">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
-              <Brain className="h-12 w-12" />
-            </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
-          </div>
+          <BoudLogo size="lg" />
           <div>
-            <h1 className="text-3xl font-bold text-black">
-              التقييم الذكي بالذكاء الاصطناعي
+            <h1 className="text-3xl font-bold text-primary">
+              نظام تقييم الأداء المتكامل
             </h1>
             <p className="text-gray-600 text-lg">
-              منظومة تقييم متطورة تستخدم الذكاء الاصطناعي لتحليل الأداء وتقديم توصيات ذكية
+              إدارة شاملة للمؤشرات والتقييمات المتعددة مع القرارات التلقائية
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2">
           <Brain className="h-4 w-4 ml-2" />
-          نظام متقدم
+          نظام ذكي متكامل
         </Badge>
-        <Button 
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقرير
-        </Button>
-        <Button 
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          <FileText className="h-4 w-4 ml-2" />
-          طباعة
-        </Button>
-        <Button 
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          <Plus className="h-4 w-4 ml-2" />
-          تقييم جديد
-        </Button>
       </div>
     </div>
   );
 
-  const renderAnalyticsDashboard = () => (
+  const renderIndicatorsEngine = () => (
     <div className="space-y-6">
-      {/* Key Performance Indicators */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="border-l-4 border-l-primary">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                <p className="text-2xl font-bold text-primary">{stats.totalEmployees}</p>
-              </div>
-              <Users className="h-8 w-8 text-primary/60" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-emerald-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">متوسط الأداء</p>
-                <p className="text-2xl font-bold text-emerald-600">{Math.round(stats.avgPerformance)}%</p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-emerald-500/60" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">تقييمات مكتملة</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.completedEvaluations}</p>
-              </div>
-              <CheckCircle2 className="h-8 w-8 text-blue-500/60" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-orange-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">تقييمات قادمة</p>
-                <p className="text-2xl font-bold text-orange-600">{stats.upcomingEvaluations}</p>
-              </div>
-              <Calendar className="h-8 w-8 text-orange-500/60" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-green-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">أداء عالي</p>
-                <p className="text-2xl font-bold text-green-600">{stats.highPerformers}</p>
-              </div>
-              <Star className="h-8 w-8 text-green-500/60" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-red-500">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">يحتاج تحسين</p>
-                <p className="text-2xl font-bold text-red-600">{stats.improvementNeeded}</p>
-              </div>
-              <AlertTriangle className="h-8 w-8 text-red-500/60" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
-              تطور الأداء الشهري
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Area type="monotone" dataKey="individual" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="team" stackId="2" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="department" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="h-5 w-5" />
-              توزيع مستويات الأداء
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <RechartsPieChart>
-                <Pie
-                  data={performanceDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="count"
-                >
-                  {performanceDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </RechartsPieChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* AI Insights */}
-      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            رؤى الذكاء الاصطناعي
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">تحسن ملحوظ</span>
-              </div>
-              <p className="text-sm text-emerald-700">
-                ارتفاع متوسط الأداء بنسبة 12% مقارنة بالربع الماضي
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تنبيه</span>
-              </div>
-              <p className="text-sm text-orange-700">
-                3 موظفين يحتاجون لخطط تطوير عاجلة لتحسين الأداء
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Lightbulb className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">توصية</span>
-              </div>
-              <p className="text-sm text-blue-700">
-                تطبيق برامج تدريب متخصصة لرفع مستوى 5 مهارات أساسية
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-
-  const renderSmartAnalysis = () => (
-    <div className="space-y-6">
-      {/* Employee Selection */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Brain className="h-5 w-5" />
-            التحليل الذكي للموظفين
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <Select onValueChange={(value) => setSelectedEmployee(employees.find(emp => emp.id === value) || null)}>
-              <SelectTrigger>
-                <SelectValue placeholder="اختر موظف للتحليل" />
-              </SelectTrigger>
-              <SelectContent>
-                {employees.map((employee) => (
-                  <SelectItem key={employee.id} value={employee.id}>
-                    {employee.name} - {employee.position}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <div className="flex gap-2">
-              <Button 
-                onClick={() => selectedEmployee && generateAIAnalysis(selectedEmployee, 'performance_analysis')}
-                disabled={!selectedEmployee || isAnalyzing}
-                className="flex-1"
-              >
-                {isAnalyzing ? <RefreshCw className="h-4 w-4 animate-spin ml-2" /> : <Brain className="h-4 w-4 ml-2" />}
-                تحليل الأداء
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={() => selectedEmployee && generateAIAnalysis(selectedEmployee, 'competency_assessment')}
-                disabled={!selectedEmployee || isAnalyzing}
-              >
-                تقييم الكفاءات
-              </Button>
-            </div>
-          </div>
-
-          {/* AI Analysis Results */}
-          {aiAnalysis && (
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                  <h3 className="font-semibold">تحليل الذكاء الاصطناعي</h3>
-                  {aiAnalysis.rating && (
-                    <Badge variant="outline" className="ml-auto">
-                      التقييم: {aiAnalysis.rating}/100
-                    </Badge>
-                  )}
-                </div>
-                
-                <div className="mb-4">
-                  <h4 className="font-medium mb-2">الملخص:</h4>
-                  <p className="text-sm text-muted-foreground">{aiAnalysis.summary}</p>
-                </div>
-
-                {aiAnalysis.keyPoints.length > 0 && (
-                  <div className="mb-4">
-                    <h4 className="font-medium mb-2">النقاط الرئيسية:</h4>
-                    <ul className="list-disc list-inside space-y-1">
-                      {aiAnalysis.keyPoints.map((point, index) => (
-                        <li key={index} className="text-sm text-muted-foreground">{point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {aiAnalysis.recommendations.length > 0 && (
-                  <div className="mb-4">
-                    <h4 className="font-medium mb-2">التوصيات:</h4>
-                    <div className="grid gap-2">
-                      {aiAnalysis.recommendations.map((rec, index) => (
-                        <div key={index} className="flex items-start gap-2 p-2 rounded bg-emerald-50 border border-emerald-200">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-600 mt-0.5" />
-                          <span className="text-sm">{rec}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="flex justify-between items-center text-xs text-muted-foreground">
-                  <span>تم إنتاج التحليل في: {new Date(aiAnalysis.timestamp).toLocaleString('ar-SA')}</span>
-                  <Button variant="outline" size="sm">
-                    <Share className="h-4 w-4 ml-2" />
-                    مشاركة
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Competency Radar Chart */}
-      {selectedEmployee && (
-        <Card>
-          <CardHeader>
-            <CardTitle>خريطة الكفاءات الذكية</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={400}>
-              <RadarChart data={competencyRadarData}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="competency" />
-                <PolarRadiusAxis domain={[0, 100]} />
-                <Radar name="المستوى الحالي" dataKey="current" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.1} />
-                <Radar name="المستوى المستهدف" dataKey="target" stroke="#10b981" fill="#10b981" fillOpacity={0.1} />
-                <Tooltip />
-              </RadarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      )}
-    </div>
-  );
-
-  const renderEmployeeEvaluations = () => (
-    <div className="space-y-6">
-      {/* Search and Filter */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-1">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-          <Input
-            placeholder="البحث في الموظفين..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pr-10"
-          />
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <Target className="h-6 w-6" />
+          محرك المؤشرات الذكي
+        </h2>
+        <div className="flex gap-2">
+          <Button className="bg-primary">
+            <Plus className="h-4 w-4 ml-2" />
+            مؤشر جديد
+          </Button>
+          <Button variant="outline">
+            <RefreshCw className="h-4 w-4 ml-2" />
+            تحديث تلقائي
+          </Button>
         </div>
-        <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="تصفية حسب..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">جميع الموظفين</SelectItem>
-            <SelectItem value="high-performers">أداء عالي</SelectItem>
-            <SelectItem value="needs-improvement">يحتاج تحسين</SelectItem>
-            <SelectItem value="due-evaluation">تقييم مستحق</SelectItem>
-          </SelectContent>
-        </Select>
-        <Button>
+      </div>
+
+      {/* جدول المؤشرات */}
+      <div className="grid gap-6">
+        {['KPI', 'KRI', 'KSI', 'KQI', 'KVI', 'KCI'].map((type) => {
+          const typeIndicators = indicators.filter(ind => ind.type === type);
+          const typeColors = {
+            KPI: 'from-blue-500 to-blue-600',
+            KRI: 'from-red-500 to-red-600',
+            KSI: 'from-green-500 to-green-600',
+            KQI: 'from-purple-500 to-purple-600',
+            KVI: 'from-yellow-500 to-yellow-600',
+            KCI: 'from-indigo-500 to-indigo-600'
+          };
+          
+          const typeNames = {
+            KPI: 'مؤشرات الأداء الرئيسية',
+            KRI: 'مؤشرات المخاطر الرئيسية',
+            KSI: 'مؤشرات النجاح الرئيسية',
+            KQI: 'مؤشرات الجودة الرئيسية',
+            KVI: 'مؤشرات القيمة الرئيسية',
+            KCI: 'مؤشرات القدرات الرئيسية'
+          };
+
+          return (
+            <Card key={type} className="overflow-hidden">
+              <CardHeader className={`bg-gradient-to-r ${typeColors[type]} text-white`}>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Gauge className="h-5 w-5" />
+                    {type} - {typeNames[type]}
+                  </div>
+                  <Badge variant="secondary" className="bg-white/20 text-white border-0">
+                    {typeIndicators.length} مؤشر
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                {typeIndicators.length > 0 ? (
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الرمز</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">اسم المؤشر</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الهدف</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الفعلي</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">النسبة</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الوزن</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">النتيجة</th>
+                          <th className="p-3 text-right text-sm font-semibold text-gray-900">النظام المرتبط</th>
+                          <th className="p-3 text-center text-sm font-semibold text-gray-900">إجراءات</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        {typeIndicators.map((indicator) => {
+                          const percentage = (indicator.actualValue / indicator.targetValue) * 100;
+                          const isGood = percentage >= 90;
+                          const isWarning = percentage >= 70 && percentage < 90;
+                          const isDanger = percentage < 70;
+                          
+                          return (
+                            <tr key={indicator.id} className="hover:bg-gray-50">
+                              <td className="p-3 text-sm font-medium text-gray-900">{indicator.code}</td>
+                              <td className="p-3 text-sm text-gray-900">{indicator.name}</td>
+                              <td className="p-3 text-sm text-gray-900">{indicator.targetValue}</td>
+                              <td className="p-3 text-sm text-gray-900">{indicator.actualValue}</td>
+                              <td className="p-3">
+                                <div className="flex items-center gap-2">
+                                  <Progress 
+                                    value={Math.min(percentage, 100)} 
+                                    className={`w-20 h-2 ${
+                                      isGood ? 'bg-green-100' : 
+                                      isWarning ? 'bg-yellow-100' : 'bg-red-100'
+                                    }`}
+                                  />
+                                  <span className={`text-sm font-medium ${
+                                    isGood ? 'text-green-600' : 
+                                    isWarning ? 'text-yellow-600' : 'text-red-600'
+                                  }`}>
+                                    {percentage.toFixed(1)}%
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="p-3 text-sm text-gray-900">{indicator.weight}%</td>
+                              <td className="p-3">
+                                <Badge 
+                                  variant={isGood ? "default" : isWarning ? "secondary" : "destructive"}
+                                >
+                                  {indicator.calculatedScore}
+                                </Badge>
+                              </td>
+                              <td className="p-3">
+                                <div className="flex items-center gap-2">
+                                  <Database className="h-4 w-4 text-gray-400" />
+                                  <span className="text-sm text-gray-600">{indicator.linkedSystem}</span>
+                                  {indicator.autoCalculation && (
+                                    <Badge variant="outline" className="text-xs">تلقائي</Badge>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="p-3">
+                                <div className="flex items-center justify-center gap-1">
+                                  <Button size="sm" variant="ghost">
+                                    <Edit className="h-3 w-3" />
+                                  </Button>
+                                  <Button size="sm" variant="ghost">
+                                    <Eye className="h-3 w-3" />
+                                  </Button>
+                                  <Button size="sm" variant="ghost">
+                                    <RefreshCw className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="p-8 text-center text-gray-500">
+                    لا توجد مؤشرات من نوع {type} حالياً
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  const renderEvaluationPrograms = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <Calendar className="h-6 w-6" />
+          برامج التقييم
+        </h2>
+        <Button className="bg-primary">
           <Plus className="h-4 w-4 ml-2" />
-          تقييم جديد
+          برنامج جديد
         </Button>
       </div>
 
-      {/* Employee Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {employees.map((employee) => (
-          <Card key={employee.id} className="hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-primary font-semibold">{employee.name.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{employee.name}</h3>
-                    <p className="text-sm text-muted-foreground">{employee.position}</p>
-                    <p className="text-xs text-muted-foreground">{employee.department}</p>
-                  </div>
-                </div>
-                <Badge variant={employee.performanceScore >= 90 ? 'default' : employee.performanceScore >= 80 ? 'secondary' : 'destructive'}>
-                  {employee.performanceScore}%
-                </Badge>
-              </div>
-
-              <div className="space-y-3 mb-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>الأداء العام</span>
-                    <span>{employee.performanceScore}%</span>
-                  </div>
-                  <Progress value={employee.performanceScore} className="h-2" />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <Label className="text-xs text-muted-foreground">آخر تقييم</Label>
-                    <p className="font-medium">{employee.lastEvaluation}</p>
-                  </div>
-                  <div>
-                    <Label className="text-xs text-muted-foreground">التقييم القادم</Label>
-                    <p className="font-medium">{employee.nextEvaluation}</p>
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-xs text-muted-foreground">المهارات الرئيسية</Label>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {employee.skills.slice(0, 3).map((skill, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                    {employee.skills.length > 3 && (
-                      <span className="text-xs text-muted-foreground">+{employee.skills.length - 3}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <Button 
-                  size="sm" 
-                  className="flex-1"
-                  onClick={() => {
-                    setSelectedEmployee(employee);
-                    generateAIAnalysis(employee, 'performance_analysis');
-                  }}
+        {[
+          { name: 'التقييم السنوي 2024', type: 'annual', startDate: '2024-01-01', endDate: '2024-12-31', status: 'نشط' },
+          { name: 'التقييم النصف سنوي', type: 'semi_annual', startDate: '2024-06-01', endDate: '2024-11-30', status: 'قيد التنفيذ' },
+          { name: 'التقييم الربع سنوي Q1', type: 'quarterly', startDate: '2024-01-01', endDate: '2024-03-31', status: 'مكتمل' },
+        ].map((program, index) => (
+          <Card key={index} className="hover:shadow-lg transition-all duration-300">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>{program.name}</span>
+                <Badge 
+                  variant={
+                    program.status === 'نشط' ? 'default' : 
+                    program.status === 'قيد التنفيذ' ? 'secondary' : 'outline'
+                  }
                 >
-                  <Brain className="h-4 w-4 ml-2" />
-                  تحليل ذكي
+                  {program.status}
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Clock className="h-4 w-4" />
+                {program.startDate} - {program.endDate}
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Users className="h-4 w-4" />
+                جميع الموظفين
+              </div>
+              <div className="flex gap-2">
+                <Button size="sm" variant="outline" className="flex-1">
+                  <Edit className="h-3 w-3 ml-1" />
+                  تعديل
                 </Button>
-                <Button variant="outline" size="sm">
-                  <Eye className="h-4 w-4 ml-2" />
+                <Button size="sm" variant="outline" className="flex-1">
+                  <Eye className="h-3 w-3 ml-1" />
                   عرض
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Edit className="h-4 w-4 ml-2" />
-                  تحرير
                 </Button>
               </div>
             </CardContent>
@@ -752,672 +534,720 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
     </div>
   );
 
-  const renderCompetencyManagement = () => {
-    const [competencies, setCompetencies] = useState([
-      {
-        id: '1',
-        name: 'القيادة الاستراتيجية',
-        category: 'Leadership' as const,
-        description: 'القدرة على وضع رؤية استراتيجية وقيادة الفرق نحو تحقيق الأهداف',
-        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
-        importance: 'Critical' as const,
-        assessmentCriteria: [
-          'وضع الرؤية الاستراتيجية',
-          'تحفيز الفرق',
-          'اتخاذ القرارات الصعبة',
-          'إدارة التغيير'
-        ]
-      },
-      {
-        id: '2',
-        name: 'التفكير التحليلي',
-        category: 'Technical' as const,
-        description: 'القدرة على تحليل المعلومات المعقدة وحل المشكلات بطريقة منطقية',
-        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
-        importance: 'Important' as const,
-        assessmentCriteria: [
-          'تحليل البيانات',
-          'حل المشكلات',
-          'التفكير النقدي',
-          'اتخاذ القرارات المدروسة'
-        ]
-      },
-      {
-        id: '3',
-        name: 'التواصل الفعال',
-        category: 'Communication' as const,
-        description: 'القدرة على التواصل بوضوح وفعالية مع مختلف المستويات والجمهور',
-        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
-        importance: 'Critical' as const,
-        assessmentCriteria: [
-          'التواصل الشفهي',
-          'التواصل الكتابي',
-          'الاستماع الفعال',
-          'العرض والتقديم'
-        ]
-      }
-    ]);
+  const renderEvaluationForm = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <FileText className="h-6 w-6" />
+          نموذج التقييم الشامل
+        </h2>
+        <div className="flex gap-2">
+          <Button className="bg-primary">
+            <Save className="h-4 w-4 ml-2" />
+            حفظ النموذج
+          </Button>
+          <Button variant="outline">
+            <Eye className="h-4 w-4 ml-2" />
+            معاينة
+          </Button>
+        </div>
+      </div>
 
-    const [showAddDialog, setShowAddDialog] = useState(false);
-    const [newCompetency, setNewCompetency] = useState({
-      name: '',
-      category: 'Technical' as const,
-      description: '',
-      importance: 'Important' as const,
-      assessmentCriteria: ['']
-    });
-
-    const handleAddCompetency = () => {
-      const competency = {
-        id: Date.now().toString(),
-        ...newCompetency,
-        levels: ['مبتدئ', 'متوسط', 'متقدم', 'خبير', 'استراتيجي'],
-        assessmentCriteria: newCompetency.assessmentCriteria.filter(c => c.trim() !== '')
-      };
-      setCompetencies([...competencies, competency]);
-      setNewCompetency({
-        name: '',
-        category: 'Technical',
-        description: '',
-        importance: 'Important',
-        assessmentCriteria: ['']
-      });
-      setShowAddDialog(false);
-      toast({ title: 'تمت إضافة الكفاءة بنجاح', variant: 'default' });
-    };
-
-    const getCategoryColor = (category: string) => {
-      switch (category) {
-        case 'Technical': return 'bg-blue-100 text-blue-800 border-blue-200';
-        case 'Leadership': return 'bg-purple-100 text-purple-800 border-purple-200';
-        case 'Communication': return 'bg-green-100 text-green-800 border-green-200';
-        case 'Behavioral': return 'bg-orange-100 text-orange-800 border-orange-200';
-        default: return 'bg-gray-100 text-gray-800 border-gray-200';
-      }
-    };
-
-    const getImportanceColor = (importance: string) => {
-      switch (importance) {
-        case 'Critical': return 'bg-red-100 text-red-800 border-red-200';
-        case 'Important': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-        case 'Moderate': return 'bg-gray-100 text-gray-800 border-gray-200';
-        default: return 'bg-gray-100 text-gray-800 border-gray-200';
-      }
-    };
-
-    return (
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">إدارة الكفاءات والمهارات</h2>
-            <p className="text-muted-foreground">تحديد وإدارة الكفاءات المطلوبة لكل منصب</p>
-          </div>
-          <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="h-4 w-4 ml-2" />
-                إضافة كفاءة جديدة
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>إضافة كفاءة جديدة</DialogTitle>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">اسم الكفاءة</Label>
-                    <Input
-                      id="name"
-                      value={newCompetency.name}
-                      onChange={(e) => setNewCompetency({...newCompetency, name: e.target.value})}
-                      placeholder="مثال: القيادة الاستراتيجية"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="category">الفئة</Label>
-                    <Select
-                      value={newCompetency.category}
-                      onValueChange={(value: any) => setNewCompetency({...newCompetency, category: value})}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Technical">تقنية</SelectItem>
-                        <SelectItem value="Leadership">قيادية</SelectItem>
-                        <SelectItem value="Communication">تواصل</SelectItem>
-                        <SelectItem value="Behavioral">سلوكية</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* عوامل التقييم الرئيسية */}
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle>عوامل التقييم الرئيسية</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {[
+              { name: 'الأداء الوظيفي', weight: 30, description: 'جودة وكمية العمل المنجز' },
+              { name: 'الانضباط', weight: 20, description: 'الالتزام بالمواعيد والقوانين' },
+              { name: 'جودة العمل', weight: 25, description: 'مستوى الدقة والإتقان' },
+              { name: 'التعاون', weight: 15, description: 'العمل ضمن الفريق والتواصل' },
+              { name: 'تطوير المهارات', weight: 10, description: 'التعلم والنمو المهني' }
+            ].map((factor, index) => (
+              <div key={index} className="border rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold">{factor.name}</h3>
+                  <Badge variant="outline">{factor.weight}%</Badge>
                 </div>
-                
-                <div>
-                  <Label htmlFor="description">الوصف</Label>
-                  <Textarea
-                    id="description"
-                    value={newCompetency.description}
-                    onChange={(e) => setNewCompetency({...newCompetency, description: e.target.value})}
-                    placeholder="وصف مفصل للكفاءة ومتطلباتها"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="importance">مستوى الأهمية</Label>
-                  <Select
-                    value={newCompetency.importance}
-                    onValueChange={(value: any) => setNewCompetency({...newCompetency, importance: value})}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Critical">حرجة</SelectItem>
-                      <SelectItem value="Important">مهمة</SelectItem>
-                      <SelectItem value="Moderate">متوسطة</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>معايير التقييم</Label>
-                  {newCompetency.assessmentCriteria.map((criteria, index) => (
-                    <div key={index} className="flex gap-2 mt-2">
-                      <Input
-                        value={criteria}
-                        onChange={(e) => {
-                          const newCriteria = [...newCompetency.assessmentCriteria];
-                          newCriteria[index] = e.target.value;
-                          setNewCompetency({...newCompetency, assessmentCriteria: newCriteria});
-                        }}
-                        placeholder="معيار التقييم"
-                      />
-                      {index === newCompetency.assessmentCriteria.length - 1 && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setNewCompetency({
-                            ...newCompetency,
-                            assessmentCriteria: [...newCompetency.assessmentCriteria, '']
-                          })}
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                      )}
+                <p className="text-sm text-gray-600 mb-3">{factor.description}</p>
+                <div className="grid grid-cols-5 gap-2">
+                  {[1, 2, 3, 4, 5].map((score) => (
+                    <div key={score} className="text-center">
+                      <div className="w-8 h-8 rounded-full border-2 border-gray-300 mx-auto mb-1 flex items-center justify-center cursor-pointer hover:border-primary">
+                        {score}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {score === 1 ? 'ضعيف' : score === 2 ? 'مقبول' : score === 3 ? 'جيد' : score === 4 ? 'جيد جداً' : 'ممتاز'}
+                      </div>
                     </div>
                   ))}
                 </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
 
-                <div className="flex justify-end gap-2">
-                  <Button variant="outline" onClick={() => setShowAddDialog(false)}>
-                    إلغاء
-                  </Button>
-                  <Button onClick={handleAddCompetency}>
-                    إضافة الكفاءة
-                  </Button>
+        {/* المؤشرات المختارة */}
+        <Card>
+          <CardHeader>
+            <CardTitle>المؤشرات المحددة</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {indicators.slice(0, 5).map((indicator) => (
+                <div key={indicator.id} className="flex items-center justify-between p-2 border rounded">
+                  <div>
+                    <div className="font-medium text-sm">{indicator.name}</div>
+                    <div className="text-xs text-gray-500">{indicator.code}</div>
+                  </div>
+                  <Switch defaultChecked />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  const renderMultiRaterEvaluation = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <Users className="h-6 w-6" />
+          التقييمات المتعددة
+        </h2>
+      </div>
+
+      {evaluations.map((evaluation) => (
+        <Card key={evaluation.id} className="overflow-hidden">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                  <UserCheck className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h3>{evaluation.employeeName}</h3>
+                  <p className="text-sm text-gray-500">{evaluation.purpose} - {evaluation.duration}</p>
                 </div>
               </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-
-        {/* Competencies Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {competencies.map((competency) => (
-            <Card key={competency.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <CardTitle className="text-lg">{competency.name}</CardTitle>
-                  <div className="flex gap-1">
-                    <Badge className={getCategoryColor(competency.category)}>
-                      {competency.category === 'Technical' ? 'تقنية' :
-                       competency.category === 'Leadership' ? 'قيادية' :
-                       competency.category === 'Communication' ? 'تواصل' : 'سلوكية'}
-                    </Badge>
-                    <Badge className={getImportanceColor(competency.importance)}>
-                      {competency.importance === 'Critical' ? 'حرجة' :
-                       competency.importance === 'Important' ? 'مهمة' : 'متوسطة'}
-                    </Badge>
+              <Badge 
+                variant={
+                  evaluation.status === 'completed' ? 'default' :
+                  evaluation.status === 'in_progress' ? 'secondary' :
+                  evaluation.status === 'approved' ? 'outline' : 'destructive'
+                }
+              >
+                {evaluation.status === 'completed' ? 'مكتمل' :
+                 evaluation.status === 'in_progress' ? 'قيد التنفيذ' :
+                 evaluation.status === 'approved' ? 'معتمد' : 'مسودة'}
+              </Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {/* التقييم الذاتي */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <PenTool className="h-4 w-4 text-blue-500" />
+                    التقييم الذاتي
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">{evaluation.selfScore}</div>
+                    <div className="text-sm text-gray-500">من 100</div>
+                    <Progress value={evaluation.selfScore} className="mt-2" />
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* تقييم المدير */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-green-500" />
+                    تقييم المدير
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">
+                      {evaluation.managerScore || '-'}
+                    </div>
+                    <div className="text-sm text-gray-500">من 100</div>
+                    <Progress value={evaluation.managerScore || 0} className="mt-2" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* مراجعة HR */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Award className="h-4 w-4 text-purple-500" />
+                    مراجعة HR
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">
+                      {evaluation.hrScore || '-'}
+                    </div>
+                    <div className="text-sm text-gray-500">من 100</div>
+                    <Progress value={evaluation.hrScore || 0} className="mt-2" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* النتيجة النهائية */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Target className="h-4 w-4 text-orange-500" />
+                    النتيجة النهائية
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-orange-600">
+                      {evaluation.finalScore || '-'}
+                    </div>
+                    <div className="text-sm text-gray-500">من 100</div>
+                    <Progress value={evaluation.finalScore || 0} className="mt-2" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* الملاحظات والتوصيات */}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm">ملاحظات الموظف</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    {evaluation.employeeComments || 'لا توجد ملاحظات'}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm">ملاحظات المدير</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    {evaluation.managerComments || 'لا توجد ملاحظات'}
+                  </p>
+                  {evaluation.managerRecommendation && (
+                    <div className="mt-2">
+                      <Badge variant="outline">
+                        توصية: {evaluation.managerRecommendation}
+                      </Badge>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* أزرار العمل */}
+            <div className="mt-6 flex justify-end gap-2">
+              <Button size="sm" variant="outline">
+                <MessageSquare className="h-3 w-3 ml-1" />
+                تعليق
+              </Button>
+              <Button size="sm" variant="outline">
+                <Edit className="h-3 w-3 ml-1" />
+                تعديل
+              </Button>
+              <Button size="sm" className="bg-primary">
+                <CheckCircle2 className="h-3 w-3 ml-1" />
+                اعتماد
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+
+  const renderAutomatedDecisions = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <Zap className="h-6 w-6" />
+          القرارات التلقائية وربطها بالرواتب
+        </h2>
+        <Button className="bg-primary">
+          <Settings className="h-4 w-4 ml-2" />
+          إعدادات القرارات
+        </Button>
+      </div>
+
+      {/* قواعد القرارات التلقائية */}
+      <Card>
+        <CardHeader>
+          <CardTitle>قواعد القرارات التلقائية</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="border-green-200 bg-green-50">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="h-5 w-5 text-green-600" />
+                  <span className="font-semibold text-green-800">≥ 90 نقطة</span>
                 </div>
-                <p className="text-sm text-muted-foreground">{competency.description}</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <Label className="text-xs font-medium text-muted-foreground">مستويات الكفاءة</Label>
-                    <div className="flex gap-1 mt-1">
-                      {competency.levels.map((level, index) => (
-                        <div key={index} className="flex-1 h-2 bg-gray-200 rounded">
-                          <div className="h-full bg-gradient-to-r from-red-400 via-yellow-400 to-green-500 rounded" style={{width: `${((index + 1) / competency.levels.length) * 100}%`}}></div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                      <span>{competency.levels[0]}</span>
-                      <span>{competency.levels[competency.levels.length - 1]}</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-xs font-medium text-muted-foreground">معايير التقييم</Label>
-                    <ul className="mt-1 space-y-1">
-                      {competency.assessmentCriteria.map((criteria, index) => (
-                        <li key={index} className="text-xs flex items-center gap-2">
-                          <CheckCircle2 className="h-3 w-3 text-green-500" />
-                          {criteria}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flex gap-2 pt-2">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Edit className="h-3 w-3 ml-1" />
-                      تحرير
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Eye className="h-3 w-3 ml-1" />
-                      عرض
-                    </Button>
-                  </div>
+                <div className="space-y-1 text-sm text-green-700">
+                  <p>• ترقية تلقائية</p>
+                  <p>• علاوة سنوية 10%</p>
+                  <p>• تضاف في الرواتب</p>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
-  const renderReportsSection = () => {
-    const [selectedReport, setSelectedReport] = useState('');
-    const [reportData, setReportData] = useState<any>(null);
-    const [isGenerating, setIsGenerating] = useState(false);
+            <Card className="border-blue-200 bg-blue-50">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Award className="h-5 w-5 text-blue-600" />
+                  <span className="font-semibold text-blue-800">75-89 نقطة</span>
+                </div>
+                <div className="space-y-1 text-sm text-blue-700">
+                  <p>• مكافأة تلقائية</p>
+                  <p>• علاوة سنوية 5%</p>
+                  <p>• تضاف في الرواتب</p>
+                </div>
+              </CardContent>
+            </Card>
 
-    const reportTypes = [
-      {
-        id: 'performance_summary',
-        title: 'تقرير ملخص الأداء',
-        description: 'تقرير شامل عن أداء جميع الموظفين',
-        icon: BarChart3,
-        color: 'text-blue-600'
-      },
-      {
-        id: 'competency_gaps',
-        title: 'تحليل فجوات الكفاءات',
-        description: 'تحديد الكفاءات المفقودة في المؤسسة',
-        icon: Target,
-        color: 'text-red-600'
-      },
-      {
-        id: 'development_recommendations',
-        title: 'توصيات التطوير',
-        description: 'اقتراحات مخصصة لتطوير أداء الموظفين',
-        icon: TrendingUp,
-        color: 'text-green-600'
-      },
-      {
-        id: 'smart_analytics',
-        title: 'تحليلات ذكية',
-        description: 'رؤى مدعومة بالذكاء الاصطناعي',
-        icon: Brain,
-        color: 'text-purple-600'
-      },
-      {
-        id: 'calibration_report',
-        title: 'تقرير المعايرة',
-        description: 'تقييم اتساق المعايير عبر الإدارات',
-        icon: Shield,
-        color: 'text-orange-600'
-      },
-      {
-        id: 'engagement_analysis',
-        title: 'تحليل المشاركة',
-        description: 'قياس مستوى مشاركة وانخراط الموظفين',
-        icon: Activity,
-        color: 'text-pink-600'
-      }
-    ];
-
-    const generateReport = async (reportType: string) => {
-      setIsGenerating(true);
-      try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // Generate mock data based on report type
-        const mockData = {
-          performance_summary: {
-            totalEmployees: 156,
-            avgPerformance: 78.5,
-            topPerformers: 23,
-            improvementNeeded: 12,
-            departmentStats: [
-              { name: 'التسويق', avgScore: 82, employees: 25 },
-              { name: 'المبيعات', avgScore: 79, employees: 30 },
-              { name: 'التطوير', avgScore: 85, employees: 40 },
-              { name: 'الموارد البشرية', avgScore: 76, employees: 15 }
-            ],
-            trends: [
-              { month: 'يناير', score: 75 },
-              { month: 'فبراير', score: 77 },
-              { month: 'مارس', score: 79 },
-              { month: 'أبريل', score: 78 },
-              { month: 'مايو', score: 81 },
-              { month: 'يونيو', score: 78.5 }
-            ]
-          },
-          competency_gaps: {
-            criticalGaps: [
-              { competency: 'القيادة الاستراتيجية', currentLevel: 2.5, targetLevel: 4.0, gap: 1.5 },
-              { competency: 'التحول الرقمي', currentLevel: 2.8, targetLevel: 4.5, gap: 1.7 },
-              { competency: 'إدارة المشاريع', currentLevel: 3.2, targetLevel: 4.0, gap: 0.8 }
-            ],
-            departments: [
-              { name: 'التسويق', gaps: 3, priority: 'High' },
-              { name: 'المبيعات', gaps: 2, priority: 'Medium' },
-              { name: 'التطوير', gaps: 1, priority: 'Low' }
-            ]
-          },
-          smart_analytics: {
-            insights: [
-              'ارتفاع في الأداء العام بنسبة 12% مقارنة بالربع السابق',
-              'انخفاض في معدل دوران الموظفين بنسبة 8%',
-              'زيادة في مستوى الرضا الوظيفي إلى 85%'
-            ],
-            predictions: [
-              'متوقع ارتفاع الأداء بنسبة 5% في الربع القادم',
-              'احتمالية ترقية 15 موظف في الشهور القادمة',
-              'الحاجة لتدريب إضافي في مجال التكنولوجيا'
-            ]
-          }
-        };
-
-        setReportData(mockData[reportType as keyof typeof mockData] || {});
-      } catch (error) {
-        toast({ title: 'حدث خطأ في إنشاء التقرير', variant: 'destructive' });
-      } finally {
-        setIsGenerating(false);
-      }
-    };
-
-    const exportReport = (format: 'pdf' | 'excel') => {
-      toast({ title: `تم تصدير التقرير بصيغة ${format.toUpperCase()}`, variant: 'default' });
-    };
-
-    return (
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">التقارير والتحليلات</h2>
-            <p className="text-muted-foreground">إنشاء وتصدير تقارير شاملة عن الأداء</p>
+            <Card className="border-red-200 bg-red-50">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertTriangle className="h-5 w-5 text-red-600" />
+                  <span className="font-semibold text-red-800">≤ 60 نقطة</span>
+                </div>
+                <div className="space-y-1 text-sm text-red-700">
+                  <p>• إنذار تلقائي</p>
+                  <p>• تجميد العلاوة</p>
+                  <p>• خطة تطوير إلزامية</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-          {reportData && (
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={() => exportReport('pdf')}>
-                <Download className="h-4 w-4 ml-2" />
-                تصدير PDF
-              </Button>
-              <Button variant="outline" onClick={() => exportReport('excel')}>
-                <Download className="h-4 w-4 ml-2" />
-                تصدير Excel
-              </Button>
-            </div>
-          )}
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Report Types */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {reportTypes.map((report) => {
-            const Icon = report.icon;
-            return (
-              <Card 
-                key={report.id} 
-                className={`cursor-pointer transition-all hover:shadow-lg ${
-                  selectedReport === report.id ? 'ring-2 ring-primary border-primary' : ''
-                }`}
-                onClick={() => setSelectedReport(report.id)}
-              >
-                <CardContent className="p-6 text-center">
-                  <Icon className={`h-12 w-12 mx-auto mb-4 ${report.color}`} />
-                  <h3 className="font-semibold mb-2">{report.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{report.description}</p>
-                  <Button 
-                    size="sm" 
-                    disabled={isGenerating}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      generateReport(report.id);
-                    }}
-                    className="w-full"
-                  >
-                    {isGenerating ? (
-                      <RefreshCw className="h-4 w-4 animate-spin ml-2" />
-                    ) : (
-                      <FileText className="h-4 w-4 ml-2" />
-                    )}
-                    إنشاء التقرير
-                  </Button>
+      {/* القرارات المعلقة */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <span>القرارات المعلقة - تحتاج موافقة HR</span>
+            <Badge variant="secondary">
+              {automatedDecisions.filter(d => d.status === 'pending').length} قرار معلق
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {automatedDecisions.map((decision) => {
+              const evaluation = evaluations.find(e => e.id === decision.evaluationId);
+              return (
+                <Card key={decision.id} className="border-2 border-orange-200">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                          {decision.type === 'promotion' ? <TrendingUp className="h-6 w-6 text-green-600" /> :
+                           decision.type === 'bonus' ? <Award className="h-6 w-6 text-blue-600" /> :
+                           <AlertTriangle className="h-6 w-6 text-red-600" />}
+                        </div>
+                        <div>
+                          <h3 className="font-semibold">{evaluation?.employeeName}</h3>
+                          <p className="text-sm text-gray-600">
+                            {decision.type === 'promotion' ? 'ترقية تلقائية' :
+                             decision.type === 'bonus' ? `مكافأة ${decision.amount} ريال` :
+                             decision.type === 'warning' ? 'إنذار تأديبي' : 'تجميد الراتب'}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            النتيجة النهائية: {evaluation?.finalScore} / حد القرار: {decision.scoreThreshold}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button 
+                          size="sm" 
+                          className="bg-green-600 hover:bg-green-700"
+                          onClick={() => {
+                            toast({
+                              title: "تم اعتماد القرار",
+                              description: "سيتم تنفيذ القرار وربطه بنظام الرواتب تلقائياً",
+                            });
+                          }}
+                        >
+                          <CheckCircle2 className="h-3 w-3 ml-1" />
+                          اعتماد
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="destructive"
+                          onClick={() => {
+                            toast({
+                              title: "تم رفض القرار",
+                              description: "يرجى توضيح سبب الرفض في الملاحظات",
+                              variant: "destructive"
+                            });
+                          }}
+                        >
+                          <ThumbsDown className="h-3 w-3 ml-1" />
+                          رفض
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderElectronicSignatures = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <Signature className="h-6 w-6" />
+          التوقيع الإلكتروني الإلزامي
+        </h2>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>حالة التوقيعات للتقييمات</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {evaluations.map((evaluation) => (
+              <Card key={evaluation.id} className="border-2">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="font-semibold">{evaluation.employeeName}</h3>
+                      <p className="text-sm text-gray-500">{evaluation.purpose}</p>
+                    </div>
+                    <Badge variant={evaluation.status === 'approved' ? 'default' : 'secondary'}>
+                      {evaluation.status === 'approved' ? 'معتمد بالكامل' : 'في انتظار التوقيعات'}
+                    </Badge>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* توقيع الموظف */}
+                    <div className="flex items-center gap-3 p-3 border rounded-lg">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <PenTool className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium">توقيع الموظف</div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <CheckCircle2 className="h-4 w-4 text-green-500" />
+                          <span className="text-sm text-green-600">تم التوقيع</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* توقيع المدير */}
+                    <div className="flex items-center gap-3 p-3 border rounded-lg">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <Shield className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium">توقيع المدير</div>
+                        <div className="flex items-center gap-2 mt-1">
+                          {evaluation.status === 'completed' ? (
+                            <>
+                              <CheckCircle2 className="h-4 w-4 text-green-500" />
+                              <span className="text-sm text-green-600">تم التوقيع</span>
+                            </>
+                          ) : (
+                            <>
+                              <Clock className="h-4 w-4 text-orange-500" />
+                              <span className="text-sm text-orange-600">في انتظار التوقيع</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* توقيع HR */}
+                    <div className="flex items-center gap-3 p-3 border rounded-lg">
+                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                        <Award className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-medium">توقيع HR</div>
+                        <div className="flex items-center gap-2 mt-1">
+                          {evaluation.status === 'approved' ? (
+                            <>
+                              <CheckCircle2 className="h-4 w-4 text-green-500" />
+                              <span className="text-sm text-green-600">تم التوقيع</span>
+                            </>
+                          ) : (
+                            <>
+                              <Clock className="h-4 w-4 text-orange-500" />
+                              <span className="text-sm text-orange-600">في انتظار التوقيع</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {evaluation.status !== 'approved' && (
+                    <div className="mt-4 flex justify-end">
+                      <Button 
+                        className="bg-primary"
+                        onClick={() => {
+                          toast({
+                            title: "تم إرسال تذكير",
+                            description: "تم إرسال تذكير للأطراف المعنية لإكمال التوقيعات",
+                          });
+                        }}
+                      >
+                        <Send className="h-4 w-4 ml-2" />
+                        إرسال تذكير
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
-            );
-          })}
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderAnalytics = () => (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+          <BarChart3 className="h-6 w-6" />
+          التحليلات التفاعلية - Power BI
+        </h2>
+        <div className="flex gap-2">
+          <Button variant="outline">
+            <RefreshCw className="h-4 w-4 ml-2" />
+            تحديث البيانات
+          </Button>
+          <Button className="bg-primary">
+            <Download className="h-4 w-4 ml-2" />
+            تصدير التقرير
+          </Button>
         </div>
-
-        {/* Report Results */}
-        {reportData && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                نتائج التقرير
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {selectedReport === 'performance_summary' && reportData.departmentStats && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Card>
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl font-bold text-blue-600">{reportData.totalEmployees}</p>
-                        <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl font-bold text-green-600">{reportData.avgPerformance}%</p>
-                        <p className="text-sm text-muted-foreground">متوسط الأداء</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl font-bold text-emerald-600">{reportData.topPerformers}</p>
-                        <p className="text-sm text-muted-foreground">أداء متميز</p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="p-4 text-center">
-                        <p className="text-2xl font-bold text-red-600">{reportData.improvementNeeded}</p>
-                        <p className="text-sm text-muted-foreground">يحتاج تحسين</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">إحصائيات الإدارات</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {reportData.departmentStats.map((dept: any, index: number) => (
-                            <div key={index} className="flex items-center justify-between">
-                              <div>
-                                <p className="font-medium">{dept.name}</p>
-                                <p className="text-sm text-muted-foreground">{dept.employees} موظف</p>
-                              </div>
-                              <div className="text-right">
-                                <p className="text-lg font-bold">{dept.avgScore}%</p>
-                                <Progress value={dept.avgScore} className="w-24" />
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">اتجاه الأداء</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ResponsiveContainer width="100%" height={200}>
-                          <AreaChart data={reportData.trends}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="month" />
-                            <YAxis />
-                            <Tooltip />
-                            <Area type="monotone" dataKey="score" stroke="#3b82f6" fill="#3b82f6" />
-                          </AreaChart>
-                        </ResponsiveContainer>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              )}
-
-              {selectedReport === 'competency_gaps' && reportData.criticalGaps && (
-                <div className="space-y-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">الفجوات الحرجة في الكفاءات</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {reportData.criticalGaps.map((gap: any, index: number) => (
-                          <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                            <div>
-                              <h4 className="font-medium">{gap.competency}</h4>
-                              <p className="text-sm text-muted-foreground">
-                                المستوى الحالي: {gap.currentLevel} | المطلوب: {gap.targetLevel}
-                              </p>
-                            </div>
-                            <Badge variant={gap.gap > 1.5 ? 'destructive' : gap.gap > 1 ? 'default' : 'secondary'}>
-                              فجوة: {gap.gap}
-                            </Badge>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              )}
-
-              {selectedReport === 'smart_analytics' && reportData.insights && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center gap-2">
-                          <Lightbulb className="h-5 w-5 text-yellow-500" />
-                          الرؤى الذكية
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          {reportData.insights.map((insight: string, index: number) => (
-                            <div key={index} className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
-                              <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5" />
-                              <p className="text-sm">{insight}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center gap-2">
-                          <TrendingUp className="h-5 w-5 text-green-500" />
-                          التوقعات المستقبلية
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          {reportData.predictions.map((prediction: string, index: number) => (
-                            <div key={index} className="flex items-start gap-2 p-3 bg-green-50 rounded-lg">
-                              <Zap className="h-4 w-4 text-green-600 mt-0.5" />
-                              <p className="text-sm">{prediction}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
       </div>
-    );
-  };
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* الأداء حسب الإدارات */}
+        <Card>
+          <CardHeader>
+            <CardTitle>الأداء حسب الإدارات</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={[
+                { dept: 'تقنية المعلومات', score: 92 },
+                { dept: 'الموارد البشرية', score: 88 },
+                { dept: 'المالية', score: 85 },
+                { dept: 'العمليات', score: 90 },
+                { dept: 'المبيعات', score: 87 }
+              ]}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="dept" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="score" fill="#3CB593" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* نسب المؤشرات حسب النوع */}
+        <Card>
+          <CardHeader>
+            <CardTitle>نسب المؤشرات حسب النوع</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RechartsPieChart>
+                <Pie
+                  data={[
+                    { name: 'KPI', value: 30, color: '#3b82f6' },
+                    { name: 'KRI', value: 15, color: '#ef4444' },
+                    { name: 'KSI', value: 20, color: '#10b981' },
+                    { name: 'KQI', value: 15, color: '#8b5cf6' },
+                    { name: 'KVI', value: 10, color: '#f59e0b' },
+                    { name: 'KCI', value: 10, color: '#6366f1' }
+                  ]}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  dataKey="value"
+                  label={({ name, value }) => `${name}: ${value}%`}
+                >
+                  {[
+                    { name: 'KPI', value: 30, color: '#3b82f6' },
+                    { name: 'KRI', value: 15, color: '#ef4444' },
+                    { name: 'KSI', value: 20, color: '#10b981' },
+                    { name: 'KQI', value: 15, color: '#8b5cf6' },
+                    { name: 'KVI', value: 10, color: '#f59e0b' },
+                    { name: 'KCI', value: 10, color: '#6366f1' }
+                  ].map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* توزيع الدرجات النهائية */}
+        <Card>
+          <CardHeader>
+            <CardTitle>توزيع الدرجات النهائية</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <AreaChart data={[
+                { month: 'يناير', avg: 85 },
+                { month: 'فبراير', avg: 87 },
+                { month: 'مارس', avg: 89 },
+                { month: 'أبريل', avg: 91 },
+                { month: 'مايو', avg: 88 },
+                { month: 'يونيو', avg: 93 }
+              ]}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="avg" stroke="#3CB593" fill="#3CB593" fillOpacity={0.6} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* تتبع الأداء الزمني */}
+        <Card>
+          <CardHeader>
+            <CardTitle>تتبع الأداء الزمني للموظف</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <RadarChart data={[
+                { indicator: 'الإنتاجية', value: 92 },
+                { indicator: 'الانضباط', value: 98 },
+                { indicator: 'الجودة', value: 94 },
+                { indicator: 'التعاون', value: 88 },
+                { indicator: 'الابتكار', value: 85 },
+                { indicator: 'القيادة', value: 90 }
+              ]}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="indicator" />
+                <PolarRadiusAxis angle={0} domain={[0, 100]} />
+                <Radar
+                  name="الأداء"
+                  dataKey="value"
+                  stroke="#3CB593"
+                  fill="#3CB593"
+                  fillOpacity={0.6}
+                />
+                <Tooltip />
+              </RadarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* إحصائيات سريعة */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-primary">92%</div>
+            <div className="text-sm text-gray-600">متوسط الأداء العام</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-green-600">28</div>
+            <div className="text-sm text-gray-600">موظف متميز</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-blue-600">145</div>
+            <div className="text-sm text-gray-600">تقييم مكتمل</div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-orange-600">33</div>
+            <div className="text-sm text-gray-600">تقييم معلق</div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-background" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
-      {renderProfessionalHeader()}
+    <div className="container mx-auto p-6">
+      {renderHeader()}
       
-      <div className="container mx-auto p-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              لوحة المعلومات
-            </TabsTrigger>
-            <TabsTrigger value="smart-analysis" className="flex items-center gap-2">
-              <Brain className="h-4 w-4" />
-              التحليل الذكي
-            </TabsTrigger>
-            <TabsTrigger value="evaluations" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              تقييمات الموظفين
-            </TabsTrigger>
-            <TabsTrigger value="competencies" className="flex items-center gap-2">
-              <Target className="h-4 w-4" />
-              إدارة الكفاءات
-            </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              التقارير
-            </TabsTrigger>
-          </TabsList>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-7 mb-8">
+          <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
+          <TabsTrigger value="indicators">المؤشرات</TabsTrigger>
+          <TabsTrigger value="programs">برامج التقييم</TabsTrigger>
+          <TabsTrigger value="forms">نموذج التقييم</TabsTrigger>
+          <TabsTrigger value="evaluations">التقييمات المتعددة</TabsTrigger>
+          <TabsTrigger value="decisions">القرارات التلقائية</TabsTrigger>
+          <TabsTrigger value="signatures">التوقيع الإلكتروني</TabsTrigger>
+        </TabsList>
 
-          <TabsContent value="dashboard" className="space-y-6">
-            {renderAnalyticsDashboard()}
-          </TabsContent>
+        <TabsContent value="dashboard">
+          {renderAnalytics()}
+        </TabsContent>
 
-          <TabsContent value="smart-analysis" className="space-y-6">
-            {renderSmartAnalysis()}
-          </TabsContent>
+        <TabsContent value="indicators">
+          {renderIndicatorsEngine()}
+        </TabsContent>
 
-          <TabsContent value="evaluations" className="space-y-6">
-            {renderEmployeeEvaluations()}
-          </TabsContent>
+        <TabsContent value="programs">
+          {renderEvaluationPrograms()}
+        </TabsContent>
 
-          <TabsContent value="competencies" className="space-y-6">
-            {renderCompetencyManagement()}
-          </TabsContent>
+        <TabsContent value="forms">
+          {renderEvaluationForm()}
+        </TabsContent>
 
-          <TabsContent value="reports" className="space-y-6">
-            {renderReportsSection()}
-          </TabsContent>
-        </Tabs>
-      </div>
+        <TabsContent value="evaluations">
+          {renderMultiRaterEvaluation()}
+        </TabsContent>
+
+        <TabsContent value="decisions">
+          {renderAutomatedDecisions()}
+        </TabsContent>
+
+        <TabsContent value="signatures">
+          {renderElectronicSignatures()}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
