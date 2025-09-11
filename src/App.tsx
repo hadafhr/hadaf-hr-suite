@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from '@/hooks/useAuth';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import '@/i18n';
 import { AutoLanguageDetector } from './components/shared/AutoLanguageDetector';
 import { Header } from "@/components/Header";
@@ -268,7 +269,7 @@ const App = () => {
               <Route path="/employee-requests" element={<EmployeeRequests />} />
               <Route path="/reports-analytics" element={<ReportsAnalytics />} />
               <Route path="/system-settings" element={<SystemSettings />} />
-                <Route path="/employee-portal" element={<EmployeePortal />} />
+                <Route path="/employee-portal" element={<ProtectedRoute><EmployeePortal /></ProtectedRoute>} />
                 <Route path="/employer-portal" element={<EmployerPortal />} />
                
                 {/* E-Signature System */}
