@@ -43,12 +43,14 @@ import {
   BookOpen,
   Target,
   ScrollText,
-  Banknote
+  Banknote,
+  Satellite
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { BoudLogo } from '@/components/BoudLogo';
 import employeeAvatarImage from '@/assets/employee-avatar.jpg';
+import GPSAttendanceSystem from '@/components/attendance/GPSAttendanceSystem';
 
 const EmployeePortal = () => {
   const navigate = useNavigate();
@@ -617,6 +619,10 @@ const EmployeePortal = () => {
                 <CalendarDays className="w-3 h-3 mb-1" />
                 الدوام الشهري
               </TabsTrigger>
+              <TabsTrigger value="gps-attendance" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
+                <Satellite className="w-3 h-3 mb-1" />
+                حضور GPS
+              </TabsTrigger>
               <TabsTrigger value="insurance" className="text-xs py-3 px-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50">
                 <Shield className="w-3 h-3 mb-1" />
                 التأمين
@@ -908,6 +914,29 @@ const EmployeePortal = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* تبويب نظام الحضور GPS */}
+          <TabsContent value="gps-attendance" className="space-y-6">
+            <GPSAttendanceSystem
+              onCheckIn={async (location) => {
+                await actions.clockIn(location);
+              }}
+              onCheckOut={async (location) => {
+                await actions.clockOut(location);
+              }}
+              attendanceRecords={attendanceData.map(record => ({
+                date: record.date,
+                checkIn: record.checkIn !== '--:--' ? record.checkIn : undefined,
+                checkOut: record.checkOut !== '--:--' ? record.checkOut : undefined,
+                status: record.status === 'حاضر' ? 'present' as const : 
+                        record.status === 'متأخر' ? 'late' as const :
+                        record.status === 'غائب' ? 'absent' as const : 'early_leave' as const,
+                workingHours: record.hours !== '0:00' ? parseFloat(record.hours.replace(' ساعة', '')) : undefined
+              }))}
+              isLoading={loading}
+            />
+          </TabsContent>
+
           <TabsContent value="dashboard" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <Card>
