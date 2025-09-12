@@ -17,7 +17,7 @@ import { NotificationSystem } from '@/components/NotificationSystem';
 // Team Management System
 import TeamMembers from '@/components/systems/TeamMembers';
 import { DepartmentsManagement } from '@/components/departments/DepartmentsManagement';
-import ComprehensiveAttendance from '@/components/systems/ComprehensiveAttendance';
+import { SmartAttendanceSystem } from '@/components/attendance/SmartAttendanceSystem';
 import { ComprehensiveLeaveManagementSystem } from '@/components/systems/ComprehensiveLeaveManagementSystem';
 import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
@@ -365,7 +365,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="attendance">
-            <ComprehensiveAttendance onBack={() => setActiveTab('dashboard')} />
+            <SmartAttendanceSystem />
           </TabsContent>
 
           <TabsContent value="employee-services">
