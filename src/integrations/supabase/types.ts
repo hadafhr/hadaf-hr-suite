@@ -245,6 +245,71 @@ export type Database = {
           },
         ]
       }
+      attendance_devices: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          device_code: string
+          device_name: string
+          device_type: string
+          id: string
+          ip_address: unknown | null
+          is_active: boolean | null
+          last_sync_at: string | null
+          latitude: number | null
+          location: string
+          longitude: number | null
+          port: number | null
+          settings: Json | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          device_code: string
+          device_name: string
+          device_type: string
+          id?: string
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          latitude?: number | null
+          location: string
+          longitude?: number | null
+          port?: number | null
+          settings?: Json | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          device_code?: string
+          device_name?: string
+          device_type?: string
+          id?: string
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          latitude?: number | null
+          location?: string
+          longitude?: number | null
+          port?: number | null
+          settings?: Json | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_devices_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attendance_records_new: {
         Row: {
           approved_at: string | null
@@ -372,6 +437,75 @@ export type Database = {
           work_days?: Database["public"]["Enums"]["day_of_week"][]
         }
         Relationships: []
+      }
+      attendance_violations: {
+        Row: {
+          action_taken: string | null
+          attendance_record_id: string | null
+          auto_generated: boolean | null
+          created_at: string | null
+          duration_minutes: number | null
+          employee_id: string | null
+          id: string
+          notes: string | null
+          penalty_amount: number | null
+          reviewed: boolean | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          severity: string | null
+          violation_date: string
+          violation_type: string
+        }
+        Insert: {
+          action_taken?: string | null
+          attendance_record_id?: string | null
+          auto_generated?: boolean | null
+          created_at?: string | null
+          duration_minutes?: number | null
+          employee_id?: string | null
+          id?: string
+          notes?: string | null
+          penalty_amount?: number | null
+          reviewed?: boolean | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: string | null
+          violation_date: string
+          violation_type: string
+        }
+        Update: {
+          action_taken?: string | null
+          attendance_record_id?: string | null
+          auto_generated?: boolean | null
+          created_at?: string | null
+          duration_minutes?: number | null
+          employee_id?: string | null
+          id?: string
+          notes?: string | null
+          penalty_amount?: number | null
+          reviewed?: boolean | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: string | null
+          violation_date?: string
+          violation_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_violations_attendance_record_id_fkey"
+            columns: ["attendance_record_id"]
+            isOneToOne: false
+            referencedRelation: "employee_attendance_records"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_violations_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       audit_logs: {
         Row: {
@@ -2675,6 +2809,66 @@ export type Database = {
           },
         ]
       }
+      device_attendance_logs: {
+        Row: {
+          action_type: string
+          confidence_score: number | null
+          created_at: string | null
+          device_id: string | null
+          employee_code: string | null
+          employee_id: string | null
+          id: string
+          is_successful: boolean | null
+          log_time: string
+          processed: boolean | null
+          raw_data: Json | null
+          verification_method: string | null
+        }
+        Insert: {
+          action_type: string
+          confidence_score?: number | null
+          created_at?: string | null
+          device_id?: string | null
+          employee_code?: string | null
+          employee_id?: string | null
+          id?: string
+          is_successful?: boolean | null
+          log_time: string
+          processed?: boolean | null
+          raw_data?: Json | null
+          verification_method?: string | null
+        }
+        Update: {
+          action_type?: string
+          confidence_score?: number | null
+          created_at?: string | null
+          device_id?: string | null
+          employee_code?: string | null
+          employee_id?: string | null
+          id?: string
+          is_successful?: boolean | null
+          log_time?: string
+          processed?: boolean | null
+          raw_data?: Json | null
+          verification_method?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "device_attendance_logs_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "device_attendance_logs_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       disciplinary_actions: {
         Row: {
           action_type: Database["public"]["Enums"]["disciplinary_action_type"]
@@ -3425,6 +3619,66 @@ export type Database = {
             columns: ["program_id"]
             isOneToOne: false
             referencedRelation: "incentive_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employee_schedules: {
+        Row: {
+          created_at: string | null
+          employee_id: string | null
+          id: string
+          notes: string | null
+          planned_end: string
+          planned_start: string
+          shift_id: string | null
+          status: string | null
+          updated_at: string | null
+          work_date: string
+          work_location: string | null
+          work_type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          employee_id?: string | null
+          id?: string
+          notes?: string | null
+          planned_end: string
+          planned_start: string
+          shift_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          work_date: string
+          work_location?: string | null
+          work_type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          employee_id?: string | null
+          id?: string
+          notes?: string | null
+          planned_end?: string
+          planned_start?: string
+          shift_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          work_date?: string
+          work_location?: string | null
+          work_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_schedules_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_schedules_shift_id_fkey"
+            columns: ["shift_id"]
+            isOneToOne: false
+            referencedRelation: "shifts"
             referencedColumns: ["id"]
           },
         ]
@@ -8493,6 +8747,68 @@ export type Database = {
         }
         Relationships: []
       }
+      shifts: {
+        Row: {
+          break_duration: number | null
+          company_id: string | null
+          created_at: string | null
+          early_leave_threshold_minutes: number | null
+          end_time: string
+          id: string
+          is_active: boolean | null
+          is_flexible: boolean | null
+          late_threshold_minutes: number | null
+          overtime_threshold_minutes: number | null
+          shift_name: string
+          shift_name_ar: string
+          start_time: string
+          updated_at: string | null
+          work_days: number[] | null
+        }
+        Insert: {
+          break_duration?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          early_leave_threshold_minutes?: number | null
+          end_time: string
+          id?: string
+          is_active?: boolean | null
+          is_flexible?: boolean | null
+          late_threshold_minutes?: number | null
+          overtime_threshold_minutes?: number | null
+          shift_name: string
+          shift_name_ar: string
+          start_time: string
+          updated_at?: string | null
+          work_days?: number[] | null
+        }
+        Update: {
+          break_duration?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          early_leave_threshold_minutes?: number | null
+          end_time?: string
+          id?: string
+          is_active?: boolean | null
+          is_flexible?: boolean | null
+          late_threshold_minutes?: number | null
+          overtime_threshold_minutes?: number | null
+          shift_name?: string
+          shift_name_ar?: string
+          start_time?: string
+          updated_at?: string | null
+          work_days?: number[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shifts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subscription_plans: {
         Row: {
           created_at: string
@@ -8827,6 +9143,59 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      work_locations: {
+        Row: {
+          address: string
+          allowed_departments: string[] | null
+          company_id: string | null
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          latitude: number
+          location_name: string
+          longitude: number
+          radius_meters: number | null
+          updated_at: string | null
+          work_hours: Json | null
+        }
+        Insert: {
+          address: string
+          allowed_departments?: string[] | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          latitude: number
+          location_name: string
+          longitude: number
+          radius_meters?: number | null
+          updated_at?: string | null
+          work_hours?: Json | null
+        }
+        Update: {
+          address?: string
+          allowed_departments?: string[] | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          latitude?: number
+          location_name?: string
+          longitude?: number
+          radius_meters?: number | null
+          updated_at?: string | null
+          work_hours?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_locations_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       work_schedules: {
         Row: {
