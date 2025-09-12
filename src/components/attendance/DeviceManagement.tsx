@@ -87,7 +87,13 @@ export const DeviceManagement: React.FC = () => {
       if (error) throw error;
       setDevices((data || []).map(device => ({
         ...device,
-        device_type: device.device_type as 'fingerprint' | 'face_recognition' | 'rfid' | 'mobile_gps'
+        device_type: device.device_type as 'fingerprint' | 'face_recognition' | 'rfid' | 'mobile_gps',
+        ip_address: device.ip_address?.toString() || undefined,
+        status: (device.status as 'online' | 'offline' | 'maintenance' | 'error') || 'offline',
+        created_at: device.created_at || new Date().toISOString(),
+        updated_at: device.updated_at || new Date().toISOString(),
+        company_id: device.company_id || '',
+        last_sync_at: device.last_sync_at || undefined
       })));
     } catch (error) {
       console.error('Error fetching devices:', error);

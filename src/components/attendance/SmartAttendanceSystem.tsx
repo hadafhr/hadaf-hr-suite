@@ -146,7 +146,7 @@ export const SmartAttendanceSystem: React.FC = () => {
         check_out_time: record.check_out_time,
         total_hours: record.total_hours,
         status: record.status || 'present',
-        source_type: record.source_type || 'manual',
+        source_type: 'manual',
         employee_name: `${record.boud_employees?.[0]?.first_name || ''} ${record.boud_employees?.[0]?.last_name || ''}`.trim(),
         department: record.boud_employees?.[0]?.boud_departments?.department_name || 'غير محدد'
       }));

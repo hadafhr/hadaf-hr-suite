@@ -131,8 +131,8 @@ export const MonthlySchedule: React.FC = () => {
         work_date: schedule.work_date,
         planned_start: schedule.planned_start,
         planned_end: schedule.planned_end,
-        work_type: schedule.work_type,
-        status: schedule.status,
+        work_type: (schedule.work_type as 'office' | 'remote' | 'hybrid' | 'flexible') || 'office',
+        status: (schedule.status as 'scheduled' | 'holiday' | 'leave' | 'sick') || 'scheduled',
         employee_name: `${schedule.boud_employees?.first_name || ''} ${schedule.boud_employees?.last_name || ''}`.trim(),
         shift_name: schedule.shifts?.shift_name_ar
       })) || [];
