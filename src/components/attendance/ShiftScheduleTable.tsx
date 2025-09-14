@@ -34,6 +34,7 @@ interface Shift {
   templateId?: string;
   source: 'manual' | 'template' | 'repeated' | 'cloned';
   parentShiftId?: string;
+  color?: string; // ⚙️ إضافة اللون المخصص للشفت
 }
 
 interface ShiftTemplate {
@@ -48,6 +49,7 @@ interface ShiftTemplate {
   createdBy: string;
   createdAt: string;
   isActive: boolean;
+  color?: string; // ⚙️ إضافة اللون المخصص للقالب
 }
 
 interface RepeatConfig {
@@ -169,6 +171,30 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
     notes: ''
   });
 
+  // ⚙️ State للشفت الجديد مع اللون
+  const [newShiftData, setNewShiftData] = useState({
+    startTime: '08:00',
+    endTime: '17:00',
+    breakMinutes: 60,
+    type: 'normal' as const,
+    notes: '',
+    color: '' // اللون المخصص
+  });
+
+  // ⚙️ ألوان محددة مسبقاً للاختيار
+  const predefinedColors = [
+    { name: 'أخضر', value: 'green', hex: '#22c55e' },
+    { name: 'أزرق', value: 'blue', hex: '#3b82f6' },
+    { name: 'برتقالي', value: 'orange', hex: '#f97316' },
+    { name: 'أحمر', value: 'red', hex: '#ef4444' },
+    { name: 'بنفسجي', value: 'purple', hex: '#a855f7' },
+    { name: 'وردي', value: 'pink', hex: '#ec4899' },
+    { name: 'أصفر', value: 'yellow', hex: '#eab308' },
+    { name: 'رمادي', value: 'gray', hex: '#6b7280' },
+    { name: 'فيروزي', value: 'teal', hex: '#14b8a6' },
+    { name: 'نيلي', value: 'indigo', hex: '#6366f1' }
+  ];
+
   // Mock data
   const employees: Employee[] = [
     {
@@ -223,7 +249,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       breakMinutes: 60,
       type: 'normal',
       status: 'scheduled',
-      source: 'manual'
+      source: 'manual',
+      color: 'green' // ⚙️ لون أخضر مخصص
     },
     {
       id: 'shift2',
@@ -234,7 +261,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       breakMinutes: 60,
       type: 'ot',
       status: 'scheduled',
-      source: 'manual'
+      source: 'manual',
+      color: 'purple' // ⚙️ لون بنفسجي مخصص
     },
     {
       id: 'shift3',
@@ -245,7 +273,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       breakMinutes: 60,
       type: 'normal',
       status: 'completed',
-      source: 'manual'
+      source: 'manual',
+      color: 'blue' // ⚙️ لون أزرق مخصص
     },
     {
       id: 'shift4',
@@ -256,7 +285,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       breakMinutes: 0,
       type: 'leave',
       status: 'scheduled',
-      source: 'manual'
+      source: 'manual',
+      color: 'yellow' // ⚙️ لون أصفر مخصص
     }
   ]);
 
@@ -513,8 +543,17 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
     );
   };
 
-  // Shift type colors
-  const getShiftTypeColor = (type: string) => {
+  // Shift type colors - ⚙️ تحديث دعم الألوان المخصصة
+  const getShiftTypeColor = (type: string, customColor?: string) => {
+    // إذا كان هناك لون مخصص، استخدمه
+    if (customColor) {
+      const colorObj = predefinedColors.find(c => c.value === customColor);
+      if (colorObj) {
+        return `border-2 text-white shadow-md` + ` bg-gradient-to-br from-${customColor}-400 to-${customColor}-600 hover:from-${customColor}-500 hover:to-${customColor}-700`;
+      }
+    }
+
+    // الألوان الافتراضية حسب النوع
     switch (type) {
       case 'normal':
         return 'bg-green-100 text-green-800 border-green-200';
@@ -920,38 +959,46 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                                     <Plus className="h-4 w-4 text-muted-foreground" />
                                   </Button>
                                 ) : (
-                                  // Shifts in cell
-                                  dayShifts.map(shift => {
-                                    const calc = calculateShiftHours(shift);
-                                    const shiftColor = getShiftTypeColor(shift.type);
-                                    
-                                    return (
-                                      <Tooltip key={shift.id}>
-                                        <TooltipTrigger asChild>
-                                          <div 
-                                            className={`p-2 rounded-lg border cursor-pointer hover:shadow-md transition-all group ${shiftColor}`}
-                                            onClick={() => setEditingShift(shift)}
-                                          >
-                                            {/* Time Range */}
-                                            <div className="flex items-center justify-between text-xs font-medium mb-1">
-                                              <span>{shift.startTime} - {shift.endTime}</span>
-                                              <div className="opacity-0 group-hover:opacity-100 flex gap-1">
-                                                <Button size="sm" variant="ghost" className="h-5 w-5 p-0">
-                                                  <Edit className="h-3 w-3" />
-                                                </Button>
-                                                <Button 
-                                                  size="sm" 
-                                                  variant="ghost" 
-                                                  className="h-5 w-5 p-0"
-                                                  onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    deleteShift(shift.id);
-                                                  }}
-                                                >
-                                                  <Trash2 className="h-3 w-3" />
-                                                </Button>
-                                              </div>
-                                            </div>
+                                   // Shifts in cell
+                                   dayShifts.map(shift => {
+                                     const calc = calculateShiftHours(shift);
+                                     const shiftColor = getShiftTypeColor(shift.type, shift.color);
+                                     
+                                     return (
+                                       <Tooltip key={shift.id}>
+                                         <TooltipTrigger asChild>
+                                           <div 
+                                             className={`p-2 rounded-lg border cursor-pointer hover:shadow-md transition-all group ${shiftColor}`}
+                                             onClick={() => setEditingShift(shift)}
+                                           >
+                                             {/* ⚙️ Color Indicator */}
+                                             {shift.color && (
+                                               <div 
+                                                 className="absolute top-1 left-1 w-3 h-3 rounded-full border border-white shadow-sm"
+                                                 style={{ backgroundColor: predefinedColors.find(c => c.value === shift.color)?.hex }}
+                                               />
+                                             )}
+
+                                             {/* Time Range */}
+                                             <div className="flex items-center justify-between text-xs font-medium mb-1">
+                                               <span>{shift.startTime} - {shift.endTime}</span>
+                                               <div className="opacity-0 group-hover:opacity-100 flex gap-1">
+                                                 <Button size="sm" variant="ghost" className="h-5 w-5 p-0">
+                                                   <Edit className="h-3 w-3" />
+                                                 </Button>
+                                                 <Button 
+                                                   size="sm" 
+                                                   variant="ghost" 
+                                                   className="h-5 w-5 p-0"
+                                                   onClick={(e) => {
+                                                     e.stopPropagation();
+                                                     deleteShift(shift.id);
+                                                   }}
+                                                 >
+                                                   <Trash2 className="h-3 w-3" />
+                                                 </Button>
+                                               </div>
+                                             </div>
                                             
                                             {/* Hours Badge */}
                                             {shift.type !== 'leave' && shift.type !== 'absence' && (
@@ -1083,23 +1130,38 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium">بداية الشفت</label>
-                  <Input type="time" defaultValue="08:00" />
+                  <Label className="text-sm font-medium">بداية الشفت</Label>
+                  <Input 
+                    type="time" 
+                    value={newShiftData.startTime}
+                    onChange={(e) => setNewShiftData(prev => ({ ...prev, startTime: e.target.value }))}
+                  />
                 </div>
                 <div>
-                  <label className="text-sm font-medium">نهاية الشفت</label>
-                  <Input type="time" defaultValue="17:00" />
+                  <Label className="text-sm font-medium">نهاية الشفت</Label>
+                  <Input 
+                    type="time" 
+                    value={newShiftData.endTime}
+                    onChange={(e) => setNewShiftData(prev => ({ ...prev, endTime: e.target.value }))}
+                  />
                 </div>
               </div>
               
               <div>
-                <label className="text-sm font-medium">الاستراحة (بالدقائق)</label>
-                <Input type="number" defaultValue="60" />
+                <Label className="text-sm font-medium">الاستراحة (بالدقائق)</Label>
+                <Input 
+                  type="number" 
+                  value={newShiftData.breakMinutes}
+                  onChange={(e) => setNewShiftData(prev => ({ ...prev, breakMinutes: parseInt(e.target.value) || 0 }))}
+                />
               </div>
               
               <div>
-                <label className="text-sm font-medium">نوع الشفت</label>
-                <Select defaultValue="normal">
+                <Label className="text-sm font-medium">نوع الشفت</Label>
+                <Select 
+                  value={newShiftData.type} 
+                  onValueChange={(value: any) => setNewShiftData(prev => ({ ...prev, type: value }))}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -1111,20 +1173,61 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* ⚙️ Color Selector */}
+              <div>
+                <Label className="text-sm font-medium mb-3 block">لون الشفت (اختياري)</Label>
+                <div className="grid grid-cols-5 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setNewShiftData(prev => ({ ...prev, color: '' }))}
+                    className={`h-8 w-8 rounded-full border-2 bg-gray-200 flex items-center justify-center ${
+                      !newShiftData.color ? 'border-primary ring-2 ring-primary/20' : 'border-gray-300'
+                    }`}
+                  >
+                    <span className="text-xs">×</span>
+                  </button>
+                  {predefinedColors.map((color) => (
+                    <button
+                      key={color.value}
+                      type="button"
+                      onClick={() => setNewShiftData(prev => ({ ...prev, color: color.value }))}
+                      className={`h-8 w-8 rounded-full border-2 ${
+                        newShiftData.color === color.value 
+                          ? 'border-primary ring-2 ring-primary/20' 
+                          : 'border-gray-300'
+                      }`}
+                      style={{ backgroundColor: color.hex }}
+                      title={color.name}
+                    />
+                  ))}
+                </div>
+                {newShiftData.color && (
+                  <div className="mt-2 text-xs text-muted-foreground">
+                    اللون المختار: {predefinedColors.find(c => c.value === newShiftData.color)?.name}
+                  </div>
+                )}
+              </div>
               
               <div>
-                <label className="text-sm font-medium">ملاحظات</label>
-                <Input placeholder="ملاحظات اختيارية..." />
+                <Label className="text-sm font-medium">ملاحظات</Label>
+                <Input 
+                  placeholder="ملاحظات اختيارية..." 
+                  value={newShiftData.notes}
+                  onChange={(e) => setNewShiftData(prev => ({ ...prev, notes: e.target.value }))}
+                />
               </div>
               
               <div className="flex gap-2 pt-4">
                 <Button 
                   onClick={() => {
                     addShift({
-                      startTime: '08:00',
-                      endTime: '17:00',
-                      breakMinutes: 60,
-                      type: 'normal'
+                      startTime: newShiftData.startTime,
+                      endTime: newShiftData.endTime,
+                      breakMinutes: newShiftData.breakMinutes,
+                      type: newShiftData.type,
+                      notes: newShiftData.notes,
+                      color: newShiftData.color || undefined
                     });
                   }}
                   className="flex-1"
@@ -1133,7 +1236,17 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                 </Button>
                 <Button 
                   variant="outline" 
-                  onClick={() => setIsAddShiftOpen(false)}
+                  onClick={() => {
+                    setIsAddShiftOpen(false);
+                    setNewShiftData({
+                      startTime: '08:00',
+                      endTime: '17:00',
+                      breakMinutes: 60,
+                      type: 'normal',
+                      notes: '',
+                      color: ''
+                    });
+                  }}
                 >
                   إلغاء
                 </Button>
