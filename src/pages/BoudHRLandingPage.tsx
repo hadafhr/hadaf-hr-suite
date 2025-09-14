@@ -338,10 +338,22 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
-                <Calculator className="w-4 h-4" />
-                الحاسبة
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+                    <Calculator className="w-4 h-4" />
+                    أدوات الموارد البشرية
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
+                  <DropdownMenuItem onClick={() => navigate('/service-calculator')}>
+                    حاسبة الرواتب
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/end-of-service-calculator')}>
+                    حاسبة نهاية الخدمة
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
                 اربح مع بُعد

@@ -51,6 +51,7 @@ import NotFound from "./pages/NotFound";
 import { Register } from './pages/Register';
 import { WageProtectionPage } from './pages/WageProtectionPage';
 import ServiceCalculatorPage from './pages/ServiceCalculatorPage';
+import EndOfServiceCalculatorPage from './pages/EndOfServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
 import SubscriptionPackages from './pages/SubscriptionPackages';
@@ -248,6 +249,7 @@ const App = () => {
               <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
               <Route path="/wage-protection" element={<WageProtectionPage />} />
               <Route path="/service-calculator" element={<ServiceCalculatorPage />} />
+              <Route path="/end-of-service-calculator" element={<EndOfServiceCalculatorPage />} />
               <Route path="/chat-messaging" element={<ChatMessagingPage />} />
               
               {/* Feature Pages Routes */}
