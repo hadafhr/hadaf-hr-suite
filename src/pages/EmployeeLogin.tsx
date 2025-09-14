@@ -32,10 +32,10 @@ const EmployeeLogin: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
 
-      try {
-        // For demo purposes, just navigate directly to the portal
-        toast.success('مرحباً بك في نظام الخدمة الذاتية');
-        navigate(redirectPath);
+    try {
+      // For demo purposes, just navigate directly to the portal
+      toast.success('مرحباً بك في نظام الخدمة الذاتية');
+      navigate(redirectPath);
     } catch (error) {
       console.error('Login error:', error);
       toast.error('حدث خطأ أثناء تسجيل الدخول');
