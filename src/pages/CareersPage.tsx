@@ -13,6 +13,7 @@ import { JobApplicationModal } from '@/components/careers/JobApplicationModal';
 import { JobDetailModal } from '@/components/careers/JobDetailModal';
 import { ApplicationTracking } from '@/components/careers/ApplicationTracking';
 import { SEOHead } from '@/components/careers/SEOHead';
+import CareersHeader from '@/components/careers/CareersHeader';
 import heroImage from '@/assets/team-collaboration.jpg';
 
 const CareersPage = () => {
@@ -112,22 +113,32 @@ const CareersPage = () => {
         salaryMax={selectedJob?.salary_range_max}
       />
       
+      {/* الهيدر المتطور */}
+      <CareersHeader />
+      
       {/* Hero Section */}
       <section 
-        className="relative h-[400px] bg-cover bg-center bg-no-repeat flex items-center justify-center"
+        className="relative h-[500px] bg-cover bg-center bg-no-repeat flex items-center justify-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroImage})`
+          backgroundImage: `linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.8)), linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${heroImage})`
         }}
       >
-        <div className="container mx-auto px-6 text-center text-white">
-          <h1 className="text-5xl font-bold mb-4">انضم إلى فريقنا في بُعد HR</h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
+        {/* تأثيرات بصرية إضافية */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-32 h-32 bg-primary/20 rounded-full blur-2xl animate-pulse"></div>
+        
+        <div className="container mx-auto px-6 text-center text-white relative z-10">
+          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+            انضم إلى فريقنا في بُعد HR
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed opacity-90">
             كن جزءاً من رحلة تطوير أكثر منصات الموارد البشرية تقدماً في المملكة العربية السعودية
           </p>
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary-glow text-white px-8 py-4 text-lg"
+              className="bg-white text-primary hover:bg-white/90 hover:scale-105 transition-all duration-300 px-8 py-4 text-lg font-semibold shadow-xl"
               onClick={() => document.getElementById('jobs-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Briefcase className="w-5 h-5 mr-2" />
@@ -136,10 +147,27 @@ const CareersPage = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg"
+              className="border-2 border-white/50 text-white hover:bg-white/10 hover:border-white hover:scale-105 transition-all duration-300 px-8 py-4 text-lg backdrop-blur-sm"
             >
+              <Heart className="w-5 h-5 mr-2" />
               تعرف على ثقافتنا
             </Button>
+          </div>
+          
+          {/* إحصائيات سريعة في Hero */}
+          <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">500+</div>
+              <div className="text-sm opacity-80">موظف</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">95%</div>
+              <div className="text-sm opacity-80">رضا</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold mb-1">24/7</div>
+              <div className="text-sm opacity-80">دعم</div>
+            </div>
           </div>
         </div>
       </section>
