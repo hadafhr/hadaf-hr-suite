@@ -46,9 +46,9 @@ interface ShiftScheduleTableProps {
 
 const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
-  const [selectedEmployee, setSelectedEmployee] = useState<string>('');
-  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
-  const [selectedShiftType, setSelectedShiftType] = useState<string>('');
+  const [selectedEmployee, setSelectedEmployee] = useState<string>('all');
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
+  const [selectedShiftType, setSelectedShiftType] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'week' | 'month'>('week');
   const [isAddShiftOpen, setIsAddShiftOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState<{employeeId: string, date: string} | null>(null);
@@ -311,8 +311,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
 
   // Filter employees
   const filteredEmployees = employees.filter(emp => {
-    if (selectedEmployee && emp.id !== selectedEmployee) return false;
-    if (selectedDepartment && emp.department !== selectedDepartment) return false;
+    if (selectedEmployee && selectedEmployee !== 'all' && emp.id !== selectedEmployee) return false;
+    if (selectedDepartment && selectedDepartment !== 'all' && emp.department !== selectedDepartment) return false;
     return true;
   });
 
@@ -420,7 +420,7 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                   <SelectValue placeholder="جميع الأقسام" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع الأقسام</SelectItem>
+                  <SelectItem value="all">جميع الأقسام</SelectItem>
                   {departments.map(dept => (
                     <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                   ))}
@@ -432,7 +432,7 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                   <SelectValue placeholder="جميع الموظفين" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع الموظفين</SelectItem>
+                  <SelectItem value="all">جميع الموظفين</SelectItem>
                   {employees.map(emp => (
                     <SelectItem key={emp.id} value={emp.id}>{emp.name}</SelectItem>
                   ))}
@@ -444,7 +444,7 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                   <SelectValue placeholder="جميع الأنواع" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">جميع الأنواع</SelectItem>
+                  <SelectItem value="all">جميع الأنواع</SelectItem>
                   <SelectItem value="normal">عادي</SelectItem>
                   <SelectItem value="ot">ساعات إضافية</SelectItem>
                   <SelectItem value="leave">إجازة</SelectItem>
