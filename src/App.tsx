@@ -287,7 +287,7 @@ const App = () => {
               <Route path="/employee-requests" element={<EmployeeRequests />} />
               <Route path="/reports-analytics" element={<ReportsAnalytics />} />
               <Route path="/system-settings" element={<SystemSettings />} />
-                <Route path="/employee-portal" element={<ProtectedRoute><EmployeePortal /></ProtectedRoute>} />
+                <Route path="/employee-portal" element={<EmployeePortal />} />
                 <Route path="/employer-portal" element={<EmployerPortal />} />
                
                 {/* E-Signature System */}
