@@ -338,6 +338,9 @@ const BoudHRLandingPage: React.FC = () => {
                   <DropdownMenuItem onClick={() => navigate('/blog')}>
                     مدونة بُعد
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')}>
+                    الأوراق الخضراء
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
