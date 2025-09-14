@@ -6,10 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { MapPin, Calendar, Users, Search, Filter, Briefcase, Clock, Star, ArrowRight, Building2, Heart, Shield, Trophy, Zap, Globe } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { MapPin, Calendar, Users, Search, Filter, Briefcase, Clock, Star, ArrowRight, Building2, Heart, Shield, Trophy, Zap, Globe, FileText } from 'lucide-react';
 import { useCareers } from '@/hooks/useCareers';
 import { JobApplicationModal } from '@/components/careers/JobApplicationModal';
 import { JobDetailModal } from '@/components/careers/JobDetailModal';
+import { ApplicationTracking } from '@/components/careers/ApplicationTracking';
 import { SEOHead } from '@/components/careers/SEOHead';
 import heroImage from '@/assets/team-collaboration.jpg';
 
@@ -33,6 +35,7 @@ const CareersPage = () => {
   const [selectedJobType, setSelectedJobType] = useState('all');
   const [showApplicationModal, setShowApplicationModal] = useState(false);
   const [showJobDetailModal, setShowJobDetailModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('jobs');
 
   const statistics = getStatistics();
 
@@ -211,176 +214,195 @@ const CareersPage = () => {
         </div>
       </section>
 
-      {/* قسم البحث والفلترة */}
+      {/* قسم البحث والفلترة والوظائف */}
       <section id="jobs-section" className="py-12 bg-muted/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">الوظائف المتاحة</h2>
-            <p className="text-muted-foreground">اكتشف الفرص الوظيفية المناسبة لخبرتك ومهاراتك</p>
+            <h2 className="text-3xl font-bold mb-4">الوظائف والتقديم</h2>
+            <p className="text-muted-foreground">اكتشف الفرص الوظيفية المناسبة لخبرتك ومهاراتك أو تابع طلباتك السابقة</p>
           </div>
 
-          {/* أدوات البحث والفلترة */}
-          <Card className="mb-8">
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <div className="lg:col-span-2">
-                  <div className="relative">
-                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                    <Input
-                      placeholder="ابحث عن وظيفة..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10"
-                    />
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="jobs" className="flex items-center gap-2">
+                <Briefcase className="w-4 h-4" />
+                الوظائف المتاحة
+              </TabsTrigger>
+              <TabsTrigger value="apply" className="flex items-center gap-2">
+                <FileText className="w-4 h-4" />
+                قدم الآن
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="jobs" className="space-y-8">
+              {/* أدوات البحث والفلترة */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div className="lg:col-span-2">
+                      <div className="relative">
+                        <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                        <Input
+                          placeholder="ابحث عن وظيفة..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pr-10"
+                        />
+                      </div>
+                    </div>
+
+                    <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="القسم" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الأقسام</SelectItem>
+                        {departments.map(dept => (
+                          <SelectItem key={dept.id} value={dept.id}>{dept.name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="الموقع" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع المواقع</SelectItem>
+                        {locations.map(location => (
+                          <SelectItem key={location.value} value={location.value}>{location.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <Select value={selectedJobType} onValueChange={setSelectedJobType}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="نوع الدوام" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الأنواع</SelectItem>
+                        {jobTypes.map(type => (
+                          <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                </div>
 
-                <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="القسم" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع الأقسام</SelectItem>
-                    {departments.map(dept => (
-                      <SelectItem key={dept.id} value={dept.id}>{dept.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="الموقع" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع المواقع</SelectItem>
-                    {locations.map(location => (
-                      <SelectItem key={location.value} value={location.value}>{location.label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select value={selectedJobType} onValueChange={setSelectedJobType}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="نوع الدوام" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع الأنواع</SelectItem>
-                    {jobTypes.map(type => (
-                      <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex justify-between items-center mt-4">
-                <div className="text-sm text-muted-foreground">
-                  {filteredJobs.length} وظيفة من أصل {jobs.length}
-                </div>
-                <Button variant="outline" size="sm" onClick={clearFilters}>
-                  <Filter className="w-4 h-4 mr-2" />
-                  مسح الفلاتر
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* قائمة الوظائف */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {loading ? (
-              Array.from({ length: 6 }).map((_, i) => (
-                <Card key={i} className="animate-pulse">
-                  <CardContent className="p-6">
-                    <div className="h-4 bg-muted rounded w-3/4 mb-4"></div>
-                    <div className="h-3 bg-muted rounded w-1/2 mb-2"></div>
-                    <div className="h-3 bg-muted rounded w-2/3 mb-4"></div>
-                    <div className="h-8 bg-muted rounded w-full"></div>
-                  </CardContent>
-                </Card>
-              ))
-            ) : filteredJobs.length === 0 ? (
-              <div className="col-span-full text-center py-12">
-                <Briefcase className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">لا توجد وظائف متاحة</h3>
-                <p className="text-muted-foreground">جرب تغيير معايير البحث للعثور على وظائف أخرى</p>
-              </div>
-            ) : (
-              filteredJobs.map(job => (
-                <Card key={job.id} className="hover:shadow-lg transition-shadow group cursor-pointer">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                          {job.title}
-                        </CardTitle>
-                        <div className="flex items-center text-muted-foreground mt-2">
-                          <Building2 className="w-4 h-4 mr-1" />
-                          <span>{job.department?.name || 'غير محدد'}</span>
-                        </div>
-                      </div>
-                      <Badge variant="secondary" className="shrink-0">
-                        {jobTypes.find(t => t.value === job.job_type)?.label || job.job_type}
-                      </Badge>
+                  <div className="flex justify-between items-center mt-4">
+                    <div className="text-sm text-muted-foreground">
+                      {filteredJobs.length} وظيفة من أصل {jobs.length}
                     </div>
-                  </CardHeader>
+                    <Button variant="outline" size="sm" onClick={clearFilters}>
+                      <Filter className="w-4 h-4 mr-2" />
+                      مسح الفلاتر
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
 
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center text-muted-foreground">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        <span>{job.location}</span>
-                      </div>
-
-                      <div className="flex items-center text-muted-foreground">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        <span>نُشر {new Date(job.posted_at).toLocaleDateString('ar-SA')}</span>
-                      </div>
-
-                      <p className="text-muted-foreground text-sm line-clamp-2">
-                        {job.description.substring(0, 120)}...
-                      </p>
-
-                      {job.salary_range_min && job.salary_range_max && (
-                        <div className="text-sm font-medium text-primary">
-                          {job.salary_range_min.toLocaleString()} - {job.salary_range_max.toLocaleString()} ريال
+              {/* قائمة الوظائف */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {loading ? (
+                  Array.from({ length: 6 }).map((_, i) => (
+                    <Card key={i} className="animate-pulse">
+                      <CardContent className="p-6">
+                        <div className="h-4 bg-muted rounded w-3/4 mb-4"></div>
+                        <div className="h-3 bg-muted rounded w-1/2 mb-2"></div>
+                        <div className="h-3 bg-muted rounded w-2/3 mb-4"></div>
+                        <div className="h-8 bg-muted rounded w-full"></div>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : filteredJobs.length === 0 ? (
+                  <div className="col-span-full text-center py-12">
+                    <Briefcase className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold mb-2">لا توجد وظائف متاحة</h3>
+                    <p className="text-muted-foreground">جرب تغيير معايير البحث للعثور على وظائف أخرى</p>
+                  </div>
+                ) : (
+                  filteredJobs.map(job => (
+                    <Card key={job.id} className="hover:shadow-lg transition-shadow group cursor-pointer">
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                              {job.title}
+                            </CardTitle>
+                            <div className="flex items-center text-muted-foreground mt-2">
+                              <Building2 className="w-4 h-4 mr-1" />
+                              <span>{job.department?.name || 'غير محدد'}</span>
+                            </div>
+                          </div>
+                          <Badge variant="secondary" className="shrink-0">
+                            {jobTypes.find(t => t.value === job.job_type)?.label || job.job_type}
+                          </Badge>
                         </div>
-                      )}
+                      </CardHeader>
 
-                      <Separator />
+                      <CardContent>
+                        <div className="space-y-3">
+                          <div className="flex items-center text-muted-foreground">
+                            <MapPin className="w-4 h-4 mr-2" />
+                            <span>{job.location}</span>
+                          </div>
 
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <Users className="w-4 h-4 mr-1" />
-                          <span>{job.applications_count} متقدم</span>
+                          <div className="flex items-center text-muted-foreground">
+                            <Calendar className="w-4 h-4 mr-2" />
+                            <span>نُشر {new Date(job.posted_at).toLocaleDateString('ar-SA')}</span>
+                          </div>
+
+                          <p className="text-muted-foreground text-sm line-clamp-2">
+                            {job.description.substring(0, 120)}...
+                          </p>
+
+                          {job.salary_range_min && job.salary_range_max && (
+                            <div className="text-sm font-medium text-primary">
+                              {job.salary_range_min.toLocaleString()} - {job.salary_range_max.toLocaleString()} ريال
+                            </div>
+                          )}
+
+                          <Separator />
+
+                          <div className="flex justify-between items-center">
+                            <div className="flex items-center text-sm text-muted-foreground">
+                              <Users className="w-4 h-4 mr-1" />
+                              <span>{job.applications_count} متقدم</span>
+                            </div>
+
+                            <div className="flex gap-2">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleViewJob(job);
+                                }}
+                              >
+                                عرض التفاصيل
+                              </Button>
+                              <Button 
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleApplyToJob(job);
+                                }}
+                              >
+                                قدّم الآن
+                              </Button>
+                            </div>
+                          </div>
                         </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </div>
+            </TabsContent>
 
-                        <div className="flex gap-2">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleViewJob(job);
-                            }}
-                          >
-                            عرض التفاصيل
-                          </Button>
-                          <Button 
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleApplyToJob(job);
-                            }}
-                          >
-                            قدّم الآن
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </div>
+            <TabsContent value="apply">
+              <ApplicationTracking />
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
