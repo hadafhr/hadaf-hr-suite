@@ -28,9 +28,9 @@ const CareersPage = () => {
   } = useCareers();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedJobType, setSelectedJobType] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedJobType, setSelectedJobType] = useState('all');
   const [showApplicationModal, setShowApplicationModal] = useState(false);
   const [showJobDetailModal, setShowJobDetailModal] = useState(false);
 
@@ -40,18 +40,18 @@ const CareersPage = () => {
   const handleSearch = () => {
     applyFilters({
       search: searchTerm,
-      department: selectedDepartment,
-      location: selectedLocation,
-      jobType: selectedJobType
+      department: selectedDepartment === 'all' ? undefined : selectedDepartment,
+      location: selectedLocation === 'all' ? undefined : selectedLocation,
+      jobType: selectedJobType === 'all' ? undefined : selectedJobType
     });
   };
 
   // مسح الفلاتر
   const clearFilters = () => {
     setSearchTerm('');
-    setSelectedDepartment('');
-    setSelectedLocation('');
-    setSelectedJobType('');
+    setSelectedDepartment('all');
+    setSelectedLocation('all');
+    setSelectedJobType('all');
     applyFilters({});
   };
 
@@ -240,7 +240,7 @@ const CareersPage = () => {
                     <SelectValue placeholder="القسم" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع الأقسام</SelectItem>
+                    <SelectItem value="all">جميع الأقسام</SelectItem>
                     {departments.map(dept => (
                       <SelectItem key={dept.id} value={dept.id}>{dept.name}</SelectItem>
                     ))}
@@ -252,7 +252,7 @@ const CareersPage = () => {
                     <SelectValue placeholder="الموقع" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع المواقع</SelectItem>
+                    <SelectItem value="all">جميع المواقع</SelectItem>
                     {locations.map(location => (
                       <SelectItem key={location.value} value={location.value}>{location.label}</SelectItem>
                     ))}
@@ -264,7 +264,7 @@ const CareersPage = () => {
                     <SelectValue placeholder="نوع الدوام" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع الأنواع</SelectItem>
+                    <SelectItem value="all">جميع الأنواع</SelectItem>
                     {jobTypes.map(type => (
                       <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
                     ))}
