@@ -102,6 +102,7 @@ import { SubscriptionManagement } from './pages/SubscriptionManagement';
 import { AdminAnalytics } from './pages/AdminAnalytics';
 import { SystemDevelopment } from './pages/SystemDevelopment';
 import { SecuritySettings } from './pages/SecuritySettings';
+import InteractiveTour from './pages/InteractiveTour';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 // Mobile Pages
@@ -166,6 +167,7 @@ const App = () => {
           <BrowserRouter>
           <Routes>
             <Route path="/" element={<BoudHRLandingPage />} />
+            <Route path="/interactive-tour" element={<InteractiveTour />} />
             <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
             <Route path="/subscription-success" element={<SubscriptionSuccess />} />

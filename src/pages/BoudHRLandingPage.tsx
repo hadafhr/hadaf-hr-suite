@@ -316,7 +316,10 @@ const BoudHRLandingPage: React.FC = () => {
             <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
-
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+                <Play className="w-4 h-4" />
+                جولة تفاعلية
+              </Button>
 
               <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
                 احسب اشتراكك
@@ -412,6 +415,13 @@ const BoudHRLandingPage: React.FC = () => {
                 <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
                 </a>
+                <button onClick={() => {
+                  navigate('/interactive-tour');
+                  setIsMobileMenuOpen(false);
+                }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
+                  <Play className="w-4 h-4" />
+                  جولة تفاعلية
+                </button>
                 <details className="group">
                   <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
