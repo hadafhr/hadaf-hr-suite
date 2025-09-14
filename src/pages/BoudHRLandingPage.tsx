@@ -338,6 +338,11 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
+              <Button variant="ghost" onClick={() => navigate('/service-calculator')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+                <Calculator className="w-4 h-4" />
+                الحاسبة
+              </Button>
+
               <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
                 اربح مع بُعد
               </Button>
