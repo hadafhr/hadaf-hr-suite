@@ -10,6 +10,7 @@ import { MapPin, Calendar, Users, Search, Filter, Briefcase, Clock, Star, ArrowR
 import { useCareers } from '@/hooks/useCareers';
 import { JobApplicationModal } from '@/components/careers/JobApplicationModal';
 import { JobDetailModal } from '@/components/careers/JobDetailModal';
+import { SEOHead } from '@/components/careers/SEOHead';
 import heroImage from '@/assets/team-collaboration.jpg';
 
 const CareersPage = () => {
@@ -97,6 +98,17 @@ const CareersPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title={selectedJob ? `${selectedJob.title} - ${selectedJob.location} | وظائف بُعد HR` : undefined}
+        description={selectedJob ? `انضم إلى فريق بُعد HR كـ ${selectedJob.title} في ${selectedJob.location}` : undefined}
+        jobTitle={selectedJob?.title}
+        location={selectedJob?.location}
+        department={selectedJob?.department?.name}
+        jobType={selectedJob?.job_type}
+        salaryMin={selectedJob?.salary_range_min}
+        salaryMax={selectedJob?.salary_range_max}
+      />
+      
       {/* Hero Section */}
       <section 
         className="relative h-[400px] bg-cover bg-center bg-no-repeat flex items-center justify-center"

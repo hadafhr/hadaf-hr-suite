@@ -10184,6 +10184,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      log_job_view: {
+        Args: { job_id: string }
+        Returns: undefined
+      }
       revoke_department_permission: {
         Args: {
           _company_id: string

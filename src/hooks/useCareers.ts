@@ -125,6 +125,10 @@ export const useCareers = () => {
         .single();
 
       if (error) throw error;
+      
+      // تسجيل مشاهدة الوظيفة
+      await supabase.rpc('log_job_view', { job_id: jobId });
+      
       setSelectedJob(data as any);
       return data;
     } catch (error) {
@@ -259,12 +263,26 @@ export const useCareers = () => {
     }
   };
 
-  // رفع ملف السيرة الذاتية (سيتم إنشاء bucket لاحقاً)
+  // رفع ملف السيرة الذاتية
   const uploadResume = async (file: File, applicantEmail: string) => {
     try {
-      // للآن سنستخدم placeholder URL
-      // يمكن تطويره لاحقاً مع إنشاء bucket للسير الذاتية
-      return `placeholder-resume-${applicantEmail}-${Date.now()}`;
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${applicantEmail}-${Date.now()}.${fileExt}`;
+      
+      const { data, error } = await supabase.storage
+        .from('resumes')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) throw error;
+
+      const { data: urlData } = supabase.storage
+        .from('resumes')
+        .getPublicUrl(fileName);
+
+      return urlData.publicUrl;
     } catch (error) {
       console.error('Error uploading resume:', error);
       toast({

@@ -67,6 +67,7 @@ import { ScheduleMeeting } from './pages/ScheduleMeeting';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import CareersPage from './pages/CareersPage';
+import { ApplicationTracking } from './components/careers/ApplicationTracking';
 import EmployeeManagementSystem from './pages/EmployeeManagementSystem';
 import ComprehensiveEmployeeManagement from './pages/ComprehensiveEmployeeManagement';
 import DisciplinarySystem from './pages/DisciplinarySystem';
@@ -219,6 +220,7 @@ const App = () => {
             <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/careers/:jobId" element={<CareersPage />} />
+            <Route path="/careers/track-applications" element={<ApplicationTracking />} />
             <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/services/individuals" element={<IndividualServices />} />
