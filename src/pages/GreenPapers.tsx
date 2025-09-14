@@ -172,19 +172,19 @@ const GreenPapers: React.FC = () => {
     }
 
     // Apply category filter
-    if (selectedCategory) {
+    if (selectedCategory && selectedCategory !== 'all') {
       filtered = filtered.filter(paper => 
         paper.category.includes(selectedCategory)
       );
     }
 
     // Apply level filter
-    if (selectedLevel) {
+    if (selectedLevel && selectedLevel !== 'all') {
       filtered = filtered.filter(paper => paper.level === selectedLevel);
     }
 
     // Apply industry filter
-    if (selectedIndustry) {
+    if (selectedIndustry && selectedIndustry !== 'all') {
       filtered = filtered.filter(paper => 
         paper.industry.includes(selectedIndustry)
       );
@@ -283,7 +283,7 @@ const GreenPapers: React.FC = () => {
                     <SelectValue placeholder="الفئة" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع الفئات</SelectItem>
+                    <SelectItem value="all">جميع الفئات</SelectItem>
                     {categories.map(category => (
                       <SelectItem key={category} value={category}>{category}</SelectItem>
                     ))}
@@ -296,7 +296,7 @@ const GreenPapers: React.FC = () => {
                     <SelectValue placeholder="المستوى" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع المستويات</SelectItem>
+                    <SelectItem value="all">جميع المستويات</SelectItem>
                     {levels.map(level => (
                       <SelectItem key={level} value={level}>{level}</SelectItem>
                     ))}
@@ -324,7 +324,7 @@ const GreenPapers: React.FC = () => {
                     <SelectValue placeholder="القطاع" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع القطاعات</SelectItem>
+                    <SelectItem value="all">جميع القطاعات</SelectItem>
                     {industries.map(industry => (
                       <SelectItem key={industry} value={industry}>{industry}</SelectItem>
                     ))}
