@@ -86,6 +86,10 @@ import SelfServiceInfo from './pages/SelfServiceInfo';
 import DemoRequest from './pages/DemoRequest';
 import Contact from './pages/Contact';
 import AddEmployee from './pages/AddEmployee';
+import HRToolsPage from './pages/HRToolsPage';
+import SalaryCalculatorPage from './pages/SalaryCalculatorPage';
+import NitaqatCalculatorPage from './pages/NitaqatCalculatorPage';
+import LaborLawAIPage from './pages/LaborLawAIPage';
 import { HRManagement } from './pages/HRManagement';
 import { ClientManagement } from './pages/ClientManagement';
 import { SystemMonitoring } from './pages/SystemMonitoring';
@@ -245,12 +249,18 @@ const App = () => {
               <Route path="/employee-management-platform" element={<EmployeeManagementPlatform />} />
               <Route path="/user-management" element={<UserManagement />} />
               
-              {/* New Platform Routes */}
-              <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
-              <Route path="/wage-protection" element={<WageProtectionPage />} />
-              <Route path="/service-calculator" element={<ServiceCalculatorPage />} />
-              <Route path="/end-of-service-calculator" element={<EndOfServiceCalculatorPage />} />
-              <Route path="/chat-messaging" element={<ChatMessagingPage />} />
+                {/* HR Tools Routes */}
+                <Route path="/hr-tools" element={<HRToolsPage />} />
+                <Route path="/hr-tools/salary-calculator" element={<SalaryCalculatorPage />} />
+                <Route path="/hr-tools/nitaqat-calculator" element={<NitaqatCalculatorPage />} />
+                <Route path="/hr-tools/labor-law-ai" element={<LaborLawAIPage />} />
+                
+                {/* New Platform Routes */}
+                <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
+                <Route path="/wage-protection" element={<WageProtectionPage />} />
+                <Route path="/service-calculator" element={<ServiceCalculatorPage />} />
+                <Route path="/end-of-service-calculator" element={<EndOfServiceCalculatorPage />} />
+                <Route path="/chat-messaging" element={<ChatMessagingPage />} />
               
               {/* Feature Pages Routes */}
               <Route path="/employee-management" element={<EmployeeManagementFeature />} />
