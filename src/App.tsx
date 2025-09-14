@@ -90,6 +90,7 @@ import HRToolsPage from './pages/HRToolsPage';
 import SalaryCalculatorPage from './pages/SalaryCalculatorPage';
 import NitaqatCalculatorPage from './pages/NitaqatCalculatorPage';
 import LaborLawAIPage from './pages/LaborLawAIPage';
+import TestHRTools from './pages/TestHRTools';
 import { HRManagement } from './pages/HRManagement';
 import { ClientManagement } from './pages/ClientManagement';
 import { SystemMonitoring } from './pages/SystemMonitoring';
@@ -250,6 +251,7 @@ const App = () => {
               <Route path="/user-management" element={<UserManagement />} />
               
                 {/* HR Tools Routes */}
+                <Route path="/test-hr-tools" element={<TestHRTools />} />
                 <Route path="/hr-tools" element={<HRToolsPage />} />
                 <Route path="/hr-tools/salary-calculator" element={<SalaryCalculatorPage />} />
                 <Route path="/hr-tools/nitaqat-calculator" element={<NitaqatCalculatorPage />} />
