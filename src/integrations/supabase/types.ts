@@ -189,6 +189,81 @@ export type Database = {
         }
         Relationships: []
       }
+      attendance_correction_requests: {
+        Row: {
+          attendance_record_id: string | null
+          created_at: string | null
+          current_value: string | null
+          employee_id: string | null
+          hr_approval_at: string | null
+          hr_approval_by: string | null
+          hr_comments: string | null
+          id: string
+          manager_approval_at: string | null
+          manager_approval_by: string | null
+          manager_comments: string | null
+          reason: string
+          request_type: string
+          requested_value: string
+          status: Database["public"]["Enums"]["approval_status"] | null
+          supporting_documents: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          attendance_record_id?: string | null
+          created_at?: string | null
+          current_value?: string | null
+          employee_id?: string | null
+          hr_approval_at?: string | null
+          hr_approval_by?: string | null
+          hr_comments?: string | null
+          id?: string
+          manager_approval_at?: string | null
+          manager_approval_by?: string | null
+          manager_comments?: string | null
+          reason: string
+          request_type: string
+          requested_value: string
+          status?: Database["public"]["Enums"]["approval_status"] | null
+          supporting_documents?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          attendance_record_id?: string | null
+          created_at?: string | null
+          current_value?: string | null
+          employee_id?: string | null
+          hr_approval_at?: string | null
+          hr_approval_by?: string | null
+          hr_comments?: string | null
+          id?: string
+          manager_approval_at?: string | null
+          manager_approval_by?: string | null
+          manager_comments?: string | null
+          reason?: string
+          request_type?: string
+          requested_value?: string
+          status?: Database["public"]["Enums"]["approval_status"] | null
+          supporting_documents?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_correction_requests_attendance_record_id_fkey"
+            columns: ["attendance_record_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_records_new"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_correction_requests_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attendance_corrections: {
         Row: {
           attendance_record_id: string
@@ -310,23 +385,139 @@ export type Database = {
           },
         ]
       }
+      attendance_locations: {
+        Row: {
+          allowed_methods: string[] | null
+          company_id: string | null
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          latitude: number
+          location_name: string
+          longitude: number
+          radius_meters: number | null
+          updated_at: string | null
+          work_type: Database["public"]["Enums"]["work_type"] | null
+        }
+        Insert: {
+          allowed_methods?: string[] | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          latitude: number
+          location_name: string
+          longitude: number
+          radius_meters?: number | null
+          updated_at?: string | null
+          work_type?: Database["public"]["Enums"]["work_type"] | null
+        }
+        Update: {
+          allowed_methods?: string[] | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          latitude?: number
+          location_name?: string
+          longitude?: number
+          radius_meters?: number | null
+          updated_at?: string | null
+          work_type?: Database["public"]["Enums"]["work_type"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_locations_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attendance_points: {
+        Row: {
+          accumulated_points: number | null
+          attendance_record_id: string | null
+          bonus_points: number | null
+          created_at: string | null
+          employee_id: string | null
+          id: string
+          month_year: string | null
+          points_deducted: number | null
+          points_earned: number | null
+          reason: string | null
+          reward_amount: number | null
+          reward_processed: boolean | null
+        }
+        Insert: {
+          accumulated_points?: number | null
+          attendance_record_id?: string | null
+          bonus_points?: number | null
+          created_at?: string | null
+          employee_id?: string | null
+          id?: string
+          month_year?: string | null
+          points_deducted?: number | null
+          points_earned?: number | null
+          reason?: string | null
+          reward_amount?: number | null
+          reward_processed?: boolean | null
+        }
+        Update: {
+          accumulated_points?: number | null
+          attendance_record_id?: string | null
+          bonus_points?: number | null
+          created_at?: string | null
+          employee_id?: string | null
+          id?: string
+          month_year?: string | null
+          points_deducted?: number | null
+          points_earned?: number | null
+          reason?: string | null
+          reward_amount?: number | null
+          reward_processed?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_points_attendance_record_id_fkey"
+            columns: ["attendance_record_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_records_new"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_points_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attendance_records_new: {
         Row: {
           approved_at: string | null
           approved_by: string | null
           attendance_date: string
+          attendance_points: number | null
+          break_duration_minutes: number | null
           break_end_time: string | null
           break_start_time: string | null
           clock_in_time: string | null
           clock_out_time: string | null
           created_at: string
+          early_leave_minutes: number | null
           employee_id: string
           id: string
           is_remote: boolean
+          late_minutes: number | null
           location_check_in: string | null
           location_check_out: string | null
           notes: string | null
+          overtime_approved: boolean | null
           overtime_hours: number | null
+          penalty_amount: number | null
           schedule_id: string | null
           status: Database["public"]["Enums"]["attendance_status"]
           total_hours: number | null
@@ -336,18 +527,24 @@ export type Database = {
           approved_at?: string | null
           approved_by?: string | null
           attendance_date?: string
+          attendance_points?: number | null
+          break_duration_minutes?: number | null
           break_end_time?: string | null
           break_start_time?: string | null
           clock_in_time?: string | null
           clock_out_time?: string | null
           created_at?: string
+          early_leave_minutes?: number | null
           employee_id: string
           id?: string
           is_remote?: boolean
+          late_minutes?: number | null
           location_check_in?: string | null
           location_check_out?: string | null
           notes?: string | null
+          overtime_approved?: boolean | null
           overtime_hours?: number | null
+          penalty_amount?: number | null
           schedule_id?: string | null
           status?: Database["public"]["Enums"]["attendance_status"]
           total_hours?: number | null
@@ -357,18 +554,24 @@ export type Database = {
           approved_at?: string | null
           approved_by?: string | null
           attendance_date?: string
+          attendance_points?: number | null
+          break_duration_minutes?: number | null
           break_end_time?: string | null
           break_start_time?: string | null
           clock_in_time?: string | null
           clock_out_time?: string | null
           created_at?: string
+          early_leave_minutes?: number | null
           employee_id?: string
           id?: string
           is_remote?: boolean
+          late_minutes?: number | null
           location_check_in?: string | null
           location_check_out?: string | null
           notes?: string | null
+          overtime_approved?: boolean | null
           overtime_hours?: number | null
+          penalty_amount?: number | null
           schedule_id?: string | null
           status?: Database["public"]["Enums"]["attendance_status"]
           total_hours?: number | null
@@ -3422,6 +3625,66 @@ export type Database = {
         }
         Relationships: []
       }
+      employee_live_tracking: {
+        Row: {
+          accuracy: number | null
+          activity_type: string | null
+          battery_level: number | null
+          employee_id: string | null
+          geofence_location_id: string | null
+          heading: number | null
+          id: string
+          is_inside_geofence: boolean | null
+          latitude: number
+          longitude: number
+          speed: number | null
+          timestamp: string | null
+        }
+        Insert: {
+          accuracy?: number | null
+          activity_type?: string | null
+          battery_level?: number | null
+          employee_id?: string | null
+          geofence_location_id?: string | null
+          heading?: number | null
+          id?: string
+          is_inside_geofence?: boolean | null
+          latitude: number
+          longitude: number
+          speed?: number | null
+          timestamp?: string | null
+        }
+        Update: {
+          accuracy?: number | null
+          activity_type?: string | null
+          battery_level?: number | null
+          employee_id?: string | null
+          geofence_location_id?: string | null
+          heading?: number | null
+          id?: string
+          is_inside_geofence?: boolean | null
+          latitude?: number
+          longitude?: number
+          speed?: number | null
+          timestamp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_live_tracking_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_live_tracking_geofence_location_id_fkey"
+            columns: ["geofence_location_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_locations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employee_notifications: {
         Row: {
           action_type: string | null
@@ -3626,45 +3889,45 @@ export type Database = {
       employee_schedules: {
         Row: {
           created_at: string | null
+          created_by: string | null
           employee_id: string | null
           id: string
+          location_id: string | null
           notes: string | null
-          planned_end: string
-          planned_start: string
+          planned_end: string | null
+          planned_start: string | null
           shift_id: string | null
-          status: string | null
-          updated_at: string | null
+          status: Database["public"]["Enums"]["approval_status"] | null
           work_date: string
-          work_location: string | null
-          work_type: string | null
+          work_type: Database["public"]["Enums"]["work_type"] | null
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           employee_id?: string | null
           id?: string
+          location_id?: string | null
           notes?: string | null
-          planned_end: string
-          planned_start: string
+          planned_end?: string | null
+          planned_start?: string | null
           shift_id?: string | null
-          status?: string | null
-          updated_at?: string | null
+          status?: Database["public"]["Enums"]["approval_status"] | null
           work_date: string
-          work_location?: string | null
-          work_type?: string | null
+          work_type?: Database["public"]["Enums"]["work_type"] | null
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           employee_id?: string | null
           id?: string
+          location_id?: string | null
           notes?: string | null
-          planned_end?: string
-          planned_start?: string
+          planned_end?: string | null
+          planned_start?: string | null
           shift_id?: string | null
-          status?: string | null
-          updated_at?: string | null
+          status?: Database["public"]["Enums"]["approval_status"] | null
           work_date?: string
-          work_location?: string | null
-          work_type?: string | null
+          work_type?: Database["public"]["Enums"]["work_type"] | null
         }
         Relationships: [
           {
@@ -3675,10 +3938,17 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "employee_schedules_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_locations"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "employee_schedules_shift_id_fkey"
             columns: ["shift_id"]
             isOneToOne: false
-            referencedRelation: "shifts"
+            referencedRelation: "work_shifts"
             referencedColumns: ["id"]
           },
         ]
@@ -7314,6 +7584,75 @@ export type Database = {
           },
         ]
       }
+      overtime_records: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          attendance_record_id: string | null
+          created_at: string | null
+          employee_id: string | null
+          hourly_rate: number | null
+          id: string
+          overtime_end_time: string | null
+          overtime_hours: number
+          overtime_start_time: string | null
+          payroll_processed: boolean | null
+          pre_approved: boolean | null
+          reason: string | null
+          total_amount: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          attendance_record_id?: string | null
+          created_at?: string | null
+          employee_id?: string | null
+          hourly_rate?: number | null
+          id?: string
+          overtime_end_time?: string | null
+          overtime_hours: number
+          overtime_start_time?: string | null
+          payroll_processed?: boolean | null
+          pre_approved?: boolean | null
+          reason?: string | null
+          total_amount?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          attendance_record_id?: string | null
+          created_at?: string | null
+          employee_id?: string | null
+          hourly_rate?: number | null
+          id?: string
+          overtime_end_time?: string | null
+          overtime_hours?: number
+          overtime_start_time?: string | null
+          payroll_processed?: boolean | null
+          pre_approved?: boolean | null
+          reason?: string | null
+          total_amount?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "overtime_records_attendance_record_id_fkey"
+            columns: ["attendance_record_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_records_new"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "overtime_records_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payment_batches: {
         Row: {
           bank_account_id: string
@@ -9251,6 +9590,62 @@ export type Database = {
         }
         Relationships: []
       }
+      work_shifts: {
+        Row: {
+          break_duration: number | null
+          company_id: string | null
+          created_at: string | null
+          end_time: string
+          id: string
+          is_active: boolean | null
+          is_flexible: boolean | null
+          max_late_minutes: number | null
+          overtime_threshold_minutes: number | null
+          shift_name: string
+          start_time: string
+          updated_at: string | null
+          work_days: number[] | null
+        }
+        Insert: {
+          break_duration?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          end_time: string
+          id?: string
+          is_active?: boolean | null
+          is_flexible?: boolean | null
+          max_late_minutes?: number | null
+          overtime_threshold_minutes?: number | null
+          shift_name: string
+          start_time: string
+          updated_at?: string | null
+          work_days?: number[] | null
+        }
+        Update: {
+          break_duration?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          end_time?: string
+          id?: string
+          is_active?: boolean | null
+          is_flexible?: boolean | null
+          max_late_minutes?: number | null
+          overtime_threshold_minutes?: number | null
+          shift_name?: string
+          start_time?: string
+          updated_at?: string | null
+          work_days?: number[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "work_shifts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workflow_approvals: {
         Row: {
           action: Database["public"]["Enums"]["approval_action"] | null
@@ -9632,12 +10027,20 @@ export type Database = {
         | "auditor"
         | "viewer"
       approval_action: "approve" | "reject" | "return_for_revision"
+      approval_status: "pending" | "approved" | "rejected"
       attendance_status:
         | "present"
         | "absent"
         | "late"
         | "early_leave"
         | "overtime"
+      check_method:
+        | "device"
+        | "gps"
+        | "qr_code"
+        | "manual"
+        | "face_id"
+        | "remote"
       claim_status: "pending" | "approved" | "rejected" | "processing" | "paid"
       company_role:
         | "super_admin"
@@ -9678,6 +10081,13 @@ export type Database = {
         | "warning"
         | "salary_freeze"
         | "development_plan"
+      device_type:
+        | "fingerprint"
+        | "face_recognition"
+        | "rfid"
+        | "mobile_gps"
+        | "qr_code"
+        | "camera_wall"
       disciplinary_action:
         | "verbal_warning"
         | "written_warning"
@@ -9766,6 +10176,11 @@ export type Database = {
       meeting_status: "scheduled" | "ongoing" | "completed" | "cancelled"
       meeting_type: "board" | "executive" | "department" | "team" | "one_on_one"
       participant_role: "organizer" | "required" | "optional" | "presenter"
+      penalty_type:
+        | "warning"
+        | "salary_deduction"
+        | "suspension"
+        | "termination"
       premium_frequency: "monthly" | "quarterly" | "semi_annual" | "annual"
       rater_type: "self" | "manager" | "hr" | "360"
       request_status: "pending" | "approved" | "rejected" | "cancelled"
@@ -9802,6 +10217,7 @@ export type Database = {
         | "payroll_officer"
       violation_severity: "low" | "medium" | "high" | "critical"
       work_schedule_type: "full_time" | "remote" | "part_time" | "hybrid"
+      work_type: "office" | "remote" | "hybrid" | "flexible"
       workflow_status:
         | "pending"
         | "in_review"
@@ -9948,6 +10364,7 @@ export const Constants = {
         "viewer",
       ],
       approval_action: ["approve", "reject", "return_for_revision"],
+      approval_status: ["pending", "approved", "rejected"],
       attendance_status: [
         "present",
         "absent",
@@ -9955,6 +10372,7 @@ export const Constants = {
         "early_leave",
         "overtime",
       ],
+      check_method: ["device", "gps", "qr_code", "manual", "face_id", "remote"],
       claim_status: ["pending", "approved", "rejected", "processing", "paid"],
       company_role: [
         "super_admin",
@@ -9999,6 +10417,14 @@ export const Constants = {
         "warning",
         "salary_freeze",
         "development_plan",
+      ],
+      device_type: [
+        "fingerprint",
+        "face_recognition",
+        "rfid",
+        "mobile_gps",
+        "qr_code",
+        "camera_wall",
       ],
       disciplinary_action: [
         "verbal_warning",
@@ -10099,6 +10525,12 @@ export const Constants = {
       meeting_status: ["scheduled", "ongoing", "completed", "cancelled"],
       meeting_type: ["board", "executive", "department", "team", "one_on_one"],
       participant_role: ["organizer", "required", "optional", "presenter"],
+      penalty_type: [
+        "warning",
+        "salary_deduction",
+        "suspension",
+        "termination",
+      ],
       premium_frequency: ["monthly", "quarterly", "semi_annual", "annual"],
       rater_type: ["self", "manager", "hr", "360"],
       request_status: ["pending", "approved", "rejected", "cancelled"],
@@ -10138,6 +10570,7 @@ export const Constants = {
       ],
       violation_severity: ["low", "medium", "high", "critical"],
       work_schedule_type: ["full_time", "remote", "part_time", "hybrid"],
+      work_type: ["office", "remote", "hybrid", "flexible"],
       workflow_status: [
         "pending",
         "in_review",
