@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { BoudLogo } from '@/components/BoudLogo';
+import { BackButton } from '@/components/BackButton';
 import { 
   Calculator, 
   Users, 
@@ -347,14 +349,9 @@ export const SalaryCalculator: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4 space-x-reverse">
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/')}
-                className="flex items-center gap-2 text-foreground hover:text-primary"
-              >
-                <Home className="w-4 h-4" />
-                الرئيسية
-              </Button>
+              <BackButton />
+              <Separator orientation="vertical" className="h-6" />
+              <BoudLogo size="header" />
               <Separator orientation="vertical" className="h-6" />
               <nav className="text-sm text-muted-foreground">
                 <span>أدوات الموارد البشرية</span>
