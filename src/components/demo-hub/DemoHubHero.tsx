@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DemoRequestModal } from '@/components/DemoRequestModal';
+import { SystemTourModal } from '@/components/SystemTourModal';
 import { Play, ArrowLeft, Star, Users, BarChart3 } from 'lucide-react';
 
 export const DemoHubHero = () => {
   const [showDemoModal, setShowDemoModal] = useState(false);
+  const [showTourModal, setShowTourModal] = useState(false);
 
   return (
     <>
@@ -60,6 +62,7 @@ export const DemoHubHero = () => {
                 <Button
                   variant="outline"
                   size="lg"
+                  onClick={() => setShowTourModal(true)}
                   className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium px-8 py-4 rounded-xl transition-all duration-300"
                 >
                   <Play className="w-5 h-5 ml-2" />
@@ -117,6 +120,11 @@ export const DemoHubHero = () => {
       <DemoRequestModal 
         isOpen={showDemoModal} 
         onClose={() => setShowDemoModal(false)} 
+      />
+      
+      <SystemTourModal 
+        isOpen={showTourModal} 
+        onClose={() => setShowTourModal(false)} 
       />
     </>
   );
