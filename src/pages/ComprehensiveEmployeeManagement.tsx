@@ -49,7 +49,6 @@ import { ComprehensiveTasksFollowup } from '@/components/systems/ComprehensiveTa
 import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealthSafety';
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
-import ShiftScheduleTable from '@/components/attendance/ShiftScheduleTable';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -458,7 +457,7 @@ const ComprehensiveEmployeeManagement = () => {
               </TabsContent>
 
           <TabsContent value="attendance">
-            <ShiftScheduleTable onBack={() => setActiveTab('dashboard')} />
+            <SmartAttendanceSystem />
           </TabsContent>
 
           <TabsContent value="settings">
