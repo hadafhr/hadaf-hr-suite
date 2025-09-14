@@ -155,7 +155,7 @@ export const useEmployeePortal = () => {
 
   // Fetch attendance records
   const fetchAttendanceRecords = async () => {
-    if (!employee?.id) return;
+    if (!employee?.id || employee.id === 'demo-employee-001') return;
 
     try {
       const startOfMonth = new Date();
@@ -191,7 +191,7 @@ export const useEmployeePortal = () => {
 
   // Fetch leave requests
   const fetchLeaveRequests = async () => {
-    if (!employee?.id) return;
+    if (!employee?.id || employee.id === 'demo-employee-001') return;
 
     try {
       const { data, error } = await supabase
@@ -224,7 +224,7 @@ export const useEmployeePortal = () => {
 
   // Fetch payroll items
   const fetchPayrollItems = async () => {
-    if (!employee?.id) return;
+    if (!employee?.id || employee.id === 'demo-employee-001') return;
 
     try {
       const { data, error } = await supabase
@@ -591,7 +591,8 @@ export const useEmployeePortal = () => {
 
   // Fetch related data when employee is loaded
   useEffect(() => {
-    if (employee) {
+    if (employee && employee.id !== 'demo-employee-001') {
+      // Only fetch from database if not using demo data
       fetchAttendanceRecords();
       fetchLeaveRequests();
       fetchPayrollItems();
