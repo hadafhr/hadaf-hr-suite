@@ -17,8 +17,6 @@ import { EmployeeProfile } from './HR/EmployeeProfile';
 import { AdminEmployeeManagement } from './HR/AdminEmployeeManagement';
 import { PlatformModules } from './HR/PlatformModules';
 import { CompensationBenefits } from './HR/CompensationBenefits';
-import GreenPapers from './GreenPapers';
-import GreenPaperDetail from './GreenPaperDetail';
 
 export const HRApp: React.FC = () => {
   return (
@@ -41,8 +39,6 @@ export const HRApp: React.FC = () => {
         <Route path="/employee-profile" element={<EmployeeProfile />} />
         <Route path="/admin/employees" element={<AdminEmployeeManagement />} />
         <Route path="/admin/platforms" element={<PlatformModules />} />
-        <Route path="/green-papers" element={<GreenPapers />} />
-        <Route path="/green-papers/:slug" element={<GreenPaperDetail />} />
       </Routes>
     </div>
   );

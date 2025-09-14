@@ -104,6 +104,8 @@ import { SystemDevelopment } from './pages/SystemDevelopment';
 import { SecuritySettings } from './pages/SecuritySettings';
 import InteractiveTour from './pages/InteractiveTour';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import GreenPapers from './pages/GreenPapers';
+import GreenPaperDetail from './pages/GreenPaperDetail';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -173,6 +175,8 @@ const App = () => {
             <Route path="/subscription-success" element={<SubscriptionSuccess />} />
             <Route path="/invoices-dashboard" element={<InvoicesDashboard />} />
             <Route path="/hr/*" element={<HRApp />} />
+            <Route path="/green-papers" element={<GreenPapers />} />
+            <Route path="/green-papers/:slug" element={<GreenPaperDetail />} />
             <Route path="/old-home" element={<LandingPage />} />
               {/* Unified Login System */}
               <Route path="/unified-login" element={<UnifiedLogin />} />
