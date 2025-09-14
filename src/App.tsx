@@ -66,6 +66,7 @@ import { EarnWithBoad } from './pages/EarnWithBoad';
 import { ScheduleMeeting } from './pages/ScheduleMeeting';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import CareersPage from './pages/CareersPage';
 import EmployeeManagementSystem from './pages/EmployeeManagementSystem';
 import ComprehensiveEmployeeManagement from './pages/ComprehensiveEmployeeManagement';
 import DisciplinarySystem from './pages/DisciplinarySystem';
@@ -215,8 +216,10 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/tutorials" element={<Tutorials />} />
             <Route path="/earn-with-boad" element={<EarnWithBoad />} />
-          <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
-          <Route path="/blog" element={<Blog />} />
+            <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/careers/:jobId" element={<CareersPage />} />
+            <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/services/individuals" element={<IndividualServices />} />
               <Route path="/services/employee-management" element={<EmployeeManagement />} />
