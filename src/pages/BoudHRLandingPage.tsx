@@ -351,6 +351,10 @@ const BoudHRLandingPage: React.FC = () => {
                 📅 احجز اجتماع
               </Button>
 
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+                👥 انضم الى فريقنا
+              </Button>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
