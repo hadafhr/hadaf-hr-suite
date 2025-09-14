@@ -7,12 +7,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { 
   Calendar, Clock, Plus, Edit, Trash2, Filter, ArrowLeft, ArrowRight, 
   User, Building, FileText, Download, Printer, Move, Timer, Users,
-  CalendarDays, Search, Settings, ChevronLeft, ChevronRight
+  CalendarDays, Search, Settings, ChevronLeft, ChevronRight, FolderOpen,
+  Copy, Repeat, MoreHorizontal, CalendarRange, Target, Zap, FileSpreadsheet
 } from 'lucide-react';
-import { format, addDays, startOfWeek, endOfWeek, differenceInMinutes, parseISO } from 'date-fns';
+import { format, addDays, startOfWeek, endOfWeek, differenceInMinutes, parseISO, eachDayOfInterval, isWeekend, startOfDay, endOfDay, isSameDay } from 'date-fns';
 import { ar } from 'date-fns/locale';
 
 interface Shift {
@@ -27,6 +31,40 @@ interface Shift {
   notes?: string;
   actualStartTime?: string;
   actualEndTime?: string;
+  templateId?: string;
+  source: 'manual' | 'template' | 'repeated' | 'cloned';
+  parentShiftId?: string;
+}
+
+interface ShiftTemplate {
+  id: string;
+  name: string;
+  startTime: string;
+  endTime: string;
+  breakMinutes: number;
+  type: 'normal' | 'extra' | 'ot' | 'leave' | 'absence';
+  notes?: string;
+  companyId: string;
+  createdBy: string;
+  createdAt: string;
+  isActive: boolean;
+}
+
+interface RepeatConfig {
+  startDate: string;
+  endDate: string;
+  days: number[]; // 0=Sunday, 1=Monday, etc.
+  excludeWeekends: boolean;
+  excludeHolidays: boolean;
+  everyXDays?: number;
+}
+
+interface CloneConfig {
+  sourceEmployeeId: string;
+  targetEmployeeIds: string[];
+  startDate: string;
+  endDate: string;
+  overwriteExisting: boolean;
 }
 
 interface Employee {
@@ -53,6 +91,83 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
   const [isAddShiftOpen, setIsAddShiftOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState<{employeeId: string, date: string} | null>(null);
   const [editingShift, setEditingShift] = useState<Shift | null>(null);
+
+  // ⚙️ New State Variables for Enhanced Features
+  const [dateRange, setDateRange] = useState({
+    startDate: format(startOfWeek(new Date(), { weekStartsOn: 6 }), 'yyyy-MM-dd'),
+    endDate: format(endOfWeek(new Date(), { weekStartsOn: 6 }), 'yyyy-MM-dd')
+  });
+  const [isTemplateManagerOpen, setIsTemplateManagerOpen] = useState(false);
+  const [isRepeatDialogOpen, setIsRepeatDialogOpen] = useState(false);
+  const [isCloneDialogOpen, setIsCloneDialogOpen] = useState(false);
+  const [isApplyTemplateOpen, setIsApplyTemplateOpen] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<string>('');
+  const [repeatConfig, setRepeatConfig] = useState<RepeatConfig>({
+    startDate: format(new Date(), 'yyyy-MM-dd'),
+    endDate: format(addDays(new Date(), 30), 'yyyy-MM-dd'),
+    days: [1, 2, 3, 4, 5], // Mon-Fri
+    excludeWeekends: true,
+    excludeHolidays: true
+  });
+  const [cloneConfig, setCloneConfig] = useState<CloneConfig>({
+    sourceEmployeeId: '',
+    targetEmployeeIds: [],
+    startDate: format(new Date(), 'yyyy-MM-dd'),
+    endDate: format(addDays(new Date(), 30), 'yyyy-MM-dd'),
+    overwriteExisting: false
+  });
+
+  // ⚙️ Shift Templates Data
+  const [templates, setTemplates] = useState<ShiftTemplate[]>([
+    {
+      id: 'template1',
+      name: 'دوام صباحي عادي',
+      startTime: '08:00',
+      endTime: '17:00',
+      breakMinutes: 60,
+      type: 'normal',
+      notes: 'دوام عادي من الساعة 8 صباحاً حتى 5 مساءً مع ساعة راحة',
+      companyId: 'comp1',
+      createdBy: 'user1',
+      createdAt: format(new Date(), 'yyyy-MM-dd'),
+      isActive: true
+    },
+    {
+      id: 'template2', 
+      name: 'دوام مسائي',
+      startTime: '14:00',
+      endTime: '22:00', 
+      breakMinutes: 60,
+      type: 'normal',
+      notes: 'دوام مسائي من الساعة 2 ظهراً حتى 10 ليلاً',
+      companyId: 'comp1',
+      createdBy: 'user1', 
+      createdAt: format(new Date(), 'yyyy-MM-dd'),
+      isActive: true
+    },
+    {
+      id: 'template3',
+      name: 'ساعات إضافية',
+      startTime: '08:00',
+      endTime: '20:00',
+      breakMinutes: 90,
+      type: 'ot',
+      notes: 'دوام بساعات إضافية 12 ساعة',
+      companyId: 'comp1',
+      createdBy: 'user1',
+      createdAt: format(new Date(), 'yyyy-MM-dd'),
+      isActive: true
+    }
+  ]);
+
+  const [newTemplate, setNewTemplate] = useState<Partial<ShiftTemplate>>({
+    name: '',
+    startTime: '08:00',
+    endTime: '17:00',
+    breakMinutes: 60,
+    type: 'normal',
+    notes: ''
+  });
 
   // Mock data
   const employees: Employee[] = [
@@ -107,7 +222,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       endTime: '17:00',
       breakMinutes: 60,
       type: 'normal',
-      status: 'scheduled'
+      status: 'scheduled',
+      source: 'manual'
     },
     {
       id: 'shift2',
@@ -117,7 +233,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       endTime: '19:00',
       breakMinutes: 60,
       type: 'ot',
-      status: 'scheduled'
+      status: 'scheduled',
+      source: 'manual'
     },
     {
       id: 'shift3',
@@ -127,7 +244,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       endTime: '18:00',
       breakMinutes: 60,
       type: 'normal',
-      status: 'completed'
+      status: 'completed',
+      source: 'manual'
     },
     {
       id: 'shift4',
@@ -137,7 +255,8 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       endTime: '00:00',
       breakMinutes: 0,
       type: 'leave',
-      status: 'scheduled'
+      status: 'scheduled',
+      source: 'manual'
     }
   ]);
 
@@ -192,6 +311,192 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       isOvertime,
       overtimeMinutes
     };
+  };
+
+  // Get week days or date range days
+  const displayDays = useMemo(() => {
+    if (viewMode === 'week') {
+      const start = startOfWeek(currentWeek, { weekStartsOn: 6 }); // Saturday
+      return Array.from({ length: 7 }, (_, i) => addDays(start, i));
+    } else {
+      // Custom date range
+      const start = parseISO(dateRange.startDate);
+      const end = parseISO(dateRange.endDate);
+      return eachDayOfInterval({ start, end });
+    }
+  }, [currentWeek, viewMode, dateRange]);
+
+  // ⚙️ Enhanced Functions for New Features
+  
+  // Apply template to shift data
+  const applyTemplate = (template: ShiftTemplate): Partial<Shift> => ({
+    startTime: template.startTime,
+    endTime: template.endTime,
+    breakMinutes: template.breakMinutes,
+    type: template.type,
+    notes: template.notes,
+    templateId: template.id,
+    source: 'template'
+  });
+
+  // Create shifts from template with repeat configuration
+  const createRepeatedShifts = (template: ShiftTemplate, employeeIds: string[], repeatConfig: RepeatConfig) => {
+    const newShifts: Shift[] = [];
+    const startDate = parseISO(repeatConfig.startDate);
+    const endDate = parseISO(repeatConfig.endDate);
+    const dateRange = eachDayOfInterval({ start: startDate, end: endDate });
+
+    employeeIds.forEach(employeeId => {
+      dateRange.forEach(date => {
+        const dayOfWeek = date.getDay();
+        
+        // Check if this day should be included
+        if (!repeatConfig.days.includes(dayOfWeek)) return;
+        if (repeatConfig.excludeWeekends && isWeekend(date)) return;
+        
+        // Check if shift already exists
+        const dateStr = format(date, 'yyyy-MM-dd');
+        const existingShift = shifts.find(s => s.employeeId === employeeId && s.date === dateStr);
+        if (existingShift) return;
+
+        const newShift: Shift = {
+          id: `shift_${Date.now()}_${employeeId}_${dateStr}`,
+          employeeId,
+          date: dateStr,
+          startTime: template.startTime,
+          endTime: template.endTime,
+          breakMinutes: template.breakMinutes,
+          type: template.type,
+          notes: template.notes,
+          templateId: template.id,
+          source: 'repeated',
+          status: 'scheduled'
+        };
+
+        newShifts.push(newShift);
+      });
+    });
+
+    return newShifts;
+  };
+
+  // Clone shifts from one employee to others
+  const cloneEmployeeShifts = (config: CloneConfig) => {
+    const startDate = parseISO(config.startDate);
+    const endDate = parseISO(config.endDate);
+    const sourceShifts = shifts.filter(shift => {
+      const shiftDate = parseISO(shift.date);
+      return shift.employeeId === config.sourceEmployeeId &&
+             shiftDate >= startDate && shiftDate <= endDate;
+    });
+
+    const newShifts: Shift[] = [];
+    
+    config.targetEmployeeIds.forEach(targetId => {
+      sourceShifts.forEach(sourceShift => {
+        const existingShift = shifts.find(s => 
+          s.employeeId === targetId && s.date === sourceShift.date
+        );
+        
+        if (existingShift && !config.overwriteExisting) return;
+        
+        if (existingShift && config.overwriteExisting) {
+          // Remove existing shift
+          setShifts(prev => prev.filter(s => s.id !== existingShift.id));
+        }
+
+        const newShift: Shift = {
+          ...sourceShift,
+          id: `shift_${Date.now()}_${targetId}_${sourceShift.date}`,
+          employeeId: targetId,
+          source: 'cloned',
+          parentShiftId: sourceShift.id
+        };
+
+        newShifts.push(newShift);
+      });
+    });
+
+    return newShifts;
+  };
+
+  // Add template
+  const addTemplate = () => {
+    if (!newTemplate.name || !newTemplate.startTime || !newTemplate.endTime) return;
+    
+    const template: ShiftTemplate = {
+      id: `template_${Date.now()}`,
+      name: newTemplate.name,
+      startTime: newTemplate.startTime || '08:00',
+      endTime: newTemplate.endTime || '17:00',
+      breakMinutes: newTemplate.breakMinutes || 60,
+      type: newTemplate.type || 'normal',
+      notes: newTemplate.notes || '',
+      companyId: 'comp1',
+      createdBy: 'user1',
+      createdAt: format(new Date(), 'yyyy-MM-dd'),
+      isActive: true
+    };
+
+    setTemplates(prev => [...prev, template]);
+    setNewTemplate({
+      name: '',
+      startTime: '08:00',
+      endTime: '17:00',
+      breakMinutes: 60,
+      type: 'normal',
+      notes: ''
+    });
+  };
+
+  // Delete template
+  const deleteTemplate = (templateId: string) => {
+    setTemplates(prev => prev.filter(t => t.id !== templateId));
+  };
+
+  // Apply template to multiple employees/departments
+  const applyTemplateToTargets = (templateId: string, targetType: 'employees' | 'department' | 'branch', targetIds: string[]) => {
+    const template = templates.find(t => t.id === templateId);
+    if (!template) return;
+
+    let targetEmployeeIds: string[] = [];
+    
+    if (targetType === 'employees') {
+      targetEmployeeIds = targetIds;
+    } else if (targetType === 'department') {
+      targetEmployeeIds = employees.filter(emp => targetIds.includes(emp.department)).map(emp => emp.id);
+    } else if (targetType === 'branch') {
+      // Assuming all employees are in same branch for now
+      targetEmployeeIds = employees.map(emp => emp.id);
+    }
+
+    const newShifts = createRepeatedShifts(template, targetEmployeeIds, repeatConfig);
+    setShifts(prev => [...prev, ...newShifts]);
+  };
+
+  // Export functions
+  const exportToExcel = () => {
+    const data = shifts.map(shift => {
+      const employee = employees.find(emp => emp.id === shift.employeeId);
+      const calc = calculateShiftHours(shift);
+      return {
+        'الموظف': employee?.name || '',
+        'الكود': employee?.code || '',
+        'القسم': employee?.department || '',
+        'التاريخ': format(parseISO(shift.date), 'dd/MM/yyyy', { locale: ar }),
+        'البداية': shift.startTime,
+        'النهاية': shift.endTime,
+        'الاستراحة': shift.breakMinutes + ' دقيقة',
+        'الساعات الصافية': calc.decimalHours + ' ساعة',
+        'نوع الشفت': shift.type,
+        'الحالة': shift.status,
+        'المصدر': shift.source,
+        'ملاحظات': shift.notes || ''
+      };
+    });
+    
+    console.log('تصدير البيانات:', data);
+    // Here you would implement actual Excel export
   };
 
   // Get week days
@@ -289,6 +594,7 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
       breakMinutes: 60,
       type: 'normal',
       status: 'scheduled',
+      source: 'manual',
       ...shiftData
     };
     
@@ -323,7 +629,7 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
     <TooltipProvider>
       <div className="space-y-6 p-6" dir="rtl">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
             {onBack && (
               <Button variant="outline" size="sm" onClick={onBack}>
@@ -332,25 +638,35 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
               </Button>
             )}
             <div>
-              <h2 className="text-2xl font-bold text-foreground">جدول الدوام والشفتات</h2>
-              <p className="text-muted-foreground">إدارة شفتات الموظفين مع حساب الساعات الفوري</p>
+              <h2 className="text-2xl font-bold text-foreground">جدول الدوام والشفتات المتكامل</h2>
+              <p className="text-muted-foreground">إدارة شفتات الموظفين مع حساب الساعات الفوري والتكرار التلقائي</p>
             </div>
           </div>
           
           <div className="flex items-center gap-3">
+            {/* ⚙️ Templates Manager Button */}
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setIsTemplateManagerOpen(true)}
+            >
+              <FolderOpen className="h-4 w-4 ml-2" />
+              إدارة القوالب
+            </Button>
+
             <Select value={viewMode} onValueChange={(value: 'week' | 'month') => setViewMode(value)}>
               <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="week">أسبوعي</SelectItem>
-                <SelectItem value="month">شهري</SelectItem>
+                <SelectItem value="month">نطاق مخصص</SelectItem>
               </SelectContent>
             </Select>
             
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={exportToExcel}>
               <Download className="h-4 w-4 ml-2" />
-              تصدير
+              تصدير Excel
             </Button>
             
             <Button variant="outline" size="sm">
@@ -359,6 +675,52 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
             </Button>
           </div>
         </div>
+
+        {/* ⚙️ Custom Date Range Controls */}
+        {viewMode === 'month' && (
+          <Card className="mb-4">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <CalendarRange className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">تحديد الفترة:</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label className="text-xs text-muted-foreground">من تاريخ</Label>
+                    <Input 
+                      type="date" 
+                      value={dateRange.startDate}
+                      onChange={(e) => setDateRange(prev => ({ ...prev, startDate: e.target.value }))}
+                      className="w-36"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-muted-foreground">إلى تاريخ</Label>
+                    <Input 
+                      type="date" 
+                      value={dateRange.endDate}
+                      onChange={(e) => setDateRange(prev => ({ ...prev, endDate: e.target.value }))}
+                      className="w-36"
+                    />
+                  </div>
+                </div>
+                <Button size="sm" variant="default">
+                  <Search className="h-4 w-4 ml-2" />
+                  عرض الفترة
+                </Button>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => setIsApplyTemplateOpen(true)}
+                >
+                  <Target className="h-4 w-4 ml-2" />
+                  تطبيق قالب
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Filters and Navigation */}
         <Card>
@@ -517,8 +879,27 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                           </div>
                         </td>
 
+                        {/* ⚙️ Clone Button */}
+                        <td className="p-2 align-middle">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setCloneConfig(prev => ({ 
+                                ...prev, 
+                                sourceEmployeeId: employee.id,
+                                targetEmployeeIds: []
+                              }));
+                              setIsCloneDialogOpen(true);
+                            }}
+                            className="w-8 h-8 p-0"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </td>
+
                         {/* Day Cells */}
-                        {weekDays.map(day => {
+                        {displayDays.map(day => {
                           const dayShifts = getShiftsForCell(employee.id, day);
                           const dateStr = format(day, 'yyyy-MM-dd');
                           
