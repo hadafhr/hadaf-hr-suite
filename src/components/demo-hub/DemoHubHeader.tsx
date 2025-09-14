@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button';
 import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { DemoRequestModal } from '@/components/DemoRequestModal';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const DemoHubHeader = () => {
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const navigate = useNavigate();
 
   const navigationItems = [
     { name: 'المنتجات', href: '/products' },
@@ -21,8 +23,17 @@ export const DemoHubHeader = () => {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-6">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center">
+            {/* Back Button + Logo */}
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span className="hidden sm:inline">العودة</span>
+              </Button>
               <BoudLogo showText size="header" />
             </div>
 
