@@ -179,27 +179,27 @@ const HRToolsPage: React.FC = () => {
               </Link>
               
               <nav className="hidden md:flex items-center space-x-6 space-x-reverse mr-8">
-                <Link to="/products" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Button variant="ghost" onClick={() => navigate('/services')} className="text-muted-foreground hover:text-foreground transition-colors">
                   {isArabic ? 'المنتجات' : 'Products'}
-                </Link>
-                <Link to="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">
+                </Button>
+                <Button variant="ghost" onClick={() => navigate('/solutions')} className="text-muted-foreground hover:text-foreground transition-colors">
                   {isArabic ? 'الحلول' : 'Solutions'}
-                </Link>
-                <Link to="/knowledge" className="text-muted-foreground hover:text-foreground transition-colors">
+                </Button>
+                <Button variant="ghost" onClick={() => navigate('/blog')} className="text-muted-foreground hover:text-foreground transition-colors">
                   {isArabic ? 'المعرفة' : 'Knowledge'}
-                </Link>
-                <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+                </Button>
+                <Button variant="ghost" onClick={() => window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' })} className="text-muted-foreground hover:text-foreground transition-colors">
                   {isArabic ? 'عن بُعد' : 'About'}
-                </Link>
+                </Button>
               </nav>
             </div>
 
             <div className="flex items-center space-x-4 space-x-reverse">
               <LanguageSwitcher />
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => navigate('/demo-request')}>
                 {isArabic ? 'اطلب عرض' : 'Request Demo'}
               </Button>
-              <Button size="sm">
+              <Button size="sm" onClick={() => navigate('/subscription-packages')}>
                 {isArabic ? 'جولة تفاعلية' : 'Interactive Tour'}
               </Button>
             </div>
@@ -254,7 +254,12 @@ const HRToolsPage: React.FC = () => {
                   <TrendingUp className="h-4 w-4" />
                   <span>{isArabic ? 'شائعة:' : 'Popular:'}</span>
                   {popularTools.slice(0, 2).map(tool => (
-                    <Badge key={tool.slug} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">
+                    <Badge 
+                      key={tool.slug} 
+                      variant="secondary" 
+                      className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                      onClick={() => navigate(tool.route)}
+                    >
                       {tool.title}
                     </Badge>
                   ))}
@@ -308,8 +313,11 @@ const HRToolsPage: React.FC = () => {
                         size="sm" 
                         variant="outline"
                         onClick={() => {
-                          // Navigate to tool explanation page
-                          navigate(`${tool.route}/guide`);
+                          // Show tooltip or guide modal instead of navigating to non-existent guide page
+                          alert(isArabic 
+                            ? `دليل ${tool.title} - قريباً سيتم إضافة دليل مفصل لاستخدام هذه الأداة`
+                            : `${tool.title} Guide - A detailed guide for using this tool will be added soon`
+                          );
                         }}
                       >
                         {isArabic ? 'الشرح' : 'Guide'}
@@ -385,10 +393,10 @@ const HRToolsPage: React.FC = () => {
               }
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
+              <Button size="lg" className="text-lg px-8" onClick={() => navigate('/demo-request')}>
                 {isArabic ? 'اطلب عرض' : 'Request Demo'}
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8">
+              <Button size="lg" variant="outline" className="text-lg px-8" onClick={() => navigate('/subscription-packages')}>
                 {isArabic ? 'جولة تفاعلية' : 'Interactive Tour'}
               </Button>
             </div>
@@ -415,15 +423,15 @@ const HRToolsPage: React.FC = () => {
                 {isArabic ? 'المنتجات' : 'Products'}
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/hr-management" className="hover:text-foreground transition-colors">
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/employee-management')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'إدارة الموارد البشرية' : 'HR Management'}
-                </Link></li>
-                <li><Link to="/payroll" className="hover:text-foreground transition-colors">
+                </Button></li>
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/compensation-benefits')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'إدارة الرواتب' : 'Payroll Management'}
-                </Link></li>
-                <li><Link to="/attendance" className="hover:text-foreground transition-colors">
+                </Button></li>
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/performance-evaluation')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'إدارة الحضور' : 'Attendance Management'}
-                </Link></li>
+                </Button></li>
               </ul>
             </div>
 
@@ -432,15 +440,15 @@ const HRToolsPage: React.FC = () => {
                 {isArabic ? 'الحلول' : 'Solutions'}
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/enterprise" className="hover:text-foreground transition-colors">
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/business-management')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'المؤسسات الكبيرة' : 'Enterprise'}
-                </Link></li>
-                <li><Link to="/sme" className="hover:text-foreground transition-colors">
+                </Button></li>
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/services')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'المنشآت الصغيرة والمتوسطة' : 'SME'}
-                </Link></li>
-                <li><Link to="/government" className="hover:text-foreground transition-colors">
+                </Button></li>
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/npcs')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'القطاع الحكومي' : 'Government'}
-                </Link></li>
+                </Button></li>
               </ul>
             </div>
 
@@ -449,15 +457,15 @@ const HRToolsPage: React.FC = () => {
                 {isArabic ? 'الدعم' : 'Support'}
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/help" className="hover:text-foreground transition-colors">
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/contact')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'مركز المساعدة' : 'Help Center'}
-                </Link></li>
-                <li><Link to="/contact" className="hover:text-foreground transition-colors">
+                </Button></li>
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/contact')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'اتصل بنا' : 'Contact Us'}
-                </Link></li>
-                <li><Link to="/training" className="hover:text-foreground transition-colors">
+                </Button></li>
+                <li><Button variant="ghost" size="sm" onClick={() => navigate('/training')} className="hover:text-foreground transition-colors p-0 h-auto font-normal justify-start">
                   {isArabic ? 'التدريب' : 'Training'}
-                </Link></li>
+                </Button></li>
               </ul>
             </div>
           </div>
@@ -470,12 +478,12 @@ const HRToolsPage: React.FC = () => {
               }
             </p>
             <div className="flex items-center space-x-6 space-x-reverse mt-4 md:mt-0">
-              <Link to="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Button variant="ghost" size="sm" onClick={() => navigate('/contact')} className="text-sm text-muted-foreground hover:text-foreground transition-colors p-0 h-auto font-normal">
                 {isArabic ? 'سياسة الخصوصية' : 'Privacy Policy'}
-              </Link>
-              <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/contact')} className="text-sm text-muted-foreground hover:text-foreground transition-colors p-0 h-auto font-normal">
                 {isArabic ? 'شروط الاستخدام' : 'Terms of Service'}
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
