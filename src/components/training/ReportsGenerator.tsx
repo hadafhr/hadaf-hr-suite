@@ -39,8 +39,8 @@ export const ReportsGenerator: React.FC = () => {
     to: undefined
   });
   const [filters, setFilters] = useState({
-    department: '',
-    instructor: '',
+    department: 'all',
+    instructor: 'all',
     course: '',
     status: 'all'
   });
@@ -229,7 +229,7 @@ export const ReportsGenerator: React.FC = () => {
                       <SelectValue placeholder={isRTL ? 'جميع الأقسام' : 'All Departments'} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">{isRTL ? 'جميع الأقسام' : 'All Departments'}</SelectItem>
+                      <SelectItem value="all">{isRTL ? 'جميع الأقسام' : 'All Departments'}</SelectItem>
                       <SelectItem value="hr">{isRTL ? 'الموارد البشرية' : 'Human Resources'}</SelectItem>
                       <SelectItem value="it">{isRTL ? 'تقنية المعلومات' : 'IT'}</SelectItem>
                       <SelectItem value="marketing">{isRTL ? 'التسويق' : 'Marketing'}</SelectItem>
@@ -244,7 +244,7 @@ export const ReportsGenerator: React.FC = () => {
                       <SelectValue placeholder={isRTL ? 'جميع المدربين' : 'All Instructors'} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">{isRTL ? 'جميع المدربين' : 'All Instructors'}</SelectItem>
+                      <SelectItem value="all">{isRTL ? 'جميع المدربين' : 'All Instructors'}</SelectItem>
                       <SelectItem value="ahmed">{isRTL ? 'د. محمد الأحمد' : 'Dr. Mohamed Ahmed'}</SelectItem>
                       <SelectItem value="sara">{isRTL ? 'أ. سارة المطيري' : 'Sarah Al-Mutairi'}</SelectItem>
                     </SelectContent>

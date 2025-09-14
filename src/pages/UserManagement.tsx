@@ -65,8 +65,8 @@ export const UserManagement: React.FC = () => {
   const [roles, setRoles] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedRole, setSelectedRole] = useState('');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedRole, setSelectedRole] = useState('all');
+  const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
   const [isEmailTemplateOpen, setIsEmailTemplateOpen] = useState(false);
   
@@ -425,7 +425,7 @@ export const UserManagement: React.FC = () => {
                     <SelectValue placeholder="فلترة بالدور" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع الأدوار</SelectItem>
+                    <SelectItem value="all">جميع الأدوار</SelectItem>
                     {roles.map((role) => (
                       <SelectItem key={role.value} value={role.value}>{role.label}</SelectItem>
                     ))}
@@ -436,7 +436,7 @@ export const UserManagement: React.FC = () => {
                     <SelectValue placeholder="فلترة بالقسم" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">جميع الأقسام</SelectItem>
+                    <SelectItem value="all">جميع الأقسام</SelectItem>
                     {departments.map((dept) => (
                       <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                     ))}

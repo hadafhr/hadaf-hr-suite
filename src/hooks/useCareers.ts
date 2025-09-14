@@ -71,7 +71,9 @@ export const useCareers = () => {
         .order('name');
 
       if (error) throw error;
-      setDepartments(data || []);
+      // فلترة أي أقسام بدون أسماء صالحة
+      const validDepartments = (data || []).filter(dept => dept.name && dept.name.trim() !== '');
+      setDepartments(validDepartments);
     } catch (error) {
       console.error('Error fetching departments:', error);
       toast({
@@ -149,17 +151,17 @@ export const useCareers = () => {
     setFilters(newFilters);
     let filtered = [...jobs];
 
-    if (newFilters.department) {
+    if (newFilters.department && newFilters.department !== 'all') {
       filtered = filtered.filter(job => job.department_id === newFilters.department);
     }
 
-    if (newFilters.location) {
+    if (newFilters.location && newFilters.location !== 'all') {
       filtered = filtered.filter(job => 
         job.location.toLowerCase().includes(newFilters.location!.toLowerCase())
       );
     }
 
-    if (newFilters.jobType) {
+    if (newFilters.jobType && newFilters.jobType !== 'all') {
       filtered = filtered.filter(job => job.job_type === newFilters.jobType);
     }
 
