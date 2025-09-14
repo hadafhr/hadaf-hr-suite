@@ -346,9 +346,7 @@ const BoudHRLandingPage: React.FC = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
-                  <DropdownMenuItem onClick={() => navigate('/end-of-service-calculator')}>
-                    حاسبة نهاية الخدمة
-                  </DropdownMenuItem>
+                  
                 </DropdownMenuContent>
               </DropdownMenu>
 
