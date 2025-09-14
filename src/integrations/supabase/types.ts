@@ -138,6 +138,41 @@ export type Database = {
         }
         Relationships: []
       }
+      application_tracking: {
+        Row: {
+          application_id: string | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          message: string | null
+          status: string
+        }
+        Insert: {
+          application_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          message?: string | null
+          status: string
+        }
+        Update: {
+          application_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          message?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "application_tracking_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "job_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       assets: {
         Row: {
           asset_name: string
@@ -2369,6 +2404,36 @@ export type Database = {
           status?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      career_departments: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          name_en: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          name_en?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          name_en?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -5928,6 +5993,142 @@ export type Database = {
             columns: ["subscription_id"]
             isOneToOne: false
             referencedRelation: "boud_user_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_applications: {
+        Row: {
+          applicant_email: string
+          applicant_name: string
+          applicant_phone: string | null
+          applied_at: string | null
+          cover_letter: string | null
+          created_at: string | null
+          id: string
+          job_opening_id: string | null
+          notes: string | null
+          resume_url: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          applicant_email: string
+          applicant_name: string
+          applicant_phone?: string | null
+          applied_at?: string | null
+          cover_letter?: string | null
+          created_at?: string | null
+          id?: string
+          job_opening_id?: string | null
+          notes?: string | null
+          resume_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          applicant_email?: string
+          applicant_name?: string
+          applicant_phone?: string | null
+          applied_at?: string | null
+          cover_letter?: string | null
+          created_at?: string | null
+          id?: string
+          job_opening_id?: string | null
+          notes?: string | null
+          resume_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applications_job_opening_id_fkey"
+            columns: ["job_opening_id"]
+            isOneToOne: false
+            referencedRelation: "job_openings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_openings: {
+        Row: {
+          applications_count: number | null
+          benefits: Json | null
+          created_at: string | null
+          created_by: string | null
+          department_id: string | null
+          description: string
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          job_type: string
+          location: string
+          posted_at: string | null
+          requirements: Json | null
+          salary_note: string | null
+          salary_range_max: number | null
+          salary_range_min: number | null
+          title: string
+          title_en: string | null
+          updated_at: string | null
+          views_count: number | null
+        }
+        Insert: {
+          applications_count?: number | null
+          benefits?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          department_id?: string | null
+          description: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          job_type: string
+          location: string
+          posted_at?: string | null
+          requirements?: Json | null
+          salary_note?: string | null
+          salary_range_max?: number | null
+          salary_range_min?: number | null
+          title: string
+          title_en?: string | null
+          updated_at?: string | null
+          views_count?: number | null
+        }
+        Update: {
+          applications_count?: number | null
+          benefits?: Json | null
+          created_at?: string | null
+          created_by?: string | null
+          department_id?: string | null
+          description?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          job_type?: string
+          location?: string
+          posted_at?: string | null
+          requirements?: Json | null
+          salary_note?: string | null
+          salary_range_max?: number | null
+          salary_range_min?: number | null
+          title?: string
+          title_en?: string | null
+          updated_at?: string | null
+          views_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_openings_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "career_departments"
             referencedColumns: ["id"]
           },
         ]
