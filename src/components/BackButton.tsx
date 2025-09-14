@@ -20,7 +20,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
     <Button
       variant={variant}
       size={size}
-      onClick={() => navigate(-1)}
+      onClick={() => navigate('/')}
       className={className}
     >
       <ArrowLeft className="h-4 w-4 ml-2" />
