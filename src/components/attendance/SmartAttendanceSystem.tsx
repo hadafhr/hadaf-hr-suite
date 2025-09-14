@@ -57,7 +57,7 @@ import { supabase } from '@/integrations/supabase/client';
 import AttendanceRealTimeClock from './AttendanceRealTimeClock';
 import { GPSCheckInOut } from './GPSCheckInOut';
 import { DeviceManagement } from './DeviceManagement';
-import { MonthlySchedule } from './MonthlySchedule';
+import ShiftScheduleTable from './ShiftScheduleTable';
 import { AttendanceAnalytics } from './AttendanceAnalytics';
 import AttendanceSettings from './AttendanceSettings';
 
@@ -534,7 +534,7 @@ export const SmartAttendanceSystem: React.FC = () => {
 
           {/* Schedule Management Tab */}
           <TabsContent value="schedule">
-            <MonthlySchedule />
+            <ShiftScheduleTable />
           </TabsContent>
 
           {/* Analytics Tab */}
