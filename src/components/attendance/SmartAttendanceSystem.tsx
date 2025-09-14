@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { toast } from 'sonner';
 import { 
   Clock, 
   MapPin, 
@@ -18,10 +22,39 @@ import {
   BarChart3,
   Download,
   Plus,
-  Eye
+  Eye,
+  QrCode,
+  Camera,
+  Smartphone,
+  Timer,
+  Award,
+  TrendingUp,
+  DollarSign,
+  AlertTriangle,
+  CheckCircle2,
+  Zap,
+  Target,
+  PlayCircle,
+  PauseCircle,
+  RotateCcw,
+  MapIcon,
+  Bell,
+  MessageSquare,
+  FileText,
+  Star,
+  Coins,
+  Activity,
+  Radio,
+  Wifi,
+  BatteryLow,
+  Shield,
+  CreditCard,
+  Gauge,
+  TrendingDown,
+  Brain
 } from 'lucide-react';
-import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
+import AttendanceRealTimeClock from './AttendanceRealTimeClock';
 import { GPSCheckInOut } from './GPSCheckInOut';
 import { DeviceManagement } from './DeviceManagement';
 import { MonthlySchedule } from './MonthlySchedule';
@@ -36,9 +69,15 @@ interface AttendanceRecord {
   check_out_time?: string;
   total_hours?: number;
   status: string;
-  source_type: string;
+  check_method?: string;
+  work_type?: string;
+  late_minutes?: number;
+  attendance_points?: number;
+  penalty_amount?: number;
   employee_name?: string;
   department?: string;
+  location?: string;
+  device_name?: string;
 }
 
 interface DashboardStats {
@@ -50,6 +89,54 @@ interface DashboardStats {
   avgWorkingHours: number;
   attendanceRate: number;
   devicesOnline: number;
+  totalPoints: number;
+  totalPenalties: number;
+  overtimeHours: number;
+  remoteWorkers: number;
+}
+
+interface LiveTrackingData {
+  id: string;
+  employee_id: string;
+  employee_name: string;
+  latitude: number;
+  longitude: number;
+  accuracy: number;
+  timestamp: string;
+  activity_type: string;
+  battery_level: number;
+  is_inside_geofence: boolean;
+}
+
+interface AttendancePoint {
+  id: string;
+  employee_id: string;
+  employee_name: string;
+  points_earned: number;
+  points_deducted: number;
+  accumulated_points: number;
+  reward_amount: number;
+  reason: string;
+}
+
+interface OvertimeRecord {
+  id: string;
+  employee_id: string;
+  employee_name: string;
+  overtime_hours: number;
+  total_amount: number;
+  reason: string;
+  approved: boolean;
+}
+
+interface AttendanceLocation {
+  id: string;
+  location_name: string;
+  latitude: number;
+  longitude: number;
+  radius_meters: number;
+  work_type: string;
+  is_active: boolean;
 }
 
 export const SmartAttendanceSystem: React.FC = () => {
@@ -63,10 +150,15 @@ export const SmartAttendanceSystem: React.FC = () => {
     onBreak: 0,
     avgWorkingHours: 0,
     attendanceRate: 0,
-    devicesOnline: 0
+    devicesOnline: 0,
+    totalPoints: 0,
+    totalPenalties: 0,
+    overtimeHours: 0,
+    remoteWorkers: 0
   });
   const [todayAttendance, setTodayAttendance] = useState<AttendanceRecord[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isRealTimeEnabled, setIsRealTimeEnabled] = useState(false);
 
   // تحديث الوقت الحالي كل ثانية
   useEffect(() => {
@@ -224,34 +316,42 @@ export const SmartAttendanceSystem: React.FC = () => {
           </div>
         </div>
 
-        {/* Tabs Navigation */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6 lg:grid-cols-6 p-1 h-auto bg-card border">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3">
-              <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">لوحة التحكم</span>
-            </TabsTrigger>
-            <TabsTrigger value="checkin" className="flex items-center gap-2 p-3">
-              <MapPin className="h-4 w-4" />
-              <span className="hidden sm:inline">تسجيل GPS</span>
-            </TabsTrigger>
-            <TabsTrigger value="devices" className="flex items-center gap-2 p-3">
-              <Fingerprint className="h-4 w-4" />
-              <span className="hidden sm:inline">الأجهزة</span>
-            </TabsTrigger>
-            <TabsTrigger value="schedule" className="flex items-center gap-2 p-3">
-              <Calendar className="h-4 w-4" />
-              <span className="hidden sm:inline">الجدولة</span>
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2 p-3">
-              <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">التحليلات</span>
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2 p-3">
-              <Settings className="h-4 w-4" />
-              <span className="hidden sm:inline">الإعدادات</span>
-            </TabsTrigger>
-          </TabsList>
+          {/* Tabs Navigation */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-card border">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3">
+                <BarChart3 className="h-4 w-4" />
+                <span className="hidden sm:inline">لوحة التحكم</span>
+              </TabsTrigger>
+              <TabsTrigger value="real-time" className="flex items-center gap-2 p-3">
+                <Clock className="h-4 w-4" />
+                <span className="hidden sm:inline">الساعة المباشرة</span>
+              </TabsTrigger>
+              <TabsTrigger value="checkin" className="flex items-center gap-2 p-3">
+                <MapPin className="h-4 w-4" />
+                <span className="hidden sm:inline">GPS</span>
+              </TabsTrigger>
+              <TabsTrigger value="live-tracking" className="flex items-center gap-2 p-3">
+                <Navigation className="h-4 w-4" />
+                <span className="hidden sm:inline">التتبع المباشر</span>
+              </TabsTrigger>
+              <TabsTrigger value="devices" className="flex items-center gap-2 p-3">
+                <Fingerprint className="h-4 w-4" />
+                <span className="hidden sm:inline">الأجهزة</span>
+              </TabsTrigger>
+              <TabsTrigger value="schedule" className="flex items-center gap-2 p-3">
+                <Calendar className="h-4 w-4" />
+                <span className="hidden sm:inline">الجدولة</span>
+              </TabsTrigger>
+              <TabsTrigger value="points-rewards" className="flex items-center gap-2 p-3">
+                <Star className="h-4 w-4" />
+                <span className="hidden sm:inline">النقاط</span>
+              </TabsTrigger>
+              <TabsTrigger value="ai-insights" className="flex items-center gap-2 p-3">
+                <Brain className="h-4 w-4" />
+                <span className="hidden sm:inline">الذكاء الاصطناعي</span>
+              </TabsTrigger>
+            </TabsList>
 
           {/* Dashboard Tab */}
           <TabsContent value="dashboard" className="space-y-6">
