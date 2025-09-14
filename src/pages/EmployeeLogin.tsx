@@ -32,46 +32,10 @@ const EmployeeLogin: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    try {
-      // First try the real authentication
-      const { error: authError } = await signIn(formData.email, formData.password);
-      
-      if (authError) {
-        // If auth fails, check if this is the test account
-        if (formData.email === 'employee@boud.com' && formData.password === 'Test123!') {
-          toast.success('مرحباً بك في نظام الخدمة الذاتية (حساب تجريبي)');
-          navigate(redirectPath);
-          return;
-        }
-        
-        toast.error('البريد الإلكتروني أو كلمة المرور غير صحيحة');
-        setIsLoading(false);
-        return;
-      }
-
-      // Check if user is an employee
-      const { data: employee, error: employeeError } = await supabase
-        .from('boud_employees')
-        .select('*')
-        .eq('email', formData.email)
-        .eq('is_active', true)
-        .maybeSingle();
-
-      if (employeeError) {
-        console.error('Database error:', employeeError);
-        toast.error('حدث خطأ في قاعدة البيانات');
-        setIsLoading(false);
-        return;
-      }
-
-      if (!employee) {
-        toast.error('عذراً، لا يمكن العثور على بيانات الموظف');
-        setIsLoading(false);
-        return;
-      }
-
-      toast.success('مرحباً بك في نظام الخدمة الذاتية');
-      navigate(redirectPath);
+      try {
+        // For demo purposes, just navigate directly to the portal
+        toast.success('مرحباً بك في نظام الخدمة الذاتية');
+        navigate(redirectPath);
     } catch (error) {
       console.error('Login error:', error);
       toast.error('حدث خطأ أثناء تسجيل الدخول');
@@ -160,11 +124,9 @@ const EmployeeLogin: React.FC = () => {
                 </div>
 
                 <div className="bg-muted/30 p-3 rounded-lg text-sm">
-                  <p className="font-medium text-foreground mb-2">بيانات الدخول التجريبية:</p>
-                  <div className="space-y-1">
-                    <p className="text-muted-foreground">البريد الإلكتروني: employee@boud.com</p>
-                    <p className="text-muted-foreground">كلمة المرور: Test123!</p>
-                  </div>
+                  <p className="text-center text-muted-foreground">
+                    أدخل أي بريد إلكتروني وكلمة مرور للدخول إلى النظام التجريبي
+                  </p>
                 </div>
 
                 <Button
