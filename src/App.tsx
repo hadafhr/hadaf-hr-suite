@@ -90,6 +90,8 @@ import HRToolsPage from './pages/HRToolsPage';
 import SalaryCalculatorPage from './pages/SalaryCalculatorPage';
 import NitaqatCalculatorPage from './pages/NitaqatCalculatorPage';
 import LaborLawAIPage from './pages/LaborLawAIPage';
+import HRGlossary from './components/HRGlossary';
+import HRGlossaryTerm from './components/HRGlossaryTerm';
 import TestHRTools from './pages/TestHRTools';
 import { HRManagement } from './pages/HRManagement';
 import { ClientManagement } from './pages/ClientManagement';
@@ -256,6 +258,8 @@ const App = () => {
                 <Route path="/hr-tools/salary-calculator" element={<SalaryCalculatorPage />} />
                 <Route path="/hr-tools/nitaqat-calculator" element={<NitaqatCalculatorPage />} />
                 <Route path="/hr-tools/labor-law-ai" element={<LaborLawAIPage />} />
+                <Route path="/hr-tools/hr-glossary" element={<HRGlossary />} />
+                <Route path="/hr-tools/hr-glossary/:slug" element={<HRGlossaryTerm />} />
                 
                 {/* New Platform Routes */}
                 <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
