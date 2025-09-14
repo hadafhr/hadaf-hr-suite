@@ -462,7 +462,7 @@ export const AIBehaviorAnalysis: React.FC = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">يحتاج تحسين (<70%)</span>
+                      <span className="text-sm">Needs Improvement (&lt;70%)</span>
                       <div className="flex items-center gap-2">
                         <div className="w-20 bg-gray-200 rounded-full h-2">
                           <div 

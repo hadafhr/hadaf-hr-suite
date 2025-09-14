@@ -134,7 +134,7 @@ export const MonthlySchedule: React.FC = () => {
         work_type: (schedule.work_type as 'office' | 'remote' | 'hybrid' | 'flexible') || 'office',
         status: (schedule.status as 'scheduled' | 'holiday' | 'leave' | 'sick') || 'scheduled',
         employee_name: `${schedule.boud_employees?.first_name || ''} ${schedule.boud_employees?.last_name || ''}`.trim(),
-        shift_name: schedule.shifts?.shift_name_ar
+        shift_name: 'غير محدد' // Fixed: relation not available
       })) || [];
 
       setSchedules(schedulesData);
@@ -202,7 +202,7 @@ export const MonthlySchedule: React.FC = () => {
         planned_start: shift.start_time,
         planned_end: shift.end_time,
         work_type: 'office' as const,
-        status: 'scheduled' as const
+        status: 'pending' as const
       };
 
       const { error } = await supabase

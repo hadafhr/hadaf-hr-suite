@@ -77,6 +77,7 @@ interface AttendanceRecord {
   employee_name?: string;
   department?: string;
   location?: string;
+  source_type?: string;
   device_name?: string;
 }
 
@@ -223,10 +224,14 @@ export const SmartAttendanceSystem: React.FC = () => {
         presentToday,
         absentToday,
         lateToday,
-        onBreak: 0, // سيتم تحديثه لاحقاً
+        onBreak: 0,
         avgWorkingHours,
         attendanceRate,
-        devicesOnline
+        devicesOnline,
+        totalPoints: 0,
+        totalPenalties: 0,
+        overtimeHours: 0,
+        remoteWorkers: 0
       });
 
       // تنسيق بيانات الحضور للعرض

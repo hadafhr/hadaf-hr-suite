@@ -20,7 +20,9 @@ import {
   Navigation,
   Coins,
   Target,
-  Brain
+  Brain,
+  Fingerprint,
+  BarChart3
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
