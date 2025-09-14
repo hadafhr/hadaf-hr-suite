@@ -457,14 +457,133 @@ export const useEmployeePortal = () => {
   useEffect(() => {
     const initializeData = async () => {
       console.log('Initialize data called, user:', user);
+      setLoading(true);
+      
       if (user) {
-        setLoading(true);
         await fetchEmployeeProfile();
-        setLoading(false);
       } else {
-        console.log('No user available, setting loading to false');
-        setLoading(false);
+        // For demo purposes, create mock employee data when no user is logged in
+        console.log('No user found, creating demo employee data');
+        const mockEmployee: EmployeeProfile = {
+          id: 'demo-employee-001',
+          employee_id: 'EMP-001',
+          first_name: 'أحمد',
+          last_name: 'محمد',
+          position_id: 'pos-001',
+          department_id: 'dept-001',
+          email: 'ahmed.mohammed@company.com',
+          phone: '+966501234567',
+          national_id: '1234567890',
+          hire_date: '2023-01-15',
+          basic_salary: 8000,
+          employment_status: 'active',
+          company_id: 'company-001',
+          full_name_arabic: 'أحمد محمد العلي',
+          profile_picture_url: '/placeholder-avatar.jpg',
+          boud_departments: {
+            department_name: 'تقنية المعلومات'
+          },
+          boud_job_positions: {
+            position_title: 'مطور برمجيات'
+          }
+        };
+        
+        setEmployee(mockEmployee);
+        
+        // Set mock dashboard stats
+        setDashboardStats({
+          totalLeaves: 30,
+          usedLeaves: 8,
+          pendingTasks: 3,
+          completedTasks: 15,
+          attendanceRate: 95,
+          lastPayroll: {
+            id: 'payroll-001',
+            employee_id: 'demo-employee-001',
+            basic_salary: 8000,
+            housing_allowance: 1500,
+            transport_allowance: 500,
+            other_allowances: 300,
+            gross_salary: 10300,
+            total_deductions: 1030,
+            net_salary: 9270,
+            payroll_run_id: 'run-001'
+          }
+        });
+        
+        // Set mock attendance records
+        const mockAttendance: AttendanceRecord[] = [
+          {
+            id: 'att-001',
+            employee_id: 'demo-employee-001',
+            attendance_date: new Date().toISOString().split('T')[0],
+            clock_in_time: '08:00:00',
+            clock_out_time: '17:00:00',
+            status: 'present',
+            total_hours: 9,
+            notes: ''
+          },
+          {
+            id: 'att-002',
+            employee_id: 'demo-employee-001',
+            attendance_date: new Date(Date.now() - 86400000).toISOString().split('T')[0],
+            clock_in_time: '08:15:00',
+            clock_out_time: '17:00:00',
+            status: 'late',
+            total_hours: 8.75,
+            notes: 'تأخر 15 دقيقة'
+          }
+        ];
+        setAttendanceRecords(mockAttendance);
+        
+        // Set mock leave requests
+        const mockLeaveRequests: LeaveRequest[] = [
+          {
+            id: 'leave-001',
+            employee_id: 'demo-employee-001',
+            leave_type: 'annual',
+            start_date: '2024-03-15',
+            end_date: '2024-03-19',
+            total_days: 5,
+            reason: 'إجازة سنوية',
+            status: 'approved',
+            applied_date: '2024-03-01'
+          },
+          {
+            id: 'leave-002',
+            employee_id: 'demo-employee-001',
+            leave_type: 'sick',
+            start_date: '2024-04-10',
+            end_date: '2024-04-12',
+            total_days: 3,
+            reason: 'إجازة مرضية',
+            status: 'pending',
+            applied_date: '2024-04-08'
+          }
+        ];
+        setLeaveRequests(mockLeaveRequests);
+        
+        // Set mock payroll items  
+        const mockPayrollItems: PayrollItem[] = [
+          {
+            id: 'payroll-001',
+            employee_id: 'demo-employee-001',
+            basic_salary: 8000,
+            housing_allowance: 1500,
+            transport_allowance: 500,
+            other_allowances: 300,
+            gross_salary: 10300,
+            total_deductions: 1030,
+            net_salary: 9270,
+            payroll_run_id: 'run-001'
+          }
+        ];
+        setPayrollItems(mockPayrollItems);
+        
+        console.log('Demo employee data created successfully');
       }
+      
+      setLoading(false);
     };
 
     initializeData();
