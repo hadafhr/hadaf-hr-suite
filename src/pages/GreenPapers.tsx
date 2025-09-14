@@ -225,11 +225,11 @@ const GreenPapers: React.FC = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/')}
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">العودة</span>
+                <span className="sm:inline">العودة</span>
               </Button>
               <BoudLogo showText size="header" />
             </div>
