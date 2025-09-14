@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BoudLogo } from '@/components/BoudLogo';
+import { BackButton } from '@/components/BackButton';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { PatternBackground } from '@/components/PatternBackground';
 import { useToast } from '@/hooks/use-toast';
@@ -184,6 +185,7 @@ const HRToolsPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4 space-x-reverse">
+              <BackButton />
               <Link to="/" className="flex items-center space-x-2 space-x-reverse">
                 <BoudLogo variant="icon" size="md" />
                 <span className="font-bold text-xl text-foreground hidden sm:block">بُعد</span>
