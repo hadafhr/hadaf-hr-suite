@@ -302,30 +302,22 @@ const BoudHRLandingPage: React.FC = () => {
       {/* Professional Enterprise Header */}
       <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-18">
-            {/* Professional Logo Section */}
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-12 w-auto max-w-[120px] object-contain" />
-              </div>
+          <div className="flex items-center justify-between h-14">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <BoudLogo variant="full" size="header" className="h-10 w-auto" />
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
+            {/* Desktop Navigation - Organized Tabs */}
+            <nav className="hidden lg:flex items-center space-x-6 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
               <a href="#about" className="navigation-item text-sm font-medium hover:text-primary transition-colors">عن بُعد</a>
-              
-              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
-                <Play className="w-4 h-4" />
-                جولة تفاعلية
-              </Button>
-
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
-                    مركز المعرفة
+                  <Button variant="ghost" className="navigation-item text-sm font-medium hover:text-primary transition-colors">
+                    مركز المعرفة <ChevronDown className="w-3 h-3 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
@@ -341,139 +333,54 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
-                <Calculator className="w-4 h-4" />
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
                 أدوات الموارد البشرية
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
+                جولة تفاعلية
+              </Button>
+
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium hover:text-primary transition-colors">
                 اربح مع بُعد
               </Button>
-
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
-                📅 احجز اجتماع
-              </Button>
-
-              <Button variant="ghost" onClick={() => navigate('/careers')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
-                👥 انضم الى فريقنا
-              </Button>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
-                  تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
-                  {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
-                      <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
-                    behavior: 'smooth'
-                  }) : navigate(item.href)} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
-                        <MessageCircle className="w-4 h-4" />
-                        {item.name}
-                      </button>
-                    </DropdownMenuItem>)}
-                </DropdownMenuContent>
-              </DropdownMenu>
             </nav>
 
-            {/* CTA Buttons */}
-            <div className="hidden md:flex items-center space-x-3 space-x-reverse">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2">
-                    تسجيل الدخول <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
-                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                    <Building2 className="w-4 h-4" />
-                     مدير النظام
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                    <Building className="w-4 h-4" />
-                    🏢 لوحة تحكم المنشأة
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                    <User className="w-4 h-4" />
-                    🔘 لوحة تحكم الموظف
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            {/* Action Buttons */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <Button variant="outline" onClick={() => navigate('/schedule-meeting')} className="text-sm">
+                احجز اجتماع
+              </Button>
+              <Button onClick={() => navigate('/careers')} className="text-sm">
                 انضم الينا
               </Button>
+              
+              {/* Mobile Menu */}
+              <Button variant="ghost" className="lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <Menu className="h-5 w-5" />
+              </Button>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
           </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && <div className="md:hidden py-4 border-t border-border">
-              <nav className="flex flex-col space-y-2">
-                <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
-                  الرئيسية
-                </a>
-                <button onClick={() => {
-              navigate('/interactive-tour');
-              setIsMobileMenuOpen(false);
-            }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
-                  <Play className="w-4 h-4" />
-                  جولة تفاعلية
-                </button>
-                <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
-                    من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.about.map((item, index) => <button key={index} onClick={() => {
-                  const element = document.getElementById(item.href.substring(1));
-                  if (element) {
-                    const headerOffset = 80;
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                  setIsMobileMenuOpen(false);
-                }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
-                        {item.name}
-                      </button>)}
-                  </div>
-                </details>
-                <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
-                    تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
-                        {item.name}
-                      </a>)}
-                  </div>
-                </details>
-                <div className="flex flex-col space-y-2 pt-4">
-                  <Button variant="ghost" onClick={() => navigate('/admin-login')}>
-                    <Building2 className="w-4 h-4 ml-2" />
-                    🔘 لوحة تحكم الإدارة
-                  </Button>
-                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')}>
-                    <Building className="w-4 h-4 ml-2" />
-                    🏢 لوحة تحكم المنشأة
-                  </Button>
-                  <Button variant="ghost" onClick={() => navigate('/employee-login')}>
-                    <User className="w-4 h-4 ml-2" />
-                    🔘 لوحة تحكم الموظف
-                  </Button>
-                  <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    انضم الينا
-                  </Button>
-                </div>
-              </nav>
-            </div>}
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-background border-t border-border/40">
+            <div className="container mx-auto px-6 py-4 space-y-2">
+              <a href="#home" className="block py-2 text-sm hover:text-primary">الرئيسية</a>
+              <a href="#about" className="block py-2 text-sm hover:text-primary">عن بُعد</a>
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                أدوات الموارد البشرية
+              </Button>
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                جولة تفاعلية
+              </Button>
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                احجز اجتماع
+              </Button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Professional Hero Section */}
