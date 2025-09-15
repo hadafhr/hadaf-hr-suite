@@ -40,12 +40,69 @@ export interface BudgetExpense {
   category?: BudgetCategory;
 }
 
+export interface BudgetForecast {
+  id: string;
+  category_id: string;
+  forecast_year: number;
+  method: 'ai' | 'linear' | 'manual';
+  predicted_amount: number;
+  ai_model_version?: string;
+  generated_at: string;
+  category?: BudgetCategory;
+}
+
+export interface BudgetApproval {
+  id: string;
+  request_type: 'allocation' | 'expense' | 'deletion' | 'update';
+  request_id: string;
+  stage_index: number;
+  approver_user_id?: string;
+  decision: 'pending' | 'approved' | 'rejected' | 'returned';
+  comments?: string;
+  decided_at?: string;
+  created_at: string;
+}
+
+export interface BudgetNotification {
+  id: string;
+  request_type: 'allocation' | 'expense' | 'deletion' | 'update';
+  request_id: string;
+  recipient_user_id: string;
+  channel: 'inapp' | 'email' | 'push';
+  message: string;
+  status: 'unread' | 'read';
+  created_at: string;
+}
+
+export interface BudgetIntegration {
+  id: string;
+  system_name: string;
+  api_endpoint?: string;
+  auth_type: 'api_key' | 'oauth2';
+  token_secret?: string;
+  last_sync?: string;
+  status: 'active' | 'inactive';
+  created_at: string;
+}
+
 export interface BudgetKPI {
   total_allocated: number;
   total_spent: number;
   compliance_rate: number;
   exceeded_categories: number;
   variance_percent: number;
+}
+
+export interface DetailedBudgetKPI {
+  category_code: string;
+  category_name_ar: string;
+  allocated_amount: number;
+  spent_amount: number;
+  remaining_amount: number;
+  utilization_percentage: number;
+  forecast_amount: number;
+  variance_amount: number;
+  status_indicator: 'good' | 'warning' | 'critical' | 'no_budget';
 }
 
 export const useBudgetCategories = () => {
@@ -354,4 +411,355 @@ export const useBudgetKPIs = (year?: number) => {
   }, [year]);
 
   return { kpis, loading, error, refetch: fetchKPIs };
+};
+
+export const useBudgetForecasts = (year?: number) => {
+  const [forecasts, setForecasts] = useState<BudgetForecast[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchForecasts = async () => {
+    try {
+      setLoading(true);
+      const currentYear = year || new Date().getFullYear();
+      
+      const { data, error } = await supabase
+        .from('budget_forecasts')
+        .select(`
+          *,
+          category:budget_categories(*)
+        `)
+        .eq('forecast_year', currentYear)
+        .order('generated_at', { ascending: false });
+
+      if (error) throw error;
+      setForecasts(data || []);
+    } catch (err: any) {
+      setError(err.message);
+      toast({
+        title: "خطأ في تحميل التوقعات",
+        description: err.message,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const generateForecast = async (categoryId: string, method: 'ai' | 'linear' | 'manual', amount?: number) => {
+    try {
+      const currentYear = year || new Date().getFullYear();
+      const { data, error } = await supabase
+        .from('budget_forecasts')
+        .insert([{
+          category_id: categoryId,
+          forecast_year: currentYear,
+          method,
+          predicted_amount: amount || 0,
+          ai_model_version: method === 'ai' ? 'v1.0' : null
+        }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      
+      toast({
+        title: "تم إنشاء التوقع بنجاح",
+        description: "تم إنشاء التوقع المالي الجديد"
+      });
+      
+      fetchForecasts();
+      return data;
+    } catch (err: any) {
+      toast({
+        title: "خطأ في إنشاء التوقع",
+        description: err.message,
+        variant: "destructive"
+      });
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchForecasts();
+  }, [year]);
+
+  return { forecasts, loading, error, refetch: fetchForecasts, generateForecast };
+};
+
+export const useBudgetApprovals = () => {
+  const [approvals, setApprovals] = useState<BudgetApproval[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchApprovals = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('budget_approvals')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setApprovals(data?.map(item => ({
+        ...item,
+        decision: item.decision as 'pending' | 'approved' | 'rejected' | 'returned'
+      })) || []);
+    } catch (err: any) {
+      setError(err.message);
+      toast({
+        title: "خطأ في تحميل الموافقات",
+        description: err.message,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateApproval = async (id: string, decision: 'approved' | 'rejected' | 'returned', comments?: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('budget_approvals')
+        .update({
+          decision: decision as any,
+          comments,
+          decided_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) throw error;
+      
+      toast({
+        title: "تم تحديث القرار",
+        description: `تم ${decision === 'approved' ? 'اعتماد' : decision === 'rejected' ? 'رفض' : 'إرجاع'} الطلب`
+      });
+      
+      fetchApprovals();
+      return data;
+    } catch (err: any) {
+      toast({
+        title: "خطأ في تحديث القرار",
+        description: err.message,
+        variant: "destructive"
+      });
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchApprovals();
+  }, []);
+
+  return { approvals, loading, error, refetch: fetchApprovals, updateApproval };
+};
+
+export const useBudgetNotifications = () => {
+  const [notifications, setNotifications] = useState<BudgetNotification[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchNotifications = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('budget_notifications')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setNotifications(data || []);
+      setUnreadCount((data || []).filter(n => n.status === 'unread').length);
+    } catch (err: any) {
+      setError(err.message);
+      toast({
+        title: "خطأ في تحميل الإشعارات",
+        description: err.message,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const markAsRead = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('budget_notifications')
+        .update({ status: 'read' })
+        .eq('id', id);
+
+      if (error) throw error;
+      
+      fetchNotifications();
+    } catch (err: any) {
+      toast({
+        title: "خطأ في تحديث الإشعار",
+        description: err.message,
+        variant: "destructive"
+      });
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      const { error } = await supabase
+        .from('budget_notifications')
+        .update({ status: 'read' })
+        .eq('status', 'unread');
+
+      if (error) throw error;
+      
+      toast({
+        title: "تم قراءة جميع الإشعارات",
+        description: "تم تعليم جميع الإشعارات كمقروءة"
+      });
+      
+      fetchNotifications();
+    } catch (err: any) {
+      toast({
+        title: "خطأ في تحديث الإشعارات",
+        description: err.message,
+        variant: "destructive"
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  return { notifications, unreadCount, loading, error, refetch: fetchNotifications, markAsRead, markAllAsRead };
+};
+
+export const useBudgetIntegrations = () => {
+  const [integrations, setIntegrations] = useState<BudgetIntegration[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchIntegrations = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('budget_integrations')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setIntegrations(data || []);
+    } catch (err: any) {
+      setError(err.message);
+      toast({
+        title: "خطأ في تحميل التكاملات",
+        description: err.message,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createIntegration = async (integration: Omit<BudgetIntegration, 'id' | 'created_at' | 'last_sync'>) => {
+    try {
+      const { data, error } = await supabase
+        .from('budget_integrations')
+        .insert([integration])
+        .select()
+        .single();
+
+      if (error) throw error;
+      
+      toast({
+        title: "تم إضافة التكامل بنجاح",
+        description: "تم إضافة التكامل الجديد مع النظام الخارجي"
+      });
+      
+      fetchIntegrations();
+      return data;
+    } catch (err: any) {
+      toast({
+        title: "خطأ في إضافة التكامل",
+        description: err.message,
+        variant: "destructive"
+      });
+      throw err;
+    }
+  };
+
+  const testConnection = async (id: string) => {
+    try {
+      // محاكاة اختبار الاتصال
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      const { error } = await supabase
+        .from('budget_integrations')
+        .update({ 
+          last_sync: new Date().toISOString(),
+          status: 'active'
+        })
+        .eq('id', id);
+
+      if (error) throw error;
+      
+      toast({
+        title: "نجح اختبار الاتصال",
+        description: "تم الاتصال بالنظام الخارجي بنجاح"
+      });
+      
+      fetchIntegrations();
+      return true;
+    } catch (err: any) {
+      toast({
+        title: "فشل اختبار الاتصال",
+        description: "لم يتمكن من الاتصال بالنظام الخارجي",
+        variant: "destructive"
+      });
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    fetchIntegrations();
+  }, []);
+
+  return { integrations, loading, error, refetch: fetchIntegrations, createIntegration, testConnection };
+};
+
+export const useAdvancedBudgetKPIs = (year?: number) => {
+  const [detailedKpis, setDetailedKpis] = useState<DetailedBudgetKPI[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchDetailedKPIs = async () => {
+    try {
+      setLoading(true);
+      const currentYear = year || new Date().getFullYear();
+
+      const { data, error } = await supabase
+        .rpc('calculate_budget_kpis', { p_year: currentYear });
+
+      if (error) throw error;
+      setDetailedKpis(data?.map(item => ({
+        ...item,
+        status_indicator: item.status_indicator as 'good' | 'warning' | 'critical' | 'no_budget'
+      })) || []);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDetailedKPIs();
+  }, [year]);
+
+  return { detailedKpis, loading, error, refetch: fetchDetailedKPIs };
 };

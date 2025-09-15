@@ -2299,6 +2299,78 @@ export type Database = {
           },
         ]
       }
+      budget_approvals: {
+        Row: {
+          approver_user_id: string | null
+          comments: string | null
+          created_at: string | null
+          decided_at: string | null
+          decision: Database["public"]["Enums"]["decision_status"] | null
+          id: string
+          request_id: string
+          request_type: Database["public"]["Enums"]["request_type"]
+          stage_index: number
+        }
+        Insert: {
+          approver_user_id?: string | null
+          comments?: string | null
+          created_at?: string | null
+          decided_at?: string | null
+          decision?: Database["public"]["Enums"]["decision_status"] | null
+          id?: string
+          request_id: string
+          request_type: Database["public"]["Enums"]["request_type"]
+          stage_index?: number
+        }
+        Update: {
+          approver_user_id?: string | null
+          comments?: string | null
+          created_at?: string | null
+          decided_at?: string | null
+          decision?: Database["public"]["Enums"]["decision_status"] | null
+          id?: string
+          request_id?: string
+          request_type?: Database["public"]["Enums"]["request_type"]
+          stage_index?: number
+        }
+        Relationships: []
+      }
+      budget_audit_log: {
+        Row: {
+          action: string
+          after_json: Json | null
+          before_json: Json | null
+          created_at: string | null
+          entity_id: string | null
+          entity_type: string
+          id: string
+          ip_address: unknown | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          after_json?: Json | null
+          before_json?: Json | null
+          created_at?: string | null
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+          ip_address?: unknown | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          after_json?: Json | null
+          before_json?: Json | null
+          created_at?: string | null
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+          ip_address?: unknown | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       budget_categories: {
         Row: {
           code: string
@@ -2378,6 +2450,77 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      budget_forecasts: {
+        Row: {
+          ai_model_version: string | null
+          category_id: string | null
+          forecast_year: number
+          generated_at: string | null
+          id: string
+          method: Database["public"]["Enums"]["forecast_method"]
+          predicted_amount: number
+        }
+        Insert: {
+          ai_model_version?: string | null
+          category_id?: string | null
+          forecast_year: number
+          generated_at?: string | null
+          id?: string
+          method: Database["public"]["Enums"]["forecast_method"]
+          predicted_amount?: number
+        }
+        Update: {
+          ai_model_version?: string | null
+          category_id?: string | null
+          forecast_year?: number
+          generated_at?: string | null
+          id?: string
+          method?: Database["public"]["Enums"]["forecast_method"]
+          predicted_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_forecasts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "budget_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      budget_integrations: {
+        Row: {
+          api_endpoint: string | null
+          auth_type: Database["public"]["Enums"]["auth_type"]
+          created_at: string | null
+          id: string
+          last_sync: string | null
+          status: Database["public"]["Enums"]["integration_status"] | null
+          system_name: string
+          token_secret: string | null
+        }
+        Insert: {
+          api_endpoint?: string | null
+          auth_type: Database["public"]["Enums"]["auth_type"]
+          created_at?: string | null
+          id?: string
+          last_sync?: string | null
+          status?: Database["public"]["Enums"]["integration_status"] | null
+          system_name: string
+          token_secret?: string | null
+        }
+        Update: {
+          api_endpoint?: string | null
+          auth_type?: Database["public"]["Enums"]["auth_type"]
+          created_at?: string | null
+          id?: string
+          last_sync?: string | null
+          status?: Database["public"]["Enums"]["integration_status"] | null
+          system_name?: string
+          token_secret?: string | null
+        }
+        Relationships: []
       }
       budget_kpis: {
         Row: {
@@ -2473,6 +2616,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      budget_notifications: {
+        Row: {
+          channel: Database["public"]["Enums"]["notification_channel"]
+          created_at: string | null
+          id: string
+          message: string
+          recipient_user_id: string
+          request_id: string
+          request_type: Database["public"]["Enums"]["request_type"]
+          status: Database["public"]["Enums"]["notification_status"] | null
+        }
+        Insert: {
+          channel: Database["public"]["Enums"]["notification_channel"]
+          created_at?: string | null
+          id?: string
+          message: string
+          recipient_user_id: string
+          request_id: string
+          request_type: Database["public"]["Enums"]["request_type"]
+          status?: Database["public"]["Enums"]["notification_status"] | null
+        }
+        Update: {
+          channel?: Database["public"]["Enums"]["notification_channel"]
+          created_at?: string | null
+          id?: string
+          message?: string
+          recipient_user_id?: string
+          request_id?: string
+          request_type?: Database["public"]["Enums"]["request_type"]
+          status?: Database["public"]["Enums"]["notification_status"] | null
+        }
+        Relationships: []
       }
       budget_requests: {
         Row: {
@@ -10218,6 +10394,20 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      calculate_budget_kpis: {
+        Args: { p_year?: number }
+        Returns: {
+          allocated_amount: number
+          category_code: string
+          category_name_ar: string
+          forecast_amount: number
+          remaining_amount: number
+          spent_amount: number
+          status_indicator: string
+          utilization_percentage: number
+          variance_amount: number
+        }[]
       }
       calculate_reward_eligibility: {
         Args: { p_employee_id: string; p_program_id: string }
