@@ -101,23 +101,32 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
     variance_percent: -85.5
   };
 
-  // Use default data for now
-  const { categories = defaultCategories } = useBudgetCategories();
-  const { allocations = defaultAllocations, createAllocation, updateAllocation } = useBudgetAllocations(selectedYear);
-  const { expenses = defaultExpenses, createExpense } = useBudgetExpenses();
-  const { kpis = defaultKpis } = useBudgetKPIs(selectedYear);
+  // Use hooks with fallback to default data
+  const { categories, loading: categoriesLoading } = useBudgetCategories();
+  const { allocations, createAllocation, updateAllocation, loading: allocationsLoading } = useBudgetAllocations(selectedYear);
+  const { expenses, createExpense, loading: expensesLoading } = useBudgetExpenses();
+  const { kpis, loading: kpisLoading } = useBudgetKPIs(selectedYear);
+
+  // Use actual data if available, otherwise use defaults
+  const displayCategories = categories?.length ? categories : defaultCategories;
+  const displayAllocations = allocations?.length ? allocations : defaultAllocations;
+  const displayExpenses = expenses?.length ? expenses : defaultExpenses;
+  const displayKpis = kpis || defaultKpis;
 
   // Filter functions
-  const filteredAllocations = allocations.filter(allocation => {
-    const matchesSearch = allocation.category?.name_ar.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         allocation.category?.code.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredAllocations = displayAllocations.filter(allocation => {
+    const categoryName = allocation.category?.name_ar || displayCategories.find(c => c.id === allocation.category_id)?.name_ar || '';
+    const categoryCode = allocation.category?.code || displayCategories.find(c => c.id === allocation.category_id)?.code || '';
+    const matchesSearch = categoryName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         categoryCode.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || allocation.status === statusFilter;
     const matchesCategory = categoryFilter === 'all' || allocation.category_id === categoryFilter;
     return matchesSearch && matchesStatus && matchesCategory;
   });
 
-  const filteredExpenses = expenses.filter(expense => {
-    const matchesSearch = expense.category?.name_ar.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredExpenses = displayExpenses.filter(expense => {
+    const categoryName = expense.category?.name_ar || displayCategories.find(c => c.id === expense.category_id)?.name_ar || '';
+    const matchesSearch = categoryName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          expense.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || expense.status === statusFilter;
     const matchesCategory = categoryFilter === 'all' || expense.category_id === categoryFilter;
@@ -143,6 +152,9 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
       };
 
       // await createAllocation(newAllocation);
+      if (createAllocation) {
+        await createAllocation(newAllocation);
+      }
       toast({
         title: "تم إنشاء المخصص بنجاح",
         description: "تم إضافة مخصص الميزانية الجديد"
@@ -176,6 +188,9 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
       };
 
       // await createExpense(newExpense);
+      if (createExpense) {
+        await createExpense(newExpense);
+      }
       toast({
         title: "تم إنشاء المصروف بنجاح",
         description: "تم إضافة المصروف الجديد"
@@ -205,15 +220,15 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
     { month: 'يونيو', planned: 420000, actual: 405000 }
   ];
 
-  const categoryDistribution = categories.map((cat, index) => ({
+  const categoryDistribution = displayCategories.map((cat, index) => ({
     name: cat.name_ar,
-    value: allocations.find(a => a.category_id === cat.id)?.allocated_amount || 0,
+    value: displayAllocations.find(a => a.category_id === cat.id)?.allocated_amount || 0,
     color: COLORS[index % COLORS.length]
   }));
 
-  const budgetComparison = categories.map(cat => {
-    const allocation = allocations.find(a => a.category_id === cat.id);
-    const categoryExpenses = expenses.filter(e => e.category_id === cat.id);
+  const budgetComparison = displayCategories.map(cat => {
+    const allocation = displayAllocations.find(a => a.category_id === cat.id);
+    const categoryExpenses = displayExpenses.filter(e => e.category_id === cat.id);
     const totalSpent = categoryExpenses.reduce((sum, exp) => sum + exp.amount, 0);
     
     return {
@@ -238,7 +253,7 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
             <div className="flex items-center gap-2">
               <DollarSign className="h-4 w-4 text-primary" />
               <span className="text-2xl font-bold">
-                {kpis?.total_allocated?.toLocaleString() || '0'}
+                {displayKpis?.total_allocated?.toLocaleString() || '0'}
               </span>
               <span className="text-sm text-muted-foreground">ريال</span>
             </div>
@@ -255,7 +270,7 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
             <div className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-blue-500" />
               <span className="text-2xl font-bold">
-                {kpis?.total_spent?.toLocaleString() || '0'}
+                {displayKpis?.total_spent?.toLocaleString() || '0'}
               </span>
               <span className="text-sm text-muted-foreground">ريال</span>
             </div>
@@ -272,7 +287,7 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
             <div className="flex items-center gap-2">
               <Target className="h-4 w-4 text-green-500" />
               <span className="text-2xl font-bold">
-                {kpis?.compliance_rate?.toFixed(1) || '0'}%
+                {displayKpis?.compliance_rate?.toFixed(1) || '0'}%
               </span>
             </div>
           </CardContent>
@@ -288,7 +303,7 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-orange-500" />
               <span className="text-2xl font-bold">
-                {kpis?.variance_percent?.toFixed(1) || '0'}%
+                {displayKpis?.variance_percent?.toFixed(1) || '0'}%
               </span>
             </div>
           </CardContent>
