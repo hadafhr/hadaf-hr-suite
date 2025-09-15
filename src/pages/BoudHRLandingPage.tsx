@@ -302,16 +302,17 @@ const BoudHRLandingPage: React.FC = () => {
       {/* Professional Enterprise Header */}
       <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-18">
+          <div className="flex items-center justify-between h-14">
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-12 w-auto max-w-[120px] object-contain" />
+                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain" />
               </div>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
+              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4" />
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
               
               <a href="#about" className="navigation-item text-sm font-medium hover:text-primary transition-colors">عن بُعد</a>
