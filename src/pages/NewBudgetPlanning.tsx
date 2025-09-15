@@ -147,17 +147,17 @@ export const NewBudgetPlanning: React.FC = () => {
   ];
 
   const handleCreateBudget = () => {
-    trackEvent.trackBudgetVersion();
+    trackEvent.trackBudgetVersion('new-budget-' + Date.now(), selectedScenario);
     navigate('/budget/create');
   };
 
   const handleImportActuals = () => {
-    trackEvent.trackActualsImport();
+    trackEvent.trackActualsImport(100, 'file_upload');
     // Handle file import logic
   };
 
   const handleExportReport = (format: 'pdf' | 'xlsx') => {
-    trackEvent.trackComplianceExport('budget');
+    trackEvent.trackComplianceExport('wps', budgetCategories.length);
     // Handle export logic
   };
 

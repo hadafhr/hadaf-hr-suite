@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from '@/hooks/useAuth';
 import '@/i18n';
 import { AutoLanguageDetector } from './components/shared/AutoLanguageDetector';
+import { AnalyticsProvider } from './components/shared/AnalyticsProvider';
 import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
@@ -168,10 +169,11 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <AutoLanguageDetector />
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
+          <AnalyticsProvider>
+            <AutoLanguageDetector />
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
             <Routes>
             <Route path="/" element={<NewLandingPage />} />
             <Route path="/old-landing" element={<BoudHRLandingPage />} />
@@ -345,6 +347,7 @@ const App = () => {
             {/* Global BOUD HR Assistant - Only show when not on landing page */}
             {window.location.pathname !== '/' && <BoudHRAssistant language={currentLanguage} />}
           </BrowserRouter>
+          </AnalyticsProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
