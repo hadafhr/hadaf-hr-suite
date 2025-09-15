@@ -18,6 +18,11 @@ export const DemoHubHeader = () => {
     { name: 'من نحن', href: '/about' }
   ];
 
+  const handleNavigate = (href: string) => {
+    navigate(href);
+    setShowMobileMenu(false);
+  };
+
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -40,13 +45,13 @@ export const DemoHubHeader = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
               {navigationItems.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                  onClick={() => handleNavigate(item.href)}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
             </nav>
 
@@ -77,13 +82,13 @@ export const DemoHubHeader = () => {
             <div className="md:hidden border-t bg-background/95 backdrop-blur">
               <div className="py-4 space-y-2">
                 {navigationItems.map((item) => (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
-                    className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-colors"
+                    onClick={() => handleNavigate(item.href)}
+                    className="block w-full text-right px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
