@@ -1,8 +1,8 @@
 import React from 'react';
-import { SalaryCalculator } from '@/components/SalaryCalculator';
+import { PricingCalculator } from '@/components/PricingCalculator';
 
 const ServiceCalculatorPage: React.FC = () => {
-  return <SalaryCalculator />;
+  return <PricingCalculator />;
 };
 
 export default ServiceCalculatorPage;
