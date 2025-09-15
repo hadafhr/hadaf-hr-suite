@@ -305,9 +305,7 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center shadow-lg">
-                  <Building2 className="w-6 h-6 text-white" />
-                </div>
+                
                 
               </div>
             </div>
@@ -418,9 +416,9 @@ const BoudHRLandingPage: React.FC = () => {
                   الرئيسية
                 </a>
                 <button onClick={() => {
-                  navigate('/interactive-tour');
-                  setIsMobileMenuOpen(false);
-                }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
+              navigate('/interactive-tour');
+              setIsMobileMenuOpen(false);
+            }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
                   <Play className="w-4 h-4" />
                   جولة تفاعلية
                 </button>
