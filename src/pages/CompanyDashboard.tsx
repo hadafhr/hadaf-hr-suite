@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { SubscriptionManager } from '@/components/company/SubscriptionManager';
 import { TechnicalSupport } from '@/components/company/TechnicalSupport';
 import { UserManagement } from '@/components/company/UserManagement';
 import { HRSystemManagement } from '@/components/company/HRSystemManagement';
+import { useAuth } from '@/hooks/useAuth';
 import { 
   Building2, 
   Users, 
@@ -21,11 +23,19 @@ import {
   Clock,
   AlertTriangle,
   Settings,
-  Crown
+  Crown,
+  LogOut
 } from 'lucide-react';
 
 export const CompanyDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   // Mock data for company overview
   const companyStats = {
@@ -74,12 +84,22 @@ export const CompanyDashboard: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Enhanced Header */}
-        <SystemHeader
-          title="🏢 لوحة تحكم المنشأة"
-          description="الواجهة الرسمية لإدارة نظام إدارة الموارد البشرية المتكاملة"
-          icon={<Building2 className="h-12 w-12 text-white" />}
-          showBackButton={false}
-        />
+        <div className="flex items-center justify-between">
+          <SystemHeader
+            title="🏢 لوحة تحكم المنشأة"
+            description="الواجهة الرسمية لإدارة نظام إدارة الموارد البشرية المتكاملة"
+            icon={<Building2 className="h-12 w-12 text-white" />}
+            showBackButton={false}
+          />
+          <Button 
+            onClick={handleLogout}
+            variant="destructive"
+            className="flex items-center gap-2"
+          >
+            <LogOut className="w-4 h-4" />
+            تسجيل الخروج
+          </Button>
+        </div>
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
