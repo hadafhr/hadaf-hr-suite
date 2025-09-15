@@ -113,7 +113,20 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
   const displayExpenses = expenses?.length ? expenses : defaultExpenses;
   const displayKpis = kpis || defaultKpis;
 
-  // Filter functions
+  // Add loading states
+  const isLoading = categoriesLoading || allocationsLoading || expensesLoading || kpisLoading;
+
+  // Show loading spinner if data is being fetched
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center gap-4">
+          <RefreshCw className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-lg font-medium">جاري تحميل بيانات الميزانية...</p>
+        </div>
+      </div>
+    );
+  }
   const filteredAllocations = displayAllocations.filter(allocation => {
     const categoryName = allocation.category?.name_ar || displayCategories.find(c => c.id === allocation.category_id)?.name_ar || '';
     const categoryCode = allocation.category?.code || displayCategories.find(c => c.id === allocation.category_id)?.code || '';
