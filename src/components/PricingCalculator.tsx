@@ -6,509 +6,475 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import { 
   Calculator, 
   Users, 
-  ArrowLeft, 
   FileText, 
-  CreditCard,
-  Bot,
+  Download,
+  Mail,
   CheckCircle,
-  Settings,
-  GraduationCap,
+  Star,
+  Shield,
+  Zap,
+  Bot,
+  Award,
+  TrendingDown,
+  Building2,
   HeadphonesIcon
 } from 'lucide-react';
 import { BoudLogo } from './BoudLogo';
-import { AIRecommendations } from './AIRecommendations';
 
 interface PricingCalculatorProps {
   selectedPackage?: string;
   onBack?: () => void;
 }
 
-interface AdditionalService {
-  id: string;
-  title: string;
-  price: number;
-  unit: string;
-  description: string;
-}
-
-const additionalServices: AdditionalService[] = [
-  {
-    id: 'setup',
-    title: 'تأسيس النظام',
-    price: 1500,
-    unit: 'مرة واحدة',
-    description: 'إعداد كامل للنظام وتكوين الشركة'
-  },
-  {
-    id: 'training',
-    title: 'التدريب',
-    price: 200,
-    unit: 'لكل موظف',
-    description: 'تدريب شامل للموظفين على استخدام النظام'
-  },
-  {
-    id: 'support',
-    title: 'الدعم الفني المتقدم',
-    price: 499,
-    unit: 'شهريًا',
-    description: 'دعم فني متقدم 24/7 مع مدير حساب مخصص'
-  }
+// Tiered pricing structure (SAR per employee per month)
+const pricingTiers = [
+  { min: 1, max: 20, price: 19 },
+  { min: 21, max: 50, price: 18 },
+  { min: 51, max: 100, price: 17 },
+  { min: 101, max: 250, price: 16 },
+  { min: 251, max: 500, price: 15 },
+  { min: 501, max: 1000, price: 14 },
+  { min: 1001, max: 2000, price: 13 },
+  { min: 2001, max: Infinity, price: 12 }
 ];
 
-const packagePricing = {
-  startup: { price: 399, maxEmployees: 10, name: 'الباقة الصغيرة' },
-  basic: { price: 899, maxEmployees: 50, name: 'الباقة الأساسية' },
-  professional: { price: 1899, maxEmployees: 250, name: 'الباقة الاحترافية' },
-  enterprise: { price: 3899, maxEmployees: Infinity, name: 'الباقة الشاملة' }
-};
-
-export const PricingCalculator: React.FC<PricingCalculatorProps> = ({ 
-  selectedPackage, 
-  onBack 
-}) => {
-  const [employeeCount, setEmployeeCount] = useState(10);
+export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
+  const [employeeCount, setEmployeeCount] = useState(50);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [includeSetup, setIncludeSetup] = useState(false);
+  const [includeSupport, setIncludeSupport] = useState(false);
   const [companyName, setCompanyName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
-  const [selectedServices, setSelectedServices] = useState<{[key: string]: number}>({});
-  const [currentPackage, setCurrentPackage] = useState(selectedPackage || 'professional');
 
-  // حساب السعر الإجمالي
-  const calculateTotal = () => {
-    const pkg = packagePricing[currentPackage as keyof typeof packagePricing];
-    if (!pkg) return { monthly: 0, total: 0, breakdown: [] };
+  // Configuration values (would be admin-editable)
+  const setupFee = 2500;
+  const supportFeeMonthly = 500;
+  const supportFeeYearly = 5000;
+  const annualDiscount = 0.15; // 15%
 
-    let monthlyPrice = pkg.price;
-    let oneTimeTotal = 0;
-    let monthlyServices = 0;
-    
-    const breakdown = [];
+  // Calculate price per employee based on tier
+  const getPricePerEmployee = (count: number) => {
+    const tier = pricingTiers.find(t => count >= t.min && count <= t.max);
+    return tier ? tier.price : 12; // fallback to lowest price
+  };
 
-    // إضافة سعر الباقة الأساسية
-    breakdown.push({
-      item: pkg.name,
-      type: 'subscription',
-      monthly: monthlyPrice,
-      total: billingCycle === 'yearly' ? monthlyPrice * 12 * 0.85 : monthlyPrice
-    });
+  // Calculate totals
+  const calculateTotals = () => {
+    const pricePerEmployee = getPricePerEmployee(employeeCount);
+    const baseMonthly = employeeCount * pricePerEmployee;
+    const supportCost = includeSupport ? (billingCycle === 'yearly' ? supportFeeYearly : supportFeeMonthly) : 0;
+    const setupCost = includeSetup ? setupFee : 0;
 
-    // حساب الخدمات الإضافية
-    Object.entries(selectedServices).forEach(([serviceId, quantity]) => {
-      if (quantity > 0) {
-        const service = additionalServices.find(s => s.id === serviceId);
-        if (service) {
-          if (service.unit === 'مرة واحدة') {
-            oneTimeTotal += service.price * quantity;
-            breakdown.push({
-              item: service.title,
-              type: 'onetime',
-              quantity,
-              unitPrice: service.price,
-              total: service.price * quantity
-            });
-          } else if (service.unit === 'لكل موظف') {
-            const employeeServiceTotal = service.price * employeeCount;
-            oneTimeTotal += employeeServiceTotal;
-            breakdown.push({
-              item: service.title,
-              type: 'employee-based',
-              quantity: employeeCount,
-              unitPrice: service.price,
-              total: employeeServiceTotal
-            });
-          } else if (service.unit === 'شهريًا') {
-            monthlyServices += service.price * quantity;
-            breakdown.push({
-              item: service.title,
-              type: 'monthly-service',
-              monthly: service.price * quantity,
-              total: billingCycle === 'yearly' 
-                ? (service.price * quantity * 12 * 0.85) 
-                : service.price * quantity
-            });
-          }
-        }
-      }
-    });
-
-    const totalMonthly = monthlyPrice + monthlyServices;
-    let subscriptionTotal = totalMonthly;
+    let total = 0;
+    let savings = 0;
 
     if (billingCycle === 'yearly') {
-      subscriptionTotal = totalMonthly * 12 * 0.85; // خصم 15%
+      const yearlyBase = baseMonthly * 12;
+      const discountAmount = yearlyBase * annualDiscount;
+      total = (yearlyBase - discountAmount) + supportCost + setupCost;
+      savings = discountAmount;
+    } else {
+      total = baseMonthly + supportCost + setupCost;
     }
-
-    const grandTotal = subscriptionTotal + oneTimeTotal;
 
     return {
-      monthly: totalMonthly,
-      yearly: totalMonthly * 12 * 0.85,
-      oneTime: oneTimeTotal,
-      total: grandTotal,
-      discount: billingCycle === 'yearly' ? totalMonthly * 12 * 0.15 : 0,
-      breakdown
+      pricePerEmployee,
+      baseMonthly,
+      supportCost,
+      setupCost,
+      total,
+      savings,
+      annualTotal: billingCycle === 'yearly' ? total : (baseMonthly * 12) + (supportCost * 12) + setupCost
     };
   };
 
-  const calculation = calculateTotal();
+  const calculation = calculateTotals();
 
-  const handleServiceChange = (serviceId: string, value: number) => {
-    setSelectedServices(prev => ({
-      ...prev,
-      [serviceId]: Math.max(0, value)
-    }));
-  };
-
-  const handlePayment = (method: string) => {
-    if (!companyName || !contactEmail) {
-      alert('يرجى إدخال اسم الشركة والبريد الإلكتروني أولاً');
-      return;
+  // AI Suggestions
+  const getAISuggestions = () => {
+    const suggestions = [];
+    
+    if (billingCycle === 'monthly') {
+      suggestions.push(`💡 وفّر ${calculation.savings.toLocaleString()} ﷼ بالاشتراك السنوي`);
     }
 
-    // إنشاء الفاتورة أولاً
-    generatePDF();
+    // Check next tier savings
+    const nextTier = pricingTiers.find(t => employeeCount < t.min);
+    if (nextTier) {
+      const employeesNeeded = nextTier.min - employeeCount;
+      const currentPrice = getPricePerEmployee(employeeCount);
+      const nextPrice = nextTier.price;
+      const savingsPerEmployee = currentPrice - nextPrice;
+      
+      if (savingsPerEmployee > 0) {
+        suggestions.push(`🚀 إذا أضفت ${employeesNeeded} موظفًا إضافيًا ينخفض سعر الوحدة إلى ${nextPrice} ﷼`);
+      }
+    }
 
-    // رسالة تأكيد وفقاً لطريقة الدفع
-    const paymentMessages = {
-      'mada': 'سيتم توجيهك لبوابة الدفع بالمدى',
-      'apple-pay': 'سيتم فتح Apple Pay',
-      'stc-pay': 'سيتم توجيهك لتطبيق STC Pay',
-      'visa-mastercard': 'سيتم توجيهك لبوابة الدفع الإلكتروني',
-      'bank-transfer': 'سيتم إرسال تفاصيل التحويل البنكي على بريدك الإلكتروني'
-    };
-
-    alert(paymentMessages[method] || 'تم اختيار طريقة الدفع');
-    
-    // هنا يمكن إضافة التكامل مع بوابات الدفع الفعلية
-    console.log('Payment method selected:', method, 'Total:', calculation.total);
+    return suggestions;
   };
 
   const generatePDF = async () => {
     const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
 
-    const invoiceData = {
-      companyName,
-      contactEmail,
-      employeeCount,
-      selectedPackage: currentPackage,
-      billingCycle,
-      calculation,
-      date: new Date().toLocaleDateString('ar-SA'),
-      invoiceNumber: `BOUD-${Date.now()}`
-    };
-
-    // إعداد الخط العربي
+    // Add Arabic support (RTL)
     doc.setFont('helvetica');
     
-    // العنوان الرئيسي
+    // Header
     doc.setFontSize(20);
-    doc.text('BOUD HR System Invoice', 20, 30);
-    doc.text('فاتورة نظام بُعد لإدارة الموارد البشرية', 20, 45);
+    doc.text('عرض سعر نظام بُعد لإدارة الموارد البشرية', 20, 30);
     
-    // معلومات الفاتورة
+    // Company details
     doc.setFontSize(12);
-    doc.text(`Invoice Number: ${invoiceData.invoiceNumber}`, 20, 65);
-    doc.text(`Date: ${invoiceData.date}`, 20, 75);
-    doc.text(`Company: ${invoiceData.companyName}`, 20, 85);
-    doc.text(`Email: ${invoiceData.contactEmail}`, 20, 95);
-    doc.text(`Employees: ${invoiceData.employeeCount}`, 20, 105);
+    doc.text(`اسم الشركة: ${companyName}`, 20, 50);
+    doc.text(`البريد الإلكتروني: ${contactEmail}`, 20, 60);
+    doc.text(`عدد الموظفين: ${employeeCount}`, 20, 70);
+    doc.text(`دورة الفوترة: ${billingCycle === 'yearly' ? 'سنوي' : 'شهري'}`, 20, 80);
     
-    // تفاصيل الباقة
+    // Pricing breakdown
     doc.setFontSize(14);
-    doc.text('Package Details:', 20, 125);
+    doc.text('تفاصيل التسعير:', 20, 100);
     
-    let yPos = 140;
+    let yPos = 115;
     doc.setFontSize(10);
     
-    calculation.breakdown.forEach((item) => {
-      doc.text(`${item.item}: ${item.total?.toLocaleString()} SAR`, 25, yPos);
-      yPos += 10;
-    });
+    doc.text(`سعر الموظف الواحد: ${calculation.pricePerEmployee} ﷼/شهر`, 25, yPos);
+    yPos += 10;
+    doc.text(`التكلفة الأساسية: ${calculation.baseMonthly.toLocaleString()} ﷼/شهر`, 25, yPos);
+    yPos += 10;
     
-    // الخصم إن وجد
-    if (calculation.discount > 0) {
-      doc.text(`Annual Discount (15%): -${calculation.discount.toLocaleString()} SAR`, 25, yPos);
+    if (includeSetup) {
+      doc.text(`رسوم التأسيس: ${setupFee.toLocaleString()} ﷼`, 25, yPos);
       yPos += 10;
     }
     
-    // المجموع النهائي
-    doc.setFontSize(14);
-    doc.text(`Total: ${calculation.total.toLocaleString()} SAR`, 25, yPos + 15);
+    if (includeSupport) {
+      doc.text(`الدعم الفني: ${calculation.supportCost.toLocaleString()} ﷼`, 25, yPos);
+      yPos += 10;
+    }
     
-    // حفظ الملف
-    doc.save(`BOUD-HR-Invoice-${invoiceData.invoiceNumber}.pdf`);
+    if (billingCycle === 'yearly' && calculation.savings > 0) {
+      doc.text(`الخصم السنوي (15%): -${calculation.savings.toLocaleString()} ﷼`, 25, yPos);
+      yPos += 10;
+    }
+    
+    // Total
+    doc.setFontSize(14);
+    doc.text(`المجموع النهائي: ${calculation.total.toLocaleString()} ﷼`, 25, yPos + 15);
+    
+    doc.save(`Boud-HR-Quote-${Date.now()}.pdf`);
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-6">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        {onBack && (
-          <Button variant="outline" onClick={onBack} className="flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            العودة للباقات
-          </Button>
-        )}
-        <div className="flex items-center gap-4">
-          <BoudLogo variant="icon" size="sm" />
-          <div>
-            <h1 className="text-2xl font-bold text-gradient">حاسبة خدمات بُعد HR الذكية</h1>
-            <p className="text-muted-foreground">احسب تكلفة اشتراكك بدقة مع التسعير الديناميكي</p>
+    <div className="min-h-screen bg-white" dir="rtl">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white py-16">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <div className="flex justify-center mb-6">
+            <BoudLogo variant="icon" size="lg" />
           </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">احسب اشتراكك</h1>
+          <p className="text-xl md:text-2xl mb-8 opacity-90">
+            احصل على عرض سعر فوري لنظام إدارة الموارد البشرية الأكثر تقدماً
+          </p>
+          <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-lg px-4 py-2">
+            <Award className="h-5 w-5 ml-2" />
+            أقل من السوق بـ 5% على الأقل
+          </Badge>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-        {/* Configuration Panel */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* معلومات الشركة */}
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Settings className="h-5 w-5 text-primary" />
-              معلومات الشركة
-            </h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <Label>اسم الشركة *</Label>
-                <Input
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="اسم شركتك"
-                />
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Calculator Section */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Company Info */}
+            <Card className="p-6 border-2 border-gray-100">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
+                <Building2 className="h-6 w-6 text-teal-600" />
+                معلومات الشركة
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-gray-700">اسم الشركة *</Label>
+                  <Input
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    placeholder="اسم شركتك"
+                    className="border-gray-200 focus:border-teal-500"
+                  />
+                </div>
+                <div>
+                  <Label className="text-gray-700">البريد الإلكتروني *</Label>
+                  <Input
+                    type="email"
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    placeholder="email@company.com"
+                    className="border-gray-200 focus:border-teal-500"
+                  />
+                </div>
               </div>
-              <div>
-                <Label>البريد الإلكتروني *</Label>
-                <Input
-                  type="email"
-                  value={contactEmail}
-                  onChange={(e) => setContactEmail(e.target.value)}
-                  placeholder="email@company.com"
-                />
-              </div>
-            </div>
-          </Card>
+            </Card>
 
-          {/* اختيار الباقة */}
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">اختيار الباقة</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {Object.entries(packagePricing).map(([key, pkg]) => (
+            {/* Employee Count */}
+            <Card className="p-6 border-2 border-gray-100">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
+                <Users className="h-6 w-6 text-teal-600" />
+                عدد الموظفين: {employeeCount}
+              </h3>
+              <div className="space-y-4">
+                <Slider
+                  value={[employeeCount]}
+                  onValueChange={(value) => setEmployeeCount(Math.max(1, value[0]))}
+                  max={3000}
+                  min={1}
+                  step={1}
+                  className="w-full [&_[role=slider]]:bg-teal-600 [&_[role=slider]]:border-teal-600"
+                />
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>1 موظف</span>
+                  <span>3000+ موظف</span>
+                </div>
+                <div className="flex justify-center">
+                  <Badge variant="outline" className="text-teal-700 border-teal-200 bg-teal-50">
+                    سعر الوحدة: {calculation.pricePerEmployee} ﷼/شهر
+                  </Badge>
+                </div>
+              </div>
+            </Card>
+
+            {/* Billing Cycle */}
+            <Card className="p-6 border-2 border-gray-100">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">دورة الفوترة</h3>
+              <div className="grid grid-cols-2 gap-4">
                 <Button
-                  key={key}
-                  variant={currentPackage === key ? "default" : "outline"}
-                  onClick={() => setCurrentPackage(key)}
-                  className="h-auto p-3 flex-col"
+                  variant={billingCycle === 'monthly' ? "default" : "outline"}
+                  onClick={() => setBillingCycle('monthly')}
+                  className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}
                 >
-                  <div className="text-sm font-medium">{pkg.name}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {pkg.price.toLocaleString()} ر.س/شهر
+                  <div className="text-center">
+                    <div className="font-medium">شهري</div>
+                    <div className="text-xs opacity-75">دفع شهري</div>
                   </div>
                 </Button>
-              ))}
-            </div>
-          </Card>
-
-          {/* عدد الموظفين */}
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              عدد الموظفين: {employeeCount}
-            </h3>
-            <div className="space-y-4">
-              <Slider
-                value={[employeeCount]}
-                onValueChange={(value) => setEmployeeCount(value[0])}
-                max={500}
-                min={1}
-                step={1}
-                className="w-full"
-              />
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>1 موظف</span>
-                <span>500+ موظف</span>
+                <Button
+                  variant={billingCycle === 'yearly' ? "default" : "outline"}
+                  onClick={() => setBillingCycle('yearly')}
+                  className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}
+                >
+                  <Badge className="absolute -top-2 -right-2 bg-orange-500">
+                    وفر 15%
+                  </Badge>
+                  <div className="text-center">
+                    <div className="font-medium">سنوي</div>
+                    <div className="text-xs opacity-75">وفر شهرين</div>
+                  </div>
+                </Button>
               </div>
-            </div>
-          </Card>
+            </Card>
 
-          {/* دورة الفوترة */}
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">دورة الفوترة</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                variant={billingCycle === 'monthly' ? "default" : "outline"}
-                onClick={() => setBillingCycle('monthly')}
-                className="h-auto p-4"
-              >
-                <div className="text-center">
-                  <div className="font-medium">شهري</div>
-                  <div className="text-xs text-muted-foreground">دفع شهري</div>
-                </div>
-              </Button>
-              <Button
-                variant={billingCycle === 'yearly' ? "default" : "outline"}
-                onClick={() => setBillingCycle('yearly')}
-                className="h-auto p-4 relative"
-              >
-                <Badge className="absolute -top-2 -right-2 bg-green-500">
-                  خصم 15%
-                </Badge>
-                <div className="text-center">
-                  <div className="font-medium">سنوي</div>
-                  <div className="text-xs text-muted-foreground">وفر شهرين</div>
-                </div>
-              </Button>
-            </div>
-          </Card>
-
-          {/* الخدمات الإضافية */}
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">البنود الإضافية</h3>
-            <div className="space-y-4">
-              {additionalServices.map((service) => (
-                <div key={service.id} className="flex items-center justify-between p-4 border rounded-lg">
+            {/* Additional Services */}
+            <Card className="p-6 border-2 border-gray-100">
+              <h3 className="text-xl font-bold mb-4 text-gray-900">الخدمات الإضافية</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                   <div className="flex-1">
-                    <div className="font-medium">{service.title}</div>
-                    <div className="text-sm text-muted-foreground">{service.description}</div>
-                    <div className="text-sm font-medium text-primary">
-                      {service.price.toLocaleString()} ر.س / {service.unit}
+                    <div className="font-medium text-gray-900">رسوم التأسيس</div>
+                    <div className="text-sm text-gray-600">إعداد كامل للنظام وتكوين الشركة</div>
+                    <div className="text-sm font-medium text-teal-600">
+                      {setupFee.toLocaleString()} ﷼ (مرة واحدة)
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleServiceChange(service.id, (selectedServices[service.id] || 0) - 1)}
-                    >
-                      -
-                    </Button>
-                    <span className="w-8 text-center">{selectedServices[service.id] || 0}</span>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleServiceChange(service.id, (selectedServices[service.id] || 0) + 1)}
-                    >
-                      +
-                    </Button>
-                  </div>
+                  <Checkbox
+                    checked={includeSetup}
+                    onCheckedChange={(checked) => setIncludeSetup(checked === true)}
+                    className="border-teal-300 data-[state=checked]:bg-teal-600"
+                  />
                 </div>
-              ))}
-            </div>
-          </Card>
+                
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                  <div className="flex-1">
+                    <div className="font-medium text-gray-900">الدعم الفني المتقدم</div>
+                    <div className="text-sm text-gray-600">دعم فني متقدم 24/7 مع مدير حساب مخصص</div>
+                    <div className="text-sm font-medium text-teal-600">
+                      {billingCycle === 'yearly' 
+                        ? `${supportFeeYearly.toLocaleString()} ﷼/سنوياً` 
+                        : `${supportFeeMonthly.toLocaleString()} ﷼/شهرياً`
+                      }
+                    </div>
+                  </div>
+                  <Checkbox
+                    checked={includeSupport}
+                    onCheckedChange={(checked) => setIncludeSupport(checked === true)}
+                    className="border-teal-300 data-[state=checked]:bg-teal-600"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* AI Suggestions */}
+            {getAISuggestions().length > 0 && (
+              <Card className="p-6 border-2 border-teal-100 bg-teal-50">
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-teal-900">
+                  <Bot className="h-5 w-5" />
+                  اقتراحات ذكية
+                </h3>
+                <div className="space-y-2">
+                  {getAISuggestions().map((suggestion, index) => (
+                    <div key={index} className="flex items-center gap-2 text-teal-800">
+                      <Zap className="h-4 w-4" />
+                      <span>{suggestion}</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            )}
+          </div>
+
+          {/* Summary Panel */}
+          <div className="space-y-6">
+            {/* Price Summary */}
+            <Card className="p-6 border-2 border-teal-100 sticky top-6">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
+                <Calculator className="h-6 w-6 text-teal-600" />
+                ملخص التكلفة
+              </h3>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">التكلفة الأساسية ({billingCycle === 'yearly' ? 'سنوي' : 'شهري'})</span>
+                  <span className="font-medium">
+                    {billingCycle === 'yearly' 
+                      ? (calculation.baseMonthly * 12).toLocaleString() 
+                      : calculation.baseMonthly.toLocaleString()
+                    } ﷼
+                  </span>
+                </div>
+                
+                {includeSetup && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">رسوم التأسيس</span>
+                    <span className="font-medium">{setupFee.toLocaleString()} ﷼</span>
+                  </div>
+                )}
+                
+                {includeSupport && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">الدعم الفني</span>
+                    <span className="font-medium">{calculation.supportCost.toLocaleString()} ﷼</span>
+                  </div>
+                )}
+                
+                {billingCycle === 'yearly' && calculation.savings > 0 && (
+                  <div className="flex justify-between text-sm text-green-600">
+                    <span>الخصم السنوي (15%)</span>
+                    <span>-{calculation.savings.toLocaleString()} ﷼</span>
+                  </div>
+                )}
+                
+                <Separator />
+                
+                <div className="flex justify-between font-bold text-xl">
+                  <span className="text-gray-900">المجموع</span>
+                  <span className="text-teal-600">{calculation.total.toLocaleString()} ﷼</span>
+                </div>
+                
+                {billingCycle === 'yearly' && calculation.savings > 0 && (
+                  <p className="text-xs text-green-600 text-center">
+                    توفير {calculation.savings.toLocaleString()} ﷼ سنوياً
+                  </p>
+                )}
+              </div>
+
+              <Separator className="my-4" />
+
+              <div className="space-y-3">
+                <Button 
+                  className="w-full bg-teal-600 hover:bg-teal-700 text-white"
+                  onClick={generatePDF}
+                  disabled={!companyName || !contactEmail}
+                >
+                  <Download className="h-4 w-4 ml-2" />
+                  تحميل عرض السعر
+                </Button>
+                
+                <Button 
+                  variant="outline"
+                  className="w-full border-teal-200 text-teal-700 hover:bg-teal-50"
+                  disabled={!companyName || !contactEmail}
+                >
+                  <Mail className="h-4 w-4 ml-2" />
+                  إرسال بالبريد الإلكتروني
+                </Button>
+              </div>
+            </Card>
+
+            {/* Features */}
+            <Card className="p-6 border-2 border-gray-100">
+              <h3 className="text-lg font-bold mb-4 text-gray-900">مميزات الاشتراك</h3>
+              <div className="space-y-3">
+                {[
+                  'دعم نظام العمل السعودي',
+                  'تكامل مع الجهات الرسمية',
+                  'تقارير فورية ذكية',
+                  'خدمة ذاتية للموظفين',
+                  'توقيع إلكتروني',
+                  'دعم بالذكاء الاصطناعي'
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-teal-600" />
+                    <span className="text-sm text-gray-700">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Guarantee */}
+            <Card className="p-4 border-2 border-teal-200 bg-teal-50 text-center">
+              <div className="flex justify-center mb-2">
+                <TrendingDown className="h-8 w-8 text-teal-600" />
+              </div>
+              <h4 className="font-bold text-teal-900 mb-1">ضمان المنافسة</h4>
+              <p className="text-sm text-teal-800">أقل من السوق بـ 5% على الأقل</p>
+            </Card>
+          </div>
         </div>
 
-        {/* Summary Panel */}
-        <div className="space-y-6">
-          {/* ملخص التكلفة */}
-          <Card className="p-6 sticky top-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-primary" />
-              ملخص التكلفة
-            </h3>
-            
-            <div className="space-y-3">
-              {calculation.breakdown.map((item, index) => (
-                <div key={index} className="flex justify-between text-sm">
-                  <span>{item.item}</span>
-                  <span>{item.total?.toLocaleString()} ر.س</span>
-                </div>
-              ))}
-              
-              {calculation.discount > 0 && (
-                <div className="flex justify-between text-sm text-green-600">
-                  <span>خصم السنوي (15%)</span>
-                  <span>-{calculation.discount.toLocaleString()} ر.س</span>
-                </div>
-              )}
-              
-              <Separator />
-              
-              <div className="flex justify-between font-semibold text-lg">
-                <span>المجموع</span>
-                <span className="text-primary">{calculation.total.toLocaleString()} ر.س</span>
-              </div>
-              
-              {billingCycle === 'yearly' && (
-                <p className="text-xs text-muted-foreground text-center">
-                  توفير {calculation.discount.toLocaleString()} ر.س سنوياً
-                </p>
-              )}
-            </div>
-
-            <Separator className="my-4" />
-
-            <div className="space-y-3">
-              <Button 
-                className="w-full bg-gradient-to-r from-primary to-primary-glow"
-                onClick={generatePDF}
-                disabled={!companyName || !contactEmail}
-              >
-                <FileText className="h-4 w-4 ml-2" />
-                اشترك الآن
-              </Button>
-              
-              <div className="text-center">
-                <p className="text-xs text-muted-foreground mb-3">اختر طريقة الدفع:</p>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
-                    onClick={() => handlePayment('mada')}
-                  >
-                    <CreditCard className="h-3 w-3 ml-1" />
-                    مدى
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
-                    onClick={() => handlePayment('apple-pay')}
-                  >
-                    <CreditCard className="h-3 w-3 ml-1" />
-                    Apple Pay
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
-                    onClick={() => handlePayment('stc-pay')}
-                  >
-                    <CreditCard className="h-3 w-3 ml-1" />
-                    STC Pay
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex items-center justify-center py-3 hover:bg-primary/10 transition-colors"
-                    onClick={() => handlePayment('visa-mastercard')}
-                  >
-                    <CreditCard className="h-3 w-3 ml-1" />
-                    فيزا / ماستر
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex items-center justify-center py-3 col-span-2 hover:bg-primary/10 transition-colors"
-                    onClick={() => handlePayment('bank-transfer')}
-                  >
-                    <CreditCard className="h-3 w-3 ml-1" />
-                    تحويل بنكي
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* AI Recommendations */}
-          <AIRecommendations 
-            employeeCount={employeeCount}
-            currentPackage={currentPackage}
-            billingCycle={billingCycle}
-          />
+        {/* FAQ Section */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">الأسئلة الشائعة</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6 border-gray-200">
+              <h4 className="font-bold mb-2 text-gray-900">كيف يتم احتساب الفوترة؟</h4>
+              <p className="text-sm text-gray-600">
+                يتم احتساب الفوترة حسب عدد الموظفين الفعليين في النظام مع أسعار متدرجة تقل كلما زاد العدد.
+              </p>
+            </Card>
+            <Card className="p-6 border-gray-200">
+              <h4 className="font-bold mb-2 text-gray-900">هل يمكن إلغاء الاشتراك؟</h4>
+              <p className="text-sm text-gray-600">
+                نعم، يمكن إلغاء الاشتراك في أي وقت مع ضمان استرداد المبلغ المتبقي من الفترة المدفوعة.
+              </p>
+            </Card>
+            <Card className="p-6 border-gray-200">
+              <h4 className="font-bold mb-2 text-gray-900">ما هو الدعم الفني المتوفر؟</h4>
+              <p className="text-sm text-gray-600">
+                نوفر دعم فني أساسي مجاني، ودعم متقدم 24/7 مع مدير حساب مخصص كخدمة إضافية.
+              </p>
+            </Card>
+            <Card className="p-6 border-gray-200">
+              <h4 className="font-bold mb-2 text-gray-900">هل الأسعار شاملة الضريبة؟</h4>
+              <p className="text-sm text-gray-600">
+                جميع الأسعار المعروضة غير شاملة ضريبة القيمة المضافة والتي ستضاف عند الفوترة.
+              </p>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
