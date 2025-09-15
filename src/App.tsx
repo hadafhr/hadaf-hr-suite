@@ -8,7 +8,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from '@/hooks/useAuth';
 import '@/i18n';
 import { AutoLanguageDetector } from './components/shared/AutoLanguageDetector';
-import { AnalyticsProvider } from './components/shared/AnalyticsProvider';
 import { Header } from "@/components/Header";
 import { LandingPage } from "@/pages/LandingPage";
 import { Dashboard } from "@/pages/Dashboard";
@@ -56,11 +55,6 @@ import EndOfServiceCalculatorPage from './pages/EndOfServiceCalculatorPage';
 import { ChatMessagingPage } from './pages/ChatMessagingPage';
 import BoudHRLandingPage from './pages/BoudHRLandingPage';
 import SubscriptionPackages from './pages/SubscriptionPackages';
-import { NewLandingPage } from './pages/NewLandingPage';
-import { NewAdminDashboard } from './pages/NewAdminDashboard';
-import { NewCompanyDashboard } from './pages/NewCompanyDashboard';
-import { NewEmployeePortal } from './pages/NewEmployeePortal';
-import { NewBudgetPlanning } from './pages/NewBudgetPlanning';
 import SubscriptionSuccess from './pages/SubscriptionSuccess';
 import InvoicesDashboard from './pages/InvoicesDashboard';
 import { HRApp } from './pages/HRApp';
@@ -173,10 +167,8 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <AnalyticsProvider>
-            <Routes>
-            <Route path="/" element={<NewLandingPage />} />
-            <Route path="/old-landing" element={<BoudHRLandingPage />} />
+          <Routes>
+            <Route path="/" element={<BoudHRLandingPage />} />
             <Route path="/interactive-tour" element={<InteractiveTour />} />
             <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
@@ -188,12 +180,8 @@ const App = () => {
             <Route path="/old-home" element={<LandingPage />} />
               {/* Unified Login System */}
               <Route path="/unified-login" element={<UnifiedLogin />} />
-              <Route path="/admin-dashboard" element={<NewAdminDashboard />} />
-              <Route path="/old-admin-dashboard" element={<AdminDashboard />} />
-              <Route path="/company-dashboard" element={<NewCompanyDashboard />} />
-              <Route path="/old-company-dashboard" element={<CompanyDashboard />} />
-              <Route path="/employee-portal" element={<NewEmployeePortal />} />
-              <Route path="/budget-planning" element={<NewBudgetPlanning />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route path="/company-dashboard" element={<CompanyDashboard />} />
               <Route path="/hr-management" element={<HRManagement />} />
               <Route path="/client-management" element={<ClientManagement />} />
               <Route path="/system-monitoring" element={<SystemMonitoring />} />
@@ -346,7 +334,6 @@ const App = () => {
             
             {/* Global BOUD HR Assistant - Only show when not on landing page */}
             {window.location.pathname !== '/' && <BoudHRAssistant language={currentLanguage} />}
-            </AnalyticsProvider>
           </BrowserRouter>
         </AuthProvider>
       </TooltipProvider>
