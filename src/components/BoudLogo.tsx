@@ -19,7 +19,7 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
     md: 'h-12 w-auto',
     lg: 'h-16 w-auto', 
     xl: 'h-24 w-auto',
-    header: 'h-14 w-auto' // حجم خاص للهيدر
+    header: 'h-10 w-auto' // حجم خاص للهيدر
   };
 
   // اختيار الشعار المناسب - الشعار الرسمي الجديد
@@ -53,7 +53,7 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
       <img 
         src={logoSrc[variant]}
         alt="شعار بُعد BOUD HR" 
-        className="h-40 w-auto"
+        className="h-10 w-auto"
         style={{ 
           display: 'block',
           width: 'auto',
