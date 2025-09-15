@@ -313,8 +313,10 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
+            <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
               <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
+              
+              <a href="#about" className="navigation-item text-sm font-medium hover:text-primary transition-colors">عن بُعد</a>
               
               <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
                 <Play className="w-4 h-4" />
