@@ -306,7 +306,7 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto" />
+                <BoudLogo variant="full" size="header" className="h-12 w-auto max-w-[120px] object-contain" />
               </div>
             </div>
 

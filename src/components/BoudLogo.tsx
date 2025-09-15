@@ -54,6 +54,19 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
         src={logoSrc[variant]}
         alt="شعار بُعد BOUD HR" 
         className={finalClassName}
+        style={{ 
+          display: 'block',
+          maxHeight: '48px',
+          width: 'auto',
+          objectFit: 'contain'
+        }}
+        onError={(e) => {
+          console.error('خطأ في تحميل الشعار:', e);
+          e.currentTarget.style.display = 'none';
+        }}
+        onLoad={() => {
+          console.log('تم تحميل الشعار بنجاح');
+        }}
       />
       {showText && (
         <div className="flex flex-col">
