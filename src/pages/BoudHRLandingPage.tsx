@@ -348,6 +348,9 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex items-center space-x-4 space-x-reverse">
+              <Button variant="ghost" onClick={() => navigate('/unified-login')} className="text-sm">
+                تسجيل الدخول
+              </Button>
               <Button variant="outline" onClick={() => navigate('/schedule-meeting')} className="text-sm">
                 احجز اجتماع
               </Button>
