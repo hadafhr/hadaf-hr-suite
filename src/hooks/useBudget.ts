@@ -114,15 +114,20 @@ export const useBudgetCategories = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
+      console.log('Fetching budget categories...');
       const { data, error } = await supabase
         .from('budget_categories')
         .select('*')
         .eq('status', 'active')
         .order('code');
 
+      console.log('Categories data:', data);
+      console.log('Categories error:', error);
+
       if (error) throw error;
       setCategories(data || []);
     } catch (err: any) {
+      console.error('Error fetching categories:', err);
       setError(err.message);
       toast({
         title: "خطأ في تحميل فئات الميزانية",
@@ -151,6 +156,7 @@ export const useBudgetAllocations = (year?: number) => {
     try {
       setLoading(true);
       const currentYear = year || new Date().getFullYear();
+      console.log('Fetching allocations for year:', currentYear);
       
       const { data, error } = await supabase
         .from('budget_allocations')
@@ -161,9 +167,13 @@ export const useBudgetAllocations = (year?: number) => {
         .eq('year', currentYear)
         .order('created_at', { ascending: false });
 
+      console.log('Allocations data:', data);
+      console.log('Allocations error:', error);
+
       if (error) throw error;
       setAllocations(data || []);
     } catch (err: any) {
+      console.error('Error fetching allocations:', err);
       setError(err.message);
       toast({
         title: "خطأ في تحميل مخصصات الميزانية",
