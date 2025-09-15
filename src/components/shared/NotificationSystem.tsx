@@ -116,7 +116,11 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 };
 
 // Notification Bell Component
-export const NotificationBell: React.FC = () => {
+interface NotificationBellProps {
+  count?: number;
+}
+
+export const NotificationBell: React.FC<NotificationBellProps> = ({ count = 0 }) => {
   const { notifications, unreadCount, markAsRead, markAllAsRead, clearAll } = useNotifications();
 
   const getNotificationIcon = (type: NotificationType) => {
