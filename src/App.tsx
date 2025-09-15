@@ -169,11 +169,11 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <AnalyticsProvider>
-            <AutoLanguageDetector />
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+          <AutoLanguageDetector />
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AnalyticsProvider>
             <Routes>
             <Route path="/" element={<NewLandingPage />} />
             <Route path="/old-landing" element={<BoudHRLandingPage />} />
@@ -346,8 +346,8 @@ const App = () => {
             
             {/* Global BOUD HR Assistant - Only show when not on landing page */}
             {window.location.pathname !== '/' && <BoudHRAssistant language={currentLanguage} />}
+            </AnalyticsProvider>
           </BrowserRouter>
-          </AnalyticsProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
