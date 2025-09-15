@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LoginPortalsDialog } from '@/components/LoginPortalsDialog';
 import { PromoBanner } from '@/components/PromoBanner';
+import { BoudLogo } from '@/components/BoudLogo';
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -39,11 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار - يظهر على جميع الشاشات */}
         <div className="flex items-center">
-          <img 
-            src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" 
-            alt="شعار بُعد BOUD HR" 
-            className="h-55 w-auto mr-4"
-          />
+          <BoudLogo size="header" />
         </div>
 
         {/* التنقل الأساسي */}
