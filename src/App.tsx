@@ -106,8 +106,6 @@ import InteractiveTour from './pages/InteractiveTour';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import GreenPapers from './pages/GreenPapers';
 import GreenPaperDetail from './pages/GreenPaperDetail';
-import SaudiCompliancePage from './pages/SaudiCompliancePage';
-import AboutPage from './pages/AboutPage';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -171,8 +169,6 @@ const App = () => {
           <BrowserRouter>
           <Routes>
             <Route path="/" element={<BoudHRLandingPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/saudi-compliance" element={<SaudiCompliancePage />} />
             <Route path="/interactive-tour" element={<InteractiveTour />} />
             <Route path="/self-service-login" element={<SelfServiceLogin />} />
             <Route path="/subscription-packages" element={<SubscriptionPackages />} />
