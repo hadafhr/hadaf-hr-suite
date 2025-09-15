@@ -15,7 +15,8 @@ import {
   TrendingUp,
   Eye,
   ChevronRight,
-  Bot
+  Bot,
+  ArrowLeft
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -320,6 +321,16 @@ const HRGlossary: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4 space-x-reverse">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => navigate('/')}
+                className="hover:bg-accent"
+              >
+                <ArrowLeft className="h-4 w-4 ml-2" />
+                العودة
+              </Button>
+              
               <div className="flex items-center space-x-2 space-x-reverse">
                 <BoudLogo variant="icon" size="md" />
                 <span className="font-bold text-xl text-foreground hidden sm:block">بُعد</span>
