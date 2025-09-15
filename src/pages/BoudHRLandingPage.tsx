@@ -348,9 +348,27 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex items-center space-x-4 space-x-reverse">
-              <Button variant="ghost" onClick={() => navigate('/unified-login')} className="text-sm">
-                تسجيل الدخول
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="text-sm">
+                    تسجيل الدخول <ChevronDown className="w-3 h-3 ml-1" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
+                  <DropdownMenuItem onClick={() => navigate('/unified-login')}>
+                    <User className="ml-2 h-4 w-4" />
+                    لوحة النظام
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/business-login')}>
+                    <Building className="ml-2 h-4 w-4" />
+                    لوحة تحكم المنشأة
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/employee-login')}>
+                    <Users className="ml-2 h-4 w-4" />
+                    لوحة تحكم الموظف
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Button variant="outline" onClick={() => navigate('/schedule-meeting')} className="text-sm">
                 احجز اجتماع
               </Button>
@@ -369,19 +387,32 @@ const BoudHRLandingPage: React.FC = () => {
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-background border-t border-border/40">
-            <div className="container mx-auto px-6 py-4 space-y-2">
-              <a href="#home" className="block py-2 text-sm hover:text-primary">الرئيسية</a>
-              <a href="#about" className="block py-2 text-sm hover:text-primary">عن بُعد</a>
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="block w-full text-right py-2 text-sm hover:text-primary">
-                أدوات الموارد البشرية
-              </Button>
-              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="block w-full text-right py-2 text-sm hover:text-primary">
-                جولة تفاعلية
-              </Button>
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="block w-full text-right py-2 text-sm hover:text-primary">
-                احجز اجتماع
-              </Button>
-            </div>
+             <div className="container mx-auto px-6 py-4 space-y-2">
+               <a href="#home" className="block py-2 text-sm hover:text-primary">الرئيسية</a>
+               <a href="#about" className="block py-2 text-sm hover:text-primary">عن بُعد</a>
+               <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                 أدوات الموارد البشرية
+               </Button>
+               <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                 جولة تفاعلية
+               </Button>
+               <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                 احجز اجتماع
+               </Button>
+               
+               {/* Login Options */}
+               <div className="pt-2 border-t border-border/40 space-y-1">
+                 <Button variant="ghost" onClick={() => navigate('/unified-login')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                   لوحة النظام
+                 </Button>
+                 <Button variant="ghost" onClick={() => navigate('/business-login')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                   لوحة تحكم المنشأة
+                 </Button>
+                 <Button variant="ghost" onClick={() => navigate('/employee-login')} className="block w-full text-right py-2 text-sm hover:text-primary">
+                   لوحة تحكم الموظف
+                 </Button>
+               </div>
+             </div>
           </div>
         )}
       </header>
