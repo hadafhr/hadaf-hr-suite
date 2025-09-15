@@ -127,6 +127,14 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
       </div>
     );
   }
+
+  // Debug logging
+  console.log('Budget data status:', {
+    categories: displayCategories?.length || 0,
+    allocations: displayAllocations?.length || 0,
+    expenses: displayExpenses?.length || 0,
+    kpis: displayKpis
+  });
   const filteredAllocations = displayAllocations.filter(allocation => {
     const categoryName = allocation.category?.name_ar || displayCategories.find(c => c.id === allocation.category_id)?.name_ar || '';
     const categoryCode = allocation.category?.code || displayCategories.find(c => c.id === allocation.category_id)?.code || '';
