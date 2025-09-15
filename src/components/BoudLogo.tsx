@@ -53,10 +53,9 @@ const BoudLogo: React.FC<BoudLogoProps> = ({
       <img 
         src={logoSrc[variant]}
         alt="شعار بُعد BOUD HR" 
-        className={finalClassName}
+        className="h-40 w-auto"
         style={{ 
           display: 'block',
-          maxHeight: '48px',
           width: 'auto',
           objectFit: 'contain'
         }}
