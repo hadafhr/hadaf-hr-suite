@@ -2255,6 +2255,174 @@ export type Database = {
           },
         ]
       }
+      budget_allocations: {
+        Row: {
+          allocated_amount: number
+          category_id: string | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["allocation_status"] | null
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          allocated_amount?: number
+          category_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["allocation_status"] | null
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          allocated_amount?: number
+          category_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["allocation_status"] | null
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_allocations_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "budget_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      budget_categories: {
+        Row: {
+          code: string
+          created_at: string | null
+          description: string | null
+          id: string
+          name_ar: string
+          name_en: string
+          status: Database["public"]["Enums"]["budget_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name_ar: string
+          name_en: string
+          status?: Database["public"]["Enums"]["budget_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name_ar?: string
+          name_en?: string
+          status?: Database["public"]["Enums"]["budget_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      budget_expenses: {
+        Row: {
+          amount: number
+          attachment_url: string | null
+          category_id: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string
+          expense_date: string
+          id: string
+          status: Database["public"]["Enums"]["expense_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount?: number
+          attachment_url?: string | null
+          category_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          expense_date: string
+          id?: string
+          status?: Database["public"]["Enums"]["expense_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          attachment_url?: string | null
+          category_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          expense_date?: string
+          id?: string
+          status?: Database["public"]["Enums"]["expense_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_expenses_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "budget_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      budget_kpis: {
+        Row: {
+          actual_amount: number
+          category_id: string | null
+          created_at: string | null
+          id: string
+          period_type: Database["public"]["Enums"]["period_type"]
+          period_value: number
+          planned_amount: number
+          variance: number | null
+          variance_percent: number | null
+        }
+        Insert: {
+          actual_amount?: number
+          category_id?: string | null
+          created_at?: string | null
+          id?: string
+          period_type: Database["public"]["Enums"]["period_type"]
+          period_value: number
+          planned_amount?: number
+          variance?: number | null
+          variance_percent?: number | null
+        }
+        Update: {
+          actual_amount?: number
+          category_id?: string | null
+          created_at?: string | null
+          id?: string
+          period_type?: Database["public"]["Enums"]["period_type"]
+          period_value?: number
+          planned_amount?: number
+          variance?: number | null
+          variance_percent?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_kpis_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "budget_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       budget_lines: {
         Row: {
           account_id: string
@@ -10220,6 +10388,7 @@ export type Database = {
       }
     }
     Enums: {
+      allocation_status: "draft" | "pending" | "approved" | "rejected"
       app_role:
         | "admin"
         | "cfo"
@@ -10239,6 +10408,8 @@ export type Database = {
         | "late"
         | "early_leave"
         | "overtime"
+      auth_type: "api_key" | "oauth2"
+      budget_status: "active" | "inactive"
       check_method:
         | "device"
         | "gps"
@@ -10326,6 +10497,8 @@ export type Database = {
         | "quarterly"
         | "monthly"
         | "custom"
+      expense_status: "pending" | "approved" | "rejected"
+      forecast_method: "ai" | "linear" | "manual"
       hr_role:
         | "employee"
         | "line_manager"
@@ -10358,6 +10531,7 @@ export type Database = {
         | "disability"
         | "dental"
         | "vision"
+      integration_status: "active" | "inactive"
       leave_type:
         | "annual"
         | "sick"
@@ -10380,15 +10554,19 @@ export type Database = {
         | "regulatory_violation"
       meeting_status: "scheduled" | "ongoing" | "completed" | "cancelled"
       meeting_type: "board" | "executive" | "department" | "team" | "one_on_one"
+      notification_channel: "inapp" | "email" | "push"
+      notification_status: "unread" | "read"
       participant_role: "organizer" | "required" | "optional" | "presenter"
       penalty_type:
         | "warning"
         | "salary_deduction"
         | "suspension"
         | "termination"
+      period_type: "month" | "quarter" | "year"
       premium_frequency: "monthly" | "quarterly" | "semi_annual" | "annual"
       rater_type: "self" | "manager" | "hr" | "360"
       request_status: "pending" | "approved" | "rejected" | "cancelled"
+      request_type: "allocation" | "expense" | "deletion" | "update"
       reward_status: "pending" | "approved" | "paid" | "rejected" | "processing"
       reward_type:
         | "annual_bonus"
@@ -10556,6 +10734,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      allocation_status: ["draft", "pending", "approved", "rejected"],
       app_role: [
         "admin",
         "cfo",
@@ -10577,6 +10756,8 @@ export const Constants = {
         "early_leave",
         "overtime",
       ],
+      auth_type: ["api_key", "oauth2"],
+      budget_status: ["active", "inactive"],
       check_method: ["device", "gps", "qr_code", "manual", "face_id", "remote"],
       claim_status: ["pending", "approved", "rejected", "processing", "paid"],
       company_role: [
@@ -10669,6 +10850,8 @@ export const Constants = {
         "monthly",
         "custom",
       ],
+      expense_status: ["pending", "approved", "rejected"],
+      forecast_method: ["ai", "linear", "manual"],
       hr_role: [
         "employee",
         "line_manager",
@@ -10704,6 +10887,7 @@ export const Constants = {
         "dental",
         "vision",
       ],
+      integration_status: ["active", "inactive"],
       leave_type: [
         "annual",
         "sick",
@@ -10729,6 +10913,8 @@ export const Constants = {
       ],
       meeting_status: ["scheduled", "ongoing", "completed", "cancelled"],
       meeting_type: ["board", "executive", "department", "team", "one_on_one"],
+      notification_channel: ["inapp", "email", "push"],
+      notification_status: ["unread", "read"],
       participant_role: ["organizer", "required", "optional", "presenter"],
       penalty_type: [
         "warning",
@@ -10736,9 +10922,11 @@ export const Constants = {
         "suspension",
         "termination",
       ],
+      period_type: ["month", "quarter", "year"],
       premium_frequency: ["monthly", "quarterly", "semi_annual", "annual"],
       rater_type: ["self", "manager", "hr", "360"],
       request_status: ["pending", "approved", "rejected", "cancelled"],
+      request_type: ["allocation", "expense", "deletion", "update"],
       reward_status: ["pending", "approved", "paid", "rejected", "processing"],
       reward_type: [
         "annual_bonus",
