@@ -1009,23 +1009,419 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
     </Card>
   );
 
-  const ApprovalCenter = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Users className="h-5 w-5" />
-          مركز الاعتمادات
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="text-center py-20 text-muted-foreground">
-          <Users className="h-16 w-16 mx-auto mb-4 opacity-50" />
-          <p>وحدة مركز الاعتمادات قيد التطوير</p>
-          <p className="text-sm">ستتضمن إدارة طلبات الموافقة ودورة الاعتماد</p>
+  const ApprovalCenter = () => {
+    const [selectedApproval, setSelectedApproval] = useState<any>(null);
+    const [approvalDialog, setApprovalDialog] = useState(false);
+    const [approvalAction, setApprovalAction] = useState<'approve' | 'reject' | 'return'>('approve');
+    const [approvalComment, setApprovalComment] = useState('');
+
+    // Mock approval data
+    const approvals = [
+      {
+        id: '1',
+        type: 'allocation',
+        title: 'طلب تخصيص ميزانية - التسويق الرقمي',
+        amount: 180000,
+        category: 'التسويق والإعلان',
+        requestor: 'أحمد محمد',
+        department: 'التسويق',
+        status: 'pending',
+        priority: 'high',
+        submitted_date: '2024-03-15',
+        description: 'طلب تخصيص ميزانية إضافية لحملة التسويق الرقمي للربع الثاني'
+      },
+      {
+        id: '2',
+        type: 'expense',
+        title: 'طلب موافقة مصروف - شراء أجهزة جديدة',
+        amount: 85000,
+        category: 'تقنية المعلومات',
+        requestor: 'سارة أحمد',
+        department: 'تقنية المعلومات',
+        status: 'pending',
+        priority: 'medium',
+        submitted_date: '2024-03-18',
+        description: 'شراء 5 أجهزة حاسوب جديدة للموظفين الجدد'
+      },
+      {
+        id: '3',
+        type: 'transfer',
+        title: 'طلب نقل ميزانية - من التدريب إلى الرواتب',
+        amount: 25000,
+        category: 'نقل بين البنود',
+        requestor: 'محمد علي',
+        department: 'الموارد البشرية',
+        status: 'pending',
+        priority: 'low',
+        submitted_date: '2024-03-20',
+        description: 'نقل جزء من ميزانية التدريب لتغطية الرواتب الإضافية'
+      },
+      {
+        id: '4',
+        type: 'allocation',
+        title: 'طلب تخصيص ميزانية - مشروع جديد',
+        amount: 150000,
+        category: 'المشاريع الخاصة',
+        requestor: 'خالد حسن',
+        department: 'التطوير',
+        status: 'approved',
+        priority: 'high',
+        submitted_date: '2024-03-10',
+        approved_date: '2024-03-12',
+        approved_by: 'مدير المالية',
+        description: 'تخصيص ميزانية لمشروع تطوير النظام الجديد'
+      },
+      {
+        id: '5',
+        type: 'expense',
+        title: 'طلب موافقة مصروف - إيجار إضافي',
+        amount: 30000,
+        category: 'الإيجارات والمرافق',
+        requestor: 'فاطمة سالم',
+        department: 'المالية',
+        status: 'rejected',
+        priority: 'medium',
+        submitted_date: '2024-03-08',
+        rejected_date: '2024-03-09',
+        rejected_by: 'مدير عام',
+        rejection_reason: 'لا توجد حاجة فعلية للمساحة الإضافية',
+        description: 'طلب إيجار مساحة إضافية للمكتب'
+      }
+    ];
+
+    const pendingApprovals = approvals.filter(a => a.status === 'pending');
+    const completedApprovals = approvals.filter(a => a.status !== 'pending');
+
+    const getStatusBadge = (status: string) => {
+      const statusMap = {
+        pending: { variant: 'secondary', text: 'في الانتظار', color: 'text-orange-600' },
+        approved: { variant: 'default', text: 'موافق عليه', color: 'text-green-600' },
+        rejected: { variant: 'destructive', text: 'مرفوض', color: 'text-red-600' },
+        returned: { variant: 'outline', text: 'مُعاد للمراجعة', color: 'text-blue-600' }
+      };
+      const config = statusMap[status as keyof typeof statusMap] || statusMap.pending;
+      return (
+        <Badge variant={config.variant as any} className={config.color}>
+          {config.text}
+        </Badge>
+      );
+    };
+
+    const getPriorityBadge = (priority: string) => {
+      const priorityMap = {
+        high: { variant: 'destructive', text: 'عالية' },
+        medium: { variant: 'secondary', text: 'متوسطة' },
+        low: { variant: 'outline', text: 'منخفضة' }
+      };
+      const config = priorityMap[priority as keyof typeof priorityMap] || priorityMap.medium;
+      return (
+        <Badge variant={config.variant as any}>
+          {config.text}
+        </Badge>
+      );
+    };
+
+    const getTypeIcon = (type: string) => {
+      const typeMap = {
+        allocation: DollarSign,
+        expense: TrendingUp,
+        transfer: ArrowUp
+      };
+      const Icon = typeMap[type as keyof typeof typeMap] || FileText;
+      return <Icon className="h-4 w-4" />;
+    };
+
+    const handleApprovalAction = async (id: string, action: 'approve' | 'reject' | 'return') => {
+      try {
+        // In a real app, this would call an API
+        toast({
+          title: "تم تحديث الطلب",
+          description: `تم ${action === 'approve' ? 'الموافقة على' : action === 'reject' ? 'رفض' : 'إعادة'} الطلب بنجاح`,
+        });
+        setApprovalDialog(false);
+        setSelectedApproval(null);
+        setApprovalComment('');
+      } catch (error) {
+        toast({
+          title: "خطأ في التحديث",
+          description: "حدث خطأ أثناء تحديث الطلب",
+          variant: "destructive"
+        });
+      }
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card className="border-l-4 border-l-orange-500">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">طلبات معلقة</p>
+                  <p className="text-2xl font-bold text-orange-600">{pendingApprovals.length}</p>
+                </div>
+                <Clock className="h-8 w-8 text-orange-500" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-l-4 border-l-green-500">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">موافق عليها</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    {completedApprovals.filter(a => a.status === 'approved').length}
+                  </p>
+                </div>
+                <CheckCircle className="h-8 w-8 text-green-500" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-l-4 border-l-red-500">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">مرفوضة</p>
+                  <p className="text-2xl font-bold text-red-600">
+                    {completedApprovals.filter(a => a.status === 'rejected').length}
+                  </p>
+                </div>
+                <AlertTriangle className="h-8 w-8 text-red-500" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-l-4 border-l-primary">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">إجمالي القيمة</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {pendingApprovals.reduce((sum, a) => sum + a.amount, 0).toLocaleString()}
+                  </p>
+                </div>
+                <DollarSign className="h-8 w-8 text-primary" />
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </CardContent>
-    </Card>
-  );
+
+        {/* Pending Approvals */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-orange-500" />
+              الطلبات المعلقة ({pendingApprovals.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {pendingApprovals.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <CheckCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>لا توجد طلبات معلقة</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {pendingApprovals.map((approval) => (
+                  <div key={approval.id} className="border rounded-lg p-4 hover:bg-muted/50 transition-colors">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          {getTypeIcon(approval.type)}
+                          <h3 className="font-semibold">{approval.title}</h3>
+                          {getPriorityBadge(approval.priority)}
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-2">{approval.description}</p>
+                        <div className="flex items-center gap-4 text-sm">
+                          <span className="flex items-center gap-1">
+                            <DollarSign className="h-3 w-3" />
+                            {approval.amount.toLocaleString()} ريال
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Building className="h-3 w-3" />
+                            {approval.department}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            {approval.requestor}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {approval.submitted_date}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {getStatusBadge(approval.status)}
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            setSelectedApproval(approval);
+                            setApprovalDialog(true);
+                          }}
+                        >
+                          <Eye className="h-3 w-3 mr-1" />
+                          مراجعة
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Completed Approvals */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-500" />
+              الطلبات المكتملة ({completedApprovals.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {completedApprovals.map((approval) => (
+                <div key={approval.id} className="border rounded-lg p-4 opacity-75">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        {getTypeIcon(approval.type)}
+                        <h3 className="font-semibold">{approval.title}</h3>
+                        {getPriorityBadge(approval.priority)}
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">{approval.description}</p>
+                      <div className="flex items-center gap-4 text-sm">
+                        <span className="flex items-center gap-1">
+                          <DollarSign className="h-3 w-3" />
+                          {approval.amount.toLocaleString()} ريال
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Building className="h-3 w-3" />
+                          {approval.department}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users className="h-3 w-3" />
+                          {approval.requestor}
+                        </span>
+                        {approval.status === 'approved' && approval.approved_date && (
+                          <span className="flex items-center gap-1 text-green-600">
+                            <CheckCircle className="h-3 w-3" />
+                            موافق عليه في {approval.approved_date}
+                          </span>
+                        )}
+                        {approval.status === 'rejected' && approval.rejected_date && (
+                          <span className="flex items-center gap-1 text-red-600">
+                            <AlertTriangle className="h-3 w-3" />
+                            مرفوض في {approval.rejected_date}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {getStatusBadge(approval.status)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Approval Dialog */}
+        <Dialog open={approvalDialog} onOpenChange={setApprovalDialog}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                {selectedApproval && getTypeIcon(selectedApproval.type)}
+                مراجعة الطلب
+              </DialogTitle>
+              <DialogDescription>
+                يرجى مراجعة تفاصيل الطلب واتخاذ الإجراء المناسب
+              </DialogDescription>
+            </DialogHeader>
+
+            {selectedApproval && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-sm font-medium">عنوان الطلب</Label>
+                    <p className="text-sm mt-1">{selectedApproval.title}</p>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">القيمة</Label>
+                    <p className="text-sm mt-1">{selectedApproval.amount.toLocaleString()} ريال</p>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">مقدم الطلب</Label>
+                    <p className="text-sm mt-1">{selectedApproval.requestor}</p>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">القسم</Label>
+                    <p className="text-sm mt-1">{selectedApproval.department}</p>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">تاريخ التقديم</Label>
+                    <p className="text-sm mt-1">{selectedApproval.submitted_date}</p>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium">الأولوية</Label>
+                    <div className="mt-1">{getPriorityBadge(selectedApproval.priority)}</div>
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium">الوصف</Label>
+                  <p className="text-sm mt-1 p-3 bg-muted rounded-lg">{selectedApproval.description}</p>
+                </div>
+
+                <div>
+                  <Label htmlFor="comment">تعليق الموافقة</Label>
+                  <Textarea
+                    id="comment"
+                    placeholder="أضف تعليقاً على قرارك (اختياري)"
+                    value={approvalComment}
+                    onChange={(e) => setApprovalComment(e.target.value)}
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+            )}
+
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={() => setApprovalDialog(false)}>
+                إلغاء
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => handleApprovalAction(selectedApproval?.id, 'return')}
+              >
+                <ArrowUp className="h-4 w-4 mr-1" />
+                إعادة للمراجعة
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleApprovalAction(selectedApproval?.id, 'reject')}
+              >
+                <AlertTriangle className="h-4 w-4 mr-1" />
+                رفض
+              </Button>
+              <Button
+                onClick={() => handleApprovalAction(selectedApproval?.id, 'approve')}
+              >
+                <CheckCircle className="h-4 w-4 mr-1" />
+                موافقة
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
 
   const IntegrationsPage = () => (
     <Card>
