@@ -155,20 +155,12 @@ const OvertimeCalculatorPage: React.FC = () => {
                 </span>
               </div>
 
-              {/* Enhanced Logo Container */}
-              <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] rounded-xl opacity-30 group-hover:opacity-60 transition-all duration-300 blur"></div>
-                <div className="relative bg-black/40 backdrop-blur-lg p-3 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 transition-all duration-300 hover:scale-105">
-                  <img 
-                    src={buodLogo} 
-                    alt="Buod HR" 
-                    className="h-24 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-lg" 
-                  />
-                </div>
-                
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-              </div>
+              {/* Large Logo Only */}
+              <img 
+                src={buodLogo} 
+                alt="Buod HR" 
+                className="h-40 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" 
+              />
             </div>
           </div>
 
