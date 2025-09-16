@@ -347,9 +347,6 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="flex items-center space-x-4">
               
               <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                  منصة بُعد للموارد البشرية
-                </h1>
                 <p className="text-sm text-gray-400 animate-fade-in">
                   حلول متطورة وذكية
                 </p>
