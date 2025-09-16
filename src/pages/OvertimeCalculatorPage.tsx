@@ -181,7 +181,7 @@ const OvertimeCalculatorPage: React.FC = () => {
         </div>
       </header>
 
-      <main className="relative z-10 max-w-4xl mx-auto px-4 py-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 py-8">
         {/* Breadcrumb Navigation - Far Right */}
         <div className="flex justify-end mb-6 mr-0">
           <div className="ml-auto">
