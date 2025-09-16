@@ -124,7 +124,7 @@ const OvertimeCalculatorPage: React.FC = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
-            {/* Left Section - Logo & Navigation */}
+            {/* Left Section - Logo & Title */}
             <div className="flex items-center space-x-6 space-x-reverse">
               {/* Large Logo */}
               <img 
@@ -132,8 +132,6 @@ const OvertimeCalculatorPage: React.FC = () => {
                 alt="Buod HR" 
                 className="h-40 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" 
               />
-              
-              <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
               
               <div className="flex items-center space-x-3 space-x-reverse">
                 <div className="relative">
@@ -152,15 +150,18 @@ const OvertimeCalculatorPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Section - Status Only */}
-            <div className="flex items-center space-x-4 space-x-reverse">
+            {/* Right Section - Status & Back Button */}
+            <div className="flex flex-col items-end space-y-3">
               {/* Status Indicator */}
-              <div className="hidden md:flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30">
+              <div className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-xs text-gray-300 font-medium">
                   {isArabic ? 'متاح الآن' : 'Online'}
                 </span>
               </div>
+              
+              {/* Back Button */}
+              <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
             </div>
           </div>
 
