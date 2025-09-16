@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Clock, Calculator, BarChart3, AlertCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
 import buodLogo from '@/assets/buod-logo-white.png';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -172,8 +173,14 @@ const OvertimeCalculatorPage: React.FC = () => {
                   <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F]"></div>
                 </button>
                 
-                {/* Back Button */}
-                <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
+                {/* Breadcrumb Navigation */}
+                <Breadcrumb 
+                  items={[
+                    { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
+                    { label: isArabic ? 'أدوات الموارد البشرية' : 'HR Tools', path: '/hr-tools' },
+                    { label: isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator', path: '/hr-tools/overtime-calculator' }
+                  ]}
+                />
               </div>
             </div>
           </div>
