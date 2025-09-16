@@ -165,7 +165,9 @@ const OvertimeCalculatorPage: React.FC = () => {
                 {/* Language Toggle Button */}
                 <button 
                   onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
-                  className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-300 hover:scale-105"
+                  tabIndex={0}
+                  aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'}
+                  className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50"
                 >
                   <span className="text-xs text-gray-300 font-medium">
                     {isArabic ? 'EN' : 'AR'}
