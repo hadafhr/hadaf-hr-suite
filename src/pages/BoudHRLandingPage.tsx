@@ -338,7 +338,7 @@ const BoudHRLandingPage: React.FC = () => {
                 <img 
                   src={buodLogo} 
                   alt="Buod HR" 
-                  className="h-12 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" 
+                  className="h-24 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" 
                 />
               </div>
             </div>
