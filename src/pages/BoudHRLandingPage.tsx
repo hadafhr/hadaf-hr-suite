@@ -407,6 +407,28 @@ const BoudHRLandingPage: React.FC = () => {
                 تسجيل الدخول
               </Button>
 
+              {/* قائمة لوحات التحكم */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="text-sm font-medium text-white flex items-center gap-1 hover:text-[#008C6A] transition-colors border border-white/30 rounded px-3 py-2 hover:bg-white hover:text-[#008C6A]">
+                  <Settings className="w-4 h-4" />
+                  لوحات التحكم <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-gray-900 border border-[#008C6A]/30 shadow-lg z-50">
+                  <DropdownMenuItem onClick={() => navigate('/super-admin-dashboard')} className="text-white hover:bg-[#008C6A]/20 flex items-center gap-2">
+                    <Crown className="w-4 h-4" />
+                    مدير النظام
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="text-white hover:bg-[#008C6A]/20 flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    لوحة تحكم المنشأة
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/employee-dashboard')} className="text-white hover:bg-[#008C6A]/20 flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    لوحة تحكم الموظف
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-sm font-medium text-white flex items-center gap-1 hover:text-[#008C6A] transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />

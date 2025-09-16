@@ -19,6 +19,7 @@ import { UnifiedLogin } from "@/pages/UnifiedLogin";
 import { AdminDashboard } from "@/pages/AdminDashboard";
 import { SuperAdminDashboard } from "@/pages/SuperAdminDashboard";
 import { CompanyDashboard } from "@/pages/CompanyDashboard";
+import { EmployeeDashboard } from "@/pages/HR/EmployeeDashboard";
 import { Services } from "@/pages/Services";
 import { IndividualServices } from "@/pages/ServicePlatforms/IndividualServices";
 import { EmployeeManagement } from "@/pages/ServicePlatforms/EmployeeManagement";
@@ -189,6 +190,7 @@ const App = () => {
               <Route path="/unified-login" element={<UnifiedLogin />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/company-dashboard" element={<CompanyDashboard />} />
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/hr-management" element={<HRManagement />} />
               <Route path="/client-management" element={<ClientManagement />} />
               <Route path="/system-monitoring" element={<SystemMonitoring />} />
