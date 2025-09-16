@@ -120,7 +120,7 @@ const OvertimeCalculatorPage: React.FC = () => {
       <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/10 via-transparent to-[#008C6A]/20 animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
