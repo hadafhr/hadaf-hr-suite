@@ -124,14 +124,9 @@ const OvertimeCalculatorPage: React.FC = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
-            {/* Left Section - Logo & Title */}
+            {/* Left Section - Back Button & Title */}
             <div className="flex items-center space-x-6 space-x-reverse">
-              {/* Large Logo */}
-              <img 
-                src={buodLogo} 
-                alt="Buod HR" 
-                className="h-52 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" 
-              />
+              <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
               
               <div className="flex items-center space-x-3 space-x-reverse">
                 <div className="relative">
@@ -150,8 +145,8 @@ const OvertimeCalculatorPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Section - Status & Back Button */}
-            <div className="flex flex-col items-end space-y-3">
+            {/* Right Section - Status, Language & Logo */}
+            <div className="flex items-center space-x-6 space-x-reverse">
               {/* Status Indicator */}
               <div className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
@@ -159,9 +154,28 @@ const OvertimeCalculatorPage: React.FC = () => {
                   {isArabic ? 'متاح الآن' : 'Online'}
                 </span>
               </div>
+
+              {/* Language Toggle Button */}
+              <button 
+                onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
+                className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-300 hover:scale-105"
+              >
+                <span className="text-xs text-gray-300 font-medium">
+                  {isArabic ? 'English' : 'العربية'}
+                </span>
+                <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] flex items-center justify-center">
+                  <span className="text-[10px] text-white font-bold">
+                    {isArabic ? 'EN' : 'AR'}
+                  </span>
+                </div>
+              </button>
               
-              {/* Back Button */}
-              <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
+              {/* Logo at Far Right */}
+              <img 
+                src={buodLogo} 
+                alt="Buod HR" 
+                className="h-52 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" 
+              />
             </div>
           </div>
 
