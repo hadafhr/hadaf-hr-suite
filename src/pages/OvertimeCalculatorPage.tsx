@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, Calculator, BarChart3, AlertCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
@@ -11,7 +11,6 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BackButton } from '@/components/BackButton';
 import { PatternBackground } from '@/components/PatternBackground';
-import { removeBackground, loadImageFromSrc } from '@/utils/backgroundRemoval';
 
 const OvertimeCalculatorPage: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -27,34 +26,6 @@ const OvertimeCalculatorPage: React.FC = () => {
   
   const [result, setResult] = useState<any>(null);
   const [showChart, setShowChart] = useState(false);
-  const [logoSrc, setLogoSrc] = useState('/boud-logo-white.png');
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  useEffect(() => {
-    const processLogo = async () => {
-      try {
-        setIsProcessing(true);
-        const imageElement = await loadImageFromSrc('/boud-logo-white.png');
-        const processedBlob = await removeBackground(imageElement);
-        const processedUrl = URL.createObjectURL(processedBlob);
-        setLogoSrc(processedUrl);
-      } catch (error) {
-        console.error('Failed to remove background:', error);
-        // Keep original logo as fallback
-      } finally {
-        setIsProcessing(false);
-      }
-    };
-
-    processLogo();
-
-    // Cleanup function
-    return () => {
-      if (logoSrc !== '/boud-logo-white.png') {
-        URL.revokeObjectURL(logoSrc);
-      }
-    };
-  }, []);
 
   const generateChartData = (resultData: any) => {
     const months = isArabic 
@@ -236,10 +207,9 @@ const OvertimeCalculatorPage: React.FC = () => {
           
           <div className="relative inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-[#008C6A] via-[#009F87] to-[#00694F] rounded-full mb-8 shadow-2xl shadow-[#008C6A]/40 hover:shadow-[#008C6A]/80 transition-all duration-500 hover:scale-110 group cursor-pointer overflow-hidden">
             <img 
-              src={logoSrc} 
+              src="/boud-logo-white.png" 
               alt="شعار بُعد" 
               className="h-20 w-20 object-contain transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 animate-pulse group-hover:animate-none z-10 relative" 
-              style={{ filter: isProcessing ? 'blur(2px)' : 'none' }}
             />
             <div className="absolute inset-0 rounded-full bg-[#008C6A] animate-ping opacity-20"></div>
             <div className="absolute inset-2 rounded-full bg-gradient-to-r from-[#008C6A]/30 to-transparent blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin"></div>
