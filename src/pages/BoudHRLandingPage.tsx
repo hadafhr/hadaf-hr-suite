@@ -347,9 +347,6 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="flex items-center space-x-4">
               
               <div className="flex flex-col text-center">
-                <p className="text-sm text-gray-400 animate-fade-in">
-                  حلول متطورة وذكية
-                </p>
               </div>
             </div>
 
