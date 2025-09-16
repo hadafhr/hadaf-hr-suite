@@ -23,7 +23,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = "" })
       <div className="flex items-center bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
         <Home className="h-4 w-4 text-[#008C6A] ml-2" />
         {items.map((item, index) => (
-          <React.Fragment key={index}>
+          <div key={index} className="flex items-center">
             <button
               onClick={() => navigate(item.path)}
               className={`text-sm transition-all duration-200 hover:scale-105 ${
@@ -38,7 +38,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = "" })
             {index < items.length - 1 && (
               <ChevronLeft className={`h-3 w-3 text-gray-500 mx-2 ${isArabic ? 'rotate-180' : ''}`} />
             )}
-          </React.Fragment>
+          </div>
         ))}
       </div>
     </nav>
