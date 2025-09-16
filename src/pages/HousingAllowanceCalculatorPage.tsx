@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Home, Calculator } from 'lucide-react';
+import { Home, Calculator, AlertTriangle } from 'lucide-react';
+import buodLogo from '@/assets/buod-logo-white.png';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { BackButton } from '@/components/BackButton';
 import { PatternBackground } from '@/components/PatternBackground';
 

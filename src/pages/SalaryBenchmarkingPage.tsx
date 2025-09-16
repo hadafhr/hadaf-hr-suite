@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { Search, Users, TrendingUp, Building2, MapPin, BarChart3, Gift, ChevronRight } from 'lucide-react';
+import { Search, Users, TrendingUp, Building2, MapPin, BarChart3, Gift, ChevronRight, AlertTriangle } from 'lucide-react';
+import buodLogo from '@/assets/buod-logo-white.png';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { BackButton } from '@/components/BackButton';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 interface SalaryData {
   job_title: string;
