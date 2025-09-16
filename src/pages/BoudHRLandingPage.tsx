@@ -345,10 +345,6 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Center Section - Title */}
             <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Building2 className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
-              </div>
               
               <div className="flex flex-col text-center">
                 <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
