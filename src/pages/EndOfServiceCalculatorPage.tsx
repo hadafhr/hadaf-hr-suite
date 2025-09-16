@@ -195,7 +195,31 @@ const EndOfServiceCalculatorPage: React.FC = () => {
           </div>
         </div>
 
-        <EndOfServiceCalculator />
+        {/* Enhanced Calculator - Updated to match OvertimeCalculatorPage layout */}
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 rounded-lg">
+            <EndOfServiceCalculator />
+          </div>
+        </div>
+
+        {/* Legal Notice */}
+        <div className="mt-8 p-6 bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/30 rounded-lg backdrop-blur-sm max-w-6xl mx-auto">
+          <div className="flex items-start">
+            <AlertTriangle className="h-6 w-6 text-amber-400 mt-0.5 ml-3 animate-pulse" />
+            <div>
+              <h4 className="font-semibold text-amber-300 mb-2 flex items-center gap-2">
+                <span className="text-2xl">⚖️</span>
+                {isArabic ? 'ملاحظة قانونية مهمة' : 'Important Legal Notice'}
+              </h4>
+              <p className="text-amber-200 text-sm leading-relaxed">
+                {isArabic 
+                  ? 'يتم احتساب مكافأة نهاية الخدمة وفق المواد (84، 85، 87) من نظام العمل السعودي الصادر عن وزارة الموارد البشرية والتنمية الاجتماعية. الحساب معتمد قانونياً ويضمن حقوق الموظف كاملة.'
+                  : 'End of service benefits are calculated according to Articles (84, 85, 87) of the Saudi Labor Law issued by the Ministry of Human Resources and Social Development. The calculation is legally certified and guarantees full employee rights.'
+                }
+              </p>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
