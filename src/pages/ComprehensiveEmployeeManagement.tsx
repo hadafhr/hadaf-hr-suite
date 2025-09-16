@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -8,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical } from 'lucide-react';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -57,6 +58,8 @@ const ComprehensiveEmployeeManagement = () => {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+  const [isDragMode, setIsDragMode] = useState(false);
+  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
 
   // Helper function to safely change tabs
   const handleTabChange = (value: string) => {
@@ -69,6 +72,51 @@ const ComprehensiveEmployeeManagement = () => {
   const isValidTabType = (value: string): value is TabType => {
     const validTabs: TabType[] = ['dashboard', 'settings', 'teamwork', 'departments', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services'];
     return validTabs.includes(value as TabType);
+  };
+
+  // Tab ordering functions
+  const handleTabReorder = (action: 'settings' | 'reset') => {
+    if (action === 'settings') {
+      // Open settings for tab configuration
+      toast.success('إعدادات الترتيب');
+    } else if (action === 'reset') {
+      // Reset to default order
+      setTabOrder(['dashboard', 'departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
+      toast.success('تم إعادة الترتيب إلى الوضع الافتراضي');
+    }
+  };
+
+  const handleTabMove = (direction: 'up' | 'down' | 'left' | 'right') => {
+    const currentIndex = tabOrder.findIndex(tab => tab === activeTab);
+    if (currentIndex === -1) return;
+
+    let newIndex = currentIndex;
+    
+    if (direction === 'up' || direction === 'right') {
+      newIndex = Math.max(0, currentIndex - 1);
+    } else if (direction === 'down' || direction === 'left') {
+      newIndex = Math.min(tabOrder.length - 1, currentIndex + 1);
+    }
+
+    if (newIndex !== currentIndex) {
+      const newTabOrder = [...tabOrder];
+      const movedTab = newTabOrder.splice(currentIndex, 1)[0];
+      newTabOrder.splice(newIndex, 0, movedTab);
+      setTabOrder(newTabOrder);
+      
+      const directionText = {
+        up: 'للأعلى',
+        down: 'للأسفل',
+        left: 'لليسار',
+        right: 'لليمين'
+      };
+      toast.success(`تم نقل التبويب ${directionText[direction]}`);
+    }
+  };
+
+  const toggleDragMode = () => {
+    setIsDragMode(!isDragMode);
+    toast.info(isDragMode ? 'تم إيقاف وضع الترتيب بالماوس' : 'تم تفعيل وضع الترتيب بالماوس - اسحب التبويبات لإعادة ترتيبها');
   };
 
   // Mock employee data
@@ -159,17 +207,26 @@ const ComprehensiveEmployeeManagement = () => {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1 bg-gray-50 rounded-lg p-1">
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="ترتيب الأيقونات">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="ترتيب الأيقونات" onClick={() => handleTabReorder('settings')}>
                     <Settings className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="إعادة ترتيب">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="إعادة ترتيب" onClick={() => handleTabReorder('reset')}>
                     <RefreshCw className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليمين">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل للأعلى" onClick={() => handleTabMove('up')}>
+                    <ArrowUp className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل للأسفل" onClick={() => handleTabMove('down')}>
+                    <ArrowDown className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليمين" onClick={() => handleTabMove('right')}>
                     <ArrowLeft className="h-4 w-4 rotate-180" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليسار">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليسار" onClick={() => handleTabMove('left')}>
                     <ArrowLeft className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors cursor-grab active:cursor-grabbing" title="ترتيب بالماوس - حسب الرغبة" onClick={() => toggleDragMode()}>
+                    <GripVertical className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
