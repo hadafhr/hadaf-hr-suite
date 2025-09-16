@@ -190,6 +190,21 @@ const ComprehensiveEmployeeManagement = () => {
                   لوحة التحكم
                 </Button>
                 
+                {/* General Settings Tab */}
+                <Button 
+                  variant={activeTab === 'settings' ? "default" : "ghost"} 
+                  size="sm" 
+                  className={`h-8 px-3 text-xs transition-all duration-300 ${
+                    activeTab === 'settings' 
+                      ? "bg-[#009F87] text-white shadow-md hover:bg-[#009F87]/90" 
+                      : "hover:bg-[#009F87]/10 hover:text-[#009F87]"
+                  }`}
+                  onClick={() => setActiveTab('settings')}
+                >
+                  <Settings className="h-3 w-3 ml-1" />
+                  الإعدادات العامة
+                </Button>
+                 
                 <Button
                   variant="ghost" 
                   size="sm" 
@@ -340,6 +355,10 @@ const ComprehensiveEmployeeManagement = () => {
                   <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">قسم الميزانية والتخطيط المالي</span>
                 </TabsTrigger>
+                <TabsTrigger value="settings" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
+                  <Settings className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight"> الإعدادات العامة</span>
+                </TabsTrigger>
               </TabsList>
             </div>
           </div>
@@ -480,6 +499,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="budget-planning">
             <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <SystemSettings onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           </Tabs>
