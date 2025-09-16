@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Users, Info, TrendingUp, AlertCircle, Calculator, Clock } from 'lucide-react';
+import { Users, Info, TrendingUp, AlertCircle, Calculator, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { BoudLogo } from '@/components/BoudLogo';
-import { BackButton } from '@/components/BackButton';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { PatternBackground } from '@/components/PatternBackground';
 import buodLogo from '@/assets/buod-logo-white.png';
 
@@ -83,6 +79,20 @@ const NitaqatCalculatorPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted/20" dir={isArabic ? 'rtl' : 'ltr'}>
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <PatternBackground opacity={0.03} size={200} />
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
+      
       {/* Professional Interactive Header */}
       <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
         {/* Animated background pattern */}
@@ -101,7 +111,7 @@ const NitaqatCalculatorPage: React.FC = () => {
               />
             </div>
 
-            {/* Center Section - Title & Clock */}
+            {/* Center Section - Title & Icon */}
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <Users className="h-8 w-8 text-[#008C6A] animate-pulse" />
@@ -140,23 +150,10 @@ const NitaqatCalculatorPage: React.FC = () => {
           </div>
         </div>
       </header>
-      
-      <main className="container mx-auto px-6 py-8">
-        {/* Breadcrumb Navigation */}
-        <div className="flex justify-end mb-6 mr-0">
-          <div className="ml-auto">
-            <Breadcrumb 
-              items={[
-                { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
-                { label: isArabic ? 'أدوات الموارد البشرية' : 'HR Tools', path: '/hr-tools' },
-                { label: isArabic ? 'حاسبة النطاقات' : 'Nitaqat Calculator', path: '/hr-tools/nitaqat-calculator' }
-              ]}
-            />
-          </div>
-        </div>
 
+      <main className="relative z-10 w-full mx-auto px-4 py-8">
         {/* Warning Banner */}
-        <Alert className="mb-8 border-amber-200 bg-amber-50 dark:bg-amber-950/50">
+        <Alert className="mb-8 border-amber-200 bg-amber-50 dark:bg-amber-950/50 max-w-6xl mx-auto">
           <AlertCircle className="h-4 w-4 text-amber-600" />
           <AlertDescription className="text-amber-800 dark:text-amber-200">
             <strong>{isArabic ? 'نتائج استرشادية:' : 'Guidance Results:'}</strong> {' '}
@@ -167,41 +164,53 @@ const NitaqatCalculatorPage: React.FC = () => {
           </AlertDescription>
         </Alert>
 
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
-            <Users className="h-8 w-8 text-primary" />
+        {/* Enhanced Hero Section */}
+        <div className="text-center mb-12 relative max-w-6xl mx-auto">
+          <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <img 
+              src="/boud-logo-white.png" 
+              alt="شعار بُعد" 
+              className="h-36 w-36 object-contain transition-all duration-300 group-hover:brightness-110 z-10 relative drop-shadow-2xl" 
+            />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            {isArabic ? 'حاسبة النطاقات' : 'Nitaqat Calculator'}
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {isArabic 
-              ? 'احسب مستوى نطاق منشأتك ونسبة السعودة المطلوبة'
-              : 'Calculate your establishment\'s Nitaqat level and required Saudization ratio'
-            }
-          </p>
+          
+          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+            {isArabic ? 'احسب مستوى نطاق منشأتك بدقة' : 'Calculate Your Establishment\'s Nitaqat Level Accurately'}
+          </h2>
+          
+          <div className="relative max-w-3xl mx-auto">
+            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+              {isArabic 
+                ? 'حاسبة معتمدة لتحديد مستوى النطاق ونسبة السعودة المطلوبة وفقاً لبرنامج نطاقات وزارة الموارد البشرية والتنمية الاجتماعية'
+                : 'Certified calculator to determine Nitaqat level and required Saudization ratio according to the Nitaqat program of the Ministry of Human Resources and Social Development'
+              }
+            </p>
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#008C6A]/20 via-transparent to-[#008C6A]/20 rounded-2xl blur opacity-50"></div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Input Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Info className="h-5 w-5 text-primary" />
+          <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <CardTitle className="text-white relative z-10 flex items-center gap-2">
+                <Info className="h-5 w-5" />
                 {isArabic ? 'بيانات المنشأة' : 'Establishment Data'}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-white/80 relative z-10">
                 {isArabic 
                   ? 'أدخل بيانات المنشأة وعدد الموظفين'
                   : 'Enter establishment data and employee count'
                 }
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 p-6 bg-gray-900/40">
               <div className="space-y-2">
-                <Label>{isArabic ? 'القطاع' : 'Sector'}</Label>
+                <Label className="text-gray-300">{isArabic ? 'القطاع' : 'Sector'}</Label>
                 <Select value={sector} onValueChange={setSector}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-[#008C6A]/20 text-white">
                     <SelectValue placeholder={isArabic ? 'اختر القطاع' : 'Select sector'} />
                   </SelectTrigger>
                   <SelectContent>
@@ -215,7 +224,7 @@ const NitaqatCalculatorPage: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="saudi-employees">
+                <Label htmlFor="saudi-employees" className="text-gray-300">
                   {isArabic ? 'عدد الموظفين السعوديين' : 'Number of Saudi Employees'}
                 </Label>
                 <Input
@@ -225,11 +234,12 @@ const NitaqatCalculatorPage: React.FC = () => {
                   value={saudiEmployees || ''}
                   onChange={(e) => setSaudiEmployees(Number(e.target.value))}
                   placeholder={isArabic ? 'أدخل عدد الموظفين السعوديين' : 'Enter number of Saudi employees'}
+                  className="bg-black/40 border-[#008C6A]/20 text-white placeholder:text-gray-500"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="total-employees">
+                <Label htmlFor="total-employees" className="text-gray-300">
                   {isArabic ? 'إجمالي عدد الموظفين' : 'Total Number of Employees'}
                 </Label>
                 <Input
@@ -239,49 +249,54 @@ const NitaqatCalculatorPage: React.FC = () => {
                   value={totalEmployees || ''}
                   onChange={(e) => setTotalEmployees(Number(e.target.value))}
                   placeholder={isArabic ? 'أدخل إجمالي عدد الموظفين' : 'Enter total number of employees'}
+                  className="bg-black/40 border-[#008C6A]/20 text-white placeholder:text-gray-500"
                 />
               </div>
             </CardContent>
           </Card>
 
           {/* Results Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
+          <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <CardTitle className="text-white relative z-10 flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 animate-pulse" />
                 {isArabic ? 'نتائج النطاق' : 'Nitaqat Results'}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-white/80 relative z-10">
                 {isArabic 
                   ? 'مستوى النطاق ونسبة السعودة'
                   : 'Nitaqat level and Saudization ratio'
                 }
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between items-center py-2 border-b border-border">
-                <span className="text-muted-foreground">
+            <CardContent className="space-y-4 p-6 bg-gray-900/40">
+              <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                <span className="text-gray-300 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                   {isArabic ? 'نسبة السعودة:' : 'Saudization Rate:'}
                 </span>
-                <span className="font-semibold">
+                <span className="font-bold text-lg text-[#008C6A] animate-pulse">
                   {saudizationRate.toFixed(2)}%
                 </span>
               </div>
               
-              <div className="flex justify-between items-center py-2 border-b border-border">
-                <span className="text-muted-foreground">
+              <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                <span className="text-gray-300 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                   {isArabic ? 'الموظفين السعوديين:' : 'Saudi Employees:'}
                 </span>
-                <span className="font-semibold">
+                <span className="font-bold text-lg text-[#008C6A]">
                   {saudiEmployees.toLocaleString('ar-SA')}
                 </span>
               </div>
 
-              <div className="flex justify-between items-center py-2 border-b border-border">
-                <span className="text-muted-foreground">
+              <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                <span className="text-gray-300 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                   {isArabic ? 'إجمالي الموظفين:' : 'Total Employees:'}
                 </span>
-                <span className="font-semibold">
+                <span className="font-bold text-lg text-[#008C6A]">
                   {totalEmployees.toLocaleString('ar-SA')}
                 </span>
               </div>
