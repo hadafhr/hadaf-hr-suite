@@ -95,6 +95,10 @@ import LaborLawAIPage from './pages/LaborLawAIPage';
 import HRGlossary from './components/HRGlossary';
 import HRGlossaryTerm from './components/HRGlossaryTerm';
 import TestHRTools from './pages/TestHRTools';
+import WPSCheckerPage from './pages/WPSCheckerPage';
+import OvertimeCalculatorPage from './pages/OvertimeCalculatorPage';
+import VacationBalanceCalculatorPage from './pages/VacationBalanceCalculatorPage';
+import HousingAllowanceCalculatorPage from './pages/HousingAllowanceCalculatorPage';
 import { HRManagement } from './pages/HRManagement';
 import { ClientManagement } from './pages/ClientManagement';
 import { SystemMonitoring } from './pages/SystemMonitoring';
@@ -265,14 +269,18 @@ const App = () => {
               <Route path="/employee-management-platform" element={<EmployeeManagementPlatform />} />
               <Route path="/user-management" element={<UserManagement />} />
               
-                {/* HR Tools Routes */}
-                <Route path="/test-hr-tools" element={<TestHRTools />} />
-                <Route path="/hr-tools" element={<HRToolsPage />} />
-                <Route path="/hr-tools/salary-calculator" element={<SalaryCalculatorPage />} />
-                <Route path="/hr-tools/nitaqat-calculator" element={<NitaqatCalculatorPage />} />
-                <Route path="/hr-tools/labor-law-ai" element={<LaborLawAIPage />} />
-                <Route path="/hr-tools/hr-glossary" element={<HRGlossary />} />
-                <Route path="/hr-tools/hr-glossary/:slug" element={<HRGlossaryTerm />} />
+                 {/* HR Tools Routes */}
+                 <Route path="/test-hr-tools" element={<TestHRTools />} />
+                 <Route path="/hr-tools" element={<HRToolsPage />} />
+                 <Route path="/hr-tools/salary-calculator" element={<SalaryCalculatorPage />} />
+                 <Route path="/hr-tools/nitaqat-calculator" element={<NitaqatCalculatorPage />} />
+                 <Route path="/hr-tools/labor-law-ai" element={<LaborLawAIPage />} />
+                 <Route path="/hr-tools/wps-checker" element={<WPSCheckerPage />} />
+                 <Route path="/hr-tools/overtime-calculator" element={<OvertimeCalculatorPage />} />
+                 <Route path="/hr-tools/vacation-balance" element={<VacationBalanceCalculatorPage />} />
+                 <Route path="/hr-tools/housing-allowance" element={<HousingAllowanceCalculatorPage />} />
+                 <Route path="/hr-tools/hr-glossary" element={<HRGlossary />} />
+                 <Route path="/hr-tools/hr-glossary/:slug" element={<HRGlossaryTerm />} />
                 
                 {/* New Platform Routes */}
                 <Route path="/wage-protection-platform" element={<WageProtectionPage />} />
