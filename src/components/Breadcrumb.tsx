@@ -25,11 +25,14 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = "" })
         {items.map((item, index) => (
           <div key={index} className="flex items-center">
             <button
-              onClick={() => navigate(item.path)}
+              onClick={() => {
+                console.log('Breadcrumb clicked:', item.path);
+                navigate(item.path);
+              }}
               className={`text-sm transition-all duration-200 hover:scale-105 ${
                 index === items.length - 1
                   ? 'text-[#008C6A] font-medium cursor-default'
-                  : 'text-gray-300 hover:text-white'
+                  : 'text-gray-300 hover:text-white cursor-pointer'
               }`}
               disabled={index === items.length - 1}
             >
