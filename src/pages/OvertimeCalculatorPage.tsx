@@ -125,7 +125,7 @@ const OvertimeCalculatorPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
             {/* Right Section - Logo (Arabic RTL) */}
             <div className="flex items-center">
