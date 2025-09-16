@@ -330,7 +330,7 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
         </div>
         
-        <div className="container mx-auto px-6 relative">
+        <div className="w-full px-8 relative">
           <div className="flex items-center justify-between h-20">
             {/* Professional Logo Section - Right Side */}
             <div className="flex items-center space-x-4 space-x-reverse">
