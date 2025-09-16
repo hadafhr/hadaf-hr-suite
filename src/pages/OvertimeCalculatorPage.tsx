@@ -115,21 +115,65 @@ const OvertimeCalculatorPage: React.FC = () => {
         </div>
       </div>
       
-      {/* Header */}
-      <header className="relative z-10 bg-black/90 backdrop-blur-lg border-b border-[#008C6A]/20 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <BackButton className="hover:bg-[#008C6A]/20 text-white border-[#008C6A]/40" />
-              <Clock className="h-6 w-6 text-[#008C6A] animate-pulse" />
-              <h1 className="text-xl font-bold text-white">
-                {isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator'}
-              </h1>
+      {/* Professional Interactive Header */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/10 via-transparent to-[#008C6A]/20 animate-pulse"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex items-center justify-between h-24">
+            {/* Left Section - Navigation & Title */}
+            <div className="flex items-center space-x-6 space-x-reverse">
+              <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
+              
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="relative">
+                  <Clock className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                  <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+                </div>
+                
+                <div className="flex flex-col">
+                  <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                    {isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator'}
+                  </h1>
+                  <p className="text-sm text-gray-400 animate-fade-in">
+                    {isArabic ? 'حساب قانوني دقيق' : 'Legal & Accurate Calculation'}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center">
-              <img src={buodLogo} alt="Buod HR" className="h-12 w-auto filter brightness-110" />
+
+            {/* Right Section - Enhanced Logo */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              {/* Status Indicator */}
+              <div className="hidden md:flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-xs text-gray-300 font-medium">
+                  {isArabic ? 'متاح الآن' : 'Online'}
+                </span>
+              </div>
+
+              {/* Enhanced Logo Container */}
+              <div className="relative group">
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] rounded-xl opacity-30 group-hover:opacity-60 transition-all duration-300 blur"></div>
+                <div className="relative bg-black/40 backdrop-blur-lg p-3 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 transition-all duration-300 hover:scale-105">
+                  <img 
+                    src={buodLogo} 
+                    alt="Buod HR" 
+                    className="h-16 w-auto filter brightness-125 hover:brightness-150 transition-all duration-300" 
+                  />
+                </div>
+                
+                {/* Glow effect */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              </div>
             </div>
           </div>
+
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
         </div>
       </header>
 
