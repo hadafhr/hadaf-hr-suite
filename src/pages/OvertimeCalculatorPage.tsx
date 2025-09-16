@@ -124,58 +124,57 @@ const OvertimeCalculatorPage: React.FC = () => {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
-            {/* Left Section - Back Button & Title */}
-            <div className="flex items-center space-x-6 space-x-reverse">
-              <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
+            {/* Right Section - Logo (Arabic RTL) */}
+            <div className="flex items-center">
+              <img 
+                src={buodLogo} 
+                alt="Buod HR" 
+                className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" 
+              />
+            </div>
+
+            {/* Center Section - Title & Clock */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="relative">
+                <Clock className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
               
-              <div className="flex items-center space-x-3 space-x-reverse">
-                <div className="relative">
-                  <Clock className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                  <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
-                </div>
-                
-                <div className="flex flex-col">
-                  <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                    {isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator'}
-                  </h1>
-                  <p className="text-sm text-gray-400 animate-fade-in">
-                    {isArabic ? 'حساب قانوني دقيق' : 'Legal & Accurate Calculation'}
-                  </p>
-                </div>
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  {isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator'}
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  {isArabic ? 'حساب قانوني دقيق' : 'Legal & Accurate Calculation'}
+                </p>
               </div>
             </div>
 
-            {/* Right Section - Status, Language & Logo */}
-            <div className="flex items-center space-x-6 space-x-reverse">
+            {/* Left Section - Controls (Arabic RTL) */}
+            <div className="flex flex-col space-y-3">
               {/* Status Indicator */}
-              <div className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30">
+              <div className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-xs text-gray-300 font-medium">
                   {isArabic ? 'متاح الآن' : 'Online'}
                 </span>
               </div>
 
-              {/* Language Toggle Button */}
-              <button 
-                onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
-                className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-300 hover:scale-105"
-              >
-                <span className="text-xs text-gray-300 font-medium">
-                  {isArabic ? 'English' : 'العربية'}
-                </span>
-                <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] flex items-center justify-center">
-                  <span className="text-[10px] text-white font-bold">
+              <div className="flex items-center space-x-3 space-x-reverse">
+                {/* Language Toggle Button */}
+                <button 
+                  onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
+                  className="flex items-center space-x-2 space-x-reverse bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full border border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-300 hover:scale-105"
+                >
+                  <span className="text-xs text-gray-300 font-medium">
                     {isArabic ? 'EN' : 'AR'}
                   </span>
-                </div>
-              </button>
-              
-              {/* Logo at Far Right */}
-              <img 
-                src={buodLogo} 
-                alt="Buod HR" 
-                className="h-52 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" 
-              />
+                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F]"></div>
+                </button>
+                
+                {/* Back Button */}
+                <BackButton className="hover:bg-[#008C6A]/30 text-white border-[#008C6A]/50 hover:border-[#008C6A] transition-all duration-300 hover:scale-105 bg-black/20 backdrop-blur-sm" />
+              </div>
             </div>
           </div>
 
@@ -185,21 +184,34 @@ const OvertimeCalculatorPage: React.FC = () => {
       </header>
 
       <main className="relative z-10 max-w-4xl mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-8">
-          <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-full mb-6 shadow-2xl shadow-[#008C6A]/30">
-            <Calculator className="h-10 w-10 text-white animate-bounce" />
+        {/* Floating Elements for Professional Look */}
+        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        {/* Enhanced Hero Section */}
+        <div className="text-center mb-12 relative">
+          {/* Floating background elements */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          
+          <div className="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-[#008C6A] via-[#009F87] to-[#00694F] rounded-full mb-8 shadow-2xl shadow-[#008C6A]/40 hover:shadow-[#008C6A]/60 transition-all duration-500">
+            <Calculator className="h-12 w-12 text-white animate-bounce" />
             <div className="absolute inset-0 rounded-full bg-[#008C6A] animate-ping opacity-20"></div>
+            <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-transparent blur-lg"></div>
           </div>
-          <h2 className="text-4xl font-bold mb-6 text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+          
+          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
             {isArabic ? 'احسب أجر العمل الإضافي بدقة قانونية' : 'Calculate Overtime Pay with Legal Accuracy'}
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-            {isArabic 
-              ? 'حاسبة معتمدة وفقاً للمادة (107) من نظام العمل السعودي - احسب الأجر الإضافي بدقة تامة'
-              : 'Certified calculator according to Article (107) of Saudi Labor Law - Calculate overtime pay with complete accuracy'
-            }
-          </p>
+          
+          <div className="relative max-w-3xl mx-auto">
+            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+              {isArabic 
+                ? 'حاسبة معتمدة وفقاً للمادة (107) من نظام العمل السعودي - احسب الأجر الإضافي بدقة تامة مع تجربة تفاعلية متطورة'
+                : 'Certified calculator according to Article (107) of Saudi Labor Law - Calculate overtime pay with complete accuracy and advanced interactive experience'
+              }
+            </p>
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#008C6A]/20 via-transparent to-[#008C6A]/20 rounded-2xl blur opacity-50"></div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
