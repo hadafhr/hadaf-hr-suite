@@ -209,7 +209,7 @@ const OvertimeCalculatorPage: React.FC = () => {
             <img 
               src="/boud-logo-white.png" 
               alt="شعار بُعد" 
-              className="h-20 w-20 object-contain transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 animate-pulse group-hover:animate-none z-10 relative" 
+              className="h-28 w-28 object-contain transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 animate-pulse group-hover:animate-none z-10 relative" 
             />
           </div>
           
