@@ -298,72 +298,106 @@ const BoudHRLandingPage: React.FC = () => {
     number: "24/7",
     label: "دعم متواصل"
   }];
-  return <div className="min-h-screen bg-background font-arabic">
-      {/* Professional Enterprise Header */}
-      <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-14">
+  return <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
+      
+      {/* Professional Interactive Header */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 sticky top-0">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative">
+          <div className="flex items-center justify-between h-20">
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain" />
+              <div className="flex items-center gap-3" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+                <BoudLogo variant="full" size="header" className="h-12 w-auto max-w-[120px] object-contain filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" />
+              </div>
+            </div>
+
+            {/* Center Section - Title */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Building2 className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
+              
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  منصة بُعد للموارد البشرية
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  حلول متطورة وذكية
+                </p>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
-              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4" />
-              <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
+            <div className="hidden md:flex items-center space-x-4 space-x-reverse">
+              <a href="#home" className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors">الرئيسية</a>
               
-              <a href="#about" className="navigation-item text-sm font-medium hover:text-primary transition-colors">عن بُعد</a>
+              <a href="#about" className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors">عن بُعد</a>
               
-              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors flex items-center gap-2">
                 <Play className="w-4 h-4" />
                 جولة تفاعلية
               </Button>
 
-
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+                  <Button variant="ghost" className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors">
                     مركز المعرفة
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
-                  <DropdownMenuItem onClick={() => navigate('/tutorials')}>
+                <DropdownMenuContent align="end" className="w-48 bg-gray-900 border border-[#008C6A]/30">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-[#008C6A]/20">
                     الدروس التعليمية
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/blog')}>
+                  <DropdownMenuItem onClick={() => navigate('/blog')} className="text-white hover:bg-[#008C6A]/20">
                     مدونة بُعد
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/green-papers')}>
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-[#008C6A]/20">
                     الأوراق الخضراء
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
                 أدوات الموارد البشرية
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors">
                 اربح مع بُعد
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors flex items-center gap-2">
                 📅 احجز اجتماع
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/careers')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors flex items-center gap-2">
                 👥 انضم الى فريقنا
               </Button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
+                <DropdownMenuTrigger className="text-sm font-medium text-white flex items-center gap-1 hover:text-[#008C6A] transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
+                <DropdownMenuContent align="end" className="w-64 bg-gray-900 border border-[#008C6A]/30 shadow-lg">
                   {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
                       <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
                     behavior: 'smooth'
@@ -374,7 +408,7 @@ const BoudHRLandingPage: React.FC = () => {
                     </DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
-            </nav>
+            </div>
 
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-3 space-x-reverse">
