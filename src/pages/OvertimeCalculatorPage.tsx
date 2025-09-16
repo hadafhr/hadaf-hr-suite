@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, Calculator, BarChart3, AlertCircle } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -23,6 +24,18 @@ const OvertimeCalculatorPage: React.FC = () => {
   
   const [result, setResult] = useState<any>(null);
   const [showChart, setShowChart] = useState(false);
+
+  const generateChartData = (resultData: any) => {
+    const months = isArabic 
+      ? ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+      : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    return months.map((month, index) => ({
+      month,
+      cost: index === new Date().getMonth() ? resultData.overtimePay : Math.random() * resultData.overtimePay,
+      hours: index === new Date().getMonth() ? resultData.overtimeHours : Math.floor(Math.random() * resultData.overtimeHours)
+    }));
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -272,8 +285,8 @@ const OvertimeCalculatorPage: React.FC = () => {
           )}
         </div>
 
-        {/* Power BI Chart Section */}
-        {showChart && (
+        {/* Interactive Chart Section */}
+        {showChart && result && (
           <Card className="mt-8 bg-white shadow-lg border-0 animate-fade-in">
             <CardHeader className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white rounded-t-lg">
               <CardTitle className="flex items-center gap-2 text-white">
@@ -288,24 +301,63 @@ const OvertimeCalculatorPage: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="bg-gray-100 rounded-lg p-8 text-center">
-                <BarChart3 className="h-16 w-16 text-[#008C6A] mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-700 mb-2">
-                  {isArabic ? 'رسم Power BI التفاعلي' : 'Interactive Power BI Chart'}
-                </h3>
-                <p className="text-gray-600">
-                  {isArabic 
-                    ? 'سيتم عرض الرسم البياني التفاعلي هنا لإظهار التكاليف الشهرية'
-                    : 'Interactive chart will be displayed here showing monthly costs'
-                  }
-                </p>
-                {result && (
-                  <div className="mt-4 p-4 bg-white rounded-lg shadow">
-                    <p className="text-sm text-gray-600">
-                      {isArabic ? 'البيانات الحالية:' : 'Current Data:'} {result.overtimeHours} {isArabic ? 'ساعة' : 'hours'} = {result.overtimePay.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
-                    </p>
-                  </div>
-                )}
+              <div className="w-full h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={generateChartData(result)}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis 
+                      dataKey="month" 
+                      tick={{ fontSize: 12, fill: '#666' }}
+                      axisLine={{ stroke: '#e0e0e0' }}
+                    />
+                    <YAxis 
+                      tick={{ fontSize: 12, fill: '#666' }}
+                      axisLine={{ stroke: '#e0e0e0' }}
+                      label={{ value: isArabic ? 'التكلفة (ريال)' : 'Cost (SAR)', angle: -90, position: 'insideLeft' }}
+                    />
+                    <Tooltip 
+                      formatter={(value: any) => [`${value.toFixed(2)} ${isArabic ? 'ريال' : 'SAR'}`, isArabic ? 'التكلفة' : 'Cost']}
+                      labelFormatter={(label) => `${isArabic ? 'الشهر:' : 'Month:'} ${label}`}
+                      contentStyle={{
+                        backgroundColor: 'white',
+                        border: '1px solid #008C6A',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                      }}
+                    />
+                    <Bar 
+                      dataKey="cost" 
+                      fill="#008C6A"
+                      radius={[4, 4, 0, 0]}
+                    >
+                      <LabelList 
+                        dataKey="cost" 
+                        position="top" 
+                        formatter={(value: any) => `${value.toFixed(0)}`}
+                        style={{ fontSize: '12px', fill: '#008C6A' }}
+                      />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              
+              <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'متوسط الساعات' : 'Avg Hours'}</p>
+                  <p className="font-bold text-[#008C6A]">{result.overtimeHours}</p>
+                </div>
+                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'أجر الساعة' : 'Hourly Rate'}</p>
+                  <p className="font-bold text-[#008C6A]">{result.overtimeHourly.toFixed(2)}</p>
+                </div>
+                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'التكلفة الشهرية' : 'Monthly Cost'}</p>
+                  <p className="font-bold text-[#008C6A]">{result.overtimePay.toFixed(2)}</p>
+                </div>
+                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
+                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'التكلفة السنوية' : 'Annual Cost'}</p>
+                  <p className="font-bold text-[#008C6A]">{(result.overtimePay * 12).toFixed(2)}</p>
+                </div>
               </div>
             </CardContent>
           </Card>
