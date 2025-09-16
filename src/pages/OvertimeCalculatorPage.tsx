@@ -205,15 +205,12 @@ const OvertimeCalculatorPage: React.FC = () => {
           {/* Floating background elements */}
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
           
-          <div className="relative inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-[#008C6A] via-[#009F87] to-[#00694F] rounded-full mb-8 shadow-2xl shadow-[#008C6A]/40 hover:shadow-[#008C6A]/80 transition-all duration-500 hover:scale-110 group cursor-pointer overflow-hidden">
+          <div className="relative inline-flex items-center justify-center w-32 h-32 rounded-full mb-8 transition-all duration-500 hover:scale-110 group cursor-pointer overflow-hidden">
             <img 
               src="/boud-logo-white.png" 
               alt="شعار بُعد" 
               className="h-20 w-20 object-contain transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 animate-pulse group-hover:animate-none z-10 relative" 
             />
-            <div className="absolute inset-0 rounded-full bg-[#008C6A] animate-ping opacity-20"></div>
-            <div className="absolute inset-2 rounded-full bg-gradient-to-r from-[#008C6A]/30 to-transparent blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin"></div>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[spin_3s_linear_infinite] opacity-50"></div>
           </div>
           
           <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
