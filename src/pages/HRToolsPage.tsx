@@ -142,17 +142,6 @@ const HRToolsPage: React.FC = () => {
       locale: 'ar-SA',
       order: 9,
       route: '/salary-benchmarking'
-    },
-    {
-      slug: 'hr-glossary',
-      title: isArabic ? 'معجم الموارد البشرية' : 'HR Glossary',
-      subtitle: isArabic ? 'دليل شامل للمصطلحات والمفاهيم في الموارد البشرية' : 'Comprehensive guide to HR terms and concepts',
-      category: isArabic ? 'أدوات' : 'Tools',
-      tags: ['معجم', 'مصطلحات', 'دليل'],
-      icon: FileText,
-      locale: 'ar-SA',
-      order: 10,
-      route: '/hr-tools/hr-glossary'
     }
   ];
 
