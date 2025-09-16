@@ -50,11 +50,26 @@ import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealt
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlanning';
+type TabType = 'dashboard' | 'settings' | 'teamwork' | 'departments' | 'quality-of-life' | 'skills-inventory' | 'internal-communication' | 'admin-communications' | 'occupational-safety' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'disciplinary' | 'leaves' | 'payroll' | 'government' | 'organization' | 'governance' | 'wageprotection' | 'legal' | 'performance' | 'training' | 'talents' | 'recruitment' | 'insurance' | 'benefits' | 'meetings' | 'signature' | 'tasks' | 'requests' | 'ai' | 'reports' | 'tracking' | 'attendance' | 'budget-planning' | 'employee-services';
+
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
+
+  // Helper function to safely change tabs
+  const handleTabChange = (value: string) => {
+    if (isValidTabType(value)) {
+      setActiveTab(value);
+    }
+  };
+
+  // Type guard function
+  const isValidTabType = (value: string): value is TabType => {
+    const validTabs: TabType[] = ['dashboard', 'settings', 'teamwork', 'departments', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services'];
+    return validTabs.includes(value as TabType);
+  };
 
   // Mock employee data
   const mockEmployee = {
@@ -137,7 +152,7 @@ const ComprehensiveEmployeeManagement = () => {
         </div>
 
         <div className="relative p-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           {/* Professional Grid Navigation - All Tabs Visible */}
           <div className="bg-white/90 backdrop-blur rounded-xl border border-[#009F87]/20 shadow-lg p-4 mb-6">
             {/* Control Icons for Tab Organization */}
@@ -357,7 +372,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           {/* Tab Contents */}
           <TabsContent value="dashboard">
-            <ComprehensiveDashboard onNavigateToSection={setActiveTab} />
+            <ComprehensiveDashboard onNavigateToSection={handleTabChange} />
           </TabsContent>
 
 
@@ -470,7 +485,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="requests">
-            <CombinedRequestsNotifications onBack={() => setActiveTab('dashboard')} onNavigateToSection={setActiveTab} />
+            <CombinedRequestsNotifications onBack={() => setActiveTab('dashboard')} onNavigateToSection={handleTabChange} />
           </TabsContent>
 
           <TabsContent value="ai">
