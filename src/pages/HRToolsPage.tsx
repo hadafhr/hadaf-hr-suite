@@ -132,6 +132,18 @@ const HRToolsPage: React.FC = () => {
       route: '/hr-tools/housing-allowance'
     },
     {
+      slug: 'salary-benchmarking',
+      title: isArabic ? 'مقارنة الرواتب' : 'Salary Benchmarking',
+      subtitle: isArabic ? 'مقارنة الرواتب استناداً إلى بيانات أكثر من 200,000 موظف' : 'Compare salaries based on data from over 200,000 employees',
+      category: isArabic ? 'حاسبات' : 'Calculators',
+      tags: ['مقارنة', 'رواتب', 'بيانات'],
+      badge: isArabic ? 'جديد' : 'New',
+      icon: DollarSign,
+      locale: 'ar-SA',
+      order: 9,
+      route: '/salary-benchmarking'
+    },
+    {
       slug: 'hr-glossary',
       title: isArabic ? 'معجم الموارد البشرية' : 'HR Glossary',
       subtitle: isArabic ? 'دليل شامل للمصطلحات والمفاهيم في الموارد البشرية' : 'Comprehensive guide to HR terms and concepts',
@@ -139,7 +151,7 @@ const HRToolsPage: React.FC = () => {
       tags: ['معجم', 'مصطلحات', 'دليل'],
       icon: FileText,
       locale: 'ar-SA',
-      order: 9,
+      order: 10,
       route: '/hr-tools/hr-glossary'
     }
   ];

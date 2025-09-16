@@ -99,6 +99,7 @@ import WPSCheckerPage from './pages/WPSCheckerPage';
 import OvertimeCalculatorPage from './pages/OvertimeCalculatorPage';
 import VacationBalanceCalculatorPage from './pages/VacationBalanceCalculatorPage';
 import HousingAllowanceCalculatorPage from './pages/HousingAllowanceCalculatorPage';
+import SalaryBenchmarkingPage from './pages/SalaryBenchmarkingPage';
 import { HRManagement } from './pages/HRManagement';
 import { ClientManagement } from './pages/ClientManagement';
 import { SystemMonitoring } from './pages/SystemMonitoring';
@@ -278,8 +279,9 @@ const App = () => {
                  <Route path="/hr-tools/wps-checker" element={<WPSCheckerPage />} />
                  <Route path="/hr-tools/overtime-calculator" element={<OvertimeCalculatorPage />} />
                  <Route path="/hr-tools/vacation-balance" element={<VacationBalanceCalculatorPage />} />
-                 <Route path="/hr-tools/housing-allowance" element={<HousingAllowanceCalculatorPage />} />
-                 <Route path="/hr-tools/hr-glossary" element={<HRGlossary />} />
+                  <Route path="/hr-tools/housing-allowance" element={<HousingAllowanceCalculatorPage />} />
+                  <Route path="/salary-benchmarking" element={<SalaryBenchmarkingPage />} />
+                  <Route path="/hr-tools/hr-glossary" element={<HRGlossary />} />
                  <Route path="/hr-tools/hr-glossary/:slug" element={<HRGlossaryTerm />} />
                 
                 {/* New Platform Routes */}
