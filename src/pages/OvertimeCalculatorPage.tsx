@@ -103,7 +103,7 @@ const OvertimeCalculatorPage: React.FC = () => {
   }, [showChart]);
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
@@ -127,7 +127,7 @@ const OvertimeCalculatorPage: React.FC = () => {
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
-            {/* Right Section - Logo (Arabic RTL) */}
+            {/* Logo Section */}
             <div className="flex items-center">
               <img 
                 src={buodLogo} 
@@ -137,7 +137,7 @@ const OvertimeCalculatorPage: React.FC = () => {
             </div>
 
             {/* Center Section - Title & Clock */}
-            <div className="flex items-center space-x-4 space-x-reverse">
+            <div className="flex items-center space-x-4">
               <div className="relative">
                 <Clock className="h-8 w-8 text-[#008C6A] animate-pulse" />
                 <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
@@ -162,7 +162,7 @@ const OvertimeCalculatorPage: React.FC = () => {
                   <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
                     {isArabic ? 'حالة النظام' : 'System Status'}
                   </span>
-                  <div className="flex items-center space-x-2 space-x-reverse">
+                  <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
                     <span className="text-xs text-green-300 font-semibold">
                       {isArabic ? 'متاح' : 'Online'}
@@ -184,7 +184,7 @@ const OvertimeCalculatorPage: React.FC = () => {
                     onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
                     tabIndex={0}
                     aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'}
-                    className="group relative flex items-center space-x-2 space-x-reverse bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20"
+                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20"
                   >
                     {/* Language Text */}
                     <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
@@ -205,13 +205,13 @@ const OvertimeCalculatorPage: React.FC = () => {
               
               {/* Quick Stats Mini Panel */}
               <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
-                <div className="flex items-center space-x-3 space-x-reverse text-xs">
-                  <div className="flex items-center space-x-1 space-x-reverse">
+                <div className="flex items-center space-x-3 text-xs">
+                  <div className="flex items-center space-x-1">
                     <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
                     <span className="text-gray-400">{isArabic ? 'دقيق' : 'Accurate'}</span>
                   </div>
                   <div className="w-px h-3 bg-[#008C6A]/30"></div>
-                  <div className="flex items-center space-x-1 space-x-reverse">
+                  <div className="flex items-center space-x-1">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
                     <span className="text-gray-400">{isArabic ? 'قانوني' : 'Legal'}</span>
                   </div>
