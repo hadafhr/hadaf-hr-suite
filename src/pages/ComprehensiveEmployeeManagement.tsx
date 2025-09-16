@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
+import { Toaster } from '@/components/ui/toaster';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -60,46 +61,7 @@ const ComprehensiveEmployeeManagement = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isDragMode, setIsDragMode] = useState(false);
-  const [draggedTab, setDraggedTab] = useState<TabType | null>(null);
-  const [tabOrder, setTabOrder] = useState<TabType[]>(['departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
-
-  // Configuration for all tabs
-  const tabsConfig = {
-    departments: { icon: Building, label: 'قسم الإدارات والوحدات' },
-    teamwork: { icon: Users2, label: 'قسم فريق العمل' },
-    'quality-of-life': { icon: Heart, label: 'قسم جودة الحياة' },
-    'skills-inventory': { icon: Briefcase, label: 'قسم مخزون المهارات' },
-    'internal-communication': { icon: Users2, label: 'قسم التواصل الداخلي' },
-    'admin-communications': { icon: MessageCircle, label: 'قسم الاتصالات الادارية' },
-    'occupational-safety': { icon: HardHat, label: 'قسم السلامة المهنية' },
-    'social-services': { icon: Heart, label: 'قسم الخدمات الاجتماعية' },
-    attendance: { icon: Clock, label: 'قسم الحضور والانصراف' },
-    'employee-services': { icon: User, label: 'قسم خدمات الموظفين' },
-    disciplinary: { icon: AlertTriangle, label: 'قسم الجزاءات والعقوبات' },
-    leaves: { icon: Calendar, label: 'قسم الإجازات' },
-    payroll: { icon: DollarSign, label: 'قسم الرواتب والأجور' },
-    government: { icon: Plug, label: 'قسم التكامل والربط' },
-    organization: { icon: Network, label: 'قسم التطوير المؤسسي' },
-    governance: { icon: Shield, label: 'قسم الحوكمة والامتثال' },
-    wageprotection: { icon: Banknote, label: 'قسم حماية الأجور' },
-    legal: { icon: Scale, label: 'قسم الشؤون القانونية' },
-    performance: { icon: Target, label: 'قسم تقييم الأداء' },
-    training: { icon: GraduationCap, label: 'قسم التدريب والتأهيل' },
-    talents: { icon: Star, label: 'قسم إدارة المواهب' },
-    recruitment: { icon: UserPlus, label: 'قسم التوظيف والتعين' },
-    insurance: { icon: Shield, label: 'قسم التأمين' },
-    benefits: { icon: Gift, label: 'قسم المكافآت والحوافز' },
-    meetings: { icon: CalendarClock, label: 'قسم الاجتماعات' },
-    signature: { icon: PenTool, label: 'قسم التوقيع الإلكتروني' },
-    tasks: { icon: CheckSquare, label: 'قسم المهام والمتابعة' },
-    requests: { icon: MessageSquare, label: 'قسم الطلبات والإشعارات' },
-    ai: { icon: Bot, label: 'قسم الذكاء الاصطناعي' },
-    reports: { icon: FileBarChart, label: 'قسم التقارير الشاملة' },
-    tracking: { icon: MapPin, label: 'قسم التتبع الميداني' },
-    'field-tracking': { icon: MapPin, label: 'قسم التتبع الميداني' },
-    'occupational-health-safety': { icon: HardHat, label: 'قسم الصحة والسلامة المهنية' },
-    'budget-planning': { icon: DollarSign, label: 'قسم الميزانية والتخطيط المالي' }
-  };
+  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
 
   // Helper function to safely change tabs
   const handleTabChange = (value: string) => {
@@ -117,15 +79,17 @@ const ComprehensiveEmployeeManagement = () => {
   // Tab ordering functions
   const handleTabReorder = (action: 'settings' | 'reset') => {
     if (action === 'settings') {
+      // Open settings for tab configuration
       toast({
         title: "إعدادات الترتيب",
-        description: "يمكنك ترتيب التبويبات باستخدام الأزرار أو الماوس"
+        description: "تم فتح إعدادات ترتيب التبويبات",
       });
     } else if (action === 'reset') {
-      setTabOrder(['departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
+      // Reset to default order
+      setTabOrder(['dashboard', 'departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
       toast({
-        title: "تم إعادة الترتيب",
-        description: "تم إعادة ترتيب التبويبات إلى الوضع الافتراضي"
+        title: "إعادة الترتيب",
+        description: "تم إعادة الترتيب إلى الوضع الافتراضي بنجاح",
       });
     }
   };
@@ -155,8 +119,8 @@ const ComprehensiveEmployeeManagement = () => {
         right: 'لليمين'
       };
       toast({
-        title: "تم نقل التبويب",
-        description: `تم نقل التبويب ${directionText[direction]}`
+        title: "تم النقل",
+        description: `تم نقل التبويب ${directionText[direction]} بنجاح`,
       });
     }
   };
@@ -164,49 +128,49 @@ const ComprehensiveEmployeeManagement = () => {
   const toggleDragMode = () => {
     setIsDragMode(!isDragMode);
     toast({
-      title: isDragMode ? "تم إيقاف وضع الترتيب" : "تم تفعيل وضع الترتيب",
-      description: isDragMode ? "تم إيقاف وضع الترتيب بالماوس" : "تم تفعيل وضع الترتيب بالماوس - اسحب التبويبات لإعادة ترتيبها"
+      title: isDragMode ? "إيقاف وضع السحب" : "تفعيل وضع السحب", 
+      description: isDragMode ? 'تم إيقاف وضع الترتيب بالماوس' : 'تم تفعيل وضع الترتيب بالماوس - اسحب التبويبات لإعادة ترتيبها',
     });
   };
 
-  // Drag and Drop functions
-  const handleDragStart = (e: React.DragEvent, tabId: TabType) => {
-    if (!isDragMode) return;
-    setDraggedTab(tabId);
-    e.dataTransfer.effectAllowed = 'move';
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    if (!isDragMode) return;
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-  };
-
-  const handleDrop = (e: React.DragEvent, targetTabId: TabType) => {
-    if (!isDragMode || !draggedTab) return;
-    e.preventDefault();
-
-    const draggedIndex = tabOrder.findIndex(tab => tab === draggedTab);
-    const targetIndex = tabOrder.findIndex(tab => tab === targetTabId);
-
-    if (draggedIndex !== -1 && targetIndex !== -1 && draggedIndex !== targetIndex) {
-      const newTabOrder = [...tabOrder];
-      const movedTab = newTabOrder.splice(draggedIndex, 1)[0];
-      newTabOrder.splice(targetIndex, 0, movedTab);
-      setTabOrder(newTabOrder);
-      
-      toast({
-        title: "تم إعادة ترتيب التبويب",
-        description: "تم نقل التبويب بنجاح"
-      });
-    }
-
-    setDraggedTab(null);
-  };
-
-  const handleDragEnd = () => {
-    setDraggedTab(null);
-  };
+  // Tabs configuration
+  const tabsConfig = [
+    { id: 'dashboard', label: 'لوحة التحكم', icon: BarChart3 },
+    { id: 'departments', label: 'إدارة الأقسام', icon: Building },
+    { id: 'teamwork', label: 'إدارة فرق العمل', icon: Users2 },
+    { id: 'quality-of-life', label: 'جودة الحياة الوظيفية', icon: Heart },
+    { id: 'skills-inventory', label: 'جرد المهارات والخبرات', icon: Brain },
+    { id: 'internal-communication', label: 'التواصل الداخلي', icon: MessageCircle },
+    { id: 'admin-communications', label: 'المراسلات الإدارية', icon: Briefcase },
+    { id: 'occupational-safety', label: 'السلامة المهنية', icon: HardHat },
+    { id: 'social-services', label: 'الخدمات الاجتماعية', icon: Gift },
+    { id: 'field-tracking', label: 'متابعة ميدانية', icon: Zap },
+    { id: 'occupational-health-safety', label: 'الصحة والسلامة المهنية', icon: Sparkles },
+    { id: 'disciplinary', label: 'الإجراءات التأديبية', icon: Shield },
+    { id: 'leaves', label: 'إدارة الأجازات', icon: Calendar },
+    { id: 'payroll', label: 'كشف المرتبات', icon: DollarSign },
+    { id: 'government', label: 'الجهات الحكومية', icon: Plug },
+    { id: 'organization', label: 'التطوير التنظيمي', icon: Network },
+    { id: 'governance', label: 'الحوكمة', icon: Shield },
+    { id: 'wageprotection', label: 'حماية الأجور', icon: Banknote },
+    { id: 'legal', label: 'الشؤون القانونية', icon: Scale },
+    { id: 'performance', label: 'تقييم الأداء', icon: Star },
+    { id: 'training', label: 'التدريب والتطوير', icon: GraduationCap },
+    { id: 'talents', label: 'إدارة المواهب', icon: Bot },
+    { id: 'recruitment', label: 'التوظيف الذكي', icon: UserPlus },
+    { id: 'insurance', label: 'إدارة التأمينات', icon: CheckSquare },
+    { id: 'benefits', label: 'المكافآت والحوافز', icon: Gift },
+    { id: 'meetings', label: 'مركز الاجتماعات', icon: Users },
+    { id: 'signature', label: 'التوقيع الإلكتروني', icon: PenTool },
+    { id: 'tasks', label: 'تتبع المهام', icon: Clock },
+    { id: 'requests', label: 'طلبات وإشعارات', icon: MessageSquare },
+    { id: 'ai', label: 'الذكاء الاصطناعي', icon: Bot },
+    { id: 'reports', label: 'التقارير', icon: FileBarChart },
+    { id: 'tracking', label: 'قسم التتبع الميداني', icon: MapPin },
+    { id: 'budget-planning', label: 'قسم الميزانية والتخطيط المالي', icon: DollarSign },
+    { id: 'attendance', label: 'نظام الحضور والانصراف', icon: Clock },
+    { id: 'employee-services', label: 'قسم خدمات الموظفين', icon: User }
+  ];
 
   // Mock employee data
   const mockEmployee = {
@@ -314,7 +278,7 @@ const ComprehensiveEmployeeManagement = () => {
                   <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليسار" onClick={() => handleTabMove('left')}>
                     <ArrowLeft className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors cursor-grab active:cursor-grabbing" title="ترتيب بالماوس - حسب الرغبة" onClick={() => toggleDragMode()}>
+                  <Button variant="ghost" size="sm" className={`h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors ${isDragMode ? 'bg-[#009F87]/20 text-[#009F87] animate-pulse' : ''}`} title="ترتيب بالماوس - حسب الرغبة" onClick={() => toggleDragMode()}>
                     <GripVertical className="h-4 w-4" />
                   </Button>
                 </div>
@@ -372,30 +336,49 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
             
             <div className="w-full">
-              <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
-                {tabOrder.map((tabId) => {
-                  const config = tabsConfig[tabId];
-                  if (!config) return null;
-                  
-                  const IconComponent = config.icon;
+              <TabsList className={`grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full transition-all duration-300 ${isDragMode ? 'bg-gradient-to-r from-[#009F87]/5 to-transparent border border-dashed border-[#009F87]/30 rounded-lg p-2' : ''}`}>
+                {tabOrder.map((tab, index) => {
+                  const tabConfig = tabsConfig.find(config => config.id === tab);
+                  if (!tabConfig) return null;
                   
                   return (
                     <TabsTrigger 
-                      key={tabId}
-                      value={tabId} 
-                      className={`group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg ${
-                        isDragMode ? 'cursor-grab active:cursor-grabbing' : ''
-                      } ${
-                        draggedTab === tabId ? 'opacity-50' : ''
-                      }`}
+                      key={tab} 
+                      value={tab} 
+                      className={`group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg ${isDragMode ? 'cursor-grab active:cursor-grabbing' : ''}`}
                       draggable={isDragMode}
-                      onDragStart={(e) => handleDragStart(e, tabId)}
-                      onDragOver={handleDragOver}
-                      onDrop={(e) => handleDrop(e, tabId)}
-                      onDragEnd={handleDragEnd}
+                      onDragStart={(e) => {
+                        if (!isDragMode) return;
+                        e.dataTransfer.setData('text/plain', tab);
+                        e.dataTransfer.effectAllowed = 'move';
+                      }}
+                      onDragOver={(e) => {
+                        if (!isDragMode) return;
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
+                      }}
+                      onDrop={(e) => {
+                        if (!isDragMode) return;
+                        e.preventDefault();
+                        const draggedTab = e.dataTransfer.getData('text/plain') as TabType;
+                        const dropIndex = index;
+                        const dragIndex = tabOrder.findIndex(t => t === draggedTab);
+                        
+                        if (dragIndex !== dropIndex) {
+                          const newTabOrder = [...tabOrder];
+                          const [removed] = newTabOrder.splice(dragIndex, 1);
+                          newTabOrder.splice(dropIndex, 0, removed);
+                          setTabOrder(newTabOrder);
+                          
+                          toast({
+                            title: "تم إعادة الترتيب",
+                            description: "تم ترتيب التبويبات بنجاح",
+                          });
+                        }
+                      }}
                     >
-                      <IconComponent className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">{config.label}</span>
+                      <tabConfig.icon className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">{tabConfig.label}</span>
                     </TabsTrigger>
                   );
                 })}
@@ -626,7 +609,8 @@ const ComprehensiveEmployeeManagement = () => {
             </div>}
         </DialogContent>
         </Dialog>
-      </div>
+    </div>
+    <Toaster />
     </div>;
 };
 export default ComprehensiveEmployeeManagement;
