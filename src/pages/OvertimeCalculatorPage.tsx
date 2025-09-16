@@ -206,7 +206,7 @@ const OvertimeCalculatorPage: React.FC = () => {
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
           
           <div className="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-[#008C6A] via-[#009F87] to-[#00694F] rounded-full mb-8 shadow-2xl shadow-[#008C6A]/40 hover:shadow-[#008C6A]/60 transition-all duration-500">
-            <Calculator className="h-12 w-12 text-white animate-bounce" />
+            <img src="/boud-logo-white.png" alt="شعار بُعد" className="h-12 w-12 object-contain" />
             <div className="absolute inset-0 rounded-full bg-[#008C6A] animate-ping opacity-20"></div>
             <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-transparent blur-lg"></div>
           </div>
