@@ -214,13 +214,6 @@ const ComprehensiveEmployeeManagement = () => {
                   حفظ التخطيط
                 </Button>
                 
-                {/* بُعد Logo */}
-                <div className="flex items-center justify-center h-8 px-3 mx-1">
-                  <div className="text-xs font-bold text-[#009F87] bg-gradient-to-r from-[#009F87] to-[#007A67] bg-clip-text text-transparent border border-[#009F87]/30 rounded-md px-2 py-1">
-                    بُعد
-                  </div>
-                </div>
-                
                 <Button 
                   variant="ghost" 
                   size="sm" 
