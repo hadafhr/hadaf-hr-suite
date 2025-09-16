@@ -609,7 +609,7 @@ const SalaryBenchmarkingPage: React.FC = () => {
             )}
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };
