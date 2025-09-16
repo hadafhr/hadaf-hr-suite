@@ -26,6 +26,7 @@ const OvertimeCalculatorPage: React.FC = () => {
   
   const [result, setResult] = useState<any>(null);
   const [showChart, setShowChart] = useState(false);
+  const [isCalculated, setIsCalculated] = useState(false);
 
   const generateChartData = (resultData: any) => {
     const months = isArabic 
@@ -84,6 +85,7 @@ const OvertimeCalculatorPage: React.FC = () => {
       totalSalary
     });
 
+    setIsCalculated(true);
     // Show Power BI chart after calculation
     setTimeout(() => setShowChart(true), 500);
   };
@@ -229,9 +231,66 @@ const OvertimeCalculatorPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Input Card */}
-          <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300">
+        <div className={`transition-all duration-500 ${!isCalculated ? 'max-w-2xl mx-auto' : 'grid grid-cols-1 lg:grid-cols-2 gap-8'}`}>
+          {/* Results Card - Show on Left when calculated */}
+          {isCalculated && result && (
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300 order-1 lg:order-1">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-white relative z-10 flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 animate-pulse" />
+                  {isArabic ? 'نتيجة الحساب' : 'Calculation Results'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 p-6 bg-gray-900/40">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                    <span className="text-gray-300 font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
+                      {isArabic ? 'أجر الساعة الأساسي:' : 'Basic Hourly Rate:'}
+                    </span>
+                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
+                      {result.basicHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                    <span className="text-gray-300 font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
+                      {isArabic ? 'أجر الساعة الإجمالي:' : 'Total Hourly Rate:'}
+                    </span>
+                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
+                      {result.totalHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                    <span className="text-gray-300 font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                      {isArabic ? 'أجر الساعة الإضافية النظامية:' : 'Legal Overtime Hourly Rate:'}
+                    </span>
+                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
+                      {result.overtimeHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between items-center p-6 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-lg shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-pulse"></div>
+                    <span className="font-bold text-lg relative z-10 flex items-center gap-2">
+                      <span className="w-3 h-3 bg-white rounded-full animate-bounce"></span>
+                      {isArabic ? 'إجمالي الأجر الإضافي المستحق:' : 'Total Overtime Pay Due:'}
+                    </span>
+                    <span className="font-bold text-2xl relative z-10 animate-pulse">
+                      {result.overtimePay.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Input Card - Centered when not calculated, Right side when calculated */}
+          <Card className={`bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300 ${isCalculated ? 'order-2 lg:order-2' : ''}`}>
             <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <CardTitle className="flex items-center gap-2 text-white relative z-10">
@@ -340,63 +399,6 @@ const OvertimeCalculatorPage: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
-
-          {/* Results Card */}
-          {result && (
-            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300">
-              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/10"></div>
-                <CardTitle className="text-white relative z-10 flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5 animate-pulse" />
-                  {isArabic ? 'نتيجة الحساب' : 'Calculation Results'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 p-6 bg-gray-900/40">
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
-                    <span className="text-gray-300 font-medium flex items-center gap-2">
-                      <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
-                      {isArabic ? 'أجر الساعة الأساسي:' : 'Basic Hourly Rate:'}
-                    </span>
-                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
-                      {result.basicHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
-                    <span className="text-gray-300 font-medium flex items-center gap-2">
-                      <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
-                      {isArabic ? 'أجر الساعة الإجمالي:' : 'Total Hourly Rate:'}
-                    </span>
-                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
-                      {result.totalHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
-                    <span className="text-gray-300 font-medium flex items-center gap-2">
-                      <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
-                      {isArabic ? 'أجر الساعة الإضافية النظامية:' : 'Legal Overtime Hourly Rate:'}
-                    </span>
-                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
-                      {result.overtimeHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center p-6 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-lg shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-pulse"></div>
-                    <span className="font-bold text-lg relative z-10 flex items-center gap-2">
-                      <span className="w-3 h-3 bg-white rounded-full animate-bounce"></span>
-                      {isArabic ? 'إجمالي الأجر الإضافي المستحق:' : 'Total Overtime Pay Due:'}
-                    </span>
-                    <span className="font-bold text-2xl relative z-10 animate-pulse">
-                      {result.overtimePay.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
 
         {/* Interactive Chart Section */}
