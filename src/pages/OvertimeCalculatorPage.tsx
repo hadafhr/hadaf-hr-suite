@@ -172,15 +172,6 @@ const OvertimeCalculatorPage: React.FC = () => {
                   </span>
                   <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F]"></div>
                 </button>
-                
-                {/* Breadcrumb Navigation */}
-                <Breadcrumb 
-                  items={[
-                    { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
-                    { label: isArabic ? 'أدوات الموارد البشرية' : 'HR Tools', path: '/hr-tools' },
-                    { label: isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator', path: '/hr-tools/overtime-calculator' }
-                  ]}
-                />
               </div>
             </div>
           </div>
@@ -189,6 +180,20 @@ const OvertimeCalculatorPage: React.FC = () => {
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
         </div>
       </header>
+
+      {/* Breadcrumb Navigation Section */}
+      <div className="relative z-10 bg-gradient-to-r from-black/80 via-gray-900/80 to-black/80 backdrop-blur-xl border-b border-[#008C6A]/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Breadcrumb 
+            items={[
+              { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
+              { label: isArabic ? 'أدوات الموارد البشرية' : 'HR Tools', path: '/hr-tools' },
+              { label: isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator', path: '/hr-tools/overtime-calculator' }
+            ]}
+            className="justify-center"
+          />
+        </div>
+      </div>
 
       <main className="relative z-10 max-w-4xl mx-auto px-4 py-8">
         {/* Floating Elements for Professional Look */}
