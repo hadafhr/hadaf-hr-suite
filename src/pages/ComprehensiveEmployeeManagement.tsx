@@ -174,6 +174,22 @@ const ComprehensiveEmployeeManagement = () => {
                   <BarChart3 className="h-3 w-3 ml-1" />
                   لوحة التحكم
                 </Button>
+                
+                {/* General Settings Tab */}
+                <Button 
+                  variant={activeTab === 'settings' ? "default" : "ghost"} 
+                  size="sm" 
+                  className={`h-8 px-3 text-xs transition-all duration-300 ${
+                    activeTab === 'settings' 
+                      ? "bg-[#009F87] text-white shadow-md hover:bg-[#009F87]/90" 
+                      : "hover:bg-[#009F87]/10 hover:text-[#009F87]"
+                  }`}
+                  onClick={() => setActiveTab('settings')}
+                >
+                  <Settings className="h-3 w-3 ml-1" />
+                  الإعدادات العامة
+                </Button>
+                
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -182,6 +198,14 @@ const ComprehensiveEmployeeManagement = () => {
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
                 </Button>
+                
+                {/* بُعد Logo */}
+                <div className="flex items-center justify-center h-8 px-3 mx-1">
+                  <div className="text-xs font-bold text-[#009F87] bg-gradient-to-r from-[#009F87] to-[#007A67] bg-clip-text text-transparent border border-[#009F87]/30 rounded-md px-2 py-1">
+                    بُعد
+                  </div>
+                </div>
+                
                 <Button 
                   variant="ghost" 
                   size="sm" 
