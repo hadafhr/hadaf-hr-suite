@@ -182,15 +182,17 @@ const OvertimeCalculatorPage: React.FC = () => {
       </header>
 
       <main className="relative z-10 max-w-4xl mx-auto px-4 py-8">
-        {/* Breadcrumb Navigation - Right Side */}
-        <div className="flex justify-end mb-6">
-          <Breadcrumb 
-            items={[
-              { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
-              { label: isArabic ? 'أدوات الموارد البشرية' : 'HR Tools', path: '/hr-tools' },
-              { label: isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator', path: '/hr-tools/overtime-calculator' }
-            ]}
-          />
+        {/* Breadcrumb Navigation - Far Right */}
+        <div className="flex justify-end mb-6 mr-0">
+          <div className="ml-auto">
+            <Breadcrumb 
+              items={[
+                { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
+                { label: isArabic ? 'أدوات الموارد البشرية' : 'HR Tools', path: '/hr-tools' },
+                { label: isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator', path: '/hr-tools/overtime-calculator' }
+              ]}
+            />
+          </div>
         </div>
         {/* Floating Elements for Professional Look */}
         <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
