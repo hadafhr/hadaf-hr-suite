@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, Calculator, BarChart3, AlertCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
+import buodLogo from '@/assets/buod-logo-white.png';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -99,18 +100,35 @@ const OvertimeCalculatorPage: React.FC = () => {
   }, [showChart]);
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #008C6A 0%, #F8F8F8 50%, #FFFFFF 100%)' }}>
-      <PatternBackground opacity={0.02} size={120} />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
       
       {/* Header */}
-      <header className="relative z-10 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+      <header className="relative z-10 bg-black/90 backdrop-blur-lg border-b border-[#008C6A]/20 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16 space-x-4 space-x-reverse">
-            <BackButton />
-            <Clock className="h-6 w-6 text-[#008C6A]" />
-            <h1 className="text-xl font-bold text-gray-900">
-              {isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator'}
-            </h1>
+          <div className="flex items-center justify-between h-20">
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <BackButton className="hover:bg-[#008C6A]/20 text-white border-[#008C6A]/40" />
+              <Clock className="h-6 w-6 text-[#008C6A] animate-pulse" />
+              <h1 className="text-xl font-bold text-white">
+                {isArabic ? 'حاسبة العمل الإضافي' : 'Overtime Calculator'}
+              </h1>
+            </div>
+            <div className="flex items-center">
+              <img src={buodLogo} alt="Buod HR" className="h-12 w-auto filter brightness-110" />
+            </div>
           </div>
         </div>
       </header>
@@ -118,13 +136,14 @@ const OvertimeCalculatorPage: React.FC = () => {
       <main className="relative z-10 max-w-4xl mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#008C6A] rounded-full mb-4">
-            <Calculator className="h-8 w-8 text-white" />
+          <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-full mb-6 shadow-2xl shadow-[#008C6A]/30">
+            <Calculator className="h-10 w-10 text-white animate-bounce" />
+            <div className="absolute inset-0 rounded-full bg-[#008C6A] animate-ping opacity-20"></div>
           </div>
-          <h2 className="text-3xl font-bold mb-4 text-gray-900">
+          <h2 className="text-4xl font-bold mb-6 text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
             {isArabic ? 'احسب أجر العمل الإضافي بدقة قانونية' : 'Calculate Overtime Pay with Legal Accuracy'}
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
             {isArabic 
               ? 'حاسبة معتمدة وفقاً للمادة (107) من نظام العمل السعودي - احسب الأجر الإضافي بدقة تامة'
               : 'Certified calculator according to Article (107) of Saudi Labor Law - Calculate overtime pay with complete accuracy'
@@ -134,22 +153,24 @@ const OvertimeCalculatorPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Card */}
-          <Card className="bg-white shadow-lg border-0 animate-fade-in">
-            <CardHeader className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white rounded-t-lg">
-              <CardTitle className="flex items-center gap-2 text-white">
-                <Calculator className="h-5 w-5" />
+          <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300">
+            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <CardTitle className="flex items-center gap-2 text-white relative z-10">
+                <Calculator className="h-5 w-5 animate-pulse" />
                 {isArabic ? 'بيانات الحساب' : 'Calculation Data'}
               </CardTitle>
-              <CardDescription className="text-white/90">
+              <CardDescription className="text-white/90 relative z-10">
                 {isArabic 
                   ? 'أدخل جميع البيانات المطلوبة لحساب دقيق'
                   : 'Enter all required data for accurate calculation'
                 }
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6 p-6">
+            <CardContent className="space-y-6 p-6 bg-gray-900/40">
               <div className="space-y-2">
-                <Label htmlFor="basicSalary" className="text-gray-700 font-medium">
+                <Label htmlFor="basicSalary" className="text-gray-200 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
                   {isArabic ? 'الراتب الأساسي الشهري (ريال) *' : 'Monthly Basic Salary (SAR) *'}
                 </Label>
                 <Input
@@ -158,12 +179,13 @@ const OvertimeCalculatorPage: React.FC = () => {
                   placeholder="8000"
                   value={formData.basicSalary}
                   onChange={(e) => handleInputChange('basicSalary', e.target.value)}
-                  className="border-gray-300 focus:border-[#008C6A] focus:ring-[#008C6A]"
+                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="housingAllowance" className="text-gray-700 font-medium">
+                <Label htmlFor="housingAllowance" className="text-gray-200 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                   {isArabic ? 'بدل السكن الشهري (ريال)' : 'Monthly Housing Allowance (SAR)'}
                 </Label>
                 <Input
@@ -172,12 +194,13 @@ const OvertimeCalculatorPage: React.FC = () => {
                   placeholder="2000"
                   value={formData.housingAllowance}
                   onChange={(e) => handleInputChange('housingAllowance', e.target.value)}
-                  className="border-gray-300 focus:border-[#008C6A] focus:ring-[#008C6A]"
+                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="otherAllowances" className="text-gray-700 font-medium">
+                <Label htmlFor="otherAllowances" className="text-gray-200 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                   {isArabic ? 'إجمالي البدلات الثابتة الأخرى (ريال)' : 'Total Other Fixed Allowances (SAR)'}
                 </Label>
                 <Input
@@ -186,12 +209,13 @@ const OvertimeCalculatorPage: React.FC = () => {
                   placeholder="1000"
                   value={formData.otherAllowances}
                   onChange={(e) => handleInputChange('otherAllowances', e.target.value)}
-                  className="border-gray-300 focus:border-[#008C6A] focus:ring-[#008C6A]"
+                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="overtimeHours" className="text-gray-700 font-medium">
+                <Label htmlFor="overtimeHours" className="text-gray-200 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
                   {isArabic ? 'عدد الساعات الإضافية *' : 'Number of Overtime Hours *'}
                 </Label>
                 <Input
@@ -201,23 +225,24 @@ const OvertimeCalculatorPage: React.FC = () => {
                   placeholder="10"
                   value={formData.overtimeHours}
                   onChange={(e) => handleInputChange('overtimeHours', e.target.value)}
-                  className="border-gray-300 focus:border-[#008C6A] focus:ring-[#008C6A]"
+                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="overtimeType" className="text-gray-700 font-medium">
+                <Label htmlFor="overtimeType" className="text-gray-200 font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
                   {isArabic ? 'نوع الساعات الإضافية *' : 'Type of Overtime Hours *'}
                 </Label>
                 <Select value={formData.overtimeType} onValueChange={(value) => handleInputChange('overtimeType', value)}>
-                  <SelectTrigger className="border-gray-300 focus:border-[#008C6A] focus:ring-[#008C6A]">
-                    <SelectValue placeholder={isArabic ? 'اختر نوع الساعات' : 'Select overtime type'} />
+                  <SelectTrigger className="bg-black/50 border-[#008C6A]/40 text-white focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200">
+                    <SelectValue placeholder={isArabic ? 'اختر نوع الساعات' : 'Select overtime type'} className="text-gray-400" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="regular">
+                  <SelectContent className="bg-gray-900 border-[#008C6A]/40">
+                    <SelectItem value="regular" className="text-white hover:bg-[#008C6A]/20 focus:bg-[#008C6A]/30">
                       {isArabic ? 'عادية (بعد 8 ساعات يومية)' : 'Regular (after 8 daily hours)'}
                     </SelectItem>
-                    <SelectItem value="holiday">
+                    <SelectItem value="holiday" className="text-white hover:bg-[#008C6A]/20 focus:bg-[#008C6A]/30">
                       {isArabic ? 'يوم راحة/عطلة رسمية' : 'Rest day/Official holiday'}
                     </SelectItem>
                   </SelectContent>
@@ -226,56 +251,67 @@ const OvertimeCalculatorPage: React.FC = () => {
 
               <Button 
                 onClick={calculateOvertime} 
-                className="w-full bg-[#008C6A] hover:bg-[#00694F] text-white font-semibold py-3 rounded-lg transition-all duration-200 hover:scale-105 shadow-lg"
+                className="w-full bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold py-4 rounded-lg transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#008C6A]/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden"
                 disabled={!formData.basicSalary || !formData.overtimeHours || !formData.overtimeType}
               >
-                {isArabic ? 'احسب الآن' : 'Calculate Now'}
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  <Calculator className="h-5 w-5" />
+                  {isArabic ? 'احسب الآن' : 'Calculate Now'}
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-pulse"></div>
               </Button>
             </CardContent>
           </Card>
 
           {/* Results Card */}
           {result && (
-            <Card className="bg-white shadow-lg border-0 animate-fade-in">
-              <CardHeader className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white rounded-t-lg">
-                <CardTitle className="text-white">
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-white relative z-10 flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 animate-pulse" />
                   {isArabic ? 'نتيجة الحساب' : 'Calculation Results'}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 p-6">
+              <CardContent className="space-y-4 p-6 bg-gray-900/40">
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">
+                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                    <span className="text-gray-300 font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                       {isArabic ? 'أجر الساعة الأساسي:' : 'Basic Hourly Rate:'}
                     </span>
-                    <span className="font-bold text-lg text-[#008C6A]">
+                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
                       {result.basicHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">
+                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                    <span className="text-gray-300 font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
                       {isArabic ? 'أجر الساعة الإجمالي:' : 'Total Hourly Rate:'}
                     </span>
-                    <span className="font-bold text-lg text-[#008C6A]">
+                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
                       {result.totalHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">
+                  <div className="flex justify-between items-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+                    <span className="text-gray-300 font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
                       {isArabic ? 'أجر الساعة الإضافية النظامية:' : 'Legal Overtime Hourly Rate:'}
                     </span>
-                    <span className="font-bold text-lg text-[#008C6A]">
+                    <span className="font-bold text-lg text-[#008C6A] animate-pulse">
                       {result.overtimeHourly.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
                     </span>
                   </div>
 
-                  <div className="flex justify-between items-center p-4 bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white rounded-lg">
-                    <span className="font-bold text-lg">
+                  <div className="flex justify-between items-center p-6 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-lg shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-pulse"></div>
+                    <span className="font-bold text-lg relative z-10 flex items-center gap-2">
+                      <span className="w-3 h-3 bg-white rounded-full animate-bounce"></span>
                       {isArabic ? 'إجمالي الأجر الإضافي المستحق:' : 'Total Overtime Pay Due:'}
                     </span>
-                    <span className="font-bold text-xl">
+                    <span className="font-bold text-2xl relative z-10 animate-pulse">
                       {result.overtimePay.toFixed(2)} {isArabic ? 'ريال' : 'SAR'}
                     </span>
                   </div>
@@ -287,47 +323,49 @@ const OvertimeCalculatorPage: React.FC = () => {
 
         {/* Interactive Chart Section */}
         {showChart && result && (
-          <Card className="mt-8 bg-white shadow-lg border-0 animate-fade-in">
-            <CardHeader className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white rounded-t-lg">
-              <CardTitle className="flex items-center gap-2 text-white">
-                <BarChart3 className="h-5 w-5" />
+          <Card className="mt-8 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300">
+            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <CardTitle className="flex items-center gap-2 text-white relative z-10">
+                <BarChart3 className="h-5 w-5 animate-bounce" />
                 {isArabic ? 'الرسم البياني للتكاليف الشهرية' : 'Monthly Cost Chart'}
               </CardTitle>
-              <CardDescription className="text-white/90">
+              <CardDescription className="text-white/90 relative z-10">
                 {isArabic 
                   ? 'رسم بياني تفاعلي يوضح تكاليف العمل الإضافي عبر الأشهر'
                   : 'Interactive chart showing overtime costs across months'
                 }
               </CardDescription>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="w-full h-80">
+            <CardContent className="p-6 bg-gray-900/40">
+              <div className="w-full h-80 bg-black/30 rounded-lg p-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={generateChartData(result)}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#008C6A30" />
                     <XAxis 
                       dataKey="month" 
-                      tick={{ fontSize: 12, fill: '#666' }}
-                      axisLine={{ stroke: '#e0e0e0' }}
+                      tick={{ fontSize: 12, fill: '#9CA3AF' }}
+                      axisLine={{ stroke: '#008C6A' }}
                     />
                     <YAxis 
-                      tick={{ fontSize: 12, fill: '#666' }}
-                      axisLine={{ stroke: '#e0e0e0' }}
-                      label={{ value: isArabic ? 'التكلفة (ريال)' : 'Cost (SAR)', angle: -90, position: 'insideLeft' }}
+                      tick={{ fontSize: 12, fill: '#9CA3AF' }}
+                      axisLine={{ stroke: '#008C6A' }}
+                      label={{ value: isArabic ? 'التكلفة (ريال)' : 'Cost (SAR)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: '#9CA3AF' } }}
                     />
                     <Tooltip 
                       formatter={(value: any) => [`${value.toFixed(2)} ${isArabic ? 'ريال' : 'SAR'}`, isArabic ? 'التكلفة' : 'Cost']}
                       labelFormatter={(label) => `${isArabic ? 'الشهر:' : 'Month:'} ${label}`}
                       contentStyle={{
-                        backgroundColor: 'white',
+                        backgroundColor: '#111827',
                         border: '1px solid #008C6A',
                         borderRadius: '8px',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                        boxShadow: '0 4px 12px rgba(0,140,106,0.3)',
+                        color: 'white'
                       }}
                     />
                     <Bar 
                       dataKey="cost" 
-                      fill="#008C6A"
+                      fill="url(#colorGradient)"
                       radius={[4, 4, 0, 0]}
                     >
                       <LabelList 
@@ -337,26 +375,32 @@ const OvertimeCalculatorPage: React.FC = () => {
                         style={{ fontSize: '12px', fill: '#008C6A' }}
                       />
                     </Bar>
+                    <defs>
+                      <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#008C6A" stopOpacity={1}/>
+                        <stop offset="100%" stopColor="#00694F" stopOpacity={0.8}/>
+                      </linearGradient>
+                    </defs>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
               
               <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
-                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'متوسط الساعات' : 'Avg Hours'}</p>
-                  <p className="font-bold text-[#008C6A]">{result.overtimeHours}</p>
+                <div className="text-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200 hover:scale-105">
+                  <p className="text-xs text-gray-400 mb-2">{isArabic ? 'متوسط الساعات' : 'Avg Hours'}</p>
+                  <p className="font-bold text-xl text-[#008C6A] animate-pulse">{result.overtimeHours}</p>
                 </div>
-                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
-                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'أجر الساعة' : 'Hourly Rate'}</p>
-                  <p className="font-bold text-[#008C6A]">{result.overtimeHourly.toFixed(2)}</p>
+                <div className="text-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200 hover:scale-105">
+                  <p className="text-xs text-gray-400 mb-2">{isArabic ? 'أجر الساعة' : 'Hourly Rate'}</p>
+                  <p className="font-bold text-xl text-[#008C6A] animate-pulse">{result.overtimeHourly.toFixed(2)}</p>
                 </div>
-                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
-                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'التكلفة الشهرية' : 'Monthly Cost'}</p>
-                  <p className="font-bold text-[#008C6A]">{result.overtimePay.toFixed(2)}</p>
+                <div className="text-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200 hover:scale-105">
+                  <p className="text-xs text-gray-400 mb-2">{isArabic ? 'التكلفة الشهرية' : 'Monthly Cost'}</p>
+                  <p className="font-bold text-xl text-[#008C6A] animate-pulse">{result.overtimePay.toFixed(2)}</p>
                 </div>
-                <div className="text-center p-3 bg-[#008C6A]/5 rounded-lg">
-                  <p className="text-xs text-gray-600 mb-1">{isArabic ? 'التكلفة السنوية' : 'Annual Cost'}</p>
-                  <p className="font-bold text-[#008C6A]">{(result.overtimePay * 12).toFixed(2)}</p>
+                <div className="text-center p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200 hover:scale-105">
+                  <p className="text-xs text-gray-400 mb-2">{isArabic ? 'التكلفة السنوية' : 'Annual Cost'}</p>
+                  <p className="font-bold text-xl text-[#008C6A] animate-pulse">{(result.overtimePay * 12).toFixed(2)}</p>
                 </div>
               </div>
             </CardContent>
@@ -364,14 +408,15 @@ const OvertimeCalculatorPage: React.FC = () => {
         )}
 
         {/* Legal Notice */}
-        <div className="mt-8 p-6 bg-amber-50 border-l-4 border-amber-400 rounded-lg">
+        <div className="mt-8 p-6 bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/30 rounded-lg backdrop-blur-sm">
           <div className="flex items-start">
-            <AlertCircle className="h-6 w-6 text-amber-600 mt-0.5 ml-3" />
+            <AlertCircle className="h-6 w-6 text-amber-400 mt-0.5 ml-3 animate-pulse" />
             <div>
-              <h4 className="font-semibold text-amber-800 mb-2">
-                {isArabic ? '⚖️ ملاحظة قانونية مهمة' : '⚖️ Important Legal Notice'}
+              <h4 className="font-semibold text-amber-300 mb-2 flex items-center gap-2">
+                <span className="text-2xl">⚖️</span>
+                {isArabic ? 'ملاحظة قانونية مهمة' : 'Important Legal Notice'}
               </h4>
-              <p className="text-amber-700 text-sm leading-relaxed">
+              <p className="text-amber-200 text-sm leading-relaxed">
                 {isArabic 
                   ? 'يتم احتساب الأجر الإضافي وفق المادة (107) من نظام العمل السعودي الصادر عن وزارة الموارد البشرية والتنمية الاجتماعية. الحساب معتمد قانونياً ويضمن حقوق الموظف كاملة.'
                   : 'Overtime pay is calculated according to Article (107) of the Saudi Labor Law issued by the Ministry of Human Resources and Social Development. The calculation is legally certified and guarantees full employee rights.'
