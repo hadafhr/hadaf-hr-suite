@@ -206,11 +206,13 @@ const HRToolsPage: React.FC = () => {
           <div className="flex items-center justify-between h-24">
             {/* Logo Section */}
             <div className="flex items-center">
-              <img 
-                src={buodLogo} 
-                alt="Buod HR" 
-                className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" 
-              />
+              <Link to="/" className="hover:scale-105 transition-all duration-300">
+                <img 
+                  src={buodLogo} 
+                  alt="Buod HR" 
+                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
+                />
+              </Link>
             </div>
 
             {/* Center Section - Title & Icon */}
