@@ -332,6 +332,34 @@ const BoudHRLandingPage: React.FC = () => {
         
         <div className="container mx-auto px-6 relative">
           <div className="flex items-center justify-between h-20">
+            {/* Professional Logo Section - Right Side */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="flex items-center gap-3" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+                <img 
+                  src={buodLogo} 
+                  alt="Buod HR" 
+                  className="h-40 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" 
+                />
+              </div>
+            </div>
+
+            {/* Center Section - Title */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Building2 className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
+              
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  منصة بُعد للموارد البشرية
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  حلول متطورة وذكية
+                </p>
+              </div>
+            </div>
+
             {/* Desktop Navigation - Left Side */}
             <div className="hidden md:flex items-center space-x-4 space-x-reverse">
               <a href="#home" className="text-sm font-medium text-white hover:text-[#008C6A] transition-colors">الرئيسية</a>
@@ -400,34 +428,6 @@ const BoudHRLandingPage: React.FC = () => {
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
-
-            {/* Center Section - Title */}
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Building2 className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
-              </div>
-              
-              <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                  منصة بُعد للموارد البشرية
-                </h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
-                  حلول متطورة وذكية
-                </p>
-              </div>
-            </div>
-
-            {/* Professional Logo Section - Right Side */}
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="flex items-center gap-3" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                <img 
-                  src={buodLogo} 
-                  alt="Buod HR" 
-                  className="h-40 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105" 
-                />
-              </div>
             </div>
 
             {/* Mobile menu button */}
