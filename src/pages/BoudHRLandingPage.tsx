@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users, Building2, Shield, Brain, Target, BarChart3, CheckCircle, Star, ArrowLeft, Menu, X, Phone, Mail, MapPin, Globe, Linkedin, Twitter, MessageCircle, Play, Award, Zap, Lock, Cloud, Settings, Building, GraduationCap, Calculator, Heart, Briefcase, FileText, Clock, ChevronDown, User, Bell, DollarSign, PenTool, Video, Smartphone, Eye, Rocket, Lightbulb, Crown } from 'lucide-react';
+import { Users, Building2, Shield, Brain, Target, BarChart3, CheckCircle, Star, ArrowLeft, Menu, X, Phone, Mail, MapPin, Globe, Linkedin, Twitter, MessageCircle, Play, Award, Zap, Lock, Cloud, Settings, Building, GraduationCap, Calculator, Heart, Briefcase, FileText, Clock, ChevronDown, User, Bell, DollarSign, PenTool, Video, Smartphone, Eye, Rocket, Lightbulb, Crown, LogIn } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import heroLaptop from '@/assets/hero-laptop.jpg';
@@ -397,6 +397,16 @@ const BoudHRLandingPage: React.FC = () => {
                 👥 انضم الى فريقنا
               </Button>
 
+              {/* زر تسجيل الدخول */}
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/unified-login')} 
+                className="text-sm font-medium text-white border-white/30 hover:bg-white hover:text-[#008C6A] transition-colors flex items-center gap-2"
+              >
+                <LogIn className="w-4 h-4" />
+                تسجيل الدخول
+              </Button>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="text-sm font-medium text-white flex items-center gap-1 hover:text-[#008C6A] transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
@@ -435,6 +445,14 @@ const BoudHRLandingPage: React.FC = () => {
                 <a href="#about" className="block px-4 py-2 text-sm text-white hover:text-[#008C6A] transition-colors">عن بُعد</a>
                 <a href="#clients" className="block px-4 py-2 text-sm text-white hover:text-[#008C6A] transition-colors">عملاؤنا</a>
                 <a href="#contact" className="block px-4 py-2 text-sm text-white hover:text-[#008C6A] transition-colors">تواصل معنا</a>
+                
+                {/* زر تسجيل الدخول للموبايل */}
+                <button 
+                  onClick={() => navigate('/unified-login')} 
+                  className="block w-full text-right px-4 py-2 text-sm text-white hover:text-[#008C6A] transition-colors border-t border-[#008C6A]/30 mt-2 pt-4"
+                >
+                  تسجيل الدخول
+                </button>
               </div>
             </div>}
           
