@@ -41,10 +41,16 @@ import {
   Link,
   Key,
   Shield,
-  TestTube
+  TestTube,
+  Filter,
+  Search,
+  Mail,
+  AlertCircle,
+  Info,
+  CheckCircle2
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart as RechartsPieChart, Cell } from 'recharts';
-import { useBudgetCategories, useBudgetAllocations, useBudgetExpenses, useBudgetKPIs, useBudgetIntegrations } from '@/hooks/useBudget';
+import { useBudgetCategories, useBudgetAllocations, useBudgetExpenses, useBudgetKPIs, useBudgetIntegrations, useBudgetNotifications } from '@/hooks/useBudget';
 import { useToast } from '@/hooks/use-toast';
 
 interface BudgetFinancialPlanningProps {
@@ -1758,23 +1764,259 @@ const BudgetFinancialPlanning: React.FC<BudgetFinancialPlanningProps> = ({ onBac
     );
   };
 
-  const NotificationsCenter = () => (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Bell className="h-5 w-5" />
-          مركز الإشعارات
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="text-center py-20 text-muted-foreground">
-          <Bell className="h-16 w-16 mx-auto mb-4 opacity-50" />
-          <p>مركز الإشعارات قيد التطوير</p>
-          <p className="text-sm">سيتضمن جميع الإشعارات والتنبيهات المالية</p>
+  const NotificationsCenter = () => {
+    const { notifications, unreadCount, loading, markAsRead, markAllAsRead } = useBudgetNotifications();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filterType, setFilterType] = useState('all');
+
+    const getNotificationIcon = (type: string) => {
+      switch (type) {
+        case 'allocation':
+          return <Target className="h-5 w-5 text-blue-500" />;
+        case 'expense':
+          return <DollarSign className="h-5 w-5 text-green-500" />;
+        case 'deletion':
+          return <Trash2 className="h-5 w-5 text-red-500" />;
+        case 'update':
+          return <RefreshCw className="h-5 w-5 text-orange-500" />;
+        default:
+          return <Bell className="h-5 w-5 text-muted-foreground" />;
+      }
+    };
+
+    const getNotificationTypeText = (type: string) => {
+      switch (type) {
+        case 'allocation':
+          return 'تخصيص الميزانية';
+        case 'expense':
+          return 'مصروف';
+        case 'deletion':
+          return 'حذف';
+        case 'update':
+          return 'تحديث';
+        default:
+          return 'إشعار عام';
+      }
+    };
+
+    const formatTime = (dateString: string) => {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+      
+      if (diffInHours < 1) {
+        return 'منذ قليل';
+      } else if (diffInHours < 24) {
+        return `منذ ${diffInHours} ساعة`;
+      } else {
+        const diffInDays = Math.floor(diffInHours / 24);
+        return `منذ ${diffInDays} يوم`;
+      }
+    };
+
+    const getChannelIcon = (channel: string) => {
+      switch (channel) {
+        case 'email':
+          return <Mail className="h-3 w-3" />;
+        case 'push':
+          return <Bell className="h-3 w-3" />;
+        default:
+          return <Info className="h-3 w-3" />;
+      }
+    };
+
+    const filteredNotifications = notifications.filter(notification => {
+      const matchesSearch = notification.message.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesType = filterType === 'all' || notification.request_type === filterType;
+      return matchesSearch && matchesType;
+    });
+
+    if (loading) {
+      return (
+        <Card>
+          <CardContent className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+              <p className="text-muted-foreground">جاري تحميل الإشعارات...</p>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+
+    return (
+      <div className="space-y-6">
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2">
+                <Bell className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="text-2xl font-bold">{notifications.length}</p>
+                  <p className="text-sm text-muted-foreground">إجمالي الإشعارات</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2">
+                <Mail className="h-5 w-5 text-orange-500" />
+                <div>
+                  <p className="text-2xl font-bold">{unreadCount}</p>
+                  <p className="text-sm text-muted-foreground">غير مقروءة</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500" />
+                <div>
+                  <p className="text-2xl font-bold">{notifications.length - unreadCount}</p>
+                  <p className="text-sm text-muted-foreground">مقروءة</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      </CardContent>
-    </Card>
-  );
+
+        {/* Main Content */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2">
+                <Bell className="h-5 w-5" />
+                مركز الإشعارات والتنبيهات
+              </CardTitle>
+              <div className="flex items-center gap-2">
+                {unreadCount > 0 && (
+                  <Button variant="outline" size="sm" onClick={markAllAsRead}>
+                    <CheckCircle className="h-4 w-4 ml-2" />
+                    تعليم الكل كمقروء
+                  </Button>
+                )}
+                <Button variant="outline" size="sm">
+                  <Settings className="h-4 w-4 ml-2" />
+                  إعدادات الإشعارات
+                </Button>
+              </div>
+            </div>
+            
+            {/* Search and Filter */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              <div className="relative flex-1">
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input
+                  placeholder="البحث في الإشعارات..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pr-10"
+                />
+              </div>
+              <Select value={filterType} onValueChange={setFilterType}>
+                <SelectTrigger className="w-full sm:w-[200px]">
+                  <Filter className="h-4 w-4 ml-2" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">جميع الإشعارات</SelectItem>
+                  <SelectItem value="allocation">تخصيص الميزانية</SelectItem>
+                  <SelectItem value="expense">المصروفات</SelectItem>
+                  <SelectItem value="deletion">الحذف</SelectItem>
+                  <SelectItem value="update">التحديثات</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {filteredNotifications.length === 0 ? (
+              <div className="text-center py-12">
+                <Bell className="h-16 w-16 mx-auto text-muted-foreground mb-4 opacity-50" />
+                <p className="text-lg font-medium">لا توجد إشعارات</p>
+                <p className="text-sm text-muted-foreground">
+                  {searchTerm || filterType !== 'all' 
+                    ? 'لا توجد إشعارات تطابق معايير البحث'
+                    : 'ستظهر جميع الإشعارات والتنبيهات المالية هنا'
+                  }
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {filteredNotifications.map((notification) => (
+                  <Card 
+                    key={notification.id} 
+                    className={`transition-all duration-200 hover:shadow-md ${
+                      notification.status === 'unread' 
+                        ? 'border-l-4 border-l-primary bg-primary/5' 
+                        : 'hover:bg-muted/30'
+                    }`}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-4">
+                        <div className="mt-1">
+                          {getNotificationIcon(notification.request_type)}
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <Badge variant="outline" className="text-xs">
+                                  {getNotificationTypeText(notification.request_type)}
+                                </Badge>
+                                <Badge variant="outline" className="text-xs flex items-center gap-1">
+                                  {getChannelIcon(notification.channel)}
+                                  {notification.channel === 'email' ? 'إيميل' : 
+                                   notification.channel === 'push' ? 'دفع' : 'التطبيق'}
+                                </Badge>
+                                {notification.status === 'unread' && (
+                                  <Badge variant="default" className="text-xs bg-primary">
+                                    جديد
+                                  </Badge>
+                                )}
+                              </div>
+                              <h4 className="font-medium mt-1">
+                                {getNotificationTypeText(notification.request_type)} - {notification.request_id.slice(-8)}
+                              </h4>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-muted-foreground">
+                                {formatTime(notification.created_at)}
+                              </span>
+                              {notification.status === 'unread' && (
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => markAsRead(notification.id)}
+                                  className="h-6 px-2 text-xs"
+                                >
+                                  <Eye className="h-3 w-3" />
+                                </Button>
+                              )}
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {notification.message}
+                          </p>
+                          <Button variant="outline" size="sm" className="mt-2">
+                            عرض التفاصيل
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5">
