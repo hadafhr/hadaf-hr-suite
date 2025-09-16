@@ -162,7 +162,7 @@ const OvertimeCalculatorPage: React.FC = () => {
                   <img 
                     src={buodLogo} 
                     alt="Buod HR" 
-                    className="h-16 w-auto filter brightness-125 hover:brightness-150 transition-all duration-300" 
+                    className="h-24 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-lg" 
                   />
                 </div>
                 
