@@ -9735,6 +9735,59 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          billing_cycle: string | null
+          client_id: string | null
+          created_at: string | null
+          end_date: string | null
+          features: Json | null
+          id: string
+          max_employees: number | null
+          plan_name: string
+          price: number
+          start_date: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          billing_cycle?: string | null
+          client_id?: string | null
+          created_at?: string | null
+          end_date?: string | null
+          features?: Json | null
+          id?: string
+          max_employees?: number | null
+          plan_name: string
+          price: number
+          start_date: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          billing_cycle?: string | null
+          client_id?: string | null
+          created_at?: string | null
+          end_date?: string | null
+          features?: Json | null
+          id?: string
+          max_employees?: number | null
+          plan_name?: string
+          price?: number
+          start_date?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       suppliers: {
         Row: {
           address: string | null
