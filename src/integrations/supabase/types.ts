@@ -10557,6 +10557,18 @@ export type Database = {
         Args: { _user_id: string }
         Returns: string
       }
+      get_employee_requests: {
+        Args: { p_employee_id?: string }
+        Returns: {
+          description: string
+          employee_name: string
+          id: string
+          request_type: string
+          requested_date: string
+          status: string
+          title: string
+        }[]
+      }
       get_payroll_summary: {
         Args: { p_employee_id?: string }
         Returns: {
