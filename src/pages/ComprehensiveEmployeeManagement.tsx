@@ -164,7 +164,7 @@ const ComprehensiveEmployeeManagement = () => {
       </div>
 
       {/* المحتوى الرئيسي */}
-      <div className="relative z-10 container mx-auto px-6 py-8">
+      <div className="relative z-10 container mx-auto px-6 py-8 bg-background/95">
         {/* الشريط العلوي الاحترافي */}
         <div className="flex items-center justify-between mb-12 p-6 bg-card/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
           <div className="flex items-center gap-6">
