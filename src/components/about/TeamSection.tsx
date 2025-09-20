@@ -91,33 +91,33 @@ export const TeamSection: React.FC = () => {
   ];
 
   return (
-    <section id="team" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50">
+    <section id="team" className="py-20 bg-black min-h-screen">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center space-y-8 mb-20">
           <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
-            <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
-              <Users className="w-5 h-5 mr-2" />
+            <div className="absolute -inset-4 bg-white/10 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
+            <Badge className="relative bg-black/80 text-white border-[#1A1A1A] px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:scale-105">
+              <Users className="w-5 h-5 mr-2 text-white" />
               فريق العمل
             </Badge>
           </div>
           
           <div className="space-y-4">
-            <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in text-center">
+            <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight animate-fade-in text-center drop-shadow-2xl">
               <span className="block mb-2">فريقنا المتميز من</span>
-              <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in block">
+              <span className="bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent animate-scale-in block">
                 الخبراء والمبدعين
               </span>
             </h2>
             
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full opacity-80 shadow-lg shadow-white/30"></div>
           </div>
           
-          <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed font-medium">
             يجمعون بين الخبرة العملية والشغف بالابتكار لتقديم أفضل الحلول التقنية
             <br />
-            <span className="text-primary font-semibold">مع فهم عميق لاحتياجات السوق المحلي</span>
+            <span className="text-[#E0E0E0] font-semibold">مع فهم عميق لاحتياجات السوق المحلي</span>
           </p>
         </div>
 
@@ -125,18 +125,18 @@ export const TeamSection: React.FC = () => {
         <div className="mb-20">
           <div className="text-center space-y-6 mb-12">
             <div className="relative inline-block">
-              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
-              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
-                القيادة <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">التنفيذية</span>
+              <div className="absolute -inset-3 bg-white/10 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-white drop-shadow-2xl">
+                القيادة <span className="bg-gradient-to-r from-[#E0E0E0] to-white bg-clip-text text-transparent">التنفيذية</span>
               </h3>
             </div>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
-            <p className="text-lg text-muted-foreground">الفريق القيادي الذي يوجه رؤية الشركة ويحقق أهدافها الاستراتيجية</p>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-white to-[#E0E0E0] mx-auto rounded-full shadow-lg shadow-white/20"></div>
+            <p className="text-lg text-white/90">الفريق القيادي الذي يوجه رؤية الشركة ويحقق أهدافها الاستراتيجية</p>
           </div>
 
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8" dir="rtl">
             {leadership.map((leader, index) => (
-              <Card key={index} className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-lg overflow-hidden">
+              <Card key={index} className="group bg-black border-[#1A1A1A] hover:shadow-2xl hover:shadow-gray-400/20 transition-all duration-500 overflow-hidden transform hover:scale-105 shadow-xl shadow-black/50">
                 <CardContent className="p-0">
                   <div className="relative">
                     <img 
@@ -144,34 +144,34 @@ export const TeamSection: React.FC = () => {
                       alt={leader.name}
                       className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   
-                  <div className="p-6">
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">{leader.name}</h4>
-                    <p className="text-primary font-semibold mb-3">{leader.position}</p>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{leader.bio}</p>
+                  <div className="p-6 bg-black">
+                    <h4 className="text-xl font-bold text-white mb-2">{leader.name}</h4>
+                    <p className="text-[#E0E0E0] font-semibold mb-3">{leader.position}</p>
+                    <p className="text-white/90 text-sm mb-4 leading-relaxed">{leader.bio}</p>
                     
                     <div className="flex flex-wrap gap-2 mb-4">
                       {leader.specialties.map((specialty, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-xs">
+                        <Badge key={idx} className="bg-black/80 text-white border-[#1A1A1A] text-xs hover:bg-[#1A1A1A] transition-colors">
                           {specialty}
                         </Badge>
                       ))}
                     </div>
                     
-                    <div className="flex items-center text-sm text-gray-500 mb-4">
-                      <Star className="w-4 h-4 text-yellow-500 mr-2" />
+                    <div className="flex items-center text-sm text-white/90 mb-4">
+                      <Star className="w-4 h-4 text-yellow-400 mr-2" />
                       {leader.achievements}
                     </div>
                     
                     <div className="flex gap-3">
-                      <Button size="sm" variant="outline">
-                        <Linkedin className="w-4 h-4 mr-2" />
+                      <Button size="sm" className="bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:scale-105 transition-all duration-200">
+                        <Linkedin className="w-4 h-4 mr-2 text-white" />
                         LinkedIn
                       </Button>
-                      <Button size="sm" variant="outline">
-                        <Mail className="w-4 h-4 mr-2" />
+                      <Button size="sm" className="bg-black/80 text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:scale-105 transition-all duration-200">
+                        <Mail className="w-4 h-4 mr-2 text-white" />
                         راسل
                       </Button>
                     </div>
@@ -186,36 +186,36 @@ export const TeamSection: React.FC = () => {
         <div className="mb-20">
           <div className="text-center space-y-6 mb-12">
             <div className="relative inline-block">
-              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
-              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
-                أقسام <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الشركة</span>
+              <div className="absolute -inset-3 bg-white/10 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-white drop-shadow-2xl">
+                أقسام <span className="bg-gradient-to-r from-[#E0E0E0] to-white bg-clip-text text-transparent">الشركة</span>
               </h3>
             </div>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
-            <p className="text-lg text-muted-foreground">فرق متخصصة تعمل بتناغم لتحقيق التميز في كل جانب من جوانب عملنا</p>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-white to-[#E0E0E0] mx-auto rounded-full shadow-lg shadow-white/20"></div>
+            <p className="text-lg text-white/90">فرق متخصصة تعمل بتناغم لتحقيق التميز في كل جانب من جوانب عملنا</p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8" dir="rtl">
             {departments.map((dept, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
-                <CardContent className="p-8">
+              <Card key={index} className="group bg-black border-[#1A1A1A] hover:shadow-2xl hover:shadow-gray-400/20 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-black/50">
+                <CardContent className="p-8 bg-black">
                   <div className="flex items-center mb-6">
-                    <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${dept.color} rounded-xl mr-4`}>
+                    <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${dept.color} rounded-xl mr-4 shadow-lg`}>
                       <dept.icon className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold text-gray-900">{dept.name}</h4>
-                      <p className="text-gray-600 text-sm">{dept.members} عضو</p>
+                      <h4 className="text-xl font-bold text-white">{dept.name}</h4>
+                      <p className="text-[#E0E0E0] text-sm">{dept.members} عضو</p>
                     </div>
                   </div>
                   
-                  <p className="text-gray-600 mb-6">{dept.description}</p>
+                  <p className="text-white/90 mb-6">{dept.description}</p>
                   
                   <div className="space-y-2">
-                    <p className="text-sm font-semibold text-gray-700 mb-2">التخصصات:</p>
+                    <p className="text-sm font-semibold text-[#E0E0E0] mb-2">التخصصات:</p>
                     <div className="flex flex-wrap gap-2">
                       {dept.technologies.map((tech, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
+                        <Badge key={idx} className="bg-black/80 text-white border-[#1A1A1A] text-xs hover:bg-[#1A1A1A] transition-colors">
                           {tech}
                         </Badge>
                       ))}
@@ -228,26 +228,26 @@ export const TeamSection: React.FC = () => {
         </div>
 
         {/* Company Culture */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+        <div className="bg-black border border-[#1A1A1A] rounded-2xl shadow-2xl shadow-black/50 p-8 lg:p-12">
           <div className="text-center space-y-6 mb-12">
             <div className="relative inline-block">
-              <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-xl blur-xl opacity-30"></div>
-              <h3 className="relative text-3xl lg:text-4xl font-bold text-foreground">
-                ثقافة <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الشركة</span>
+              <div className="absolute -inset-3 bg-white/10 rounded-xl blur-xl opacity-30"></div>
+              <h3 className="relative text-3xl lg:text-4xl font-bold text-white drop-shadow-2xl">
+                ثقافة <span className="bg-gradient-to-r from-[#E0E0E0] to-white bg-clip-text text-transparent">الشركة</span>
               </h3>
             </div>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full"></div>
-            <p className="text-lg text-muted-foreground">القيم والمبادئ التي تحكم بيئة عملنا وتجعلها مكاناً مميزاً للإبداع والنمو</p>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-white to-[#E0E0E0] mx-auto rounded-full shadow-lg shadow-white/20"></div>
+            <p className="text-lg text-white/90">القيم والمبادئ التي تحكم بيئة عملنا وتجعلها مكاناً مميزاً للإبداع والنمو</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" dir="rtl">
             {culture.map((item, index) => (
               <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-white/30 transition-all duration-300 border border-[#1A1A1A]">
                   <item.icon className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-3">{item.title}</h4>
-                <p className="text-gray-600 text-sm">{item.description}</p>
+                <h4 className="text-lg font-bold text-white mb-3">{item.title}</h4>
+                <p className="text-white/90 text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -255,14 +255,14 @@ export const TeamSection: React.FC = () => {
 
         {/* Join Team CTA */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-8 lg:p-12 text-white">
-            <h3 className="text-3xl font-bold mb-4">انضم إلى فريقنا المميز</h3>
-            <p className="text-xl mb-8 opacity-90">هل تريد أن تكون جزءاً من قصة نجاحنا؟ ابحث عن الفرص الوظيفية المتاحة</p>
+          <div className="bg-gradient-to-r from-black to-black/90 border border-[#1A1A1A] rounded-2xl p-8 lg:p-12 shadow-2xl shadow-black/50">
+            <h3 className="text-3xl font-bold mb-4 text-white">انضم إلى فريقنا المميز</h3>
+            <p className="text-xl mb-8 text-white/90">هل تريد أن تكون جزءاً من قصة نجاحنا؟ ابحث عن الفرص الوظيفية المتاحة</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-gray-100">
+              <Button className="bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:scale-105 transition-all duration-200 px-6 py-3 text-lg shadow-lg">
                 الوظائف المتاحة
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+              <Button className="bg-black/80 text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:scale-105 transition-all duration-200 px-6 py-3 text-lg shadow-lg">
                 أرسل سيرتك الذاتية
               </Button>
             </div>
