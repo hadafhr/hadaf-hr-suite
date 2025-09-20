@@ -506,7 +506,7 @@ export const QualityOfLifeSystem: React.FC<QualityOfLifeSystemProps> = ({ onBack
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-card/95 backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in">
       <div className="flex items-center gap-6">
         <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
