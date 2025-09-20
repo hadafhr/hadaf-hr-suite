@@ -6,46 +6,32 @@ import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { PatternBackground } from '@/components/PatternBackground';
 import ComprehensiveEmployeeManagement from '@/pages/ComprehensiveEmployeeManagement';
-import { 
-  User,
-  LogOut,
-  ChevronDown,
-  Crown,
-  Settings
-} from 'lucide-react';
-
+import { User, LogOut, ChevronDown, Crown, Settings } from 'lucide-react';
 export const HRManagement: React.FC = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
-  const { signOut, user } = useAuth();
+  const {
+    t,
+    i18n
+  } = useTranslation();
+  const {
+    signOut,
+    user
+  } = useAuth();
   const isArabic = i18n.language === 'ar';
-
   const handleLogout = async () => {
     await signOut();
     navigate('/unified-login');
   };
-
-  return (
-    <div className="min-h-screen bg-background flex flex-col relative">
+  return <div className="min-h-screen bg-background flex flex-col relative">
       <PatternBackground opacity={0.02} size={120} />
       
       {/* Header */}
       <header className="relative z-10 bg-background/95 backdrop-blur-sm border-b border-border h-16 flex items-center justify-between px-6">
         <div className="flex items-center">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 hover:bg-primary/10 transition-colors"
-          >
+          <Button variant="ghost" onClick={() => navigate('/admin-dashboard')} className="flex items-center gap-2 hover:bg-primary/10 transition-colors">
             <ArrowLeft className="w-5 h-5" />
             {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
           </Button>
@@ -77,10 +63,7 @@ export const HRManagement: React.FC = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <User className="h-4 w-4 mr-2" />
-                {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
-              </DropdownMenuItem>
+              
               <DropdownMenuItem onClick={() => navigate('/company-dashboard')}>
                 <Building2 className="h-4 w-4 mr-2" />
                 {isArabic ? 'لوحة تحكم المنشأة' : 'Company Dashboard'}
@@ -105,6 +88,5 @@ export const HRManagement: React.FC = () => {
           <ComprehensiveEmployeeManagement />
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
