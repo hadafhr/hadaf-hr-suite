@@ -81,7 +81,7 @@ export const CompanyDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Enhanced Header */}
         <div className="flex items-center justify-between">
@@ -103,73 +103,73 @@ export const CompanyDashboard: React.FC = () => {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0">
+          <Card className="bg-card border border-border text-card-foreground shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-white" />
+                <Users className="w-5 h-5 text-card-foreground" />
                 <div>
-                  <p className="text-white/80 text-sm">إجمالي الموظفين</p>
-                  <p className="text-2xl font-bold">{companyStats.totalEmployees}</p>
+                  <p className="text-muted-foreground text-sm">إجمالي الموظفين</p>
+                  <p className="text-2xl font-bold text-card-foreground">{companyStats.totalEmployees}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white shadow-xl border-0">
+          <Card className="bg-success border border-border text-success-foreground shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-white" />
+                <CheckCircle className="w-5 h-5 text-success-foreground" />
                 <div>
-                  <p className="text-white/80 text-sm">مستخدمون نشطون</p>
-                  <p className="text-2xl font-bold">{companyStats.activeUsers}</p>
+                  <p className="text-success-foreground/80 text-sm">مستخدمون نشطون</p>
+                  <p className="text-2xl font-bold text-success-foreground">{companyStats.activeUsers}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white shadow-xl border-0">
+          <Card className="bg-warning border border-border text-warning-foreground shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-white" />
+                <Clock className="w-5 h-5 text-warning-foreground" />
                 <div>
-                  <p className="text-white/80 text-sm">مهام معلقة</p>
-                  <p className="text-2xl font-bold">{companyStats.pendingTasks}</p>
+                  <p className="text-warning-foreground/80 text-sm">مهام معلقة</p>
+                  <p className="text-2xl font-bold text-warning-foreground">{companyStats.pendingTasks}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-xl border-0">
+          <Card className="bg-primary border border-border text-primary-foreground shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-white" />
+                <Crown className="w-5 h-5 text-primary-foreground" />
                 <div>
-                  <p className="text-white/80 text-sm">حالة الاشتراك</p>
-                  <p className="text-lg font-bold">نشط</p>
+                  <p className="text-primary-foreground/80 text-sm">حالة الاشتراك</p>
+                  <p className="text-lg font-bold text-primary-foreground">نشط</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-xl border-0">
+          <Card className="bg-accent border border-border text-accent-foreground shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
-                <HeadphonesIcon className="w-5 h-5 text-white" />
+                <HeadphonesIcon className="w-5 h-5 text-accent-foreground" />
                 <div>
-                  <p className="text-white/80 text-sm">تذاكر الدعم</p>
-                  <p className="text-2xl font-bold">{companyStats.supportTickets}</p>
+                  <p className="text-accent-foreground/80 text-sm">تذاكر الدعم</p>
+                  <p className="text-2xl font-bold text-accent-foreground">{companyStats.supportTickets}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-xl border-0">
+          <Card className="bg-secondary border border-border text-secondary-foreground shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-white" />
+                <TrendingUp className="w-5 h-5 text-secondary-foreground" />
                 <div>
-                  <p className="text-white/80 text-sm">صحة النظام</p>
-                  <p className="text-2xl font-bold">{companyStats.systemHealth}%</p>
+                  <p className="text-secondary-foreground/80 text-sm">صحة النظام</p>
+                  <p className="text-2xl font-bold text-secondary-foreground">{companyStats.systemHealth}%</p>
                 </div>
               </div>
             </CardContent>
@@ -177,14 +177,14 @@ export const CompanyDashboard: React.FC = () => {
         </div>
 
         {/* Main Content with Tabs */}
-        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
+        <div className="bg-card backdrop-blur rounded-xl border border-border shadow-lg p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6 bg-muted/30 p-2 rounded-lg">
+            <TabsList className="grid w-full grid-cols-5 mb-6 bg-muted p-2 rounded-lg">
               {tabsConfig.map((tab) => (
                 <TabsTrigger 
                   key={tab.id} 
                   value={tab.id}
-                  className="flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-300 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-md hover:bg-white/50"
+                  className="flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:bg-accent text-foreground"
                 >
                   {tab.icon}
                   <span className="font-medium">{tab.label}</span>
