@@ -67,66 +67,74 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in">
       <div className="flex items-center gap-6">
         {showDashboardButton && (
           <Button 
-            variant="outline" 
+            variant="secondary" 
             size="sm" 
             onClick={() => navigate('/company-dashboard')} 
-            className="border-[#3CB593]/30 bg-[#3CB593]/5 text-[#3CB593] hover:bg-[#3CB593]/10 hover:border-[#3CB593]/50 transition-all duration-300"
+            className="text-secondary-foreground hover:bg-accent transition-all duration-300"
           >
             <Home className="h-4 w-4 ml-2" />
             لوحة التحكم
           </Button>
         )}
         {showBackButton && onBack && (
-          <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+          <Button 
+            variant="secondary" 
+            size="sm" 
+            onClick={onBack} 
+            className="text-secondary-foreground hover:bg-accent transition-all duration-300"
+          >
             <ArrowLeft className="h-4 w-4 ml-2" />
             رجوع
           </Button>
         )}
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-8 w-px bg-border"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+          <div className="w-16 h-16 bg-gradient-to-br from-accent to-success rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
             <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
               {icon}
             </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className="text-3xl font-bold text-foreground">
               {title}
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-muted-foreground text-lg">
               {description}
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+        <Badge variant="secondary" className="text-accent-foreground px-4 py-2 text-sm font-medium">
           <Calculator className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
         <Button 
+          variant="default"
           onClick={handleCalculateEligibility}
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <Calculator className="h-4 w-4 ml-2" />
           حساب الأهلية
         </Button>
         <Button 
+          variant="default"
           onClick={handleExportExcel}
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <Download className="h-4 w-4 ml-2" />
           تصدير Excel
         </Button>
         <Button 
+          variant="default"
           onClick={handleExportPDF}
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <FileText className="h-4 w-4 ml-2" />
           تقرير PDF
