@@ -361,13 +361,13 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-black rounded-3xl border border-gray-700 animate-fade-in card-3d hover:shadow-glow transition-all duration-300">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2" />
+        <Button variant="outline" size="sm" onClick={onBack} className="workforce-button btn-3d text-white border-gray-700 hover:bg-gray-900 hover:border-gray-600 hover:text-white transition-all duration-300">
+          <ArrowLeft className="h-4 w-4 ml-2 text-white" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-8 w-px bg-gray-600"></div>
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
@@ -377,10 +377,10 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
             <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className="text-3xl font-bold text-white">
               التتبع الميداني الشامل
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-300 text-lg">
               منظومة شاملة لتتبع وإدارة الموظفين الميدانيين في الوقت الفعلي مع تحليلات ذكية شاملة
             </p>
           </div>
