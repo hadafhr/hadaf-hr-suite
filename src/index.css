@@ -7,14 +7,14 @@
 @layer base {
   :root {
     /* خلفيات أساسية - التصميم الداكن الجديد */
-    --background: 0 0% 5%;           /* #0D0D0D - أسود داكن */
+    --background: 0 0% 0%;           /* #000000 - أسود كامل */
     --foreground: 0 0% 100%;         /* #FFFFFF - أبيض ساطع */
     
     /* البطاقات والمكونات - رمادي داكن */
-    --card: 0 0% 12%;                /* #1F1F1F - رمادي داكن للجداول والبطاقات */
+    --card: 0 0% 0%;                 /* #000000 - أسود للبطاقات */
     --card-foreground: 0 0% 100%;    /* نص أبيض */
     
-    --popover: 0 0% 12%;
+    --popover: 0 0% 0%;
     --popover-foreground: 0 0% 100%;
     
     /* الأزرار الأساسية - أبيض بنص أسود */
@@ -88,13 +88,13 @@
 
   .dark {
     /* نفس التصميم الداكن - التطبيق موحد */
-    --background: 0 0% 5%;           /* #0D0D0D - أسود داكن */
+    --background: 0 0% 0%;           /* #000000 - أسود كامل */
     --foreground: 0 0% 100%;         /* #FFFFFF - أبيض ساطع */
 
-    --card: 0 0% 12%;                /* #1F1F1F - رمادي داكن للجداول والبطاقات */
+    --card: 0 0% 0%;                 /* #000000 - أسود للبطاقات */
     --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 12%;
+    --popover: 0 0% 0%;
     --popover-foreground: 0 0% 100%;
 
     --primary: 0 0% 100%;            /* #FFFFFF - أبيض للأزرار الأساسية */
@@ -124,11 +124,11 @@
     --ring: 0 0% 100%;
     
     /* الشريط الجانبي */
-    --sidebar-background: 0 0% 12%;
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
     --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 16%;
+    --sidebar-accent: 0 0% 10%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 23%;
     --sidebar-ring: 0 0% 100%;
@@ -441,4 +441,61 @@
   100% {
     transform: translateX(0);
   }
+}
+
+/* 3D Effects and Workforce Management Styles */
+.workforce-container {
+  @apply min-h-screen;
+  background: #000000;
+}
+
+.workforce-card {
+  @apply bg-black border border-gray-800 rounded-lg transition-all duration-300;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+}
+
+.workforce-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 12px 32px rgba(255, 255, 255, 0.1);
+}
+
+.workforce-button {
+  @apply bg-black text-white border border-gray-700 rounded-md px-4 py-2 transition-all duration-300;
+}
+
+.workforce-button:hover {
+  @apply bg-gray-900 scale-105;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+}
+
+.workforce-button-primary {
+  @apply bg-white text-black border-none rounded-md px-4 py-2 transition-all duration-300;
+}
+
+.workforce-button-primary:hover {
+  @apply bg-gray-100 scale-105;
+}
+
+.btn-3d {
+  @apply transition-all duration-300 transform;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+}
+
+.btn-3d:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.card-3d {
+  @apply bg-black border border-gray-800 rounded-lg transition-all duration-300;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(255, 255, 255, 0.05);
+}
+
+.card-3d:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 32px rgba(255, 255, 255, 0.15), 0 16px 48px rgba(255, 255, 255, 0.1);
 }
