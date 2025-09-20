@@ -202,7 +202,7 @@ const ComprehensiveEmployeeManagement = () => {
         <div className="relative p-6">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           {/* Professional Grid Navigation - All Tabs Visible */}
-          <div className="bg-card/90 backdrop-blur rounded-xl border border-border/20 shadow-lg p-4 mb-6">
+          <div className="bg-card backdrop-blur rounded-xl border border-border shadow-lg p-4 mb-6">
             {/* Control Icons for Tab Organization */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
