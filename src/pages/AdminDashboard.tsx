@@ -133,7 +133,7 @@ export const AdminDashboard: React.FC = () => {
       <PatternBackground opacity={0.02} size={120} />
       
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-background/95 backdrop-blur-sm border-r border-border transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+      <div className={`fixed inset-y-0 right-0 z-50 w-64 bg-background/95 backdrop-blur-sm border-l border-border transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
         <div className="flex items-center justify-between h-16 border-b border-border px-4">
           <BoudLogo variant="full" size="md" />
           <Badge variant="destructive" className="text-xs">ADMIN</Badge>
