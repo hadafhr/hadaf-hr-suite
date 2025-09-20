@@ -302,25 +302,25 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
   };
 
   const renderProfessionalHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-black rounded-3xl border border-[#1A1A1A] animate-fade-in card-3d hover:shadow-glow transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2" />
+        <Button variant="outline" size="sm" onClick={onBack} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
+          <ArrowLeft className="h-4 w-4 ml-2 text-white" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-8 w-px bg-[#1A1A1A]"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group cursor-pointer"
+          <div className="w-16 h-16 bg-gradient-to-br from-white to-gray-200 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group cursor-pointer card-3d hover:shadow-glow"
                onClick={() => setActiveTab('dashboard')}>
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <Building className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+            <Building className="h-8 w-8 text-black relative z-10 group-hover:scale-110 transition-transform" />
             <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className="text-3xl font-bold text-white">
               نظام إدارة الأقسام المتطور
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-[#E0E0E0] text-lg">
               إدارة شاملة للهيكل التنظيمي والأقسام بتقنيات ذكية متطورة
             </p>
           </div>
@@ -328,31 +328,31 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
       </div>
       <div className="flex items-center gap-3">
         {/* Settings Button */}
-        <Button variant="outline" size="sm" onClick={handleSettings} className="border-gray-300 hover:bg-blue-50 hover:border-blue-300">
-          <Settings className="h-4 w-4 ml-2" />
+        <Button variant="outline" size="sm" onClick={handleSettings} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
+          <Settings className="h-4 w-4 ml-2 text-white" />
           الإعدادات
         </Button>
         
         {/* Notifications Button */}
-        <Button variant="outline" size="sm" onClick={handleNotifications} className="border-gray-300 hover:bg-yellow-50 hover:border-yellow-300">
-          <Bell className="h-4 w-4 ml-2" />
+        <Button variant="outline" size="sm" onClick={handleNotifications} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
+          <Bell className="h-4 w-4 ml-2 text-white" />
           الإشعارات
         </Button>
 
         {/* Print Button */}
-        <Button variant="outline" size="sm" onClick={handlePrint} className="border-gray-300 hover:bg-purple-50 hover:border-purple-300">
-          <FileText className="h-4 w-4 ml-2" />
+        <Button variant="outline" size="sm" onClick={handlePrint} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
+          <FileText className="h-4 w-4 ml-2 text-white" />
           طباعة
         </Button>
 
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium cursor-pointer"
+        <Badge variant="outline" className="bg-black text-white border-[#1A1A1A] px-4 py-2 text-sm font-medium cursor-pointer card-3d hover:shadow-glow transition-all duration-300"
                onClick={() => setActiveTab('reports')}>
-          <Building className="h-4 w-4 ml-2" />
+          <Building className="h-4 w-4 ml-2 text-white" />
           نظام متقدم
         </Badge>
         
-        <Button onClick={handleExport} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
+        <Button onClick={handleExport} className="workforce-button btn-3d bg-white text-black border-[#1A1A1A] hover:bg-[#E0E0E0] hover:scale-105 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Download className="h-4 w-4 ml-2 text-black" />
           تصدير التقارير
         </Button>
         
