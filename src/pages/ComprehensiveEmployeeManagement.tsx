@@ -143,32 +143,32 @@ const ComprehensiveEmployeeManagement = () => {
   };
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      'نشط': 'bg-green-100 text-green-800 border-green-200',
-      'في إجازة': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      'متوقف': 'bg-red-100 text-red-800 border-red-200',
-      'منتهي الخدمة': 'bg-gray-100 text-gray-800 border-gray-200'
+      'نشط': 'bg-success/10 text-success border-success/20',
+      'في إجازة': 'bg-warning/10 text-warning border-warning/20',
+      'متوقف': 'bg-destructive/10 text-destructive border-destructive/20',
+      'منتهي الخدمة': 'bg-muted text-muted-foreground border-border'
     };
-    return <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-100 text-gray-800'}>
+    return <Badge className={statusConfig[status as keyof typeof statusConfig] || 'bg-muted text-muted-foreground'}>
         {status}
       </Badge>;
   };
-  return <div className="min-h-screen bg-white" dir="rtl">
+  return <div className="min-h-screen bg-background" dir="rtl">
       {/* خلفية احترافية متحركة بألوان الهوية البصرية */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/8 to-primary/3 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-primary/10 to-primary/5 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-muted/15 to-primary/3 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute top-20 right-1/4 w-32 h-32 bg-primary/5 rounded-full blur-xl animate-bounce-gentle"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-muted/8 to-muted/3 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-muted/10 to-muted/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-muted/15 to-muted/8 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-muted/5 rounded-full blur-xl animate-bounce-gentle"></div>
         <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-muted/20 rounded-full blur-lg animate-float"></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-primary/8 rounded-full blur-md animate-pulse"></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-muted/8 rounded-full blur-md animate-pulse"></div>
       </div>
 
       {/* المحتوى الرئيسي */}
       <div className="relative z-10 container mx-auto px-6 py-8">
         {/* الشريط العلوي الاحترافي */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
+        <div className="flex items-center justify-between mb-12 p-6 bg-card/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 animate-fade-in">
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-muted-foreground/20 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300 px-4 py-2">
+            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-border text-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-300 px-4 py-2">
               <ArrowLeft className="h-4 w-4 ml-2" />
               رجوع
             </Button>
@@ -176,7 +176,7 @@ const ComprehensiveEmployeeManagement = () => {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <Users className="h-8 w-8 text-white relative z-10" />
+                <Users className="h-8 w-8 text-primary-foreground relative z-10" />
                 <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
               </div>
               <div>
@@ -188,11 +188,11 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="border-border text-foreground bg-muted/50 px-4 py-2 text-sm font-medium">
               <Sparkles className="h-4 w-4 ml-2" />
               نظام متطور
             </Badge>
-            <Button size="sm" className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white shadow-glow hover:shadow-strong transition-all duration-300 px-6 py-2">
+            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-glow hover:shadow-strong transition-all duration-300 px-6 py-2">
               <Download className="h-4 w-4 ml-2" />
               تصدير
             </Button>
@@ -202,30 +202,30 @@ const ComprehensiveEmployeeManagement = () => {
         <div className="relative p-6">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           {/* Professional Grid Navigation - All Tabs Visible */}
-          <div className="bg-white/90 backdrop-blur rounded-xl border border-[#009F87]/20 shadow-lg p-4 mb-6">
+          <div className="bg-card/90 backdrop-blur rounded-xl border border-border/20 shadow-lg p-4 mb-6">
             {/* Control Icons for Tab Organization */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 bg-gray-50 rounded-lg p-1">
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="ترتيب الأيقونات" onClick={() => handleTabReorder('settings')}>
+                <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors" title="ترتيب الأيقونات" onClick={() => handleTabReorder('settings')}>
                     <Settings className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="إعادة ترتيب" onClick={() => handleTabReorder('reset')}>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors" title="إعادة ترتيب" onClick={() => handleTabReorder('reset')}>
                     <RefreshCw className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل للأعلى" onClick={() => handleTabMove('up')}>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors" title="نقل للأعلى" onClick={() => handleTabMove('up')}>
                     <ArrowUp className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل للأسفل" onClick={() => handleTabMove('down')}>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors" title="نقل للأسفل" onClick={() => handleTabMove('down')}>
                     <ArrowDown className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليمين" onClick={() => handleTabMove('right')}>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors" title="نقل لليمين" onClick={() => handleTabMove('right')}>
                     <ArrowLeft className="h-4 w-4 rotate-180" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors" title="نقل لليسار" onClick={() => handleTabMove('left')}>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors" title="نقل لليسار" onClick={() => handleTabMove('left')}>
                     <ArrowLeft className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-[#009F87]/10 hover:text-[#009F87] transition-colors cursor-grab active:cursor-grabbing" title="ترتيب بالماوس - حسب الرغبة" onClick={() => toggleDragMode()}>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors cursor-grab active:cursor-grabbing" title="ترتيب بالماوس - حسب الرغبة" onClick={() => toggleDragMode()}>
                     <GripVertical className="h-4 w-4" />
                   </Button>
                 </div>
@@ -238,8 +238,8 @@ const ComprehensiveEmployeeManagement = () => {
                   size="sm" 
                   className={`h-8 px-3 text-xs transition-all duration-300 ${
                     activeTab === 'dashboard' 
-                      ? "bg-[#009F87] text-white shadow-md hover:bg-[#009F87]/90" 
-                      : "hover:bg-[#009F87]/10 hover:text-[#009F87]"
+                      ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" 
+                      : "hover:bg-accent hover:text-accent-foreground"
                   }`}
                   onClick={() => setActiveTab('dashboard')}
                 >
@@ -253,8 +253,8 @@ const ComprehensiveEmployeeManagement = () => {
                   size="sm" 
                   className={`h-8 px-3 text-xs transition-all duration-300 ${
                     activeTab === 'settings' 
-                      ? "bg-[#009F87] text-white shadow-md hover:bg-[#009F87]/90" 
-                      : "hover:bg-[#009F87]/10 hover:text-[#009F87]"
+                      ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" 
+                      : "hover:bg-accent hover:text-accent-foreground"
                   }`}
                   onClick={() => setActiveTab('settings')}
                 >
@@ -265,7 +265,7 @@ const ComprehensiveEmployeeManagement = () => {
                 <Button
                   variant="ghost" 
                   size="sm" 
-                  className="h-8 px-3 text-xs transition-all duration-300 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 hover:border-[#009F87]/30 rounded-lg"
+                  className="h-8 px-3 text-xs transition-all duration-300 hover:bg-accent hover:text-accent-foreground border border-border hover:border-accent rounded-lg"
                 >
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
@@ -274,7 +274,7 @@ const ComprehensiveEmployeeManagement = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="h-8 px-3 text-xs transition-all duration-300 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 hover:border-[#009F87]/30 rounded-lg"
+                  className="h-8 px-3 text-xs transition-all duration-300 hover:bg-accent hover:text-accent-foreground border border-border hover:border-accent rounded-lg"
                 >
                   <Settings className="h-3 w-3 ml-1" />
                   تخصيص

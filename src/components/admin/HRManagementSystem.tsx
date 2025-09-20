@@ -99,11 +99,11 @@ export const HRManagementSystem: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      'نشط': { variant: 'default' as const, color: 'bg-green-100 text-green-800' },
-      'إجازة': { variant: 'secondary' as const, color: 'bg-orange-100 text-orange-800' },
-      'معلق': { variant: 'outline' as const, color: 'bg-yellow-100 text-yellow-800' },
-      'موافق': { variant: 'default' as const, color: 'bg-green-100 text-green-800' },
-      'مرفوض': { variant: 'destructive' as const, color: 'bg-red-100 text-red-800' }
+      'نشط': { variant: 'default' as const, color: 'bg-success/10 text-success border-success/20' },
+      'إجازة': { variant: 'secondary' as const, color: 'bg-warning/10 text-warning border-warning/20' },
+      'معلق': { variant: 'outline' as const, color: 'bg-warning/10 text-warning border-warning/20' },
+      'موافق': { variant: 'default' as const, color: 'bg-success/10 text-success border-success/20' },
+      'مرفوض': { variant: 'destructive' as const, color: 'bg-destructive/10 text-destructive border-destructive/20' }
     };
     
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig['نشط'];
@@ -264,9 +264,9 @@ export const HRManagementSystem: React.FC = () => {
                     <span className="text-sm text-muted-foreground">{request.date}</span>
                     {getStatusBadge(request.status)}
                     <Badge variant="outline" className={
-                      request.priority === 'عالي' ? 'border-red-200 text-red-800' :
-                      request.priority === 'متوسط' ? 'border-yellow-200 text-yellow-800' :
-                      'border-gray-200 text-gray-800'
+                      request.priority === 'عالي' ? 'border-destructive/30 text-destructive bg-destructive/10' :
+                      request.priority === 'متوسط' ? 'border-warning/30 text-warning bg-warning/10' :
+                      'border-border text-muted-foreground bg-muted/50'
                     }>
                       {request.priority}
                     </Badge>
