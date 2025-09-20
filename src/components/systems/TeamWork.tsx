@@ -3684,6 +3684,20 @@ const TeamWork: React.FC = () => {
     <div className="min-h-screen bg-background">
       {/* Header - Matching AI System Design */}
       <div className={`flex items-center justify-between mb-12 p-6 bg-card/95 backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in ${isRTL ? 'rtl' : 'ltr'}`}>
+        <div className="flex items-center gap-3">
+          <Badge variant="outline" className="border-border text-foreground bg-muted/50 px-4 py-2 text-sm font-medium">
+            <Users className="h-4 w-4 ml-2" />
+            {isRTL ? 'نظام متقدم' : 'نظام متقدم'}
+          </Badge>
+          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Share className="h-4 w-4 ml-2" />
+            {isRTL ? 'مشاركة' : 'مشاركة'}
+          </Button>
+          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Download className="h-4 w-4 ml-2" />
+            {isRTL ? 'تصدير التقارير' : 'تصدير التقارير'}
+          </Button>
+        </div>
         <div className="flex items-center gap-6">
           <Button variant="outline" size="sm" onClick={() => {/* Add back functionality */}} className="border-border hover:bg-accent hover:text-accent-foreground transition-all duration-300">
             <ArrowLeft className="h-4 w-4 ml-2" />
@@ -3706,20 +3720,6 @@ const TeamWork: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Badge variant="outline" className="border-border text-foreground bg-muted/50 px-4 py-2 text-sm font-medium">
-            <Users className="h-4 w-4 ml-2" />
-            {isRTL ? 'نظام متقدم' : 'نظام متقدم'}
-          </Badge>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
-            <Share className="h-4 w-4 ml-2" />
-            {isRTL ? 'مشاركة' : 'مشاركة'}
-          </Button>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
-            <Download className="h-4 w-4 ml-2" />
-            {isRTL ? 'تصدير التقارير' : 'تصدير التقارير'}
-          </Button>
         </div>
       </div>
 
