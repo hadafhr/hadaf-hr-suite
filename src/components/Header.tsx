@@ -35,14 +35,14 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <PromoBanner />
-      <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-40 w-full border-b border-border bg-black backdrop-blur supports-[backdrop-filter]:bg-black/90">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار - يظهر على جميع الشاشات */}
         <div className="flex items-center">
           <img 
             src="/lovable-uploads/1341af57-5888-4f9d-88b7-160bc83d04c7.png" 
             alt="شعار بُعد BOUD HR" 
-            className="h-55 w-auto mr-4"
+            className="h-55 w-auto mr-4 brightness-0 invert"
           />
         </div>
 

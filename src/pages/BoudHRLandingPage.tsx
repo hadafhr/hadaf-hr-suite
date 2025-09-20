@@ -298,26 +298,26 @@ const BoudHRLandingPage: React.FC = () => {
     number: "24/7",
     label: "دعم متواصل"
   }];
-  return <div className="min-h-screen bg-background font-arabic">
+  return <div className="min-h-screen bg-black font-arabic">
       {/* Professional Enterprise Header */}
-      <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
+      <header className="bg-black/98 backdrop-blur-md border-b border-gray-700 sticky top-0 z-50 shadow-lg">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-14">
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain" />
+                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain brightness-0 invert" />
               </div>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
-              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4" />
-              <a href="#home" className="navigation-item text-sm font-medium hover:text-primary transition-colors">الرئيسية</a>
+              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4 brightness-0 invert" />
+              <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
               
-              <a href="#about" className="navigation-item text-sm font-medium hover:text-primary transition-colors">عن بُعد</a>
+              <a href="#about" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">عن بُعد</a>
               
-              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
                 <Play className="w-4 h-4" />
                 جولة تفاعلية
               </Button>
@@ -325,49 +325,49 @@ const BoudHRLandingPage: React.FC = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+                  <Button variant="ghost" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
                     مركز المعرفة
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-background border border-border">
-                  <DropdownMenuItem onClick={() => navigate('/tutorials')}>
+                <DropdownMenuContent align="end" className="w-48 bg-black border border-gray-700">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-gray-900">
                     الدروس التعليمية
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/blog')}>
+                  <DropdownMenuItem onClick={() => navigate('/blog')} className="text-white hover:bg-gray-900">
                     مدونة بُعد
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/green-papers')}>
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-gray-900">
                     الأوراق الخضراء
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
                 أدوات الموارد البشرية
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors">
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
                 اربح مع بُعد
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
                 📅 احجز اجتماع
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/careers')} className="navigation-item text-sm font-medium text-black hover:text-primary transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
                 👥 انضم الى فريقنا
               </Button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="navigation-item text-sm font-medium text-black flex items-center gap-1 hover:text-primary transition-colors">
+                <DropdownMenuTrigger className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-background border border-border shadow-lg">
+                <DropdownMenuContent align="end" className="w-64 bg-black border border-gray-700 shadow-lg">
                   {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
                       <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
                     behavior: 'smooth'
-                  }) : navigate(item.href)} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3">
+                  }) : navigate(item.href)} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3">
                         <MessageCircle className="w-4 h-4" />
                         {item.name}
                       </button>
@@ -380,20 +380,20 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="hidden md:flex items-center space-x-3 space-x-reverse">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2">
+                  <Button variant="ghost" className="flex items-center gap-2 bg-black text-white border border-gray-700 hover:bg-gray-900 hover:scale-105 transition-all duration-300">
                     تسجيل الدخول <ChevronDown className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-background border border-border shadow-lg">
-                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
+                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building2 className="w-4 h-4" />
                      مدير النظام
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building className="w-4 h-4" />
                     🏢 لوحة تحكم المنشأة
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <User className="w-4 h-4" />
                     🔘 لوحة تحكم الموظف
                   </DropdownMenuItem>
