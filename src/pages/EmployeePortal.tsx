@@ -59,7 +59,17 @@ import {
   Calendar as CalendarIcon,
   User as UserIcon,
   FileIcon,
-  CheckCircle
+  BarChart3,
+  TrendingDown,
+  TrendingUp as TrendingUpIcon,
+  Calendar as CalendarDays2,
+  Filter,
+  Download as DownloadIcon,
+  MoreHorizontal,
+  AlertCircle,
+  CheckCircle2 as CheckCircleIcon,
+  XCircle,
+  Clock as ClockIcon
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -104,6 +114,11 @@ const EmployeePortal = () => {
   const [isTaskViewerOpen, setIsTaskViewerOpen] = useState(false);
   const [taskComments, setTaskComments] = useState<Array<{id: number, author: string, comment: string, timestamp: string}>>([]);
   const [newTaskComment, setNewTaskComment] = useState('');
+  const [selectedAttendance, setSelectedAttendance] = useState<any>(null);
+  const [isAttendanceViewerOpen, setIsAttendanceViewerOpen] = useState(false);
+  const [attendanceFilter, setAttendanceFilter] = useState('all'); // all, present, late, absent
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [requestFormData, setRequestFormData] = useState({
     request_type: '',
     title: '',
@@ -339,6 +354,62 @@ const EmployeePortal = () => {
     });
   };
 
+  // معالجات الدوام
+  const handleViewAttendanceDetails = (attendance: any) => {
+    setSelectedAttendance(attendance);
+    setIsAttendanceViewerOpen(true);
+  };
+
+  const handleExportAttendance = () => {
+    toast({
+      title: 'تصدير البيانات',
+      description: 'تم تصدير بيانات الدوام بنجاح كملف Excel',
+    });
+  };
+
+  const handleRequestCorrection = (date: string) => {
+    toast({
+      title: 'طلب تصحيح',
+      description: `تم إرسال طلب تصحيح للتاريخ: ${date}`,
+    });
+  };
+
+  // تحويل بيانات الحضور للواجهة
+  const attendanceData = attendanceRecords.map(record => ({
+    date: new Date(record.attendance_date).toLocaleDateString('ar-SA'),
+    checkIn: record.clock_in_time ? new Date(record.clock_in_time).toLocaleTimeString('ar-SA', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    }) : '--:--',
+    checkOut: record.clock_out_time ? new Date(record.clock_out_time).toLocaleTimeString('ar-SA', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    }) : '--:--',
+    status: record.status === 'present' ? 'حاضر' : 
+            record.status === 'late' ? 'متأخر' : 
+            record.status === 'absent' ? 'غائب' : 
+            record.status === 'overtime' ? 'ساعات إضافية' : 'إجازة',
+    hours: record.total_hours ? `${record.total_hours.toFixed(1)} ساعة` : '0:00'
+  }));
+
+  const getAttendanceStats = () => {
+    const total = attendanceData.length;
+    const present = attendanceData.filter(record => record.status === 'حاضر').length;
+    const late = attendanceData.filter(record => record.status === 'متأخر').length;
+    const absent = attendanceData.filter(record => record.status === 'غائب').length;
+    const leaves = attendanceData.filter(record => record.status === 'إجازة').length;
+
+    return { total, present, late, absent, leaves };
+  };
+
+  const filteredAttendanceData = attendanceData.filter(record => {
+    if (attendanceFilter === 'all') return true;
+    if (attendanceFilter === 'present') return record.status === 'حاضر';
+    if (attendanceFilter === 'late') return record.status === 'متأخر';
+    if (attendanceFilter === 'absent') return record.status === 'غائب';
+    return true;
+  });
+
   // تحويل البيانات الحقيقية للتوافق مع واجهة المستخدم
   const employeeDisplayData = employee ? {
     id: employee.id,
@@ -436,24 +507,6 @@ const EmployeePortal = () => {
     { id: 2, title: 'إدارة المشاريع الرقمية', duration: '30 ساعة', progress: 100, status: 'مكتمل', startDate: '2023-12-01' },
     { id: 3, title: 'البرمجة المتقدمة', duration: '50 ساعة', progress: 0, status: 'مسجل', startDate: '2024-01-25' }
   ];
-
-  // تحويل بيانات الحضور للواجهة
-  const attendanceData = attendanceRecords.map(record => ({
-    date: new Date(record.attendance_date).toLocaleDateString('ar-SA'),
-    checkIn: record.clock_in_time ? new Date(record.clock_in_time).toLocaleTimeString('ar-SA', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
-    }) : '-',
-    checkOut: record.clock_out_time ? new Date(record.clock_out_time).toLocaleTimeString('ar-SA', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
-    }) : '-',
-    status: record.status === 'present' ? 'حاضر' : 
-            record.status === 'late' ? 'متأخر' : 
-            record.status === 'absent' ? 'غائب' : 
-            record.status === 'overtime' ? 'ساعات إضافية' : 'إجازة',
-    hours: record.total_hours ? `${record.total_hours.toFixed(1)} ساعة` : '0:00'
-  }));
 
   // بيانات التأمين
   const insuranceData = {
@@ -1014,7 +1067,7 @@ const EmployeePortal = () => {
                               variant="outline"
                               className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700 hover-scale"
                             >
-                              <CheckCircle className="h-4 w-4 ml-2" />
+                              <CheckCircleIcon className="h-4 w-4 ml-2" />
                               تم الإنجاز
                             </Button>
                           )}
@@ -1825,6 +1878,117 @@ const EmployeePortal = () => {
                   className="flex-1"
                 >
                   إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog لعارض تفاصيل الدوام */}
+        <Dialog open={isAttendanceViewerOpen} onOpenChange={setIsAttendanceViewerOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <CalendarDays className="h-5 w-5 text-primary" />
+                تفاصيل دوام يوم {selectedAttendance?.date}
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-6">
+              {/* معلومات اليوم */}
+              <div className="grid grid-cols-2 gap-4">
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ClockIcon className="h-4 w-4 text-green-500" />
+                      <span className="font-medium">وقت الدخول</span>
+                    </div>
+                    <p className="text-2xl font-bold text-green-700">{selectedAttendance?.checkIn}</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <ClockIcon className="h-4 w-4 text-blue-500" />
+                      <span className="font-medium">وقت الخروج</span>
+                    </div>
+                    <p className="text-2xl font-bold text-blue-700">{selectedAttendance?.checkOut}</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* ملخص الأداء */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">ملخص اليوم</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-primary mb-1">{selectedAttendance?.hours}</div>
+                      <p className="text-sm text-muted-foreground">ساعات العمل</p>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-orange-600 mb-1">
+                        {selectedAttendance?.status === 'متأخر' ? '15 دقيقة' : '0 دقيقة'}
+                      </div>
+                      <p className="text-sm text-muted-foreground">التأخير</p>
+                    </div>
+                    <div>
+                      <Badge className={`${getAttendanceStatusColor(selectedAttendance?.status)} text-white`}>
+                        {selectedAttendance?.status}
+                      </Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* معلومات إضافية */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">معلومات إضافية</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">الموقع:</span>
+                      <span className="font-medium">المكتب الرئيسي</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">طريقة التسجيل:</span>
+                      <span className="font-medium">بصمة + GPS</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">الاستراحة:</span>
+                      <span className="font-medium">60 دقيقة</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">الساعات الإضافية:</span>
+                      <span className="font-medium text-green-600">
+                        {selectedAttendance?.hours && parseFloat(selectedAttendance.hours.replace(' ساعة', '')) > 8 
+                          ? `${(parseFloat(selectedAttendance.hours.replace(' ساعة', '')) - 8).toFixed(1)} ساعة`
+                          : '0 ساعة'
+                        }
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* أزرار الإجراءات */}
+              <div className="flex gap-3">
+                <Button className="flex-1">
+                  <AlertCircle className="h-4 w-4 ml-2" />
+                  طلب تصحيح
+                </Button>
+                <Button variant="outline">
+                  <DownloadIcon className="h-4 w-4 ml-2" />
+                  طباعة التفاصيل
+                </Button>
+                <Button variant="outline">
+                  <MessageSquare className="h-4 w-4 ml-2" />
+                  إضافة ملاحظة
                 </Button>
               </div>
             </div>
