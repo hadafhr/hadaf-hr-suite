@@ -173,6 +173,10 @@ const EmployeePortal = () => {
   const [selectedPayrollFilter, setSelectedPayrollFilter] = useState('all');
   const [selectedPayrollDetails, setSelectedPayrollDetails] = useState<any>(null);
 
+  // Performance specific states
+  const [selectedPerformanceFilter, setSelectedPerformanceFilter] = useState('all');
+  const [selectedPerformanceDetails, setSelectedPerformanceDetails] = useState<any>(null);
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -582,6 +586,32 @@ const EmployeePortal = () => {
     toast({
       title: 'طلب سلفة راتب',
       description: 'تم تسجيل طلب السلفة وسيتم مراجعته',
+    });
+  };
+
+  // Performance handlers
+  const handleViewPerformanceDetails = (performance: any) => {
+    setSelectedPerformanceDetails(performance);
+  };
+
+  const handleRequestFeedback = () => {
+    toast({
+      title: 'طلب تقييم',
+      description: 'تم إرسال طلب للحصول على تقييم إضافي من المدير',
+    });
+  };
+
+  const handleSetGoal = () => {
+    toast({
+      title: 'وضع هدف جديد',
+      description: 'تم إضافة هدف جديد لخطة التطوير الشخصية',
+    });
+  };
+
+  const handlePerformanceReport = () => {
+    toast({
+      title: 'تقرير الأداء',
+      description: 'تم تحميل تقرير الأداء الشامل',
     });
   };
 
@@ -1342,6 +1372,129 @@ const EmployeePortal = () => {
     projectsCompleted: 12,
     trainingCompleted: 8,
     attendanceRate: dashboardStats.attendanceRate
+  };
+
+  // بيانات الأداء المحسنة
+  const enhancedPerformanceData = {
+    currentRating: {
+      overall: 4.2,
+      technical: 4.5,
+      communication: 4.0,
+      leadership: 3.8,
+      problemSolving: 4.3,
+      teamwork: 4.6,
+      innovation: 4.1
+    },
+    goals: [
+      {
+        id: 'GOAL-2024-001',
+        title: 'تطوير مهارات القيادة',
+        description: 'حضور دورة تدريبية في القيادة وتطبيق المهارات المكتسبة',
+        category: 'تطوير شخصي',
+        targetDate: '2024-06-30',
+        progress: 75,
+        status: 'جاري',
+        priority: 'عالية',
+        measures: ['اجتياز الدورة التدريبية', 'قيادة مشروع فريق', 'تقييم 360 درجة']
+      },
+      {
+        id: 'GOAL-2024-002',
+        title: 'زيادة الإنتاجية بنسبة 20%',
+        description: 'تحسين كفاءة العمل وتطوير العمليات لزيادة الإنتاجية',
+        category: 'أداء',
+        targetDate: '2024-03-31',
+        progress: 90,
+        status: 'جاري',
+        priority: 'عالية',
+        measures: ['تحليل العمليات الحالية', 'تطبيق أدوات أتمتة', 'قياس النتائج']
+      },
+      {
+        id: 'GOAL-2024-003',
+        title: 'إكمال شهادة تقنية',
+        description: 'الحصول على شهادة AWS Solutions Architect',
+        category: 'تقني',
+        targetDate: '2024-08-31',
+        progress: 45,
+        status: 'جاري',
+        priority: 'متوسطة',
+        measures: ['دراسة المنهج', 'تطبيق عملي', 'اجتياز الامتحان']
+      }
+    ],
+    reviews: [
+      {
+        id: 'REV-2024-Q1',
+        period: 'الربع الأول 2024',
+        reviewDate: '2024-01-15',
+        reviewer: 'أحمد محمد - المدير التقني',
+        overallScore: 4.2,
+        strengths: [
+          'مهارات تقنية ممتازة',
+          'التزام بالمواعيد',
+          'روح الفريق العالية',
+          'قدرة على حل المشكلات'
+        ],
+        improvements: [
+          'تطوير مهارات التواصل',
+          'زيادة المبادرة في اقتراح الحلول',
+          'المشاركة أكثر في الاجتماعات'
+        ],
+        feedback: 'أداء ممتاز بشكل عام، يُنصح بالتركيز على تطوير المهارات القيادية',
+        nextReview: '2024-04-15'
+      },
+      {
+        id: 'REV-2023-Q4',
+        period: 'الربع الرابع 2023',
+        reviewDate: '2023-10-15',
+        reviewer: 'سارة أحمد - مدير المشاريع',
+        overallScore: 4.0,
+        strengths: [
+          'جودة عالية في التسليم',
+          'مرونة في التعامل مع التغييرات',
+          'تعلم مستمر'
+        ],
+        improvements: [
+          'إدارة الوقت',
+          'التفويض',
+          'التقارير الدورية'
+        ],
+        feedback: 'تطور ملحوظ في الأداء، استمرار في التحسن',
+        nextReview: '2024-01-15'
+      }
+    ],
+    achievements: [
+      {
+        id: 'ACH-001',
+        title: 'موظف الشهر',
+        description: 'تم اختياره كموظف الشهر لشهر ديسمبر 2023',
+        date: '2023-12-01',
+        type: 'تقدير',
+        impact: 'رفع الروح المعنوية للفريق'
+      },
+      {
+        id: 'ACH-002',
+        title: 'إكمال مشروع رئيسي',
+        description: 'قيادة فريق تطوير نظام إدارة المحتوى بنجاح',
+        date: '2023-11-15',
+        type: 'إنجاز',
+        impact: 'توفير 30% من وقت المحررين'
+      },
+      {
+        id: 'ACH-003',
+        title: 'شهادة تقنية',
+        description: 'الحصول على شهادة React Advanced Developer',
+        date: '2023-09-20',
+        type: 'تطوير مهني',
+        impact: 'تحسين جودة الكود وسرعة التطوير'
+      }
+    ],
+    competencies: [
+      { name: 'المهارات التقنية', current: 4.5, target: 4.7, gap: 0.2 },
+      { name: 'القيادة', current: 3.8, target: 4.2, gap: 0.4 },
+      { name: 'التواصل', current: 4.0, target: 4.3, gap: 0.3 },
+      { name: 'حل المشكلات', current: 4.3, target: 4.5, gap: 0.2 },
+      { name: 'العمل الجماعي', current: 4.6, target: 4.8, gap: 0.2 },
+      { name: 'الابتكار', current: 4.1, target: 4.4, gap: 0.3 }
+    ]
   };
 
   const getStatusBadge = (status: string) => {
@@ -4396,37 +4549,375 @@ const EmployeePortal = () => {
 
           {/* Performance Tab */}
           <TabsContent value="performance" className="space-y-6">
-            <Card>
+            {/* إحصائيات الأداء */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">التقييم العام</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {enhancedPerformanceData.currentRating.overall}/5
+                      </p>
+                    </div>
+                    <Award className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">الأهداف المكتملة</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {enhancedPerformanceData.goals.filter(g => g.progress === 100).length}/{enhancedPerformanceData.goals.length}
+                      </p>
+                    </div>
+                    <Target className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-purple-600">الإنجازات</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {enhancedPerformanceData.achievements.length}
+                      </p>
+                    </div>
+                    <CheckCircle2 className="h-8 w-8 text-purple-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-orange-600">متوسط التقييمات</p>
+                      <p className="text-2xl font-bold text-orange-700">
+                        {(enhancedPerformanceData.reviews.reduce((sum, r) => sum + r.overallScore, 0) / enhancedPerformanceData.reviews.length).toFixed(1)}
+                      </p>
+                    </div>
+                    <BarChart3 className="h-8 w-8 text-orange-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* تقييم الكفاءات */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="h-6 w-6" />
-                  تقييم الأداء
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    <CardTitle>تقييم الكفاءات</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleRequestFeedback}
+                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                    >
+                      <MessageCircle className="h-4 w-4 ml-2" />
+                      طلب تقييم
+                    </Button>
+                    <Button 
+                      size="sm"
+                      onClick={handlePerformanceReport}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <Download className="h-4 w-4 ml-2" />
+                      تقرير الأداء
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="space-y-6">
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">التقييم العام</span>
-                      <span className="font-bold">{performanceStats.overallRating}%</span>
+                <div className="space-y-4">
+                  {enhancedPerformanceData.competencies.map((competency, index) => (
+                    <div key={index} className="p-4 border rounded-lg hover:shadow-md transition-all duration-300">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="font-semibold">{competency.name}</h4>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground">الحالي:</span>
+                          <span className="font-bold text-primary">{competency.current}</span>
+                          <span className="text-sm text-muted-foreground">الهدف:</span>
+                          <span className="font-bold text-green-600">{competency.target}</span>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>التقييم الحالي</span>
+                          <span>{competency.current}/5</span>
+                        </div>
+                        <Progress value={(competency.current / 5) * 100} className="h-2" />
+                        {competency.gap > 0 && (
+                          <div className="flex items-center gap-2 text-sm text-orange-600">
+                            <AlertCircle className="h-4 w-4" />
+                            <span>فجوة: {competency.gap} نقطة</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <Progress value={performanceStats.overallRating} className="h-2" />
-                  </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">{performanceStats.projectsCompleted}</div>
-                      <div className="text-sm text-muted-foreground">مشاريع مكتملة</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-green-600">{performanceStats.trainingCompleted}</div>
-                      <div className="text-sm text-muted-foreground">دورات تدريبية</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-600">{performanceStats.attendanceRate}%</div>
-                      <div className="text-sm text-muted-foreground">معدل الحضور</div>
-                    </div>
+            {/* الأهداф والخطة التطويرية */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Target className="h-5 w-5" />
+                    <CardTitle>الأهداف والخطة التطويرية</CardTitle>
                   </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedPerformanceFilter} onValueChange={setSelectedPerformanceFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب الحالة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الأهداف</SelectItem>
+                        <SelectItem value="جاري">جاري</SelectItem>
+                        <SelectItem value="مكتمل">مكتمل</SelectItem>
+                        <SelectItem value="متأخر">متأخر</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm"
+                      onClick={handleSetGoal}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <Plus className="h-4 w-4 ml-2" />
+                      هدف جديد
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {enhancedPerformanceData.goals.filter(goal => 
+                    selectedPerformanceFilter === 'all' || goal.status === selectedPerformanceFilter
+                  ).map((goal) => (
+                    <Card key={goal.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{goal.title}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">{goal.description}</p>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>الموعد المستهدف: {goal.targetDate}</span>
+                              </div>
+                              <Badge variant="outline" className="px-2 py-1">
+                                {goal.category}
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-end gap-2">
+                            <Badge 
+                              variant="outline" 
+                              className={`${
+                                goal.status === 'مكتمل' ? 'bg-green-50 text-green-700 border-green-200' :
+                                goal.status === 'جاري' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                'bg-red-50 text-red-700 border-red-200'
+                              } px-3 py-1`}
+                            >
+                              {goal.status}
+                            </Badge>
+                            <Badge 
+                              variant="outline" 
+                              className={`${
+                                goal.priority === 'عالية' ? 'border-red-200 text-red-700 bg-red-50' :
+                                goal.priority === 'متوسطة' ? 'border-yellow-200 text-yellow-700 bg-yellow-50' :
+                                'border-green-200 text-green-700 bg-green-50'
+                              } px-2 py-1 text-xs`}
+                            >
+                              {goal.priority}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* شريط التقدم */}
+                        <div className="mb-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium">نسبة الإنجاز</span>
+                            <span className="text-sm font-bold text-primary">{goal.progress}%</span>
+                          </div>
+                          <Progress value={goal.progress} className="h-2" />
+                        </div>
+
+                        {/* معايير القياس */}
+                        <div className="mb-3">
+                          <h5 className="font-medium mb-2 text-sm">معايير القياس:</h5>
+                          <div className="space-y-1">
+                            {goal.measures.map((measure, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-sm">
+                                <CheckCircle2 className="h-3 w-3 text-green-500" />
+                                <span>{measure}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleViewPerformanceDetails(goal)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          {goal.status === 'جاري' && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                            >
+                              <CheckSquare className="h-4 w-4 ml-2" />
+                              تحديث التقدم
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* سجل التقييمات */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  <CardTitle>سجل التقييمات</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {enhancedPerformanceData.reviews.map((review) => (
+                    <Card key={review.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{review.period}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">المقيّم: {review.reviewer}</p>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>تاريخ التقييم: {review.reviewDate}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>التقييم القادم: {review.nextReview}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-sm text-muted-foreground">التقييم:</span>
+                              <span className="text-2xl font-bold text-primary">{review.overallScore}/5</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* نقاط القوة */}
+                        <div className="mb-3">
+                          <h5 className="font-medium mb-2 text-green-700 flex items-center gap-1">
+                            <CheckCircle2 className="h-4 w-4" />
+                            نقاط القوة:
+                          </h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {review.strengths.map((strength, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-sm text-green-700">
+                                <Plus className="h-3 w-3" />
+                                <span>{strength}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* نقاط التحسين */}
+                        <div className="mb-3">
+                          <h5 className="font-medium mb-2 text-orange-700 flex items-center gap-1">
+                            <AlertCircle className="h-4 w-4" />
+                            نقاط التحسين:
+                          </h5>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {review.improvements.map((improvement, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-sm text-orange-700">
+                                <Target className="h-3 w-3" />
+                                <span>{improvement}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* التعليقات */}
+                        <div className="p-3 bg-muted/30 rounded-lg">
+                          <h5 className="font-medium mb-1 text-sm">تعليقات المقيّم:</h5>
+                          <p className="text-sm">{review.feedback}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* الإنجازات والجوائز */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Award className="h-5 w-5" />
+                  <CardTitle>الإنجازات والجوائز</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {enhancedPerformanceData.achievements.map((achievement) => (
+                    <Card key={achievement.id} className="border-l-4 border-l-primary/30 shadow-sm hover:shadow-md transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="flex-shrink-0">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                              achievement.type === 'تقدير' ? 'bg-yellow-100' :
+                              achievement.type === 'إنجاز' ? 'bg-green-100' :
+                              'bg-blue-100'
+                            }`}>
+                              <Award className={`h-5 w-5 ${
+                                achievement.type === 'تقدير' ? 'text-yellow-600' :
+                                achievement.type === 'إنجاز' ? 'text-green-600' :
+                                'text-blue-600'
+                              }`} />
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold mb-1">{achievement.title}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">{achievement.description}</p>
+                            <div className="flex items-center justify-between text-xs">
+                              <Badge variant="outline">{achievement.type}</Badge>
+                              <span className="text-muted-foreground">{achievement.date}</span>
+                            </div>
+                            <div className="mt-2 p-2 bg-muted/20 rounded text-xs">
+                              <strong>التأثير:</strong> {achievement.impact}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>
