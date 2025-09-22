@@ -436,8 +436,8 @@ const EmployeePortal = () => {
     return true;
   });
 
-  // GPS Attendance filtered data
-  const filteredGPSAttendance = attendanceData.filter(record => {
+  // GPS Attendance filtered data with safety check
+  const filteredGPSAttendance = (attendanceData || []).filter(record => {
     if (selectedGPSFilter === 'all') return true;
     if (selectedGPSFilter === 'present') return record.status === 'حاضر';
     if (selectedGPSFilter === 'late') return record.status === 'متأخر';
