@@ -169,6 +169,10 @@ const EmployeePortal = () => {
   const [selectedCareerFilter, setSelectedCareerFilter] = useState('all');
   const [selectedCareerDetails, setSelectedCareerDetails] = useState<any>(null);
 
+  // Payroll specific states
+  const [selectedPayrollFilter, setSelectedPayrollFilter] = useState('all');
+  const [selectedPayrollDetails, setSelectedPayrollDetails] = useState<any>(null);
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -545,6 +549,39 @@ const EmployeePortal = () => {
     toast({
       title: 'تحليل الفجوات',
       description: 'تحليل المهارات المطلوبة للمنصب التالي',
+    });
+  };
+
+  // Payroll handlers
+  const handleViewPayrollDetails = (payroll: any) => {
+    setSelectedPayrollDetails(payroll);
+  };
+
+  const handleDownloadPayslip = (payrollId: string) => {
+    toast({
+      title: 'تحميل كشف الراتب',
+      description: `تم تحميل كشف الراتب رقم ${payrollId} بنجاح`,
+    });
+  };
+
+  const handleTaxCalculator = () => {
+    toast({
+      title: 'حاسبة الضرائب',
+      description: 'عرض تفاصيل حساب الضرائب والاستقطاعات',
+    });
+  };
+
+  const handleBenefitsOverview = () => {
+    toast({
+      title: 'ملخص المزايا',
+      description: 'عرض تفاصيل جميع المزايا والبدلات',
+    });
+  };
+
+  const handleSalaryAdvance = () => {
+    toast({
+      title: 'طلب سلفة راتب',
+      description: 'تم تسجيل طلب السلفة وسيتم مراجعته',
     });
   };
 
@@ -962,6 +999,123 @@ const EmployeePortal = () => {
     certificationsEarned: 3,
     projectsLed: 8,
     teamMembersManaged: 7
+  };
+
+  // بيانات الراتب المحسنة
+  const enhancedPayrollData = {
+    currentSalary: {
+      basicSalary: 18000,
+      housingAllowance: 7200,
+      transportAllowance: 1500,
+      otherAllowances: 2000,
+      totalGross: 28700,
+      socialInsurance: 2296, // 8% من الراتب الأساسي
+      incomeTax: 2100,
+      otherDeductions: 500,
+      totalDeductions: 4896,
+      netSalary: 23804
+    },
+    payrollHistory: [
+      {
+        id: 'PAY-2024-01',
+        month: 'يناير 2024',
+        basicSalary: 18000,
+        allowances: 10700,
+        grossSalary: 28700,
+        deductions: 4896,
+        netSalary: 23804,
+        payDate: '2024-01-31',
+        status: 'مدفوع',
+        bonuses: 0,
+        overtime: 0
+      },
+      {
+        id: 'PAY-2023-12',
+        month: 'ديسمبر 2023',
+        basicSalary: 18000,
+        allowances: 10700,
+        grossSalary: 28700,
+        deductions: 4896,
+        netSalary: 23804,
+        payDate: '2023-12-31',
+        status: 'مدفوع',
+        bonuses: 2000,
+        overtime: 600
+      },
+      {
+        id: 'PAY-2023-11',
+        month: 'نوفمبر 2023',
+        basicSalary: 18000,
+        allowances: 10700,
+        grossSalary: 28700,
+        deductions: 4896,
+        netSalary: 23804,
+        payDate: '2023-11-30',
+        status: 'مدفوع',
+        bonuses: 0,
+        overtime: 300
+      },
+      {
+        id: 'PAY-2023-10',
+        month: 'أكتوبر 2023',
+        basicSalary: 18000,
+        allowances: 10700,
+        grossSalary: 28700,
+        deductions: 4896,
+        netSalary: 23804,
+        payDate: '2023-10-31',
+        status: 'مدفوع',
+        bonuses: 1500,
+        overtime: 450
+      },
+      {
+        id: 'PAY-2023-09',
+        month: 'سبتمبر 2023',
+        basicSalary: 18000,
+        allowances: 10700,
+        grossSalary: 28700,
+        deductions: 4896,
+        netSalary: 23804,
+        payDate: '2023-09-30',
+        status: 'مدفوع',
+        bonuses: 0,
+        overtime: 0
+      },
+      {
+        id: 'PAY-2023-08',
+        month: 'أغسطس 2023',
+        basicSalary: 18000,
+        allowances: 10700,
+        grossSalary: 28700,
+        deductions: 4896,
+        netSalary: 23804,
+        payDate: '2023-08-31',
+        status: 'مدفوع',
+        bonuses: 0,
+        overtime: 150
+      }
+    ],
+    benefits: [
+      { name: 'التأمين الطبي', value: 2400, type: 'سنوي', status: 'نشط' },
+      { name: 'تأمين الحياة', value: 1200, type: 'سنوي', status: 'نشط' },
+      { name: 'صندوق الادخار', value: 1800, type: 'سنوي', status: 'نشط' },
+      { name: 'بدل الوجبات', value: 200, type: 'شهري', status: 'نشط' },
+      { name: 'بدل الاتصالات', value: 300, type: 'شهري', status: 'نشط' }
+    ],
+    taxInfo: {
+      annualIncome: 344400,
+      taxableIncome: 319400,
+      annualTax: 25200,
+      monthlyTax: 2100,
+      taxBracket: '20%',
+      exemptions: 25000
+    },
+    performance: {
+      lastRaise: '2023-06-01',
+      raisePercentage: 15,
+      nextReviewDate: '2024-06-01',
+      performanceRating: 4.2
+    }
   };
 
   // بيانات الفئة الوظيفية المحسنة
@@ -3885,18 +4039,356 @@ const EmployeePortal = () => {
 
           {/* Payroll Tab */}
           <TabsContent value="payroll" className="space-y-6">
-            <Card>
+            {/* إحصائيات الراتب */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">الراتب الصافي</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {enhancedPayrollData.currentSalary.netSalary.toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <Banknote className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">الراتب الإجمالي</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {enhancedPayrollData.currentSalary.totalGross.toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <CreditCard className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-purple-600">إجمالي البدلات</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {(enhancedPayrollData.currentSalary.housingAllowance + 
+                          enhancedPayrollData.currentSalary.transportAllowance + 
+                          enhancedPayrollData.currentSalary.otherAllowances).toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <Award className="h-8 w-8 text-purple-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-orange-600">إجمالي الاستقطاعات</p>
+                      <p className="text-2xl font-bold text-orange-700">
+                        {enhancedPayrollData.currentSalary.totalDeductions.toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <TrendingDown className="h-8 w-8 text-orange-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* تفاصيل الراتب الحالي */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-6 w-6" />
-                  معلومات الراتب
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <CreditCard className="h-5 w-5" />
+                    <CardTitle>تفاصيل الراتب الحالي</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleTaxCalculator}
+                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                    >
+                      <BarChart3 className="h-4 w-4 ml-2" />
+                      حاسبة الضرائب
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleBenefitsOverview}
+                      className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                    >
+                      <Award className="h-4 w-4 ml-2" />
+                      ملخص المزايا
+                    </Button>
+                    <Button 
+                      size="sm"
+                      onClick={() => handleDownloadPayslip('current')}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <Download className="h-4 w-4 ml-2" />
+                      تحميل كشف الراتب
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  <CreditCard className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                  <p>سيتم عرض تفاصيل الراتب والمزايا هنا</p>
-                  <Button className="mt-4">تحميل كشف الراتب</Button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* الإيرادات */}
+                  <div>
+                    <h4 className="font-semibold mb-3 text-green-700 flex items-center gap-2">
+                      <Plus className="h-4 w-4" />
+                      الإيرادات
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span className="text-sm font-medium">الراتب الأساسي</span>
+                        <span className="font-bold text-green-700">
+                          {enhancedPayrollData.currentSalary.basicSalary.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span className="text-sm font-medium">بدل السكن</span>
+                        <span className="font-bold text-green-700">
+                          {enhancedPayrollData.currentSalary.housingAllowance.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span className="text-sm font-medium">بدل النقل</span>
+                        <span className="font-bold text-green-700">
+                          {enhancedPayrollData.currentSalary.transportAllowance.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span className="text-sm font-medium">بدلات أخرى</span>
+                        <span className="font-bold text-green-700">
+                          {enhancedPayrollData.currentSalary.otherAllowances.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-green-100 rounded-lg border-2 border-green-200">
+                        <span className="text-sm font-bold">إجمالي الإيرادات</span>
+                        <span className="font-bold text-green-800 text-lg">
+                          {enhancedPayrollData.currentSalary.totalGross.toLocaleString()} ريال
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* الاستقطاعات */}
+                  <div>
+                    <h4 className="font-semibold mb-3 text-red-700 flex items-center gap-2">
+                      <XCircle className="h-4 w-4" />
+                      الاستقطاعات
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                        <span className="text-sm font-medium">التأمينات الاجتماعية</span>
+                        <span className="font-bold text-red-700">
+                          {enhancedPayrollData.currentSalary.socialInsurance.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                        <span className="text-sm font-medium">ضريبة الدخل</span>
+                        <span className="font-bold text-red-700">
+                          {enhancedPayrollData.currentSalary.incomeTax.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
+                        <span className="text-sm font-medium">استقطاعات أخرى</span>
+                        <span className="font-bold text-red-700">
+                          {enhancedPayrollData.currentSalary.otherDeductions.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-red-100 rounded-lg border-2 border-red-200">
+                        <span className="text-sm font-bold">إجمالي الاستقطاعات</span>
+                        <span className="font-bold text-red-800 text-lg">
+                          {enhancedPayrollData.currentSalary.totalDeductions.toLocaleString()} ريال
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-4 bg-primary/10 rounded-lg border-2 border-primary/20 mt-4">
+                        <span className="text-sm font-bold text-primary">الراتب الصافي</span>
+                        <span className="font-bold text-primary text-xl">
+                          {enhancedPayrollData.currentSalary.netSalary.toLocaleString()} ريال
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* سجل الرواتب */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    <CardTitle>سجل الرواتب</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedPayrollFilter} onValueChange={setSelectedPayrollFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب السنة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع السنوات</SelectItem>
+                        <SelectItem value="2024">2024</SelectItem>
+                        <SelectItem value="2023">2023</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleSalaryAdvance}
+                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                    >
+                      <Banknote className="h-4 w-4 ml-2" />
+                      طلب سلفة
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {enhancedPayrollData.payrollHistory.filter(payroll => 
+                    selectedPayrollFilter === 'all' || payroll.id.includes(selectedPayrollFilter)
+                  ).map((payroll) => (
+                    <Card key={payroll.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{payroll.month}</h4>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-2">
+                              <div className="flex items-center gap-1">
+                                <Banknote className="h-4 w-4" />
+                                <span>الأساسي: {payroll.basicSalary.toLocaleString()}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Plus className="h-4 w-4" />
+                                <span>البدلات: {payroll.allowances.toLocaleString()}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Award className="h-4 w-4" />
+                                <span>المكافآت: {payroll.bonuses.toLocaleString()}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                <span>الإضافي: {payroll.overtime.toLocaleString()}</span>
+                              </div>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              رقم الكشف: {payroll.id} | تاريخ الدفع: {payroll.payDate}
+                            </p>
+                          </div>
+                          <div className="flex flex-col items-end gap-2">
+                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 px-3 py-1">
+                              {payroll.status}
+                            </Badge>
+                            <div className="text-left">
+                              <p className="text-xs text-muted-foreground">الصافي</p>
+                              <p className="text-lg font-bold text-primary">
+                                {payroll.netSalary.toLocaleString()} ريال
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleViewPayrollDetails(payroll)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleDownloadPayslip(payroll.id)}
+                            className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                          >
+                            <Download className="h-4 w-4 ml-2" />
+                            تحميل الكشف
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* ملخص الرواتب */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    ملخص السنة المالية
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">الدخل السنوي</p>
+                      <p className="text-lg font-bold text-blue-600">
+                        {(enhancedPayrollData.currentSalary.netSalary * 12).toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">إجمالي المكافآت</p>
+                      <p className="text-lg font-bold text-green-600">
+                        {enhancedPayrollData.payrollHistory.reduce((sum, p) => sum + p.bonuses, 0).toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">إجمالي الضرائب</p>
+                      <p className="text-lg font-bold text-red-600">
+                        {enhancedPayrollData.taxInfo.annualTax.toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">آخر زيادة</p>
+                      <p className="text-lg font-bold text-purple-600">
+                        {enhancedPayrollData.performance.raisePercentage}%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* معلومات المزايا */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Award className="h-5 w-5" />
+                  <CardTitle>المزايا والحوافز</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {enhancedPayrollData.benefits.map((benefit, index) => (
+                    <Card key={index} className="border-l-4 border-l-primary/30 shadow-sm">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="font-semibold">{benefit.name}</h4>
+                          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                            {benefit.status}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">{benefit.type}</span>
+                          <span className="font-bold text-primary">
+                            {benefit.value.toLocaleString()} ريال
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>
