@@ -161,6 +161,10 @@ const EmployeePortal = () => {
   const [selectedRequestsFilter, setSelectedRequestsFilter] = useState('all');
   const [selectedRequestDetails, setSelectedRequestDetails] = useState<any>(null);
 
+  // Custody specific states
+  const [selectedCustodyFilter, setSelectedCustodyFilter] = useState('all');
+  const [selectedCustodyDetails, setSelectedCustodyDetails] = useState<any>(null);
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -488,6 +492,39 @@ const EmployeePortal = () => {
     });
   };
 
+  // Custody handlers
+  const handleViewCustodyDetails = (item: any) => {
+    setSelectedCustodyDetails(item);
+  };
+
+  const handleReportIssue = (itemId: string) => {
+    toast({
+      title: 'بلاغ عطل',
+      description: `تم تسجيل بلاغ العطل للعهدة رقم ${itemId}`,
+    });
+  };
+
+  const handleRequestMaintenance = (itemId: string) => {
+    toast({
+      title: 'طلب صيانة',
+      description: `تم تسجيل طلب الصيانة للعهدة رقم ${itemId}`,
+    });
+  };
+
+  const handleReturnAsset = (itemId: string) => {
+    toast({
+      title: 'إرجاع العهدة',
+      description: `تم تسجيل طلب إرجاع العهدة رقم ${itemId}`,
+    });
+  };
+
+  const handleRequestReplacement = (itemId: string) => {
+    toast({
+      title: 'طلب استبدال',
+      description: `تم تسجيل طلب استبدال العهدة رقم ${itemId}`,
+    });
+  };
+
   const handleRequestGPSCorrection = (record: any) => {
     toast({
       title: 'طلب تصحيح GPS',
@@ -708,6 +745,108 @@ const EmployeePortal = () => {
     { id: 1, item: 'لابتوب Dell Latitude 5520', serialNumber: 'DL123456', assignDate: '2023-01-15', condition: 'جيد' },
     { id: 2, item: 'هاتف iPhone 14 Pro', serialNumber: 'IP789012', assignDate: '2023-06-01', condition: 'ممتاز' },
     { id: 3, item: 'مكتب وكرسي', serialNumber: 'OFF001', assignDate: '2023-01-15', condition: 'جيد' }
+  ];
+
+  // بيانات العهدة المحسنة
+  const enhancedCustody = [
+    {
+      id: 'AST-2024-001',
+      item: 'لابتوب Dell Latitude 5520',
+      category: 'تقنية',
+      serialNumber: 'DL123456789',
+      assignDate: '2023-01-15',
+      returnDate: null,
+      condition: 'جيد',
+      status: 'نشط',
+      location: 'المكتب الرئيسي - الدور الثالث',
+      value: 4500,
+      warrantyExpiry: '2025-01-15',
+      lastMaintenance: '2024-01-10',
+      nextMaintenance: '2024-07-10',
+      responsible: 'محمد أحمد - مدير تقنية المعلومات',
+      notes: 'يعمل بشكل ممتاز، تم تحديث نظام التشغيل مؤخراً',
+      maintenanceHistory: [
+        { date: '2024-01-10', type: 'صيانة دورية', description: 'تنظيف وتحديث البرامج' },
+        { date: '2023-08-15', type: 'إصلاح', description: 'استبدال الشاحن' }
+      ]
+    },
+    {
+      id: 'AST-2024-002',
+      item: 'هاتف iPhone 14 Pro',
+      category: 'اتصالات',
+      serialNumber: 'IP789012345',
+      assignDate: '2023-06-01',
+      returnDate: null,
+      condition: 'ممتاز',
+      status: 'نشط',
+      location: 'متنقل',
+      value: 3200,
+      warrantyExpiry: '2024-06-01',
+      lastMaintenance: null,
+      nextMaintenance: null,
+      responsible: 'سارة محمد - مدير الموارد البشرية',
+      notes: 'هاتف شركة للاستخدام الرسمي والشخصي',
+      maintenanceHistory: []
+    },
+    {
+      id: 'AST-2024-003',
+      item: 'مكتب تنفيذي + كرسي',
+      category: 'أثاث',
+      serialNumber: 'OFF001-DESK',
+      assignDate: '2023-01-15',
+      returnDate: null,
+      condition: 'جيد',
+      status: 'نشط',
+      location: 'المكتب الرئيسي - غرفة 305',
+      value: 2800,
+      warrantyExpiry: '2028-01-15',
+      lastMaintenance: '2023-12-01',
+      nextMaintenance: '2024-06-01',
+      responsible: 'أحمد علي - مدير الخدمات العامة',
+      notes: 'مكتب خشبي مع كرسي جلدي، بحالة جيدة',
+      maintenanceHistory: [
+        { date: '2023-12-01', type: 'صيانة دورية', description: 'تنظيف وتلميع' }
+      ]
+    },
+    {
+      id: 'AST-2024-004',
+      item: 'شاشة Samsung 27 بوصة',
+      category: 'تقنية',
+      serialNumber: 'SM270456789',
+      assignDate: '2023-03-20',
+      returnDate: null,
+      condition: 'ممتاز',
+      status: 'نشط',
+      location: 'المكتب الرئيسي - الدور الثالث',
+      value: 800,
+      warrantyExpiry: '2026-03-20',
+      lastMaintenance: null,
+      nextMaintenance: '2024-09-20',
+      responsible: 'محمد أحمد - مدير تقنية المعلومات',
+      notes: 'شاشة إضافية لتحسين الإنتاجية',
+      maintenanceHistory: []
+    },
+    {
+      id: 'AST-2024-005',
+      item: 'طابعة HP LaserJet',
+      category: 'تقنية',
+      serialNumber: 'HP789123456',
+      assignDate: '2023-02-10',
+      returnDate: '2024-01-15',
+      condition: 'متوسط',
+      status: 'مُرجع',
+      location: 'المستودع',
+      value: 1200,
+      warrantyExpiry: '2024-02-10',
+      lastMaintenance: '2023-11-20',
+      nextMaintenance: null,
+      responsible: 'خالد يوسف - فني الصيانة',
+      notes: 'تم إرجاعها بسبب انتهاء الحاجة',
+      maintenanceHistory: [
+        { date: '2023-11-20', type: 'إصلاح', description: 'استبدال خرطوشة الحبر' },
+        { date: '2023-08-10', type: 'صيانة دورية', description: 'تنظيف وفحص' }
+      ]
+    }
   ];
 
   // المسار الوظيفي
@@ -2344,30 +2483,270 @@ const EmployeePortal = () => {
 
           {/* تبويب العهدة */}
           <TabsContent value="custody" className="space-y-6">
-            <Card>
+            {/* إحصائيات العهدة */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">عهدة نشطة</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {enhancedCustody.filter(c => c.status === 'نشط').length}
+                      </p>
+                    </div>
+                    <Package className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">حالة ممتازة</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {enhancedCustody.filter(c => c.condition === 'ممتاز').length}
+                      </p>
+                    </div>
+                    <Award className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-purple-600">القيمة الإجمالية</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {enhancedCustody.filter(c => c.status === 'نشط').reduce((sum, item) => sum + item.value, 0).toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <DollarSign className="h-8 w-8 text-purple-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-orange-600">يحتاج صيانة</p>
+                      <p className="text-2xl font-bold text-orange-700">
+                        {enhancedCustody.filter(c => 
+                          c.nextMaintenance && new Date(c.nextMaintenance) < new Date()
+                        ).length}
+                      </p>
+                    </div>
+                    <AlertTriangle className="h-8 w-8 text-orange-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* إدارة العهدة */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Package className="h-5 w-5" />
-                  العهدة والأصول
-                </CardTitle>
-                <CardDescription>قائمة بالعهدة والأصول المسلمة إليك</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Package className="h-5 w-5" />
+                    <CardTitle>العهدة والأصول</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedCustodyFilter} onValueChange={setSelectedCustodyFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب الفئة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع العهدة</SelectItem>
+                        <SelectItem value="تقنية">تقنية</SelectItem>
+                        <SelectItem value="اتصالات">اتصالات</SelectItem>
+                        <SelectItem value="أثاث">أثاث</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                    >
+                      <Download className="h-4 w-4 ml-2" />
+                      تصدير التقرير
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {custody.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex-1">
-                        <h3 className="font-semibold">{item.item}</h3>
-                        <p className="text-sm text-muted-foreground">الرقم التسلسلي: {item.serialNumber}</p>
-                        <p className="text-sm text-muted-foreground">تاريخ التسليم: {item.assignDate}</p>
-                      </div>
-                      <div>
-                        <Badge variant="outline" className="bg-green-100 text-green-800">
-                          {item.condition}
-                        </Badge>
-                      </div>
-                    </div>
+                  {enhancedCustody.filter(item => 
+                    selectedCustodyFilter === 'all' || item.category === selectedCustodyFilter
+                  ).map((item) => (
+                    <Card key={item.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{item.item}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">الرقم التسلسلي: {item.serialNumber}</p>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>تاريخ التسليم: {item.assignDate}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <MapPin className="h-4 w-4" />
+                                <span>{item.location}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <DollarSign className="h-4 w-4" />
+                                <span>{item.value.toLocaleString()} ريال</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <Badge variant="outline" className="px-2 py-1">
+                                {item.category}
+                              </Badge>
+                              {item.warrantyExpiry && (
+                                <span>الضمان: {item.warrantyExpiry}</span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-end gap-2">
+                            <Badge 
+                              variant="outline" 
+                              className={`${
+                                item.status === 'نشط' ? 'bg-green-50 text-green-700 border-green-200' :
+                                'bg-gray-50 text-gray-700 border-gray-200'
+                              } px-3 py-1`}
+                            >
+                              {item.status}
+                            </Badge>
+                            <Badge 
+                              variant="outline" 
+                              className={`${
+                                item.condition === 'ممتاز' ? 'bg-green-50 text-green-700 border-green-200' :
+                                item.condition === 'جيد' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                'bg-yellow-50 text-yellow-700 border-yellow-200'
+                              } px-2 py-1 text-xs`}
+                            >
+                              {item.condition}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        {/* ملاحظات */}
+                        {item.notes && (
+                          <div className="mb-3 p-3 bg-muted/30 rounded-lg">
+                            <p className="text-sm font-medium text-muted-foreground mb-1">ملاحظات:</p>
+                            <p className="text-sm">{item.notes}</p>
+                          </div>
+                        )}
+
+                        {/* سجل الصيانة */}
+                        {item.maintenanceHistory.length > 0 && (
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-muted-foreground mb-2">آخر صيانة:</p>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <span>{item.maintenanceHistory[0].date}</span>
+                              <span>•</span>
+                              <span>{item.maintenanceHistory[0].type}</span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* تنبيه الصيانة */}
+                        {item.nextMaintenance && new Date(item.nextMaintenance) < new Date() && (
+                          <div className="mb-3 p-2 bg-orange-50 border border-orange-200 rounded-lg">
+                            <div className="flex items-center gap-2 text-orange-700">
+                              <AlertTriangle className="h-4 w-4" />
+                              <span className="text-sm font-medium">يحتاج صيانة دورية</span>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleViewCustodyDetails(item)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          {item.status === 'نشط' && (
+                            <>
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleReportIssue(item.id)}
+                                className="hover:bg-red-50 hover:border-red-500 hover:text-red-700"
+                              >
+                                <AlertTriangle className="h-4 w-4 ml-2" />
+                                بلاغ عطل
+                              </Button>
+                              
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleRequestMaintenance(item.id)}
+                                className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700"
+                              >
+                                <Settings className="h-4 w-4 ml-2" />
+                                طلب صيانة
+                              </Button>
+                              
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleReturnAsset(item.id)}
+                                className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                              >
+                                <RotateCcw className="h-4 w-4 ml-2" />
+                                إرجاع العهدة
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
                   ))}
+                </div>
+
+                {/* ملخص العهدة */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    ملخص العهدة
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">إجمالي القيمة</p>
+                      <p className="text-lg font-bold text-blue-600">
+                        {enhancedCustody.reduce((sum, item) => sum + item.value, 0).toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">متوسط العمر</p>
+                      <p className="text-lg font-bold text-green-600">
+                        {Math.round(enhancedCustody.filter(c => c.status === 'نشط').length > 0 ? 
+                          enhancedCustody.filter(c => c.status === 'نشط').reduce((sum, item) => {
+                            const years = (new Date().getTime() - new Date(item.assignDate).getTime()) / (1000 * 60 * 60 * 24 * 365);
+                            return sum + years;
+                          }, 0) / enhancedCustody.filter(c => c.status === 'نشط').length : 0
+                        )} سنة
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">الأكثر استخداماً</p>
+                      <p className="text-lg font-bold text-purple-600">التقنية</p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">معدل الصيانة</p>
+                      <p className="text-lg font-bold text-orange-600">
+                        {Math.round((enhancedCustody.filter(c => c.maintenanceHistory.length > 0).length / enhancedCustody.length) * 100)}%
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
