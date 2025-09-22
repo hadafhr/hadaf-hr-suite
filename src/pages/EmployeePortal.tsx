@@ -47,6 +47,16 @@ import {
   Banknote,
   Satellite,
   Mic,
+  CheckCircle2,
+  PauseCircle,
+  PlayCircle,
+  Upload,
+  MessageSquareText,
+  Timer,
+  Calendar as CalendarIcon,
+  User as UserIcon,
+  FileIcon,
+  CheckCircle,
   // Force rebuild - icons for courses functionality
   Eye,
   Play,
@@ -91,6 +101,10 @@ const EmployeePortal = () => {
   const [isClassroomOpen, setIsClassroomOpen] = useState(false);
   const [classroomMessages, setClassroomMessages] = useState<Array<{id: number, sender: string, message: string, timestamp: string}>>([]);
   const [newClassroomMessage, setNewClassroomMessage] = useState('');
+  const [selectedTask, setSelectedTask] = useState<any>(null);
+  const [isTaskViewerOpen, setIsTaskViewerOpen] = useState(false);
+  const [taskComments, setTaskComments] = useState<Array<{id: number, author: string, comment: string, timestamp: string}>>([]);
+  const [newTaskComment, setNewTaskComment] = useState('');
   const [requestFormData, setRequestFormData] = useState({
     request_type: '',
     title: '',
@@ -288,6 +302,44 @@ const EmployeePortal = () => {
     // هنا يمكن إضافة منطق تشغيل الفيديو
   };
 
+  // معالجات المهام
+  const handleViewTask = (task: any) => {
+    setSelectedTask(task);
+    setIsTaskViewerOpen(true);
+    // إضافة تعليقات وهمية للمهمة
+    setTaskComments([
+      { id: 1, author: 'أحمد محمد', comment: 'يرجى التركيز على الأمان في هذا المشروع', timestamp: '2024-01-10 09:30' },
+      { id: 2, author: 'سارة أحمد', comment: 'تم رفع التصميم الأولي للمراجعة', timestamp: '2024-01-11 14:20' },
+    ]);
+  };
+
+  const handleUpdateTaskStatus = (taskId: number, newStatus: string) => {
+    toast({
+      title: 'تم تحديث حالة المهمة',
+      description: `تم تغيير حالة المهمة إلى: ${newStatus}`,
+    });
+  };
+
+  const addTaskComment = () => {
+    if (newTaskComment.trim()) {
+      const comment = {
+        id: taskComments.length + 1,
+        author: employeeDisplayData.name,
+        comment: newTaskComment,
+        timestamp: new Date().toLocaleString('ar-SA')
+      };
+      setTaskComments([...taskComments, comment]);
+      setNewTaskComment('');
+    }
+  };
+
+  const handleStartTask = (task: any) => {
+    toast({
+      title: 'بدء العمل على المهمة',
+      description: `تم بدء العمل على: ${task.title}`,
+    });
+  };
+
   // تحويل البيانات الحقيقية للتوافق مع واجهة المستخدم
   const employeeDisplayData = employee ? {
     id: employee.id,
@@ -335,9 +387,48 @@ const EmployeePortal = () => {
 
   // المهام (ستكون ديناميكية لاحقاً)
   const tasks = [
-    { id: 1, title: 'إنهاء مشروع النظام المصرفي', dueDate: '2024-01-15', status: 'قيد التنفيذ', priority: 'عالية' },
-    { id: 2, title: 'مراجعة الكود البرمجي للفريق', dueDate: '2024-01-12', status: 'مكتمل', priority: 'متوسطة' },
-    { id: 3, title: 'إعداد تقرير الأداء الشهري', dueDate: '2024-01-20', status: 'معلق', priority: 'منخفضة' }
+    { 
+      id: 1, 
+      title: 'إنهاء مشروع النظام المصرفي', 
+      description: 'تطوير وتنفيذ النظام المصرفي الجديد مع جميع الوحدات المطلوبة',
+      dueDate: '2024-01-15', 
+      status: 'قيد التنفيذ', 
+      priority: 'عالية',
+      progress: 75,
+      assignedBy: 'أحمد محمد - مدير المشروع',
+      category: 'تطوير',
+      estimatedHours: 120,
+      actualHours: 90,
+      attachments: ['متطلبات_النظام.pdf', 'التصميم_الأولي.png']
+    },
+    { 
+      id: 2, 
+      title: 'مراجعة الكود البرمجي للفريق', 
+      description: 'مراجعة شاملة للكود البرمجي المكتوب من قبل أعضاء الفريق وتقديم الملاحظات',
+      dueDate: '2024-01-12', 
+      status: 'مكتمل', 
+      priority: 'متوسطة',
+      progress: 100,
+      assignedBy: 'سارة أحمد - كبير المطورين',
+      category: 'مراجعة',
+      estimatedHours: 16,
+      actualHours: 14,
+      attachments: ['تقرير_المراجعة.docx']
+    },
+    { 
+      id: 3, 
+      title: 'إعداد تقرير الأداء الشهري', 
+      description: 'تجميع وتحليل بيانات الأداء الشهري وإعداد التقرير النهائي',
+      dueDate: '2024-01-20', 
+      status: 'معلق', 
+      priority: 'منخفضة',
+      progress: 25,
+      assignedBy: 'محمد علي - مدير الأداء',
+      category: 'تقارير',
+      estimatedHours: 8,
+      actualHours: 2,
+      attachments: []
+    }
   ];
 
   // الدورات التدريبية
@@ -807,25 +898,151 @@ const EmployeePortal = () => {
                   <CheckSquare className="h-5 w-5" />
                   المهام المكلف بها
                 </CardTitle>
-                <CardDescription>قائمة بجميع المهام والمشاريع المكلف بها</CardDescription>
+                <CardDescription>قائمة بجميع المهام والمشاريع المكلف بها مع إمكانية التفاعل والمتابعة</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {tasks.map((task) => (
-                    <div key={task.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex-1">
-                        <h3 className="font-semibold">{task.title}</h3>
-                        <p className="text-sm text-muted-foreground">تاريخ الاستحقاق: {task.dueDate}</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className={`${getPriorityColor(task.priority)} text-white`}>
-                          {task.priority}
-                        </Badge>
-                        <Badge variant="outline" className={`${getTaskStatusColor(task.status)} text-white`}>
-                          {task.status}
-                        </Badge>
-                      </div>
-                    </div>
+                    <Card key={task.id} className="border-l-4 border-l-primary shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="text-xl font-bold">{task.title}</h3>
+                              <Badge variant="outline" className={`${getPriorityColor(task.priority)} text-white px-3 py-1`}>
+                                {task.priority}
+                              </Badge>
+                            </div>
+                            <p className="text-muted-foreground mb-3 leading-relaxed">{task.description}</p>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                              <div className="flex items-center gap-2 text-sm">
+                                <CalendarIcon className="h-4 w-4 text-blue-500" />
+                                <span className="font-medium">تاريخ الاستحقاق:</span>
+                                <span>{task.dueDate}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm">
+                                <UserIcon className="h-4 w-4 text-green-500" />
+                                <span className="font-medium">المكلف من:</span>
+                                <span>{task.assignedBy}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm">
+                                <Timer className="h-4 w-4 text-purple-500" />
+                                <span className="font-medium">الساعات:</span>
+                                <span>{task.actualHours}/{task.estimatedHours}ساعة</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="text-center">
+                            <Badge variant="outline" className={`${getTaskStatusColor(task.status)} text-white px-3 py-1 mb-2`}>
+                              {task.status}
+                            </Badge>
+                            <div className="text-xs text-muted-foreground">{task.category}</div>
+                          </div>
+                        </div>
+
+                        {/* شريط التقدم */}
+                        <div className="mb-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium">نسبة الإنجاز</span>
+                            <span className="text-sm font-bold text-primary">{task.progress}%</span>
+                          </div>
+                          <Progress value={task.progress} className="h-2" />
+                        </div>
+
+                        {/* المرفقات إن وجدت */}
+                        {task.attachments.length > 0 && (
+                          <div className="mb-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <FileIcon className="h-4 w-4 text-orange-500" />
+                              <span className="text-sm font-medium">المرفقات ({task.attachments.length})</span>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {task.attachments.map((file, index) => (
+                                <Badge key={index} variant="outline" className="text-xs hover:bg-muted cursor-pointer">
+                                  📎 {file}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* أزرار التفاعل */}
+                        <div className="flex gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            onClick={() => handleViewTask(task)}
+                            className="bg-primary hover:bg-primary/90 hover-scale"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          {task.status !== 'مكتمل' && (
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              onClick={() => handleStartTask(task)}
+                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700 hover-scale"
+                            >
+                              <PlayCircle className="h-4 w-4 ml-2" />
+                              بدء العمل
+                            </Button>
+                          )}
+                          
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700 hover-scale"
+                          >
+                            <MessageSquareText className="h-4 w-4 ml-2" />
+                            التعليقات
+                          </Button>
+                          
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700 hover-scale"
+                          >
+                            <Upload className="h-4 w-4 ml-2" />
+                            رفع ملف
+                          </Button>
+
+                          {task.status === 'مكتمل' && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700 hover-scale"
+                            >
+                              <CheckCircle className="h-4 w-4 ml-2" />
+                              تم الإنجاز
+                            </Button>
+                          )}
+                        </div>
+
+                        {/* معلومات إضافية للمهام النشطة */}
+                        {task.status === 'قيد التنفيذ' && (
+                          <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200 animate-fade-in">
+                            <div className="flex items-center gap-2 text-blue-700">
+                              <Timer className="h-4 w-4" />
+                              <span className="text-sm font-medium">
+                                المهمة نشطة - متبقي {task.estimatedHours - task.actualHours} ساعة للإنجاز
+                              </span>
+                            </div>
+                          </div>
+                        )}
+
+                        {task.status === 'معلق' && (
+                          <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200 animate-fade-in">
+                            <div className="flex items-center gap-2 text-yellow-700">
+                              <PauseCircle className="h-4 w-4" />
+                              <span className="text-sm font-medium">المهمة معلقة - يرجى المتابعة مع المسؤول</span>
+                            </div>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </CardContent>
@@ -1609,6 +1826,170 @@ const EmployeePortal = () => {
                   className="flex-1"
                 >
                   إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog لعارض المهام */}
+        <Dialog open={isTaskViewerOpen} onOpenChange={setIsTaskViewerOpen}>
+          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <CheckSquare className="h-5 w-5 text-primary" />
+                تفاصيل المهمة: {selectedTask?.title}
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-6">
+              {/* معلومات المهمة */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Timer className="h-4 w-4 text-blue-500" />
+                      <span className="font-medium">التقدم</span>
+                    </div>
+                    <p className="text-2xl font-bold text-primary">{selectedTask?.progress}%</p>
+                    <Progress value={selectedTask?.progress} className="h-1 mt-2" />
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <CalendarIcon className="h-4 w-4 text-green-500" />
+                      <span className="font-medium">الموعد النهائي</span>
+                    </div>
+                    <p className="text-sm font-medium">{selectedTask?.dueDate}</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="h-4 w-4 text-orange-500" />
+                      <span className="font-medium">الأولوية</span>
+                    </div>
+                    <Badge className={getPriorityColor(selectedTask?.priority)}>
+                      {selectedTask?.priority}
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-purple-500" />
+                      <span className="font-medium">الساعات</span>
+                    </div>
+                    <p className="text-sm">{selectedTask?.actualHours}/{selectedTask?.estimatedHours} ساعة</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* وصف المهمة */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <FileText className="h-5 w-5" />
+                    وصف المهمة
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{selectedTask?.description}</p>
+                  
+                  <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="font-medium">المكلف من: </span>
+                      <span className="text-primary">{selectedTask?.assignedBy}</span>
+                    </div>
+                    <div>
+                      <span className="font-medium">التصنيف: </span>
+                      <Badge variant="outline">{selectedTask?.category}</Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* المرفقات */}
+              {selectedTask?.attachments?.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <FileIcon className="h-5 w-5" />
+                      المرفقات ({selectedTask.attachments.length})
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {selectedTask.attachments.map((file: string, index: number) => (
+                        <div key={index} className="flex items-center gap-3 p-3 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
+                          <FileIcon className="h-4 w-4 text-blue-500" />
+                          <span className="flex-1 text-sm">{file}</span>
+                          <Button size="sm" variant="ghost">
+                            <Download className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* التعليقات */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <MessageSquareText className="h-5 w-5" />
+                    التعليقات والملاحظات
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4 max-h-60 overflow-y-auto mb-4">
+                    {taskComments.map((comment) => (
+                      <div key={comment.id} className="border-l-2 border-primary/20 pl-4 py-2">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-medium text-sm text-primary">{comment.author}</span>
+                          <span className="text-xs text-muted-foreground">{comment.timestamp}</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{comment.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="أضف تعليق أو ملاحظة..."
+                      value={newTaskComment}
+                      onChange={(e) => setNewTaskComment(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && addTaskComment()}
+                    />
+                    <Button onClick={addTaskComment} size="sm">
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* أزرار الإجراءات */}
+              <div className="flex gap-3">
+                <Button className="flex-1">
+                  <PlayCircle className="h-4 w-4 ml-2" />
+                  متابعة العمل
+                </Button>
+                <Button variant="outline">
+                  <Upload className="h-4 w-4 ml-2" />
+                  رفع ملف
+                </Button>
+                <Button variant="outline">
+                  <CheckCircle2 className="h-4 w-4 ml-2" />
+                  تحديث الحالة
+                </Button>
+                <Button variant="outline">
+                  <MessageSquare className="h-4 w-4 ml-2" />
+                  طلب مساعدة
                 </Button>
               </div>
             </div>
