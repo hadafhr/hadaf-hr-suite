@@ -633,6 +633,15 @@ const EmployeePortal = () => {
     ]
   };
 
+  // Insurance filtered data - defined after insuranceData declaration
+  const filteredInsuranceClaims = (insuranceData.claims || []).filter((claim: any) => {
+    if (selectedInsuranceFilter === 'all') return true;
+    if (selectedInsuranceFilter === 'approved') return claim.status === 'تم الموافقة';
+    if (selectedInsuranceFilter === 'pending') return claim.status === 'قيد المراجعة';
+    if (selectedInsuranceFilter === 'rejected') return claim.status === 'مرفوض';
+    return true;
+  });
+
   // العهدة
   const custody = [
     { id: 1, item: 'لابتوب Dell Latitude 5520', serialNumber: 'DL123456', assignDate: '2023-01-15', condition: 'جيد' },
@@ -1744,13 +1753,7 @@ const EmployeePortal = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {(insuranceData.claims || []).filter((claim: any) => {
-                    if (selectedInsuranceFilter === 'all') return true;
-                    if (selectedInsuranceFilter === 'approved') return claim.status === 'تم الموافقة';
-                    if (selectedInsuranceFilter === 'pending') return claim.status === 'قيد المراجعة';
-                    if (selectedInsuranceFilter === 'rejected') return claim.status === 'مرفوض';
-                    return true;
-                  }).map((claim: any) => (
+                  {filteredInsuranceClaims.map((claim: any) => (
                     <Card key={claim.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between mb-3">
