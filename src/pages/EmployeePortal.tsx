@@ -74,7 +74,8 @@ import {
   Plus,
   Building,
   DollarSign,
-  RotateCcw
+  RotateCcw,
+  Star
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -1850,114 +1851,265 @@ const EmployeePortal = () => {
             {/* خلفية متدرجة */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10"></div>
             
-            {/* المحتوى الرئيسي */}
-            <div className="relative p-8">
-              <div className="flex items-center gap-8">
-                {/* صورة الموظف المحسنة */}
+            {/* المحتوى الرئيسي المحسن */}
+            <div className="relative p-6">
+              {/* Header Top Section - Quick Actions */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Button size="sm" variant="outline" onClick={() => navigate('/')}>
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    العودة للرئيسية
+                  </Button>
+                  <div className="h-8 w-px bg-border"></div>
+                  <Badge variant="secondary" className="text-sm">
+                    <Calendar className="h-3 w-3 mr-1" />
+                    {new Date().toLocaleDateString('ar-SA')}
+                  </Badge>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline" onClick={() => setIsChatOpen(true)}>
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    دردشة سريعة
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={() => toast({ title: 'الإشعارات', description: 'لا توجد إشعارات جديدة' })}>
+                    <Bell className="h-4 w-4" />
+                    <Badge className="ml-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">3</Badge>
+                  </Button>
+                  <Button size="sm" variant="outline">
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Main Header Content */}
+              <div className="flex items-start gap-8">
+                {/* Enhanced Employee Avatar Section */}
                 <div className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/60 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-300"></div>
+                  {/* Glow effect */}
+                  <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-full blur-lg opacity-50 group-hover:opacity-100 transition duration-500"></div>
+                  
                   <div className="relative">
-                    <Avatar className="h-32 w-32 border-4 border-background shadow-2xl hover-scale transition-all duration-300">
+                    <div className="relative">
+                      <Avatar className="h-36 w-36 border-4 border-background shadow-2xl hover:shadow-primary/20 transition-all duration-500 group-hover:scale-105">
                         <AvatarImage 
-                          src={employeeDisplayData?.avatar} 
+                          src={employeeAvatarImage} 
                           alt={employeeDisplayData?.name}
                           className="object-cover"
                         />
-                        <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold">
+                        <AvatarFallback className="text-3xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold">
                           {employeeDisplayData?.name?.charAt(0)}
                         </AvatarFallback>
-                    </Avatar>
-                    {/* شارة الحالة المحسنة */}
-                    <div className="absolute -bottom-2 -right-2 animate-pulse">
-                      <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg border-2 border-background px-3 py-1">
-                        <div className="flex items-center gap-1">
-                          <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                          {employeeDisplayData?.status}
-                        </div>
-                      </Badge>
+                      </Avatar>
+                      
+                      {/* Profile completion ring */}
+                      <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-conic from-primary via-primary/50 to-primary opacity-20"></div>
                     </div>
-                  </div>
-                </div>
-
-                {/* معلومات الموظف الأساسية */}
-                <div className="flex-1 space-y-3">
-                  <div className="space-y-2">
-                    <h2 className="text-3xl font-bold text-foreground bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
-                      {employeeDisplayData.name}
-                    </h2>
-                    <div className="flex items-center gap-3">
-                      <p className="text-xl font-semibold text-primary bg-gradient-to-r from-primary to-primary/80 bg-clip-text">
-                        {employeeDisplayData.position}
-                      </p>
-                      <div className="h-6 w-px bg-border"></div>
-                      <p className="text-lg text-muted-foreground font-medium">{employeeDisplayData.department}</p>
-                    </div>
-                  </div>
-                  
-                  {/* بطاقات معلومات سريعة */}
-                  <div className="flex flex-wrap items-center gap-3 mt-6">
-                    <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
-                      <UserCheck className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">رقم الموظف: {employeeDisplayData.employeeNumber}</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
-                      <FileCheck className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">الهوية: {employeeDisplayData.nationalId}</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-background/60 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover-scale">
-                      <Shield className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium">تأمين: {employeeDisplayData.insuranceNumber}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* معلومات الاتصال المحسنة */}
-                <div className="space-y-4 min-w-fit">
-                  <div className="bg-background/40 backdrop-blur border border-border/50 rounded-2xl p-6 space-y-4 shadow-lg hover:shadow-xl transition-all duration-300">
-                    <h3 className="font-semibold text-foreground flex items-center gap-2 mb-4">
-                      <Target className="h-5 w-5 text-primary" />
-                      معلومات الاتصال
-                    </h3>
                     
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
-                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                          <Mail className="h-4 w-4 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">البريد الإلكتروني</p>
-                          <p className="text-sm font-medium">{employeeDisplayData.email}</p>
-                        </div>
+                    {/* Status badge with animation */}
+                    <div className="absolute -bottom-1 -right-1">
+                      <div className="relative">
+                        <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg border-2 border-background px-3 py-1.5 rounded-full">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></div>
+                            <span className="text-xs font-semibold">{employeeDisplayData?.status}</span>
+                          </div>
+                        </Badge>
+                        <div className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-20"></div>
                       </div>
-                      
-                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
-                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                          <Phone className="h-4 w-4 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">رقم الهاتف</p>
-                          <p className="text-sm font-medium" dir="ltr">{employeeDisplayData.phone}</p>
-                        </div>
+                    </div>
+                    
+                    {/* Edit profile button */}
+                    <Button 
+                      size="sm" 
+                      variant="secondary" 
+                      className="absolute -top-2 -left-2 h-8 w-8 p-0 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      onClick={() => toast({ title: 'تعديل الملف الشخصي', description: 'سيتم توجيهك لصفحة تعديل الملف' })}
+                    >
+                      <Settings className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Employee Information Section */}
+                <div className="flex-1 space-y-6">
+                  {/* Name and Position */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-4">
+                      <h1 className="text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                        {employeeDisplayData.name}
+                      </h1>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-primary border-primary/30 bg-primary/5">
+                          <Star className="h-3 w-3 mr-1" />
+                          موظف متميز
+                        </Badge>
                       </div>
-                      
-                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
-                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                          <MapPin className="h-4 w-4 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">العنوان</p>
-                          <p className="text-sm font-medium">{employeeDisplayData.address}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-3 group hover:bg-muted/30 rounded-lg p-2 transition-colors">
-                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                    </div>
+                    
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-primary/10 rounded-lg">
                           <Briefcase className="h-4 w-4 text-primary" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">الفئة الوظيفية</p>
-                          <p className="text-sm font-medium">{employeeDisplayData.jobCategory}</p>
+                          <p className="text-xl font-semibold text-primary">{employeeDisplayData.position}</p>
+                          <p className="text-sm text-muted-foreground">{employeeDisplayData.department}</p>
                         </div>
+                      </div>
+                      
+                      <div className="h-8 w-px bg-border"></div>
+                      
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-blue-500/10 rounded-lg">
+                          <Building className="h-4 w-4 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">{employeeDisplayData.jobCategory}</p>
+                          <p className="text-xs text-muted-foreground">المستوى الخامس</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Quick Stats Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="group bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 rounded-xl p-4 border border-blue-200/50 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-blue-500/20 rounded-lg group-hover:bg-blue-500/30 transition-colors">
+                          <Calendar className="h-4 w-4 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-blue-600/80 font-medium">مدة الخدمة</p>
+                          <p className="text-sm font-bold text-blue-700">3 سنوات</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="group bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/30 dark:to-green-900/30 rounded-xl p-4 border border-green-200/50 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-green-500/20 rounded-lg group-hover:bg-green-500/30 transition-colors">
+                          <CheckCircle2 className="h-4 w-4 text-green-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-green-600/80 font-medium">نسبة الحضور</p>
+                          <p className="text-sm font-bold text-green-700">98%</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="group bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/30 rounded-xl p-4 border border-purple-200/50 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-colors">
+                          <Award className="h-4 w-4 text-purple-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-purple-600/80 font-medium">التقييم العام</p>
+                          <p className="text-sm font-bold text-purple-700">4.8/5</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="group bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/30 rounded-xl p-4 border border-orange-200/50 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-orange-500/20 rounded-lg group-hover:bg-orange-500/30 transition-colors">
+                          <Target className="h-4 w-4 text-orange-600" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-orange-600/80 font-medium">المهام المكتملة</p>
+                          <p className="text-sm font-bold text-orange-700">24/30</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Employee Details Pills */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-2 bg-background/80 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
+                         onClick={() => toast({ title: 'رقم الموظف', description: `رقم الموظف: ${employeeDisplayData.employeeNumber}` })}>
+                      <UserCheck className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-medium">#{employeeDisplayData.employeeNumber}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 bg-background/80 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
+                         onClick={() => toast({ title: 'الهوية الوطنية', description: `رقم الهوية: ${employeeDisplayData.nationalId}` })}>
+                      <FileCheck className="h-4 w-4 text-blue-600 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-medium">{employeeDisplayData.nationalId}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 bg-background/80 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
+                         onClick={() => toast({ title: 'التأمين الطبي', description: `رقم التأمين: ${employeeDisplayData.insuranceNumber}` })}>
+                      <Shield className="h-4 w-4 text-green-600 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm font-medium">{employeeDisplayData.insuranceNumber}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Enhanced Contact Information Panel */}
+                <div className="min-w-80">
+                  <div className="bg-background/60 backdrop-blur border border-border/50 rounded-2xl p-6 space-y-5 shadow-xl hover:shadow-2xl transition-all duration-500">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-semibold text-foreground flex items-center gap-2">
+                        <Target className="h-5 w-5 text-primary" />
+                        معلومات الاتصال
+                      </h3>
+                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+                        <MoreHorizontal className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 group hover:bg-muted/40 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-border/50">
+                        <div className="p-2.5 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors group-hover:scale-110">
+                          <Mail className="h-4 w-4 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-muted-foreground font-medium">البريد الإلكتروني</p>
+                          <p className="text-sm font-semibold truncate">{employeeDisplayData.email}</p>
+                        </div>
+                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0">
+                          <Send className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 group hover:bg-muted/40 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-border/50">
+                        <div className="p-2.5 bg-green-500/10 rounded-xl group-hover:bg-green-500/20 transition-colors group-hover:scale-110">
+                          <Phone className="h-4 w-4 text-green-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-muted-foreground font-medium">رقم الهاتف</p>
+                          <p className="text-sm font-semibold" dir="ltr">{employeeDisplayData.phone}</p>
+                        </div>
+                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0">
+                          <Phone className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      
+                      <div className="flex items-center gap-3 group hover:bg-muted/40 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-border/50">
+                        <div className="p-2.5 bg-blue-500/10 rounded-xl group-hover:bg-blue-500/20 transition-colors group-hover:scale-110">
+                          <MapPin className="h-4 w-4 text-blue-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-muted-foreground font-medium">العنوان</p>
+                          <p className="text-sm font-semibold truncate">{employeeDisplayData.address}</p>
+                        </div>
+                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0">
+                          <MapPin className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    {/* Quick Actions */}
+                    <div className="pt-4 border-t border-border/50">
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button size="sm" variant="outline" className="text-xs" onClick={handleQuickLeaveRequest}>
+                          <Calendar className="h-3 w-3 mr-1" />
+                          طلب إجازة
+                        </Button>
+                        <Button size="sm" variant="outline" className="text-xs" onClick={handleQuickSalaryCertificate}>
+                          <FileText className="h-3 w-3 mr-1" />
+                          شهادة راتب
+                        </Button>
                       </div>
                     </div>
                   </div>
