@@ -157,6 +157,10 @@ const EmployeePortal = () => {
   const [selectedJobCategoryFilter, setSelectedJobCategoryFilter] = useState('all');
   const [selectedJobCategoryDetails, setSelectedJobCategoryDetails] = useState<any>(null);
 
+  // Requests specific states
+  const [selectedRequestsFilter, setSelectedRequestsFilter] = useState('all');
+  const [selectedRequestDetails, setSelectedRequestDetails] = useState<any>(null);
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -454,6 +458,33 @@ const EmployeePortal = () => {
     toast({
       title: 'التطوير المهني',
       description: 'مشاهدة خطة التطوير المهني',
+    });
+  };
+
+  // Requests handlers
+  const handleViewRequestDetails = (request: any) => {
+    setSelectedRequestDetails(request);
+  };
+
+  const handleSubmitNewRequest = () => {
+    toast({
+      title: 'طلب جديد',
+      description: 'تم تسجيل الطلب بنجاح وسيتم مراجعته',
+    });
+    setIsRequestDialogOpen(false);
+  };
+
+  const handleCancelRequest = (requestId: string) => {
+    toast({
+      title: 'إلغاء الطلب',
+      description: `تم إلغاء الطلب رقم ${requestId} بنجاح`,
+    });
+  };
+
+  const handleFollowUpRequest = (requestId: string) => {
+    toast({
+      title: 'متابعة الطلب',
+      description: `تم إرسال استفسار حول الطلب رقم ${requestId}`,
     });
   };
 
@@ -813,6 +844,85 @@ const EmployeePortal = () => {
             request.status === 'cancelled' ? 'ملغي' : 'مرفوض',
     details: `${request.reason || 'لا يوجد سبب محدد'} (${request.total_days} أيام)`
   }));
+
+  // بيانات الطلبات المحسنة
+  const enhancedRequests = [
+    {
+      id: 'REQ-2024-001',
+      type: 'إجازة سنوية',
+      category: 'إجازات',
+      title: 'طلب إجازة سنوية',
+      description: 'إجازة سنوية لمدة 10 أيام للسفر مع العائلة',
+      submittedDate: '2024-01-10',
+      requestedDate: '2024-02-15',
+      duration: '10 أيام',
+      status: 'تمت الموافقة',
+      priority: 'عادية',
+      approver: 'أحمد محمد - مدير القسم',
+      documents: ['إجازة-سنوية.pdf'],
+      comments: 'تم الموافقة على الطلب، يرجى التنسيق مع الفريق'
+    },
+    {
+      id: 'REQ-2024-002',
+      type: 'طلب تدريب',
+      category: 'تطوير',
+      title: 'دورة تطوير الويب المتقدمة',
+      description: 'التسجيل في دورة React و Node.js المتقدمة',
+      submittedDate: '2024-01-15',
+      requestedDate: '2024-03-01',
+      duration: '40 ساعة',
+      status: 'قيد المراجعة',
+      priority: 'متوسطة',
+      approver: 'سارة أحمد - مدير الموارد البشرية',
+      documents: ['خطة-التدريب.pdf'],
+      comments: 'في انتظار الموافقة على الميزانية'
+    },
+    {
+      id: 'REQ-2024-003',
+      type: 'تعديل بيانات',
+      category: 'إدارية',
+      title: 'تحديث رقم الهاتف',
+      description: 'تحديث رقم الهاتف في السجلات الرسمية',
+      submittedDate: '2024-01-20',
+      requestedDate: '2024-01-20',
+      duration: 'فوري',
+      status: 'مكتمل',
+      priority: 'عادية',
+      approver: 'فاطمة علي - موظفة الموارد البشرية',
+      documents: [],
+      comments: 'تم التحديث بنجاح'
+    },
+    {
+      id: 'REQ-2024-004',
+      type: 'طلب معدات',
+      category: 'تقنية',
+      title: 'شاشة إضافية للعمل',
+      description: 'طلب شاشة إضافية 27 بوصة لتحسين الإنتاجية',
+      submittedDate: '2024-01-25',
+      requestedDate: '2024-02-01',
+      duration: '-',
+      status: 'مرفوض',
+      priority: 'منخفضة',
+      approver: 'خالد يوسف - مدير تقنية المعلومات',
+      documents: ['مواصفات-الشاشة.pdf'],
+      comments: 'تم رفض الطلب بسبب قيود الميزانية'
+    },
+    {
+      id: 'REQ-2024-005',
+      type: 'شهادة خبرة',
+      category: 'وثائق',
+      title: 'طلب شهادة خبرة',
+      description: 'شهادة خبرة للتقديم على وظيفة خارجية',
+      submittedDate: '2024-01-28',
+      requestedDate: '2024-02-05',
+      duration: '3 أيام عمل',
+      status: 'قيد المراجعة',
+      priority: 'عالية',
+      approver: 'نورا حسن - مدير الموارد البشرية',
+      documents: [],
+      comments: 'في مرحلة الإعداد والمراجعة'
+    }
+  ];
 
   // السجل التأديبي
   const disciplinaryRecord = [
@@ -2774,35 +2884,252 @@ const EmployeePortal = () => {
 
           {/* Requests Tab */}
           <TabsContent value="requests" className="space-y-6">
-            <Card>
+            {/* إحصائيات الطلبات */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">طلبات مقبولة</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {enhancedRequests.filter(r => r.status === 'تمت الموافقة' || r.status === 'مكتمل').length}
+                      </p>
+                    </div>
+                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-yellow-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-yellow-600">قيد المراجعة</p>
+                      <p className="text-2xl font-bold text-yellow-700">
+                        {enhancedRequests.filter(r => r.status === 'قيد المراجعة').length}
+                      </p>
+                    </div>
+                    <Clock className="h-8 w-8 text-yellow-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-red-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-red-600">طلبات مرفوضة</p>
+                      <p className="text-2xl font-bold text-red-700">
+                        {enhancedRequests.filter(r => r.status === 'مرفوض').length}
+                      </p>
+                    </div>
+                    <XCircle className="h-8 w-8 text-red-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">إجمالي الطلبات</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {enhancedRequests.length}
+                      </p>
+                    </div>
+                    <FileText className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* إدارة الطلبات */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  طلباتي
-                  <Button size="sm" onClick={() => setIsRequestDialogOpen(true)}>
-                    <FileText className="h-4 w-4 ml-2" />
-                    طلب جديد
-                  </Button>
-                </CardTitle>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    <CardTitle>طلباتي</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedRequestsFilter} onValueChange={setSelectedRequestsFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب الحالة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الطلبات</SelectItem>
+                        <SelectItem value="إجازات">إجازات</SelectItem>
+                        <SelectItem value="تطوير">تطوير</SelectItem>
+                        <SelectItem value="إدارية">إدارية</SelectItem>
+                        <SelectItem value="تقنية">تقنية</SelectItem>
+                        <SelectItem value="وثائق">وثائق</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm"
+                      onClick={handleSubmitNewRequest}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <Plus className="h-4 w-4 ml-2" />
+                      طلب جديد
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {activeRequests.map((request) => (
-                    <Card key={request.id}>
+                  {enhancedRequests.filter(request => 
+                    selectedRequestsFilter === 'all' || request.category === selectedRequestsFilter
+                  ).map((request) => (
+                    <Card key={request.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
                       <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h3 className="font-semibold">{request.type}</h3>
-                            <p className="text-sm text-muted-foreground">{request.details}</p>
-                            <p className="text-sm text-muted-foreground">رقم الطلب: {request.id}</p>
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{request.title}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">{request.description}</p>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>تاريخ التقديم: {request.submittedDate}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                <span>المدة: {request.duration}</span>
+                              </div>
+                              <Badge variant="outline" className="px-2 py-1">
+                                {request.category}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              رقم الطلب: {request.id} | المعتمد: {request.approver}
+                            </p>
                           </div>
-                          <div className="text-left">
-                            <p className="text-sm text-muted-foreground mb-2">{request.date}</p>
-                            {getStatusBadge(request.status)}
+                          <div className="flex flex-col items-end gap-2">
+                            <Badge 
+                              variant="outline" 
+                              className={`${
+                                request.status === 'تمت الموافقة' || request.status === 'مكتمل' ? 'bg-green-50 text-green-700 border-green-200' :
+                                request.status === 'قيد المراجعة' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                                'bg-red-50 text-red-700 border-red-200'
+                              } px-3 py-1`}
+                            >
+                              {request.status}
+                            </Badge>
+                            <Badge 
+                              variant="outline" 
+                              className={`${
+                                request.priority === 'عالية' ? 'border-red-200 text-red-700 bg-red-50' :
+                                request.priority === 'متوسطة' ? 'border-yellow-200 text-yellow-700 bg-yellow-50' :
+                                'border-green-200 text-green-700 bg-green-50'
+                              } px-2 py-1 text-xs`}
+                            >
+                              {request.priority}
+                            </Badge>
                           </div>
+                        </div>
+
+                        {/* تعليقات المراجع */}
+                        {request.comments && (
+                          <div className="mb-3 p-3 bg-muted/30 rounded-lg">
+                            <p className="text-sm font-medium text-muted-foreground mb-1">تعليقات المراجع:</p>
+                            <p className="text-sm">{request.comments}</p>
+                          </div>
+                        )}
+
+                        {/* المرفقات */}
+                        {request.documents.length > 0 && (
+                          <div className="mb-3">
+                            <p className="text-sm font-medium text-muted-foreground mb-2">المرفقات:</p>
+                            <div className="flex flex-wrap gap-2">
+                              {request.documents.map((doc, index) => (
+                                <div key={index} className="flex items-center gap-1 px-2 py-1 bg-muted/20 rounded text-xs">
+                                  <FileText className="h-3 w-3" />
+                                  <span>{doc}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleViewRequestDetails(request)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          {request.status === 'قيد المراجعة' && (
+                            <>
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleFollowUpRequest(request.id)}
+                                className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                              >
+                                <MessageCircle className="h-4 w-4 ml-2" />
+                                متابعة
+                              </Button>
+                              
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleCancelRequest(request.id)}
+                                className="hover:bg-red-50 hover:border-red-500 hover:text-red-700"
+                              >
+                                <XCircle className="h-4 w-4 ml-2" />
+                                إلغاء الطلب
+                              </Button>
+                            </>
+                          )}
+                          
+                          {(request.status === 'تمت الموافقة' || request.status === 'مكتمل') && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                            >
+                              <Download className="h-4 w-4 ml-2" />
+                              تحميل الوثائق
+                            </Button>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
                   ))}
+                </div>
+
+                {/* ملخص الطلبات */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    ملخص الطلبات
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">معدل الموافقة</p>
+                      <p className="text-lg font-bold text-green-600">
+                        {Math.round((enhancedRequests.filter(r => r.status === 'تمت الموافقة' || r.status === 'مكتمل').length / enhancedRequests.length) * 100)}%
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">متوسط وقت المراجعة</p>
+                      <p className="text-lg font-bold text-blue-600">3 أيام</p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">الأكثر طلباً</p>
+                      <p className="text-lg font-bold text-purple-600">الإجازات</p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">طلبات هذا الشهر</p>
+                      <p className="text-lg font-bold text-orange-600">
+                        {enhancedRequests.filter(r => r.submittedDate.includes('2024-01')).length}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
