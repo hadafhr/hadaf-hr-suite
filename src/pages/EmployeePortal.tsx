@@ -165,6 +165,10 @@ const EmployeePortal = () => {
   const [selectedCustodyFilter, setSelectedCustodyFilter] = useState('all');
   const [selectedCustodyDetails, setSelectedCustodyDetails] = useState<any>(null);
 
+  // Career Path specific states
+  const [selectedCareerFilter, setSelectedCareerFilter] = useState('all');
+  const [selectedCareerDetails, setSelectedCareerDetails] = useState<any>(null);
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -525,6 +529,25 @@ const EmployeePortal = () => {
     });
   };
 
+  // Career Path handlers
+  const handleViewCareerDetails = (position: any) => {
+    setSelectedCareerDetails(position);
+  };
+
+  const handleCareerPlanning = () => {
+    toast({
+      title: 'التخطيط المهني',
+      description: 'عرض خطة التطوير المهني والمسار الوظيفي',
+    });
+  };
+
+  const handleSkillGapAnalysis = () => {
+    toast({
+      title: 'تحليل الفجوات',
+      description: 'تحليل المهارات المطلوبة للمنصب التالي',
+    });
+  };
+
   const handleRequestGPSCorrection = (record: any) => {
     toast({
       title: 'طلب تصحيح GPS',
@@ -855,6 +878,91 @@ const EmployeePortal = () => {
     { position: 'مطور برمجيات', startDate: '2022-06-01', endDate: '2023-06-01', department: 'تقنية المعلومات' },
     { position: 'مطور برمجيات أول', startDate: '2023-06-01', endDate: 'الآن', department: 'تقنية المعلومات' }
   ];
+
+  // بيانات المسار الوظيفي المحسنة
+  const enhancedCareerPath = [
+    {
+      id: 'CP-001',
+      position: 'مطور برمجيات مبتدئ',
+      level: 'المستوى الأول',
+      department: 'تقنية المعلومات',
+      startDate: '2021-01-15',
+      endDate: '2022-06-01',
+      duration: '1.4 سنة',
+      salary: 8000,
+      status: 'مكتمل',
+      achievements: [
+        'إكمال برنامج التدريب التأسيسي',
+        'تطوير 3 مشاريع صغيرة',
+        'الحصول على شهادة JavaScript'
+      ],
+      skills: ['HTML', 'CSS', 'JavaScript', 'React أساسيات'],
+      manager: 'أحمد محمد - المدير التقني',
+      promotion: {
+        reason: 'أداء ممتاز وإتقان المهارات الأساسية',
+        evaluation: 4.5
+      }
+    },
+    {
+      id: 'CP-002',
+      position: 'مطور برمجيات',
+      level: 'المستوى الثاني',
+      department: 'تقنية المعلومات',
+      startDate: '2022-06-01',
+      endDate: '2023-06-01',
+      duration: '1 سنة',
+      salary: 12000,
+      status: 'مكتمل',
+      achievements: [
+        'قيادة فريق من 2 مطورين',
+        'تطوير نظام إدارة المخزون',
+        'تحسين أداء التطبيقات بنسبة 40%',
+        'الحصول على شهادة AWS Cloud Practitioner'
+      ],
+      skills: ['React متقدم', 'Node.js', 'MongoDB', 'AWS', 'Git'],
+      manager: 'سارة أحمد - مدير المشاريع',
+      promotion: {
+        reason: 'قيادة فريق ناجحة وإنجاز مشاريع معقدة',
+        evaluation: 4.7
+      }
+    },
+    {
+      id: 'CP-003',
+      position: 'مطور برمجيات أول',
+      level: 'المستوى الثالث',
+      department: 'تقنية المعلومات',
+      startDate: '2023-06-01',
+      endDate: 'الآن',
+      duration: '8 أشهر',
+      salary: 18000,
+      status: 'حالي',
+      achievements: [
+        'تصميم هيكلة النظام الجديد',
+        'تدريب 5 مطورين جدد',
+        'تطوير إطار عمل داخلي للشركة',
+        'الحصول على شهادة Kubernetes'
+      ],
+      skills: ['System Design', 'Microservices', 'Docker', 'Kubernetes', 'Leadership'],
+      manager: 'محمد علي - مدير التطوير',
+      nextTarget: {
+        position: 'مدير تطوير البرمجيات',
+        timeline: '12-18 شهر',
+        requirements: ['إدارة فريق أكبر', 'خبرة في التخطيط الاستراتيجي', 'مهارات المالية التقنية']
+      }
+    }
+  ];
+
+  // إحصائيات المسار الوظيفي
+  const careerStats = {
+    totalYears: 3.2,
+    promotions: 2,
+    averageStayPerRole: 1.1,
+    salaryGrowth: 125, // بالنسبة المئوية
+    skillsAcquired: 15,
+    certificationsEarned: 3,
+    projectsLed: 8,
+    teamMembersManaged: 7
+  };
 
   // بيانات الفئة الوظيفية المحسنة
   const jobCategoryData = {
@@ -2754,35 +2862,296 @@ const EmployeePortal = () => {
 
           {/* تبويب المسار الوظيفي */}
           <TabsContent value="career-path" className="space-y-6">
-            <Card>
+            {/* إحصائيات المسار الوظيفي */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">سنوات الخبرة</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {careerStats.totalYears}
+                      </p>
+                    </div>
+                    <Clock className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">الترقيات</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {careerStats.promotions}
+                      </p>
+                    </div>
+                    <TrendingUpIcon className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-purple-600">نمو الراتب</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {careerStats.salaryGrowth}%
+                      </p>
+                    </div>
+                    <DollarSign className="h-8 w-8 text-purple-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-orange-600">المشاريع المنجزة</p>
+                      <p className="text-2xl font-bold text-orange-700">
+                        {careerStats.projectsLed}
+                      </p>
+                    </div>
+                    <Target className="h-8 w-8 text-orange-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* الخط الزمني للمسار الوظيفي */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5" />
-                  المسار الوظيفي
-                </CardTitle>
-                <CardDescription>تاريخ المناصب والترقيات</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <TrendingUpIcon className="h-5 w-5" />
+                    <CardTitle>الخط الزمني للمسار الوظيفي</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedCareerFilter} onValueChange={setSelectedCareerFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب الحالة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع المناصب</SelectItem>
+                        <SelectItem value="مكتمل">مكتمل</SelectItem>
+                        <SelectItem value="حالي">حالي</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleCareerPlanning}
+                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                    >
+                      <BarChart3 className="h-4 w-4 ml-2" />
+                      خطة التطوير
+                    </Button>
+                    <Button 
+                      size="sm"
+                      onClick={handleRequestPromotion}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <TrendingUpIcon className="h-4 w-4 ml-2" />
+                      طلب ترقية
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {careerPath.map((position, index) => (
-                    <div key={index} className="flex items-center gap-4 p-4 border rounded-lg">
-                      <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold">
-                          {index + 1}
+                <div className="space-y-6">
+                  {enhancedCareerPath.filter(position => 
+                    selectedCareerFilter === 'all' || position.status === selectedCareerFilter
+                  ).map((position, index) => (
+                    <Card key={position.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-6">
+                        <div className="flex items-start gap-4">
+                          {/* رقم المرحلة */}
+                          <div className="flex-shrink-0">
+                            <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg ${
+                              position.status === 'حالي' ? 'bg-gradient-to-r from-primary to-primary/80' : 
+                              'bg-gradient-to-r from-gray-500 to-gray-600'
+                            }`}>
+                              {index + 1}
+                            </div>
+                          </div>
+
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-3">
+                              <div>
+                                <h3 className="text-xl font-bold mb-1">{position.position}</h3>
+                                <p className="text-sm text-muted-foreground mb-2">{position.level} • {position.department}</p>
+                                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                                  <div className="flex items-center gap-1">
+                                    <Calendar className="h-4 w-4" />
+                                    <span>{position.startDate} - {position.endDate}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <Clock className="h-4 w-4" />
+                                    <span>المدة: {position.duration}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <DollarSign className="h-4 w-4" />
+                                    <span>{position.salary.toLocaleString()} ريال</span>
+                                  </div>
+                                </div>
+                                <p className="text-sm text-muted-foreground">المشرف: {position.manager}</p>
+                              </div>
+                              <Badge 
+                                variant="outline" 
+                                className={`${
+                                  position.status === 'حالي' ? 'bg-green-50 text-green-700 border-green-200' :
+                                  'bg-blue-50 text-blue-700 border-blue-200'
+                                } px-3 py-1`}
+                              >
+                                {position.status}
+                              </Badge>
+                            </div>
+
+                            {/* الإنجازات */}
+                            <div className="mb-4">
+                              <h4 className="font-semibold mb-2 flex items-center gap-1">
+                                <Award className="h-4 w-4" />
+                                الإنجازات الرئيسية:
+                              </h4>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                {position.achievements.map((achievement, idx) => (
+                                  <div key={idx} className="flex items-center gap-2 text-sm">
+                                    <CheckCircle2 className="h-3 w-3 text-green-500 flex-shrink-0" />
+                                    <span>{achievement}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* المهارات المكتسبة */}
+                            <div className="mb-4">
+                              <h4 className="font-semibold mb-2">المهارات المكتسبة:</h4>
+                              <div className="flex flex-wrap gap-2">
+                                {position.skills.map((skill, idx) => (
+                                  <Badge key={idx} variant="outline" className="text-xs">
+                                    {skill}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* تقييم الترقية */}
+                            {position.promotion && (
+                              <div className="mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                                <h4 className="font-semibold mb-1 text-green-800">تقييم الترقية:</h4>
+                                <p className="text-sm text-green-700 mb-1">{position.promotion.reason}</p>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm text-green-600">التقييم:</span>
+                                  <div className="flex items-center">
+                                    {[...Array(5)].map((_, i) => (
+                                      <CheckCircle2 key={i} className={`h-3 w-3 ${
+                                        i < Math.floor(position.promotion.evaluation) ? 'text-green-500' : 'text-gray-300'
+                                      }`} />
+                                    ))}
+                                    <span className="text-sm font-bold text-green-700 ml-1">
+                                      {position.promotion.evaluation}/5
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* الهدف التالي */}
+                            {position.nextTarget && (
+                              <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 className="font-semibold mb-1 text-blue-800">الهدف التالي:</h4>
+                                <p className="text-sm text-blue-700 mb-2">
+                                  <strong>{position.nextTarget.position}</strong> - خلال {position.nextTarget.timeline}
+                                </p>
+                                <div className="space-y-1">
+                                  <p className="text-xs text-blue-600 font-medium">المتطلبات:</p>
+                                  {position.nextTarget.requirements.map((req, idx) => (
+                                    <div key={idx} className="flex items-center gap-2 text-xs text-blue-600">
+                                      <Target className="h-3 w-3" />
+                                      <span>{req}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* أزرار التفاعل */}
+                            <div className="flex gap-2 flex-wrap">
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleViewCareerDetails(position)}
+                                className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                              >
+                                <Eye className="h-4 w-4 ml-2" />
+                                عرض التفاصيل
+                              </Button>
+                              
+                              {position.status === 'حالي' && (
+                                <>
+                                  <Button 
+                                    size="sm" 
+                                    variant="outline"
+                                    onClick={handleSkillGapAnalysis}
+                                    className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                                  >
+                                    <BarChart3 className="h-4 w-4 ml-2" />
+                                    تحليل المهارات
+                                  </Button>
+                                  
+                                  <Button 
+                                    size="sm" 
+                                    variant="outline"
+                                    className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                                  >
+                                    <Download className="h-4 w-4 ml-2" />
+                                    شهادة الخبرة
+                                  </Button>
+                                </>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold">{position.position}</h3>
-                        <p className="text-sm text-muted-foreground">{position.department}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {position.startDate} - {position.endDate}
-                        </p>
-                      </div>
-                      {index === careerPath.length - 1 && (
-                        <Badge className="bg-green-100 text-green-800">الحالي</Badge>
-                      )}
-                    </div>
+                      </CardContent>
+                    </Card>
                   ))}
+                </div>
+
+                {/* ملخص المسار الوظيفي */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    ملخص المسار الوظيفي
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">متوسط البقاء في المنصب</p>
+                      <p className="text-lg font-bold text-blue-600">
+                        {careerStats.averageStayPerRole} سنة
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">الشهادات المحصلة</p>
+                      <p className="text-lg font-bold text-green-600">
+                        {careerStats.certificationsEarned}
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">المهارات المكتسبة</p>
+                      <p className="text-lg font-bold text-purple-600">
+                        {careerStats.skillsAcquired}
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">أعضاء الفريق المُدارين</p>
+                      <p className="text-lg font-bold text-orange-600">
+                        {careerStats.teamMembersManaged}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
