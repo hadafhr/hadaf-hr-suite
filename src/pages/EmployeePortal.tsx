@@ -1206,40 +1206,253 @@ const EmployeePortal = () => {
 
           {/* تبويب جدول الدوام الشهري */}
           <TabsContent value="attendance" className="space-y-6">
+            {/* إحصائيات الدوام */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">أيام الحضور</p>
+                      <p className="text-2xl font-bold text-green-700">{getAttendanceStats().present}</p>
+                    </div>
+                    <CheckCircleIcon className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-yellow-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-yellow-600">أيام التأخير</p>
+                      <p className="text-2xl font-bold text-yellow-700">{getAttendanceStats().late}</p>
+                    </div>
+                    <ClockIcon className="h-8 w-8 text-yellow-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-red-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-red-600">أيام الغياب</p>
+                      <p className="text-2xl font-bold text-red-700">{getAttendanceStats().absent}</p>
+                    </div>
+                    <XCircle className="h-8 w-8 text-red-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">إجمالي الأيام</p>
+                      <p className="text-2xl font-bold text-blue-700">{getAttendanceStats().total}</p>
+                    </div>
+                    <CalendarDays2 className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <CalendarDays className="h-5 w-5" />
+                      سجل الدوام الشهري
+                    </CardTitle>
+                    <CardDescription>تفاصيل دوامك اليومي مع إمكانية التفاعل والتصحيح</CardDescription>
+                  </div>
+                  <div className="flex gap-2">
+                    <Select value={attendanceFilter} onValueChange={setAttendanceFilter}>
+                      <SelectTrigger className="w-32">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع الأيام</SelectItem>
+                        <SelectItem value="present">حاضر</SelectItem>
+                        <SelectItem value="late">متأخر</SelectItem>
+                        <SelectItem value="absent">غائب</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button variant="outline" onClick={handleExportAttendance} size="sm">
+                      <DownloadIcon className="h-4 w-4 ml-2" />
+                      تصدير
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {filteredAttendanceData.map((record, index) => (
+                    <Card key={index} className="border-l-4 border-l-primary/20 hover:shadow-lg transition-all duration-300 animate-fade-in">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-6">
+                            {/* تاريخ اليوم */}
+                            <div className="text-center min-w-[80px]">
+                              <div className="text-lg font-bold text-primary">{record.date.split('/')[0]}</div>
+                              <div className="text-xs text-muted-foreground">{record.date.split('/').slice(1).join('/')}</div>
+                            </div>
+
+                            {/* أوقات الدخول والخروج */}
+                            <div className="flex gap-8">
+                              <div className="text-center">
+                                <div className="text-xs font-medium text-muted-foreground mb-1">وقت الدخول</div>
+                                <div className="flex items-center gap-2">
+                                  <div className={`w-2 h-2 rounded-full ${record.checkIn !== '--:--' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                  <span className={`font-mono text-sm ${record.checkIn !== '--:--' ? 'text-green-700' : 'text-red-700'}`}>
+                                    {record.checkIn}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="text-center">
+                                <div className="text-xs font-medium text-muted-foreground mb-1">وقت الخروج</div>
+                                <div className="flex items-center gap-2">
+                                  <div className={`w-2 h-2 rounded-full ${record.checkOut !== '--:--' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                                  <span className={`font-mono text-sm ${record.checkOut !== '--:--' ? 'text-green-700' : 'text-yellow-700'}`}>
+                                    {record.checkOut}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="text-center">
+                                <div className="text-xs font-medium text-muted-foreground mb-1">إجمالي الساعات</div>
+                                <div className="flex items-center gap-2">
+                                  <Timer className="h-3 w-3 text-blue-500" />
+                                  <span className="font-mono text-sm text-blue-700">{record.hours}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* حالة اليوم */}
+                            <div className="text-center">
+                              <Badge variant="outline" className={`${getAttendanceStatusColor(record.status)} border-0 px-3 py-1`}>
+                                <div className="flex items-center gap-1">
+                                  {record.status === 'حاضر' && <CheckCircleIcon className="h-3 w-3" />}
+                                  {record.status === 'متأخر' && <ClockIcon className="h-3 w-3" />}
+                                  {record.status === 'غائب' && <XCircle className="h-3 w-3" />}
+                                  {record.status === 'إجازة' && <CalendarDays2 className="h-3 w-3" />}
+                                  {record.status}
+                                </div>
+                              </Badge>
+                            </div>
+                          </div>
+
+                          {/* أزرار التفاعل */}
+                          <div className="flex gap-2">
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handleViewAttendanceDetails(record)}
+                              className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700 hover-scale"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            
+                            {(record.status === 'متأخر' || record.status === 'غائب') && (
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => handleRequestCorrection(record.date)}
+                                className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700 hover-scale"
+                              >
+                                <AlertCircle className="h-4 w-4" />
+                              </Button>
+                            )}
+                            
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-gray-50 hover:border-gray-500 hover:text-gray-700"
+                            >
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+
+                        {/* معلومات إضافية للحالات الخاصة */}
+                        {record.status === 'متأخر' && (
+                          <div className="mt-3 p-2 bg-yellow-50 rounded-lg border border-yellow-200 animate-fade-in">
+                            <div className="flex items-center gap-2 text-yellow-700 text-sm">
+                              <AlertCircle className="h-4 w-4" />
+                              <span>تأخير عن الموعد المحدد - يمكنك طلب تصحيح الحضور</span>
+                            </div>
+                          </div>
+                        )}
+
+                        {record.status === 'غائب' && (
+                          <div className="mt-3 p-2 bg-red-50 rounded-lg border border-red-200 animate-fade-in">
+                            <div className="flex items-center gap-2 text-red-700 text-sm">
+                              <XCircle className="h-4 w-4" />
+                              <span>غياب غير مبرر - تواصل مع الموارد البشرية</span>
+                            </div>
+                          </div>
+                        )}
+
+                        {record.status === 'حاضر' && record.hours !== '0:00' && parseFloat(record.hours.replace(' ساعة', '')) > 8 && (
+                          <div className="mt-3 p-2 bg-green-50 rounded-lg border border-green-200 animate-fade-in">
+                            <div className="flex items-center gap-2 text-green-700 text-sm">
+                              <TrendingUpIcon className="h-4 w-4" />
+                              <span>ساعات إضافية: {(parseFloat(record.hours.replace(' ساعة', '')) - 8).toFixed(1)} ساعة</span>
+                            </div>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {filteredAttendanceData.length === 0 && (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <CalendarDays className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                    <p>لا توجد سجلات دوام للفلتر المحدد</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* ملخص الأداء */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <CalendarDays className="h-5 w-5" />
-                  جدول الدوام الشهري
+                  <BarChart3 className="h-5 w-5" />
+                  ملخص الأداء الشهري
                 </CardTitle>
-                <CardDescription>سجل الحضور والانصراف للشهر الحالي</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="p-2 text-right">التاريخ</th>
-                        <th className="p-2 text-right">وقت الحضور</th>
-                        <th className="p-2 text-right">وقت الانصراف</th>
-                        <th className="p-2 text-right">عدد الساعات</th>
-                        <th className="p-2 text-right">الحالة</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {attendanceData.map((record, index) => (
-                        <tr key={index} className="border-b">
-                          <td className="p-2">{record.date}</td>
-                          <td className="p-2">{record.checkIn}</td>
-                          <td className="p-2">{record.checkOut}</td>
-                          <td className="p-2">{record.hours}</td>
-                          <td className={`p-2 font-medium ${getAttendanceStatusColor(record.status)}`}>
-                            {record.status}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-green-600 mb-2">
+                      {getAttendanceStats().total > 0 ? ((getAttendanceStats().present / getAttendanceStats().total) * 100).toFixed(1) : '0'}%
+                    </div>
+                    <p className="text-sm text-muted-foreground">معدل الحضور</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-blue-600 mb-2">
+                      {attendanceData.reduce((acc, record) => {
+                        const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
+                        return acc + hours;
+                      }, 0).toFixed(1)}
+                    </div>
+                    <p className="text-sm text-muted-foreground">إجمالي ساعات العمل</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-purple-600 mb-2">
+                      {Math.max(0, attendanceData.reduce((acc, record) => {
+                        const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
+                        return acc + Math.max(0, hours - 8);
+                      }, 0)).toFixed(1)}
+                    </div>
+                    <p className="text-sm text-muted-foreground">الساعات الإضافية</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
