@@ -177,6 +177,183 @@ const EmployeePortal = () => {
   const [selectedPerformanceFilter, setSelectedPerformanceFilter] = useState('all');
   const [selectedPerformanceDetails, setSelectedPerformanceDetails] = useState<any>(null);
 
+  // Documents specific states
+  const [selectedDocumentsFilter, setSelectedDocumentsFilter] = useState('all');
+  const [selectedDocumentDetails, setSelectedDocumentDetails] = useState<any>(null);
+  const [isDocumentViewerOpen, setIsDocumentViewerOpen] = useState(false);
+
+  // بيانات المستندات المحسنة
+  const enhancedDocumentsData = {
+    statistics: {
+      totalDocuments: 24,
+      activeDocuments: 18,
+      expiringSoon: 3,
+      pending: 2
+    },
+    categories: [
+      {
+        id: 'personal',
+        name: 'المستندات الشخصية',
+        count: 8,
+        icon: User,
+        color: 'blue'
+      },
+      {
+        id: 'employment',
+        name: 'مستندات العمل',
+        count: 6,
+        icon: Briefcase,
+        color: 'green'
+      },
+      {
+        id: 'financial',
+        name: 'المستندات المالية',
+        count: 5,
+        icon: DollarSign,
+        color: 'purple'
+      },
+      {
+        id: 'certificates',
+        name: 'الشهادات',
+        count: 5,
+        icon: Award,
+        color: 'orange'
+      }
+    ],
+    documents: [
+      {
+        id: 'DOC-2024-001',
+        title: 'عقد العمل الحالي',
+        category: 'employment',
+        type: 'PDF',
+        size: '2.4 MB',
+        uploadDate: '2024-01-15',
+        expiryDate: '2025-01-15',
+        status: 'نشط',
+        description: 'عقد العمل الموقع مع الشركة',
+        downloadCount: 12,
+        lastDownload: '2024-01-20',
+        isConfidential: true
+      },
+      {
+        id: 'DOC-2024-002',
+        title: 'شهادة الراتب - يناير 2024',
+        category: 'financial',
+        type: 'PDF',
+        size: '1.2 MB',
+        uploadDate: '2024-01-31',
+        expiryDate: null,
+        status: 'نشط',
+        description: 'شهادة راتب للشهر الحالي',
+        downloadCount: 5,
+        lastDownload: '2024-01-31',
+        isConfidential: false
+      },
+      {
+        id: 'DOC-2023-015',
+        title: 'شهادة الخبرة',
+        category: 'certificates',
+        type: 'PDF',
+        size: '1.8 MB',
+        uploadDate: '2023-12-15',
+        expiryDate: null,
+        status: 'نشط',
+        description: 'شهادة خبرة من الوظائف السابقة',
+        downloadCount: 8,
+        lastDownload: '2024-01-10',
+        isConfidential: false
+      },
+      {
+        id: 'DOC-2024-003',
+        title: 'بطاقة التأمين الطبي',
+        category: 'personal',
+        type: 'PDF',
+        size: '0.8 MB',
+        uploadDate: '2024-01-10',
+        expiryDate: '2024-12-31',
+        status: 'ينتهي قريباً',
+        description: 'بطاقة التأمين الطبي للسنة الحالية',
+        downloadCount: 15,
+        lastDownload: '2024-01-25',
+        isConfidential: true
+      },
+      {
+        id: 'DOC-2024-004',
+        title: 'تقرير الأداء السنوي 2023',
+        category: 'employment',
+        type: 'PDF',
+        size: '3.1 MB',
+        uploadDate: '2024-01-05',
+        expiryDate: null,
+        status: 'نشط',
+        description: 'تقييم الأداء للعام المنصرم',
+        downloadCount: 3,
+        lastDownload: '2024-01-15',
+        isConfidential: true
+      },
+      {
+        id: 'DOC-2023-012',
+        title: 'شهادة التدريب - إدارة المشاريع',
+        category: 'certificates',
+        type: 'PDF',
+        size: '1.5 MB',
+        uploadDate: '2023-11-20',
+        expiryDate: '2026-11-20',
+        status: 'نشط',
+        description: 'شهادة دورة إدارة المشاريع المتقدمة',
+        downloadCount: 6,
+        lastDownload: '2024-01-08',
+        isConfidential: false
+      }
+    ]
+  };
+
+  // Documents handlers
+  const handleViewDocumentDetails = (document: any) => {
+    setSelectedDocumentDetails(document);
+    setIsDocumentViewerOpen(true);
+  };
+
+  const handleDownloadDocument = (document: any) => {
+    toast({
+      title: 'تحميل المستند',
+      description: `تم تحميل ${document.title} بنجاح`,
+    });
+  };
+
+  const handleRequestDocument = () => {
+    setRequestFormData({
+      request_type: 'document_request',
+      title: 'طلب مستند جديد',
+      description: 'طلب الحصول على مستند إضافي'
+    });
+    setIsRequestDialogOpen(true);
+  };
+
+  const handleUploadDocument = () => {
+    toast({
+      title: 'رفع مستند',
+      description: 'سيتم توجيهك لصفحة رفع المستندات',
+    });
+  };
+
+  const handleShareDocument = (document: any) => {
+    toast({
+      title: 'مشاركة المستند',
+      description: `تم إنشاء رابط مشاركة آمن لـ ${document.title}`,
+    });
+  };
+
+  const getDocumentStatusColor = (status: string) => {
+    switch (status) {
+      case 'نشط': return 'text-green-600 bg-green-100';
+      case 'ينتهي قريباً': return 'text-orange-600 bg-orange-100';
+      case 'منتهي الصلاحية': return 'text-red-600 bg-red-100';
+      case 'قيد المراجعة': return 'text-blue-600 bg-blue-100';
+      default: return 'text-gray-600 bg-gray-100';
+    }
+  };
+
   // بيانات الأداء المحسنة
   const enhancedPerformanceData = {
     currentRating: {
@@ -5001,97 +5178,280 @@ const EmployeePortal = () => {
 
           {/* Documents Tab */}
           <TabsContent value="documents" className="space-y-6">
-            <Card>
+            {/* إحصائيات المستندات */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">إجمالي المستندات</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {enhancedDocumentsData.statistics.totalDocuments}
+                      </p>
+                    </div>
+                    <FileText className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">المستندات النشطة</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {enhancedDocumentsData.statistics.activeDocuments}
+                      </p>
+                    </div>
+                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-orange-600">تنتهي قريباً</p>
+                      <p className="text-2xl font-bold text-orange-700">
+                        {enhancedDocumentsData.statistics.expiringSoon}
+                      </p>
+                    </div>
+                    <AlertTriangle className="h-8 w-8 text-orange-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-purple-600">قيد المراجعة</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {enhancedDocumentsData.statistics.pending}
+                      </p>
+                    </div>
+                    <Clock className="h-8 w-8 text-purple-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* فئات المستندات */}
+            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-6 w-6 text-primary" />
+                    فئات المستندات
+                  </CardTitle>
+                  <div className="flex gap-2">
+                    <Button onClick={handleUploadDocument} size="sm" variant="outline">
+                      <Upload className="h-4 w-4 mr-2" />
+                      رفع مستند
+                    </Button>
+                    <Button onClick={handleRequestDocument} size="sm">
+                      <Plus className="h-4 w-4 mr-2" />
+                      طلب مستند
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {enhancedDocumentsData.categories.map((category) => {
+                    const IconComponent = category.icon;
+                    return (
+                      <Card 
+                        key={category.id} 
+                        className="border-l-4 border-l-primary/30 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+                        onClick={() => setSelectedDocumentsFilter(category.id)}
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-lg bg-${category.color}-100`}>
+                              <IconComponent className={`h-5 w-5 text-${category.color}-600`} />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold">{category.name}</h4>
+                              <p className="text-sm text-muted-foreground">{category.count} مستند</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* قائمة المستندات */}
+            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <FileIcon className="h-6 w-6 text-primary" />
+                    المستندات المتوفرة
+                  </CardTitle>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedDocumentsFilter} onValueChange={setSelectedDocumentsFilter}>
+                      <SelectTrigger className="w-48">
+                        <SelectValue placeholder="تصفية حسب الفئة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع المستندات</SelectItem>
+                        <SelectItem value="personal">المستندات الشخصية</SelectItem>
+                        <SelectItem value="employment">مستندات العمل</SelectItem>
+                        <SelectItem value="financial">المستندات المالية</SelectItem>
+                        <SelectItem value="certificates">الشهادات</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {enhancedDocumentsData.documents.filter(doc => 
+                    selectedDocumentsFilter === 'all' || doc.category === selectedDocumentsFilter
+                  ).map((document) => (
+                    <Card key={document.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-start gap-4">
+                              <div className="p-2 bg-primary/10 rounded-lg">
+                                <FileText className="h-6 w-6 text-primary" />
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <h4 className="font-semibold text-lg">{document.title}</h4>
+                                  {document.isConfidential && (
+                                    <Badge variant="secondary" className="text-xs">
+                                      <Shield className="h-3 w-3 mr-1" />
+                                      سري
+                                    </Badge>
+                                  )}
+                                  <Badge className={getDocumentStatusColor(document.status)}>
+                                    {document.status}
+                                  </Badge>
+                                </div>
+                                
+                                <p className="text-muted-foreground mb-3">{document.description}</p>
+                                
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                  <div>
+                                    <span className="font-medium text-muted-foreground">النوع:</span>
+                                    <p className="text-foreground">{document.type}</p>
+                                  </div>
+                                  <div>
+                                    <span className="font-medium text-muted-foreground">الحجم:</span>
+                                    <p className="text-foreground">{document.size}</p>
+                                  </div>
+                                  <div>
+                                    <span className="font-medium text-muted-foreground">تاريخ الرفع:</span>
+                                    <p className="text-foreground">{new Date(document.uploadDate).toLocaleDateString('ar-SA')}</p>
+                                  </div>
+                                  <div>
+                                    <span className="font-medium text-muted-foreground">مرات التحميل:</span>
+                                    <p className="text-foreground">{document.downloadCount}</p>
+                                  </div>
+                                </div>
+
+                                {document.expiryDate && (
+                                  <div className="mt-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                                    <div className="flex items-center gap-2">
+                                      <Calendar className="h-4 w-4 text-orange-600" />
+                                      <span className="text-sm font-medium text-orange-800">
+                                        تاريخ الانتهاء: {new Date(document.expiryDate).toLocaleDateString('ar-SA')}
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-col gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => handleViewDocumentDetails(document)}
+                              variant="outline"
+                            >
+                              <Eye className="h-4 w-4 mr-2" />
+                              عرض
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => handleDownloadDocument(document)}
+                            >
+                              <Download className="h-4 w-4 mr-2" />
+                              تحميل
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => handleShareDocument(document)}
+                              variant="secondary"
+                            >
+                              <Send className="h-4 w-4 mr-2" />
+                              مشاركة
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {enhancedDocumentsData.documents.filter(doc => 
+                  selectedDocumentsFilter === 'all' || doc.category === selectedDocumentsFilter
+                ).length === 0 && (
+                  <div className="text-center py-8">
+                    <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">لا توجد مستندات</h3>
+                    <p className="text-muted-foreground mb-4">
+                      لم يتم العثور على مستندات في هذه الفئة
+                    </p>
+                    <Button onClick={handleUploadDocument}>
+                      <Upload className="h-4 w-4 mr-2" />
+                      رفع مستند جديد
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* إحصائيات الاستخدام */}
+            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-6 w-6" />
-                  المستندات الشخصية
+                  <BarChart3 className="h-6 w-6 text-primary" />
+                  إحصائيات المستندات
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* عقد العمل */}
-                  <div className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-blue-600/20 rounded-full -translate-y-10 translate-x-10"></div>
-                      <div className="relative">
-                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <ScrollText className="h-7 w-7 text-white" />
-                        </div>
-                        <h3 className="font-semibold text-foreground mb-2">عقد العمل</h3>
-                        <p className="text-sm text-muted-foreground">تحميل عقد العمل المُوقع</p>
-                      </div>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <Download className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                    <h4 className="font-semibold text-blue-800">إجمالي التحميلات</h4>
+                    <p className="text-2xl font-bold text-blue-600">
+                      {enhancedDocumentsData.documents.reduce((sum, doc) => sum + doc.downloadCount, 0)}
+                    </p>
                   </div>
-
-                  {/* شهادة الراتب */}
-                  <div className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-500/10 to-green-600/20 rounded-full -translate-y-10 translate-x-10"></div>
-                      <div className="relative">
-                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Banknote className="h-7 w-7 text-white" />
-                        </div>
-                        <h3 className="font-semibold text-foreground mb-2">شهادة الراتب</h3>
-                        <p className="text-sm text-muted-foreground">تحميل شهادة الراتب</p>
-                      </div>
-                    </div>
+                  
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <FileCheck className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                    <h4 className="font-semibold text-green-800">المستندات المفعلة</h4>
+                    <p className="text-2xl font-bold text-green-600">
+                      {enhancedDocumentsData.documents.filter(doc => doc.status === 'نشط').length}
+                    </p>
                   </div>
-
-                  {/* شهادة خبرة */}
-                  <div className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500/10 to-purple-600/20 rounded-full -translate-y-10 translate-x-10"></div>
-                      <div className="relative">
-                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Award className="h-7 w-7 text-white" />
-                        </div>
-                        <h3 className="font-semibold text-foreground mb-2">شهادة خبرة</h3>
-                        <p className="text-sm text-muted-foreground">تحميل شهادة الخبرة</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* بيانات التأمين */}
-                  <div className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-cyan-500/10 to-cyan-600/20 rounded-full -translate-y-10 translate-x-10"></div>
-                      <div className="relative">
-                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Shield className="h-7 w-7 text-white" />
-                        </div>
-                        <h3 className="font-semibold text-foreground mb-2">بيانات التأمين</h3>
-                        <p className="text-sm text-muted-foreground">تحميل بيانات التأمين الطبي</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* إجازات السنة */}
-                  <div className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-500/10 to-orange-600/20 rounded-full -translate-y-10 translate-x-10"></div>
-                      <div className="relative">
-                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Calendar className="h-7 w-7 text-white" />
-                        </div>
-                        <h3 className="font-semibold text-foreground mb-2">إجازات السنة</h3>
-                        <p className="text-sm text-muted-foreground">تقرير الإجازات السنوية</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* تقارير الأداء */}
-                  <div className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-gradient-to-br from-background to-muted/20 p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 hover:border-primary/50">
-                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-yellow-500/10 to-yellow-600/20 rounded-full -translate-y-10 translate-x-10"></div>
-                      <div className="relative">
-                        <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Target className="h-7 w-7 text-white" />
-                        </div>
-                        <h3 className="font-semibold text-foreground mb-2">تقارير الأداء</h3>
-                        <p className="text-sm text-muted-foreground">تحميل تقييم الأداء السنوي</p>
-                      </div>
-                    </div>
+                  
+                  <div className="text-center p-4 bg-orange-50 rounded-lg">
+                    <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                    <h4 className="font-semibold text-orange-800">تحتاج تجديد</h4>
+                    <p className="text-2xl font-bold text-orange-600">
+                      {enhancedDocumentsData.documents.filter(doc => doc.status === 'ينتهي قريباً').length}
+                    </p>
                   </div>
                 </div>
               </CardContent>
