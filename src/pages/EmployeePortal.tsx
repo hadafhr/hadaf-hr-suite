@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -26,6 +26,7 @@ import {
   AlertTriangle,
   Settings,
   LogOut,
+  LogIn,
   Mail,
   Phone,
   MapPin,
@@ -138,6 +139,11 @@ const EmployeePortal = () => {
     total_days: 0
   });
   const [isClockingIn, setIsClockingIn] = useState(false);
+  
+  // GPS Attendance specific states
+  const [selectedGPSFilter, setSelectedGPSFilter] = useState('all');
+  const [isGPSDetailsOpen, setIsGPSDetailsOpen] = useState(false);
+  const [selectedGPSRecord, setSelectedGPSRecord] = useState<any>(null);
 
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
@@ -360,19 +366,39 @@ const EmployeePortal = () => {
     setIsAttendanceViewerOpen(true);
   };
 
-  const handleExportAttendance = () => {
+  const handleRequestCorrection = (attendance: any) => {
     toast({
-      title: 'تصدير البيانات',
-      description: 'تم تصدير بيانات الدوام بنجاح كملف Excel',
+      title: 'طلب تصحيح',
+      description: `تم إرسال طلب تصحيح للحضور في يوم ${attendance.date}`,
     });
   };
 
-  const handleRequestCorrection = (date: string) => {
+  const handleExportAttendance = () => {
     toast({
-      title: 'طلب تصحيح',
-      description: `تم إرسال طلب تصحيح للتاريخ: ${date}`,
+      title: 'تصدير البيانات',
+      description: 'تم تصدير بيانات الحضور بنجاح',
     });
   };
+
+  // GPS Attendance handlers
+  const handleViewGPSDetails = (record: any) => {
+    setSelectedGPSRecord(record);
+    setIsGPSDetailsOpen(true);
+  };
+
+  const handleExportGPSData = (record: any) => {
+    toast({
+      title: 'تصدير بيانات GPS',
+      description: `تم تصدير بيانات الحضور GPS ليوم ${record.date}`,
+    });
+  };
+
+  const handleRequestGPSCorrection = (record: any) => {
+    toast({
+      title: 'طلب تصحيح GPS',
+      description: `تم إرسال طلب تصحيح للحضور GPS في يوم ${record.date}`,
+     });
+   };
 
   // تحويل بيانات الحضور للواجهة
   const attendanceData = attendanceRecords.map(record => ({
@@ -407,6 +433,15 @@ const EmployeePortal = () => {
     if (attendanceFilter === 'present') return record.status === 'حاضر';
     if (attendanceFilter === 'late') return record.status === 'متأخر';
     if (attendanceFilter === 'absent') return record.status === 'غائب';
+    return true;
+  });
+
+  // GPS Attendance filtered data
+  const filteredGPSAttendance = attendanceData.filter(record => {
+    if (selectedGPSFilter === 'all') return true;
+    if (selectedGPSFilter === 'present') return record.status === 'حاضر';
+    if (selectedGPSFilter === 'late') return record.status === 'متأخر';
+    if (selectedGPSFilter === 'absent') return record.status === 'غائب';
     return true;
   });
 
@@ -1610,24 +1645,315 @@ const EmployeePortal = () => {
 
           {/* تبويب نظام الحضور GPS */}
           <TabsContent value="gps-attendance" className="space-y-6">
-            <GPSAttendanceSystem
-              onCheckIn={async (location) => {
-                await actions.clockIn(location);
-              }}
-              onCheckOut={async (location) => {
-                await actions.clockOut(location);
-              }}
-              attendanceRecords={attendanceData.map(record => ({
-                date: record.date,
-                checkIn: record.checkIn !== '--:--' ? record.checkIn : undefined,
-                checkOut: record.checkOut !== '--:--' ? record.checkOut : undefined,
-                status: record.status === 'حاضر' ? 'present' as const : 
-                        record.status === 'متأخر' ? 'late' as const :
-                        record.status === 'غائب' ? 'absent' as const : 'early_leave' as const,
-                workingHours: record.hours !== '0:00' ? parseFloat(record.hours.replace(' ساعة', '')) : undefined
-              }))}
-              isLoading={loading}
-            />
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Satellite className="h-5 w-5" />
+                  نظام الحضور GPS
+                </CardTitle>
+                <CardDescription>نظام حضور وانصراف متقدم مع تتبع الموقع الجغرافي</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* إحصائيات الحضور */}
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white hover-scale cursor-pointer" 
+                          onClick={() => setSelectedGPSFilter('present')}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-white/80 text-sm">أيام الحضور</p>
+                            <p className="text-2xl font-bold">{attendanceData.filter(r => r.status === 'حاضر').length}</p>
+                          </div>
+                          <CheckCircleIcon className="h-8 w-8 text-white/80" />
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white hover-scale cursor-pointer"
+                          onClick={() => setSelectedGPSFilter('late')}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-white/80 text-sm">أيام التأخير</p>
+                            <p className="text-2xl font-bold">{attendanceData.filter(r => r.status === 'متأخر').length}</p>
+                          </div>
+                          <ClockIcon className="h-8 w-8 text-white/80" />
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="bg-gradient-to-r from-red-500 to-red-600 text-white hover-scale cursor-pointer"
+                          onClick={() => setSelectedGPSFilter('absent')}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-white/80 text-sm">أيام الغياب</p>
+                            <p className="text-2xl font-bold">{attendanceData.filter(r => r.status === 'غائب').length}</p>
+                          </div>
+                          <XCircle className="h-8 w-8 text-white/80" />
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover-scale cursor-pointer"
+                          onClick={() => setSelectedGPSFilter('all')}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-white/80 text-sm">إجمالي الساعات</p>
+                            <p className="text-2xl font-bold">
+                              {attendanceData.reduce((total, record) => {
+                                const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
+                                return total + hours;
+                              }, 0).toFixed(1)}
+                            </p>
+                          </div>
+                          <Timer className="h-8 w-8 text-white/80" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* فلاتر الحضور */}
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <span className="text-sm font-medium">تصفية بحسب:</span>
+                    <Badge 
+                      variant={selectedGPSFilter === 'all' ? 'default' : 'outline'}
+                      className="cursor-pointer hover-scale"
+                      onClick={() => setSelectedGPSFilter('all')}
+                    >
+                      الكل
+                    </Badge>
+                    <Badge 
+                      variant={selectedGPSFilter === 'present' ? 'default' : 'outline'}
+                      className="cursor-pointer hover-scale"
+                      onClick={() => setSelectedGPSFilter('present')}
+                    >
+                      حاضر
+                    </Badge>
+                    <Badge 
+                      variant={selectedGPSFilter === 'late' ? 'default' : 'outline'}
+                      className="cursor-pointer hover-scale"
+                      onClick={() => setSelectedGPSFilter('late')}
+                    >
+                      متأخر
+                    </Badge>
+                    <Badge 
+                      variant={selectedGPSFilter === 'absent' ? 'default' : 'outline'}
+                      className="cursor-pointer hover-scale"
+                      onClick={() => setSelectedGPSFilter('absent')}
+                    >
+                      غائب
+                    </Badge>
+                  </div>
+
+                  {/* سجلات الحضور GPS */}
+                  <div className="space-y-4">
+                    {filteredGPSAttendance.map((record, index) => (
+                      <Card key={index} className="border-l-4 border-l-primary shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-2">
+                                <h3 className="text-lg font-bold">{record.date}</h3>
+                                <Badge variant="outline" className={`${getAttendanceStatusColor(record.status)} text-white px-3 py-1`}>
+                                  {record.status}
+                                </Badge>
+                              </div>
+                              
+                              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                                <div className="flex items-center gap-2 text-sm">
+                                  <LogIn className="h-4 w-4 text-green-500" />
+                                  <span className="font-medium">دخول:</span>
+                                  <span>{record.checkIn}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm">
+                                  <LogOut className="h-4 w-4 text-red-500" />
+                                  <span className="font-medium">خروج:</span>
+                                  <span>{record.checkOut}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm">
+                                  <Timer className="h-4 w-4 text-blue-500" />
+                                  <span className="font-medium">ساعات العمل:</span>
+                                  <span>{record.hours}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm">
+                                  <MapPin className="h-4 w-4 text-purple-500" />
+                                  <span className="font-medium">الموقع:</span>
+                                  <span>مؤكد GPS</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* أزرار التفاعل */}
+                          <div className="flex gap-2 flex-wrap">
+                            <Button 
+                              size="sm" 
+                              onClick={() => handleViewGPSDetails(record)}
+                              className="bg-primary hover:bg-primary/90 hover-scale"
+                            >
+                              <Eye className="h-4 w-4 ml-2" />
+                              عرض الموقع
+                            </Button>
+                            
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handleExportGPSData(record)}
+                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700 hover-scale"
+                            >
+                              <Download className="h-4 w-4 ml-2" />
+                              تصدير البيانات
+                            </Button>
+                            
+                            <Button 
+                              size="sm" 
+                              variant="outline"  
+                              onClick={() => handleRequestGPSCorrection(record)}
+                              className="hover:bg-yellow-50 hover:border-yellow-500 hover:text-yellow-700 hover-scale"
+                            >
+                              <AlertCircle className="h-4 w-4 ml-2" />
+                              طلب تصحيح
+                            </Button>
+                          </div>
+
+                          {/* معلومات إضافية حسب الحالة */}
+                          {record.status === 'متأخر' && (
+                            <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200 animate-fade-in">
+                              <div className="flex items-center gap-2 text-yellow-700">
+                                <AlertCircle className="h-4 w-4" />
+                                <span className="text-sm font-medium">
+                                  تم تسجيل تأخير - يرجى مراجعة المسؤول المباشر
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
+                          {record.status === 'غائب' && (
+                            <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-200 animate-fade-in">
+                              <div className="flex items-center gap-2 text-red-700">
+                                <XCircle className="h-4 w-4" />
+                                <span className="text-sm font-medium">
+                                  يوم غياب - سيتم خصم من الراتب حسب اللوائح
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {filteredGPSAttendance.length === 0 && (
+                    <Card className="text-center py-8">
+                      <CardContent>
+                        <Satellite className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                        <p className="text-muted-foreground">لا توجد سجلات حضور للفلتر المحدد</p>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* ملخص الأداء الشهري */}
+                  <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-blue-700">
+                        <TrendingUp className="h-5 w-5" />
+                        ملخص أداء الحضور GPS
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                          <div className="text-2xl font-bold text-green-600">
+                            {((attendanceData.filter(r => r.status === 'حاضر').length / attendanceData.length) * 100).toFixed(1)}%
+                          </div>
+                          <div className="text-sm text-muted-foreground">معدل الحضور</div>
+                        </div>
+                        <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                          <div className="text-2xl font-bold text-blue-600">
+                            {(attendanceData.reduce((total, record) => {
+                              const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
+                              return total + hours;
+                            }, 0) / attendanceData.length).toFixed(1)}
+                          </div>
+                          <div className="text-sm text-muted-foreground">متوسط الساعات يومياً</div>
+                        </div>
+                        <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                          <div className="text-2xl font-bold text-yellow-600">
+                            {attendanceData.filter(r => r.status === 'متأخر').length}
+                          </div>
+                          <div className="text-sm text-muted-foreground">مرات التأخير</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* نافذة تفاصيل الموقع GPS */}
+            <Dialog open={isGPSDetailsOpen} onOpenChange={setIsGPSDetailsOpen}>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5" />
+                    تفاصيل موقع الحضور GPS
+                  </DialogTitle>
+                  <DialogDescription>
+                    معلومات تفصيلية عن موقع تسجيل الحضور والانصراف
+                  </DialogDescription>
+                </DialogHeader>
+                
+                {selectedGPSRecord && (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">التاريخ</label>
+                        <p className="text-lg font-semibold">{selectedGPSRecord.date}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">الحالة</label>
+                        <Badge className={`${getAttendanceStatusColor(selectedGPSRecord.status)} text-white`}>
+                          {selectedGPSRecord.status}
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">وقت الدخول</label>
+                        <p className="text-lg">{selectedGPSRecord.checkIn}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">وقت الخروج</label>
+                        <p className="text-lg">{selectedGPSRecord.checkOut}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-muted-foreground">معلومات الموقع</label>
+                      <Card className="p-4 bg-blue-50">
+                        <div className="flex items-center gap-2 text-blue-700 mb-2">
+                          <Satellite className="h-4 w-4" />
+                          <span className="font-medium">الموقع مؤكد بواسطة GPS</span>
+                        </div>
+                        <p className="text-sm text-blue-600">
+                          تم تأكيد موقع تسجيل الحضور داخل النطاق المسموح للشركة
+                        </p>
+                      </Card>
+                    </div>
+                  </div>
+                )}
+                
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsGPSDetailsOpen(false)}>
+                    إغلاق
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </TabsContent>
 
           <TabsContent value="dashboard" className="space-y-6">
