@@ -47,6 +47,7 @@ import {
   Banknote,
   Satellite,
   Mic,
+  // Force rebuild - icons for courses functionality
   Eye,
   Play,
   Video
