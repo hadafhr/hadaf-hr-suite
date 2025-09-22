@@ -73,6 +73,12 @@ const EmployeePortal = () => {
 
   // حالات إضافية للنماذج
   const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
+  const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
+  const [requestFormData, setRequestFormData] = useState({
+    request_type: '',
+    title: '',
+    description: ''
+  });
   const [leaveFormData, setLeaveFormData] = useState<{
     leave_type: 'annual' | 'sick' | 'emergency' | 'maternity' | 'paternity' | 'unpaid' | '';
     start_date: string;
@@ -145,6 +151,35 @@ const EmployeePortal = () => {
       await actions.clockOut();
     }
     setIsClockingIn(false);
+  };
+
+  // معالج إرسال الطلبات العامة
+  const handleGeneralRequest = async () => {
+    if (!requestFormData.request_type || !requestFormData.title) {
+      toast({
+        title: 'خطأ في البيانات',
+        description: 'يرجى ملء جميع الحقول المطلوبة',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    try {
+      // هنا يمكن إضافة وظيفة إرسال الطلب إلى قاعدة البيانات
+      toast({
+        title: 'تم إرسال الطلب بنجاح',
+        description: 'سيتم مراجعة طلبك وإعلامك بالقرار قريباً',
+      });
+      
+      setIsRequestDialogOpen(false);
+      setRequestFormData({ request_type: '', title: '', description: '' });
+    } catch (error) {
+      toast({
+        title: 'خطأ في إرسال الطلب',
+        description: 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى',
+        variant: 'destructive'
+      });
+    }
   };
 
   // تحويل البيانات الحقيقية للتوافق مع واجهة المستخدم
@@ -1049,7 +1084,7 @@ const EmployeePortal = () => {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   طلباتي
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => setIsRequestDialogOpen(true)}>
                     <FileText className="h-4 w-4 ml-2" />
                     طلب جديد
                   </Button>
@@ -1275,6 +1310,80 @@ const EmployeePortal = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Dialog for General Request */}
+        <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                طلب جديد
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="request_type">نوع الطلب *</Label>
+                <Select 
+                  value={requestFormData.request_type} 
+                  onValueChange={(value) => setRequestFormData(prev => ({ ...prev, request_type: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر نوع الطلب" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="salary_certificate">شهادة راتب</SelectItem>
+                    <SelectItem value="experience_letter">خطاب خبرة</SelectItem>
+                    <SelectItem value="bank_letter">خطاب للبنك</SelectItem>
+                    <SelectItem value="transfer_request">طلب نقل</SelectItem>
+                    <SelectItem value="training_certificate">شهادة تدريب</SelectItem>
+                    <SelectItem value="resident_request">طلب مقيم</SelectItem>
+                    <SelectItem value="other">طلب آخر</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="title">عنوان الطلب *</Label>
+                <Input
+                  id="title"
+                  value={requestFormData.title}
+                  onChange={(e) => setRequestFormData(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder="أدخل عنوان الطلب"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="description">تفاصيل الطلب</Label>
+                <Textarea
+                  id="description"
+                  value={requestFormData.description}
+                  onChange={(e) => setRequestFormData(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="اشرح تفاصيل طلبك..."
+                  rows={4}
+                />
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <Button 
+                  onClick={handleGeneralRequest}
+                  disabled={!requestFormData.request_type || !requestFormData.title}
+                  className="flex-1"
+                >
+                  <Send className="h-4 w-4 ml-2" />
+                  إرسال الطلب
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setIsRequestDialogOpen(false)}
+                  className="flex-1"
+                >
+                  إلغاء
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Dialog for Leave Request */}
         <Dialog open={isLeaveDialogOpen} onOpenChange={setIsLeaveDialogOpen}>
