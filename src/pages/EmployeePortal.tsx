@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useEmployeePortal } from '@/hooks/useEmployeePortal';
+import { useEmployeeServices } from '@/hooks/useEmployeeServices';
 import { toast } from '@/hooks/use-toast';
 import { 
   User,
@@ -70,6 +71,12 @@ const EmployeePortal = () => {
     dashboardStats,
     actions
   } = useEmployeePortal();
+
+  // استخدام Hook للطلبات والخدمات
+  const {
+    submitEmployeeRequest,
+    loading: servicesLoading
+  } = useEmployeeServices();
 
   // حالات إضافية للنماذج
   const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
@@ -164,22 +171,70 @@ const EmployeePortal = () => {
       return;
     }
 
-    try {
-      // هنا يمكن إضافة وظيفة إرسال الطلب إلى قاعدة البيانات
+    if (!employee?.id) {
       toast({
-        title: 'تم إرسال الطلب بنجاح',
-        description: 'سيتم مراجعة طلبك وإعلامك بالقرار قريباً',
+        title: 'خطأ',
+        description: 'لم يتم العثور على بيانات الموظف',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    try {
+      await submitEmployeeRequest({
+        employee_id: employee.id,
+        request_type: requestFormData.request_type,
+        title: requestFormData.title,
+        description: requestFormData.description,
+        priority: 'medium',
+        status: 'pending',
+        documents: []
       });
       
       setIsRequestDialogOpen(false);
       setRequestFormData({ request_type: '', title: '', description: '' });
     } catch (error) {
-      toast({
-        title: 'خطأ في إرسال الطلب',
-        description: 'حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى',
-        variant: 'destructive'
-      });
+      console.error('Error submitting request:', error);
     }
+  };
+
+  // معالجات الإجراءات السريعة
+  const handleQuickLeaveRequest = () => {
+    setLeaveFormData({
+      leave_type: '',
+      start_date: '',
+      end_date: '',
+      reason: '',
+      total_days: 0
+    });
+    setIsLeaveDialogOpen(true);
+  };
+
+  const handleQuickSalaryCertificate = () => {
+    setRequestFormData({
+      request_type: 'salary_certificate',
+      title: 'طلب شهادة راتب',
+      description: 'أحتاج إلى شهادة راتب للغرض الشخصي'
+    });
+    setIsRequestDialogOpen(true);
+  };
+
+  const handleQuickResidentRequest = () => {
+    setRequestFormData({
+      request_type: 'resident_request',
+      title: 'طلب مقيم',
+      description: 'طلب إضافة مقيم جديد'
+    });
+    setIsRequestDialogOpen(true);
+  };
+
+  const handleContactHR = () => {
+    setChatType('hr');
+    // سيتم فتح نافذة الدردشة من خلال الزر الموجود بالهيدر
+  };
+
+  const handleDownloadDocuments = () => {
+    setActiveTab('documents');
   };
 
   // تحويل البيانات الحقيقية للتوافق مع واجهة المستخدم
@@ -1030,23 +1085,77 @@ const EmployeePortal = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    onClick={handleQuickLeaveRequest}
+                  >
                     <Calendar className="h-6 w-6" />
                     طلب إجازة
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    onClick={handleQuickSalaryCertificate}
+                  >
                     <FileText className="h-6 w-6" />
                     شهادة راتب
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    onClick={handleQuickResidentRequest}
+                  >
                     <Satellite className="h-6 w-6" />
                     طلب مقيم
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
-                    <MessageCircle className="h-6 w-6" />
-                    تواصل مع HR
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col gap-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                        onClick={handleContactHR}
+                      >
+                        <MessageCircle className="h-6 w-6" />
+                        تواصل مع HR
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>الدردشة مع الموارد البشرية</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div className="h-64 overflow-y-auto border rounded p-2 space-y-2">
+                          {chatMessages.length === 0 ? (
+                            <p className="text-muted-foreground text-center">لا توجد رسائل</p>
+                          ) : (
+                            chatMessages.map((msg) => (
+                              <div key={msg.id} className={`p-2 rounded ${msg.sender === 'أنت' ? 'bg-primary text-primary-foreground mr-auto max-w-[80%]' : 'bg-muted ml-auto max-w-[80%]'}`}>
+                                <p className="text-sm">{msg.message}</p>
+                                <p className="text-xs opacity-70">{msg.timestamp}</p>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="اكتب رسالتك..."
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                          />
+                          <Button onClick={sendMessage} size="sm">
+                            <Send className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    onClick={handleDownloadDocuments}
+                  >
                     <Download className="h-6 w-6" />
                     تحميل المستندات
                   </Button>
