@@ -45,7 +45,11 @@ import {
   Target,
   ScrollText,
   Banknote,
-  Satellite
+  Satellite,
+  Mic,
+  Eye,
+  Play,
+  Video
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -81,6 +85,11 @@ const EmployeePortal = () => {
   // حالات إضافية للنماذج
   const [isLeaveDialogOpen, setIsLeaveDialogOpen] = useState(false);
   const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [isCourseViewerOpen, setIsCourseViewerOpen] = useState(false);
+  const [isClassroomOpen, setIsClassroomOpen] = useState(false);
+  const [classroomMessages, setClassroomMessages] = useState<Array<{id: number, sender: string, message: string, timestamp: string}>>([]);
+  const [newClassroomMessage, setNewClassroomMessage] = useState('');
   const [requestFormData, setRequestFormData] = useState({
     request_type: '',
     title: '',
@@ -235,6 +244,47 @@ const EmployeePortal = () => {
 
   const handleDownloadDocuments = () => {
     setActiveTab('documents');
+  };
+
+  // معالجات الدورات التدريبية
+  const handleEnterCourse = (course: any) => {
+    setSelectedCourse(course);
+    setIsCourseViewerOpen(true);
+  };
+
+  const handleJoinClassroom = (course: any) => {
+    setSelectedCourse(course);
+    setIsClassroomOpen(true);
+    // إضافة رسائل وهمية للتفاعل
+    setClassroomMessages([
+      { id: 1, sender: 'د. أحمد محمد - المدرب', message: 'أهلاً وسهلاً بكم في الدورة التدريبية', timestamp: '10:00' },
+      { id: 2, sender: 'سارة أحمد', message: 'شكراً لكم على هذه الدورة المفيدة', timestamp: '10:05' },
+      { id: 3, sender: 'محمد علي', message: 'هل يمكن إعادة شرح النقطة الأخيرة؟', timestamp: '10:08' }
+    ]);
+  };
+
+  const sendClassroomMessage = () => {
+    if (newClassroomMessage.trim()) {
+      const message = {
+        id: classroomMessages.length + 1,
+        sender: employeeDisplayData.name,
+        message: newClassroomMessage,
+        timestamp: new Date().toLocaleTimeString('ar-SA', { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        })
+      };
+      setClassroomMessages([...classroomMessages, message]);
+      setNewClassroomMessage('');
+    }
+  };
+
+  const handleWatchCourse = (course: any) => {
+    toast({
+      title: 'بدء مشاهدة الدورة',
+      description: `تم بدء مشاهدة دورة: ${course.title}`,
+    });
+    // هنا يمكن إضافة منطق تشغيل الفيديو
   };
 
   // تحويل البيانات الحقيقية للتوافق مع واجهة المستخدم
@@ -792,22 +842,92 @@ const EmployeePortal = () => {
                 <CardDescription>دوراتك التدريبية ومعدل التقدم</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {courses.map((course) => (
-                    <div key={course.id} className="p-4 border rounded-lg">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-semibold">{course.title}</h3>
-                        <Badge variant="outline" className={`${getCourseStatusColor(course.status)} text-white`}>
-                          {course.status}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-2">المدة: {course.duration}</p>
-                      <p className="text-sm text-muted-foreground mb-2">تاريخ البداية: {course.startDate}</p>
-                      <div className="flex items-center gap-2">
-                        <Progress value={course.progress} className="flex-1" />
-                        <span className="text-sm font-medium">{course.progress}%</span>
-                      </div>
-                    </div>
+                    <Card key={course.id} className="border-l-4 border-l-primary shadow-lg hover:shadow-xl transition-all duration-300">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <h3 className="text-xl font-bold mb-2">{course.title}</h3>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                              <div className="flex items-center gap-1">
+                                <Clock className="h-4 w-4" />
+                                <span>المدة: {course.duration}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>البداية: {course.startDate}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <Badge variant="outline" className={`${getCourseStatusColor(course.status)} text-white px-3 py-1`}>
+                            {course.status}
+                          </Badge>
+                        </div>
+
+                        {/* شريط التقدم */}
+                        <div className="mb-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium">نسبة الإنجاز</span>
+                            <span className="text-sm font-bold text-primary">{course.progress}%</span>
+                          </div>
+                          <Progress value={course.progress} className="h-2" />
+                        </div>
+
+                        {/* أزرار التفاعل */}
+                        <div className="flex gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            onClick={() => handleEnterCourse(course)}
+                            className="bg-primary hover:bg-primary/90"
+                          >
+                            <BookOpen className="h-4 w-4 ml-2" />
+                            دخول الدورة
+                          </Button>
+                          
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            onClick={() => handleWatchCourse(course)}
+                            className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            مشاهدة المحتوى
+                          </Button>
+                          
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            onClick={() => handleJoinClassroom(course)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Users className="h-4 w-4 ml-2" />
+                            القاعة التفاعلية
+                          </Button>
+                          
+                          {course.progress > 0 && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700"
+                            >
+                              <Download className="h-4 w-4 ml-2" />
+                              تحميل الشهادة
+                            </Button>
+                          )}
+                        </div>
+
+                        {/* معلومات إضافية للدورات النشطة */}
+                        {course.status === 'جاري' && (
+                          <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div className="flex items-center gap-2 text-blue-700">
+                              <Clock className="h-4 w-4" />
+                              <span className="text-sm font-medium">الدرس القادم: غداً في الساعة 10:00 صباحاً</span>
+                            </div>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </CardContent>
@@ -1489,6 +1609,220 @@ const EmployeePortal = () => {
                 >
                   إلغاء
                 </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog لعارض الدورة */}
+        <Dialog open={isCourseViewerOpen} onOpenChange={setIsCourseViewerOpen}>
+          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <GraduationCap className="h-5 w-5 text-primary" />
+                {selectedCourse?.title}
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-6">
+              {/* معلومات الدورة */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-blue-500" />
+                      <span className="font-medium">المدة</span>
+                    </div>
+                    <p className="text-sm">{selectedCourse?.duration}</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="h-4 w-4 text-green-500" />
+                      <span className="font-medium">التقدم</span>
+                    </div>
+                    <p className="text-sm">{selectedCourse?.progress}%</p>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Award className="h-4 w-4 text-yellow-500" />
+                      <span className="font-medium">الحالة</span>
+                    </div>
+                    <Badge className={getCourseStatusColor(selectedCourse?.status)}>
+                      {selectedCourse?.status}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* محتوى الدورة */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Video className="h-5 w-5" />
+                    محتوى الدورة
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50">
+                      <div className="flex items-center gap-3">
+                        <Play className="h-5 w-5 text-primary" />
+                        <div>
+                          <h4 className="font-medium">الدرس الأول: مقدمة</h4>
+                          <p className="text-sm text-muted-foreground">15 دقيقة</p>
+                        </div>
+                      </div>
+                      <Badge variant="outline" className="bg-green-100 text-green-800">مكتمل</Badge>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 bg-primary/5">
+                      <div className="flex items-center gap-3">
+                        <Play className="h-5 w-5 text-primary" />
+                        <div>
+                          <h4 className="font-medium">الدرس الثاني: الأساسيات</h4>
+                          <p className="text-sm text-muted-foreground">25 دقيقة</p>
+                        </div>
+                      </div>
+                      <Badge className="bg-blue-100 text-blue-800">حالي</Badge>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 opacity-60">
+                      <div className="flex items-center gap-3">
+                        <Play className="h-5 w-5 text-muted-foreground" />
+                        <div>
+                          <h4 className="font-medium">الدرس الثالث: التطبيق العملي</h4>
+                          <p className="text-sm text-muted-foreground">30 دقيقة</p>
+                        </div>
+                      </div>
+                      <Badge variant="outline">مقفل</Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* أزرار التفاعل */}
+              <div className="flex gap-3">
+                <Button className="flex-1">
+                  <Play className="h-4 w-4 ml-2" />
+                  متابعة المشاهدة
+                </Button>
+                <Button variant="outline" onClick={() => handleJoinClassroom(selectedCourse)}>
+                  <Users className="h-4 w-4 ml-2" />
+                  انضم للقاعة
+                </Button>
+                <Button variant="outline">
+                  <Download className="h-4 w-4 ml-2" />
+                  تحميل المواد
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog للقاعة التفاعلية */}
+        <Dialog open={isClassroomOpen} onOpenChange={setIsClassroomOpen}>
+          <DialogContent className="max-w-4xl max-h-[80vh]">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Users className="h-5 w-5 text-primary" />
+                القاعة التفاعلية - {selectedCourse?.title}
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[500px]">
+              {/* منطقة الفيديو */}
+              <div className="lg:col-span-2">
+                <Card className="h-full">
+                  <CardContent className="p-0 h-full">
+                    <div className="bg-black rounded-lg h-full flex items-center justify-center relative">
+                      <div className="text-white text-center">
+                        <Video className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                        <p className="text-lg mb-2">البث المباشر للدورة</p>
+                        <p className="text-sm opacity-75">د. أحمد محمد - مدرب معتمد</p>
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4 flex gap-2">
+                        <Button size="sm" variant="secondary">
+                          <Mic className="h-4 w-4" />
+                        </Button>
+                        <Button size="sm" variant="secondary">
+                          <Video className="h-4 w-4" />
+                        </Button>
+                        <Button size="sm" variant="secondary">
+                          <MessageSquare className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* منطقة الدردشة */}
+              <div className="flex flex-col">
+                <Card className="flex-1">
+                  <CardHeader className="p-3">
+                    <CardTitle className="text-sm">الدردشة المباشرة</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-3 flex-1">
+                    <div className="space-y-3 h-80 overflow-y-auto mb-3">
+                      {classroomMessages.map((msg) => (
+                        <div key={msg.id} className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-medium text-primary">{msg.sender}</span>
+                            <span className="text-xs text-muted-foreground">{msg.timestamp}</span>
+                          </div>
+                          <p className="text-sm bg-muted/50 p-2 rounded-lg">{msg.message}</p>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Input
+                        placeholder="اكتب رسالتك..."
+                        value={newClassroomMessage}
+                        onChange={(e) => setNewClassroomMessage(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && sendClassroomMessage()}
+                        className="text-sm"
+                      />
+                      <Button onClick={sendClassroomMessage} size="sm">
+                        <Send className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* المشاركون */}
+                <Card className="mt-3">
+                  <CardHeader className="p-3">
+                    <CardTitle className="text-sm">المشاركون (15)</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-3">
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>د. أحمد محمد (مدرب)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>{employeeDisplayData.name} (أنت)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>سارة أحمد</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <span>محمد علي</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground">+11 آخرين</div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </DialogContent>
