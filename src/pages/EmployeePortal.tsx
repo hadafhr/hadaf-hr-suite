@@ -70,7 +70,11 @@ import {
   AlertCircle,
   CheckCircle2 as CheckCircleIcon,
   XCircle,
-  Clock as ClockIcon
+  Clock as ClockIcon,
+  Plus,
+  Building,
+  DollarSign,
+  RotateCcw
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -144,6 +148,10 @@ const EmployeePortal = () => {
   const [selectedGPSFilter, setSelectedGPSFilter] = useState('all');
   const [isGPSDetailsOpen, setIsGPSDetailsOpen] = useState(false);
   const [selectedGPSRecord, setSelectedGPSRecord] = useState<any>(null);
+
+  // Insurance specific states
+  const [selectedInsuranceFilter, setSelectedInsuranceFilter] = useState('all');
+  const [selectedInsuranceDetails, setSelectedInsuranceDetails] = useState<any>(null);
 
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
@@ -393,6 +401,32 @@ const EmployeePortal = () => {
     });
   };
 
+  // Insurance handlers
+  const handleViewInsuranceDetails = (claim: any) => {
+    setSelectedInsuranceDetails(claim);
+  };
+
+  const handleSubmitInsuranceClaim = () => {
+    toast({
+      title: 'مطالبة جديدة',
+      description: 'تم تسجيل مطالبة تأمين جديدة بنجاح',
+    });
+  };
+
+  const handleDownloadInsuranceCard = () => {
+    toast({
+      title: 'تحميل البطاقة',
+      description: 'تم تحميل بطاقة التأمين بنجاح',
+    });
+  };
+
+  const handleContactInsurance = () => {
+    toast({
+      title: 'اتصال بشركة التأمين',
+      description: 'سيتم توصيلك بممثل شركة التأمين',
+    });
+  };
+
   const handleRequestGPSCorrection = (record: any) => {
     toast({
       title: 'طلب تصحيح GPS',
@@ -550,7 +584,53 @@ const EmployeePortal = () => {
     coverage: 'شامل',
     familyMembers: 3,
     annualLimit: 100000,
-    used: 15000
+    used: 15000,
+    claims: [
+      {
+        id: 1,
+        date: '2024-01-15',
+        type: 'زيارة طبيب',
+        provider: 'مستشفى الملك فيصل',
+        amount: 450,
+        status: 'تم الموافقة',
+        claimNumber: 'CLM-2024-001'
+      },
+      {
+        id: 2,
+        date: '2024-01-28',
+        type: 'تحاليل طبية',
+        provider: 'مختبر الفا الطبي',
+        amount: 280,
+        status: 'قيد المراجعة',
+        claimNumber: 'CLM-2024-002'
+      },
+      {
+        id: 3,
+        date: '2024-02-10',
+        type: 'أشعة سينية',
+        provider: 'مركز الإشعاع التشخيصي',
+        amount: 320,
+        status: 'تم الموافقة',
+        claimNumber: 'CLM-2024-003'
+      },
+      {
+        id: 4,
+        date: '2024-02-22',
+        type: 'علاج طبيعي',
+        provider: 'مركز العلاج الطبيعي',
+        amount: 600,
+        status: 'مرفوض',
+        claimNumber: 'CLM-2024-004'
+      }
+    ],
+    benefits: [
+      { name: 'تغطية طبية شاملة', covered: true },
+      { name: 'تغطية الأسنان', covered: true },
+      { name: 'تغطية العيون', covered: true },
+      { name: 'تغطية الولادة', covered: true },
+      { name: 'الطوارئ 24/7', covered: true },
+      { name: 'العلاج النفسي', covered: false }
+    ]
   };
 
   // العهدة
@@ -1495,40 +1575,278 @@ const EmployeePortal = () => {
 
           {/* تبويب التأمين */}
           <TabsContent value="insurance" className="space-y-6">
-            <Card>
+            {/* إحصائيات التأمين */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">مطالبات مقبولة</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {insuranceData.claims.filter(c => c.status === 'تم الموافقة').length}
+                      </p>
+                    </div>
+                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-yellow-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-yellow-600">قيد المراجعة</p>
+                      <p className="text-2xl font-bold text-yellow-700">
+                        {insuranceData.claims.filter(c => c.status === 'قيد المراجعة').length}
+                      </p>
+                    </div>
+                    <Clock className="h-8 w-8 text-yellow-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-red-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-red-600">مطالبات مرفوضة</p>
+                      <p className="text-2xl font-bold text-red-700">
+                        {insuranceData.claims.filter(c => c.status === 'مرفوض').length}
+                      </p>
+                    </div>
+                    <XCircle className="h-8 w-8 text-red-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">المبلغ المستخدم</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {Math.round((insuranceData.used / insuranceData.annualLimit) * 100)}%
+                      </p>
+                    </div>
+                    <Shield className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* معلومات البوليصة */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" />
-                  التأمين الطبي
-                </CardTitle>
-                <CardDescription>تفاصيل بوليصة التأمين الطبي</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>شركة التأمين</Label>
-                    <p className="font-medium">{insuranceData.provider}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5" />
+                    <CardTitle>معلومات البوليصة</CardTitle>
                   </div>
-                  <div>
-                    <Label>رقم البوليصة</Label>
-                    <p className="font-medium">{insuranceData.policyNumber}</p>
-                  </div>
-                  <div>
-                    <Label>نوع التغطية</Label>
-                    <p className="font-medium">{insuranceData.coverage}</p>
-                  </div>
-                  <div>
-                    <Label>عدد أفراد العائلة</Label>
-                    <p className="font-medium">{insuranceData.familyMembers}</p>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleDownloadInsuranceCard}
+                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                    >
+                      <Download className="h-4 w-4 ml-2" />
+                      تحميل البطاقة
+                    </Button>
+                    <Button 
+                      size="sm"
+                      onClick={handleSubmitInsuranceClaim}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <Plus className="h-4 w-4 ml-2" />
+                      مطالبة جديدة
+                    </Button>
                   </div>
                 </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">شركة التأمين</Label>
+                    <p className="font-semibold">{insuranceData.provider}</p>
+                  </div>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">رقم البوليصة</Label>
+                    <p className="font-semibold">{insuranceData.policyNumber}</p>
+                  </div>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">نوع التغطية</Label>
+                    <p className="font-semibold">{insuranceData.coverage}</p>
+                  </div>
+                </div>
+
                 <div className="mt-4">
-                  <Label>استخدام الحد السنوي</Label>
+                  <Label className="text-sm text-muted-foreground">استخدام الحد السنوي</Label>
                   <div className="flex items-center gap-2 mt-2">
                     <Progress value={(insuranceData.used / insuranceData.annualLimit) * 100} className="flex-1" />
                     <span className="text-sm font-medium">
                       {insuranceData.used.toLocaleString()} / {insuranceData.annualLimit.toLocaleString()} ريال
                     </span>
+                  </div>
+                </div>
+
+                {/* الفوائد المشمولة */}
+                <div className="mt-6">
+                  <Label className="text-sm text-muted-foreground mb-3 block">الفوائد المشمولة</Label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {insuranceData.benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-muted/20">
+                        {benefit.covered ? (
+                          <CheckCircle2 className="h-4 w-4 text-green-500" />
+                        ) : (
+                          <XCircle className="h-4 w-4 text-red-500" />
+                        )}
+                        <span className={`text-sm ${benefit.covered ? 'text-green-700' : 'text-red-700'}`}>
+                          {benefit.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* سجل المطالبات */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    <CardTitle>سجل المطالبات</CardTitle>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedInsuranceFilter} onValueChange={setSelectedInsuranceFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب الحالة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع المطالبات</SelectItem>
+                        <SelectItem value="approved">تم الموافقة</SelectItem>
+                        <SelectItem value="pending">قيد المراجعة</SelectItem>
+                        <SelectItem value="rejected">مرفوض</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleContactInsurance}
+                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                    >
+                      <Phone className="h-4 w-4 ml-2" />
+                      اتصال
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {(insuranceData.claims || []).filter((claim: any) => {
+                    if (selectedInsuranceFilter === 'all') return true;
+                    if (selectedInsuranceFilter === 'approved') return claim.status === 'تم الموافقة';
+                    if (selectedInsuranceFilter === 'pending') return claim.status === 'قيد المراجعة';
+                    if (selectedInsuranceFilter === 'rejected') return claim.status === 'مرفوض';
+                    return true;
+                  }).map((claim: any) => (
+                    <Card key={claim.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{claim.type}</h4>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>التاريخ: {claim.date}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Building className="h-4 w-4" />
+                                <span>{claim.provider}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <DollarSign className="h-4 w-4" />
+                                <span>{claim.amount} ريال</span>
+                              </div>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              رقم المطالبة: {claim.claimNumber}
+                            </p>
+                          </div>
+                          <Badge 
+                            variant="outline" 
+                            className={`${
+                              claim.status === 'تم الموافقة' ? 'bg-green-50 text-green-700 border-green-200' :
+                              claim.status === 'قيد المراجعة' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                              'bg-red-50 text-red-700 border-red-200'
+                            } px-3 py-1`}
+                          >
+                            {claim.status}
+                          </Badge>
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleViewInsuranceDetails(claim)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          {claim.status === 'تم الموافقة' && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                            >
+                              <Download className="h-4 w-4 ml-2" />
+                              تحميل الوثائق
+                            </Button>
+                          )}
+                          
+                          {claim.status === 'مرفوض' && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700"
+                            >
+                              <RotateCcw className="h-4 w-4 ml-2" />
+                              إعادة تقديم
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* ملخص الشهر */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4" />
+                    ملخص الشهر الحالي
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">إجمالي المطالبات</p>
+                      <p className="text-lg font-bold text-primary">{insuranceData.claims.length}</p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">المبلغ المطالب به</p>
+                      <p className="text-lg font-bold text-green-600">
+                        {insuranceData.claims.reduce((sum, claim) => sum + claim.amount, 0).toLocaleString()} ريال
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">معدل القبول</p>
+                      <p className="text-lg font-bold text-blue-600">
+                        {Math.round((insuranceData.claims.filter(c => c.status === 'تم الموافقة').length / insuranceData.claims.length) * 100)}%
+                      </p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
