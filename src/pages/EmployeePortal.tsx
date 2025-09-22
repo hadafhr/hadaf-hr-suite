@@ -177,6 +177,168 @@ const EmployeePortal = () => {
   const [selectedPerformanceFilter, setSelectedPerformanceFilter] = useState('all');
   const [selectedPerformanceDetails, setSelectedPerformanceDetails] = useState<any>(null);
 
+  // بيانات الأداء المحسنة
+  const enhancedPerformanceData = {
+    currentRating: {
+      overall: 4.2,
+      technical: 4.5,
+      communication: 4.0,
+      leadership: 3.8,
+      problemSolving: 4.3,
+      teamwork: 4.6,
+      innovation: 4.1
+    },
+    goals: [
+      {
+        id: 'GOAL-2024-001',
+        title: 'تطوير مهارات القيادة',
+        description: 'حضور دورة تدريبية في القيادة وتطبيق المهارات المكتسبة',
+        category: 'تطوير شخصي',
+        targetDate: '2024-06-30',
+        progress: 75,
+        status: 'جاري',
+        priority: 'عالية',
+        measures: ['اجتياز الدورة التدريبية', 'قيادة مشروع فريق', 'تقييم 360 درجة']
+      },
+      {
+        id: 'GOAL-2024-002',
+        title: 'زيادة الإنتاجية بنسبة 20%',
+        description: 'تحسين كفاءة العمل وتطوير العمليات لزيادة الإنتاجية',
+        category: 'أداء',
+        targetDate: '2024-03-31',
+        progress: 90,
+        status: 'جاري',
+        priority: 'عالية',
+        measures: ['تحليل العمليات الحالية', 'تطبيق أدوات أتمتة', 'قياس النتائج']
+      },
+      {
+        id: 'GOAL-2024-003',
+        title: 'إكمال شهادة تقنية',
+        description: 'الحصول على شهادة AWS Solutions Architect',
+        category: 'تقني',
+        targetDate: '2024-08-31',
+        progress: 45,
+        status: 'جاري',
+        priority: 'متوسطة',
+        measures: ['دراسة المنهج', 'تطبيق عملي', 'اجتياز الامتحان']
+      }
+    ],
+    reviews: [
+      {
+        id: 'REV-2024-Q1',
+        period: 'الربع الأول 2024',
+        reviewDate: '2024-01-15',
+        reviewer: 'أحمد محمد - المدير التقني',
+        overallScore: 4.2,
+        strengths: [
+          'مهارات تقنية ممتازة',
+          'التزام بالمواعيد',
+          'روح الفريق العالية',
+          'قدرة على حل المشكلات'
+        ],
+        improvements: [
+          'تطوير مهارات التواصل',
+          'زيادة المبادرة في اقتراح الحلول',
+          'المشاركة أكثر في الاجتماعات'
+        ],
+        feedback: 'أداء ممتاز بشكل عام، يُنصح بالتركيز على تطوير المهارات القيادية',
+        nextReview: '2024-04-15'
+      },
+      {
+        id: 'REV-2023-Q4',
+        period: 'الربع الرابع 2023',
+        reviewDate: '2023-10-15',
+        reviewer: 'سارة أحمد - مدير المشاريع',
+        overallScore: 4.0,
+        strengths: [
+          'الالتزام بالجودة',
+          'سرعة في التنفيذ',
+          'التعامل الإيجابي مع التحديات'
+        ],
+        improvements: [
+          'تحسين مهارات العرض والتقديم',
+          'المشاركة في المبادرات الجديدة'
+        ],
+        feedback: 'أداء جيد جداً مع إمكانيات واضحة للتطوير',
+        nextReview: '2024-01-15'
+      }
+    ],
+    achievements: [
+      {
+        id: 'ACH-2024-001',
+        title: 'موظف الشهر',
+        description: 'تم اختياره كموظف الشهر لشهر يناير 2024',
+        date: '2024-01-31',
+        category: 'تقدير',
+        type: 'award',
+        badge: 'gold',
+        impact: 'عالي'
+      },
+      {
+        id: 'ACH-2023-008',
+        title: 'إكمال مشروع بنجاح',
+        description: 'نجح في تسليم مشروع CRM في الموعد المحدد',
+        date: '2023-12-15',
+        category: 'مشروع',
+        type: 'project',
+        badge: 'silver',
+        impact: 'متوسط'
+      },
+      {
+        id: 'ACH-2023-006',
+        title: 'شهادة تطوير مهني',
+        description: 'حصل على شهادة في إدارة المشاريع الرشيقة',
+        date: '2023-10-20',
+        category: 'تدريب',
+        type: 'certification',
+        badge: 'bronze',
+        impact: 'متوسط'
+      }
+    ],
+    competencies: [
+      {
+        name: 'المهارات التقنية',
+        score: 4.5,
+        maxScore: 5,
+        current: 4.5,
+        target: 5,
+        gap: 0.5,
+        description: 'إتقان ممتاز للتقنيات المطلوبة',
+        areas: ['JavaScript', 'React', 'Node.js', 'Database Design']
+      },
+      {
+        name: 'مهارات التواصل',
+        score: 4.0,
+        maxScore: 5,
+        current: 4.0,
+        target: 4.5,
+        gap: 0.5,
+        description: 'قدرة جيدة على التواصل مع الفريق والعملاء',
+        areas: ['الكتابة الفنية', 'العروض التقديمية', 'التفاوض']
+      },
+      {
+        name: 'القيادة والإدارة',
+        score: 3.8,
+        maxScore: 5,
+        current: 3.8,
+        target: 4.5,
+        gap: 0.7,
+        description: 'إمكانيات قيادية واعدة تحتاج لمزيد من التطوير',
+        areas: ['قيادة الفريق', 'اتخاذ القرارات', 'التخطيط الاستراتيجي']
+      },
+      {
+        name: 'حل المشكلات',
+        score: 4.3,
+        maxScore: 5,
+        current: 4.3,
+        target: 4.8,
+        gap: 0.5,
+        description: 'قدرة ممتازة على تحليل وحل المشكلات المعقدة',
+        areas: ['التحليل المنطقي', 'الإبداع في الحلول', 'التفكير النقدي']
+      }
+    ]
+  };
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -1233,6 +1395,16 @@ const EmployeePortal = () => {
     }
   };
 
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'مكتمل': return 'bg-green-100 text-green-800';
+      case 'جاري': return 'bg-blue-100 text-blue-800';
+      case 'معلق': return 'bg-yellow-100 text-yellow-800';
+      case 'ملغي': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'عالية': return 'bg-red-500';
@@ -1374,143 +1546,7 @@ const EmployeePortal = () => {
     attendanceRate: dashboardStats.attendanceRate
   };
 
-  // بيانات الأداء المحسنة
-  const enhancedPerformanceData = {
-    currentRating: {
-      overall: 4.2,
-      technical: 4.5,
-      communication: 4.0,
-      leadership: 3.8,
-      problemSolving: 4.3,
-      teamwork: 4.6,
-      innovation: 4.1
-    },
-    goals: [
-      {
-        id: 'GOAL-2024-001',
-        title: 'تطوير مهارات القيادة',
-        description: 'حضور دورة تدريبية في القيادة وتطبيق المهارات المكتسبة',
-        category: 'تطوير شخصي',
-        targetDate: '2024-06-30',
-        progress: 75,
-        status: 'جاري',
-        priority: 'عالية',
-        measures: ['اجتياز الدورة التدريبية', 'قيادة مشروع فريق', 'تقييم 360 درجة']
-      },
-      {
-        id: 'GOAL-2024-002',
-        title: 'زيادة الإنتاجية بنسبة 20%',
-        description: 'تحسين كفاءة العمل وتطوير العمليات لزيادة الإنتاجية',
-        category: 'أداء',
-        targetDate: '2024-03-31',
-        progress: 90,
-        status: 'جاري',
-        priority: 'عالية',
-        measures: ['تحليل العمليات الحالية', 'تطبيق أدوات أتمتة', 'قياس النتائج']
-      },
-      {
-        id: 'GOAL-2024-003',
-        title: 'إكمال شهادة تقنية',
-        description: 'الحصول على شهادة AWS Solutions Architect',
-        category: 'تقني',
-        targetDate: '2024-08-31',
-        progress: 45,
-        status: 'جاري',
-        priority: 'متوسطة',
-        measures: ['دراسة المنهج', 'تطبيق عملي', 'اجتياز الامتحان']
-      }
-    ],
-    reviews: [
-      {
-        id: 'REV-2024-Q1',
-        period: 'الربع الأول 2024',
-        reviewDate: '2024-01-15',
-        reviewer: 'أحمد محمد - المدير التقني',
-        overallScore: 4.2,
-        strengths: [
-          'مهارات تقنية ممتازة',
-          'التزام بالمواعيد',
-          'روح الفريق العالية',
-          'قدرة على حل المشكلات'
-        ],
-        improvements: [
-          'تطوير مهارات التواصل',
-          'زيادة المبادرة في اقتراح الحلول',
-          'المشاركة أكثر في الاجتماعات'
-        ],
-        feedback: 'أداء ممتاز بشكل عام، يُنصح بالتركيز على تطوير المهارات القيادية',
-        nextReview: '2024-04-15'
-      },
-      {
-        id: 'REV-2023-Q4',
-        period: 'الربع الرابع 2023',
-        reviewDate: '2023-10-15',
-        reviewer: 'سارة أحمد - مدير المشاريع',
-        overallScore: 4.0,
-        strengths: [
-          'جودة عالية في التسليم',
-          'مرونة في التعامل مع التغييرات',
-          'تعلم مستمر'
-        ],
-        improvements: [
-          'إدارة الوقت',
-          'التفويض',
-          'التقارير الدورية'
-        ],
-        feedback: 'تطور ملحوظ في الأداء، استمرار في التحسن',
-        nextReview: '2024-01-15'
-      }
-    ],
-    achievements: [
-      {
-        id: 'ACH-001',
-        title: 'موظف الشهر',
-        description: 'تم اختياره كموظف الشهر لشهر ديسمبر 2023',
-        date: '2023-12-01',
-        type: 'تقدير',
-        impact: 'رفع الروح المعنوية للفريق'
-      },
-      {
-        id: 'ACH-002',
-        title: 'إكمال مشروع رئيسي',
-        description: 'قيادة فريق تطوير نظام إدارة المحتوى بنجاح',
-        date: '2023-11-15',
-        type: 'إنجاز',
-        impact: 'توفير 30% من وقت المحررين'
-      },
-      {
-        id: 'ACH-003',
-        title: 'شهادة تقنية',
-        description: 'الحصول على شهادة React Advanced Developer',
-        date: '2023-09-20',
-        type: 'تطوير مهني',
-        impact: 'تحسين جودة الكود وسرعة التطوير'
-      }
-    ],
-    competencies: [
-      { name: 'المهارات التقنية', current: 4.5, target: 4.7, gap: 0.2 },
-      { name: 'القيادة', current: 3.8, target: 4.2, gap: 0.4 },
-      { name: 'التواصل', current: 4.0, target: 4.3, gap: 0.3 },
-      { name: 'حل المشكلات', current: 4.3, target: 4.5, gap: 0.2 },
-      { name: 'العمل الجماعي', current: 4.6, target: 4.8, gap: 0.2 },
-      { name: 'الابتكار', current: 4.1, target: 4.4, gap: 0.3 }
-    ]
-  };
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'قيد المراجعة':
-        return <Badge className="bg-blue-100 text-blue-800">قيد المراجعة</Badge>;
-      case 'تمت الموافقة':
-        return <Badge className="bg-green-100 text-green-800">تمت الموافقة</Badge>;
-      case 'ملغي':
-        return <Badge className="bg-gray-100 text-gray-800">ملغي</Badge>;
-      case 'مرفوض':
-        return <Badge className="bg-red-100 text-red-800">مرفوض</Badge>;
-      default:
-        return <Badge>{status}</Badge>;
-    }
-  };
+  // Move this definition earlier in the component
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
