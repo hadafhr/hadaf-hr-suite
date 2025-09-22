@@ -153,6 +153,10 @@ const EmployeePortal = () => {
   const [selectedInsuranceFilter, setSelectedInsuranceFilter] = useState('all');
   const [selectedInsuranceDetails, setSelectedInsuranceDetails] = useState<any>(null);
 
+  // Job Category specific states
+  const [selectedJobCategoryFilter, setSelectedJobCategoryFilter] = useState('all');
+  const [selectedJobCategoryDetails, setSelectedJobCategoryDetails] = useState<any>(null);
+
   // وظائف معالجة النماذج
   const handleLeaveRequest = async () => {
     if (!leaveFormData.leave_type || !leaveFormData.start_date || !leaveFormData.end_date) {
@@ -427,6 +431,32 @@ const EmployeePortal = () => {
     });
   };
 
+  // Job Category handlers
+  const handleViewJobCategoryDetails = (item: any) => {
+    setSelectedJobCategoryDetails(item);
+  };
+
+  const handleRequestPromotion = () => {
+    toast({
+      title: 'طلب ترقية',
+      description: 'تم تسجيل طلب الترقية بنجاح وسيتم مراجعته',
+    });
+  };
+
+  const handleSkillAssessment = () => {
+    toast({
+      title: 'تقييم المهارات',
+      description: 'سيتم توجيهك لصفحة تقييم المهارات',
+    });
+  };
+
+  const handleCareerDevelopment = () => {
+    toast({
+      title: 'التطوير المهني',
+      description: 'مشاهدة خطة التطوير المهني',
+    });
+  };
+
   const handleRequestGPSCorrection = (record: any) => {
     toast({
       title: 'طلب تصحيح GPS',
@@ -655,6 +685,58 @@ const EmployeePortal = () => {
     { position: 'مطور برمجيات', startDate: '2022-06-01', endDate: '2023-06-01', department: 'تقنية المعلومات' },
     { position: 'مطور برمجيات أول', startDate: '2023-06-01', endDate: 'الآن', department: 'تقنية المعلومات' }
   ];
+
+  // بيانات الفئة الوظيفية المحسنة
+  const jobCategoryData = {
+    currentLevel: 'المستوى الخامس',
+    salaryGrade: 'الدرجة 12',
+    nextPromotion: '2024-06-01',
+    yearsInPosition: 1.5,
+    performanceRating: 4.2,
+    skills: [
+      { name: 'البرمجة', level: 85, category: 'تقنية' },
+      { name: 'إدارة المشاريع', level: 70, category: 'إدارية' },
+      { name: 'التواصل', level: 90, category: 'شخصية' },
+      { name: 'القيادة', level: 65, category: 'قيادية' },
+      { name: 'حل المشكلات', level: 80, category: 'تحليلية' },
+      { name: 'العمل الجماعي', level: 95, category: 'اجتماعية' }
+    ],
+    competencies: [
+      { name: 'الكفاءة المهنية', score: 4.5, maxScore: 5, status: 'ممتاز' },
+      { name: 'الالتزام والانضباط', score: 4.8, maxScore: 5, status: 'ممتاز' },
+      { name: 'التطوير المستمر', score: 4.0, maxScore: 5, status: 'جيد جداً' },
+      { name: 'التعاون والفريق', score: 4.7, maxScore: 5, status: 'ممتاز' }
+    ],
+    goals: [
+      {
+        id: 1,
+        title: 'تطوير نظام إدارة المحتوى',
+        description: 'قيادة فريق تطوير نظام CMS جديد',
+        progress: 75,
+        deadline: '2024-03-31',
+        status: 'جاري',
+        priority: 'عالية'
+      },
+      {
+        id: 2,
+        title: 'إكمال دورة القيادة',
+        description: 'اجتياز برنامج تطوير القيادة',
+        progress: 60,
+        deadline: '2024-02-28',
+        status: 'جاري',
+        priority: 'متوسطة'
+      },
+      {
+        id: 3,
+        title: 'تحسين الأداء الفني',
+        description: 'رفع مستوى الكفاءة التقنية بنسبة 15%',
+        progress: 100,
+        deadline: '2024-01-31',
+        status: 'مكتمل',
+        priority: 'عالية'
+      }
+    ]
+  };
 
   const sendMessage = () => {
     if (newMessage.trim()) {
@@ -1858,39 +1940,292 @@ const EmployeePortal = () => {
 
           {/* تبويب الفئة الوظيفية */}
           <TabsContent value="job-category" className="space-y-6">
-            <Card>
+            {/* إحصائيات الفئة الوظيفية */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-blue-600">تقييم الأداء</p>
+                      <p className="text-2xl font-bold text-blue-700">
+                        {jobCategoryData.performanceRating}/5
+                      </p>
+                    </div>
+                    <BarChart3 className="h-8 w-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-green-600">أهداف مكتملة</p>
+                      <p className="text-2xl font-bold text-green-700">
+                        {jobCategoryData.goals.filter(g => g.status === 'مكتمل').length}
+                      </p>
+                    </div>
+                    <Target className="h-8 w-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-purple-600">متوسط المهارات</p>
+                      <p className="text-2xl font-bold text-purple-700">
+                        {Math.round(jobCategoryData.skills.reduce((sum, skill) => sum + skill.level, 0) / jobCategoryData.skills.length)}%
+                      </p>
+                    </div>
+                    <Award className="h-8 w-8 text-purple-500" />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-orange-600">سنوات الخبرة</p>
+                      <p className="text-2xl font-bold text-orange-700">
+                        {jobCategoryData.yearsInPosition}
+                      </p>
+                    </div>
+                    <Clock className="h-8 w-8 text-orange-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* معلومات المنصب */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Briefcase className="h-5 w-5" />
-                  الفئة الوظيفية
-                </CardTitle>
-                <CardDescription>تفاصيل المنصب والفئة الوظيفية</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Briefcase className="h-5 w-5" />
+                    <CardTitle>معلومات المنصب الحالي</CardTitle>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleSkillAssessment}
+                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                    >
+                      <BarChart3 className="h-4 w-4 ml-2" />
+                      تقييم المهارات
+                    </Button>
+                    <Button 
+                      size="sm"
+                      onClick={handleRequestPromotion}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <TrendingUpIcon className="h-4 w-4 ml-2" />
+                      طلب ترقية
+                    </Button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">المنصب الحالي</Label>
+                    <p className="font-semibold">{employeeDisplayData?.position}</p>
+                  </div>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">المستوى الوظيفي</Label>
+                    <p className="font-semibold">{jobCategoryData.currentLevel}</p>
+                  </div>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">الدرجة المالية</Label>
+                    <p className="font-semibold">{jobCategoryData.salaryGrade}</p>
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>المنصب الحالي</Label>
-                    <p className="font-medium">{employeeDisplayData?.position}</p>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">القسم</Label>
+                    <p className="font-semibold">{employeeDisplayData?.department}</p>
                   </div>
-                  <div>
-                    <Label>القسم</Label>
-                    <p className="font-medium">{employeeDisplayData?.department}</p>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <Label className="text-sm text-muted-foreground">المدير المباشر</Label>
+                    <p className="font-semibold">{employeeDisplayData?.directManager}</p>
                   </div>
-                  <div>
-                    <Label>الفئة الوظيفية</Label>
-                    <p className="font-medium">{employeeDisplayData?.jobCategory}</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* تقييم المهارات */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Award className="h-5 w-5" />
+                    <CardTitle>تقييم المهارات</CardTitle>
                   </div>
-                  <div>
-                    <Label>المدير المباشر</Label>
-                    <p className="font-medium">{employeeDisplayData?.directManager}</p>
+                  <div className="flex items-center gap-2">
+                    <Select value={selectedJobCategoryFilter} onValueChange={setSelectedJobCategoryFilter}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="تصفية حسب الفئة" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">جميع المهارات</SelectItem>
+                        <SelectItem value="تقنية">تقنية</SelectItem>
+                        <SelectItem value="إدارية">إدارية</SelectItem>
+                        <SelectItem value="شخصية">شخصية</SelectItem>
+                        <SelectItem value="قيادية">قيادية</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={handleCareerDevelopment}
+                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                    >
+                      <TrendingUpIcon className="h-4 w-4 ml-2" />
+                      خطة التطوير
+                    </Button>
                   </div>
-                  <div>
-                    <Label>تاريخ التوظيف</Label>
-                    <p className="font-medium">{employeeDisplayData?.joinDate}</p>
-                  </div>
-                  <div>
-                    <Label>سنوات الخبرة</Label>
-                    <p className="font-medium">3 سنوات</p>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {jobCategoryData.skills.filter(skill => 
+                    selectedJobCategoryFilter === 'all' || skill.category === selectedJobCategoryFilter
+                  ).map((skill, index) => (
+                    <Card key={index} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{skill.name}</h4>
+                            <Badge variant="outline" className="mb-2">
+                              {skill.category}
+                            </Badge>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-2xl font-bold text-primary">{skill.level}%</p>
+                          </div>
+                        </div>
+                        <Progress value={skill.level} className="h-3" />
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* الأهداف والإنجازات */}
+            <Card className="border-l-4 border-l-primary shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Target className="h-5 w-5" />
+                  <CardTitle>الأهداف والإنجازات</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {jobCategoryData.goals.map((goal) => (
+                    <Card key={goal.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold mb-1">{goal.title}</h4>
+                            <p className="text-sm text-muted-foreground mb-2">{goal.description}</p>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>الموعد النهائي: {goal.deadline}</span>
+                              </div>
+                              <Badge 
+                                variant="outline" 
+                                className={`${
+                                  goal.priority === 'عالية' ? 'border-red-200 text-red-700 bg-red-50' :
+                                  goal.priority === 'متوسطة' ? 'border-yellow-200 text-yellow-700 bg-yellow-50' :
+                                  'border-green-200 text-green-700 bg-green-50'
+                                }`}
+                              >
+                                {goal.priority}
+                              </Badge>
+                            </div>
+                          </div>
+                          <Badge 
+                            variant="outline" 
+                            className={`${
+                              goal.status === 'مكتمل' ? 'bg-green-50 text-green-700 border-green-200' :
+                              goal.status === 'جاري' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                              'bg-gray-50 text-gray-700 border-gray-200'
+                            } px-3 py-1`}
+                          >
+                            {goal.status}
+                          </Badge>
+                        </div>
+
+                        <div className="mb-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm font-medium">نسبة الإنجاز</span>
+                            <span className="text-sm font-bold text-primary">{goal.progress}%</span>
+                          </div>
+                          <Progress value={goal.progress} className="h-2" />
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => handleViewJobCategoryDetails(goal)}
+                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                          >
+                            <Eye className="h-4 w-4 ml-2" />
+                            عرض التفاصيل
+                          </Button>
+                          
+                          {goal.status !== 'مكتمل' && (
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                            >
+                              <CheckSquare className="h-4 w-4 ml-2" />
+                              تحديث التقدم
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* ملخص الأداء */}
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    ملخص الأداء الحالي
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">الكفاءات</p>
+                      <p className="text-lg font-bold text-primary">
+                        {Math.round(jobCategoryData.competencies.reduce((sum, comp) => sum + comp.score, 0) / jobCategoryData.competencies.length * 10) / 10}/5
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">الأهداف المكتملة</p>
+                      <p className="text-lg font-bold text-green-600">
+                        {jobCategoryData.goals.filter(g => g.status === 'مكتمل').length}/{jobCategoryData.goals.length}
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">متوسط التقدم</p>
+                      <p className="text-lg font-bold text-blue-600">
+                        {Math.round(jobCategoryData.goals.reduce((sum, goal) => sum + goal.progress, 0) / jobCategoryData.goals.length)}%
+                      </p>
+                    </div>
+                    <div className="text-center p-3 bg-background rounded-lg">
+                      <p className="text-muted-foreground">التقييم العام</p>
+                      <p className="text-lg font-bold text-purple-600">ممتاز</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
