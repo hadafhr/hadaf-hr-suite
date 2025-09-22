@@ -47,6 +47,9 @@ import {
   Banknote,
   Satellite,
   Mic,
+  Eye,
+  Play,
+  Video,
   CheckCircle2,
   PauseCircle,
   PlayCircle,
@@ -56,11 +59,7 @@ import {
   Calendar as CalendarIcon,
   User as UserIcon,
   FileIcon,
-  CheckCircle,
-  // Force rebuild - icons for courses functionality
-  Eye,
-  Play,
-  Video
+  CheckCircle
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
