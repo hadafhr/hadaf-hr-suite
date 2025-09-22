@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { 
   FileText, Send, Plus, Clock, CheckCircle, 
   AlertCircle, User, CreditCard, Building2,
-  FileCheck, Briefcase, GraduationCap
+  FileCheck, Briefcase, GraduationCap, Satellite
 } from 'lucide-react';
 import { useEmployeeServices } from '@/hooks/useEmployeeServices';
 
@@ -31,6 +31,7 @@ export function EmployeeRequestsPortal() {
     { id: 'bank_letter', name: 'خطاب للبنك', icon: <Building2 className="h-4 w-4" /> },
     { id: 'transfer_request', name: 'طلب نقل', icon: <User className="h-4 w-4" /> },
     { id: 'training_certificate', name: 'شهادة تدريب', icon: <GraduationCap className="h-4 w-4" /> },
+    { id: 'resident_request', name: 'طلب مقيم', icon: <Satellite className="h-4 w-4" /> },
     { id: 'other', name: 'طلب آخر', icon: <FileText className="h-4 w-4" /> }
   ];
 

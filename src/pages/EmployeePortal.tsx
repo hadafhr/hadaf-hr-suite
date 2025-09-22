@@ -994,7 +994,7 @@ const EmployeePortal = () => {
                 <CardTitle>الإجراءات السريعة</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   <Button variant="outline" className="h-20 flex-col gap-2">
                     <Calendar className="h-6 w-6" />
                     طلب إجازة
@@ -1002,6 +1002,10 @@ const EmployeePortal = () => {
                   <Button variant="outline" className="h-20 flex-col gap-2">
                     <FileText className="h-6 w-6" />
                     شهادة راتب
+                  </Button>
+                  <Button variant="outline" className="h-20 flex-col gap-2">
+                    <Satellite className="h-6 w-6" />
+                    طلب مقيم
                   </Button>
                   <Button variant="outline" className="h-20 flex-col gap-2">
                     <MessageCircle className="h-6 w-6" />
