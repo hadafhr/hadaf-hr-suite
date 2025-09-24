@@ -10,12 +10,15 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { BoudLogo } from '@/components/BoudLogo';
+import { HRSystemManagement } from '@/components/company/HRSystemManagement';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const SuperAdminDashboard: React.FC = () => {
   const { user, signOut } = useAuth();
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   const systemStats = [
     {
@@ -111,12 +114,13 @@ export const SuperAdminDashboard: React.FC = () => {
   ];
 
   const sidebarItems = [
-    { icon: Shield, label: isArabic ? 'لوحة التحكم' : 'Dashboard', active: true },
-    { icon: Building, label: isArabic ? 'إدارة العملاء' : 'Client Management' },
-    { icon: CreditCard, label: isArabic ? 'الاشتراكات' : 'Subscriptions' },
-    { icon: TrendingUp, label: isArabic ? 'التقارير' : 'Reports' },
-    { icon: Database, label: isArabic ? 'النظام' : 'System' },
-    { icon: Settings, label: isArabic ? 'الإعدادات' : 'Settings' },
+    { icon: Shield, label: isArabic ? 'لوحة التحكم' : 'Dashboard', active: activeTab === 'dashboard', tab: 'dashboard' },
+    { icon: Building, label: isArabic ? 'إدارة العملاء' : 'Client Management', active: activeTab === 'clients', tab: 'clients' },
+    { icon: CreditCard, label: isArabic ? 'الاشتراكات' : 'Subscriptions', active: activeTab === 'subscriptions', tab: 'subscriptions' },
+    { icon: Users, label: isArabic ? 'إدارة الموارد البشرية' : 'HR Management', active: activeTab === 'hr-system', tab: 'hr-system' },
+    { icon: TrendingUp, label: isArabic ? 'التقارير' : 'Reports', active: activeTab === 'reports', tab: 'reports' },
+    { icon: Database, label: isArabic ? 'النظام' : 'System', active: activeTab === 'system', tab: 'system' },
+    { icon: Settings, label: isArabic ? 'الإعدادات' : 'Settings', active: activeTab === 'settings', tab: 'settings' },
   ];
 
   return (
@@ -158,7 +162,7 @@ export const SuperAdminDashboard: React.FC = () => {
                 key={index}
                 variant={item.active ? "default" : "ghost"}
                 className={`w-full justify-start ${isArabic ? 'flex-row-reverse' : ''}`}
-                onClick={() => console.log(`Navigate to ${item.label}`)}
+                onClick={() => setActiveTab(item.tab)}
               >
                 <item.icon className={`h-4 w-4 ${isArabic ? 'ml-2' : 'mr-2'}`} />
                 {item.label}
@@ -224,147 +228,215 @@ export const SuperAdminDashboard: React.FC = () => {
         </header>
 
         {/* Dashboard Content */}
-        <div className="p-4 lg:p-6 space-y-6">
-          {/* Welcome Banner */}
-          <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-transparent p-6 rounded-lg border border-primary/20">
-            <div className="flex items-center gap-3 mb-2">
-              <Shield className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold">
-                {isArabic ? 'مرحباً بك في لوحة إدارة بُعد' : 'Welcome to BuAD Admin Panel'}
-              </h2>
-            </div>
-            <p className="text-muted-foreground">
-              {isArabic ? 'التحكم الشامل في منصة بُعد، إدارة العملاء، والاشتراكات' : 'Complete control of BuAD platform, client management, and subscriptions'}
-            </p>
-          </div>
+        <div className="p-4 lg:p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsContent value="dashboard" className="space-y-6 mt-0">
+              {/* Welcome Banner */}
+              <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-transparent p-6 rounded-lg border border-primary/20">
+                <div className="flex items-center gap-3 mb-2">
+                  <Shield className="h-6 w-6 text-primary" />
+                  <h2 className="text-2xl font-bold">
+                    {isArabic ? 'مرحباً بك في لوحة إدارة بُعد' : 'Welcome to BuAD Admin Panel'}
+                  </h2>
+                </div>
+                <p className="text-muted-foreground">
+                  {isArabic ? 'التحكم الشامل في منصة بُعد، إدارة العملاء، والاشتراكات' : 'Complete control of BuAD platform, client management, and subscriptions'}
+                </p>
+              </div>
 
-          {/* System Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {systemStats.map((stat, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow border-l-4 border-l-primary/50">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
-                      <p className="text-2xl font-bold">{stat.value}</p>
-                      <p className={`text-sm ${stat.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
-                        {stat.change} {isArabic ? 'من الشهر الماضي' : 'from last month'}
-                      </p>
-                    </div>
-                    <div className={`p-3 rounded-full bg-muted ${stat.color}`}>
-                      <stat.icon className="h-6 w-6" />
-                    </div>
+              {/* System Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {systemStats.map((stat, index) => (
+                  <Card key={index} className="hover:shadow-md transition-shadow border-l-4 border-l-primary/50">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                          <p className="text-2xl font-bold">{stat.value}</p>
+                          <p className={`text-sm ${stat.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+                            {stat.change} {isArabic ? 'من الشهر الماضي' : 'from last month'}
+                          </p>
+                        </div>
+                        <div className={`p-3 rounded-full bg-muted ${stat.color}`}>
+                          <stat.icon className="h-6 w-6" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Admin Actions & System Alerts */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Admin Actions */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="h-5 w-5 text-primary" />
+                      {isArabic ? 'الإجراءات الإدارية' : 'Admin Actions'}
+                    </CardTitle>
+                    <CardDescription>
+                      {isArabic ? 'الوصول السريع للمهام الإدارية الأساسية' : 'Quick access to essential admin tasks'}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {adminActions.map((action, index) => (
+                      <div 
+                        key={index}
+                        className="flex items-center gap-4 p-4 rounded-lg border hover:bg-muted/50 cursor-pointer transition-colors"
+                        onClick={action.action}
+                      >
+                        <div className={`p-2 rounded-lg ${action.color} text-white`}>
+                          <action.icon className="h-5 w-5" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium">{action.title}</h4>
+                          <p className="text-sm text-muted-foreground">{action.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                {/* System Alerts */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <AlertCircle className="h-5 w-5 text-orange-600" />
+                      {isArabic ? 'تنبيهات النظام' : 'System Alerts'}
+                    </CardTitle>
+                    <CardDescription>
+                      {isArabic ? 'آخر التنبيهات والتحديثات في النظام' : 'Latest system alerts and updates'}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {recentAlerts.map((alert, index) => (
+                      <div key={index} className="flex items-start gap-3 p-3 rounded-lg border">
+                        <div className={`w-2 h-2 rounded-full mt-2 ${
+                          alert.severity === 'success' ? 'bg-green-500' :
+                          alert.severity === 'warning' ? 'bg-orange-500' :
+                          'bg-red-500'
+                        }`} />
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{alert.title}</p>
+                          <p className="text-sm text-muted-foreground">{alert.message}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{alert.time}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Client Overview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Building className="h-5 w-5 text-primary" />
+                    {isArabic ? 'نظرة عامة على العملاء' : 'Client Overview'}
+                  </CardTitle>
+                  <CardDescription>
+                    {isArabic ? 'أهم العملاء وحالة اشتراكاتهم' : 'Top clients and their subscription status'}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {clientStats.map((client, index) => (
+                      <div key={index} className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/20 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <Building className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-medium">{client.name}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              {client.employees} {isArabic ? 'موظف' : 'employees'} • {client.plan}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className={`px-2 py-1 text-xs rounded-full ${
+                            client.status === 'active' 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-orange-100 text-orange-800'
+                          }`}>
+                            {client.status === 'active' 
+                              ? (isArabic ? 'نشط' : 'Active')
+                              : (isArabic ? 'معلق' : 'Pending')
+                            }
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
-            ))}
-          </div>
+            </TabsContent>
 
-          {/* Admin Actions & System Alerts */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Admin Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="h-5 w-5 text-primary" />
-                  {isArabic ? 'الإجراءات الإدارية' : 'Admin Actions'}
-                </CardTitle>
-                <CardDescription>
-                  {isArabic ? 'الوصول السريع للمهام الإدارية الأساسية' : 'Quick access to essential admin tasks'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {adminActions.map((action, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-4 p-4 rounded-lg border hover:bg-muted/50 cursor-pointer transition-colors"
-                    onClick={action.action}
-                  >
-                    <div className={`p-2 rounded-lg ${action.color} text-white`}>
-                      <action.icon className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium">{action.title}</h4>
-                      <p className="text-sm text-muted-foreground">{action.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+            <TabsContent value="clients" className="space-y-6 mt-0">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{isArabic ? 'إدارة العملاء' : 'Client Management'}</CardTitle>
+                  <CardDescription>{isArabic ? 'إدارة شاملة للعملاء والمنشآت' : 'Comprehensive client and organization management'}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{isArabic ? 'قريباً...' : 'Coming soon...'}</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-            {/* System Alerts */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5 text-orange-600" />
-                  {isArabic ? 'تنبيهات النظام' : 'System Alerts'}
-                </CardTitle>
-                <CardDescription>
-                  {isArabic ? 'آخر التنبيهات والتحديثات في النظام' : 'Latest system alerts and updates'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {recentAlerts.map((alert, index) => (
-                  <div key={index} className="flex items-start gap-3 p-3 rounded-lg border">
-                    <div className={`w-2 h-2 rounded-full mt-2 ${
-                      alert.severity === 'success' ? 'bg-green-500' :
-                      alert.severity === 'warning' ? 'bg-orange-500' :
-                      'bg-red-500'
-                    }`} />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">{alert.title}</p>
-                      <p className="text-sm text-muted-foreground">{alert.message}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{alert.time}</p>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
+            <TabsContent value="subscriptions" className="space-y-6 mt-0">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}</CardTitle>
+                  <CardDescription>{isArabic ? 'إدارة اشتراكات العملاء والباقات' : 'Manage client subscriptions and plans'}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{isArabic ? 'قريباً...' : 'Coming soon...'}</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-          {/* Client Overview */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Building className="h-5 w-5 text-primary" />
-                {isArabic ? 'نظرة عامة على العملاء' : 'Client Overview'}
-              </CardTitle>
-              <CardDescription>
-                {isArabic ? 'أهم العملاء وحالة اشتراكاتهم' : 'Top clients and their subscription status'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {clientStats.map((client, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/20 transition-colors">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <Building className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium">{client.name}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {client.employees} {isArabic ? 'موظف' : 'employees'} • {client.plan}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        client.status === 'active' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-orange-100 text-orange-800'
-                      }`}>
-                        {client.status === 'active' 
-                          ? (isArabic ? 'نشط' : 'Active')
-                          : (isArabic ? 'معلق' : 'Pending')
-                        }
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            <TabsContent value="hr-system" className="space-y-6 mt-0">
+              <HRSystemManagement />
+            </TabsContent>
+
+            <TabsContent value="reports" className="space-y-6 mt-0">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{isArabic ? 'التقارير والإحصائيات' : 'Reports & Analytics'}</CardTitle>
+                  <CardDescription>{isArabic ? 'تقارير شاملة عن استخدام النظام' : 'Comprehensive system usage reports'}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{isArabic ? 'قريباً...' : 'Coming soon...'}</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="system" className="space-y-6 mt-0">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{isArabic ? 'إدارة النظام' : 'System Management'}</CardTitle>
+                  <CardDescription>{isArabic ? 'إعدادات وصيانة النظام' : 'System settings and maintenance'}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{isArabic ? 'قريباً...' : 'Coming soon...'}</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="settings" className="space-y-6 mt-0">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{isArabic ? 'الإعدادات العامة' : 'General Settings'}</CardTitle>
+                  <CardDescription>{isArabic ? 'إعدادات المنصة والتخصيص' : 'Platform settings and customization'}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{isArabic ? 'قريباً...' : 'Coming soon...'}</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
     </div>
