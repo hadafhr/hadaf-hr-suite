@@ -10,7 +10,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { BoudLogo } from '@/components/BoudLogo';
-import { HRSystemManagement } from '@/components/company/HRSystemManagement';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const SuperAdminDashboard: React.FC = () => {
@@ -117,7 +117,7 @@ export const SuperAdminDashboard: React.FC = () => {
     { icon: Shield, label: isArabic ? 'لوحة التحكم' : 'Dashboard', active: activeTab === 'dashboard', tab: 'dashboard' },
     { icon: Building, label: isArabic ? 'إدارة العملاء' : 'Client Management', active: activeTab === 'clients', tab: 'clients' },
     { icon: CreditCard, label: isArabic ? 'الاشتراكات' : 'Subscriptions', active: activeTab === 'subscriptions', tab: 'subscriptions' },
-    { icon: Users, label: isArabic ? 'إدارة الموارد البشرية' : 'HR Management', active: activeTab === 'hr-system', tab: 'hr-system' },
+    
     { icon: TrendingUp, label: isArabic ? 'التقارير' : 'Reports', active: activeTab === 'reports', tab: 'reports' },
     { icon: Database, label: isArabic ? 'النظام' : 'System', active: activeTab === 'system', tab: 'system' },
     { icon: Settings, label: isArabic ? 'الإعدادات' : 'Settings', active: activeTab === 'settings', tab: 'settings' },
@@ -397,9 +397,6 @@ export const SuperAdminDashboard: React.FC = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="hr-system" className="space-y-6 mt-0">
-              <HRSystemManagement />
-            </TabsContent>
 
             <TabsContent value="reports" className="space-y-6 mt-0">
               <Card>
