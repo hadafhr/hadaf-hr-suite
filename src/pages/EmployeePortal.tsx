@@ -2068,76 +2068,93 @@ const EmployeePortal = () => {
                     </div>
                   </div>
                   
-                  {/* Quick Stats Cards */}
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="group bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 rounded-xl p-4 border border-blue-200/50 hover:shadow-lg transition-all duration-300">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-500/20 rounded-lg group-hover:bg-blue-500/30 transition-colors">
-                          <Calendar className="h-4 w-4 text-blue-600" />
+                  {/* Quick Stats - Professional Layout */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <Card className="bg-gray-900/60 backdrop-blur-xl shadow-lg border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="text-right">
+                            <p className="text-sm font-medium text-gray-300">مدة الخدمة</p>
+                            <p className="text-2xl font-bold text-white">3 سنوات</p>
+                          </div>
+                          <div className="w-12 h-12 rounded-lg bg-[#008C6A]/20 flex items-center justify-center">
+                            <Calendar className="w-6 h-6 text-[#008C6A]" />
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-xs text-blue-600/80 font-medium">مدة الخدمة</p>
-                          <p className="text-sm font-bold text-blue-700">3 سنوات</p>
-                        </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                     
-                    <div className="group bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/30 dark:to-green-900/30 rounded-xl p-4 border border-green-200/50 hover:shadow-lg transition-all duration-300">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-500/20 rounded-lg group-hover:bg-green-500/30 transition-colors">
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <Card className="bg-gray-900/60 backdrop-blur-xl shadow-lg border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="text-right">
+                            <p className="text-sm font-medium text-gray-300">نسبة الحضور</p>
+                            <p className="text-2xl font-bold text-white">98%</p>
+                          </div>
+                          <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center">
+                            <CheckCircle2 className="w-6 h-6 text-green-400" />
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-xs text-green-600/80 font-medium">نسبة الحضور</p>
-                          <p className="text-sm font-bold text-green-700">98%</p>
-                        </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                     
-                    <div className="group bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/30 dark:to-purple-900/30 rounded-xl p-4 border border-purple-200/50 hover:shadow-lg transition-all duration-300">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-colors">
-                          <Award className="h-4 w-4 text-purple-600" />
+                    <Card className="bg-gray-900/60 backdrop-blur-xl shadow-lg border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="text-right">
+                            <p className="text-sm font-medium text-gray-300">التقييم العام</p>
+                            <p className="text-2xl font-bold text-white">4.8/5</p>
+                          </div>
+                          <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                            <Award className="w-6 h-6 text-purple-400" />
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-xs text-purple-600/80 font-medium">التقييم العام</p>
-                          <p className="text-sm font-bold text-purple-700">4.8/5</p>
-                        </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                     
-                    <div className="group bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/30 rounded-xl p-4 border border-orange-200/50 hover:shadow-lg transition-all duration-300">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-orange-500/20 rounded-lg group-hover:bg-orange-500/30 transition-colors">
-                          <Target className="h-4 w-4 text-orange-600" />
+                    <Card className="bg-gray-900/60 backdrop-blur-xl shadow-lg border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="text-right">
+                            <p className="text-sm font-medium text-gray-300">المهام المكتملة</p>
+                            <p className="text-2xl font-bold text-white">24/30</p>
+                          </div>
+                          <div className="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center">
+                            <Target className="w-6 h-6 text-orange-400" />
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-xs text-orange-600/80 font-medium">المهام المكتملة</p>
-                          <p className="text-sm font-bold text-orange-700">24/30</p>
-                        </div>
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   </div>
 
-                  {/* Employee Details Pills */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <div className="flex items-center gap-2 bg-background/80 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
-                         onClick={() => toast({ title: 'رقم الموظف', description: `رقم الموظف: ${employeeDisplayData.employeeNumber}` })}>
-                      <UserCheck className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
-                      <span className="text-sm font-medium">#{employeeDisplayData.employeeNumber}</span>
-                    </div>
+                  {/* Employee Details - Professional Badges */}
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
+                    <Badge 
+                      variant="outline" 
+                      className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 transition-all duration-300 cursor-pointer px-4 py-2"
+                      onClick={() => toast({ title: 'رقم الموظف', description: `رقم الموظف: ${employeeDisplayData.employeeNumber}` })}
+                    >
+                      <UserCheck className="h-4 w-4 text-[#008C6A] ml-2" />
+                      #{employeeDisplayData.employeeNumber}
+                    </Badge>
                     
-                    <div className="flex items-center gap-2 bg-background/80 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
-                         onClick={() => toast({ title: 'الهوية الوطنية', description: `رقم الهوية: ${employeeDisplayData.nationalId}` })}>
-                      <FileCheck className="h-4 w-4 text-blue-600 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm font-medium">{employeeDisplayData.nationalId}</span>
-                    </div>
+                    <Badge 
+                      variant="outline" 
+                      className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 transition-all duration-300 cursor-pointer px-4 py-2"
+                      onClick={() => toast({ title: 'الهوية الوطنية', description: `رقم الهوية: ${employeeDisplayData.nationalId}` })}
+                    >
+                      <FileCheck className="h-4 w-4 text-blue-400 ml-2" />
+                      {employeeDisplayData.nationalId}
+                    </Badge>
                     
-                    <div className="flex items-center gap-2 bg-background/80 backdrop-blur rounded-full px-4 py-2 border border-border/50 hover:shadow-md transition-all duration-300 group cursor-pointer"
-                         onClick={() => toast({ title: 'التأمين الطبي', description: `رقم التأمين: ${employeeDisplayData.insuranceNumber}` })}>
-                      <Shield className="h-4 w-4 text-green-600 group-hover:scale-110 transition-transform" />
-                      <span className="text-sm font-medium">{employeeDisplayData.insuranceNumber}</span>
-                    </div>
+                    <Badge 
+                      variant="outline" 
+                      className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 transition-all duration-300 cursor-pointer px-4 py-2"
+                      onClick={() => toast({ title: 'التأمين الطبي', description: `رقم التأمين: ${employeeDisplayData.insuranceNumber}` })}
+                    >
+                      <Shield className="h-4 w-4 text-green-400 ml-2" />
+                      {employeeDisplayData.insuranceNumber}
+                    </Badge>
                   </div>
                 </div>
 
