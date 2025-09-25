@@ -339,6 +339,9 @@ const BoudHRLandingPage: React.FC = () => {
                   <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-gray-900">
                     الأوراق الخضراء
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-white hover:bg-gray-900">
+                    الأوصاف الوظيفية
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
