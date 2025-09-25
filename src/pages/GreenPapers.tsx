@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -9,6 +9,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Search, Download, BookOpen, ArrowLeft, FileText, Clock, Star, Calendar, Filter, Mail, Phone, MapPin } from 'lucide-react';
 import { Building2, Globe, Linkedin, Twitter, Instagram } from 'lucide-react';
 import { BoudLogo } from '@/components/BoudLogo';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import buodLogo from '@/assets/buod-logo-white.png';
 
 interface GreenPaper {
   id: string;
@@ -215,371 +217,391 @@ const GreenPapers: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background font-arabic" dir="rtl">
-      {/* Header */}
-      <header className="bg-background/98 backdrop-blur-md border-b border-border/80 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-18">
-            {/* Logo and Back Button */}
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate('/')}
-                className="flex items-center gap-2 text-muted-foreground hover:text-primary"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="sm:inline">العودة</span>
-              </Button>
-              <BoudLogo showText size="header" />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
+      
+      {/* Professional Interactive Header */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex items-center justify-between h-24">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <Link to="/" className="hover:scale-105 transition-all duration-300">
+                <img 
+                  src={buodLogo} 
+                  alt="Buod HR" 
+                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
+                />
+              </Link>
             </div>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
-              <a href="/products" className="text-sm font-medium hover:text-primary transition-colors">المنتجات</a>
-              <a href="/solutions" className="text-sm font-medium hover:text-primary transition-colors">الحلول</a>
-              <a href="/knowledge" className="text-sm font-medium hover:text-primary transition-colors">المعرفة</a>
-              <a href="/about" className="text-sm font-medium hover:text-primary transition-colors">عن بُعد</a>
-            </nav>
+            {/* Center Section - Title & Icon */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <BookOpen className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
+              
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  📗 الأوراق الخضراء
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  دلائل ومراجع احترافية
+                </p>
+              </div>
+            </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-3">
-              <Button className="bg-primary hover:bg-primary-glow text-white">
-                اطلب عرضًا
-              </Button>
+            {/* Right Section - Professional Controls Panel */}
+            <div className="flex flex-col items-end space-y-4">
+              {/* Status Panel */}
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+                {/* Status Indicator */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                    حالة النظام
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+                    <span className="text-xs text-green-300 font-semibold">
+                      متاح
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                
+                {/* Quick Stats */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-medium">
+                    الأوراق المتاحة
+                  </span>
+                  <span className="text-sm text-[#008C6A] font-bold">
+                    {filteredPapers.length}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Quick Stats Mini Panel */}
+              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
+                <div className="flex items-center space-x-3 text-xs">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+                    <span className="text-gray-400">{filteredPapers.length} ورقة</span>
+                  </div>
+                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-gray-400">محدّث</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/5 to-primary-glow/10 py-16">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              📗 أوراق خضراء عن الموارد البشرية
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              دلائل ومراجع عملية تساعد فرق الموارد البشرية على اتخاذ قراراتٍ أفضل.
-            </p>
-
-            {/* Search and Filters */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-border/20">
-              <div className="grid md:grid-cols-5 gap-4">
-                {/* Search */}
-                <div className="md:col-span-2 relative">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder="ابحث في الأوراق..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pr-10"
-                  />
-                </div>
-
-                {/* Category Filter */}
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="الفئة" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع الفئات</SelectItem>
-                    {categories.map(category => (
-                      <SelectItem key={category} value={category}>{category}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                {/* Level Filter */}
-                <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="المستوى" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع المستويات</SelectItem>
-                    {levels.map(level => (
-                      <SelectItem key={level} value={level}>{level}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                {/* Sort */}
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="ترتيب" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="latest">الأحدث</SelectItem>
-                    <SelectItem value="downloads">الأكثر تنزيلاً</SelectItem>
-                    <SelectItem value="rating">الأعلى تقييماً</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Additional Filters */}
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
-                  <SelectTrigger className="w-auto">
-                    <Filter className="w-4 h-4 ml-2" />
-                    <SelectValue placeholder="القطاع" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">جميع القطاعات</SelectItem>
-                    {industries.map(industry => (
-                      <SelectItem key={industry} value={industry}>{industry}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+      <main className="relative z-10 w-full mx-auto px-4 py-8">
+        {/* Breadcrumb Navigation - Far Right */}
+        <div className="flex justify-end mb-6 mr-0">
+          <div className="ml-auto">
+            <Breadcrumb 
+              items={[
+                { label: 'الرئيسية', path: '/' },
+                { label: 'الأوراق الخضراء', path: '/green-papers' }
+              ]}
+            />
           </div>
         </div>
-      </section>
+        
+        {/* Floating Elements for Professional Look */}
+        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        
+        {/* Enhanced Hero Section */}
+        <div className="text-center mb-12 relative">
+          {/* Floating background elements */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          
+          <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <img 
+              src="/boud-logo-white.png" 
+              alt="شعار بُعد" 
+              className="h-36 w-36 object-contain transition-all duration-300 group-hover:brightness-110 z-10 relative drop-shadow-2xl" 
+            />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          
+          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+            📗 أوراق خضراء عن الموارد البشرية
+          </h2>
+          
+          <div className="relative max-w-3xl mx-auto">
+            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+              دلائل ومراجع عملية تساعد فرق الموارد البشرية على اتخاذ قراراتٍ أفضل
+            </p>
+          </div>
+        </div>
 
-      {/* Papers Grid */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+        {/* Search and Filters */}
+        <div className="mb-12 space-y-6">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
+            {/* Professional Search Bar */}
+            <div className="relative w-full max-w-2xl group">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative flex items-center">
+                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#008C6A] h-5 w-5 z-10" />
+                <Input
+                  placeholder="ابحث في الأوراق الخضراء..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pr-12 pl-6 h-14 bg-gradient-to-r from-gray-900/80 to-black/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl text-white placeholder-gray-400 focus:border-[#008C6A]/70 focus:ring-2 focus:ring-[#008C6A]/30 transition-all duration-300 shadow-xl hover:shadow-[#008C6A]/20"
+                />
+              </div>
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('');
+                  setSelectedLevel('');
+                  setSelectedIndustry('');
+                }}
+                className="bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:bg-gradient-to-r hover:from-[#008C6A]/20 hover:to-[#00694F]/20 hover:border-[#008C6A]/70 transition-all duration-300 shadow-lg hover:shadow-[#008C6A]/25 px-6 h-12"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                مسح البحث
+              </Button>
+            </div>
+          </div>
+
+          {/* Advanced Filters */}
+          <div className="flex flex-wrap gap-4 justify-center">
+            {/* Category Filter */}
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+                <SelectValue placeholder="الفئة" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+                <SelectItem value="all">جميع الفئات</SelectItem>
+                {categories.map(category => (
+                  <SelectItem key={category} value={category} className="text-white hover:bg-[#008C6A]/20">{category}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {/* Level Filter */}
+            <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+                <SelectValue placeholder="المستوى" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+                <SelectItem value="all">جميع المستويات</SelectItem>
+                {levels.map(level => (
+                  <SelectItem key={level} value={level} className="text-white hover:bg-[#008C6A]/20">{level}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {/* Industry Filter */}
+            <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+                <Filter className="w-4 h-4 ml-2" />
+                <SelectValue placeholder="القطاع" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+                <SelectItem value="all">جميع القطاعات</SelectItem>
+                {industries.map(industry => (
+                  <SelectItem key={industry} value={industry} className="text-white hover:bg-[#008C6A]/20">{industry}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {/* Sort */}
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+                <SelectValue placeholder="ترتيب" />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+                <SelectItem value="latest" className="text-white hover:bg-[#008C6A]/20">الأحدث</SelectItem>
+                <SelectItem value="downloads" className="text-white hover:bg-[#008C6A]/20">الأكثر تنزيلاً</SelectItem>
+                <SelectItem value="rating" className="text-white hover:bg-[#008C6A]/20">الأعلى تقييماً</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Papers Grid */}
+        <div className="relative">
+          <div className="mb-8 text-center">
+            <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-4">
               {filteredPapers.length} ورقة متاحة
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-gray-300 text-lg">
               اختر الورقة التي تناسب احتياجاتك المهنية
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPapers.map((paper) => (
-              <Card key={paper.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+              <div
+                key={paper.id}
+                className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/70 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:shadow-[#008C6A]/25 transition-all duration-500 hover:scale-105 hover:border-[#008C6A]/60"
+              >
+                {/* Animated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/10 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Content */}
                 <div className="relative">
-                  <img
-                    src={paper.cover_url}
-                    alt={paper.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 right-4 flex flex-wrap gap-2">
-                    {paper.isNew && <Badge className="bg-green-500 text-white">جديد</Badge>}
-                    {paper.isUpdated && <Badge className="bg-blue-500 text-white">محدث</Badge>}
-                    <Badge variant="secondary">{paper.level}</Badge>
-                  </div>
-                </div>
-                
-                <CardHeader>
-                  <div className="flex flex-wrap gap-2 mb-2">
-                    {paper.category.map(cat => (
-                      <Badge key={cat} variant="outline" className="text-xs">
-                        {cat}
-                      </Badge>
-                    ))}
-                  </div>
-                  <CardTitle className="text-lg leading-tight line-clamp-2">
-                    {paper.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm line-clamp-3">
-                    {paper.excerpt}
-                  </CardDescription>
-                </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {paper.reading_minutes} دقيقة
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <FileText className="w-4 h-4" />
-                        {paper.pages} صفحة
-                      </div>
-                      {paper.rating && (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          {paper.rating}
-                        </div>
-                      )}
+                  {/* Image Section */}
+                  <div className="relative">
+                    <img
+                      src={paper.cover_url}
+                      alt={paper.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-4 right-4 flex flex-wrap gap-2">
+                      {paper.isNew && <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-lg">جديد</Badge>}
+                      {paper.isUpdated && <Badge className="bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0 shadow-lg">محدث</Badge>}
+                      <Badge className="bg-gradient-to-r from-[#008C6A]/80 to-[#00694F]/80 text-white border-0 shadow-lg">{paper.level}</Badge>
                     </div>
                   </div>
                   
-                  <div className="flex gap-2">
-                    <Button
-                      variant="default"
-                      size="sm"
-                      onClick={() => navigate(`/green-papers/${paper.slug}`)}
-                      className="flex-1"
-                    >
-                      <BookOpen className="w-4 h-4 ml-2" />
-                      اقرأ التفاصيل
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        // Handle direct download with lead capture
-                        console.log('Download:', paper.title);
-                      }}
-                    >
-                      <Download className="w-4 h-4" />
-                    </Button>
+                  {/* Card Content */}
+                  <div className="p-6 space-y-4">
+                    {/* Categories */}
+                    <div className="flex flex-wrap gap-2">
+                      {paper.category.map(cat => (
+                        <Badge 
+                          key={cat} 
+                          className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 text-xs"
+                        >
+                          {cat}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-white group-hover:text-[#008C6A] transition-colors duration-300 leading-tight line-clamp-2">
+                      {paper.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300 line-clamp-3">
+                      {paper.excerpt}
+                    </p>
+                    
+                    {/* Stats */}
+                    <div className="flex items-center justify-between text-sm text-gray-400">
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {paper.reading_minutes} دقيقة
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <FileText className="w-4 h-4" />
+                          {paper.pages} صفحة
+                        </div>
+                        {paper.rating && (
+                          <div className="flex items-center gap-1">
+                            <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+                            <span className="text-white font-semibold">{paper.rating}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex gap-2 pt-4">
+                      <Button
+                        variant="default"
+                        size="sm"
+                        onClick={() => navigate(`/green-papers/${paper.slug}`)}
+                        className="flex-1 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 hover:bg-gradient-to-r hover:from-[#008C6A] hover:to-[#00694F] hover:text-white hover:border-[#008C6A] transition-all duration-300 font-semibold shadow-lg hover:shadow-[#008C6A]/25"
+                      >
+                        <BookOpen className="w-4 h-4 ml-2" />
+                        اقرأ التفاصيل
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          // Handle direct download with lead capture
+                          console.log('Download:', paper.title);
+                        }}
+                        className="bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:bg-gradient-to-r hover:from-[#008C6A]/20 hover:to-[#00694F]/20 hover:border-[#008C6A]/70 transition-all duration-300"
+                      >
+                        <Download className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Newsletter CTA */}
-      <section className="bg-primary/5 py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
+        {/* Newsletter CTA */}
+        <div className="mt-16 relative">
+          <div className="bg-gradient-to-br from-gray-900/60 to-black/40 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 p-8 text-center">
+            <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-4">
               📩 أرسل لي أحدث الأوراق
             </h2>
-            <p className="text-muted-foreground mb-8">
+            <p className="text-gray-300 text-lg mb-8">
               اشترك في نشرتنا البريدية واحصل على أحدث الأوراق والدلائل العملية أولاً بأول
             </p>
-            <div className="flex gap-4 max-w-md mx-auto">
+            
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Input
                 type="email"
                 placeholder="أدخل بريدك الإلكتروني"
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="flex-1"
+                className="flex-1 bg-gradient-to-r from-gray-900/80 to-black/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-xl text-white placeholder-gray-400 focus:border-[#008C6A]/70 focus:ring-2 focus:ring-[#008C6A]/30 transition-all duration-300"
               />
-              <Button onClick={handleSubscribeNewsletter} className="px-8">
+              <Button 
+                onClick={handleSubscribeNewsletter}
+                className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300 px-8"
+              >
+                <Mail className="w-4 h-4 ml-2" />
                 اشترك
               </Button>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* FAQ Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              أسئلة شائعة
-            </h2>
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-right">ما هي الأوراق الخضراء؟</AccordionTrigger>
-                <AccordionContent className="text-right">
-                  الأوراق الخضراء هي مجموعة من الدلائل والمراجع العملية المتخصصة في مجال الموارد البشرية، تهدف إلى مساعدة المهنيين واتخاذ قرارات مدروسة ومبنية على أفضل الممارسات العالمية والمحلية.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="text-right">هل هي مجانية؟</AccordionTrigger>
-                <AccordionContent className="text-right">
-                  نعم، جميع الأوراق الخضراء متاحة للتحميل مجاناً. نؤمن في بُعد أن المعرفة يجب أن تكون متاحة للجميع لتطوير مجال الموارد البشرية في المنطقة.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger className="text-right">من أين نأتي بالمصادر؟</AccordionTrigger>
-                <AccordionContent className="text-right">
-                  نعتمد على مصادر موثوقة مثل الهيئة العامة للموارد البشرية، التأمينات الاجتماعية، أفضل الممارسات العالمية من منظمات مثل SHRM و CIPD، بالإضافة إلى خبرة فريقنا المتخصص في الموارد البشرية.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+        {/* Footer */}
+        <div className="mt-16 pt-8 border-t border-[#008C6A]/20">
+          <div className="text-center text-gray-400 text-sm">
+            <p>© 2025 منصة بُعد للموارد البشرية. جميع الحقوق محفوظة.</p>
           </div>
         </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="bg-gradient-to-r from-primary to-primary-glow py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-6">
-              هل تريد حلولاً مخصصة لشركتك؟
-            </h2>
-            <p className="text-white/90 text-lg mb-8">
-              تواصل معنا للحصول على استشارة مجانية حول كيفية تطبيق هذه المفاهيم في بيئة عملك
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="px-8">
-                اطلب عرضًا توضيحيًا
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 text-white border-white hover:bg-white hover:text-primary">
-                احجز اجتماعًا مع خبير بُعد
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-muted/30 border-t border-border/20 py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <BoudLogo showText />
-              <p className="text-sm text-muted-foreground">
-                منصة بُعد للموارد البشرية - الحل الشامل لإدارة رأس المال البشري
-              </p>
-              <div className="flex gap-4">
-                <a href="#" className="text-muted-foreground hover:text-primary">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-primary">
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-primary">
-                  <Instagram className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">المحتوى والأدوات</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">أوراق خضراء</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">أدوات الموارد البشرية</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">مدونة بُعد</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">دراسات الحالة</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">المنتجات</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">إدارة الموظفين</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">الرواتب والمزايا</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">الحضور والانصراف</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">تقييم الأداء</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">تواصل معنا</h4>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center gap-2 text-muted-foreground">
-                  <Phone className="w-4 h-4" />
-                  +966 11 123 4567
-                </li>
-                <li className="flex items-center gap-2 text-muted-foreground">
-                  <Mail className="w-4 h-4" />
-                  info@boudhr.com
-                </li>
-                <li className="flex items-center gap-2 text-muted-foreground">
-                  <MapPin className="w-4 h-4" />
-                  الرياض، المملكة العربية السعودية
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-border/20 mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p>© 2025 بُعد للموارد البشرية. جميع الحقوق محفوظة.</p>
-              <div className="flex gap-6">
-                <a href="#" className="hover:text-primary">سياسة الخصوصية</a>
-                <a href="#" className="hover:text-primary">الشروط والأحكام</a>
-                <a href="#" className="hover:text-primary">سياسة الاستخدام</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      </main>
     </div>
   );
 };
