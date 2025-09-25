@@ -4283,84 +4283,84 @@ const EmployeePortal = () => {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center">
-                    <Award className="h-8 w-8 text-yellow-600" />
-                    <div className="mr-4">
-                      <div className="text-2xl font-bold">85%</div>
-                      <div className="text-sm text-muted-foreground">تقييم الأداء</div>
-                    </div>
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-[#008C6A]/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-[#008C6A]/30 transition-all duration-300">
+                    <Award className="h-8 w-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">85%</div>
+                  <div className="text-sm text-gray-300">تقييم الأداء</div>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center">
-                    <FileText className="h-8 w-8 text-purple-600" />
-                    <div className="mr-4">
-                      <div className="text-2xl font-bold">{activeRequests.length}</div>
-                      <div className="text-sm text-muted-foreground">طلبات نشطة</div>
-                    </div>
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-[#008C6A]/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-[#008C6A]/30 transition-all duration-300">
+                    <FileText className="h-8 w-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">{activeRequests.length}</div>
+                  <div className="text-sm text-gray-300">طلبات نشطة</div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>الإجراءات السريعة</CardTitle>
+            {/* Enhanced Quick Actions Section */}
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                  الإجراءات السريعة
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              <CardContent className="p-6 bg-gray-900/40">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                   <Button 
                     variant="outline" 
-                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    className="h-20 flex-col gap-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 text-white"
                     onClick={handleQuickLeaveRequest}
                   >
-                    <Calendar className="h-6 w-6" />
+                    <Calendar className="h-6 w-6 text-[#008C6A]" />
                     طلب إجازة
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    className="h-20 flex-col gap-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 text-white"
                     onClick={handleQuickSalaryCertificate}
                   >
-                    <FileText className="h-6 w-6" />
+                    <FileText className="h-6 w-6 text-[#008C6A]" />
                     شهادة راتب
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    className="h-20 flex-col gap-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 text-white"
                     onClick={handleQuickResidentRequest}
                   >
-                    <Satellite className="h-6 w-6" />
+                    <Satellite className="h-6 w-6 text-[#008C6A]" />
                     طلب مقيم
                   </Button>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button 
                         variant="outline" 
-                        className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                        className="h-20 flex-col gap-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 text-white"
                         onClick={handleContactHR}
                       >
-                        <MessageCircle className="h-6 w-6" />
+                        <MessageCircle className="h-6 w-6 text-[#008C6A]" />
                         تواصل مع HR
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-md">
+                    <DialogContent className="max-w-md bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30">
                       <DialogHeader>
-                        <DialogTitle>الدردشة مع الموارد البشرية</DialogTitle>
+                        <DialogTitle className="text-white">الدردشة مع الموارد البشرية</DialogTitle>
                       </DialogHeader>
                       <div className="space-y-4">
-                        <div className="h-64 overflow-y-auto border rounded p-2 space-y-2">
+                        <div className="h-64 overflow-y-auto border border-[#008C6A]/30 rounded p-2 space-y-2 bg-black/20">
                           {chatMessages.length === 0 ? (
-                            <p className="text-muted-foreground text-center">لا توجد رسائل</p>
+                            <p className="text-gray-400 text-center">لا توجد رسائل</p>
                           ) : (
                             chatMessages.map((msg) => (
-                              <div key={msg.id} className={`p-2 rounded ${msg.sender === 'أنت' ? 'bg-primary text-primary-foreground mr-auto max-w-[80%]' : 'bg-muted ml-auto max-w-[80%]'}`}>
+                              <div key={msg.id} className={`p-2 rounded ${msg.sender === 'أنت' ? 'bg-[#008C6A] text-white mr-auto max-w-[80%]' : 'bg-gray-700 text-white ml-auto max-w-[80%]'}`}>
                                 <p className="text-sm">{msg.message}</p>
                                 <p className="text-xs opacity-70">{msg.timestamp}</p>
                               </div>
@@ -4373,8 +4373,9 @@ const EmployeePortal = () => {
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                            className="bg-black/20 border border-[#008C6A]/30 text-white"
                           />
-                          <Button onClick={sendMessage} size="sm">
+                          <Button onClick={sendMessage} size="sm" className="bg-[#008C6A] hover:bg-[#00694F]">
                             <Send className="h-4 w-4" />
                           </Button>
                         </div>
@@ -4383,31 +4384,35 @@ const EmployeePortal = () => {
                   </Dialog>
                   <Button 
                     variant="outline" 
-                    className="h-20 flex-col gap-2 hover:bg-primary/10 hover:scale-105 transition-all duration-200"
+                    className="h-20 flex-col gap-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 text-white"
                     onClick={handleDownloadDocuments}
                   >
-                    <Download className="h-6 w-6" />
+                    <Download className="h-6 w-6 text-[#008C6A]" />
                     تحميل المستندات
                   </Button>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Recent Activity */}
-            <Card>
-              <CardHeader>
-                <CardTitle>النشاط الأخير</CardTitle>
+            {/* Enhanced Recent Activity */}
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+                  <Clock className="h-6 w-6 text-white" />
+                  النشاط الأخير
+                </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6 bg-gray-900/40">
                 <div className="space-y-4">
                   {activeRequests.slice(0, 3).map((request) => (
-                    <div key={request.id} className="flex items-center justify-between border-b pb-2">
+                    <div key={request.id} className="flex items-center justify-between p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-300">
                       <div>
-                        <p className="font-medium">{request.type}</p>
-                        <p className="text-sm text-muted-foreground">{request.details}</p>
+                        <p className="font-medium text-white">{request.type}</p>
+                        <p className="text-sm text-gray-400">{request.details}</p>
                       </div>
                       <div className="text-left">
-                        <p className="text-sm text-muted-foreground">{request.date}</p>
+                        <p className="text-sm text-gray-400">{request.date}</p>
                         {getStatusBadge(request.status)}
                       </div>
                     </div>
@@ -4417,21 +4422,19 @@ const EmployeePortal = () => {
             </Card>
           </TabsContent>
 
-          {/* Requests Tab */}
+          {/* Enhanced Requests Tab */}
           <TabsContent value="requests" className="space-y-6">
-            {/* إحصائيات الطلبات */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-green-600">طلبات مقبولة</p>
-                      <p className="text-2xl font-bold text-green-700">
-                        {enhancedRequests.filter(r => r.status === 'تمت الموافقة' || r.status === 'مكتمل').length}
-                      </p>
-                    </div>
-                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+            {/* Enhanced Request Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-green-500/30 transition-all duration-300">
+                    <CheckCircle2 className="h-8 w-8 text-green-400 group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">
+                    {enhancedRequests.filter(r => r.status === 'تمت الموافقة' || r.status === 'مكتمل').length}
+                  </div>
+                  <div className="text-sm text-gray-300">طلبات مقبولة</div>
                 </CardContent>
               </Card>
 
