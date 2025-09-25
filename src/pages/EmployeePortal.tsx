@@ -2456,53 +2456,60 @@ const EmployeePortal = () => {
 
           {/* تبويب الدورات التدريبية */}
           <TabsContent value="courses" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5" />
+            {/* Enhanced Training Courses with EarnWithBoad Design */}
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+                  <GraduationCap className="h-6 w-6 text-white" />
                   الدورات التدريبية
                 </CardTitle>
-                <CardDescription>دوراتك التدريبية ومعدل التقدم</CardDescription>
+                <CardDescription className="text-center text-gray-200 relative z-10">دوراتك التدريبية ومعدل التقدم</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6 bg-gray-900/40">
                 <div className="space-y-6">
                   {courses.map((course) => (
-                    <Card key={course.id} className="border-l-4 border-l-primary shadow-lg hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
+                    <Card key={course.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-6 bg-gray-900/40 relative">
+                        {/* Background Pattern */}
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        
+                        <div className="flex items-start justify-between mb-4 relative z-10">
                           <div className="flex-1">
-                            <h3 className="text-xl font-bold mb-2">{course.title}</h3>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                              <div className="flex items-center gap-1">
-                                <Clock className="h-4 w-4" />
+                            <h3 className="text-xl font-bold mb-2 text-white">{course.title}</h3>
+                            <div className="flex items-center gap-4 text-sm text-gray-300 mb-3">
+                              <div className="flex items-center gap-1 bg-black/20 backdrop-blur-sm p-2 rounded-lg border border-[#008C6A]/20">
+                                <Clock className="h-4 w-4 text-[#008C6A]" />
                                 <span>المدة: {course.duration}</span>
                               </div>
-                              <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
+                              <div className="flex items-center gap-1 bg-black/20 backdrop-blur-sm p-2 rounded-lg border border-green-500/20">
+                                <Calendar className="h-4 w-4 text-green-400" />
                                 <span>البداية: {course.startDate}</span>
                               </div>
                             </div>
                           </div>
-                          <Badge variant="outline" className={`${getCourseStatusColor(course.status)} text-white px-3 py-1`}>
+                          <Badge variant="outline" className={`${getCourseStatusColor(course.status)} bg-gray-900/60 border-[#008C6A]/30 text-white px-3 py-1`}>
                             {course.status}
                           </Badge>
                         </div>
 
-                        {/* شريط التقدم */}
-                        <div className="mb-4">
+                        {/* Enhanced Progress Bar */}
+                        <div className="mb-4 relative z-10">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium">نسبة الإنجاز</span>
-                            <span className="text-sm font-bold text-primary">{course.progress}%</span>
+                            <span className="text-sm font-medium text-gray-300">نسبة الإنجاز</span>
+                            <span className="text-sm font-bold text-[#008C6A]">{course.progress}%</span>
                           </div>
-                          <Progress value={course.progress} className="h-2" />
+                          <Progress value={course.progress} className="h-2 bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
                         </div>
 
-                        {/* أزرار التفاعل */}
-                        <div className="flex gap-2 flex-wrap">
+                        {/* Enhanced Interactive Buttons */}
+                        <div className="flex gap-2 flex-wrap relative z-10">
                           <Button 
                             size="sm" 
                             onClick={() => handleEnterCourse(course)}
-                            className="bg-primary hover:bg-primary/90"
+                            className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#008C6A]/20"
                           >
                             <BookOpen className="h-4 w-4 ml-2" />
                             دخول الدورة
@@ -2512,9 +2519,9 @@ const EmployeePortal = () => {
                             size="sm" 
                             variant="outline" 
                             onClick={() => handleWatchCourse(course)}
-                            className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                            className="bg-gray-900/60 border-green-400/30 text-white hover:bg-green-500/20 hover:border-green-400/50 transition-all duration-300 hover:scale-105"
                           >
-                            <Eye className="h-4 w-4 ml-2" />
+                            <Eye className="h-4 w-4 ml-2 text-green-400" />
                             مشاهدة المحتوى
                           </Button>
                           
@@ -2522,9 +2529,9 @@ const EmployeePortal = () => {
                             size="sm" 
                             variant="outline" 
                             onClick={() => handleJoinClassroom(course)}
-                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                            className="bg-gray-900/60 border-blue-400/30 text-white hover:bg-blue-500/20 hover:border-blue-400/50 transition-all duration-300 hover:scale-105"
                           >
-                            <Users className="h-4 w-4 ml-2" />
+                            <Users className="h-4 w-4 ml-2 text-blue-400" />
                             القاعة التفاعلية
                           </Button>
                           
@@ -2532,18 +2539,18 @@ const EmployeePortal = () => {
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700"
+                              className="bg-gray-900/60 border-orange-400/30 text-white hover:bg-orange-500/20 hover:border-orange-400/50 transition-all duration-300 hover:scale-105"
                             >
-                              <Download className="h-4 w-4 ml-2" />
+                              <Download className="h-4 w-4 ml-2 text-orange-400" />
                               تحميل الشهادة
                             </Button>
                           )}
                         </div>
 
-                        {/* معلومات إضافية للدورات النشطة */}
+                        {/* Enhanced Active Course Info */}
                         {course.status === 'جاري' && (
-                          <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                            <div className="flex items-center gap-2 text-blue-700">
+                          <div className="mt-4 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/30 relative z-10">
+                            <div className="flex items-center gap-2 text-[#008C6A]">
                               <Clock className="h-4 w-4" />
                               <span className="text-sm font-medium">الدرس القادم: غداً في الساعة 10:00 صباحاً</span>
                             </div>
