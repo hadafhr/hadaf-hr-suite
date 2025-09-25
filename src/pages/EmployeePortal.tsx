@@ -2160,67 +2160,77 @@ const EmployeePortal = () => {
 
                 {/* Enhanced Contact Information Panel */}
                 <div className="min-w-80">
-                  <div className="bg-background/60 backdrop-blur border border-border/50 rounded-2xl p-6 space-y-5 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl p-6 space-y-5 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-500">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-foreground flex items-center gap-2">
-                        <Target className="h-5 w-5 text-primary" />
+                      <h3 className="font-semibold text-white flex items-center gap-2">
+                        <Target className="h-5 w-5 text-[#008C6A]" />
                         معلومات الاتصال
                       </h3>
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
-                        <MoreHorizontal className="h-4 w-4" />
+                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0 hover:bg-[#008C6A]/20 transition-colors">
+                        <MoreHorizontal className="h-4 w-4 text-gray-300" />
                       </Button>
                     </div>
                     
                     <div className="space-y-3">
-                      <div className="flex items-center gap-3 group hover:bg-muted/40 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-border/50">
-                        <div className="p-2.5 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors group-hover:scale-110">
-                          <Mail className="h-4 w-4 text-primary" />
+                      <div className="flex items-center gap-3 group hover:bg-[#008C6A]/10 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-[#008C6A]/30 bg-black/20">
+                        <div className="p-2.5 bg-[#008C6A]/20 rounded-xl group-hover:bg-[#008C6A]/30 transition-colors group-hover:scale-110">
+                          <Mail className="h-4 w-4 text-[#008C6A]" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs text-muted-foreground font-medium">البريد الإلكتروني</p>
-                          <p className="text-sm font-semibold truncate">{employeeDisplayData.email}</p>
+                          <p className="text-xs text-gray-400 font-medium">البريد الإلكتروني</p>
+                          <p className="text-sm font-semibold truncate text-white">{employeeDisplayData.email}</p>
                         </div>
-                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0">
-                          <Send className="h-3 w-3" />
+                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0 hover:bg-[#008C6A]/20">
+                          <Send className="h-3 w-3 text-[#008C6A]" />
                         </Button>
                       </div>
                       
-                      <div className="flex items-center gap-3 group hover:bg-muted/40 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-border/50">
-                        <div className="p-2.5 bg-green-500/10 rounded-xl group-hover:bg-green-500/20 transition-colors group-hover:scale-110">
-                          <Phone className="h-4 w-4 text-green-600" />
+                      <div className="flex items-center gap-3 group hover:bg-green-500/10 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-green-500/30 bg-black/20">
+                        <div className="p-2.5 bg-green-500/20 rounded-xl group-hover:bg-green-500/30 transition-colors group-hover:scale-110">
+                          <Phone className="h-4 w-4 text-green-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs text-muted-foreground font-medium">رقم الهاتف</p>
-                          <p className="text-sm font-semibold" dir="ltr">{employeeDisplayData.phone}</p>
+                          <p className="text-xs text-gray-400 font-medium">رقم الهاتف</p>
+                          <p className="text-sm font-semibold text-white" dir="ltr">{employeeDisplayData.phone}</p>
                         </div>
-                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0">
-                          <Phone className="h-3 w-3" />
+                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0 hover:bg-green-500/20">
+                          <Phone className="h-3 w-3 text-green-400" />
                         </Button>
                       </div>
                       
-                      <div className="flex items-center gap-3 group hover:bg-muted/40 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-border/50">
-                        <div className="p-2.5 bg-blue-500/10 rounded-xl group-hover:bg-blue-500/20 transition-colors group-hover:scale-110">
-                          <MapPin className="h-4 w-4 text-blue-600" />
+                      <div className="flex items-center gap-3 group hover:bg-blue-500/10 rounded-xl p-3 transition-all duration-300 cursor-pointer border border-transparent hover:border-blue-500/30 bg-black/20">
+                        <div className="p-2.5 bg-blue-500/20 rounded-xl group-hover:bg-blue-500/30 transition-colors group-hover:scale-110">
+                          <MapPin className="h-4 w-4 text-blue-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs text-muted-foreground font-medium">العنوان</p>
-                          <p className="text-sm font-semibold truncate">{employeeDisplayData.address}</p>
+                          <p className="text-xs text-gray-400 font-medium">العنوان</p>
+                          <p className="text-sm font-semibold truncate text-white">{employeeDisplayData.address}</p>
                         </div>
-                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0">
-                          <MapPin className="h-3 w-3" />
+                        <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 p-0 hover:bg-blue-500/20">
+                          <MapPin className="h-3 w-3 text-blue-400" />
                         </Button>
                       </div>
                     </div>
                     
                     {/* Quick Actions */}
-                    <div className="pt-4 border-t border-border/50">
+                    <div className="pt-4 border-t border-[#008C6A]/20">
                       <div className="grid grid-cols-2 gap-2">
-                        <Button size="sm" variant="outline" className="text-xs" onClick={handleQuickLeaveRequest}>
-                          <Calendar className="h-3 w-3 mr-1" />
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-xs bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 transition-all duration-300" 
+                          onClick={handleQuickLeaveRequest}
+                        >
+                          <Calendar className="h-3 w-3 ml-1 text-[#008C6A]" />
                           طلب إجازة
                         </Button>
-                        <Button size="sm" variant="outline" className="text-xs" onClick={handleQuickSalaryCertificate}>
-                          <FileText className="h-3 w-3 mr-1" />
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-xs bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 transition-all duration-300" 
+                          onClick={handleQuickSalaryCertificate}
+                        >
+                          <FileText className="h-3 w-3 ml-1 text-[#008C6A]" />
                           شهادة راتب
                         </Button>
                       </div>
