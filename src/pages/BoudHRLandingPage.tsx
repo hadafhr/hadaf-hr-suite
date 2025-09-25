@@ -298,26 +298,26 @@ const BoudHRLandingPage: React.FC = () => {
     number: "24/7",
     label: "دعم متواصل"
   }];
-  return <div className="min-h-screen bg-black font-arabic">
+  return <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background font-arabic">
       {/* Professional Enterprise Header */}
-      <header className="bg-black/98 backdrop-blur-md border-b border-gray-700 sticky top-0 z-50 shadow-lg">
+      <header className="bg-card/95 backdrop-blur-xl border-b border-border/50 sticky top-0 z-50 shadow-lg">
         <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-14">
+          <div className="flex items-center justify-between h-16">
             {/* Professional Logo Section */}
             <div className="flex items-center space-x-4 space-x-reverse">
               <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain brightness-0 invert" />
+                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain" />
               </div>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
-              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4 brightness-0 invert" />
-              <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
+              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4" />
+              <a href="#home" className="text-foreground hover:text-primary text-sm font-medium transition-colors">الرئيسية</a>
               
-              <a href="#about" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">عن بُعد</a>
+              <a href="#about" className="text-foreground hover:text-primary text-sm font-medium transition-colors">عن بُعد</a>
               
-              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-foreground hover:text-primary text-sm font-medium transition-colors flex items-center gap-2">
                 <Play className="w-4 h-4" />
                 جولة تفاعلية
               </Button>
@@ -325,52 +325,52 @@ const BoudHRLandingPage: React.FC = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
+                  <Button variant="ghost" className="text-foreground hover:text-primary text-sm font-medium transition-colors">
                     مركز المعرفة
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-black border border-gray-700">
-                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-gray-900">
+                <DropdownMenuContent align="end" className="w-48 bg-card border border-border">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-foreground hover:bg-muted">
                     الدروس التعليمية
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/blog')} className="text-white hover:bg-gray-900">
+                  <DropdownMenuItem onClick={() => navigate('/blog')} className="text-foreground hover:bg-muted">
                     مدونة بُعد
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-gray-900">
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-foreground hover:bg-muted">
                     الأوراق الخضراء
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-white hover:bg-gray-900">
+                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-foreground hover:bg-muted">
                     الأوصاف الوظيفية
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="text-foreground hover:text-primary text-sm font-medium transition-colors flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
                 أدوات الموارد البشرية
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="text-foreground hover:text-primary text-sm font-medium transition-colors">
                 اربح مع بُعد
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="text-foreground hover:text-primary text-sm font-medium transition-colors flex items-center gap-2">
                 📅 احجز اجتماع
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/careers')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="text-foreground hover:text-primary text-sm font-medium transition-colors flex items-center gap-2">
                 👥 انضم الى فريقنا
               </Button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors">
+                <DropdownMenuTrigger className="text-foreground hover:text-primary text-sm font-medium flex items-center gap-1 transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-black border border-gray-700 shadow-lg">
+                <DropdownMenuContent align="end" className="w-64 bg-card border border-border shadow-lg">
                   {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
                       <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
                     behavior: 'smooth'
-                  }) : navigate(item.href)} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3">
+                  }) : navigate(item.href)} className="w-full text-right text-foreground hover:bg-muted transition-colors flex items-center gap-2 p-3">
                         <MessageCircle className="w-4 h-4" />
                         {item.name}
                       </button>
@@ -383,20 +383,20 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="hidden md:flex items-center space-x-3 space-x-reverse">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 bg-black text-white border border-gray-700 hover:bg-gray-900 hover:scale-105 transition-all duration-300">
+                  <Button variant="outline" className="flex items-center gap-2 bg-card text-foreground border border-border hover:bg-muted hover:scale-105 transition-all duration-300">
                     تسجيل الدخول <ChevronDown className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
-                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                <DropdownMenuContent align="end" className="w-56 bg-card border border-border shadow-lg">
+                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-foreground hover:bg-muted transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building2 className="w-4 h-4" />
                      مدير النظام
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-foreground hover:bg-muted transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <Building className="w-4 h-4" />
                     🏢 لوحة تحكم المنشأة
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-foreground hover:bg-muted transition-colors flex items-center gap-2 p-3 cursor-pointer">
                     <User className="w-4 h-4" />
                     🔘 لوحة تحكم الموظف
                   </DropdownMenuItem>
@@ -416,18 +416,18 @@ const BoudHRLandingPage: React.FC = () => {
           {/* Mobile Menu */}
           {isMobileMenuOpen && <div className="md:hidden py-4 border-t border-border">
               <nav className="flex flex-col space-y-2">
-                <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
+                <a href="#home" className="text-foreground hover:text-primary text-sm font-medium p-2 rounded hover:bg-muted transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
                 </a>
                 <button onClick={() => {
               navigate('/interactive-tour');
               setIsMobileMenuOpen(false);
-            }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
+            }} className="text-foreground hover:text-primary text-sm font-medium text-right flex items-center gap-2 p-2 rounded hover:bg-muted transition-colors">
                   <Play className="w-4 h-4" />
                   جولة تفاعلية
                 </button>
                 <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                  <summary className="text-foreground hover:text-primary text-sm font-medium cursor-pointer list-none p-2 rounded hover:bg-muted transition-colors">
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
@@ -443,17 +443,17 @@ const BoudHRLandingPage: React.FC = () => {
                     });
                   }
                   setIsMobileMenuOpen(false);
-                }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
+                }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors p-2 rounded hover:bg-muted/50">
                         {item.name}
                       </button>)}
                   </div>
                 </details>
                 <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                  <summary className="text-foreground hover:text-primary text-sm font-medium cursor-pointer list-none p-2 rounded hover:bg-muted transition-colors">
                     تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground p-2 rounded hover:bg-muted/50 hover:text-primary transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                         {item.name}
                       </a>)}
                   </div>
@@ -481,7 +481,8 @@ const BoudHRLandingPage: React.FC = () => {
       </header>
 
       {/* Professional Hero Section */}
-      <section id="home" className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-background via-slate-50/20 to-background">
+      <section id="home" className="relative py-20 lg:py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/10 to-background"></div>
         <PatternBackground opacity={0.03} size={500} />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)]"></div>
         <div className="absolute top-20 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
@@ -495,9 +496,12 @@ const BoudHRLandingPage: React.FC = () => {
                   الرائد في حلول الموارد البشرية
                 </Badge>
                 
-                <h2 className="text-2xl lg:text-3xl text-muted-foreground font-medium">
-                  إدارة الموارد البشرية بالذكاء الاصطناعي
-                </h2>
+                <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+                  <span className="block mb-2">إدارة الموارد البشرية</span>
+                  <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
+                    بالذكاء الاصطناعي
+                  </span>
+                </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   حل شامل ومتطور لإدارة الموارد البشرية مدعوم بالذكاء الاصطناعي، يخدم أكثر من 1000+ شركة في السعودية
                 </p>
@@ -523,7 +527,7 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+              <div className="aspect-[16/10] rounded-2xl overflow-hidden shadow-xl border border-border">
                 <img src="/lovable-uploads/8bafb621-e051-45f9-bbb2-928a25b816b7.png" alt="لوحة تحكم نظام بُعد HR - إدارة الموظفين الشامل" className="w-full h-full object-cover" />
               </div>
             </div>
