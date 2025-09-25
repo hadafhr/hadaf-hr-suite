@@ -5193,77 +5193,92 @@ const EmployeePortal = () => {
           <TabsContent value="performance" className="space-y-6">
             {/* إحصائيات الأداء */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-green-500/30 shadow-2xl hover:shadow-green-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">التقييم العام</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400">التقييم العام</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedPerformanceData.currentRating.overall}/5
                       </p>
                     </div>
-                    <Award className="h-8 w-8 text-green-500" />
+                    <Award className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-blue-500/30 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">الأهداف المكتملة</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400">الأهداف المكتملة</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedPerformanceData.goals.filter(g => g.progress === 100).length}/{enhancedPerformanceData.goals.length}
                       </p>
                     </div>
-                    <Target className="h-8 w-8 text-blue-500" />
+                    <Target className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-purple-500/30 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-purple-600">الإنجازات</p>
-                      <p className="text-2xl font-bold text-purple-700">
+                      <p className="text-sm font-medium text-purple-400">الإنجازات</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedPerformanceData.achievements.length}
                       </p>
                     </div>
-                    <CheckCircle2 className="h-8 w-8 text-purple-500" />
+                    <CheckCircle2 className="h-8 w-8 text-purple-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-orange-500/30 shadow-2xl hover:shadow-orange-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-orange-600">متوسط التقييمات</p>
-                      <p className="text-2xl font-bold text-orange-700">
+                      <p className="text-sm font-medium text-orange-400">متوسط التقييمات</p>
+                      <p className="text-2xl font-bold text-white">
                         {(enhancedPerformanceData.reviews.reduce((sum, r) => sum + r.overallScore, 0) / enhancedPerformanceData.reviews.length).toFixed(1)}
                       </p>
                     </div>
-                    <BarChart3 className="h-8 w-8 text-orange-500" />
+                    <BarChart3 className="h-8 w-8 text-orange-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* تقييم الكفاءات */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5" />
-                    <CardTitle>تقييم الكفاءات</CardTitle>
+                    <BarChart3 className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-white">تقييم الكفاءات</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button 
                       size="sm" 
                       variant="outline"
                       onClick={handleRequestFeedback}
-                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                      className="bg-gray-900/60 border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-500/50"
                     >
                       <MessageCircle className="h-4 w-4 ml-2" />
                       طلب تقييم
@@ -5271,7 +5286,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm"
                       onClick={handlePerformanceReport}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-[#008C6A] hover:bg-[#00694F] text-white"
                     >
                       <Download className="h-4 w-4 ml-2" />
                       تقرير الأداء
@@ -5279,27 +5294,30 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {enhancedPerformanceData.competencies.map((competency, index) => (
-                    <div key={index} className="p-4 border rounded-lg hover:shadow-md transition-all duration-300">
+                    <div key={index} className="p-4 bg-black/20 backdrop-blur-sm border border-[#008C6A]/20 rounded-lg hover:shadow-md transition-all duration-300">
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-semibold">{competency.name}</h4>
+                        <h4 className="font-semibold text-white">{competency.name}</h4>
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground">الحالي:</span>
-                          <span className="font-bold text-primary">{competency.current}</span>
-                          <span className="text-sm text-muted-foreground">الهدف:</span>
-                          <span className="font-bold text-green-600">{competency.target}</span>
+                          <span className="text-sm text-gray-400">الحالي:</span>
+                          <span className="font-bold text-[#008C6A]">{competency.current}</span>
+                          <span className="text-sm text-gray-400">الهدف:</span>
+                          <span className="font-bold text-green-400">{competency.target}</span>
                         </div>
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span>التقييم الحالي</span>
-                          <span>{competency.current}/5</span>
+                          <span className="text-gray-300">التقييم الحالي</span>
+                          <span className="text-white">{competency.current}/5</span>
                         </div>
-                        <Progress value={(competency.current / 5) * 100} className="h-2" />
+                        <Progress value={(competency.current / 5) * 100} className="h-2 bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
                         {competency.gap > 0 && (
-                          <div className="flex items-center gap-2 text-sm text-orange-600">
+                          <div className="flex items-center gap-2 text-sm text-orange-400">
                             <AlertCircle className="h-4 w-4" />
                             <span>فجوة: {competency.gap} نقطة</span>
                           </div>
@@ -5439,50 +5457,59 @@ const EmployeePortal = () => {
             </Card>
 
             {/* سجل التقييمات */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
-                  <CardTitle>سجل التقييمات</CardTitle>
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center gap-2 relative z-10">
+                  <FileText className="h-5 w-5 text-[#008C6A]" />
+                  <CardTitle className="text-white">سجل التقييمات</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {enhancedPerformanceData.reviews.map((review) => (
-                    <Card key={review.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
+                    <Card key={review.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg hover:shadow-[#008C6A]/20 transition-all duration-300 rounded-xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{review.period}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">المقيّم: {review.reviewer}</p>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{review.period}</h4>
+                            <p className="text-sm text-gray-300 mb-2">المقيّم: {review.reviewer}</p>
+                            <div className="flex items-center gap-4 text-sm text-gray-300">
                               <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
+                                <Calendar className="h-4 w-4 text-[#008C6A]" />
                                 <span>تاريخ التقييم: {review.reviewDate}</span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
+                                <Calendar className="h-4 w-4 text-blue-400" />
                                 <span>التقييم القادم: {review.nextReview}</span>
                               </div>
                             </div>
                           </div>
                           <div className="text-right">
                             <div className="flex items-center gap-2 mb-2">
-                              <span className="text-sm text-muted-foreground">التقييم:</span>
-                              <span className="text-2xl font-bold text-primary">{review.overallScore}/5</span>
+                              <span className="text-sm text-gray-300">التقييم:</span>
+                              <span className="text-2xl font-bold text-[#008C6A]">{review.overallScore}/5</span>
                             </div>
                           </div>
                         </div>
 
                         {/* نقاط القوة */}
-                        <div className="mb-3">
-                          <h5 className="font-medium mb-2 text-green-700 flex items-center gap-1">
+                        <div className="mb-3 relative z-10">
+                          <h5 className="font-medium mb-2 text-green-400 flex items-center gap-1">
                             <CheckCircle2 className="h-4 w-4" />
                             نقاط القوة:
                           </h5>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                             {review.strengths.map((strength, idx) => (
-                              <div key={idx} className="flex items-center gap-2 text-sm text-green-700">
+                              <div key={idx} className="flex items-center gap-2 text-sm text-green-400">
                                 <Plus className="h-3 w-3" />
                                 <span>{strength}</span>
                               </div>
@@ -5491,14 +5518,14 @@ const EmployeePortal = () => {
                         </div>
 
                         {/* نقاط التحسين */}
-                        <div className="mb-3">
-                          <h5 className="font-medium mb-2 text-orange-700 flex items-center gap-1">
+                        <div className="mb-3 relative z-10">
+                          <h5 className="font-medium mb-2 text-orange-400 flex items-center gap-1">
                             <AlertCircle className="h-4 w-4" />
                             نقاط التحسين:
                           </h5>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                             {review.improvements.map((improvement, idx) => (
-                              <div key={idx} className="flex items-center gap-2 text-sm text-orange-700">
+                              <div key={idx} className="flex items-center gap-2 text-sm text-orange-400">
                                 <Target className="h-3 w-3" />
                                 <span>{improvement}</span>
                               </div>
@@ -5507,9 +5534,9 @@ const EmployeePortal = () => {
                         </div>
 
                         {/* التعليقات */}
-                        <div className="p-3 bg-muted/30 rounded-lg">
-                          <h5 className="font-medium mb-1 text-sm">تعليقات المقيّم:</h5>
-                          <p className="text-sm">{review.feedback}</p>
+                        <div className="p-3 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                          <h5 className="font-medium mb-1 text-sm text-gray-300">تعليقات المقيّم:</h5>
+                          <p className="text-sm text-gray-300">{review.feedback}</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -5519,41 +5546,50 @@ const EmployeePortal = () => {
             </Card>
 
             {/* الإنجازات والجوائز */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5" />
-                  <CardTitle>الإنجازات والجوائز</CardTitle>
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center gap-2 relative z-10">
+                  <Award className="h-5 w-5 text-[#008C6A]" />
+                  <CardTitle className="text-white">الإنجازات والجوائز</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
                   {enhancedPerformanceData.achievements.map((achievement) => (
-                    <Card key={achievement.id} className="border-l-4 border-l-primary/30 shadow-sm hover:shadow-md transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start gap-3">
+                    <Card key={achievement.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg hover:shadow-[#008C6A]/20 transition-all duration-300 rounded-xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start gap-3 relative z-10">
                           <div className="flex-shrink-0">
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                              achievement.type === 'تقدير' ? 'bg-yellow-100' :
-                              achievement.type === 'إنجاز' ? 'bg-green-100' :
-                              'bg-blue-100'
+                              achievement.type === 'تقدير' ? 'bg-yellow-900/60 backdrop-blur-sm' :
+                              achievement.type === 'إنجاز' ? 'bg-green-900/60 backdrop-blur-sm' :
+                              'bg-blue-900/60 backdrop-blur-sm'
                             }`}>
                               <Award className={`h-5 w-5 ${
-                                achievement.type === 'تقدير' ? 'text-yellow-600' :
-                                achievement.type === 'إنجاز' ? 'text-green-600' :
-                                'text-blue-600'
+                                achievement.type === 'تقدير' ? 'text-yellow-400' :
+                                achievement.type === 'إنجاز' ? 'text-green-400' :
+                                'text-blue-400'
                               }`} />
                             </div>
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-semibold mb-1">{achievement.title}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">{achievement.description}</p>
+                            <h4 className="font-semibold mb-1 text-white">{achievement.title}</h4>
+                            <p className="text-sm text-gray-300 mb-2">{achievement.description}</p>
                             <div className="flex items-center justify-between text-xs">
-                              <Badge variant="outline">{achievement.type}</Badge>
-                              <span className="text-muted-foreground">{achievement.date}</span>
+                              <Badge variant="outline" className="bg-gray-900/60 border-[#008C6A]/30 text-white">{achievement.type}</Badge>
+                              <span className="text-gray-400">{achievement.date}</span>
                             </div>
-                            <div className="mt-2 p-2 bg-muted/20 rounded text-xs">
-                              <strong>التأثير:</strong> {achievement.impact}
+                            <div className="mt-2 p-2 bg-black/20 backdrop-blur-sm rounded text-xs border border-[#008C6A]/20">
+                              <strong className="text-gray-300">التأثير:</strong> <span className="text-gray-300">{achievement.impact}</span>
                             </div>
                           </div>
                         </div>
