@@ -362,27 +362,27 @@ const CareersPage = () => {
 
                       <CardContent>
                         <div className="space-y-3">
-                          <div className="flex items-center text-muted-foreground">
+                          <div className="flex items-center text-muted-foreground mb-2">
                             <MapPin className="w-4 h-4 mr-2" />
                             <span>{job.location}</span>
                           </div>
 
-                          <div className="flex items-center text-muted-foreground">
+                          <div className="flex items-center text-muted-foreground mb-3">
                             <Calendar className="w-4 h-4 mr-2" />
                             <span>نُشر {new Date(job.posted_at).toLocaleDateString('ar-SA')}</span>
                           </div>
 
-                          <p className="text-muted-foreground text-sm line-clamp-2">
+                          <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
                             {job.description.substring(0, 120)}...
                           </p>
 
                           {job.salary_range_min && job.salary_range_max && (
-                            <div className="text-sm font-medium text-primary">
+                            <div className="text-sm font-medium text-primary mb-4">
                               {job.salary_range_min.toLocaleString()} - {job.salary_range_max.toLocaleString()} ريال
                             </div>
                           )}
 
-                          <Separator />
+                          <Separator className="my-4" />
 
                           <div className="flex justify-between items-center">
                             <div className="flex items-center text-sm text-muted-foreground">
@@ -394,6 +394,7 @@ const CareersPage = () => {
                               <Button 
                                 variant="outline" 
                                 size="sm"
+                                className="glass-card hover:scale-105 transition-all duration-300"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleViewJob(job);
@@ -403,6 +404,7 @@ const CareersPage = () => {
                               </Button>
                               <Button 
                                 size="sm"
+                                className="glass-card hover:scale-105 transition-all duration-300"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleApplyToJob(job);
@@ -420,7 +422,7 @@ const CareersPage = () => {
               </div>
             </TabsContent>
 
-            <TabsContent value="apply">
+            <TabsContent value="apply" className="glass-card p-8">
               <ApplicationTracking />
             </TabsContent>
           </Tabs>
