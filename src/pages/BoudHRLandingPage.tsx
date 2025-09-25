@@ -307,7 +307,8 @@ const BoudHRLandingPage: React.FC = () => {
     label: "دعم متواصل"
   }];
 
-  return <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
+  return (
+    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
@@ -1256,11 +1257,10 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
-      
+      </main>
 
       {/* BOUD HR Assistant with controlled state */}
       <BoudHRAssistant language="ar" isOpen={assistantOpen} onOpenChange={handleAssistantOpenChange} initialMessage={initialMessage} />
-      </main>
     </div>
   );
 };
