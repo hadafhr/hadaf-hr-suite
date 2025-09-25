@@ -4480,63 +4480,69 @@ const EmployeePortal = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-yellow-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-yellow-600">قيد المراجعة</p>
-                      <p className="text-2xl font-bold text-yellow-700">
-                        {enhancedRequests.filter(r => r.status === 'قيد المراجعة').length}
-                      </p>
-                    </div>
-                    <Clock className="h-8 w-8 text-yellow-500" />
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5"></div>
                   </div>
+                  <div className="w-16 h-16 bg-yellow-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-yellow-500/30 transition-all duration-300 relative z-10">
+                    <Clock className="h-8 w-8 text-yellow-400 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div className="text-2xl font-bold text-white mb-2 relative z-10">
+                    {enhancedRequests.filter(r => r.status === 'قيد المراجعة').length}
+                  </div>
+                  <div className="text-sm text-gray-300 relative z-10">قيد المراجعة</div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-red-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-red-600">طلبات مرفوضة</p>
-                      <p className="text-2xl font-bold text-red-700">
-                        {enhancedRequests.filter(r => r.status === 'مرفوض').length}
-                      </p>
-                    </div>
-                    <XCircle className="h-8 w-8 text-red-500" />
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-500/5"></div>
                   </div>
+                  <div className="w-16 h-16 bg-red-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-red-500/30 transition-all duration-300 relative z-10">
+                    <XCircle className="h-8 w-8 text-red-400 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div className="text-2xl font-bold text-white mb-2 relative z-10">
+                    {enhancedRequests.filter(r => r.status === 'مرفوض').length}
+                  </div>
+                  <div className="text-sm text-gray-300 relative z-10">طلبات مرفوضة</div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-blue-600">إجمالي الطلبات</p>
-                      <p className="text-2xl font-bold text-blue-700">
-                        {enhancedRequests.length}
-                      </p>
-                    </div>
-                    <FileText className="h-8 w-8 text-blue-500" />
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
                   </div>
+                  <div className="w-16 h-16 bg-blue-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-500/30 transition-all duration-300 relative z-10">
+                    <FileText className="h-8 w-8 text-blue-400 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div className="text-2xl font-bold text-white mb-2 relative z-10">
+                    {enhancedRequests.length}
+                  </div>
+                  <div className="text-sm text-gray-300 relative z-10">إجمالي الطلبات</div>
                 </CardContent>
               </Card>
             </div>
 
             {/* إدارة الطلبات */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5" />
-                    <CardTitle>طلباتي</CardTitle>
+                    <FileText className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-xl font-bold text-white">طلباتي</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Select value={selectedRequestsFilter} onValueChange={setSelectedRequestsFilter}>
-                      <SelectTrigger className="w-40">
+                      <SelectTrigger className="w-40 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب الحالة" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
                         <SelectItem value="all">جميع الطلبات</SelectItem>
                         <SelectItem value="إجازات">إجازات</SelectItem>
                         <SelectItem value="تطوير">تطوير</SelectItem>
@@ -4548,7 +4554,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm"
                       onClick={handleSubmitNewRequest}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white hover:from-[#00694F] hover:to-[#004D3A] shadow-lg hover:shadow-[#008C6A]/30 transition-all duration-300"
                     >
                       <Plus className="h-4 w-4 ml-2" />
                       طلب جديد
@@ -4556,18 +4562,24 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {enhancedRequests.filter(request => 
                     selectedRequestsFilter === 'all' || request.category === selectedRequestsFilter
                   ).map((request) => (
-                    <Card key={request.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
+                    <Card key={request.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{request.title}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">{request.description}</p>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{request.title}</h4>
+                            <p className="text-sm text-gray-300 mb-2">{request.description}</p>
+                            <div className="flex items-center gap-4 text-sm text-gray-400 mb-2">
                               <div className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
                                 <span>تاريخ التقديم: {request.submittedDate}</span>
@@ -4576,11 +4588,11 @@ const EmployeePortal = () => {
                                 <Clock className="h-4 w-4" />
                                 <span>المدة: {request.duration}</span>
                               </div>
-                              <Badge variant="outline" className="px-2 py-1">
+                              <Badge variant="outline" className="px-2 py-1 bg-black/20 border-[#008C6A]/30 text-[#008C6A]">
                                 {request.category}
                               </Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-gray-400">
                               رقم الطلب: {request.id} | المعتمد: {request.approver}
                             </p>
                           </div>
@@ -4588,9 +4600,9 @@ const EmployeePortal = () => {
                             <Badge 
                               variant="outline" 
                               className={`${
-                                request.status === 'تمت الموافقة' || request.status === 'مكتمل' ? 'bg-green-50 text-green-700 border-green-200' :
-                                request.status === 'قيد المراجعة' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
-                                'bg-red-50 text-red-700 border-red-200'
+                                request.status === 'تمت الموافقة' || request.status === 'مكتمل' ? 'bg-green-500/10 text-green-400 border-green-500/30' :
+                                request.status === 'قيد المراجعة' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30' :
+                                'bg-red-500/10 text-red-400 border-red-500/30'
                               } px-3 py-1`}
                             >
                               {request.status}
@@ -4598,9 +4610,9 @@ const EmployeePortal = () => {
                             <Badge 
                               variant="outline" 
                               className={`${
-                                request.priority === 'عالية' ? 'border-red-200 text-red-700 bg-red-50' :
-                                request.priority === 'متوسطة' ? 'border-yellow-200 text-yellow-700 bg-yellow-50' :
-                                'border-green-200 text-green-700 bg-green-50'
+                                request.priority === 'عالية' ? 'border-red-500/30 text-red-400 bg-red-500/10' :
+                                request.priority === 'متوسطة' ? 'border-yellow-500/30 text-yellow-400 bg-yellow-500/10' :
+                                'border-green-500/30 text-green-400 bg-green-500/10'
                               } px-2 py-1 text-xs`}
                             >
                               {request.priority}
@@ -4610,19 +4622,19 @@ const EmployeePortal = () => {
 
                         {/* تعليقات المراجع */}
                         {request.comments && (
-                          <div className="mb-3 p-3 bg-muted/30 rounded-lg">
-                            <p className="text-sm font-medium text-muted-foreground mb-1">تعليقات المراجع:</p>
-                            <p className="text-sm">{request.comments}</p>
+                          <div className="mb-3 p-3 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                            <p className="text-sm font-medium text-gray-400 mb-1">تعليقات المراجع:</p>
+                            <p className="text-sm text-white">{request.comments}</p>
                           </div>
                         )}
 
                         {/* المرفقات */}
                         {request.documents.length > 0 && (
-                          <div className="mb-3">
-                            <p className="text-sm font-medium text-muted-foreground mb-2">المرفقات:</p>
+                          <div className="mb-3 relative z-10">
+                            <p className="text-sm font-medium text-gray-400 mb-2">المرفقات:</p>
                             <div className="flex flex-wrap gap-2">
                               {request.documents.map((doc, index) => (
-                                <div key={index} className="flex items-center gap-1 px-2 py-1 bg-muted/20 rounded text-xs">
+                                <div key={index} className="flex items-center gap-1 px-2 py-1 bg-black/20 backdrop-blur-sm rounded border border-[#008C6A]/20 text-xs text-white">
                                   <FileText className="h-3 w-3" />
                                   <span>{doc}</span>
                                 </div>
@@ -4631,12 +4643,12 @@ const EmployeePortal = () => {
                           </div>
                         )}
 
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex gap-2 flex-wrap relative z-10">
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => handleViewRequestDetails(request)}
-                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                            className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                           >
                             <Eye className="h-4 w-4 ml-2" />
                             عرض التفاصيل
@@ -4648,7 +4660,7 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleFollowUpRequest(request.id)}
-                                className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                                className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                               >
                                 <MessageCircle className="h-4 w-4 ml-2" />
                                 متابعة
@@ -4658,7 +4670,7 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleCancelRequest(request.id)}
-                                className="hover:bg-red-50 hover:border-red-500 hover:text-red-700"
+                                className="bg-black/20 backdrop-blur-sm border-red-500/30 text-red-400 hover:bg-red-500/20 hover:border-red-400 hover:text-red-300 transition-all duration-300"
                               >
                                 <XCircle className="h-4 w-4 ml-2" />
                                 إلغاء الطلب
@@ -4670,7 +4682,7 @@ const EmployeePortal = () => {
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                              className="bg-black/20 backdrop-blur-sm border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:border-purple-400 hover:text-purple-300 transition-all duration-300"
                             >
                               <Download className="h-4 w-4 ml-2" />
                               تحميل الوثائق
@@ -4683,21 +4695,21 @@ const EmployeePortal = () => {
                 </div>
 
                 {/* ملخص الطلبات */}
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4" />
+                <div className="mt-6 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <BarChart3 className="h-4 w-4 text-[#008C6A]" />
                     ملخص الطلبات
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">معدل الموافقة</p>
-                      <p className="text-lg font-bold text-green-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-green-500/20">
+                      <p className="text-gray-400">معدل الموافقة</p>
+                      <p className="text-lg font-bold text-green-400">
                         {Math.round((enhancedRequests.filter(r => r.status === 'تمت الموافقة' || r.status === 'مكتمل').length / enhancedRequests.length) * 100)}%
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">متوسط وقت المراجعة</p>
-                      <p className="text-lg font-bold text-blue-600">3 أيام</p>
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-blue-500/20">
+                      <p className="text-gray-400">متوسط وقت المراجعة</p>
+                      <p className="text-lg font-bold text-blue-400">3 أيام</p>
                     </div>
                     <div className="text-center p-3 bg-background rounded-lg">
                       <p className="text-muted-foreground">الأكثر طلباً</p>
