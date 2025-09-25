@@ -114,7 +114,7 @@ const AdminLogin: React.FC = () => {
                   <Button 
                     variant="ghost" 
                     onClick={() => navigate('/')}
-                    className="group relative bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 h-12"
+                    className="group relative bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 h-8"
                   >
                     <div className="flex items-center gap-2">
                       <ArrowLeft className="h-4 w-4 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
