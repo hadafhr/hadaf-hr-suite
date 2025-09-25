@@ -3718,77 +3718,92 @@ const EmployeePortal = () => {
           <TabsContent value="career-path" className="space-y-6">
             {/* إحصائيات المسار الوظيفي */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">سنوات الخبرة</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400 mb-2">سنوات الخبرة</p>
+                      <p className="text-2xl font-bold text-white">
                         {careerStats.totalYears}
                       </p>
                     </div>
-                    <Clock className="h-8 w-8 text-blue-500" />
+                    <Clock className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">الترقيات</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400 mb-2">الترقيات</p>
+                      <p className="text-2xl font-bold text-white">
                         {careerStats.promotions}
                       </p>
                     </div>
-                    <TrendingUpIcon className="h-8 w-8 text-green-500" />
+                    <TrendingUpIcon className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-purple-600">نمو الراتب</p>
-                      <p className="text-2xl font-bold text-purple-700">
+                      <p className="text-sm font-medium text-purple-400 mb-2">نمو الراتب</p>
+                      <p className="text-2xl font-bold text-white">
                         {careerStats.salaryGrowth}%
                       </p>
                     </div>
-                    <DollarSign className="h-8 w-8 text-purple-500" />
+                    <DollarSign className="h-8 w-8 text-purple-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-orange-600">المشاريع المنجزة</p>
-                      <p className="text-2xl font-bold text-orange-700">
+                      <p className="text-sm font-medium text-orange-400 mb-2">المشاريع المنجزة</p>
+                      <p className="text-2xl font-bold text-white">
                         {careerStats.projectsLed}
                       </p>
                     </div>
-                    <Target className="h-8 w-8 text-orange-500" />
+                    <Target className="h-8 w-8 text-orange-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* الخط الزمني للمسار الوظيفي */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <TrendingUpIcon className="h-5 w-5" />
-                    <CardTitle>الخط الزمني للمسار الوظيفي</CardTitle>
+                    <TrendingUpIcon className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-xl font-bold text-white">الخط الزمني للمسار الوظيفي</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Select value={selectedCareerFilter} onValueChange={setSelectedCareerFilter}>
-                      <SelectTrigger className="w-40">
+                      <SelectTrigger className="w-40 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب الحالة" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
                         <SelectItem value="all">جميع المناصب</SelectItem>
                         <SelectItem value="مكتمل">مكتمل</SelectItem>
                         <SelectItem value="حالي">حالي</SelectItem>
@@ -3798,7 +3813,7 @@ const EmployeePortal = () => {
                       size="sm" 
                       variant="outline"
                       onClick={handleCareerPlanning}
-                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                      className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                     >
                       <BarChart3 className="h-4 w-4 ml-2" />
                       خطة التطوير
@@ -3806,7 +3821,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm"
                       onClick={handleRequestPromotion}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white hover:from-[#00694F] hover:to-[#004D3A] shadow-lg hover:shadow-[#008C6A]/30 transition-all duration-300"
                     >
                       <TrendingUpIcon className="h-4 w-4 ml-2" />
                       طلب ترقية
@@ -3814,19 +3829,25 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-6 relative z-10">
                   {enhancedCareerPath.filter(position => 
                     selectedCareerFilter === 'all' || position.status === selectedCareerFilter
                   ).map((position, index) => (
-                    <Card key={position.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
+                    <Card key={position.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-6 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start gap-4 relative z-10">
                           {/* رقم المرحلة */}
                           <div className="flex-shrink-0">
                             <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg ${
-                              position.status === 'حالي' ? 'bg-gradient-to-r from-primary to-primary/80' : 
-                              'bg-gradient-to-r from-gray-500 to-gray-600'
+                              position.status === 'حالي' ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F]' : 
+                              'bg-gradient-to-r from-gray-700 to-gray-800'
                             }`}>
                               {index + 1}
                             </div>
@@ -3835,9 +3856,9 @@ const EmployeePortal = () => {
                           <div className="flex-1">
                             <div className="flex items-start justify-between mb-3">
                               <div>
-                                <h3 className="text-xl font-bold mb-1">{position.position}</h3>
-                                <p className="text-sm text-muted-foreground mb-2">{position.level} • {position.department}</p>
-                                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                                <h3 className="text-xl font-bold mb-1 text-white">{position.position}</h3>
+                                <p className="text-sm text-gray-300 mb-2">{position.level} • {position.department}</p>
+                                <div className="flex items-center gap-4 text-sm text-gray-400 mb-2">
                                   <div className="flex items-center gap-1">
                                     <Calendar className="h-4 w-4" />
                                     <span>{position.startDate} - {position.endDate}</span>
@@ -3851,13 +3872,13 @@ const EmployeePortal = () => {
                                     <span>{position.salary.toLocaleString()} ريال</span>
                                   </div>
                                 </div>
-                                <p className="text-sm text-muted-foreground">المشرف: {position.manager}</p>
+                                <p className="text-sm text-gray-400">المشرف: {position.manager}</p>
                               </div>
                               <Badge 
                                 variant="outline" 
                                 className={`${
-                                  position.status === 'حالي' ? 'bg-green-50 text-green-700 border-green-200' :
-                                  'bg-blue-50 text-blue-700 border-blue-200'
+                                  position.status === 'حالي' ? 'bg-green-500/10 text-green-400 border-green-500/30' :
+                                  'bg-blue-500/10 text-blue-400 border-blue-500/30'
                                 } px-3 py-1`}
                               >
                                 {position.status}
@@ -3866,15 +3887,15 @@ const EmployeePortal = () => {
 
                             {/* الإنجازات */}
                             <div className="mb-4">
-                              <h4 className="font-semibold mb-2 flex items-center gap-1">
-                                <Award className="h-4 w-4" />
+                              <h4 className="font-semibold mb-2 flex items-center gap-1 text-white">
+                                <Award className="h-4 w-4 text-[#008C6A]" />
                                 الإنجازات الرئيسية:
                               </h4>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {position.achievements.map((achievement, idx) => (
                                   <div key={idx} className="flex items-center gap-2 text-sm">
-                                    <CheckCircle2 className="h-3 w-3 text-green-500 flex-shrink-0" />
-                                    <span>{achievement}</span>
+                                    <CheckCircle2 className="h-3 w-3 text-green-400 flex-shrink-0" />
+                                    <span className="text-gray-300">{achievement}</span>
                                   </div>
                                 ))}
                               </div>
@@ -3882,10 +3903,10 @@ const EmployeePortal = () => {
 
                             {/* المهارات المكتسبة */}
                             <div className="mb-4">
-                              <h4 className="font-semibold mb-2">المهارات المكتسبة:</h4>
+                              <h4 className="font-semibold mb-2 text-white">المهارات المكتسبة:</h4>
                               <div className="flex flex-wrap gap-2">
                                 {position.skills.map((skill, idx) => (
-                                  <Badge key={idx} variant="outline" className="text-xs">
+                                  <Badge key={idx} variant="outline" className="text-xs bg-black/20 border-[#008C6A]/30 text-[#008C6A]">
                                     {skill}
                                   </Badge>
                                 ))}
@@ -3894,18 +3915,18 @@ const EmployeePortal = () => {
 
                             {/* تقييم الترقية */}
                             {position.promotion && (
-                              <div className="mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
-                                <h4 className="font-semibold mb-1 text-green-800">تقييم الترقية:</h4>
-                                <p className="text-sm text-green-700 mb-1">{position.promotion.reason}</p>
+                              <div className="mb-4 p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                                <h4 className="font-semibold mb-1 text-green-400">تقييم الترقية:</h4>
+                                <p className="text-sm text-green-300 mb-1">{position.promotion.reason}</p>
                                 <div className="flex items-center gap-2">
-                                  <span className="text-sm text-green-600">التقييم:</span>
+                                  <span className="text-sm text-green-400">التقييم:</span>
                                   <div className="flex items-center">
                                     {[...Array(5)].map((_, i) => (
                                       <CheckCircle2 key={i} className={`h-3 w-3 ${
-                                        i < Math.floor(position.promotion.evaluation) ? 'text-green-500' : 'text-gray-300'
+                                        i < Math.floor(position.promotion.evaluation) ? 'text-green-400' : 'text-gray-600'
                                       }`} />
                                     ))}
-                                    <span className="text-sm font-bold text-green-700 ml-1">
+                                    <span className="text-sm font-bold text-green-400 ml-1">
                                       {position.promotion.evaluation}/5
                                     </span>
                                   </div>
@@ -3915,15 +3936,15 @@ const EmployeePortal = () => {
 
                             {/* الهدف التالي */}
                             {position.nextTarget && (
-                              <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                <h4 className="font-semibold mb-1 text-blue-800">الهدف التالي:</h4>
-                                <p className="text-sm text-blue-700 mb-2">
+                              <div className="mb-4 p-3 bg-blue-500/10 rounded-lg border border-blue-500/30">
+                                <h4 className="font-semibold mb-1 text-blue-400">الهدف التالي:</h4>
+                                <p className="text-sm text-blue-300 mb-2">
                                   <strong>{position.nextTarget.position}</strong> - خلال {position.nextTarget.timeline}
                                 </p>
                                 <div className="space-y-1">
-                                  <p className="text-xs text-blue-600 font-medium">المتطلبات:</p>
+                                  <p className="text-xs text-blue-400 font-medium">المتطلبات:</p>
                                   {position.nextTarget.requirements.map((req, idx) => (
-                                    <div key={idx} className="flex items-center gap-2 text-xs text-blue-600">
+                                    <div key={idx} className="flex items-center gap-2 text-xs text-blue-300">
                                       <Target className="h-3 w-3" />
                                       <span>{req}</span>
                                     </div>
@@ -3938,7 +3959,7 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleViewCareerDetails(position)}
-                                className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                                className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                               >
                                 <Eye className="h-4 w-4 ml-2" />
                                 عرض التفاصيل
@@ -3950,7 +3971,7 @@ const EmployeePortal = () => {
                                     size="sm" 
                                     variant="outline"
                                     onClick={handleSkillGapAnalysis}
-                                    className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                                    className="bg-black/20 backdrop-blur-sm border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:border-purple-400 hover:text-purple-300 transition-all duration-300"
                                   >
                                     <BarChart3 className="h-4 w-4 ml-2" />
                                     تحليل المهارات
@@ -3959,7 +3980,7 @@ const EmployeePortal = () => {
                                   <Button 
                                     size="sm" 
                                     variant="outline"
-                                    className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                                    className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                                   >
                                     <Download className="h-4 w-4 ml-2" />
                                     شهادة الخبرة
@@ -3975,33 +3996,33 @@ const EmployeePortal = () => {
                 </div>
 
                 {/* ملخص المسار الوظيفي */}
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4" />
+                <div className="mt-6 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <BarChart3 className="h-4 w-4 text-[#008C6A]" />
                     ملخص المسار الوظيفي
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">متوسط البقاء في المنصب</p>
-                      <p className="text-lg font-bold text-blue-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-blue-500/20">
+                      <p className="text-gray-400">متوسط البقاء في المنصب</p>
+                      <p className="text-lg font-bold text-blue-400">
                         {careerStats.averageStayPerRole} سنة
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">الشهادات المحصلة</p>
-                      <p className="text-lg font-bold text-green-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-green-500/20">
+                      <p className="text-gray-400">الشهادات المحصلة</p>
+                      <p className="text-lg font-bold text-green-400">
                         {careerStats.certificationsEarned}
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">المهارات المكتسبة</p>
-                      <p className="text-lg font-bold text-purple-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-purple-500/20">
+                      <p className="text-gray-400">المهارات المكتسبة</p>
+                      <p className="text-lg font-bold text-purple-400">
                         {careerStats.skillsAcquired}
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">أعضاء الفريق المُدارين</p>
-                      <p className="text-lg font-bold text-orange-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-orange-500/20">
+                      <p className="text-gray-400">أعضاء الفريق المُدارين</p>
+                      <p className="text-lg font-bold text-orange-400">
                         {careerStats.teamMembersManaged}
                       </p>
                     </div>
