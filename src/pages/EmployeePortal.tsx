@@ -2564,72 +2564,66 @@ const EmployeePortal = () => {
             </Card>
           </TabsContent>
 
-          {/* تبويب جدول الدوام الشهري */}
+          {/* Enhanced Monthly Attendance Tab with EarnWithBoad Design */}
           <TabsContent value="attendance" className="space-y-6">
-            {/* إحصائيات الدوام */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-green-600">أيام الحضور</p>
-                      <p className="text-2xl font-bold text-green-700">{getAttendanceStats().present}</p>
-                    </div>
-                    <CheckCircleIcon className="h-8 w-8 text-green-500" />
+            {/* Enhanced Attendance Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-green-500/30 transition-all duration-300">
+                    <CheckCircleIcon className="h-8 w-8 text-green-400 group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">{getAttendanceStats().present}</div>
+                  <div className="text-sm text-gray-300">أيام الحضور</div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-yellow-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-yellow-600">أيام التأخير</p>
-                      <p className="text-2xl font-bold text-yellow-700">{getAttendanceStats().late}</p>
-                    </div>
-                    <ClockIcon className="h-8 w-8 text-yellow-500" />
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-yellow-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-yellow-500/30 transition-all duration-300">
+                    <ClockIcon className="h-8 w-8 text-yellow-400 group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">{getAttendanceStats().late}</div>
+                  <div className="text-sm text-gray-300">أيام التأخير</div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-red-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-red-600">أيام الغياب</p>
-                      <p className="text-2xl font-bold text-red-700">{getAttendanceStats().absent}</p>
-                    </div>
-                    <XCircle className="h-8 w-8 text-red-500" />
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-red-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-red-500/30 transition-all duration-300">
+                    <XCircle className="h-8 w-8 text-red-400 group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">{getAttendanceStats().absent}</div>
+                  <div className="text-sm text-gray-300">أيام الغياب</div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-blue-600">إجمالي الأيام</p>
-                      <p className="text-2xl font-bold text-blue-700">{getAttendanceStats().total}</p>
-                    </div>
-                    <CalendarDays2 className="h-8 w-8 text-blue-500" />
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-blue-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-500/30 transition-all duration-300">
+                    <CalendarDays2 className="h-8 w-8 text-blue-400 group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">{getAttendanceStats().total}</div>
+                  <div className="text-sm text-gray-300">إجمالي الأيام</div>
                 </CardContent>
               </Card>
             </div>
 
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            {/* Enhanced Monthly Attendance Records */}
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <div className="flex items-center justify-between relative z-10">
                   <div>
                     <CardTitle className="flex items-center gap-2">
-                      <CalendarDays className="h-5 w-5" />
+                      <CalendarDays className="h-6 w-6" />
                       سجل الدوام الشهري
                     </CardTitle>
-                    <CardDescription>تفاصيل دوامك اليومي مع إمكانية التفاعل والتصحيح</CardDescription>
+                    <CardDescription className="text-gray-200">تفاصيل دوامك اليومي مع إمكانية التفاعل والتصحيح</CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Select value={attendanceFilter} onValueChange={setAttendanceFilter}>
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32 bg-black/20 border-white/20 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -2639,61 +2633,66 @@ const EmployeePortal = () => {
                         <SelectItem value="absent">غائب</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Button variant="outline" onClick={handleExportAttendance} size="sm">
+                    <Button variant="outline" onClick={handleExportAttendance} size="sm" className="bg-black/20 border-white/20 text-white hover:bg-white/20">
                       <DownloadIcon className="h-4 w-4 ml-2" />
                       تصدير
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6 bg-gray-900/40">
                 <div className="space-y-4">
                   {filteredAttendanceData.map((record, index) => (
-                    <Card key={index} className="border-l-4 border-l-primary/20 hover:shadow-lg transition-all duration-300 animate-fade-in">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
+                    <Card key={index} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-6 bg-gray-900/40 relative">
+                        {/* Background Pattern */}
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between relative z-10">
                           <div className="flex items-center gap-6">
                             {/* تاريخ اليوم */}
-                            <div className="text-center min-w-[80px]">
-                              <div className="text-lg font-bold text-primary">{record.date.split('/')[0]}</div>
-                              <div className="text-xs text-muted-foreground">{record.date.split('/').slice(1).join('/')}</div>
+                            <div className="text-center min-w-[80px] bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-[#008C6A]/20">
+                              <div className="text-lg font-bold text-[#008C6A]">{record.date.split('/')[0]}</div>
+                              <div className="text-xs text-gray-400">{record.date.split('/').slice(1).join('/')}</div>
                             </div>
 
                             {/* أوقات الدخول والخروج */}
                             <div className="flex gap-8">
-                              <div className="text-center">
-                                <div className="text-xs font-medium text-muted-foreground mb-1">وقت الدخول</div>
+                              <div className="text-center bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-green-500/20">
+                                <div className="text-xs font-medium text-gray-300 mb-1">وقت الدخول</div>
                                 <div className="flex items-center gap-2">
-                                  <div className={`w-2 h-2 rounded-full ${record.checkIn !== '--:--' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                                  <span className={`font-mono text-sm ${record.checkIn !== '--:--' ? 'text-green-700' : 'text-red-700'}`}>
+                                  <div className={`w-2 h-2 rounded-full ${record.checkIn !== '--:--' ? 'bg-green-400' : 'bg-red-400'}`}></div>
+                                  <span className={`font-mono text-sm ${record.checkIn !== '--:--' ? 'text-green-400' : 'text-red-400'}`}>
                                     {record.checkIn}
                                   </span>
                                 </div>
                               </div>
 
-                              <div className="text-center">
-                                <div className="text-xs font-medium text-muted-foreground mb-1">وقت الخروج</div>
+                              <div className="text-center bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-blue-500/20">
+                                <div className="text-xs font-medium text-gray-300 mb-1">وقت الخروج</div>
                                 <div className="flex items-center gap-2">
-                                  <div className={`w-2 h-2 rounded-full ${record.checkOut !== '--:--' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                                  <span className={`font-mono text-sm ${record.checkOut !== '--:--' ? 'text-green-700' : 'text-yellow-700'}`}>
+                                  <div className={`w-2 h-2 rounded-full ${record.checkOut !== '--:--' ? 'bg-green-400' : 'bg-yellow-400'}`}></div>
+                                  <span className={`font-mono text-sm ${record.checkOut !== '--:--' ? 'text-green-400' : 'text-yellow-400'}`}>
                                     {record.checkOut}
                                   </span>
                                 </div>
                               </div>
 
-                              <div className="text-center">
-                                <div className="text-xs font-medium text-muted-foreground mb-1">إجمالي الساعات</div>
+                              <div className="text-center bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-purple-500/20">
+                                <div className="text-xs font-medium text-gray-300 mb-1">إجمالي الساعات</div>
                                 <div className="flex items-center gap-2">
-                                  <Timer className="h-3 w-3 text-blue-500" />
-                                  <span className="font-mono text-sm text-blue-700">{record.hours}</span>
+                                  <Timer className="h-3 w-3 text-purple-400" />
+                                  <span className="font-mono text-sm text-purple-400">{record.hours}</span>
                                 </div>
                               </div>
                             </div>
 
                             {/* حالة اليوم */}
                             <div className="text-center">
-                              <Badge variant="outline" className={`${getAttendanceStatusColor(record.status)} border-0 px-3 py-1`}>
-                                <div className="flex items-center gap-1">
+                              <Badge variant="outline" className={`${getAttendanceStatusColor(record.status)} bg-gray-900/60 border-[#008C6A]/30 px-3 py-1`}>
+                                <div className="flex items-center gap-1 text-white">
                                   {record.status === 'حاضر' && <CheckCircleIcon className="h-3 w-3" />}
                                   {record.status === 'متأخر' && <ClockIcon className="h-3 w-3" />}
                                   {record.status === 'غائب' && <XCircle className="h-3 w-3" />}
@@ -2705,14 +2704,14 @@ const EmployeePortal = () => {
                           </div>
 
                           {/* أزرار التفاعل */}
-                          <div className="flex gap-2">
+                          <div className="flex gap-2 relative z-10">
                             <Button 
                               size="sm" 
                               variant="outline"
                               onClick={() => handleViewAttendanceDetails(record)}
-                              className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700 hover-scale"
+                              className="bg-gray-900/60 border-blue-400/30 text-white hover:bg-blue-500/20 hover:border-blue-400/50 transition-all duration-300 hover:scale-105"
                             >
-                              <Eye className="h-4 w-4" />
+                              <Eye className="h-4 w-4 text-blue-400" />
                             </Button>
                             
                             {(record.status === 'متأخر' || record.status === 'غائب') && (
@@ -2720,26 +2719,26 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleRequestCorrection(record.date)}
-                                className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700 hover-scale"
+                                className="bg-gray-900/60 border-orange-400/30 text-white hover:bg-orange-500/20 hover:border-orange-400/50 transition-all duration-300 hover:scale-105"
                               >
-                                <AlertCircle className="h-4 w-4" />
+                                <AlertCircle className="h-4 w-4 text-orange-400" />
                               </Button>
                             )}
                             
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="hover:bg-gray-50 hover:border-gray-500 hover:text-gray-700"
+                              className="bg-gray-900/60 border-gray-400/30 text-white hover:bg-gray-500/20 hover:border-gray-400/50 transition-all duration-300 hover:scale-105"
                             >
-                              <MoreHorizontal className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4 text-gray-400" />
                             </Button>
                           </div>
                         </div>
 
                         {/* معلومات إضافية للحالات الخاصة */}
                         {record.status === 'متأخر' && (
-                          <div className="mt-3 p-2 bg-yellow-50 rounded-lg border border-yellow-200 animate-fade-in">
-                            <div className="flex items-center gap-2 text-yellow-700 text-sm">
+                          <div className="mt-4 p-3 bg-black/20 backdrop-blur-sm rounded-lg border border-yellow-400/30 animate-fade-in relative z-10">
+                            <div className="flex items-center gap-2 text-yellow-400 text-sm">
                               <AlertCircle className="h-4 w-4" />
                               <span>تأخير عن الموعد المحدد - يمكنك طلب تصحيح الحضور</span>
                             </div>
@@ -2747,8 +2746,8 @@ const EmployeePortal = () => {
                         )}
 
                         {record.status === 'غائب' && (
-                          <div className="mt-3 p-2 bg-red-50 rounded-lg border border-red-200 animate-fade-in">
-                            <div className="flex items-center gap-2 text-red-700 text-sm">
+                          <div className="mt-4 p-3 bg-black/20 backdrop-blur-sm rounded-lg border border-red-400/30 animate-fade-in relative z-10">
+                            <div className="flex items-center gap-2 text-red-400 text-sm">
                               <XCircle className="h-4 w-4" />
                               <span>غياب غير مبرر - تواصل مع الموارد البشرية</span>
                             </div>
@@ -2756,8 +2755,8 @@ const EmployeePortal = () => {
                         )}
 
                         {record.status === 'حاضر' && record.hours !== '0:00' && parseFloat(record.hours.replace(' ساعة', '')) > 8 && (
-                          <div className="mt-3 p-2 bg-green-50 rounded-lg border border-green-200 animate-fade-in">
-                            <div className="flex items-center gap-2 text-green-700 text-sm">
+                          <div className="mt-4 p-3 bg-black/20 backdrop-blur-sm rounded-lg border border-green-400/30 animate-fade-in relative z-10">
+                            <div className="flex items-center gap-2 text-green-400 text-sm">
                               <TrendingUpIcon className="h-4 w-4" />
                               <span>ساعات إضافية: {(parseFloat(record.hours.replace(' ساعة', '')) - 8).toFixed(1)} ساعة</span>
                             </div>
@@ -2769,7 +2768,7 @@ const EmployeePortal = () => {
                 </div>
 
                 {filteredAttendanceData.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground">
+                  <div className="text-center py-8 text-gray-400">
                     <CalendarDays className="h-16 w-16 mx-auto mb-4 opacity-50" />
                     <p>لا توجد سجلات دوام للفلتر المحدد</p>
                   </div>
@@ -2777,41 +2776,42 @@ const EmployeePortal = () => {
               </CardContent>
             </Card>
 
-            {/* ملخص الأداء */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5" />
+            {/* Enhanced Monthly Performance Summary */}
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+                  <BarChart3 className="h-6 w-6 text-white" />
                   ملخص الأداء الشهري
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6 bg-gray-900/40">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-600 mb-2">
+                  <div className="text-center bg-black/20 backdrop-blur-sm p-6 rounded-lg border border-green-500/20">
+                    <div className="text-3xl font-bold text-green-400 mb-2">
                       {getAttendanceStats().total > 0 ? ((getAttendanceStats().present / getAttendanceStats().total) * 100).toFixed(1) : '0'}%
                     </div>
-                    <p className="text-sm text-muted-foreground">معدل الحضور</p>
+                    <p className="text-sm text-gray-300">معدل الحضور</p>
                   </div>
                   
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
+                  <div className="text-center bg-black/20 backdrop-blur-sm p-6 rounded-lg border border-blue-500/20">
+                    <div className="text-3xl font-bold text-blue-400 mb-2">
                       {attendanceData.reduce((acc, record) => {
                         const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
                         return acc + hours;
                       }, 0).toFixed(1)}
                     </div>
-                    <p className="text-sm text-muted-foreground">إجمالي ساعات العمل</p>
+                    <p className="text-sm text-gray-300">إجمالي ساعات العمل</p>
                   </div>
                   
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-center bg-black/20 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20">
+                    <div className="text-3xl font-bold text-purple-400 mb-2">
                       {Math.max(0, attendanceData.reduce((acc, record) => {
                         const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
                         return acc + Math.max(0, hours - 8);
                       }, 0)).toFixed(1)}
                     </div>
-                    <p className="text-sm text-muted-foreground">الساعات الإضافية</p>
+                    <p className="text-sm text-gray-300">الساعات الإضافية</p>
                   </div>
                 </div>
               </CardContent>
