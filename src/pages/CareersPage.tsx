@@ -272,7 +272,7 @@ const CareersPage = () => {
               </TabsTrigger>
               <TabsTrigger value="apply" className="flex items-center gap-2 data-[state=active]:bg-[#008C6A]/20 data-[state=active]:text-white text-gray-300">
                 <FileText className="w-4 h-4" />
-                قدم الآن
+                طلبات التوظيف
               </TabsTrigger>
             </TabsList>
 
