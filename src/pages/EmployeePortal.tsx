@@ -2822,77 +2822,92 @@ const EmployeePortal = () => {
           <TabsContent value="insurance" className="space-y-6">
             {/* إحصائيات التأمين */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-green-500/30 shadow-2xl hover:shadow-green-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">مطالبات مقبولة</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400">مطالبات مقبولة</p>
+                      <p className="text-2xl font-bold text-white">
                         {insuranceData.claims.filter(c => c.status === 'تم الموافقة').length}
                       </p>
                     </div>
-                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+                    <CheckCircle2 className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-yellow-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-yellow-500/30 shadow-2xl hover:shadow-yellow-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-yellow-600">قيد المراجعة</p>
-                      <p className="text-2xl font-bold text-yellow-700">
+                      <p className="text-sm font-medium text-yellow-400">قيد المراجعة</p>
+                      <p className="text-2xl font-bold text-white">
                         {insuranceData.claims.filter(c => c.status === 'قيد المراجعة').length}
                       </p>
                     </div>
-                    <Clock className="h-8 w-8 text-yellow-500" />
+                    <Clock className="h-8 w-8 text-yellow-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-red-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-red-500/30 shadow-2xl hover:shadow-red-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-red-600">مطالبات مرفوضة</p>
-                      <p className="text-2xl font-bold text-red-700">
+                      <p className="text-sm font-medium text-red-400">مطالبات مرفوضة</p>
+                      <p className="text-2xl font-bold text-white">
                         {insuranceData.claims.filter(c => c.status === 'مرفوض').length}
                       </p>
                     </div>
-                    <XCircle className="h-8 w-8 text-red-500" />
+                    <XCircle className="h-8 w-8 text-red-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-blue-500/30 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">المبلغ المستخدم</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400">المبلغ المستخدم</p>
+                      <p className="text-2xl font-bold text-white">
                         {Math.round((insuranceData.used / insuranceData.annualLimit) * 100)}%
                       </p>
                     </div>
-                    <Shield className="h-8 w-8 text-blue-500" />
+                    <Shield className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* معلومات البوليصة */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-5 w-5" />
-                    <CardTitle>معلومات البوليصة</CardTitle>
+                    <Shield className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-white">معلومات البوليصة</CardTitle>
                   </div>
                   <div className="flex gap-2">
                     <Button 
                       size="sm" 
                       variant="outline"
                       onClick={handleDownloadInsuranceCard}
-                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                      className="bg-gray-900/60 border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-500/50"
                     >
                       <Download className="h-4 w-4 ml-2" />
                       تحميل البطاقة
@@ -2900,7 +2915,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm"
                       onClick={handleSubmitInsuranceClaim}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-[#008C6A] hover:bg-[#00694F] text-white"
                     >
                       <Plus className="h-4 w-4 ml-2" />
                       مطالبة جديدة
@@ -2908,44 +2923,47 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">شركة التأمين</Label>
-                    <p className="font-semibold">{insuranceData.provider}</p>
+              <CardContent className="space-y-4 bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400">شركة التأمين</Label>
+                    <p className="font-semibold text-white">{insuranceData.provider}</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">رقم البوليصة</Label>
-                    <p className="font-semibold">{insuranceData.policyNumber}</p>
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400">رقم البوليصة</Label>
+                    <p className="font-semibold text-white">{insuranceData.policyNumber}</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">نوع التغطية</Label>
-                    <p className="font-semibold">{insuranceData.coverage}</p>
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400">نوع التغطية</Label>
+                    <p className="font-semibold text-white">{insuranceData.coverage}</p>
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <Label className="text-sm text-muted-foreground">استخدام الحد السنوي</Label>
+                <div className="mt-4 relative z-10">
+                  <Label className="text-sm text-gray-400">استخدام الحد السنوي</Label>
                   <div className="flex items-center gap-2 mt-2">
-                    <Progress value={(insuranceData.used / insuranceData.annualLimit) * 100} className="flex-1" />
-                    <span className="text-sm font-medium">
+                    <Progress value={(insuranceData.used / insuranceData.annualLimit) * 100} className="flex-1 h-2 bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
+                    <span className="text-sm font-medium text-white">
                       {insuranceData.used.toLocaleString()} / {insuranceData.annualLimit.toLocaleString()} ريال
                     </span>
                   </div>
                 </div>
 
                 {/* الفوائد المشمولة */}
-                <div className="mt-6">
-                  <Label className="text-sm text-muted-foreground mb-3 block">الفوائد المشمولة</Label>
+                <div className="mt-6 relative z-10">
+                  <Label className="text-sm text-gray-400 mb-3 block">الفوائد المشمولة</Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {insuranceData.benefits.map((benefit, index) => (
-                      <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-muted/20">
+                      <div key={index} className="flex items-center gap-2 p-2 rounded-lg bg-black/20 backdrop-blur-sm border border-gray-700/30">
                         {benefit.covered ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-500" />
+                          <CheckCircle2 className="h-4 w-4 text-green-400" />
                         ) : (
-                          <XCircle className="h-4 w-4 text-red-500" />
+                          <XCircle className="h-4 w-4 text-red-400" />
                         )}
-                        <span className={`text-sm ${benefit.covered ? 'text-green-700' : 'text-red-700'}`}>
+                        <span className={`text-sm ${benefit.covered ? 'text-green-400' : 'text-red-400'}`}>
                           {benefit.name}
                         </span>
                       </div>
@@ -2956,30 +2974,33 @@ const EmployeePortal = () => {
             </Card>
 
             {/* سجل المطالبات */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5" />
-                    <CardTitle>سجل المطالبات</CardTitle>
+                    <FileText className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-white">سجل المطالبات</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Select value={selectedInsuranceFilter} onValueChange={setSelectedInsuranceFilter}>
-                      <SelectTrigger className="w-40">
+                      <SelectTrigger className="w-40 bg-gray-900/60 border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب الحالة" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">جميع المطالبات</SelectItem>
-                        <SelectItem value="approved">تم الموافقة</SelectItem>
-                        <SelectItem value="pending">قيد المراجعة</SelectItem>
-                        <SelectItem value="rejected">مرفوض</SelectItem>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+                        <SelectItem value="all" className="text-white hover:bg-[#008C6A]/20">جميع المطالبات</SelectItem>
+                        <SelectItem value="approved" className="text-white hover:bg-[#008C6A]/20">تم الموافقة</SelectItem>
+                        <SelectItem value="pending" className="text-white hover:bg-[#008C6A]/20">قيد المراجعة</SelectItem>
+                        <SelectItem value="rejected" className="text-white hover:bg-[#008C6A]/20">مرفوض</SelectItem>
                       </SelectContent>
                     </Select>
                     <Button 
                       size="sm" 
                       variant="outline"
                       onClick={handleContactInsurance}
-                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                      className="bg-gray-900/60 border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-500/50"
                     >
                       <Phone className="h-4 w-4 ml-2" />
                       اتصال
@@ -2987,50 +3008,56 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {filteredInsuranceClaims.map((claim: any) => (
-                    <Card key={claim.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
+                    <Card key={claim.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg hover:shadow-[#008C6A]/20 transition-all duration-300 rounded-xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{claim.type}</h4>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{claim.type}</h4>
+                            <div className="flex items-center gap-4 text-sm text-gray-300 mb-2">
                               <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
+                                <Calendar className="h-4 w-4 text-[#008C6A]" />
                                 <span>التاريخ: {claim.date}</span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <Building className="h-4 w-4" />
+                                <Building className="h-4 w-4 text-blue-400" />
                                 <span>{claim.provider}</span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <DollarSign className="h-4 w-4" />
+                                <DollarSign className="h-4 w-4 text-green-400" />
                                 <span>{claim.amount} ريال</span>
                               </div>
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-gray-400">
                               رقم المطالبة: {claim.claimNumber}
                             </p>
                           </div>
                           <Badge 
                             variant="outline" 
                             className={`${
-                              claim.status === 'تم الموافقة' ? 'bg-green-50 text-green-700 border-green-200' :
-                              claim.status === 'قيد المراجعة' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
-                              'bg-red-50 text-red-700 border-red-200'
+                              claim.status === 'تم الموافقة' ? 'bg-green-900/60 text-green-400 border-green-500/30' :
+                              claim.status === 'قيد المراجعة' ? 'bg-yellow-900/60 text-yellow-400 border-yellow-500/30' :
+                              'bg-red-900/60 text-red-400 border-red-500/30'
                             } px-3 py-1`}
                           >
                             {claim.status}
                           </Badge>
                         </div>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 relative z-10">
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => handleViewInsuranceDetails(claim)}
-                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                            className="bg-gray-900/60 border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-500/50"
                           >
                             <Eye className="h-4 w-4 ml-2" />
                             عرض التفاصيل
@@ -3040,7 +3067,7 @@ const EmployeePortal = () => {
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                              className="bg-gray-900/60 border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-500/50"
                             >
                               <Download className="h-4 w-4 ml-2" />
                               تحميل الوثائق
@@ -3051,7 +3078,7 @@ const EmployeePortal = () => {
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700"
+                              className="bg-gray-900/60 border-orange-500/30 text-orange-400 hover:bg-orange-500/20 hover:border-orange-500/50"
                             >
                               <RotateCcw className="h-4 w-4 ml-2" />
                               إعادة تقديم
@@ -3064,25 +3091,25 @@ const EmployeePortal = () => {
                 </div>
 
                 {/* ملخص الشهر */}
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4" />
+                <div className="mt-6 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <TrendingUp className="h-4 w-4 text-[#008C6A]" />
                     ملخص الشهر الحالي
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">إجمالي المطالبات</p>
-                      <p className="text-lg font-bold text-primary">{insuranceData.claims.length}</p>
+                    <div className="text-center p-3 bg-gray-900/60 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                      <p className="text-gray-400">إجمالي المطالبات</p>
+                      <p className="text-lg font-bold text-[#008C6A]">{insuranceData.claims.length}</p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">المبلغ المطالب به</p>
-                      <p className="text-lg font-bold text-green-600">
+                    <div className="text-center p-3 bg-gray-900/60 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                      <p className="text-gray-400">المبلغ المطالب به</p>
+                      <p className="text-lg font-bold text-green-400">
                         {insuranceData.claims.reduce((sum, claim) => sum + claim.amount, 0).toLocaleString()} ريال
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">معدل القبول</p>
-                      <p className="text-lg font-bold text-blue-600">
+                    <div className="text-center p-3 bg-gray-900/60 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                      <p className="text-gray-400">معدل القبول</p>
+                      <p className="text-lg font-bold text-blue-400">
                         {Math.round((insuranceData.claims.filter(c => c.status === 'تم الموافقة').length / insuranceData.claims.length) * 100)}%
                       </p>
                     </div>
