@@ -3096,77 +3096,92 @@ const EmployeePortal = () => {
           <TabsContent value="job-category" className="space-y-6">
             {/* إحصائيات الفئة الوظيفية */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">تقييم الأداء</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400 mb-2">تقييم الأداء</p>
+                      <p className="text-2xl font-bold text-white">
                         {jobCategoryData.performanceRating}/5
                       </p>
                     </div>
-                    <BarChart3 className="h-8 w-8 text-blue-500" />
+                    <BarChart3 className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">أهداف مكتملة</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400 mb-2">أهداف مكتملة</p>
+                      <p className="text-2xl font-bold text-white">
                         {jobCategoryData.goals.filter(g => g.status === 'مكتمل').length}
                       </p>
                     </div>
-                    <Target className="h-8 w-8 text-green-500" />
+                    <Target className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-purple-600">متوسط المهارات</p>
-                      <p className="text-2xl font-bold text-purple-700">
+                      <p className="text-sm font-medium text-purple-400 mb-2">متوسط المهارات</p>
+                      <p className="text-2xl font-bold text-white">
                         {Math.round(jobCategoryData.skills.reduce((sum, skill) => sum + skill.level, 0) / jobCategoryData.skills.length)}%
                       </p>
                     </div>
-                    <Award className="h-8 w-8 text-purple-500" />
+                    <Award className="h-8 w-8 text-purple-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-orange-600">سنوات الخبرة</p>
-                      <p className="text-2xl font-bold text-orange-700">
+                      <p className="text-sm font-medium text-orange-400 mb-2">سنوات الخبرة</p>
+                      <p className="text-2xl font-bold text-white">
                         {jobCategoryData.yearsInPosition}
                       </p>
                     </div>
-                    <Clock className="h-8 w-8 text-orange-500" />
+                    <Clock className="h-8 w-8 text-orange-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* معلومات المنصب */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <Briefcase className="h-5 w-5" />
-                    <CardTitle>معلومات المنصب الحالي</CardTitle>
+                    <Briefcase className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-xl font-bold text-white">معلومات المنصب الحالي</CardTitle>
                   </div>
                   <div className="flex gap-2">
                     <Button 
                       size="sm" 
                       variant="outline"
                       onClick={handleSkillAssessment}
-                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                      className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                     >
                       <BarChart3 className="h-4 w-4 ml-2" />
                       تقييم المهارات
@@ -3174,7 +3189,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm"
                       onClick={handleRequestPromotion}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white hover:from-[#00694F] hover:to-[#004D3A] shadow-lg hover:shadow-[#008C6A]/30 transition-all duration-300"
                     >
                       <TrendingUpIcon className="h-4 w-4 ml-2" />
                       طلب ترقية
@@ -3182,49 +3197,55 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">المنصب الحالي</Label>
-                    <p className="font-semibold">{employeeDisplayData?.position}</p>
+              <CardContent className="space-y-4 bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400 mb-2 block">المنصب الحالي</Label>
+                    <p className="font-semibold text-white">{employeeDisplayData?.position}</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">المستوى الوظيفي</Label>
-                    <p className="font-semibold">{jobCategoryData.currentLevel}</p>
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400 mb-2 block">المستوى الوظيفي</Label>
+                    <p className="font-semibold text-white">{jobCategoryData.currentLevel}</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">الدرجة المالية</Label>
-                    <p className="font-semibold">{jobCategoryData.salaryGrade}</p>
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400 mb-2 block">الدرجة المالية</Label>
+                    <p className="font-semibold text-white">{jobCategoryData.salaryGrade}</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">القسم</Label>
-                    <p className="font-semibold">{employeeDisplayData?.department}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400 mb-2 block">القسم</Label>
+                    <p className="font-semibold text-white">{employeeDisplayData?.department}</p>
                   </div>
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <Label className="text-sm text-muted-foreground">المدير المباشر</Label>
-                    <p className="font-semibold">{employeeDisplayData?.directManager}</p>
+                  <div className="p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                    <Label className="text-sm text-gray-400 mb-2 block">المدير المباشر</Label>
+                    <p className="font-semibold text-white">{employeeDisplayData?.directManager}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* تقييم المهارات */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <Award className="h-5 w-5" />
-                    <CardTitle>تقييم المهارات</CardTitle>
+                    <Award className="h-5 w-5 text-purple-400" />
+                    <CardTitle className="text-xl font-bold text-white">تقييم المهارات</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Select value={selectedJobCategoryFilter} onValueChange={setSelectedJobCategoryFilter}>
-                      <SelectTrigger className="w-40">
+                      <SelectTrigger className="w-40 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب الفئة" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
                         <SelectItem value="all">جميع المهارات</SelectItem>
                         <SelectItem value="تقنية">تقنية</SelectItem>
                         <SelectItem value="إدارية">إدارية</SelectItem>
@@ -3236,7 +3257,7 @@ const EmployeePortal = () => {
                       size="sm" 
                       variant="outline"
                       onClick={handleCareerDevelopment}
-                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                      className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                     >
                       <TrendingUpIcon className="h-4 w-4 ml-2" />
                       خطة التطوير
@@ -3244,25 +3265,31 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {jobCategoryData.skills.filter(skill => 
                     selectedJobCategoryFilter === 'all' || skill.category === selectedJobCategoryFilter
                   ).map((skill, index) => (
-                    <Card key={index} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between mb-3">
+                    <Card key={index} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-center justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{skill.name}</h4>
-                            <Badge variant="outline" className="mb-2">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{skill.name}</h4>
+                            <Badge variant="outline" className="mb-2 bg-black/20 border-[#008C6A]/30 text-[#008C6A]">
                               {skill.category}
                             </Badge>
                           </div>
                           <div className="text-right">
-                            <p className="text-2xl font-bold text-primary">{skill.level}%</p>
+                            <p className="text-2xl font-bold text-[#008C6A]">{skill.level}%</p>
                           </div>
                         </div>
-                        <Progress value={skill.level} className="h-3" />
+                        <Progress value={skill.level} className="h-3 bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F] relative z-10" />
                       </CardContent>
                     </Card>
                   ))}
@@ -3271,23 +3298,32 @@ const EmployeePortal = () => {
             </Card>
 
             {/* الأهداف والإنجازات */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Target className="h-5 w-5" />
-                  <CardTitle>الأهداف والإنجازات</CardTitle>
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                </div>
+                <div className="flex items-center gap-2 relative z-10">
+                  <Target className="h-5 w-5 text-green-400" />
+                  <CardTitle className="text-xl font-bold text-white">الأهداف والإنجازات</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {jobCategoryData.goals.map((goal) => (
-                    <Card key={goal.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
+                    <Card key={goal.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{goal.title}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">{goal.description}</p>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{goal.title}</h4>
+                            <p className="text-sm text-gray-300 mb-2">{goal.description}</p>
+                            <div className="flex items-center gap-4 text-sm text-gray-400">
                               <div className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
                                 <span>الموعد النهائي: {goal.deadline}</span>
@@ -3295,9 +3331,9 @@ const EmployeePortal = () => {
                               <Badge 
                                 variant="outline" 
                                 className={`${
-                                  goal.priority === 'عالية' ? 'border-red-200 text-red-700 bg-red-50' :
-                                  goal.priority === 'متوسطة' ? 'border-yellow-200 text-yellow-700 bg-yellow-50' :
-                                  'border-green-200 text-green-700 bg-green-50'
+                                  goal.priority === 'عالية' ? 'border-red-500/30 text-red-400 bg-red-500/10' :
+                                  goal.priority === 'متوسطة' ? 'border-yellow-500/30 text-yellow-400 bg-yellow-500/10' :
+                                  'border-green-500/30 text-green-400 bg-green-500/10'
                                 }`}
                               >
                                 {goal.priority}
@@ -3307,29 +3343,29 @@ const EmployeePortal = () => {
                           <Badge 
                             variant="outline" 
                             className={`${
-                              goal.status === 'مكتمل' ? 'bg-green-50 text-green-700 border-green-200' :
-                              goal.status === 'جاري' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                              'bg-gray-50 text-gray-700 border-gray-200'
+                              goal.status === 'مكتمل' ? 'bg-green-500/10 text-green-400 border-green-500/30' :
+                              goal.status === 'جاري' ? 'bg-blue-500/10 text-blue-400 border-blue-500/30' :
+                              'bg-gray-500/10 text-gray-400 border-gray-500/30'
                             } px-3 py-1`}
                           >
                             {goal.status}
                           </Badge>
                         </div>
 
-                        <div className="mb-3">
+                        <div className="mb-3 relative z-10">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium">نسبة الإنجاز</span>
-                            <span className="text-sm font-bold text-primary">{goal.progress}%</span>
+                            <span className="text-sm font-medium text-gray-300">نسبة الإنجاز</span>
+                            <span className="text-sm font-bold text-[#008C6A]">{goal.progress}%</span>
                           </div>
-                          <Progress value={goal.progress} className="h-2" />
+                          <Progress value={goal.progress} className="h-2 bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
                         </div>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 relative z-10">
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => handleViewJobCategoryDetails(goal)}
-                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                            className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                           >
                             <Eye className="h-4 w-4 ml-2" />
                             عرض التفاصيل
@@ -3339,7 +3375,7 @@ const EmployeePortal = () => {
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                              className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                             >
                               <CheckSquare className="h-4 w-4 ml-2" />
                               تحديث التقدم
@@ -3352,33 +3388,33 @@ const EmployeePortal = () => {
                 </div>
 
                 {/* ملخص الأداء */}
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4" />
+                <div className="mt-6 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <BarChart3 className="h-4 w-4 text-[#008C6A]" />
                     ملخص الأداء الحالي
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">الكفاءات</p>
-                      <p className="text-lg font-bold text-primary">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                      <p className="text-gray-400">الكفاءات</p>
+                      <p className="text-lg font-bold text-[#008C6A]">
                         {Math.round(jobCategoryData.competencies.reduce((sum, comp) => sum + comp.score, 0) / jobCategoryData.competencies.length * 10) / 10}/5
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">الأهداف المكتملة</p>
-                      <p className="text-lg font-bold text-green-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-green-500/20">
+                      <p className="text-gray-400">الأهداف المكتملة</p>
+                      <p className="text-lg font-bold text-green-400">
                         {jobCategoryData.goals.filter(g => g.status === 'مكتمل').length}/{jobCategoryData.goals.length}
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">متوسط التقدم</p>
-                      <p className="text-lg font-bold text-blue-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-blue-500/20">
+                      <p className="text-gray-400">متوسط التقدم</p>
+                      <p className="text-lg font-bold text-blue-400">
                         {Math.round(jobCategoryData.goals.reduce((sum, goal) => sum + goal.progress, 0) / jobCategoryData.goals.length)}%
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">التقييم العام</p>
-                      <p className="text-lg font-bold text-purple-600">ممتاز</p>
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-purple-500/20">
+                      <p className="text-gray-400">التقييم العام</p>
+                      <p className="text-lg font-bold text-purple-400">ممتاز</p>
                     </div>
                   </div>
                 </div>
