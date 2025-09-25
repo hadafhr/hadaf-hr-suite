@@ -5645,101 +5645,122 @@ const EmployeePortal = () => {
           <TabsContent value="documents" className="space-y-6">
             {/* إحصائيات المستندات */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-blue-500/30 shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">إجمالي المستندات</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400">إجمالي المستندات</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedDocumentsData.statistics.totalDocuments}
                       </p>
                     </div>
-                    <FileText className="h-8 w-8 text-blue-500" />
+                    <FileText className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-green-500/30 shadow-2xl hover:shadow-green-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">المستندات النشطة</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400">المستندات النشطة</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedDocumentsData.statistics.activeDocuments}
                       </p>
                     </div>
-                    <CheckCircle2 className="h-8 w-8 text-green-500" />
+                    <CheckCircle2 className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-orange-500/30 shadow-2xl hover:shadow-orange-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-orange-600">تنتهي قريباً</p>
-                      <p className="text-2xl font-bold text-orange-700">
+                      <p className="text-sm font-medium text-orange-400">تنتهي قريباً</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedDocumentsData.statistics.expiringSoon}
                       </p>
                     </div>
-                    <AlertTriangle className="h-8 w-8 text-orange-500" />
+                    <AlertTriangle className="h-8 w-8 text-orange-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-purple-500/30 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-purple-600">قيد المراجعة</p>
-                      <p className="text-2xl font-bold text-purple-700">
+                      <p className="text-sm font-medium text-purple-400">قيد المراجعة</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedDocumentsData.statistics.pending}
                       </p>
                     </div>
-                    <Clock className="h-8 w-8 text-purple-500" />
+                    <Clock className="h-8 w-8 text-purple-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* فئات المستندات */}
-            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <CardTitle className="flex items-center gap-2">
-                    <FileText className="h-6 w-6 text-primary" />
-                    فئات المستندات
+                    <FileText className="h-6 w-6 text-[#008C6A]" />
+                    <span className="text-white">فئات المستندات</span>
                   </CardTitle>
                   <div className="flex gap-2">
-                    <Button onClick={handleUploadDocument} size="sm" variant="outline">
+                    <Button onClick={handleUploadDocument} size="sm" variant="outline" className="bg-gray-900/60 border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-500/50">
                       <Upload className="h-4 w-4 mr-2" />
                       رفع مستند
                     </Button>
-                    <Button onClick={handleRequestDocument} size="sm">
+                    <Button onClick={handleRequestDocument} size="sm" className="bg-[#008C6A] hover:bg-[#00694F] text-white">
                       <Plus className="h-4 w-4 mr-2" />
                       طلب مستند
                     </Button>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
                   {enhancedDocumentsData.categories.map((category) => {
                     const IconComponent = category.icon;
                     return (
                       <Card 
                         key={category.id} 
-                        className="border-l-4 border-l-primary/30 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+                        className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg hover:shadow-[#008C6A]/20 transition-all duration-300 cursor-pointer rounded-xl overflow-hidden"
                         onClick={() => setSelectedDocumentsFilter(category.id)}
                       >
-                        <CardContent className="p-4">
-                          <div className="flex items-center gap-3">
-                            <div className={`p-2 rounded-lg bg-${category.color}-100`}>
-                              <IconComponent className={`h-5 w-5 text-${category.color}-600`} />
+                        <CardContent className="p-4 bg-gray-900/40 relative">
+                          <div className="absolute inset-0 opacity-5">
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                          </div>
+                          <div className="flex items-center gap-3 relative z-10">
+                            <div className={`p-2 rounded-lg bg-gray-900/60 backdrop-blur-sm border border-${category.color}-500/30`}>
+                              <IconComponent className={`h-5 w-5 text-${category.color}-400`} />
                             </div>
                             <div>
-                              <h4 className="font-semibold">{category.name}</h4>
-                              <p className="text-sm text-muted-foreground">{category.count} مستند</p>
+                              <h4 className="font-semibold text-white">{category.name}</h4>
+                              <p className="text-sm text-gray-300">{category.count} مستند</p>
                             </div>
                           </div>
                         </CardContent>
@@ -5751,47 +5772,56 @@ const EmployeePortal = () => {
             </Card>
 
             {/* قائمة المستندات */}
-            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <CardTitle className="flex items-center gap-2">
-                    <FileIcon className="h-6 w-6 text-primary" />
-                    المستندات المتوفرة
+                    <FileIcon className="h-6 w-6 text-[#008C6A]" />
+                    <span className="text-white">المستندات المتوفرة</span>
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <Select value={selectedDocumentsFilter} onValueChange={setSelectedDocumentsFilter}>
-                      <SelectTrigger className="w-48">
+                      <SelectTrigger className="w-48 bg-gray-900/60 border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب الفئة" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">جميع المستندات</SelectItem>
-                        <SelectItem value="personal">المستندات الشخصية</SelectItem>
-                        <SelectItem value="employment">مستندات العمل</SelectItem>
-                        <SelectItem value="financial">المستندات المالية</SelectItem>
-                        <SelectItem value="certificates">الشهادات</SelectItem>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+                        <SelectItem value="all" className="text-white hover:bg-[#008C6A]/20">جميع المستندات</SelectItem>
+                        <SelectItem value="personal" className="text-white hover:bg-[#008C6A]/20">المستندات الشخصية</SelectItem>
+                        <SelectItem value="employment" className="text-white hover:bg-[#008C6A]/20">مستندات العمل</SelectItem>
+                        <SelectItem value="financial" className="text-white hover:bg-[#008C6A]/20">المستندات المالية</SelectItem>
+                        <SelectItem value="certificates" className="text-white hover:bg-[#008C6A]/20">الشهادات</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {enhancedDocumentsData.documents.filter(doc => 
                     selectedDocumentsFilter === 'all' || doc.category === selectedDocumentsFilter
                   ).map((document) => (
-                    <Card key={document.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between">
+                    <Card key={document.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg hover:shadow-[#008C6A]/20 transition-all duration-300 rounded-xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between relative z-10">
                           <div className="flex-1">
                             <div className="flex items-start gap-4">
-                              <div className="p-2 bg-primary/10 rounded-lg">
-                                <FileText className="h-6 w-6 text-primary" />
+                              <div className="p-2 bg-gray-900/60 backdrop-blur-sm rounded-lg border border-[#008C6A]/20">
+                                <FileText className="h-6 w-6 text-[#008C6A]" />
                               </div>
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <h4 className="font-semibold text-lg">{document.title}</h4>
+                                  <h4 className="font-semibold text-lg text-white">{document.title}</h4>
                                   {document.isConfidential && (
-                                    <Badge variant="secondary" className="text-xs">
+                                    <Badge variant="secondary" className="text-xs bg-gray-900/60 border-yellow-500/30 text-yellow-400">
                                       <Shield className="h-3 w-3 mr-1" />
                                       سري
                                     </Badge>
@@ -5801,32 +5831,32 @@ const EmployeePortal = () => {
                                   </Badge>
                                 </div>
                                 
-                                <p className="text-muted-foreground mb-3">{document.description}</p>
+                                <p className="text-gray-300 mb-3">{document.description}</p>
                                 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                   <div>
-                                    <span className="font-medium text-muted-foreground">النوع:</span>
-                                    <p className="text-foreground">{document.type}</p>
+                                    <span className="font-medium text-gray-400">النوع:</span>
+                                    <p className="text-white">{document.type}</p>
                                   </div>
                                   <div>
-                                    <span className="font-medium text-muted-foreground">الحجم:</span>
-                                    <p className="text-foreground">{document.size}</p>
+                                    <span className="font-medium text-gray-400">الحجم:</span>
+                                    <p className="text-white">{document.size}</p>
                                   </div>
                                   <div>
-                                    <span className="font-medium text-muted-foreground">تاريخ الرفع:</span>
-                                    <p className="text-foreground">{new Date(document.uploadDate).toLocaleDateString('ar-SA')}</p>
+                                    <span className="font-medium text-gray-400">تاريخ الرفع:</span>
+                                    <p className="text-white">{new Date(document.uploadDate).toLocaleDateString('ar-SA')}</p>
                                   </div>
                                   <div>
-                                    <span className="font-medium text-muted-foreground">مرات التحميل:</span>
-                                    <p className="text-foreground">{document.downloadCount}</p>
+                                    <span className="font-medium text-gray-400">مرات التحميل:</span>
+                                    <p className="text-white">{document.downloadCount}</p>
                                   </div>
                                 </div>
 
                                 {document.expiryDate && (
-                                  <div className="mt-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                                  <div className="mt-3 p-3 bg-orange-900/60 backdrop-blur-sm border border-orange-500/30 rounded-lg">
                                     <div className="flex items-center gap-2">
-                                      <Calendar className="h-4 w-4 text-orange-600" />
-                                      <span className="text-sm font-medium text-orange-800">
+                                      <Calendar className="h-4 w-4 text-orange-400" />
+                                      <span className="text-sm font-medium text-orange-400">
                                         تاريخ الانتهاء: {new Date(document.expiryDate).toLocaleDateString('ar-SA')}
                                       </span>
                                     </div>
@@ -5841,6 +5871,7 @@ const EmployeePortal = () => {
                               size="sm"
                               onClick={() => handleViewDocumentDetails(document)}
                               variant="outline"
+                              className="bg-gray-900/60 border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-500/50"
                             >
                               <Eye className="h-4 w-4 mr-2" />
                               عرض
@@ -5848,6 +5879,7 @@ const EmployeePortal = () => {
                             <Button
                               size="sm"
                               onClick={() => handleDownloadDocument(document)}
+                              className="bg-[#008C6A] hover:bg-[#00694F] text-white"
                             >
                               <Download className="h-4 w-4 mr-2" />
                               تحميل
@@ -5856,6 +5888,7 @@ const EmployeePortal = () => {
                               size="sm"
                               onClick={() => handleShareDocument(document)}
                               variant="secondary"
+                              className="bg-gray-900/60 border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:border-purple-500/50"
                             >
                               <Send className="h-4 w-4 mr-2" />
                               مشاركة
@@ -5870,13 +5903,13 @@ const EmployeePortal = () => {
                 {enhancedDocumentsData.documents.filter(doc => 
                   selectedDocumentsFilter === 'all' || doc.category === selectedDocumentsFilter
                 ).length === 0 && (
-                  <div className="text-center py-8">
-                    <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">لا توجد مستندات</h3>
-                    <p className="text-muted-foreground mb-4">
+                  <div className="text-center py-8 relative z-10">
+                    <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2 text-white">لا توجد مستندات</h3>
+                    <p className="text-gray-300 mb-4">
                       لم يتم العثور على مستندات في هذه الفئة
                     </p>
-                    <Button onClick={handleUploadDocument}>
+                    <Button onClick={handleUploadDocument} className="bg-[#008C6A] hover:bg-[#00694F] text-white">
                       <Upload className="h-4 w-4 mr-2" />
                       رفع مستند جديد
                     </Button>
@@ -5886,35 +5919,41 @@ const EmployeePortal = () => {
             </Card>
 
             {/* إحصائيات الاستخدام */}
-            <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-6 w-6 text-primary" />
-                  إحصائيات المستندات
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <CardTitle className="flex items-center gap-2 relative z-10">
+                  <BarChart3 className="h-6 w-6 text-[#008C6A]" />
+                  <span className="text-white">إحصائيات المستندات</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <Download className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                    <h4 className="font-semibold text-blue-800">إجمالي التحميلات</h4>
-                    <p className="text-2xl font-bold text-blue-600">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                  <div className="text-center p-4 bg-blue-900/60 backdrop-blur-sm rounded-lg border border-blue-500/30">
+                    <Download className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+                    <h4 className="font-semibold text-blue-400">إجمالي التحميلات</h4>
+                    <p className="text-2xl font-bold text-white">
                       {enhancedDocumentsData.documents.reduce((sum, doc) => sum + doc.downloadCount, 0)}
                     </p>
                   </div>
                   
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <FileCheck className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                    <h4 className="font-semibold text-green-800">المستندات المفعلة</h4>
-                    <p className="text-2xl font-bold text-green-600">
+                  <div className="text-center p-4 bg-green-900/60 backdrop-blur-sm rounded-lg border border-green-500/30">
+                    <FileCheck className="h-8 w-8 text-green-400 mx-auto mb-2" />
+                    <h4 className="font-semibold text-green-400">المستندات المفعلة</h4>
+                    <p className="text-2xl font-bold text-white">
                       {enhancedDocumentsData.documents.filter(doc => doc.status === 'نشط').length}
                     </p>
                   </div>
                   
-                  <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                    <h4 className="font-semibold text-orange-800">تحتاج تجديد</h4>
-                    <p className="text-2xl font-bold text-orange-600">
+                  <div className="text-center p-4 bg-orange-900/60 backdrop-blur-sm rounded-lg border border-orange-500/30">
+                    <AlertTriangle className="h-8 w-8 text-orange-400 mx-auto mb-2" />
+                    <h4 className="font-semibold text-orange-400">تحتاج تجديد</h4>
+                    <p className="text-2xl font-bold text-white">
                       {enhancedDocumentsData.documents.filter(doc => doc.status === 'ينتهي قريباً').length}
                     </p>
                   </div>
