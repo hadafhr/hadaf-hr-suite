@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +11,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BackButton } from '@/components/BackButton';
 import { BoudLogo } from '@/components/BoudLogo';
+import { Breadcrumb } from '@/components/Breadcrumb';
+import buodLogo from '@/assets/buod-logo-white.png';
 import { 
   BookOpen, 
   Search, 
@@ -427,7 +430,7 @@ export const Tutorials: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger value="visual" className="flex items-center gap-2">
               <Camera className="h-4 w-4" />
-              مصور
+              بصري
             </TabsTrigger>
             <TabsTrigger value="tour" className="flex items-center gap-2">
               <Navigation className="h-4 w-4" />
@@ -436,420 +439,557 @@ export const Tutorials: React.FC = () => {
           </TabsList>
 
           <TabsContent value="voice" className="mt-6">
-            <VoiceAssistant
+            <VoiceAssistant 
               content={content}
-              title={section.title}
             />
           </TabsContent>
 
           <TabsContent value="demo" className="mt-6">
-            <InteractiveDemo
-              title={section.title}
-              steps={demoData.selfService.steps}
-              platformUrl={`/${section.title.toLowerCase().replace(/\s+/g, '-')}`}
+            <InteractiveDemo 
+              steps={demoData.selfService?.steps || []}
             />
           </TabsContent>
 
           <TabsContent value="visual" className="mt-6">
-            <VisualGuide
-              title={section.title}
-              category={section.category || 'عام'}
-              steps={visualGuideData.selfService.steps}
+            <VisualGuide 
+              steps={visualGuideData.selfService?.steps || []}
             />
           </TabsContent>
 
           <TabsContent value="tour" className="mt-6">
-            <GuidedTour
-              title={section.title}
-              platformName={section.title}
-              steps={tourData.selfService.steps}
-              onStart={() => console.log('بدء الجولة الإرشادية')}
-              onComplete={() => console.log('انتهاء الجولة الإرشادية')}
+            <GuidedTour 
+              steps={tourData.selfService?.steps || []}
             />
           </TabsContent>
         </Tabs>
 
-        {/* قائمة الخطوات والميزات */}
-        <div className="grid md:grid-cols-2 gap-6 mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">خطوات التنفيذ</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ol className="space-y-2">
-                {section.steps.map((step: string, index: number) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
-                      {index + 1}
-                    </div>
-                    <span className="text-sm">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
+        {/* معلومات إضافية */}
+        <div className="mt-8 space-y-6">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="content">
+              <AccordionTrigger className="text-lg font-semibold">محتوى الدرس</AccordionTrigger>
+              <AccordionContent>
+                <div className="prose prose-sm max-w-none dark:prose-invert">
+                  <p className="text-muted-foreground leading-relaxed">
+                    {content}
+                  </p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">الميزات الرئيسية</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {section.features.map((feature: string, index: number) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+            <AccordionItem value="steps">
+              <AccordionTrigger className="text-lg font-semibold">خطوات التعلم</AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-3">
+                  {section.steps.map((step: string, index: number) => (
+                    <div key={index} className="flex items-start gap-3 text-sm">
+                      <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">
+                        {index + 1}
+                      </div>
+                      <span className="text-muted-foreground">{step}</span>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="features">
+              <AccordionTrigger className="text-lg font-semibold">الميزات المدروسة</AccordionTrigger>
+              <AccordionContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {section.features.map((feature: string, index: number) => (
+                    <div key={index} className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     );
   };
 
   return (
-    <>
-      {/* نمط الخلفية */}
-      <BoudLogo variant="pattern" />
-      
-      {/* Header with Back Button and Logo */}
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <BackButton />
-            <BoudLogo size="header" showText />
-          </div>
+    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
         </div>
       </div>
+      
+      {/* Professional Interactive Header */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex items-center justify-between h-24">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <Link to="/" className="hover:scale-105 transition-all duration-300">
+                <img 
+                  src={buodLogo} 
+                  alt="Buod HR" 
+                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
+                />
+              </Link>
+            </div>
 
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-3">
-              <BookOpen className="h-10 w-10 text-primary" />
-              مركز المعرفة ودليل الاستخدام المتقدم
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              دليل شامل ومتقدم لاستخدام جميع منصات وميزات نظام بُعد HR مع أربعة أنواع مختلفة من المعرفة
-            </p>
-            
-            {/* أنواع المعرفة المتاحة */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 max-w-4xl mx-auto">
-              <Card className="border-blue-200 dark:border-blue-800 hover:shadow-lg transition-shadow">
-                <CardContent className="p-4 text-center">
-                  <Volume2 className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <h3 className="font-semibold text-sm">مساعد صوتي</h3>
-                  <p className="text-xs text-muted-foreground">قراءة المحتوى بالصوت</p>
-                </CardContent>
-              </Card>
+            {/* Center Section - Title & Icon */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <BookOpen className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
               
-              <Card className="border-green-200 dark:border-green-800 hover:shadow-lg transition-shadow">
-                <CardContent className="p-4 text-center">
-                  <Play className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                  <h3 className="font-semibold text-sm">عروض تفاعلية</h3>
-                  <p className="text-xs text-muted-foreground">محاكاة خطوة بخطوة</p>
-                </CardContent>
-              </Card>
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  الدروس التعليمية
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  دروس تفاعلية ومتقدمة
+                </p>
+              </div>
+            </div>
+
+            {/* Right Section - Professional Controls Panel */}
+            <div className="flex flex-col items-end space-y-4">
+              {/* Status Panel */}
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+                {/* Status Indicator */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                    حالة النظام
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+                    <span className="text-xs text-green-300 font-semibold">
+                      متاح
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                
+                {/* Quick Stats */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-medium">
+                    الدروس المتاحة
+                  </span>
+                  <span className="text-sm text-[#008C6A] font-bold">
+                    {filteredSections.length}
+                  </span>
+                </div>
+              </div>
               
-              <Card className="border-purple-200 dark:border-purple-800 hover:shadow-lg transition-shadow">
-                <CardContent className="p-4 text-center">
-                  <Camera className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                  <h3 className="font-semibold text-sm">أدلة مصورة</h3>
-                  <p className="text-xs text-muted-foreground">لقطات مع إرشادات</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="border-orange-200 dark:border-orange-800 hover:shadow-lg transition-shadow">
-                <CardContent className="p-4 text-center">
-                  <Navigation className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                  <h3 className="font-semibold text-sm">جولات إرشادية</h3>
-                  <p className="text-xs text-muted-foreground">جولة داخل المنصة</p>
-                </CardContent>
-              </Card>
+              {/* Quick Stats Mini Panel */}
+              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
+                <div className="flex items-center space-x-3 text-xs">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+                    <span className="text-gray-400">{filteredSections.length} درس</span>
+                  </div>
+                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-gray-400">محدّث</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* أدوات الإدارة */}
-          <div className="flex flex-wrap gap-4 justify-between items-center mb-8">
-            {/* شريط البحث */}
-            <div className="flex-1 max-w-2xl">
-              <div className="relative">
-                <Search className="absolute right-3 top-3 h-5 w-5 text-muted-foreground" />
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
+        </div>
+      </header>
+
+      <main className="relative z-10 w-full mx-auto px-4 py-8">
+        {/* Breadcrumb Navigation - Far Right */}
+        <div className="flex justify-end mb-6 mr-0">
+          <div className="ml-auto">
+            <Breadcrumb 
+              items={[
+                { label: 'الرئيسية', path: '/' },
+                { label: 'الدروس التعليمية', path: '/tutorials' }
+              ]}
+            />
+          </div>
+        </div>
+        
+        {/* Floating Elements for Professional Look */}
+        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        
+        {/* Enhanced Hero Section */}
+        <div className="text-center mb-12 relative">
+          {/* Floating background elements */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          
+          <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <img 
+              src="/boud-logo-white.png" 
+              alt="شعار بُعد" 
+              className="h-36 w-36 object-contain transition-all duration-300 group-hover:brightness-110 z-10 relative drop-shadow-2xl" 
+            />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          
+          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+            مكتبة الدروس التعليمية التفاعلية
+          </h2>
+          
+          <div className="relative max-w-3xl mx-auto">
+            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+              دروس تعليمية تفاعلية شاملة لتعلم استخدام جميع ميزات منصة بُعد للموارد البشرية
+            </p>
+          </div>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="mb-12 space-y-6">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
+            {/* Professional Search Bar */}
+            <div className="relative w-full max-w-2xl group">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative flex items-center">
+                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#008C6A] h-5 w-5 z-10" />
                 <Input
-                  placeholder="ابحث في مركز المعرفة والأدلة..."
+                  placeholder="ابحث في الدروس التعليمية..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-4 pr-12 h-12 text-lg border-2 border-primary/20 focus:border-primary"
+                  className="w-full pr-12 pl-6 h-14 bg-gradient-to-r from-gray-900/80 to-black/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl text-white placeholder-gray-400 focus:border-[#008C6A]/70 focus:ring-2 focus:ring-[#008C6A]/30 transition-all duration-300 shadow-xl hover:shadow-[#008C6A]/20"
                 />
               </div>
             </div>
-
-            {/* أزرار الإدارة */}
-            <div className="flex gap-2">
-              <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button className="gap-2">
-                    <Plus className="h-4 w-4" />
-                    إضافة درس جديد
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>إضافة درس تعليمي جديد</DialogTitle>
-                  </DialogHeader>
-                  
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">عنوان الدرس</label>
-                        <Input
-                          value={newTutorial.title}
-                          onChange={(e) => setNewTutorial({...newTutorial, title: e.target.value})}
-                          placeholder="أدخل عنوان الدرس"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">الفئة المستهدفة</label>
-                        <Input
-                          value={newTutorial.targetUsers}
-                          onChange={(e) => setNewTutorial({...newTutorial, targetUsers: e.target.value})}
-                          placeholder="مثال: الموظفين ومدراء الأقسام"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">المدة المتوقعة</label>
-                        <Input
-                          value={newTutorial.duration}
-                          onChange={(e) => setNewTutorial({...newTutorial, duration: e.target.value})}
-                          placeholder="مثال: 15 دقيقة"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">التصنيف</label>
-                        <Select value={newTutorial.category} onValueChange={(value) => setNewTutorial({...newTutorial, category: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="اختر التصنيف" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="خدمات الموظفين">خدمات الموظفين</SelectItem>
-                            <SelectItem value="الموارد البشرية">الموارد البشرية</SelectItem>
-                            <SelectItem value="الرواتب والمالية">الرواتب والمالية</SelectItem>
-                            <SelectItem value="التدريب والتطوير">التدريب والتطوير</SelectItem>
-                            <SelectItem value="الشؤون القانونية">الشؤون القانونية</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">الوصف</label>
-                      <Textarea
-                        value={newTutorial.description}
-                        onChange={(e) => setNewTutorial({...newTutorial, description: e.target.value})}
-                        placeholder="وصف مختصر للدرس"
-                        rows={3}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">المحتوى التفصيلي</label>
-                      <Textarea
-                        value={newTutorial.content}
-                        onChange={(e) => setNewTutorial({...newTutorial, content: e.target.value})}
-                        placeholder="محتوى الدرس التفصيلي"
-                        rows={4}
-                      />
-                    </div>
-                    
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <label className="text-sm font-medium">خطوات التنفيذ</label>
-                        <Button variant="outline" size="sm" onClick={() => addStep()}>
-                          <Plus className="h-4 w-4 ml-1" />
-                          إضافة خطوة
-                        </Button>
-                      </div>
-                      <div className="space-y-2">
-                        {newTutorial.steps.map((step, index) => (
-                          <Input
-                            key={index}
-                            value={step}
-                            onChange={(e) => {
-                              const newSteps = [...newTutorial.steps];
-                              newSteps[index] = e.target.value;
-                              setNewTutorial({...newTutorial, steps: newSteps});
-                            }}
-                            placeholder={`الخطوة ${index + 1}`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <label className="text-sm font-medium">الميزات الرئيسية</label>
-                        <Button variant="outline" size="sm" onClick={() => addFeature()}>
-                          <Plus className="h-4 w-4 ml-1" />
-                          إضافة ميزة
-                        </Button>
-                      </div>
-                      <div className="space-y-2">
-                        {newTutorial.features.map((feature, index) => (
-                          <Input
-                            key={index}
-                            value={feature}
-                            onChange={(e) => {
-                              const newFeatures = [...newTutorial.features];
-                              newFeatures[index] = e.target.value;
-                              setNewTutorial({...newTutorial, features: newFeatures});
-                            }}
-                            placeholder={`الميزة ${index + 1}`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-2 justify-end pt-4 border-t">
-                      <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                        إلغاء
-                      </Button>
-                      <Button onClick={handleAddTutorial}>
-                        إضافة الدرس
-                      </Button>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-
-              <Button variant="outline" className="gap-2">
-                <Download className="h-4 w-4" />
-                تصدير
-              </Button>
-              
-              <Button variant="outline" className="gap-2">
-                <Upload className="h-4 w-4" />
-                استيراد
-              </Button>
-              
-              <Button variant="outline" className="gap-2">
-                <Settings className="h-4 w-4" />
-                الإعدادات
+            
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <Button 
+                variant="outline" 
+                onClick={() => setSearchQuery('')}
+                className="bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:bg-gradient-to-r hover:from-[#008C6A]/20 hover:to-[#00694F]/20 hover:border-[#008C6A]/70 transition-all duration-300 shadow-lg hover:shadow-[#008C6A]/25 px-6 h-12"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                مسح البحث
               </Button>
             </div>
           </div>
+        </div>
 
-          {/* Tutorial Sections */}
-          <div className="space-y-6">
-            <Accordion type="single" collapsible className="space-y-4">
-              {filteredSections.map((section, index) => (
-                <AccordionItem 
-                  key={index} 
-                  value={`section-${index}`}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <AccordionTrigger className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <div className="flex items-center gap-4 text-right w-full">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-primary/10">
-                          <section.icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="text-right">
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                            {section.title}
-                          </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                            {section.description}
-                          </p>
-                        </div>
+        {/* Tutorial Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 relative">
+          {filteredSections.map((section, index) => {
+            const IconComponent = section.icon;
+            return (
+              <div
+                key={section.id}
+                className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/70 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:shadow-[#008C6A]/25 transition-all duration-500 hover:scale-105 hover:border-[#008C6A]/60 cursor-pointer"
+              >
+                {/* Animated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/10 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Content */}
+                <div className="relative p-8 space-y-6">
+                  {/* Header with icon and badge */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="relative">
+                      <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A]/30 to-[#00694F]/30 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-[#008C6A]/40 group-hover:border-[#008C6A]/70 transition-all duration-300">
+                        <IconComponent className="w-8 h-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
                       </div>
-                      <div className="mr-auto flex flex-wrap gap-2 items-center">
-                        <Badge variant="secondary" className="text-xs">
-                          {section.targetUsers}
-                        </Badge>
-                        <Badge variant="outline" className="text-xs">
-                          <Clock className="h-3 w-3 ml-1" />
-                          {section.duration}
-                        </Badge>
-                        {section.rating && (
-                          <Badge variant="outline" className="text-xs">
-                            <Star className="h-3 w-3 ml-1" />
-                            {section.rating}
-                          </Badge>
-                        )}
-                        <div className="flex gap-1">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setEditingTutorial(section);
-                            }}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDeleteTutorial(section.id);
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
+                      {/* Animated ring */}
+                      <div className="absolute inset-0 rounded-2xl bg-[#008C6A]/20 opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <div className="flex flex-col items-end space-y-2">
+                      <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 group-hover:bg-gradient-to-r group-hover:from-[#008C6A] group-hover:to-[#00694F] group-hover:text-white transition-all duration-300 text-xs font-semibold">
+                        {section.category}
+                      </Badge>
+                      <div className="flex items-center gap-1 text-xs text-gray-400">
+                        <Clock className="h-3 w-3" />
+                        {section.duration}
                       </div>
                     </div>
-                  </AccordionTrigger>
+                  </div>
                   
-                  <AccordionContent className="p-6 pt-0 border-t border-gray-100 dark:border-gray-700">
-                    {renderTutorialContent(section)}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+                  {/* Content */}
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-white group-hover:text-[#008C6A] transition-colors duration-300 leading-tight">
+                      {section.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                      {section.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between text-xs text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <Users className="h-3 w-3" />
+                        {section.targetUsers}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                        <span className="text-sm font-semibold text-white">{section.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Progress Stats */}
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#008C6A]/20">
+                    <div className="text-center p-3 rounded-xl bg-gradient-to-br from-[#008C6A]/10 to-[#00694F]/10 border border-[#008C6A]/20">
+                      <div className="text-lg font-bold text-[#008C6A]">{section.completionRate}%</div>
+                      <div className="text-xs text-gray-400">معدل الإنجاز</div>
+                    </div>
+                    <div className="text-center p-3 rounded-xl bg-gradient-to-br from-[#008C6A]/10 to-[#00694F]/10 border border-[#008C6A]/20">
+                      <div className="text-lg font-bold text-[#008C6A]">{section.totalLearners}</div>
+                      <div className="text-xs text-gray-400">متدرب</div>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        className="w-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 hover:bg-gradient-to-r hover:from-[#008C6A] hover:to-[#00694F] hover:text-white hover:border-[#008C6A] transition-all duration-300 font-semibold shadow-lg hover:shadow-[#008C6A]/25"
+                        size="lg"
+                      >
+                        <Play className="w-4 h-4 mr-2" />
+                        ابدأ الدرس
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black border border-[#008C6A]/30">
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center gap-3 text-2xl text-white">
+                          <IconComponent className="h-8 w-8 text-[#008C6A]" />
+                          {section.title}
+                        </DialogTitle>
+                      </DialogHeader>
+                      {renderTutorialContent(section)}
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Admin Panel for Adding/Editing Tutorials */}
+        <div className="mt-16 space-y-8">
+          <div className="flex items-center justify-between">
+            <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة الدروس</h2>
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300 px-6">
+                  <Plus className="w-4 h-4 mr-2" />
+                  إضافة درس جديد
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black border border-[#008C6A]/30">
+                <DialogHeader>
+                  <DialogTitle className="text-white text-xl">إضافة درس تعليمي جديد</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-300">عنوان الدرس</label>
+                      <Input
+                        value={newTutorial.title}
+                        onChange={(e) => setNewTutorial({ ...newTutorial, title: e.target.value })}
+                        placeholder="أدخل عنوان الدرس"
+                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-300">التصنيف</label>
+                      <Input
+                        value={newTutorial.category}
+                        onChange={(e) => setNewTutorial({ ...newTutorial, category: e.target.value })}
+                        placeholder="تصنيف الدرس"
+                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium mb-2 block text-gray-300">الوصف</label>
+                    <Textarea
+                      value={newTutorial.description}
+                      onChange={(e) => setNewTutorial({ ...newTutorial, description: e.target.value })}
+                      placeholder="وصف مختصر للدرس"
+                      className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      rows={3}
+                    />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-300">المستخدمون المستهدفون</label>
+                      <Input
+                        value={newTutorial.targetUsers}
+                        onChange={(e) => setNewTutorial({ ...newTutorial, targetUsers: e.target.value })}
+                        placeholder="مثال: جميع الموظفين"
+                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-300">المدة المتوقعة</label>
+                      <Input
+                        value={newTutorial.duration}
+                        onChange={(e) => setNewTutorial({ ...newTutorial, duration: e.target.value })}
+                        placeholder="مثال: 15 دقيقة"
+                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <Button 
+                      onClick={handleAddTutorial} 
+                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      إضافة الدرس
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setIsAddDialogOpen(false)}
+                      className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/10"
+                    >
+                      إلغاء
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
-          {/* No Results Message */}
-          {filteredSections.length === 0 && (
-            <Card className="text-center py-12">
-              <CardContent>
-                <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">لا توجد نتائج</h3>
-                <p className="text-muted-foreground">
-                  لم نتمكن من العثور على دروس تطابق بحثك. جرب كلمات مختلفة أو أضف درساً جديداً.
-                </p>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* API Key Setup Notice */}
-          <Card className="mt-8 border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20">
-            <CardContent className="p-6">
-              <div className="text-center space-y-4">
-                <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200">
-                  🔊 لتفعيل المساعد الصوتي
-                </h3>
-                <p className="text-yellow-700 dark:text-yellow-300">
-                  احصل على مفتاح ElevenLabs API وأضفه في إعدادات النظام لتفعيل ميزة تحويل النص إلى كلام
-                </p>
-                <Button 
-                  variant="outline" 
-                  className="border-yellow-400 text-yellow-800 hover:bg-yellow-100 dark:text-yellow-200 dark:hover:bg-yellow-900/50"
-                >
-                  إعداد مفتاح API
-                </Button>
+          {/* Existing Tutorials Management */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tutorialSections.map((section) => (
+              <div key={section.id} className="bg-gradient-to-br from-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-6 hover:shadow-[#008C6A]/20 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-white">{section.title}</h3>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setEditingTutorial(section)}
+                      className="text-[#008C6A] hover:text-white hover:bg-[#008C6A]/20 p-2"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDeleteTutorial(section.id)}
+                      className="text-red-400 hover:text-white hover:bg-red-500/20 p-2"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  <p className="text-sm text-gray-400">{section.description}</p>
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span className="bg-[#008C6A]/20 text-[#008C6A] px-2 py-1 rounded-lg">{section.category}</span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {section.duration}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 text-xs">
+                    <div className="flex items-center gap-1">
+                      <Star className="h-3 w-3 text-yellow-500" />
+                      <span className="text-white">{section.rating}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <CheckCircle className="h-3 w-3 text-green-500" />
+                      <span className="text-white">{section.completionRate}%</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users className="h-3 w-3 text-blue-500" />
+                      <span className="text-white">{section.totalLearners}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
+
+          {/* Edit Tutorial Dialog */}
+          {editingTutorial && (
+            <Dialog open={!!editingTutorial} onOpenChange={() => setEditingTutorial(null)}>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black border border-[#008C6A]/30">
+                <DialogHeader>
+                  <DialogTitle className="text-white text-xl">تحرير الدرس: {editingTutorial.title}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-300">عنوان الدرس</label>
+                      <Input
+                        value={editingTutorial.title}
+                        onChange={(e) => setEditingTutorial({ ...editingTutorial, title: e.target.value })}
+                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block text-gray-300">التصنيف</label>
+                      <Input
+                        value={editingTutorial.category}
+                        onChange={(e) => setEditingTutorial({ ...editingTutorial, category: e.target.value })}
+                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium mb-2 block text-gray-300">الوصف</label>
+                    <Textarea
+                      value={editingTutorial.description}
+                      onChange={(e) => setEditingTutorial({ ...editingTutorial, description: e.target.value })}
+                      className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      rows={3}
+                    />
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <Button 
+                      onClick={() => handleUpdateTutorial(editingTutorial)} 
+                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300"
+                    >
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      حفظ التغييرات
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => setEditingTutorial(null)}
+                      className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/10"
+                    >
+                      إلغاء
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
