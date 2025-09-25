@@ -1931,24 +1931,39 @@ const EmployeePortal = () => {
       </header>
 
       <main className="relative z-10 w-full mx-auto px-4 py-8">
+        {/* Breadcrumb Navigation - Far Right */}
+        <div className="flex justify-end mb-6 mr-0">
+          <div className="ml-auto">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse text-sm text-gray-400">
+              <Link to="/" className="hover:text-[#008C6A] transition-colors">الرئيسية</Link>
+              <span>/</span>
+              <span className="text-white">بوابة الموظف</span>
+            </div>
+          </div>
+        </div>
+        
         {/* Floating Elements for Professional Look */}
         <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
         <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
 
-        {/* Employee Info Header - محسن بصرياً */}
-        <Card className="mb-6 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20 relative overflow-hidden">
-          {/* Card Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
-          </div>
+        {/* Enhanced Hero Section - Employee Info */}
+        <div className="text-center mb-12 relative">
+          {/* Floating background elements */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
           
-          <CardContent className="p-0 overflow-hidden relative bg-gray-900/40">
-            {/* خلفية متدرجة */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10"></div>
+          <Card className="max-w-6xl mx-auto bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20 relative overflow-hidden">
+            {/* Card Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+            </div>
             
-            {/* المحتوى الرئيسي المحسن */}
-            <div className="relative p-6">
+            <CardContent className="p-0 overflow-hidden relative bg-gray-900/40">
+              {/* خلفية متدرجة */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10"></div>
+              
+              {/* المحتوى الرئيسي المحسن */}
+              <div className="relative p-6">{/* ... keep existing code (all employee info content) */}
               {/* Header Top Section - Quick Actions */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -2241,13 +2256,16 @@ const EmployeePortal = () => {
             </div>
           </CardContent>
         </Card>
+        </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
-          </div>
-          <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl p-2 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-500 overflow-hidden">
+        {/* Enhanced Dashboard Content with EarnWithBoad Design */}
+        <div className="max-w-6xl mx-auto">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+            </div>
+            <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl p-2 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-500 overflow-hidden">
             <TabsList className="flex w-full h-auto p-1 bg-transparent gap-1 overflow-x-auto scrollbar-hide">
               <TabsTrigger value="dashboard" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <User className="w-4 h-4 mb-1" />
@@ -4243,28 +4261,25 @@ const EmployeePortal = () => {
           </TabsContent>
 
           <TabsContent value="dashboard" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center">
-                    <Calendar className="h-8 w-8 text-blue-600" />
-                    <div className="mr-4">
-                      <div className="text-2xl font-bold">25</div>
-                      <div className="text-sm text-muted-foreground">أيام إجازة متبقية</div>
-                    </div>
+            {/* Enhanced Dashboard Stats Cards with EarnWithBoad Design */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-[#008C6A]/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-[#008C6A]/30 transition-all duration-300">
+                    <Calendar className="h-8 w-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">25</div>
+                  <div className="text-sm text-gray-300">أيام إجازة متبقية</div>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center">
-                    <Clock className="h-8 w-8 text-green-600" />
-                    <div className="mr-4">
-                      <div className="text-2xl font-bold">96%</div>
-                      <div className="text-sm text-muted-foreground">معدل الحضور</div>
-                    </div>
+              <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-[#008C6A]/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-[#008C6A]/30 transition-all duration-300">
+                    <Clock className="h-8 w-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
                   </div>
+                  <div className="text-2xl font-bold text-white mb-2">96%</div>
+                  <div className="text-sm text-gray-300">معدل الحضور</div>
                 </CardContent>
               </Card>
 
@@ -5710,6 +5725,7 @@ const EmployeePortal = () => {
             </Card>
           </TabsContent>
         </Tabs>
+        </div>
 
         {/* Dialog for General Request */}
         <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
