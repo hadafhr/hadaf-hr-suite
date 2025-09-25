@@ -3426,79 +3426,94 @@ const EmployeePortal = () => {
           <TabsContent value="custody" className="space-y-6">
             {/* إحصائيات العهدة */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">عهدة نشطة</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400 mb-2">عهدة نشطة</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedCustody.filter(c => c.status === 'نشط').length}
                       </p>
                     </div>
-                    <Package className="h-8 w-8 text-blue-500" />
+                    <Package className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">حالة ممتازة</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400 mb-2">حالة ممتازة</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedCustody.filter(c => c.condition === 'ممتاز').length}
                       </p>
                     </div>
-                    <Award className="h-8 w-8 text-green-500" />
+                    <Award className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-purple-600">القيمة الإجمالية</p>
-                      <p className="text-2xl font-bold text-purple-700">
+                      <p className="text-sm font-medium text-purple-400 mb-2">القيمة الإجمالية</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedCustody.filter(c => c.status === 'نشط').reduce((sum, item) => sum + item.value, 0).toLocaleString()} ريال
                       </p>
                     </div>
-                    <DollarSign className="h-8 w-8 text-purple-500" />
+                    <DollarSign className="h-8 w-8 text-purple-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-orange-600">يحتاج صيانة</p>
-                      <p className="text-2xl font-bold text-orange-700">
+                      <p className="text-sm font-medium text-orange-400 mb-2">يحتاج صيانة</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedCustody.filter(c => 
                           c.nextMaintenance && new Date(c.nextMaintenance) < new Date()
                         ).length}
                       </p>
                     </div>
-                    <AlertTriangle className="h-8 w-8 text-orange-500" />
+                    <AlertTriangle className="h-8 w-8 text-orange-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* إدارة العهدة */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <Package className="h-5 w-5" />
-                    <CardTitle>العهدة والأصول</CardTitle>
+                    <Package className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-xl font-bold text-white">العهدة والأصول</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Select value={selectedCustodyFilter} onValueChange={setSelectedCustodyFilter}>
-                      <SelectTrigger className="w-40">
+                      <SelectTrigger className="w-40 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب الفئة" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
                         <SelectItem value="all">جميع العهدة</SelectItem>
                         <SelectItem value="تقنية">تقنية</SelectItem>
                         <SelectItem value="اتصالات">اتصالات</SelectItem>
@@ -3508,7 +3523,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm" 
                       variant="outline"
-                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                      className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                     >
                       <Download className="h-4 w-4 ml-2" />
                       تصدير التقرير
@@ -3516,18 +3531,24 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {enhancedCustody.filter(item => 
                     selectedCustodyFilter === 'all' || item.category === selectedCustodyFilter
                   ).map((item) => (
-                    <Card key={item.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
+                    <Card key={item.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{item.item}</h4>
-                            <p className="text-sm text-muted-foreground mb-2">الرقم التسلسلي: {item.serialNumber}</p>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{item.item}</h4>
+                            <p className="text-sm text-gray-300 mb-2">الرقم التسلسلي: {item.serialNumber}</p>
+                            <div className="flex items-center gap-4 text-sm text-gray-400 mb-2">
                               <div className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
                                 <span>تاريخ التسليم: {item.assignDate}</span>
@@ -3541,8 +3562,8 @@ const EmployeePortal = () => {
                                 <span>{item.value.toLocaleString()} ريال</span>
                               </div>
                             </div>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                              <Badge variant="outline" className="px-2 py-1">
+                            <div className="flex items-center gap-4 text-sm text-gray-400">
+                              <Badge variant="outline" className="px-2 py-1 bg-black/20 border-[#008C6A]/30 text-[#008C6A]">
                                 {item.category}
                               </Badge>
                               {item.warrantyExpiry && (
@@ -3554,8 +3575,8 @@ const EmployeePortal = () => {
                             <Badge 
                               variant="outline" 
                               className={`${
-                                item.status === 'نشط' ? 'bg-green-50 text-green-700 border-green-200' :
-                                'bg-gray-50 text-gray-700 border-gray-200'
+                                item.status === 'نشط' ? 'bg-green-500/10 text-green-400 border-green-500/30' :
+                                'bg-gray-500/10 text-gray-400 border-gray-500/30'
                               } px-3 py-1`}
                             >
                               {item.status}
@@ -3563,9 +3584,9 @@ const EmployeePortal = () => {
                             <Badge 
                               variant="outline" 
                               className={`${
-                                item.condition === 'ممتاز' ? 'bg-green-50 text-green-700 border-green-200' :
-                                item.condition === 'جيد' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                'bg-yellow-50 text-yellow-700 border-yellow-200'
+                                item.condition === 'ممتاز' ? 'bg-green-500/10 text-green-400 border-green-500/30' :
+                                item.condition === 'جيد' ? 'bg-blue-500/10 text-blue-400 border-blue-500/30' :
+                                'bg-yellow-500/10 text-yellow-400 border-yellow-500/30'
                               } px-2 py-1 text-xs`}
                             >
                               {item.condition}
@@ -3575,17 +3596,17 @@ const EmployeePortal = () => {
 
                         {/* ملاحظات */}
                         {item.notes && (
-                          <div className="mb-3 p-3 bg-muted/30 rounded-lg">
-                            <p className="text-sm font-medium text-muted-foreground mb-1">ملاحظات:</p>
-                            <p className="text-sm">{item.notes}</p>
+                          <div className="mb-3 p-3 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                            <p className="text-sm font-medium text-gray-400 mb-1">ملاحظات:</p>
+                            <p className="text-sm text-white">{item.notes}</p>
                           </div>
                         )}
 
                         {/* سجل الصيانة */}
                         {item.maintenanceHistory.length > 0 && (
-                          <div className="mb-3">
-                            <p className="text-sm font-medium text-muted-foreground mb-2">آخر صيانة:</p>
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <div className="mb-3 relative z-10">
+                            <p className="text-sm font-medium text-gray-400 mb-2">آخر صيانة:</p>
+                            <div className="flex items-center gap-2 text-xs text-gray-400">
                               <span>{item.maintenanceHistory[0].date}</span>
                               <span>•</span>
                               <span>{item.maintenanceHistory[0].type}</span>
@@ -3595,20 +3616,20 @@ const EmployeePortal = () => {
 
                         {/* تنبيه الصيانة */}
                         {item.nextMaintenance && new Date(item.nextMaintenance) < new Date() && (
-                          <div className="mb-3 p-2 bg-orange-50 border border-orange-200 rounded-lg">
-                            <div className="flex items-center gap-2 text-orange-700">
+                          <div className="mb-3 p-2 bg-orange-500/10 border border-orange-500/30 rounded-lg relative z-10">
+                            <div className="flex items-center gap-2 text-orange-400">
                               <AlertTriangle className="h-4 w-4" />
                               <span className="text-sm font-medium">يحتاج صيانة دورية</span>
                             </div>
                           </div>
                         )}
 
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex gap-2 flex-wrap relative z-10">
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => handleViewCustodyDetails(item)}
-                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                            className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                           >
                             <Eye className="h-4 w-4 ml-2" />
                             عرض التفاصيل
@@ -3620,7 +3641,7 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleReportIssue(item.id)}
-                                className="hover:bg-red-50 hover:border-red-500 hover:text-red-700"
+                                className="bg-black/20 backdrop-blur-sm border-red-500/30 text-red-400 hover:bg-red-500/20 hover:border-red-400 hover:text-red-300 transition-all duration-300"
                               >
                                 <AlertTriangle className="h-4 w-4 ml-2" />
                                 بلاغ عطل
@@ -3630,7 +3651,7 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleRequestMaintenance(item.id)}
-                                className="hover:bg-orange-50 hover:border-orange-500 hover:text-orange-700"
+                                className="bg-black/20 backdrop-blur-sm border-orange-500/30 text-orange-400 hover:bg-orange-500/20 hover:border-orange-400 hover:text-orange-300 transition-all duration-300"
                               >
                                 <Settings className="h-4 w-4 ml-2" />
                                 طلب صيانة
@@ -3640,7 +3661,7 @@ const EmployeePortal = () => {
                                 size="sm" 
                                 variant="outline"
                                 onClick={() => handleReturnAsset(item.id)}
-                                className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                                className="bg-black/20 backdrop-blur-sm border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:border-purple-400 hover:text-purple-300 transition-all duration-300"
                               >
                                 <RotateCcw className="h-4 w-4 ml-2" />
                                 إرجاع العهدة
@@ -3654,21 +3675,21 @@ const EmployeePortal = () => {
                 </div>
 
                 {/* ملخص العهدة */}
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4" />
+                <div className="mt-6 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <BarChart3 className="h-4 w-4 text-[#008C6A]" />
                     ملخص العهدة
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">إجمالي القيمة</p>
-                      <p className="text-lg font-bold text-blue-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-blue-500/20">
+                      <p className="text-gray-400">إجمالي القيمة</p>
+                      <p className="text-lg font-bold text-blue-400">
                         {enhancedCustody.reduce((sum, item) => sum + item.value, 0).toLocaleString()} ريال
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">متوسط العمر</p>
-                      <p className="text-lg font-bold text-green-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-green-500/20">
+                      <p className="text-gray-400">متوسط العمر</p>
+                      <p className="text-lg font-bold text-green-400">
                         {Math.round(enhancedCustody.filter(c => c.status === 'نشط').length > 0 ? 
                           enhancedCustody.filter(c => c.status === 'نشط').reduce((sum, item) => {
                             const years = (new Date().getTime() - new Date(item.assignDate).getTime()) / (1000 * 60 * 60 * 24 * 365);
@@ -3677,13 +3698,13 @@ const EmployeePortal = () => {
                         )} سنة
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">الأكثر استخداماً</p>
-                      <p className="text-lg font-bold text-purple-600">التقنية</p>
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-purple-500/20">
+                      <p className="text-gray-400">الأكثر استخداماً</p>
+                      <p className="text-lg font-bold text-purple-400">التقنية</p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">معدل الصيانة</p>
-                      <p className="text-lg font-bold text-orange-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-orange-500/20">
+                      <p className="text-gray-400">معدل الصيانة</p>
+                      <p className="text-lg font-bold text-orange-400">
                         {Math.round((enhancedCustody.filter(c => c.maintenanceHistory.length > 0).length / enhancedCustody.length) * 100)}%
                       </p>
                     </div>
