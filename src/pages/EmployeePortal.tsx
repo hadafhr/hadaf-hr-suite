@@ -3954,156 +3954,154 @@ const EmployeePortal = () => {
             </Card>
           </TabsContent>
 
-          {/* تبويب نظام الحضور GPS */}
+          {/* Enhanced GPS Attendance Tab with EarnWithBoad Design */}
           <TabsContent value="gps-attendance" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Satellite className="h-5 w-5" />
+            <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+              <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+                  <Satellite className="h-6 w-6 text-white" />
                   نظام الحضور GPS
                 </CardTitle>
-                <CardDescription>نظام حضور وانصراف متقدم مع تتبع الموقع الجغرافي</CardDescription>
+                <CardDescription className="text-center text-gray-200 relative z-10">نظام حضور وانصراف متقدم مع تتبع الموقع الجغرافي</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6 bg-gray-900/40">
                 <div className="space-y-6">
-                  {/* إحصائيات الحضور */}
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white hover-scale cursor-pointer" 
+                  {/* Enhanced GPS Attendance Statistics */}
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20 cursor-pointer" 
                           onClick={() => setSelectedGPSFilter('present')}>
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-white/80 text-sm">أيام الحضور</p>
-                            <p className="text-2xl font-bold">{attendanceData.filter(r => r.status === 'حاضر').length}</p>
-                          </div>
-                          <CheckCircleIcon className="h-8 w-8 text-white/80" />
+                      <CardContent className="p-6 text-center bg-gray-900/40">
+                        <div className="w-16 h-16 bg-green-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-green-500/30 transition-all duration-300">
+                          <CheckCircleIcon className="h-8 w-8 text-green-400 group-hover:text-white transition-colors duration-300" />
                         </div>
+                        <div className="text-2xl font-bold text-white mb-2">{attendanceData.filter(r => r.status === 'حاضر').length}</div>
+                        <div className="text-sm text-gray-300">أيام الحضور</div>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white hover-scale cursor-pointer"
+                    <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20 cursor-pointer"
                           onClick={() => setSelectedGPSFilter('late')}>
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-white/80 text-sm">أيام التأخير</p>
-                            <p className="text-2xl font-bold">{attendanceData.filter(r => r.status === 'متأخر').length}</p>
-                          </div>
-                          <ClockIcon className="h-8 w-8 text-white/80" />
+                      <CardContent className="p-6 text-center bg-gray-900/40">
+                        <div className="w-16 h-16 bg-yellow-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-yellow-500/30 transition-all duration-300">
+                          <ClockIcon className="h-8 w-8 text-yellow-400 group-hover:text-white transition-colors duration-300" />
                         </div>
+                        <div className="text-2xl font-bold text-white mb-2">{attendanceData.filter(r => r.status === 'متأخر').length}</div>
+                        <div className="text-sm text-gray-300">أيام التأخير</div>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-gradient-to-r from-red-500 to-red-600 text-white hover-scale cursor-pointer"
+                    <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20 cursor-pointer"
                           onClick={() => setSelectedGPSFilter('absent')}>
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-white/80 text-sm">أيام الغياب</p>
-                            <p className="text-2xl font-bold">{attendanceData.filter(r => r.status === 'غائب').length}</p>
-                          </div>
-                          <XCircle className="h-8 w-8 text-white/80" />
+                      <CardContent className="p-6 text-center bg-gray-900/40">
+                        <div className="w-16 h-16 bg-red-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-red-500/30 transition-all duration-300">
+                          <XCircle className="h-8 w-8 text-red-400 group-hover:text-white transition-colors duration-300" />
                         </div>
+                        <div className="text-2xl font-bold text-white mb-2">{attendanceData.filter(r => r.status === 'غائب').length}</div>
+                        <div className="text-sm text-gray-300">أيام الغياب</div>
                       </CardContent>
                     </Card>
 
-                    <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover-scale cursor-pointer"
+                    <Card className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20 cursor-pointer"
                           onClick={() => setSelectedGPSFilter('all')}>
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-white/80 text-sm">إجمالي الساعات</p>
-                            <p className="text-2xl font-bold">
-                              {attendanceData.reduce((total, record) => {
-                                const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
-                                return total + hours;
-                              }, 0).toFixed(1)}
-                            </p>
-                          </div>
-                          <Timer className="h-8 w-8 text-white/80" />
+                      <CardContent className="p-6 text-center bg-gray-900/40">
+                        <div className="w-16 h-16 bg-blue-500/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-blue-500/30 transition-all duration-300">
+                          <Timer className="h-8 w-8 text-blue-400 group-hover:text-white transition-colors duration-300" />
                         </div>
+                        <div className="text-2xl font-bold text-white mb-2">
+                          {attendanceData.reduce((total, record) => {
+                            const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
+                            return total + hours;
+                          }, 0).toFixed(1)}
+                        </div>
+                        <div className="text-sm text-gray-300">إجمالي الساعات</div>
                       </CardContent>
                     </Card>
                   </div>
 
-                  {/* فلاتر الحضور */}
-                  <div className="flex flex-wrap gap-2 items-center">
-                    <span className="text-sm font-medium">تصفية بحسب:</span>
+                  {/* Enhanced Filters */}
+                  <div className="flex flex-wrap gap-2 items-center bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-[#008C6A]/20">
+                    <span className="text-sm font-medium text-gray-300">تصفية بحسب:</span>
                     <Badge 
                       variant={selectedGPSFilter === 'all' ? 'default' : 'outline'}
-                      className="cursor-pointer hover-scale"
+                      className={`cursor-pointer transition-all duration-300 hover:scale-105 ${selectedGPSFilter === 'all' ? 'bg-[#008C6A] text-white' : 'bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20'}`}
                       onClick={() => setSelectedGPSFilter('all')}
                     >
                       الكل
                     </Badge>
                     <Badge 
                       variant={selectedGPSFilter === 'present' ? 'default' : 'outline'}
-                      className="cursor-pointer hover-scale"
+                      className={`cursor-pointer transition-all duration-300 hover:scale-105 ${selectedGPSFilter === 'present' ? 'bg-[#008C6A] text-white' : 'bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20'}`}
                       onClick={() => setSelectedGPSFilter('present')}
                     >
                       حاضر
                     </Badge>
                     <Badge 
                       variant={selectedGPSFilter === 'late' ? 'default' : 'outline'}
-                      className="cursor-pointer hover-scale"
+                      className={`cursor-pointer transition-all duration-300 hover:scale-105 ${selectedGPSFilter === 'late' ? 'bg-[#008C6A] text-white' : 'bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20'}`}
                       onClick={() => setSelectedGPSFilter('late')}
                     >
                       متأخر
                     </Badge>
                     <Badge 
                       variant={selectedGPSFilter === 'absent' ? 'default' : 'outline'}
-                      className="cursor-pointer hover-scale"
+                      className={`cursor-pointer transition-all duration-300 hover:scale-105 ${selectedGPSFilter === 'absent' ? 'bg-[#008C6A] text-white' : 'bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20'}`}
                       onClick={() => setSelectedGPSFilter('absent')}
                     >
                       غائب
                     </Badge>
                   </div>
 
-                  {/* سجلات الحضور GPS */}
+                  {/* Enhanced GPS Attendance Records */}
                   <div className="space-y-4">
                     {filteredGPSAttendance.map((record, index) => (
-                      <Card key={index} className="border-l-4 border-l-primary shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between mb-4">
+                      <Card key={index} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                        <CardContent className="p-6 bg-gray-900/40 relative">
+                          {/* Background Pattern */}
+                          <div className="absolute inset-0 opacity-5">
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                          </div>
+                          
+                          <div className="flex items-start justify-between mb-4 relative z-10">
                             <div className="flex-1">
                               <div className="flex items-center gap-3 mb-2">
-                                <h3 className="text-lg font-bold">{record.date}</h3>
-                                <Badge variant="outline" className={`${getAttendanceStatusColor(record.status)} text-white px-3 py-1`}>
+                                <h3 className="text-lg font-bold text-white">{record.date}</h3>
+                                <Badge variant="outline" className={`${getAttendanceStatusColor(record.status)} bg-gray-900/60 border-[#008C6A]/30 text-white px-3 py-1`}>
                                   {record.status}
                                 </Badge>
                               </div>
                               
                               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                                <div className="flex items-center gap-2 text-sm">
-                                  <LogIn className="h-4 w-4 text-green-500" />
-                                  <span className="font-medium">دخول:</span>
-                                  <span>{record.checkIn}</span>
+                                <div className="flex items-center gap-2 text-sm bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-green-500/20">
+                                  <LogIn className="h-4 w-4 text-green-400" />
+                                  <span className="font-medium text-gray-300">دخول:</span>
+                                  <span className="text-white">{record.checkIn}</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-sm">
-                                  <LogOut className="h-4 w-4 text-red-500" />
-                                  <span className="font-medium">خروج:</span>
-                                  <span>{record.checkOut}</span>
+                                <div className="flex items-center gap-2 text-sm bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-red-500/20">
+                                  <LogOut className="h-4 w-4 text-red-400" />
+                                  <span className="font-medium text-gray-300">خروج:</span>
+                                  <span className="text-white">{record.checkOut}</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-sm">
-                                  <Timer className="h-4 w-4 text-blue-500" />
-                                  <span className="font-medium">ساعات العمل:</span>
-                                  <span>{record.hours}</span>
+                                <div className="flex items-center gap-2 text-sm bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-blue-500/20">
+                                  <Timer className="h-4 w-4 text-blue-400" />
+                                  <span className="font-medium text-gray-300">ساعات العمل:</span>
+                                  <span className="text-white">{record.hours}</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-sm">
-                                  <MapPin className="h-4 w-4 text-purple-500" />
-                                  <span className="font-medium">الموقع:</span>
-                                  <span>مؤكد GPS</span>
+                                <div className="flex items-center gap-2 text-sm bg-black/20 backdrop-blur-sm p-3 rounded-lg border border-purple-500/20">
+                                  <MapPin className="h-4 w-4 text-purple-400" />
+                                  <span className="font-medium text-gray-300">الموقع:</span>
+                                  <span className="text-white">مؤكد GPS</span>
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                          {/* أزرار التفاعل */}
-                          <div className="flex gap-2 flex-wrap">
+                          {/* Enhanced Interactive Buttons */}
+                          <div className="flex gap-2 flex-wrap relative z-10">
                             <Button 
                               size="sm" 
                               onClick={() => handleViewGPSDetails(record)}
-                              className="bg-primary hover:bg-primary/90 hover-scale"
+                              className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-[#008C6A]/20"
                             >
                               <Eye className="h-4 w-4 ml-2" />
                               عرض الموقع
@@ -4113,9 +4111,9 @@ const EmployeePortal = () => {
                               size="sm" 
                               variant="outline"
                               onClick={() => handleExportGPSData(record)}
-                              className="hover:bg-green-50 hover:border-green-500 hover:text-green-700 hover-scale"
+                              className="bg-gray-900/60 border-green-400/30 text-white hover:bg-green-500/20 hover:border-green-400/50 transition-all duration-300 hover:scale-105"
                             >
-                              <Download className="h-4 w-4 ml-2" />
+                              <Download className="h-4 w-4 ml-2 text-green-400" />
                               تصدير البيانات
                             </Button>
                             
@@ -4123,17 +4121,17 @@ const EmployeePortal = () => {
                               size="sm" 
                               variant="outline"  
                               onClick={() => handleRequestGPSCorrection(record)}
-                              className="hover:bg-yellow-50 hover:border-yellow-500 hover:text-yellow-700 hover-scale"
+                              className="bg-gray-900/60 border-yellow-400/30 text-white hover:bg-yellow-500/20 hover:border-yellow-400/50 transition-all duration-300 hover:scale-105"
                             >
-                              <AlertCircle className="h-4 w-4 ml-2" />
+                              <AlertCircle className="h-4 w-4 ml-2 text-yellow-400" />
                               طلب تصحيح
                             </Button>
                           </div>
 
-                          {/* معلومات إضافية حسب الحالة */}
+                          {/* Enhanced Status Information */}
                           {record.status === 'متأخر' && (
-                            <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200 animate-fade-in">
-                              <div className="flex items-center gap-2 text-yellow-700">
+                            <div className="mt-4 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-yellow-400/30 animate-fade-in relative z-10">
+                              <div className="flex items-center gap-2 text-yellow-400">
                                 <AlertCircle className="h-4 w-4" />
                                 <span className="text-sm font-medium">
                                   تم تسجيل تأخير - يرجى مراجعة المسؤول المباشر
@@ -4143,8 +4141,8 @@ const EmployeePortal = () => {
                           )}
 
                           {record.status === 'غائب' && (
-                            <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-200 animate-fade-in">
-                              <div className="flex items-center gap-2 text-red-700">
+                            <div className="mt-4 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-red-400/30 animate-fade-in relative z-10">
+                              <div className="flex items-center gap-2 text-red-400">
                                 <XCircle className="h-4 w-4" />
                                 <span className="text-sm font-medium">
                                   يوم غياب - سيتم خصم من الراتب حسب اللوائح
@@ -4158,44 +4156,45 @@ const EmployeePortal = () => {
                   </div>
 
                   {filteredGPSAttendance.length === 0 && (
-                    <Card className="text-center py-8">
-                      <CardContent>
-                        <Satellite className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                        <p className="text-muted-foreground">لا توجد سجلات حضور للفلتر المحدد</p>
+                    <Card className="text-center py-8 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30">
+                      <CardContent className="bg-gray-900/40">
+                        <Satellite className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                        <p className="text-gray-400">لا توجد سجلات حضور للفلتر المحدد</p>
                       </CardContent>
                     </Card>
                   )}
 
-                  {/* ملخص الأداء الشهري */}
-                  <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-blue-700">
-                        <TrendingUp className="h-5 w-5" />
+                  {/* Enhanced Monthly Performance Summary */}
+                  <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+                    <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+                      <div className="absolute inset-0 bg-black/10"></div>
+                      <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+                        <TrendingUp className="h-6 w-6 text-white" />
                         ملخص أداء الحضور GPS
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                          <div className="text-2xl font-bold text-green-600">
+                    <CardContent className="p-6 bg-gray-900/40">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="text-center bg-black/20 backdrop-blur-sm p-6 rounded-lg border border-green-500/20">
+                          <div className="text-3xl font-bold text-green-400 mb-2">
                             {((attendanceData.filter(r => r.status === 'حاضر').length / attendanceData.length) * 100).toFixed(1)}%
                           </div>
-                          <div className="text-sm text-muted-foreground">معدل الحضور</div>
+                          <div className="text-sm text-gray-300">معدل الحضور</div>
                         </div>
-                        <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                          <div className="text-2xl font-bold text-blue-600">
+                        <div className="text-center bg-black/20 backdrop-blur-sm p-6 rounded-lg border border-blue-500/20">
+                          <div className="text-3xl font-bold text-blue-400 mb-2">
                             {(attendanceData.reduce((total, record) => {
                               const hours = parseFloat(record.hours.replace(' ساعة', '')) || 0;
                               return total + hours;
                             }, 0) / attendanceData.length).toFixed(1)}
                           </div>
-                          <div className="text-sm text-muted-foreground">متوسط الساعات يومياً</div>
+                          <div className="text-sm text-gray-300">متوسط الساعات يومياً</div>
                         </div>
-                        <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-                          <div className="text-2xl font-bold text-yellow-600">
+                        <div className="text-center bg-black/20 backdrop-blur-sm p-6 rounded-lg border border-yellow-500/20">
+                          <div className="text-3xl font-bold text-yellow-400 mb-2">
                             {attendanceData.filter(r => r.status === 'متأخر').length}
                           </div>
-                          <div className="text-sm text-muted-foreground">مرات التأخير</div>
+                          <div className="text-sm text-gray-300">مرات التأخير</div>
                         </div>
                       </div>
                     </CardContent>
@@ -4204,15 +4203,15 @@ const EmployeePortal = () => {
               </CardContent>
             </Card>
 
-            {/* نافذة تفاصيل الموقع GPS */}
+            {/* Enhanced GPS Details Dialog */}
             <Dialog open={isGPSDetailsOpen} onOpenChange={setIsGPSDetailsOpen}>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-2xl bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30">
                 <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5" />
+                  <DialogTitle className="flex items-center gap-2 text-white">
+                    <MapPin className="h-5 w-5 text-[#008C6A]" />
                     تفاصيل موقع الحضور GPS
                   </DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="text-gray-300">
                     معلومات تفصيلية عن موقع تسجيل الحضور والانصراف
                   </DialogDescription>
                 </DialogHeader>
@@ -4220,37 +4219,37 @@ const EmployeePortal = () => {
                 {selectedGPSRecord && (
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">التاريخ</label>
-                        <p className="text-lg font-semibold">{selectedGPSRecord.date}</p>
+                      <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-[#008C6A]/20">
+                        <label className="text-sm font-medium text-gray-300">التاريخ</label>
+                        <p className="text-lg font-semibold text-white">{selectedGPSRecord.date}</p>
                       </div>
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">الحالة</label>
-                        <Badge className={`${getAttendanceStatusColor(selectedGPSRecord.status)} text-white`}>
+                      <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-[#008C6A]/20">
+                        <label className="text-sm font-medium text-gray-300">الحالة</label>
+                        <Badge className={`${getAttendanceStatusColor(selectedGPSRecord.status)} bg-gray-900/60 border-[#008C6A]/30 text-white`}>
                           {selectedGPSRecord.status}
                         </Badge>
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">وقت الدخول</label>
-                        <p className="text-lg">{selectedGPSRecord.checkIn}</p>
+                      <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-green-500/20">
+                        <label className="text-sm font-medium text-gray-300">وقت الدخول</label>
+                        <p className="text-lg text-white">{selectedGPSRecord.checkIn}</p>
                       </div>
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">وقت الخروج</label>
-                        <p className="text-lg">{selectedGPSRecord.checkOut}</p>
+                      <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg border border-red-500/20">
+                        <label className="text-sm font-medium text-gray-300">وقت الخروج</label>
+                        <p className="text-lg text-white">{selectedGPSRecord.checkOut}</p>
                       </div>
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-muted-foreground">معلومات الموقع</label>
-                      <Card className="p-4 bg-blue-50">
-                        <div className="flex items-center gap-2 text-blue-700 mb-2">
+                      <label className="text-sm font-medium text-gray-300">معلومات الموقع</label>
+                      <Card className="p-4 bg-black/20 backdrop-blur-sm border border-[#008C6A]/30">
+                        <div className="flex items-center gap-2 text-[#008C6A] mb-2">
                           <Satellite className="h-4 w-4" />
                           <span className="font-medium">الموقع مؤكد بواسطة GPS</span>
                         </div>
-                        <p className="text-sm text-blue-600">
+                        <p className="text-sm text-gray-300">
                           تم تأكيد موقع تسجيل الحضور داخل النطاق المسموح للشركة
                         </p>
                       </Card>
@@ -4259,7 +4258,7 @@ const EmployeePortal = () => {
                 )}
                 
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsGPSDetailsOpen(false)}>
+                  <Button variant="outline" onClick={() => setIsGPSDetailsOpen(false)} className="bg-gray-900/60 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20">
                     إغلاق
                   </Button>
                 </DialogFooter>
