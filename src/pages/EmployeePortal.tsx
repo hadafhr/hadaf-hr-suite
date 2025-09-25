@@ -2268,97 +2268,101 @@ const EmployeePortal = () => {
             {/* Professional Grouped Tabs Layout */}
             <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-500 overflow-hidden">
               
-              {/* Primary Navigation - Most Used Features */}
-              <div className="p-4 border-b border-gray-800/50">
-                <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-[#008C6A] rounded-full"></div>
-                  الخدمات الرئيسية
-                </h3>
-                <TabsList className="flex w-full h-auto p-1 bg-gray-800/30 rounded-xl gap-2">
-                  <TabsTrigger value="dashboard" className="flex-1 flex items-center justify-center text-sm py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg font-medium">
-                    <User className="w-4 h-4 mr-2" />
-                    لوحة التحكم
-                  </TabsTrigger>
-                  <TabsTrigger value="tasks" className="flex-1 flex items-center justify-center text-sm py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg font-medium">
-                    <CheckSquare className="w-4 h-4 mr-2" />
-                    المهام
-                  </TabsTrigger>
-                  <TabsTrigger value="requests" className="flex-1 flex items-center justify-center text-sm py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg font-medium">
-                    <FileText className="w-4 h-4 mr-2" />
-                    طلباتي
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-
-              {/* Work Management Section */}
-              <div className="p-4 border-b border-gray-800/50">
-                <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  إدارة العمل
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  <TabsTrigger value="attendance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <CalendarDays className="w-5 h-5 mb-1" />
-                    الدوام الشهري
-                  </TabsTrigger>
-                  <TabsTrigger value="gps-attendance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <Satellite className="w-5 h-5 mb-1" />
-                    حضور GPS
-                  </TabsTrigger>
-                  <TabsTrigger value="performance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <Award className="w-5 h-5 mb-1" />
-                    الأداء
-                  </TabsTrigger>
-                  <TabsTrigger value="courses" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <GraduationCap className="w-5 h-5 mb-1" />
-                    الدورات
-                  </TabsTrigger>
+              <TabsList className="w-full h-auto p-4 bg-transparent flex flex-col space-y-4">
+                
+                {/* Primary Navigation - Most Used Features */}
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2 px-2">
+                    <div className="w-2 h-2 bg-[#008C6A] rounded-full"></div>
+                    الخدمات الرئيسية
+                  </h3>
+                  <div className="grid grid-cols-3 gap-2 p-2 bg-gray-800/30 rounded-xl">
+                    <TabsTrigger value="dashboard" className="flex items-center justify-center text-sm py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg font-medium">
+                      <User className="w-4 h-4 mr-2" />
+                      لوحة التحكم
+                    </TabsTrigger>
+                    <TabsTrigger value="tasks" className="flex items-center justify-center text-sm py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg font-medium">
+                      <CheckSquare className="w-4 h-4 mr-2" />
+                      المهام
+                    </TabsTrigger>
+                    <TabsTrigger value="requests" className="flex items-center justify-center text-sm py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg font-medium">
+                      <FileText className="w-4 h-4 mr-2" />
+                      طلباتي
+                    </TabsTrigger>
+                  </div>
                 </div>
-              </div>
 
-              {/* HR & Administrative Section */}
-              <div className="p-4 border-b border-gray-800/50">
-                <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                  الموارد البشرية والإدارة
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                  <TabsTrigger value="payroll" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <CreditCard className="w-5 h-5 mb-1" />
-                    الراتب
-                  </TabsTrigger>
-                  <TabsTrigger value="insurance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <Shield className="w-5 h-5 mb-1" />
-                    التأمين
-                  </TabsTrigger>
-                  <TabsTrigger value="job-category" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <Briefcase className="w-5 h-5 mb-1" />
-                    الفئة الوظيفية
-                  </TabsTrigger>
-                  <TabsTrigger value="career-path" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <TrendingUp className="w-5 h-5 mb-1" />
-                    المسار الوظيفي
-                  </TabsTrigger>
+                {/* Work Management Section */}
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2 px-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    إدارة العمل
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-gray-800/30 rounded-xl">
+                    <TabsTrigger value="attendance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <CalendarDays className="w-5 h-5 mb-1" />
+                      الدوام الشهري
+                    </TabsTrigger>
+                    <TabsTrigger value="gps-attendance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <Satellite className="w-5 h-5 mb-1" />
+                      حضور GPS
+                    </TabsTrigger>
+                    <TabsTrigger value="performance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <Award className="w-5 h-5 mb-1" />
+                      الأداء
+                    </TabsTrigger>
+                    <TabsTrigger value="courses" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <GraduationCap className="w-5 h-5 mb-1" />
+                      الدورات
+                    </TabsTrigger>
+                  </div>
                 </div>
-              </div>
 
-              {/* Assets & Documentation Section */}
-              <div className="p-4">
-                <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  الأصول والوثائق
-                </h3>
-                <div className="grid grid-cols-2 gap-2">
-                  <TabsTrigger value="custody" className="flex items-center justify-center text-xs py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <Package className="w-4 h-4 mr-2" />
-                    العهدة
-                  </TabsTrigger>
-                  <TabsTrigger value="documents" className="flex items-center justify-center text-xs py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
-                    <FileText className="w-4 h-4 mr-2" />
-                    المستندات
-                  </TabsTrigger>
+                {/* HR & Administrative Section */}
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2 px-2">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    الموارد البشرية والإدارة
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 bg-gray-800/30 rounded-xl">
+                    <TabsTrigger value="payroll" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <CreditCard className="w-5 h-5 mb-1" />
+                      الراتب
+                    </TabsTrigger>
+                    <TabsTrigger value="insurance" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <Shield className="w-5 h-5 mb-1" />
+                      التأمين
+                    </TabsTrigger>
+                    <TabsTrigger value="job-category" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <Briefcase className="w-5 h-5 mb-1" />
+                      الفئة الوظيفية
+                    </TabsTrigger>
+                    <TabsTrigger value="career-path" className="flex flex-col items-center justify-center text-xs py-3 px-3 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <TrendingUp className="w-5 h-5 mb-1" />
+                      المسار الوظيفي
+                    </TabsTrigger>
+                  </div>
                 </div>
-              </div>
+
+                {/* Assets & Documentation Section */}
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2 px-2">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    الأصول والوثائق
+                  </h3>
+                  <div className="grid grid-cols-2 gap-2 p-2 bg-gray-800/30 rounded-xl">
+                    <TabsTrigger value="custody" className="flex items-center justify-center text-xs py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <Package className="w-4 h-4 mr-2" />
+                      العهدة
+                    </TabsTrigger>
+                    <TabsTrigger value="documents" className="flex items-center justify-center text-xs py-3 px-4 data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
+                      <FileText className="w-4 h-4 mr-2" />
+                      المستندات
+                    </TabsTrigger>
+                  </div>
+                </div>
+                
+              </TabsList>
             </div>
 
           {/* تبويب المهام */}
