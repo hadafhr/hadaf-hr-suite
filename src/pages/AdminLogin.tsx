@@ -47,19 +47,19 @@ const AdminLogin: React.FC = () => {
         <div className="absolute -bottom-8 left-40 w-72 h-72 bg-[#008C6A]/40 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Professional Header */}
-      <header className="relative z-10 bg-gray-900/60 backdrop-blur-xl border-b border-[#008C6A]/30">
+      {/* Professional Header - Matching Employee Portal */}
+      <header className="relative z-10 bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 shadow-lg">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Button 
               variant="ghost" 
               onClick={() => navigate('/')}
-              className="flex items-center gap-2 hover:bg-[#008C6A]/20 transition-colors text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg"
+              className="flex items-center gap-2 hover:bg-[#008C6A]/20 transition-all duration-300 text-white border border-gray-800/50 hover:border-[#008C6A]/30 rounded-lg px-4 py-2 backdrop-blur-sm"
             >
               <ArrowLeft className="w-5 h-5" />
               العودة للرئيسية
             </Button>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 bg-gray-900/60 backdrop-blur-xl border border-gray-800/50 rounded-xl px-4 py-3 shadow-lg">
               <BoudLogo variant="icon" size="md" />
               <div className="hidden sm:block">
                 <h1 className="text-lg font-bold text-white">منصة بُعد</h1>
