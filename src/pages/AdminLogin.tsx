@@ -94,34 +94,47 @@ const AdminLogin: React.FC = () => {
 
             {/* Right Section - Professional Controls Panel */}
             <div className="flex flex-col items-end space-y-4">
-              {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
-                {/* Status Indicator */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
-                    حالة النظام
-                  </span>
-                  <div className="flex items-center space-x-2">
+              {/* Enhanced Status Panel */}
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-6 min-w-[220px]">
+                {/* Header Section */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-                    <span className="text-xs text-green-300 font-semibold">
-                      متصل
-                    </span>
+                    <span className="text-xs text-green-300 font-semibold">متصل</span>
+                  </div>
+                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                    النظام
+                  </span>
+                </div>
+                
+                {/* Elegant Divider */}
+                <div className="relative mb-4">
+                  <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/40 to-transparent"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-1 h-1 bg-[#008C6A] rounded-full"></div>
                   </div>
                 </div>
                 
-                {/* Divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
-                
-                {/* Actions Row */}
-                <div className="flex items-center justify-center">
+                {/* Navigation Action */}
+                <div className="flex justify-center">
                   <Button 
                     variant="ghost" 
                     onClick={() => navigate('/')}
-                    className="group relative bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-3 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105"
+                    className="group relative bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2.5 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 w-full"
                   >
-                    <ArrowLeft className="h-4 w-4 text-[#008C6A] group-hover:text-white transition-colors duration-300 ml-1" />
-                    <span className="text-xs text-white group-hover:text-[#008C6A] transition-colors duration-300">العودة</span>
+                    <div className="flex items-center justify-center gap-2">
+                      <ArrowLeft className="h-4 w-4 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
+                      <span className="text-sm text-white group-hover:text-[#008C6A] transition-colors duration-300 font-medium">العودة للرئيسية</span>
+                    </div>
                   </Button>
+                </div>
+                
+                {/* Admin Badge */}
+                <div className="mt-4 pt-4 border-t border-[#008C6A]/20">
+                  <div className="flex items-center justify-center gap-2 text-center">
+                    <Building2 className="h-3 w-3 text-[#008C6A]" />
+                    <span className="text-xs text-gray-400 font-medium">لوحة المدير</span>
+                  </div>
                 </div>
               </div>
             </div>
