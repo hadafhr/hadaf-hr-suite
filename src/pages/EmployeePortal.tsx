@@ -2243,57 +2243,57 @@ const EmployeePortal = () => {
         </Card>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="bg-background/60 backdrop-blur border border-border/50 rounded-2xl p-2 shadow-lg overflow-hidden">
+          <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl p-2 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-500 overflow-hidden">
             <TabsList className="flex w-full h-auto p-1 bg-transparent gap-1 overflow-x-auto scrollbar-hide">
-              <TabsTrigger value="dashboard" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="dashboard" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <User className="w-4 h-4 mb-1" />
                 لوحة التحكم
               </TabsTrigger>
-              <TabsTrigger value="tasks" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="tasks" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <CheckSquare className="w-4 h-4 mb-1" />
                 المهام
               </TabsTrigger>
-              <TabsTrigger value="courses" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="courses" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <GraduationCap className="w-4 h-4 mb-1" />
                 الدورات
               </TabsTrigger>
-              <TabsTrigger value="attendance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="attendance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <CalendarDays className="w-4 h-4 mb-1" />
                 الدوام الشهري
               </TabsTrigger>
-              <TabsTrigger value="gps-attendance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="gps-attendance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <Satellite className="w-4 h-4 mb-1" />
                 حضور GPS
               </TabsTrigger>
-              <TabsTrigger value="insurance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="insurance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <Shield className="w-4 h-4 mb-1" />
                 التأمين
               </TabsTrigger>
-              <TabsTrigger value="job-category" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="job-category" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <Briefcase className="w-4 h-4 mb-1" />
                 الفئة الوظيفية
               </TabsTrigger>
-              <TabsTrigger value="requests" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="requests" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <FileText className="w-4 h-4 mb-1" />
                 طلباتي
               </TabsTrigger>
-              <TabsTrigger value="custody" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="custody" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <Package className="w-4 h-4 mb-1" />
                 العهدة
               </TabsTrigger>
-              <TabsTrigger value="career-path" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="career-path" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <TrendingUp className="w-4 h-4 mb-1" />
                 المسار الوظيفي
               </TabsTrigger>
-              <TabsTrigger value="payroll" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="payroll" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <CreditCard className="w-4 h-4 mb-1" />
                 الراتب
               </TabsTrigger>
-              <TabsTrigger value="performance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="performance" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <Award className="w-4 h-4 mb-1" />
                 الأداء
               </TabsTrigger>
-              <TabsTrigger value="documents" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 hover:bg-muted/50 whitespace-nowrap">
+              <TabsTrigger value="documents" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
                 <FileText className="w-4 h-4 mb-1" />
                 المستندات
               </TabsTrigger>
