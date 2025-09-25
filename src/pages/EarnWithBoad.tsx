@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { 
   DollarSign, 
   Users, 
@@ -16,12 +19,16 @@ import {
   Award,
   TrendingUp,
   Target,
-  Handshake
+  Handshake,
+  AlertCircle
 } from 'lucide-react';
-import { BackButton } from '@/components/BackButton';
-import { BoudLogo } from '@/components/BoudLogo';
+import buodLogo from '@/assets/buod-logo-white.png';
 
 export const EarnWithBoad: React.FC = () => {
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const isArabic = i18n.language === 'ar';
+  
   const [formData, setFormData] = useState({
     referrerName: '',
     referrerPhone: '',
@@ -76,22 +83,22 @@ export const EarnWithBoad: React.FC = () => {
     {
       employees: '1-50',
       reward: '5,000',
-      color: 'bg-green-500'
+      color: 'bg-[#008C6A]'
     },
     {
       employees: '51-100',
       reward: '8,000',
-      color: 'bg-blue-500'
+      color: 'bg-[#009F87]'
     },
     {
       employees: '101-200',
       reward: '12,000',
-      color: 'bg-purple-500'
+      color: 'bg-[#00B89E]'
     },
     {
       employees: '200+',
       reward: '15,000',
-      color: 'bg-gold-500'
+      color: 'bg-[#00694F]'
     }
   ];
 
@@ -120,28 +127,28 @@ export const EarnWithBoad: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="container mx-auto px-4 py-8">
-          <Card className="max-w-2xl mx-auto border-green-200 dark:border-green-800">
+          <Card className="max-w-2xl mx-auto bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30">
             <CardContent className="p-8 text-center">
               <div className="space-y-6">
-                <div className="w-20 h-20 bg-green-500 rounded-full mx-auto flex items-center justify-center">
+                <div className="w-20 h-20 bg-[#008C6A] rounded-full mx-auto flex items-center justify-center">
                   <CheckCircle className="h-12 w-12 text-white" />
                 </div>
                 
-                <h2 className="text-3xl font-bold text-green-800 dark:text-green-200">
+                <h2 className="text-3xl font-bold text-white">
                   تم استلام بيانات الترشيح بنجاح!
                 </h2>
                 
-                <p className="text-lg text-green-700 dark:text-green-300 leading-relaxed">
+                <p className="text-lg text-gray-300 leading-relaxed">
                   شكراً لك على ثقتك في برنامج "اربح مع بُعد". سيتواصل معك فريقنا خلال 24 ساعة لمتابعة ترشيحك.
                 </p>
                 
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                  <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
+                <div className="bg-[#008C6A]/20 p-4 rounded-lg border border-[#008C6A]/30">
+                  <h3 className="font-semibold text-white mb-2">
                     الخطوات التالية:
                   </h3>
-                  <ul className="text-green-700 dark:text-green-300 text-sm space-y-1 text-right">
+                  <ul className="text-gray-300 text-sm space-y-1 text-right">
                     <li>• سيتم مراجعة بيانات الترشيح</li>
                     <li>• التواصل مع الشركة المرشحة</li>
                     <li>• متابعة عملية الاشتراك</li>
@@ -151,8 +158,7 @@ export const EarnWithBoad: React.FC = () => {
                 
                 <Button 
                   onClick={() => setIsSubmitted(false)}
-                  variant="outline"
-                  className="border-green-500 text-green-700 hover:bg-green-50"
+                  className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105"
                 >
                   إرسال ترشيح آخر
                 </Button>
@@ -165,71 +171,197 @@ export const EarnWithBoad: React.FC = () => {
   }
 
   return (
-    <>
-      {/* Header with Back Button and Logo */}
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <BackButton />
-            <BoudLogo size="header" showText />
-          </div>
+    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
         </div>
       </div>
       
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 flex items-center justify-center gap-4">
-            <Gift className="h-12 w-12 text-primary" />
-            اربح مع بُعد
-          </h1>
-          <div className="max-w-4xl mx-auto space-y-4">
-            <p className="text-2xl text-primary font-bold">
-              شارك بيانات الترشيح الآن
+      {/* Professional Interactive Header */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex items-center justify-between h-24">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <Link to="/" className="hover:scale-105 transition-all duration-300">
+                <img 
+                  src={buodLogo} 
+                  alt="Buod HR" 
+                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
+                />
+              </Link>
+            </div>
+
+            {/* Center Section - Title & Icon */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Gift className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
+              
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  {isArabic ? 'اربح مع بُعد' : 'Earn with Buod'}
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  {isArabic ? 'برنامج الترشيحات والمكافآت' : 'Referral & Rewards Program'}
+                </p>
+              </div>
+            </div>
+
+            {/* Right Section - Professional Controls Panel */}
+            <div className="flex flex-col items-end space-y-4">
+              {/* Status Panel */}
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+                {/* Status Indicator */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                    {isArabic ? 'حالة البرنامج' : 'Program Status'}
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+                    <span className="text-xs text-green-300 font-semibold">
+                      {isArabic ? 'متاح' : 'Active'}
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                
+                {/* Language & Settings Row */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-medium">
+                    {isArabic ? 'اللغة' : 'Language'}
+                  </span>
+                  
+                  {/* Language Toggle Button */}
+                  <button 
+                    onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
+                    tabIndex={0}
+                    aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'}
+                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20"
+                  >
+                    {/* Language Text */}
+                    <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
+                      {isArabic ? 'EN' : 'العربية'}
+                    </span>
+                    
+                    {/* Animated Indicator */}
+                    <div className="relative">
+                      <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] shadow-lg shadow-[#008C6A]/40 group-hover:shadow-[#008C6A]/60 transition-all duration-300"></div>
+                      <div className="absolute inset-0 w-3 h-3 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] opacity-0 group-hover:opacity-30 animate-ping"></div>
+                    </div>
+                    
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
+        </div>
+      </header>
+
+      <main className="relative z-10 w-full mx-auto px-4 py-8">
+        {/* Breadcrumb Navigation - Far Right */}
+        <div className="flex justify-end mb-6 mr-0">
+          <div className="ml-auto">
+            <Breadcrumb 
+              items={[
+                { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
+                { label: isArabic ? 'اربح مع بُعد' : 'Earn with Buod', path: '/earn-with-boad' }
+              ]}
+            />
+          </div>
+        </div>
+        
+        {/* Floating Elements for Professional Look */}
+        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        
+        {/* Enhanced Hero Section */}
+        <div className="text-center mb-12 relative">
+          {/* Floating background elements */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          
+          <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <Gift className="h-20 w-20 text-[#008C6A] group-hover:text-white transition-colors duration-300 z-10 relative drop-shadow-2xl" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          
+          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+            {isArabic ? 'اربح مع بُعد - برنامج الترشيحات' : 'Earn with Buod - Referral Program'}
+          </h2>
+          
+          <div className="relative max-w-3xl mx-auto">
+            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+              {isArabic 
+                ? 'اربح حتى 15,000 ريال سعودي مقابل كل ترشيح مقبول لمنشأة تشترك بنظام بُعد - معتمد وفقاً لأنظمة المملكة العربية السعودية'
+                : 'Earn up to 15,000 SAR for each accepted referral of an organization that subscribes to Buod system - Certified according to Saudi Arabia regulations'
+              }
             </p>
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-              اربح حتى <span className="text-3xl font-bold text-green-600">15,000 ريال سعودي</span> مقابل كل ترشيح مقبول لمنشأة تشترك بنظام بُعد
-            </p>
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#008C6A]/20 via-transparent to-[#008C6A]/20 rounded-2xl blur opacity-50"></div>
           </div>
         </div>
 
         {/* Benefits Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="border-primary/20 hover:border-primary/40 transition-colors">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <benefit.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">{benefit.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {benefit.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="max-w-6xl mx-auto mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, index) => (
+              <Card key={index} className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
+                <CardContent className="p-6 text-center bg-gray-900/40">
+                  <div className="w-16 h-16 bg-[#008C6A]/20 rounded-full mx-auto mb-4 flex items-center justify-center group-hover:bg-[#008C6A]/30 transition-all duration-300">
+                    <benefit.icon className="h-8 w-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-white">{benefit.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* Reward Tiers */}
-        <Card className="mb-12 border-gold-200 dark:border-gold-800">
-          <CardHeader>
-            <CardTitle className="text-center flex items-center justify-center gap-2">
-              <TrendingUp className="h-6 w-6 text-gold-600" />
+        <Card className="max-w-6xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+          <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+              <TrendingUp className="h-6 w-6 text-white" />
               جدول المكافآت حسب حجم الشركة
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6 bg-gray-900/40">
             <div className="grid md:grid-cols-4 gap-4">
               {rewardTiers.map((tier, index) => (
                 <div key={index} className="text-center">
-                  <div className={`w-20 h-20 ${tier.color} rounded-full mx-auto mb-3 flex items-center justify-center`}>
+                  <div className={`w-20 h-20 ${tier.color} rounded-full mx-auto mb-3 flex items-center justify-center shadow-lg`}>
                     <span className="text-white font-bold text-lg">{tier.employees}</span>
                   </div>
-                  <p className="font-semibold text-sm text-muted-foreground mb-1">
+                  <p className="font-semibold text-sm text-gray-300 mb-1">
                     عدد الموظفين
                   </p>
-                  <p className="text-2xl font-bold text-green-600">
+                  <p className="text-2xl font-bold text-[#008C6A]">
                     {tier.reward} ر.س
                   </p>
                 </div>
@@ -239,22 +371,23 @@ export const EarnWithBoad: React.FC = () => {
         </Card>
 
         {/* Steps Section */}
-        <Card className="mb-12">
-          <CardHeader>
-            <CardTitle className="text-center flex items-center justify-center gap-2">
-              <Target className="h-6 w-6" />
+        <Card className="max-w-6xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+          <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <CardTitle className="text-center flex items-center justify-center gap-2 relative z-10">
+              <Target className="h-6 w-6 text-white" />
               كيف يعمل البرنامج؟
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6 bg-gray-900/40">
             <div className="grid md:grid-cols-4 gap-6">
               {steps.map((step, index) => (
                 <div key={index} className="text-center">
-                  <div className="w-12 h-12 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-12 h-12 bg-[#008C6A] rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-lg">{step.number}</span>
                   </div>
-                  <h3 className="font-bold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <h3 className="font-bold mb-2 text-white">{step.title}</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -264,63 +397,65 @@ export const EarnWithBoad: React.FC = () => {
         </Card>
 
         {/* Referral Form */}
-        <Card className="max-w-4xl mx-auto border-primary/20">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">
-              <Star className="h-6 w-6 text-gold-500 inline mr-2" />
+        <Card className="max-w-4xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
+          <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <CardTitle className="text-center text-2xl relative z-10">
+              <Star className="h-6 w-6 text-white inline mr-2" />
               نموذج بيانات الترشيح
             </CardTitle>
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-white/90 relative z-10">
               املأ البيانات التالية لترشيح شركة جديدة للاشتراك في نظام بُعد
             </p>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="p-6 bg-gray-900/40">
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* بيانات المرشح */}
               <div className="space-y-4">
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  <Users className="h-5 w-5 text-primary" />
+                <h3 className="text-xl font-bold flex items-center gap-2 text-white">
+                  <Users className="h-5 w-5 text-[#008C6A]" />
                   بياناتك الشخصية
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">الاسم الكامل *</label>
+                    <label className="text-sm font-medium text-gray-200">الاسم الكامل *</label>
                     <Input
                       name="referrerName"
                       value={formData.referrerName}
                       onChange={handleInputChange}
                       placeholder="أدخل اسمك الكامل"
+                      className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                       required
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">رقم الجوال *</label>
+                    <label className="text-sm font-medium text-gray-200">رقم الجوال *</label>
                     <div className="relative">
-                      <Phone className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Phone className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         name="referrerPhone"
                         value={formData.referrerPhone}
                         onChange={handleInputChange}
                         placeholder="05xxxxxxxx"
-                        className="pr-10"
+                        className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 pr-10"
                         required
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2 md:col-span-2">
-                    <label className="text-sm font-medium">البريد الإلكتروني *</label>
+                    <label className="text-sm font-medium text-gray-200">البريد الإلكتروني *</label>
                     <div className="relative">
-                      <Mail className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         name="referrerEmail"
                         type="email"
                         value={formData.referrerEmail}
                         onChange={handleInputChange}
                         placeholder="your@email.com"
-                        className="pr-10"
+                        className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 pr-10"
                         required
                       />
                     </div>
@@ -329,89 +464,92 @@ export const EarnWithBoad: React.FC = () => {
               </div>
 
               {/* بيانات الشركة المرشحة */}
-              <div className="space-y-4 border-t pt-6">
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  <Building className="h-5 w-5 text-primary" />
+              <div className="space-y-4 border-t border-[#008C6A]/30 pt-6">
+                <h3 className="text-xl font-bold flex items-center gap-2 text-white">
+                  <Building className="h-5 w-5 text-[#008C6A]" />
                   بيانات الشركة المرشحة
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">اسم الشركة/المؤسسة *</label>
+                    <label className="text-sm font-medium text-gray-200">اسم الشركة/المؤسسة *</label>
                     <Input
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleInputChange}
                       placeholder="اسم الشركة"
+                      className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                       required
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">رقم جوال الشركة *</label>
+                    <label className="text-sm font-medium text-gray-200">رقم جوال الشركة *</label>
                     <div className="relative">
-                      <Phone className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Phone className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         name="companyPhone"
                         value={formData.companyPhone}
                         onChange={handleInputChange}
                         placeholder="رقم جوال الشركة"
-                        className="pr-10"
+                        className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 pr-10"
                         required
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">البريد الإلكتروني للشركة</label>
+                    <label className="text-sm font-medium text-gray-200">البريد الإلكتروني للشركة</label>
                     <div className="relative">
-                      <Mail className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         name="companyEmail"
                         type="email"
                         value={formData.companyEmail}
                         onChange={handleInputChange}
                         placeholder="company@email.com"
-                        className="pr-10"
+                        className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 pr-10"
                       />
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">العدد المتوقع للموظفين *</label>
+                    <label className="text-sm font-medium text-gray-200">العدد المتوقع للموظفين *</label>
                     <Input
                       name="expectedEmployees"
                       type="number"
                       value={formData.expectedEmployees}
                       onChange={handleInputChange}
                       placeholder="عدد الموظفين"
+                      className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
                       required
                     />
                   </div>
                   
                   <div className="space-y-2 md:col-span-2">
-                    <label className="text-sm font-medium">ملاحظات إضافية</label>
+                    <label className="text-sm font-medium text-gray-200">ملاحظات إضافية</label>
                     <Textarea
                       name="notes"
                       value={formData.notes}
                       onChange={handleInputChange}
                       placeholder="أي معلومات إضافية عن الشركة أو الترشيح..."
                       rows={3}
+                      className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 resize-none"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Submit Button */}
-              <div className="text-center pt-6 border-t">
+              <div className="text-center pt-6 border-t border-[#008C6A]/30">
                 <Button 
                   type="submit" 
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90 px-12 py-3 text-lg"
+                  className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold px-12 py-3 text-lg transition-all duration-300 hover:scale-105 shadow-xl shadow-[#008C6A]/30"
                 >
                   <Gift className="h-5 w-5 ml-2" />
                   إرسال بيانات الترشيح
                 </Button>
-                <p className="text-sm text-muted-foreground mt-3">
+                <p className="text-sm text-gray-400 mt-3">
                   سيتم التواصل معك خلال 24 ساعة لمتابعة عملية الترشيح
                 </p>
               </div>
@@ -420,22 +558,25 @@ export const EarnWithBoad: React.FC = () => {
         </Card>
 
         {/* Terms Section */}
-        <Card className="mt-8 border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20">
-          <CardContent className="p-6">
-            <h3 className="font-bold text-yellow-800 dark:text-yellow-200 mb-3">
-              شروط وأحكام البرنامج:
-            </h3>
-            <ul className="text-yellow-700 dark:text-yellow-300 text-sm space-y-2 text-right">
-              <li>• يتم صرف المكافأة فقط عند اشتراك الشركة المرشحة واستخدامها الفعلي للنظام لمدة 30 يوم على الأقل</li>
-              <li>• المكافأة تُحدد حسب عدد الموظفين المسجلين فعلياً في النظام</li>
-              <li>• يجب أن تكون الشركة المرشحة جديدة ولم تتواصل مع بُعد من قبل</li>
-              <li>• يتم صرف المكافأة خلال 30 يوم من تأكيد اشتراك الشركة</li>
-              <li>• بُعد تحتفظ بالحق في تعديل شروط البرنامج في أي وقت</li>
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
+        <div className="mt-8 p-6 bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/30 rounded-lg backdrop-blur-sm max-w-6xl mx-auto">
+          <div className="flex items-start">
+            <AlertCircle className="h-6 w-6 text-amber-400 mt-0.5 ml-3 animate-pulse" />
+            <div>
+              <h4 className="font-semibold text-amber-300 mb-2 flex items-center gap-2">
+                <span className="text-2xl">⚖️</span>
+                {isArabic ? 'شروط وأحكام البرنامج' : 'Program Terms & Conditions'}
+              </h4>
+              <ul className="text-amber-200 text-sm space-y-2 text-right leading-relaxed">
+                <li>• يتم صرف المكافأة فقط عند اشتراك الشركة المرشحة واستخدامها الفعلي للنظام لمدة 30 يوم على الأقل</li>
+                <li>• المكافأة تُحدد حسب عدد الموظفين المسجلين فعلياً في النظام</li>
+                <li>• لا يحق الحصول على مكافأة إضافية لنفس الشركة إذا كانت مشتركة مسبقاً</li>
+                <li>• يحتفظ فريق بُعد بالحق في رفض أي ترشيح لا يتوافق مع معايير الجودة والمصداقية</li>
+                <li>• جميع المكافآت تخضع للضرائب والرسوم المطبقة في المملكة العربية السعودية</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-  </>
   );
 };
