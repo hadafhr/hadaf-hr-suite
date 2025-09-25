@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ArrowLeft, Building2, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import buodLogo from '@/assets/buod-logo-white.png';
 
 const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -65,14 +66,13 @@ const AdminLogin: React.FC = () => {
           <div className="flex items-center justify-between h-24">
             {/* Logo Section */}
             <div className="flex items-center">
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/')}
-                className="flex items-center gap-2 hover:bg-[#008C6A]/20 transition-all duration-300 text-white border border-gray-800/50 hover:border-[#008C6A]/30 rounded-lg px-4 py-2 backdrop-blur-sm hover:scale-105"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                العودة للرئيسية
-              </Button>
+              <Link to="/" className="hover:scale-105 transition-all duration-300">
+                <img 
+                  src={buodLogo} 
+                  alt="Buod HR" 
+                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
+                />
+              </Link>
             </div>
 
             {/* Center Section - Title & Icon */}
@@ -92,12 +92,37 @@ const AdminLogin: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Section - Brand */}
-            <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl border border-[#008C6A]/30 rounded-xl px-4 py-3 shadow-lg">
-              <BoudLogo variant="icon" size="md" />
-              <div className="hidden sm:block">
-                <h1 className="text-lg font-bold text-white">منصة بُعد</h1>
-                <p className="text-xs text-gray-300">إدارة الموارد البشرية</p>
+            {/* Right Section - Professional Controls Panel */}
+            <div className="flex flex-col items-end space-y-4">
+              {/* Status Panel */}
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+                {/* Status Indicator */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                    حالة النظام
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+                    <span className="text-xs text-green-300 font-semibold">
+                      متصل
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                
+                {/* Actions Row */}
+                <div className="flex items-center justify-center">
+                  <Button 
+                    variant="ghost" 
+                    onClick={() => navigate('/')}
+                    className="group relative bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-3 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105"
+                  >
+                    <ArrowLeft className="h-4 w-4 text-[#008C6A] group-hover:text-white transition-colors duration-300 ml-1" />
+                    <span className="text-xs text-white group-hover:text-[#008C6A] transition-colors duration-300">العودة</span>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
