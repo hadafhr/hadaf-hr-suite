@@ -1994,7 +1994,7 @@ const EmployeePortal = () => {
               </div>
 
               {/* Main Header Content */}
-              <div className="flex items-start gap-8">
+              <div className="flex items-start gap-8 p-8 bg-gray-900/40 backdrop-blur-xl border border-gray-800/50 rounded-2xl shadow-2xl hover:bg-gray-900/50 transition-all duration-300">
                 {/* Enhanced Employee Avatar Section */}
                 <div className="relative group">
                   {/* Glow effect */}
