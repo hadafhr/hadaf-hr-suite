@@ -112,6 +112,8 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import GreenPapers from './pages/GreenPapers';
 import GreenPaperDetail from './pages/GreenPaperDetail';
 import ITSolutionsPage from './pages/ITSolutionsPage';
+import JobDescriptionsIndex from './pages/JobDescriptions/JobDescriptionsIndex';
+import JobDescriptionDetail from './pages/JobDescriptions/JobDescriptionDetail';
 
 // Mobile Pages
 import { MobileLogin } from './pages/mobile/MobileLogin';
@@ -184,6 +186,8 @@ const App = () => {
             <Route path="/hr/*" element={<HRApp />} />
             <Route path="/green-papers" element={<GreenPapers />} />
             <Route path="/green-papers/:slug" element={<GreenPaperDetail />} />
+            <Route path="/job-descriptions" element={<JobDescriptionsIndex />} />
+            <Route path="/job-descriptions/:jobId" element={<JobDescriptionDetail />} />
             <Route path="/old-home" element={<LandingPage />} />
               {/* Unified Login System */}
               <Route path="/unified-login" element={<UnifiedLogin />} />
