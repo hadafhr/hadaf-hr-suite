@@ -2429,13 +2429,9 @@ const EmployeePortal = () => {
                           </Button>
                         </div>
                       </CardContent>
+                    </Card>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* تبويب الدورات */}
               </CardContent>
             </Card>
           </TabsContent>
