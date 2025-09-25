@@ -440,24 +440,30 @@ export const Tutorials: React.FC = () => {
 
           <TabsContent value="voice" className="mt-6">
             <VoiceAssistant 
+              title={section.title}
               content={content}
             />
           </TabsContent>
 
           <TabsContent value="demo" className="mt-6">
             <InteractiveDemo 
+              title={section.title}
               steps={demoData.selfService?.steps || []}
             />
           </TabsContent>
 
           <TabsContent value="visual" className="mt-6">
             <VisualGuide 
+              title={section.title}
+              category={section.category}
               steps={visualGuideData.selfService?.steps || []}
             />
           </TabsContent>
 
           <TabsContent value="tour" className="mt-6">
             <GuidedTour 
+              title={section.title}
+              platformName="منصة بُعد للموارد البشرية"
               steps={tourData.selfService?.steps || []}
             />
           </TabsContent>
