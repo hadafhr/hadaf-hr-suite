@@ -39,31 +39,65 @@ const AdminLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white font-arabic relative overflow-hidden">
-      {/* Enhanced Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-[#008C6A] rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-40 right-20 w-72 h-72 bg-[#008C6A]/60 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-[#008C6A]/40 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
       </div>
+      
+      {/* Professional Interactive Header - Exact Copy from Employee Portal */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex items-center justify-between h-24">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/')}
+                className="flex items-center gap-2 hover:bg-[#008C6A]/20 transition-all duration-300 text-white border border-gray-800/50 hover:border-[#008C6A]/30 rounded-lg px-4 py-2 backdrop-blur-sm hover:scale-105"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                العودة للرئيسية
+              </Button>
+            </div>
 
-      {/* Professional Header - Matching Employee Portal */}
-      <header className="relative z-10 bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 shadow-lg">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2 hover:bg-[#008C6A]/20 transition-all duration-300 text-white border border-gray-800/50 hover:border-[#008C6A]/30 rounded-lg px-4 py-2 backdrop-blur-sm"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              العودة للرئيسية
-            </Button>
-            <div className="flex items-center gap-3 bg-gray-900/60 backdrop-blur-xl border border-gray-800/50 rounded-xl px-4 py-3 shadow-lg">
+            {/* Center Section - Title & Icon */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Building2 className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
+              
+              <div className="flex flex-col text-center">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  بوابة المدير
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  نظام إدارة الموارد البشرية
+                </p>
+              </div>
+            </div>
+
+            {/* Right Section - Brand */}
+            <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl border border-[#008C6A]/30 rounded-xl px-4 py-3 shadow-lg">
               <BoudLogo variant="icon" size="md" />
               <div className="hidden sm:block">
                 <h1 className="text-lg font-bold text-white">منصة بُعد</h1>
-                <p className="text-xs text-gray-300">نظام إدارة الموارد البشرية</p>
+                <p className="text-xs text-gray-300">إدارة الموارد البشرية</p>
               </div>
             </div>
           </div>
@@ -71,27 +105,27 @@ const AdminLogin: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-80px)] p-6">
+      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-96px)] p-6">
         <div className="w-full max-w-lg">
           {/* Professional Admin Badge */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-black/40 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in">
               <Building2 className="w-6 h-6 text-[#008C6A]" />
               <span className="text-sm font-medium text-white">لوحة تحكم مدير النظام</span>
             </div>
           </div>
 
-          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+          <Card className="bg-black/40 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
             {/* Professional Card Header */}
-            <div className="bg-gray-900/40 p-8 text-center relative">
+            <div className="bg-black/40 p-8 text-center relative">
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
               </div>
               <div className="relative z-10">
-                <div className="mx-auto mb-4 p-4 bg-[#008C6A]/20 rounded-2xl w-fit backdrop-blur-sm border border-[#008C6A]/30">
+                <div className="mx-auto mb-4 p-4 bg-[#008C6A]/20 rounded-2xl w-fit backdrop-blur-sm border border-[#008C6A]/30 shadow-lg">
                   <Building2 className="w-10 h-10 text-[#008C6A]" />
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-2">
+                <h2 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
                   مدير النظام
                 </h2>
                 <p className="text-gray-300 max-w-sm mx-auto">
@@ -100,7 +134,7 @@ const AdminLogin: React.FC = () => {
               </div>
             </div>
 
-            <CardContent className="bg-gray-900/40 p-8 relative">
+            <CardContent className="bg-black/40 p-8 relative">
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
               </div>
@@ -116,7 +150,7 @@ const AdminLogin: React.FC = () => {
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         placeholder="admin@boud.com.sa"
                         required
-                        className="h-12 pl-4 border-gray-800/50 focus:border-[#008C6A]/50 bg-gray-800/30 text-white placeholder:text-gray-400 rounded-lg"
+                        className="h-12 pl-4 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-lg backdrop-blur-sm"
                       />
                     </div>
                   </div>
@@ -131,7 +165,7 @@ const AdminLogin: React.FC = () => {
                         onChange={(e) => handleInputChange('password', e.target.value)}
                         placeholder="••••••••"
                         required
-                        className="h-12 pl-12 border-gray-800/50 focus:border-[#008C6A]/50 bg-gray-800/30 text-white placeholder:text-gray-400 rounded-lg"
+                        className="h-12 pl-12 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-lg backdrop-blur-sm"
                       />
                       <Button
                         type="button"
@@ -150,9 +184,9 @@ const AdminLogin: React.FC = () => {
                   </div>
 
                   {/* Professional Demo Credentials */}
-                  <div className="bg-gray-800/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700/50">
+                  <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-gray-700/50 shadow-lg">
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-2 h-2 bg-[#008C6A] rounded-full"></div>
+                      <div className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></div>
                       <p className="font-medium text-sm text-white">بيانات الدخول التجريبية</p>
                     </div>
                     <div className="space-y-2 text-sm text-gray-300">
@@ -169,7 +203,7 @@ const AdminLogin: React.FC = () => {
 
                   <Button 
                     type="submit" 
-                    className="w-full h-12 bg-[#008C6A] hover:bg-[#008C6A]/80 font-medium text-base transition-all duration-200 shadow-lg hover:shadow-xl text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg"
+                    className="w-full h-12 bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 font-medium text-base transition-all duration-200 shadow-lg hover:shadow-xl text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg backdrop-blur-sm"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -199,7 +233,7 @@ const AdminLogin: React.FC = () => {
                 </form>
 
                 {/* Professional Security Notice */}
-                <div className="mt-8 p-6 bg-gray-800/40 backdrop-blur-sm rounded-xl border border-gray-700/50">
+                <div className="mt-8 p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-gray-700/50 shadow-lg">
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <div className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></div>
                     <span className="text-sm font-medium text-[#008C6A]">نظام آمن ومحمي</span>
