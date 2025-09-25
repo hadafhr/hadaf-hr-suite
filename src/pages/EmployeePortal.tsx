@@ -2242,7 +2242,11 @@ const EmployeePortal = () => {
           </CardContent>
         </Card>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+          </div>
           <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl p-2 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-500 overflow-hidden">
             <TabsList className="flex w-full h-auto p-1 bg-transparent gap-1 overflow-x-auto scrollbar-hide">
               <TabsTrigger value="dashboard" className="flex-shrink-0 flex flex-col items-center justify-center text-xs py-2 px-3 min-w-[80px] data-[state=active]:bg-[#008C6A] data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 hover:bg-[#008C6A]/20 whitespace-nowrap text-white border border-transparent hover:border-[#008C6A]/30 rounded-lg">
