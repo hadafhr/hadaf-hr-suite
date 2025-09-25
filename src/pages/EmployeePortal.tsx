@@ -2324,16 +2324,22 @@ const EmployeePortal = () => {
 
           {/* تبويب المهام */}
           <TabsContent value="tasks" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CheckSquare className="h-5 w-5" />
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <CardTitle className="flex items-center gap-2 relative z-10 text-white">
+                  <CheckSquare className="h-5 w-5 text-[#008C6A]" />
                   المهام المكلف بها
                 </CardTitle>
-                <CardDescription>قائمة بجميع المهام والمشاريع المكلف بها مع إمكانية التفاعل والمتابعة</CardDescription>
+                <CardDescription className="relative z-10 text-gray-300">قائمة بجميع المهام والمشاريع المكلف بها مع إمكانية التفاعل والمتابعة</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-6 relative z-10">
                   {tasks.map((task) => (
                     <Card key={task.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
                       <CardContent className="p-6 bg-gray-900/40 relative">
