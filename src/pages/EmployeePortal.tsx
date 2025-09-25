@@ -4773,79 +4773,94 @@ const EmployeePortal = () => {
           <TabsContent value="payroll" className="space-y-6">
             {/* إحصائيات الراتب */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-green-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-green-600">الراتب الصافي</p>
-                      <p className="text-2xl font-bold text-green-700">
+                      <p className="text-sm font-medium text-green-400 mb-2">الراتب الصافي</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedPayrollData.currentSalary.netSalary.toLocaleString()} ريال
                       </p>
                     </div>
-                    <Banknote className="h-8 w-8 text-green-500" />
+                    <Banknote className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-blue-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-blue-600">الراتب الإجمالي</p>
-                      <p className="text-2xl font-bold text-blue-700">
+                      <p className="text-sm font-medium text-blue-400 mb-2">الراتب الإجمالي</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedPayrollData.currentSalary.totalGross.toLocaleString()} ريال
                       </p>
                     </div>
-                    <CreditCard className="h-8 w-8 text-blue-500" />
+                    <CreditCard className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-purple-600">إجمالي البدلات</p>
-                      <p className="text-2xl font-bold text-purple-700">
+                      <p className="text-sm font-medium text-purple-400 mb-2">إجمالي البدلات</p>
+                      <p className="text-2xl font-bold text-white">
                         {(enhancedPayrollData.currentSalary.housingAllowance + 
                           enhancedPayrollData.currentSalary.transportAllowance + 
                           enhancedPayrollData.currentSalary.otherAllowances).toLocaleString()} ريال
                       </p>
                     </div>
-                    <Award className="h-8 w-8 text-purple-500" />
+                    <Award className="h-8 w-8 text-purple-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                <CardContent className="p-6 bg-gray-900/40 relative">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-orange-500/5"></div>
+                  </div>
+                  <div className="flex items-center justify-between relative z-10">
                     <div>
-                      <p className="text-sm font-medium text-orange-600">إجمالي الاستقطاعات</p>
-                      <p className="text-2xl font-bold text-orange-700">
+                      <p className="text-sm font-medium text-orange-400 mb-2">إجمالي الاستقطاعات</p>
+                      <p className="text-2xl font-bold text-white">
                         {enhancedPayrollData.currentSalary.totalDeductions.toLocaleString()} ريال
                       </p>
                     </div>
-                    <TrendingDown className="h-8 w-8 text-orange-500" />
+                    <TrendingDown className="h-8 w-8 text-orange-400" />
                   </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* تفاصيل الراتب الحالي */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <CreditCard className="h-5 w-5" />
-                    <CardTitle>تفاصيل الراتب الحالي</CardTitle>
+                    <CreditCard className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-xl font-bold text-white">تفاصيل الراتب الحالي</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button 
                       size="sm" 
                       variant="outline"
                       onClick={handleTaxCalculator}
-                      className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                      className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                     >
                       <BarChart3 className="h-4 w-4 ml-2" />
                       حاسبة الضرائب
@@ -4854,7 +4869,7 @@ const EmployeePortal = () => {
                       size="sm" 
                       variant="outline"
                       onClick={handleBenefitsOverview}
-                      className="hover:bg-purple-50 hover:border-purple-500 hover:text-purple-700"
+                      className="bg-black/20 backdrop-blur-sm border-purple-500/30 text-purple-400 hover:bg-purple-500/20 hover:border-purple-400 hover:text-purple-300 transition-all duration-300"
                     >
                       <Award className="h-4 w-4 ml-2" />
                       ملخص المزايا
@@ -4862,7 +4877,7 @@ const EmployeePortal = () => {
                     <Button 
                       size="sm"
                       onClick={() => handleDownloadPayslip('current')}
-                      className="bg-primary hover:bg-primary/90"
+                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white hover:from-[#00694F] hover:to-[#004D3A] shadow-lg hover:shadow-[#008C6A]/30 transition-all duration-300"
                     >
                       <Download className="h-4 w-4 ml-2" />
                       تحميل كشف الراتب
@@ -4870,42 +4885,45 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
                   {/* الإيرادات */}
                   <div>
-                    <h4 className="font-semibold mb-3 text-green-700 flex items-center gap-2">
+                    <h4 className="font-semibold mb-3 text-green-400 flex items-center gap-2">
                       <Plus className="h-4 w-4" />
                       الإيرادات
                     </h4>
                     <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                        <span className="text-sm font-medium">الراتب الأساسي</span>
-                        <span className="font-bold text-green-700">
+                      <div className="flex justify-between items-center p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                        <span className="text-sm font-medium text-white">الراتب الأساسي</span>
+                        <span className="font-bold text-green-400">
                           {enhancedPayrollData.currentSalary.basicSalary.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                        <span className="text-sm font-medium">بدل السكن</span>
-                        <span className="font-bold text-green-700">
+                      <div className="flex justify-between items-center p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                        <span className="text-sm font-medium text-white">بدل السكن</span>
+                        <span className="font-bold text-green-400">
                           {enhancedPayrollData.currentSalary.housingAllowance.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                        <span className="text-sm font-medium">بدل النقل</span>
-                        <span className="font-bold text-green-700">
+                      <div className="flex justify-between items-center p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                        <span className="text-sm font-medium text-white">بدل النقل</span>
+                        <span className="font-bold text-green-400">
                           {enhancedPayrollData.currentSalary.transportAllowance.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                        <span className="text-sm font-medium">بدلات أخرى</span>
-                        <span className="font-bold text-green-700">
+                      <div className="flex justify-between items-center p-3 bg-green-500/10 rounded-lg border border-green-500/30">
+                        <span className="text-sm font-medium text-white">بدلات أخرى</span>
+                        <span className="font-bold text-green-400">
                           {enhancedPayrollData.currentSalary.otherAllowances.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-green-100 rounded-lg border-2 border-green-200">
-                        <span className="text-sm font-bold">إجمالي الإيرادات</span>
-                        <span className="font-bold text-green-800 text-lg">
+                      <div className="flex justify-between items-center p-3 bg-green-500/20 rounded-lg border-2 border-green-500/40">
+                        <span className="text-sm font-bold text-white">إجمالي الإيرادات</span>
+                        <span className="font-bold text-green-300 text-lg">
                           {enhancedPayrollData.currentSalary.totalGross.toLocaleString()} ريال
                         </span>
                       </div>
@@ -4914,38 +4932,38 @@ const EmployeePortal = () => {
 
                   {/* الاستقطاعات */}
                   <div>
-                    <h4 className="font-semibold mb-3 text-red-700 flex items-center gap-2">
+                    <h4 className="font-semibold mb-3 text-red-400 flex items-center gap-2">
                       <XCircle className="h-4 w-4" />
                       الاستقطاعات
                     </h4>
                     <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
-                        <span className="text-sm font-medium">التأمينات الاجتماعية</span>
-                        <span className="font-bold text-red-700">
+                      <div className="flex justify-between items-center p-3 bg-red-500/10 rounded-lg border border-red-500/30">
+                        <span className="text-sm font-medium text-white">التأمينات الاجتماعية</span>
+                        <span className="font-bold text-red-400">
                           {enhancedPayrollData.currentSalary.socialInsurance.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
-                        <span className="text-sm font-medium">ضريبة الدخل</span>
-                        <span className="font-bold text-red-700">
+                      <div className="flex justify-between items-center p-3 bg-red-500/10 rounded-lg border border-red-500/30">
+                        <span className="text-sm font-medium text-white">ضريبة الدخل</span>
+                        <span className="font-bold text-red-400">
                           {enhancedPayrollData.currentSalary.incomeTax.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
-                        <span className="text-sm font-medium">استقطاعات أخرى</span>
-                        <span className="font-bold text-red-700">
+                      <div className="flex justify-between items-center p-3 bg-red-500/10 rounded-lg border border-red-500/30">
+                        <span className="text-sm font-medium text-white">استقطاعات أخرى</span>
+                        <span className="font-bold text-red-400">
                           {enhancedPayrollData.currentSalary.otherDeductions.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-3 bg-red-100 rounded-lg border-2 border-red-200">
-                        <span className="text-sm font-bold">إجمالي الاستقطاعات</span>
-                        <span className="font-bold text-red-800 text-lg">
+                      <div className="flex justify-between items-center p-3 bg-red-500/20 rounded-lg border-2 border-red-500/40">
+                        <span className="text-sm font-bold text-white">إجمالي الاستقطاعات</span>
+                        <span className="font-bold text-red-300 text-lg">
                           {enhancedPayrollData.currentSalary.totalDeductions.toLocaleString()} ريال
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-4 bg-primary/10 rounded-lg border-2 border-primary/20 mt-4">
-                        <span className="text-sm font-bold text-primary">الراتب الصافي</span>
-                        <span className="font-bold text-primary text-xl">
+                      <div className="flex justify-between items-center p-4 bg-[#008C6A]/20 rounded-lg border-2 border-[#008C6A]/40 mt-4">
+                        <span className="text-sm font-bold text-white">الراتب الصافي</span>
+                        <span className="font-bold text-[#008C6A] text-xl">
                           {enhancedPayrollData.currentSalary.netSalary.toLocaleString()} ريال
                         </span>
                       </div>
@@ -4956,19 +4974,22 @@ const EmployeePortal = () => {
             </Card>
 
             {/* سجل الرواتب */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center justify-between">
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5" />
-                    <CardTitle>سجل الرواتب</CardTitle>
+                    <FileText className="h-5 w-5 text-[#008C6A]" />
+                    <CardTitle className="text-xl font-bold text-white">سجل الرواتب</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Select value={selectedPayrollFilter} onValueChange={setSelectedPayrollFilter}>
-                      <SelectTrigger className="w-40">
+                      <SelectTrigger className="w-40 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
                         <SelectValue placeholder="تصفية حسب السنة" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-900 border-[#008C6A]/30">
                         <SelectItem value="all">جميع السنوات</SelectItem>
                         <SelectItem value="2024">2024</SelectItem>
                         <SelectItem value="2023">2023</SelectItem>
@@ -4978,7 +4999,7 @@ const EmployeePortal = () => {
                       size="sm" 
                       variant="outline"
                       onClick={handleSalaryAdvance}
-                      className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                      className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                     >
                       <Banknote className="h-4 w-4 ml-2" />
                       طلب سلفة
@@ -4986,17 +5007,23 @@ const EmployeePortal = () => {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="space-y-4 relative z-10">
                   {enhancedPayrollData.payrollHistory.filter(payroll => 
                     selectedPayrollFilter === 'all' || payroll.id.includes(selectedPayrollFilter)
                   ).map((payroll) => (
-                    <Card key={payroll.id} className="border-l-4 border-l-primary/30 shadow-md hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
+                    <Card key={payroll.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-start justify-between mb-3 relative z-10">
                           <div className="flex-1">
-                            <h4 className="text-lg font-semibold mb-1">{payroll.month}</h4>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground mb-2">
+                            <h4 className="text-lg font-semibold mb-1 text-white">{payroll.month}</h4>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-400 mb-2">
                               <div className="flex items-center gap-1">
                                 <Banknote className="h-4 w-4" />
                                 <span>الأساسي: {payroll.basicSalary.toLocaleString()}</span>
@@ -5014,29 +5041,29 @@ const EmployeePortal = () => {
                                 <span>الإضافي: {payroll.overtime.toLocaleString()}</span>
                               </div>
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-gray-400">
                               رقم الكشف: {payroll.id} | تاريخ الدفع: {payroll.payDate}
                             </p>
                           </div>
                           <div className="flex flex-col items-end gap-2">
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 px-3 py-1">
+                            <Badge variant="outline" className="bg-green-500/10 text-green-400 border-green-500/30 px-3 py-1">
                               {payroll.status}
                             </Badge>
                             <div className="text-left">
-                              <p className="text-xs text-muted-foreground">الصافي</p>
-                              <p className="text-lg font-bold text-primary">
+                              <p className="text-xs text-gray-400">الصافي</p>
+                              <p className="text-lg font-bold text-[#008C6A]">
                                 {payroll.netSalary.toLocaleString()} ريال
                               </p>
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex gap-2 flex-wrap relative z-10">
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => handleViewPayrollDetails(payroll)}
-                            className="hover:bg-blue-50 hover:border-blue-500 hover:text-blue-700"
+                            className="bg-black/20 backdrop-blur-sm border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                           >
                             <Eye className="h-4 w-4 ml-2" />
                             عرض التفاصيل
@@ -5046,7 +5073,7 @@ const EmployeePortal = () => {
                             size="sm" 
                             variant="outline"
                             onClick={() => handleDownloadPayslip(payroll.id)}
-                            className="hover:bg-green-50 hover:border-green-500 hover:text-green-700"
+                            className="bg-black/20 backdrop-blur-sm border-green-500/30 text-green-400 hover:bg-green-500/20 hover:border-green-400 hover:text-green-300 transition-all duration-300"
                           >
                             <Download className="h-4 w-4 ml-2" />
                             تحميل الكشف
@@ -5058,33 +5085,33 @@ const EmployeePortal = () => {
                 </div>
 
                 {/* ملخص الرواتب */}
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4" />
+                <div className="mt-6 p-4 bg-black/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/20 relative z-10">
+                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-white">
+                    <BarChart3 className="h-4 w-4 text-[#008C6A]" />
                     ملخص السنة المالية
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">الدخل السنوي</p>
-                      <p className="text-lg font-bold text-blue-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-blue-500/20">
+                      <p className="text-gray-400">الدخل السنوي</p>
+                      <p className="text-lg font-bold text-blue-400">
                         {(enhancedPayrollData.currentSalary.netSalary * 12).toLocaleString()} ريال
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">إجمالي المكافآت</p>
-                      <p className="text-lg font-bold text-green-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-green-500/20">
+                      <p className="text-gray-400">إجمالي المكافآت</p>
+                      <p className="text-lg font-bold text-green-400">
                         {enhancedPayrollData.payrollHistory.reduce((sum, p) => sum + p.bonuses, 0).toLocaleString()} ريال
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">إجمالي الضرائب</p>
-                      <p className="text-lg font-bold text-red-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-red-500/20">
+                      <p className="text-gray-400">إجمالي الضرائب</p>
+                      <p className="text-lg font-bold text-red-400">
                         {enhancedPayrollData.taxInfo.annualTax.toLocaleString()} ريال
                       </p>
                     </div>
-                    <div className="text-center p-3 bg-background rounded-lg">
-                      <p className="text-muted-foreground">آخر زيادة</p>
-                      <p className="text-lg font-bold text-purple-600">
+                    <div className="text-center p-3 bg-gray-900/40 backdrop-blur-sm rounded-lg border border-purple-500/20">
+                      <p className="text-gray-400">آخر زيادة</p>
+                      <p className="text-lg font-bold text-purple-400">
                         {enhancedPayrollData.performance.raisePercentage}%
                       </p>
                     </div>
@@ -5094,27 +5121,36 @@ const EmployeePortal = () => {
             </Card>
 
             {/* معلومات المزايا */}
-            <Card className="border-l-4 border-l-primary shadow-lg">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Award className="h-5 w-5" />
-                  <CardTitle>المزايا والحوافز</CardTitle>
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gray-900/30 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="flex items-center gap-2 relative z-10">
+                  <Award className="h-5 w-5 text-[#008C6A]" />
+                  <CardTitle className="text-xl font-bold text-white">المزايا والحوافز</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CardContent className="bg-gray-900/40 relative">
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
                   {enhancedPayrollData.benefits.map((benefit, index) => (
-                    <Card key={index} className="border-l-4 border-l-primary/30 shadow-sm">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold">{benefit.name}</h4>
-                          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                    <Card key={index} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl overflow-hidden">
+                      <CardContent className="p-4 bg-gray-900/40 relative">
+                        <div className="absolute inset-0 opacity-5">
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#008C6A]/5"></div>
+                        </div>
+                        <div className="flex items-center justify-between mb-2 relative z-10">
+                          <h4 className="font-semibold text-white">{benefit.name}</h4>
+                          <Badge variant="outline" className="bg-green-500/10 text-green-400 border-green-500/30">
                             {benefit.status}
                           </Badge>
                         </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-muted-foreground">{benefit.type}</span>
-                          <span className="font-bold text-primary">
+                        <div className="flex items-center justify-between relative z-10">
+                          <span className="text-sm text-gray-400">{benefit.type}</span>
+                          <span className="font-bold text-[#008C6A]">
                             {benefit.value.toLocaleString()} ريال
                           </span>
                         </div>
