@@ -117,28 +117,21 @@ const CareersPage = () => {
       <CareersHeader />
       
       {/* Hero Section */}
-      <section 
-        className="relative h-[500px] bg-cover bg-center bg-no-repeat flex items-center justify-center"
-        style={{
-          backgroundImage: `linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.8)), linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${heroImage})`
-        }}
-      >
-        {/* تأثيرات بصرية إضافية */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-        <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-32 h-32 bg-primary/20 rounded-full blur-2xl animate-pulse"></div>
+      <section className="relative py-20 bg-gradient-to-br from-background via-background/95 to-primary/5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary))_0%,transparent_50%)] opacity-[0.15]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent))_0%,transparent_50%)] opacity-[0.1]"></div>
         
-        <div className="container mx-auto px-6 text-center text-white relative z-10">
-          <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
             انضم إلى فريقنا في بُعد HR
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed opacity-90">
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-muted-foreground leading-relaxed">
             كن جزءاً من رحلة تطوير أكثر منصات الموارد البشرية تقدماً في المملكة العربية السعودية
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
             <Button 
               size="lg" 
-              className="bg-white text-primary hover:bg-white/90 hover:scale-105 transition-all duration-300 px-8 py-4 text-lg font-semibold shadow-xl"
+              className="glass-card hover:scale-105 transition-all duration-300"
               onClick={() => document.getElementById('jobs-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Briefcase className="w-5 h-5 mr-2" />
@@ -147,7 +140,7 @@ const CareersPage = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-white/50 text-white hover:bg-white/10 hover:border-white hover:scale-105 transition-all duration-300 px-8 py-4 text-lg backdrop-blur-sm"
+              className="glass-card hover:scale-105 transition-all duration-300"
             >
               <Heart className="w-5 h-5 mr-2" />
               تعرف على ثقافتنا
@@ -157,38 +150,38 @@ const CareersPage = () => {
           {/* إحصائيات سريعة في Hero */}
           <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold mb-1">500+</div>
-              <div className="text-sm opacity-80">موظف</div>
+              <div className="text-3xl font-bold mb-1 text-primary">500+</div>
+              <div className="text-sm text-muted-foreground">موظف</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold mb-1">95%</div>
-              <div className="text-sm opacity-80">رضا</div>
+              <div className="text-3xl font-bold mb-1 text-primary">95%</div>
+              <div className="text-sm text-muted-foreground">رضا</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold mb-1">24/7</div>
-              <div className="text-sm opacity-80">دعم</div>
+              <div className="text-3xl font-bold mb-1 text-primary">24/7</div>
+              <div className="text-sm text-muted-foreground">دعم</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* إحصائيات سريعة */}
-      <section className="py-12 bg-muted/30">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center">
+            <div className="text-center glass-card p-6 hover:scale-105 transition-transform">
               <div className="text-3xl font-bold text-primary mb-2">{statistics.totalJobs}+</div>
               <div className="text-muted-foreground">وظيفة متاحة</div>
             </div>
-            <div className="text-center">
+            <div className="text-center glass-card p-6 hover:scale-105 transition-transform">
               <div className="text-3xl font-bold text-primary mb-2">500+</div>
               <div className="text-muted-foreground">موظف سعيد</div>
             </div>
-            <div className="text-center">
+            <div className="text-center glass-card p-6 hover:scale-105 transition-transform">
               <div className="text-3xl font-bold text-primary mb-2">7</div>
               <div className="text-muted-foreground">أقسام متخصصة</div>
             </div>
-            <div className="text-center">
+            <div className="text-center glass-card p-6 hover:scale-105 transition-transform">
               <div className="text-3xl font-bold text-primary mb-2">95%</div>
               <div className="text-muted-foreground">رضا الموظفين</div>
             </div>
@@ -197,45 +190,45 @@ const CareersPage = () => {
       </section>
 
       {/* قسم لماذا بُعد HR */}
-      <section className="py-16">
+      <section className="py-20 bg-gradient-to-br from-background via-background/95 to-accent/5">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">لماذا تختار بُعد HR؟</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">لماذا تختار بُعد HR؟</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               نوفر بيئة عمل محفزة ومليئة بالفرص للنمو والتطوير المهني
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center group hover:scale-105 transition-transform">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+            <div className="text-center glass-card p-8 group hover:scale-105 transition-all">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                 <Heart className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">بيئة عمل داعمة</h3>
+              <h3 className="text-xl font-semibold mb-3">بيئة عمل داعمة</h3>
               <p className="text-muted-foreground">فريق متعاون وقيادة داعمة لتحقيق أهدافك</p>
             </div>
 
-            <div className="text-center group hover:scale-105 transition-transform">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+            <div className="text-center glass-card p-8 group hover:scale-105 transition-all">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                 <Trophy className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">فرص نمو مميزة</h3>
+              <h3 className="text-xl font-semibold mb-3">فرص نمو مميزة</h3>
               <p className="text-muted-foreground">مسار وظيفي واضح وفرص ترقية سريعة</p>
             </div>
 
-            <div className="text-center group hover:scale-105 transition-transform">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+            <div className="text-center glass-card p-8 group hover:scale-105 transition-all">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                 <Zap className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">تقنيات متطورة</h3>
+              <h3 className="text-xl font-semibold mb-3">تقنيات متطورة</h3>
               <p className="text-muted-foreground">اعمل مع أحدث التقنيات والأدوات</p>
             </div>
 
-            <div className="text-center group hover:scale-105 transition-transform">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+            <div className="text-center glass-card p-8 group hover:scale-105 transition-all">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
                 <Globe className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">مرونة في العمل</h3>
+              <h3 className="text-xl font-semibold mb-3">مرونة في العمل</h3>
               <p className="text-muted-foreground">خيارات عمل مرنة وتوازن صحي</p>
             </div>
           </div>
@@ -243,15 +236,15 @@ const CareersPage = () => {
       </section>
 
       {/* قسم البحث والفلترة والوظائف */}
-      <section id="jobs-section" className="py-12 bg-muted/30">
+      <section id="jobs-section" className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">الوظائف والتقديم</h2>
-            <p className="text-muted-foreground">اكتشف الفرص الوظيفية المناسبة لخبرتك ومهاراتك أو تابع طلباتك السابقة</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">الوظائف والتقديم</h2>
+            <p className="text-lg text-muted-foreground">اكتشف الفرص الوظيفية المناسبة لخبرتك ومهاراتك أو تابع طلباتك السابقة</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsList className="glass-card grid w-full grid-cols-2 mb-8 p-2">
               <TabsTrigger value="jobs" className="flex items-center gap-2">
                 <Briefcase className="w-4 h-4" />
                 الوظائف المتاحة
@@ -264,8 +257,8 @@ const CareersPage = () => {
 
             <TabsContent value="jobs" className="space-y-8">
               {/* أدوات البحث والفلترة */}
-              <Card>
-                <CardContent className="p-6">
+              <Card className="glass-card">
+                <CardContent className="p-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div className="lg:col-span-2">
                       <div className="relative">
@@ -274,16 +267,16 @@ const CareersPage = () => {
                           placeholder="ابحث عن وظيفة..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="pr-10"
+                          className="pr-10 glass-card"
                         />
                       </div>
                     </div>
 
                     <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                      <SelectTrigger>
+                      <SelectTrigger className="glass-card">
                         <SelectValue placeholder="القسم" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="glass-card">
                         <SelectItem value="all">جميع الأقسام</SelectItem>
                         {departments.map(dept => (
                           <SelectItem key={dept.id} value={dept.id}>{dept.name}</SelectItem>
@@ -292,10 +285,10 @@ const CareersPage = () => {
                     </Select>
 
                     <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-                      <SelectTrigger>
+                      <SelectTrigger className="glass-card">
                         <SelectValue placeholder="الموقع" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="glass-card">
                         <SelectItem value="all">جميع المواقع</SelectItem>
                         {locations.map(location => (
                           <SelectItem key={location.value} value={location.value}>{location.label}</SelectItem>
@@ -304,10 +297,10 @@ const CareersPage = () => {
                     </Select>
 
                     <Select value={selectedJobType} onValueChange={setSelectedJobType}>
-                      <SelectTrigger>
+                      <SelectTrigger className="glass-card">
                         <SelectValue placeholder="نوع الدوام" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="glass-card">
                         <SelectItem value="all">جميع الأنواع</SelectItem>
                         {jobTypes.map(type => (
                           <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
@@ -316,11 +309,11 @@ const CareersPage = () => {
                     </Select>
                   </div>
 
-                  <div className="flex justify-between items-center mt-4">
+                  <div className="flex justify-between items-center mt-6">
                     <div className="text-sm text-muted-foreground">
                       {filteredJobs.length} وظيفة من أصل {jobs.length}
                     </div>
-                    <Button variant="outline" size="sm" onClick={clearFilters}>
+                    <Button variant="outline" size="sm" onClick={clearFilters} className="glass-card">
                       <Filter className="w-4 h-4 mr-2" />
                       مسح الفلاتر
                     </Button>
@@ -349,7 +342,7 @@ const CareersPage = () => {
                   </div>
                 ) : (
                   filteredJobs.map(job => (
-                    <Card key={job.id} className="hover:shadow-lg transition-shadow group cursor-pointer">
+                    <Card key={job.id} className="glass-card hover:scale-105 transition-all duration-300 group cursor-pointer">
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
@@ -361,7 +354,7 @@ const CareersPage = () => {
                               <span>{job.department?.name || 'غير محدد'}</span>
                             </div>
                           </div>
-                          <Badge variant="secondary" className="shrink-0">
+                          <Badge variant="secondary" className="shrink-0 glass-card">
                             {jobTypes.find(t => t.value === job.job_type)?.label || job.job_type}
                           </Badge>
                         </div>
