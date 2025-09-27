@@ -163,7 +163,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
     doc.text(`المجموع النهائي: ${calculation.total.toLocaleString()} ﷼`, 25, yPos + 15);
     doc.save(`Boud-HR-Quote-${Date.now()}.pdf`);
   };
-  return <div className="min-h-screen bg-white" dir="rtl">
+  return <div className="min-h-screen bg-black" dir="rtl">
       {/* Enhanced Header Section */}
       <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white">
         {/* Navigation Bar */}
@@ -223,37 +223,37 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
           {/* Calculator Section */}
           <div className="lg:col-span-2 space-y-6">
             {/* Company Info */}
-            <Card className="p-6 border-2 border-gray-100">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
-                <Building2 className="h-6 w-6 text-teal-600" />
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
+                <Building2 className="h-6 w-6 text-teal-400" />
                 معلومات الشركة
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-gray-700">اسم الشركة *</Label>
-                  <Input value={companyName} onChange={e => setCompanyName(e.target.value)} placeholder="اسم شركتك" className="border-gray-200 focus:border-teal-500" />
+                  <Label className="text-gray-300">اسم الشركة *</Label>
+                  <Input value={companyName} onChange={e => setCompanyName(e.target.value)} placeholder="اسم شركتك" className="bg-black/30 border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-teal-400" />
                 </div>
                 <div>
-                  <Label className="text-gray-700">البريد الإلكتروني *</Label>
-                  <Input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} placeholder="email@company.com" className="border-gray-200 focus:border-teal-500" />
+                  <Label className="text-gray-300">البريد الإلكتروني *</Label>
+                  <Input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} placeholder="email@company.com" className="bg-black/30 border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-teal-400" />
                 </div>
               </div>
             </Card>
 
             {/* Employee Count */}
-            <Card className="p-6 border-2 border-gray-100">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
-                <Users className="h-6 w-6 text-teal-600" />
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
+                <Users className="h-6 w-6 text-teal-400" />
                 عدد الموظفين: {employeeCount}
               </h3>
               <div className="space-y-4">
-                <Slider value={[employeeCount]} onValueChange={value => setEmployeeCount(Math.max(1, value[0]))} max={3000} min={1} step={1} className="w-full [&_[role=slider]]:bg-teal-600 [&_[role=slider]]:border-teal-600" />
-                <div className="flex justify-between text-sm text-gray-600">
+                <Slider value={[employeeCount]} onValueChange={value => setEmployeeCount(Math.max(1, value[0]))} max={3000} min={1} step={1} className="w-full [&_[role=slider]]:bg-teal-400 [&_[role=slider]]:border-teal-400" />
+                <div className="flex justify-between text-sm text-gray-400">
                   <span>1 موظف</span>
                   <span>3000+ موظف</span>
                 </div>
                 <div className="flex justify-center">
-                  <Badge variant="outline" className="text-teal-700 border-teal-200 bg-teal-50">
+                  <Badge variant="outline" className="text-teal-400 border-teal-400/50 bg-teal-400/10">
                     سعر الوحدة: {calculation.pricePerEmployee} ﷼/شهر
                   </Badge>
                 </div>
@@ -261,17 +261,17 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             </Card>
 
             {/* Billing Cycle */}
-            <Card className="p-6 border-2 border-gray-100">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">دورة الفوترة</h3>
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h3 className="text-xl font-bold mb-4 text-white">دورة الفوترة</h3>
               <div className="grid grid-cols-2 gap-4">
-                <Button variant={billingCycle === 'monthly' ? "default" : "outline"} onClick={() => setBillingCycle('monthly')} className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}>
+                <Button variant={billingCycle === 'monthly' ? "default" : "outline"} onClick={() => setBillingCycle('monthly')} className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-teal-600 hover:bg-teal-700 text-white' : 'bg-black/30 border-[#008C6A]/30 text-gray-300 hover:border-teal-400 hover:text-white'}`}>
                   <div className="text-center">
                     <div className="font-medium">شهري</div>
                     <div className="text-xs opacity-75">دفع شهري</div>
                   </div>
                 </Button>
-                <Button variant={billingCycle === 'yearly' ? "default" : "outline"} onClick={() => setBillingCycle('yearly')} className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}>
-                  <Badge className="absolute -top-2 -right-2 bg-orange-500">
+                <Button variant={billingCycle === 'yearly' ? "default" : "outline"} onClick={() => setBillingCycle('yearly')} className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-teal-600 hover:bg-teal-700 text-white' : 'bg-black/30 border-[#008C6A]/30 text-gray-300 hover:border-teal-400 hover:text-white'}`}>
+                  <Badge className="absolute -top-2 -right-2 bg-orange-500 text-white">
                     وفر 15%
                   </Badge>
                   <div className="text-center">
@@ -283,41 +283,41 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             </Card>
 
             {/* Additional Services */}
-            <Card className="p-6 border-2 border-gray-100">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">الخدمات الإضافية</h3>
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h3 className="text-xl font-bold mb-4 text-white">الخدمات الإضافية</h3>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <div className="flex items-center justify-between p-4 border border-[#008C6A]/30 rounded-lg bg-black/20">
                   <div className="flex-1">
-                    <div className="font-medium text-gray-900">رسوم التأسيس</div>
-                    <div className="text-sm text-gray-600">إعداد كامل للنظام وتكوين الشركة</div>
-                    <div className="text-sm font-medium text-teal-600">
+                    <div className="font-medium text-white">رسوم التأسيس</div>
+                    <div className="text-sm text-gray-400">إعداد كامل للنظام وتكوين الشركة</div>
+                    <div className="text-sm font-medium text-teal-400">
                       {setupFee.toLocaleString()} ﷼ (مرة واحدة)
                     </div>
                   </div>
-                  <Checkbox checked={includeSetup} onCheckedChange={checked => setIncludeSetup(checked === true)} className="border-teal-300 data-[state=checked]:bg-teal-600" />
+                  <Checkbox checked={includeSetup} onCheckedChange={checked => setIncludeSetup(checked === true)} className="border-teal-400 data-[state=checked]:bg-teal-600" />
                 </div>
                 
-                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <div className="flex items-center justify-between p-4 border border-[#008C6A]/30 rounded-lg bg-black/20">
                   <div className="flex-1">
-                    <div className="font-medium text-gray-900">الدعم الفني المتقدم</div>
-                    <div className="text-sm text-gray-600">دعم فني متقدم 24/7 مع مدير حساب مخصص</div>
-                    <div className="text-sm font-medium text-teal-600">
+                    <div className="font-medium text-white">الدعم الفني المتقدم</div>
+                    <div className="text-sm text-gray-400">دعم فني متقدم 24/7 مع مدير حساب مخصص</div>
+                    <div className="text-sm font-medium text-teal-400">
                       {billingCycle === 'yearly' ? `${supportFeeYearly.toLocaleString()} ﷼/سنوياً` : `${supportFeeMonthly.toLocaleString()} ﷼/شهرياً`}
                     </div>
                   </div>
-                  <Checkbox checked={includeSupport} onCheckedChange={checked => setIncludeSupport(checked === true)} className="border-teal-300 data-[state=checked]:bg-teal-600" />
+                  <Checkbox checked={includeSupport} onCheckedChange={checked => setIncludeSupport(checked === true)} className="border-teal-400 data-[state=checked]:bg-teal-600" />
                 </div>
               </div>
             </Card>
 
             {/* AI Suggestions */}
-            {getAISuggestions().length > 0 && <Card className="p-6 border-2 border-teal-100 bg-teal-50">
-                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-teal-900">
+            {getAISuggestions().length > 0 && <Card className="p-6 backdrop-blur-xl bg-teal-900/20 border border-teal-400/30 shadow-2xl shadow-teal-400/10">
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-teal-300">
                   <Bot className="h-5 w-5" />
                   اقتراحات ذكية
                 </h3>
                 <div className="space-y-2">
-                  {getAISuggestions().map((suggestion, index) => <div key={index} className="flex items-center gap-2 text-teal-800">
+                  {getAISuggestions().map((suggestion, index) => <div key={index} className="flex items-center gap-2 text-teal-200">
                       <Zap className="h-4 w-4" />
                       <span>{suggestion}</span>
                     </div>)}
@@ -328,48 +328,48 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
           {/* Summary Panel */}
           <div className="space-y-6">
             {/* Price Summary */}
-            <Card className="p-6 border-2 border-teal-100 sticky top-6">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-gray-900">
-                <Calculator className="h-6 w-6 text-teal-600" />
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 sticky top-6">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
+                <Calculator className="h-6 w-6 text-teal-400" />
                 ملخص التكلفة
               </h3>
               
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">التكلفة الأساسية ({billingCycle === 'yearly' ? 'سنوي' : 'شهري'})</span>
-                  <span className="font-medium">
+                  <span className="text-gray-400">التكلفة الأساسية ({billingCycle === 'yearly' ? 'سنوي' : 'شهري'})</span>
+                  <span className="font-medium text-white">
                     {billingCycle === 'yearly' ? (calculation.baseMonthly * 12).toLocaleString() : calculation.baseMonthly.toLocaleString()} ﷼
                   </span>
                 </div>
                 
                 {includeSetup && <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">رسوم التأسيس</span>
-                    <span className="font-medium">{setupFee.toLocaleString()} ﷼</span>
+                    <span className="text-gray-400">رسوم التأسيس</span>
+                    <span className="font-medium text-white">{setupFee.toLocaleString()} ﷼</span>
                   </div>}
                 
                 {includeSupport && <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">الدعم الفني</span>
-                    <span className="font-medium">{calculation.supportCost.toLocaleString()} ﷼</span>
+                    <span className="text-gray-400">الدعم الفني</span>
+                    <span className="font-medium text-white">{calculation.supportCost.toLocaleString()} ﷼</span>
                   </div>}
                 
-                {billingCycle === 'yearly' && calculation.savings > 0 && <div className="flex justify-between text-sm text-green-600">
+                {billingCycle === 'yearly' && calculation.savings > 0 && <div className="flex justify-between text-sm text-green-400">
                     <span>الخصم السنوي (15%)</span>
                     <span>-{calculation.savings.toLocaleString()} ﷼</span>
                   </div>}
                 
-                <Separator />
+                <Separator className="border-[#008C6A]/30" />
                 
                 <div className="flex justify-between font-bold text-xl">
-                  <span className="text-gray-900">المجموع</span>
-                  <span className="text-teal-600">{calculation.total.toLocaleString()} ﷼</span>
+                  <span className="text-white">المجموع</span>
+                  <span className="text-teal-400">{calculation.total.toLocaleString()} ﷼</span>
                 </div>
                 
-                {billingCycle === 'yearly' && calculation.savings > 0 && <p className="text-xs text-green-600 text-center">
+                {billingCycle === 'yearly' && calculation.savings > 0 && <p className="text-xs text-green-400 text-center">
                     توفير {calculation.savings.toLocaleString()} ﷼ سنوياً
                   </p>}
               </div>
 
-              <Separator className="my-4" />
+              <Separator className="my-4 border-[#008C6A]/30" />
 
               <div className="space-y-3">
                 <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white" onClick={generatePDF} disabled={!companyName || !contactEmail}>
@@ -377,7 +377,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                   تحميل عرض السعر
                 </Button>
                 
-                <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50" disabled={!companyName || !contactEmail}>
+                <Button variant="outline" className="w-full bg-black/30 border-teal-400/50 text-teal-400 hover:bg-teal-600 hover:text-white" disabled={!companyName || !contactEmail}>
                   <Mail className="h-4 w-4 ml-2" />
                   إرسال بالبريد الإلكتروني
                 </Button>
@@ -385,52 +385,52 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             </Card>
 
             {/* Features */}
-            <Card className="p-6 border-2 border-gray-100">
-              <h3 className="text-lg font-bold mb-4 text-gray-900">مميزات الاشتراك</h3>
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h3 className="text-lg font-bold mb-4 text-white">مميزات الاشتراك</h3>
               <div className="space-y-3">
                 {['دعم نظام العمل السعودي', 'تكامل مع الجهات الرسمية', 'تقارير فورية ذكية', 'خدمة ذاتية للموظفين', 'توقيع إلكتروني', 'دعم بالذكاء الاصطناعي'].map((feature, index) => <div key={index} className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-teal-600" />
-                    <span className="text-sm text-gray-700">{feature}</span>
+                    <CheckCircle className="h-4 w-4 text-teal-400" />
+                    <span className="text-sm text-gray-300">{feature}</span>
                   </div>)}
               </div>
             </Card>
 
             {/* Guarantee */}
-            <Card className="p-4 border-2 border-teal-200 bg-teal-50 text-center">
+            <Card className="p-4 backdrop-blur-xl bg-teal-900/20 border border-teal-400/30 shadow-2xl shadow-teal-400/10 text-center">
               <div className="flex justify-center mb-2">
-                <TrendingDown className="h-8 w-8 text-teal-600" />
+                <TrendingDown className="h-8 w-8 text-teal-400" />
               </div>
-              <h4 className="font-bold text-teal-900 mb-1">ضمان المنافسة</h4>
-              <p className="text-sm text-teal-800">أقل من السوق بـ 5% على الأقل</p>
+              <h4 className="font-bold text-teal-300 mb-1">ضمان المنافسة</h4>
+              <p className="text-sm text-teal-200">أقل من السوق بـ 5% على الأقل</p>
             </Card>
           </div>
         </div>
 
         {/* FAQ Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">الأسئلة الشائعة</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-white">الأسئلة الشائعة</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 border-gray-200">
-              <h4 className="font-bold mb-2 text-gray-900">كيف يتم احتساب الفوترة؟</h4>
-              <p className="text-sm text-gray-600">
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h4 className="font-bold mb-2 text-white">كيف يتم احتساب الفوترة؟</h4>
+              <p className="text-sm text-gray-400">
                 يتم احتساب الفوترة حسب عدد الموظفين الفعليين في النظام مع أسعار متدرجة تقل كلما زاد العدد.
               </p>
             </Card>
-            <Card className="p-6 border-gray-200">
-              <h4 className="font-bold mb-2 text-gray-900">هل يمكن إلغاء الاشتراك؟</h4>
-              <p className="text-sm text-gray-600">
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h4 className="font-bold mb-2 text-white">هل يمكن إلغاء الاشتراك؟</h4>
+              <p className="text-sm text-gray-400">
                 نعم، يمكن إلغاء الاشتراك في أي وقت مع ضمان استرداد المبلغ المتبقي من الفترة المدفوعة.
               </p>
             </Card>
-            <Card className="p-6 border-gray-200">
-              <h4 className="font-bold mb-2 text-gray-900">ما هو الدعم الفني المتوفر؟</h4>
-              <p className="text-sm text-gray-600">
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h4 className="font-bold mb-2 text-white">ما هو الدعم الفني المتوفر؟</h4>
+              <p className="text-sm text-gray-400">
                 نوفر دعم فني أساسي مجاني، ودعم متقدم 24/7 مع مدير حساب مخصص كخدمة إضافية.
               </p>
             </Card>
-            <Card className="p-6 border-gray-200">
-              <h4 className="font-bold mb-2 text-gray-900">هل الأسعار شاملة الضريبة؟</h4>
-              <p className="text-sm text-gray-600">
+            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+              <h4 className="font-bold mb-2 text-white">هل الأسعار شاملة الضريبة؟</h4>
+              <p className="text-sm text-gray-400">
                 جميع الأسعار المعروضة غير شاملة ضريبة القيمة المضافة والتي ستضاف عند الفوترة.
               </p>
             </Card>
