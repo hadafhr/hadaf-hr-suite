@@ -312,13 +312,13 @@ export const ClientManagement: React.FC = () => {
           <Table>
             <TableHeader>
               <TableRow className="border-b border-[#008C6A]/30">
-                <TableHead className="text-gray-300">{isArabic ? 'العميل' : 'Client'}</TableHead>
-                <TableHead className="text-gray-300">{isArabic ? 'المسؤول' : 'Contact Person'}</TableHead>
-                <TableHead className="text-gray-300">{isArabic ? 'الموظفين' : 'Employees'}</TableHead>
-                <TableHead className="text-gray-300">{isArabic ? 'الخطة' : 'Plan'}</TableHead>
-                <TableHead className="text-gray-300">{isArabic ? 'الحالة' : 'Status'}</TableHead>
-                <TableHead className="text-gray-300">{isArabic ? 'الإيرادات' : 'Revenue'}</TableHead>
-                <TableHead className="text-gray-300">{isArabic ? 'الإجراءات' : 'Actions'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'العميل' : 'Client'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'المسؤول' : 'Contact Person'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'الموظفين' : 'Employees'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'الخطة' : 'Plan'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'الحالة' : 'Status'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'الإيرادات' : 'Revenue'}</TableHead>
+                <TableHead className="text-gray-300 text-center">{isArabic ? 'الإجراءات' : 'Actions'}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
