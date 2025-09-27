@@ -82,36 +82,20 @@ export const CompanyDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden" dir="rtl">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        {/* Floating Orbs */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-float"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-teal-300/20 rounded-full blur-lg animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-white/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-teal-200/15 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
-        
-        {/* Geometric Shapes */}
-        <div className="absolute top-32 right-10 w-12 h-12 border border-white/20 rotate-45 animate-bounce" style={{ animationDuration: '3s' }}></div>
-        <div className="absolute bottom-32 left-16 w-8 h-8 bg-white/10 transform rotate-12 animate-pulse"></div>
-        
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:32px_32px] opacity-20"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto space-y-6 p-6 relative z-10 animate-fade-in">
-        {/* Enhanced Header */}
-        <div className="flex items-center justify-between animate-slide-in-right">
+    <div className="min-h-screen bg-background" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-6 p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
           <SystemHeader
             title="🏢 لوحة تحكم المنشأة"
             description="الواجهة الرسمية لإدارة نظام إدارة الموارد البشرية المتكاملة"
-            icon={<Building2 className="h-12 w-12 text-white" />}
+            icon={<Building2 className="h-12 w-12" />}
             showBackButton={false}
           />
           <Button 
             onClick={handleLogout}
             variant="destructive"
-            className="flex items-center gap-2 backdrop-blur-xl bg-red-600/20 border border-red-500/30 text-red-300 hover:bg-red-600/30 transition-all duration-300"
+            className="flex items-center gap-2"
           >
             <LogOut className="w-4 h-4" />
             تسجيل الخروج
@@ -119,74 +103,86 @@ export const CompanyDashboard: React.FC = () => {
         </div>
 
         {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 animate-scale-in">
-          <Card className="backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 hover-scale transition-all duration-300">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-teal-400" />
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Users className="w-5 h-5 text-blue-600" />
+                </div>
                 <div>
-                  <p className="text-gray-400 text-sm">إجمالي الموظفين</p>
-                  <p className="text-2xl font-bold text-white">{companyStats.totalEmployees}</p>
+                  <p className="text-muted-foreground text-sm">إجمالي الموظفين</p>
+                  <p className="text-2xl font-bold">{companyStats.totalEmployees}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="backdrop-blur-xl bg-green-900/20 border border-green-500/30 shadow-2xl shadow-green-500/10 hover-scale transition-all duration-300">
+          <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-400" />
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="p-2 bg-green-100 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </div>
                 <div>
-                  <p className="text-green-300 text-sm">مستخدمون نشطون</p>
-                  <p className="text-2xl font-bold text-green-300">{companyStats.activeUsers}</p>
+                  <p className="text-muted-foreground text-sm">مستخدمون نشطون</p>
+                  <p className="text-2xl font-bold text-green-600">{companyStats.activeUsers}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="backdrop-blur-xl bg-yellow-900/20 border border-yellow-500/30 shadow-2xl shadow-yellow-500/10 hover-scale transition-all duration-300">
+          <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-yellow-400" />
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="p-2 bg-yellow-100 rounded-lg">
+                  <Clock className="w-5 h-5 text-yellow-600" />
+                </div>
                 <div>
-                  <p className="text-yellow-300 text-sm">مهام معلقة</p>
-                  <p className="text-2xl font-bold text-yellow-300">{companyStats.pendingTasks}</p>
+                  <p className="text-muted-foreground text-sm">مهام معلقة</p>
+                  <p className="text-2xl font-bold text-yellow-600">{companyStats.pendingTasks}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="backdrop-blur-xl bg-teal-900/20 border border-teal-400/30 shadow-2xl shadow-teal-400/10 hover-scale transition-all duration-300">
+          <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-teal-400" />
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="p-2 bg-purple-100 rounded-lg">
+                  <Crown className="w-5 h-5 text-purple-600" />
+                </div>
                 <div>
-                  <p className="text-teal-300 text-sm">حالة الاشتراك</p>
-                  <p className="text-lg font-bold text-teal-300">نشط</p>
+                  <p className="text-muted-foreground text-sm">حالة الاشتراك</p>
+                  <p className="text-lg font-bold text-purple-600">نشط</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="backdrop-blur-xl bg-blue-900/20 border border-blue-500/30 shadow-2xl shadow-blue-500/10 hover-scale transition-all duration-300">
+          <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <HeadphonesIcon className="w-5 h-5 text-blue-400" />
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="p-2 bg-orange-100 rounded-lg">
+                  <HeadphonesIcon className="w-5 h-5 text-orange-600" />
+                </div>
                 <div>
-                  <p className="text-blue-300 text-sm">تذاكر الدعم</p>
-                  <p className="text-2xl font-bold text-blue-300">{companyStats.supportTickets}</p>
+                  <p className="text-muted-foreground text-sm">تذاكر الدعم</p>
+                  <p className="text-2xl font-bold text-orange-600">{companyStats.supportTickets}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="backdrop-blur-xl bg-purple-900/20 border border-purple-500/30 shadow-2xl shadow-purple-500/10 hover-scale transition-all duration-300">
+          <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-purple-400" />
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="p-2 bg-indigo-100 rounded-lg">
+                  <TrendingUp className="w-5 h-5 text-indigo-600" />
+                </div>
                 <div>
-                  <p className="text-purple-300 text-sm">صحة النظام</p>
-                  <p className="text-2xl font-bold text-purple-300">{companyStats.systemHealth}%</p>
+                  <p className="text-muted-foreground text-sm">صحة النظام</p>
+                  <p className="text-2xl font-bold text-indigo-600">{companyStats.systemHealth}%</p>
                 </div>
               </div>
             </CardContent>
@@ -194,31 +190,33 @@ export const CompanyDashboard: React.FC = () => {
         </div>
 
         {/* Main Content with Tabs */}
-        <div className="backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 rounded-xl p-6 animate-scale-in">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6 bg-black/30 border border-[#008C6A]/30 p-2 rounded-lg">
-              {tabsConfig.map((tab) => (
-                <TabsTrigger 
-                  key={tab.id} 
-                  value={tab.id}
-                  className="flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-300 data-[state=active]:bg-teal-600 data-[state=active]:text-white data-[state=active]:shadow-md hover:bg-teal-600/20 text-gray-300 hover:text-white"
-                >
-                  {tab.icon}
-                  <span className="font-medium">{tab.label}</span>
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        <Card>
+          <CardContent className="p-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-5 mb-6">
+                {tabsConfig.map((tab) => (
+                  <TabsTrigger 
+                    key={tab.id} 
+                    value={tab.id}
+                    className="flex items-center gap-2 px-4 py-3 rounded-md transition-all duration-300"
+                  >
+                    {tab.icon}
+                    <span className="font-medium">{tab.label}</span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
 
-            {tabsConfig.map((tab) => {
-              const Component = tab.component;
-              return (
-                <TabsContent key={tab.id} value={tab.id} className="space-y-6 mt-6">
-                  <Component />
-                </TabsContent>
-              );
-            })}
-          </Tabs>
-        </div>
+              {tabsConfig.map((tab) => {
+                const Component = tab.component;
+                return (
+                  <TabsContent key={tab.id} value={tab.id} className="space-y-6 mt-6">
+                    <Component />
+                  </TabsContent>
+                );
+              })}
+            </Tabs>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
