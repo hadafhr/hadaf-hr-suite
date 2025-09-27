@@ -79,12 +79,16 @@ export const ClientManagement: React.FC = () => {
     deleteClient
   } = useClientManagement();
 
+  console.log('ClientManagement - clients:', clients);
+  console.log('ClientManagement - isLoading:', isLoading);
+  console.log('ClientManagement - error:', error);
+
   const getPlanBadge = (plan: string) => {
     const variants = {
-      'basic': 'secondary',
-      'professional': 'default',
-      'enterprise': 'destructive',
-      'enterprise+': 'outline'
+      'basic': { variant: 'secondary' as const, className: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
+      'professional': { variant: 'default' as const, className: 'bg-green-500/20 text-green-300 border-green-500/30' },
+      'enterprise': { variant: 'destructive' as const, className: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
+      'enterprise+': { variant: 'outline' as const, className: 'bg-gold-500/20 text-yellow-300 border-yellow-500/30' }
     };
     
     const labels = {
@@ -94,8 +98,10 @@ export const ClientManagement: React.FC = () => {
       'enterprise+': isArabic ? 'مؤسسي+' : 'Enterprise+'
     };
     
+    const config = variants[plan as keyof typeof variants];
+    
     return (
-      <Badge variant={variants[plan as keyof typeof variants] as any}>
+      <Badge variant={config.variant} className={config.className}>
         {labels[plan as keyof typeof labels]}
       </Badge>
     );
@@ -103,10 +109,10 @@ export const ClientManagement: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     const variants = {
-      'active': 'default',
-      'suspended': 'destructive',
-      'pending': 'secondary',
-      'trial': 'outline'
+      'active': { variant: 'default' as const, className: 'bg-green-500/20 text-green-300 border-green-500/30' },
+      'suspended': { variant: 'destructive' as const, className: 'bg-red-500/20 text-red-300 border-red-500/30' },
+      'pending': { variant: 'secondary' as const, className: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' },
+      'trial': { variant: 'outline' as const, className: 'bg-blue-500/20 text-blue-300 border-blue-500/30' }
     };
     
     const labels = {
@@ -116,8 +122,10 @@ export const ClientManagement: React.FC = () => {
       'trial': isArabic ? 'تجريبي' : 'Trial'
     };
     
+    const config = variants[status as keyof typeof variants];
+    
     return (
-      <Badge variant={variants[status as keyof typeof variants] as any}>
+      <Badge variant={config.variant} className={config.className}>
         {labels[status as keyof typeof labels]}
       </Badge>
     );
@@ -170,8 +178,8 @@ export const ClientManagement: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin" />
-        <span className="ml-2">{isArabic ? 'جاري التحميل...' : 'Loading...'}</span>
+        <Loader2 className="h-8 w-8 animate-spin text-[#008C6A]" />
+        <span className="ml-2 text-white">{isArabic ? 'جاري التحميل...' : 'Loading...'}</span>
       </div>
     );
   }
@@ -180,7 +188,7 @@ export const ClientManagement: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <AlertCircle className="h-8 w-8 text-red-500" />
-        <span className="ml-2 text-red-500">{error}</span>
+        <span className="ml-2 text-red-400">{error}</span>
       </div>
     );
   }
