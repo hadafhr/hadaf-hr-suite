@@ -67,14 +67,14 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 rounded-3xl animate-fade-in">
       <div className="flex items-center gap-6">
         {showDashboardButton && (
           <Button 
             variant="secondary" 
             size="sm" 
             onClick={() => navigate('/company-dashboard')} 
-            className="text-secondary-foreground hover:bg-accent transition-all duration-300"
+            className="bg-black/30 border-[#008C6A]/30 text-gray-300 hover:bg-teal-600/20 hover:text-white hover:border-teal-400 transition-all duration-300"
           >
             <Home className="h-4 w-4 ml-2" />
             لوحة التحكم
@@ -85,40 +85,40 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
             variant="secondary" 
             size="sm" 
             onClick={onBack} 
-            className="text-secondary-foreground hover:bg-accent transition-all duration-300"
+            className="bg-black/30 border-[#008C6A]/30 text-gray-300 hover:bg-teal-600/20 hover:text-white hover:border-teal-400 transition-all duration-300"
           >
             <ArrowLeft className="h-4 w-4 ml-2" />
             رجوع
           </Button>
         )}
-        <div className="h-8 w-px bg-border"></div>
+        <div className="h-8 w-px bg-[#008C6A]/30"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-accent to-success rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+          <div className="w-16 h-16 bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
             <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
               {icon}
             </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full animate-pulse"></div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-teal-400 rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="text-3xl font-bold text-white">
               {title}
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-gray-400 text-lg">
               {description}
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="secondary" className="text-accent-foreground px-4 py-2 text-sm font-medium">
+        <Badge variant="secondary" className="bg-teal-900/20 border-teal-400/30 text-teal-300 px-4 py-2 text-sm font-medium">
           <Calculator className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
         <Button 
           variant="default"
           onClick={handleCalculateEligibility}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-teal-600 text-white hover:bg-teal-700 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <Calculator className="h-4 w-4 ml-2" />
           حساب الأهلية
@@ -126,7 +126,7 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
         <Button 
           variant="default"
           onClick={handleExportExcel}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-teal-600 text-white hover:bg-teal-700 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <Download className="h-4 w-4 ml-2" />
           تصدير Excel
@@ -134,7 +134,7 @@ export const SystemHeader: React.FC<SystemHeaderProps> = ({
         <Button 
           variant="default"
           onClick={handleExportPDF}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-teal-600 text-white hover:bg-teal-700 shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <FileText className="h-4 w-4 ml-2" />
           تقرير PDF
