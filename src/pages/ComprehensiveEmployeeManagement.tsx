@@ -52,7 +52,7 @@ import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlanning';
 
-type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'digital-transformation' | 'departments' | 'internal-communication' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'recruitment';
+type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'digital-transformation' | 'corporate-relations' | 'departments' | 'field-tracking' | 'occupational-health-safety' | 'recruitment';
 
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork';
 
@@ -64,6 +64,8 @@ type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety
 
 type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking';
 
+type CorporateRelationsTabType = 'internal-communication' | 'social-services';
+
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -72,10 +74,11 @@ const ComprehensiveEmployeeManagement = () => {
   const [activeDevelopmentTab, setActiveDevelopmentTab] = useState<DevelopmentPerformanceTabType>('performance');
   const [activeGovernanceTab, setActiveGovernanceTab] = useState<GovernanceComplianceTabType>('legal');
   const [activeDigitalTransformationTab, setActiveDigitalTransformationTab] = useState<DigitalTransformationTabType>('ai');
+  const [activeCorporateRelationsTab, setActiveCorporateRelationsTab] = useState<CorporateRelationsTabType>('internal-communication');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isDragMode, setIsDragMode] = useState(false);
-  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'recruitment']);
+  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'corporate-relations', 'departments', 'field-tracking', 'occupational-health-safety', 'recruitment']);
 
   // Helper function to safely change tabs
   const handleTabChange = (value: string) => {
@@ -86,7 +89,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function
   const isValidTabType = (value: string): value is TabType => {
-    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'recruitment'];
+    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'corporate-relations', 'departments', 'field-tracking', 'occupational-health-safety', 'recruitment'];
     return validTabs.includes(value as TabType);
   };
 
@@ -155,6 +158,19 @@ const ComprehensiveEmployeeManagement = () => {
     return validTabs.includes(value as DigitalTransformationTabType);
   };
 
+  // Helper function for corporate relations tabs
+  const handleCorporateRelationsTabChange = (value: string) => {
+    if (isValidCorporateRelationsTabType(value)) {
+      setActiveCorporateRelationsTab(value);
+    }
+  };
+
+  // Type guard function for corporate relations
+  const isValidCorporateRelationsTabType = (value: string): value is CorporateRelationsTabType => {
+    const validTabs: CorporateRelationsTabType[] = ['internal-communication', 'social-services'];
+    return validTabs.includes(value as CorporateRelationsTabType);
+  };
+
   // Tab ordering functions
   const handleTabReorder = (action: 'settings' | 'reset') => {
     if (action === 'settings') {
@@ -162,7 +178,7 @@ const ComprehensiveEmployeeManagement = () => {
       toast.success('إعدادات الترتيب');
     } else if (action === 'reset') {
       // Reset to default order
-      setTabOrder(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'recruitment']);
+      setTabOrder(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'corporate-relations', 'departments', 'field-tracking', 'occupational-health-safety', 'recruitment']);
       toast.success('تم إعادة الترتيب إلى الوضع الافتراضي');
     }
   };
@@ -391,13 +407,9 @@ const ComprehensiveEmployeeManagement = () => {
                   <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">الإدارات والوحدات</span>
                 </TabsTrigger>
-                <TabsTrigger value="internal-communication" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">التواصل الداخلي</span>
-                </TabsTrigger>
-                <TabsTrigger value="social-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> الخدمات الاجتماعية</span>
+                <TabsTrigger value="corporate-relations" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                  <MessageCircle className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">إدارة العلاقات والتواصل المؤسسي</span>
                 </TabsTrigger>
                 <TabsTrigger value="recruitment" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <UserPlus className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
@@ -600,9 +612,6 @@ const ComprehensiveEmployeeManagement = () => {
             <SkillsInventorySystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          <TabsContent value="internal-communication">
-            <InternalCommunication onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
 
           <TabsContent value="admin-communications">
             <AdministrativeCommunications onBack={() => setActiveTab('dashboard')} />
@@ -673,8 +682,41 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="social-services">
-            <SocialServices />
+          <TabsContent value="corporate-relations">
+            <div className="space-y-6">
+              <div className="bg-card/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 p-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <MessageCircle className="h-8 w-8 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة العلاقات والتواصل المؤسسي</h2>
+                    <p className="text-muted-foreground">نظام شامل لإدارة العلاقات الداخلية والتواصل المؤسسي والخدمات الاجتماعية</p>
+                  </div>
+                </div>
+                
+                <Tabs value={activeCorporateRelationsTab} onValueChange={handleCorporateRelationsTabChange} className="space-y-6">
+                  <TabsList className="grid grid-cols-2 gap-2 bg-transparent p-0 h-auto w-full">
+                    <TabsTrigger value="internal-communication" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">التواصل الداخلي</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="social-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الخدمات الاجتماعية</span>
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="internal-communication">
+                    <InternalCommunication onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="social-services">
+                    <SocialServices />
+                  </TabsContent>
+                </Tabs>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="payroll">
