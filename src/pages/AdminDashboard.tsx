@@ -129,14 +129,26 @@ export const AdminDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex relative">
-      <PatternBackground opacity={0.02} size={120} />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
       
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 right-0 z-50 w-64 bg-background/95 backdrop-blur-sm border-l border-border transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="flex items-center justify-between h-16 border-b border-border px-4">
+      <div className={`fixed inset-y-0 right-0 z-50 w-64 bg-black/40 backdrop-blur-xl border-l border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+        <div className="flex items-center justify-between h-16 border-b border-[#008C6A]/30 px-4">
           <BoudLogo variant="full" size="md" />
-          <Badge variant="destructive" className="text-xs">ADMIN</Badge>
+          <Badge className="text-xs bg-[#008C6A] text-white">ADMIN</Badge>
         </div>
         
         <nav className="mt-8 px-4">
@@ -147,8 +159,8 @@ export const AdminDashboard: React.FC = () => {
                   onClick={() => navigate(item.route)}
                   className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                     item.active 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white shadow-lg' 
+                      : 'text-gray-300 hover:text-white hover:bg-[#008C6A]/20'
                   }`}
                 >
                   <item.icon className="h-5 w-5 mr-3" />
@@ -161,15 +173,15 @@ export const AdminDashboard: React.FC = () => {
 
         {/* AI Assistant Shortcut */}
         <div className="absolute bottom-4 left-4 right-4">
-          <Card className="p-4 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+          <Card className="p-4 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 border border-[#008C6A]/30 backdrop-blur-sm">
             <div className="flex items-center space-x-2 space-x-reverse mb-2">
-              <Zap className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium">{isArabic ? 'المساعد الذكي' : 'AI Assistant'}</span>
+              <Zap className="h-4 w-4 text-[#008C6A]" />
+              <span className="text-sm font-medium text-white">{isArabic ? 'المساعد الذكي' : 'AI Assistant'}</span>
             </div>
-            <p className="text-xs text-muted-foreground mb-2">
+            <p className="text-xs text-gray-300 mb-2">
               {isArabic ? 'مراقبة ذكية للنظام' : 'Intelligent system monitoring'}
             </p>
-            <Button size="sm" className="w-full">
+            <Button size="sm" className="w-full bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white">
               {isArabic ? 'تفعيل' : 'Activate'}
             </Button>
           </Card>
@@ -179,65 +191,77 @@ export const AdminDashboard: React.FC = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Bar */}
-        <header className="bg-background/95 backdrop-blur-sm border-b border-border h-16 flex items-center justify-between px-6">
-          <div className="flex items-center">
+        <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 h-24 flex items-center justify-between px-6">
+          {/* Animated background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+          </div>
+          <div className="flex items-center relative z-10">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden mr-2"
+              className="lg:hidden mr-2 text-white hover:bg-[#008C6A]/20"
             >
               <Menu className="h-5 w-5" />
             </Button>
             <div className="flex items-center space-x-2 space-x-reverse">
-              <Shield className="h-6 w-6 text-primary" />
-              <h1 className="text-xl font-semibold text-foreground">
-                {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator Dashboard'}
-              </h1>
+              <div className="relative">
+                <Shield className="h-8 w-8 text-[#008C6A] animate-pulse" />
+                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              </div>
+              <div className="flex flex-col">
+                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator Dashboard'}
+                </h1>
+                <p className="text-sm text-gray-400 animate-fade-in">
+                  {isArabic ? 'نظام إدارة الموارد البشرية المتطور' : 'Advanced HR Management System'}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 space-x-reverse">
+          <div className="flex items-center space-x-4 space-x-reverse relative z-10">
             {/* System Status */}
             <div className="hidden md:flex items-center space-x-2 space-x-reverse">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-muted-foreground">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+              <span className="text-sm text-green-300 font-semibold">
                 {isArabic ? 'النظام يعمل بشكل طبيعي' : 'System Operational'}
               </span>
             </div>
 
             {/* Search */}
             <div className="relative hidden md:block">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 placeholder={isArabic ? 'البحث في النظام...' : 'Search system...'}
-                className="pl-10 w-64"
+                className="pl-10 w-64 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-lg backdrop-blur-sm"
               />
             </div>
 
             {/* System Alerts */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="relative">
+                <Button variant="ghost" size="sm" className="relative text-white hover:bg-[#008C6A]/20">
                   <Bell className="h-5 w-5" />
                   <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 text-white">
                     {systemAlerts.filter(alert => alert.urgent).length}
                   </Badge>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80">
-                <div className="p-4 border-b">
-                  <h3 className="font-semibold">{isArabic ? 'تنبيهات النظام' : 'System Alerts'}</h3>
+              <DropdownMenuContent align="end" className="w-80 bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                <div className="p-4 border-b border-[#008C6A]/30">
+                  <h3 className="font-semibold text-white">{isArabic ? 'تنبيهات النظام' : 'System Alerts'}</h3>
                 </div>
                 {systemAlerts.map((alert) => (
-                  <DropdownMenuItem key={alert.id} className="p-4">
+                  <DropdownMenuItem key={alert.id} className="p-4 hover:bg-[#008C6A]/20">
                     <div className="flex items-start space-x-3 space-x-reverse w-full">
                       {alert.type === 'warning' && <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5" />}
                       {alert.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5" />}
                       {alert.type === 'info' && <Clock className="w-4 h-4 text-blue-500 mt-0.5" />}
                       <div className="flex-1">
-                        <p className="font-medium text-sm">{alert.title}</p>
-                        <p className="text-xs text-muted-foreground">{alert.description}</p>
+                        <p className="font-medium text-sm text-white">{alert.title}</p>
+                        <p className="text-xs text-gray-300">{alert.description}</p>
                       </div>
                     </div>
                   </DropdownMenuItem>
@@ -251,16 +275,16 @@ export const AdminDashboard: React.FC = () => {
             {/* Profile Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse">
-                  <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20">
+                  <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
                     <Crown className="h-4 w-4 text-white" />
                   </div>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
+              <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                <DropdownMenuSeparator className="bg-[#008C6A]/30" />
+                <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
                   <LogOut className="h-4 w-4 mr-2" />
                   {isArabic ? 'تسجيل الخروج' : 'Logout'}
                 </DropdownMenuItem>
@@ -270,14 +294,14 @@ export const AdminDashboard: React.FC = () => {
         </header>
 
         {/* Dashboard Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 relative z-10">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Welcome Section */}
             <div className="mb-8">
-              <h2 className="text-3xl font-bold text-foreground mb-2">
+              <h2 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
                 {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
               </h2>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-gray-300 text-lg">
                 {isArabic ? 'لوحة التحكم الشاملة المدعومة بالذكاء الاصطناعي لإدارة منصة بُعد' : 'AI-Powered comprehensive control panel for managing BuAD platform'}
               </p>
             </div>
@@ -285,13 +309,13 @@ export const AdminDashboard: React.FC = () => {
             {/* System Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {systemStats.map((stat, index) => (
-                <Card key={index} className="p-6 backdrop-blur-sm bg-background/80 border border-border/50 hover:shadow-lg transition-all duration-300 hover:scale-105">
+                <Card key={index} className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
-                      <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                      <p className="text-sm font-medium text-gray-300">{stat.label}</p>
+                      <p className="text-2xl font-bold text-white">{stat.value}</p>
                     </div>
-                    <div className="p-3 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10">
+                    <div className="p-3 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/30">
                       <stat.icon className={`h-6 w-6 ${stat.color}`} />
                     </div>
                   </div>
