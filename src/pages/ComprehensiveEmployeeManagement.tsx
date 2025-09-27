@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText } from 'lucide-react';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -681,6 +681,59 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="tracking">
                     <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+                </Tabs>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="governance-compliance">
+            <div className="space-y-6">
+              <div className="bg-card/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 p-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <Scale className="h-8 w-8 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة الحوكمة والالتزام</h2>
+                    <p className="text-muted-foreground">النظام المتقدم لإدارة الحوكمة والامتثال والأمان والشؤون القانونية</p>
+                  </div>
+                </div>
+                
+                <Tabs value={activeGovernanceTab} onValueChange={handleGovernanceTabChange} className="space-y-6">
+                  <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-transparent p-0 h-auto w-full">
+                    <TabsTrigger value="legal" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Gavel className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الشؤون القانونية</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="governance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الحوكمة والامتثال</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="occupational-safety" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <HardHat className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الصحة والسلامة المهنية</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="admin-communications" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <FileText className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">المراسلات الإدارية</span>
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="legal">
+                    <ComprehensiveLegalAffairs onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="governance">
+                    <ComprehensiveGovernanceCompliance onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="occupational-safety">
+                    <OccupationalHealthSafety onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="admin-communications">
+                    <AdministrativeCommunications onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
                 </Tabs>
               </div>
