@@ -165,9 +165,25 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   };
   return <div className="min-h-screen bg-black" dir="rtl">
       {/* Enhanced Header Section */}
-      <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white animate-fade-in">
+      <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white animate-fade-in relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          {/* Floating Orbs */}
+          <div className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-float"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 bg-teal-300/20 rounded-full blur-lg animate-float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-white/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-teal-200/15 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+          
+          {/* Geometric Shapes */}
+          <div className="absolute top-32 right-10 w-12 h-12 border border-white/20 rotate-45 animate-bounce" style={{ animationDuration: '3s' }}></div>
+          <div className="absolute bottom-32 left-16 w-8 h-8 bg-white/10 transform rotate-12 animate-pulse"></div>
+          
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:32px_32px] opacity-20"></div>
+        </div>
+        
         {/* Navigation Bar */}
-        <div className="border-b border-white/10 animate-slide-in-right">
+        <div className="border-b border-white/10 animate-slide-in-right relative z-10">
           
         </div>
 
