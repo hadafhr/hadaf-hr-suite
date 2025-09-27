@@ -87,55 +87,74 @@ export const AdminAnalytics: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative">
-      <PatternBackground opacity={0.02} size={120} />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
       
       {/* Header */}
-      <header className="relative z-10 bg-background/95 backdrop-blur-sm border-b border-border h-16 flex items-center justify-between px-6">
-        <div className="flex items-center">
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 h-24 flex items-center justify-between px-6">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        <div className="flex items-center relative z-10">
           <Button
             variant="ghost"
             onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 hover:bg-primary/10 transition-colors"
+            className="flex items-center gap-2 text-white hover:bg-[#008C6A]/20 transition-colors mr-4"
           >
             <ArrowLeft className="w-5 h-5" />
             {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
           </Button>
-          <div className="flex items-center gap-3 mr-6">
-            <BoudLogo variant="icon" size="md" />
-            <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-foreground">
+          <div className="flex items-center space-x-2 space-x-reverse">
+            <div className="relative">
+              <BarChart3 className="h-8 w-8 text-[#008C6A] animate-pulse" />
+              <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+            </div>
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
                 {isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics'}
               </h1>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-gray-400 animate-fade-in">
                 {isArabic ? 'تحليلات متقدمة ومعلومات إحصائية شاملة' : 'Advanced Analytics and Comprehensive Statistics'}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-4 space-x-reverse">
+        <div className="flex items-center space-x-4 space-x-reverse relative z-10">
           <LanguageSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20">
+                <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
                   <Crown className="h-4 w-4 text-white" />
                 </div>
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+            <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+              <DropdownMenuItem className="hover:bg-[#008C6A]/20">
                 <User className="h-4 w-4 mr-2" />
                 {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-[#008C6A]/20">
                 <Settings className="h-4 w-4 mr-2" />
                 {isArabic ? 'إعدادات النظام' : 'System Settings'}
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout}>
+              <DropdownMenuSeparator className="bg-[#008C6A]/30" />
+              <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
                 <LogOut className="h-4 w-4 mr-2" />
                 {isArabic ? 'تسجيل الخروج' : 'Logout'}
               </DropdownMenuItem>
@@ -150,13 +169,15 @@ export const AdminAnalytics: React.FC = () => {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <Card key={index} className="p-6 backdrop-blur-sm bg-background/80 border border-border/50 hover:shadow-lg transition-shadow">
+              <Card key={index} className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
-                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                    <p className="text-sm font-medium text-gray-300">{stat.label}</p>
+                    <p className="text-2xl font-bold text-white">{stat.value}</p>
                   </div>
-                  <stat.icon className={`h-8 w-8 ${stat.color}`} />
+                  <div className="p-3 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/30">
+                    <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                  </div>
                 </div>
                 <div className="flex items-center">
                   <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
@@ -169,8 +190,8 @@ export const AdminAnalytics: React.FC = () => {
           {/* Charts */}
           <div className="grid lg:grid-cols-2 gap-6">
             {/* User Growth Chart */}
-            <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-              <h3 className="text-lg font-semibold text-foreground mb-4">
+            <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl">
+              <h3 className="text-lg font-semibold text-white mb-4">
                 {isArabic ? 'نمو المستخدمين' : 'User Growth'}
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -191,8 +212,8 @@ export const AdminAnalytics: React.FC = () => {
             </Card>
 
             {/* Revenue Chart */}
-            <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-              <h3 className="text-lg font-semibold text-foreground mb-4">
+            <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl">
+              <h3 className="text-lg font-semibold text-white mb-4">
                 {isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue'}
               </h3>
               <ResponsiveContainer width="100%" height={300}>

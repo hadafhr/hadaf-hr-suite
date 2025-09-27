@@ -255,11 +255,12 @@ export const AdminConfiguration: React.FC = () => {
     category: string, 
     title: string 
   }) => (
-    <Card className="dashboard-card">
+    <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg">{title}</CardTitle>
+        <CardTitle className="text-lg text-white">{title}</CardTitle>
         <Button 
           size="sm"
+          className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white"
           onClick={() => {
             setNewOption({ ...newOption, category });
             setShowAddDialog(true);
@@ -272,18 +273,19 @@ export const AdminConfiguration: React.FC = () => {
       <CardContent>
         <div className="space-y-2">
           {options.map((option) => (
-            <div key={option.id} className="flex items-center justify-between p-3 border border-border rounded-lg">
+            <div key={option.id} className="flex items-center justify-between p-3 border border-[#008C6A]/30 bg-black/20 rounded-lg">
               <div>
-                <span className="font-medium">{option.name}</span>
+                <span className="font-medium text-white">{option.name}</span>
                 {option.nameEn && (
-                  <span className="text-sm text-muted-foreground ml-2">({option.nameEn})</span>
+                  <span className="text-sm text-gray-300 ml-2">({option.nameEn})</span>
                 )}
-                <div className="text-xs text-muted-foreground">القيمة: {option.value}</div>
+                <div className="text-xs text-gray-400">القيمة: {option.value}</div>
               </div>
               <div className="flex gap-2">
                 <Button 
                   variant="ghost" 
                   size="sm"
+                  className="text-white hover:bg-[#008C6A]/20"
                   onClick={() => handleEditOption(option)}
                 >
                   <Edit className="h-4 w-4" />
@@ -291,6 +293,7 @@ export const AdminConfiguration: React.FC = () => {
                 <Button 
                   variant="ghost" 
                   size="sm"
+                  className="text-white hover:bg-red-500/20"
                   onClick={() => handleDeleteOption(option.id, category)}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -304,24 +307,39 @@ export const AdminConfiguration: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
+      
+      <div className="relative z-10 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gradient mb-2">
+            <h1 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-2">
               إعدادات النظام الإدارية
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-gray-300">
               إدارة جميع خيارات النظام والسياسات والإعدادات
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline">
+            <Button variant="outline" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20">
               <RefreshCw className="h-4 w-4 mr-2" />
               إعادة تحميل الإعدادات
             </Button>
-            <Button>
+            <Button className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white">
               <Save className="h-4 w-4 mr-2" />
               حفظ جميع التغييرات
             </Button>
@@ -330,20 +348,20 @@ export const AdminConfiguration: React.FC = () => {
 
         {/* Configuration Tabs */}
         <Tabs defaultValue="dropdown-options" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="dropdown-options" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-4 bg-black/40 border border-[#008C6A]/30">
+            <TabsTrigger value="dropdown-options" className="flex items-center gap-2 text-white data-[state=active]:bg-[#008C6A] data-[state=active]:text-white">
               <Database className="h-4 w-4" />
               خيارات القوائم
             </TabsTrigger>
-            <TabsTrigger value="company-policies" className="flex items-center gap-2">
+            <TabsTrigger value="company-policies" className="flex items-center gap-2 text-white data-[state=active]:bg-[#008C6A] data-[state=active]:text-white">
               <FileText className="h-4 w-4" />
               سياسات الشركة
             </TabsTrigger>
-            <TabsTrigger value="system-settings" className="flex items-center gap-2">
+            <TabsTrigger value="system-settings" className="flex items-center gap-2 text-white data-[state=active]:bg-[#008C6A] data-[state=active]:text-white">
               <Settings className="h-4 w-4" />
               إعدادات النظام
             </TabsTrigger>
-            <TabsTrigger value="ui-customization" className="flex items-center gap-2">
+            <TabsTrigger value="ui-customization" className="flex items-center gap-2 text-white data-[state=active]:bg-[#008C6A] data-[state=active]:text-white">
               <Palette className="h-4 w-4" />
               تخصيص الواجهة
             </TabsTrigger>
@@ -606,6 +624,7 @@ export const AdminConfiguration: React.FC = () => {
           </DialogContent>
         </Dialog>
       </div>
+    </div>
     </div>
   );
 };
