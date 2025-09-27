@@ -52,7 +52,7 @@ import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlanning';
 
-type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'departments' | 'internal-communication' | 'admin-communications' | 'occupational-safety' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'government' | 'governance' | 'legal' | 'recruitment' | 'signature' | 'ai' | 'reports' | 'tracking';
+type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'departments' | 'internal-communication' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'government' | 'recruitment' | 'signature' | 'ai' | 'reports' | 'tracking';
 
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork';
 
@@ -60,16 +60,19 @@ type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 
 
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'meetings' | 'organization';
 
+type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety' | 'admin-communications';
+
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [activeEmployeeOpsTab, setActiveEmployeeOpsTab] = useState<EmployeeOperationsTabType>('attendance');
   const [activeCompensationTab, setActiveCompensationTab] = useState<CompensationBenefitsTabType>('payroll');
   const [activeDevelopmentTab, setActiveDevelopmentTab] = useState<DevelopmentPerformanceTabType>('performance');
+  const [activeGovernanceTab, setActiveGovernanceTab] = useState<GovernanceComplianceTabType>('legal');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isDragMode, setIsDragMode] = useState(false);
-  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'departments', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'governance', 'legal', 'recruitment', 'signature', 'ai', 'reports', 'tracking']);
+  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'recruitment', 'signature', 'ai', 'reports', 'tracking']);
 
   // Helper function to safely change tabs
   const handleTabChange = (value: string) => {
@@ -80,7 +83,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function
   const isValidTabType = (value: string): value is TabType => {
-    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'compensation-benefits', 'development-performance', 'departments', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'governance', 'legal', 'recruitment', 'signature', 'ai', 'reports', 'tracking'];
+    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'recruitment', 'signature', 'ai', 'reports', 'tracking'];
     return validTabs.includes(value as TabType);
   };
 
@@ -123,6 +126,19 @@ const ComprehensiveEmployeeManagement = () => {
     return validTabs.includes(value as DevelopmentPerformanceTabType);
   };
 
+  // Helper function for governance compliance tabs
+  const handleGovernanceTabChange = (value: string) => {
+    if (isValidGovernanceTabType(value)) {
+      setActiveGovernanceTab(value);
+    }
+  };
+
+  // Type guard function for governance compliance
+  const isValidGovernanceTabType = (value: string): value is GovernanceComplianceTabType => {
+    const validTabs: GovernanceComplianceTabType[] = ['legal', 'governance', 'occupational-safety', 'admin-communications'];
+    return validTabs.includes(value as GovernanceComplianceTabType);
+  };
+
   // Tab ordering functions
   const handleTabReorder = (action: 'settings' | 'reset') => {
     if (action === 'settings') {
@@ -130,7 +146,7 @@ const ComprehensiveEmployeeManagement = () => {
       toast.success('إعدادات الترتيب');
     } else if (action === 'reset') {
       // Reset to default order
-      setTabOrder(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'departments', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'governance', 'legal', 'recruitment', 'signature', 'ai', 'reports', 'tracking']);
+      setTabOrder(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'recruitment', 'signature', 'ai', 'reports', 'tracking']);
       toast.success('تم إعادة الترتيب إلى الوضع الافتراضي');
     }
   };
@@ -347,6 +363,10 @@ const ComprehensiveEmployeeManagement = () => {
                   <BarChart3 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">إدارة التطوير والأداء المؤسسي</span>
                 </TabsTrigger>
+                <TabsTrigger value="governance-compliance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                  <Scale className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">إدارة الحوكمة والالتزام</span>
+                </TabsTrigger>
                 <TabsTrigger value="departments" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                   <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">الإدارات والوحدات</span>
@@ -355,14 +375,6 @@ const ComprehensiveEmployeeManagement = () => {
                   <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">التواصل الداخلي</span>
                 </TabsTrigger>
-                <TabsTrigger value="admin-communications" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <MessageCircle className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> قسم قسم الاتصالات الادارية</span>
-                </TabsTrigger>
-                <TabsTrigger value="occupational-safety" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <HardHat className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> السلامة المهنية</span>
-                </TabsTrigger>
                 <TabsTrigger value="social-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight"> الخدمات الاجتماعية</span>
@@ -370,14 +382,6 @@ const ComprehensiveEmployeeManagement = () => {
                 <TabsTrigger value="government" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <Plug className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight"> التكامل والربط</span>
-                </TabsTrigger>
-                <TabsTrigger value="governance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> الحوكمة والامتثال</span>
-                </TabsTrigger>
-                <TabsTrigger value="legal" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Scale className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> الشؤون القانونية</span>
                 </TabsTrigger>
                 <TabsTrigger value="recruitment" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <UserPlus className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
@@ -624,16 +628,8 @@ const ComprehensiveEmployeeManagement = () => {
             <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          <TabsContent value="governance">
-            <ComprehensiveGovernanceCompliance onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
           <TabsContent value="wageprotection">
             <ComprehensiveWageProtection onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="legal">
-            <ComprehensiveLegalAffairs onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="performance">
