@@ -119,55 +119,79 @@ export const SystemDevelopment: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative">
-      <PatternBackground opacity={0.02} size={120} />
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-950 text-white relative overflow-hidden font-arabic" dir="rtl">
+      {/* Enhanced Animated Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#00B488]/15 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#008C6A]/5 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-20">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="dot" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#008C6A" stop-opacity="0.6"/><stop offset="100%" stop-color="#008C6A" stop-opacity="0"/></radialGradient></defs><circle cx="40" cy="40" r="2" fill="url(#dot)"/></svg>')}")`,
+              backgroundSize: '80px 80px'
+            }}
+          ></div>
+        </div>
+        {/* Floating orbs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#008C6A]/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#00B488]/15 rounded-full blur-3xl animate-bounce"></div>
+      </div>
       
-      {/* Header */}
-      <header className="relative z-10 bg-background/95 backdrop-blur-sm border-b border-border h-16 flex items-center justify-between px-6">
-        <div className="flex items-center">
+      {/* Enhanced Header */}
+      <header className="relative z-10 backdrop-blur-2xl bg-black/30 border-b border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 h-28 flex items-center justify-between px-8">
+        {/* Enhanced animated background pattern */}
+        <div className="absolute inset-0 overflow-hidden rounded-t-3xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 via-[#00B488]/15 to-[#008C6A]/20 text-gradient"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+        </div>
+        <div className="flex items-center relative z-10">
           <Button
             variant="ghost"
             onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 hover:bg-primary/10 transition-colors"
+            className="flex items-center gap-2 text-white hover:bg-[#008C6A]/30 hover:shadow-lg hover:shadow-[#008C6A]/20 transition-all duration-300 mr-4 bg-black/20 backdrop-blur-sm border border-[#008C6A]/20"
           >
             <ArrowLeft className="w-5 h-5" />
             {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
           </Button>
-          <div className="flex items-center gap-3 mr-6">
-            <BoudLogo variant="icon" size="md" />
-            <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-foreground">
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <div className="relative group">
+              <BoudLogo variant="icon" size="md" />
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#008C6A]/40 to-[#00B488]/40 rounded-full blur-lg animate-pulse group-hover:animate-ping transition-all duration-300"></div>
+            </div>
+            <div className="flex flex-col">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-100 to-[#00B488]/80 bg-clip-text text-transparent animate-fade-in">
                 {isArabic ? 'تطوير النظام' : 'System Development'}
               </h1>
-              <p className="text-xs text-muted-foreground">
-                {isArabic ? 'أدوات تطوير النظام والميزات الجديدة' : 'System Development Tools and New Features'}
+              <p className="text-sm text-gray-400/80 animate-fade-in font-light">
+                {isArabic ? 'أدوات تطوير النظام والميزات الجديدة المتقدمة' : 'Advanced System Development Tools and New Features'}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-4 space-x-reverse">
+        <div className="flex items-center space-x-4 space-x-reverse relative z-10">
           <LanguageSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
-                  <Crown className="h-4 w-4 text-white" />
+              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/30 bg-black/20 backdrop-blur-sm border border-[#008C6A]/20 transition-all duration-300 hover:scale-105">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#008C6A] to-[#00B488] rounded-full flex items-center justify-center shadow-lg shadow-[#008C6A]/30">
+                  <Crown className="h-5 w-5 text-white" />
                 </div>
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+            <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-2xl border border-[#008C6A]/30 text-white shadow-2xl shadow-[#008C6A]/20 rounded-2xl">
+              <DropdownMenuItem className="hover:bg-[#008C6A]/20 rounded-xl transition-all duration-200">
                 <User className="h-4 w-4 mr-2" />
                 {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-[#008C6A]/20 rounded-xl transition-all duration-200">
                 <Settings className="h-4 w-4 mr-2" />
                 {isArabic ? 'إعدادات النظام' : 'System Settings'}
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout}>
+              <DropdownMenuSeparator className="bg-[#008C6A]/30" />
+              <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20 rounded-xl transition-all duration-200">
                 <LogOut className="h-4 w-4 mr-2" />
                 {isArabic ? 'تسجيل الخروج' : 'Logout'}
               </DropdownMenuItem>
@@ -176,17 +200,17 @@ export const SystemDevelopment: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-6">
+      {/* Enhanced Main Content */}
+      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8">
         <div className="max-w-7xl mx-auto space-y-6">
           {/* System Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {systemMetrics.map((metric, index) => (
-              <Card key={index} className="p-6 backdrop-blur-sm bg-background/80 border border-border/50 hover:shadow-lg transition-shadow">
+              <Card key={index} className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 rounded-2xl hover:scale-105">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{metric.label}</p>
-                    <p className="text-2xl font-bold text-foreground">{metric.value}</p>
+                    <p className="text-sm font-medium text-gray-400">{metric.label}</p>
+                    <p className="text-2xl font-bold text-white">{metric.value}</p>
                   </div>
                   <metric.icon className={`h-8 w-8 ${metric.color}`} />
                 </div>
@@ -195,32 +219,32 @@ export const SystemDevelopment: React.FC = () => {
           </div>
 
           {/* Development Projects */}
-          <Card className="p-6 backdrop-blur-sm bg-background/80 border border-border/50">
-            <h3 className="text-xl font-semibold text-foreground mb-6">
+          <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 rounded-2xl shadow-2xl shadow-[#008C6A]/10">
+            <h3 className="text-xl font-semibold text-white mb-6">
               {isArabic ? 'مشاريع التطوير النشطة' : 'Active Development Projects'}
             </h3>
             <div className="space-y-4">
               {developmentProjects.map((project, index) => (
-                <div key={index} className="p-4 border border-border/30 rounded-lg hover:bg-muted/50 transition-colors">
+                <div key={index} className="p-4 border border-[#008C6A]/30 rounded-xl hover:bg-black/50 hover:border-[#008C6A]/50 transition-all duration-300 backdrop-blur-sm">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <project.icon className="h-5 w-5 text-primary" />
-                      <h4 className="font-medium text-foreground">{project.title}</h4>
+                      <project.icon className="h-5 w-5 text-[#00B488]" />
+                      <h4 className="font-medium text-white">{project.title}</h4>
                     </div>
-                    <Badge className={`${getStatusColor(project.priority)} text-white`}>
+                    <Badge className={`${getStatusColor(project.priority)} text-white border-0 shadow-lg`}>
                       {getPriorityLabel(project.priority)}
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">{project.status}</span>
+                    <span className="text-sm text-gray-400">{project.status}</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 h-2 bg-muted rounded-full">
+                      <div className="w-32 h-2 bg-gray-700/50 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-primary rounded-full transition-all duration-300"
+                          className="h-full bg-gradient-to-r from-[#008C6A] to-[#00B488] rounded-full transition-all duration-500 shadow-lg shadow-[#008C6A]/30"
                           style={{ width: `${project.progress}%` }}
                         ></div>
                       </div>
-                      <span className="text-sm font-medium text-foreground">{project.progress}%</span>
+                      <span className="text-sm font-medium text-white">{project.progress}%</span>
                     </div>
                   </div>
                 </div>
