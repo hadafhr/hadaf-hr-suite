@@ -52,7 +52,7 @@ import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlanning';
 
-type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'departments' | 'internal-communication' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'government' | 'recruitment' | 'signature' | 'ai' | 'reports' | 'tracking';
+type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'digital-transformation' | 'departments' | 'internal-communication' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'recruitment';
 
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork';
 
@@ -62,6 +62,8 @@ type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'q
 
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety' | 'admin-communications';
 
+type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking';
+
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -69,10 +71,11 @@ const ComprehensiveEmployeeManagement = () => {
   const [activeCompensationTab, setActiveCompensationTab] = useState<CompensationBenefitsTabType>('payroll');
   const [activeDevelopmentTab, setActiveDevelopmentTab] = useState<DevelopmentPerformanceTabType>('performance');
   const [activeGovernanceTab, setActiveGovernanceTab] = useState<GovernanceComplianceTabType>('legal');
+  const [activeDigitalTransformationTab, setActiveDigitalTransformationTab] = useState<DigitalTransformationTabType>('ai');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isDragMode, setIsDragMode] = useState(false);
-  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'recruitment', 'signature', 'ai', 'reports', 'tracking']);
+  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'recruitment']);
 
   // Helper function to safely change tabs
   const handleTabChange = (value: string) => {
@@ -83,7 +86,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function
   const isValidTabType = (value: string): value is TabType => {
-    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'recruitment', 'signature', 'ai', 'reports', 'tracking'];
+    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'recruitment'];
     return validTabs.includes(value as TabType);
   };
 
@@ -139,6 +142,19 @@ const ComprehensiveEmployeeManagement = () => {
     return validTabs.includes(value as GovernanceComplianceTabType);
   };
 
+  // Helper function for digital transformation tabs
+  const handleDigitalTransformationTabChange = (value: string) => {
+    if (isValidDigitalTransformationTabType(value)) {
+      setActiveDigitalTransformationTab(value);
+    }
+  };
+
+  // Type guard function for digital transformation
+  const isValidDigitalTransformationTabType = (value: string): value is DigitalTransformationTabType => {
+    const validTabs: DigitalTransformationTabType[] = ['ai', 'reports', 'integration', 'signature', 'tracking'];
+    return validTabs.includes(value as DigitalTransformationTabType);
+  };
+
   // Tab ordering functions
   const handleTabReorder = (action: 'settings' | 'reset') => {
     if (action === 'settings') {
@@ -146,7 +162,7 @@ const ComprehensiveEmployeeManagement = () => {
       toast.success('إعدادات الترتيب');
     } else if (action === 'reset') {
       // Reset to default order
-      setTabOrder(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'government', 'recruitment', 'signature', 'ai', 'reports', 'tracking']);
+      setTabOrder(['dashboard', 'employee-operations', 'compensation-benefits', 'development-performance', 'governance-compliance', 'digital-transformation', 'departments', 'internal-communication', 'social-services', 'field-tracking', 'occupational-health-safety', 'recruitment']);
       toast.success('تم إعادة الترتيب إلى الوضع الافتراضي');
     }
   };
@@ -350,7 +366,7 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
             
             <div className="w-full">
-              <TabsList className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
+              <TabsList className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 bg-transparent p-0 h-auto w-full">
                 <TabsTrigger value="employee-operations" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                   <Users className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">إدارة شؤون الموظفين والعمليات</span>
@@ -367,6 +383,10 @@ const ComprehensiveEmployeeManagement = () => {
                   <Scale className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">إدارة الحوكمة والالتزام</span>
                 </TabsTrigger>
+                <TabsTrigger value="digital-transformation" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                  <Brain className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">إدارة التقنية والتحول الرقمي</span>
+                </TabsTrigger>
                 <TabsTrigger value="departments" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                   <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">الإدارات والوحدات</span>
@@ -379,29 +399,9 @@ const ComprehensiveEmployeeManagement = () => {
                   <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight"> الخدمات الاجتماعية</span>
                 </TabsTrigger>
-                <TabsTrigger value="government" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Plug className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> التكامل والربط</span>
-                </TabsTrigger>
                 <TabsTrigger value="recruitment" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
                   <UserPlus className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight"> التوظيف والتعين</span>
-                </TabsTrigger>
-                <TabsTrigger value="signature" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <PenTool className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> التوقيع الإلكتروني</span>
-                </TabsTrigger>
-                <TabsTrigger value="ai" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <Bot className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> الذكاء الاصطناعي</span>
-                </TabsTrigger>
-                <TabsTrigger value="reports" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <FileBarChart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight"> التقارير الشاملة</span>
-                </TabsTrigger>
-                <TabsTrigger value="tracking" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-[#009F87] data-[state=active]:text-white data-[state=active]:shadow-md bg-white/70 text-gray-700 hover:bg-[#009F87]/10 hover:text-[#009F87] border border-gray-200 data-[state=active]:border-[#009F87] hover:scale-105 hover:shadow-lg">
-                  <MapPin className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">التتبع الميداني</span>
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -612,6 +612,67 @@ const ComprehensiveEmployeeManagement = () => {
             <OccupationalHealthSafety onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
+          <TabsContent value="digital-transformation">
+            <div className="space-y-6">
+              <div className="bg-card/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 p-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <Brain className="h-8 w-8 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة التقنية والتحول الرقمي</h2>
+                    <p className="text-muted-foreground">النظام المتقدم لإدارة التقنيات الرقمية والذكاء الاصطناعي والتكامل</p>
+                  </div>
+                </div>
+                
+                <Tabs value={activeDigitalTransformationTab} onValueChange={handleDigitalTransformationTabChange} className="space-y-6">
+                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 bg-transparent p-0 h-auto w-full">
+                    <TabsTrigger value="ai" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Bot className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الذكاء الاصطناعي</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="reports" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <FileBarChart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">التقارير الشاملة</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="integration" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Plug className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">التكامل والربط</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="signature" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <PenTool className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">التوقيع الإلكتروني</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="tracking" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <MapPin className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">التتبع الميداني</span>
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="ai">
+                    <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="reports">
+                    <Reports onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="integration">
+                    <ComprehensiveIntegrationSystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="signature">
+                    <ElectronicSignature onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="tracking">
+                    <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+                </Tabs>
+              </div>
+            </div>
+          </TabsContent>
+
           <TabsContent value="social-services">
             <SocialServices />
           </TabsContent>
@@ -620,9 +681,6 @@ const ComprehensiveEmployeeManagement = () => {
             <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          <TabsContent value="government">
-            <ComprehensiveIntegrationSystem onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
 
           <TabsContent value="organization">
             <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
@@ -660,21 +718,6 @@ const ComprehensiveEmployeeManagement = () => {
             <MeetingHub />
           </TabsContent>
 
-          <TabsContent value="signature">
-            <ElectronicSignature onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="ai">
-            <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="reports">
-            <Reports onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="tracking">
-            <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
 
           <TabsContent value="budget-planning">
             <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
