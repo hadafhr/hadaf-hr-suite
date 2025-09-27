@@ -269,6 +269,10 @@
   .border-gradient {
     @apply border border-transparent bg-gradient-to-r from-primary to-secondary bg-clip-border;
   }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
 }
 
 /* تحريكات مخصصة */
