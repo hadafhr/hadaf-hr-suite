@@ -12,7 +12,24 @@ const ServiceCalculatorPage: React.FC = () => {
   const isArabic = i18n.language === 'ar';
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-950 text-white relative overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
+      {/* Enhanced Animated Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/10 via-transparent to-[#00B488]/15 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#008C6A]/5 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-20">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="dot" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#008C6A" stop-opacity="0.6"/><stop offset="100%" stop-color="#008C6A" stop-opacity="0"/></radialGradient></defs><circle cx="40" cy="40" r="2" fill="url(#dot)"/></svg>')}")`,
+              backgroundSize: '80px 80px'
+            }}
+          ></div>
+        </div>
+        {/* Floating orbs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#008C6A]/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#00B488]/15 rounded-full blur-3xl animate-bounce"></div>
+      </div>
       {/* Professional Interactive Header */}
       <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
         {/* Animated background pattern */}
@@ -71,7 +88,7 @@ const ServiceCalculatorPage: React.FC = () => {
         </div>
       </header>
       
-      <main className="container mx-auto px-6 py-8">
+      <main className="relative z-10 container mx-auto px-8 py-8 backdrop-blur-xl bg-black/20 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 mt-6 mb-6">
         {/* Breadcrumb Navigation */}
         <div className="flex justify-end mb-6 mr-0">
           <div className="ml-auto">
@@ -86,10 +103,10 @@ const ServiceCalculatorPage: React.FC = () => {
         </div>
 
         {/* Warning Banner */}
-        <Alert className="mb-8 border-amber-200 bg-amber-50 dark:bg-amber-950/50">
-          <AlertTriangle className="h-4 w-4 text-amber-600" />
-          <AlertDescription className="text-amber-800 dark:text-amber-200">
-            <strong>{isArabic ? 'عرض سعر تقديري:' : 'Estimated Quote:'}</strong> {' '}
+        <Alert className="mb-8 border-[#008C6A]/30 bg-black/40 backdrop-blur-sm rounded-2xl shadow-lg shadow-[#008C6A]/10">
+          <AlertTriangle className="h-4 w-4 text-[#00B488]" />
+          <AlertDescription className="text-gray-300">
+            <strong className="text-white">{isArabic ? 'عرض سعر تقديري:' : 'Estimated Quote:'}</strong> {' '}
             {isArabic 
               ? 'الأسعار المعروضة تقديرية وقد تختلف حسب المتطلبات والخدمات الإضافية. يُرجى التواصل للحصول على عرض سعر نهائي ومفصل.'
               : 'Displayed prices are estimated and may vary based on requirements and additional services. Please contact us for a final detailed quote.'
