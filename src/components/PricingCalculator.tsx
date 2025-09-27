@@ -165,14 +165,14 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   };
   return <div className="min-h-screen bg-black" dir="rtl">
       {/* Enhanced Header Section */}
-      <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white">
+      <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white animate-fade-in">
         {/* Navigation Bar */}
-        <div className="border-b border-white/10">
+        <div className="border-b border-white/10 animate-slide-in-right">
           
         </div>
 
         {/* Hero Content */}
-        <div className="py-16 relative z-10 backdrop-blur-xl bg-black/30 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 mx-4 my-8">
+        <div className="py-16 relative z-10 backdrop-blur-xl bg-black/30 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 mx-4 my-8 animate-scale-in hover-scale">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <div className="mb-6">
               <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-sm px-3 py-1 mb-4 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
