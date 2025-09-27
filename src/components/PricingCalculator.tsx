@@ -7,41 +7,47 @@ import { Slider } from '@/components/ui/slider';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { 
-  Calculator, 
-  Users, 
-  FileText, 
-  Download,
-  Mail,
-  CheckCircle,
-  Star,
-  Shield,
-  Zap,
-  Bot,
-  Award,
-  TrendingDown,
-  Building2,
-  HeadphonesIcon
-} from 'lucide-react';
+import { Calculator, Users, FileText, Download, Mail, CheckCircle, Star, Shield, Zap, Bot, Award, TrendingDown, Building2, HeadphonesIcon } from 'lucide-react';
 import { BoudLogo } from './BoudLogo';
-
 interface PricingCalculatorProps {
   selectedPackage?: string;
   onBack?: () => void;
 }
 
 // Tiered pricing structure (SAR per employee per month)
-const pricingTiers = [
-  { min: 1, max: 20, price: 19 },
-  { min: 21, max: 50, price: 18 },
-  { min: 51, max: 100, price: 17 },
-  { min: 101, max: 250, price: 16 },
-  { min: 251, max: 500, price: 15 },
-  { min: 501, max: 1000, price: 14 },
-  { min: 1001, max: 2000, price: 13 },
-  { min: 2001, max: Infinity, price: 12 }
-];
-
+const pricingTiers = [{
+  min: 1,
+  max: 20,
+  price: 19
+}, {
+  min: 21,
+  max: 50,
+  price: 18
+}, {
+  min: 51,
+  max: 100,
+  price: 17
+}, {
+  min: 101,
+  max: 250,
+  price: 16
+}, {
+  min: 251,
+  max: 500,
+  price: 15
+}, {
+  min: 501,
+  max: 1000,
+  price: 14
+}, {
+  min: 1001,
+  max: 2000,
+  price: 13
+}, {
+  min: 2001,
+  max: Infinity,
+  price: 12
+}];
 export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   const [employeeCount, setEmployeeCount] = useState(50);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
@@ -66,21 +72,18 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   const calculateTotals = () => {
     const pricePerEmployee = getPricePerEmployee(employeeCount);
     const baseMonthly = employeeCount * pricePerEmployee;
-    const supportCost = includeSupport ? (billingCycle === 'yearly' ? supportFeeYearly : supportFeeMonthly) : 0;
+    const supportCost = includeSupport ? billingCycle === 'yearly' ? supportFeeYearly : supportFeeMonthly : 0;
     const setupCost = includeSetup ? setupFee : 0;
-
     let total = 0;
     let savings = 0;
-
     if (billingCycle === 'yearly') {
       const yearlyBase = baseMonthly * 12;
       const discountAmount = yearlyBase * annualDiscount;
-      total = (yearlyBase - discountAmount) + supportCost + setupCost;
+      total = yearlyBase - discountAmount + supportCost + setupCost;
       savings = discountAmount;
     } else {
       total = baseMonthly + supportCost + setupCost;
     }
-
     return {
       pricePerEmployee,
       baseMonthly,
@@ -88,16 +91,14 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
       setupCost,
       total,
       savings,
-      annualTotal: billingCycle === 'yearly' ? total : (baseMonthly * 12) + (supportCost * 12) + setupCost
+      annualTotal: billingCycle === 'yearly' ? total : baseMonthly * 12 + supportCost * 12 + setupCost
     };
   };
-
   const calculation = calculateTotals();
 
   // AI Suggestions
   const getAISuggestions = () => {
     const suggestions = [];
-    
     if (billingCycle === 'monthly') {
       suggestions.push(`💡 وفّر ${calculation.savings.toLocaleString()} ﷼ بالاشتراك السنوي`);
     }
@@ -109,113 +110,65 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
       const currentPrice = getPricePerEmployee(employeeCount);
       const nextPrice = nextTier.price;
       const savingsPerEmployee = currentPrice - nextPrice;
-      
       if (savingsPerEmployee > 0) {
         suggestions.push(`🚀 إذا أضفت ${employeesNeeded} موظفًا إضافيًا ينخفض سعر الوحدة إلى ${nextPrice} ﷼`);
       }
     }
-
     return suggestions;
   };
-
   const generatePDF = async () => {
-    const { jsPDF } = await import('jspdf');
+    const {
+      jsPDF
+    } = await import('jspdf');
     const doc = new jsPDF();
 
     // Add Arabic support (RTL)
     doc.setFont('helvetica');
-    
+
     // Header
     doc.setFontSize(20);
     doc.text('عرض سعر نظام بُعد لإدارة الموارد البشرية', 20, 30);
-    
+
     // Company details
     doc.setFontSize(12);
     doc.text(`اسم الشركة: ${companyName}`, 20, 50);
     doc.text(`البريد الإلكتروني: ${contactEmail}`, 20, 60);
     doc.text(`عدد الموظفين: ${employeeCount}`, 20, 70);
     doc.text(`دورة الفوترة: ${billingCycle === 'yearly' ? 'سنوي' : 'شهري'}`, 20, 80);
-    
+
     // Pricing breakdown
     doc.setFontSize(14);
     doc.text('تفاصيل التسعير:', 20, 100);
-    
     let yPos = 115;
     doc.setFontSize(10);
-    
     doc.text(`سعر الموظف الواحد: ${calculation.pricePerEmployee} ﷼/شهر`, 25, yPos);
     yPos += 10;
     doc.text(`التكلفة الأساسية: ${calculation.baseMonthly.toLocaleString()} ﷼/شهر`, 25, yPos);
     yPos += 10;
-    
     if (includeSetup) {
       doc.text(`رسوم التأسيس: ${setupFee.toLocaleString()} ﷼`, 25, yPos);
       yPos += 10;
     }
-    
     if (includeSupport) {
       doc.text(`الدعم الفني: ${calculation.supportCost.toLocaleString()} ﷼`, 25, yPos);
       yPos += 10;
     }
-    
     if (billingCycle === 'yearly' && calculation.savings > 0) {
       doc.text(`الخصم السنوي (15%): -${calculation.savings.toLocaleString()} ﷼`, 25, yPos);
       yPos += 10;
     }
-    
+
     // Total
     doc.setFontSize(14);
     doc.text(`المجموع النهائي: ${calculation.total.toLocaleString()} ﷼`, 25, yPos + 15);
-    
     doc.save(`Boud-HR-Quote-${Date.now()}.pdf`);
   };
-
-  return (
-    <div className="min-h-screen bg-white" dir="rtl">
+  return <div className="min-h-screen bg-white" dir="rtl">
       {/* Enhanced Header Section */}
       <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white">
         {/* Navigation Bar */}
         <div className="border-b border-white/10">
-          <div className="max-w-6xl mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <BoudLogo variant="icon" size="sm" />
-                <div className="hidden md:flex items-center gap-6 text-sm">
-                  <Button 
-                    variant="ghost" 
-                    className="text-white hover:bg-white/10 hover:text-white"
-                    onClick={() => window.location.href = '/'}
-                  >
-                    الصفحة الرئيسية
-                  </Button>
-                  <span className="text-white/70">|</span>
-                  <span className="text-white/90">حاسبة الاشتراكات</span>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-4">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="border-white/30 text-white hover:bg-white hover:text-teal-700 transition-colors"
-                  onClick={() => window.location.href = '/'}
-                >
-                  <svg className="h-4 w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  العودة للرئيسية
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  className="bg-white text-teal-700 hover:bg-gray-100"
-                >
-                  <HeadphonesIcon className="h-4 w-4 ml-2" />
-                  الدعم الفني
-                </Button>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
         {/* Hero Content */}
@@ -278,22 +231,11 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <Label className="text-gray-700">اسم الشركة *</Label>
-                  <Input
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="اسم شركتك"
-                    className="border-gray-200 focus:border-teal-500"
-                  />
+                  <Input value={companyName} onChange={e => setCompanyName(e.target.value)} placeholder="اسم شركتك" className="border-gray-200 focus:border-teal-500" />
                 </div>
                 <div>
                   <Label className="text-gray-700">البريد الإلكتروني *</Label>
-                  <Input
-                    type="email"
-                    value={contactEmail}
-                    onChange={(e) => setContactEmail(e.target.value)}
-                    placeholder="email@company.com"
-                    className="border-gray-200 focus:border-teal-500"
-                  />
+                  <Input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} placeholder="email@company.com" className="border-gray-200 focus:border-teal-500" />
                 </div>
               </div>
             </Card>
@@ -305,14 +247,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                 عدد الموظفين: {employeeCount}
               </h3>
               <div className="space-y-4">
-                <Slider
-                  value={[employeeCount]}
-                  onValueChange={(value) => setEmployeeCount(Math.max(1, value[0]))}
-                  max={3000}
-                  min={1}
-                  step={1}
-                  className="w-full [&_[role=slider]]:bg-teal-600 [&_[role=slider]]:border-teal-600"
-                />
+                <Slider value={[employeeCount]} onValueChange={value => setEmployeeCount(Math.max(1, value[0]))} max={3000} min={1} step={1} className="w-full [&_[role=slider]]:bg-teal-600 [&_[role=slider]]:border-teal-600" />
                 <div className="flex justify-between text-sm text-gray-600">
                   <span>1 موظف</span>
                   <span>3000+ موظف</span>
@@ -329,21 +264,13 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             <Card className="p-6 border-2 border-gray-100">
               <h3 className="text-xl font-bold mb-4 text-gray-900">دورة الفوترة</h3>
               <div className="grid grid-cols-2 gap-4">
-                <Button
-                  variant={billingCycle === 'monthly' ? "default" : "outline"}
-                  onClick={() => setBillingCycle('monthly')}
-                  className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}
-                >
+                <Button variant={billingCycle === 'monthly' ? "default" : "outline"} onClick={() => setBillingCycle('monthly')} className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}>
                   <div className="text-center">
                     <div className="font-medium">شهري</div>
                     <div className="text-xs opacity-75">دفع شهري</div>
                   </div>
                 </Button>
-                <Button
-                  variant={billingCycle === 'yearly' ? "default" : "outline"}
-                  onClick={() => setBillingCycle('yearly')}
-                  className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}
-                >
+                <Button variant={billingCycle === 'yearly' ? "default" : "outline"} onClick={() => setBillingCycle('yearly')} className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-teal-600 hover:bg-teal-700' : 'border-gray-200 hover:border-teal-300'}`}>
                   <Badge className="absolute -top-2 -right-2 bg-orange-500">
                     وفر 15%
                   </Badge>
@@ -367,11 +294,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                       {setupFee.toLocaleString()} ﷼ (مرة واحدة)
                     </div>
                   </div>
-                  <Checkbox
-                    checked={includeSetup}
-                    onCheckedChange={(checked) => setIncludeSetup(checked === true)}
-                    className="border-teal-300 data-[state=checked]:bg-teal-600"
-                  />
+                  <Checkbox checked={includeSetup} onCheckedChange={checked => setIncludeSetup(checked === true)} className="border-teal-300 data-[state=checked]:bg-teal-600" />
                 </div>
                 
                 <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
@@ -379,38 +302,27 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                     <div className="font-medium text-gray-900">الدعم الفني المتقدم</div>
                     <div className="text-sm text-gray-600">دعم فني متقدم 24/7 مع مدير حساب مخصص</div>
                     <div className="text-sm font-medium text-teal-600">
-                      {billingCycle === 'yearly' 
-                        ? `${supportFeeYearly.toLocaleString()} ﷼/سنوياً` 
-                        : `${supportFeeMonthly.toLocaleString()} ﷼/شهرياً`
-                      }
+                      {billingCycle === 'yearly' ? `${supportFeeYearly.toLocaleString()} ﷼/سنوياً` : `${supportFeeMonthly.toLocaleString()} ﷼/شهرياً`}
                     </div>
                   </div>
-                  <Checkbox
-                    checked={includeSupport}
-                    onCheckedChange={(checked) => setIncludeSupport(checked === true)}
-                    className="border-teal-300 data-[state=checked]:bg-teal-600"
-                  />
+                  <Checkbox checked={includeSupport} onCheckedChange={checked => setIncludeSupport(checked === true)} className="border-teal-300 data-[state=checked]:bg-teal-600" />
                 </div>
               </div>
             </Card>
 
             {/* AI Suggestions */}
-            {getAISuggestions().length > 0 && (
-              <Card className="p-6 border-2 border-teal-100 bg-teal-50">
+            {getAISuggestions().length > 0 && <Card className="p-6 border-2 border-teal-100 bg-teal-50">
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-teal-900">
                   <Bot className="h-5 w-5" />
                   اقتراحات ذكية
                 </h3>
                 <div className="space-y-2">
-                  {getAISuggestions().map((suggestion, index) => (
-                    <div key={index} className="flex items-center gap-2 text-teal-800">
+                  {getAISuggestions().map((suggestion, index) => <div key={index} className="flex items-center gap-2 text-teal-800">
                       <Zap className="h-4 w-4" />
                       <span>{suggestion}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
-              </Card>
-            )}
+              </Card>}
           </div>
 
           {/* Summary Panel */}
@@ -426,33 +338,24 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">التكلفة الأساسية ({billingCycle === 'yearly' ? 'سنوي' : 'شهري'})</span>
                   <span className="font-medium">
-                    {billingCycle === 'yearly' 
-                      ? (calculation.baseMonthly * 12).toLocaleString() 
-                      : calculation.baseMonthly.toLocaleString()
-                    } ﷼
+                    {billingCycle === 'yearly' ? (calculation.baseMonthly * 12).toLocaleString() : calculation.baseMonthly.toLocaleString()} ﷼
                   </span>
                 </div>
                 
-                {includeSetup && (
-                  <div className="flex justify-between text-sm">
+                {includeSetup && <div className="flex justify-between text-sm">
                     <span className="text-gray-600">رسوم التأسيس</span>
                     <span className="font-medium">{setupFee.toLocaleString()} ﷼</span>
-                  </div>
-                )}
+                  </div>}
                 
-                {includeSupport && (
-                  <div className="flex justify-between text-sm">
+                {includeSupport && <div className="flex justify-between text-sm">
                     <span className="text-gray-600">الدعم الفني</span>
                     <span className="font-medium">{calculation.supportCost.toLocaleString()} ﷼</span>
-                  </div>
-                )}
+                  </div>}
                 
-                {billingCycle === 'yearly' && calculation.savings > 0 && (
-                  <div className="flex justify-between text-sm text-green-600">
+                {billingCycle === 'yearly' && calculation.savings > 0 && <div className="flex justify-between text-sm text-green-600">
                     <span>الخصم السنوي (15%)</span>
                     <span>-{calculation.savings.toLocaleString()} ﷼</span>
-                  </div>
-                )}
+                  </div>}
                 
                 <Separator />
                 
@@ -461,30 +364,20 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                   <span className="text-teal-600">{calculation.total.toLocaleString()} ﷼</span>
                 </div>
                 
-                {billingCycle === 'yearly' && calculation.savings > 0 && (
-                  <p className="text-xs text-green-600 text-center">
+                {billingCycle === 'yearly' && calculation.savings > 0 && <p className="text-xs text-green-600 text-center">
                     توفير {calculation.savings.toLocaleString()} ﷼ سنوياً
-                  </p>
-                )}
+                  </p>}
               </div>
 
               <Separator className="my-4" />
 
               <div className="space-y-3">
-                <Button 
-                  className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-                  onClick={generatePDF}
-                  disabled={!companyName || !contactEmail}
-                >
+                <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white" onClick={generatePDF} disabled={!companyName || !contactEmail}>
                   <Download className="h-4 w-4 ml-2" />
                   تحميل عرض السعر
                 </Button>
                 
-                <Button 
-                  variant="outline"
-                  className="w-full border-teal-200 text-teal-700 hover:bg-teal-50"
-                  disabled={!companyName || !contactEmail}
-                >
+                <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50" disabled={!companyName || !contactEmail}>
                   <Mail className="h-4 w-4 ml-2" />
                   إرسال بالبريد الإلكتروني
                 </Button>
@@ -495,19 +388,10 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             <Card className="p-6 border-2 border-gray-100">
               <h3 className="text-lg font-bold mb-4 text-gray-900">مميزات الاشتراك</h3>
               <div className="space-y-3">
-                {[
-                  'دعم نظام العمل السعودي',
-                  'تكامل مع الجهات الرسمية',
-                  'تقارير فورية ذكية',
-                  'خدمة ذاتية للموظفين',
-                  'توقيع إلكتروني',
-                  'دعم بالذكاء الاصطناعي'
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                {['دعم نظام العمل السعودي', 'تكامل مع الجهات الرسمية', 'تقارير فورية ذكية', 'خدمة ذاتية للموظفين', 'توقيع إلكتروني', 'دعم بالذكاء الاصطناعي'].map((feature, index) => <div key={index} className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-teal-600" />
                     <span className="text-sm text-gray-700">{feature}</span>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </Card>
 
@@ -553,6 +437,5 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
