@@ -219,10 +219,10 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="py-16">
+        <div className="py-16 relative z-10 backdrop-blur-xl bg-black/30 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 mx-4 my-8">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <div className="mb-6">
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-sm px-3 py-1 mb-4">
+              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-sm px-3 py-1 mb-4 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
                 <Calculator className="h-4 w-4 ml-2" />
                 حاسبة ذكية متقدمة
               </Badge>
@@ -232,15 +232,15 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
               احصل على عرض سعر فوري ومخصص لنظام إدارة الموارد البشرية الأكثر تقدماً في المملكة
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-base px-4 py-2">
+              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-base px-4 py-2 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
                 <Award className="h-5 w-5 ml-2" />
                 أقل من السوق بـ 5% على الأقل
               </Badge>
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-base px-4 py-2">
+              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-base px-4 py-2 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
                 <Shield className="h-5 w-5 ml-2" />
                 ضمان الاسترداد
               </Badge>
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-base px-4 py-2">
+              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-base px-4 py-2 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
                 <Star className="h-5 w-5 ml-2" />
                 دعم 24/7
               </Badge>
