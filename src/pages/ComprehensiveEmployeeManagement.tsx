@@ -51,15 +51,18 @@ import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealt
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlanning';
-type TabType = 'dashboard' | 'settings' | 'teamwork' | 'departments' | 'quality-of-life' | 'skills-inventory' | 'internal-communication' | 'admin-communications' | 'occupational-safety' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'disciplinary' | 'leaves' | 'payroll' | 'government' | 'organization' | 'governance' | 'wageprotection' | 'legal' | 'performance' | 'training' | 'talents' | 'recruitment' | 'insurance' | 'benefits' | 'meetings' | 'signature' | 'tasks' | 'requests' | 'ai' | 'reports' | 'tracking' | 'attendance' | 'budget-planning' | 'employee-services';
+type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'departments' | 'quality-of-life' | 'skills-inventory' | 'internal-communication' | 'admin-communications' | 'occupational-safety' | 'social-services' | 'field-tracking' | 'occupational-health-safety' | 'payroll' | 'government' | 'organization' | 'governance' | 'wageprotection' | 'legal' | 'performance' | 'training' | 'talents' | 'recruitment' | 'insurance' | 'benefits' | 'meetings' | 'signature' | 'ai' | 'reports' | 'tracking' | 'budget-planning';
+
+type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork';
 
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [activeEmployeeOpsTab, setActiveEmployeeOpsTab] = useState<EmployeeOperationsTabType>('attendance');
   const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const [isViewEmployeeOpen, setIsViewEmployeeOpen] = useState(false);
   const [isDragMode, setIsDragMode] = useState(false);
-  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
+  const [tabOrder, setTabOrder] = useState<TabType[]>(['dashboard', 'employee-operations', 'departments', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'ai', 'reports', 'tracking', 'budget-planning']);
 
   // Helper function to safely change tabs
   const handleTabChange = (value: string) => {
@@ -70,8 +73,21 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function
   const isValidTabType = (value: string): value is TabType => {
-    const validTabs: TabType[] = ['dashboard', 'settings', 'teamwork', 'departments', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services'];
+    const validTabs: TabType[] = ['dashboard', 'settings', 'employee-operations', 'departments', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'ai', 'reports', 'tracking', 'budget-planning'];
     return validTabs.includes(value as TabType);
+  };
+
+  // Helper function for employee operations tabs
+  const handleEmployeeOpsTabChange = (value: string) => {
+    if (isValidEmployeeOpsTabType(value)) {
+      setActiveEmployeeOpsTab(value);
+    }
+  };
+
+  // Type guard function for employee operations
+  const isValidEmployeeOpsTabType = (value: string): value is EmployeeOperationsTabType => {
+    const validTabs: EmployeeOperationsTabType[] = ['attendance', 'employee-services', 'leaves', 'disciplinary', 'requests', 'tasks', 'teamwork'];
+    return validTabs.includes(value as EmployeeOperationsTabType);
   };
 
   // Tab ordering functions
@@ -81,7 +97,7 @@ const ComprehensiveEmployeeManagement = () => {
       toast.success('إعدادات الترتيب');
     } else if (action === 'reset') {
       // Reset to default order
-      setTabOrder(['dashboard', 'departments', 'teamwork', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'disciplinary', 'leaves', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'tasks', 'requests', 'ai', 'reports', 'tracking', 'attendance', 'budget-planning', 'employee-services']);
+      setTabOrder(['dashboard', 'employee-operations', 'departments', 'quality-of-life', 'skills-inventory', 'internal-communication', 'admin-communications', 'occupational-safety', 'social-services', 'field-tracking', 'occupational-health-safety', 'payroll', 'government', 'organization', 'governance', 'wageprotection', 'legal', 'performance', 'training', 'talents', 'recruitment', 'insurance', 'benefits', 'meetings', 'signature', 'ai', 'reports', 'tracking', 'budget-planning']);
       toast.success('تم إعادة الترتيب إلى الوضع الافتراضي');
     }
   };
@@ -284,9 +300,9 @@ const ComprehensiveEmployeeManagement = () => {
             
             <div className="w-full">
               <TabsList className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 bg-transparent p-0 h-auto w-full">
-                <TabsTrigger value="teamwork" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                  <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">فريق العمل</span>
+                <TabsTrigger value="employee-operations" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                  <Users className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">إدارة شؤون الموظفين والعمليات</span>
                 </TabsTrigger>
                 <TabsTrigger value="departments" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                   <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
@@ -421,9 +437,81 @@ const ComprehensiveEmployeeManagement = () => {
             <ComprehensiveDashboard onNavigateToSection={handleTabChange} />
           </TabsContent>
 
+          <TabsContent value="employee-operations">
+            <div className="space-y-6">
+              <div className="bg-card/95 backdrop-blur-sm rounded-3xl shadow-soft border border-border/20 p-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <Users className="h-8 w-8 text-primary-foreground" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة شؤون الموظفين والعمليات</h2>
+                    <p className="text-muted-foreground">النظام المتكامل لإدارة جميع شؤون الموظفين والعمليات التشغيلية</p>
+                  </div>
+                </div>
+                
+                <Tabs value={activeEmployeeOpsTab} onValueChange={handleEmployeeOpsTabChange} className="space-y-6">
+                  <TabsList className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 bg-transparent p-0 h-auto w-full">
+                    <TabsTrigger value="attendance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Clock className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الحضور والانصراف</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="employee-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <User className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">خدمات الموظفين</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="leaves" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Calendar className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الإجازات</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="disciplinary" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <AlertTriangle className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الجزاءات والعقوبات</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="requests" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <MessageSquare className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">الطلبات والإشعارات</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="tasks" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <CheckSquare className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">المهام والمتابعة</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="teamwork" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">فريق العمل</span>
+                    </TabsTrigger>
+                  </TabsList>
 
-          <TabsContent value="teamwork">
-            <TeamWork />
+                  <TabsContent value="attendance">
+                    <SmartAttendanceSystem />
+                  </TabsContent>
+
+                  <TabsContent value="employee-services">
+                    <EmployeeServicesDepartment />
+                  </TabsContent>
+
+                  <TabsContent value="leaves">
+                    <ComprehensiveLeaveManagementSystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="disciplinary">
+                    <ComprehensiveDisciplinarySystem />
+                  </TabsContent>
+
+                  <TabsContent value="requests">
+                    <CombinedRequestsNotifications onBack={() => setActiveTab('dashboard')} onNavigateToSection={handleTabChange} />
+                  </TabsContent>
+
+                  <TabsContent value="tasks">
+                    <ComprehensiveTasksFollowup onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="teamwork">
+                    <TeamWork />
+                  </TabsContent>
+                </Tabs>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="departments">
@@ -454,21 +542,6 @@ const ComprehensiveEmployeeManagement = () => {
             <SocialServices />
           </TabsContent>
 
-          <TabsContent value="attendance">
-            <SmartAttendanceSystem />
-          </TabsContent>
-
-          <TabsContent value="employee-services">
-            <EmployeeServicesDepartment />
-          </TabsContent>
-
-          <TabsContent value="disciplinary">
-            <ComprehensiveDisciplinarySystem />
-          </TabsContent>
-
-          <TabsContent value="leaves">
-            <ComprehensiveLeaveManagementSystem onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
 
           <TabsContent value="payroll">
             <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
@@ -526,13 +599,6 @@ const ComprehensiveEmployeeManagement = () => {
             <ElectronicSignature onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-          <TabsContent value="tasks">
-            <ComprehensiveTasksFollowup onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="requests">
-            <CombinedRequestsNotifications onBack={() => setActiveTab('dashboard')} onNavigateToSection={handleTabChange} />
-          </TabsContent>
 
           <TabsContent value="ai">
             <ArtificialIntelligence onBack={() => setActiveTab('dashboard')} />
@@ -546,9 +612,6 @@ const ComprehensiveEmployeeManagement = () => {
                 <ComprehensiveFieldTracking onBack={() => setActiveTab('dashboard')} />
               </TabsContent>
 
-          <TabsContent value="attendance">
-            <SmartAttendanceSystem />
-          </TabsContent>
 
           <TabsContent value="budget-planning">
             <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
