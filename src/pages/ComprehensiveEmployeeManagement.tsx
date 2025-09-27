@@ -403,7 +403,7 @@ const ComprehensiveEmployeeManagement = () => {
                   <Brain className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">إدارة التقنية والتحول الرقمي</span>
                 </TabsTrigger>
-                <TabsTrigger value="corporate-relations" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                <TabsTrigger value="corporate-relations" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg ml-auto">
                   <MessageCircle className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">إدارة العلاقات والتواصل المؤسسي</span>
                 </TabsTrigger>
