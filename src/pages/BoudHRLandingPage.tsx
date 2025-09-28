@@ -299,19 +299,24 @@ const BoudHRLandingPage: React.FC = () => {
     label: "دعم متواصل"
   }];
   return <div className="min-h-screen bg-black font-arabic">
-      {/* Professional Enterprise Header */}
-      <header className="bg-black/98 backdrop-blur-md border-b border-gray-700 sticky top-0 z-50 shadow-lg">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-14">
-            {/* Professional Logo Section */}
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="flex items-center gap-3">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain brightness-0 invert" />
+      {/* Professional Interactive Header - Applied HR Tools Design */}
+      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 sticky top-0">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
+          <div className="flex items-center justify-between h-24">
+            {/* Logo Section */}
+            <div className="flex items-center">
+              <div className="hover:scale-105 transition-all duration-300">
+                <BoudLogo variant="full" size="header" className="h-12 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" />
               </div>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
+            {/* Center Section - Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-6 space-x-reverse">
               <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4 brightness-0 invert" />
               <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
               
@@ -321,7 +326,6 @@ const BoudHRLandingPage: React.FC = () => {
                 <Play className="w-4 h-4" />
                 جولة تفاعلية
               </Button>
-
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -368,57 +372,106 @@ const BoudHRLandingPage: React.FC = () => {
               </button>
             </nav>
 
-            {/* CTA Buttons */}
-            <div className="hidden md:flex items-center space-x-3 space-x-reverse">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 bg-black text-white border border-gray-700 hover:bg-gray-900 hover:scale-105 transition-all duration-300">
-                    تسجيل الدخول <ChevronDown className="w-4 h-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
-                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                    <Building2 className="w-4 h-4" />
-                     مدير النظام
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                    <Building className="w-4 h-4" />
-                    🏢 لوحة تحكم المنشأة
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                    <User className="w-4 h-4" />
-                    🔘 لوحة تحكم الموظف
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {/* Right Section - Professional Controls Panel */}
+            <div className="flex flex-col items-end space-y-4">
+              {/* Status Panel */}
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+                {/* Status Indicator */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                    حالة النظام
+                  </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+                    <span className="text-xs text-green-300 font-semibold">
+                      متاح
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                
+                {/* Login & Settings Row */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-medium">
+                    الوصول
+                  </span>
+                  
+                  {/* Login Dropdown */}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20">
+                        <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
+                          دخول
+                        </span>
+                        <ChevronDown className="w-3 h-3 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
+                        
+                        {/* Hover Glow Effect */}
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
+                      <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                        <Building2 className="w-4 h-4" />
+                         مدير النظام
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                        <Building className="w-4 h-4" />
+                        🏢 لوحة تحكم المنشأة
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                        <User className="w-4 h-4" />
+                        🔘 لوحة تحكم الموظف
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
               
+              {/* Quick Stats Mini Panel */}
+              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
+                <div className="flex items-center space-x-3 text-xs">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+                    <span className="text-gray-400">نظام شامل</span>
+                  </div>
+                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-gray-400">محدّث</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button className="lg:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
             </button>
           </div>
 
           {/* Mobile Menu */}
-          {isMobileMenuOpen && <div className="md:hidden py-4 border-t border-border">
+          {isMobileMenuOpen && (
+            <div className="lg:hidden py-4 border-t border-[#008C6A]/30 bg-gradient-to-r from-black/90 to-gray-900/90 backdrop-blur-xl rounded-b-2xl">
               <nav className="flex flex-col space-y-2">
-                <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
+                <a href="#home" className="text-white hover:text-[#008C6A] text-sm font-medium py-2 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
                 </a>
                 <button onClick={() => {
               navigate('/interactive-tour');
               setIsMobileMenuOpen(false);
-            }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
+            }} className="text-white hover:text-[#008C6A] text-sm font-medium text-right flex items-center gap-2 py-2 px-4 transition-colors">
                   <Play className="w-4 h-4" />
                   جولة تفاعلية
                 </button>
                 <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                  <summary className="text-white hover:text-[#008C6A] text-sm font-medium cursor-pointer list-none py-2 px-4">
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.about.map((item, index) => <button key={index} onClick={() => {
+                    {menuItems.about.map((item, index) => (
+                      <button key={index} onClick={() => {
                   const element = document.getElementById(item.href.substring(1));
                   if (element) {
                     const headerOffset = 80;
@@ -430,43 +483,49 @@ const BoudHRLandingPage: React.FC = () => {
                     });
                   }
                   setIsMobileMenuOpen(false);
-                }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
+                }} className="block text-sm text-gray-300 hover:text-[#008C6A] w-full text-right py-1 px-4 transition-colors">
                         {item.name}
-                      </button>)}
+                      </button>
+                    ))}
                   </div>
                 </details>
                 <details className="group">
-                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                  <summary className="text-white hover:text-[#008C6A] text-sm font-medium cursor-pointer list-none py-2 px-4">
                     تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                    {menuItems.contact.map((item, index) => (
+                      <a key={index} href={item.href} className="block text-sm text-gray-300 hover:text-[#008C6A] py-1 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                         {item.name}
-                      </a>)}
+                      </a>
+                    ))}
                   </div>
                 </details>
-                <div className="flex flex-col space-y-2 pt-4">
-                  <Button variant="ghost" onClick={() => navigate('/admin-login')}>
+                <div className="flex flex-col space-y-2 pt-4 px-4">
+                  <Button variant="ghost" onClick={() => navigate('/admin-login')} className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10">
                     <Building2 className="w-4 h-4 ml-2" />
                     🔘 لوحة تحكم الإدارة
                   </Button>
-                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')}>
+                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')} className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10">
                     <Building className="w-4 h-4 ml-2" />
                     🏢 لوحة تحكم المنشأة
                   </Button>
-                  <Button variant="ghost" onClick={() => navigate('/employee-login')}>
+                  <Button variant="ghost" onClick={() => navigate('/employee-login')} className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10">
                     <User className="w-4 h-4 ml-2" />
                     🔘 لوحة تحكم الموظف
                   </Button>
-                  <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button onClick={() => navigate('/subscription-packages')} className="bg-[#008C6A] hover:bg-[#008C6A]/90 text-white">
                     انضم الينا
                   </Button>
                 </div>
               </nav>
-            </div>}
+            </div>
+          )}
+
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
         </div>
       </header>
-
       {/* Professional Hero Section */}
       <section id="home" className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-background via-slate-50/20 to-background">
         <PatternBackground opacity={0.03} size={500} />
@@ -1231,6 +1290,8 @@ const BoudHRLandingPage: React.FC = () => {
 
       {/* BOUD HR Assistant with controlled state */}
       <BoudHRAssistant language="ar" isOpen={assistantOpen} onOpenChange={handleAssistantOpenChange} initialMessage={initialMessage} />
-    </div>;
+    </div>
+  );
 };
+
 export default BoudHRLandingPage;
