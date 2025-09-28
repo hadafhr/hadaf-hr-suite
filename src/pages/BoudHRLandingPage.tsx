@@ -366,12 +366,7 @@ const BoudHRLandingPage: React.FC = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 bg-black border border-gray-700 shadow-lg">
                   {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
-                      <button onClick={() => item.href.startsWith('#') ? document.getElementById(item.href.substring(1))?.scrollIntoView({
-                    behavior: 'smooth'
-                  }) : navigate(item.href)} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3">
-                        <MessageCircle className="w-4 h-4" />
-                        {item.name}
-                      </button>
+                      
                     </DropdownMenuItem>)}
                 </DropdownMenuContent>
               </DropdownMenu>
