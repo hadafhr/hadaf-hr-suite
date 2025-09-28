@@ -371,15 +371,15 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl shadow-2xl animate-fade-in">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-emerald-400/50 hover:text-emerald-400 transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
           العودة
         </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-8 w-px bg-white/20"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
             <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
               <CheckSquare className="h-8 w-8" />
@@ -387,37 +387,37 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
             <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
               المهام والمتابعة
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-white/70 text-lg">
               منظومة شاملة لإدارة المهام والمتابعة مع أدوات التعاون والتحليل المتقدمة والتقارير التفصيلية
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-emerald-400/30 text-emerald-400 bg-emerald-500/10 px-4 py-2 text-sm font-medium">
           <CheckSquare className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
         <Button 
           onClick={handleExport}
-          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300"
         >
           <Download className="h-4 w-4 ml-2" />
           تصدير التقرير
         </Button>
         <Button 
           onClick={handlePrint}
-          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300"
         >
           <FileText className="h-4 w-4 ml-2" />
           طباعة
         </Button>
         <Button 
           onClick={() => setIsAddDialogOpen(true)}
-          className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300"
         >
           <Plus className="h-4 w-4 ml-2" />
           مهمة جديدة
@@ -430,72 +430,72 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="border-l-4 border-l-primary">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 border-l-4 border-l-emerald-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">إجمالي المهام</p>
-                <p className="text-2xl font-bold text-primary">{stats.totalTasks}</p>
+                <p className="text-sm text-white/60">إجمالي المهام</p>
+                <p className="text-2xl font-bold text-emerald-400">{stats.totalTasks}</p>
               </div>
-              <CheckSquare className="h-8 w-8 text-primary/60" />
+              <CheckSquare className="h-8 w-8 text-emerald-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 border-l-4 border-l-blue-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">مهام نشطة</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.activeTasks}</p>
+                <p className="text-sm text-white/60">مهام نشطة</p>
+                <p className="text-2xl font-bold text-blue-400">{stats.activeTasks}</p>
               </div>
               <Activity className="h-8 w-8 text-blue-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-green-500/25 transition-all duration-300 border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">مهام مكتملة</p>
-                <p className="text-2xl font-bold text-emerald-600">{stats.completedTasks}</p>
+                <p className="text-sm text-white/60">مهام مكتملة</p>
+                <p className="text-2xl font-bold text-green-400">{stats.completedTasks}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-emerald-500/60" />
+              <CheckCircle2 className="h-8 w-8 text-green-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-red-500">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-red-500/25 transition-all duration-300 border-l-4 border-l-red-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">مهام متأخرة</p>
-                <p className="text-2xl font-bold text-red-600">{stats.overdueTasks}</p>
+                <p className="text-sm text-white/60">مهام متأخرة</p>
+                <p className="text-2xl font-bold text-red-400">{stats.overdueTasks}</p>
               </div>
               <AlertTriangle className="h-8 w-8 text-red-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 border-l-4 border-l-purple-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">متوسط الإنجاز</p>
-                <p className="text-2xl font-bold text-purple-600">{stats.avgCompletionTime} أيام</p>
+                <p className="text-sm text-white/60">متوسط الإنجاز</p>
+                <p className="text-2xl font-bold text-purple-400">{stats.avgCompletionTime} أيام</p>
               </div>
               <Timer className="h-8 w-8 text-purple-500/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-green-500/25 transition-all duration-300 border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">معدل الإنجاز</p>
-                <p className="text-2xl font-bold text-green-600">{stats.completionRate}%</p>
+                <p className="text-sm text-white/60">معدل الإنجاز</p>
+                <p className="text-2xl font-bold text-green-400">{stats.completionRate}%</p>
               </div>
               <Target className="h-8 w-8 text-green-500/60" />
             </div>
@@ -505,20 +505,27 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <BarChart3 className="h-5 w-5 text-emerald-400" />
               أداء المهام الشهري
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis dataKey="month" stroke="#9ca3af" />
+                <YAxis stroke="#9ca3af" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '8px',
+                    color: '#fff'
+                  }} 
+                />
                 <Area type="monotone" dataKey="completed" stackId="1" stroke="#10b981" fill="#10b981" />
                 <Area type="monotone" dataKey="inProgress" stackId="2" stroke="#3b82f6" fill="#3b82f6" />
                 <Area type="monotone" dataKey="new" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
@@ -528,10 +535,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <PieChart className="h-5 w-5 text-emerald-400" />
               توزيع المهام حسب الأولوية
             </CardTitle>
           </CardHeader>
@@ -1323,12 +1330,21 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      {renderHeader()}
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Animated background patterns */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 right-32 w-96 h-96 bg-gradient-to-r from-green-400/15 to-emerald-600/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-emerald-600/10 to-green-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-r from-green-500/20 to-emerald-400/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+      </div>
       
-      <div className="container mx-auto p-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+      <div className="relative z-10">
+        {renderHeader()}
+        
+        <div className="container mx-auto p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-6 bg-black/40 backdrop-blur-md border border-white/10">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               لوحة التحكم
@@ -1382,6 +1398,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       <AddTaskDialog />
+    </div>
     </div>
   );
 };
