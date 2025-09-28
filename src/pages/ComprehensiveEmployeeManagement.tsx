@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt } from 'lucide-react';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -30,6 +30,7 @@ import { ComprehensiveSmartEvaluation } from '@/components/systems/Comprehensive
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
 import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
+import { ExpensesManagement } from '@/components/systems/ExpensesManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
@@ -56,7 +57,7 @@ type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-
 
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'departments';
 
-type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'benefits' | 'budget-planning';
+type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'budget-planning';
 
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'meetings' | 'organization';
 
@@ -115,7 +116,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for compensation benefits
   const isValidCompensationTabType = (value: string): value is CompensationBenefitsTabType => {
-    const validTabs: CompensationBenefitsTabType[] = ['payroll', 'wageprotection', 'insurance', 'benefits', 'budget-planning'];
+    const validTabs: CompensationBenefitsTabType[] = ['payroll', 'wageprotection', 'insurance', 'expenses', 'benefits', 'budget-planning'];
     return validTabs.includes(value as CompensationBenefitsTabType);
   };
 
@@ -523,7 +524,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 bg-transparent p-0 h-auto w-full">
+                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-transparent p-0 h-auto w-full">
                     <TabsTrigger value="payroll" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">الرواتب والأجور</span>
@@ -535,6 +536,10 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="insurance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">التأمين</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="expenses" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                      <Receipt className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                      <span className="text-center leading-tight">المصروفات والنفقات</span>
                     </TabsTrigger>
                     <TabsTrigger value="benefits" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <Gift className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
@@ -805,6 +810,10 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="insurance">
             <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="expenses">
+            <ExpensesManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="benefits">
