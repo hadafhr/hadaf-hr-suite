@@ -318,17 +318,17 @@ export const SmartAttendanceSystem: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-2">
             نظام الحضور والانصراف الذكي
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-gray-300">
             إدارة شاملة للحضور مع دعم GPS والبصمة والجدولة المتقدمة
           </p>
-          <div className="mt-4 p-4 bg-card rounded-lg shadow-sm border">
-            <div className="text-2xl font-bold text-primary mb-1">
+          <div className="mt-4 p-4 bg-gray-900/60 backdrop-blur-xl rounded-lg shadow-2xl border border-[#008C6A]/30">
+            <div className="text-2xl font-bold text-[#008C6A] mb-1">
               {currentTime.toLocaleTimeString('ar-SA')}
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-gray-300">
               {currentTime.toLocaleDateString('ar-SA', { 
                 weekday: 'long', 
                 year: 'numeric', 
@@ -341,36 +341,36 @@ export const SmartAttendanceSystem: React.FC = () => {
 
           {/* Tabs Navigation */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-card border">
-              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3">
+            <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <BarChart3 className="h-4 w-4" />
                 <span className="hidden sm:inline">لوحة التحكم</span>
               </TabsTrigger>
-              <TabsTrigger value="real-time" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="real-time" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Clock className="h-4 w-4" />
                 <span className="hidden sm:inline">الساعة المباشرة</span>
               </TabsTrigger>
-              <TabsTrigger value="checkin" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="checkin" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <MapPin className="h-4 w-4" />
                 <span className="hidden sm:inline">GPS</span>
               </TabsTrigger>
-              <TabsTrigger value="live-tracking" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="live-tracking" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Navigation className="h-4 w-4" />
                 <span className="hidden sm:inline">التتبع المباشر</span>
               </TabsTrigger>
-              <TabsTrigger value="devices" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="devices" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Fingerprint className="h-4 w-4" />
                 <span className="hidden sm:inline">الأجهزة</span>
               </TabsTrigger>
-              <TabsTrigger value="schedule" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="schedule" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Calendar className="h-4 w-4" />
                 <span className="hidden sm:inline">الجدولة</span>
               </TabsTrigger>
-              <TabsTrigger value="points-rewards" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="points-rewards" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Star className="h-4 w-4" />
                 <span className="hidden sm:inline">النقاط</span>
               </TabsTrigger>
-              <TabsTrigger value="ai-insights" className="flex items-center gap-2 p-3">
+              <TabsTrigger value="ai-insights" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Brain className="h-4 w-4" />
                 <span className="hidden sm:inline">الذكاء الاصطناعي</span>
               </TabsTrigger>
@@ -380,50 +380,50 @@ export const SmartAttendanceSystem: React.FC = () => {
           <TabsContent value="dashboard" className="space-y-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-              <Card className="border-l-4 border-l-green-500">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-green-500">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-muted-foreground">الحاضرين اليوم</p>
-                      <p className="text-2xl font-bold text-green-600">{stats.presentToday}</p>
+                      <p className="text-sm text-gray-300">الحاضرين اليوم</p>
+                      <p className="text-2xl font-bold text-green-400">{stats.presentToday}</p>
                     </div>
-                    <CheckCircle className="h-8 w-8 text-green-500" />
+                    <CheckCircle className="h-8 w-8 text-green-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-red-500">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-red-500">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-muted-foreground">الغائبين</p>
-                      <p className="text-2xl font-bold text-red-600">{stats.absentToday}</p>
+                      <p className="text-sm text-gray-300">الغائبين</p>
+                      <p className="text-2xl font-bold text-red-400">{stats.absentToday}</p>
                     </div>
-                    <XCircle className="h-8 w-8 text-red-500" />
+                    <XCircle className="h-8 w-8 text-red-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-yellow-500">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-yellow-500">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-muted-foreground">المتأخرين</p>
-                      <p className="text-2xl font-bold text-yellow-600">{stats.lateToday}</p>
+                      <p className="text-sm text-gray-300">المتأخرين</p>
+                      <p className="text-2xl font-bold text-yellow-400">{stats.lateToday}</p>
                     </div>
-                    <AlertCircle className="h-8 w-8 text-yellow-500" />
+                    <AlertCircle className="h-8 w-8 text-yellow-400" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-blue-500">
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-blue-500">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-muted-foreground">معدل الحضور</p>
-                      <p className="text-2xl font-bold text-blue-600">{Math.round(stats.attendanceRate)}%</p>
+                      <p className="text-sm text-gray-300">معدل الحضور</p>
+                      <p className="text-2xl font-bold text-blue-400">{Math.round(stats.attendanceRate)}%</p>
                     </div>
-                    <Users className="h-8 w-8 text-blue-500" />
+                    <Users className="h-8 w-8 text-blue-400" />
                   </div>
                 </CardContent>
               </Card>
@@ -431,43 +431,43 @@ export const SmartAttendanceSystem: React.FC = () => {
 
             {/* Progress Indicators */}
             <div className="grid md:grid-cols-3 gap-6">
-              <Card>
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm">معدل الحضور الشهري</CardTitle>
+                  <CardTitle className="text-sm text-gray-300">معدل الحضور الشهري</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-primary mb-2">{Math.round(stats.attendanceRate)}%</div>
+                  <div className="text-2xl font-bold text-[#008C6A] mb-2">{Math.round(stats.attendanceRate)}%</div>
                   <Progress value={stats.attendanceRate} className="h-2" />
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm">متوسط ساعات العمل</CardTitle>
+                  <CardTitle className="text-sm text-gray-300">متوسط ساعات العمل</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-primary mb-2">{stats.avgWorkingHours.toFixed(1)}h</div>
+                  <div className="text-2xl font-bold text-[#008C6A] mb-2">{stats.avgWorkingHours.toFixed(1)}h</div>
                   <Progress value={(stats.avgWorkingHours / 9) * 100} className="h-2" />
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm">حالة الأجهزة</CardTitle>
+                  <CardTitle className="text-sm text-gray-300">حالة الأجهزة</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-600 mb-2">{stats.devicesOnline}/5</div>
+                  <div className="text-2xl font-bold text-green-400 mb-2">{stats.devicesOnline}/5</div>
                   <Progress value={(stats.devicesOnline / 5) * 100} className="h-2" />
                 </CardContent>
               </Card>
             </div>
 
             {/* Today's Attendance */}
-            <Card>
+            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle>سجل حضور اليوم</CardTitle>
-                  <CardDescription>
+                  <CardTitle className="text-white">سجل حضور اليوم</CardTitle>
+                  <CardDescription className="text-gray-300">
                     {new Date().toLocaleDateString('ar-SA', { 
                       weekday: 'long', 
                       year: 'numeric', 
