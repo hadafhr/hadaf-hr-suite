@@ -296,17 +296,15 @@ export const SmartAttendanceSystem: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
-            نظام الحضور والانصراف الذكي
-          </h1>
+        <div className="text-center space-y-4 mb-8">
+          <h1 className="text-2xl font-bold">نظام الحضور والانصراف الذكي</h1>
           <p className="text-lg text-muted-foreground">
             إدارة شاملة للحضور مع دعم GPS والبصمة والجدولة المتقدمة
           </p>
-          <div className="mt-4 p-4 bg-card rounded-lg shadow-sm border">
+          <div className="mt-4 p-4 bg-card rounded-lg shadow-sm border w-full max-w-md mx-auto">
             <div className="text-2xl font-bold text-primary mb-1">
               {currentTime.toLocaleTimeString('ar-SA')}
             </div>
