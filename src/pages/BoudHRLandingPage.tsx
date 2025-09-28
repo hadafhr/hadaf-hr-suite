@@ -364,11 +364,7 @@ const BoudHRLandingPage: React.FC = () => {
                 <DropdownMenuTrigger className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors">
                   تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64 bg-black border border-gray-700 shadow-lg">
-                  {menuItems.contact.map((item, index) => <DropdownMenuItem key={index} asChild>
-                      
-                    </DropdownMenuItem>)}
-                </DropdownMenuContent>
+                
               </DropdownMenu>
             </nav>
 
