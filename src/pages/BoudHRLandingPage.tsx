@@ -298,7 +298,8 @@ const BoudHRLandingPage: React.FC = () => {
     number: "24/7",
     label: "دعم متواصل"
   }];
-  return <div className="min-h-screen bg-black font-arabic">
+  return (
+    <div className="min-h-screen bg-black font-arabic">
       {/* Professional Interactive Header - Applied HR Tools Design */}
       <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 sticky top-0">
         {/* Animated background pattern */}
