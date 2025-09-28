@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Users, Globe, CheckCircle, PlayCircle, Clock, Star, ChevronRight, BarChart3 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,11 +10,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { Breadcrumb } from '@/components/Breadcrumb';
 import buodLogo from '@/assets/buod-logo-white.png';
 
 const DemoRequestPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === 'ar';
   const [formData, setFormData] = useState({
     companyName: '',
     fullName: '',
@@ -173,26 +177,29 @@ const DemoRequestPage = () => {
                 {/* Divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
                 
-                {/* Back Button Row */}
+                {/* Language & Settings Row */}
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-400 font-medium">
-                    التنقل
+                    {isArabic ? 'اللغة' : 'Language'}
                   </span>
                   
-                  {/* Back Button */}
+                  {/* Language Toggle Button */}
                   <button 
-                    onClick={() => navigate('/')}
+                    onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
                     tabIndex={0}
-                    aria-label="العودة للصفحة الرئيسية"
+                    aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'}
                     className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20"
                   >
-                    {/* Back Icon */}
-                    <ArrowLeft className="w-4 h-4 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
-                    
-                    {/* Back Text */}
+                    {/* Language Text */}
                     <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
-                      الرئيسية
+                      {isArabic ? 'EN' : 'العربية'}
                     </span>
+                    
+                    {/* Animated Indicator */}
+                    <div className="relative">
+                      <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] shadow-lg shadow-[#008C6A]/40 group-hover:shadow-[#008C6A]/60 transition-all duration-300"></div>
+                      <div className="absolute inset-0 w-3 h-3 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] opacity-0 group-hover:opacity-30 animate-ping"></div>
+                    </div>
                     
                     {/* Hover Glow Effect */}
                     <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
@@ -205,12 +212,12 @@ const DemoRequestPage = () => {
                 <div className="flex items-center space-x-3 text-xs">
                   <div className="flex items-center space-x-1">
                     <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">طلب عرض تجريبي</span>
+                    <span className="text-gray-400">{isArabic ? 'طلب عرض تجريبي' : 'Demo Request'}</span>
                   </div>
                   <div className="w-px h-3 bg-[#008C6A]/30"></div>
                   <div className="flex items-center space-x-1">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">محدّث</span>
+                    <span className="text-gray-400">{isArabic ? 'محدّث' : 'Updated'}</span>
                   </div>
                 </div>
               </div>
@@ -222,10 +229,23 @@ const DemoRequestPage = () => {
         </div>
       </header>
 
-      {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <main className="relative z-10 w-full mx-auto px-4 py-8">
+        {/* Breadcrumb Navigation - Far Right */}
+        <div className="flex justify-end mb-6 mr-0">
+          <div className="ml-auto">
+            <Breadcrumb 
+              items={[
+                { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
+                { label: isArabic ? 'احجز عرض تجريبي' : 'Book Demo', path: '/demo-request' }
+              ]}
+            />
+          </div>
+        </div>
+        
+        {/* Floating Elements for Professional Look */}
+        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
 
       {/* Enhanced Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -486,6 +506,7 @@ const DemoRequestPage = () => {
           </div>
         </div>
       </section>
+      </main>
     </div>
   );
 };
