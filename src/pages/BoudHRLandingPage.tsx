@@ -395,9 +395,7 @@ const BoudHRLandingPage: React.FC = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                انضم الينا
-              </Button>
+              
             </div>
 
             {/* Mobile Menu Button */}
