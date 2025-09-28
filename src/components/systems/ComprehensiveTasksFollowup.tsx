@@ -566,39 +566,39 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       {/* AI Insights */}
-      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+      <Card className="bg-black/40 backdrop-blur-md border border-emerald-500/30 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Sparkles className="h-5 w-5 text-emerald-400" />
             رؤى الذكاء الاصطناعي للمهام والمتابعة
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+            <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">أداء ممتاز</span>
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                <span className="text-sm font-semibold text-emerald-300">أداء ممتاز</span>
               </div>
-              <p className="text-sm text-emerald-700">
+              <p className="text-sm text-white/70">
                 تحسن ملحوظ في معدل إنجاز المهام بنسبة 23% مقارنة بالشهر الماضي
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+            <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/30 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تحذير</span>
+                <AlertTriangle className="h-4 w-4 text-orange-400" />
+                <span className="text-sm font-semibold text-orange-300">تحذير</span>
               </div>
-              <p className="text-sm text-orange-700">
+              <p className="text-sm text-white/70">
                 يُتوقع زيادة في المهام المتأخرة في قسم المالية خلال الأسبوع القادم
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">توصية</span>
+                <TrendingUp className="h-4 w-4 text-blue-400" />
+                <span className="text-sm font-semibold text-blue-300">توصية</span>
               </div>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-white/70">
                 يُنصح بإعادة توزيع المهام لتحسين التوازن في أعباء العمل
               </p>
             </div>
@@ -613,20 +613,20 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
           <Input
             placeholder="البحث في المهام..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pr-10"
+            className="pr-10 bg-black/40 border-white/10 text-white placeholder:text-white/50"
           />
         </div>
         <div className="flex gap-2">
           <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-40 bg-black/40 border-white/10 text-white">
               <SelectValue placeholder="تصفية حسب" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-black/90 border-white/10">
               <SelectItem value="all">الكل</SelectItem>
               <SelectItem value="new">جديدة</SelectItem>
               <SelectItem value="in-progress">قيد التنفيذ</SelectItem>
@@ -634,7 +634,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               <SelectItem value="overdue">متأخرة</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="border-white/20 bg-white/5 text-white hover:bg-white/10">
             <Filter className="h-4 w-4 ml-2" />
             تصفية
           </Button>
@@ -644,21 +644,21 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       {/* Tasks Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {tasks.map((task) => (
-          <Card key={task.id} className="hover:shadow-lg transition-shadow">
+          <Card key={task.id} className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg leading-6">{task.title}</CardTitle>
-                  <CardDescription className="mt-1">{task.description}</CardDescription>
+                  <CardTitle className="text-lg leading-6 text-white">{task.title}</CardTitle>
+                  <CardDescription className="mt-1 text-white/70">{task.description}</CardDescription>
                 </div>
                 <div className="flex gap-1 ml-2">
-                  <Button variant="ghost" size="sm" onClick={() => setSelectedTask(task)}>
+                  <Button variant="ghost" size="sm" onClick={() => setSelectedTask(task)} className="text-white/70 hover:text-white hover:bg-white/10">
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -666,13 +666,13 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">المسؤول:</span>
-                <span className="font-medium">{task.assignee}</span>
+                <span className="text-white/60">المسؤول:</span>
+                <span className="font-medium text-white">{task.assignee}</span>
               </div>
               
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">القسم:</span>
-                <span>{task.department}</span>
+                <span className="text-white/60">القسم:</span>
+                <span className="text-white">{task.department}</span>
               </div>
 
               <div className="flex items-center gap-2">
@@ -686,13 +686,13 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">التقدم</span>
-                  <span className="font-medium">{task.progress}%</span>
+                  <span className="text-white/60">التقدم</span>
+                  <span className="font-medium text-white">{task.progress}%</span>
                 </div>
                 <Progress value={task.progress} className="h-2" />
               </div>
 
-              <div className="flex items-center justify-between text-sm text-muted-foreground">
+              <div className="flex items-center justify-between text-sm text-white/60">
                 <div className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
                   <span>{task.deadline}</span>
@@ -718,17 +718,17 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   const renderFollowupTracking = () => (
     <div className="space-y-6">
       {/* Timeline View */}
-      <Card>
+      <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Clock className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Clock className="h-5 w-5 text-emerald-400" />
             الجدول الزمني للمهام
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {tasks.map((task, index) => (
-              <div key={task.id} className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
+              <div key={task.id} className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
                 <div className="flex-shrink-0">
                   <div className={`w-3 h-3 rounded-full ${
                     task.status === 'completed' ? 'bg-green-500' :
@@ -737,10 +737,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                   }`} />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold">{task.title}</h4>
-                  <p className="text-sm text-muted-foreground">{task.assignee} - {task.department}</p>
+                  <h4 className="font-semibold text-white">{task.title}</h4>
+                  <p className="text-sm text-white/60">{task.assignee} - {task.department}</p>
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-white/60">
                   {task.deadline}
                 </div>
                 <Badge className={getStatusColor(task.status)}>
@@ -754,39 +754,39 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Alerts and Reminders */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Bell className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <Bell className="h-5 w-5 text-emerald-400" />
               التنبيهات والتذكيرات
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg backdrop-blur-sm">
                 <div className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-red-600" />
-                  <span className="text-sm font-semibold text-red-800">مهمة متأخرة</span>
+                  <AlertTriangle className="h-4 w-4 text-red-400" />
+                  <span className="text-sm font-semibold text-red-300">مهمة متأخرة</span>
                 </div>
-                <p className="text-sm text-red-700 mt-1">
+                <p className="text-sm text-white/70 mt-1">
                   التقرير المالي الشهري - متأخر منذ يوم واحد
                 </p>
               </div>
-              <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+              <div className="p-3 bg-orange-500/10 border border-orange-500/30 rounded-lg backdrop-blur-sm">
                 <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-orange-600" />
-                  <span className="text-sm font-semibold text-orange-800">موعد قريب</span>
+                  <Clock className="h-4 w-4 text-orange-400" />
+                  <span className="text-sm font-semibold text-orange-300">موعد قريب</span>
                 </div>
-                <p className="text-sm text-orange-700 mt-1">
+                <p className="text-sm text-white/70 mt-1">
                   مراجعة ملفات الموظفين الجدد - باقي 3 أيام
                 </p>
               </div>
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg backdrop-blur-sm">
                 <div className="flex items-center gap-2">
-                  <Info className="h-4 w-4 text-blue-600" />
-                  <span className="text-sm font-semibold text-blue-800">تذكير</span>
+                  <Info className="h-4 w-4 text-blue-400" />
+                  <span className="text-sm font-semibold text-blue-300">تذكير</span>
                 </div>
-                <p className="text-sm text-blue-700 mt-1">
+                <p className="text-sm text-white/70 mt-1">
                   اجتماع مراجعة المهام الأسبوعي - غداً الساعة 10:00 ص
                 </p>
               </div>
@@ -794,10 +794,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <TrendingUp className="h-5 w-5 text-emerald-400" />
               تتبع التقدم
             </CardTitle>
           </CardHeader>
@@ -806,8 +806,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               {taskCategories.map((category) => (
                 <div key={category.id} className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">{category.name}</span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-sm font-medium text-white">{category.name}</span>
+                    <span className="text-sm text-white/60">
                       {category.completed}/{category.tasks}
                     </span>
                   </div>
@@ -815,7 +815,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                     value={(category.completed / category.tasks) * 100} 
                     className="h-2" 
                   />
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-xs text-white/60">
                     معدل الأداء: {category.performance}%
                   </div>
                 </div>
@@ -831,24 +831,24 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     <div className="space-y-6">
       {/* Task Communication */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <MessageSquare className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <MessageSquare className="h-5 w-5 text-emerald-400" />
               التعليقات والمحادثات
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {collaborations.map((collab) => (
-                <div key={collab.id} className="p-3 bg-muted/30 rounded-lg">
+                <div key={collab.id} className="p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-sm">{collab.user}</span>
-                    <span className="text-xs text-muted-foreground">{collab.timestamp}</span>
+                    <span className="font-medium text-sm text-white">{collab.user}</span>
+                    <span className="text-xs text-white/60">{collab.timestamp}</span>
                   </div>
-                  <p className="text-sm">{collab.message}</p>
+                  <p className="text-sm text-white/80">{collab.message}</p>
                   <div className="mt-2">
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs border-white/20 text-white/70">
                       {collab.type === 'comment' ? 'تعليق' :
                        collab.type === 'status_change' ? 'تغيير حالة' :
                        collab.type === 'assignment' ? 'تكليف' : 'مرفق'}
@@ -857,10 +857,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                 </div>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t">
+            <div className="mt-4 pt-4 border-t border-white/10">
               <div className="flex gap-2">
-                <Input placeholder="اكتب تعليقك..." className="flex-1" />
-                <Button size="sm">
+                <Input placeholder="اكتب تعليقك..." className="flex-1 bg-black/40 border-white/10 text-white placeholder:text-white/50" />
+                <Button size="sm" className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
@@ -868,25 +868,25 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <Users className="h-5 w-5 text-emerald-400" />
               فريق العمل
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {taskCategories.map((category) => (
-                <div key={category.id} className="p-3 border rounded-lg">
+                <div key={category.id} className="p-3 border border-white/10 rounded-lg bg-white/5 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">{category.name}</h4>
-                      <p className="text-sm text-muted-foreground">{category.head}</p>
+                      <h4 className="font-medium text-white">{category.name}</h4>
+                      <p className="text-sm text-white/60">{category.head}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium">{category.tasks} مهمة</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-sm font-medium text-white">{category.tasks} مهمة</p>
+                      <p className="text-xs text-white/60">
                         {category.performance}% إنجاز
                       </p>
                     </div>
@@ -902,39 +902,39 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       {/* Notifications */}
-      <Card>
+      <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Bell className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Bell className="h-5 w-5 text-emerald-400" />
             التنبيهات والإشعارات
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <UserPlus className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">تكليف جديد</span>
+                <UserPlus className="h-4 w-4 text-blue-400" />
+                <span className="text-sm font-semibold text-blue-300">تكليف جديد</span>
               </div>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-white/70">
                 تم تكليفك بمهمة جديدة: تحديث نظام إدارة المحتوى
               </p>
             </div>
-            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span className="text-sm font-semibold text-green-800">مهمة مكتملة</span>
+                <CheckCircle2 className="h-4 w-4 text-green-400" />
+                <span className="text-sm font-semibold text-green-300">مهمة مكتملة</span>
               </div>
-              <p className="text-sm text-green-700">
+              <p className="text-sm text-white/70">
                 تم إنجاز حملة التسويق الرقمي بنجاح
               </p>
             </div>
-            <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+            <div className="p-4 bg-orange-500/10 border border-orange-500/30 rounded-lg backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Clock className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تذكير</span>
+                <Clock className="h-4 w-4 text-orange-400" />
+                <span className="text-sm font-semibold text-orange-300">تذكير</span>
               </div>
-              <p className="text-sm text-orange-700">
+              <p className="text-sm text-white/70">
                 موعد تسليم التقرير المالي خلال 24 ساعة
               </p>
             </div>
@@ -948,41 +948,41 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     <div className="space-y-6">
       {/* Report Types */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 cursor-pointer">
           <CardContent className="p-6 text-center">
-            <User className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">تقرير الموظفين</h3>
-            <p className="text-sm text-muted-foreground">
+            <User className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2 text-white">تقرير الموظفين</h3>
+            <p className="text-sm text-white/70">
               معدل إنجاز المهام لكل موظف
             </p>
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 cursor-pointer">
           <CardContent className="p-6 text-center">
-            <Building className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">تقرير الأقسام</h3>
-            <p className="text-sm text-muted-foreground">
+            <Building className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2 text-white">تقرير الأقسام</h3>
+            <p className="text-sm text-white/70">
               أداء المهام حسب القسم
             </p>
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 cursor-pointer">
           <CardContent className="p-6 text-center">
-            <AlertTriangle className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">تحليل التأخير</h3>
-            <p className="text-sm text-muted-foreground">
+            <AlertTriangle className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2 text-white">تحليل التأخير</h3>
+            <p className="text-sm text-white/70">
               المهام المتأخرة وأسبابها
             </p>
           </CardContent>
         </Card>
 
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 cursor-pointer">
           <CardContent className="p-6 text-center">
-            <TrendingUp className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">مؤشرات الأداء</h3>
-            <p className="text-sm text-muted-foreground">
+            <TrendingUp className="h-12 w-12 text-emerald-400 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2 text-white">مؤشرات الأداء</h3>
+            <p className="text-sm text-white/70">
               الإنتاجية ومعايير SLA
             </p>
           </CardContent>
@@ -991,30 +991,37 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Detailed Reports */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <BarChart3 className="h-5 w-5 text-emerald-400" />
               معدل الإنجاز حسب القسم
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={taskCategories}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="performance" fill="#3b82f6" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis dataKey="name" stroke="#9ca3af" />
+                <YAxis stroke="#9ca3af" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '8px',
+                    color: '#fff'
+                  }} 
+                />
+                <Bar dataKey="performance" fill="#10b981" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <PieChart className="h-5 w-5 text-emerald-400" />
               توزيع المهام حسب القسم
             </CardTitle>
           </CardHeader>
@@ -1034,7 +1041,14 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '8px',
+                    color: '#fff'
+                  }} 
+                />
               </RechartsPieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -1042,25 +1056,25 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       {/* Export Options */}
-      <Card>
+      <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
         <CardHeader>
-          <CardTitle>خيارات التصدير</CardTitle>
+          <CardTitle className="text-white">خيارات التصدير</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-4">
-            <Button variant="outline" onClick={handleExport}>
+            <Button variant="outline" onClick={handleExport} className="border-white/20 bg-white/5 text-white hover:bg-white/10">
               <Download className="h-4 w-4 ml-2" />
               تصدير PDF
             </Button>
-            <Button variant="outline" onClick={handleExport}>
+            <Button variant="outline" onClick={handleExport} className="border-white/20 bg-white/5 text-white hover:bg-white/10">
               <FileText className="h-4 w-4 ml-2" />
               تصدير Excel
             </Button>
-            <Button variant="outline" onClick={handlePrint}>
+            <Button variant="outline" onClick={handlePrint} className="border-white/20 bg-white/5 text-white hover:bg-white/10">
               <FileText className="h-4 w-4 ml-2" />
               طباعة التقرير
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" className="border-white/20 bg-white/5 text-white hover:bg-white/10">
               <Share className="h-4 w-4 ml-2" />
               مشاركة
             </Button>
@@ -1073,32 +1087,32 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   const renderSettings = () => (
     <div className="space-y-6">
       {/* Task Categories */}
-      <Card>
+      <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <BookOpen className="h-5 w-5 text-emerald-400" />
             فئات المهام
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {taskCategories.map((category) => (
-              <div key={category.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div key={category.id} className="flex items-center justify-between p-4 border border-white/10 rounded-lg bg-white/5 backdrop-blur-sm">
                 <div className="flex-1">
-                  <h4 className="font-semibold">{category.name}</h4>
-                  <p className="text-sm text-muted-foreground">{category.description}</p>
+                  <h4 className="font-semibold text-white">{category.name}</h4>
+                  <p className="text-sm text-white/70">{category.description}</p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
             ))}
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full border-white/20 bg-white/5 text-white hover:bg-white/10">
               <Plus className="h-4 w-4 ml-2" />
               إضافة فئة جديدة
             </Button>
@@ -1108,22 +1122,22 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* User Permissions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <Shield className="h-5 w-5 text-emerald-400" />
               صلاحيات المستخدمين
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>إنشاء المهام</Label>
+                <Label className="text-white">إنشاء المهام</Label>
                 <Select defaultValue="managers">
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black/90 border-white/10">
                     <SelectItem value="all">جميع المستخدمين</SelectItem>
                     <SelectItem value="managers">المدراء فقط</SelectItem>
                     <SelectItem value="admins">المشرفين فقط</SelectItem>
@@ -1132,12 +1146,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               </div>
               
               <div className="space-y-2">
-                <Label>تعديل المهام</Label>
+                <Label className="text-white">تعديل المهام</Label>
                 <Select defaultValue="assigned">
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black/90 border-white/10">
                     <SelectItem value="all">جميع المستخدمين</SelectItem>
                     <SelectItem value="assigned">المكلف بالمهمة</SelectItem>
                     <SelectItem value="managers">المدراء فقط</SelectItem>
@@ -1146,12 +1160,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               </div>
 
               <div className="space-y-2">
-                <Label>حذف المهام</Label>
+                <Label className="text-white">حذف المهام</Label>
                 <Select defaultValue="admins">
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black/90 border-white/10">
                     <SelectItem value="creator">منشئ المهمة</SelectItem>
                     <SelectItem value="managers">المدراء فقط</SelectItem>
                     <SelectItem value="admins">المشرفين فقط</SelectItem>
@@ -1162,22 +1176,22 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <Settings className="h-5 w-5 text-emerald-400" />
               إعدادات المتابعة
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>التذكيرات الافتراضية</Label>
+                <Label className="text-white">التذكيرات الافتراضية</Label>
                 <Select defaultValue="1day">
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black/90 border-white/10">
                     <SelectItem value="1hour">ساعة واحدة</SelectItem>
                     <SelectItem value="6hours">6 ساعات</SelectItem>
                     <SelectItem value="1day">يوم واحد</SelectItem>
@@ -1187,12 +1201,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               </div>
 
               <div className="space-y-2">
-                <Label>قواعد التصعيد</Label>
+                <Label className="text-white">قواعد التصعيد</Label>
                 <Select defaultValue="auto">
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black/90 border-white/10">
                     <SelectItem value="auto">تلقائي</SelectItem>
                     <SelectItem value="manual">يدوي</SelectItem>
                     <SelectItem value="disabled">معطل</SelectItem>
@@ -1201,12 +1215,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               </div>
 
               <div className="space-y-2">
-                <Label>تدفق العمل</Label>
+                <Label className="text-white">تدفق العمل</Label>
                 <Select defaultValue="standard">
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-black/40 border-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-black/90 border-white/10">
                     <SelectItem value="simple">بسيط</SelectItem>
                     <SelectItem value="standard">قياسي</SelectItem>
                     <SelectItem value="advanced">متقدم</SelectItem>
@@ -1220,8 +1234,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Save Settings */}
       <div className="flex justify-end gap-2">
-        <Button variant="outline">إلغاء</Button>
-        <Button>حفظ الإعدادات</Button>
+        <Button variant="outline" className="border-white/20 bg-white/5 text-white hover:bg-white/10">إلغاء</Button>
+        <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white">حفظ الإعدادات</Button>
       </div>
     </div>
   );
@@ -1229,23 +1243,23 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   // Add Task Dialog
   const AddTaskDialog = () => (
     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl bg-black/95 backdrop-blur-md border border-white/10 text-white">
         <DialogHeader>
-          <DialogTitle>إضافة مهمة جديدة</DialogTitle>
+          <DialogTitle className="text-white">إضافة مهمة جديدة</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>عنوان المهمة</Label>
-              <Input placeholder="أدخل عنوان المهمة" />
+              <Label className="text-white">عنوان المهمة</Label>
+              <Input placeholder="أدخل عنوان المهمة" className="bg-black/40 border-white/10 text-white placeholder:text-white/50" />
             </div>
             <div className="space-y-2">
-              <Label>الأولوية</Label>
+              <Label className="text-white">الأولوية</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="bg-black/40 border-white/10 text-white">
                   <SelectValue placeholder="اختر الأولوية" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black/90 border-white/10">
                   <SelectItem value="urgent">عاجل</SelectItem>
                   <SelectItem value="high">عالي</SelectItem>
                   <SelectItem value="medium">متوسط</SelectItem>
@@ -1256,18 +1270,18 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </div>
 
           <div className="space-y-2">
-            <Label>الوصف</Label>
-            <Textarea placeholder="وصف تفصيلي للمهمة" rows={3} />
+            <Label className="text-white">الوصف</Label>
+            <Textarea placeholder="وصف تفصيلي للمهمة" rows={3} className="bg-black/40 border-white/10 text-white placeholder:text-white/50" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label>المسؤول</Label>
+              <Label className="text-white">المسؤول</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="bg-black/40 border-white/10 text-white">
                   <SelectValue placeholder="اختر المسؤول" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black/90 border-white/10">
                   <SelectItem value="emp_001">أحمد محمد الخالدي</SelectItem>
                   <SelectItem value="emp_002">فاطمة سالم المطيري</SelectItem>
                   <SelectItem value="emp_003">محمد علي العبدالله</SelectItem>
@@ -1275,12 +1289,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>القسم</Label>
+              <Label className="text-white">القسم</Label>
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="bg-black/40 border-white/10 text-white">
                   <SelectValue placeholder="اختر القسم" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black/90 border-white/10">
                   <SelectItem value="hr">الموارد البشرية</SelectItem>
                   <SelectItem value="finance">المالية</SelectItem>
                   <SelectItem value="operations">العمليات</SelectItem>
@@ -1289,18 +1303,18 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>تاريخ التسليم</Label>
-              <Input type="date" />
+              <Label className="text-white">تاريخ التسليم</Label>
+              <Input type="date" className="bg-black/40 border-white/10 text-white" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label>الفئة</Label>
+            <Label className="text-white">الفئة</Label>
             <Select>
-              <SelectTrigger>
+              <SelectTrigger className="bg-black/40 border-white/10 text-white">
                 <SelectValue placeholder="اختر الفئة" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-black/90 border-white/10">
                 <SelectItem value="hr">موارد بشرية</SelectItem>
                 <SelectItem value="finance">مالية</SelectItem>
                 <SelectItem value="operations">عمليات</SelectItem>
@@ -1311,7 +1325,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </div>
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsAddDialogOpen(false)} className="border-white/20 bg-white/5 text-white hover:bg-white/10">
               إلغاء
             </Button>
             <Button onClick={() => {
@@ -1320,7 +1334,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                 title: "تم إنشاء المهمة",
                 description: "تم إنشاء المهمة الجديدة بنجاح",
               });
-            }}>
+            }} className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white">
               إنشاء المهمة
             </Button>
           </div>
