@@ -49,9 +49,13 @@ export const VisionSection: React.FC = () => {
         {/* Header */}
         <div className="text-center space-y-8 mb-20">
           <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
-            <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
-              <Target className="w-5 h-5 mr-2" />
+            {/* Enhanced animated background with multiple layers */}
+            <div className="absolute -inset-6 bg-gradient-to-r from-primary/30 via-primary-glow/20 to-primary/30 rounded-3xl blur-3xl opacity-40 animate-pulse"></div>
+            <div className="absolute -inset-3 bg-gradient-to-br from-primary/10 via-transparent to-primary-glow/10 rounded-2xl blur-xl opacity-60 animate-pulse" style={{ animationDelay: '1s' }}></div>
+            
+            {/* Interactive badge with enhanced styling */}
+            <Badge className="relative bg-gradient-to-r from-primary/20 via-primary-glow/15 to-primary/20 text-primary border border-primary/40 px-8 py-4 text-lg font-bold backdrop-blur-md shadow-2xl hover:shadow-primary/25 transition-all duration-500 hover:scale-105 hover:border-primary/60">
+              <Target className="w-6 h-6 mr-3" />
               رؤيتنا ورسالتنا
             </Badge>
           </div>
