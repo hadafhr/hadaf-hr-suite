@@ -12,6 +12,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ExpenseRequestsManager } from './ExpenseRequestsManager';
 import { ExpenseReportsAnalytics } from './ExpenseReportsAnalytics';
+import { ExpenseTransactionsManager } from './ExpenseTransactionsManager';
+import { ExpenseSettingsPolicies } from './ExpenseSettingsPolicies';
 
 interface AdvancedExpensesManagementProps {
   onBack: () => void;
@@ -389,19 +391,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
           </TabsContent>
 
           <TabsContent value="transactions">
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <CardHeader>
-                <CardTitle className="text-white">
-                  {isRTL ? 'المعاملات' : 'Transactions'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center text-gray-400 py-16">
-                  <Receipt className="h-16 w-16 mx-auto mb-4 opacity-30" />
-                  <p>{isRTL ? 'جاري تطوير واجهة المعاملات المتقدمة' : 'Advanced transactions interface under development'}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <ExpenseTransactionsManager isRTL={isRTL} />
           </TabsContent>
 
           <TabsContent value="reports">
@@ -409,19 +399,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
           </TabsContent>
 
           <TabsContent value="settings">
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <CardHeader>
-                <CardTitle className="text-white">
-                  {isRTL ? 'الإعدادات والسياسات' : 'Settings & Policies'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center text-gray-400 py-16">
-                  <Settings className="h-16 w-16 mx-auto mb-4 opacity-30" />
-                  <p>{isRTL ? 'جاري تطوير واجهة الإعدادات والسياسات المتقدمة' : 'Advanced settings and policies interface under development'}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <ExpenseSettingsPolicies isRTL={isRTL} />
           </TabsContent>
         </Tabs>
       </div>
