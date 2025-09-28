@@ -249,7 +249,7 @@ const DemoRequestPage = () => {
 
       {/* Enhanced Hero Section */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90"></div>
         <div className="container mx-auto px-4 relative z-10">
           {/* Floating background elements */}
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
