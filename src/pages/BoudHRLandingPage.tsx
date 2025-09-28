@@ -88,7 +88,7 @@ const BoudHRLandingPage: React.FC = () => {
     }],
     contact: [{
       name: "تواصل معنا",
-      href: "#contact"
+      href: "/contact"
     }, {
       name: "الدعم الفني",
       href: "/chat-messaging"
