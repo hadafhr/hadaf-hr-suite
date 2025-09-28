@@ -360,12 +360,12 @@ const BoudHRLandingPage: React.FC = () => {
                 👥 انضم الى فريقنا
               </Button>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors">
-                  تواصل معنا <ChevronDown className="w-4 h-4 transition-transform group-data-[state=open]:rotate-180" />
-                </DropdownMenuTrigger>
-                
-              </DropdownMenu>
+              <button 
+                onClick={() => navigate('/contact')} 
+                className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors"
+              >
+                تواصل معنا
+              </button>
             </nav>
 
             {/* CTA Buttons */}
