@@ -552,9 +552,29 @@ const ComprehensiveEmployeeManagement = () => {
                     </TabsTrigger>
                   </TabsList>
 
+                  <TabsContent value="payroll">
+                    <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="wageprotection">
+                    <ComprehensiveWageProtection onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="insurance">
+                    <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="expenses">
+                    <AdvancedExpensesManagement onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="benefits">
+                    <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="budget-planning">
+                    <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
                 </Tabs>
               </div>
@@ -783,17 +803,8 @@ const ComprehensiveEmployeeManagement = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="payroll">
-            <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-
           <TabsContent value="organization">
             <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="wageprotection">
-            <ComprehensiveWageProtection onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="performance">
@@ -808,26 +819,8 @@ const ComprehensiveEmployeeManagement = () => {
             <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
-
-          <TabsContent value="insurance">
-            <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="expenses">
-            <AdvancedExpensesManagement onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="benefits">
-            <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
           <TabsContent value="meetings">
-            <MeetingHub />
-          </TabsContent>
-
-
-          <TabsContent value="budget-planning">
-            <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
+            <MeetingHub onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="settings">

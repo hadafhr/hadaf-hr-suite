@@ -11,7 +11,11 @@ import { DocumentsTab } from '@/components/meeting-hub/DocumentsTab';
 import { TasksTab } from '@/components/meeting-hub/TasksTab';
 import { AnalyticsTab } from '@/components/meeting-hub/AnalyticsTab';
 
-export default function MeetingHub() {
+interface MeetingHubProps {
+  onBack?: () => void;
+}
+
+export default function MeetingHub({ onBack }: MeetingHubProps = {}) {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -36,7 +40,7 @@ export default function MeetingHub() {
         {/* Header */}
         <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20">
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => navigate('/')} className="border-gray-300 hover:bg-primary/5">
+            <Button variant="outline" size="sm" onClick={onBack ? onBack : () => navigate('/')} className="border-gray-300 hover:bg-primary/5">
               <ArrowLeft className="h-4 w-4 ml-2" />
               رجوع
             </Button>
