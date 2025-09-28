@@ -670,8 +670,9 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {features.map((feature, index) => {
             const IconComponent = feature.icon;
-            return <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
-                  <Card className="relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-xl hover:scale-105">
+            return (
+              <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
+                <Card className="relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-xl hover:scale-105">
                     {/* Premium Border Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary-glow/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
                     <div className="absolute inset-[1px] bg-gradient-to-br from-background/95 to-muted/50 rounded-2xl"></div>
@@ -774,7 +775,8 @@ const BoudHRLandingPage: React.FC = () => {
                       </CardContent>
                     </div>
                   </Card>
-                </div>;
+                </div>
+              );
           })}
           </div>
 
@@ -843,7 +845,8 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => {
             const IconComponent = benefit.icon;
-            return <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+            return (
+              <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
                   <CardContent className="pt-8 pb-6">
                     <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-8 h-8 text-primary" />
@@ -852,7 +855,8 @@ const BoudHRLandingPage: React.FC = () => {
                     <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
                     <p className="text-muted-foreground text-sm">{benefit.description}</p>
                   </CardContent>
-                </Card>;
+                </Card>
+              );
           })}
           </div>
         </div>
@@ -1287,9 +1291,13 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </footer>
       
-
       {/* BOUD HR Assistant with controlled state */}
-      <BoudHRAssistant language="ar" isOpen={assistantOpen} onOpenChange={handleAssistantOpenChange} initialMessage={initialMessage} />
+      <BoudHRAssistant 
+        language="ar" 
+        isOpen={assistantOpen} 
+        onOpenChange={handleAssistantOpenChange} 
+        initialMessage={initialMessage} 
+      />
     </div>
   );
 };
