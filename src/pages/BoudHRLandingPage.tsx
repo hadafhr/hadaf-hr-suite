@@ -655,13 +655,15 @@ const BoudHRLandingPage: React.FC = () => {
               color: "from-red-500/10 to-red-600/5"
             }].map((stat, index) => {
               const IconComponent = stat.icon;
-              return <div key={index} className="group">
-                    <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg`}>
-                      <IconComponent className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
-                      <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">{stat.number}</div>
-                      <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-                    </div>
-                  </div>;
+              return (
+                <div key={index} className="group">
+                  <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg`}>
+                    <IconComponent className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
+                    <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">{stat.number}</div>
+                    <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                  </div>
+                </div>
+              );
             })}
             </div>
           </div>
@@ -1290,7 +1292,6 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
-      
       {/* BOUD HR Assistant with controlled state */}
       <BoudHRAssistant 
         language="ar" 
