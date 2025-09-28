@@ -31,6 +31,7 @@ import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTrainin
 import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ExpensesManagement } from '@/components/systems/ExpensesManagement';
+import { AdvancedExpensesManagement } from '@/components/systems/AdvancedExpensesManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
@@ -813,7 +814,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="expenses">
-            <ExpensesManagement onBack={() => setActiveTab('dashboard')} />
+            <AdvancedExpensesManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="benefits">
