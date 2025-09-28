@@ -1068,7 +1068,7 @@ export default function EmployeeServicesDepartment() {
                     <Download className="h-4 w-4 ml-2" />
                     تصدير
                   </Button>
-                  <Button variant="outline" onClick={handlePrint}>
+                  <Button variant="outline" onClick={handlePrint} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                     <FileText className="h-4 w-4 ml-2" />
                     طباعة
                   </Button>
@@ -1076,103 +1076,103 @@ export default function EmployeeServicesDepartment() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>تقرير استخدام الخدمات</CardTitle>
+                    <CardTitle className="text-white">تقرير استخدام الخدمات</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-white">
                         <span>طلبات الإجازة</span>
                         <span>156</span>
                       </div>
-                      <Progress value={75} />
-                      <div className="flex justify-between">
+                      <Progress value={75} className="bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
+                      <div className="flex justify-between text-white">
                         <span>الشهادات</span>
                         <span>89</span>
                       </div>
-                      <Progress value={60} />
-                      <div className="flex justify-between">
+                      <Progress value={60} className="bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
+                      <div className="flex justify-between text-white">
                         <span>الطلبات الأخرى</span>
                         <span>45</span>
                       </div>
-                      <Progress value={30} />
+                      <Progress value={30} className="bg-gray-800 [&>div]:bg-gradient-to-r [&>div]:from-[#008C6A] [&>div]:to-[#00694F]" />
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>أوقات المعالجة</CardTitle>
+                    <CardTitle className="text-white">أوقات المعالجة</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">1.5</div>
-                        <p className="text-sm text-gray-600">متوسط أيام المعالجة</p>
+                        <div className="text-2xl font-bold text-[#008C6A]">1.5</div>
+                        <p className="text-sm text-gray-300">متوسط أيام المعالجة</p>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">4.7</div>
-                        <p className="text-sm text-gray-600">تقييم الرضا</p>
+                        <div className="text-2xl font-bold text-[#008C6A]">4.7</div>
+                        <p className="text-sm text-gray-300">تقييم الرضا</p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>الإحصائيات الشهرية</CardTitle>
+                    <CardTitle className="text-white">الإحصائيات الشهرية</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <span>الطلبات المقدمة</span>
-                        <Badge variant="secondary">290</Badge>
+                        <span className="text-white">الطلبات المقدمة</span>
+                        <Badge variant="secondary" className="bg-[#008C6A]/20 text-[#008C6A] border-[#008C6A]/30">290</Badge>
                       </div>
                       <div className="flex justify-between">
-                        <span>الطلبات المكتملة</span>
-                        <Badge variant="secondary">267</Badge>
+                        <span className="text-white">الطلبات المكتملة</span>
+                        <Badge variant="secondary" className="bg-[#008C6A]/20 text-[#008C6A] border-[#008C6A]/30">267</Badge>
                       </div>
                       <div className="flex justify-between">
-                        <span>الطلبات المعلقة</span>
-                        <Badge variant="outline">23</Badge>
+                        <span className="text-white">الطلبات المعلقة</span>
+                        <Badge variant="outline" className="border-[#008C6A]/30 text-white">23</Badge>
                       </div>
                       <div className="flex justify-between">
-                        <span>معدل الإنجاز</span>
-                        <Badge>92%</Badge>
+                        <span className="text-white">معدل الإنجاز</span>
+                        <Badge className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white">92%</Badge>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               </div>
               
-              <Card>
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle>تقرير تفصيلي للخدمات</CardTitle>
+                  <CardTitle className="text-white">تقرير تفصيلي للخدمات</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
-                        <tr className="border-b">
-                          <th className="text-right p-2">نوع الخدمة</th>
-                          <th className="text-right p-2">عدد الطلبات</th>
-                          <th className="text-right p-2">معدل الموافقة</th>
-                          <th className="text-right p-2">متوسط وقت المعالجة</th>
-                          <th className="text-right p-2">تقييم الرضا</th>
+                        <tr className="border-b border-[#008C6A]/30">
+                          <th className="text-right p-2 text-white">نوع الخدمة</th>
+                          <th className="text-right p-2 text-white">عدد الطلبات</th>
+                          <th className="text-right p-2 text-white">معدل الموافقة</th>
+                          <th className="text-right p-2 text-white">متوسط وقت المعالجة</th>
+                          <th className="text-right p-2 text-white">تقييم الرضا</th>
                         </tr>
                       </thead>
                       <tbody>
                         {employeeServices.map((service) => (
-                          <tr key={service.id} className="border-b">
-                            <td className="p-2">{service.name}</td>
-                            <td className="p-2">{service.usage}</td>
-                            <td className="p-2">95%</td>
-                            <td className="p-2">{service.avgProcessingTime}</td>
+                          <tr key={service.id} className="border-b border-[#008C6A]/20">
+                            <td className="p-2 text-white">{service.name}</td>
+                            <td className="p-2 text-gray-300">{service.usage}</td>
+                            <td className="p-2 text-gray-300">95%</td>
+                            <td className="p-2 text-gray-300">{service.avgProcessingTime}</td>
                             <td className="p-2">
                               <div className="flex items-center gap-1">
                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                {service.satisfaction}
+                                <span className="text-gray-300">{service.satisfaction}</span>
                               </div>
                             </td>
                           </tr>
@@ -1187,21 +1187,21 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="settings">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold">إعدادات خدمات الموظفين</h2>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إعدادات خدمات الموظفين</h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>الخدمات المتاحة</CardTitle>
+                    <CardTitle className="text-white">الخدمات المتاحة</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {employeeServices.map((service) => (
-                      <div key={service.id} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div key={service.id} className="flex items-center justify-between p-3 border border-[#008C6A]/30 rounded-lg bg-black/20 backdrop-blur-sm hover:bg-[#008C6A]/10 transition-all duration-300">
                         <div className="flex items-center gap-3">
-                          {service.icon}
-                          <span>{service.name}</span>
+                          <span className="text-[#008C6A]">{service.icon}</span>
+                          <span className="text-white">{service.name}</span>
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                           <Settings className="h-4 w-4" />
                         </Button>
                       </div>
@@ -1209,73 +1209,73 @@ export default function EmployeeServicesDepartment() {
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>سلسلة الموافقات</CardTitle>
+                    <CardTitle className="text-white">سلسلة الموافقات</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span>طلبات الإجازة</span>
-                        <span className="text-sm text-gray-600">المدير المباشر ← HR</span>
+                        <span className="text-white">طلبات الإجازة</span>
+                        <span className="text-sm text-gray-300">المدير المباشر ← HR</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>الشهادات</span>
-                        <span className="text-sm text-gray-600">HR مباشرة</span>
+                        <span className="text-white">الشهادات</span>
+                        <span className="text-sm text-gray-300">HR مباشرة</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>السلف والمقدمات</span>
-                        <span className="text-sm text-gray-600">المدير ← المالية ← HR</span>
+                        <span className="text-white">السلف والمقدمات</span>
+                        <span className="text-sm text-gray-300">المدير ← المالية ← HR</span>
                       </div>
                     </div>
-                    <Button className="w-full">
+                    <Button className="w-full bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
                       تخصيص سلسلة الموافقات
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>الأذونات والصلاحيات</CardTitle>
+                    <CardTitle className="text-white">الأذونات والصلاحيات</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span>الموظفون</span>
-                        <Badge variant="secondary">عرض وتعديل البيانات الشخصية</Badge>
+                        <span className="text-white">الموظفون</span>
+                        <Badge variant="secondary" className="bg-[#008C6A]/20 text-[#008C6A] border-[#008C6A]/30">عرض وتعديل البيانات الشخصية</Badge>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>المدراء</span>
-                        <Badge variant="secondary">موافقة على الطلبات</Badge>
+                        <span className="text-white">المدراء</span>
+                        <Badge variant="secondary" className="bg-[#008C6A]/20 text-[#008C6A] border-[#008C6A]/30">موافقة على الطلبات</Badge>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>HR</span>
-                        <Badge>إدارة كاملة</Badge>
+                        <span className="text-white">HR</span>
+                        <Badge className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white">إدارة كاملة</Badge>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       إدارة الأذونات
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle>إعدادات الإشعارات</CardTitle>
+                    <CardTitle className="text-white">إعدادات الإشعارات</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span>إشعار عند الطلب الجديد</span>
-                        <Button variant="outline" size="sm">تفعيل</Button>
+                        <span className="text-white">إشعار عند الطلب الجديد</span>
+                        <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">تفعيل</Button>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>تذكير للمراجعة</span>
-                        <Button variant="outline" size="sm">تفعيل</Button>
+                        <span className="text-white">تذكير للمراجعة</span>
+                        <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">تفعيل</Button>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>إشعار اكتمال الطلب</span>
-                        <Button variant="outline" size="sm">تفعيل</Button>
+                        <span className="text-white">إشعار اكتمال الطلب</span>
+                        <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">تفعيل</Button>
                       </div>
                     </div>
                   </CardContent>
