@@ -361,10 +361,10 @@ const BoudHRLandingPage: React.FC = () => {
               </Button>
 
               <button 
-                onClick={() => navigate('/contact')} 
+                onClick={() => navigate('/demo-request')} 
                 className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors"
               >
-                تواصل معنا
+                احجز عرض تجريبي
               </button>
             </nav>
 

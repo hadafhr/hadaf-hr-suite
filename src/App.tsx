@@ -86,6 +86,7 @@ import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeManagementInfo from './pages/EmployeeManagementInfo';
 import SelfServiceInfo from './pages/SelfServiceInfo';
 import DemoRequest from './pages/DemoRequest';
+import DemoRequestPage from './pages/DemoRequestPage';
 import Contact from './pages/Contact';
 import AddEmployee from './pages/AddEmployee';
 import HRToolsPage from './pages/HRToolsPage';
@@ -210,7 +211,7 @@ const App = () => {
             <Route path="/employee-login" element={<EmployeeLogin />} />
             <Route path="/employee-management-info" element={<EmployeeManagementInfo />} />
             <Route path="/self-service-info" element={<SelfServiceInfo />} />
-            <Route path="/demo-request" element={<DemoRequest />} />
+            <Route path="/demo-request" element={<DemoRequestPage />} />
             <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
