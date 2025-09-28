@@ -1,70 +1,47 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { BoudLogo } from '@/components/BoudLogo';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Phone, Mail, MapPin, MessageCircle, Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { ArrowLeft, Send, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { toast } from 'sonner';
+
+const contactSchema = z.object({
+  name: z.string().min(2, { message: "الاسم يجب أن يكون على الأقل حرفين" }),
+  email: z.string().email({ message: "البريد الإلكتروني غير صحيح" }),
+  phone: z.string().min(10, { message: "رقم الهاتف يجب أن يكون على الأقل 10 أرقام" }),
+  subject: z.string().min(5, { message: "الموضوع يجب أن يكون على الأقل 5 أحرف" }),
+  message: z.string().min(10, { message: "الرسالة يجب أن تكون على الأقل 10 أحرف" })
+});
+
+type ContactForm = z.infer<typeof contactSchema>;
 
 const Contact: React.FC = () => {
   const navigate = useNavigate();
-
-  const contactMethods = [
-    {
-      title: "سناب شات",
-      description: "تابعنا على سناب شات للحصول على آخر الأخبار والتحديثات",
-      icon: MessageCircle,
-      link: "https://snapchat.com/add/boudhr",
-      color: "text-yellow-500"
-    },
-    {
-      title: "واتساب",
-      description: "تواصل معنا مباشرة عبر واتساب",
-      icon: MessageCircle,
-      link: "https://wa.me/966920033445",
-      color: "text-green-500"
-    },
-    {
-      title: "البريد الإلكتروني",
-      description: "راسلنا على البريد الإلكتروني الرسمي",
-      icon: Mail,
-      link: "mailto:info@boud.com.sa",
-      color: "text-blue-500"
-    },
-    {
-      title: "إنستغرام",
-      description: "تابع منشوراتنا وقصص نجاح عملائنا",
-      icon: Instagram,
-      link: "https://instagram.com/boudhr",
-      color: "text-pink-500"
-    },
-    {
-      title: "تيك توك",
-      description: "شاهد محتوانا التعليمي والترفيهي",
-      icon: MessageCircle,
-      link: "https://tiktok.com/@boudhr",
-      color: "text-gray-800"
-    },
-    {
-      title: "لينكدإن",
-      description: "تواصل معنا مهنياً على لينكدإن",
-      icon: Linkedin,
-      link: "https://linkedin.com/company/boudhr",
-      color: "text-blue-600"
-    },
-    {
-      title: "X (تويتر)",
-      description: "تابع آخر الأخبار والإعلانات",
-      icon: Twitter,
-      link: "https://x.com/boudhr",
-      color: "text-gray-900"
+  
+  const form = useForm<ContactForm>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
     }
-  ];
+  });
 
-  const officeInfo = {
-    address: "الرياض، المملكة العربية السعودية",
-    phone: "920033445",
-    email: "info@boud.com.sa",
-    workingHours: "الأحد - الخميس: 8:00 ص - 5:00 م"
+  const onSubmit = (data: ContactForm) => {
+    // Here you would typically send the form data to your backend
+    console.log('Form submitted:', data);
+    toast.success('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.');
+    form.reset();
   };
 
   return (
@@ -93,57 +70,127 @@ const Contact: React.FC = () => {
             تواصل معنا
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            نحن هنا لمساعدتك! تواصل معنا عبر أي من قنوات التواصل التالية وسيسعد فريقنا بالرد عليك
+            نحن هنا لمساعدتك! املأ النموذج أدناه وسيتواصل معك فريقنا في أقرب وقت ممكن
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Contact Methods */}
+        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Contact Form */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-foreground mb-6">قنوات التواصل</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {contactMethods.map((method, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all duration-300 cursor-pointer">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-3">
-                      <method.icon className={`w-6 h-6 ${method.color}`} />
-                      {method.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">{method.description}</p>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Send className="w-5 h-5 text-primary" />
+                  نموذج التواصل
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>الاسم الكامل</FormLabel>
+                            <FormControl>
+                              <Input placeholder="أدخل اسمك الكامل" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>البريد الإلكتروني</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="example@email.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>رقم الهاتف</FormLabel>
+                            <FormControl>
+                              <Input placeholder="05xxxxxxxx" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>موضوع الرسالة</FormLabel>
+                            <FormControl>
+                              <Input placeholder="أدخل موضوع رسالتك" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>نص الرسالة</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="اكتب رسالتك هنا..."
+                              className="min-h-[120px]"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
                     <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => window.open(method.link, '_blank')}
+                      type="submit" 
                       className="w-full"
+                      disabled={form.formState.isSubmitting}
                     >
-                      تواصل الآن
+                      <Send className="w-4 h-4 ml-2" />
+                      إرسال الرسالة
                     </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Office Information */}
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">معلومات المكتب</h2>
+          {/* Contact Information */}
+          <div className="space-y-6">
             <Card>
-              <CardContent className="pt-6 space-y-6">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-medium mb-1">العنوان</h4>
-                    <p className="text-muted-foreground">{officeInfo.address}</p>
-                  </div>
-                </div>
-                
+              <CardHeader>
+                <CardTitle>معلومات التواصل</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="font-medium mb-1">الهاتف</h4>
-                    <p className="text-muted-foreground">{officeInfo.phone}</p>
+                    <p className="text-muted-foreground">920033445</p>
                   </div>
                 </div>
                 
@@ -151,90 +198,55 @@ const Contact: React.FC = () => {
                   <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="font-medium mb-1">البريد الإلكتروني</h4>
-                    <p className="text-muted-foreground">{officeInfo.email}</p>
+                    <p className="text-muted-foreground">info@boud.com.sa</p>
                   </div>
                 </div>
                 
-                <div className="pt-4 border-t">
-                  <h4 className="font-medium mb-2">ساعات العمل</h4>
-                  <p className="text-muted-foreground">{officeInfo.workingHours}</p>
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-medium mb-1">العنوان</h4>
+                    <p className="text-muted-foreground">الرياض، المملكة العربية السعودية</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-medium mb-1">ساعات العمل</h4>
+                    <p className="text-muted-foreground">الأحد - الخميس: 8:00 ص - 5:00 م</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Quick Actions */}
-            <div className="mt-6 space-y-3">
-              <Button 
-                onClick={() => navigate('/demo-request')}
-                className="w-full bg-primary hover:bg-primary/90"
-              >
-                اطلب عرض توضيحي
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/service-calculator')}
-                className="w-full"
-              >
-                احسب اشتراكك
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/schedule-meeting')}
-                className="w-full"
-              >
-                احجز اجتماع
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-foreground text-center mb-8">
-            الأسئلة الشائعة
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">كم يستغرق الرد على الاستفسارات؟</CardTitle>
+                <CardTitle>خدمات سريعة</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  نلتزم بالرد على جميع الاستفسارات خلال 24 ساعة في أيام العمل.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">هل يمكنني طلب عرض توضيحي مجاني؟</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  نعم، نوفر عروض توضيحية مجانية مخصصة حسب احتياجات شركتك.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">هل تقدمون الدعم باللغة العربية؟</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  نعم، فريق الدعم الفني لدينا يتحدث العربية ومتاح لمساعدتك.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">ما هي طرق الدفع المتاحة؟</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  نقبل التحويل البنكي، الشيكات، والدفع الإلكتروني المحلي.
-                </p>
+              <CardContent className="space-y-3">
+                <Button 
+                  onClick={() => navigate('/demo-request')}
+                  className="w-full"
+                  variant="default"
+                >
+                  اطلب عرض توضيحي
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/service-calculator')}
+                  className="w-full"
+                >
+                  احسب اشتراكك
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/schedule-meeting')}
+                  className="w-full"
+                >
+                  احجز اجتماع
+                </Button>
               </CardContent>
             </Card>
           </div>
