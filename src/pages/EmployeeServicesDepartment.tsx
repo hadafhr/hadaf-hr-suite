@@ -540,37 +540,37 @@ export default function EmployeeServicesDepartment() {
       {renderHeader()}
       
       <div className="container mx-auto p-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 h-auto p-1 bg-muted/50">
-            <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
+          <TabsList className="grid w-full grid-cols-8 h-auto p-1 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl">
+            <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <BarChart3 className="h-4 w-4" />
               <span className="text-xs">لوحة التحكم</span>
             </TabsTrigger>
-            <TabsTrigger value="requests" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="requests" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <FileText className="h-4 w-4" />
               <span className="text-xs">طلبات الموظفين</span>
             </TabsTrigger>
-            <TabsTrigger value="profile" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="profile" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <User className="h-4 w-4" />
               <span className="text-xs">الملف الشخصي</span>
             </TabsTrigger>
-            <TabsTrigger value="documents" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="documents" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <Archive className="h-4 w-4" />
               <span className="text-xs">الوثائق والشهادات</span>
             </TabsTrigger>
-            <TabsTrigger value="selfservice" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="selfservice" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <UserCheck className="h-4 w-4" />
               <span className="text-xs">الخدمة الذاتية</span>
             </TabsTrigger>
-            <TabsTrigger value="chat" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="chat" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <MessageSquare className="h-4 w-4" />
               <span className="text-xs">الدردشة مع HR</span>
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <TrendingUp className="h-4 w-4" />
               <span className="text-xs">التقارير</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex flex-col gap-1 py-3">
+            <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
               <Settings className="h-4 w-4" />
               <span className="text-xs">الإعدادات</span>
             </TabsTrigger>
@@ -583,70 +583,70 @@ export default function EmployeeServicesDepartment() {
           <TabsContent value="requests">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">طلبات الموظفين</h2>
-                <Button onClick={() => setIsRequestDialogOpen(true)}>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">طلبات الموظفين</h2>
+                <Button onClick={() => setIsRequestDialogOpen(true)} className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
                   <Plus className="h-4 w-4 ml-2" />
                   طلب جديد
                 </Button>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <Calendar className="h-8 w-8 text-blue-500 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">طلب إجازة</h3>
-                    <p className="text-sm text-gray-600">إجازة سنوية، مرضية، طارئة</p>
+                    <Calendar className="h-8 w-8 text-blue-400 mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-white">طلب إجازة</h3>
+                    <p className="text-sm text-gray-300">إجازة سنوية، مرضية، طارئة</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <FileText className="h-8 w-8 text-green-500 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">شهادة راتب</h3>
-                    <p className="text-sm text-gray-600">للبنوك والجهات الرسمية</p>
+                    <FileText className="h-8 w-8 text-green-400 mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-white">شهادة راتب</h3>
+                    <p className="text-sm text-gray-300">للبنوك والجهات الرسمية</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <Award className="h-8 w-8 text-purple-500 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">شهادة خبرة</h3>
-                    <p className="text-sm text-gray-600">شهادة خبرة رسمية</p>
+                    <Award className="h-8 w-8 text-purple-400 mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-white">شهادة خبرة</h3>
+                    <p className="text-sm text-gray-300">شهادة خبرة رسمية</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <DollarSign className="h-8 w-8 text-orange-500 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2">سلفة أو مقدم</h3>
-                    <p className="text-sm text-gray-600">طلب سلفة على الراتب</p>
+                    <DollarSign className="h-8 w-8 text-orange-400 mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-white">سلفة أو مقدم</h3>
+                    <p className="text-sm text-gray-300">طلب سلفة على الراتب</p>
                   </CardContent>
                 </Card>
               </div>
 
-              <Card>
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle>سجل الطلبات</CardTitle>
+                  <CardTitle className="text-white">سجل الطلبات</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {employeeRequests.map((request) => (
-                      <div key={request.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div key={request.id} className="flex items-center justify-between p-4 border border-[#008C6A]/20 rounded-lg bg-black/20 backdrop-blur-sm">
                         <div className="flex items-center gap-4">
-                          <div className="p-2 bg-primary/10 rounded-lg">
-                            <FileText className="h-4 w-4 text-primary" />
+                          <div className="p-2 bg-[#008C6A]/20 rounded-lg">
+                            <FileText className="h-4 w-4 text-[#008C6A]" />
                           </div>
                           <div>
-                            <h4 className="font-medium">{request.title}</h4>
-                            <p className="text-sm text-gray-600">{request.description}</p>
-                            <p className="text-xs text-gray-500">{request.referenceNumber}</p>
+                            <h4 className="font-medium text-white">{request.title}</h4>
+                            <p className="text-sm text-gray-300">{request.description}</p>
+                            <p className="text-xs text-gray-400">{request.referenceNumber}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-4">
                           <Badge className={getStatusColor(request.status)}>
                             {getStatusText(request.status)}
                           </Badge>
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                             <Eye className="h-4 w-4" />
                           </Button>
                         </div>
@@ -660,71 +660,71 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="profile">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold">الملف الشخصي والبيانات</h2>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">الملف الشخصي والبيانات</h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 text-white">
                       <User className="h-5 w-5" />
                       المعلومات الأساسية
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="text-center">
-                      <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <User className="h-8 w-8 text-gray-500" />
+                      <div className="w-20 h-20 bg-gray-700/50 backdrop-blur-sm rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <User className="h-8 w-8 text-gray-300" />
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                         <Upload className="h-4 w-4 ml-2" />
                         تغيير الصورة
                       </Button>
                     </div>
-                    <Separator />
+                    <Separator className="bg-[#008C6A]/20" />
                     <div className="space-y-3">
                       <div>
-                        <Label>الاسم الكامل</Label>
-                        <Input defaultValue="أحمد محمد الخالدي" />
+                        <Label className="text-gray-300">الاسم الكامل</Label>
+                        <Input defaultValue="أحمد محمد الخالدي" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                       </div>
                       <div>
-                        <Label>رقم الهوية</Label>
-                        <Input defaultValue="1234567890" />
+                        <Label className="text-gray-300">رقم الهوية</Label>
+                        <Input defaultValue="1234567890" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                       </div>
                       <div>
-                        <Label>تاريخ الميلاد</Label>
-                        <Input type="date" defaultValue="1990-01-15" />
+                        <Label className="text-gray-300">تاريخ الميلاد</Label>
+                        <Input type="date" defaultValue="1990-01-15" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                       </div>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 text-white">
                       <Phone className="h-5 w-5" />
                       معلومات الاتصال
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label>رقم الهاتف</Label>
-                      <Input defaultValue="+966501234567" />
+                      <Label className="text-gray-300">رقم الهاتف</Label>
+                      <Input defaultValue="+966501234567" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                     </div>
                     <div>
-                      <Label>البريد الإلكتروني</Label>
-                      <Input defaultValue="ahmed@company.com" />
+                      <Label className="text-gray-300">البريد الإلكتروني</Label>
+                      <Input defaultValue="ahmed@company.com" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                     </div>
                     <div>
-                      <Label>العنوان</Label>
-                      <Textarea defaultValue="الرياض، المملكة العربية السعودية" />
+                      <Label className="text-gray-300">العنوان</Label>
+                      <Textarea defaultValue="الرياض، المملكة العربية السعودية" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                     </div>
                     <div>
-                      <Label>الحالة الاجتماعية</Label>
+                      <Label className="text-gray-300">الحالة الاجتماعية</Label>
                       <Select defaultValue="married">
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-gray-900/90 backdrop-blur-xl text-white border-[#008C6A]/30">
                           <SelectItem value="single">أعزب</SelectItem>
                           <SelectItem value="married">متزوج</SelectItem>
                           <SelectItem value="divorced">مطلق</SelectItem>
@@ -735,27 +735,27 @@ export default function EmployeeServicesDepartment() {
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 text-white">
                       <Users className="h-5 w-5" />
                       جهات الاتصال الطارئة
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label>اسم جهة الاتصال</Label>
-                      <Input defaultValue="فاطمة أحمد الخالدي" />
+                      <Label className="text-gray-300">اسم جهة الاتصال</Label>
+                      <Input defaultValue="فاطمة أحمد الخالدي" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                     </div>
                     <div>
-                      <Label>صلة القرابة</Label>
-                      <Input defaultValue="الزوجة" />
+                      <Label className="text-gray-300">صلة القرابة</Label>
+                      <Input defaultValue="الزوجة" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                     </div>
                     <div>
-                      <Label>رقم الهاتف</Label>
-                      <Input defaultValue="+966507654321" />
+                      <Label className="text-gray-300">رقم الهاتف</Label>
+                      <Input defaultValue="+966507654321" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
                     </div>
-                    <Button className="w-full">
+                    <Button className="w-full bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
                       <Plus className="h-4 w-4 ml-2" />
                       إضافة جهة اتصال أخرى
                     </Button>
@@ -764,8 +764,8 @@ export default function EmployeeServicesDepartment() {
               </div>
               
               <div className="flex justify-end gap-2">
-                <Button variant="outline">إلغاء</Button>
-                <Button>حفظ التغييرات</Button>
+                <Button variant="outline" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">إلغاء</Button>
+                <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">حفظ التغييرات</Button>
               </div>
             </div>
           </TabsContent>
@@ -773,92 +773,92 @@ export default function EmployeeServicesDepartment() {
           <TabsContent value="documents">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">الوثائق والشهادات</h2>
-                <Button>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">الوثائق والشهادات</h2>
+                <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
                   <Upload className="h-4 w-4 ml-2" />
                   رفع وثيقة
                 </Button>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 text-white">
                       <FileText className="h-5 w-5" />
                       الشهادات الرسمية
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">شهادة راتب - يناير 2024</span>
-                        <Button variant="ghost" size="sm">
+                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
+                        <span className="text-sm text-gray-300">شهادة راتب - يناير 2024</span>
+                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">شهادة خبرة</span>
-                        <Button variant="ghost" size="sm">
+                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
+                        <span className="text-sm text-gray-300">شهادة خبرة</span>
+                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                         طلب شهادة جديدة
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 text-white">
                       <Shield className="h-5 w-5" />
                       الوثائق الشخصية
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">صورة الهوية الوطنية</span>
-                        <Button variant="ghost" size="sm">
+                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
+                        <span className="text-sm text-gray-300">صورة الهوية الوطنية</span>
+                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">السيرة الذاتية</span>
-                        <Button variant="ghost" size="sm">
+                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
+                        <span className="text-sm text-gray-300">السيرة الذاتية</span>
+                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                         رفع وثيقة جديدة
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card>
+                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
+                    <CardTitle className="flex items-center gap-2 text-white">
                       <CreditCard className="h-5 w-5" />
                       الوثائق المالية
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">معلومات الحساب البنكي</span>
-                        <Button variant="ghost" size="sm">
+                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
+                        <span className="text-sm text-gray-300">معلومات الحساب البنكي</span>
+                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
                           <Edit className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">إقرار ضريبي</span>
-                        <Button variant="ghost" size="sm">
+                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
+                        <span className="text-sm text-gray-300">إقرار ضريبي</span>
+                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                         تحديث البيانات المالية
                       </Button>
                     </div>
@@ -870,94 +870,94 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="selfservice">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold">الخدمة الذاتية</h2>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">الخدمة الذاتية</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <CreditCard className="h-8 w-8 text-blue-500" />
+                      <CreditCard className="h-8 w-8 text-blue-400" />
                       <div>
-                        <h3 className="font-semibold">تحديث البيانات المصرفية</h3>
-                        <p className="text-sm text-gray-600">تغيير رقم الحساب أو الآيبان</p>
+                        <h3 className="font-semibold text-white">تحديث البيانات المصرفية</h3>
+                        <p className="text-sm text-gray-300">تغيير رقم الحساب أو الآيبان</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       تحديث الآن
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Home className="h-8 w-8 text-green-500" />
+                      <Home className="h-8 w-8 text-green-400" />
                       <div>
-                        <h3 className="font-semibold">تحديث العنوان</h3>
-                        <p className="text-sm text-gray-600">تغيير عنوان السكن</p>
+                        <h3 className="font-semibold text-white">تحديث العنوان</h3>
+                        <p className="text-sm text-gray-300">تغيير عنوان السكن</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       تحديث العنوان
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Users className="h-8 w-8 text-purple-500" />
+                      <Users className="h-8 w-8 text-purple-400" />
                       <div>
-                        <h3 className="font-semibold">إدارة المعالين</h3>
-                        <p className="text-sm text-gray-600">إضافة أو تعديل بيانات المعالين</p>
+                        <h3 className="font-semibold text-white">إدارة المعالين</h3>
+                        <p className="text-sm text-gray-300">إضافة أو تعديل بيانات المعالين</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       إدارة المعالين
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <MessageSquare className="h-8 w-8 text-orange-500" />
+                      <MessageSquare className="h-8 w-8 text-orange-400" />
                       <div>
-                        <h3 className="font-semibold">تقديم شكوى</h3>
-                        <p className="text-sm text-gray-600">إرسال شكوى أو اقتراح</p>
+                        <h3 className="font-semibold text-white">تقديم شكوى</h3>
+                        <p className="text-sm text-gray-300">إرسال شكوى أو اقتراح</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       تقديم شكوى
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <History className="h-8 w-8 text-red-500" />
+                      <History className="h-8 w-8 text-red-400" />
                       <div>
-                        <h3 className="font-semibold">سجل الخدمات</h3>
-                        <p className="text-sm text-gray-600">مراجعة تاريخ الخدمات المستخدمة</p>
+                        <h3 className="font-semibold text-white">سجل الخدمات</h3>
+                        <p className="text-sm text-gray-300">مراجعة تاريخ الخدمات المستخدمة</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       عرض السجل
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer hover:shadow-lg transition-shadow">
+                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <ThumbsUp className="h-8 w-8 text-indigo-500" />
+                      <ThumbsUp className="h-8 w-8 text-indigo-400" />
                       <div>
-                        <h3 className="font-semibold">تقييم الخدمات</h3>
-                        <p className="text-sm text-gray-600">تقييم جودة الخدمات المقدمة</p>
+                        <h3 className="font-semibold text-white">تقييم الخدمات</h3>
+                        <p className="text-sm text-gray-300">تقييم جودة الخدمات المقدمة</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       تقييم الخدمات
                     </Button>
                   </CardContent>
@@ -968,15 +968,15 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="chat">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="lg:col-span-2">
+              <Card className="lg:col-span-2 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-white">
                     <MessageSquare className="h-5 w-5" />
                     الدردشة مع قسم الموارد البشرية
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-96 border rounded-lg p-4 mb-4 overflow-y-auto bg-gray-50">
+                  <div className="h-96 border border-[#008C6A]/20 rounded-lg p-4 mb-4 overflow-y-auto bg-black/30 backdrop-blur-sm">
                     <div className="space-y-4">
                       {chatMessages.map((message) => (
                         <div
@@ -986,8 +986,8 @@ export default function EmployeeServicesDepartment() {
                           <div
                             className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                               message.sender === 'user'
-                                ? 'bg-primary text-white'
-                                : 'bg-white border'
+                                ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white'
+                                : 'bg-gray-800/60 backdrop-blur-sm border border-[#008C6A]/20 text-white'
                             }`}
                           >
                             <p className="text-sm">{message.content}</p>
@@ -1003,52 +1003,53 @@ export default function EmployeeServicesDepartment() {
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                      className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70"
                     />
-                    <Button onClick={handleSendMessage}>
+                    <Button onClick={handleSendMessage} className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
                       <Send className="h-4 w-4" />
                     </Button>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-white">
                     <Bot className="h-5 w-5" />
                     المساعد الذكي
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="p-4 bg-[#008C6A]/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/30">
                     <div className="flex items-center gap-2 mb-2">
-                      <Bot className="h-4 w-4 text-blue-600" />
-                      <span className="text-sm font-semibold text-blue-800">مساعد HR الذكي</span>
+                      <Bot className="h-4 w-4 text-[#008C6A]" />
+                      <span className="text-sm font-semibold text-white">مساعد HR الذكي</span>
                     </div>
-                    <p className="text-sm text-blue-700">
+                    <p className="text-sm text-gray-300">
                       متاح 24/7 للإجابة على استفساراتك حول نظام العمل السعودي
                     </p>
                   </div>
                   
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-sm">أسئلة شائعة:</h4>
-                    <Button variant="outline" size="sm" className="w-full justify-start text-xs">
+                    <h4 className="font-semibold text-sm text-white">أسئلة شائعة:</h4>
+                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       <HelpCircle className="h-3 w-3 ml-2" />
                       كم عدد أيام الإجازة السنوية؟
                     </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start text-xs">
+                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       <HelpCircle className="h-3 w-3 ml-2" />
                       كيف أطلب شهادة راتب؟
                     </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start text-xs">
+                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       <HelpCircle className="h-3 w-3 ml-2" />
                       ما هي مدة الإشعار لإنهاء العمل؟
                     </Button>
                   </div>
                   
-                  <Separator />
+                  <Separator className="bg-[#008C6A]/20" />
                   
                   <div className="text-center">
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                       <Bot className="h-4 w-4 ml-2" />
                       بدء محادثة جديدة مع AI
                     </Button>
@@ -1061,9 +1062,9 @@ export default function EmployeeServicesDepartment() {
           <TabsContent value="reports">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">التقارير والإحصائيات</h2>
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">التقارير والإحصائيات</h2>
                 <div className="flex gap-2">
-                  <Button variant="outline" onClick={handleExport}>
+                  <Button variant="outline" onClick={handleExport} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
                     <Download className="h-4 w-4 ml-2" />
                     تصدير
                   </Button>
