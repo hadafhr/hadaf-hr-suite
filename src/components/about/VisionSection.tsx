@@ -2,66 +2,41 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Target, Eye, Lightbulb, Rocket, Globe, Crown } from 'lucide-react';
-
 export const VisionSection: React.FC = () => {
-  const visionCards = [
-    {
-      icon: Target,
-      title: "رؤيتنا",
-      description: "أن نكون الشريك التقني الأول في المملكة العربية السعودية لحلول إدارة الموارد البشرية المتطورة والمبتكرة",
-      gradient: "from-blue-500 to-indigo-600"
-    },
-    {
-      icon: Eye,
-      title: "رسالتنا", 
-      description: "نسعى لتمكين المؤسسات من تحقيق أهدافها الاستراتيجية من خلال حلول تقنية متقدمة تعزز كفاءة إدارة رأس المال البشري",
-      gradient: "from-emerald-500 to-teal-600"
-    },
-    {
-      icon: Crown,
-      title: "قيمنا",
-      description: "الابتكار والجودة والشفافية والاحترافية في تقديم أفضل الحلول التقنية التي تلبي احتياجات عملائنا وتتجاوز توقعاتهم",
-      gradient: "from-purple-500 to-pink-600"
-    }
-  ];
-
-  const goals = [
-    {
-      icon: Rocket,
-      title: "الريادة التقنية",
-      description: "قيادة السوق في مجال حلول الموارد البشرية الرقمية"
-    },
-    {
-      icon: Globe,
-      title: "التوسع الاستراتيجي", 
-      description: "التوسع في الأسواق الإقليمية والعالمية"
-    },
-    {
-      icon: Lightbulb,
-      title: "الابتكار المستمر",
-      description: "تطوير حلول مبتكرة تواكب المستقبل الرقمي"
-    }
-  ];
-
-  return (
-    <section id="vision" className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        
-        {/* Main Content Wrapper */}
-        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
+  const visionCards = [{
+    icon: Target,
+    title: "رؤيتنا",
+    description: "أن نكون الشريك التقني الأول في المملكة العربية السعودية لحلول إدارة الموارد البشرية المتطورة والمبتكرة",
+    gradient: "from-blue-500 to-indigo-600"
+  }, {
+    icon: Eye,
+    title: "رسالتنا",
+    description: "نسعى لتمكين المؤسسات من تحقيق أهدافها الاستراتيجية من خلال حلول تقنية متقدمة تعزز كفاءة إدارة رأس المال البشري",
+    gradient: "from-emerald-500 to-teal-600"
+  }, {
+    icon: Crown,
+    title: "قيمنا",
+    description: "الابتكار والجودة والشفافية والاحترافية في تقديم أفضل الحلول التقنية التي تلبي احتياجات عملائنا وتتجاوز توقعاتهم",
+    gradient: "from-purple-500 to-pink-600"
+  }];
+  const goals = [{
+    icon: Rocket,
+    title: "الريادة التقنية",
+    description: "قيادة السوق في مجال حلول الموارد البشرية الرقمية"
+  }, {
+    icon: Globe,
+    title: "التوسع الاستراتيجي",
+    description: "التوسع في الأسواق الإقليمية والعالمية"
+  }, {
+    icon: Lightbulb,
+    title: "الابتكار المستمر",
+    description: "تطوير حلول مبتكرة تواكب المستقبل الرقمي"
+  }];
+  return <section id="vision" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50">
+      <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center space-y-8 mb-20">
-          <div className="relative">
-            {/* Enhanced animated background with multiple layers */}
-            <div className="absolute -inset-6 bg-gradient-to-r from-primary/30 via-primary-glow/20 to-primary/30 rounded-3xl blur-3xl opacity-40 animate-pulse"></div>
-            <div className="absolute -inset-3 bg-gradient-to-br from-primary/10 via-transparent to-primary-glow/10 rounded-2xl blur-xl opacity-60 animate-pulse" style={{ animationDelay: '1s' }}></div>
-            
-            {/* Interactive badge with enhanced styling */}
-            <Badge className="relative bg-gradient-to-r from-primary/20 via-primary-glow/15 to-primary/20 text-primary border border-primary/40 px-8 py-4 text-lg font-bold backdrop-blur-md shadow-2xl hover:shadow-primary/25 transition-all duration-500 hover:scale-105 hover:border-primary/60">
-              <Target className="w-6 h-6 mr-3" />
-              رؤيتنا ورسالتنا
-            </Badge>
-          </div>
+          
           
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.1] tracking-tight animate-fade-in">
@@ -71,7 +46,7 @@ export const VisionSection: React.FC = () => {
               </span>
             </h2>
             
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow rounded-full opacity-80 mx-[9px] my-[21px] py-[16px] text-3xl text-zinc-900 font-semibold"></div>
           </div>
           
           <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
@@ -83,8 +58,7 @@ export const VisionSection: React.FC = () => {
 
         {/* Vision Cards */}
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mb-16">
-          {visionCards.map((card, index) => (
-            <Card key={index} className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          {visionCards.map((card, index) => <Card key={index} className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
               <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-5 group-hover:opacity-10 transition-opacity`} />
               <CardContent className="p-8 relative">
                 <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${card.gradient} rounded-xl mb-6 shadow-lg`}>
@@ -93,8 +67,7 @@ export const VisionSection: React.FC = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{card.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{card.description}</p>
               </CardContent>
-            </Card>
-          ))}
+            </Card>)}
         </div>
 
         {/* Goals Section */}
@@ -111,35 +84,35 @@ export const VisionSection: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {goals.map((goal, index) => (
-              <div key={index} className="text-center group">
+            {goals.map((goal, index) => <div key={index} className="text-center group">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
                   <goal.icon className="w-8 h-8 text-white" />
                 </div>
                 <h4 className="text-xl font-bold text-gray-900 mb-3">{goal.title}</h4>
                 <p className="text-gray-600">{goal.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
         {/* Statistics */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-          {[
-            { number: "2020", label: "تاريخ التأسيس" },
-            { number: "1000+", label: "عميل راضٍ" },
-            { number: "50+", label: "خبير تقني" },
-            { number: "99.9%", label: "موثوقية النظام" }
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
+          {[{
+          number: "2020",
+          label: "تاريخ التأسيس"
+        }, {
+          number: "1000+",
+          label: "عميل راضٍ"
+        }, {
+          number: "50+",
+          label: "خبير تقني"
+        }, {
+          number: "99.9%",
+          label: "موثوقية النظام"
+        }].map((stat, index) => <div key={index} className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">{stat.number}</div>
               <div className="text-gray-600">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-        
+            </div>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
