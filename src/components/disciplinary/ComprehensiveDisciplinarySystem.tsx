@@ -345,39 +345,39 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-3xl animate-fade-in">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-8 w-px bg-[#008C6A]/30"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+          <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
             <Gavel className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
               نظام الجزاءات والعقوبات المتطور
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-300 text-lg">
               منظومة شاملة لإدارة المخالفات والجزاءات وفقاً لنظام العمل السعودي
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 px-4 py-2 text-sm font-medium">
           <Gavel className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+        <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
           <Download className="h-4 w-4 ml-2" />
           تصدير التقارير
         </Button>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+        <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
           <Plus className="h-4 w-4 ml-2" />
           مخالفة جديدة
         </Button>
@@ -389,74 +389,74 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="border-l-4 border-l-primary">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-[#008C6A]">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">إجمالي المخالفات</p>
-                <p className="text-2xl font-bold text-primary">{stats.totalViolations}</p>
+                <p className="text-sm text-gray-300">إجمالي المخالفات</p>
+                <p className="text-2xl font-bold text-[#008C6A]">{stats.totalViolations}</p>
               </div>
-              <Scale className="h-8 w-8 text-primary/60" />
+              <Scale className="h-8 w-8 text-[#008C6A]/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-orange-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">إنذارات نشطة</p>
-                <p className="text-2xl font-bold text-orange-600">{stats.activeWarnings}</p>
+                <p className="text-sm text-gray-300">إنذارات نشطة</p>
+                <p className="text-2xl font-bold text-orange-400">{stats.activeWarnings}</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-orange-500/60" />
+              <AlertTriangle className="h-8 w-8 text-orange-400/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">حالات محلولة</p>
-                <p className="text-2xl font-bold text-green-600">{stats.resolvedCases}</p>
+                <p className="text-sm text-gray-300">حالات محلولة</p>
+                <p className="text-2xl font-bold text-green-400">{stats.resolvedCases}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-green-500/60" />
+              <CheckCircle2 className="h-8 w-8 text-green-400/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-blue-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">متوسط وقت الحل (أيام)</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.avgResolutionTime}</p>
+                <p className="text-sm text-gray-300">متوسط وقت الحل (أيام)</p>
+                <p className="text-2xl font-bold text-blue-400">{stats.avgResolutionTime}</p>
               </div>
-              <Timer className="h-8 w-8 text-blue-500/60" />
+              <Timer className="h-8 w-8 text-blue-400/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-red-500">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-red-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">موظفين عرضة للخطر</p>
-                <p className="text-2xl font-bold text-red-600">{stats.employeesAtRisk}</p>
+                <p className="text-sm text-gray-300">موظفين عرضة للخطر</p>
+                <p className="text-2xl font-bold text-red-400">{stats.employeesAtRisk}</p>
               </div>
-              <ShieldAlert className="h-8 w-8 text-red-500/60" />
+              <ShieldAlert className="h-8 w-8 text-red-400/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-purple-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">حالات حرجة</p>
-                <p className="text-2xl font-bold text-purple-600">{stats.criticalCases}</p>
+                <p className="text-sm text-gray-300">حالات حرجة</p>
+                <p className="text-2xl font-bold text-purple-400">{stats.criticalCases}</p>
               </div>
-              <XCircle className="h-8 w-8 text-purple-500/60" />
+              <XCircle className="h-8 w-8 text-purple-400/60" />
             </div>
           </CardContent>
         </Card>
@@ -464,10 +464,10 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <BarChart3 className="h-5 w-5 text-[#008C6A]" />
               إحصائيات المخالفات الشهرية
             </CardTitle>
           </CardHeader>
@@ -486,10 +486,10 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2 text-white">
+              <PieChart className="h-5 w-5 text-[#008C6A]" />
               المخالفات حسب النوع
             </CardTitle>
           </CardHeader>
@@ -517,39 +517,39 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
       </div>
 
       {/* AI Insights */}
-      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+      <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-2">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Sparkles className="h-5 w-5 text-[#008C6A]" />
             رؤى الذكاء الاصطناعي للجزاءات والعقوبات
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+            <div className="p-4 rounded-lg bg-emerald-900/30 border border-emerald-500/30 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">تحسن ملحوظ</span>
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                <span className="text-sm font-semibold text-emerald-300">تحسن ملحوظ</span>
               </div>
-              <p className="text-sm text-emerald-700">
+              <p className="text-sm text-gray-300">
                 انخفاض في معدل المخالفات العامة بنسبة 18% مقارنة بالشهر الماضي
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+            <div className="p-4 rounded-lg bg-orange-900/30 border border-orange-500/30 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تنبيه نمط مخالفات</span>
+                <AlertTriangle className="h-4 w-4 text-orange-400" />
+                <span className="text-sm font-semibold text-orange-300">تنبيه نمط مخالفات</span>
               </div>
-              <p className="text-sm text-orange-700">
+              <p className="text-sm text-gray-300">
                 ارتفاع في مخالفات التأخير في قسم الإنتاج، يتطلب تدخل إداري
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="p-4 rounded-lg bg-blue-900/30 border border-blue-500/30 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">توقعات إيجابية</span>
+                <TrendingUp className="h-4 w-4 text-blue-400" />
+                <span className="text-sm font-semibold text-blue-300">توقعات إيجابية</span>
               </div>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-gray-300">
                 التوقعات تشير لانخفاض إضافي في المخالفات بنسبة 15% الشهر القادم
               </p>
             </div>
@@ -558,37 +558,37 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
       </Card>
 
       {/* Quick Actions */}
-      <Card>
+      <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5" />
+          <CardTitle className="flex items-center gap-2 text-white">
+            <Zap className="h-5 w-5 text-[#008C6A]" />
             إجراءات سريعة
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Gavel className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+              <Gavel className="h-6 w-6 mb-2 text-[#008C6A]" />
               <span className="text-xs text-center">مخالفة جديدة</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <AlertTriangle className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+              <AlertTriangle className="h-6 w-6 mb-2 text-orange-400" />
               <span className="text-xs text-center">إنذار رسمي</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <FileText className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+              <FileText className="h-6 w-6 mb-2 text-blue-400" />
               <span className="text-xs text-center">سجل المخالفات</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Shield className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+              <Shield className="h-6 w-6 mb-2 text-green-400" />
               <span className="text-xs text-center">استئناف</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Settings className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+              <Settings className="h-6 w-6 mb-2 text-purple-400" />
               <span className="text-xs text-center">إعدادات النظام</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col py-4 px-2">
-              <Bell className="h-6 w-6 mb-2" />
+            <Button variant="outline" className="h-auto flex-col py-4 px-2 border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+              <Bell className="h-6 w-6 mb-2 text-yellow-400" />
               <span className="text-xs text-center">التنبيهات</span>
             </Button>
           </div>
@@ -598,17 +598,37 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
   );
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
+      
+      {/* Floating Elements for Professional Look */}
+      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto backdrop-blur-xl bg-black/20 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
         {renderHeader()}
         
         <div className="p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="violations">سجل المخالفات</TabsTrigger>
-              <TabsTrigger value="appeals">الاستئنافات</TabsTrigger>
-              <TabsTrigger value="reports">التقارير</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl">
+              <TabsTrigger value="dashboard" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="violations" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">سجل المخالفات</TabsTrigger>
+              <TabsTrigger value="appeals" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">الاستئنافات</TabsTrigger>
+              <TabsTrigger value="reports" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">التقارير</TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard">
@@ -620,10 +640,10 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
                 {/* Header with actions */}
                 <div className="flex justify-between items-center">
                   <div>
-                    <h2 className="text-2xl font-bold">سجل المخالفات والعقوبات</h2>
-                    <p className="text-muted-foreground">إدارة شاملة لجميع المخالفات والعقوبات</p>
+                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">سجل المخالفات والعقوبات</h2>
+                    <p className="text-gray-300">إدارة شاملة لجميع المخالفات والعقوبات</p>
                   </div>
-                  <Button onClick={() => setIsAddDialogOpen(true)} className="bg-primary hover:bg-primary/90">
+                  <Button onClick={() => setIsAddDialogOpen(true)} className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
                     <Plus className="h-4 w-4 ml-2" />
                     إضافة مخالفة جديدة
                   </Button>
@@ -632,16 +652,16 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
                 {/* Search and filters */}
                 <div className="flex gap-4 items-center">
                   <div className="relative flex-1">
-                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
                       placeholder="البحث في المخالفات..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10"
+                      className="pr-10 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70"
                     />
                   </div>
                   <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-                    <SelectTrigger className="w-48">
+                    <SelectTrigger className="w-48 bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white focus:border-[#008C6A]/70">
                       <SelectValue placeholder="تصفية النتائج" />
                     </SelectTrigger>
                     <SelectContent>
@@ -664,14 +684,14 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
                       v.violationType.toLowerCase().includes(searchTerm.toLowerCase())
                     )
                     .map((violation) => (
-                    <Card key={violation.id} className="hover:shadow-md transition-shadow">
+                    <Card key={violation.id} className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
                       <CardContent className="p-6">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <div className="flex items-center gap-4 mb-4">
                               <div>
-                                <h3 className="font-semibold text-lg">{violation.employeeName}</h3>
-                                <p className="text-sm text-muted-foreground">ID: {violation.employeeId}</p>
+                                <h3 className="font-semibold text-lg text-white">{violation.employeeName}</h3>
+                                <p className="text-sm text-gray-400">ID: {violation.employeeId}</p>
                               </div>
                               <Badge className={getStatusColor(violation.status)}>
                                 {violation.status}
@@ -683,20 +703,20 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
                             
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                               <div>
-                                <span className="font-medium text-muted-foreground">نوع المخالفة:</span>
-                                <p>{violation.violationType}</p>
+                                <span className="font-medium text-gray-300">نوع المخالفة:</span>
+                                <p className="text-white">{violation.violationType}</p>
                               </div>
                               <div>
-                                <span className="font-medium text-muted-foreground">القسم:</span>
-                                <p>{violation.department}</p>
+                                <span className="font-medium text-gray-300">القسم:</span>
+                                <p className="text-white">{violation.department}</p>
                               </div>
                               <div>
-                                <span className="font-medium text-muted-foreground">التاريخ:</span>
-                                <p>{violation.date}</p>
+                                <span className="font-medium text-gray-300">التاريخ:</span>
+                                <p className="text-white">{violation.date}</p>
                               </div>
                               <div>
-                                <span className="font-medium text-muted-foreground">العقوبة:</span>
-                                <p>{violation.penalty}</p>
+                                <span className="font-medium text-gray-300">العقوبة:</span>
+                                <p className="text-white">{violation.penalty}</p>
                               </div>
                             </div>
                             
@@ -1278,6 +1298,7 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
           </Tabs>
         </div>
       </div>
+    </div>
     </div>
   );
 };
