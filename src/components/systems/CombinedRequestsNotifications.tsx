@@ -298,53 +298,73 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
   const urgentCount = notifications.filter(n => n.priority === 'urgent' && !n.read).length;
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
+      
+      {/* Floating Elements for Professional Look */}
+      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto p-6 backdrop-blur-xl bg-black/20 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
         {/* Enhanced Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-3xl animate-fade-in">
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300">
+            <Button variant="outline" size="sm" onClick={onBack} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 transition-all duration-300">
               <ArrowLeft className="h-4 w-4 ml-2" />
               رجوع
             </Button>
-            <div className="h-8 w-px bg-gray-300"></div>
+            <div className="h-8 w-px bg-[#008C6A]/30"></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
                 <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
                   <MessageSquare className="h-8 w-8" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-black">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
                   نظام الطلبات والإشعارات المتكامل
                 </h1>
-                <p className="text-gray-600 text-lg">
+                <p className="text-gray-300 text-lg">
                   إدارة شاملة للطلبات والإشعارات مع التكامل الكامل مع جميع أنظمة الموارد البشرية
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 px-4 py-2 text-sm font-medium">
               <MessageSquare className="h-4 w-4 ml-2" />
               نظام متقدم
             </Badge>
             <Button 
-              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300"
             >
               <Share className="h-4 w-4 ml-2" />
               استيراد
             </Button>
             <Button 
-              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300"
             >
               <Download className="h-4 w-4 ml-2" />
               تصدير Excel
             </Button>
             <Button 
-              className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/80 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300"
             >
               <Megaphone className="h-4 w-4 ml-2" />
               تصدير PDF
@@ -354,44 +374,44 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-to-br from-[#009F87]/10 to-[#009F87]/20 border-[#009F87]/20">
+          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-[#009F87] mb-2">{requests.filter(r => r.status === 'approved').length}</div>
-              <div className="text-sm text-gray-600">طلبات معتمدة</div>
+              <div className="text-3xl font-bold text-[#008C6A] mb-2">{requests.filter(r => r.status === 'approved').length}</div>
+              <div className="text-sm text-gray-300">طلبات معتمدة</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-yellow-600/10 to-yellow-600/20 border-yellow-600/20">
+          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-yellow-600 mb-2">{requests.filter(r => r.status === 'pending').length}</div>
-              <div className="text-sm text-gray-600">طلبات معلقة</div>
+              <div className="text-3xl font-bold text-yellow-400 mb-2">{requests.filter(r => r.status === 'pending').length}</div>
+              <div className="text-sm text-gray-300">طلبات معلقة</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-blue-600/10 to-blue-600/20 border-blue-600/20">
+          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{notifications.length}</div>
-              <div className="text-sm text-gray-600">إجمالي الإشعارات</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">{notifications.length}</div>
+              <div className="text-sm text-gray-300">إجمالي الإشعارات</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-red-600/10 to-red-600/20 border-red-600/20">
+          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">{unreadCount}</div>
-              <div className="text-sm text-gray-600">إشعارات غير مقروءة</div>
+              <div className="text-3xl font-bold text-red-400 mb-2">{unreadCount}</div>
+              <div className="text-sm text-gray-300">إشعارات غير مقروءة</div>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content Tabs */}
-        <Card className="bg-white shadow-xl rounded-2xl overflow-hidden">
+        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-2xl overflow-hidden">
           <Tabs value={activeSubTab} onValueChange={setActiveSubTab}>
-            <TabsList className="grid w-full grid-cols-2 bg-gray-100 rounded-none">
-              <TabsTrigger value="requests" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+            <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl">
+              <TabsTrigger value="requests" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
                 <FileText className="h-4 w-4 ml-2" />
                 إدارة الطلبات ({requests.length})
               </TabsTrigger>
-              <TabsTrigger value="notifications" className="data-[state=active]:bg-[#009F87] data-[state=active]:text-white">
+              <TabsTrigger value="notifications" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
                 <Bell className="h-4 w-4 ml-2" />
                 مركز الإشعارات ({unreadCount})
               </TabsTrigger>
@@ -737,6 +757,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
             </TabsContent>
           </Tabs>
         </Card>
+        </div>
       </div>
     </div>
   );
