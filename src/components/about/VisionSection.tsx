@@ -44,8 +44,11 @@ export const VisionSection: React.FC = () => {
   ];
 
   return (
-    <section id="vision" className="py-20 bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50">
-      <div className="container mx-auto px-6">
+    <section id="vision" className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        
+        {/* Main Content Wrapper */}
+        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
         {/* Header */}
         <div className="text-center space-y-8 mb-20">
           <div className="relative">
@@ -133,6 +136,8 @@ export const VisionSection: React.FC = () => {
               <div className="text-gray-600">{stat.label}</div>
             </div>
           ))}
+        </div>
+        
         </div>
       </div>
     </section>
