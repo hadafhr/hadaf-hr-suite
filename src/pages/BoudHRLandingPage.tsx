@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -23,13 +22,8 @@ import { VisionSection } from '@/components/about/VisionSection';
 import { TeamSection } from '@/components/about/TeamSection';
 import { PartnersSection } from '@/components/about/PartnersSection';
 import BoudLogo from '@/components/BoudLogo';
-import { Breadcrumb } from '@/components/Breadcrumb';
-import buodLogo from '@/assets/buod-logo-white.png';
-
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
-  const isArabic = i18n.language === 'ar';
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
   const [assistantOpen, setAssistantOpen] = useState(false);
@@ -304,152 +298,179 @@ const BoudHRLandingPage: React.FC = () => {
     number: "24/7",
     label: "دعم متواصل"
   }];
-
-  return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir={isArabic ? 'rtl' : 'ltr'}>
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
-        </div>
-      </div>
-      
-      {/* Professional Interactive Header */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
-        </div>
-        
-        <div className="w-full px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex items-center justify-between h-24">
-            {/* Logo Section */}
-            <div className="flex items-center">
-              <div className="hover:scale-105 transition-all duration-300">
-                <img 
-                  src={buodLogo} 
-                  alt="Buod HR" 
-                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
-                />
+  return <div className="min-h-screen bg-black font-arabic">
+      {/* Professional Enterprise Header */}
+      <header className="bg-black/98 backdrop-blur-md border-b border-gray-700 sticky top-0 z-50 shadow-lg">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between h-14">
+            {/* Professional Logo Section */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="flex items-center gap-3">
+                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain brightness-0 invert" />
               </div>
             </div>
 
-            {/* Center Section - Title & Icon */}
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <BarChart3 className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
-              </div>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-4 space-x-reverse">
+              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4 brightness-0 invert" />
+              <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
               
-              <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                  {isArabic ? 'حلول الموارد البشرية المتقدمة' : 'Advanced HR Solutions'}
-                </h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
-                  {isArabic ? 'منصة شاملة لإدارة الموارد البشرية' : 'Comprehensive HR Management Platform'}
-                </p>
-              </div>
-            </div>
+              <a href="#about" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">عن بُعد</a>
+              
+              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+                <Play className="w-4 h-4" />
+                جولة تفاعلية
+              </Button>
 
-            {/* Right Section - Professional Controls Panel */}
-            <div className="flex flex-col items-end space-y-4">
-              {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
-                {/* Status Indicator */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
-                    {isArabic ? 'حالة النظام' : 'System Status'}
-                  </span>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-                    <span className="text-xs text-green-300 font-semibold">
-                      {isArabic ? 'متاح' : 'Online'}
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
-                
-                {/* Language & Settings Row */}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-medium">
-                    {isArabic ? 'اللغة' : 'Language'}
-                  </span>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
+                    مركز المعرفة
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 bg-black border border-gray-700">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-gray-900">
+                    الدروس التعليمية
+                  </DropdownMenuItem>
                   
-                  {/* Language Toggle Button */}
-                  <button 
-                    onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
-                    tabIndex={0}
-                    aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'}
-                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20"
-                  >
-                    {/* Language Text */}
-                    <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
-                      {isArabic ? 'EN' : 'العربية'}
-                    </span>
-                    
-                    {/* Animated Indicator */}
-                    <div className="relative">
-                      <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] shadow-lg shadow-[#008C6A]/40 group-hover:shadow-[#008C6A]/60 transition-all duration-300"></div>
-                      <div className="absolute inset-0 w-3 h-3 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F] opacity-0 group-hover:opacity-30 animate-ping"></div>
-                    </div>
-                    
-                    {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
-                  </button>
-                </div>
-              </div>
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-gray-900">
+                    الأوراق الخضراء
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-white hover:bg-gray-900">
+                    الأوصاف الوظيفية
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+                <Calculator className="w-4 h-4" />
+                أدوات الموارد البشرية
+              </Button>
+
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
+                اربح مع بُعد
+              </Button>
+
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+                📅 احجز اجتماع
+              </Button>
+
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+                👥 انضم الى فريقنا
+              </Button>
+
+              <button 
+                onClick={() => navigate('/demo-request')} 
+                className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors"
+              >
+                احجز عرض تجريبي
+              </button>
+            </nav>
+
+            {/* CTA Buttons */}
+            <div className="hidden md:flex items-center space-x-3 space-x-reverse">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2 bg-black text-white border border-gray-700 hover:bg-gray-900 hover:scale-105 transition-all duration-300">
+                    تسجيل الدخول <ChevronDown className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
+                  <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                    <Building2 className="w-4 h-4" />
+                     مدير النظام
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                    <Building className="w-4 h-4" />
+                    🏢 لوحة تحكم المنشأة
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                    <User className="w-4 h-4" />
+                    🔘 لوحة تحكم الموظف
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               
-              {/* Quick Stats Mini Panel */}
-              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
-                <div className="flex items-center space-x-3 text-xs">
-                  <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">{isArabic ? '1000+ شركة' : '1000+ Companies'}</span>
-                  </div>
-                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
-                  <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">{isArabic ? 'محدّث' : 'Updated'}</span>
-                  </div>
-                </div>
-              </div>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
 
-          {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && <div className="md:hidden py-4 border-t border-border">
+              <nav className="flex flex-col space-y-2">
+                <a href="#home" className="navigation-item text-sm font-medium" onClick={() => setIsMobileMenuOpen(false)}>
+                  الرئيسية
+                </a>
+                <button onClick={() => {
+              navigate('/interactive-tour');
+              setIsMobileMenuOpen(false);
+            }} className="navigation-item text-sm font-medium text-right flex items-center gap-2 hover:text-primary transition-colors">
+                  <Play className="w-4 h-4" />
+                  جولة تفاعلية
+                </button>
+                <details className="group">
+                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                    من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="mr-4 mt-2 space-y-2">
+                    {menuItems.about.map((item, index) => <button key={index} onClick={() => {
+                  const element = document.getElementById(item.href.substring(1));
+                  if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                  setIsMobileMenuOpen(false);
+                }} className="block text-sm text-muted-foreground w-full text-right hover:text-primary transition-colors">
+                        {item.name}
+                      </button>)}
+                  </div>
+                </details>
+                <details className="group">
+                  <summary className="navigation-item text-sm font-medium cursor-pointer list-none">
+                    تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="mr-4 mt-2 space-y-2">
+                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-muted-foreground" onClick={() => setIsMobileMenuOpen(false)}>
+                        {item.name}
+                      </a>)}
+                  </div>
+                </details>
+                <div className="flex flex-col space-y-2 pt-4">
+                  <Button variant="ghost" onClick={() => navigate('/admin-login')}>
+                    <Building2 className="w-4 h-4 ml-2" />
+                    🔘 لوحة تحكم الإدارة
+                  </Button>
+                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')}>
+                    <Building className="w-4 h-4 ml-2" />
+                    🏢 لوحة تحكم المنشأة
+                  </Button>
+                  <Button variant="ghost" onClick={() => navigate('/employee-login')}>
+                    <User className="w-4 h-4 ml-2" />
+                    🔘 لوحة تحكم الموظف
+                  </Button>
+                  <Button onClick={() => navigate('/subscription-packages')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    انضم الينا
+                  </Button>
+                </div>
+              </nav>
+            </div>}
         </div>
       </header>
 
-      <main className="relative z-10">
-        {/* Breadcrumb Navigation - Far Right */}
-        <div className="flex justify-end mb-6 mr-0 px-4 py-8">
-          <div className="ml-auto">
-            <Breadcrumb 
-              items={[
-                { label: isArabic ? 'الرئيسية' : 'Home', path: '/' }
-              ]}
-            />
-          </div>
-        </div>
-        
-        {/* Floating Elements for Professional Look */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
-
-        {/* Professional Hero Section */}
-        <section id="home" className="relative py-32 overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
-          <div className="absolute inset-0 opacity-90"></div>
+      {/* Professional Hero Section */}
+      <section id="home" className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-background via-slate-50/20 to-background">
+        <PatternBackground opacity={0.03} size={500} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)]"></div>
         <div className="absolute top-20 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-10 w-40 h-40 bg-primary-glow/5 rounded-full blur-3xl"></div>
         <div className="container mx-auto px-6 relative z-10">
@@ -481,12 +502,10 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
+                {stats.map((stat, index) => <div key={index} className="text-center">
                     <div className="text-2xl lg:text-3xl font-bold text-primary">{stat.number}</div>
                     <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
             
@@ -577,105 +596,155 @@ const BoudHRLandingPage: React.FC = () => {
               color: "from-red-500/10 to-red-600/5"
             }].map((stat, index) => {
               const IconComponent = stat.icon;
-              return (
-                <div key={index} className="group">
+              return <div key={index} className="group">
                     <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg`}>
-                      <div className="text-center space-y-3">
-                        <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary/20 to-primary-glow/10 rounded-xl mb-2">
-                          <IconComponent className="w-6 h-6 text-primary" />
-                        </div>
-                        <div className="text-2xl font-bold text-foreground">{stat.number}</div>
-                        <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
-                      </div>
+                      <IconComponent className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
+                      <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">{stat.number}</div>
+                      <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                     </div>
-                  </div>
-              );
+                  </div>;
             })}
             </div>
           </div>
 
-          {/* Professional Features Grid */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-24">
+          {/* Enhanced Feature Cards */}
+          <div className="grid lg:grid-cols-2 gap-12">
             {features.map((feature, index) => {
-              const IconComponent = feature.icon;
-              return (
-                <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
-                  <div className="relative">
-                    {/* Gradient Hover Effect */}
+            const IconComponent = feature.icon;
+            return <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
+                  <Card className="relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-xl hover:scale-105">
+                    {/* Premium Border Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary-glow/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
                     <div className="absolute inset-[1px] bg-gradient-to-br from-background/95 to-muted/50 rounded-2xl"></div>
                     
                     {/* Floating Elements */}
                     <div className="absolute top-4 right-4 w-20 h-20 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500"></div>
                     
-                    <Card className="relative bg-transparent border-border/40 hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-primary/5">
+                    <div className="relative z-10">
                       <CardHeader className="pb-6 pt-8">
-                        <div className="flex items-center space-x-6 space-x-reverse">
-                          {/* Enhanced Icon */}
-                          <div className="relative group/icon">
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-glow rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
-                            <div className="relative w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-2xl flex items-center justify-center shadow-xl">
-                              <IconComponent className="w-8 h-8 text-white" />
+                        <div className="flex items-start justify-between mb-6">
+                          <div className="flex items-center gap-4">
+                            <div className="relative">
+                              <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-glow rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                              <div className="relative w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-2xl flex items-center justify-center shadow-xl">
+                                <IconComponent className="w-8 h-8 text-white" />
+                              </div>
                             </div>
-                          </div>
-                          
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-3 space-x-reverse mb-2">
-                              <CardTitle className="text-xl lg:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                                {feature.title}
-                              </CardTitle>
-                              <Badge variant="secondary" className="text-xs bg-primary/10 text-primary border-primary/30">
-                                {feature.subtitle}
+                            <div className="space-y-2">
+                              <Badge className="bg-gradient-to-r from-emerald-500/20 to-emerald-400/20 text-emerald-700 border-emerald-400/30 text-sm font-bold px-4 py-1">
+                                ⚡ جاهز للمؤسسات
+                              </Badge>
+                              <Badge className="bg-gradient-to-r from-blue-500/20 to-blue-400/20 text-blue-700 border-blue-400/30 text-sm font-bold px-4 py-1 ml-2">
+                                🤖 مدعوم بالذكاء الاصطناعي
                               </Badge>
                             </div>
-                            <CardDescription className="text-muted-foreground leading-relaxed">
-                              {feature.description}
-                            </CardDescription>
                           </div>
+                        </div>
+                        
+                        <div className="space-y-4">
+                          <CardTitle className="text-2xl lg:text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                            {feature.title}
+                          </CardTitle>
+                          <p className="text-lg font-semibold text-primary bg-primary/5 rounded-lg px-4 py-2">
+                            {feature.subtitle}
+                          </p>
+                          <CardDescription className="text-base text-muted-foreground leading-relaxed">
+                            {feature.description}
+                          </CardDescription>
                         </div>
                       </CardHeader>
                       
-                      <CardContent>
-                        {/* Enhanced Image */}
-                        <div className="relative mb-6 group/image">
+                      <CardContent className="pt-0 space-y-6">
+                        {/* Premium Image Container */}
+                        <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
                           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary-glow/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                          <div className="aspect-[16/9] rounded-xl overflow-hidden shadow-lg border border-border/30">
+                          <img src={feature.image} alt={feature.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                          <img src={feature.image} alt={feature.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          
+                          {/* Overlay Play Button */}
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                             <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
-                              <ArrowLeft className="w-6 h-6 text-primary rotate-180" />
+                              <Play className="w-8 h-8 text-primary ml-1" />
                             </div>
                           </div>
                         </div>
-                        </div>
                         
-                        {/* Enhanced Features List */}
+                        {/* Enhanced Marketing Content */}
                         <div className="bg-gradient-to-br from-primary/5 via-primary-glow/3 to-transparent rounded-2xl p-6 border border-primary/10">
-                          <div className="grid grid-cols-2 gap-3">
-                            {feature.features.map((featureItem, idx) => (
-                              <div key={idx} className="flex items-center space-x-3 space-x-reverse text-sm">
-                                <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary-glow rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                  <CheckCircle className="w-3 h-3 text-white" />
-                                </div>
-                                <span className="text-muted-foreground font-medium">{featureItem}</span>
-                              </div>
-                            ))}
-                          </div>
-                          
-                          {/* Marketing Text */}
-                          <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950/50 dark:to-emerald-900/30 rounded-xl p-4 border border-emerald-200/30 dark:border-emerald-800/30 mt-4">
-                            <p className="text-sm text-emerald-700 dark:text-emerald-300 font-medium leading-relaxed">
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary-glow rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Rocket className="w-3 h-3 text-white" />
+                            </div>
+                            <p className="text-base font-semibold text-foreground leading-relaxed">
                               {feature.marketingText}
                             </p>
                           </div>
+                          
+                          {/* ROI Highlight */}
+                          <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950/50 dark:to-emerald-900/30 rounded-xl p-4 border border-emerald-200/50 dark:border-emerald-800/50">
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
+                                <span className="text-xs text-white font-bold">✓</span>
+                              </div>
+                              <span className="font-bold text-emerald-700 dark:text-emerald-300 text-sm">ضمان العائد على الاستثمار</span>
+                            </div>
+                            <p className="text-sm text-emerald-700 dark:text-emerald-200">
+                              متوسط 340% عائد استثمار خلال 6 أشهر • 60% تقليل في تكاليف العمليات
+                            </p>
+                          </div>
+                        </div>
+                        
+                        {/* Enhanced Features Grid */}
+                        <div className="grid grid-cols-2 gap-3">
+                          {feature.features.map((feat, featIndex) => <div key={featIndex} className="flex items-center gap-2 p-3 bg-muted/30 rounded-xl border border-border/50 hover:bg-muted/50 transition-colors duration-300">
+                              <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                              <span className="text-sm font-medium text-foreground">{feat}</span>
+                            </div>)}
+                        </div>
+                        
+                        {/* Premium CTA */}
+                        <div className="flex gap-3 pt-4">
+                          <Button className="flex-1 bg-gradient-to-r from-primary via-primary-glow to-primary hover:from-primary/90 hover:via-primary-glow/90 hover:to-primary/90 text-white font-bold py-4 px-6 rounded-xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500 group-hover:scale-105">
+                            <span>استكشف الحل</span>
+                            <ArrowLeft className="w-5 h-5 mr-2 rotate-180 group-hover:translate-x-1 transition-transform duration-300" />
+                          </Button>
+                          <Button variant="outline" className="px-6 py-4 border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 rounded-xl font-semibold transition-all duration-300">
+                            <Video className="w-5 h-5" />
+                          </Button>
                         </div>
                       </CardContent>
-                    </Card>
-                  </div>
+                    </div>
+                  </Card>
+                </div>;
+          })}
+          </div>
+
+          {/* Bottom Call-to-Action */}
+          <div className="text-center mt-24">
+            <div className="bg-gradient-to-br from-primary/10 via-primary-glow/5 to-purple-600/10 rounded-3xl p-12 border border-primary/20 backdrop-blur-xl">
+              <div className="space-y-6">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <Award className="w-6 h-6 text-primary" />
+                  <Badge className="bg-gradient-to-r from-primary/20 to-primary-glow/20 text-primary border-primary/30 text-sm font-bold px-4 py-2">
+                    رائد الصناعة 2024
+                  </Badge>
                 </div>
-              );
-            })}
+                <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                  هل أنت مستعد لتحويل عمليات الموارد البشرية؟
+                </h3>
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  انضم إلى آلاف الشركات التي تستخدم منصتنا لتحقيق نتائج استثنائية
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                  <Button size="lg" className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl hover:shadow-primary/25 transition-all duration-500">
+                    ابدأ التجربة المجانية
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5 font-semibold py-4 px-8 rounded-xl transition-all duration-300">
+                    احجز عرض توضيحي
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -687,37 +756,45 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="text-center space-y-8 mb-20">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
-              <Badge className="relative bg-gradient-to-r from-primary/12 to-primary-glow/8 text-primary border-primary/30 px-6 py-3 text-base font-semibold shadow-lg">
-                <Zap className="w-5 h-5 mr-2" />
-                فوائد متقدمة ومميزة
+              <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
+                <Lightbulb className="w-5 h-5 mr-2" />
+                لماذا بُعد HR؟
               </Badge>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-              لماذا نحن <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">الخيار الأمثل</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              مزايا حقيقية وقابلة للقياس تحقق النتائج وتوفر عليك الوقت والمال
+            <div className="space-y-4">
+              <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
+                مزايا تجعلنا 
+                <br />
+                <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+                  الخيار الأول
+                </span>
+              </h2>
+              
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+            </div>
+            
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+              نقدم حلول متطورة تساعد في تحسين الكفاءة والإنتاجية
+              <br />
+              <span className="text-primary font-semibold">مع ضمان الامتثال الكامل للوائح السعودية</span>
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => {
-              const IconComponent = benefit.icon;
-              return (
-                <Card key={index} className="relative bg-background/80 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all duration-300 group hover:shadow-xl hover:shadow-primary/5">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-glow/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <CardContent className="p-6 text-center relative">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary/20 to-primary-glow/10 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            const IconComponent = benefit.icon;
+            return <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+                  <CardContent className="pt-8 pb-6">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-8 h-8 text-primary" />
                     </div>
                     <div className="text-3xl font-bold text-primary mb-2">{benefit.stat}</div>
-                    <h3 className="text-lg font-semibold text-foreground mb-3">{benefit.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
+                    <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                    <p className="text-muted-foreground text-sm">{benefit.description}</p>
                   </CardContent>
-                </Card>
-              );
-            })}
+                </Card>;
+          })}
           </div>
         </div>
       </section>
@@ -729,66 +806,94 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="text-center space-y-8 mb-20">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
-              <Badge className="relative bg-gradient-to-r from-primary/12 to-primary-glow/8 text-primary border-primary/30 px-6 py-3 text-base font-semibold shadow-lg">
+              <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
                 <MessageCircle className="w-5 h-5 mr-2" />
-                آراء عملائنا الكرام
+                آراء العملاء
               </Badge>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold text-foreground">
-              ماذا يقول <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">عملاؤنا</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              شهادات حقيقية من شركات رائدة تثق في حلولنا وتحقق نتائج استثنائية
+            <div className="space-y-4">
+              <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
+                ماذا يقول 
+                <br />
+                <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+                  عملاؤنا
+                </span>
+              </h2>
+              
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
+            </div>
+            
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+              شهادات حقيقية من عملائنا المميزين
+              <br />
+              <span className="text-primary font-semibold">في مختلف القطاعات والشركات السعودية</span>
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.slice(0, 6).map((testimonial, index) => (
-              <Card key={index} className="relative bg-background/80 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all duration-300 group hover:shadow-xl hover:shadow-primary/5">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-glow/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <CardContent className="p-6 relative">
-                  <div className="flex items-center space-x-4 space-x-reverse mb-4">
-                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-primary-glow/10">
-                      <img 
-                        src={`https://images.unsplash.com/${testimonial.image}?auto=format&fit=crop&w=64&q=80`} 
-                        alt={testimonial.name}
-                        className="w-full h-full object-cover"
-                      />
+          {/* Animated Testimonials Carousel */}
+          <div className="relative overflow-hidden">
+            {/* First Row - Moving Right */}
+            <div className="flex gap-6 animate-[scroll-right_40s_linear_infinite] mb-6">
+              {testimonials.slice(0, 10).concat(testimonials.slice(0, 10)).map((testimonial, index) => <Card key={`row1-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                        <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                        <p className="text-xs text-primary font-medium">{testimonial.company}</p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.position}</p>
-                      <p className="text-sm text-primary font-medium">{testimonial.company}</p>
+                    
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-1 space-x-reverse mb-4">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                      />
-                    ))}
-                  </div>
-                  
-                  <p className="text-muted-foreground leading-relaxed italic">
-                    "{testimonial.text}"
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+                    
+                    <p className="text-muted-foreground italic leading-relaxed">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>)}
+            </div>
+
+            {/* Second Row - Moving Left */}
+            <div className="flex gap-6 animate-[scroll-left_35s_linear_infinite]">
+              {testimonials.slice(10, 20).concat(testimonials.slice(10, 20)).map((testimonial, index) => <Card key={`row2-${index}`} className="flex-shrink-0 w-[350px] border-2 hover:border-primary/50 transition-all duration-300 bg-background/80 backdrop-blur-sm">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                        <p className="text-sm text-muted-foreground">{testimonial.position}</p>
+                        <p className="text-xs text-primary font-medium">{testimonial.company}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
+                    </div>
+                    
+                    <p className="text-muted-foreground italic leading-relaxed">"{testimonial.text}"</p>
+                  </CardContent>
+                </Card>)}
+            </div>
+
+            {/* Gradient Overlays */}
+            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background/80 to-transparent pointer-events-none z-10"></div>
+            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background/80 to-transparent pointer-events-none z-10"></div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary via-primary-glow to-primary overflow-hidden">
-        {/* Professional Background Effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.15),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent,rgba(255,255,255,0.05),transparent)]"></div>
-        
+        {/* AI Assistant Preview Section */}
+        <AIAssistantPreview language="ar" onStartConversation={handleStartConversation} onQuestionClick={handleQuestionClick} />
+
+      {/* Mobile App Download Section */}
+      <section id="mobile-app" className="relative py-20 bg-background overflow-hidden">
+        <PatternBackground opacity={0.02} size={140} />
         {/* Subtle Background Effects */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
         
@@ -796,68 +901,251 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="text-center space-y-8 mb-20">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-2xl opacity-30 animate-pulse"></div>
-              <Badge className="relative bg-white/10 text-white border-white/30 px-6 py-3 text-base font-semibold shadow-lg backdrop-blur-sm">
-                <Rocket className="w-5 h-5 mr-2" />
-                ابدأ رحلتك الرقمية اليوم
+              <Badge className="relative bg-gradient-to-r from-primary/15 to-primary/10 text-primary border-primary/30 px-6 py-3 text-base font-semibold backdrop-blur-sm shadow-lg">
+                <Smartphone className="w-5 h-5 mr-2" />
+                تطبيق محمول متقدم
               </Badge>
             </div>
             
-            <div className="space-y-6">
-              <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-                <span className="block mb-2">هل أنت مستعد للتحول الرقمي؟</span>
-                <span className="text-white/90">
-                  انضم لآلاف الشركات الناجحة
+            <div className="space-y-4">
+              <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight animate-fade-in">
+                حمّل تطبيق 
+                <br />
+                <span className="bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent animate-scale-in">
+                  بُعد HR
                 </span>
               </h2>
               
-              <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                احصل على عرض مخصص مجاناً واكتشف كيف يمكن لحلولنا تحسين كفاءة إدارة الموارد البشرية في شركتك
-              </p>
+              <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary-glow mx-auto rounded-full opacity-80"></div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-md mx-auto">
-              <Button 
-                size="lg" 
-                onClick={() => navigate('/subscription-packages')}
-                className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
-              >
-                <ArrowLeft className="w-5 h-5 mr-2 rotate-180" />
-                ابدأ التجربة المجانية
-              </Button>
-              
-              <Button 
-                size="lg" 
-                variant="outline"
-                onClick={() => navigate('/demo-request')}
-                className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300 hover:scale-105 backdrop-blur-sm w-full sm:w-auto"
-              >
-                <Play className="w-5 h-5 ml-2" />
-                احجز عرض تجريبي
-              </Button>
-            </div>
+            <p className="text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium">
+              استمتع بتجربة فريدة مع أقوى تطبيق إدارة موارد بشرية في السعودية
+              <br />
+              <span className="text-primary font-semibold">متاح على جميع المتاجر الرقمية</span>
+            </p>
             
-            {/* Trust Indicators */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto pt-12">
-              {[
-                { icon: Building2, text: "1000+ شركة" },
-                { icon: Users, text: "100K+ موظف" },
-                { icon: Shield, text: "99.9% أمان" },
-                { icon: Clock, text: "دعم 24/7" }
-              ].map((item, index) => {
-                const IconComponent = item.icon;
-                return (
-                  <div key={index} className="text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl backdrop-blur-sm mb-2">
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-sm text-white/80 font-medium">{item.text}</div>
+            <div className="flex items-center justify-center gap-8 pt-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">+50K</div>
+                <div className="text-xs text-muted-foreground">تحميل نشط</div>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">4.9★</div>
+                <div className="text-xs text-muted-foreground">تقييم المستخدمين</div>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary">24/7</div>
+                <div className="text-xs text-muted-foreground">دعم مستمر</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Features List */}
+            <div className="space-y-4">
+              <div className="grid gap-4">
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 backdrop-blur-sm border border-border hover:bg-muted transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-primary" />
                   </div>
-                );
-              })}
+                  <div>
+                    <h3 className="font-semibold text-foreground text-base mb-1">تسجيل الحضور بـ GPS</h3>
+                    <p className="text-muted-foreground text-sm">تتبع دقيق للحضور والانصراف باستخدام الموقع الجغرافي</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 backdrop-blur-sm border border-border hover:bg-muted transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Bell className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-base mb-1">إشعارات ذكية</h3>
+                    <p className="text-muted-foreground text-sm">تنبيهات فورية ومخصصة لجميع المهام والتحديثات</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 backdrop-blur-sm border border-border hover:bg-muted transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-base mb-1">إدارة الطلبات</h3>
+                    <p className="text-muted-foreground text-sm">تقديم ومتابعة جميع الطلبات بسهولة ومن أي مكان</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 backdrop-blur-sm border border-border hover:bg-muted transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <GraduationCap className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-base mb-1">دورات تدريبية وتطويرية</h3>
+                    <p className="text-muted-foreground text-sm">منصة تعلم متكاملة مع دورات تفاعلية ومتابعة التقدم</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 backdrop-blur-sm border border-border hover:bg-muted transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Target className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-base mb-1">تقييم الأداء</h3>
+                    <p className="text-muted-foreground text-sm">نظام تقييم ذكي مع تحليلات مفصلة وخطط التطوير</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Download Buttons */}
+              <div className="pt-6">
+                <h3 className="text-xl font-bold text-foreground mb-4 text-center">حمّل التطبيق الآن</h3>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button size="lg" className="bg-foreground hover:bg-foreground/90 text-background font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <div className="text-xs font-normal">متاح على</div>
+                        <div className="font-bold">App Store</div>
+                      </div>
+                      <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Button>
+                  
+                  <Button size="lg" className="bg-foreground hover:bg-foreground/90 text-background font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <div className="text-xs font-normal">احصل عليه من</div>
+                        <div className="font-bold">Google Play</div>
+                      </div>
+                      <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Button>
+                  
+                  <Button size="lg" className="bg-foreground hover:bg-foreground/90 text-background font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <div className="text-xs font-normal">متاح على</div>
+                        <div className="font-bold">AppGallery</div>
+                      </div>
+                      <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-foreground" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Coming Soon Notice */}
+              <div className="text-center p-4 rounded-xl bg-primary/10 border border-primary/20 backdrop-blur-sm">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Clock className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-primary">قريباً جداً</span>
+                </div>
+                <p className="text-muted-foreground text-sm">
+                  التطبيق في المراحل النهائية من التطوير وسيكون متاحاً قريباً على جميع المنصات
+                </p>
+              </div>
+            </div>
+            
+            {/* Phone Mockup */}
+            <div className="relative flex justify-center">
+              <div className="relative">
+                <div className="w-72 h-[600px] bg-gradient-to-br from-gray-900 to-black rounded-[3rem] border-4 border-gray-900 shadow-2xl shadow-gray-900/25 overflow-hidden">
+                  {/* iPhone Notch */}
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-30 border-2 border-gray-800"></div>
+                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-28 h-2 bg-gray-800 rounded-full z-40"></div>
+                  
+                  {/* Inner Border */}
+                  <div className="absolute inset-1 rounded-[2.8rem] border border-primary/20 pointer-events-none z-30"></div>
+                  
+                  {/* App Content */}
+                  <div className="px-4 py-8 relative z-20 h-full bg-gradient-to-br from-blue-50 via-white to-green-50">
+                     {/* Background Pattern with BOUD Logo */}
+                     <div className="absolute inset-0 opacity-[0.1] flex items-center justify-center">
+                       <img src="/lovable-uploads/07038205-c0e2-4432-b52b-5efb7069cfd7.png" alt="Background Pattern" className="w-96 h-96 object-contain rotate-12 scale-150" />
+                     </div>
+                    
+                    {/* Geometric Pattern Overlay */}
+                    <div className="absolute inset-0 opacity-[0.005]" style={{
+                    backgroundImage: `radial-gradient(circle at 25% 25%, hsl(var(--primary)) 0.05px, transparent 0.05px),
+                                       radial-gradient(circle at 75% 75%, hsl(var(--accent)) 0.02px, transparent 0.02px)`,
+                    backgroundSize: '100px 100px'
+                  }}></div>
+                    
+                     {/* Gradient Overlay */}
+                     <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] via-transparent to-accent/[0.01] border border-gray-800"></div>
+                     
+                     {/* Background Logo Pattern */}
+                     <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none z-5">
+                       <img src="/lovable-uploads/1fc0fdbf-df4b-474a-aa0f-2ea63f4e02d7.png" alt="Background Pattern" className="w-80 h-auto" />
+                     </div>
+                    
+                    {/* App Header */}
+                    <div className="text-center pt-4 relative z-10">
+                      <div className="flex items-center justify-center -mb-8">
+                        <img src="/lovable-uploads/98104f4d-712b-4381-98d5-35d5fa928839.png" alt="BOUD HR Logo" className="h-60 w-auto drop-shadow-lg -mt-24 relative z-20" />
+                      </div>
+                      <h3 className="text-2xl font-black text-gray-800 mb-2 -mt-16 relative z-20">مرحباً بك</h3>
+                      <h4 className="text-xl font-bold text-primary mb-4 relative z-20">نظام ذكي بلا حدود</h4>
+                    </div>
+
+                    {/* Login Form */}
+                    <div className="space-y-4 px-2 relative z-10">
+                      <div className="space-y-3">
+                        <label className="text-lg font-bold text-gray-800 block text-center">اسم المنشأة</label>
+                        <div className="relative">
+                          <input type="text" placeholder="اكتب اسم المنشأة" className="w-full h-14 text-lg border-2 border-gray-900 rounded-2xl focus:border-black bg-white/90 backdrop-blur-sm px-4 text-center font-bold text-gray-800 shadow-lg" readOnly />
+                          {/* Inner border for input */}
+                          <div className="absolute inset-0 rounded-2xl border border-white/50 pointer-events-none"></div>
+                        </div>
+                        <p className="text-lg text-primary text-center font-bold">EXAMPLE.BOUD.COM.SA</p>
+                      </div>
+
+                      <Button size="lg" onClick={() => navigate('/mobile-login')} className="w-full mt-4 bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-white text-xl py-4 font-black rounded-2xl flex items-center justify-center gap-3 shadow-2xl hover:shadow-primary/25 transition-all duration-300 border border-white/20">
+                        <ArrowLeft className="w-6 h-6 rotate-180" />
+                        دخول
+                      </Button>
+
+                      <div className="flex items-center justify-center">
+                        
+                      </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-full px-4 z-10">
+                       <div className="flex flex-col items-center">
+                         <img src="/lovable-uploads/3bb8cda9-761e-4268-8f44-76b21cecb2a4.png" alt="BOUD HR Logo" className="h-10 w-auto mb-3" />
+                        <p className="text-sm text-gray-600 text-center font-bold mt-4">
+                          © 2025 BOUD HR
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* iPhone Home Indicator */}
+                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full z-10"></div>
+                </div>
+                
+                {/* Interactive Labels */}
+                <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center">
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="bg-foreground text-background py-16">
@@ -866,12 +1154,58 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Company Info */}
             <div className="space-y-4">
               <div className="flex items-center space-x-3 space-x-reverse">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto max-w-[100px] object-contain filter brightness-0 invert" />
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-glow rounded-lg flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold">بُعد HR</h1>
+                  <p className="text-sm text-background/70">إدارة الموارد البشرية</p>
+                </div>
               </div>
-              <p className="text-background/70 leading-relaxed">
-                الرائد في حلول الموارد البشرية المدعومة بالذكاء الاصطناعي في المملكة العربية السعودية
+              <p className="text-background/80 leading-relaxed">
+                نظام سعودي ذكي لإدارة الموارد البشرية مدعوم بالذكاء الاصطناعي
               </p>
-              <div className="flex items-center space-x-4 space-x-reverse pt-4">
+              <div className="flex items-center gap-2">
+                <Badge className="bg-primary/20 text-primary border-primary/30">
+                  🇸🇦 صنع في السعودية
+                </Badge>
+              </div>
+            </div>
+            
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">روابط سريعة</h3>
+              <ul className="space-y-2">
+                <li><a href="#home" className="text-background/80 hover:text-background transition-colors">الرئيسية</a></li>
+                <li><a href="#solutions" className="text-background/80 hover:text-background transition-colors">الحلول</a></li>
+                <li><button onClick={() => navigate('/subscription-packages')} className="text-background/80 hover:text-background transition-colors">باقات الاشتراك</button></li>
+                <li><button onClick={() => navigate('/blog')} className="text-background/80 hover:text-background transition-colors">المدونة</button></li>
+              </ul>
+            </div>
+            
+            {/* Contact Info */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">تواصل معنا</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4" />
+                  <span className="text-background/80">+966 55 123 4567</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4" />
+                  <span className="text-background/80">info@boud.com.sa</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4" />
+                  <span className="text-background/80">الرياض، السعودية</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Social Links */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">تابعنا</h3>
+              <div className="flex gap-3">
                 <Button variant="ghost" size="sm" className="w-10 h-10 p-0 bg-background/10 hover:bg-background/20">
                   <Twitter className="w-4 h-4" />
                 </Button>
@@ -893,12 +1227,10 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
-      </main>
       
+
       {/* BOUD HR Assistant with controlled state */}
       <BoudHRAssistant language="ar" isOpen={assistantOpen} onOpenChange={handleAssistantOpenChange} initialMessage={initialMessage} />
-    </div>
-  );
+    </div>;
 };
-
 export default BoudHRLandingPage;
