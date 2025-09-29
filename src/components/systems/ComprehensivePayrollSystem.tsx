@@ -948,7 +948,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </TabsContent>
 
           <TabsContent value="salary-processing">
-            <div className="space-y-6">
+            <div className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">معالجة الرواتب</h2>
                 <Button onClick={handleProcessPayroll}>
