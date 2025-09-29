@@ -131,7 +131,7 @@ const SocialServices = () => {
       </div>
 
       {/* Main Content */}
-      <div className="p-6">
+      <div className="p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
         <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
           <CardHeader className="pb-6">
             <div className="flex items-center justify-between">
