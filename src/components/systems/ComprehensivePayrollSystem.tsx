@@ -903,7 +903,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                     </Select>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
                   <div className="grid gap-4">
                     {payrollEmployees.map((employee) => (
                       <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
