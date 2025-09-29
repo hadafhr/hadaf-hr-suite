@@ -372,7 +372,7 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Right Section - Professional Controls Panel */}
             <div className="flex flex-col items-end space-y-4">
               {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px] px-[21px] py-[15px] my-0 mx-[55px]">
                 {/* Status Indicator */}
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
@@ -427,7 +427,7 @@ const BoudHRLandingPage: React.FC = () => {
               </div>
               
               {/* Quick Stats Mini Panel */}
-              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
+              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg mx-[70px]">
                 <div className="flex items-center space-x-3 text-xs">
                   <div className="flex items-center space-x-1">
                     <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
