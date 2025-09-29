@@ -632,7 +632,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       </div>
 
       {/* تنبيهات الذكاء الاصطناعي */}
-      <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+      <Card className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-blue-800">
             <Bot className="h-6 w-6" />
