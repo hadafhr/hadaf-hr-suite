@@ -286,460 +286,471 @@ const BoudHRLandingPage: React.FC = () => {
           )}
 
           {/* Bottom Accent Line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A]/50 to-transparent"></div>
         </div>
       </header>
 
-      {/* Hero Section - القسم الأول: الغلاف الرئيسي */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-950 to-black">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
-        <div className="absolute top-20 left-20 w-64 h-64 bg-[#008C6A]/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#008C6A]/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      {/* Main Content */}
+      <main className="relative overflow-hidden">
         
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-8"
-          >
-            <motion.h1 
-              className="text-4xl lg:text-6xl font-bold text-white leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              {currentLanguage === 'ar' 
-                ? 'ودّع فوضى الأنظمة المتعددة وابدأ من بُعد HR'
-                : 'Say goodbye to fragmented systems. Start with BOUD HR'
-              }
-            </motion.h1>
-            
-            <motion.p 
-              className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              {currentLanguage === 'ar' 
-                ? 'كل ما تحتاجه لإدارة رأس المال البشري في مكان واحد'
-                : 'All your Human Capital Management in one place'
-              }
-            </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, duration: 0.5, type: "spring", bounce: 0.4 }}
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00A87A] hover:to-[#008C6A] text-white px-12 py-4 text-xl font-semibold rounded-xl shadow-2xl hover:shadow-[#008C6A]/30 transition-all duration-300 hover:scale-105"
-              >
-                {currentLanguage === 'ar' ? 'ابدأ الآن' : 'Get Started'}
-              </Button>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* About Us Section - القسم الثاني: من نحن */}
-      <section className="py-24 bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-12"
-          >
-            <motion.div
-              initial={{ opacity: 0, x: currentLanguage === 'ar' ? 50 : -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div className="flex items-center justify-center gap-4">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="w-8 h-8 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F]"
-                ></motion.div>
-                <h2 className="text-4xl lg:text-5xl font-bold text-white">
-                  {currentLanguage === 'ar' ? 'من نحن' : 'About Us'}
-                </h2>
-              </div>
-              
-              <motion.p
-                initial={{ opacity: 0, x: currentLanguage === 'ar' ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                viewport={{ once: true }}
-                className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+        {/* Hero Section */}
+        <section className="relative min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 overflow-hidden flex items-center">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="text-center space-y-8">
+              <motion.h1 
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
               >
                 {currentLanguage === 'ar' 
-                  ? 'بُعد HR هو الحل الشامل والمتطور لإدارة الموارد البشرية، مصمم خصيصاً للشركات السعودية لتلبية احتياجاتها الفريدة وضمان الامتثال للقوانين المحلية.'
-                  : 'BOUD HR is a comprehensive and advanced Human Resources management solution, specifically designed for Saudi companies to meet their unique needs and ensure compliance with local regulations.'
+                  ? 'كل منشأة تبدأ بحلم… لكن إدارة الموظفين قد تتحول إلى عبء يستهلك وقتك وجهدك. بُعد HR هنا ليعيد لك السيطرة، ويحوّل الفوضى إلى نظام، والتحديات إلى فرص.'
+                  : 'Every business starts with a dream… but managing people can quickly become a burden that drains your time and energy. BOUD HR gives you back control – turning chaos into order, and challenges into opportunities.'
                 }
-              </motion.p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* HR Divisions Section - القسم الثالث: إدارات بُعد HR */}
-      <section className="py-24 bg-black">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              {currentLanguage === 'ar' ? 'إدارات بُعد HR' : 'Our Main HR Divisions'}
-            </h2>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: Users, titleAr: 'إدارة الموظفين', titleEn: 'Employee Management' },
-              { icon: Building, titleAr: 'إدارة الشركات', titleEn: 'Company Management' },
-              { icon: DollarSign, titleAr: 'الرواتب والمزايا', titleEn: 'Payroll & Benefits' },
-              { icon: BarChart3, titleAr: 'التقارير والتحليلات', titleEn: 'Reports & Analytics' },
-              { icon: GraduationCap, titleAr: 'التدريب والتطوير', titleEn: 'Training & Development' },
-              { icon: Shield, titleAr: 'الأمان والحماية', titleEn: 'Security & Protection' }
-            ].map((division, index) => (
+              </motion.h1>
+              
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-                className="group text-center p-8 rounded-2xl bg-gradient-to-b from-gray-900 to-gray-950 border border-[#008C6A]/20 hover:border-[#008C6A]/60 transition-all duration-300"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-2xl flex items-center justify-center"
-                >
-                  <division.icon className="w-8 h-8 text-white" />
-                </motion.div>
-                <motion.h3
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: (index * 0.1) + 0.3, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="text-xl font-semibold text-white group-hover:text-[#008C6A] transition-colors duration-300"
-                >
-                  {currentLanguage === 'ar' ? division.titleAr : division.titleEn}
-                </motion.h3>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why BOUD Section - القسم الرابع: لماذا بُعد؟ */}
-      <section className="py-24 bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              {currentLanguage === 'ar' ? 'لماذا بُعد؟' : 'Why BOUD?'}
-            </h2>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {[
-              { icon: Zap, titleAr: 'أتمتة كاملة', titleEn: 'Full Automation', descAr: 'توفير 70% من الوقت في العمليات', descEn: 'Save 70% of time in operations' },
-              { icon: Shield, titleAr: 'أمان متقدم', titleEn: 'Advanced Security', descAr: 'حماية عالية المستوى للبيانات', descEn: 'High-level data protection' },
-              { icon: Cloud, titleAr: 'تقنية سحابية', titleEn: 'Cloud Technology', descAr: 'وصول آمن من أي مكان', descEn: 'Secure access from anywhere' },
-              { icon: CheckCircle, titleAr: 'امتثال تنظيمي', titleEn: 'Regulatory Compliance', descAr: 'ضمان الامتثال للقوانين السعودية', descEn: 'Ensure compliance with Saudi laws' }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="flex items-start gap-6 p-6 rounded-2xl bg-gradient-to-r from-gray-900/50 to-gray-900/30 border border-gray-800 hover:border-[#008C6A]/50 transition-all duration-300"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.2, color: '#008C6A' }}
-                  transition={{ duration: 0.3 }}
-                  className="w-12 h-12 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <feature.icon className="w-6 h-6 text-white" />
-                </motion.div>
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {currentLanguage === 'ar' ? feature.titleAr : feature.titleEn}
-                  </h3>
-                  <p className="text-gray-400">
-                    {currentLanguage === 'ar' ? feature.descAr : feature.descEn}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Impact Numbers Section - القسم الخامس: الأرقام تتحدث */}
-      <section className="py-24 bg-black">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              {currentLanguage === 'ar' ? 'الأرقام تتحدث' : 'Impact in Numbers'}
-            </h2>
-          </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { number: 1000, suffix: '+', titleAr: 'شركة تثق بنا', titleEn: 'Companies Trust Us' },
-              { number: 100000, suffix: '+', titleAr: 'موظف نديرهم', titleEn: 'Employees We Manage' },
-              { number: 99.9, suffix: '%', titleAr: 'وقت التشغيل', titleEn: 'Uptime' },
-              { number: 24, suffix: '/7', titleAr: 'دعم متواصل', titleEn: 'Continuous Support' }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
                 initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.6, type: "spring", bounce: 0.4 }}
-                viewport={{ once: true }}
-                className="text-center p-8 rounded-2xl bg-gradient-to-b from-gray-900 to-gray-950 border border-[#008C6A]/20 shadow-xl hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300"
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ delay: (index * 0.1) + 0.3, duration: 0.8, type: "spring", bounce: 0.6 }}
-                  viewport={{ once: true }}
-                  className="text-4xl lg:text-5xl font-bold text-[#008C6A] mb-4"
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:shadow-[#008C6A]/50 transition-all duration-300 hover:scale-105"
                 >
-                  <CountUpNumber target={stat.number} suffix={stat.suffix} />
-                </motion.div>
-                <h3 className="text-lg font-semibold text-white">
-                  {currentLanguage === 'ar' ? stat.titleAr : stat.titleEn}
-                </h3>
+                  {currentLanguage === 'ar' ? 'ابدأ رحلتك الآن' : 'Start Your Journey'}
+                </Button>
               </motion.div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Client Success Stories - القسم السادس: قصص نجاح العملاء */}
-      <section className="py-24 bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              {currentLanguage === 'ar' ? 'قصص نجاح العملاء' : 'Client Success Stories'}
-            </h2>
-          </motion.div>
-          
-          <TestimonialCarousel currentLanguage={currentLanguage} />
-        </div>
-      </section>
+        {/* Explainer Video Section */}
+        <section className="relative py-20 bg-gradient-to-b from-gray-900 to-gray-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-8"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold text-white">
+                {currentLanguage === 'ar' 
+                  ? 'شاهد القصة… كيف انتقلت شركات من المعاناة مع الأنظمة التقليدية إلى تجربة سلسة مع بُعد HR.'
+                  : 'Watch the story… how companies moved from struggling with outdated systems to a seamless journey with BOUD HR.'
+                }
+              </h2>
+              
+              <div className="relative max-w-4xl mx-auto aspect-video bg-gray-800 rounded-2xl flex items-center justify-center group cursor-pointer">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="w-20 h-20 bg-[#008C6A] rounded-full flex items-center justify-center shadow-2xl"
+                >
+                  <Play className="w-8 h-8 text-white ml-1" />
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-      {/* Pricing Section - القسم السابع: باقات الأسعار */}
-      <section className="py-24 bg-black">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              {currentLanguage === 'ar' ? 'باقات الأسعار' : 'Pricing & Packages'}
-            </h2>
-          </motion.div>
+        {/* The Pain Before BOUD Section */}
+        <section className="relative py-20 bg-gradient-to-b from-gray-950 to-black">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold text-white">
+                {currentLanguage === 'ar' ? 'المشكلة قبل بُعد' : 'The Pain Before BOUD'}
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {[
+                  {
+                    icon: <Settings className="w-8 h-8" />,
+                    textAr: 'أنظمة متعددة لا تتكامل',
+                    textEn: 'Multiple systems that don\'t talk to each other'
+                  },
+                  {
+                    icon: <Clock className="w-8 h-8" />,
+                    textAr: 'تقارير يدوية تستهلك الساعات',
+                    textEn: 'Hours wasted on manual reports'
+                  },
+                  {
+                    icon: <DollarSign className="w-8 h-8" />,
+                    textAr: 'أخطاء في الرواتب تعني شكاوى لا تنتهي',
+                    textEn: 'Payroll errors leading to endless complaints'
+                  },
+                  {
+                    icon: <FileText className="w-8 h-8" />,
+                    textAr: 'ضياع بيانات الموظفين بين الملفات',
+                    textEn: 'Employee data scattered everywhere'
+                  }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="bg-gradient-to-b from-red-900/20 to-red-950/10 p-6 rounded-xl border border-red-500/20 text-center space-y-4"
+                  >
+                    <div className="text-red-400 flex justify-center">
+                      {item.icon}
+                    </div>
+                    <p className="text-white font-medium">
+                      {currentLanguage === 'ar' ? item.textAr : item.textEn}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* The Transformation with BOUD Section */}
+        <section className="relative py-20 bg-gradient-to-b from-black to-gray-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold text-white">
+                {currentLanguage === 'ar' ? 'الحل مع بُعد' : 'The Transformation with BOUD'}
+              </h2>
+              
+              <div className="max-w-4xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/10 p-8 rounded-2xl border border-[#008C6A]/30"
+                >
+                  <p className="text-xl md:text-2xl text-white leading-relaxed">
+                    {currentLanguage === 'ar' 
+                      ? 'بُعد HR يجمع كل ما تحتاجه في مكان واحد: التوظيف، الرواتب، التدريب، الأداء، الحوكمة… كل شيء في منصة سحابية ذكية، متوافقة مع الأنظمة السعودية، ومدعومة بالذكاء الاصطناعي.'
+                      : 'BOUD HR brings everything you need into one place: recruitment, payroll, training, performance, compliance… all in a smart cloud platform, fully compliant with Saudi regulations, and powered by AI.'
+                    }
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Customer Journey Section */}
+        <section className="relative py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold text-white">
+                {currentLanguage === 'ar' ? 'رحلة العميل' : 'Customer Journey'}
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  {
+                    step: '1',
+                    icon: <Eye className="w-8 h-8" />,
+                    titleAr: 'البداية: اكتشاف الفوضى في أنظمة الموارد البشرية',
+                    titleEn: 'The Beginning: Realizing the chaos in HR systems'
+                  },
+                  {
+                    step: '2',
+                    icon: <Rocket className="w-8 h-8" />,
+                    titleAr: 'التحول: تجربة بُعد HR ورؤية الفرق من اليوم الأول',
+                    titleEn: 'The Shift: Trying BOUD HR and seeing results from day one'
+                  },
+                  {
+                    step: '3',
+                    icon: <Crown className="w-8 h-8" />,
+                    titleAr: 'النتيجة: راحة إدارية، نمو أسرع، ورضا موظفين أعلى',
+                    titleEn: 'The Outcome: Administrative peace, faster growth, happier employees'
+                  }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    className="relative"
+                  >
+                    <div className="bg-gradient-to-b from-[#008C6A]/20 to-[#008C6A]/5 p-8 rounded-xl border border-[#008C6A]/30 text-center space-y-6 group hover:scale-105 transition-transform duration-300">
+                      <div className="w-16 h-16 bg-[#008C6A] rounded-full flex items-center justify-center mx-auto text-white font-bold text-xl">
+                        {item.step}
+                      </div>
+                      <div className="text-[#008C6A] flex justify-center">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-white font-semibold text-lg">
+                        {currentLanguage === 'ar' ? item.titleAr : item.titleEn}
+                      </h3>
+                    </div>
+                    {index < 2 && (
+                      <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-[#008C6A]/30"></div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Success Stories Section */}
+        <section className="relative py-20 bg-gradient-to-b from-gray-900 to-black">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold text-white">
+                {currentLanguage === 'ar' ? 'قصص نجاح' : 'Success Stories'}
+              </h2>
+              
+              <div className="max-w-4xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/10 p-8 rounded-2xl border border-[#008C6A]/30"
+                >
+                  <p className="text-xl md:text-2xl text-white leading-relaxed mb-8">
+                    {currentLanguage === 'ar' 
+                      ? 'إحدى الشركات وفّرت 70% من وقتها الإداري بعد اعتماد بُعد HR. أخرى حسّنت رضا موظفيها بنسبة 40%. الجميع اتفقوا: بُعد ليس برنامجًا، بل نقلة نوعية.'
+                      : 'One company saved 70% of their admin time after adopting BOUD HR. Another improved employee satisfaction by 40%. Everyone agrees: BOUD is not just software – it\'s a breakthrough.'
+                    }
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="text-center">
+                      <div className="text-5xl font-bold text-[#008C6A] mb-2">
+                        <CountUpNumber target={70} suffix="%" duration={2} />
+                      </div>
+                      <p className="text-[#008C6A] font-semibold">
+                        {currentLanguage === 'ar' ? 'توفير في الوقت الإداري' : 'Admin Time Saved'}
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-5xl font-bold text-[#008C6A] mb-2">
+                        <CountUpNumber target={40} suffix="%" duration={2} />
+                      </div>
+                      <p className="text-[#008C6A] font-semibold">
+                        {currentLanguage === 'ar' ? 'تحسن في رضا الموظفين' : 'Employee Satisfaction Improved'}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Why BOUD Section */}
+        <section className="relative py-20 bg-gradient-to-b from-black to-gray-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center space-y-12"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold text-white">
+                {currentLanguage === 'ar' ? 'لماذا بُعد؟' : 'Why BOUD?'}
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[
+                  {
+                    icon: <Award className="w-8 h-8" />,
+                    titleAr: 'حل محلي بمعايير عالمية – صمم خصيصًا لبيئة العمل السعودية والخليجية',
+                    titleEn: 'Local solution with global standards – tailored for Saudi & GCC markets'
+                  },
+                  {
+                    icon: <Zap className="w-8 h-8" />,
+                    titleAr: 'تكامل شامل – لا حاجة لتعدد الأنظمة أو الإضافات',
+                    titleEn: 'Full integration – no need for multiple systems or add-ons'
+                  },
+                  {
+                    icon: <Settings className="w-8 h-8" />,
+                    titleAr: 'مرونة كاملة – يناسب جميع أحجام المنشآت',
+                    titleEn: 'Complete flexibility – designed for all business sizes'
+                  },
+                  {
+                    icon: <Brain className="w-8 h-8" />,
+                    titleAr: 'ابتكار وذكاء – تقارير تنبؤية وذكاء اصطناعي',
+                    titleEn: 'Innovation & Intelligence – predictive analytics and AI-powered insights'
+                  }
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="bg-gradient-to-b from-[#008C6A]/20 to-[#008C6A]/5 p-6 rounded-xl border border-[#008C6A]/30 text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+                  >
+                    <div className="text-[#008C6A] flex justify-center group-hover:scale-110 transition-transform duration-300">
+                      {item.icon}
+                    </div>
+                    <p className="text-white font-medium">
+                      {currentLanguage === 'ar' ? item.titleAr : item.titleEn}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Footer Section */}
+        <footer className="relative bg-gradient-to-b from-gray-950 to-black border-t border-[#008C6A]/30">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)]"></div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { nameAr: 'الباقة الأساسية', nameEn: 'Basic Plan', price: '99', popular: false },
-              { nameAr: 'الباقة المتقدمة', nameEn: 'Advanced Plan', price: '199', popular: true },
-              { nameAr: 'باقة المؤسسات', nameEn: 'Enterprise Plan', price: '399', popular: false },
-              { nameAr: 'باقة مخصصة', nameEn: 'Custom Plan', price: 'حسب الطلب', popular: false }
-            ].map((plan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${
-                  plan.popular 
-                    ? 'bg-gradient-to-b from-[#008C6A]/20 to-gray-950 border-[#008C6A] shadow-2xl shadow-[#008C6A]/30' 
-                    : 'bg-gradient-to-b from-gray-900 to-gray-950 border-gray-700 hover:border-[#008C6A]/50'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white px-6 py-2 rounded-full text-sm font-semibold">
-                      {currentLanguage === 'ar' ? 'الأكثر شيوعاً' : 'Most Popular'}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Company Info */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <BoudLogo variant="full" size="sm" className="h-8 w-auto filter brightness-200" />
+                  <img src={boudWhiteLogo} alt="شعار بُعد" className="h-12 w-auto" />
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {currentLanguage === 'ar' 
+                    ? 'نقود التحول الرقمي في إدارة الموارد البشرية مع حلول تقنية متطورة ومدعومة بالذكاء الاصطناعي.'
+                    : 'Leading digital transformation in Human Resource Management with advanced technology solutions powered by AI.'
+                  }
+                </p>
+                <div className="flex items-center gap-4">
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="w-10 h-10 bg-[#008C6A]/20 hover:bg-[#008C6A]/40 rounded-full flex items-center justify-center text-white hover:text-[#008C6A] transition-all duration-300"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="w-10 h-10 bg-[#008C6A]/20 hover:bg-[#008C6A]/40 rounded-full flex items-center justify-center text-white hover:text-[#008C6A] transition-all duration-300"
+                  >
+                    <Twitter className="w-5 h-5" />
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="w-10 h-10 bg-[#008C6A]/20 hover:bg-[#008C6A]/40 rounded-full flex items-center justify-center text-white hover:text-[#008C6A] transition-all duration-300"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                  </motion.a>
+                </div>
+              </div>
+
+              {/* Quick Links */}
+              <div className="space-y-4">
+                <h3 className="text-white font-semibold text-lg">
+                  {currentLanguage === 'ar' ? 'روابط سريعة' : 'Quick Links'}
+                </h3>
+                <div className="space-y-2">
+                  <a href="#home" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'الرئيسية' : 'Home'}
+                  </a>
+                  <a href="#solutions" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'الحلول' : 'Solutions'}
+                  </a>
+                  <a href="#success-stories" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'قصص النجاح' : 'Success Stories'}
+                  </a>
+                  <a href="#contact" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+                  </a>
+                </div>
+              </div>
+
+              {/* Services */}
+              <div className="space-y-4">
+                <h3 className="text-white font-semibold text-lg">
+                  {currentLanguage === 'ar' ? 'خدماتنا' : 'Our Services'}
+                </h3>
+                <div className="space-y-2">
+                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'إدارة الموظفين' : 'Employee Management'}
+                  </a>
+                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'الخدمة الذاتية' : 'Self Service'}
+                  </a>
+                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'التقييمات الذكية' : 'Smart Evaluations'}
+                  </a>
+                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                    {currentLanguage === 'ar' ? 'التدريب والتطوير' : 'Training & Development'}
+                  </a>
+                </div>
+              </div>
+
+              {/* Contact Info */}
+              <div className="space-y-4">
+                <h3 className="text-white font-semibold text-lg">
+                  {currentLanguage === 'ar' ? 'معلومات التواصل' : 'Contact Info'}
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 text-gray-400">
+                    <Phone className="w-4 h-4 text-[#008C6A]" />
+                    <span className="text-sm">+966 11 123 4567</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-400">
+                    <Mail className="w-4 h-4 text-[#008C6A]" />
+                    <span className="text-sm">info@boud.systems</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-400">
+                    <MapPin className="w-4 h-4 text-[#008C6A]" />
+                    <span className="text-sm">
+                      {currentLanguage === 'ar' ? 'الرياض، المملكة العربية السعودية' : 'Riyadh, Saudi Arabia'}
                     </span>
                   </div>
-                )}
-                
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    {currentLanguage === 'ar' ? plan.nameAr : plan.nameEn}
-                  </h3>
-                  <div className="text-4xl font-bold text-[#008C6A] mb-6">
-                    {plan.price === 'حسب الطلب' && currentLanguage === 'en' ? 'Custom' : plan.price}
-                    {plan.price !== 'حسب الطلب' && plan.price !== 'Custom' && (
-                      <span className="text-lg text-gray-400">
-                        {currentLanguage === 'ar' ? ' ريال/شهر' : ' SAR/month'}
-                      </span>
-                    )}
-                  </div>
-                  
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button
-                      className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 ${
-                        plan.popular
-                          ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00A87A] hover:to-[#008C6A] text-white'
-                          : 'bg-gray-800 hover:bg-[#008C6A] text-white'
-                      }`}
-                    >
-                      {currentLanguage === 'ar' ? 'اشترك الآن' : 'Subscribe Now'}
-                    </Button>
-                  </motion.div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+              </div>
+            </div>
 
-      {/* Footer - الفوتر */}
-      <footer className="bg-gray-950 border-t border-gray-800 py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold text-white mb-6">
-                {currentLanguage === 'ar' ? 'الروابط السريعة' : 'Quick Links'}
-              </h3>
-              <div className="space-y-4">
-                {[
-                  { textAr: 'الرئيسية', textEn: 'Home', href: '#home' },
-                  { textAr: 'الخدمات', textEn: 'Services', href: '#services' },
-                  { textAr: 'قصص النجاح', textEn: 'Success Stories', href: '#success' },
-                  { textAr: 'تواصل معنا', textEn: 'Contact Us', href: '#contact' }
-                ].map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300"
-                    whileHover={{ x: 5 }}
-                  >
-                    {currentLanguage === 'ar' ? link.textAr : link.textEn}
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2 text-center"
-            >
-              <div className="mb-8">
-                <BoudLogo variant="full" size="lg" className="h-16 w-auto mx-auto filter brightness-200" />
-              </div>
-              
-              <div className="flex justify-center space-x-6">
-                {[
-                  { icon: Linkedin, href: '#' },
-                  { icon: Twitter, href: '#' },
-                  { icon: Globe, href: '#' }
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#008C6A] transition-all duration-300"
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-bold text-white mb-6">
-                {currentLanguage === 'ar' ? 'تواصل معنا' : 'Contact Info'}
-              </h3>
-              <div className="space-y-4 text-gray-400">
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#008C6A]" />
-                  <span>+966 11 123 4567</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#008C6A]" />
-                  <span>info@boud.com.sa</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-[#008C6A]" />
-                  <span>{currentLanguage === 'ar' ? 'الرياض، السعودية' : 'Riyadh, Saudi Arabia'}</span>
-                </div>
-              </div>
-            </motion.div>
+            {/* Bottom Footer */}
+            <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+              <p className="text-gray-400 text-sm">
+                {currentLanguage === 'ar' 
+                  ? '© بُعد BOUD Systems – جميع الحقوق محفوظة'
+                  : '© BOUD Systems – All Rights Reserved'
+                }
+              </p>
+            </div>
           </div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="border-t border-gray-800 pt-8 text-center"
-          >
-            <p className="text-gray-400">
-              {currentLanguage === 'ar' 
-                ? '© بُعد BOUD Systems – جميع الحقوق محفوظة' 
-                : '© BOUD Systems – All Rights Reserved'
-              }
-            </p>
-          </motion.div>
-        </div>
-      </footer>
+        </footer>
+      </main>
+
+      {/* AI Assistant */}
+      <BoudHRAssistant />
     </div>
   );
 };
