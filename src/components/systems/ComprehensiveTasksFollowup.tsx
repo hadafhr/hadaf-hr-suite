@@ -1434,12 +1434,20 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
             {renderTaskManagement()}
           </TabsContent>
 
-          <TabsContent value="followup" className="space-y-6">
+          <TabsContent value="projects" className="space-y-6">
             {renderFollowupTracking()}
           </TabsContent>
 
-          <TabsContent value="collaboration" className="space-y-6">
+          <TabsContent value="teams" className="space-y-6">
             {renderCollaboration()}
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-6">
+            {renderAnalyticsDashboard()}
+          </TabsContent>
+
+          <TabsContent value="calendar" className="space-y-6">
+            {renderFollowupTracking()}
           </TabsContent>
 
           <TabsContent value="reports" className="space-y-6">
