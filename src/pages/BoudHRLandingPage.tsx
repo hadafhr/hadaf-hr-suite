@@ -318,21 +318,6 @@ const BoudHRLandingPage: React.FC = () => {
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
-            {/* Language Toggle */}
-            <div className="flex items-center">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={toggleLanguage}
-                className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 flex items-center gap-2 px-3 py-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60"
-              >
-                <Globe className="w-4 h-4" />
-                <span className="text-sm font-medium">
-                  {currentLanguage === 'ar' ? 'العربية' : 'English'}
-                </span>
-              </Button>
-            </div>
-            
             {/* Logo Section */}
             <div className="flex items-center">
               <div className="hover:scale-105 transition-all duration-300">
@@ -389,7 +374,20 @@ const BoudHRLandingPage: React.FC = () => {
             </nav>
 
             {/* Right Section - Professional Controls Panel */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
+              {/* Language Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleLanguage}
+                className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 flex items-center gap-2 px-3 py-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="text-sm font-medium">
+                  {currentLanguage === 'ar' ? 'العربية' : 'English'}
+                </span>
+              </Button>
+              
               {/* Status Panel */}
               <div className="bg-gradient-to-r from-[#008C6A]/10 via-[#008C6A]/5 to-[#008C6A]/10 backdrop-blur-lg rounded-lg border border-[#008C6A]/40 shadow-lg shadow-[#008C6A]/20 p-2 hover:border-[#008C6A]/60 transition-all duration-300 mr-4">
                 {/* Login Dropdown */}
