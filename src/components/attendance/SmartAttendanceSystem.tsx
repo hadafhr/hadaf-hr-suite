@@ -8,51 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
-import { 
-  Clock, 
-  MapPin, 
-  Users, 
-  Calendar, 
-  Settings, 
-  CheckCircle, 
-  XCircle, 
-  AlertCircle, 
-  Fingerprint,
-  Navigation,
-  BarChart3,
-  Download,
-  Plus,
-  Eye,
-  QrCode,
-  Camera,
-  Smartphone,
-  Timer,
-  Award,
-  TrendingUp,
-  DollarSign,
-  AlertTriangle,
-  CheckCircle2,
-  Zap,
-  Target,
-  PlayCircle,
-  PauseCircle,
-  RotateCcw,
-  MapIcon,
-  Bell,
-  MessageSquare,
-  FileText,
-  Star,
-  Coins,
-  Activity,
-  Radio,
-  Wifi,
-  BatteryLow,
-  Shield,
-  CreditCard,
-  Gauge,
-  TrendingDown,
-  Brain
-} from 'lucide-react';
+import { Clock, MapPin, Users, Calendar, Settings, CheckCircle, XCircle, AlertCircle, Fingerprint, Navigation, BarChart3, Download, Plus, Eye, QrCode, Camera, Smartphone, Timer, Award, TrendingUp, DollarSign, AlertTriangle, CheckCircle2, Zap, Target, PlayCircle, PauseCircle, RotateCcw, MapIcon, Bell, MessageSquare, FileText, Star, Coins, Activity, Radio, Wifi, BatteryLow, Shield, CreditCard, Gauge, TrendingDown, Brain } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import AttendanceRealTimeClock from './AttendanceRealTimeClock';
 import { GPSCheckInOut } from './GPSCheckInOut';
@@ -60,7 +16,6 @@ import { DeviceManagement } from './DeviceManagement';
 import ShiftScheduleTable from './ShiftScheduleTable';
 import { AttendanceAnalytics } from './AttendanceAnalytics';
 import AttendanceSettings from './AttendanceSettings';
-
 interface AttendanceRecord {
   id: string;
   employee_id: string;
@@ -80,7 +35,6 @@ interface AttendanceRecord {
   source_type?: string;
   device_name?: string;
 }
-
 interface DashboardStats {
   totalEmployees: number;
   presentToday: number;
@@ -95,7 +49,6 @@ interface DashboardStats {
   overtimeHours: number;
   remoteWorkers: number;
 }
-
 interface LiveTrackingData {
   id: string;
   employee_id: string;
@@ -108,7 +61,6 @@ interface LiveTrackingData {
   battery_level: number;
   is_inside_geofence: boolean;
 }
-
 interface AttendancePoint {
   id: string;
   employee_id: string;
@@ -119,7 +71,6 @@ interface AttendancePoint {
   reward_amount: number;
   reason: string;
 }
-
 interface OvertimeRecord {
   id: string;
   employee_id: string;
@@ -129,7 +80,6 @@ interface OvertimeRecord {
   reason: string;
   approved: boolean;
 }
-
 interface AttendanceLocation {
   id: string;
   location_name: string;
@@ -139,7 +89,6 @@ interface AttendanceLocation {
   work_type: string;
   is_active: boolean;
 }
-
 export const SmartAttendanceSystem: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [loading, setLoading] = useState(true);
@@ -166,7 +115,6 @@ export const SmartAttendanceSystem: React.FC = () => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -174,51 +122,43 @@ export const SmartAttendanceSystem: React.FC = () => {
   useEffect(() => {
     fetchDashboardData();
   }, []);
-
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
       // جلب إحصائيات اليوم
       const today = new Date().toISOString().split('T')[0];
-      
-      const { data: attendanceData, error: attendanceError } = await supabase
-        .from('employee_attendance_records')
-        .select(`
+      const {
+        data: attendanceData,
+        error: attendanceError
+      } = await supabase.from('employee_attendance_records').select(`
           *,
           boud_employees!inner(first_name, last_name, boud_departments(department_name))
-        `)
-        .eq('attendance_date', today);
-
+        `).eq('attendance_date', today);
       if (attendanceError) throw attendanceError;
 
       // جلب عدد الموظفين الكلي
-      const { data: employeesData, error: employeesError } = await supabase
-        .from('boud_employees')
-        .select('id')
-        .eq('is_active', true);
-
+      const {
+        data: employeesData,
+        error: employeesError
+      } = await supabase.from('boud_employees').select('id').eq('is_active', true);
       if (employeesError) throw employeesError;
 
       // جلب حالة الأجهزة
-      const { data: devicesData, error: devicesError } = await supabase
-        .from('attendance_devices')
-        .select('id, status')
-        .eq('is_active', true);
-
+      const {
+        data: devicesData,
+        error: devicesError
+      } = await supabase.from('attendance_devices').select('id, status').eq('is_active', true);
       if (devicesError) throw devicesError;
 
       // معالجة البيانات
       const totalEmployees = employeesData?.length || 0;
       const attendanceRecords = attendanceData || [];
-      
       const presentToday = attendanceRecords.filter(r => r.status === 'present').length;
       const absentToday = totalEmployees - attendanceRecords.length;
       const lateToday = attendanceRecords.filter(r => r.status === 'late').length;
       const devicesOnline = devicesData?.filter(d => d.status === 'online').length || 0;
-      
       const avgWorkingHours = attendanceRecords.reduce((sum, r) => sum + (r.total_hours || 0), 0) / (attendanceRecords.length || 1);
-      const attendanceRate = totalEmployees > 0 ? (presentToday / totalEmployees) * 100 : 0;
-
+      const attendanceRate = totalEmployees > 0 ? presentToday / totalEmployees * 100 : 0;
       setStats({
         totalEmployees,
         presentToday,
@@ -247,9 +187,7 @@ export const SmartAttendanceSystem: React.FC = () => {
         employee_name: `${record.boud_employees?.[0]?.first_name || ''} ${record.boud_employees?.[0]?.last_name || ''}`.trim(),
         department: record.boud_employees?.[0]?.boud_departments?.department_name || 'غير محدد'
       }));
-
       setTodayAttendance(formattedAttendance);
-
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
       toast.error('خطأ في تحميل بيانات لوحة التحكم');
@@ -257,23 +195,34 @@ export const SmartAttendanceSystem: React.FC = () => {
       setLoading(false);
     }
   };
-
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      present: { variant: 'default' as const, label: 'حاضر', color: 'bg-green-500' },
-      absent: { variant: 'destructive' as const, label: 'غائب', color: 'bg-red-500' },
-      late: { variant: 'secondary' as const, label: 'متأخر', color: 'bg-yellow-500' },
-      early_leave: { variant: 'outline' as const, label: 'انصراف مبكر', color: 'bg-orange-500' }
+      present: {
+        variant: 'default' as const,
+        label: 'حاضر',
+        color: 'bg-green-500'
+      },
+      absent: {
+        variant: 'destructive' as const,
+        label: 'غائب',
+        color: 'bg-red-500'
+      },
+      late: {
+        variant: 'secondary' as const,
+        label: 'متأخر',
+        color: 'bg-yellow-500'
+      },
+      early_leave: {
+        variant: 'outline' as const,
+        label: 'انصراف مبكر',
+        color: 'bg-orange-500'
+      }
     };
-
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.present;
-    return (
-      <Badge variant={config.variant} className="text-xs">
+    return <Badge variant={config.variant} className="text-xs">
         {config.label}
-      </Badge>
-    );
+      </Badge>;
   };
-
   const formatTime = (timeString?: string) => {
     if (!timeString) return '-';
     return new Date(timeString).toLocaleTimeString('ar-SA', {
@@ -281,33 +230,25 @@ export const SmartAttendanceSystem: React.FC = () => {
       minute: '2-digit'
     });
   };
-
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+    return <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
             <Clock className="h-12 w-12 animate-spin mx-auto mb-4 text-primary" />
             <p className="text-lg text-muted-foreground">جاري تحميل نظام الحضور الذكي...</p>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic p-6" dir="rtl">
+  return <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic p-6" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -329,12 +270,12 @@ export const SmartAttendanceSystem: React.FC = () => {
               {currentTime.toLocaleTimeString('ar-SA')}
             </div>
             <div className="text-sm text-gray-300">
-              {currentTime.toLocaleDateString('ar-SA', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
+              {currentTime.toLocaleDateString('ar-SA', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
             </div>
           </div>
         </div>
@@ -346,10 +287,7 @@ export const SmartAttendanceSystem: React.FC = () => {
                 <BarChart3 className="h-4 w-4" />
                 <span className="hidden sm:inline">لوحة التحكم</span>
               </TabsTrigger>
-              <TabsTrigger value="real-time" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
-                <Clock className="h-4 w-4" />
-                <span className="hidden sm:inline">الساعة المباشرة</span>
-              </TabsTrigger>
+              
               <TabsTrigger value="checkin" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <MapPin className="h-4 w-4" />
                 <span className="hidden sm:inline">GPS</span>
@@ -447,7 +385,7 @@ export const SmartAttendanceSystem: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-[#008C6A] mb-2">{stats.avgWorkingHours.toFixed(1)}h</div>
-                  <Progress value={(stats.avgWorkingHours / 9) * 100} className="h-2" />
+                  <Progress value={stats.avgWorkingHours / 9 * 100} className="h-2" />
                 </CardContent>
               </Card>
 
@@ -457,7 +395,7 @@ export const SmartAttendanceSystem: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-green-400 mb-2">{stats.devicesOnline}/5</div>
-                  <Progress value={(stats.devicesOnline / 5) * 100} className="h-2" />
+                  <Progress value={stats.devicesOnline / 5 * 100} className="h-2" />
                 </CardContent>
               </Card>
             </div>
@@ -468,12 +406,12 @@ export const SmartAttendanceSystem: React.FC = () => {
                 <div>
                   <CardTitle className="text-white">سجل حضور اليوم</CardTitle>
                   <CardDescription className="text-gray-300">
-                    {new Date().toLocaleDateString('ar-SA', { 
-                      weekday: 'long', 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
+                    {new Date().toLocaleDateString('ar-SA', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
@@ -489,14 +427,9 @@ export const SmartAttendanceSystem: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 max-h-[400px] overflow-y-auto">
-                  {todayAttendance.length > 0 ? (
-                    todayAttendance.map((record) => (
-                      <div key={record.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                  {todayAttendance.length > 0 ? todayAttendance.map(record => <div key={record.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
                         <div className="flex items-center gap-4">
-                          <div className={`w-3 h-3 rounded-full ${
-                            record.status === 'present' ? 'bg-green-500' :
-                            record.status === 'late' ? 'bg-yellow-500' : 'bg-red-500'
-                          }`} />
+                          <div className={`w-3 h-3 rounded-full ${record.status === 'present' ? 'bg-green-500' : record.status === 'late' ? 'bg-yellow-500' : 'bg-red-500'}`} />
                           <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                             <Users className="h-5 w-5 text-primary-foreground" />
                           </div>
@@ -522,19 +455,14 @@ export const SmartAttendanceSystem: React.FC = () => {
                           <div className="flex items-center gap-2">
                             {getStatusBadge(record.status)}
                             <Badge variant="outline" className="text-xs">
-                              {record.source_type === 'gps' ? 'GPS' : 
-                               record.source_type === 'device' ? 'بصمة' : 'يدوي'}
+                              {record.source_type === 'gps' ? 'GPS' : record.source_type === 'device' ? 'بصمة' : 'يدوي'}
                             </Badge>
                           </div>
                         </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center py-8 text-muted-foreground">
+                      </div>) : <div className="text-center py-8 text-muted-foreground">
                       <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
                       <p>لا توجد سجلات حضور لليوم</p>
-                    </div>
-                  )}
+                    </div>}
                 </div>
               </CardContent>
             </Card>
@@ -566,6 +494,5 @@ export const SmartAttendanceSystem: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
