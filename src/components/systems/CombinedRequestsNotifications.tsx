@@ -695,7 +695,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                           }`}
                           onClick={() => handleNotificationClick(notification)}
                         >
-                          <CardContent className="p-4">
+                          <CardContent className="p-4 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
                             <div className="flex items-start gap-3">
                               <div className="flex items-center gap-2 mt-1">
                                 {notification.priority === 'urgent' ? 
