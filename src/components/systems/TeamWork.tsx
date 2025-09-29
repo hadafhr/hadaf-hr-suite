@@ -3739,50 +3739,50 @@ const TeamWork: React.FC = () => {
           </div>
         </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-6 bg-muted/50 backdrop-blur-sm">
-            <TabsTrigger 
-              value="dashboard" 
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-white"
-            >
-              <Home className="w-4 h-4" />
-              {isRTL ? 'لوحة التحكم' : 'Dashboard'}
-            </TabsTrigger>
-            
-            <TabsTrigger 
-              value="employees"
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-white"
-            >
-              <Users className="w-4 h-4" />
-              {isRTL ? 'الموظفين' : 'Employees'}
-            </TabsTrigger>
-            
-            <TabsTrigger 
-              value="tasks"
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-white"
-            >
-              <Target className="w-4 h-4" />
-              {isRTL ? 'المهام' : 'Tasks'}
-            </TabsTrigger>
-            
-            <TabsTrigger 
-              value="reports"
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-white"
-            >
-              <BarChart3 className="w-4 h-4" />
-              {isRTL ? 'التقارير' : 'Reports'}
-            </TabsTrigger>
-            
-            <TabsTrigger 
-              value="settings"
-              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-glow data-[state=active]:text-white"
-            >
-              <Settings className="w-4 h-4" />
-              {isRTL ? 'الإعدادات' : 'Settings'}
-            </TabsTrigger>
-          </TabsList>
+        {/* Main Content */}
+        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+              <TabsTrigger 
+                value="dashboard" 
+                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+              >
+                <Home className="w-4 h-4" />
+                {isRTL ? 'لوحة التحكم' : 'Dashboard'}
+              </TabsTrigger>
+              
+              <TabsTrigger 
+                value="employees"
+                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+              >
+                <Users className="w-4 h-4" />
+                {isRTL ? 'الموظفين' : 'Employees'}
+              </TabsTrigger>
+              
+              <TabsTrigger 
+                value="tasks"
+                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+              >
+                <Target className="w-4 h-4" />
+                {isRTL ? 'المهام' : 'Tasks'}
+              </TabsTrigger>
+              
+              <TabsTrigger 
+                value="reports"
+                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+              >
+                <BarChart3 className="w-4 h-4" />
+                {isRTL ? 'التقارير' : 'Reports'}
+              </TabsTrigger>
+              
+              <TabsTrigger 
+                value="settings"
+                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+              >
+                <Settings className="w-4 h-4" />
+                {isRTL ? 'الإعدادات' : 'Settings'}
+              </TabsTrigger>
+            </TabsList>
 
           <TabsContent value="dashboard" className="mt-0">
             {renderDashboard()}
@@ -3806,13 +3806,13 @@ const TeamWork: React.FC = () => {
         </Tabs>
       </div>
 
-      {/* Dialogs */}
-      <AddEmployeeDialog />
-      <EditEmployeeDialog />
-      <ViewEmployeeDialog />
-      <AddTaskDialog />
+        {/* Dialogs */}
+        <AddEmployeeDialog />
+        <EditEmployeeDialog />
+        <ViewEmployeeDialog />
+        <AddTaskDialog />
+        </div>
       </div>
-    </div>
   );
 };
 
