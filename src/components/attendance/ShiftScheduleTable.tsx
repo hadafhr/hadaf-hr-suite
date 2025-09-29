@@ -865,27 +865,27 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
         <Card>
           <CardContent className="p-0">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 {/* Table Header */}
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="p-4 text-right font-semibold min-w-[200px] sticky right-0 bg-background z-10">
+                    <th className="p-2 text-right font-semibold min-w-[150px] sticky right-0 bg-background z-10 text-xs">
                       الموظف
                     </th>
                     {weekDays.map(day => (
-                      <th key={day.toISOString()} className="p-3 text-center font-semibold min-w-[150px]">
+                      <th key={day.toISOString()} className="p-2 text-center font-semibold min-w-[100px] text-xs">
                         <div className="flex flex-col items-center gap-1">
-                          <div className="font-bold">
-                            {format(day, 'EEEE', { locale: ar })}
+                          <div className="font-bold text-xs">
+                            {format(day, 'EEE', { locale: ar })}
                           </div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-xs text-muted-foreground">
                             {format(day, 'dd/MM')}
                           </div>
                         </div>
                       </th>
                     ))}
-                    <th className="p-3 text-center font-semibold min-w-[120px]">
-                      إجمالي الأسبوع
+                    <th className="p-2 text-center font-semibold min-w-[80px] text-xs">
+                      المجموع
                     </th>
                   </tr>
                 </thead>
@@ -897,57 +897,38 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                     
                     return (
                       <tr key={employee.id} className="border-b hover:bg-muted/30">
-                        {/* Employee Info */}
-                        <td className="p-4 sticky right-0 bg-background z-10">
-                          <div className="flex items-center gap-3">
-                            <Avatar className="h-10 w-10">
-                              <AvatarImage src={employee.avatar} />
-                              <AvatarFallback>
-                                {employee.name.split(' ').map(n => n[0]).join('')}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <div className="font-semibold text-sm">{employee.name}</div>
-                              <div className="text-xs text-muted-foreground">
-                                {employee.code} • {employee.position}
-                              </div>
-                              <div className="text-xs text-muted-foreground">
-                                {employee.department}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
+                         {/* Employee Info */}
+                         <td className="p-2 sticky right-0 bg-background z-10">
+                           <div className="flex items-center gap-2">
+                             <Avatar className="h-8 w-8">
+                               <AvatarImage src={employee.avatar} />
+                               <AvatarFallback className="text-xs">
+                                 {employee.name.split(' ').map(n => n[0]).join('')}
+                               </AvatarFallback>
+                             </Avatar>
+                             <div>
+                               <div className="font-semibold text-xs">{employee.name}</div>
+                               <div className="text-xs text-muted-foreground">
+                                 {employee.code}
+                               </div>
+                               <div className="text-xs text-muted-foreground">
+                                 {employee.position}
+                               </div>
+                             </div>
+                           </div>
+                         </td>
 
-                        {/* ⚙️ Clone Button */}
-                        <td className="p-2 align-middle">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => {
-                              setCloneConfig(prev => ({ 
-                                ...prev, 
-                                sourceEmployeeId: employee.id,
-                                targetEmployeeIds: []
-                              }));
-                              setIsCloneDialogOpen(true);
-                            }}
-                            className="w-8 h-8 p-0"
-                          >
-                            <Copy className="h-4 w-4" />
-                          </Button>
-                        </td>
-
-                        {/* Day Cells */}
-                        {displayDays.map(day => {
-                          const dayShifts = getShiftsForCell(employee.id, day);
-                          const dateStr = format(day, 'yyyy-MM-dd');
-                          
-                          return (
-                            <td key={day.toISOString()} className="p-2 align-top">
-                              <div className="min-h-[80px] space-y-1">
-                                {dayShifts.length === 0 ? (
-                                  // Empty cell - Add shift button
-                                  <Button
+                         {/* Day Cells */}
+                         {displayDays.map(day => {
+                           const dayShifts = getShiftsForCell(employee.id, day);
+                           const dateStr = format(day, 'yyyy-MM-dd');
+                           
+                           return (
+                             <td key={day.toISOString()} className="p-1 align-top">
+                               <div className="min-h-[60px] space-y-1">
+                                 {dayShifts.length === 0 ? (
+                                   // Empty cell - Add shift button
+                                   <Button
                                     variant="ghost"
                                     size="sm"
                                     className="w-full h-full min-h-[80px] border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5"
@@ -966,57 +947,57 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                                      
                                      return (
                                        <Tooltip key={shift.id}>
-                                         <TooltipTrigger asChild>
-                                           <div 
-                                             className={`p-2 rounded-lg border cursor-pointer hover:shadow-md transition-all group ${shiftColor}`}
-                                             onClick={() => setEditingShift(shift)}
-                                           >
-                                             {/* ⚙️ Color Indicator */}
-                                             {shift.color && (
-                                               <div 
-                                                 className="absolute top-1 left-1 w-3 h-3 rounded-full border border-white shadow-sm"
-                                                 style={{ backgroundColor: predefinedColors.find(c => c.value === shift.color)?.hex }}
-                                               />
-                                             )}
+                                          <TooltipTrigger asChild>
+                                            <div 
+                                              className={`p-1 rounded-md border cursor-pointer hover:shadow-md transition-all group text-xs ${shiftColor}`}
+                                              onClick={() => setEditingShift(shift)}
+                                            >
+                                              {/* ⚙️ Color Indicator */}
+                                              {shift.color && (
+                                                <div 
+                                                  className="absolute top-0.5 left-0.5 w-2 h-2 rounded-full border border-white shadow-sm"
+                                                  style={{ backgroundColor: predefinedColors.find(c => c.value === shift.color)?.hex }}
+                                                />
+                                              )}
 
-                                             {/* Time Range */}
-                                             <div className="flex items-center justify-between text-xs font-medium mb-1">
-                                               <span>{shift.startTime} - {shift.endTime}</span>
-                                               <div className="opacity-0 group-hover:opacity-100 flex gap-1">
-                                                 <Button size="sm" variant="ghost" className="h-5 w-5 p-0">
-                                                   <Edit className="h-3 w-3" />
-                                                 </Button>
-                                                 <Button 
-                                                   size="sm" 
-                                                   variant="ghost" 
-                                                   className="h-5 w-5 p-0"
-                                                   onClick={(e) => {
-                                                     e.stopPropagation();
-                                                     deleteShift(shift.id);
-                                                   }}
-                                                 >
-                                                   <Trash2 className="h-3 w-3" />
-                                                 </Button>
-                                               </div>
-                                             </div>
-                                            
-                                            {/* Hours Badge */}
-                                            {shift.type !== 'leave' && shift.type !== 'absence' && (
-                                              <div className="flex items-center justify-between">
-                                                <Badge variant="secondary" className="text-xs px-1 py-0">
-                                                  <Timer className="h-3 w-3 ml-1" />
-                                                  {calc.hours}س {calc.minutes}د ({calc.decimalHours}س)
-                                                </Badge>
-                                                {calc.isOvertime && (
-                                                  <Badge variant="destructive" className="text-xs px-1 py-0">
-                                                    إضافي
-                                                  </Badge>
-                                                )}
+                                              {/* Time Range */}
+                                              <div className="flex items-center justify-between text-xs font-medium mb-1">
+                                                <span className="text-xs">{shift.startTime} - {shift.endTime}</span>
+                                                <div className="opacity-0 group-hover:opacity-100 flex gap-0.5">
+                                                  <Button size="sm" variant="ghost" className="h-4 w-4 p-0">
+                                                    <Edit className="h-2 w-2" />
+                                                  </Button>
+                                                  <Button 
+                                                    size="sm" 
+                                                    variant="ghost" 
+                                                    className="h-4 w-4 p-0"
+                                                    onClick={(e) => {
+                                                      e.stopPropagation();
+                                                      deleteShift(shift.id);
+                                                    }}
+                                                  >
+                                                    <Trash2 className="h-2 w-2" />
+                                                  </Button>
+                                                </div>
                                               </div>
-                                            )}
-                                            
-                                            {/* Type Badge */}
-                                            <div className="mt-1">
+                                             
+                                             {/* Hours Badge */}
+                                             {shift.type !== 'leave' && shift.type !== 'absence' && (
+                                               <div className="flex items-center justify-between">
+                                                 <Badge variant="secondary" className="text-xs px-1 py-0 h-4">
+                                                   <Timer className="h-2 w-2 ml-0.5" />
+                                                   {calc.hours}س {calc.minutes}د
+                                                 </Badge>
+                                                 {calc.isOvertime && (
+                                                   <Badge variant="destructive" className="text-xs px-1 py-0 h-4">
+                                                     إضافي
+                                                   </Badge>
+                                                 )}
+                                               </div>
+                                             )}
+                                             
+                                             {/* Type Badge */}
+                                             <div className="mt-1">
                                               <Badge variant="outline" className="text-xs">
                                                 {shift.type === 'normal' && 'عادي'}
                                                 {shift.type === 'ot' && 'إضافي'}
@@ -1058,68 +1039,68 @@ const ShiftScheduleTable: React.FC<ShiftScheduleTableProps> = ({ onBack }) => {
                           );
                         })}
 
-                        {/* Weekly Total */}
-                        <td className="p-3 text-center">
-                          <div className="space-y-1">
-                            <div className="font-semibold text-sm">
-                              {weeklyTotal.totalHours}س {weeklyTotal.totalMinutes}د
-                            </div>
-                            <div className="text-xs text-muted-foreground">
-                              ({weeklyTotal.decimalHours}س)
-                            </div>
-                            {weeklyTotal.overtimeDecimal > 0 && (
-                              <Badge variant="destructive" className="text-xs">
-                                +{weeklyTotal.overtimeHours}س {weeklyTotal.overtimeMinutes}د
-                              </Badge>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
+                         {/* Weekly Total */}
+                         <td className="p-2 text-center">
+                           <div className="space-y-1">
+                             <div className="font-bold text-sm">
+                               {weeklyTotal.totalHours}س {weeklyTotal.totalMinutes}د
+                             </div>
+                             <div className="text-xs text-muted-foreground">
+                               ({weeklyTotal.decimalHours}س)
+                             </div>
+                             {weeklyTotal.overtimeDecimal > 0 && (
+                               <Badge variant="destructive" className="text-xs h-4">
+                                 +{weeklyTotal.overtimeHours}س {weeklyTotal.overtimeMinutes}د
+                               </Badge>
+                             )}
+                           </div>
+                         </td>
+                       </tr>
+                     );
+                   })}
+                 </tbody>
 
-                {/* Table Footer - Daily Totals */}
-                <tfoot>
-                  <tr className="border-t bg-muted/50 font-semibold">
-                    <td className="p-4 sticky right-0 bg-muted/50 z-10">
-                      إجمالي اليوم
-                    </td>
-                    {weekDays.map(day => {
-                      const dailyTotal = getDailyTotals(day);
-                      return (
-                        <td key={day.toISOString()} className="p-3 text-center">
-                          <div className="space-y-1 text-sm">
-                            <div>{dailyTotal.totalHours}س {dailyTotal.totalMinutes}د</div>
-                            <div className="text-xs text-muted-foreground">
-                              {dailyTotal.shiftsCount} شفت
-                            </div>
-                            {dailyTotal.overtimeHours > 0 && (
-                              <div className="text-xs text-orange-600">
-                                +{dailyTotal.overtimeHours}س {dailyTotal.overtimeMinutes}د
-                              </div>
-                            )}
-                          </div>
-                        </td>
-                      );
-                    })}
-                    <td className="p-3 text-center">
-                      <div className="text-sm">
-                        {shifts.filter(s => {
-                          const shiftDate = parseISO(s.date);
-                          return shiftDate >= weekDays[0] && shiftDate <= weekDays[6];
-                        }).reduce((sum, shift) => {
-                          const calc = calculateShiftHours(shift);
-                          return sum + calc.netMinutes;
-                        }, 0) / 60} ساعة
-                      </div>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+                 {/* Table Footer - Daily Totals */}
+                 <tfoot>
+                   <tr className="border-t bg-muted/50 font-semibold">
+                     <td className="p-2 sticky right-0 bg-muted/50 z-10 text-xs">
+                       إجمالي اليوم
+                     </td>
+                     {weekDays.map(day => {
+                       const dailyTotal = getDailyTotals(day);
+                       return (
+                         <td key={day.toISOString()} className="p-2 text-center">
+                           <div className="space-y-1 text-xs">
+                             <div>{dailyTotal.totalHours}س {dailyTotal.totalMinutes}د</div>
+                             <div className="text-xs text-muted-foreground">
+                               {dailyTotal.shiftsCount} شفت
+                             </div>
+                             {dailyTotal.overtimeHours > 0 && (
+                               <div className="text-xs text-orange-600">
+                                 +{dailyTotal.overtimeHours}س {dailyTotal.overtimeMinutes}د
+                               </div>
+                             )}
+                           </div>
+                         </td>
+                       );
+                     })}
+                     <td className="p-2 text-center">
+                       <div className="text-xs">
+                         {Math.round(shifts.filter(s => {
+                           const shiftDate = parseISO(s.date);
+                           return shiftDate >= weekDays[0] && shiftDate <= weekDays[6];
+                         }).reduce((sum, shift) => {
+                           const calc = calculateShiftHours(shift);
+                           return sum + calc.netMinutes;
+                         }, 0) / 60)} ساعة
+                       </div>
+                     </td>
+                   </tr>
+                 </tfoot>
+               </table>
+             </div>
+           </CardContent>
+         </Card>
 
         {/* Add/Edit Shift Dialog */}
         <Dialog open={isAddShiftOpen} onOpenChange={setIsAddShiftOpen}>
