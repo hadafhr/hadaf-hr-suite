@@ -101,7 +101,7 @@ export const HRManagement: React.FC = () => {
       </header>
 
       {/* Enhanced Main Content */}
-      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8">
+      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
         <div className="max-w-7xl mx-auto">
           <ComprehensiveEmployeeManagement />
         </div>
