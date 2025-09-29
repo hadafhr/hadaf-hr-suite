@@ -477,7 +477,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
               <CardTitle className="text-sm font-medium">{widget.title}</CardTitle>
               <widget.icon className={`h-4 w-4 ${widget.color}`} />
             </CardHeader>
-            <CardContent>
+            <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
               <div className="space-y-2">
                 {Object.entries(widget.stats).map(([key, value], idx) => (
                   <div key={idx} className="flex justify-between text-sm">
