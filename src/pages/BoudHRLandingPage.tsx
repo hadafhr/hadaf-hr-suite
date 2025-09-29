@@ -309,205 +309,173 @@ const BoudHRLandingPage: React.FC = () => {
     label: "دعم متواصل"
   }];
   return <div className="min-h-screen bg-black font-arabic">
-      {/* Professional Interactive Header - Applied HR Tools Design */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 sticky top-0">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+      {/* Professional Interactive Header - Multi-Language Support */}
+      <header className={`relative z-10 bg-gradient-to-r from-gray-950 via-black to-gray-950 backdrop-blur-xl border-b border-[#008C6A]/40 shadow-2xl shadow-[#008C6A]/30 sticky top-0 ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
+        {/* Premium Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/5 via-[#009F87]/3 to-[#00694F]/5"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
         </div>
         
+        {/* Main Header Container */}
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
-          <div className="flex items-center justify-between h-24">
-            {/* Logo Section */}
-            <div className="flex items-center">
-              <div className="hover:scale-105 transition-all duration-300">
-                <BoudLogo variant="full" size="header" className="h-12 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" />
+          <div className="flex items-center justify-between h-20">
+            
+            {/* Right Section (Arabic) / Left Section (English) - Logo & Brand */}
+            <div className={`flex items-center gap-4 ${currentLanguage === 'ar' ? 'order-1' : 'order-1'}`}>
+              <div className="hover:scale-105 transition-all duration-300 cursor-pointer">
+                <BoudLogo variant="full" size="header" className="h-10 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" />
               </div>
+              <div className="hidden lg:block h-8 w-px bg-gradient-to-b from-transparent via-[#008C6A]/50 to-transparent mx-2"></div>
+              <img src={boudWhiteLogo} alt="شعار بُعد" className="hidden lg:block h-16 w-auto hover:scale-105 transition-transform duration-300" />
             </div>
 
-            {/* Center Section - Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-6 space-x-reverse">
-              <img src={boudWhiteLogo} alt="شعار بُعد" className="h-20 w-auto hover:scale-105 transition-transform duration-300 ml-6" />
-              <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
+            {/* Center Section - Navigation Menu */}
+            <nav className={`hidden lg:flex items-center space-x-8 ${currentLanguage === 'ar' ? 'space-x-reverse order-2' : 'order-2'}`}>
+              <a href="#home" className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10">
+                {currentLanguage === 'ar' ? 'الرئيسية' : 'Home'}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
+              </a>
               
-              
-              
-
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
-                    مركز المعرفة
+                  <Button variant="ghost" className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10">
+                    {currentLanguage === 'ar' ? 'مركز المعرفة' : 'Knowledge Center'}
+                    <ChevronDown className="w-4 h-4 ml-1 group-hover:rotate-180 transition-transform duration-300" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-black border border-gray-700">
-                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-gray-900">
-                    الدروس التعليمية
+                <DropdownMenuContent align="center" className="w-48 bg-gray-900/95 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300">
+                    {currentLanguage === 'ar' ? 'الدروس التعليمية' : 'Tutorials'}
                   </DropdownMenuItem>
-                  
-                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-gray-900">
-                    الأوراق الخضراء
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300">
+                    {currentLanguage === 'ar' ? 'الأوراق الخضراء' : 'White Papers'}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-white hover:bg-gray-900">
-                    الأوصاف الوظيفية
+                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300">
+                    {currentLanguage === 'ar' ? 'الأوصاف الوظيفية' : 'Job Descriptions'}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10 flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
-                أدوات الموارد البشرية
+                {currentLanguage === 'ar' ? 'أدوات الموارد البشرية' : 'HR Tools'}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors">
-                اربح مع بُعد
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10">
+                {currentLanguage === 'ar' ? 'اربح مع بُعد' : 'Earn with Boad'}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
-                📅 احجز اجتماع
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10 flex items-center gap-2">
+                📅 {currentLanguage === 'ar' ? 'احجز اجتماع' : 'Schedule Meeting'}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/careers')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
-                👥 انضم الى فريقنا
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10 flex items-center gap-2">
+                👥 {currentLanguage === 'ar' ? 'انضم الى فريقنا' : 'Join Our Team'}
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
               </Button>
-
-              
             </nav>
 
-            {/* Right Section - Professional Controls Panel */}
-            <div className="flex items-center gap-4">
+            {/* Left Section (Arabic) / Right Section (English) - Actions */}
+            <div className={`flex items-center gap-3 ${currentLanguage === 'ar' ? 'order-3' : 'order-3'}`}>
+              
               {/* Language Toggle */}
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleLanguage}
-                className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 flex items-center gap-2 px-3 py-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60"
+                className="group relative text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 flex items-center gap-2 px-3 py-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60 hover:scale-105"
               >
-                <Globe className="w-4 h-4" />
+                <Globe className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span className="text-sm font-medium">
-                  {currentLanguage === 'ar' ? 'العربية' : 'English'}
+                  {currentLanguage === 'ar' ? 'English' : 'العربية'}
                 </span>
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/10 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Button>
               
-              {/* Status Panel */}
-              <div className="bg-gradient-to-r from-[#008C6A]/10 via-[#008C6A]/5 to-[#008C6A]/10 backdrop-blur-lg rounded-lg border border-[#008C6A]/40 shadow-lg shadow-[#008C6A]/20 p-2 hover:border-[#008C6A]/60 transition-all duration-300 mr-4">
-                {/* Login Dropdown */}
+              {/* Professional Login Section */}
+              <div className="relative">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20">
-                      <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
-                        دخول
+                    <button className="group relative flex items-center gap-2 bg-gradient-to-r from-[#008C6A]/20 via-[#008C6A]/10 to-[#008C6A]/20 backdrop-blur-sm px-6 py-2.5 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#008C6A]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/30">
+                      <User className="w-4 h-4 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
+                      <span className="text-sm text-white font-semibold tracking-wide group-hover:text-[#008C6A] transition-colors duration-300">
+                        {currentLanguage === 'ar' ? 'دخول' : 'Login'}
                       </span>
-                      <ChevronDown className="w-3 h-3 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
+                      <ChevronDown className="w-3 h-3 text-white group-hover:text-[#008C6A] group-hover:rotate-180 transition-all duration-300" />
                       
-                      {/* Hover Glow Effect */}
+                      {/* Premium Glow Effect */}
                       <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
-                    <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                      <Building2 className="w-4 h-4" />
-                       مدير النظام
+                  <DropdownMenuContent align="end" className="w-64 bg-gray-900/95 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl rounded-xl">
+                    <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300 flex items-center gap-3 p-4 cursor-pointer rounded-lg mx-1 my-1">
+                      <Building2 className="w-5 h-5" />
+                      <div className="flex flex-col">
+                        <span className="font-semibold">{currentLanguage === 'ar' ? 'مدير النظام' : 'System Admin'}</span>
+                        <span className="text-xs opacity-70">{currentLanguage === 'ar' ? 'إدارة النظام الكاملة' : 'Full system management'}</span>
+                      </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                      <Building className="w-4 h-4" />
-                      🏢 لوحة تحكم المنشأة
+                    <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300 flex items-center gap-3 p-4 cursor-pointer rounded-lg mx-1 my-1">
+                      <Building className="w-5 h-5" />
+                      <div className="flex flex-col">
+                        <span className="font-semibold">{currentLanguage === 'ar' ? 'لوحة تحكم المنشأة' : 'Company Dashboard'}</span>
+                        <span className="text-xs opacity-70">{currentLanguage === 'ar' ? 'إدارة الشركة والموظفين' : 'Manage company & employees'}</span>
+                      </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                      <User className="w-4 h-4" />
-                      🔘 لوحة تحكم الموظف
+                    <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300 flex items-center gap-3 p-4 cursor-pointer rounded-lg mx-1 my-1">
+                      <User className="w-5 h-5" />
+                      <div className="flex flex-col">
+                        <span className="font-semibold">{currentLanguage === 'ar' ? 'لوحة تحكم الموظف' : 'Employee Dashboard'}</span>
+                        <span className="text-xs opacity-70">{currentLanguage === 'ar' ? 'الخدمة الذاتية للموظفين' : 'Employee self-service'}</span>
+                      </div>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              
-              {/* Quick Stats Mini Panel */}
-              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg mx-[70px]">
-                <div className="flex items-center space-x-3 text-xs">
-                  <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">نظام شامل</span>
-                  </div>
-                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
-                  <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">محدّث</span>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            {/* Mobile Menu Button */}
-            <button className="lg:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              {isMobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
-            </button>
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60"
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </Button>
+            </div>
           </div>
 
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && <div className="lg:hidden py-4 border-t border-[#008C6A]/30 bg-gradient-to-r from-black/90 to-gray-900/90 backdrop-blur-xl rounded-b-2xl">
-              <nav className="flex flex-col space-y-2">
-                <a href="#home" className="text-white hover:text-[#008C6A] text-sm font-medium py-2 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
-                  الرئيسية
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden absolute top-full left-0 right-0 bg-gray-900/95 backdrop-blur-xl border-t border-[#008C6A]/30 shadow-2xl rounded-b-xl animate-fade-in">
+              <nav className="flex flex-col p-4 space-y-2">
+                <a href="#home" className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                  {currentLanguage === 'ar' ? 'الرئيسية' : 'Home'}
                 </a>
-                <button onClick={() => {
-              navigate('/interactive-tour');
-              setIsMobileMenuOpen(false);
-            }} className="text-white hover:text-[#008C6A] text-sm font-medium text-right flex items-center gap-2 py-2 px-4 transition-colors">
-                  <Play className="w-4 h-4" />
-                  جولة تفاعلية
-                </button>
-                <details className="group">
-                  <summary className="text-white hover:text-[#008C6A] text-sm font-medium cursor-pointer list-none py-2 px-4">
-                    من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.about.map((item, index) => <button key={index} onClick={() => {
-                  const element = document.getElementById(item.href.substring(1));
-                  if (element) {
-                    const headerOffset = 80;
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                  setIsMobileMenuOpen(false);
-                }} className="block text-sm text-gray-300 hover:text-[#008C6A] w-full text-right py-1 px-4 transition-colors">
-                        {item.name}
-                      </button>)}
-                  </div>
-                </details>
-                <details className="group">
-                  <summary className="text-white hover:text-[#008C6A] text-sm font-medium cursor-pointer list-none py-2 px-4">
-                    تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
-                  </summary>
-                  <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-gray-300 hover:text-[#008C6A] py-1 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
-                        {item.name}
-                      </a>)}
-                  </div>
-                </details>
-                <div className="flex flex-col space-y-2 pt-4 px-4">
-                  <Button variant="ghost" onClick={() => navigate('/admin-login')} className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10">
-                    <Building2 className="w-4 h-4 ml-2" />
-                    🔘 لوحة تحكم الإدارة
-                  </Button>
-                  <Button variant="ghost" onClick={() => navigate('/company-dashboard')} className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10">
-                    <Building className="w-4 h-4 ml-2" />
-                    🏢 لوحة تحكم المنشأة
-                  </Button>
-                  <Button variant="ghost" onClick={() => navigate('/employee-login')} className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10">
-                    <User className="w-4 h-4 ml-2" />
-                    🔘 لوحة تحكم الموظف
-                  </Button>
-                  <Button onClick={() => navigate('/subscription-packages')} className="bg-[#008C6A] hover:bg-[#008C6A]/90 text-white">
-                    انضم الينا
-                  </Button>
-                </div>
+                <Button onClick={() => navigate('/tutorials')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                  {currentLanguage === 'ar' ? 'مركز المعرفة' : 'Knowledge Center'}
+                </Button>
+                <Button onClick={() => navigate('/hr-tools')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                  {currentLanguage === 'ar' ? 'أدوات الموارد البشرية' : 'HR Tools'}
+                </Button>
+                <Button onClick={() => navigate('/earn-with-boad')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                  {currentLanguage === 'ar' ? 'اربح مع بُعد' : 'Earn with Boad'}
+                </Button>
+                <Button onClick={() => navigate('/schedule-meeting')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                  {currentLanguage === 'ar' ? 'احجز اجتماع' : 'Schedule Meeting'}
+                </Button>
+                <Button onClick={() => navigate('/careers')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                  {currentLanguage === 'ar' ? 'انضم الى فريقنا' : 'Join Our Team'}
+                </Button>
               </nav>
-            </div>}
+            </div>
+          )}
 
-          {/* Bottom accent line */}
+          {/* Bottom Accent Line */}
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
         </div>
       </header>
