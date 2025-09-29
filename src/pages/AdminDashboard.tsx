@@ -143,306 +143,255 @@ export const AdminDashboard: React.FC = () => {
           ></div>
         </div>
       </div>
-      
-      {/* Sidebar */}
-      <div className={`fixed inset-y-0 right-0 z-50 w-64 bg-black/40 backdrop-blur-xl border-l border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="flex items-center justify-between h-16 border-b border-[#008C6A]/30 px-4">
-          <BoudLogo variant="full" size="md" />
-          <Badge className="text-xs bg-[#008C6A] text-white">ADMIN</Badge>
-        </div>
+
+      {/* Fixed Header - Full Width */}
+      <header className="fixed top-0 right-0 left-0 z-50 h-20 bg-gradient-to-r from-black/95 via-gray-900/95 to-black/95 backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+        {/* Premium Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/10 via-[#009F87]/5 to-[#00694F]/10 opacity-80"></div>
         
-        <nav className="mt-8 px-4">
-          <ul className="space-y-2">
-            {sidebarItems.map((item, index) => (
-              <li key={index}>
-                <button
-                  onClick={() => navigate(item.route)}
-                  className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    item.active 
-                      ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white shadow-lg' 
-                      : 'text-gray-300 hover:text-white hover:bg-[#008C6A]/20'
-                  }`}
-                >
-                  <item.icon className="h-5 w-5 mr-3" />
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* AI Assistant Shortcut */}
-        <div className="absolute bottom-4 left-4 right-4">
-          <Card className="p-4 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 border border-[#008C6A]/30 backdrop-blur-sm">
-            <div className="flex items-center space-x-2 space-x-reverse mb-2">
-              <Zap className="h-4 w-4 text-[#008C6A]" />
-              <span className="text-sm font-medium text-white">{isArabic ? 'المساعد الذكي' : 'AI Assistant'}</span>
-            </div>
-            <p className="text-xs text-gray-300 mb-2">
-              {isArabic ? 'مراقبة ذكية للنظام' : 'Intelligent system monitoring'}
-            </p>
-            <Button size="sm" className="w-full bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white">
-              {isArabic ? 'تفعيل' : 'Activate'}
+        <div className="relative z-10 h-full flex items-center justify-between px-6">
+          {/* Right Section - Logo & Title */}
+          <div className="flex items-center space-x-4 space-x-reverse">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="lg:hidden text-white hover:bg-[#008C6A]/20 p-2 rounded-full"
+            >
+              <Menu className="h-5 w-5" />
             </Button>
-          </Card>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden lg:mr-64">
-        {/* Integrated Top Header */}
-        <header className="fixed top-0 right-0 left-0 lg:left-64 z-40 h-20 bg-gradient-to-r from-black/95 via-gray-900/95 to-black/95 backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
-          {/* Premium Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/10 via-[#009F87]/5 to-[#00694F]/10 opacity-80"></div>
-          
-          <div className="relative z-10 h-full flex items-center justify-between px-6">
-            {/* Left Section - Mobile Menu & Title */}
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden text-white hover:bg-[#008C6A]/20 p-2 rounded-full"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-              
-              <div className="flex items-center space-x-3 space-x-reverse">
-                <div className="relative">
-                  <Shield className="h-10 w-10 text-[#008C6A] animate-pulse" />
-                  <div className="absolute -inset-2 bg-[#008C6A]/20 rounded-full blur animate-ping opacity-75"></div>
-                </div>
-                <div className="hidden md:flex flex-col">
-                  <h1 className="text-xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                    {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator'}
-                  </h1>
-                  <p className="text-xs text-gray-400">
-                    {isArabic ? 'نظام إدارة متطور' : 'Advanced Management System'}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Center Section - System Status */}
-            <div className="hidden lg:flex items-center space-x-6 space-x-reverse">
-              <div className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-black/30 rounded-full border border-[#008C6A]/20">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-                <span className="text-sm text-green-300 font-medium">
-                  {isArabic ? 'النظام يعمل' : 'System Live'}
-                </span>
-              </div>
-              
-              <div className="relative hidden xl:block">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input
-                  placeholder={isArabic ? 'البحث السريع...' : 'Quick search...'}
-                  className="pl-10 w-64 h-9 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-full backdrop-blur-sm"
-                />
-              </div>
-            </div>
-
-            {/* Right Section - Actions & Profile */}
+            
             <div className="flex items-center space-x-3 space-x-reverse">
-              {/* System Alerts */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="relative text-white hover:bg-[#008C6A]/20 p-2 rounded-full">
-                    <Bell className="h-5 w-5" />
-                    <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 text-white rounded-full flex items-center justify-center">
-                      {systemAlerts.filter(alert => alert.urgent).length}
-                    </Badge>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80 bg-black/95 backdrop-blur-xl border border-[#008C6A]/30 text-white">
-                  <div className="p-4 border-b border-[#008C6A]/30">
-                    <h3 className="font-semibold text-white">{isArabic ? 'تنبيهات النظام' : 'System Alerts'}</h3>
-                  </div>
-                  {systemAlerts.map((alert) => (
-                    <DropdownMenuItem key={alert.id} className="p-4 hover:bg-[#008C6A]/20">
-                      <div className="flex items-start space-x-3 space-x-reverse w-full">
-                        {alert.type === 'warning' && <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5" />}
-                        {alert.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5" />}
-                        {alert.type === 'info' && <Clock className="w-4 h-4 text-blue-500 mt-0.5" />}
-                        <div className="flex-1">
-                          <p className="font-medium text-sm text-white">{alert.title}</p>
-                          <p className="text-xs text-gray-300">{alert.description}</p>
-                        </div>
-                      </div>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Language Switcher */}
-              <LanguageSwitcher />
-
-              {/* Profile Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20 p-2 rounded-full">
-                    <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
-                      <Crown className="h-4 w-4 text-white" />
-                    </div>
-                    <ChevronDown className="h-4 w-4 hidden md:block" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-black/95 backdrop-blur-xl border border-[#008C6A]/30 text-white">
-                  <DropdownMenuSeparator className="bg-[#008C6A]/30" />
-                  <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
-                    <LogOut className="h-4 w-4 mr-2" />
-                    {isArabic ? 'تسجيل الخروج' : 'Logout'}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <BoudLogo variant="full" size="sm" />
+              <div className="hidden md:flex flex-col">
+                <h1 className="text-xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator'}
+                </h1>
+                <p className="text-xs text-gray-400">
+                  {isArabic ? 'نظام إدارة متطور' : 'Advanced Management System'}
+                </p>
+              </div>
+              <Badge className="text-xs bg-[#008C6A] text-white px-2 py-1">ADMIN</Badge>
             </div>
           </div>
-        </header>
 
-        {/* Dashboard Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 pt-28 relative z-10">
-          <div className="max-w-7xl mx-auto space-y-8">
-            {/* Welcome Section */}
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
-              </h2>
-              <p className="text-gray-300 text-lg">
-                {isArabic ? 'لوحة التحكم الشاملة المدعومة بالذكاء الاصطناعي لإدارة منصة بُعد' : 'AI-Powered comprehensive control panel for managing BuAD platform'}
-              </p>
+          {/* Center Section - System Status & Search */}
+          <div className="hidden lg:flex items-center space-x-6 space-x-reverse">
+            <div className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-black/30 rounded-full border border-[#008C6A]/20">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+              <span className="text-sm text-green-300 font-medium">
+                {isArabic ? 'النظام يعمل' : 'System Live'}
+              </span>
             </div>
+            
+            <div className="relative hidden xl:block">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Input
+                placeholder={isArabic ? 'البحث السريع...' : 'Quick search...'}
+                className="pl-10 w-64 h-9 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-full backdrop-blur-sm"
+              />
+            </div>
+          </div>
 
-            {/* System Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {systemStats.map((stat, index) => (
-                <Card key={index} className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <p className="text-sm font-medium text-gray-300">{stat.label}</p>
-                      <p className="text-2xl font-bold text-white">{stat.value}</p>
+          {/* Left Section - Actions & Profile */}
+          <div className="flex items-center space-x-3 space-x-reverse">
+            {/* System Alerts */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="relative text-white hover:bg-[#008C6A]/20 p-2 rounded-full">
+                  <Bell className="h-5 w-5" />
+                  <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 text-white rounded-full flex items-center justify-center">
+                    {systemAlerts.filter(alert => alert.urgent).length}
+                  </Badge>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80 bg-black/95 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                <div className="p-4 border-b border-[#008C6A]/30">
+                  <h3 className="font-semibold text-white">{isArabic ? 'تنبيهات النظام' : 'System Alerts'}</h3>
+                </div>
+                {systemAlerts.map((alert) => (
+                  <DropdownMenuItem key={alert.id} className="p-4 hover:bg-[#008C6A]/20">
+                    <div className="flex items-start space-x-3 space-x-reverse w-full">
+                      {alert.type === 'warning' && <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5" />}
+                      {alert.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5" />}
+                      {alert.type === 'info' && <Clock className="w-4 h-4 text-blue-500 mt-0.5" />}
+                      <div className="flex-1">
+                        <p className="font-medium text-sm text-white">{alert.title}</p>
+                        <p className="text-xs text-gray-300">{alert.description}</p>
+                      </div>
                     </div>
-                    <div className="p-3 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/30">
-                      <stat.icon className={`h-6 w-6 ${stat.color}`} />
-                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+
+            {/* Profile Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20 p-2 rounded-full">
+                  <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
+                    <Crown className="h-4 w-4 text-white" />
                   </div>
-                  <div className="flex items-center">
-                    <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-                    <span className="text-sm text-green-500 font-medium">{stat.change}</span>
+                  <ChevronDown className="h-4 w-4 hidden md:block" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-black/95 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                <DropdownMenuSeparator className="bg-[#008C6A]/30" />
+                <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  {isArabic ? 'تسجيل الخروج' : 'Logout'}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Layout Container */}
+      <div className="flex pt-20">
+        {/* Sidebar */}
+        <div className={`fixed inset-y-0 top-20 right-0 z-40 w-64 bg-black/40 backdrop-blur-xl border-l border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:top-0`}>
+          <nav className="mt-8 px-4 h-full overflow-y-auto">
+            <ul className="space-y-2">
+              {sidebarItems.map((item, index) => (
+                <li key={index}>
+                  <button
+                    onClick={() => navigate(item.route)}
+                    className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                      item.active 
+                        ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white shadow-lg' 
+                        : 'text-gray-300 hover:text-white hover:bg-[#008C6A]/20'
+                    }`}
+                  >
+                    <item.icon className="h-5 w-5 mr-3" />
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            {/* AI Assistant Shortcut */}
+            <div className="mt-8 mb-4">
+              <Card className="p-4 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 border border-[#008C6A]/30 backdrop-blur-sm">
+                <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                  <Zap className="h-4 w-4 text-[#008C6A]" />
+                  <span className="text-sm font-medium text-white">{isArabic ? 'المساعد الذكي' : 'AI Assistant'}</span>
+                </div>
+                <p className="text-xs text-gray-300 mb-2">
+                  {isArabic ? 'مراقبة ذكية للنظام' : 'Intelligent system monitoring'}
+                </p>
+                <Button size="sm" className="w-full bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white">
+                  {isArabic ? 'تفعيل' : 'Activate'}
+                </Button>
+              </Card>
+            </div>
+          </nav>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 lg:mr-64">
+          <main className="p-6 relative z-10">
+            <div className="max-w-7xl mx-auto space-y-8">
+              {/* Welcome Section */}
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
+                </h2>
+                <p className="text-gray-300 text-lg">
+                  {isArabic ? 'لوحة التحكم الشاملة المدعومة بالذكاء الاصطناعي لإدارة منصة بُعد' : 'AI-Powered comprehensive control panel for managing BuAD platform'}
+                </p>
+              </div>
+
+              {/* System Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {systemStats.map((stat, index) => (
+                  <Card key={index} className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <p className="text-sm font-medium text-gray-300">{stat.label}</p>
+                        <p className="text-2xl font-bold text-white">{stat.value}</p>
+                      </div>
+                      <div className="p-3 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/30">
+                        <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                      <span className="text-sm text-green-500 font-medium">{stat.change}</span>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+
+              {/* AI Insights Dashboard */}
+              <AIInsightsDashboard />
+
+              {/* System Analytics */}
+              <SystemAnalytics />
+
+              {/* Additional Content... */}
+              <div className="grid lg:grid-cols-2 gap-6">
+                {/* Real-time Monitoring */}
+                <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 rounded-2xl">
+                  <div className="flex items-center space-x-3 space-x-reverse mb-4">
+                    <Monitor className="h-6 w-6 text-[#008C6A]" />
+                    <h3 className="text-lg font-semibold text-white">
+                      {isArabic ? 'مراقبة النظام في الوقت الفعلي' : 'Real-time System Monitoring'}
+                    </h3>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                      <span className="font-medium text-white">{isArabic ? 'استخدام الخادم' : 'Server Usage'}</span>
+                      <div className="flex items-center space-x-2 space-x-reverse">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-bold text-green-400">23%</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-black/30 rounded-lg">
+                      <span className="font-medium text-white">{isArabic ? 'قاعدة البيانات' : 'Database Load'}</span>
+                      <div className="flex items-center space-x-2 space-x-reverse">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-bold text-yellow-400">67%</span>
+                      </div>
+                    </div>
                   </div>
                 </Card>
-              ))}
-            </div>
 
-            {/* AI Insights Dashboard */}
-            <AIInsightsDashboard />
-
-            {/* System Analytics */}
-            <SystemAnalytics />
-
-            {/* Additional AI Features */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* Real-time Monitoring */}
-              <Card className="p-6 bg-gradient-to-br from-background to-muted/20">
-                <div className="flex items-center space-x-3 space-x-reverse mb-4">
-                  <Monitor className="h-6 w-6 text-primary" />
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {isArabic ? 'مراقبة النظام في الوقت الفعلي' : 'Real-time System Monitoring'}
-                  </h3>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
-                    <span className="font-medium">{isArabic ? 'استخدام الخادم' : 'Server Usage'}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold">23%</span>
-                    </div>
+                {/* Quick Actions */}
+                <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 rounded-2xl">
+                  <div className="flex items-center space-x-3 space-x-reverse mb-4">
+                    <Zap className="h-6 w-6 text-[#008C6A]" />
+                    <h3 className="text-lg font-semibold text-white">
+                      {isArabic ? 'إجراءات سريعة' : 'Quick Actions'}
+                    </h3>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
-                    <span className="font-medium">{isArabic ? 'قاعدة البيانات' : 'Database Load'}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold">45%</span>
-                    </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white">
+                      <Plus className="h-4 w-4 mr-2" />
+                      {isArabic ? 'عميل جديد' : 'Add Client'}
+                    </Button>
+                    <Button variant="outline" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20">
+                      <Settings className="h-4 w-4 mr-2" />
+                      {isArabic ? 'إعدادات' : 'Settings'}
+                    </Button>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
-                    <span className="font-medium">{isArabic ? 'الذاكرة' : 'Memory Usage'}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse">
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold">67%</span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-background/50 rounded-lg">
-                    <span className="font-medium">{isArabic ? 'الشبكة' : 'Network Load'}</span>
-                    <div className="flex items-center space-x-2 space-x-reverse">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold">12%</span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              {/* AI Assistant Actions */}
-              <Card className="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/20">
-                <div className="flex items-center space-x-3 space-x-reverse mb-4">
-                  <Zap className="h-6 w-6 text-primary" />
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {isArabic ? 'إجراءات المساعد الذكي' : 'AI Assistant Actions'}
-                  </h3>
-                </div>
-                <div className="space-y-3">
-                  <Button className="w-full justify-start" variant="outline">
-                    <Database className="h-4 w-4 mr-2" />
-                    {isArabic ? 'تحسين قاعدة البيانات' : 'Optimize Database'}
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <Users className="h-4 w-4 mr-2" />
-                    {isArabic ? 'تحليل سلوك المستخدمين' : 'Analyze User Behavior'}
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <TrendingUp className="h-4 w-4 mr-2" />
-                    {isArabic ? 'توليد تقرير التنبؤات' : 'Generate Predictions Report'}
-                  </Button>
-                  <Button className="w-full justify-start" variant="outline">
-                    <Shield className="h-4 w-4 mr-2" />
-                    {isArabic ? 'فحص أمني شامل' : 'Security Audit'}
-                  </Button>
-                </div>
-              </Card>
-            </div>
-
-            {/* Performance Indicators */}
-            <Card className="p-6 bg-gradient-to-r from-background to-muted/10">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-semibold text-foreground">
-                  {isArabic ? 'مؤشرات الأداء الرئيسية' : 'Key Performance Indicators'}
-                </h3>
-                <Button variant="outline" size="sm">
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  {isArabic ? 'تحديث' : 'Refresh'}
-                </Button>
+                </Card>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
-                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">99.8%</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-300">{isArabic ? 'وقت التشغيل' : 'Uptime'}</div>
-                </div>
-                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-green-50 to-green-100 dark:from-green-950 dark:to-green-900">
-                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">2.3s</div>
-                  <div className="text-sm text-green-700 dark:text-green-300">{isArabic ? 'زمن الاستجابة' : 'Response Time'}</div>
-                </div>
-                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">15.2K</div>
-                  <div className="text-sm text-purple-700 dark:text-purple-300">{isArabic ? 'المعاملات اليومية' : 'Daily Transactions'}</div>
-                </div>
-                <div className="text-center p-4 rounded-lg bg-gradient-to-b from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900">
-                  <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">97.5%</div>
-                  <div className="text-sm text-orange-700 dark:text-orange-300">{isArabic ? 'معدل النجاح' : 'Success Rate'}</div>
-                </div>
-              </div>
-            </Card>
-
-          </div>
-        </main>
+            </div>
+          </main>
+        </div>
       </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 };
