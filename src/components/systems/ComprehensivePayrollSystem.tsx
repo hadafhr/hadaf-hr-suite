@@ -966,7 +966,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                         {run.period_name}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="text-center p-3 bg-blue-50 rounded-lg">
                           <p className="text-2xl font-bold text-blue-600">{run.total_employees}</p>
