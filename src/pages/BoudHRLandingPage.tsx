@@ -392,57 +392,34 @@ const BoudHRLandingPage: React.FC = () => {
             <div className="flex items-center">
               {/* Status Panel */}
               <div className="bg-gradient-to-r from-[#008C6A]/10 via-[#008C6A]/5 to-[#008C6A]/10 backdrop-blur-lg rounded-lg border border-[#008C6A]/40 shadow-lg shadow-[#008C6A]/20 p-2 hover:border-[#008C6A]/60 transition-all duration-300 mr-4">
-                {/* Status Indicator */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
-                    حالة النظام
-                  </span>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-                    <span className="text-xs text-green-300 font-semibold">
-                      متاح
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
-                
-                {/* Login & Settings Row */}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-medium">
-                    الوصول
-                  </span>
-                  
-                  {/* Login Dropdown */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20">
-                        <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
-                          دخول
-                        </span>
-                        <ChevronDown className="w-3 h-3 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
-                        
-                        {/* Hover Glow Effect */}
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
-                      <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                        <Building2 className="w-4 h-4" />
-                         مدير النظام
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                        <Building className="w-4 h-4" />
-                        🏢 لوحة تحكم المنشأة
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
-                        <User className="w-4 h-4" />
-                        🔘 لوحة تحكم الموظف
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                {/* Login Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20">
+                      <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
+                        دخول
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
+                      
+                      {/* Hover Glow Effect */}
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-black border border-gray-700 shadow-lg">
+                    <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                      <Building2 className="w-4 h-4" />
+                       مدير النظام
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/company-dashboard')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                      <Building className="w-4 h-4" />
+                      🏢 لوحة تحكم المنشأة
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-right text-white hover:bg-gray-900 transition-colors flex items-center gap-2 p-3 cursor-pointer">
+                      <User className="w-4 h-4" />
+                      🔘 لوحة تحكم الموظف
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               
               {/* Quick Stats Mini Panel */}
