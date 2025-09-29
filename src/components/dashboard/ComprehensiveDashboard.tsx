@@ -592,7 +592,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
               الوصول السريع للمهام الأكثر استخداماً
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
             <div className="grid grid-cols-1 gap-3">
               {quickActions.map((action, index) => (
                 <Button
