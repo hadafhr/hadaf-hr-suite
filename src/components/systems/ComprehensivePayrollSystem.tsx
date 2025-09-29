@@ -848,7 +848,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-900/60 backdrop-blur-xl">
       {renderHeader()}
       
       <div className="max-w-7xl mx-auto p-6 space-y-6">
