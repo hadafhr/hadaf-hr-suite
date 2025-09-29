@@ -366,7 +366,7 @@ const BoudHRLandingPage: React.FC = () => {
             {/* Right Section - Professional Controls Panel */}
             <div className="flex flex-col items-end space-y-4">
               {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px] px-[21px] py-[15px] my-0 mx-[55px]">
+              <div className="bg-gradient-to-r from-black/80 via-gray-900/90 to-black/80 backdrop-blur-2xl rounded-xl border border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/30 p-3 min-w-[180px] hover:border-[#008C6A]/80 hover:shadow-[#008C6A]/40 transition-all duration-300 animate-fade-in">
                 {/* Status Indicator */}
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
