@@ -70,7 +70,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
   return (
     <div className={`min-h-screen bg-[#1C1C1C] text-white ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header Section */}
-      <div className="bg-[#2A2A2A] border-b border-[#3A3A3A] p-6">
+      <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <Button 
