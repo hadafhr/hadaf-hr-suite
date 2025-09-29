@@ -371,53 +371,51 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl shadow-2xl animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-emerald-400/50 hover:text-emerald-400 transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
           <ArrowLeft className="h-4 w-4 ml-2" />
           العودة
         </Button>
-        <div className="h-8 w-px bg-white/20"></div>
+        <div className="h-8 w-px bg-[#008C6A]/30"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
+          <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
-              <CheckSquare className="h-8 w-8" />
-            </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+            <CheckSquare className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
               المهام والمتابعة
             </h1>
-            <p className="text-white/70 text-lg">
+            <p className="text-gray-300 text-lg">
               منظومة شاملة لإدارة المهام والمتابعة مع أدوات التعاون والتحليل المتقدمة والتقارير التفصيلية
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-emerald-400/30 text-emerald-400 bg-emerald-500/10 px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
           <CheckSquare className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
         <Button 
           onClick={handleExport}
-          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300"
+          className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300"
         >
           <Download className="h-4 w-4 ml-2" />
           تصدير التقرير
         </Button>
         <Button 
           onClick={handlePrint}
-          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300"
+          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <FileText className="h-4 w-4 ml-2" />
           طباعة
         </Button>
         <Button 
           onClick={() => setIsAddDialogOpen(true)}
-          className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300"
+          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <Plus className="h-4 w-4 ml-2" />
           مهمة جديدة
