@@ -3740,7 +3740,7 @@ const TeamWork: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
+        <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 p-6 hover:border-[#008C6A]/50 transition-all duration-300">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
               <TabsTrigger 
