@@ -327,7 +327,7 @@ const BoudHRLandingPage: React.FC = () => {
                 <BoudLogo variant="full" size="header" className="h-10 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" />
               </div>
               <div className="hidden lg:block h-8 w-px bg-gradient-to-b from-transparent via-[#008C6A]/50 to-transparent mx-2"></div>
-              <img src={boudWhiteLogo} alt="شعار بُعد" className="hidden lg:block h-32 w-auto hover:scale-105 transition-transform duration-300" />
+              <img src={boudWhiteLogo} alt="شعار بُعد" className="hidden lg:block h-56 w-auto hover:scale-105 transition-transform duration-300" />
             </div>
 
             {/* Center Section - Navigation Menu */}
