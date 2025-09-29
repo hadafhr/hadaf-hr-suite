@@ -622,7 +622,7 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
       <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
       <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
       
-      <div className="max-w-7xl mx-auto space-y-6 relative z-10">
+      <div className="max-w-7xl mx-auto space-y-6 relative z-10 bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
         {renderProfessionalHeader()}
         
         <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
