@@ -302,7 +302,7 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
   };
 
   const renderProfessionalHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-black rounded-3xl border border-[#1A1A1A] animate-fade-in card-3d hover:shadow-glow transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-6">
         <Button variant="outline" size="sm" onClick={onBack} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2 text-white" />
