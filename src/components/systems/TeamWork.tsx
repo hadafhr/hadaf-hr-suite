@@ -3681,7 +3681,24 @@ const TeamWork: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic p-6" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
+        </div>
+      </div>
+      
+      {/* Floating Elements for Professional Look */}
+      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      
+      <div className="max-w-7xl mx-auto space-y-6 relative z-10">
       {/* Header - Matching AI System Design */}
       <div className={`flex items-center justify-between mb-12 p-6 bg-card/95 backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in ${isRTL ? 'rtl' : 'ltr'}`}>
         <div className="flex items-center gap-3">
@@ -3795,6 +3812,7 @@ const TeamWork: React.FC = () => {
       <EditEmployeeDialog />
       <ViewEmployeeDialog />
       <AddTaskDialog />
+      </div>
     </div>
   );
 };
