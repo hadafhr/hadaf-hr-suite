@@ -1352,7 +1352,40 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
       
       <div className="relative z-10">
-        {renderHeader()}
+        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+          <div className="flex items-center gap-6">
+            <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+            <div className="h-8 w-px bg-[#008C6A]/30"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <CheckSquare className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  نظام إدارة المهام الشامل
+                </h1>
+                <p className="text-gray-300 text-lg">
+                  نظام متطور لإدارة ومتابعة المهام والمشاريع مع التحليلات التنبؤية
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
+              <CheckSquare className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقارير
+            </Button>
+          </div>
+        </div>
         
         <div className="container mx-auto p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
