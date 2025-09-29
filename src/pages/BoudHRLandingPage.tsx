@@ -298,8 +298,7 @@ const BoudHRLandingPage: React.FC = () => {
     number: "24/7",
     label: "دعم متواصل"
   }];
-  return (
-    <div className="min-h-screen bg-black font-arabic">
+  return <div className="min-h-screen bg-black font-arabic">
       {/* Professional Interactive Header - Applied HR Tools Design */}
       <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 sticky top-0">
         {/* Animated background pattern */}
@@ -321,7 +320,7 @@ const BoudHRLandingPage: React.FC = () => {
               <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4 brightness-0 invert" />
               <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
               
-              <a href="#about" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">عن بُعد</a>
+              
               
               <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
                 <Play className="w-4 h-4" />
@@ -365,10 +364,7 @@ const BoudHRLandingPage: React.FC = () => {
                 👥 انضم الى فريقنا
               </Button>
 
-              <button 
-                onClick={() => navigate('/demo-request')} 
-                className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors"
-              >
+              <button onClick={() => navigate('/demo-request')} className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors">
                 احجز عرض تجريبي
               </button>
             </nav>
@@ -453,8 +449,7 @@ const BoudHRLandingPage: React.FC = () => {
           </div>
 
           {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="lg:hidden py-4 border-t border-[#008C6A]/30 bg-gradient-to-r from-black/90 to-gray-900/90 backdrop-blur-xl rounded-b-2xl">
+          {isMobileMenuOpen && <div className="lg:hidden py-4 border-t border-[#008C6A]/30 bg-gradient-to-r from-black/90 to-gray-900/90 backdrop-blur-xl rounded-b-2xl">
               <nav className="flex flex-col space-y-2">
                 <a href="#home" className="text-white hover:text-[#008C6A] text-sm font-medium py-2 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                   الرئيسية
@@ -471,8 +466,7 @@ const BoudHRLandingPage: React.FC = () => {
                     من نحن <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.about.map((item, index) => (
-                      <button key={index} onClick={() => {
+                    {menuItems.about.map((item, index) => <button key={index} onClick={() => {
                   const element = document.getElementById(item.href.substring(1));
                   if (element) {
                     const headerOffset = 80;
@@ -486,8 +480,7 @@ const BoudHRLandingPage: React.FC = () => {
                   setIsMobileMenuOpen(false);
                 }} className="block text-sm text-gray-300 hover:text-[#008C6A] w-full text-right py-1 px-4 transition-colors">
                         {item.name}
-                      </button>
-                    ))}
+                      </button>)}
                   </div>
                 </details>
                 <details className="group">
@@ -495,11 +488,9 @@ const BoudHRLandingPage: React.FC = () => {
                     تواصل معنا <ChevronDown className="w-4 h-4 inline mr-1 group-open:rotate-180 transition-transform" />
                   </summary>
                   <div className="mr-4 mt-2 space-y-2">
-                    {menuItems.contact.map((item, index) => (
-                      <a key={index} href={item.href} className="block text-sm text-gray-300 hover:text-[#008C6A] py-1 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                    {menuItems.contact.map((item, index) => <a key={index} href={item.href} className="block text-sm text-gray-300 hover:text-[#008C6A] py-1 px-4 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                         {item.name}
-                      </a>
-                    ))}
+                      </a>)}
                   </div>
                 </details>
                 <div className="flex flex-col space-y-2 pt-4 px-4">
@@ -520,8 +511,7 @@ const BoudHRLandingPage: React.FC = () => {
                   </Button>
                 </div>
               </nav>
-            </div>
-          )}
+            </div>}
 
           {/* Bottom accent line */}
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
@@ -656,15 +646,13 @@ const BoudHRLandingPage: React.FC = () => {
               color: "from-red-500/10 to-red-600/5"
             }].map((stat, index) => {
               const IconComponent = stat.icon;
-              return (
-                <div key={index} className="group">
+              return <div key={index} className="group">
                   <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg`}>
                     <IconComponent className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
                     <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">{stat.number}</div>
                     <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
                   </div>
-                </div>
-              );
+                </div>;
             })}
             </div>
           </div>
@@ -673,8 +661,7 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {features.map((feature, index) => {
             const IconComponent = feature.icon;
-            return (
-              <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
+            return <div key={index} className="group cursor-pointer" onClick={() => navigate(feature.route)}>
                 <Card className="relative overflow-hidden border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 bg-gradient-to-br from-background/95 to-muted/50 backdrop-blur-xl hover:scale-105">
                     {/* Premium Border Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary-glow/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
@@ -778,8 +765,7 @@ const BoudHRLandingPage: React.FC = () => {
                       </CardContent>
                     </div>
                   </Card>
-                </div>
-              );
+                </div>;
           })}
           </div>
 
@@ -848,8 +834,7 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => {
             const IconComponent = benefit.icon;
-            return (
-              <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
+            return <Card key={index} className="text-center border-2 hover:border-primary/50 transition-all duration-300 hover:scale-105">
                   <CardContent className="pt-8 pb-6">
                     <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-8 h-8 text-primary" />
@@ -858,8 +843,7 @@ const BoudHRLandingPage: React.FC = () => {
                     <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
                     <p className="text-muted-foreground text-sm">{benefit.description}</p>
                   </CardContent>
-                </Card>
-              );
+                </Card>;
           })}
           </div>
         </div>
@@ -1294,14 +1278,7 @@ const BoudHRLandingPage: React.FC = () => {
         </div>
       </footer>
       {/* BOUD HR Assistant with controlled state */}
-      <BoudHRAssistant 
-        language="ar" 
-        isOpen={assistantOpen} 
-        onOpenChange={handleAssistantOpenChange} 
-        initialMessage={initialMessage} 
-      />
-    </div>
-  );
+      <BoudHRAssistant language="ar" isOpen={assistantOpen} onOpenChange={handleAssistantOpenChange} initialMessage={initialMessage} />
+    </div>;
 };
-
 export default BoudHRLandingPage;
