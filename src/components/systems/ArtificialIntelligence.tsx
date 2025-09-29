@@ -234,7 +234,7 @@ const ArtificialIntelligence = ({
 
           {/* AI Metrics Pie Chart */}
           <Card className="bg-gradient-to-br from-white to-indigo-50 shadow-xl border-0">
-            <CardHeader className="bg-gradient-to-r from-indigo-800 to-purple-900 text-white bg-zinc-950">
+            <CardHeader className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 text-white">
               <CardTitle className="flex items-center gap-3">
                 <Sparkles className="h-6 w-6" />
                 {isRTL ? 'مؤشرات الذكاء الاصطناعي' : 'AI Metrics'}
