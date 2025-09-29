@@ -646,7 +646,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                 </div>
 
                 {/* Integration Icons */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8 p-4 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8 p-4 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
                   {[
                     { icon: Users, label: 'فريق العمل', section: 'employees', color: '#009F87' },
                     { icon: Clock, label: 'الحضور', section: 'attendance', color: '#1e40af' },
