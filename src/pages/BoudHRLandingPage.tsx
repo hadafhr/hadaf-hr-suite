@@ -15,6 +15,7 @@ import teamCollaboration from '@/assets/team-collaboration.jpg';
 import ecssPoral from '@/assets/e-css-portal.jpg';
 import eisPortal from '@/assets/eis-portal.jpg';
 import npcsPortal from '@/assets/npcs-portal.jpg';
+import boudWhiteLogo from '@/assets/boud-white-logo.png';
 import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 import { BoudHRAssistant } from '@/components/BoudHRAssistant';
@@ -304,6 +305,13 @@ const BoudHRLandingPage: React.FC = () => {
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+        </div>
+        
+        {/* Top Logo Bar */}
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-2 border-b border-[#008C6A]/20">
+          <div className="flex justify-end">
+            <img src={boudWhiteLogo} alt="شعار بُعد" className="h-8 w-auto hover:scale-105 transition-transform duration-300" />
+          </div>
         </div>
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
