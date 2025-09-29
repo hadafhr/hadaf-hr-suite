@@ -496,7 +496,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       {/* الصف السفلي: التقويم الذكي، الإشعارات، والإجراءات السريعة */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* التقويم الذكي */}
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-1 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CalendarIcon className="h-5 w-5 text-[#009F87]" />
