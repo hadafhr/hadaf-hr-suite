@@ -22,6 +22,7 @@ import {
   XCircle,
   Eye,
   Bot,
+  BarChart3,
   TrendingUp,
   UserCheck,
   MessageSquare,
@@ -440,15 +441,39 @@ const SmartHire: React.FC = () => {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8">
-            <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-            <TabsTrigger value="jobs">إدارة الوظائف</TabsTrigger>
-            <TabsTrigger value="applicants">المتقدمين</TabsTrigger>
-            <TabsTrigger value="messaging">التواصل التلقائي</TabsTrigger>
-            <TabsTrigger value="interviews">المقابلات</TabsTrigger>
-            <TabsTrigger value="permissions">الصلاحيات</TabsTrigger>
-            <TabsTrigger value="application">نموذج التقديم</TabsTrigger>
-            <TabsTrigger value="analytics">التقارير</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-8 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <BarChart3 className="h-4 w-4" />
+              <span className="hidden sm:inline">لوحة التحكم</span>
+            </TabsTrigger>
+            <TabsTrigger value="jobs" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <BriefcaseIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">إدارة الوظائف</span>
+            </TabsTrigger>
+            <TabsTrigger value="applicants" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <Users className="h-4 w-4" />
+              <span className="hidden sm:inline">المتقدمين</span>
+            </TabsTrigger>
+            <TabsTrigger value="messaging" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <MessageSquare className="h-4 w-4" />
+              <span className="hidden sm:inline">التواصل التلقائي</span>
+            </TabsTrigger>
+            <TabsTrigger value="interviews" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <Calendar className="h-4 w-4" />
+              <span className="hidden sm:inline">المقابلات</span>
+            </TabsTrigger>
+            <TabsTrigger value="permissions" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <Shield className="h-4 w-4" />
+              <span className="hidden sm:inline">الصلاحيات</span>
+            </TabsTrigger>
+            <TabsTrigger value="application" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <FileText className="h-4 w-4" />
+              <span className="hidden sm:inline">نموذج التقديم</span>
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TrendingUp className="h-4 w-4" />
+              <span className="hidden sm:inline">التقارير</span>
+            </TabsTrigger>
           </TabsList>
 
           {/* Dashboard Tab */}
