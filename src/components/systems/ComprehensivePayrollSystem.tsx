@@ -854,7 +854,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       <div className="max-w-7xl mx-auto p-6 space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
           <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-8">
+            <TabsList className="grid w-full grid-cols-8 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg shadow-[#008C6A]/10 rounded-xl">
               <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
               <TabsTrigger value="employee-records">سجلات الموظفين</TabsTrigger>
               <TabsTrigger value="salary-processing">معالجة الرواتب</TabsTrigger>
