@@ -418,20 +418,20 @@ const SmartHire: React.FC = () => {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statsData.map((stat, index) => (
-            <Card key={index} className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card key={index} className="p-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 rounded-2xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  <p className="text-sm font-medium text-gray-300 mb-1">
                     {stat.title}
                   </p>
-                  <p className="text-3xl font-bold text-slate-800 dark:text-white">
+                  <p className="text-3xl font-bold text-white">
                     {stat.value}
                   </p>
-                  <p className="text-xs text-green-600 mt-1">
+                  <p className="text-xs text-[#008C6A] mt-1">
                     {stat.change}
                   </p>
                 </div>
-                <div className={`p-3 rounded-lg bg-slate-100 dark:bg-slate-700 ${stat.color}`}>
+                <div className={`p-3 rounded-lg bg-[#008C6A]/20 border border-[#008C6A]/30 ${stat.color}`}>
                   <stat.icon className="w-6 h-6" />
                 </div>
               </div>
