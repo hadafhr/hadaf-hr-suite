@@ -189,112 +189,117 @@ export const AdminDashboard: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Bar */}
-        <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 h-24 flex items-center justify-between px-6" style={{ marginTop: '64px' }}>
-          {/* Animated background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
-          </div>
-          <div className="flex items-center relative z-10">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden mr-2 text-white hover:bg-[#008C6A]/20"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center space-x-2 space-x-reverse">
-              <div className="relative">
-                <Shield className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
-              </div>
-              <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                  {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator Dashboard'}
-                </h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
-                  {isArabic ? 'نظام إدارة الموارد البشرية المتطور' : 'Advanced HR Management System'}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-4 space-x-reverse relative z-10">
-            {/* System Status */}
-            <div className="hidden md:flex items-center space-x-2 space-x-reverse">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-              <span className="text-sm text-green-300 font-semibold">
-                {isArabic ? 'النظام يعمل بشكل طبيعي' : 'System Operational'}
-              </span>
-            </div>
-
-            {/* Search */}
-            <div className="relative hidden md:block">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input
-                placeholder={isArabic ? 'البحث في النظام...' : 'Search system...'}
-                className="pl-10 w-64 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-lg backdrop-blur-sm"
-              />
-            </div>
-
-            {/* System Alerts */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="relative text-white hover:bg-[#008C6A]/20">
-                  <Bell className="h-5 w-5" />
-                  <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 text-white">
-                    {systemAlerts.filter(alert => alert.urgent).length}
-                  </Badge>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80 bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
-                <div className="p-4 border-b border-[#008C6A]/30">
-                  <h3 className="font-semibold text-white">{isArabic ? 'تنبيهات النظام' : 'System Alerts'}</h3>
+      <div className="flex-1 flex flex-col overflow-hidden lg:mr-64">
+        {/* Integrated Top Header */}
+        <header className="fixed top-0 right-0 left-0 lg:left-64 z-40 h-20 bg-gradient-to-r from-black/95 via-gray-900/95 to-black/95 backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+          {/* Premium Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/10 via-[#009F87]/5 to-[#00694F]/10 opacity-80"></div>
+          
+          <div className="relative z-10 h-full flex items-center justify-between px-6">
+            {/* Left Section - Mobile Menu & Title */}
+            <div className="flex items-center space-x-4 space-x-reverse">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="lg:hidden text-white hover:bg-[#008C6A]/20 p-2 rounded-full"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+              
+              <div className="flex items-center space-x-3 space-x-reverse">
+                <div className="relative">
+                  <Shield className="h-10 w-10 text-[#008C6A] animate-pulse" />
+                  <div className="absolute -inset-2 bg-[#008C6A]/20 rounded-full blur animate-ping opacity-75"></div>
                 </div>
-                {systemAlerts.map((alert) => (
-                  <DropdownMenuItem key={alert.id} className="p-4 hover:bg-[#008C6A]/20">
-                    <div className="flex items-start space-x-3 space-x-reverse w-full">
-                      {alert.type === 'warning' && <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5" />}
-                      {alert.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5" />}
-                      {alert.type === 'info' && <Clock className="w-4 h-4 text-blue-500 mt-0.5" />}
-                      <div className="flex-1">
-                        <p className="font-medium text-sm text-white">{alert.title}</p>
-                        <p className="text-xs text-gray-300">{alert.description}</p>
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <div className="hidden md:flex flex-col">
+                  <h1 className="text-xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                    {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator'}
+                  </h1>
+                  <p className="text-xs text-gray-400">
+                    {isArabic ? 'نظام إدارة متطور' : 'Advanced Management System'}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            {/* Language Switcher */}
-            <LanguageSwitcher />
+            {/* Center Section - System Status */}
+            <div className="hidden lg:flex items-center space-x-6 space-x-reverse">
+              <div className="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-black/30 rounded-full border border-[#008C6A]/20">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
+                <span className="text-sm text-green-300 font-medium">
+                  {isArabic ? 'النظام يعمل' : 'System Live'}
+                </span>
+              </div>
+              
+              <div className="relative hidden xl:block">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder={isArabic ? 'البحث السريع...' : 'Quick search...'}
+                  className="pl-10 w-64 h-9 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-full backdrop-blur-sm"
+                />
+              </div>
+            </div>
 
-            {/* Profile Menu */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20">
-                  <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
-                    <Crown className="h-4 w-4 text-white" />
+            {/* Right Section - Actions & Profile */}
+            <div className="flex items-center space-x-3 space-x-reverse">
+              {/* System Alerts */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="relative text-white hover:bg-[#008C6A]/20 p-2 rounded-full">
+                    <Bell className="h-5 w-5" />
+                    <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-red-500 text-white rounded-full flex items-center justify-center">
+                      {systemAlerts.filter(alert => alert.urgent).length}
+                    </Badge>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-80 bg-black/95 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                  <div className="p-4 border-b border-[#008C6A]/30">
+                    <h3 className="font-semibold text-white">{isArabic ? 'تنبيهات النظام' : 'System Alerts'}</h3>
                   </div>
-                  <ChevronDown className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
-                <DropdownMenuSeparator className="bg-[#008C6A]/30" />
-                <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
-                  <LogOut className="h-4 w-4 mr-2" />
-                  {isArabic ? 'تسجيل الخروج' : 'Logout'}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  {systemAlerts.map((alert) => (
+                    <DropdownMenuItem key={alert.id} className="p-4 hover:bg-[#008C6A]/20">
+                      <div className="flex items-start space-x-3 space-x-reverse w-full">
+                        {alert.type === 'warning' && <AlertCircle className="w-4 h-4 text-orange-500 mt-0.5" />}
+                        {alert.type === 'success' && <CheckCircle className="w-4 h-4 text-green-500 mt-0.5" />}
+                        {alert.type === 'info' && <Clock className="w-4 h-4 text-blue-500 mt-0.5" />}
+                        <div className="flex-1">
+                          <p className="font-medium text-sm text-white">{alert.title}</p>
+                          <p className="text-xs text-gray-300">{alert.description}</p>
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
+              {/* Profile Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20 p-2 rounded-full">
+                    <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
+                      <Crown className="h-4 w-4 text-white" />
+                    </div>
+                    <ChevronDown className="h-4 w-4 hidden md:block" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-black/95 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                  <DropdownMenuSeparator className="bg-[#008C6A]/30" />
+                  <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تسجيل الخروج' : 'Logout'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </header>
 
         {/* Dashboard Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 relative z-10">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 pt-28 relative z-10">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* Welcome Section */}
             <div className="mb-8">
