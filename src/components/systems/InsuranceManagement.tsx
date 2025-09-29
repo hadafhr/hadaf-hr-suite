@@ -507,7 +507,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {insuranceMetrics.map((metric, index) => (
                 <Card key={metric.category} className="bg-white/95 backdrop-blur shadow-lg border-[#009F87]/20">
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-sm font-medium text-gray-600">{metric.category}</h3>
                       <div className="p-2 rounded-full" style={{ backgroundColor: `${metric.color}20` }}>
