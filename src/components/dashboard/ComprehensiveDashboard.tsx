@@ -473,7 +473,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
             className="hover:shadow-lg transition-all cursor-pointer transform hover:scale-105" 
             onClick={() => handleSectionNavigation(widget.title)}
           >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
               <CardTitle className="text-sm font-medium">{widget.title}</CardTitle>
               <widget.icon className={`h-4 w-4 ${widget.color}`} />
             </CardHeader>
