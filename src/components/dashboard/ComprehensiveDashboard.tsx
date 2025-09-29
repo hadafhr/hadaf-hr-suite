@@ -553,7 +553,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
             <ScrollArea className="h-80">
               <div className="space-y-3">
                 {notifications.map((notification) => (
-                  <Alert key={notification.id} className={notification.urgent ? 'border-red-200 bg-red-50' : ''}>
+                  <Alert key={notification.id} className={notification.urgent ? 'border-red-200 bg-red-50' : 'bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300'}>
                     <div className="flex items-start gap-3">
                       {getNotificationIcon(notification.type)}
                       <div className="flex-1 min-w-0">
