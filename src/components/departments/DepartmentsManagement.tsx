@@ -625,10 +625,10 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
       <div className="max-w-7xl mx-auto space-y-6 relative z-10 bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
         {renderProfessionalHeader()}
         
-        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
+        <div className="bg-gray-900/60 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-6">
+          <div className="border-b border-[#008C6A]/30">
+            <TabsList className="grid w-full grid-cols-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg shadow-[#008C6A]/10 rounded-xl">
               <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
               <TabsTrigger value="departments">الأقسام</TabsTrigger>
               <TabsTrigger value="positions">المناصب</TabsTrigger>
