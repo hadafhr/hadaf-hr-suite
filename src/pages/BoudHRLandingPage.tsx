@@ -229,13 +229,6 @@ const BoudHRLandingPage: React.FC = () => {
                         <span className="text-xs opacity-70">{currentLanguage === 'ar' ? 'إدارة النظام الكاملة' : 'Full system management'}</span>
                       </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate('/employee-login')} className="w-full text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300 flex items-center gap-3 p-4 cursor-pointer rounded-lg mx-1 my-1">
-                      <User className="w-5 h-5" />
-                      <div className="flex flex-col">
-                        <span className="font-semibold">{currentLanguage === 'ar' ? 'لوحة تحكم الموظف' : 'Employee Dashboard'}</span>
-                        <span className="text-xs opacity-70">{currentLanguage === 'ar' ? 'الخدمة الذاتية للموظفين' : 'Employee self-service'}</span>
-                      </div>
-                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
