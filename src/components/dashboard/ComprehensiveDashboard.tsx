@@ -511,7 +511,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
-              className="rounded-md border"
+              className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300"
             />
             <Separator className="my-4" />
             <div className="space-y-3">
