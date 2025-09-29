@@ -318,7 +318,7 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Center Section - Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6 space-x-reverse">
-              <img src={boudWhiteLogo} alt="شعار بُعد" className="h-8 w-auto hover:scale-105 transition-transform duration-300 ml-6" />
+              <img src={boudWhiteLogo} alt="شعار بُعد" className="h-35 w-auto hover:scale-105 transition-transform duration-300 ml-6" />
               <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
               
               
