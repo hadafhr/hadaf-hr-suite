@@ -132,7 +132,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
       <div className="p-8 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
           {/* Main Navigation Tabs */}
-          <TabsList className="grid grid-cols-6 gap-2 bg-[#2A2A2A] p-2 rounded-2xl border border-[#3A3A3A] h-auto w-full">
+          <TabsList className="grid grid-cols-6 gap-2 bg-gray-900/60 backdrop-blur-xl p-2 rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 h-auto w-full">
             <TabsTrigger 
               value="dashboard" 
               className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
