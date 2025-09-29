@@ -674,7 +674,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
   );
 
   return (
-    <div className="min-h-screen bg-background" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-background bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       {renderProfessionalHeader()}
       
       <div className="container mx-auto p-6">
