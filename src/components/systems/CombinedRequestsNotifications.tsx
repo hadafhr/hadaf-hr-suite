@@ -600,7 +600,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
             {/* Notifications Tab */}
             <TabsContent value="notifications">
-              <CardContent className="p-6">
+              <CardContent className="p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
                 {/* Notification Controls */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
