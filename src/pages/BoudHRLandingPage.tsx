@@ -364,9 +364,7 @@ const BoudHRLandingPage: React.FC = () => {
                 👥 انضم الى فريقنا
               </Button>
 
-              <button onClick={() => navigate('/demo-request')} className="text-white hover:text-gray-300 text-sm font-medium flex items-center gap-1 transition-colors">
-                احجز عرض تجريبي
-              </button>
+              
             </nav>
 
             {/* Right Section - Professional Controls Panel */}
