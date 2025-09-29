@@ -27,6 +27,7 @@ import {
   Trash2,
   Eye,
   FileText,
+  FolderOpen,
   MessageSquare,
   Bell,
   TrendingUp,
@@ -1387,32 +1388,41 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </div>
         </div>
         
-        <div className="container mx-auto p-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6 bg-black/40 backdrop-blur-md border border-white/10">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+        {/* Tabs Navigation */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
               <BarChart3 className="h-4 w-4" />
-              لوحة التحكم
+              <span className="hidden sm:inline">لوحة التحكم</span>
             </TabsTrigger>
-            <TabsTrigger value="tasks" className="flex items-center gap-2">
+            
+            <TabsTrigger value="tasks" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
               <CheckSquare className="h-4 w-4" />
-              إدارة المهام
+              <span className="hidden sm:inline">المهام</span>
             </TabsTrigger>
-            <TabsTrigger value="followup" className="flex items-center gap-2">
-              <Clock className="h-4 w-4" />
-              المتابعة والتتبع
+            <TabsTrigger value="projects" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <FolderOpen className="h-4 w-4" />
+              <span className="hidden sm:inline">المشاريع</span>
             </TabsTrigger>
-            <TabsTrigger value="collaboration" className="flex items-center gap-2">
+            <TabsTrigger value="teams" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
               <Users className="h-4 w-4" />
-              التعاون
+              <span className="hidden sm:inline">الفرق</span>
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
+            <TabsTrigger value="analytics" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TrendingUp className="h-4 w-4" />
+              <span className="hidden sm:inline">التحليلات</span>
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <Calendar className="h-4 w-4" />
+              <span className="hidden sm:inline">التقويم</span>
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
               <FileText className="h-4 w-4" />
-              التقارير
+              <span className="hidden sm:inline">التقارير</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
+            <TabsTrigger value="settings" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
               <Settings className="h-4 w-4" />
-              الإعدادات
+              <span className="hidden sm:inline">الإعدادات</span>
             </TabsTrigger>
           </TabsList>
 
@@ -1443,7 +1453,6 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       <AddTaskDialog />
-    </div>
     </div>
   );
 };
