@@ -307,13 +307,6 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
         </div>
         
-        {/* Top Logo Bar */}
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-2 border-b border-[#008C6A]/20">
-          <div className="flex justify-end">
-            <img src={boudWhiteLogo} alt="شعار بُعد" className="h-8 w-auto hover:scale-105 transition-transform duration-300" />
-          </div>
-        </div>
-        
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-24">
             {/* Logo Section */}
@@ -325,7 +318,7 @@ const BoudHRLandingPage: React.FC = () => {
 
             {/* Center Section - Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6 space-x-reverse">
-              <BoudLogo variant="icon" size="sm" className="h-8 w-auto ml-4 brightness-0 invert" />
+              <img src={boudWhiteLogo} alt="شعار بُعد" className="h-8 w-auto hover:scale-105 transition-transform duration-300 ml-6" />
               <a href="#home" className="text-white hover:text-gray-300 text-sm font-medium transition-colors">الرئيسية</a>
               
               
