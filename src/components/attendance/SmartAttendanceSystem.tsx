@@ -257,25 +257,47 @@ export const SmartAttendanceSystem: React.FC = () => {
       <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
       <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
       <div className="max-w-7xl mx-auto space-y-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-2">
-            نظام الحضور والانصراف الذكي
-          </h1>
-          <p className="text-lg text-gray-300">
-            إدارة شاملة للحضور مع دعم GPS والبصمة والجدولة المتقدمة
-          </p>
-          <div className="mt-4 p-4 bg-gray-900/60 backdrop-blur-xl rounded-lg shadow-2xl border border-[#008C6A]/30">
-            <div className="text-2xl font-bold text-[#008C6A] mb-1">
-              {currentTime.toLocaleTimeString('ar-SA')}
+        {/* Enhanced Professional Header */}
+        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+          <div className="flex items-center gap-6">
+            <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
+              <Clock className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+            <div className="h-8 w-px bg-[#008C6A]/30"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <Clock className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                  نظام الحضور والانصراف الذكي
+                </h1>
+                <p className="text-gray-300 text-lg">
+                  إدارة شاملة للحضور مع دعم GPS والبصمة والجدولة المتقدمة
+                </p>
+              </div>
             </div>
-            <div className="text-sm text-gray-300">
-              {currentTime.toLocaleDateString('ar-SA', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
+              <Clock className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <div className="p-4 bg-black/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-[#008C6A]/30">
+              <div className="text-2xl font-bold text-[#008C6A] mb-1">
+                {currentTime.toLocaleTimeString('ar-SA')}
+              </div>
+              <div className="text-sm text-gray-300">
+                {currentTime.toLocaleDateString('ar-SA', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+              </div>
             </div>
           </div>
         </div>
