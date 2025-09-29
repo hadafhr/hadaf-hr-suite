@@ -322,10 +322,6 @@ const BoudHRLandingPage: React.FC = () => {
               
               
               
-              <Button variant="ghost" onClick={() => navigate('/interactive-tour')} className="text-white hover:text-gray-300 text-sm font-medium transition-colors flex items-center gap-2">
-                <Play className="w-4 h-4" />
-                جولة تفاعلية
-              </Button>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
