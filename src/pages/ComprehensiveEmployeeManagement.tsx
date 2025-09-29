@@ -663,7 +663,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="digital-transformation">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6">
+              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6 animate-fade-in">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20">
                     <Brain className="h-8 w-8 text-white" />
