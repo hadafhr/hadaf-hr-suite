@@ -1160,7 +1160,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       {renderHeader()}
       <div className="container mx-auto px-6 py-8 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7 bg-muted/50 p-1 h-auto">
+          <TabsList className="grid w-full grid-cols-7 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-1 h-auto">
             <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3">
               <BarChart3 className="h-4 w-4" />
               <span className="text-xs">لوحة التحكم</span>
