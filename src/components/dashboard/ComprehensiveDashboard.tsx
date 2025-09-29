@@ -549,7 +549,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
               </Badge>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
             <ScrollArea className="h-80">
               <div className="space-y-3">
                 {notifications.map((notification) => (
