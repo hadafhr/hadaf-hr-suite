@@ -10,7 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Breadcrumb } from '@/components/Breadcrumb';
 import { useToast } from '@/hooks/use-toast';
 import buodLogo from '@/assets/buod-logo-white.png';
-
 interface TourSection {
   slug: string;
   title: string;
@@ -23,13 +22,16 @@ interface TourSection {
   order: number;
   route: string;
 }
-
 const InteractiveTour = () => {
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    i18n
+  } = useTranslation();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const isArabic = i18n.language === 'ar';
-  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [suggestionForm, setSuggestionForm] = useState({
@@ -37,125 +39,125 @@ const InteractiveTour = () => {
     email: '',
     description: ''
   });
-
-  const tourSections: TourSection[] = [
-    {
-      slug: 'employee-management',
-      title: isArabic ? 'إدارة الموظفين' : 'Employee Management',
-      subtitle: isArabic ? 'استكشف نظام إدارة الموظفين الشامل والمتطور' : 'Explore the comprehensive employee management system',
-      category: isArabic ? 'إدارة' : 'Management',
-      tags: ['موظفين', 'إدارة', 'نظام'],
-      badge: isArabic ? 'شائع' : 'Popular',
-      icon: Users,
-      locale: 'ar-SA',
-      order: 1,
-      route: '/employee-management-info'
-    },
-    {
-      slug: 'self-service',
-      title: isArabic ? 'الخدمة الذاتية' : 'Self Service',
-      subtitle: isArabic ? 'تعرف على منصة الخدمة الذاتية للموظفين' : 'Discover the employee self-service platform',
-      category: isArabic ? 'خدمات' : 'Services',
-      tags: ['خدمة ذاتية', 'موظفين', 'منصة'],
-      icon: Smartphone,
-      locale: 'ar-SA',
-      order: 2,
-      route: '/self-service-info'
-    },
-    {
-      slug: 'compensation-benefits',
-      title: isArabic ? 'التعويضات والمزايا' : 'Compensation & Benefits',
-      subtitle: isArabic ? 'اكتشف نظام إدارة الرواتب والمزايا المتقدم' : 'Discover the advanced payroll and benefits management system',
-      category: isArabic ? 'مالية' : 'Financial',
-      tags: ['رواتب', 'مزايا', 'تعويضات'],
-      icon: DollarSign,
-      locale: 'ar-SA',
-      order: 3,
-      route: '/compensation-benefits'
-    },
-    {
-      slug: 'performance-evaluation',
-      title: isArabic ? 'التقييمات الذكية' : 'Smart Evaluations',
-      subtitle: isArabic ? 'نظام تقييم الأداء بالذكاء الاصطناعي' : 'AI-powered performance evaluation system',
-      category: isArabic ? 'تقييم' : 'Evaluation',
-      tags: ['تقييم', 'أداء', 'ذكي'],
-      badge: isArabic ? 'جديد' : 'New',
-      icon: Award,
-      locale: 'ar-SA',
-      order: 4,
-      route: '/performance-evaluation'
-    },
-    {
-      slug: 'training-development',
-      title: isArabic ? 'التدريب والتطوير' : 'Training & Development',
-      subtitle: isArabic ? 'منصة التدريب الإلكتروني وتطوير المهارات' : 'E-learning platform and skills development',
-      category: isArabic ? 'تدريب' : 'Training',
-      tags: ['تدريب', 'تطوير', 'مهارات'],
-      icon: Video,
-      locale: 'ar-SA',
-      order: 5,
-      route: '/training'
-    },
-    {
-      slug: 'wage-protection',
-      title: isArabic ? 'حماية الأجور' : 'Wage Protection',
-      subtitle: isArabic ? 'نظام حماية الأجور المتكامل مع البنوك السعودية' : 'Integrated wage protection system with Saudi banks',
-      category: isArabic ? 'حماية' : 'Protection',
-      tags: ['أجور', 'حماية', 'WPS'],
-      icon: Shield,
-      locale: 'ar-SA',
-      order: 6,
-      route: '/wage-protection'
-    },
-    {
-      slug: 'dashboard-analytics',
-      title: isArabic ? 'لوحة التحكم والتحليلات' : 'Dashboard & Analytics',
-      subtitle: isArabic ? 'تحليلات متقدمة ولوحات تحكم تفاعلية' : 'Advanced analytics and interactive dashboards',
-      category: isArabic ? 'تحليلات' : 'Analytics',
-      tags: ['تحليلات', 'لوحة تحكم', 'تقارير'],
-      icon: BarChart3,
-      locale: 'ar-SA',
-      order: 7,
-      route: '/company-dashboard'
-    },
-    {
-      slug: 'mobile-apps',
-      title: isArabic ? 'التطبيقات المحمولة' : 'Mobile Apps',
-      subtitle: isArabic ? 'تطبيقات الهاتف المحمول للموظفين والإدارة' : 'Mobile applications for employees and management',
-      category: isArabic ? 'تطبيقات' : 'Applications',
-      tags: ['محمول', 'تطبيق', 'موبايل'],
-      badge: isArabic ? 'قريباً' : 'Coming Soon',
-      icon: Monitor,
-      locale: 'ar-SA',
-      order: 8,
-      route: '/mobile-apps'
-    }
-  ];
-
-  const categories = [
-    { value: 'all', label: isArabic ? 'جميع الأقسام' : 'All Sections' },
-    { value: 'إدارة', label: isArabic ? 'إدارة' : 'Management' },
-    { value: 'خدمات', label: isArabic ? 'خدمات' : 'Services' },
-    { value: 'مالية', label: isArabic ? 'مالية' : 'Financial' },
-    { value: 'تقييم', label: isArabic ? 'تقييم' : 'Evaluation' },
-    { value: 'تدريب', label: isArabic ? 'تدريب' : 'Training' },
-    { value: 'حماية', label: isArabic ? 'حماية' : 'Protection' },
-    { value: 'تحليلات', label: isArabic ? 'تحليلات' : 'Analytics' },
-    { value: 'تطبيقات', label: isArabic ? 'تطبيقات' : 'Applications' }
-  ];
-
+  const tourSections: TourSection[] = [{
+    slug: 'employee-management',
+    title: isArabic ? 'إدارة الموظفين' : 'Employee Management',
+    subtitle: isArabic ? 'استكشف نظام إدارة الموظفين الشامل والمتطور' : 'Explore the comprehensive employee management system',
+    category: isArabic ? 'إدارة' : 'Management',
+    tags: ['موظفين', 'إدارة', 'نظام'],
+    badge: isArabic ? 'شائع' : 'Popular',
+    icon: Users,
+    locale: 'ar-SA',
+    order: 1,
+    route: '/employee-management-info'
+  }, {
+    slug: 'self-service',
+    title: isArabic ? 'الخدمة الذاتية' : 'Self Service',
+    subtitle: isArabic ? 'تعرف على منصة الخدمة الذاتية للموظفين' : 'Discover the employee self-service platform',
+    category: isArabic ? 'خدمات' : 'Services',
+    tags: ['خدمة ذاتية', 'موظفين', 'منصة'],
+    icon: Smartphone,
+    locale: 'ar-SA',
+    order: 2,
+    route: '/self-service-info'
+  }, {
+    slug: 'compensation-benefits',
+    title: isArabic ? 'التعويضات والمزايا' : 'Compensation & Benefits',
+    subtitle: isArabic ? 'اكتشف نظام إدارة الرواتب والمزايا المتقدم' : 'Discover the advanced payroll and benefits management system',
+    category: isArabic ? 'مالية' : 'Financial',
+    tags: ['رواتب', 'مزايا', 'تعويضات'],
+    icon: DollarSign,
+    locale: 'ar-SA',
+    order: 3,
+    route: '/compensation-benefits'
+  }, {
+    slug: 'performance-evaluation',
+    title: isArabic ? 'التقييمات الذكية' : 'Smart Evaluations',
+    subtitle: isArabic ? 'نظام تقييم الأداء بالذكاء الاصطناعي' : 'AI-powered performance evaluation system',
+    category: isArabic ? 'تقييم' : 'Evaluation',
+    tags: ['تقييم', 'أداء', 'ذكي'],
+    badge: isArabic ? 'جديد' : 'New',
+    icon: Award,
+    locale: 'ar-SA',
+    order: 4,
+    route: '/performance-evaluation'
+  }, {
+    slug: 'training-development',
+    title: isArabic ? 'التدريب والتطوير' : 'Training & Development',
+    subtitle: isArabic ? 'منصة التدريب الإلكتروني وتطوير المهارات' : 'E-learning platform and skills development',
+    category: isArabic ? 'تدريب' : 'Training',
+    tags: ['تدريب', 'تطوير', 'مهارات'],
+    icon: Video,
+    locale: 'ar-SA',
+    order: 5,
+    route: '/training'
+  }, {
+    slug: 'wage-protection',
+    title: isArabic ? 'حماية الأجور' : 'Wage Protection',
+    subtitle: isArabic ? 'نظام حماية الأجور المتكامل مع البنوك السعودية' : 'Integrated wage protection system with Saudi banks',
+    category: isArabic ? 'حماية' : 'Protection',
+    tags: ['أجور', 'حماية', 'WPS'],
+    icon: Shield,
+    locale: 'ar-SA',
+    order: 6,
+    route: '/wage-protection'
+  }, {
+    slug: 'dashboard-analytics',
+    title: isArabic ? 'لوحة التحكم والتحليلات' : 'Dashboard & Analytics',
+    subtitle: isArabic ? 'تحليلات متقدمة ولوحات تحكم تفاعلية' : 'Advanced analytics and interactive dashboards',
+    category: isArabic ? 'تحليلات' : 'Analytics',
+    tags: ['تحليلات', 'لوحة تحكم', 'تقارير'],
+    icon: BarChart3,
+    locale: 'ar-SA',
+    order: 7,
+    route: '/company-dashboard'
+  }, {
+    slug: 'mobile-apps',
+    title: isArabic ? 'التطبيقات المحمولة' : 'Mobile Apps',
+    subtitle: isArabic ? 'تطبيقات الهاتف المحمول للموظفين والإدارة' : 'Mobile applications for employees and management',
+    category: isArabic ? 'تطبيقات' : 'Applications',
+    tags: ['محمول', 'تطبيق', 'موبايل'],
+    badge: isArabic ? 'قريباً' : 'Coming Soon',
+    icon: Monitor,
+    locale: 'ar-SA',
+    order: 8,
+    route: '/mobile-apps'
+  }];
+  const categories = [{
+    value: 'all',
+    label: isArabic ? 'جميع الأقسام' : 'All Sections'
+  }, {
+    value: 'إدارة',
+    label: isArabic ? 'إدارة' : 'Management'
+  }, {
+    value: 'خدمات',
+    label: isArabic ? 'خدمات' : 'Services'
+  }, {
+    value: 'مالية',
+    label: isArabic ? 'مالية' : 'Financial'
+  }, {
+    value: 'تقييم',
+    label: isArabic ? 'تقييم' : 'Evaluation'
+  }, {
+    value: 'تدريب',
+    label: isArabic ? 'تدريب' : 'Training'
+  }, {
+    value: 'حماية',
+    label: isArabic ? 'حماية' : 'Protection'
+  }, {
+    value: 'تحليلات',
+    label: isArabic ? 'تحليلات' : 'Analytics'
+  }, {
+    value: 'تطبيقات',
+    label: isArabic ? 'تطبيقات' : 'Applications'
+  }];
   const filteredSections = useMemo(() => {
     return tourSections.filter(section => {
-      const matchesSearch = section.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           section.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           section.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      
+      const matchesSearch = section.title.toLowerCase().includes(searchQuery.toLowerCase()) || section.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) || section.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
       const matchesCategory = selectedCategory === 'all' || section.category === selectedCategory;
-      
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, selectedCategory, tourSections]);
-
   const handleSuggestionSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate API call
@@ -163,25 +165,23 @@ const InteractiveTour = () => {
       title: isArabic ? "تم إرسال الاقتراح بنجاح" : "Suggestion sent successfully",
       description: isArabic ? "سنراجع اقتراحك ونتواصل معك قريباً" : "We'll review your suggestion and contact you soon"
     });
-    setSuggestionForm({ title: '', email: '', description: '' });
+    setSuggestionForm({
+      title: '',
+      email: '',
+      description: ''
+    });
   };
-
   const popularSections = tourSections.slice(0, 4);
   const recentSections = tourSections.slice(1, 4);
-
-  return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
+  return <div className="min-h-screen bg-black text-white relative overflow-hidden" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -197,11 +197,7 @@ const InteractiveTour = () => {
             {/* Logo Section */}
             <div className="flex items-center">
               <Link to="/" className="hover:scale-105 transition-all duration-300">
-                <img 
-                  src={buodLogo} 
-                  alt="Buod HR" 
-                  className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" 
-                />
+                <img src={buodLogo} alt="Buod HR" className="h-48 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl hover:scale-105 cursor-pointer" />
               </Link>
             </div>
 
@@ -249,12 +245,7 @@ const InteractiveTour = () => {
                   </span>
                   
                   {/* Language Toggle Button */}
-                  <button 
-                    onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
-                    tabIndex={0}
-                    aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'}
-                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20"
-                  >
+                  <button onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')} tabIndex={0} aria-label={isArabic ? 'تغيير اللغة إلى الإنجليزية' : 'Change language to Arabic'} className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#00694F]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/20">
                     {/* Language Text */}
                     <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
                       {isArabic ? 'EN' : 'العربية'}
@@ -298,12 +289,13 @@ const InteractiveTour = () => {
         {/* Breadcrumb Navigation - Far Right */}
         <div className="flex justify-end mb-6 mr-0">
           <div className="ml-auto">
-            <Breadcrumb 
-              items={[
-                { label: isArabic ? 'الرئيسية' : 'Home', path: '/' },
-                { label: isArabic ? 'الجولة التفاعلية' : 'Interactive Tour', path: '/interactive-tour' }
-              ]}
-            />
+            <Breadcrumb items={[{
+            label: isArabic ? 'الرئيسية' : 'Home',
+            path: '/'
+          }, {
+            label: isArabic ? 'الجولة التفاعلية' : 'Interactive Tour',
+            path: '/interactive-tour'
+          }]} />
           </div>
         </div>
         
@@ -328,10 +320,7 @@ const InteractiveTour = () => {
           
           <div className="relative max-w-3xl mx-auto">
             <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
-              {isArabic 
-                ? 'جولة تفاعلية شاملة لاستكشاف مميزات وحلول نظام بُعد لإدارة الموارد البشرية - معتمدة وفقاً لأنظمة المملكة العربية السعودية'
-                : 'A comprehensive interactive tour to explore Buod HR system features and solutions - Certified according to Saudi Arabia regulations'
-              }
+              {isArabic ? 'جولة تفاعلية شاملة لاستكشاف مميزات وحلول نظام بُعد لإدارة الموارد البشرية - معتمدة وفقاً لأنظمة المملكة العربية السعودية' : 'A comprehensive interactive tour to explore Buod HR system features and solutions - Certified according to Saudi Arabia regulations'}
             </p>
             <div className="absolute -inset-1 bg-gradient-to-r from-[#008C6A]/20 via-transparent to-[#008C6A]/20 rounded-2xl blur opacity-50"></div>
           </div>
@@ -340,213 +329,16 @@ const InteractiveTour = () => {
         {/* Enhanced Section Search & Filter */}
         <div className="max-w-6xl mx-auto mb-12">
           <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <CardTitle className="flex items-center gap-2 text-white relative z-10">
-                <Search className="h-5 w-5 animate-pulse" />
-                {isArabic ? 'البحث والتصفية' : 'Search & Filter'}
-              </CardTitle>
-              <CardDescription className="text-white/90 relative z-10">
-                {isArabic 
-                  ? 'ابحث عن القسم المناسب لاستكشافه'
-                  : 'Find the right section to explore'
-                }
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6 p-6 bg-gray-900/40">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="relative flex-1">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input
-                    placeholder={isArabic ? 'ابحث عن الأقسام...' : 'Search sections...'}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 pr-10"
-                  />
-                </div>
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-full md:w-48 bg-black/50 border-[#008C6A]/40 text-white focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200">
-                    <Filter className="h-4 w-4 ml-2" />
-                    <SelectValue className="text-gray-400" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-gray-900 border-[#008C6A]/40">
-                    {categories.map(category => (
-                      <SelectItem key={category.value} value={category.value} className="text-white hover:bg-[#008C6A]/20 focus:bg-[#008C6A]/30">
-                        {category.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Enhanced Quick Access */}
-              <div className="flex flex-wrap gap-4 justify-center">
-                <div className="flex items-center gap-2 text-sm text-gray-300">
-                  <TrendingUp className="h-4 w-4 text-[#008C6A]" />
-                  <span>{isArabic ? 'شائعة:' : 'Popular:'}</span>
-                  {popularSections.slice(0, 2).map(section => (
-                    <Badge 
-                      key={section.slug} 
-                      variant="secondary" 
-                      className="cursor-pointer bg-[#008C6A]/20 hover:bg-[#008C6A] hover:text-white transition-all duration-300 border border-[#008C6A]/30 hover:border-[#008C6A] hover:scale-105"
-                      onClick={() => navigate(section.route)}
-                    >
-                      {section.title}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
+            
+            
           </Card>
         </div>
 
         {/* Enhanced Professional Sections Grid */}
-        <div className="max-w-6xl mx-auto mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredSections.map((section, index) => (
-              <Card key={section.slug} className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
-                <CardHeader className="bg-gradient-to-r from-[#008C6A]/20 via-[#009F87]/20 to-[#00694F]/20 border-b border-[#008C6A]/30 pb-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="p-3 bg-[#008C6A]/20 rounded-xl group-hover:bg-[#008C6A]/30 transition-all duration-300 border border-[#008C6A]/30 hover:border-[#008C6A]/50">
-                      <section.icon className="h-6 w-6 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
-                    </div>
-                    {section.badge && (
-                      <Badge variant="secondary" className="text-xs bg-[#008C6A]/30 text-white border border-[#008C6A]/50 animate-pulse">
-                        {section.badge}
-                      </Badge>
-                    )}
-                  </div>
-                  <CardTitle className="text-lg text-white group-hover:text-[#008C6A] transition-colors duration-300">
-                    {section.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm text-gray-300">
-                    {section.subtitle}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-4 bg-gray-900/40">
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {section.tags.slice(0, 3).map(tag => (
-                      <Badge key={tag} variant="outline" className="text-xs bg-black/40 text-gray-300 border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-200">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      className="flex-1 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-[#008C6A]/30"
-                      onClick={() => navigate(section.route)}
-                    >
-                      {isArabic ? 'استكشف القسم' : 'Explore Section'}
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      className="bg-black/40 border-[#008C6A]/40 text-gray-300 hover:border-[#008C6A] hover:bg-[#008C6A]/20 hover:text-white transition-all duration-300"
-                      onClick={() => {
-                        toast({
-                          title: isArabic ? "معلومات القسم" : "Section Info",
-                          description: isArabic 
-                            ? `${section.title} - قريباً سيتم إضافة معلومات مفصلة عن هذا القسم`
-                            : `${section.title} - Detailed information about this section will be added soon`
-                        });
-                      }}
-                    >
-                      {isArabic ? 'المعلومات' : 'Info'}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {filteredSections.length === 0 && (
-            <div className="text-center py-12">
-              <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 bg-gray-900/60 border border-[#008C6A]/30">
-                <Search className="h-12 w-12 text-[#008C6A] animate-pulse" />
-                <div className="absolute inset-0 rounded-full bg-[#008C6A]/10 animate-ping"></div>
-              </div>
-              <p className="text-gray-300 text-lg">
-                {isArabic ? 'لم يتم العثور على أقسام مطابقة لبحثك' : 'No matching sections found for your search'}
-              </p>
-              <p className="text-gray-400 text-sm mt-2">
-                {isArabic ? 'جرب تغيير مصطلحات البحث أو الفئة' : 'Try changing search terms or category'}
-              </p>
-            </div>
-          )}
-        </div>
+        
 
         {/* Enhanced Suggestion Form */}
-        <Card className="max-w-4xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
-          <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-black/10"></div>
-            <CardTitle className="flex items-center gap-2 text-white relative z-10">
-              <FileText className="h-5 w-5 animate-pulse" />
-              {isArabic ? 'اقترح قسماً جديداً' : 'Suggest a New Section'}
-            </CardTitle>
-            <CardDescription className="text-white/90 relative z-10">
-              {isArabic 
-                ? 'شاركنا أفكارك لأقسام جديدة في الجولة التفاعلية'
-                : 'Share your ideas for new sections in the interactive tour'
-              }
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6 p-6 bg-gray-900/40">
-            <form onSubmit={handleSuggestionSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
-                  {isArabic ? 'عنوان القسم المقترح *' : 'Suggested Section Title *'}
-                </label>
-                <Input
-                  placeholder={isArabic ? 'إدارة المشاريع الذكية' : 'Smart Project Management'}
-                  value={suggestionForm.title}
-                  onChange={(e) => setSuggestionForm(prev => ({ ...prev, title: e.target.value }))}
-                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
-                  {isArabic ? 'بريدك الإلكتروني *' : 'Your Email *'}
-                </label>
-                <Input
-                  type="email"
-                  placeholder={isArabic ? 'example@company.com' : 'example@company.com'}
-                  value={suggestionForm.email}
-                  onChange={(e) => setSuggestionForm(prev => ({ ...prev, email: e.target.value }))}
-                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
-                  {isArabic ? 'وصف مفصل للقسم *' : 'Detailed Section Description *'}
-                </label>
-                <textarea
-                  className="w-full p-3 rounded-md border border-[#008C6A]/40 bg-black/50 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 resize-none"
-                  rows={4}
-                  placeholder={isArabic ? 'وصف مفصل للقسم وما يتضمنه من مميزات وكيف سيفيد المستخدمين في فهم النظام...' : 'Detailed description of the section and what features it includes and how it will help users understand the system...'}
-                  value={suggestionForm.description}
-                  onChange={(e) => setSuggestionForm(prev => ({ ...prev, description: e.target.value }))}
-                  required
-                />
-              </div>
-              <Button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold py-4 rounded-lg transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden"
-              >
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  <FileText className="h-5 w-5" />
-                  {isArabic ? 'إرسال الاقتراح' : 'Send Suggestion'}
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-pulse"></div>
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+        
 
         {/* Enhanced Call-to-Action Section */}
         <Card className="max-w-4xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
@@ -555,25 +347,13 @@ const InteractiveTour = () => {
               {isArabic ? 'ابدأ رحلتك مع بُعد' : 'Start Your Journey with Buod'}
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              {isArabic 
-                ? 'اكتشف كيف يمكن لنظام بُعد الشامل أن يُحدث نقلة نوعية في إدارة الموارد البشرية'
-                : 'Discover how the comprehensive Buod system can revolutionize your HR management'
-              }
+              {isArabic ? 'اكتشف كيف يمكن لنظام بُعد الشامل أن يُحدث نقلة نوعية في إدارة الموارد البشرية' : 'Discover how the comprehensive Buod system can revolutionize your HR management'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                onClick={() => navigate('/demo-request')}
-                className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-xl shadow-[#008C6A]/30"
-              >
+              <Button size="lg" onClick={() => navigate('/demo-request')} className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-xl shadow-[#008C6A]/30">
                 {isArabic ? 'اطلب عرض تجريبي' : 'Request a Demo'}
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                onClick={() => navigate('/subscription-packages')}
-                className="bg-black/40 border-[#008C6A]/40 text-gray-300 hover:border-[#008C6A] hover:bg-[#008C6A]/20 hover:text-white transition-all duration-300 hover:scale-105"
-              >
+              <Button variant="outline" size="lg" onClick={() => navigate('/subscription-packages')} className="bg-black/40 border-[#008C6A]/40 text-gray-300 hover:border-[#008C6A] hover:bg-[#008C6A]/20 hover:text-white transition-all duration-300 hover:scale-105">
                 {isArabic ? 'ابدأ الآن' : 'Start Now'}
               </Button>
             </div>
@@ -590,17 +370,12 @@ const InteractiveTour = () => {
                 {isArabic ? 'ملاحظة مهمة' : 'Important Notice'}
               </h4>
               <p className="text-amber-200 text-sm leading-relaxed">
-                {isArabic 
-                  ? 'هذه الجولة التفاعلية مخصصة لاستكشاف مميزات نظام بُعد للموارد البشرية وفقاً لأنظمة المملكة العربية السعودية. يُنصح بمراجعة فريق المبيعات للحصول على معلومات تفصيلية. جميع الحلول معتمدة قانونياً وتضمن أعلى معايير الأمان والخصوصية.'
-                  : 'This interactive tour is designed to explore Buod HR system features according to Saudi Arabia regulations. It\'s recommended to consult the sales team for detailed information. All solutions are legally certified and guarantee the highest standards of security and privacy.'
-                }
+                {isArabic ? 'هذه الجولة التفاعلية مخصصة لاستكشاف مميزات نظام بُعد للموارد البشرية وفقاً لأنظمة المملكة العربية السعودية. يُنصح بمراجعة فريق المبيعات للحصول على معلومات تفصيلية. جميع الحلول معتمدة قانونياً وتضمن أعلى معايير الأمان والخصوصية.' : 'This interactive tour is designed to explore Buod HR system features according to Saudi Arabia regulations. It\'s recommended to consult the sales team for detailed information. All solutions are legally certified and guarantee the highest standards of security and privacy.'}
               </p>
             </div>
           </div>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default InteractiveTour;
