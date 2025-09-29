@@ -1156,7 +1156,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
       {renderHeader()}
       <div className="container mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
