@@ -639,7 +639,7 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
             رؤى الذكاء الاصطناعي
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
           <div className="grid md:grid-cols-3 gap-4">
             <Alert className="border-green-200 bg-green-50">
               <TrendingUp className="h-4 w-4 text-green-600" />
