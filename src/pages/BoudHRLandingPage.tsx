@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,9 @@ import { VisionSection } from '@/components/about/VisionSection';
 import { TeamSection } from '@/components/about/TeamSection';
 import { PartnersSection } from '@/components/about/PartnersSection';
 import BoudLogo from '@/components/BoudLogo';
+import { CountUpNumber } from '@/components/CountUpNumber';
+import { TestimonialCarousel } from '@/components/TestimonialCarousel';
+
 const BoudHRLandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,6 +45,7 @@ const BoudHRLandingPage: React.FC = () => {
   const handleStartConversation = () => {
     setAssistantOpen(true);
   };
+
   const handleQuestionClick = (question: string) => {
     setInitialMessage(question);
     setAssistantOpen(true);
@@ -53,6 +58,7 @@ const BoudHRLandingPage: React.FC = () => {
       setInitialMessage('');
     }
   };
+
   const menuItems = {
     services: [{
       name: "إدارة الموظفين",
@@ -110,205 +116,9 @@ const BoudHRLandingPage: React.FC = () => {
       href: "#booking"
     }]
   };
-  const features = [{
-    title: "نظام إدارة الموظفين الشامل",
-    subtitle: "الحل الأمثل لإدارة رأس المال البشري",
-    description: "حل متكامل وشامل يجمع 22 نظاماً فرعياً في منصة واحدة متطورة لإدارة دورة حياة الموظف بالكامل",
-    marketingText: "🚀 أتمتة كاملة للعمليات • 🎯 تحليلات ذكية ومتقدمة • ⚡ تكامل فوري مع الأنظمة الحكومية • 🔒 أمان عالي المستوى",
-    icon: Users,
-    color: "text-primary",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
-    route: "/employee-management-info",
-    features: ["التوظيف الذكي", "إدارة الأداء", "الرواتب والمزايا", "التدريب والتطوير", "حماية الأجور", "التكامل الحكومي"],
-    animation: "hover:scale-105 transform transition-all duration-500"
-  }, {
-    title: "نظام الخدمة الذاتية السحابي",
-    subtitle: "تمكين الموظفين رقمياً",
-    description: "منصة تفاعلية متطورة تمكن الموظفين من إدارة شؤونهم الشخصية والمهنية بكل سهولة ومرونة من أي مكان وفي أي وقت",
-    marketingText: "📱 واجهة سهلة ومتجاوبة • ⏱️ خدمة 24/7 • 🔄 تحديثات فورية • 📊 تقارير شخصية مفصلة",
-    icon: Settings,
-    color: "text-primary",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=80",
-    route: "/self-service-info",
-    features: ["الملف الشخصي", "طلبات الإجازات", "كشوف الرواتب", "التقييمات الذاتية", "التدريب الإلكتروني", "التواصل المباشر"],
-    animation: "hover:scale-105 transform transition-all duration-500"
-  }];
-  const benefits = [{
-    title: "أتمتة العمليات",
-    description: "توفير 70% من الوقت المستغرق في العمليات اليدوية",
-    icon: Zap,
-    stat: "70%"
-  }, {
-    title: "أمان البيانات",
-    description: "حماية متقدمة تتوافق مع معايير الأمان السعودية",
-    icon: Lock,
-    stat: "100%"
-  }, {
-    title: "الحوسبة السحابية",
-    description: "وصول آمن من أي مكان وفي أي وقت",
-    icon: Cloud,
-    stat: "24/7"
-  }, {
-    title: "الامتثال التنظيمي",
-    description: "ضمان الامتثال لجميع اللوائح والقوانين السعودية",
-    icon: CheckCircle,
-    stat: "100%"
-  }];
-  const testimonials = [{
-    name: "أحمد المحمد",
-    position: "مدير الموارد البشرية",
-    company: "شركة الرياض للتقنية",
-    text: "نظام بُعد HR غيّر طريقة عملنا بالكامل. الواجهة سهلة والمميزات متقدمة جداً.",
-    rating: 5,
-    image: "photo-1519389950473-47ba0277781c"
-  }, {
-    name: "فاطمة السعيد",
-    position: "مديرة العمليات",
-    company: "مجموعة الخليج التجارية",
-    text: "التكامل مع الأنظمة الحكومية وفر علينا وقتاً كبيراً وقلل من الأخطاء.",
-    rating: 5,
-    image: "photo-1488972685288-c3fd157d7c7a"
-  }, {
-    name: "محمد الشمري",
-    position: "الرئيس التنفيذي",
-    company: "شركة الابتكار الرقمي",
-    text: "الذكاء الاصطناعي في النظام يساعدنا في اتخاذ قرارات أفضل حول الموظفين.",
-    rating: 5,
-    image: "photo-1498050108023-c5249f4df085"
-  }, {
-    name: "سارة العتيبي",
-    position: "مديرة المالية",
-    company: "شركة النجاح للاستثمار",
-    text: "حسابات الرواتب أصبحت دقيقة وسريعة، والتقارير المالية مفصلة ومفيدة جداً.",
-    rating: 5,
-    image: "photo-1494790108755-2616c27f21c"
-  }, {
-    name: "خالد القحطاني",
-    position: "مدير تقنية المعلومات",
-    company: "مجموعة الشرق الأوسط",
-    text: "النظام آمن وموثوق، والدعم الفني ممتاز ومتوفر على مدار الساعة.",
-    rating: 5,
-    image: "photo-1507003211169-0a1dd7228f2d"
-  }, {
-    name: "نورا الحربي",
-    position: "مديرة التطوير البشري",
-    company: "شركة الإبداع التقني",
-    text: "منصة التدريب الإلكتروني ساعدت موظفينا على تطوير مهاراتهم بشكل مستمر.",
-    rating: 5,
-    image: "photo-1438761681033-6461ffad8d80"
-  }, {
-    name: "عبدالله المطيري",
-    position: "مدير العمليات التشغيلية",
-    company: "شركة الخليج للصناعات",
-    text: "إدارة الحضور والانصراف أصبحت أسهل وأكثر دقة مع نظام بُعد HR.",
-    rating: 4,
-    image: "photo-1472099645785-5658abf4ff4e"
-  }, {
-    name: "هند العمري",
-    position: "مديرة شؤون الموظفين",
-    company: "مؤسسة الرواد التجارية",
-    text: "النظام سهل الاستخدام ووفر علينا الكثير من الوقت في إدارة الموظفين.",
-    rating: 5,
-    image: "photo-1487412720507-e7ab37603c6f"
-  }, {
-    name: "ماجد الزهراني",
-    position: "الرئيس التنفيذي",
-    company: "شركة التطوير المتقدم",
-    text: "التحليلات والتقارير تساعدنا في اتخاذ قرارات استراتيجية أفضل للشركة.",
-    rating: 5,
-    image: "photo-1500648767791-00dcc994a43e"
-  }, {
-    name: "ريم الشهري",
-    position: "مديرة التوظيف",
-    company: "شركة الآفاق الجديدة",
-    text: "عملية التوظيف أصبحت أكثر كفاءة ونتمكن من اختيار أفضل المرشحين بسهولة.",
-    rating: 4,
-    image: "photo-1544725176-7c40e5a71c5e"
-  }, {
-    name: "عمر الدوسري",
-    position: "مدير الأداء المؤسسي",
-    company: "مجموعة الأعمال المتطورة",
-    text: "نظام تقييم الأداء منظم ويساعد في تطوير الموظفين وتحفيزهم بشكل فعال.",
-    rating: 5,
-    image: "photo-1566492031773-4f4e44671d66"
-  }, {
-    name: "دانا الخالدي",
-    position: "مديرة الامتثال",
-    company: "شركة الحلول الذكية",
-    text: "النظام يضمن الامتثال للقوانين السعودية والمعايير الدولية بشكل تلقائي.",
-    rating: 5,
-    image: "photo-1517841905240-472988babdf9"
-  }, {
-    name: "سعد الغامدي",
-    position: "مدير التخطيط الاستراتيجي",
-    company: "شركة المستقبل للتنمية",
-    text: "البيانات والتحليلات تساعدنا في التخطيط طويل المدى لاستراتيجية الموارد البشرية.",
-    rating: 4,
-    image: "photo-1507591064344-4c6ce005b128"
-  }, {
-    name: "لطيفة البقمي",
-    position: "مديرة التدريب والتطوير",
-    company: "مؤسسة الإنجاز الرقمي",
-    text: "برامج التدريب المدمجة في النظام فعالة وتلبي احتياجات الموظفين المختلفة.",
-    rating: 5,
-    image: "photo-1531123897727-8f129e1688ce"
-  }, {
-    name: "يوسف الرشيد",
-    position: "مدير الأمن السيبراني",
-    company: "شركة الحماية التقنية",
-    text: "مستوى الأمان والحماية في النظام عالي جداً ويلبي جميع متطلباتنا الأمنية.",
-    rating: 5,
-    image: "photo-1463453091185-61582044d556"
-  }, {
-    name: "أمل الفيصل",
-    position: "مديرة الجودة",
-    company: "شركة الامتياز للخدمات",
-    text: "جودة النظام عالية والتحديثات المستمرة تضيف قيمة حقيقية لعملنا اليومي.",
-    rating: 4,
-    image: "photo-1524504388940-b1c1722653e1"
-  }, {
-    name: "طلال السبيعي",
-    position: "مدير المبيعات",
-    company: "شركة التسويق المتقدم",
-    text: "النظام ساعد فريق المبيعات في تتبع أدائهم وتحقيق أهدافهم بكفاءة أكبر.",
-    rating: 5,
-    image: "photo-1507591064344-4c6ce005b128"
-  }, {
-    name: "منيرة العنزي",
-    position: "مديرة المشاريع",
-    company: "مجموعة التقنيات المبتكرة",
-    text: "إدارة فرق المشاريع أصبحت أكثر تنظيماً والتعاون بين الأقسام محسن بشكل كبير.",
-    rating: 5,
-    image: "photo-1573497019940-1c28c88b4f3e"
-  }, {
-    name: "فهد الحارثي",
-    position: "مدير الاستراتيجية",
-    company: "شركة الرؤية المستقبلية",
-    text: "النظام يدعم رؤية الشركة 2030 ويساعدنا في تطبيق أفضل الممارسات العالمية.",
-    rating: 4,
-    image: "photo-1472099645785-5658abf4ff4e"
-  }, {
-    name: "شريفة الحكمي",
-    position: "مديرة الابتكار",
-    company: "مؤسسة الإبداع الرقمي",
-    text: "المميزات المتطورة والذكاء الاصطناعي يجعل النظام في المقدمة عالمياً.",
-    rating: 5,
-    image: "photo-1494790108755-2616c27f21c"
-  }];
-  const stats = [{
-    number: "1000+",
-    label: "شركة تثق بنا"
-  }, {
-    number: "100,000+",
-    label: "موظف نديرهم"
-  }, {
-    number: "99.9%",
-    label: "وقت التشغيل"
-  }, {
-    number: "24/7",
-    label: "دعم متواصل"
-  }];
-  return <div className="min-h-screen bg-black font-arabic">
+
+  return (
+    <div className={`min-h-screen bg-black font-arabic ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
       {/* Professional Interactive Header - Multi-Language Support */}
       <header className={`relative z-10 bg-gradient-to-r from-gray-950 via-black to-gray-950 backdrop-blur-xl border-b border-[#008C6A]/40 shadow-2xl shadow-[#008C6A]/30 sticky top-0 ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
         {/* Premium Background Effects */}
@@ -479,6 +289,459 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
         </div>
       </header>
-    </div>;
+
+      {/* Hero Section - القسم الأول: الغلاف الرئيسي */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-950 to-black">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
+        <div className="absolute top-20 left-20 w-64 h-64 bg-[#008C6A]/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#008C6A]/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8"
+          >
+            <motion.h1 
+              className="text-4xl lg:text-6xl font-bold text-white leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              {currentLanguage === 'ar' 
+                ? 'ودّع فوضى الأنظمة المتعددة وابدأ من بُعد HR'
+                : 'Say goodbye to fragmented systems. Start with BOUD HR'
+              }
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              {currentLanguage === 'ar' 
+                ? 'كل ما تحتاجه لإدارة رأس المال البشري في مكان واحد'
+                : 'All your Human Capital Management in one place'
+              }
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6, duration: 0.5, type: "spring", bounce: 0.4 }}
+            >
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00A87A] hover:to-[#008C6A] text-white px-12 py-4 text-xl font-semibold rounded-xl shadow-2xl hover:shadow-[#008C6A]/30 transition-all duration-300 hover:scale-105"
+              >
+                {currentLanguage === 'ar' ? 'ابدأ الآن' : 'Get Started'}
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* About Us Section - القسم الثاني: من نحن */}
+      <section className="py-24 bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-12"
+          >
+            <motion.div
+              initial={{ opacity: 0, x: currentLanguage === 'ar' ? 50 : -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-center gap-4">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="w-8 h-8 rounded-full bg-gradient-to-r from-[#008C6A] to-[#00694F]"
+                ></motion.div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-white">
+                  {currentLanguage === 'ar' ? 'من نحن' : 'About Us'}
+                </h2>
+              </div>
+              
+              <motion.p
+                initial={{ opacity: 0, x: currentLanguage === 'ar' ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                viewport={{ once: true }}
+                className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+              >
+                {currentLanguage === 'ar' 
+                  ? 'بُعد HR هو الحل الشامل والمتطور لإدارة الموارد البشرية، مصمم خصيصاً للشركات السعودية لتلبية احتياجاتها الفريدة وضمان الامتثال للقوانين المحلية.'
+                  : 'BOUD HR is a comprehensive and advanced Human Resources management solution, specifically designed for Saudi companies to meet their unique needs and ensure compliance with local regulations.'
+                }
+              </motion.p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* HR Divisions Section - القسم الثالث: إدارات بُعد HR */}
+      <section className="py-24 bg-black">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              {currentLanguage === 'ar' ? 'إدارات بُعد HR' : 'Our Main HR Divisions'}
+            </h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: Users, titleAr: 'إدارة الموظفين', titleEn: 'Employee Management' },
+              { icon: Building, titleAr: 'إدارة الشركات', titleEn: 'Company Management' },
+              { icon: DollarSign, titleAr: 'الرواتب والمزايا', titleEn: 'Payroll & Benefits' },
+              { icon: BarChart3, titleAr: 'التقارير والتحليلات', titleEn: 'Reports & Analytics' },
+              { icon: GraduationCap, titleAr: 'التدريب والتطوير', titleEn: 'Training & Development' },
+              { icon: Shield, titleAr: 'الأمان والحماية', titleEn: 'Security & Protection' }
+            ].map((division, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+                className="group text-center p-8 rounded-2xl bg-gradient-to-b from-gray-900 to-gray-950 border border-[#008C6A]/20 hover:border-[#008C6A]/60 transition-all duration-300"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-2xl flex items-center justify-center"
+                >
+                  <division.icon className="w-8 h-8 text-white" />
+                </motion.div>
+                <motion.h3
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: (index * 0.1) + 0.3, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="text-xl font-semibold text-white group-hover:text-[#008C6A] transition-colors duration-300"
+                >
+                  {currentLanguage === 'ar' ? division.titleAr : division.titleEn}
+                </motion.h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why BOUD Section - القسم الرابع: لماذا بُعد؟ */}
+      <section className="py-24 bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              {currentLanguage === 'ar' ? 'لماذا بُعد؟' : 'Why BOUD?'}
+            </h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {[
+              { icon: Zap, titleAr: 'أتمتة كاملة', titleEn: 'Full Automation', descAr: 'توفير 70% من الوقت في العمليات', descEn: 'Save 70% of time in operations' },
+              { icon: Shield, titleAr: 'أمان متقدم', titleEn: 'Advanced Security', descAr: 'حماية عالية المستوى للبيانات', descEn: 'High-level data protection' },
+              { icon: Cloud, titleAr: 'تقنية سحابية', titleEn: 'Cloud Technology', descAr: 'وصول آمن من أي مكان', descEn: 'Secure access from anywhere' },
+              { icon: CheckCircle, titleAr: 'امتثال تنظيمي', titleEn: 'Regulatory Compliance', descAr: 'ضمان الامتثال للقوانين السعودية', descEn: 'Ensure compliance with Saudi laws' }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                viewport={{ once: true }}
+                className="flex items-start gap-6 p-6 rounded-2xl bg-gradient-to-r from-gray-900/50 to-gray-900/30 border border-gray-800 hover:border-[#008C6A]/50 transition-all duration-300"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.2, color: '#008C6A' }}
+                  transition={{ duration: 0.3 }}
+                  className="w-12 h-12 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <feature.icon className="w-6 h-6 text-white" />
+                </motion.div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {currentLanguage === 'ar' ? feature.titleAr : feature.titleEn}
+                  </h3>
+                  <p className="text-gray-400">
+                    {currentLanguage === 'ar' ? feature.descAr : feature.descEn}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Numbers Section - القسم الخامس: الأرقام تتحدث */}
+      <section className="py-24 bg-black">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              {currentLanguage === 'ar' ? 'الأرقام تتحدث' : 'Impact in Numbers'}
+            </h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { number: 1000, suffix: '+', titleAr: 'شركة تثق بنا', titleEn: 'Companies Trust Us' },
+              { number: 100000, suffix: '+', titleAr: 'موظف نديرهم', titleEn: 'Employees We Manage' },
+              { number: 99.9, suffix: '%', titleAr: 'وقت التشغيل', titleEn: 'Uptime' },
+              { number: 24, suffix: '/7', titleAr: 'دعم متواصل', titleEn: 'Continuous Support' }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.6, type: "spring", bounce: 0.4 }}
+                viewport={{ once: true }}
+                className="text-center p-8 rounded-2xl bg-gradient-to-b from-gray-900 to-gray-950 border border-[#008C6A]/20 shadow-xl hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: (index * 0.1) + 0.3, duration: 0.8, type: "spring", bounce: 0.6 }}
+                  viewport={{ once: true }}
+                  className="text-4xl lg:text-5xl font-bold text-[#008C6A] mb-4"
+                >
+                  <CountUpNumber target={stat.number} suffix={stat.suffix} />
+                </motion.div>
+                <h3 className="text-lg font-semibold text-white">
+                  {currentLanguage === 'ar' ? stat.titleAr : stat.titleEn}
+                </h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Client Success Stories - القسم السادس: قصص نجاح العملاء */}
+      <section className="py-24 bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              {currentLanguage === 'ar' ? 'قصص نجاح العملاء' : 'Client Success Stories'}
+            </h2>
+          </motion.div>
+          
+          <TestimonialCarousel currentLanguage={currentLanguage} />
+        </div>
+      </section>
+
+      {/* Pricing Section - القسم السابع: باقات الأسعار */}
+      <section className="py-24 bg-black">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              {currentLanguage === 'ar' ? 'باقات الأسعار' : 'Pricing & Packages'}
+            </h2>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { nameAr: 'الباقة الأساسية', nameEn: 'Basic Plan', price: '99', popular: false },
+              { nameAr: 'الباقة المتقدمة', nameEn: 'Advanced Plan', price: '199', popular: true },
+              { nameAr: 'باقة المؤسسات', nameEn: 'Enterprise Plan', price: '399', popular: false },
+              { nameAr: 'باقة مخصصة', nameEn: 'Custom Plan', price: 'حسب الطلب', popular: false }
+            ].map((plan, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -10 }}
+                className={`relative p-8 rounded-2xl border-2 transition-all duration-300 ${
+                  plan.popular 
+                    ? 'bg-gradient-to-b from-[#008C6A]/20 to-gray-950 border-[#008C6A] shadow-2xl shadow-[#008C6A]/30' 
+                    : 'bg-gradient-to-b from-gray-900 to-gray-950 border-gray-700 hover:border-[#008C6A]/50'
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white px-6 py-2 rounded-full text-sm font-semibold">
+                      {currentLanguage === 'ar' ? 'الأكثر شيوعاً' : 'Most Popular'}
+                    </span>
+                  </div>
+                )}
+                
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    {currentLanguage === 'ar' ? plan.nameAr : plan.nameEn}
+                  </h3>
+                  <div className="text-4xl font-bold text-[#008C6A] mb-6">
+                    {plan.price === 'حسب الطلب' && currentLanguage === 'en' ? 'Custom' : plan.price}
+                    {plan.price !== 'حسب الطلب' && plan.price !== 'Custom' && (
+                      <span className="text-lg text-gray-400">
+                        {currentLanguage === 'ar' ? ' ريال/شهر' : ' SAR/month'}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 ${
+                        plan.popular
+                          ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00A87A] hover:to-[#008C6A] text-white'
+                          : 'bg-gray-800 hover:bg-[#008C6A] text-white'
+                      }`}
+                    >
+                      {currentLanguage === 'ar' ? 'اشترك الآن' : 'Subscribe Now'}
+                    </Button>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer - الفوتر */}
+      <footer className="bg-gray-950 border-t border-gray-800 py-16">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-xl font-bold text-white mb-6">
+                {currentLanguage === 'ar' ? 'الروابط السريعة' : 'Quick Links'}
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { textAr: 'الرئيسية', textEn: 'Home', href: '#home' },
+                  { textAr: 'الخدمات', textEn: 'Services', href: '#services' },
+                  { textAr: 'قصص النجاح', textEn: 'Success Stories', href: '#success' },
+                  { textAr: 'تواصل معنا', textEn: 'Contact Us', href: '#contact' }
+                ].map((link, index) => (
+                  <motion.a
+                    key={index}
+                    href={link.href}
+                    className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300"
+                    whileHover={{ x: 5 }}
+                  >
+                    {currentLanguage === 'ar' ? link.textAr : link.textEn}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="lg:col-span-2 text-center"
+            >
+              <div className="mb-8">
+                <BoudLogo variant="full" size="lg" className="h-16 w-auto mx-auto filter brightness-200" />
+              </div>
+              
+              <div className="flex justify-center space-x-6">
+                {[
+                  { icon: Linkedin, href: '#' },
+                  { icon: Twitter, href: '#' },
+                  { icon: Globe, href: '#' }
+                ].map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#008C6A] transition-all duration-300"
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-xl font-bold text-white mb-6">
+                {currentLanguage === 'ar' ? 'تواصل معنا' : 'Contact Info'}
+              </h3>
+              <div className="space-y-4 text-gray-400">
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-[#008C6A]" />
+                  <span>+966 11 123 4567</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-[#008C6A]" />
+                  <span>info@boud.com.sa</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-5 h-5 text-[#008C6A]" />
+                  <span>{currentLanguage === 'ar' ? 'الرياض، السعودية' : 'Riyadh, Saudi Arabia'}</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="border-t border-gray-800 pt-8 text-center"
+          >
+            <p className="text-gray-400">
+              {currentLanguage === 'ar' 
+                ? '© بُعد BOUD Systems – جميع الحقوق محفوظة' 
+                : '© BOUD Systems – All Rights Reserved'
+              }
+            </p>
+          </motion.div>
+        </div>
+      </footer>
+    </div>
+  );
 };
+
 export default BoudHRLandingPage;
