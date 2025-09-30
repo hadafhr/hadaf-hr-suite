@@ -120,10 +120,10 @@ const BoudHRLandingPage: React.FC = () => {
   return (
     <div className={`min-h-screen bg-black font-arabic ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
       {/* Professional Interactive Header - Multi-Language Support */}
-      <header className={`relative z-10 bg-gradient-to-r from-gray-950 via-black to-gray-950 backdrop-blur-xl border-b border-[#008C6A]/40 shadow-2xl shadow-[#008C6A]/30 sticky top-0 ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
+      <header className={`relative z-10 bg-gradient-to-r from-background via-background to-background backdrop-blur-xl border-b border-border/40 shadow-2xl shadow-accent/30 sticky top-0 ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
         {/* Premium Background Effects */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/5 via-[#009F87]/3 to-[#00694F]/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-accent/3 to-accent/5"></div>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
         </div>
         
@@ -136,56 +136,56 @@ const BoudHRLandingPage: React.FC = () => {
               <div className="hover:scale-105 transition-all duration-300 cursor-pointer">
                 <BoudLogo variant="full" size="header" className="h-10 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" />
               </div>
-              <div className="hidden lg:block h-8 w-px bg-gradient-to-b from-transparent via-[#008C6A]/50 to-transparent mx-2"></div>
+              <div className="hidden lg:block h-8 w-px bg-gradient-to-b from-transparent via-border/50 to-transparent mx-2"></div>
               <img src={boudWhiteLogo} alt="شعار بُعد" className="hidden lg:block h-56 w-auto hover:scale-105 transition-transform duration-300" />
             </div>
 
             {/* Center Section - Navigation Menu */}
             <nav className={`hidden lg:flex items-center space-x-8 ${currentLanguage === 'ar' ? 'space-x-reverse order-2' : 'order-2'}`}>
-              <a href="#home" className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10">
+              <a href="#home" className="relative group text-foreground hover:text-accent text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent/10">
                 {currentLanguage === 'ar' ? 'الرئيسية' : 'Home'}
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></div>
               </a>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10">
+                  <Button variant="ghost" className="relative group text-foreground hover:text-accent text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent/10">
                     {currentLanguage === 'ar' ? 'مركز المعرفة' : 'Knowledge Center'}
                     <ChevronDown className="w-4 h-4 ml-1 group-hover:rotate-180 transition-transform duration-300" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="center" className="w-48 bg-gray-900/95 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl">
-                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300">
+                <DropdownMenuContent align="center" className="w-48 bg-card/95 backdrop-blur-xl border border-border/30 shadow-2xl">
+                  <DropdownMenuItem onClick={() => navigate('/tutorials')} className="text-foreground hover:bg-accent/20 hover:text-accent transition-all duration-300">
                     {currentLanguage === 'ar' ? 'الدروس التعليمية' : 'Tutorials'}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300">
+                  <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-foreground hover:bg-accent/20 hover:text-accent transition-all duration-300">
                     {currentLanguage === 'ar' ? 'الأوراق الخضراء' : 'White Papers'}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300">
+                  <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-foreground hover:bg-accent/20 hover:text-accent transition-all duration-300">
                     {currentLanguage === 'ar' ? 'الأوصاف الوظيفية' : 'Job Descriptions'}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10 flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/hr-tools')} className="relative group text-foreground hover:text-accent text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent/10 flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
                 {currentLanguage === 'ar' ? 'أدوات الموارد البشرية' : 'HR Tools'}
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></div>
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10">
+              <Button variant="ghost" onClick={() => navigate('/earn-with-boad')} className="relative group text-foreground hover:text-accent text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent/10">
                 {currentLanguage === 'ar' ? 'اربح مع بُعد' : 'Earn with Boad'}
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></div>
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10 flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/schedule-meeting')} className="relative group text-foreground hover:text-accent text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent/10 flex items-center gap-2">
                 📅 {currentLanguage === 'ar' ? 'احجز اجتماع' : 'Schedule Meeting'}
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></div>
               </Button>
 
-              <Button variant="ghost" onClick={() => navigate('/careers')} className="relative group text-white hover:text-[#008C6A] text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-[#008C6A]/10 flex items-center gap-2">
+              <Button variant="ghost" onClick={() => navigate('/careers')} className="relative group text-foreground hover:text-accent text-sm font-medium transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent/10 flex items-center gap-2">
                 👥 {currentLanguage === 'ar' ? 'انضم الى فريقنا' : 'Join Our Team'}
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#008C6A] group-hover:w-full transition-all duration-300"></div>
+                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></div>
               </Button>
             </nav>
 
@@ -197,32 +197,32 @@ const BoudHRLandingPage: React.FC = () => {
                 variant="ghost"
                 size="sm"
                 onClick={toggleLanguage}
-                className="group relative text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 flex items-center gap-2 px-3 py-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60 hover:scale-105"
+                className="group relative text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 flex items-center gap-2 px-3 py-2 rounded-lg border border-border/30 hover:border-accent/60 hover:scale-105"
               >
                 <Globe className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span className="text-sm font-medium">
                   {currentLanguage === 'ar' ? 'English' : 'العربية'}
                 </span>
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/10 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Button>
               
               {/* Professional Login Section */}
               <div className="relative">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="group relative flex items-center gap-2 bg-gradient-to-r from-[#008C6A]/20 via-[#008C6A]/10 to-[#008C6A]/20 backdrop-blur-sm px-6 py-2.5 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 hover:from-[#008C6A]/30 hover:to-[#008C6A]/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#008C6A]/50 shadow-lg hover:shadow-[#008C6A]/30">
-                      <User className="w-4 h-4 text-white group-hover:text-[#008C6A] transition-colors duration-300" />
-                      <span className="text-sm text-white font-semibold tracking-wide group-hover:text-[#008C6A] transition-colors duration-300">
+                    <button className="group relative flex items-center gap-2 bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20 backdrop-blur-sm px-6 py-2.5 rounded-xl border border-border/40 hover:border-accent/70 hover:from-accent/30 hover:to-accent/30 transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent/50 shadow-lg hover:shadow-accent/30">
+                      <User className="w-4 h-4 text-foreground group-hover:text-accent transition-colors duration-300" />
+                      <span className="text-sm text-foreground font-semibold tracking-wide group-hover:text-accent transition-colors duration-300">
                         {currentLanguage === 'ar' ? 'دخول' : 'Login'}
                       </span>
-                      <ChevronDown className="w-3 h-3 text-white group-hover:text-[#008C6A] group-hover:rotate-180 transition-all duration-300" />
+                      <ChevronDown className="w-3 h-3 text-foreground group-hover:text-accent group-hover:rotate-180 transition-all duration-300" />
                       
                       {/* Premium Glow Effect */}
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/20 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-64 bg-gray-900/95 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl rounded-xl">
-                    <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-white hover:bg-[#008C6A]/20 hover:text-[#008C6A] transition-all duration-300 flex items-center gap-3 p-4 cursor-pointer rounded-lg mx-1 my-1">
+                  <DropdownMenuContent align="end" className="w-64 bg-card/95 backdrop-blur-xl border border-border/30 shadow-2xl rounded-xl">
+                    <DropdownMenuItem onClick={() => navigate('/admin-login')} className="w-full text-foreground hover:bg-accent/20 hover:text-accent transition-all duration-300 flex items-center gap-3 p-4 cursor-pointer rounded-lg mx-1 my-1">
                       <Building2 className="w-5 h-5" />
                       <div className="flex flex-col">
                         <span className="font-semibold">{currentLanguage === 'ar' ? 'مدير النظام' : 'System Admin'}</span>
@@ -238,7 +238,7 @@ const BoudHRLandingPage: React.FC = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-2 rounded-lg border border-[#008C6A]/30 hover:border-[#008C6A]/60"
+                className="lg:hidden text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-2 rounded-lg border border-border/30 hover:border-accent/60"
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
@@ -247,24 +247,24 @@ const BoudHRLandingPage: React.FC = () => {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden absolute top-full left-0 right-0 bg-gray-900/95 backdrop-blur-xl border-t border-[#008C6A]/30 shadow-2xl rounded-b-xl animate-fade-in">
+            <div className="lg:hidden absolute top-full left-0 right-0 bg-card/95 backdrop-blur-xl border-t border-border/30 shadow-2xl rounded-b-xl animate-fade-in">
               <nav className="flex flex-col p-4 space-y-2">
-                <a href="#home" className="text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                <a href="#home" className="text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-3 rounded-lg">
                   {currentLanguage === 'ar' ? 'الرئيسية' : 'Home'}
                 </a>
-                <Button onClick={() => navigate('/tutorials')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                <Button onClick={() => navigate('/tutorials')} variant="ghost" className="justify-start text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-3 rounded-lg">
                   {currentLanguage === 'ar' ? 'مركز المعرفة' : 'Knowledge Center'}
                 </Button>
-                <Button onClick={() => navigate('/hr-tools')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                <Button onClick={() => navigate('/hr-tools')} variant="ghost" className="justify-start text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-3 rounded-lg">
                   {currentLanguage === 'ar' ? 'أدوات الموارد البشرية' : 'HR Tools'}
                 </Button>
-                <Button onClick={() => navigate('/earn-with-boad')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                <Button onClick={() => navigate('/earn-with-boad')} variant="ghost" className="justify-start text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-3 rounded-lg">
                   {currentLanguage === 'ar' ? 'اربح مع بُعد' : 'Earn with Boad'}
                 </Button>
-                <Button onClick={() => navigate('/schedule-meeting')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                <Button onClick={() => navigate('/schedule-meeting')} variant="ghost" className="justify-start text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-3 rounded-lg">
                   {currentLanguage === 'ar' ? 'احجز اجتماع' : 'Schedule Meeting'}
                 </Button>
-                <Button onClick={() => navigate('/careers')} variant="ghost" className="justify-start text-white hover:text-[#008C6A] hover:bg-[#008C6A]/10 transition-all duration-300 p-3 rounded-lg">
+                <Button onClick={() => navigate('/careers')} variant="ghost" className="justify-start text-foreground hover:text-accent hover:bg-accent/10 transition-all duration-300 p-3 rounded-lg">
                   {currentLanguage === 'ar' ? 'انضم الى فريقنا' : 'Join Our Team'}
                 </Button>
               </nav>
@@ -272,7 +272,7 @@ const BoudHRLandingPage: React.FC = () => {
           )}
 
           {/* Bottom Accent Line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A]/50 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent"></div>
         </div>
       </header>
 
@@ -280,7 +280,7 @@ const BoudHRLandingPage: React.FC = () => {
       <main className="relative overflow-hidden">
         
         {/* Hero Section */}
-        <section className="relative min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 overflow-hidden flex items-center">
+        <section className="relative min-h-screen bg-gradient-to-br from-background via-background to-card overflow-hidden flex items-center">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
           
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -289,7 +289,7 @@ const BoudHRLandingPage: React.FC = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
+                className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight"
               >
                 {currentLanguage === 'ar' 
                   ? 'كل منشأة تبدأ بحلم… لكن إدارة الموظفين قد تتحول إلى عبء يستهلك وقتك وجهدك. بُعد HR هنا ليعيد لك السيطرة، ويحوّل الفوضى إلى نظام، والتحديات إلى فرص.'
@@ -304,7 +304,7 @@ const BoudHRLandingPage: React.FC = () => {
               >
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:shadow-[#008C6A]/50 transition-all duration-300 hover:scale-105"
+                  className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-foreground px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:shadow-accent/50 transition-all duration-300 hover:scale-105"
                 >
                   {currentLanguage === 'ar' ? 'ابدأ رحلتك الآن' : 'Start Your Journey'}
                 </Button>
@@ -314,7 +314,7 @@ const BoudHRLandingPage: React.FC = () => {
         </section>
 
         {/* Explainer Video Section */}
-        <section className="relative py-20 bg-gradient-to-b from-gray-900 to-gray-950">
+        <section className="relative py-20 bg-gradient-to-b from-card to-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -323,20 +323,20 @@ const BoudHRLandingPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center space-y-8"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                 {currentLanguage === 'ar' 
                   ? 'شاهد القصة… كيف انتقلت شركات من المعاناة مع الأنظمة التقليدية إلى تجربة سلسة مع بُعد HR.'
                   : 'Watch the story… how companies moved from struggling with outdated systems to a seamless journey with BOUD HR.'
                 }
               </h2>
               
-              <div className="relative max-w-4xl mx-auto aspect-video bg-gray-800 rounded-2xl flex items-center justify-center group cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative max-w-4xl mx-auto aspect-video bg-card rounded-2xl flex items-center justify-center group cursor-pointer">
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-accent/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <motion.div
                   whileHover={{ scale: 1.1 }}
-                  className="w-20 h-20 bg-[#008C6A] rounded-full flex items-center justify-center shadow-2xl"
+                  className="w-20 h-20 bg-accent rounded-full flex items-center justify-center shadow-2xl"
                 >
-                  <Play className="w-8 h-8 text-white ml-1" />
+                  <Play className="w-8 h-8 text-foreground ml-1" />
                 </motion.div>
               </div>
             </motion.div>
@@ -344,7 +344,7 @@ const BoudHRLandingPage: React.FC = () => {
         </section>
 
         {/* The Pain Before BOUD Section */}
-        <section className="relative py-20 bg-gradient-to-b from-gray-950 to-black">
+        <section className="relative py-20 bg-gradient-to-b from-background to-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -353,7 +353,7 @@ const BoudHRLandingPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center space-y-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                 {currentLanguage === 'ar' ? 'المشكلة قبل بُعد' : 'The Pain Before BOUD'}
               </h2>
               
@@ -386,12 +386,12 @@ const BoudHRLandingPage: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-gradient-to-b from-red-900/20 to-red-950/10 p-6 rounded-xl border border-red-500/20 text-center space-y-4"
+                    className="bg-gradient-to-b from-destructive/20 to-destructive/10 p-6 rounded-xl border border-destructive/20 text-center space-y-4"
                   >
-                    <div className="text-red-400 flex justify-center">
+                    <div className="text-destructive flex justify-center">
                       {item.icon}
                     </div>
-                    <p className="text-white font-medium">
+                    <p className="text-foreground font-medium">
                       {currentLanguage === 'ar' ? item.textAr : item.textEn}
                     </p>
                   </motion.div>
@@ -402,7 +402,7 @@ const BoudHRLandingPage: React.FC = () => {
         </section>
 
         {/* The Transformation with BOUD Section */}
-        <section className="relative py-20 bg-gradient-to-b from-black to-gray-950">
+        <section className="relative py-20 bg-gradient-to-b from-background to-card">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -411,7 +411,7 @@ const BoudHRLandingPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center space-y-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                 {currentLanguage === 'ar' ? 'الحل مع بُعد' : 'The Transformation with BOUD'}
               </h2>
               
@@ -421,9 +421,9 @@ const BoudHRLandingPage: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/10 p-8 rounded-2xl border border-[#008C6A]/30"
+                  className="bg-gradient-to-r from-accent/20 to-accent/10 p-8 rounded-2xl border border-border/30"
                 >
-                  <p className="text-xl md:text-2xl text-white leading-relaxed">
+                  <p className="text-xl md:text-2xl text-foreground leading-relaxed">
                     {currentLanguage === 'ar' 
                       ? 'بُعد HR يجمع كل ما تحتاجه في مكان واحد: التوظيف، الرواتب، التدريب، الأداء، الحوكمة… كل شيء في منصة سحابية ذكية، متوافقة مع الأنظمة السعودية، ومدعومة بالذكاء الاصطناعي.'
                       : 'BOUD HR brings everything you need into one place: recruitment, payroll, training, performance, compliance… all in a smart cloud platform, fully compliant with Saudi regulations, and powered by AI.'
@@ -436,7 +436,7 @@ const BoudHRLandingPage: React.FC = () => {
         </section>
 
         {/* Customer Journey Section */}
-        <section className="relative py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+        <section className="relative py-20 bg-gradient-to-b from-card to-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -445,7 +445,7 @@ const BoudHRLandingPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center space-y-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                 {currentLanguage === 'ar' ? 'رحلة العميل' : 'Customer Journey'}
               </h2>
               
@@ -478,19 +478,19 @@ const BoudHRLandingPage: React.FC = () => {
                     viewport={{ once: true }}
                     className="relative"
                   >
-                    <div className="bg-gradient-to-b from-[#008C6A]/20 to-[#008C6A]/5 p-8 rounded-xl border border-[#008C6A]/30 text-center space-y-6 group hover:scale-105 transition-transform duration-300">
-                      <div className="w-16 h-16 bg-[#008C6A] rounded-full flex items-center justify-center mx-auto text-white font-bold text-xl">
+                    <div className="bg-gradient-to-b from-accent/20 to-accent/5 p-8 rounded-xl border border-border/30 text-center space-y-6 group hover:scale-105 transition-transform duration-300">
+                      <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto text-foreground font-bold text-xl">
                         {item.step}
                       </div>
-                      <div className="text-[#008C6A] flex justify-center">
+                      <div className="text-accent flex justify-center">
                         {item.icon}
                       </div>
-                      <h3 className="text-white font-semibold text-lg">
+                      <h3 className="text-foreground font-semibold text-lg">
                         {currentLanguage === 'ar' ? item.titleAr : item.titleEn}
                       </h3>
                     </div>
                     {index < 2 && (
-                      <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-[#008C6A]/30"></div>
+                      <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-accent/30"></div>
                     )}
                   </motion.div>
                 ))}
@@ -500,7 +500,7 @@ const BoudHRLandingPage: React.FC = () => {
         </section>
 
         {/* Success Stories Section */}
-        <section className="relative py-20 bg-gradient-to-b from-gray-900 to-black">
+        <section className="relative py-20 bg-gradient-to-b from-background to-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -509,7 +509,7 @@ const BoudHRLandingPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center space-y-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                 {currentLanguage === 'ar' ? 'قصص نجاح' : 'Success Stories'}
               </h2>
               
@@ -519,41 +519,17 @@ const BoudHRLandingPage: React.FC = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/10 p-8 rounded-2xl border border-[#008C6A]/30"
+                  className="bg-gradient-to-r from-accent/20 to-accent/10 p-8 rounded-2xl border border-border/30"
                 >
-                  <p className="text-xl md:text-2xl text-white leading-relaxed mb-8">
+                  <p className="text-xl md:text-2xl text-foreground leading-relaxed mb-8">
                     {currentLanguage === 'ar' 
                       ? 'إحدى الشركات وفّرت 70% من وقتها الإداري بعد اعتماد بُعد HR. أخرى حسّنت رضا موظفيها بنسبة 40%. الجميع اتفقوا: بُعد ليس برنامجًا، بل نقلة نوعية.'
                       : 'One company saved 70% of their admin time after adopting BOUD HR. Another improved employee satisfaction by 40%. Everyone agrees: BOUD is not just software – it\'s a breakthrough.'
                     }
                   </p>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="text-center">
-                      <div className="text-5xl font-bold text-[#008C6A] mb-2">
-                        <CountUpNumber target={70} suffix="%" duration={2} />
-                      </div>
-                      <p className="text-[#008C6A] font-semibold">
-                        {currentLanguage === 'ar' ? 'توفير في الوقت الإداري' : 'Admin Time Saved'}
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-5xl font-bold text-[#008C6A] mb-2">
-                        <CountUpNumber target={40} suffix="%" duration={2} />
-                      </div>
-                      <p className="text-[#008C6A] font-semibold">
-                        {currentLanguage === 'ar' ? 'تحسن في رضا الموظفين' : 'Employee Satisfaction Improved'}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
         {/* Why BOUD Section */}
-        <section className="relative py-20 bg-gradient-to-b from-black to-gray-950">
+        <section className="relative py-20 bg-gradient-to-b from-background to-card">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -562,7 +538,7 @@ const BoudHRLandingPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-center space-y-12"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">
                 {currentLanguage === 'ar' ? 'لماذا بُعد؟' : 'Why BOUD?'}
               </h2>
               
@@ -595,12 +571,12 @@ const BoudHRLandingPage: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-gradient-to-b from-[#008C6A]/20 to-[#008C6A]/5 p-6 rounded-xl border border-[#008C6A]/30 text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+                    className="bg-gradient-to-b from-accent/20 to-accent/5 p-6 rounded-xl border border-border/30 text-center space-y-4 group hover:scale-105 transition-transform duration-300"
                   >
-                    <div className="text-[#008C6A] flex justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-accent flex justify-center group-hover:scale-110 transition-transform duration-300">
                       {item.icon}
                     </div>
-                    <p className="text-white font-medium">
+                    <p className="text-foreground font-medium">
                       {currentLanguage === 'ar' ? item.titleAr : item.titleEn}
                     </p>
                   </motion.div>
@@ -611,7 +587,7 @@ const BoudHRLandingPage: React.FC = () => {
         </section>
 
         {/* Footer Section */}
-        <footer className="relative bg-gradient-to-b from-gray-950 to-black border-t border-[#008C6A]/30">
+        <footer className="relative bg-gradient-to-b from-card to-background border-t border-border/30">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.05),transparent_70%)]"></div>
           
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -622,7 +598,7 @@ const BoudHRLandingPage: React.FC = () => {
                   <BoudLogo variant="full" size="sm" className="h-8 w-auto filter brightness-200" />
                   <img src={boudWhiteLogo} alt="شعار بُعد" className="h-12 w-auto" />
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {currentLanguage === 'ar' 
                     ? 'نقود التحول الرقمي في إدارة الموارد البشرية مع حلول تقنية متطورة ومدعومة بالذكاء الاصطناعي.'
                     : 'Leading digital transformation in Human Resource Management with advanced technology solutions powered by AI.'
@@ -633,7 +609,7 @@ const BoudHRLandingPage: React.FC = () => {
                     href="#" 
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
-                    className="w-10 h-10 bg-[#008C6A]/20 hover:bg-[#008C6A]/40 rounded-full flex items-center justify-center text-white hover:text-[#008C6A] transition-all duration-300"
+                    className="w-10 h-10 bg-accent/20 hover:bg-accent/40 rounded-full flex items-center justify-center text-foreground hover:text-accent transition-all duration-300"
                   >
                     <Linkedin className="w-5 h-5" />
                   </motion.a>
@@ -641,7 +617,7 @@ const BoudHRLandingPage: React.FC = () => {
                     href="#" 
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
-                    className="w-10 h-10 bg-[#008C6A]/20 hover:bg-[#008C6A]/40 rounded-full flex items-center justify-center text-white hover:text-[#008C6A] transition-all duration-300"
+                    className="w-10 h-10 bg-accent/20 hover:bg-accent/40 rounded-full flex items-center justify-center text-foreground hover:text-accent transition-all duration-300"
                   >
                     <Twitter className="w-5 h-5" />
                   </motion.a>
@@ -649,7 +625,7 @@ const BoudHRLandingPage: React.FC = () => {
                     href="#" 
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.6 }}
-                    className="w-10 h-10 bg-[#008C6A]/20 hover:bg-[#008C6A]/40 rounded-full flex items-center justify-center text-white hover:text-[#008C6A] transition-all duration-300"
+                    className="w-10 h-10 bg-accent/20 hover:bg-accent/40 rounded-full flex items-center justify-center text-foreground hover:text-accent transition-all duration-300"
                   >
                     <MessageCircle className="w-5 h-5" />
                   </motion.a>
@@ -658,20 +634,20 @@ const BoudHRLandingPage: React.FC = () => {
 
               {/* Quick Links */}
               <div className="space-y-4">
-                <h3 className="text-white font-semibold text-lg">
+                <h3 className="text-foreground font-semibold text-lg">
                   {currentLanguage === 'ar' ? 'روابط سريعة' : 'Quick Links'}
                 </h3>
                 <div className="space-y-2">
-                  <a href="#home" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#home" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'الرئيسية' : 'Home'}
                   </a>
-                  <a href="#solutions" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#solutions" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'الحلول' : 'Solutions'}
                   </a>
-                  <a href="#success-stories" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#success-stories" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'قصص النجاح' : 'Success Stories'}
                   </a>
-                  <a href="#contact" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#contact" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'تواصل معنا' : 'Contact Us'}
                   </a>
                 </div>
@@ -679,20 +655,20 @@ const BoudHRLandingPage: React.FC = () => {
 
               {/* Services */}
               <div className="space-y-4">
-                <h3 className="text-white font-semibold text-lg">
+                <h3 className="text-foreground font-semibold text-lg">
                   {currentLanguage === 'ar' ? 'خدماتنا' : 'Our Services'}
                 </h3>
                 <div className="space-y-2">
-                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'إدارة الموظفين' : 'Employee Management'}
                   </a>
-                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'الخدمة الذاتية' : 'Self Service'}
                   </a>
-                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'التقييمات الذكية' : 'Smart Evaluations'}
                   </a>
-                  <a href="#" className="block text-gray-400 hover:text-[#008C6A] transition-colors duration-300">
+                  <a href="#" className="block text-muted-foreground hover:text-accent transition-colors duration-300">
                     {currentLanguage === 'ar' ? 'التدريب والتطوير' : 'Training & Development'}
                   </a>
                 </div>
@@ -700,20 +676,20 @@ const BoudHRLandingPage: React.FC = () => {
 
               {/* Contact Info */}
               <div className="space-y-4">
-                <h3 className="text-white font-semibold text-lg">
+                <h3 className="text-foreground font-semibold text-lg">
                   {currentLanguage === 'ar' ? 'معلومات التواصل' : 'Contact Info'}
                 </h3>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-gray-400">
-                    <Phone className="w-4 h-4 text-[#008C6A]" />
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Phone className="w-4 h-4 text-accent" />
                     <span className="text-sm">+966 11 123 4567</span>
                   </div>
-                  <div className="flex items-center gap-3 text-gray-400">
-                    <Mail className="w-4 h-4 text-[#008C6A]" />
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Mail className="w-4 h-4 text-accent" />
                     <span className="text-sm">info@boud.systems</span>
                   </div>
-                  <div className="flex items-center gap-3 text-gray-400">
-                    <MapPin className="w-4 h-4 text-[#008C6A]" />
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <MapPin className="w-4 h-4 text-accent" />
                     <span className="text-sm">
                       {currentLanguage === 'ar' ? 'الرياض، المملكة العربية السعودية' : 'Riyadh, Saudi Arabia'}
                     </span>
@@ -723,8 +699,8 @@ const BoudHRLandingPage: React.FC = () => {
             </div>
 
             {/* Bottom Footer */}
-            <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-              <p className="text-gray-400 text-sm">
+            <div className="border-t border-border mt-12 pt-8 text-center">
+              <p className="text-muted-foreground text-sm">
                 {currentLanguage === 'ar' 
                   ? '© بُعد BOUD Systems – جميع الحقوق محفوظة'
                   : '© BOUD Systems – All Rights Reserved'
