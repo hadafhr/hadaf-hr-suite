@@ -2,11 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* نظام الألوان الموحد لمنصة بُعد HR - الهوية البصرية الجديدة */
+/* ================================================
+   FINAL COLOR PALETTE - DO NOT MODIFY
+   نظام الألوان النهائي - لا تعدّل
+   ================================================ */
 
 @layer base {
   :root {
-    /* New Elegant Color Palette - Royal Black & Sandy Beige Theme */
+    /* Official Color Variables */
+    --color-black: #000000;
+    --color-beige: #b1a086;
+    --color-gray-1: #cfcbcb;
+    --color-gray-2: #e8e4e0;
+    --color-white: #ffffff;
+    
+    /* HSL Values for Tailwind (DO NOT CHANGE) */
+    /* نظام الألوان الموحد - الهوية البصرية */
+    
+    /* Main Background - Beige */
     --background: 36 24% 61%;           /* #b1a086 - Sandy Beige Main Background */
     --foreground: 0 0% 0%;              /* #000000 - Royal Black for primary text */
     
@@ -35,20 +48,20 @@
     /* Secondary Buttons - White with Black text */
     --secondary: 0 0% 100%;             /* #ffffff - White background */
     --secondary-foreground: 0 0% 0%;    /* #000000 - Black text */
-    --secondary-opacity: rgba(255, 255, 255, 0.95); /* 95% opacity white */
+    --secondary-opacity: rgba(255, 255, 255, 0.95);
     
     /* Accent Colors - Light Gray for hover states */
     --accent: 0 3% 80%;                 /* #cfcbcb - Light gray for hover */
     --accent-foreground: 0 0% 0%;       /* #000000 - Black text on hover */
 
-    /* ألوان الحالة - مع تدرجات للرسوم البيانية */
-    --success: 145 63% 49%;          /* #2ECC71 - أخضر للرسوم البيانية */
+    /* Status Colors */
+    --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
     
-    --warning: 38 92% 50%;           /* برتقالي */
+    --warning: 38 92% 50%;
     --warning-foreground: 0 0% 0%;
     
-    --destructive: 0 84% 45%;        /* أحمر */
+    --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
@@ -69,7 +82,7 @@
     --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
     --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.12);
 
-    /* متغيرات التحريك المحسنة */
+    /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
