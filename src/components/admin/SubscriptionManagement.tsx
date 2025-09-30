@@ -223,13 +223,11 @@ export const SubscriptionManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold">{isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}</h2>
-          <p className="text-muted-foreground">
-            {isArabic ? 'إدارة اشتراكات العملاء والباقات والمدفوعات' : 'Manage client subscriptions, packages, and payments'}
-          </p>
-        </div>
+      <div className="text-center">
+        <h2 className="text-2xl font-bold">{isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}</h2>
+        <p className="text-muted-foreground">
+          {isArabic ? 'إدارة اشتراكات العملاء والباقات والمدفوعات' : 'Manage client subscriptions, packages, and payments'}
+        </p>
       </div>
 
       {/* Stats Cards */}
