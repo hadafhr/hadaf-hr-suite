@@ -17,6 +17,7 @@ import ecssPoral from '@/assets/e-css-portal.jpg';
 import eisPortal from '@/assets/eis-portal.jpg';
 import npcsPortal from '@/assets/npcs-portal.jpg';
 import boudWhiteLogo from '@/assets/boud-white-logo.png';
+import heroLogo from '@/assets/hero-logo.png';
 import { PatternBackground } from '@/components/PatternBackground';
 import { AIAssistantPreview } from '@/components/AIAssistantPreview';
 import { BoudHRAssistant } from '@/components/BoudHRAssistant';
@@ -292,11 +293,13 @@ const BoudHRLandingPage: React.FC = () => {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/30 rounded-full px-6 py-3 mb-6 backdrop-blur-sm hover:bg-accent/15 transition-all duration-300 hover:scale-105 shadow-lg">
-                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-                  <span className="text-sm font-semibold text-accent">
-                    {currentLanguage === 'ar' ? 'منصة الموارد البشرية الرائدة في المملكة' : 'Leading HR Platform in Saudi Arabia'}
-                  </span>
+                <div className="relative inline-flex items-center justify-center mb-12 transition-all duration-300 hover:scale-105 group cursor-pointer">
+                  <img 
+                    src={heroLogo} 
+                    alt="Buod HR Logo" 
+                    className="h-96 w-96 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-3xl"></div>
                 </div>
 
                 <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold leading-tight max-w-6xl mx-auto">
