@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Code, Zap, Cpu, Database, Globe, Settings } from 'lucide-react';
-import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import headerLogo from '@/assets/header-logo.png';
+import contentLogo from '@/assets/content-logo.png';
 import { useAuth } from '@/hooks/useAuth';
 import {
   DropdownMenu,
@@ -138,71 +139,105 @@ export const SystemDevelopment: React.FC = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-bounce"></div>
       </div>
       
-      {/* Enhanced Header */}
-      <header className="relative z-10 backdrop-blur-2xl bg-card border-b border-border shadow-2xl h-28 flex items-center justify-between px-8">
-        {/* Enhanced animated background pattern */}
-        <div className="absolute inset-0 overflow-hidden rounded-t-3xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"></div>
-        </div>
-        <div className="flex items-center relative z-10">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 text-foreground hover:bg-accent/20 hover:shadow-lg transition-all duration-300 mr-4 backdrop-blur-sm border border-border"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
-          </Button>
-          <div className="flex items-center space-x-3 space-x-reverse">
-            <div className="relative group">
-              <BoudLogo variant="icon" size="md" />
-              <div className="absolute -inset-2 bg-accent/20 rounded-full blur-lg animate-pulse group-hover:animate-ping transition-all duration-300"></div>
+      {/* Professional Header */}
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-black/95 backdrop-blur-xl shadow-xl">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none"></div>
+        
+        <div className="container mx-auto px-6 h-20">
+          <div className="flex items-center justify-between h-full relative z-10">
+            {/* Right Section - Logo & Title */}
+            <div className="flex items-center gap-6">
+              <img 
+                src={headerLogo} 
+                alt="Buod HR" 
+                className="h-56 w-auto object-contain filter brightness-110 transition-transform hover:scale-105" 
+              />
+              <div className="hidden md:flex flex-col">
+                <h1 className="text-xl font-bold text-white">
+                  {isArabic ? 'تطوير النظام' : 'System Development'}
+                </h1>
+                <p className="text-xs text-muted-foreground">
+                  {isArabic ? 'أدوات تطوير النظام والميزات الجديدة' : 'Development Tools & New Features'}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <h1 className="text-3xl font-bold text-foreground animate-fade-in">
-                {isArabic ? 'تطوير النظام' : 'System Development'}
-              </h1>
-              <p className="text-sm text-muted-foreground animate-fade-in font-light">
-                {isArabic ? 'أدوات تطوير النظام والميزات الجديدة المتقدمة' : 'Advanced System Development Tools and New Features'}
-              </p>
+
+            {/* Left Section - Actions */}
+            <div className="flex items-center gap-3">
+              {/* Back Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/admin-dashboard')}
+                className="hidden sm:flex items-center gap-2 border-border hover:bg-accent/20 hover:border-accent/50 transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden lg:inline">{isArabic ? 'لوحة التحكم' : 'Dashboard'}</span>
+              </Button>
+
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
+              {/* Profile Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="flex items-center gap-2 hover:bg-accent/20 transition-all"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center shadow-lg">
+                      <Crown className="h-4 w-4 text-black" />
+                    </div>
+                    <ChevronDown className="h-3 w-3 hidden sm:block" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-48 bg-black/95 backdrop-blur-xl border-border shadow-2xl"
+                >
+                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
+                    <User className="h-4 w-4 mr-2" />
+                    {isArabic ? 'الملف الشخصي' : 'Profile'}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
+                    <Settings className="h-4 w-4 mr-2" />
+                    {isArabic ? 'الإعدادات' : 'Settings'}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-border" />
+                  <DropdownMenuItem 
+                    onClick={handleLogout} 
+                    className="hover:bg-destructive/20 text-destructive cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تسجيل الخروج' : 'Logout'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
-        </div>
-
-        <div className="flex items-center space-x-4 space-x-reverse relative z-10">
-          <LanguageSwitcher />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-foreground hover:bg-accent/20 backdrop-blur-sm border border-border transition-all duration-300 hover:scale-105">
-                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center shadow-lg">
-                  <Crown className="h-5 w-5 text-accent-foreground" />
-                </div>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-card backdrop-blur-2xl border border-border text-foreground shadow-2xl rounded-2xl">
-              <DropdownMenuItem className="hover:bg-accent/20 rounded-xl transition-all duration-200">
-                <User className="h-4 w-4 mr-2" />
-                {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-accent/20 rounded-xl transition-all duration-200">
-                <Settings className="h-4 w-4 mr-2" />
-                {isArabic ? 'إعدادات النظام' : 'System Settings'}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border" />
-              <DropdownMenuItem onClick={handleLogout} className="hover:bg-accent/20 rounded-xl transition-all duration-200">
-                <LogOut className="h-4 w-4 mr-2" />
-                {isArabic ? 'تسجيل الخروج' : 'Logout'}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </header>
 
       {/* Enhanced Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8">
         <div className="max-w-7xl mx-auto space-y-6">
+          {/* Content Logo */}
+          <div className="flex justify-center mb-8">
+            <img src={contentLogo} alt="Logo" className="h-32 w-32 object-contain" />
+          </div>
+          
+          {/* Page Title */}
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white">
+              {isArabic ? 'تطوير النظام' : 'System Development'}
+            </h2>
+            <p className="text-muted-foreground">
+              {isArabic ? 'أدوات تطوير النظام والميزات الجديدة المتقدمة' : 'Advanced System Development Tools and New Features'}
+            </p>
+          </div>
+
           {/* System Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {systemMetrics.map((metric, index) => (
