@@ -253,15 +253,15 @@ const ComprehensiveEmployeeManagement = () => {
       </Badge>;
   };
 
-  return <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#000000" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -269,14 +269,14 @@ const ComprehensiveEmployeeManagement = () => {
       </div>
       
       {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-primary/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-primary/15 rounded-full blur-lg animate-pulse delay-500"></div>
 
       {/* المحتوى الرئيسي */}
-      <div className="relative z-10 container mx-auto px-8 py-8 backdrop-blur-xl bg-black/20 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+      <div className="relative z-10 container mx-auto px-8 py-8 backdrop-blur-xl bg-card/80 rounded-3xl border border-border shadow-2xl">
         {/* الشريط العلوي الاحترافي */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-3xl animate-fade-in">
+        <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-xl border border-border shadow-2xl rounded-3xl animate-fade-in">
           <div className="flex items-center gap-6">
             <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-border text-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-300 px-4 py-2">
               <ArrowLeft className="h-4 w-4 ml-2" />
@@ -309,10 +309,10 @@ const ComprehensiveEmployeeManagement = () => {
           </div>
         </div>
 
-        <div className="relative p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+        <div className="relative p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-primary animate-fade-in transition-all duration-300">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           {/* Professional Grid Navigation - All Tabs Visible */}
-          <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl p-4 mb-6">
+          <div className="bg-card backdrop-blur-xl border border-border shadow-2xl rounded-xl p-4 mb-6">
             {/* Control Icons for Tab Organization */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -429,14 +429,14 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="employee-operations">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6">
+              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
                     <Users className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة شؤون الموظفين والعمليات</h2>
-                    <p className="text-gray-300">النظام المتكامل لإدارة جميع شؤون الموظفين والعمليات التشغيلية</p>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة شؤون الموظفين والعمليات</h2>
+                    <p className="text-muted-foreground">النظام المتكامل لإدارة جميع شؤون الموظفين والعمليات التشغيلية</p>
                   </div>
                 </div>
                 
@@ -522,40 +522,40 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="compensation-benefits">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6">
+              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20">
-                    <DollarSign className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <DollarSign className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة التعويضات والمزايا</h2>
-                    <p className="text-gray-300">النظام المتكامل لإدارة الرواتب والأجور والمزايا المالية للموظفين</p>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة التعويضات والمزايا</h2>
+                    <p className="text-muted-foreground">النظام المتكامل لإدارة الرواتب والأجور والمزايا المالية للموظفين</p>
                   </div>
                 </div>
                 
                 <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg shadow-[#008C6A]/10 p-2 h-auto w-full rounded-xl">
-                    <TabsTrigger value="payroll" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:to-[#00694F] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#008C6A]/20 bg-gray-800/60 text-gray-300 hover:bg-gray-700/60 hover:text-white border border-[#008C6A]/20 data-[state=active]:border-[#008C6A] hover:scale-105 hover:shadow-lg hover:border-[#008C6A]/50">
+                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-card backdrop-blur-xl border border-border shadow-lg p-2 h-auto w-full rounded-xl">
+                    <TabsTrigger value="payroll" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">الرواتب والأجور</span>
                     </TabsTrigger>
-                    <TabsTrigger value="wageprotection" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:to-[#00694F] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#008C6A]/20 bg-gray-800/60 text-gray-300 hover:bg-gray-700/60 hover:text-white border border-[#008C6A]/20 data-[state=active]:border-[#008C6A] hover:scale-105 hover:shadow-lg hover:border-[#008C6A]/50">
+                    <TabsTrigger value="wageprotection" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <Banknote className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">حماية الأجور</span>
                     </TabsTrigger>
-                    <TabsTrigger value="insurance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:to-[#00694F] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#008C6A]/20 bg-gray-800/60 text-gray-300 hover:bg-gray-700/60 hover:text-white border border-[#008C6A]/20 data-[state=active]:border-[#008C6A] hover:scale-105 hover:shadow-lg hover:border-[#008C6A]/50">
+                    <TabsTrigger value="insurance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">التأمين</span>
                     </TabsTrigger>
-                    <TabsTrigger value="expenses" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:to-[#00694F] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#008C6A]/20 bg-gray-800/60 text-gray-300 hover:bg-gray-700/60 hover:text-white border border-[#008C6A]/20 data-[state=active]:border-[#008C6A] hover:scale-105 hover:shadow-lg hover:border-[#008C6A]/50">
+                    <TabsTrigger value="expenses" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <Receipt className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">المصروفات والنفقات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="benefits" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:to-[#00694F] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#008C6A]/20 bg-gray-800/60 text-gray-300 hover:bg-gray-700/60 hover:text-white border border-[#008C6A]/20 data-[state=active]:border-[#008C6A] hover:scale-105 hover:shadow-lg hover:border-[#008C6A]/50">
+                    <TabsTrigger value="benefits" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <Gift className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">المكافآت والحوافز</span>
                     </TabsTrigger>
-                    <TabsTrigger value="budget-planning" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:to-[#00694F] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#008C6A]/20 bg-gray-800/60 text-gray-300 hover:bg-gray-700/60 hover:text-white border border-[#008C6A]/20 data-[state=active]:border-[#008C6A] hover:scale-105 hover:shadow-lg hover:border-[#008C6A]/50">
+                    <TabsTrigger value="budget-planning" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                       <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">الميزانية والتخطيط المالي</span>
                     </TabsTrigger>
@@ -592,13 +592,13 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="development-performance">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6">
+              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20">
-                    <BarChart3 className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <BarChart3 className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة التطوير والأداء المؤسسي</h2>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة التطوير والأداء المؤسسي</h2>
                     <p className="text-muted-foreground">النظام المتكامل لتطوير الأداء وإدارة المواهب والتدريب المؤسسي</p>
                   </div>
                 </div>
@@ -663,13 +663,13 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="digital-transformation">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6 animate-fade-in">
+              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6 animate-fade-in">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20">
-                    <Brain className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <Brain className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة التقنية والتحول الرقمي</h2>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة التقنية والتحول الرقمي</h2>
                     <p className="text-muted-foreground">النظام المتقدم لإدارة التقنيات الرقمية والذكاء الاصطناعي والتكامل</p>
                   </div>
                 </div>
@@ -724,14 +724,14 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="governance-compliance">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6">
+              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20">
-                    <Scale className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <Scale className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة الحوكمة والالتزام</h2>
-                    <p className="text-gray-300">النظام المتقدم لإدارة الحوكمة والامتثال والأمان والشؤون القانونية</p>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة الحوكمة والالتزام</h2>
+                    <p className="text-muted-foreground">النظام المتقدم لإدارة الحوكمة والامتثال والأمان والشؤون القانونية</p>
                   </div>
                 </div>
                 
@@ -777,14 +777,14 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="corporate-relations">
             <div className="space-y-6">
-              <div className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 rounded-3xl p-6">
+              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20">
-                    <MessageCircle className="h-8 w-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
+                    <MessageCircle className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة العلاقات والتواصل المؤسسي</h2>
-                    <p className="text-gray-300">نظام شامل لإدارة العلاقات الداخلية والتواصل المؤسسي والخدمات الاجتماعية</p>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة العلاقات والتواصل المؤسسي</h2>
+                    <p className="text-muted-foreground">نظام شامل لإدارة العلاقات الداخلية والتواصل المؤسسي والخدمات الاجتماعية</p>
                   </div>
                 </div>
                 
@@ -841,9 +841,9 @@ const ComprehensiveEmployeeManagement = () => {
 
         {/* Employee Details Dialog */}
         <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gray-900/95 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-card backdrop-blur-xl border border-border shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-3 text-[#008C6A]">
+            <DialogTitle className="flex items-center gap-3 text-primary">
               <User className="h-6 w-6" />
               تفاصيل الموظف
             </DialogTitle>
@@ -855,60 +855,60 @@ const ComprehensiveEmployeeManagement = () => {
                   <AvatarFallback>{selectedEmployee.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="text-xl font-bold text-white">{selectedEmployee.name}</h3>
-                  <p className="text-gray-300">{selectedEmployee.position} - {selectedEmployee.department}</p>
+                  <h3 className="text-xl font-bold text-foreground">{selectedEmployee.name}</h3>
+                  <p className="text-muted-foreground">{selectedEmployee.position} - {selectedEmployee.department}</p>
                   {getStatusBadge(selectedEmployee.status)}
                 </div>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6">
-                <Card className="bg-gray-800/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="text-white">المعلومات الأساسية</CardTitle>
+                    <CardTitle className="text-foreground">المعلومات الأساسية</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="text-sm space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-gray-300">رقم الموظف:</span>
-                        <span className="font-medium text-white">{selectedEmployee.id}</span>
+                        <span className="text-muted-foreground">رقم الموظف:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.id}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">البريد الإلكتروني:</span>
-                        <span className="font-medium text-white">{selectedEmployee.email}</span>
+                        <span className="text-muted-foreground">البريد الإلكتروني:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.email}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">الهاتف:</span>
-                        <span className="font-medium text-white">{selectedEmployee.phone}</span>
+                        <span className="text-muted-foreground">الهاتف:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.phone}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">تاريخ التوظيف:</span>
-                        <span className="font-medium text-white">{selectedEmployee.joinDate}</span>
+                        <span className="text-muted-foreground">تاريخ التوظيف:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.joinDate}</span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gray-800/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="text-white">معلومات الراتب</CardTitle>
+                    <CardTitle className="text-foreground">معلومات الراتب</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="text-sm space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-gray-300">الراتب الأساسي:</span>
-                        <span className="font-medium text-white">{selectedEmployee.salary?.basic?.toLocaleString()} ريال</span>
+                        <span className="text-muted-foreground">الراتب الأساسي:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.salary?.basic?.toLocaleString()} ريال</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">بدل السكن:</span>
-                        <span className="font-medium text-white">{selectedEmployee.salary?.housing?.toLocaleString()} ريال</span>
+                        <span className="text-muted-foreground">بدل السكن:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.salary?.housing?.toLocaleString()} ريال</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">بدل النقل:</span>
-                        <span className="font-medium text-white">{selectedEmployee.salary?.transport?.toLocaleString()} ريال</span>
+                        <span className="text-muted-foreground">بدل النقل:</span>
+                        <span className="font-medium text-foreground">{selectedEmployee.salary?.transport?.toLocaleString()} ريال</span>
                       </div>
-                      <div className="flex justify-between border-t border-[#008C6A]/30 pt-2 font-semibold">
-                        <span className="text-white">إجمالي الراتب:</span>
-                        <span className="text-white">{selectedEmployee.salary?.total?.toLocaleString()} ريال</span>
+                      <div className="flex justify-between border-t border-border pt-2 font-semibold">
+                        <span className="text-foreground">إجمالي الراتب:</span>
+                        <span className="text-foreground">{selectedEmployee.salary?.total?.toLocaleString()} ريال</span>
                       </div>
                     </div>
                   </CardContent>
