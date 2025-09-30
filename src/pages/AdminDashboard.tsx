@@ -210,7 +210,7 @@ export const AdminDashboard: React.FC = () => {
             </Button>
             
             <div className="flex items-center space-x-3 space-x-reverse">
-              <img src={headerLogo} alt="Buod HR" className="h-12 w-12 object-contain filter brightness-110 transition-all duration-300 hover:scale-105" />
+              <img src={headerLogo} alt="Buod HR" className="h-48 w-48 object-contain filter brightness-110 transition-all duration-300 hover:scale-105" />
               <div className="hidden md:flex flex-col">
                 <h1 className="text-xl font-bold text-white">
                   {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator'}
