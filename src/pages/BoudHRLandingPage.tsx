@@ -284,29 +284,80 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
           
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="text-center space-y-8">
-              <motion.h1 
+            <div className="text-center space-y-12">
+              {/* Main Title with Professional Styling */}
+              <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight"
+                className="space-y-6"
               >
-                {currentLanguage === 'ar' 
-                  ? 'كل منشأة تبدأ بحلم… لكن إدارة الموظفين قد تتحول إلى عبء يستهلك وقتك وجهدك. بُعد HR هنا ليعيد لك السيطرة، ويحوّل الفوضى إلى نظام، والتحديات إلى فرص.'
-                  : 'Every business starts with a dream… but managing people can quickly become a burden that drains your time and energy. BOUD HR gives you back control – turning chaos into order, and challenges into opportunities.'
-                }
-              </motion.h1>
+                <div className="inline-flex items-center gap-3 bg-accent/10 border border-accent/30 rounded-full px-6 py-3 mb-6 backdrop-blur-sm hover:bg-accent/15 transition-all duration-300 hover:scale-105 shadow-lg">
+                  <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+                  <span className="text-sm font-semibold text-accent">
+                    {currentLanguage === 'ar' ? 'منصة الموارد البشرية الرائدة في المملكة' : 'Leading HR Platform in Saudi Arabia'}
+                  </span>
+                </div>
+
+                <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold leading-tight max-w-6xl mx-auto">
+                  {currentLanguage === 'ar' ? (
+                    <>
+                      <span className="block text-foreground mb-4">
+                        كل منشأة تبدأ بحلم…
+                      </span>
+                      <span className="block bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in mb-4">
+                        لكن إدارة الموظفين
+                      </span>
+                      <span className="block text-foreground/90 text-4xl md:text-5xl lg:text-6xl leading-relaxed">
+                        قد تتحول إلى عبء يستهلك وقتك وجهدك
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="block text-foreground mb-4">
+                        Every business starts with a dream…
+                      </span>
+                      <span className="block bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in mb-4">
+                        but managing people
+                      </span>
+                      <span className="block text-foreground/90 text-4xl md:text-5xl lg:text-6xl leading-relaxed">
+                        can become a burden that drains your time and energy
+                      </span>
+                    </>
+                  )}
+                </h1>
+
+                <div className="relative max-w-4xl mx-auto mt-8">
+                  <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-medium bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-border shadow-xl">
+                    {currentLanguage === 'ar' 
+                      ? 'بُعد HR هنا ليعيد لك السيطرة، ويحوّل الفوضى إلى نظام، والتحديات إلى فرص' 
+                      : 'BOUD HR gives you back control – turning chaos into order, and challenges into opportunities'
+                    }
+                  </p>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 rounded-2xl blur opacity-50"></div>
+                </div>
+              </motion.div>
               
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               >
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-foreground px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:shadow-accent/50 transition-all duration-300 hover:scale-105"
+                  className="bg-primary hover:bg-accent text-primary-foreground px-12 py-6 text-xl font-bold rounded-xl shadow-2xl hover:shadow-accent/50 transition-all duration-300 hover:scale-105 min-w-[250px] relative overflow-hidden group"
                 >
-                  {currentLanguage === 'ar' ? 'ابدأ رحلتك الآن' : 'Start Your Journey'}
+                  <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+                  <span className="relative z-10">{currentLanguage === 'ar' ? 'ابدأ رحلتك الآن' : 'Start Your Journey'}</span>
+                </Button>
+                
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-border text-foreground hover:bg-accent/20 hover:border-accent px-12 py-6 text-xl font-bold rounded-xl backdrop-blur-sm bg-card/50 transition-all duration-300 hover:scale-105 min-w-[250px]"
+                >
+                  {currentLanguage === 'ar' ? 'شاهد العرض التوضيحي' : 'Watch Demo'}
                 </Button>
               </motion.div>
             </div>
