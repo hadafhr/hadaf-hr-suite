@@ -69,42 +69,42 @@ export const SystemAnalytics: React.FC = () => {
       value: '1,847',
       change: '+12.5%',
       trend: 'up',
-      color: 'text-blue-500'
+      color: 'text-foreground'
     },
     {
       label: isArabic ? 'المستخدمون النشطون' : 'Active Users',
       value: '23,456',
       change: '+8.2%',
       trend: 'up',
-      color: 'text-green-500'
+      color: 'text-foreground'
     },
     {
       label: isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue',
       value: '₺4.2M',
       change: '+15.8%',
       trend: 'up',
-      color: 'text-purple-500'
+      color: 'text-foreground'
     },
     {
       label: isArabic ? 'معدل النمو' : 'Growth Rate',
       value: '18.4%',
       change: '+3.2%',
       trend: 'up',
-      color: 'text-emerald-500'
+      color: 'text-foreground'
     },
     {
       label: isArabic ? 'رضا العملاء' : 'Client Satisfaction',
       value: '94.7%',
       change: '-1.2%',
       trend: 'down',
-      color: 'text-orange-500'
+      color: 'text-foreground'
     },
     {
       label: isArabic ? 'أداء النظام' : 'System Performance',
       value: '99.8%',
       change: '0%',
       trend: 'stable',
-      color: 'text-cyan-500'
+      color: 'text-foreground'
     }
   ];
 
@@ -150,21 +150,21 @@ export const SystemAnalytics: React.FC = () => {
     { month: 'أغسطس', efficiency: 95, satisfaction: 96, growth: 21 }
   ];
 
-  const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+  const COLORS = ['hsl(var(--accent))', 'hsl(var(--success))', 'hsl(var(--warning))', 'hsl(var(--destructive))', 'hsl(var(--accent))', 'hsl(var(--muted))'];
 
   const getTrendIcon = (trend: 'up' | 'down' | 'stable') => {
     switch (trend) {
-      case 'up': return <TrendingUp className="h-4 w-4 text-green-500" />;
-      case 'down': return <TrendingDown className="h-4 w-4 text-red-500" />;
-      default: return <Activity className="h-4 w-4 text-gray-500" />;
+      case 'up': return <TrendingUp className="h-4 w-4 text-success" />;
+      case 'down': return <TrendingDown className="h-4 w-4 text-destructive" />;
+      default: return <Activity className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
   const getTrendColor = (trend: 'up' | 'down' | 'stable') => {
     switch (trend) {
-      case 'up': return 'text-green-500';
-      case 'down': return 'text-red-500';
-      default: return 'text-gray-500';
+      case 'up': return 'text-success';
+      case 'down': return 'text-destructive';
+      default: return 'text-muted-foreground';
     }
   };
 
@@ -173,8 +173,8 @@ export const SystemAnalytics: React.FC = () => {
       {/* Analytics Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3 space-x-reverse">
-          <div className="p-3 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
-            <BarChart3 className="h-8 w-8 text-primary" />
+          <div className="p-3 rounded-lg bg-accent/10 border border-accent/20">
+            <BarChart3 className="h-8 w-8 text-accent" />
           </div>
           <div>
             <h2 className="text-2xl font-bold text-foreground">
@@ -238,11 +238,17 @@ export const SystemAnalytics: React.FC = () => {
               </div>
               <ResponsiveContainer width="100%" height={300}>
                 <ComposedChart data={monthlyGrowth}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="hsl(var(--primary))" name={isArabic ? 'العملاء الفعليون' : 'Actual Clients'} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
+                  <Bar dataKey="value" fill="hsl(var(--accent))" name={isArabic ? 'العملاء الفعليون' : 'Actual Clients'} />
                   <Line 
                     type="monotone" 
                     dataKey="target" 
@@ -274,14 +280,20 @@ export const SystemAnalytics: React.FC = () => {
                     labelLine={false}
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                     outerRadius={80}
-                    fill="#8884d8"
+                    fill="hsl(var(--accent))"
                     dataKey="value"
                   >
                     {revenueByService.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
                 </RechartsPieChart>
               </ResponsiveContainer>
             </Card>
@@ -297,15 +309,21 @@ export const SystemAnalytics: React.FC = () => {
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={monthlyGrowth}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
                   <Area 
                     type="monotone" 
                     dataKey="growth" 
-                    stroke="hsl(var(--primary))" 
-                    fill="hsl(var(--primary))" 
+                    stroke="hsl(var(--accent))" 
+                    fill="hsl(var(--accent))" 
                     fillOpacity={0.6}
                     name={isArabic ? 'معدل النمو %' : 'Growth Rate %'}
                   />
@@ -319,21 +337,21 @@ export const SystemAnalytics: React.FC = () => {
                 {isArabic ? 'مؤشرات النمو' : 'Growth Metrics'}
               </h3>
               <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                  <span className="font-medium">{isArabic ? 'النمو السنوي' : 'Annual Growth'}</span>
-                  <span className="text-xl font-bold text-green-500">+234%</span>
+                <div className="flex justify-between items-center p-3 bg-card rounded-lg border border-border">
+                  <span className="font-medium text-foreground">{isArabic ? 'النمو السنوي' : 'Annual Growth'}</span>
+                  <span className="text-xl font-bold text-success">+234%</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                  <span className="font-medium">{isArabic ? 'النمو الربعي' : 'Quarterly Growth'}</span>
-                  <span className="text-xl font-bold text-blue-500">+67%</span>
+                <div className="flex justify-between items-center p-3 bg-card rounded-lg border border-border">
+                  <span className="font-medium text-foreground">{isArabic ? 'النمو الربعي' : 'Quarterly Growth'}</span>
+                  <span className="text-xl font-bold text-accent">+67%</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                  <span className="font-medium">{isArabic ? 'النمو الشهري' : 'Monthly Growth'}</span>
-                  <span className="text-xl font-bold text-purple-500">+18.4%</span>
+                <div className="flex justify-between items-center p-3 bg-card rounded-lg border border-border">
+                  <span className="font-medium text-foreground">{isArabic ? 'النمو الشهري' : 'Monthly Growth'}</span>
+                  <span className="text-xl font-bold text-accent">+18.4%</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                  <span className="font-medium">{isArabic ? 'توقعات الشهر القادم' : 'Next Month Forecast'}</span>
-                  <span className="text-xl font-bold text-orange-500">+22%</span>
+                <div className="flex justify-between items-center p-3 bg-card rounded-lg border border-border">
+                  <span className="font-medium text-foreground">{isArabic ? 'توقعات الشهر القادم' : 'Next Month Forecast'}</span>
+                  <span className="text-xl font-bold text-accent">+22%</span>
                 </div>
               </div>
             </Card>
@@ -347,28 +365,34 @@ export const SystemAnalytics: React.FC = () => {
             </h3>
             <ResponsiveContainer width="100%" height={400}>
               <RechartsLineChart data={performanceTrends}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                <YAxis stroke="hsl(var(--muted-foreground))" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'hsl(var(--card))', 
+                    border: '1px solid hsl(var(--border))',
+                    color: 'hsl(var(--foreground))'
+                  }}
+                />
                 <Line 
                   type="monotone" 
                   dataKey="efficiency" 
-                  stroke="#3b82f6" 
+                  stroke="hsl(var(--accent))" 
                   strokeWidth={2}
                   name={isArabic ? 'الكفاءة %' : 'Efficiency %'}
                 />
                 <Line 
                   type="monotone" 
                   dataKey="satisfaction" 
-                  stroke="#10b981" 
+                  stroke="hsl(var(--success))" 
                   strokeWidth={2}
                   name={isArabic ? 'الرضا %' : 'Satisfaction %'}
                 />
                 <Line 
                   type="monotone" 
                   dataKey="growth" 
-                  stroke="#f59e0b" 
+                  stroke="hsl(var(--warning))" 
                   strokeWidth={2}
                   name={isArabic ? 'النمو %' : 'Growth %'}
                 />
@@ -386,11 +410,17 @@ export const SystemAnalytics: React.FC = () => {
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={clientsByRegion}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="hsl(var(--primary))" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
+                  <Bar dataKey="value" fill="hsl(var(--accent))" />
                 </BarChart>
               </ResponsiveContainer>
             </Card>
