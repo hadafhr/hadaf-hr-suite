@@ -402,6 +402,89 @@ const GreenPapers: React.FC = () => {
           </div>
         </div>
 
+        {/* Platform Features - Without Title */}
+        <div className="mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Feature 1 */}
+            <Card className="bg-card border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                  <Building2 className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle className="text-foreground">إدارة شاملة</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  نظام متكامل يغطي جميع جوانب الموارد البشرية من التوظيف حتى التقاعد
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Feature 2 */}
+            <Card className="bg-card border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                  <Globe className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle className="text-foreground">امتثال كامل</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  متوافق مع جميع الأنظمة واللوائح السعودية والخليجية
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Feature 3 */}
+            <Card className="bg-card border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                  <FileText className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle className="text-foreground">تقارير ذكية</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  تحليلات متقدمة وتقارير تفصيلية لاتخاذ قرارات مبنية على البيانات
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Feature 4 */}
+            <Card className="bg-card border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                  <Clock className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle className="text-foreground">توفير الوقت</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  أتمتة المهام الروتينية وتقليل الوقت المستغرق في العمليات الإدارية
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Feature 5 */}
+            <Card className="bg-card border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                  <Star className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle className="text-foreground">تجربة مستخدم متميزة</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  واجهة سهلة الاستخدام ومتاحة على جميع الأجهزة
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            {/* Feature 6 */}
+            <Card className="bg-card border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
+                  <BookOpen className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle className="text-foreground">دعم ومساعدة</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  فريق دعم متخصص ومصادر تعليمية شاملة متاحة دائماً
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+
         {/* Papers Grid */}
         <div className="relative">
           <div className="mb-8 text-center">
