@@ -104,9 +104,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 238,
       pending: 7,
       alerts: 3,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10',
+      borderColor: 'border-accent/30'
     },
     {
       name: 'الإدارات والأقسام',
@@ -115,9 +115,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 12,
       pending: 0,
       alerts: 0,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-200'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10',
+      borderColor: 'border-accent/30'
     },
     {
       name: 'الحضور والانصراف',
@@ -126,9 +126,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 220,
       pending: 15,
       alerts: 10,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200'
+      color: 'text-success',
+      bgColor: 'bg-success/10',
+      borderColor: 'border-success/30'
     },
     {
       name: 'الجزاءات والعقوبات',
@@ -137,9 +137,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 2,
       pending: 0,
       alerts: 2,
-      color: 'text-red-600',
-      bgColor: 'bg-red-50',
-      borderColor: 'border-red-200'
+      color: 'text-destructive',
+      bgColor: 'bg-destructive/10',
+      borderColor: 'border-destructive/30'
     },
     {
       name: 'الإجازات والعطلات',
@@ -148,9 +148,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 12,
       pending: 8,
       alerts: 5,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200'
+      color: 'text-warning',
+      bgColor: 'bg-warning/10',
+      borderColor: 'border-warning/30'
     },
     {
       name: 'الرواتب والأجور',
@@ -159,9 +159,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 245,
       pending: 0,
       alerts: 0,
-      color: 'text-emerald-600',
-      bgColor: 'bg-emerald-50',
-      borderColor: 'border-emerald-200'
+      color: 'text-success',
+      bgColor: 'bg-success/10',
+      borderColor: 'border-success/30'
     },
     {
       name: 'التكامل والربط',
@@ -170,9 +170,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 6,
       pending: 2,
       alerts: 1,
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50',
-      borderColor: 'border-indigo-200'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10',
+      borderColor: 'border-accent/30'
     },
     {
       name: 'التطوير والتنظيم المؤسسي',
@@ -181,9 +181,9 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       active: 12,
       pending: 3,
       alerts: 0,
-      color: 'text-cyan-600',
-      bgColor: 'bg-cyan-50',
-      borderColor: 'border-cyan-200'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10',
+      borderColor: 'border-accent/30'
     }
   ];
 
@@ -198,8 +198,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         departed: 3,
         trend: '+4.2%'
       },
-      color: 'text-[#009F87]',
-      bgColor: 'bg-[#009F87]/10'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10'
     },
     {
       title: 'الحضور والانصراف',
@@ -210,8 +210,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         onTime: '89%',
         trend: '+2.1%'
       },
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
+      color: 'text-success',
+      bgColor: 'bg-success/10'
     },
     {
       title: 'التوظيف',
@@ -222,8 +222,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         offers: 5,
         trend: '+12.5%'
       },
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10'
     },
     {
       title: 'الأداء',
@@ -234,8 +234,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         goals: '76%',
         trend: '+3.8%'
       },
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10'
     },
     {
       title: 'العقود',
@@ -246,8 +246,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         active: 238,
         trend: '-2.1%'
       },
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50'
+      color: 'text-warning',
+      bgColor: 'bg-warning/10'
     },
     {
       title: 'الرواتب',
@@ -258,8 +258,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         advances: 15,
         trend: '+6.2%'
       },
-      color: 'text-emerald-600',
-      bgColor: 'bg-emerald-50'
+      color: 'text-success',
+      bgColor: 'bg-success/10'
     },
     {
       title: 'المخالفات',
@@ -270,8 +270,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         resolved: 28,
         trend: '-15.2%'
       },
-      color: 'text-red-600',
-      bgColor: 'bg-red-50'
+      color: 'text-destructive',
+      bgColor: 'bg-destructive/10'
     },
     {
       title: 'التدريب والتطوير',
@@ -282,8 +282,8 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         completion: '78%',
         trend: '+9.3%'
       },
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50'
+      color: 'text-accent',
+      bgColor: 'bg-accent/10'
     }
   ];
 
@@ -329,25 +329,25 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       title: 'إضافة موظف جديد',
       icon: UserPlus,
       action: () => onNavigateToSection?.('employees'),
-      color: 'bg-[#009F87] hover:bg-[#008072]'
+      color: 'bg-accent hover:bg-accent/90'
     },
     {
       title: 'اعتماد طلب',
       icon: CheckCircle,
       action: () => onNavigateToSection?.('requests'),
-      color: 'bg-green-600 hover:bg-green-700'
+      color: 'bg-success hover:bg-success/90'
     },
     {
       title: 'رفع تقرير',
       icon: FileBarChart,
       action: () => onNavigateToSection?.('reports'),
-      color: 'bg-blue-600 hover:bg-blue-700'
+      color: 'bg-accent hover:bg-accent/90'
     },
     {
       title: 'إرسال إشعار جماعي',
       icon: Megaphone,
       action: () => onNavigateToSection?.('requests'),
-      color: 'bg-purple-600 hover:bg-purple-700'
+      color: 'bg-accent hover:bg-accent/90'
     }
   ];
 
@@ -376,17 +376,17 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
   };
 
   const getTrendColor = (trend: string) => {
-    if (trend.startsWith('+')) return 'text-green-600';
-    if (trend.startsWith('-')) return 'text-red-600';
-    return 'text-gray-600';
+    if (trend.startsWith('+')) return 'text-success';
+    if (trend.startsWith('-')) return 'text-destructive';
+    return 'text-muted-foreground';
   };
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
-      case 'info': return <Bell className="h-4 w-4 text-blue-600" />;
-      case 'warning': return <AlertTriangle className="h-4 w-4 text-orange-600" />;
-      case 'alert': return <XCircle className="h-4 w-4 text-red-600" />;
-      default: return <Bell className="h-4 w-4 text-gray-600" />;
+      case 'info': return <Bell className="h-4 w-4 text-accent" />;
+      case 'warning': return <AlertTriangle className="h-4 w-4 text-warning" />;
+      case 'alert': return <XCircle className="h-4 w-4 text-destructive" />;
+      default: return <Bell className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -401,23 +401,23 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
   };
 
   return (
-    <div className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+    <div className="space-y-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-8">
       {/* رأس لوحة التحكم */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#009F87]">لوحة التحكم الشاملة</h1>
+          <h1 className="text-3xl font-bold text-accent">لوحة التحكم الشاملة</h1>
           <p className="text-muted-foreground mt-1">
             نظرة شاملة على جميع أنشطة وإحصائيات النظام (22 قسم)
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Badge variant="outline" className="text-[#009F87] border-[#009F87]">
+          <Badge variant="outline" className="text-accent border-accent">
             آخر تحديث: {new Date().toLocaleTimeString('ar-SA')}
           </Badge>
           <Button 
             variant="outline" 
             size="sm"
-            className="hover:bg-[#009F87] hover:text-white"
+            className="hover:bg-accent hover:text-accent-foreground"
             onClick={() => window.location.reload()}
           >
             <RefreshCw className="h-4 w-4 ml-2" />
@@ -443,20 +443,20 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
                   </Badge>
                 )}
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{dept.name}</h3>
+              <h3 className="font-semibold text-foreground mb-2">{dept.name}</h3>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">الإجمالي:</span>
+                  <span className="text-muted-foreground">الإجمالي:</span>
                   <span className="font-medium">{dept.total}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">النشط:</span>
-                  <span className="font-medium text-green-600">{dept.active}</span>
+                  <span className="text-muted-foreground">النشط:</span>
+                  <span className="font-medium text-success">{dept.active}</span>
                 </div>
                 {dept.pending > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">معلق:</span>
-                    <span className="font-medium text-orange-600">{dept.pending}</span>
+                    <span className="text-muted-foreground">معلق:</span>
+                    <span className="font-medium text-warning">{dept.pending}</span>
                   </div>
                 )}
               </div>
@@ -473,11 +473,11 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
             className="hover:shadow-lg transition-all cursor-pointer transform hover:scale-105" 
             onClick={() => handleSectionNavigation(widget.title)}
           >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-card/60 backdrop-blur-xl border-b border-border">
               <CardTitle className="text-sm font-medium">{widget.title}</CardTitle>
               <widget.icon className={`h-4 w-4 ${widget.color}`} />
             </CardHeader>
-            <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+            <CardContent className="bg-card/60 backdrop-blur-xl p-4">
               <div className="space-y-2">
                 {Object.entries(widget.stats).map(([key, value], idx) => (
                   <div key={idx} className="flex justify-between text-sm">
@@ -496,22 +496,22 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       {/* الصف السفلي: التقويم الذكي، الإشعارات، والإجراءات السريعة */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* التقويم الذكي */}
-        <Card className="lg:col-span-1 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+        <Card className="lg:col-span-1 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <CalendarIcon className="h-5 w-5 text-[#009F87]" />
+              <CalendarIcon className="h-5 w-5 text-accent" />
               التقويم الذكي
             </CardTitle>
             <CardDescription>
               الأحداث والمواعيد المهمة (ميلادي وهجري)
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+          <CardContent className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-8">
             <Calendar
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
-              className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300"
+              className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300"
             />
             <Separator className="my-4" />
             <div className="space-y-3">
@@ -519,10 +519,10 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
               {upcomingEvents.slice(0, 3).map((event) => (
                 <div 
                   key={event.id} 
-                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors" 
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-accent/5 cursor-pointer transition-colors" 
                   onClick={event.action}
                 >
-                  <div className={`p-1 rounded ${event.urgent ? 'bg-red-100' : 'bg-gray-100'}`}>
+                  <div className={`p-1 rounded ${event.urgent ? 'bg-destructive/10' : 'bg-muted'}`}>
                     {getEventIcon(event.type)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -539,22 +539,22 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         </Card>
 
         {/* إشعارات النظام */}
-        <Card className="lg:col-span-1 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+        <Card className="lg:col-span-1 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Bell className="h-5 w-5 text-[#009F87]" />
+              <Bell className="h-5 w-5 text-accent" />
               إشعارات النظام
               <Badge variant="secondary" className="ml-auto">
                 {notifications.length}
               </Badge>
             </CardTitle>
           </CardHeader>
-          <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+          <CardContent className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-8">
             <ScrollArea className="h-80">
               <div className="space-y-3">
                 {notifications.map((notification) => (
-                  <Alert key={notification.id} className={notification.urgent ? 'border-red-200 bg-red-50' : 'bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300'}>
-                    <div className="flex items-start gap-3 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-4">
+                  <Alert key={notification.id} className={notification.urgent ? 'border-destructive/30 bg-destructive/10' : 'bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300'}>
+                    <div className="flex items-start gap-3 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-4">
                       {getNotificationIcon(notification.type)}
                       <div className="flex-1 min-w-0">
                         <AlertTitle className="text-sm font-medium">
@@ -582,17 +582,17 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
         </Card>
 
         {/* الإجراءات السريعة */}
-        <Card className="lg:col-span-1 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+        <Card className="lg:col-span-1 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-[#009F87]" />
+              <Zap className="h-5 w-5 text-accent" />
               الإجراءات السريعة
             </CardTitle>
             <CardDescription>
               الوصول السريع للمهام الأكثر استخداماً
             </CardDescription>
           </CardHeader>
-          <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+          <CardContent className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-8">
             <div className="grid grid-cols-1 gap-3">
               {quickActions.map((action, index) => (
                 <Button
@@ -632,33 +632,33 @@ export const ComprehensiveDashboard: React.FC<DashboardProps> = ({ onNavigateToS
       </div>
 
       {/* تنبيهات الذكاء الاصطناعي */}
-      <Card className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+      <Card className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-800">
+          <CardTitle className="flex items-center gap-2 text-accent">
             <Bot className="h-6 w-6" />
             رؤى الذكاء الاصطناعي
           </CardTitle>
         </CardHeader>
-        <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
+        <CardContent className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent/50 animate-fade-in transition-all duration-300 p-8">
           <div className="grid md:grid-cols-3 gap-4">
-            <Alert className="border-green-200 bg-green-50">
-              <TrendingUp className="h-4 w-4 text-green-600" />
-              <AlertTitle className="text-green-800">اتجاه إيجابي</AlertTitle>
-              <AlertDescription className="text-green-700">
+            <Alert className="border-success/30 bg-success/10">
+              <TrendingUp className="h-4 w-4 text-success" />
+              <AlertTitle className="text-success-foreground">اتجاه إيجابي</AlertTitle>
+              <AlertDescription className="text-success-foreground/80">
                 معدل الحضور تحسن بنسبة 2.1% هذا الشهر
               </AlertDescription>
             </Alert>
-            <Alert className="border-orange-200 bg-orange-50">
-              <AlertTriangle className="h-4 w-4 text-orange-600" />
-              <AlertTitle className="text-orange-800">يحتاج انتباه</AlertTitle>
-              <AlertDescription className="text-orange-700">
+            <Alert className="border-warning/30 bg-warning/10">
+              <AlertTriangle className="h-4 w-4 text-warning" />
+              <AlertTitle className="text-warning-foreground">يحتاج انتباه</AlertTitle>
+              <AlertDescription className="text-warning-foreground/80">
                 12 عقد عمل ينتهي خلال الشهر القادم
               </AlertDescription>
             </Alert>
-            <Alert className="border-blue-200 bg-blue-50">
-              <Target className="h-4 w-4 text-blue-600" />
-              <AlertTitle className="text-blue-800">توصية</AlertTitle>
-              <AlertDescription className="text-blue-700">
+            <Alert className="border-accent/30 bg-accent/10">
+              <Target className="h-4 w-4 text-accent" />
+              <AlertTitle className="text-accent-foreground">توصية</AlertTitle>
+              <AlertDescription className="text-accent-foreground/80">
                 وقت مثالي لبدء برنامج تدريبي جديد
               </AlertDescription>
             </Alert>
