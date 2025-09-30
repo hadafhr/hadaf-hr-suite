@@ -63,10 +63,7 @@ export const ClientManagement: React.FC = () => {
         </div>
         <div className="flex items-center relative z-10">
           <div className="flex items-center space-x-3 space-x-reverse">
-            <div className="relative group">
-              <img src={headerLogo} alt="Buod HR" className="h-32 w-32 object-contain filter brightness-110 transition-all duration-300 hover:scale-105" />
-              <div className="absolute -inset-2 bg-gradient-to-r from-accent/40 to-accent/40 rounded-full blur-lg animate-pulse group-hover:animate-ping transition-all duration-300"></div>
-            </div>
+            <img src={headerLogo} alt="Buod HR" className="h-32 w-32 object-contain filter brightness-110" />
             <div className="flex flex-col">
               <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-muted-foreground to-accent/80 bg-clip-text text-transparent animate-fade-in">
                 {isArabic ? 'إدارة العملاء' : 'Client Management'}
