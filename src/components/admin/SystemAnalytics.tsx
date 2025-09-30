@@ -171,30 +171,18 @@ export const SystemAnalytics: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Analytics Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3 space-x-reverse">
+      <div className="text-center mb-6">
+        <div className="flex items-center justify-center space-x-3 space-x-reverse mb-2">
           <div className="p-3 rounded-lg bg-accent/10 border border-accent/20">
             <BarChart3 className="h-8 w-8 text-accent" />
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">
-              {isArabic ? 'تحليلات النظام المتقدمة' : 'Advanced System Analytics'}
-            </h2>
-            <p className="text-muted-foreground">
-              {isArabic ? 'رؤى شاملة ومؤشرات أداء في الوقت الفعلي' : 'Comprehensive insights and real-time performance metrics'}
-            </p>
-          </div>
+          <h2 className="text-2xl font-bold text-foreground">
+            {isArabic ? 'تحليلات النظام المتقدمة' : 'Advanced System Analytics'}
+          </h2>
         </div>
-        <div className="flex items-center space-x-2 space-x-reverse">
-          <Button variant="outline" size="sm">
-            <RefreshCw className="h-4 w-4 mr-2" />
-            {isArabic ? 'تحديث' : 'Refresh'}
-          </Button>
-          <Button variant="outline" size="sm">
-            <Eye className="h-4 w-4 mr-2" />
-            {isArabic ? 'عرض مفصل' : 'Detailed View'}
-          </Button>
-        </div>
+        <p className="text-muted-foreground">
+          {isArabic ? 'رؤى شاملة ومؤشرات أداء في الوقت الفعلي' : 'Comprehensive insights and real-time performance metrics'}
+        </p>
       </div>
 
       {/* Key Metrics Grid */}

@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowLeft, BarChart3, TrendingUp, Users, DollarSign } from 'lucide-react';
-import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import headerLogo from '@/assets/header-logo.png';
+import contentLogo from '@/assets/content-logo.png';
 import { useAuth } from '@/hooks/useAuth';
 import {
   DropdownMenu,
@@ -102,70 +103,95 @@ export const AdminAnalytics: React.FC = () => {
         </div>
       </div>
       
-      {/* Header */}
-      <header className="relative z-10 bg-card backdrop-blur-xl border-b border-border shadow-2xl h-24 flex items-center justify-between px-6">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-accent/10 to-accent/5"></div>
-        </div>
-        <div className="flex items-center relative z-10">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 text-foreground hover:bg-accent/20 transition-colors mr-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
-          </Button>
-          <div className="flex items-center space-x-2 space-x-reverse">
-            <div className="relative">
-              <BarChart3 className="h-8 w-8 text-accent animate-pulse" />
-              <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
+      {/* Professional Header */}
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-black/95 backdrop-blur-xl shadow-xl">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none"></div>
+        
+        <div className="container mx-auto px-6 h-20">
+          <div className="flex items-center justify-between h-full relative z-10">
+            {/* Right Section - Logo & Title */}
+            <div className="flex items-center gap-6">
+              <img 
+                src={headerLogo} 
+                alt="Buod HR" 
+                className="h-56 w-auto object-contain filter brightness-110 transition-transform hover:scale-105" 
+              />
+              <div className="hidden md:flex flex-col">
+                <h1 className="text-xl font-bold text-white">
+                  {isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics'}
+                </h1>
+                <p className="text-xs text-muted-foreground">
+                  {isArabic ? 'تحليلات متقدمة ومعلومات إحصائية' : 'Advanced Analytics & Statistics'}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <h1 className="text-2xl font-bold text-foreground">
-                {isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics'}
-              </h1>
-              <p className="text-sm text-muted-foreground animate-fade-in">
-                {isArabic ? 'تحليلات متقدمة ومعلومات إحصائية شاملة' : 'Advanced Analytics and Comprehensive Statistics'}
-              </p>
+
+            {/* Left Section - Actions */}
+            <div className="flex items-center gap-3">
+              {/* Back Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/admin-dashboard')}
+                className="hidden sm:flex items-center gap-2 border-border hover:bg-accent/20 hover:border-accent/50 transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden lg:inline">{isArabic ? 'لوحة التحكم' : 'Dashboard'}</span>
+              </Button>
+
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
+              {/* Profile Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="flex items-center gap-2 hover:bg-accent/20 transition-all"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center shadow-lg">
+                      <Crown className="h-4 w-4 text-black" />
+                    </div>
+                    <ChevronDown className="h-3 w-3 hidden sm:block" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-48 bg-black/95 backdrop-blur-xl border-border shadow-2xl"
+                >
+                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
+                    <User className="h-4 w-4 mr-2" />
+                    {isArabic ? 'الملف الشخصي' : 'Profile'}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
+                    <Settings className="h-4 w-4 mr-2" />
+                    {isArabic ? 'الإعدادات' : 'Settings'}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-border" />
+                  <DropdownMenuItem 
+                    onClick={handleLogout} 
+                    className="hover:bg-destructive/20 text-destructive cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تسجيل الخروج' : 'Logout'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
-        </div>
-
-        <div className="flex items-center space-x-4 space-x-reverse relative z-10">
-          <LanguageSwitcher />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-foreground hover:bg-accent/20">
-                <div className="w-8 h-8 bg-gradient-to-r from-accent to-accent rounded-full flex items-center justify-center">
-                  <Crown className="h-4 w-4 text-foreground" />
-                </div>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-background/90 backdrop-blur-xl border border-border text-foreground">
-              <DropdownMenuItem className="hover:bg-accent/20">
-                <User className="h-4 w-4 mr-2" />
-                {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-accent/20">
-                <Settings className="h-4 w-4 mr-2" />
-                {isArabic ? 'إعدادات النظام' : 'System Settings'}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border" />
-              <DropdownMenuItem onClick={handleLogout} className="hover:bg-accent/20">
-                <LogOut className="h-4 w-4 mr-2" />
-                {isArabic ? 'تسجيل الخروج' : 'Logout'}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-6">
         <div className="max-w-7xl mx-auto space-y-6">
+          {/* Content Logo */}
+          <div className="flex justify-center mb-8">
+            <img src={contentLogo} alt="Logo" className="h-32 w-32 object-contain" />
+          </div>
+          
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
