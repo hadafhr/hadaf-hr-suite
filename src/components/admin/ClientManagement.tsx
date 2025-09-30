@@ -353,26 +353,26 @@ export const ClientManagement: React.FC = () => {
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm" className="text-white hover:bg-[#008C6A]/20">
+                        <Button variant="ghost" size="sm" className="text-white hover:bg-accent/20">
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
-                        <DropdownMenuItem onClick={() => handleViewClient(client)} className="hover:bg-[#008C6A]/20">
+                      <DropdownMenuContent align="end" className="bg-background/90 backdrop-blur-xl border border-border text-foreground">
+                        <DropdownMenuItem onClick={() => handleViewClient(client)} className="hover:bg-accent/20">
                           <Eye className="h-4 w-4 mr-2" />
                           {isArabic ? 'عرض التفاصيل' : 'View Details'}
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="hover:bg-[#008C6A]/20">
+                        <DropdownMenuItem className="hover:bg-accent/20">
                           <Edit className="h-4 w-4 mr-2" />
                           {isArabic ? 'تعديل' : 'Edit'}
                         </DropdownMenuItem>
                         {client.status === 'active' ? (
-                          <DropdownMenuItem onClick={() => handleSuspendClient(client.id)} className="hover:bg-[#008C6A]/20">
+                          <DropdownMenuItem onClick={() => handleSuspendClient(client.id)} className="hover:bg-accent/20">
                             <AlertCircle className="h-4 w-4 mr-2" />
                             {isArabic ? 'تعليق' : 'Suspend'}
                           </DropdownMenuItem>
                         ) : (
-                          <DropdownMenuItem onClick={() => handleActivateClient(client.id)} className="hover:bg-[#008C6A]/20">
+                          <DropdownMenuItem onClick={() => handleActivateClient(client.id)} className="hover:bg-accent/20">
                             <CheckCircle className="h-4 w-4 mr-2" />
                             {isArabic ? 'تفعيل' : 'Activate'}
                           </DropdownMenuItem>
@@ -396,7 +396,7 @@ export const ClientManagement: React.FC = () => {
 
       {/* Client Details Dialog */}
       <Dialog open={isViewClientOpen} onOpenChange={setIsViewClientOpen}>
-        <DialogContent className="max-w-2xl bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+        <DialogContent className="max-w-2xl bg-background/90 backdrop-blur-xl border border-border text-foreground">
           <DialogHeader>
             <DialogTitle className="text-white">{isArabic ? 'تفاصيل العميل' : 'Client Details'}</DialogTitle>
           </DialogHeader>
@@ -445,7 +445,7 @@ export const ClientManagement: React.FC = () => {
 
       {/* Add Client Dialog */}
       <Dialog open={isAddClientOpen} onOpenChange={setIsAddClientOpen}>
-        <DialogContent className="max-w-2xl bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+        <DialogContent className="max-w-2xl bg-background/90 backdrop-blur-xl border border-border text-foreground">
           <DialogHeader>
             <DialogTitle className="text-white">{isArabic ? 'إضافة عميل جديد' : 'Add New Client'}</DialogTitle>
             <DialogDescription className="text-gray-300">
@@ -461,7 +461,7 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.name}
                 onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
                 placeholder={isArabic ? 'أدخل اسم الشركة' : 'Enter company name'}
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
             
@@ -472,7 +472,7 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.contact_person}
                 onChange={(e) => setNewClient({ ...newClient, contact_person: e.target.value })}
                 placeholder={isArabic ? 'أدخل اسم المسؤول' : 'Enter contact person name'}
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
             
@@ -484,7 +484,7 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.email}
                 onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
                 placeholder={isArabic ? 'أدخل البريد الإلكتروني' : 'Enter email address'}
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
             
@@ -495,7 +495,7 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.phone}
                 onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
                 placeholder={isArabic ? 'أدخل رقم الهاتف' : 'Enter phone number'}
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
             
@@ -507,17 +507,17 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.employees}
                 onChange={(e) => setNewClient({ ...newClient, employees: parseInt(e.target.value) || 0 })}
                 placeholder="0"
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
             
             <div>
               <Label htmlFor="plan" className="text-gray-300">{isArabic ? 'الخطة' : 'Plan'}</Label>
               <Select value={newClient.plan} onValueChange={(value: any) => setNewClient({ ...newClient, plan: value })}>
-                <SelectTrigger className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white">
+                <SelectTrigger className="border-border focus:border-accent bg-card text-foreground">
                   <SelectValue placeholder={isArabic ? 'اختر الخطة' : 'Select plan'} />
                 </SelectTrigger>
-                <SelectContent className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+                <SelectContent className="bg-background/90 backdrop-blur-xl border border-border text-foreground">
                   <SelectItem value="basic">{isArabic ? 'أساسي' : 'Basic'}</SelectItem>
                   <SelectItem value="professional">{isArabic ? 'احترافي' : 'Professional'}</SelectItem>
                   <SelectItem value="enterprise">{isArabic ? 'مؤسسي' : 'Enterprise'}</SelectItem>
@@ -533,7 +533,7 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.industry}
                 onChange={(e) => setNewClient({ ...newClient, industry: e.target.value })}
                 placeholder={isArabic ? 'أدخل مجال الشركة' : 'Enter company industry'}
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
             
@@ -545,7 +545,7 @@ export const ClientManagement: React.FC = () => {
                 value={newClient.monthly_revenue}
                 onChange={(e) => setNewClient({ ...newClient, monthly_revenue: parseFloat(e.target.value) || 0 })}
                 placeholder="0"
-                className="border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400"
+                className="border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -560,7 +560,7 @@ export const ClientManagement: React.FC = () => {
             </Button>
             <Button
               onClick={handleAddClient}
-              className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white"
+              className="bg-primary hover:bg-accent text-primary-foreground"
             >
               {isArabic ? 'إضافة العميل' : 'Add Client'}
             </Button>

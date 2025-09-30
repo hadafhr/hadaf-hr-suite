@@ -184,9 +184,9 @@
   }
   
   .glass-card {
-    background: var(--color-dark-card);
+    background: var(--color-card-dark);
     @apply backdrop-blur-sm border;
-    border-color: var(--color-gray-1);
+    border-color: var(--color-gray-border);
     box-shadow: 0 8px 32px rgba(177, 160, 134, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -197,8 +197,8 @@
   }
   
   .service-card {
-    background: var(--color-dark-card);
-    border: 1px solid var(--color-gray-1);
+    background: var(--color-card-dark);
+    border: 1px solid var(--color-gray-border);
     @apply rounded-xl p-6;
     color: var(--color-white);
     box-shadow: 0 8px 32px rgba(177, 160, 134, 0.1);
@@ -208,12 +208,12 @@
   .service-card:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 12px 48px rgba(177, 160, 134, 0.15);
-    border-color: var(--color-beige);
+    border-color: var(--color-hover);
   }
   
   .dashboard-card {
     background: var(--color-white);
-    border: 1px solid var(--color-gray-1);
+    border: 1px solid var(--color-gray-border);
     @apply rounded-xl p-6;
     color: var(--color-black);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -227,7 +227,7 @@
   
   .metric-card {
     background: var(--color-white);
-    border: 1px solid var(--color-gray-1);
+    border: 1px solid var(--color-gray-border);
     color: var(--color-black);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -249,7 +249,7 @@
   
   .btn-hero:hover {
     transform: scale(1.05);
-    background: var(--color-beige);
+    background: var(--color-hover);
     color: var(--color-black);
     box-shadow: 0 8px 24px rgba(177, 160, 134, 0.25);
   }
@@ -264,7 +264,7 @@
   }
   
   .btn-primary:hover {
-    background: var(--color-beige);
+    background: var(--color-hover);
     color: var(--color-black);
     transform: scale(1.02);
   }
@@ -278,7 +278,7 @@
   }
   
   .btn-secondary:hover {
-    background: var(--color-beige);
+    background: var(--color-hover);
     color: var(--color-black);
     transform: scale(1.02);
   }
@@ -289,7 +289,7 @@
   }
   
   .navigation-item:hover {
-    background: var(--color-beige);
+    background: var(--color-hover);
     color: var(--color-black);
   }
   
@@ -559,12 +559,12 @@
 /* 3D Effects and Workforce Management Styles */
 .workforce-container {
   @apply min-h-screen;
-  background: var(--color-beige);
+  background: var(--color-black);
 }
 
 .workforce-card {
   background: var(--color-white);
-  border: 1px solid var(--color-gray-1);
+  border: 1px solid var(--color-gray-border);
   @apply rounded-lg transition-all duration-300;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
@@ -582,7 +582,7 @@
 }
 
 .workforce-button:hover {
-  background: var(--color-beige);
+  background: var(--color-hover);
   color: var(--color-black);
   transform: scale(1.05);
   box-shadow: 0 4px 16px rgba(177, 160, 134, 0.15);
@@ -595,7 +595,7 @@
 }
 
 .workforce-button-primary:hover {
-  background: var(--color-beige);
+  background: var(--color-hover);
   color: var(--color-black);
   transform: scale(1.05);
 }
@@ -616,7 +616,7 @@
 
 .card-3d {
   background: var(--color-white);
-  border: 1px solid var(--color-gray-1);
+  border: 1px solid var(--color-gray-border);
   @apply rounded-lg transition-all duration-300;
   box-shadow: 0 8px 32px rgba(177, 160, 134, 0.1), 0 4px 16px rgba(177, 160, 134, 0.08);
 }
