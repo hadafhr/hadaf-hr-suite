@@ -190,11 +190,11 @@ export default function EmployeeServicesDepartment() {
   ];
 
   const requestTypeDistribution = [
-    { name: 'طلبات الإجازة', value: 35, color: '#3b82f6' },
-    { name: 'الشهادات', value: 25, color: '#10b981' },
-    { name: 'السلف والمقدمات', value: 20, color: '#f59e0b' },
-    { name: 'تحديث البيانات', value: 15, color: '#8b5cf6' },
-    { name: 'أخرى', value: 5, color: '#ef4444' }
+    { name: 'طلبات الإجازة', value: 35, color: 'hsl(var(--accent))' },
+    { name: 'الشهادات', value: 25, color: 'hsl(var(--success))' },
+    { name: 'السلف والمقدمات', value: 20, color: 'hsl(var(--warning))' },
+    { name: 'تحديث البيانات', value: 15, color: 'hsl(var(--primary))' },
+    { name: 'أخرى', value: 5, color: 'hsl(var(--destructive))' }
   ];
 
   // Statistics
@@ -248,11 +248,11 @@ export default function EmployeeServicesDepartment() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-green-100 text-green-800 border-green-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'in_review': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'rejected': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'approved': return 'bg-success/10 text-success border-success/30';
+      case 'pending': return 'bg-warning/10 text-warning border-warning/30';
+      case 'in_review': return 'bg-accent/10 text-accent border-accent/30';
+      case 'rejected': return 'bg-destructive/10 text-destructive border-destructive/30';
+      default: return 'bg-muted/10 text-muted-foreground border-muted/30';
     }
   };
 
@@ -267,39 +267,39 @@ export default function EmployeeServicesDepartment() {
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+    <div className="flex items-center justify-between mb-12 p-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent transition-all duration-300">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
+        <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent/20 hover:border-accent transition-all duration-300 bg-background/20 backdrop-blur-sm">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-[#008C6A]/30"></div>
+        <div className="h-8 w-px bg-border"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <Users className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
+          <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-2xl shadow-accent/30 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-transparent animate-pulse"></div>
+            <Users className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold text-foreground">
               نظام خدمات الموظفين المتطور
             </h1>
-            <p className="text-gray-300 text-lg">
+            <p className="text-muted-foreground text-lg">
               مركز شامل لجميع الخدمات والطلبات مع الذكاء الاصطناعي المتقدم
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-accent text-accent bg-accent/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
           <Users className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+        <Button className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
           <Download className="h-4 w-4 ml-2" />
           تصدير التقارير
         </Button>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsRequestDialogOpen(true)}>
+        <Button className="bg-secondary hover:bg-accent text-secondary-foreground shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsRequestDialogOpen(true)}>
           <Plus className="h-4 w-4 ml-2" />
           طلب جديد
         </Button>
@@ -323,62 +323,62 @@ export default function EmployeeServicesDepartment() {
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="border-l-4 border-l-warning">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">طلبات معلقة</p>
-                <p className="text-2xl font-bold text-orange-600">{stats.pendingRequests}</p>
+                <p className="text-2xl font-bold text-warning">{stats.pendingRequests}</p>
               </div>
-              <Clock className="h-8 w-8 text-orange-500/60" />
+              <Clock className="h-8 w-8 text-warning/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500">
+        <Card className="border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">طلبات موافق عليها</p>
-                <p className="text-2xl font-bold text-emerald-600">{stats.approvedRequests}</p>
+                <p className="text-2xl font-bold text-success">{stats.approvedRequests}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-emerald-500/60" />
+              <CheckCircle2 className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-accent">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">متوسط الرضا</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.avgSatisfaction}</p>
+                <p className="text-2xl font-bold text-accent">{stats.avgSatisfaction}</p>
               </div>
-              <Star className="h-8 w-8 text-blue-500/60" />
+              <Star className="h-8 w-8 text-accent/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="border-l-4 border-l-accent">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">وقت المعالجة</p>
-                <p className="text-2xl font-bold text-purple-600">{stats.avgProcessingTime}</p>
+                <p className="text-2xl font-bold text-accent">{stats.avgProcessingTime}</p>
               </div>
-              <Activity className="h-8 w-8 text-purple-500/60" />
+              <Activity className="h-8 w-8 text-accent/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">إجمالي الخدمات</p>
-                <p className="text-2xl font-bold text-green-600">{stats.totalServices}</p>
+                <p className="text-2xl font-bold text-success">{stats.totalServices}</p>
               </div>
-              <Award className="h-8 w-8 text-green-500/60" />
+              <Award className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
@@ -400,10 +400,10 @@ export default function EmployeeServicesDepartment() {
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="requests" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="certificates" stackId="2" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="profile" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
-                <Area type="monotone" dataKey="chat" stackId="4" stroke="#8b5cf6" fill="#8b5cf6" />
+                <Area type="monotone" dataKey="requests" stackId="1" stroke="hsl(var(--accent))" fill="hsl(var(--accent))" />
+                <Area type="monotone" dataKey="certificates" stackId="2" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
+                <Area type="monotone" dataKey="profile" stackId="3" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
+                <Area type="monotone" dataKey="chat" stackId="4" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
@@ -450,21 +450,21 @@ export default function EmployeeServicesDepartment() {
         <CardContent>
           <div className="space-y-4">
             {employeeRequests.slice(0, 5).map((request) => (
-              <div key={request.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+              <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/5 transition-colors">
                 <div className="flex items-center gap-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <FileText className="h-4 w-4 text-primary" />
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <FileText className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <h4 className="font-medium">{request.title}</h4>
-                    <p className="text-sm text-gray-600">{request.referenceNumber}</p>
+                    <h4 className="font-medium text-foreground">{request.title}</h4>
+                    <p className="text-sm text-muted-foreground">{request.referenceNumber}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <Badge className={getStatusColor(request.status)}>
                     {getStatusText(request.status)}
                   </Badge>
-                  <span className="text-sm text-gray-500">{request.submittedDate}</span>
+                  <span className="text-sm text-muted-foreground">{request.submittedDate}</span>
                 </div>
               </div>
             ))}
@@ -473,39 +473,39 @@ export default function EmployeeServicesDepartment() {
       </Card>
 
       {/* AI Insights */}
-      <Card className="border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-background">
+      <Card className="border-2 border-accent/20 bg-gradient-to-r from-accent/5 to-background">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
+            <Sparkles className="h-5 w-5 text-accent" />
             رؤى الذكاء الاصطناعي لخدمات الموظفين
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
+            <div className="p-4 rounded-lg bg-success/10 border border-success/30">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800">أداء ممتاز</span>
+                <CheckCircle2 className="h-4 w-4 text-success" />
+                <span className="text-sm font-semibold text-success">أداء ممتاز</span>
               </div>
-              <p className="text-sm text-emerald-700">
+              <p className="text-sm text-success-foreground">
                 تحسن ملحوظ في رضا الموظفين عن الخدمات المقدمة بنسبة 12%
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-orange-50 border border-orange-200">
+            <div className="p-4 rounded-lg bg-warning/10 border border-warning/30">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="text-sm font-semibold text-orange-800">تحسين مطلوب</span>
+                <AlertTriangle className="h-4 w-4 text-warning" />
+                <span className="text-sm font-semibold text-warning">تحسين مطلوب</span>
               </div>
-              <p className="text-sm text-orange-700">
+              <p className="text-sm text-warning-foreground">
                 يُنصح بتسريع معالجة طلبات الشهادات لتقليل وقت الانتظار
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+            <div className="p-4 rounded-lg bg-accent/10 border border-accent/30">
               <div className="flex items-center gap-2 mb-2">
-                <Target className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800">توقعات ذكية</span>
+                <Target className="h-4 w-4 text-accent" />
+                <span className="text-sm font-semibold text-accent">توقعات ذكية</span>
               </div>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-accent-foreground">
                 من المتوقع زيادة طلبات الإجازة بنسبة 20% خلال الشهر القادم
               </p>
             </div>
@@ -516,15 +516,15 @@ export default function EmployeeServicesDepartment() {
   );
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -532,45 +532,45 @@ export default function EmployeeServicesDepartment() {
       </div>
       
       {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
       
       <div className="relative z-10">
       {renderHeader()}
       
       <div className="container mx-auto p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
-          <TabsList className="grid w-full grid-cols-8 h-auto p-1 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl">
-            <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+          <TabsList className="grid w-full grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+            <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <BarChart3 className="h-4 w-4" />
               <span className="text-xs">لوحة التحكم</span>
             </TabsTrigger>
-            <TabsTrigger value="requests" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="requests" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <FileText className="h-4 w-4" />
               <span className="text-xs">طلبات الموظفين</span>
             </TabsTrigger>
-            <TabsTrigger value="profile" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="profile" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <User className="h-4 w-4" />
               <span className="text-xs">الملف الشخصي</span>
             </TabsTrigger>
-            <TabsTrigger value="documents" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="documents" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <Archive className="h-4 w-4" />
               <span className="text-xs">الوثائق والشهادات</span>
             </TabsTrigger>
-            <TabsTrigger value="selfservice" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="selfservice" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <UserCheck className="h-4 w-4" />
               <span className="text-xs">الخدمة الذاتية</span>
             </TabsTrigger>
-            <TabsTrigger value="chat" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="chat" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <MessageSquare className="h-4 w-4" />
               <span className="text-xs">الدردشة مع HR</span>
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <TrendingUp className="h-4 w-4" />
               <span className="text-xs">التقارير</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <Settings className="h-4 w-4" />
               <span className="text-xs">الإعدادات</span>
             </TabsTrigger>
@@ -583,70 +583,70 @@ export default function EmployeeServicesDepartment() {
           <TabsContent value="requests">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">طلبات الموظفين</h2>
-                <Button onClick={() => setIsRequestDialogOpen(true)} className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+                <h2 className="text-2xl font-bold text-foreground">طلبات الموظفين</h2>
+                <Button onClick={() => setIsRequestDialogOpen(true)} className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
                   <Plus className="h-4 w-4 ml-2" />
                   طلب جديد
                 </Button>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card/60 backdrop-blur-xl border border-border hover:border-accent shadow-2xl shadow-accent/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <Calendar className="h-8 w-8 text-blue-400 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2 text-white">طلب إجازة</h3>
-                    <p className="text-sm text-gray-300">إجازة سنوية، مرضية، طارئة</p>
+                    <Calendar className="h-8 w-8 text-accent mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-foreground">طلب إجازة</h3>
+                    <p className="text-sm text-muted-foreground">إجازة سنوية، مرضية، طارئة</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card/60 backdrop-blur-xl border border-border hover:border-accent shadow-2xl shadow-accent/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <FileText className="h-8 w-8 text-green-400 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2 text-white">شهادة راتب</h3>
-                    <p className="text-sm text-gray-300">للبنوك والجهات الرسمية</p>
+                    <FileText className="h-8 w-8 text-success mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-foreground">شهادة راتب</h3>
+                    <p className="text-sm text-muted-foreground">للبنوك والجهات الرسمية</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card/60 backdrop-blur-xl border border-border hover:border-accent shadow-2xl shadow-accent/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <Award className="h-8 w-8 text-purple-400 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2 text-white">شهادة خبرة</h3>
-                    <p className="text-sm text-gray-300">شهادة خبرة رسمية</p>
+                    <Award className="h-8 w-8 text-accent mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-foreground">شهادة خبرة</h3>
+                    <p className="text-sm text-muted-foreground">شهادة خبرة رسمية</p>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card/60 backdrop-blur-xl border border-border hover:border-accent shadow-2xl shadow-accent/10 transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6 text-center">
-                    <DollarSign className="h-8 w-8 text-orange-400 mx-auto mb-3" />
-                    <h3 className="font-semibold mb-2 text-white">سلفة أو مقدم</h3>
-                    <p className="text-sm text-gray-300">طلب سلفة على الراتب</p>
+                    <DollarSign className="h-8 w-8 text-warning mx-auto mb-3" />
+                    <h3 className="font-semibold mb-2 text-foreground">سلفة أو مقدم</h3>
+                    <p className="text-sm text-muted-foreground">طلب سلفة على الراتب</p>
                   </CardContent>
                 </Card>
               </div>
 
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+              <Card className="bg-card/60 backdrop-blur-xl border border-border hover:border-accent shadow-2xl shadow-accent/10 transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-white">سجل الطلبات</CardTitle>
+                  <CardTitle className="text-foreground">سجل الطلبات</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {employeeRequests.map((request) => (
-                      <div key={request.id} className="flex items-center justify-between p-4 border border-[#008C6A]/20 rounded-lg bg-black/20 backdrop-blur-sm">
+                      <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background/20 backdrop-blur-sm">
                         <div className="flex items-center gap-4">
-                          <div className="p-2 bg-[#008C6A]/20 rounded-lg">
-                            <FileText className="h-4 w-4 text-[#008C6A]" />
+                          <div className="p-2 bg-accent/20 rounded-lg">
+                            <FileText className="h-4 w-4 text-accent" />
                           </div>
                           <div>
-                            <h4 className="font-medium text-white">{request.title}</h4>
-                            <p className="text-sm text-gray-300">{request.description}</p>
-                            <p className="text-xs text-gray-400">{request.referenceNumber}</p>
+                            <h4 className="font-medium text-foreground">{request.title}</h4>
+                            <p className="text-sm text-muted-foreground">{request.description}</p>
+                            <p className="text-xs text-muted-foreground">{request.referenceNumber}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-4">
                           <Badge className={getStatusColor(request.status)}>
                             {getStatusText(request.status)}
                           </Badge>
-                          <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                          <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent/20 hover:border-accent">
                             <Eye className="h-4 w-4" />
                           </Button>
                         </div>
