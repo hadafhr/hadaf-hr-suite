@@ -200,22 +200,22 @@ export const SmartAttendanceSystem: React.FC = () => {
       present: {
         variant: 'default' as const,
         label: 'حاضر',
-        color: 'bg-green-500'
+        color: 'bg-success'
       },
       absent: {
         variant: 'destructive' as const,
         label: 'غائب',
-        color: 'bg-red-500'
+        color: 'bg-destructive'
       },
       late: {
         variant: 'secondary' as const,
         label: 'متأخر',
-        color: 'bg-yellow-500'
+        color: 'bg-warning'
       },
       early_leave: {
         variant: 'outline' as const,
         label: 'انصراف مبكر',
-        color: 'bg-orange-500'
+        color: 'bg-accent'
       }
     };
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.present;
@@ -243,32 +243,32 @@ export const SmartAttendanceSystem: React.FC = () => {
   return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic p-6" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div className="w-full h-full bg-repeat animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#000000" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
           backgroundSize: '60px 60px'
         }}></div>
         </div>
       </div>
       
       {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-primary/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-primary/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
       <div className="max-w-7xl mx-auto space-y-6 relative z-10">
         {/* Enhanced Professional Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-primary animate-fade-in transition-all duration-300">
+        <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-accent animate-fade-in transition-all duration-300">
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent hover:border-primary hover:text-accent-foreground transition-all duration-300 bg-card/20 backdrop-blur-sm">
+            <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-300 bg-card/20 backdrop-blur-sm">
               <Clock className="h-4 w-4 ml-2" />
               رجوع
             </Button>
             <div className="h-8 w-px bg-border"></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <Clock className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent animate-pulse"></div>
+                <Clock className="h-8 w-8 text-accent-foreground relative z-10 group-hover:scale-110 transition-transform" />
                 <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
               </div>
               <div>
@@ -282,15 +282,15 @@ export const SmartAttendanceSystem: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="border-border text-foreground bg-muted/50 backdrop-blur-sm px-4 py-2 text-sm font-medium">
               <Clock className="h-4 w-4 ml-2" />
               نظام متقدم
             </Badge>
-            <div className="p-4 bg-black/20 backdrop-blur-xl rounded-2xl shadow-2xl border border-[#008C6A]/30">
-              <div className="text-2xl font-bold text-[#008C6A] mb-1">
+            <div className="p-4 bg-card backdrop-blur-xl rounded-2xl shadow-2xl border border-border">
+              <div className="text-2xl font-bold text-accent mb-1">
                 {currentTime.toLocaleTimeString('ar-SA')}
               </div>
-              <div className="text-sm text-gray-300">
+              <div className="text-sm text-muted-foreground">
                 {currentTime.toLocaleDateString('ar-SA', {
                 weekday: 'long',
                 year: 'numeric',
@@ -304,33 +304,33 @@ export const SmartAttendanceSystem: React.FC = () => {
 
           {/* Tabs Navigation */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
-              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-card backdrop-blur-xl border border-border shadow-2xl">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <BarChart3 className="h-4 w-4" />
                 <span className="hidden sm:inline">لوحة التحكم</span>
               </TabsTrigger>
               
-              <TabsTrigger value="checkin" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="checkin" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <MapPin className="h-4 w-4" />
                 <span className="hidden sm:inline">GPS</span>
               </TabsTrigger>
-              <TabsTrigger value="live-tracking" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="live-tracking" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <Navigation className="h-4 w-4" />
                 <span className="hidden sm:inline">التتبع المباشر</span>
               </TabsTrigger>
-              <TabsTrigger value="devices" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="devices" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <Fingerprint className="h-4 w-4" />
                 <span className="hidden sm:inline">الأجهزة</span>
               </TabsTrigger>
-              <TabsTrigger value="schedule" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="schedule" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <Calendar className="h-4 w-4" />
                 <span className="hidden sm:inline">الجدولة</span>
               </TabsTrigger>
-              <TabsTrigger value="points-rewards" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="points-rewards" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <Star className="h-4 w-4" />
                 <span className="hidden sm:inline">النقاط</span>
               </TabsTrigger>
-              <TabsTrigger value="ai-insights" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="ai-insights" className="flex items-center gap-2 p-3 text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/20 transition-all duration-300">
                 <Brain className="h-4 w-4" />
                 <span className="hidden sm:inline">الذكاء الاصطناعي</span>
               </TabsTrigger>
@@ -340,50 +340,50 @@ export const SmartAttendanceSystem: React.FC = () => {
           <TabsContent value="dashboard" className="space-y-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-green-500">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-success">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-300">الحاضرين اليوم</p>
-                      <p className="text-2xl font-bold text-green-400">{stats.presentToday}</p>
+                      <p className="text-sm text-muted-foreground">الحاضرين اليوم</p>
+                      <p className="text-2xl font-bold text-success">{stats.presentToday}</p>
                     </div>
-                    <CheckCircle className="h-8 w-8 text-green-400" />
+                    <CheckCircle className="h-8 w-8 text-success" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-red-500">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-destructive">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-300">الغائبين</p>
-                      <p className="text-2xl font-bold text-red-400">{stats.absentToday}</p>
+                      <p className="text-sm text-muted-foreground">الغائبين</p>
+                      <p className="text-2xl font-bold text-destructive">{stats.absentToday}</p>
                     </div>
-                    <XCircle className="h-8 w-8 text-red-400" />
+                    <XCircle className="h-8 w-8 text-destructive" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-yellow-500">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-warning">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-300">المتأخرين</p>
-                      <p className="text-2xl font-bold text-yellow-400">{stats.lateToday}</p>
+                      <p className="text-sm text-muted-foreground">المتأخرين</p>
+                      <p className="text-2xl font-bold text-warning">{stats.lateToday}</p>
                     </div>
-                    <AlertCircle className="h-8 w-8 text-yellow-400" />
+                    <AlertCircle className="h-8 w-8 text-warning" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105 border-l-4 border-l-blue-500">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-accent">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-300">معدل الحضور</p>
-                      <p className="text-2xl font-bold text-blue-400">{Math.round(stats.attendanceRate)}%</p>
+                      <p className="text-sm text-muted-foreground">معدل الحضور</p>
+                      <p className="text-2xl font-bold text-accent">{Math.round(stats.attendanceRate)}%</p>
                     </div>
-                    <Users className="h-8 w-8 text-blue-400" />
+                    <Users className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
@@ -391,43 +391,43 @@ export const SmartAttendanceSystem: React.FC = () => {
 
             {/* Progress Indicators */}
             <div className="grid md:grid-cols-3 gap-6">
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-300">معدل الحضور الشهري</CardTitle>
+                  <CardTitle className="text-sm text-muted-foreground">معدل الحضور الشهري</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-[#008C6A] mb-2">{Math.round(stats.attendanceRate)}%</div>
+                  <div className="text-2xl font-bold text-accent mb-2">{Math.round(stats.attendanceRate)}%</div>
                   <Progress value={stats.attendanceRate} className="h-2" />
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-300">متوسط ساعات العمل</CardTitle>
+                  <CardTitle className="text-sm text-muted-foreground">متوسط ساعات العمل</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-[#008C6A] mb-2">{stats.avgWorkingHours.toFixed(1)}h</div>
+                  <div className="text-2xl font-bold text-accent mb-2">{stats.avgWorkingHours.toFixed(1)}h</div>
                   <Progress value={stats.avgWorkingHours / 9 * 100} className="h-2" />
                 </CardContent>
               </Card>
 
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-300">حالة الأجهزة</CardTitle>
+                  <CardTitle className="text-sm text-muted-foreground">حالة الأجهزة</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-400 mb-2">{stats.devicesOnline}/5</div>
+                  <div className="text-2xl font-bold text-success mb-2">{stats.devicesOnline}/5</div>
                   <Progress value={stats.devicesOnline / 5 * 100} className="h-2" />
                 </CardContent>
               </Card>
             </div>
 
             {/* Today's Attendance */}
-            <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+            <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-white">سجل حضور اليوم</CardTitle>
-                  <CardDescription className="text-gray-300">
+                  <CardTitle className="text-foreground">سجل حضور اليوم</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     {new Date().toLocaleDateString('ar-SA', {
                     weekday: 'long',
                     year: 'numeric',
@@ -449,14 +449,14 @@ export const SmartAttendanceSystem: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4 max-h-[400px] overflow-y-auto">
-                  {todayAttendance.length > 0 ? todayAttendance.map(record => <div key={record.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
+                  {todayAttendance.length > 0 ? todayAttendance.map(record => <div key={record.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition-colors">
                         <div className="flex items-center gap-4">
-                          <div className={`w-3 h-3 rounded-full ${record.status === 'present' ? 'bg-green-500' : record.status === 'late' ? 'bg-yellow-500' : 'bg-red-500'}`} />
-                          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                            <Users className="h-5 w-5 text-primary-foreground" />
+                          <div className={`w-3 h-3 rounded-full ${record.status === 'present' ? 'bg-success' : record.status === 'late' ? 'bg-warning' : 'bg-destructive'}`} />
+                          <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                            <Users className="h-5 w-5 text-accent-foreground" />
                           </div>
                           <div>
-                            <p className="font-medium">{record.employee_name || 'غير معروف'}</p>
+                            <p className="font-medium text-foreground">{record.employee_name || 'غير معروف'}</p>
                             <p className="text-sm text-muted-foreground">{record.department}</p>
                           </div>
                         </div>
