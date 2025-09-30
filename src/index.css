@@ -6,40 +6,40 @@
 
 @layer base {
   :root {
-    /* Pure Black Background & White Text Theme */
-    --background: 0 0% 0%;           /* #000000 - Pure Black */
-    --foreground: 0 0% 100%;         /* #FFFFFF - Pure White */
+    /* New Elegant Color Palette - Royal Black & Sandy Beige Theme */
+    --background: 36 24% 61%;           /* #b1a086 - Sandy Beige Main Background */
+    --foreground: 0 0% 0%;              /* #000000 - Royal Black for primary text */
     
-    /* Cards & Components - Black Backgrounds */
-    --card: 0 0% 0%;                 /* #000000 - Black for cards */
-    --card-foreground: 0 0% 100%;    /* White text */
+    /* Cards & Components - White Backgrounds */
+    --card: 0 0% 100%;                  /* #ffffff - White for cards */
+    --card-foreground: 0 0% 0%;         /* #000000 - Black text on cards */
     
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;               /* #ffffff - White popover */
+    --popover-foreground: 0 0% 0%;      /* #000000 - Black text */
     
-    /* Primary Buttons - Black with White Text */
-    --primary: 0 0% 0%;              /* #000000 - Black for primary buttons */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF - White text */
-    --primary-glow: 0 0% 90%;        /* Light gray for glow effects */
-    --primary-dark: 0 0% 10%;        /* #1A1A1A - Dark Gray for hover */
+    /* Primary Buttons - Royal Black with White Text */
+    --primary: 0 0% 0%;                 /* #000000 - Royal Black for primary buttons */
+    --primary-foreground: 0 0% 100%;    /* #ffffff - White text */
+    --primary-glow: 0 3% 80%;           /* #cfcbcb - Light gray for glow effects */
+    --primary-dark: 0 3% 80%;           /* #cfcbcb - Light gray for hover */
     
     /* Text Colors */
-    --text-primary: 0 0% 100%;       /* White for main headings */
-    --text-secondary: 0 0% 90%;      /* 90% white opacity for general text */
-    --text-tertiary: 0 0% 88%;       /* #E0E0E0 - Light gray for subheadings */
+    --text-primary: 0 0% 0%;            /* #000000 - Black for main headings */
+    --text-secondary: 30 17% 89%;       /* #e8e4e0 - Light gray for secondary text */
+    --text-tertiary: 30 17% 89%;        /* #e8e4e0 - Light gray for subheadings */
     
-    /* Secondary Elements - Dark Gray */
-    --muted: 0 0% 10%;               /* #1A1A1A - Dark gray borders */
-    --muted-foreground: 0 0% 88%;    /* #E0E0E0 - Light gray for secondary text */
+    /* Secondary Elements - Light Gray */
+    --muted: 0 3% 80%;                  /* #cfcbcb - Light gray borders */
+    --muted-foreground: 30 17% 89%;     /* #e8e4e0 - Light gray for secondary text */
     
-    /* Secondary Buttons - Black with transparency */
-    --secondary: 0 0% 0%;            /* Black background */
-    --secondary-foreground: 0 0% 100%; /* White text */
-    --secondary-opacity: rgba(0, 0, 0, 0.8); /* 80% opacity black */
+    /* Secondary Buttons - White with Black text */
+    --secondary: 0 0% 100%;             /* #ffffff - White background */
+    --secondary-foreground: 0 0% 0%;    /* #000000 - Black text */
+    --secondary-opacity: rgba(255, 255, 255, 0.95); /* 95% opacity white */
     
-    /* Accent Colors */
-    --accent: 0 0% 10%;              /* #1A1A1A - Dark gray */
-    --accent-foreground: 0 0% 100%;
+    /* Accent Colors - Light Gray for hover states */
+    --accent: 0 3% 80%;                 /* #cfcbcb - Light gray for hover */
+    --accent-foreground: 0 0% 0%;       /* #000000 - Black text on hover */
 
     /* ألوان الحالة - مع تدرجات للرسوم البيانية */
     --success: 145 63% 49%;          /* #2ECC71 - أخضر للرسوم البيانية */
@@ -52,22 +52,22 @@
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 0 0% 10%;              /* #1A1A1A - Dark gray borders */
-    --input: 0 0% 0%;                /* Black input backgrounds */
-    --ring: 0 0% 100%;               /* White focus rings */
+    --border: 0 3% 80%;              /* #cfcbcb - Light gray borders */
+    --input: 0 0% 100%;              /* #ffffff - White input backgrounds */
+    --ring: 0 0% 0%;                 /* #000000 - Black focus rings */
 
-    /* Dark Theme Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 0% 0%), hsl(0 0% 10%));
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 5%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 0%) 0%, hsl(0 0% 5%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 5%) 100%);
+    /* Elegant Beige Theme Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(36 24% 61%), hsl(36 24% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(36 24% 61%) 0%, hsl(36 24% 58%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(36 24% 61%) 0%, hsl(36 24% 58%) 100%);
     
-    /* 3D Shadows and Effects */
-    --shadow-3d: 0 8px 32px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.6);
-    --shadow-hover: 0 12px 48px rgba(224, 224, 224, 0.1);
-    --shadow-glow: 0 0 20px rgba(224, 224, 224, 0.05);
-    --shadow-card: 0 4px 12px rgba(224, 224, 224, 0.08);
-    --shadow-button: 0 2px 8px rgba(224, 224, 224, 0.1);
+    /* 3D Shadows and Effects - Softer for light theme */
+    --shadow-3d: 0 8px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 20px rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.12);
 
     /* متغيرات التحريك المحسنة */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,41 +76,41 @@
 
     --radius: 12px;
 
-    /* Sidebar - Pure Black Theme */
+    /* Sidebar - Royal Black Theme */
     --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
     --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 10%;
-    --sidebar-ring: 0 0% 100%;
+    --sidebar-accent: 0 3% 80%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 3% 80%;
+    --sidebar-ring: 0 0% 0%;
   }
 
   .dark {
-    /* Same Pure Black Theme - Unified Application */
-    --background: 0 0% 0%;           /* #000000 - Pure Black */
-    --foreground: 0 0% 100%;         /* #FFFFFF - Pure White */
+    /* Same Elegant Theme - Unified Application */
+    --background: 36 24% 61%;           /* #b1a086 - Sandy Beige */
+    --foreground: 0 0% 0%;              /* #000000 - Royal Black */
 
-    --card: 0 0% 0%;                 /* Black for cards */
-    --card-foreground: 0 0% 100%;    /* White text */
+    --card: 0 0% 100%;                  /* #ffffff - White for cards */
+    --card-foreground: 0 0% 0%;         /* #000000 - Black text */
 
-    --popover: 0 0% 0%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 0 0% 0%;              /* Black for primary buttons */
-    --primary-foreground: 0 0% 100%; /* White text */
-    --primary-glow: 0 0% 90%;
-    --primary-dark: 0 0% 10%;        /* #1A1A1A for hover */
+    --primary: 0 0% 0%;                 /* #000000 - Royal Black */
+    --primary-foreground: 0 0% 100%;    /* #ffffff - White text */
+    --primary-glow: 0 3% 80%;
+    --primary-dark: 0 3% 80%;           /* #cfcbcb for hover */
 
-    --secondary: 0 0% 0%;            /* Black background */
-    --secondary-foreground: 0 0% 100%; /* White text */
+    --secondary: 0 0% 100%;             /* #ffffff - White background */
+    --secondary-foreground: 0 0% 0%;    /* #000000 - Black text */
 
-    --muted: 0 0% 10%;               /* #1A1A1A - Dark gray borders */
-    --muted-foreground: 0 0% 88%;    /* #E0E0E0 - Light gray text */
+    --muted: 0 3% 80%;                  /* #cfcbcb - Light gray borders */
+    --muted-foreground: 30 17% 89%;     /* #e8e4e0 - Light gray text */
 
-    --accent: 0 0% 10%;              /* #1A1A1A - Dark gray */
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 3% 80%;                 /* #cfcbcb - Light gray */
+    --accent-foreground: 0 0% 0%;       /* #000000 - Black text */
 
     --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
@@ -121,19 +121,19 @@
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 0%;
 
-    --border: 0 0% 10%;              /* #1A1A1A - Dark gray borders */
-    --input: 0 0% 0%;                /* Black inputs */
-    --ring: 0 0% 100%;               /* White focus rings */
+    --border: 0 3% 80%;              /* #cfcbcb - Light gray borders */
+    --input: 0 0% 100%;              /* #ffffff - White inputs */
+    --ring: 0 0% 0%;                 /* #000000 - Black focus rings */
     
     /* Sidebar */
     --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
     --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 10%;
-    --sidebar-ring: 0 0% 100%;
+    --sidebar-accent: 0 3% 80%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 3% 80%;
+    --sidebar-ring: 0 0% 0%;
   }
 }
 
@@ -143,108 +143,140 @@
   }
 
   body {
-    @apply bg-black text-white font-sans antialiased;
+    background: #b1a086;
+    color: #000000;
+    @apply font-sans antialiased;
     direction: rtl;
   }
   
-  /* Force dark theme application */
+  /* Force elegant beige theme application */
   html {
-    @apply bg-black;
+    background: #b1a086;
   }
   
-  /* Ensure all containers inherit dark theme */
+  /* Ensure all containers inherit elegant theme */
   .min-h-screen, .container, .w-full {
-    @apply bg-black text-white;
+    background: #b1a086;
+    color: #000000;
   }
 }
 
 @layer components {
-  /* Dark Theme Component Styles */
+  /* Elegant Beige Theme Component Styles */
   .hero-section {
-    @apply bg-black text-white;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+    background: #b1a086;
+    color: #000000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   }
   
   .glass-card {
-    @apply bg-black/90 backdrop-blur-sm border border-gray-700;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+    background: #ffffff;
+    @apply backdrop-blur-sm border;
+    border-color: #cfcbcb;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .glass-card:hover {
-    box-shadow: 0 12px 48px rgba(224, 224, 224, 0.1);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px) scale(1.02);
   }
   
   .service-card {
-    @apply bg-black border border-gray-700 rounded-xl p-6 text-white;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid #cfcbcb;
+    @apply rounded-xl p-6;
+    color: #000000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .service-card:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 12px 48px rgba(224, 224, 224, 0.1);
-    border-color: #E0E0E0;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+    border-color: #000000;
   }
   
   .dashboard-card {
-    @apply bg-black border border-gray-700 rounded-xl p-6 text-white;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid #cfcbcb;
+    @apply rounded-xl p-6;
+    color: #000000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .dashboard-card:hover {
-    box-shadow: 0 12px 48px rgba(224, 224, 224, 0.1);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
     transform: scale(1.02);
   }
   
   .metric-card {
-    @apply bg-black border border-gray-700 text-white;
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid #cfcbcb;
+    color: #000000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .metric-card:hover {
-    box-shadow: 0 12px 48px rgba(224, 224, 224, 0.1);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
   }
   
   .btn-hero {
-    @apply bg-black text-white font-semibold px-8 py-3 rounded-xl border border-gray-700;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    background: #000000;
+    color: #ffffff;
+    @apply font-semibold px-8 py-3 rounded-xl border;
+    border-color: #000000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-hero:hover {
     transform: scale(1.05);
-    background: #1A1A1A;
-    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+    background: #cfcbcb;
+    color: #000000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   }
   
   .btn-primary {
-    @apply bg-black text-white font-medium px-6 py-2.5 rounded-lg border border-gray-700;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    background: #000000;
+    color: #ffffff;
+    @apply font-medium px-6 py-2.5 rounded-lg border;
+    border-color: #000000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-primary:hover {
-    background: #1A1A1A;
+    background: #cfcbcb;
+    color: #000000;
     transform: scale(1.02);
   }
   
   .btn-secondary {
-    @apply bg-black/80 text-white border border-gray-700 font-medium px-6 py-2.5 rounded-lg;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    @apply font-medium px-6 py-2.5 rounded-lg;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-secondary:hover {
-    background: #1A1A1A;
+    background: #cfcbcb;
+    color: #000000;
     transform: scale(1.02);
   }
   
   .navigation-item {
-    @apply px-4 py-2 rounded-lg text-white hover:text-gray-300 font-medium transition-all duration-300;
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-300;
+    color: #000000;
+  }
+  
+  .navigation-item:hover {
+    background: #cfcbcb;
+    color: #000000;
   }
   
   /* تأثيرات التحريك */
@@ -513,44 +545,55 @@
 /* 3D Effects and Workforce Management Styles */
 .workforce-container {
   @apply min-h-screen;
-  background: #000000;
+  background: #b1a086;
 }
 
 .workforce-card {
-  @apply bg-black border border-gray-800 rounded-lg transition-all duration-300;
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
+  background: #ffffff;
+  border: 1px solid #cfcbcb;
+  @apply rounded-lg transition-all duration-300;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .workforce-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 12px 32px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15), 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 .workforce-button {
-  @apply bg-black text-white border border-gray-700 rounded-md px-4 py-2 transition-all duration-300;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  @apply rounded-md px-4 py-2 transition-all duration-300;
 }
 
 .workforce-button:hover {
-  @apply bg-gray-900 scale-105;
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+  background: #cfcbcb;
+  color: #000000;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .workforce-button-primary {
-  @apply bg-white text-black border-none rounded-md px-4 py-2 transition-all duration-300;
+  background: #000000;
+  color: #ffffff;
+  @apply border-none rounded-md px-4 py-2 transition-all duration-300;
 }
 
 .workforce-button-primary:hover {
-  @apply bg-gray-100 scale-105;
+  background: #cfcbcb;
+  color: #000000;
+  transform: scale(1.05);
 }
 
 .btn-3d {
   @apply transition-all duration-300 transform;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-3d:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .btn-3d:active {
@@ -558,13 +601,15 @@
 }
 
 .card-3d {
-  @apply bg-black border border-gray-800 rounded-lg transition-all duration-300;
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(255, 255, 255, 0.05);
+  background: #ffffff;
+  border: 1px solid #cfcbcb;
+  @apply rounded-lg transition-all duration-300;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .card-3d:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 0 32px rgba(255, 255, 255, 0.15), 0 16px 48px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 32px rgba(0, 0, 0, 0.15), 0 16px 48px rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================
