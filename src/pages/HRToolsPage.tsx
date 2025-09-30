@@ -318,14 +318,14 @@ const HRToolsPage: React.FC = () => {
         </div>
         
         {/* Floating Elements for Professional Look */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
         
         {/* Enhanced Hero Section */}
         <div className="text-center mb-12 relative">
           {/* Floating background elements */}
-          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-accent/30 to-transparent blur-sm"></div>
           
           <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <img 
@@ -333,59 +333,59 @@ const HRToolsPage: React.FC = () => {
               alt="شعار بُعد" 
               className="h-36 w-36 object-contain transition-all duration-300 group-hover:brightness-110 z-10 relative drop-shadow-2xl" 
             />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           
-          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+          <h2 className="text-5xl font-bold mb-8 text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent leading-tight">
             {isArabic ? 'حزمة أدوات الموارد البشرية السعودية' : 'Saudi HR Tools Suite'}
           </h2>
           
           <div className="relative max-w-3xl mx-auto">
-            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+            <p className="text-muted-foreground text-lg leading-relaxed bg-card/20 backdrop-blur-sm p-6 rounded-2xl border border-border shadow-xl">
               {isArabic 
                 ? 'نمنحك أدوات ذكية تُنجز المهام الروتينية بسرعة، لتتفرغ لعمل يُحدث الفرق - معتمدة وفقاً لأنظمة المملكة العربية السعودية'
                 : 'Smart tools that handle routine tasks quickly, so you can focus on work that makes a difference - Certified according to Saudi Arabia regulations'
               }
             </p>
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#008C6A]/20 via-transparent to-[#008C6A]/20 rounded-2xl blur opacity-50"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 rounded-2xl blur opacity-50"></div>
           </div>
         </div>
 
         {/* Enhanced Calculator Search & Filter Section */}
         <div className="max-w-6xl mx-auto mb-12">
-          <Card className="bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <CardTitle className="flex items-center gap-2 text-white relative z-10">
+          <Card className="bg-card/60 backdrop-blur-xl shadow-2xl border border-border hover:border-accent transition-all duration-300">
+            <CardHeader className="bg-primary text-primary-foreground rounded-t-lg relative overflow-hidden">
+              <div className="absolute inset-0 bg-background/10"></div>
+              <CardTitle className="flex items-center gap-2 text-primary-foreground relative z-10">
                 <Search className="h-5 w-5 animate-pulse" />
                 {isArabic ? 'البحث والتصفية' : 'Search & Filter'}
               </CardTitle>
-              <CardDescription className="text-white/90 relative z-10">
+              <CardDescription className="text-primary-foreground/90 relative z-10">
                 {isArabic 
                   ? 'ابحث عن الأداة المناسبة لاحتياجاتك'
                   : 'Find the right tool for your needs'
                 }
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6 p-6 bg-gray-900/40">
+            <CardContent className="space-y-6 p-6 bg-card/40">
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     placeholder={isArabic ? 'ابحث عن الأدوات...' : 'Search tools...'}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 pr-10"
+                    className="bg-card/50 border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent/50 hover:border-accent/70 transition-all duration-200 pr-10"
                   />
                 </div>
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-full md:w-48 bg-black/50 border-[#008C6A]/40 text-white focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200">
+                  <SelectTrigger className="w-full md:w-48 bg-card/50 border-border text-foreground focus:border-accent focus:ring-accent/50 hover:border-accent/70 transition-all duration-200">
                     <Filter className="h-4 w-4 ml-2" />
-                    <SelectValue className="text-gray-400" />
+                    <SelectValue className="text-muted-foreground" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-900 border-[#008C6A]/40">
+                  <SelectContent className="bg-card border-border">
                     {categories.map(category => (
-                      <SelectItem key={category.value} value={category.value} className="text-white hover:bg-[#008C6A]/20 focus:bg-[#008C6A]/30">
+                      <SelectItem key={category.value} value={category.value} className="text-foreground hover:bg-accent/20 focus:bg-accent/30">
                         {category.label}
                       </SelectItem>
                     ))}
@@ -395,14 +395,14 @@ const HRToolsPage: React.FC = () => {
 
               {/* Enhanced Quick Access */}
               <div className="flex flex-wrap gap-4 justify-center">
-                <div className="flex items-center gap-2 text-sm text-gray-300">
-                  <TrendingUp className="h-4 w-4 text-[#008C6A]" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <TrendingUp className="h-4 w-4 text-accent" />
                   <span>{isArabic ? 'شائعة:' : 'Popular:'}</span>
                   {popularTools.slice(0, 2).map(tool => (
                     <Badge 
                       key={tool.slug} 
                       variant="secondary" 
-                      className="cursor-pointer bg-[#008C6A]/20 hover:bg-[#008C6A] hover:text-white transition-all duration-300 border border-[#008C6A]/30 hover:border-[#008C6A] hover:scale-105"
+                      className="cursor-pointer bg-accent/20 hover:bg-accent hover:text-accent-foreground transition-all duration-300 border border-accent/30 hover:border-accent hover:scale-105"
                       onClick={() => navigate(tool.route)}
                     >
                       {tool.title}
@@ -418,29 +418,29 @@ const HRToolsPage: React.FC = () => {
         <div className="max-w-6xl mx-auto mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredTools.map((tool, index) => (
-              <Card key={tool.slug} className="group bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[#008C6A]/20">
-                <CardHeader className="bg-gradient-to-r from-[#008C6A]/20 via-[#009F87]/20 to-[#00694F]/20 border-b border-[#008C6A]/30 pb-4">
+              <Card key={tool.slug} className="group bg-card/60 backdrop-blur-xl shadow-2xl border border-border hover:border-accent transition-all duration-300 hover:-translate-y-1 hover:shadow-accent/20">
+                <CardHeader className="bg-accent/20 border-b border-border pb-4">
                   <div className="flex items-start justify-between mb-3">
-                    <div className="p-3 bg-[#008C6A]/20 rounded-xl group-hover:bg-[#008C6A]/30 transition-all duration-300 border border-[#008C6A]/30 hover:border-[#008C6A]/50">
-                      <tool.icon className="h-6 w-6 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
+                    <div className="p-3 bg-accent/20 rounded-xl group-hover:bg-accent/30 transition-all duration-300 border border-accent/30 hover:border-accent/50">
+                      <tool.icon className="h-6 w-6 text-accent group-hover:text-accent-foreground transition-colors duration-300" />
                     </div>
                     {tool.badge && (
-                      <Badge variant="secondary" className="text-xs bg-[#008C6A]/30 text-white border border-[#008C6A]/50 animate-pulse">
+                      <Badge variant="secondary" className="text-xs bg-accent/30 text-accent-foreground border border-accent/50 animate-pulse">
                         {tool.badge}
                       </Badge>
                     )}
                   </div>
-                  <CardTitle className="text-lg text-white group-hover:text-[#008C6A] transition-colors duration-300">
+                  <CardTitle className="text-lg text-foreground group-hover:text-accent transition-colors duration-300">
                     {tool.title}
                   </CardTitle>
-                  <CardDescription className="text-sm text-gray-300">
+                  <CardDescription className="text-sm text-muted-foreground">
                     {tool.subtitle}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="pt-4 bg-gray-900/40">
+                <CardContent className="pt-4 bg-card/40">
                   <div className="flex flex-wrap gap-1 mb-4">
                     {tool.tags.slice(0, 3).map(tag => (
-                      <Badge key={tag} variant="outline" className="text-xs bg-black/40 text-gray-300 border-[#008C6A]/30 hover:border-[#008C6A]/50 hover:bg-[#008C6A]/20 transition-all duration-200">
+                      <Badge key={tag} variant="outline" className="text-xs bg-card/40 text-muted-foreground border-border hover:border-accent hover:bg-accent/20 transition-all duration-200">
                         {tag}
                       </Badge>
                     ))}
@@ -448,7 +448,7 @@ const HRToolsPage: React.FC = () => {
                   <div className="flex gap-2">
                     <Button 
                       size="sm" 
-                      className="flex-1 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-[#008C6A]/30"
+                      className="flex-1 bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-accent/30"
                       onClick={() => navigate(tool.route)}
                     >
                       {isArabic ? 'افتح الأداة' : 'Open Tool'}
@@ -456,7 +456,7 @@ const HRToolsPage: React.FC = () => {
                     <Button 
                       size="sm" 
                       variant="outline"
-                      className="bg-black/40 border-[#008C6A]/40 text-gray-300 hover:border-[#008C6A] hover:bg-[#008C6A]/20 hover:text-white transition-all duration-300"
+                      className="bg-card/40 border-border text-muted-foreground hover:border-accent hover:bg-accent/20 hover:text-accent-foreground transition-all duration-300"
                       onClick={() => {
                         toast({
                           title: isArabic ? "دليل الاستخدام" : "User Guide",
@@ -476,14 +476,14 @@ const HRToolsPage: React.FC = () => {
 
           {filteredTools.length === 0 && (
             <div className="text-center py-12">
-              <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 bg-gray-900/60 border border-[#008C6A]/30">
-                <Search className="h-12 w-12 text-[#008C6A] animate-pulse" />
-                <div className="absolute inset-0 rounded-full bg-[#008C6A]/10 animate-ping"></div>
+              <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 bg-card/60 border border-border">
+                <Search className="h-12 w-12 text-accent animate-pulse" />
+                <div className="absolute inset-0 rounded-full bg-accent/10 animate-ping"></div>
               </div>
-              <p className="text-gray-300 text-lg">
+              <p className="text-muted-foreground text-lg">
                 {isArabic ? 'لم يتم العثور على أدوات مطابقة لبحثك' : 'No matching tools found for your search'}
               </p>
-              <p className="text-gray-400 text-sm mt-2">
+              <p className="text-muted-foreground text-sm mt-2">
                 {isArabic ? 'جرب تغيير مصطلحات البحث أو الفئة' : 'Try changing search terms or category'}
               </p>
             </div>
@@ -491,38 +491,38 @@ const HRToolsPage: React.FC = () => {
         </div>
 
         {/* Enhanced Suggestion Form */}
-        <Card className="max-w-4xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
-          <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-black/10"></div>
-            <CardTitle className="flex items-center gap-2 text-white relative z-10">
+        <Card className="max-w-4xl mx-auto mb-12 bg-card/60 backdrop-blur-xl shadow-2xl border border-border hover:border-accent transition-all duration-300">
+          <CardHeader className="bg-primary text-primary-foreground rounded-t-lg relative overflow-hidden">
+            <div className="absolute inset-0 bg-background/10"></div>
+            <CardTitle className="flex items-center gap-2 text-primary-foreground relative z-10">
               <FileText className="h-5 w-5 animate-pulse" />
               {isArabic ? 'اقترح الأداة التالية' : 'Suggest the Next Tool'}
             </CardTitle>
-            <CardDescription className="text-white/90 relative z-10">
+            <CardDescription className="text-primary-foreground/90 relative z-10">
               {isArabic 
                 ? 'شاركنا أفكارك لأدوات جديدة تساعد في تطوير بيئة العمل'
                 : 'Share your ideas for new tools that help improve the work environment'
               }
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6 p-6 bg-gray-900/40">
+          <CardContent className="space-y-6 p-6 bg-card/40">
             <form onSubmit={handleSuggestionSubmit} className="space-y-4">
               <div className="space-y-2">
-                <label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                <label className="text-foreground font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   {isArabic ? 'عنوان الأداة المقترحة *' : 'Suggested Tool Title *'}
                 </label>
                 <Input
                   placeholder={isArabic ? 'حاسبة المكافآت التحفيزية' : 'Incentive Bonus Calculator'}
                   value={suggestionForm.title}
                   onChange={(e) => setSuggestionForm(prev => ({ ...prev, title: e.target.value }))}
-                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                  className="bg-card/50 border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent/50 hover:border-accent/70 transition-all duration-200"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                <label className="text-foreground font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   {isArabic ? 'بريدك الإلكتروني *' : 'Your Email *'}
                 </label>
                 <Input
@@ -530,17 +530,17 @@ const HRToolsPage: React.FC = () => {
                   placeholder={isArabic ? 'example@company.com' : 'example@company.com'}
                   value={suggestionForm.email}
                   onChange={(e) => setSuggestionForm(prev => ({ ...prev, email: e.target.value }))}
-                  className="bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                  className="bg-card/50 border-border text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent/50 hover:border-accent/70 transition-all duration-200"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                <label className="text-foreground font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
                   {isArabic ? 'وصف مفصل للأداة *' : 'Detailed Tool Description *'}
                 </label>
                 <textarea
-                  className="w-full p-3 rounded-md border border-[#008C6A]/40 bg-black/50 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200 resize-none"
+                  className="w-full p-3 rounded-md border border-border bg-card/50 text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-accent/50 hover:border-accent/70 transition-all duration-200 resize-none"
                   rows={4}
                   placeholder={isArabic ? 'وصف مفصل للأداة وكيف ستساعد في العمل وما هي الحسابات أو الوظائف المطلوبة...' : 'Detailed description of the tool and how it will help at work and what calculations or functions are needed...'}
                   value={suggestionForm.description}
@@ -550,25 +550,25 @@ const HRToolsPage: React.FC = () => {
               </div>
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold py-4 rounded-lg transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden"
+                className="w-full bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground font-bold py-4 rounded-lg transition-all duration-300 hover:scale-105 shadow-2xl shadow-accent/30 relative overflow-hidden"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   <FileText className="h-5 w-5" />
                   {isArabic ? 'إرسال الاقتراح' : 'Send Suggestion'}
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/20 to-transparent -skew-x-12 animate-pulse"></div>
               </Button>
             </form>
           </CardContent>
         </Card>
 
         {/* Enhanced Call-to-Action Section */}
-        <Card className="max-w-4xl mx-auto mb-12 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300">
-          <CardContent className="p-8 text-center bg-gray-900/40">
-            <h2 className="text-3xl font-bold text-white mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+        <Card className="max-w-4xl mx-auto mb-12 bg-card/60 backdrop-blur-xl shadow-2xl border border-border hover:border-accent transition-all duration-300">
+          <CardContent className="p-8 text-center bg-card/40">
+            <h2 className="text-3xl font-bold text-foreground mb-6 bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent">
               {isArabic ? 'جرب النظام الكامل' : 'Try the Complete System'}
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-muted-foreground mb-8">
               {isArabic 
                 ? 'اكتشف كيف يمكن لنظام بُعد الشامل أن يُحدث نقلة نوعية في إدارة الموارد البشرية'
                 : 'Discover how the comprehensive Buod system can revolutionize your HR management'
@@ -578,7 +578,7 @@ const HRToolsPage: React.FC = () => {
               <Button 
                 size="lg" 
                 onClick={() => navigate('/demo-request')}
-                className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold transition-all duration-300 hover:scale-105 shadow-xl shadow-[#008C6A]/30"
+                className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground font-bold transition-all duration-300 hover:scale-105 shadow-xl shadow-accent/30"
               >
                 {isArabic ? 'اطلب عرض تجريبي' : 'Request a Demo'}
               </Button>
@@ -586,7 +586,7 @@ const HRToolsPage: React.FC = () => {
                 variant="outline" 
                 size="lg" 
                 onClick={() => navigate('/subscription-packages')}
-                className="bg-black/40 border-[#008C6A]/40 text-gray-300 hover:border-[#008C6A] hover:bg-[#008C6A]/20 hover:text-white transition-all duration-300 hover:scale-105"
+                className="bg-card/40 border-border text-muted-foreground hover:border-accent hover:bg-accent/20 hover:text-accent-foreground transition-all duration-300 hover:scale-105"
               >
                 {isArabic ? 'جولة تفاعلية' : 'Interactive Tour'}
               </Button>
