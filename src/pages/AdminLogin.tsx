@@ -138,7 +138,7 @@ const AdminLogin: React.FC = () => {
               <img 
                 src={adminLogo} 
                 alt="Buod HR Admin" 
-                className="h-80 w-80 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110"
+                className="h-40 w-40 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-3xl"></div>
             </div>
