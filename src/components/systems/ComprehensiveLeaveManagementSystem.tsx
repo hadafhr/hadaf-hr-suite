@@ -324,11 +324,11 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-green-100 text-green-800 border-green-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'rejected': return 'bg-red-100 text-red-800 border-red-200';
-      case 'cancelled': return 'bg-gray-100 text-gray-800 border-gray-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'approved': return 'bg-success/10 text-success border-success/30';
+      case 'pending': return 'bg-warning/10 text-warning border-warning/30';
+      case 'rejected': return 'bg-destructive/10 text-destructive border-destructive/30';
+      case 'cancelled': return 'bg-muted/10 text-muted-foreground border-muted/30';
+      default: return 'bg-muted/10 text-muted-foreground border-muted/30';
     }
   };
 
@@ -358,39 +358,39 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-3xl animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-6 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-3xl animate-fade-in">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-border text-foreground hover:bg-accent/20 hover:border-accent transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-[#008C6A]/30"></div>
+        <div className="h-8 w-px bg-border"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/20 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <Calendar className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
+          <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-2xl shadow-accent/20 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-transparent animate-pulse"></div>
+            <Calendar className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold text-foreground">
               نظام إدارة الإجازات المتطور
             </h1>
-            <p className="text-gray-300 text-lg">
+            <p className="text-muted-foreground text-lg">
               منظومة شاملة لإدارة الإجازات والعطل مع التحليلات الذكية المتطورة
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-accent text-accent bg-accent/10 px-4 py-2 text-sm font-medium">
           <Calendar className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+        <Button className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
           <Download className="h-4 w-4 ml-2" />
           تصدير التقارير
         </Button>
-        <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+        <Button className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
           <Plus className="h-4 w-4 ml-2" />
           طلب إجازة جديد
         </Button>
@@ -477,10 +477,10 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+        <Card className="bg-card/60 backdrop-blur-xl border border-border hover:border-accent shadow-2xl shadow-accent/10 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <BarChart3 className="h-5 w-5 text-[#008C6A]" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <BarChart3 className="h-5 w-5 text-accent" />
               اتجاهات الإجازات
             </CardTitle>
           </CardHeader>
@@ -491,9 +491,9 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="annual" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="sick" stackId="2" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="emergency" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
+                <Area type="monotone" dataKey="annual" stackId="1" stroke="hsl(var(--accent))" fill="hsl(var(--accent))" />
+                <Area type="monotone" dataKey="sick" stackId="2" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
+                <Area type="monotone" dataKey="emergency" stackId="3" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
@@ -1152,15 +1152,15 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
   );
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -1168,24 +1168,24 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
       </div>
       
       {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
       
       <div className="relative z-10">
         {renderHeader()}
         
-        <div className="max-w-7xl mx-auto p-6 space-y-6 backdrop-blur-xl bg-black/20 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
+        <div className="max-w-7xl mx-auto p-6 space-y-6 backdrop-blur-xl bg-background/20 rounded-3xl border border-border shadow-2xl shadow-accent/10">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-6 h-auto p-1 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl">
-              <TabsTrigger value="dashboard" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="leave-types" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">أنواع الإجازات</TabsTrigger>
-              <TabsTrigger value="public-holidays" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">العطل الرسمية</TabsTrigger>
-              <TabsTrigger value="leave-requests" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">طلبات الإجازة</TabsTrigger>
-              <TabsTrigger value="leave-balances" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">أرصدة الإجازات</TabsTrigger>
-              <TabsTrigger value="reports" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">التقارير</TabsTrigger>
-              <TabsTrigger value="settings" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">الإعدادات</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-6 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+              <TabsTrigger value="dashboard" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="leave-types" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">أنواع الإجازات</TabsTrigger>
+              <TabsTrigger value="public-holidays" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">العطل الرسمية</TabsTrigger>
+              <TabsTrigger value="leave-requests" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">طلبات الإجازة</TabsTrigger>
+              <TabsTrigger value="leave-balances" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">أرصدة الإجازات</TabsTrigger>
+              <TabsTrigger value="reports" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">التقارير</TabsTrigger>
+              <TabsTrigger value="settings" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الإعدادات</TabsTrigger>
             </TabsList>
           </div>
 
