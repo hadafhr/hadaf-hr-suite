@@ -55,62 +55,84 @@ export const SubscriptionManagement: React.FC = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-bounce"></div>
       </div>
       
-      {/* Enhanced Header */}
-      <header className="relative z-10 backdrop-blur-2xl bg-black/30 border-b border-border shadow-2xl shadow-accent/10 h-28 flex items-center justify-between px-8">
-        {/* Enhanced animated background pattern */}
-        <div className="absolute inset-0 overflow-hidden rounded-t-3xl">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/15 to-accent/20 text-gradient"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"></div>
-        </div>
-        <div className="flex items-center relative z-10">
-          <div className="flex items-center space-x-3 space-x-reverse">
-            <img src={headerLogo} alt="Buod HR" className="h-48 w-48 object-contain filter brightness-110" />
-            <div className="flex flex-col">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-muted-foreground to-accent/80 bg-clip-text text-transparent animate-fade-in">
-                {isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}
-              </h1>
-              <p className="text-sm text-muted-foreground/80 animate-fade-in font-light">
-                {isArabic ? 'إدارة اشتراكات العملاء والدفعات المتقدمة' : 'Advanced Client Subscriptions and Payments Management'}
-              </p>
+      {/* Professional Header */}
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-black/95 backdrop-blur-xl shadow-xl">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none"></div>
+        
+        <div className="container mx-auto px-6 h-20">
+          <div className="flex items-center justify-between h-full relative z-10">
+            {/* Right Section - Logo & Title */}
+            <div className="flex items-center gap-6">
+              <img 
+                src={headerLogo} 
+                alt="Buod HR" 
+                className="h-16 w-auto object-contain filter brightness-110 transition-transform hover:scale-105" 
+              />
+              <div className="hidden md:flex flex-col">
+                <h1 className="text-xl font-bold text-white">
+                  {isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}
+                </h1>
+                <p className="text-xs text-muted-foreground">
+                  {isArabic ? 'إدارة اشتراكات العملاء والدفعات' : 'Client Subscriptions & Payments'}
+                </p>
+              </div>
+            </div>
+
+            {/* Left Section - Actions */}
+            <div className="flex items-center gap-3">
+              {/* Back Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/admin-dashboard')}
+                className="hidden sm:flex items-center gap-2 border-border hover:bg-accent/20 hover:border-accent/50 transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden lg:inline">{isArabic ? 'لوحة التحكم' : 'Dashboard'}</span>
+              </Button>
+
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
+              {/* Profile Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="flex items-center gap-2 hover:bg-accent/20 transition-all"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center shadow-lg">
+                      <Crown className="h-4 w-4 text-black" />
+                    </div>
+                    <ChevronDown className="h-3 w-3 hidden sm:block" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-48 bg-black/95 backdrop-blur-xl border-border shadow-2xl"
+                >
+                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
+                    <User className="h-4 w-4 mr-2" />
+                    {isArabic ? 'الملف الشخصي' : 'Profile'}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
+                    <Settings className="h-4 w-4 mr-2" />
+                    {isArabic ? 'الإعدادات' : 'Settings'}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-border" />
+                  <DropdownMenuItem 
+                    onClick={handleLogout} 
+                    className="hover:bg-destructive/20 text-destructive cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    {isArabic ? 'تسجيل الخروج' : 'Logout'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
-        </div>
-
-        <div className="flex items-center space-x-4 space-x-reverse relative z-10">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 text-white hover:bg-accent/30 hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 bg-black/20 backdrop-blur-sm border border-border"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
-          </Button>
-          <LanguageSwitcher />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-accent/30 bg-black/20 backdrop-blur-sm border border-border transition-all duration-300 hover:scale-105">
-                <div className="w-10 h-10 bg-gradient-to-r from-accent to-accent rounded-full flex items-center justify-center shadow-lg shadow-accent/30">
-                  <Crown className="h-5 w-5 text-black" />
-                </div>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-2xl border border-border text-white shadow-2xl shadow-accent/20 rounded-2xl">
-              <DropdownMenuItem className="hover:bg-accent/20 rounded-xl transition-all duration-200">
-                <User className="h-4 w-4 mr-2" />
-                {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-accent/20 rounded-xl transition-all duration-200">
-                <Settings className="h-4 w-4 mr-2" />
-                {isArabic ? 'إعدادات النظام' : 'System Settings'}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border" />
-              <DropdownMenuItem onClick={handleLogout} className="hover:bg-accent/20 rounded-xl transition-all duration-200">
-                <LogOut className="h-4 w-4 mr-2" />
-                {isArabic ? 'تسجيل الخروج' : 'Logout'}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </header>
 
