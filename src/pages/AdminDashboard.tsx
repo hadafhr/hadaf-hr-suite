@@ -210,7 +210,7 @@ export const AdminDashboard: React.FC = () => {
             </Button>
             
             <div className="flex items-center space-x-3 space-x-reverse">
-              <img src={headerLogo} alt="Buod HR" className="h-48 w-48 object-contain filter brightness-110 transition-all duration-300 hover:scale-105" />
+              <img src={headerLogo} alt="Buod HR" className="h-56 w-auto object-contain filter brightness-110 transition-all duration-300 hover:scale-105" />
               <div className="hidden md:flex flex-col">
                 <h1 className="text-xl font-bold text-white">
                   {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator'}
@@ -329,8 +329,17 @@ export const AdminDashboard: React.FC = () => {
         <div className="flex-1 lg:mr-64">
           <main className="p-6 relative z-10">
             <div className="max-w-7xl mx-auto space-y-8">
+              {/* Content Logo */}
+              <div className="flex justify-center mb-6">
+                <img 
+                  src={headerLogo} 
+                  alt="Buod HR" 
+                  className="h-32 w-32 object-contain filter brightness-110 drop-shadow-2xl" 
+                />
+              </div>
+
               {/* Welcome Section */}
-              <div className="mb-8">
+              <div className="mb-8 text-center">
                 <h2 className="text-3xl font-bold text-white mb-2">
                   {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
                 </h2>
