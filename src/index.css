@@ -59,8 +59,8 @@
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
     
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 0%;
+    --warning: 36 24% 61%;              /* #b1a086 - Beige for warnings */
+    --warning-foreground: 0 0% 0%;      /* #000000 - Black text */
     
     --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
@@ -132,8 +132,8 @@
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
     
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 0%;
+    --warning: 36 24% 61%;              /* #b1a086 - Beige for warnings */
+    --warning-foreground: 0 0% 0%;      /* #000000 - Black text */
 
     --border: 0 3% 80%;              /* #cfcbcb - Gray borders */
     --input: 0 0% 10%;               /* #1a1a1a - Dark inputs */
