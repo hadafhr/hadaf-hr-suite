@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { ArrowLeft, Building2, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import buodLogo from '@/assets/buod-logo-white.png';
+import heroLogo from '@/assets/hero-logo.png';
 
 const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -131,11 +132,15 @@ const AdminLogin: React.FC = () => {
       {/* Main Content */}
       <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-96px)] p-6">
         <div className="w-full max-w-lg">
-          {/* Professional Admin Badge */}
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-black/40 backdrop-blur-xl border border-border rounded-2xl shadow-2xl hover:shadow-accent/20 transition-all duration-300 animate-fade-in">
-              <Building2 className="w-6 h-6 text-accent" />
-              <span className="text-sm font-medium text-white">لوحة تحكم مدير النظام</span>
+          {/* Professional Logo */}
+          <div className="text-center mb-8">
+            <div className="relative inline-flex items-center justify-center transition-all duration-300 hover:scale-105 group cursor-pointer">
+              <img 
+                src={heroLogo} 
+                alt="Buod HR Admin" 
+                className="h-80 w-80 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-3xl"></div>
             </div>
           </div>
 
