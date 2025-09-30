@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import headerLogo from '@/assets/header-logo.png';
+import contentLogo from '@/assets/content-logo.png';
 import { useAuth } from '@/hooks/useAuth';
 import {
   DropdownMenu,
@@ -116,6 +117,10 @@ export const SubscriptionManagement: React.FC = () => {
       {/* Enhanced Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8">
         <div className="max-w-7xl mx-auto">
+          {/* Content Logo */}
+          <div className="flex justify-center mb-8">
+            <img src={contentLogo} alt="Logo" className="h-32 w-32 object-contain" />
+          </div>
           <SubscriptionManagementComponent />
         </div>
       </main>
