@@ -256,12 +256,12 @@ const ComprehensiveEmployeeManagement = () => {
   return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#000000" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -269,9 +269,9 @@ const ComprehensiveEmployeeManagement = () => {
       </div>
       
       {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-primary/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-primary/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
 
       {/* المحتوى الرئيسي */}
       <div className="relative z-10 container mx-auto px-8 py-8 backdrop-blur-xl bg-card/80 rounded-3xl border border-border shadow-2xl">
@@ -284,9 +284,9 @@ const ComprehensiveEmployeeManagement = () => {
             </Button>
             <div className="h-8 w-px bg-border/30"></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <Users className="h-8 w-8 text-primary-foreground relative z-10" />
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent rounded-3xl flex items-center justify-center shadow-glow relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent animate-pulse"></div>
+                <Users className="h-8 w-8 text-accent-foreground relative z-10" />
                 <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
               </div>
               <div>
@@ -309,7 +309,7 @@ const ComprehensiveEmployeeManagement = () => {
           </div>
         </div>
 
-        <div className="relative p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-primary animate-fade-in transition-all duration-300">
+        <div className="relative p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-accent animate-fade-in transition-all duration-300">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
           {/* Professional Grid Navigation - All Tabs Visible */}
           <div className="bg-card backdrop-blur-xl border border-border shadow-2xl rounded-xl p-4 mb-6">
