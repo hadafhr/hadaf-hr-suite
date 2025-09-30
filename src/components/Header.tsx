@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <PromoBanner />
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-black backdrop-blur supports-[backdrop-filter]:bg-black/90">
+      <header className="sticky top-0 z-40 w-full border-b border-border bg-background backdrop-blur supports-[backdrop-filter]:bg-background/95">
       <div className="container flex h-16 items-center justify-between px-4">
         {/* الشعار - يظهر على جميع الشاشات */}
         <div className="flex items-center">

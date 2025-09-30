@@ -119,14 +119,9 @@ const BoudHRLandingPage: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen bg-black font-arabic ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
+    <div className={`min-h-screen bg-background font-arabic ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
       {/* Professional Interactive Header - Multi-Language Support */}
-      <header className={`relative z-10 bg-gradient-to-r from-background via-background to-background backdrop-blur-xl border-b border-border/40 shadow-2xl shadow-accent/30 sticky top-0 ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
-        {/* Premium Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-accent/3 to-accent/5"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.1),transparent_70%)]"></div>
-        </div>
+      <header className={`relative z-10 bg-background backdrop-blur-xl border-b border-border sticky top-0 ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
         
         {/* Main Header Container */}
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">

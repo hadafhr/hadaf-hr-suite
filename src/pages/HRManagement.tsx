@@ -27,18 +27,10 @@ export const HRManagement: React.FC = () => {
   };
   return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Enhanced Animated Background Pattern */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/15 animate-pulse"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-accent/5 to-transparent"></div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-20">
-          <div className="w-full h-full bg-repeat animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="dot" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#b1a086" stop-opacity="0.6"/><stop offset="100%" stop-color="#b1a086" stop-opacity="0"/></radialGradient></defs><circle cx="40" cy="40" r="2" fill="url(#dot)"/></svg>')}")`,
-          backgroundSize: '80px 80px'
-        }}></div>
-        </div>
-        {/* Floating orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-bounce"></div>
+      <div className="absolute inset-0 bg-background">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-background to-accent/10"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
       </div>
       
       {/* Enhanced Header */}
