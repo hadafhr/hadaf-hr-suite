@@ -408,11 +408,11 @@ export default function JobDescriptionsIndex() {
             {/* Results Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
               <div className="flex items-center gap-4">
-                <span className="text-gray-300 text-lg">
-                  <span className="text-[#008C6A] font-bold">{filteredJobs.length}</span> وظيفة
+                <span className="text-muted-foreground text-lg">
+                  <span className="text-accent font-bold">{filteredJobs.length}</span> وظيفة
                 </span>
                 {(debouncedSearchTerm || selectedDepartment || selectedLevel || selectedWorkType || selectedCity) && (
-                  <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40">
+                  <Badge className="bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/40">
                     مفلترة
                   </Badge>
                 )}
@@ -420,23 +420,23 @@ export default function JobDescriptionsIndex() {
 
               <div className="flex items-center gap-3">
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-48 bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+                  <SelectTrigger className="w-48 bg-gradient-to-r from-card/50 to-background/30 border border-border text-foreground hover:border-accent/70 transition-all duration-300">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-900 border-[#008C6A]/30">
-                    <SelectItem value="trending" className="text-white hover:bg-[#008C6A]/20">الأكثر رواجاً</SelectItem>
-                    <SelectItem value="alphabetical" className="text-white hover:bg-[#008C6A]/20">أبجدياً</SelectItem>
-                    <SelectItem value="newest" className="text-white hover:bg-[#008C6A]/20">الأحدث</SelectItem>
-                    <SelectItem value="views" className="text-white hover:bg-[#008C6A]/20">الأكثر مشاهدة</SelectItem>
+                  <SelectContent className="bg-card border-border">
+                    <SelectItem value="trending" className="text-foreground hover:bg-accent/20">الأكثر رواجاً</SelectItem>
+                    <SelectItem value="alphabetical" className="text-foreground hover:bg-accent/20">أبجدياً</SelectItem>
+                    <SelectItem value="newest" className="text-foreground hover:bg-accent/20">الأحدث</SelectItem>
+                    <SelectItem value="views" className="text-foreground hover:bg-accent/20">الأكثر مشاهدة</SelectItem>
                   </SelectContent>
                 </Select>
 
-                <div className="flex border border-[#008C6A]/30 rounded-lg overflow-hidden bg-gradient-to-r from-gray-900/50 to-black/30">
+                <div className="flex border border-border rounded-lg overflow-hidden bg-gradient-to-r from-card/50 to-background/30">
                   <Button
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('grid')}
-                    className={viewMode === 'grid' ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white' : 'text-gray-400 hover:text-white hover:bg-[#008C6A]/20'}
+                    className={viewMode === 'grid' ? 'bg-gradient-to-r from-accent to-accent/80 text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-accent/20'}
                   >
                     <Grid className="h-4 w-4" />
                   </Button>
@@ -444,7 +444,7 @@ export default function JobDescriptionsIndex() {
                     variant={viewMode === 'list' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('list')}
-                    className={viewMode === 'list' ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white' : 'text-gray-400 hover:text-white hover:bg-[#008C6A]/20'}
+                    className={viewMode === 'list' ? 'bg-gradient-to-r from-accent to-accent/80 text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-accent/20'}
                   >
                     <List className="h-4 w-4" />
                   </Button>
@@ -454,11 +454,11 @@ export default function JobDescriptionsIndex() {
 
             {/* Job Cards */}
             {filteredJobs.length === 0 ? (
-              <div className="bg-gradient-to-br from-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 py-16 text-center">
-                <p className="text-gray-300 mb-4">لا توجد وظائف تطابق معايير البحث</p>
+              <div className="bg-gradient-to-br from-card/60 to-background/40 backdrop-blur-xl rounded-2xl border border-border shadow-xl shadow-accent/10 py-16 text-center">
+                <p className="text-muted-foreground mb-4">لا توجد وظائف تطابق معايير البحث</p>
                 <Button 
                   onClick={clearFilters} 
-                  className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300"
+                  className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-accent-foreground border-0 shadow-lg hover:shadow-accent/25 transition-all duration-300"
                 >
                   مسح التصنيفات
                 </Button>
@@ -468,50 +468,50 @@ export default function JobDescriptionsIndex() {
                 {filteredJobs.map((job) => (
                   <div 
                     key={job.id} 
-                    className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/70 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:shadow-[#008C6A]/25 transition-all duration-500 hover:scale-105 hover:border-[#008C6A]/60 cursor-pointer"
+                    className="group relative overflow-hidden bg-gradient-to-br from-card/50 to-background/70 backdrop-blur-xl rounded-3xl border border-border shadow-2xl shadow-accent/10 hover:shadow-accent/25 transition-all duration-500 hover:scale-105 hover:border-accent/60 cursor-pointer"
                     onClick={() => handleJobClick(job.id)}
                   >
                     {/* Animated gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/10 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     
                     {/* Content */}
                     <div className="relative p-6">
                       <div className="flex items-start justify-between gap-4 mb-4">
                         <div className="flex-1">
-                          <h3 className="text-xl font-bold text-white group-hover:text-[#008C6A] transition-colors duration-300 mb-2 flex items-center gap-2">
+                          <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors duration-300 mb-2 flex items-center gap-2">
                             {job.title}
                             {job.trending && (
-                              <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0 shadow-lg text-xs">
+                              <Badge className="bg-gradient-to-r from-success to-success/80 text-success-foreground border-0 shadow-lg text-xs">
                                 <TrendingUp className="h-3 w-3 ml-1" />
                                 رائج
                               </Badge>
                             )}
                           </h3>
                           <div className="flex flex-wrap gap-2 mb-3">
-                            <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 text-xs">{job.department}</Badge>
-                            <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 text-xs">{job.level}</Badge>
-                            <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 text-xs">{job.workType}</Badge>
-                            <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 text-xs">{job.city}</Badge>
+                            <Badge className="bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/40 text-xs">{job.department}</Badge>
+                            <Badge className="bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/40 text-xs">{job.level}</Badge>
+                            <Badge className="bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/40 text-xs">{job.workType}</Badge>
+                            <Badge className="bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/40 text-xs">{job.city}</Badge>
                           </div>
                         </div>
                         <div className="text-left">
-                          <div className="text-sm text-gray-400 flex items-center gap-1 mb-1">
+                          <div className="text-sm text-muted-foreground flex items-center gap-1 mb-1">
                             <Eye className="h-3 w-3" />
                             {job.views.toLocaleString('ar-SA')}
                           </div>
-                          <div className="text-sm font-bold text-[#008C6A]">
+                          <div className="text-sm font-bold text-accent">
                             {job.salaryRange} ﷼
                           </div>
                         </div>
                       </div>
 
-                      <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300 mb-6">
+                      <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-foreground/80 transition-colors duration-300 mb-6">
                         {job.summary}
                       </p>
 
                       <div className="flex items-center justify-between">
                         <Button 
-                          className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 hover:bg-gradient-to-r hover:from-[#008C6A] hover:to-[#00694F] hover:text-white hover:border-[#008C6A] transition-all duration-300 font-semibold shadow-lg hover:shadow-[#008C6A]/25"
+                          className="bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/40 hover:bg-gradient-to-r hover:from-accent hover:to-accent/80 hover:text-accent-foreground hover:border-accent transition-all duration-300 font-semibold shadow-lg hover:shadow-accent/25"
                           size="sm"
                         >
                           عرض التفاصيل
@@ -526,7 +526,7 @@ export default function JobDescriptionsIndex() {
                               description: "سيتم تحميل الوصف الوظيفي قريباً",
                             });
                           }}
-                          className="text-[#008C6A] hover:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+                          className="text-accent hover:text-accent-foreground hover:bg-accent/20 transition-all duration-300"
                         >
                           <Download className="h-4 w-4 ml-2" />
                           تحميل PDF
