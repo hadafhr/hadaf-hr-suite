@@ -291,6 +291,146 @@ const GreenPapers: React.FC = () => {
         </div>
       </header>
 
+      {/* Features Section - 6 Cards */}
+      <section className="relative z-10 bg-[#000000] py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-bold text-[#ffffff] mb-4">
+              لماذا تختار منصة بُعد؟
+            </h2>
+            <p className="text-[#e8e4e0] text-lg max-w-2xl mx-auto">
+              منصة متكاملة تجمع كل ما تحتاجه لإدارة الموارد البشرية بكفاءة واحترافية
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card 1: أتمتة مخصصة */}
+            <div className="group relative overflow-hidden bg-[#1a1a1a] rounded-2xl border border-[#cfcbcb] shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] hover:border-[#b1a086] p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-[#b1a086]/10 mb-4">
+                  <div className="relative">
+                    <Clock className="w-8 h-8 text-[#b1a086]" />
+                    <FileText className="w-4 h-4 text-[#b1a086] absolute -bottom-1 -right-1" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#ffffff]">
+                  أتمتة مخصصة
+                </h3>
+                <p className="text-[#e8e4e0] leading-relaxed">
+                  إمكانية تخصيص وأتمتة كل سياسات العمل والموافقات
+                </p>
+                <div className="flex gap-2 pt-2">
+                  <div className="px-3 py-1 rounded-lg bg-[#b1a086]/10 text-[#b1a086] text-xs font-medium border border-[#cfcbcb]">
+                    Expiring contract
+                  </div>
+                  <div className="px-3 py-1 rounded-lg bg-[#b1a086]/10 text-[#b1a086] text-xs font-medium border border-[#cfcbcb]">
+                    New employee
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2: تهيئة الموظفين الجدد */}
+            <div className="group relative overflow-hidden bg-[#1a1a1a] rounded-2xl border border-[#cfcbcb] shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] hover:border-[#b1a086] p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-full h-16 rounded-xl bg-[#b1a086]/10 mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-[#b1a086]/20 flex items-center justify-center text-[#b1a086] font-bold text-sm border border-[#cfcbcb]">1</div>
+                    <ArrowLeft className="w-4 h-4 text-[#b1a086]" />
+                    <div className="w-10 h-10 rounded-full bg-[#b1a086]/20 flex items-center justify-center text-[#b1a086] font-bold text-sm border border-[#cfcbcb]">2</div>
+                    <ArrowLeft className="w-4 h-4 text-[#b1a086]" />
+                    <div className="w-10 h-10 rounded-full bg-[#b1a086]/20 flex items-center justify-center text-[#b1a086] font-bold text-sm border border-[#cfcbcb]">3</div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#ffffff]">
+                  تهيئة الموظفين الجدد
+                </h3>
+                <p className="text-[#e8e4e0] leading-relaxed">
+                  تهيئة سلسلة لأي عدد من الموظفين الجدد
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3: نظام موارد بشرية متقدم */}
+            <div className="group relative overflow-hidden bg-[#1a1a1a] rounded-2xl border border-[#cfcbcb] shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] hover:border-[#b1a086] p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-[#b1a086]/10 mb-4">
+                  <Building2 className="w-8 h-8 text-[#b1a086]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#ffffff]">
+                  نظام موارد بشرية متقدم
+                </h3>
+                <p className="text-[#e8e4e0] leading-relaxed">
+                  مركزية البيانات والطلبات في مكان واحد مع بُعد
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4: قرارات مبنية على البيانات */}
+            <div className="group relative overflow-hidden bg-[#1a1a1a] rounded-2xl border border-[#cfcbcb] shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] hover:border-[#b1a086] p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-[#b1a086]/10 mb-4">
+                  <div className="flex items-end gap-1.5">
+                    <div className="w-3 h-6 bg-[#b1a086]/60 rounded-t"></div>
+                    <div className="w-3 h-8 bg-[#b1a086]/80 rounded-t"></div>
+                    <div className="w-3 h-10 bg-[#b1a086] rounded-t"></div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#ffffff]">
+                  قرارات مبنية على البيانات
+                </h3>
+                <p className="text-[#e8e4e0] leading-relaxed">
+                  اطلاع مستمر على مؤشرات أداء المنشأة
+                </p>
+                <div className="flex gap-3 pt-2 text-xs text-[#e8e4e0]">
+                  <span>Jan</span>
+                  <span>Feb</span>
+                  <span>Mar</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 5: سهل الاستخدام */}
+            <div className="group relative overflow-hidden bg-[#1a1a1a] rounded-2xl border border-[#cfcbcb] shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] hover:border-[#b1a086] p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-full h-16 rounded-xl bg-[#b1a086]/10 mb-4 px-3">
+                  <div className="space-y-1.5 w-full">
+                    <div className="text-xs text-[#b1a086] font-semibold text-center">Abdullah Salem</div>
+                    <div className="flex gap-2 justify-center">
+                      <div className="px-3 py-1 rounded bg-green-500/20 text-green-500 text-[10px] font-medium border border-green-500/40">Approve</div>
+                      <div className="px-3 py-1 rounded bg-red-500/20 text-red-500 text-[10px] font-medium border border-red-500/40">Reject</div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#ffffff]">
+                  سهل الاستخدام
+                </h3>
+                <p className="text-[#e8e4e0] leading-relaxed">
+                  إتاحة تقديم الطلبات المختلفة للموظفين بسهولة
+                </p>
+              </div>
+            </div>
+
+            {/* Card 6: ضمان الامتثال بنظام العمل */}
+            <div className="group relative overflow-hidden bg-[#1a1a1a] rounded-2xl border border-[#cfcbcb] shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-[1.02] hover:border-[#b1a086] p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-[#b1a086]/10 mb-4">
+                  <div className="relative">
+                    <img src={buodLogo} alt="بُعد" className="h-8 w-auto opacity-80 brightness-150" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#ffffff]">
+                  ضمان الامتثال بنظام العمل
+                </h3>
+                <p className="text-[#e8e4e0] leading-relaxed">
+                  تحقيق الامتثال مع نظام وقوانين العمل تلقائياً
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <main className="relative z-10 w-full mx-auto px-4 py-8">
         {/* Breadcrumb Navigation - Far Right */}
         <div className="flex justify-end mb-6 mr-0">
