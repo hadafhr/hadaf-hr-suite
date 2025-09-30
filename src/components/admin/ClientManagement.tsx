@@ -196,22 +196,22 @@ export const ClientManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-            {isArabic ? 'إدارة العملاء' : 'Client Management'}
-          </h2>
-          <p className="text-gray-300">
-            {isArabic ? 'إدارة العملاء والاشتراكات والحسابات' : 'Manage clients, subscriptions, and accounts'}
-          </p>
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+          {isArabic ? 'إدارة العملاء' : 'Client Management'}
+        </h2>
+        <p className="text-gray-300">
+          {isArabic ? 'إدارة العملاء والاشتراكات والحسابات' : 'Manage clients, subscriptions, and accounts'}
+        </p>
+        <div className="mt-4">
+          <Button 
+            onClick={() => setIsAddClientOpen(true)} 
+            className="bg-gradient-to-r from-accent to-accent hover:from-accent/80 hover:to-accent/80 text-accent-foreground"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            {isArabic ? 'عميل جديد' : 'New Client'}
+          </Button>
         </div>
-        <Button 
-          onClick={() => setIsAddClientOpen(true)} 
-          className="bg-gradient-to-r from-accent to-accent hover:from-accent/80 hover:to-accent/80 text-accent-foreground"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          {isArabic ? 'عميل جديد' : 'New Client'}
-        </Button>
       </div>
 
       {/* Stats Cards */}
