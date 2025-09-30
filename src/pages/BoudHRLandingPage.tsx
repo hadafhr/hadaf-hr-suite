@@ -628,7 +628,7 @@ const BoudHRLandingPage: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <BoudLogo variant="full" size="sm" className="h-8 w-auto filter brightness-200" />
-                  <img src={boudWhiteLogo} alt="شعار بُعد" className="h-12 w-auto" />
+                  <img src={boudWhiteLogo} alt="شعار بُعد" className="h-32 w-auto" />
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {currentLanguage === 'ar' 
