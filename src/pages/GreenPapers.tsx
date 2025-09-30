@@ -405,13 +405,151 @@ const GreenPapers: React.FC = () => {
           </div>
         </div>
 
+        {/* Features Section - 6 Cards */}
+        <div className="relative mb-20">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              لماذا تختار منصة بُعد؟
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              منصة متكاملة تجمع كل ما تحتاجه لإدارة الموارد البشرية بكفاءة واحترافية
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {/* Card 1: أتمتة مخصصة */}
+            <div className="group relative overflow-hidden bg-card backdrop-blur-xl rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-accent/10 mb-4">
+                  <div className="relative">
+                    <Clock className="w-8 h-8 text-accent" />
+                    <FileText className="w-4 h-4 text-accent absolute -bottom-1 -right-1" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  أتمتة مخصصة
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  إمكانية تخصيص وأتمتة كل سياسات العمل والموافقات
+                </p>
+                <div className="flex gap-2 pt-2">
+                  <div className="px-3 py-1 rounded-lg bg-accent/10 text-accent text-xs font-medium">
+                    Expiring contract
+                  </div>
+                  <div className="px-3 py-1 rounded-lg bg-accent/10 text-accent text-xs font-medium">
+                    New employee
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2: تهيئة الموظفين الجدد */}
+            <div className="group relative overflow-hidden bg-card backdrop-blur-xl rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-accent/10 mb-4">
+                  <div className="flex items-center gap-1">
+                    <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-xs">1</div>
+                    <ArrowLeft className="w-3 h-3 text-accent" />
+                    <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-xs">2</div>
+                    <ArrowLeft className="w-3 h-3 text-accent" />
+                    <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-xs">3</div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  تهيئة الموظفين الجدد
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  تهيئة سلسلة لأي عدد من الموظفين الجدد
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3: نظام موارد بشرية متقدم */}
+            <div className="group relative overflow-hidden bg-card backdrop-blur-xl rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-accent/10 mb-4">
+                  <Building2 className="w-8 h-8 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  نظام موارد بشرية متقدم
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  مركزية البيانات والطلبات في مكان واحد مع بُعد
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4: قرارات مبنية على البيانات */}
+            <div className="group relative overflow-hidden bg-card backdrop-blur-xl rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-accent/10 mb-4">
+                  <div className="flex items-end gap-1">
+                    <div className="w-2 h-6 bg-accent/60 rounded-t"></div>
+                    <div className="w-2 h-8 bg-accent/80 rounded-t"></div>
+                    <div className="w-2 h-10 bg-accent rounded-t"></div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  قرارات مبنية على البيانات
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  اطلاع مستمر على مؤشرات أداء المنشأة
+                </p>
+                <div className="flex gap-2 pt-2 text-xs text-muted-foreground">
+                  <span>Jan</span>
+                  <span>Feb</span>
+                  <span>Mar</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 5: سهل الاستخدام */}
+            <div className="group relative overflow-hidden bg-card backdrop-blur-xl rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-accent/10 mb-4">
+                  <div className="space-y-1">
+                    <div className="text-xs text-accent font-semibold">Abdullah Salem</div>
+                    <div className="flex gap-1">
+                      <div className="px-2 py-0.5 rounded bg-green-500/20 text-green-500 text-[10px]">✓</div>
+                      <div className="px-2 py-0.5 rounded bg-red-500/20 text-red-500 text-[10px]">✗</div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  سهل الاستخدام
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  إتاحة تقديم الطلبات المختلفة للموظفين بسهولة
+                </p>
+              </div>
+            </div>
+
+            {/* Card 6: ضمان الامتثال بنظام العمل */}
+            <div className="group relative overflow-hidden bg-card backdrop-blur-xl rounded-2xl border border-border shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-accent/10 mb-4">
+                  <div className="relative">
+                    <img src={buodLogo} alt="بُعد" className="h-8 w-auto opacity-80" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-foreground">
+                  ضمان الامتثال بنظام العمل
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  تحقيق الامتثال مع نظام وقوانين العمل تلقائياً
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Papers Grid */}
         <div className="relative">
           <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
               {filteredPapers.length} ورقة متاحة
             </h2>
-            <p className="text-gray-300 text-lg">
+            <p className="text-muted-foreground text-lg">
               اختر الورقة التي تناسب احتياجاتك المهنية
             </p>
           </div>
