@@ -3,57 +3,57 @@
 @tailwind utilities;
 
 /* ================================================
-   FINAL COLOR PALETTE - DO NOT MODIFY
-   نظام الألوان النهائي - لا تعدّل
+   STRICT COLOR PALETTE - نظام الألوان الصارم
+   التطبيق الإلزامي - لا تعدل أو تضيف ألوان أخرى
    ================================================ */
 
 @layer base {
   :root {
-    /* Official Color Variables - DARK THEME */
-    --color-black: #000000;
-    --color-dark-card: #1a1a1a;
-    --color-beige: #b1a086;
-    --color-gray-1: #cfcbcb;
-    --color-gray-2: #e8e4e0;
-    --color-white: #ffffff;
+    /* Official Color Variables - المتغيرات الرسمية */
+    --color-black: #000000;           /* الخلفية الأساسية */
+    --color-white: #ffffff;           /* النصوص الرئيسية */
+    --color-gray-light: #e8e4e0;     /* النصوص الثانوية */
+    --color-gray-border: #cfcbcb;    /* الحدود والخطوط الفاصلة */
+    --color-card-dark: #1a1a1a;      /* البطاقات والمحتوى الداخلي */
+    --color-hover: #b1a086;          /* حالة الهوفر */
     
-    /* HSL Values for Tailwind - DARK THEME */
-    /* نظام الألوان الموحد - الهوية البصرية الداكنة */
+    /* HSL Values for Tailwind - قيم Tailwind بنظام HSL */
+    /* نظام الألوان الصارم - الالتزام الكامل بلوحة الألوان المحددة */
     
-    /* Main Background - Black */
-    --background: 0 0% 0%;              /* #000000 - Black Main Background */
-    --foreground: 0 0% 100%;            /* #ffffff - White for primary text */
+    /* Main Background - الخلفية الأساسية */
+    --background: 0 0% 0%;              /* #000000 - أسود */
+    --foreground: 0 0% 100%;            /* #ffffff - أبيض للنصوص الرئيسية */
     
-    /* Cards & Components - Dark Backgrounds */
-    --card: 0 0% 10%;                   /* #1a1a1a - Dark gray for cards */
-    --card-foreground: 0 0% 100%;       /* #ffffff - White text on cards */
+    /* Cards & Components - البطاقات والمكونات */
+    --card: 0 0% 10%;                   /* #1a1a1a - بطاقات داكنة */
+    --card-foreground: 0 0% 100%;       /* #ffffff - نص أبيض */
     
-    --popover: 0 0% 10%;                /* #1a1a1a - Dark popover */
-    --popover-foreground: 0 0% 100%;    /* #ffffff - White text */
+    --popover: 0 0% 10%;                /* #1a1a1a - قوائم منبثقة */
+    --popover-foreground: 0 0% 100%;    /* #ffffff - نص أبيض */
     
-    /* Primary Buttons - White with Black Text */
-    --primary: 0 0% 100%;               /* #ffffff - White for primary buttons */
-    --primary-foreground: 0 0% 0%;      /* #000000 - Black text */
-    --primary-glow: 36 24% 61%;         /* #b1a086 - Beige for glow effects */
-    --primary-dark: 36 24% 61%;         /* #b1a086 - Beige for hover */
+    /* Primary Buttons - الأزرار الأساسية */
+    --primary: 0 0% 0%;                 /* #000000 - خلفية سوداء */
+    --primary-foreground: 0 0% 100%;    /* #ffffff - نص أبيض */
+    --primary-glow: 36 24% 61%;         /* #b1a086 - توهج بيج */
+    --primary-dark: 36 24% 61%;         /* #b1a086 - هوفر بيج */
     
-    /* Text Colors */
-    --text-primary: 0 0% 100%;          /* #ffffff - White for main headings */
-    --text-secondary: 30 17% 89%;       /* #e8e4e0 - Light gray for secondary text */
-    --text-tertiary: 30 17% 89%;        /* #e8e4e0 - Light gray for subheadings */
+    /* Text Colors - ألوان النصوص */
+    --text-primary: 0 0% 100%;          /* #ffffff - نصوص رئيسية */
+    --text-secondary: 30 17% 89%;       /* #e8e4e0 - نصوص ثانوية */
+    --text-tertiary: 30 17% 89%;        /* #e8e4e0 - عناوين فرعية */
     
-    /* Secondary Elements - Gray */
-    --muted: 0 3% 80%;                  /* #cfcbcb - Gray borders */
-    --muted-foreground: 30 17% 89%;     /* #e8e4e0 - Gray for secondary text */
+    /* Secondary Elements - عناصر ثانوية */
+    --muted: 0 3% 80%;                  /* #cfcbcb - حدود رمادية */
+    --muted-foreground: 30 17% 89%;     /* #e8e4e0 - نص ثانوي */
     
-    /* Secondary Buttons - Dark with White text */
-    --secondary: 0 0% 10%;              /* #1a1a1a - Dark background */
-    --secondary-foreground: 0 0% 100%;  /* #ffffff - White text */
-    --secondary-opacity: rgba(26, 26, 26, 0.95);
+    /* Secondary Buttons - الأزرار الثانوية */
+    --secondary: 0 0% 100%;             /* #ffffff - خلفية بيضاء */
+    --secondary-foreground: 0 0% 0%;    /* #000000 - نص أسود */
+    --secondary-opacity: rgba(255, 255, 255, 0.95);
     
-    /* Accent Colors - Beige for hover states */
-    --accent: 36 24% 61%;               /* #b1a086 - Beige for hover */
-    --accent-foreground: 0 0% 100%;     /* #ffffff - White text on hover */
+    /* Accent Colors - ألوان التمييز */
+    --accent: 36 24% 61%;               /* #b1a086 - بيج للهوفر */
+    --accent-foreground: 0 0% 0%;       /* #000000 - نص أسود على البيج */
 
     /* Status Colors */
     --success: 145 63% 49%;
@@ -65,18 +65,18 @@
     --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders & Inputs */
-    --border: 0 3% 80%;              /* #cfcbcb - Gray borders */
-    --input: 0 0% 10%;               /* #1a1a1a - Dark input backgrounds */
-    --ring: 36 24% 61%;              /* #b1a086 - Beige focus rings */
+    /* Borders & Inputs - الحدود والمدخلات */
+    --border: 0 3% 80%;              /* #cfcbcb - حدود رمادية */
+    --input: 0 0% 10%;               /* #1a1a1a - خلفية مدخلات داكنة */
+    --ring: 36 24% 61%;              /* #b1a086 - حلقات تركيز بيج */
 
-    /* Dark Theme Gradients */
+    /* Gradients - التدرجات */
     --gradient-primary: linear-gradient(135deg, hsl(0 0% 0%), hsl(0 0% 5%));
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 10%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 8%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 5%) 100%);
     
-    /* 3D Shadows and Effects - Enhanced for dark theme */
+    /* Shadows - الظلال */
     --shadow-3d: 0 8px 32px rgba(177, 160, 134, 0.15), 0 4px 16px rgba(177, 160, 134, 0.1);
     --shadow-hover: 0 12px 48px rgba(177, 160, 134, 0.2);
     --shadow-glow: 0 0 20px rgba(177, 160, 134, 0.15);

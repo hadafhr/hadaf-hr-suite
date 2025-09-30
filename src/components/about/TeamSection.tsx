@@ -86,7 +86,7 @@ export const TeamSection = () => {
       </div>
       
       {/* Content Wrapper */}
-      <div className="relative z-10 container mx-auto px-6 backdrop-blur-xl bg-black/20 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 py-16">
+      <div className="relative z-10 container mx-auto px-6 backdrop-blur-xl bg-black/20 rounded-3xl border border-border shadow-2xl shadow-accent/10 py-16">
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-gradient-to-r from-primary/10 to-primary-glow/10 text-primary border-primary/20 px-6 py-2 text-lg font-semibold">
             فريقنا المميز
