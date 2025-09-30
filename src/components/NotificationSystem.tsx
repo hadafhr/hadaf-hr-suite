@@ -255,7 +255,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({ onNaviga
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Bell className="h-6 w-6 text-[#009F87]" />
+                <Bell className="h-6 w-6 text-accent" />
                 {unreadCount > 0 && (
                   <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-red-500">
                     {unreadCount}
@@ -263,7 +263,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({ onNaviga
                 )}
               </div>
               <div>
-                <CardTitle className="text-[#009F87]">مركز الإشعارات</CardTitle>
+                <CardTitle className="text-accent">مركز الإشعارات</CardTitle>
                 <p className="text-sm text-muted-foreground">
                   {unreadCount} إشعار غير مقروء
                   {urgentCount > 0 && ` • ${urgentCount} عاجل`}
@@ -429,7 +429,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({ onNaviga
               {selectedNotification.actionUrl && (
                 <Button 
                   onClick={() => onNavigateToSection?.(selectedNotification.actionUrl!)}
-                  className="w-full bg-[#009F87] hover:bg-[#008072]"
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                 >
                   الانتقال إلى القسم المختص
                 </Button>

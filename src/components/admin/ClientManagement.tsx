@@ -178,7 +178,7 @@ export const ClientManagement: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-[#008C6A]" />
+        <Loader2 className="h-8 w-8 animate-spin text-accent" />
         <span className="ml-2 text-white">{isArabic ? 'جاري التحميل...' : 'Loading...'}</span>
       </div>
     );
@@ -207,7 +207,7 @@ export const ClientManagement: React.FC = () => {
         </div>
         <Button 
           onClick={() => setIsAddClientOpen(true)} 
-          className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#008C6A]/80 hover:to-[#00694F]/80 text-white"
+          className="bg-gradient-to-r from-accent to-accent hover:from-accent/80 hover:to-accent/80 text-accent-foreground"
         >
           <Plus className="h-4 w-4 mr-2" />
           {isArabic ? 'عميل جديد' : 'New Client'}
@@ -216,61 +216,61 @@ export const ClientManagement: React.FC = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
+        <Card className="backdrop-blur-xl bg-card border border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
           <CardContent className="p-6">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <div className="p-3 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/30">
-                <Building2 className="h-6 w-6 text-[#008C6A]" />
+              <div className="p-3 rounded-full bg-gradient-to-r from-accent/20 to-accent/20 backdrop-blur-sm border border-accent/30">
+                <Building2 className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">{clients.length}</p>
-                <p className="text-sm text-gray-300">{isArabic ? 'إجمالي العملاء' : 'Total Clients'}</p>
+                <p className="text-2xl font-bold text-foreground">{clients.length}</p>
+                <p className="text-sm text-muted-foreground">{isArabic ? 'إجمالي العملاء' : 'Total Clients'}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
+        <Card className="backdrop-blur-xl bg-card border border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
           <CardContent className="p-6">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <div className="p-3 rounded-full bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-sm border border-green-500/30">
-                <CheckCircle className="h-6 w-6 text-green-400" />
+              <div className="p-3 rounded-full bg-gradient-to-r from-success/20 to-success/20 backdrop-blur-sm border border-success/30">
+                <CheckCircle className="h-6 w-6 text-success" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">{clients.filter(c => c.status === 'active').length}</p>
-                <p className="text-sm text-gray-300">{isArabic ? 'عملاء نشطون' : 'Active Clients'}</p>
+                <p className="text-2xl font-bold text-foreground">{clients.filter(c => c.status === 'active').length}</p>
+                <p className="text-sm text-muted-foreground">{isArabic ? 'عملاء نشطون' : 'Active Clients'}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
+        <Card className="backdrop-blur-xl bg-card border border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
           <CardContent className="p-6">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <div className="p-3 rounded-full bg-gradient-to-r from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-500/30">
-                <Users className="h-6 w-6 text-blue-400" />
+              <div className="p-3 rounded-full bg-gradient-to-r from-primary/20 to-primary/20 backdrop-blur-sm border border-primary/30">
+                <Users className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-2xl font-bold text-foreground">
                   {clients.reduce((sum, client) => sum + client.employees, 0).toLocaleString()}
                 </p>
-                <p className="text-sm text-gray-300">{isArabic ? 'إجمالي الموظفين' : 'Total Employees'}</p>
+                <p className="text-sm text-muted-foreground">{isArabic ? 'إجمالي الموظفين' : 'Total Employees'}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
+        <Card className="backdrop-blur-xl bg-card border border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
           <CardContent className="p-6">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <div className="p-3 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-600/20 backdrop-blur-sm border border-green-500/30">
-                <DollarSign className="h-6 w-6 text-green-400" />
+              <div className="p-3 rounded-full bg-gradient-to-r from-success/20 to-success/20 backdrop-blur-sm border border-success/30">
+                <DollarSign className="h-6 w-6 text-success" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-2xl font-bold text-foreground">
                   {clients.reduce((sum, client) => sum + client.monthly_revenue, 0).toLocaleString()} ر.س
                 </p>
-                <p className="text-sm text-gray-300">{isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue'}</p>
+                <p className="text-sm text-muted-foreground">{isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue'}</p>
               </div>
             </div>
           </CardContent>
@@ -278,23 +278,23 @@ export const ClientManagement: React.FC = () => {
       </div>
 
       {/* Filters and Search */}
-      <Card className="backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 rounded-2xl">
+      <Card className="backdrop-blur-xl bg-card border border-border rounded-2xl">
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder={isArabic ? 'البحث عن العملاء...' : 'Search clients...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white placeholder:text-gray-400 rounded-lg"
+                className="pl-10 border-border focus:border-accent bg-card text-foreground placeholder:text-muted-foreground rounded-lg"
               />
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full md:w-48 border-gray-800/50 focus:border-[#008C6A]/50 bg-black/30 text-white">
+              <SelectTrigger className="w-full md:w-48 border-border focus:border-accent bg-card text-foreground">
                 <SelectValue placeholder={isArabic ? 'تصفية بالحالة' : 'Filter by status'} />
               </SelectTrigger>
-              <SelectContent className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
+              <SelectContent className="bg-card backdrop-blur-xl border border-border text-foreground">
                 <SelectItem value="all">{isArabic ? 'جميع الحالات' : 'All Statuses'}</SelectItem>
                 <SelectItem value="active">{isArabic ? 'نشط' : 'Active'}</SelectItem>
                 <SelectItem value="suspended">{isArabic ? 'معلق' : 'Suspended'}</SelectItem>
@@ -307,27 +307,27 @@ export const ClientManagement: React.FC = () => {
       </Card>
 
       {/* Clients Table */}
-      <Card className="backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 rounded-2xl">
+      <Card className="backdrop-blur-xl bg-card border border-border rounded-2xl">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow className="border-b border-[#008C6A]/30">
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'العميل' : 'Client'}</TableHead>
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'المسؤول' : 'Contact Person'}</TableHead>
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'الموظفين' : 'Employees'}</TableHead>
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'الخطة' : 'Plan'}</TableHead>
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'الحالة' : 'Status'}</TableHead>
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'الإيرادات' : 'Revenue'}</TableHead>
-                <TableHead className="text-gray-300 text-center">{isArabic ? 'الإجراءات' : 'Actions'}</TableHead>
+              <TableRow className="border-b border-border">
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'العميل' : 'Client'}</TableHead>
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'المسؤول' : 'Contact Person'}</TableHead>
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'الموظفين' : 'Employees'}</TableHead>
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'الخطة' : 'Plan'}</TableHead>
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'الحالة' : 'Status'}</TableHead>
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'الإيرادات' : 'Revenue'}</TableHead>
+                <TableHead className="text-muted-foreground text-center">{isArabic ? 'الإجراءات' : 'Actions'}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredClients.map((client) => (
-                <TableRow key={client.id} className="border-b border-[#008C6A]/20 hover:bg-[#008C6A]/10">
+                <TableRow key={client.id} className="border-b border-border hover:bg-accent/10">
                   <TableCell>
                     <div>
-                      <div className="font-medium text-white">{client.name}</div>
-                      <div className="text-sm text-gray-300">{client.email}</div>
+                      <div className="font-medium text-foreground">{client.name}</div>
+                      <div className="text-sm text-muted-foreground">{client.email}</div>
                     </div>
                   </TableCell>
                   <TableCell>

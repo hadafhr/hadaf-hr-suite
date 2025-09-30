@@ -321,19 +321,19 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                       {billingCycle === 'yearly' ? `${supportFeeYearly.toLocaleString()} ﷼/سنوياً` : `${supportFeeMonthly.toLocaleString()} ﷼/شهرياً`}
                     </div>
                   </div>
-                  <Checkbox checked={includeSupport} onCheckedChange={checked => setIncludeSupport(checked === true)} className="border-teal-400 data-[state=checked]:bg-teal-600" />
+                  <Checkbox checked={includeSupport} onCheckedChange={checked => setIncludeSupport(checked === true)} className="border-accent data-[state=checked]:bg-accent" />
                 </div>
               </div>
             </Card>
 
             {/* AI Suggestions */}
-            {getAISuggestions().length > 0 && <Card className="p-6 backdrop-blur-xl bg-teal-900/20 border border-teal-400/30 shadow-2xl shadow-teal-400/10">
-                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-teal-300">
+            {getAISuggestions().length > 0 && <Card className="p-6 backdrop-blur-xl bg-accent/20 border border-accent/30 shadow-2xl">
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-accent">
                   <Bot className="h-5 w-5" />
                   اقتراحات ذكية
                 </h3>
                 <div className="space-y-2">
-                  {getAISuggestions().map((suggestion, index) => <div key={index} className="flex items-center gap-2 text-teal-200">
+                  {getAISuggestions().map((suggestion, index) => <div key={index} className="flex items-center gap-2 text-muted-foreground">
                       <Zap className="h-4 w-4" />
                       <span>{suggestion}</span>
                     </div>)}
@@ -344,9 +344,9 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
           {/* Summary Panel */}
           <div className="space-y-6">
             {/* Price Summary */}
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 sticky top-6">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
-                <Calculator className="h-6 w-6 text-teal-400" />
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl sticky top-6">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                <Calculator className="h-6 w-6 text-accent" />
                 ملخص التكلفة
               </h3>
               
@@ -373,27 +373,27 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
                     <span>-{calculation.savings.toLocaleString()} ﷼</span>
                   </div>}
                 
-                <Separator className="border-[#008C6A]/30" />
+                <Separator className="border-border" />
                 
                 <div className="flex justify-between font-bold text-xl">
-                  <span className="text-white">المجموع</span>
-                  <span className="text-teal-400">{calculation.total.toLocaleString()} ﷼</span>
+                  <span className="text-foreground">المجموع</span>
+                  <span className="text-accent">{calculation.total.toLocaleString()} ﷼</span>
                 </div>
                 
-                {billingCycle === 'yearly' && calculation.savings > 0 && <p className="text-xs text-green-400 text-center">
+                {billingCycle === 'yearly' && calculation.savings > 0 && <p className="text-xs text-success text-center">
                     توفير {calculation.savings.toLocaleString()} ﷼ سنوياً
                   </p>}
               </div>
 
-              <Separator className="my-4 border-[#008C6A]/30" />
+              <Separator className="my-4 border-border" />
 
               <div className="space-y-3">
-                <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white" onClick={generatePDF} disabled={!companyName || !contactEmail}>
+                <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" onClick={generatePDF} disabled={!companyName || !contactEmail}>
                   <Download className="h-4 w-4 ml-2" />
                   تحميل عرض السعر
                 </Button>
                 
-                <Button variant="outline" className="w-full bg-black/30 border-teal-400/50 text-teal-400 hover:bg-teal-600 hover:text-white" disabled={!companyName || !contactEmail}>
+                <Button variant="outline" className="w-full border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground" disabled={!companyName || !contactEmail}>
                   <Mail className="h-4 w-4 ml-2" />
                   إرسال بالبريد الإلكتروني
                 </Button>
@@ -401,52 +401,52 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             </Card>
 
             {/* Features */}
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h3 className="text-lg font-bold mb-4 text-white">مميزات الاشتراك</h3>
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h3 className="text-lg font-bold mb-4 text-foreground">مميزات الاشتراك</h3>
               <div className="space-y-3">
                 {['دعم نظام العمل السعودي', 'تكامل مع الجهات الرسمية', 'تقارير فورية ذكية', 'خدمة ذاتية للموظفين', 'توقيع إلكتروني', 'دعم بالذكاء الاصطناعي'].map((feature, index) => <div key={index} className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-teal-400" />
+                    <CheckCircle className="h-4 w-4 text-accent" />
                     <span className="text-sm text-gray-300">{feature}</span>
                   </div>)}
               </div>
             </Card>
 
             {/* Guarantee */}
-            <Card className="p-4 backdrop-blur-xl bg-teal-900/20 border border-teal-400/30 shadow-2xl shadow-teal-400/10 text-center">
+            <Card className="p-4 backdrop-blur-xl bg-accent/20 border border-accent/30 shadow-2xl text-center">
               <div className="flex justify-center mb-2">
-                <TrendingDown className="h-8 w-8 text-teal-400" />
+                <TrendingDown className="h-8 w-8 text-accent" />
               </div>
-              <h4 className="font-bold text-teal-300 mb-1">ضمان المنافسة</h4>
-              <p className="text-sm text-teal-200">أقل من السوق بـ 5% على الأقل</p>
+              <h4 className="font-bold text-accent mb-1">ضمان المنافسة</h4>
+              <p className="text-sm text-muted-foreground">أقل من السوق بـ 5% على الأقل</p>
             </Card>
           </div>
         </div>
 
         {/* FAQ Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-center mb-8 text-white">الأسئلة الشائعة</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">الأسئلة الشائعة</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h4 className="font-bold mb-2 text-white">كيف يتم احتساب الفوترة؟</h4>
-              <p className="text-sm text-gray-400">
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h4 className="font-bold mb-2 text-foreground">كيف يتم احتساب الفوترة؟</h4>
+              <p className="text-sm text-muted-foreground">
                 يتم احتساب الفوترة حسب عدد الموظفين الفعليين في النظام مع أسعار متدرجة تقل كلما زاد العدد.
               </p>
             </Card>
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h4 className="font-bold mb-2 text-white">هل يمكن إلغاء الاشتراك؟</h4>
-              <p className="text-sm text-gray-400">
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h4 className="font-bold mb-2 text-foreground">هل يمكن إلغاء الاشتراك؟</h4>
+              <p className="text-sm text-muted-foreground">
                 نعم، يمكن إلغاء الاشتراك في أي وقت مع ضمان استرداد المبلغ المتبقي من الفترة المدفوعة.
               </p>
             </Card>
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h4 className="font-bold mb-2 text-white">ما هو الدعم الفني المتوفر؟</h4>
-              <p className="text-sm text-gray-400">
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h4 className="font-bold mb-2 text-foreground">ما هو الدعم الفني المتوفر؟</h4>
+              <p className="text-sm text-muted-foreground">
                 نوفر دعم فني أساسي مجاني، ودعم متقدم 24/7 مع مدير حساب مخصص كخدمة إضافية.
               </p>
             </Card>
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h4 className="font-bold mb-2 text-white">هل الأسعار شاملة الضريبة؟</h4>
-              <p className="text-sm text-gray-400">
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h4 className="font-bold mb-2 text-foreground">هل الأسعار شاملة الضريبة؟</h4>
+              <p className="text-sm text-muted-foreground">
                 جميع الأسعار المعروضة غير شاملة ضريبة القيمة المضافة والتي ستضاف عند الفوترة.
               </p>
             </Card>

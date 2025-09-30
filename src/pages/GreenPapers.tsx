@@ -359,47 +359,47 @@ const GreenPapers: React.FC = () => {
           <div className="flex flex-wrap gap-4 justify-center">
             {/* Category Filter */}
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-card to-background border border-border text-foreground hover:border-accent transition-all duration-300">
                 <SelectValue placeholder="الفئة" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+              <SelectContent className="bg-card border-border">
                 <SelectItem value="all">جميع الفئات</SelectItem>
-                {categories.map(category => <SelectItem key={category} value={category} className="text-white hover:bg-[#008C6A]/20">{category}</SelectItem>)}
+                {categories.map(category => <SelectItem key={category} value={category} className="text-foreground hover:bg-accent/20">{category}</SelectItem>)}
               </SelectContent>
             </Select>
 
             {/* Level Filter */}
             <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-card to-background border border-border text-foreground hover:border-accent transition-all duration-300">
                 <SelectValue placeholder="المستوى" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+              <SelectContent className="bg-card border-border">
                 <SelectItem value="all">جميع المستويات</SelectItem>
-                {levels.map(level => <SelectItem key={level} value={level} className="text-white hover:bg-[#008C6A]/20">{level}</SelectItem>)}
+                {levels.map(level => <SelectItem key={level} value={level} className="text-foreground hover:bg-accent/20">{level}</SelectItem>)}
               </SelectContent>
             </Select>
 
             {/* Industry Filter */}
             <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
-              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-card to-background border border-border text-foreground hover:border-accent transition-all duration-300">
                 <Filter className="w-4 h-4 ml-2" />
                 <SelectValue placeholder="القطاع" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
+              <SelectContent className="bg-card border-border">
                 <SelectItem value="all">جميع القطاعات</SelectItem>
-                {industries.map(industry => <SelectItem key={industry} value={industry} className="text-white hover:bg-[#008C6A]/20">{industry}</SelectItem>)}
+                {industries.map(industry => <SelectItem key={industry} value={industry} className="text-foreground hover:bg-accent/20">{industry}</SelectItem>)}
               </SelectContent>
             </Select>
 
             {/* Sort */}
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:border-[#008C6A]/70 transition-all duration-300">
+              <SelectTrigger className="w-auto min-w-[150px] bg-gradient-to-r from-card to-background border border-border text-foreground hover:border-accent transition-all duration-300">
                 <SelectValue placeholder="ترتيب" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-[#008C6A]/30">
-                <SelectItem value="latest" className="text-white hover:bg-[#008C6A]/20">الأحدث</SelectItem>
-                <SelectItem value="downloads" className="text-white hover:bg-[#008C6A]/20">الأكثر تنزيلاً</SelectItem>
-                <SelectItem value="rating" className="text-white hover:bg-[#008C6A]/20">الأعلى تقييماً</SelectItem>
+              <SelectContent className="bg-card border-border">
+                <SelectItem value="latest" className="text-foreground hover:bg-accent/20">الأحدث</SelectItem>
+                <SelectItem value="downloads" className="text-foreground hover:bg-accent/20">الأكثر تنزيلاً</SelectItem>
+                <SelectItem value="rating" className="text-foreground hover:bg-accent/20">الأعلى تقييماً</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -510,8 +510,8 @@ const GreenPapers: React.FC = () => {
                   <div className="space-y-1">
                     <div className="text-xs text-accent font-semibold">Abdullah Salem</div>
                     <div className="flex gap-1">
-                      <div className="px-2 py-0.5 rounded bg-green-500/20 text-green-500 text-[10px]">✓</div>
-                      <div className="px-2 py-0.5 rounded bg-red-500/20 text-red-500 text-[10px]">✗</div>
+                      <div className="px-2 py-0.5 rounded bg-success/20 text-success text-[10px]">✓</div>
+                      <div className="px-2 py-0.5 rounded bg-destructive/20 text-destructive text-[10px]">✗</div>
                     </div>
                   </div>
                 </div>

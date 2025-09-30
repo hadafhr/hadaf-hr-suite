@@ -66,7 +66,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ curren
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-5 h-5 ${i < rating ? 'text-[#008C6A] fill-current' : 'text-gray-400'}`}
+        className={`w-5 h-5 ${i < rating ? 'text-accent fill-current' : 'text-muted-foreground'}`}
       />
     ));
   };
@@ -81,7 +81,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ curren
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5 }}
           whileHover={{ y: -10 }}
-          className="bg-gradient-to-b from-gray-900 to-gray-950 p-8 rounded-2xl border border-[#008C6A]/20 shadow-2xl"
+          className="bg-gradient-to-b from-card to-background p-8 rounded-2xl border border-border shadow-2xl"
         >
           <div className="text-center space-y-6">
             <div className="flex justify-center space-x-1 mb-4">
@@ -96,7 +96,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ curren
               <h4 className="text-lg font-semibold text-white">
                 {currentLanguage === 'ar' ? testimonials[currentIndex].nameAr : testimonials[currentIndex].nameEn}
               </h4>
-              <p className="text-[#008C6A]">
+              <p className="text-accent">
                 {currentLanguage === 'ar' ? testimonials[currentIndex].positionAr : testimonials[currentIndex].positionEn}
               </p>
               <p className="text-gray-400 text-sm">
@@ -113,7 +113,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ curren
           variant="ghost"
           size="sm"
           onClick={prevTestimonial}
-          className="w-12 h-12 rounded-full border border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/60"
+          className="w-12 h-12 rounded-full border border-border text-foreground hover:bg-accent/20 hover:border-accent"
         >
           <ChevronLeft className="w-5 h-5" />
         </Button>
@@ -124,7 +124,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ curren
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-[#008C6A]' : 'bg-gray-600 hover:bg-gray-500'
+                index === currentIndex ? 'bg-accent' : 'bg-muted hover:bg-muted-foreground'
               }`}
             />
           ))}
@@ -134,7 +134,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ curren
           variant="ghost"
           size="sm"
           onClick={nextTestimonial}
-          className="w-12 h-12 rounded-full border border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/60"
+          className="w-12 h-12 rounded-full border border-border text-foreground hover:bg-accent/20 hover:border-accent"
         >
           <ChevronRight className="w-5 h-5" />
         </Button>

@@ -131,7 +131,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-[#009F87]">
+          <DialogTitle className="flex items-center gap-2 text-accent">
             <User className="h-5 w-5" />
             {mode === 'create' ? 'إضافة موظف جديد' : 
              mode === 'edit' ? 'تعديل بيانات الموظف' : 'عرض بيانات الموظف'}
@@ -552,8 +552,8 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
                     />
                   </div>
 
-                  <div className="p-3 bg-[#009F87]/10 rounded-lg">
-                    <p className="text-sm font-medium text-[#009F87]">
+                  <div className="p-3 bg-accent/10 rounded-lg">
+                    <p className="text-sm font-medium text-accent">
                       إجمالي الراتب: {
                         (formData.basic_salary || 0) + 
                         (formData.housing_allowance || 0) + 
@@ -707,7 +707,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({
               <Button variant="outline" onClick={onClose}>
                 إلغاء
               </Button>
-              <Button onClick={handleSave} className="bg-[#009F87] hover:bg-[#008072]">
+              <Button onClick={handleSave} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 <Save className="h-4 w-4 ml-2" />
                 {mode === 'create' ? 'إضافة الموظف' : 'حفظ التغييرات'}
               </Button>
