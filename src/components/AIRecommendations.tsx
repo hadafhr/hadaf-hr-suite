@@ -32,7 +32,7 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
         icon: TrendingUp,
         title: 'ننصح بالترقية للباقة الأساسية',
         description: 'مزايا إضافية مهمة مع نمو فريقك',
-        color: 'bg-green-500'
+        color: 'bg-success'
       });
     } else if (employeeCount > 50 && currentPackage === 'basic') {
       recommendations.push({
@@ -59,7 +59,7 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
         icon: CreditCard,
         title: 'الدفع السنوي يوفر 15%',
         description: 'وفر شهرين مجانًا مع الدفع السنوي',
-        color: 'bg-green-500'
+        color: 'bg-success'
       });
     }
 
@@ -87,10 +87,10 @@ export const AIRecommendations: React.FC<AIRecommendationsProps> = ({
           <h3 className="font-semibold text-primary">الذكاء الاصطناعي</h3>
         </div>
         <div className="text-center py-4">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Bot className="h-6 w-6 text-green-600" />
+          <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Bot className="h-6 w-6 text-success" />
           </div>
-          <p className="text-sm text-green-600 font-medium">
+          <p className="text-sm text-success font-medium">
             اختيار ممتاز! الباقة المختارة مناسبة تماماً لحجم شركتك
           </p>
         </div>

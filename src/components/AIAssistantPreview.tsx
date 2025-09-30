@@ -107,7 +107,7 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
                 alt="BOUD HR Assistant" 
                 className="w-16 h-16"
               />
-              <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full animate-pulse border-2 border-background" />
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-success rounded-full animate-pulse border-2 border-background" />
             </div>
             <div>
               <h2 className="text-4xl font-bold text-primary mb-2">
@@ -191,7 +191,7 @@ export const AIAssistantPreview: React.FC<AIAssistantPreviewProps> = ({
                 ))}
               </div>
               
-              <div className="flex items-center justify-center gap-2 text-green-600">
+              <div className="flex items-center justify-center gap-2 text-success">
                 <Clock className="w-4 h-4" />
                 <span className="text-sm font-medium">
                   {isRTL ? 'متاح 24/7 | معلومات دقيقة | إرشاد متخصص' : 'Available 24/7 | Accurate Information | Expert Guidance'}

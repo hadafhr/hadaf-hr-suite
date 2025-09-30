@@ -205,9 +205,9 @@ export default function ChatMessaging() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'online': return <div className="w-3 h-3 bg-green-500 rounded-full" />;
-      case 'away': return <div className="w-3 h-3 bg-yellow-500 rounded-full" />;
-      default: return <div className="w-3 h-3 bg-gray-400 rounded-full" />;
+      case 'online': return <div className="w-3 h-3 bg-success rounded-full" />;
+      case 'away': return <div className="w-3 h-3 bg-warning rounded-full" />;
+      default: return <div className="w-3 h-3 bg-muted-foreground rounded-full" />;
     }
   };
 
@@ -224,8 +224,8 @@ export default function ChatMessaging() {
     switch (sender) {
       case 'ai': return 'bg-purple-100 text-purple-800';
       case 'manager': return 'bg-blue-100 text-blue-800';
-      case 'hr': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'hr': return 'bg-success/10 text-success';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
 

@@ -308,7 +308,7 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      'present': { color: 'bg-green-100 text-green-700 border-green-200', text: 'حاضر' },
+      'present': { color: 'bg-success/10 text-success border-success/20', text: 'حاضر' },
       'absent': { color: 'bg-red-100 text-red-700 border-red-200', text: 'غائب' },
       'late': { color: 'bg-orange-100 text-orange-700 border-orange-200', text: 'متأخر' },
       'earlyLeave': { color: 'bg-blue-100 text-blue-700 border-blue-200', text: 'انصراف مبكر' }
@@ -336,14 +336,14 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
   return (
     <div className="space-y-6">
       {/* Current Status Card */}
-      <Card className="bg-gradient-to-br from-[#009F87]/5 to-[#009F87]/10 border-[#009F87]/20">
+      <Card className="bg-gradient-to-br from-primary/5 to-primary-glow/10 border-primary/20">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between text-black">
+          <CardTitle className="flex items-center justify-between text-foreground">
             <div className="flex items-center">
-              <Clock className="h-6 w-6 ml-3 text-[#009F87]" />
+              <Clock className="h-6 w-6 ml-3 text-primary" />
               حالة الحضور الحالية
             </div>
-            <div className="text-2xl font-mono text-[#009F87]">
+            <div className="text-2xl font-mono text-primary">
               {currentTime.toLocaleTimeString('ar-SA', { 
                 hour: '2-digit', 
                 minute: '2-digit', 
@@ -359,68 +359,68 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
             <div className="flex items-center justify-center space-x-2 space-x-reverse">
               {isCheckedIn ? (
                 <>
-                  <CheckCircle className="h-8 w-8 text-green-600" />
-                  <span className="text-xl font-semibold text-green-600">محضر حالياً</span>
+                  <CheckCircle className="h-8 w-8 text-success" />
+                  <span className="text-xl font-semibold text-success">محضر حالياً</span>
                 </>
               ) : (
                 <>
-                  <XCircle className="h-8 w-8 text-gray-500" />
-                  <span className="text-xl font-semibold text-gray-500">غير محضر</span>
+                  <XCircle className="h-8 w-8 text-muted-foreground" />
+                  <span className="text-xl font-semibold text-muted-foreground">غير محضر</span>
                 </>
               )}
             </div>
             
             {isCheckedIn && checkInTime && (
-              <div className="bg-white p-4 rounded-lg border border-[#009F87]/20">
-                <p className="text-gray-600">وقت الحضور: <span className="font-semibold text-[#009F87]">{checkInTime}</span></p>
+              <div className="bg-card p-4 rounded-lg border border-border">
+                <p className="text-muted-foreground">وقت الحضور: <span className="font-semibold text-primary">{checkInTime}</span></p>
                 {todayRecord && (
-                  <p className="text-gray-600">الموقع: <span className="font-semibold">{todayRecord.location}</span></p>
+                  <p className="text-muted-foreground">الموقع: <span className="font-semibold">{todayRecord.location}</span></p>
                 )}
               </div>
             )}
           </div>
 
           {/* Location Status */}
-          <div className="bg-white p-4 rounded-lg border border-gray-200">
+          <div className="bg-card p-4 rounded-lg border border-border">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-semibold text-gray-800">حالة تحديد الموقع</h4>
+              <h4 className="font-semibold text-foreground">حالة تحديد الموقع</h4>
               <div className="flex items-center space-x-2 space-x-reverse">
-                <Navigation className="h-4 w-4 text-[#009F87]" />
-                <Wifi className="h-4 w-4 text-green-500" />
-                <Battery className="h-4 w-4 text-green-500" />
+                <Navigation className="h-4 w-4 text-primary" />
+                <Wifi className="h-4 w-4 text-success" />
+                <Battery className="h-4 w-4 text-success" />
               </div>
             </div>
             
             {locationPermission === 'checking' && (
-              <div className="flex items-center space-x-2 space-x-reverse text-yellow-600">
+              <div className="flex items-center space-x-2 space-x-reverse text-warning">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 <span>جاري فحص إذن الموقع...</span>
               </div>
             )}
             
             {locationPermission === 'granted' && (
-              <div className="flex items-center space-x-2 space-x-reverse text-green-600">
+              <div className="flex items-center space-x-2 space-x-reverse text-success">
                 <CheckCircle className="h-4 w-4" />
                 <span>تم منح إذن الوصول للموقع</span>
               </div>
             )}
             
             {locationPermission === 'denied' && (
-              <div className="flex items-center space-x-2 space-x-reverse text-red-600">
+              <div className="flex items-center space-x-2 space-x-reverse text-destructive">
                 <XCircle className="h-4 w-4" />
                 <span>تم رفض إذن الوصول للموقع</span>
               </div>
             )}
             
             {locationPermission === 'prompt' && (
-              <div className="flex items-center space-x-2 space-x-reverse text-orange-600">
+              <div className="flex items-center space-x-2 space-x-reverse text-warning">
                 <AlertCircle className="h-4 w-4" />
                 <span>يرجى السماح بالوصول للموقع</span>
               </div>
             )}
             
             {currentLocation && (
-              <div className="mt-2 text-sm text-gray-600">
+              <div className="mt-2 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-2 space-x-reverse">
                   <MapPin className="h-4 w-4" />
                   <span>
@@ -437,7 +437,7 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
               <Button 
                 onClick={handleCheckIn}
                 disabled={isLoading || locationPermission !== 'granted'}
-                className="flex-1 bg-[#009F87] hover:bg-[#008072] text-white h-14 text-lg"
+                className="flex-1 bg-background text-foreground border border-border hover:bg-accent h-14 text-lg"
               >
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin ml-2" />
@@ -451,7 +451,7 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
                 onClick={handleCheckOut}
                 disabled={isLoading || locationPermission !== 'granted'}
                 variant="outline"
-                className="flex-1 border-[#009F87] text-[#009F87] hover:bg-[#009F87] hover:text-white h-14 text-lg"
+                className="flex-1 border-border text-foreground hover:bg-accent h-14 text-lg"
               >
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin ml-2" />
@@ -482,53 +482,53 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
 
       {/* Monthly Statistics */}
       <div className="grid md:grid-cols-4 gap-4">
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-card border-border">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <Calendar className="h-5 w-5 text-[#009F87]" />
+              <Calendar className="h-5 w-5 text-primary" />
             </div>
-            <p className="text-2xl font-bold text-[#009F87]">{monthlyStats.presentDays}</p>
-            <p className="text-sm text-gray-600">أيام الحضور</p>
+            <p className="text-2xl font-bold text-primary">{monthlyStats.presentDays}</p>
+            <p className="text-sm text-muted-foreground">أيام الحضور</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-card border-border">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <XCircle className="h-5 w-5 text-red-500" />
+              <XCircle className="h-5 w-5 text-destructive" />
             </div>
-            <p className="text-2xl font-bold text-red-500">{monthlyStats.absentDays}</p>
-            <p className="text-sm text-gray-600">أيام الغياب</p>
+            <p className="text-2xl font-bold text-destructive">{monthlyStats.absentDays}</p>
+            <p className="text-sm text-muted-foreground">أيام الغياب</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-card border-border">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <Clock3 className="h-5 w-5 text-orange-500" />
+              <Clock3 className="h-5 w-5 text-warning" />
             </div>
-            <p className="text-2xl font-bold text-orange-500">{monthlyStats.lateDays}</p>
-            <p className="text-sm text-gray-600">أيام التأخير</p>
+            <p className="text-2xl font-bold text-warning">{monthlyStats.lateDays}</p>
+            <p className="text-sm text-muted-foreground">أيام التأخير</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-white border-gray-200">
+        <Card className="bg-card border-border">
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <TrendingUp className="h-5 w-5 text-[#009F87]" />
+              <TrendingUp className="h-5 w-5 text-primary" />
             </div>
-            <p className="text-2xl font-bold text-[#009F87]">{monthlyStats.attendanceRate}%</p>
-            <p className="text-sm text-gray-600">معدل الحضور</p>
+            <p className="text-2xl font-bold text-primary">{monthlyStats.attendanceRate}%</p>
+            <p className="text-sm text-muted-foreground">معدل الحضور</p>
             <Progress value={monthlyStats.attendanceRate} className="mt-2 h-2" />
           </CardContent>
         </Card>
       </div>
 
       {/* Attendance History */}
-      <Card className="bg-white border-gray-200">
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="flex items-center text-black">
-            <Clock className="h-5 w-5 ml-2 text-[#009F87]" />
+          <CardTitle className="flex items-center text-foreground">
+            <Clock className="h-5 w-5 ml-2 text-primary" />
             سجل الحضور والانصراف
           </CardTitle>
         </CardHeader>
@@ -536,16 +536,16 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
           <div className="space-y-4">
             {/* Today's Record */}
             {todayRecord && (
-              <div className="bg-[#009F87]/5 border border-[#009F87]/20 p-4 rounded-lg">
+              <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h4 className="font-semibold text-[#009F87]">اليوم - {formatDate(todayRecord.date)}</h4>
-                    <div className="flex items-center space-x-4 space-x-reverse text-sm text-gray-600 mt-1">
+                    <h4 className="font-semibold text-primary">{formatDate(todayRecord.date)} - اليوم</h4>
+                    <div className="flex items-center space-x-4 space-x-reverse text-sm text-muted-foreground mt-1">
                       <span>حضور: {todayRecord.checkIn}</span>
                       {todayRecord.checkOut && <span>انصراف: {todayRecord.checkOut}</span>}
                       {todayRecord.workHours > 0 && <span>ساعات العمل: {todayRecord.workHours}h</span>}
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       الموقع: {todayRecord.location}
                     </p>
                   </div>
@@ -558,15 +558,15 @@ export const AttendanceSystem: React.FC<AttendanceSystemProps> = ({ employeeData
             
             {/* Historical Records */}
             {attendanceHistory.map((record) => (
-              <div key={record.id} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div key={record.id} className="flex justify-between items-center p-4 bg-muted/20 rounded-lg border border-border">
                 <div>
-                  <h4 className="font-semibold text-black">{formatDate(record.date)}</h4>
-                  <div className="flex items-center space-x-4 space-x-reverse text-sm text-gray-600 mt-1">
+                  <h4 className="font-semibold text-foreground">{formatDate(record.date)}</h4>
+                  <div className="flex items-center space-x-4 space-x-reverse text-sm text-muted-foreground mt-1">
                     <span>حضور: {record.checkIn}</span>
                     <span>انصراف: {record.checkOut}</span>
                     <span>ساعات العمل: {record.workHours}h</span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     الموقع: {record.location}
                   </p>
                 </div>

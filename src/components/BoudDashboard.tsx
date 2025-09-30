@@ -98,8 +98,8 @@ const BoudDashboard: React.FC = () => {
       change: '+19,000',
       changePercent: '3.8%',
       icon: DollarSign,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
+      color: 'text-success',
+      bgColor: 'bg-success/10'
     },
     {
       title: 'معدل الحضور',
@@ -148,8 +148,8 @@ const BoudDashboard: React.FC = () => {
                     {kpi.value}
                   </p>
                   <div className="flex items-center mt-2">
-                    <TrendingUp className="h-4 w-4 text-green-600 ml-1" />
-                    <span className="text-sm text-green-600 font-medium">
+                    <TrendingUp className="h-4 w-4 text-success ml-1" />
+                    <span className="text-sm text-success font-medium">
                       {kpi.change} ({kpi.changePercent})
                     </span>
                   </div>

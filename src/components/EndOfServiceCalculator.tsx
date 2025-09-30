@@ -214,25 +214,25 @@ export const EndOfServiceCalculator: React.FC = () => {
         {/* Page Title */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Calculator className="w-8 h-8 text-[#008C6A]" />
-            <h1 className="text-3xl font-bold text-white">حاسبة مكافأة نهاية الخدمة</h1>
+            <Calculator className="w-8 h-8 text-foreground" />
+            <h1 className="text-3xl font-bold text-foreground">حاسبة مكافأة نهاية الخدمة</h1>
           </div>
-          <p className="text-gray-300 max-w-3xl mx-auto">
+          <p className="text-muted-foreground max-w-3xl mx-auto">
             احسب مكافأة نهاية الخدمة وفقاً لنظام العمل السعودي (المواد 84، 85، 87، 80، 81، 77) 
             مع دعم التقويم الهجري والميلادي
           </p>
         </div>
 
         {/* Contract Details Form */}
-        <Card className="mb-8 bg-gray-900/40 backdrop-blur-xl border border-[#008C6A]/30">
-          <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-black/10"></div>
-            <CardTitle className="flex items-center gap-2 text-white relative z-10">
+        <Card className="mb-8 bg-card backdrop-blur-xl border border-border">
+          <CardHeader className="bg-background text-foreground rounded-t-lg relative overflow-hidden border-b border-border">
+            <div className="absolute inset-0 bg-background"></div>
+            <CardTitle className="flex items-center gap-2 text-foreground relative z-10">
               <FileText className="w-5 h-5" />
               تفاصيل العقد
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6 p-6 bg-gray-900/40">
+          <CardContent className="space-y-6 p-6 bg-card">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Contract Type */}
               <div className="space-y-3">
@@ -279,20 +279,20 @@ export const EndOfServiceCalculator: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Termination Reason */}
               <div className="space-y-2">
-                <Label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                <Label className="text-foreground font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                   سبب انتهاء العلاقة العمالية
                 </Label>
                 <Select value={terminationReason} onValueChange={setTerminationReason}>
-                  <SelectTrigger className="bg-black/50 border-[#008C6A]/40 text-white focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200">
+                  <SelectTrigger className="bg-background border-border text-foreground focus:border-primary focus:ring-primary/50 hover:border-primary/70 transition-all duration-200">
                     <SelectValue placeholder="اختر سبب الانتهاء" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-900 border-[#008C6A]/40">
+                  <SelectContent className="bg-card border-border">
                     {TERMINATION_REASONS.map((reason) => (
-                      <SelectItem key={reason.value} value={reason.value} className="text-white hover:bg-[#008C6A]/20 focus:bg-[#008C6A]/30">
+                      <SelectItem key={reason.value} value={reason.value} className="text-foreground hover:bg-accent focus:bg-accent">
                         <div className="flex items-center gap-2">
                           <span>{reason.label}</span>
-                          <Badge variant="outline" className="text-xs border-[#008C6A]/40 text-[#008C6A]">
+                          <Badge variant="outline" className="text-xs border-border text-foreground">
                             {reason.article}
                           </Badge>
                         </div>
@@ -304,8 +304,8 @@ export const EndOfServiceCalculator: React.FC = () => {
 
               {/* Last Salary */}
               <div className="space-y-2">
-                <Label className="text-gray-200 font-medium flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                <Label className="text-foreground font-medium flex items-center gap-2">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                   آخر راتب شهري (ريال سعودي) *
                 </Label>
                 <Input
@@ -313,7 +313,7 @@ export const EndOfServiceCalculator: React.FC = () => {
                   placeholder="8000"
                   value={lastSalary}
                   onChange={(e) => setLastSalary(e.target.value)}
-                  className="text-right bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                  className="text-right bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/50 hover:border-primary/70 transition-all duration-200"
                 />
               </div>
             </div>
@@ -336,8 +336,8 @@ export const EndOfServiceCalculator: React.FC = () => {
             {useDurationMode ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-gray-200 font-medium flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[#008C6A] rounded-full animate-pulse"></span>
+                  <Label className="text-foreground font-medium flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                     سنوات الخدمة
                   </Label>
                   <Input
@@ -345,12 +345,12 @@ export const EndOfServiceCalculator: React.FC = () => {
                     placeholder="0"
                     value={serviceYears}
                     onChange={(e) => setServiceYears(e.target.value)}
-                    className="text-right bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                    className="text-right bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/50 hover:border-primary/70 transition-all duration-200"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-gray-200 font-medium flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
+                  <Label className="text-foreground font-medium flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary/70 rounded-full"></span>
                     أشهر الخدمة
                   </Label>
                   <Input
@@ -359,12 +359,12 @@ export const EndOfServiceCalculator: React.FC = () => {
                     max="11"
                     value={serviceMonths}
                     onChange={(e) => setServiceMonths(e.target.value)}
-                    className="text-right bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                    className="text-right bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/50 hover:border-primary/70 transition-all duration-200"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-gray-200 font-medium flex items-center gap-2">
-                    <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
+                  <Label className="text-foreground font-medium flex items-center gap-2">
+                    <span className="w-2 h-2 bg-primary/70 rounded-full"></span>
                     أيام الخدمة
                   </Label>
                   <Input
@@ -373,7 +373,7 @@ export const EndOfServiceCalculator: React.FC = () => {
                     max="365"
                     value={serviceDays}
                     onChange={(e) => setServiceDays(e.target.value)}
-                    className="text-right bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                    className="text-right bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/50 hover:border-primary/70 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -451,8 +451,8 @@ export const EndOfServiceCalculator: React.FC = () => {
 
             {/* Unpaid Leave Days */}
             <div className="space-y-2">
-              <Label className="text-gray-200 font-medium flex items-center gap-2">
-                <span className="w-2 h-2 bg-[#008C6A]/70 rounded-full"></span>
+              <Label className="text-foreground font-medium flex items-center gap-2">
+                <span className="w-2 h-2 bg-primary/70 rounded-full"></span>
                 أيام الإجازة بدون أجر (اختياري)
               </Label>
               <Input
@@ -460,7 +460,7 @@ export const EndOfServiceCalculator: React.FC = () => {
                 placeholder="0"
                 value={unpaidLeaveDays}
                 onChange={(e) => setUnpaidLeaveDays(e.target.value)}
-                className="text-right max-w-sm bg-black/50 border-[#008C6A]/40 text-white placeholder:text-gray-400 focus:border-[#008C6A] focus:ring-[#008C6A]/50 hover:border-[#008C6A]/70 transition-all duration-200"
+                className="text-right max-w-sm bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-primary/50 hover:border-primary/70 transition-all duration-200"
               />
             </div>
 
@@ -468,19 +468,18 @@ export const EndOfServiceCalculator: React.FC = () => {
             <div className="flex gap-4 pt-4">
               <Button 
                 onClick={calculateBenefit} 
-                className="px-8 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white font-bold py-3 rounded-lg transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#008C6A]/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden"
+                className="px-8 bg-background text-foreground font-bold py-3 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden border border-border"
                 disabled={!lastSalary || !terminationReason}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   <Calculator className="w-4 h-4" />
                   احسب المكافأة
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-pulse"></div>
               </Button>
               <Button 
                 variant="outline" 
                 onClick={clearForm}
-                className="px-6 bg-transparent border-[#008C6A]/40 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/70 transition-all duration-200"
+                className="px-6 bg-background border-border text-foreground hover:bg-accent transition-all duration-200"
               >
                 تفريغ النموذج
               </Button>
@@ -490,30 +489,29 @@ export const EndOfServiceCalculator: React.FC = () => {
 
         {/* Results Section */}
         {calculationResult && (
-          <Card className="mb-8 bg-gray-900/60 backdrop-blur-xl shadow-2xl border border-[#008C6A]/30 animate-fade-in hover:border-[#008C6A]/50 transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-t-lg relative overflow-hidden">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <CardTitle className="text-white relative z-10 flex items-center gap-2">
+          <Card className="mb-8 bg-card backdrop-blur-xl shadow-2xl border border-border animate-fade-in hover:border-primary transition-all duration-300">
+            <CardHeader className="bg-background text-foreground rounded-t-lg relative overflow-hidden border-b border-border">
+              <div className="absolute inset-0 bg-background"></div>
+              <CardTitle className="text-foreground relative z-10 flex items-center gap-2">
                 <DollarSign className="w-5 h-5 animate-pulse" />
                 المكافأة المحسوبة
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6 p-6 bg-gray-900/40">
+            <CardContent className="space-y-6 p-6 bg-card">
               {/* Main Result */}
-              <div className="text-center p-6 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] text-white rounded-lg shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-pulse"></div>
-                <div className="text-4xl font-bold text-white mb-2 relative z-10">
+              <div className="text-center p-6 bg-background text-foreground rounded-lg shadow-lg border border-border relative overflow-hidden">
+                <div className="text-4xl font-bold text-foreground mb-2 relative z-10">
                   {calculationResult.totalAmount.toLocaleString('ar-SA')} ريال
                 </div>
-                <div className="text-white/90 relative z-10">
+                <div className="text-muted-foreground relative z-10">
                   مكافأة نهاية الخدمة المستحقة
                 </div>
               </div>
 
               {/* Service Period Summary */}
-              <div className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-[#008C6A]/20 hover:border-[#008C6A]/40 transition-all duration-200">
+              <div className="flex items-center justify-between p-4 bg-card rounded-lg border border-border hover:border-primary transition-all duration-200">
                 <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#008C6A]" />
+                  <Clock className="w-4 h-4 text-primary" />
                   <span className="font-medium">فترة العمل الإجمالية</span>
                 </div>
                 <span className="text-lg font-semibold">
