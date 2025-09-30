@@ -87,15 +87,15 @@ export const AdminAnalytics: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -103,30 +103,30 @@ export const AdminAnalytics: React.FC = () => {
       </div>
       
       {/* Header */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20 h-24 flex items-center justify-between px-6">
+      <header className="relative z-10 bg-gradient-to-r from-background via-card to-background backdrop-blur-xl border-b border-border shadow-2xl h-24 flex items-center justify-between px-6">
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent to-accent opacity-80"></div>
         </div>
         <div className="flex items-center relative z-10">
           <Button
             variant="ghost"
             onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 text-white hover:bg-[#008C6A]/20 transition-colors mr-4"
+            className="flex items-center gap-2 text-foreground hover:bg-accent/20 transition-colors mr-4"
           >
             <ArrowLeft className="w-5 h-5" />
             {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
           </Button>
           <div className="flex items-center space-x-2 space-x-reverse">
             <div className="relative">
-              <BarChart3 className="h-8 w-8 text-[#008C6A] animate-pulse" />
-              <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+              <BarChart3 className="h-8 w-8 text-accent animate-pulse" />
+              <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
             </div>
             <div className="flex flex-col">
-              <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent">
                 {isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics'}
               </h1>
-              <p className="text-sm text-gray-400 animate-fade-in">
+              <p className="text-sm text-muted-foreground animate-fade-in">
                 {isArabic ? 'تحليلات متقدمة ومعلومات إحصائية شاملة' : 'Advanced Analytics and Comprehensive Statistics'}
               </p>
             </div>
@@ -137,24 +137,24 @@ export const AdminAnalytics: React.FC = () => {
           <LanguageSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-white hover:bg-[#008C6A]/20">
-                <div className="w-8 h-8 bg-gradient-to-r from-[#008C6A] to-[#00694F] rounded-full flex items-center justify-center">
-                  <Crown className="h-4 w-4 text-white" />
+              <Button variant="ghost" className="flex items-center space-x-2 space-x-reverse text-foreground hover:bg-accent/20">
+                <div className="w-8 h-8 bg-gradient-to-r from-accent to-accent rounded-full flex items-center justify-center">
+                  <Crown className="h-4 w-4 text-foreground" />
                 </div>
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-black/90 backdrop-blur-xl border border-[#008C6A]/30 text-white">
-              <DropdownMenuItem className="hover:bg-[#008C6A]/20">
+            <DropdownMenuContent align="end" className="bg-background/90 backdrop-blur-xl border border-border text-foreground">
+              <DropdownMenuItem className="hover:bg-accent/20">
                 <User className="h-4 w-4 mr-2" />
                 {isArabic ? 'الملف الشخصي' : 'Admin Profile'}
               </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-[#008C6A]/20">
+              <DropdownMenuItem className="hover:bg-accent/20">
                 <Settings className="h-4 w-4 mr-2" />
                 {isArabic ? 'إعدادات النظام' : 'System Settings'}
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-[#008C6A]/30" />
-              <DropdownMenuItem onClick={handleLogout} className="hover:bg-[#008C6A]/20">
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem onClick={handleLogout} className="hover:bg-accent/20">
                 <LogOut className="h-4 w-4 mr-2" />
                 {isArabic ? 'تسجيل الخروج' : 'Logout'}
               </DropdownMenuItem>

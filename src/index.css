@@ -157,36 +157,36 @@
   }
 
   body {
-    background: #000000;
-    color: #ffffff;
+    background: var(--color-black);
+    color: var(--color-white);
     @apply font-sans antialiased;
     direction: rtl;
   }
   
   /* Force dark theme application */
   html {
-    background: #000000;
+    background: var(--color-black);
   }
   
   /* Ensure all containers inherit dark theme */
   .min-h-screen, .container, .w-full {
-    background: #000000;
-    color: #ffffff;
+    background: var(--color-black);
+    color: var(--color-white);
   }
 }
 
 @layer components {
   /* Dark Theme Component Styles */
   .hero-section {
-    background: #000000;
-    color: #ffffff;
+    background: var(--color-black);
+    color: var(--color-white);
     box-shadow: 0 8px 32px rgba(177, 160, 134, 0.15);
   }
   
   .glass-card {
-    background: #1a1a1a;
+    background: var(--color-dark-card);
     @apply backdrop-blur-sm border;
-    border-color: #cfcbcb;
+    border-color: var(--color-gray-1);
     box-shadow: 0 8px 32px rgba(177, 160, 134, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -197,25 +197,25 @@
   }
   
   .service-card {
-    background: #1a1a1a;
-    border: 1px solid #cfcbcb;
+    background: var(--color-dark-card);
+    border: 1px solid var(--color-gray-1);
     @apply rounded-xl p-6;
-    color: #000000;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    color: var(--color-white);
+    box-shadow: 0 8px 32px rgba(177, 160, 134, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .service-card:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
-    border-color: #000000;
+    box-shadow: 0 12px 48px rgba(177, 160, 134, 0.15);
+    border-color: var(--color-beige);
   }
   
   .dashboard-card {
-    background: #ffffff;
-    border: 1px solid #cfcbcb;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-1);
     @apply rounded-xl p-6;
-    color: #000000;
+    color: var(--color-black);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -226,9 +226,9 @@
   }
   
   .metric-card {
-    background: #ffffff;
-    border: 1px solid #cfcbcb;
-    color: #000000;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-1);
+    color: var(--color-black);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -239,58 +239,58 @@
   }
   
   .btn-hero {
-    background: #000000;
-    color: #ffffff;
+    background: var(--color-black);
+    color: var(--color-white);
     @apply font-semibold px-8 py-3 rounded-xl border;
-    border-color: #000000;
+    border-color: var(--color-black);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-hero:hover {
     transform: scale(1.05);
-    background: #cfcbcb;
-    color: #000000;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    background: var(--color-beige);
+    color: var(--color-black);
+    box-shadow: 0 8px 24px rgba(177, 160, 134, 0.25);
   }
   
   .btn-primary {
-    background: #000000;
-    color: #ffffff;
+    background: var(--color-black);
+    color: var(--color-white);
     @apply font-medium px-6 py-2.5 rounded-lg border;
-    border-color: #000000;
+    border-color: var(--color-black);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-primary:hover {
-    background: #cfcbcb;
-    color: #000000;
+    background: var(--color-beige);
+    color: var(--color-black);
     transform: scale(1.02);
   }
   
   .btn-secondary {
-    background: #ffffff;
-    color: #000000;
-    border: 1px solid #000000;
+    background: var(--color-white);
+    color: var(--color-black);
+    border: 1px solid var(--color-black);
     @apply font-medium px-6 py-2.5 rounded-lg;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .btn-secondary:hover {
-    background: #cfcbcb;
-    color: #000000;
+    background: var(--color-beige);
+    color: var(--color-black);
     transform: scale(1.02);
   }
   
   .navigation-item {
     @apply px-4 py-2 rounded-lg font-medium transition-all duration-300;
-    color: #000000;
+    color: var(--color-white);
   }
   
   .navigation-item:hover {
-    background: #cfcbcb;
-    color: #000000;
+    background: var(--color-beige);
+    color: var(--color-black);
   }
   
   /* تأثيرات التحريك */
@@ -559,55 +559,55 @@
 /* 3D Effects and Workforce Management Styles */
 .workforce-container {
   @apply min-h-screen;
-  background: #b1a086;
+  background: var(--color-beige);
 }
 
 .workforce-card {
-  background: #ffffff;
-  border: 1px solid #cfcbcb;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-1);
   @apply rounded-lg transition-all duration-300;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .workforce-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15), 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(177, 160, 134, 0.15), 0 12px 32px rgba(177, 160, 134, 0.15);
 }
 
 .workforce-button {
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #000000;
+  background: var(--color-white);
+  color: var(--color-black);
+  border: 1px solid var(--color-black);
   @apply rounded-md px-4 py-2 transition-all duration-300;
 }
 
 .workforce-button:hover {
-  background: #cfcbcb;
-  color: #000000;
+  background: var(--color-beige);
+  color: var(--color-black);
   transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(177, 160, 134, 0.15);
 }
 
 .workforce-button-primary {
-  background: #000000;
-  color: #ffffff;
+  background: var(--color-black);
+  color: var(--color-white);
   @apply border-none rounded-md px-4 py-2 transition-all duration-300;
 }
 
 .workforce-button-primary:hover {
-  background: #cfcbcb;
-  color: #000000;
+  background: var(--color-beige);
+  color: var(--color-black);
   transform: scale(1.05);
 }
 
 .btn-3d {
   @apply transition-all duration-300 transform;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(177, 160, 134, 0.15);
 }
 
 .btn-3d:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(177, 160, 134, 0.2);
 }
 
 .btn-3d:active {
@@ -615,15 +615,15 @@
 }
 
 .card-3d {
-  background: #ffffff;
-  border: 1px solid #cfcbcb;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-1);
   @apply rounded-lg transition-all duration-300;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(177, 160, 134, 0.1), 0 4px 16px rgba(177, 160, 134, 0.08);
 }
 
 .card-3d:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 0 32px rgba(0, 0, 0, 0.15), 0 16px 48px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 32px rgba(177, 160, 134, 0.15), 0 16px 48px rgba(177, 160, 134, 0.15);
 }
 
 /* ========================================

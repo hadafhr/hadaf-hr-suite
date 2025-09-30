@@ -195,23 +195,23 @@ const GreenPapers: React.FC = () => {
     setNewsletterEmail('');
     // Show success message
   };
-  return <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div className="w-full h-full bg-repeat animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
           backgroundSize: '60px 60px'
         }}></div>
         </div>
       </div>
       
       {/* Professional Interactive Header */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+      <header className="relative z-10 bg-gradient-to-r from-background via-card to-background backdrop-blur-xl border-b border-border shadow-2xl">
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent to-accent opacity-80"></div>
         </div>
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
@@ -226,13 +226,13 @@ const GreenPapers: React.FC = () => {
             {/* Center Section - Title & Icon */}
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <BookOpen className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+                <BookOpen className="h-8 w-8 text-accent animate-pulse" />
+                <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
               </div>
               
               <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">📗 الأوراق البيضاء</h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
+                <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent">📗 الأوراق البيضاء</h1>
+                <p className="text-sm text-muted-foreground animate-fade-in">
                   دلائل ومراجع احترافية
                 </p>
               </div>
@@ -241,45 +241,45 @@ const GreenPapers: React.FC = () => {
             {/* Right Section - Professional Controls Panel */}
             <div className="flex flex-col items-end space-y-4">
               {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+              <div className="bg-gradient-to-r from-background/40 via-card/60 to-background/40 backdrop-blur-xl rounded-2xl border border-border shadow-xl p-4 min-w-[200px]">
                 {/* Status Indicator */}
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
                     حالة النظام
                   </span>
                   <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-                    <span className="text-xs text-green-300 font-semibold">
+                    <div className="w-2 h-2 bg-success rounded-full animate-pulse shadow-lg shadow-success/50"></div>
+                    <span className="text-xs text-success-foreground font-semibold">
                       متاح
                     </span>
                   </div>
                 </div>
                 
                 {/* Divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-3"></div>
                 
                 {/* Quick Stats */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-medium">
+                  <span className="text-xs text-muted-foreground font-medium">
                     الأوراق المتاحة
                   </span>
-                  <span className="text-sm text-[#008C6A] font-bold">
+                  <span className="text-sm text-accent font-bold">
                     {filteredPapers.length}
                   </span>
                 </div>
               </div>
               
               {/* Quick Stats Mini Panel */}
-              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
+              <div className="bg-gradient-to-r from-background/20 to-card/30 backdrop-blur-lg rounded-xl border border-border px-3 py-2 shadow-lg">
                 <div className="flex items-center space-x-3 text-xs">
                   <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">{filteredPapers.length} ورقة</span>
+                    <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></div>
+                    <span className="text-muted-foreground">{filteredPapers.length} ورقة</span>
                   </div>
-                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
+                  <div className="w-px h-3 bg-border"></div>
                   <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">محدّث</span>
+                    <div className="w-1.5 h-1.5 bg-success rounded-full animate-pulse"></div>
+                    <span className="text-muted-foreground">محدّث</span>
                   </div>
                 </div>
               </div>
@@ -287,7 +287,7 @@ const GreenPapers: React.FC = () => {
           </div>
 
           {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent"></div>
         </div>
       </header>
 
@@ -306,24 +306,24 @@ const GreenPapers: React.FC = () => {
         </div>
         
         {/* Floating Elements for Professional Look */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
         
         {/* Enhanced Hero Section */}
         <div className="text-center mb-12 relative">
           {/* Floating background elements */}
-          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-accent/30 to-transparent blur-sm"></div>
           
           <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <img src="/boud-logo-white.png" alt="شعار بُعد" className="h-36 w-36 object-contain transition-all duration-300 group-hover:brightness-110 z-10 relative drop-shadow-2xl" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           
-          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">📗 أوراق البيضاء عن الموارد البشرية</h2>
+          <h2 className="text-5xl font-bold mb-8 text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent leading-tight">📗 أوراق البيضاء عن الموارد البشرية</h2>
           
           <div className="relative max-w-3xl mx-auto">
-            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+            <p className="text-muted-foreground text-lg leading-relaxed bg-background/20 backdrop-blur-sm p-6 rounded-2xl border border-border shadow-xl">
               دلائل ومراجع عملية تساعد فرق الموارد البشرية على اتخاذ قراراتٍ أفضل
             </p>
           </div>
@@ -334,10 +334,10 @@ const GreenPapers: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
             {/* Professional Search Bar */}
             <div className="relative w-full max-w-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-accent/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative flex items-center">
-                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#008C6A] h-5 w-5 z-10" />
-                <Input placeholder="ابحث في الأوراق الخضراء..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full pr-12 pl-6 h-14 bg-gradient-to-r from-gray-900/80 to-black/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl text-white placeholder-gray-400 focus:border-[#008C6A]/70 focus:ring-2 focus:ring-[#008C6A]/30 transition-all duration-300 shadow-xl hover:shadow-[#008C6A]/20" />
+                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-accent h-5 w-5 z-10" />
+                <Input placeholder="ابحث في الأوراق الخضراء..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="w-full pr-12 pl-6 h-14 bg-gradient-to-r from-card/80 to-background/60 backdrop-blur-xl border border-border rounded-2xl text-foreground placeholder-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all duration-300 shadow-xl hover:shadow-accent/20" />
               </div>
             </div>
             
@@ -348,7 +348,7 @@ const GreenPapers: React.FC = () => {
               setSelectedCategory('');
               setSelectedLevel('');
               setSelectedIndustry('');
-            }} className="bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:bg-gradient-to-r hover:from-[#008C6A]/20 hover:to-[#00694F]/20 hover:border-[#008C6A]/70 transition-all duration-300 shadow-lg hover:shadow-[#008C6A]/25 px-6 h-12">
+            }} className="bg-gradient-to-r from-card/50 to-background/30 border border-border text-foreground hover:bg-gradient-to-r hover:from-accent/20 hover:to-accent/20 hover:border-accent transition-all duration-300 shadow-lg hover:shadow-accent/25 px-6 h-12">
                 <Search className="w-4 h-4 mr-2" />
                 مسح البحث
               </Button>
