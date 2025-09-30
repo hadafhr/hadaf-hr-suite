@@ -166,7 +166,7 @@ export const AdminDashboard: React.FC = () => {
               <img 
                 src={headerLogo} 
                 alt="Buod HR" 
-                className="h-24 w-24 object-contain filter brightness-110 transition-all duration-300 hover:scale-105"
+                className="h-40 w-40 object-contain filter brightness-110 transition-all duration-300 hover:scale-105"
               />
               <div className="hidden md:flex flex-col">
                 <h1 className="text-xl font-bold text-white">
