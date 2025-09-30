@@ -63,7 +63,7 @@ export const SubscriptionManagement: React.FC = () => {
         </div>
         <div className="flex items-center relative z-10">
           <div className="flex items-center space-x-3 space-x-reverse">
-            <img src={headerLogo} alt="Buod HR" className="h-32 w-32 object-contain filter brightness-110" />
+            <img src={headerLogo} alt="Buod HR" className="h-48 w-48 object-contain filter brightness-110" />
             <div className="flex flex-col">
               <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-muted-foreground to-accent/80 bg-clip-text text-transparent animate-fade-in">
                 {isArabic ? 'إدارة الاشتراكات' : 'Subscription Management'}
