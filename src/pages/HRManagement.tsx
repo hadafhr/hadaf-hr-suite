@@ -10,6 +10,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { PatternBackground } from '@/components/PatternBackground';
 import ComprehensiveEmployeeManagement from '@/pages/ComprehensiveEmployeeManagement';
 import { User, LogOut, ChevronDown, Crown, Settings } from 'lucide-react';
+import boudLogo from '@/assets/boud-logo-white-beige.png';
 export const HRManagement: React.FC = () => {
   const navigate = useNavigate();
   const {
@@ -47,8 +48,7 @@ export const HRManagement: React.FC = () => {
           </Button>
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="relative group">
-              <BoudLogo variant="icon" size="md" />
-              <div className="absolute -inset-2 bg-gradient-to-r from-accent/40 to-accent/40 rounded-full blur-lg animate-pulse group-hover:animate-ping transition-all duration-300"></div>
+              <img src={boudLogo} alt="Boud HR Logo" className="h-16 w-auto" />
             </div>
             <div className="flex flex-col">
               <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground via-muted-foreground to-accent/80 bg-clip-text text-transparent animate-fade-in">
