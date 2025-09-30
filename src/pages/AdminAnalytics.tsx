@@ -60,28 +60,28 @@ export const AdminAnalytics: React.FC = () => {
       label: isArabic ? 'إجمالي المستخدمين' : 'Total Users', 
       value: '12,847', 
       icon: Users, 
-      color: 'text-blue-500',
+      color: 'text-foreground',
       change: '+18%'
     },
     { 
       label: isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue', 
       value: '₺2.4M', 
       icon: DollarSign, 
-      color: 'text-green-500',
+      color: 'text-foreground',
       change: '+24%'
     },
     { 
       label: isArabic ? 'معدل النمو' : 'Growth Rate', 
       value: '15.3%', 
       icon: TrendingUp, 
-      color: 'text-purple-500',
+      color: 'text-foreground',
       change: '+3.2%'
     },
     { 
       label: isArabic ? 'العملاء النشطون' : 'Active Clients', 
       value: '156', 
       icon: BarChart3, 
-      color: 'text-orange-500',
+      color: 'text-foreground',
       change: '+12%'
     }
   ];
@@ -90,7 +90,7 @@ export const AdminAnalytics: React.FC = () => {
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
@@ -103,10 +103,10 @@ export const AdminAnalytics: React.FC = () => {
       </div>
       
       {/* Header */}
-      <header className="relative z-10 bg-gradient-to-r from-background via-card to-background backdrop-blur-xl border-b border-border shadow-2xl h-24 flex items-center justify-between px-6">
+      <header className="relative z-10 bg-card backdrop-blur-xl border-b border-border shadow-2xl h-24 flex items-center justify-between px-6">
         {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent to-accent opacity-80"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-accent/10 to-accent/5"></div>
         </div>
         <div className="flex items-center relative z-10">
           <Button
@@ -123,7 +123,7 @@ export const AdminAnalytics: React.FC = () => {
               <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
             </div>
             <div className="flex flex-col">
-              <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold text-foreground">
                 {isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics'}
               </h1>
               <p className="text-sm text-muted-foreground animate-fade-in">
@@ -169,19 +169,19 @@ export const AdminAnalytics: React.FC = () => {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <Card key={index} className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
+              <Card key={index} className="p-6 backdrop-blur-xl bg-card border border-border hover:shadow-2xl hover:shadow-accent/10 transition-all duration-300 hover:scale-105 animate-fade-in rounded-2xl">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <p className="text-sm font-medium text-gray-300">{stat.label}</p>
-                    <p className="text-2xl font-bold text-white">{stat.value}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
+                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
                   </div>
-                  <div className="p-3 rounded-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm border border-[#008C6A]/30">
+                  <div className="p-3 rounded-full bg-accent/10 backdrop-blur-sm border border-accent/30">
                     <stat.icon className={`h-6 w-6 ${stat.color}`} />
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
-                  <span className="text-sm text-green-500 font-medium">{stat.change}</span>
+                  <TrendingUp className="h-4 w-4 text-success mr-1" />
+                  <span className="text-sm text-success font-medium">{stat.change}</span>
                 </div>
               </Card>
             ))}
@@ -190,20 +190,26 @@ export const AdminAnalytics: React.FC = () => {
           {/* Charts */}
           <div className="grid lg:grid-cols-2 gap-6">
             {/* User Growth Chart */}
-            <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border hover:shadow-2xl hover:shadow-accent/10 transition-all duration-300 animate-fade-in rounded-2xl">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
                 {isArabic ? 'نمو المستخدمين' : 'User Growth'}
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={analyticsData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
                   <Line 
                     type="monotone" 
                     dataKey="users" 
-                    stroke="hsl(var(--primary))" 
+                    stroke="hsl(var(--accent))" 
                     strokeWidth={2}
                     name={isArabic ? 'المستخدمين' : 'Users'}
                   />
@@ -212,19 +218,26 @@ export const AdminAnalytics: React.FC = () => {
             </Card>
 
             {/* Revenue Chart */}
-            <Card className="p-6 backdrop-blur-xl bg-black/40 border border-[#008C6A]/30 hover:shadow-2xl hover:shadow-[#008C6A]/20 transition-all duration-300 animate-fade-in rounded-2xl">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border hover:shadow-2xl hover:shadow-accent/10 transition-all duration-300 animate-fade-in rounded-2xl">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
                 {isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue'}
               </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={analyticsData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => [`₺${value.toLocaleString()}`, isArabic ? 'الإيرادات' : 'Revenue']} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    formatter={(value) => [`₺${value.toLocaleString()}`, isArabic ? 'الإيرادات' : 'Revenue']}
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
                   <Bar 
                     dataKey="revenue" 
-                    fill="hsl(var(--primary))" 
+                    fill="hsl(var(--accent))" 
                     name={isArabic ? 'الإيرادات' : 'Revenue'}
                   />
                 </BarChart>
