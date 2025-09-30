@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { ArrowLeft, Building2, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import buodLogo from '@/assets/buod-logo-white.png';
-import heroLogo from '@/assets/hero-logo.png';
+import adminLogo from '@/assets/admin-logo.png';
 
 const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ const AdminLogin: React.FC = () => {
           <div className="text-center mb-8">
             <div className="relative inline-flex items-center justify-center transition-all duration-300 hover:scale-105 group cursor-pointer">
               <img 
-                src={heroLogo} 
+                src={adminLogo} 
                 alt="Buod HR Admin" 
                 className="h-80 w-80 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110"
               />
