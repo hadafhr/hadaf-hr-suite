@@ -156,7 +156,7 @@ export const DataTable: React.FC<DataTableProps> = ({
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-[#009F87]">{title}</CardTitle>
+              <CardTitle className="text-primary">{title}</CardTitle>
               {description && (
                 <p className="text-sm text-muted-foreground mt-1">{description}</p>
               )}
@@ -196,7 +196,7 @@ export const DataTable: React.FC<DataTableProps> = ({
                 </Button>
               )}
               {addable && onAdd && (
-                <Button onClick={onAdd} className="bg-[#009F87] hover:bg-[#008072]">
+                <Button onClick={onAdd} className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground border border-border">
                   <Plus className="h-4 w-4 ml-2" />
                   إضافة جديد
                 </Button>
@@ -210,7 +210,7 @@ export const DataTable: React.FC<DataTableProps> = ({
             <div className="flex items-center gap-4 mb-6">
               {searchable && (
                 <div className="relative flex-1 max-w-sm">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     placeholder={searchPlaceholder}
                     value={searchTerm}

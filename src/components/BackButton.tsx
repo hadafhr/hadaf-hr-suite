@@ -10,7 +10,7 @@ interface BackButtonProps {
 }
 
 export const BackButton: React.FC<BackButtonProps> = ({ 
-  className = "hover:bg-[#009F87]/10",
+  className = "hover:bg-accent",
   variant = "ghost",
   size = "sm"
 }) => {

@@ -165,33 +165,33 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
   };
   return <div className="min-h-screen bg-black" dir="rtl">
       {/* Enhanced Header Section */}
-      <div className="bg-gradient-to-l from-teal-600 to-teal-700 text-white animate-fade-in relative overflow-hidden">
+      <div className="bg-gradient-to-l from-primary to-primary-glow text-primary-foreground animate-fade-in relative overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
           {/* Floating Orbs */}
-          <div className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-float"></div>
-          <div className="absolute top-40 right-20 w-24 h-24 bg-teal-300/20 rounded-full blur-lg animate-float" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-white/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
-          <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-teal-200/15 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-foreground/10 rounded-full blur-xl animate-float"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 bg-accent/20 rounded-full blur-lg animate-float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-foreground/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
+          <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-accent/15 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
           
           {/* Geometric Shapes */}
-          <div className="absolute top-32 right-10 w-12 h-12 border border-white/20 rotate-45 animate-bounce" style={{ animationDuration: '3s' }}></div>
-          <div className="absolute bottom-32 left-16 w-8 h-8 bg-white/10 transform rotate-12 animate-pulse"></div>
+          <div className="absolute top-32 right-10 w-12 h-12 border border-foreground/20 rotate-45 animate-bounce" style={{ animationDuration: '3s' }}></div>
+          <div className="absolute bottom-32 left-16 w-8 h-8 bg-foreground/10 transform rotate-12 animate-pulse"></div>
           
           {/* Grid Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.1)_1px,transparent_0)] bg-[length:32px_32px] opacity-20"></div>
         </div>
         
         {/* Navigation Bar */}
-        <div className="border-b border-white/10 animate-slide-in-right relative z-10">
+        <div className="border-b border-foreground/10 animate-slide-in-right relative z-10">
           
         </div>
 
         {/* Hero Content */}
-        <div className="py-16 relative z-10 backdrop-blur-xl bg-black/30 rounded-3xl border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10 mx-4 my-8 animate-scale-in hover-scale">
+        <div className="py-16 relative z-10 backdrop-blur-xl bg-background/30 rounded-3xl border border-border shadow-2xl mx-4 my-8 animate-scale-in hover-scale">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <div className="mb-6">
-              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-sm px-3 py-1 mb-4 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
+              <Badge variant="secondary" className="bg-card text-primary border-border text-sm px-3 py-1 mb-4 backdrop-blur-sm hover:bg-card/60 transition-all duration-300">
                 <Calculator className="h-4 w-4 ml-2" />
                 حاسبة ذكية متقدمة
               </Badge>
@@ -201,15 +201,15 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
               احصل على عرض سعر فوري ومخصص لنظام إدارة الموارد البشرية الأكثر تقدماً في المملكة
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-base px-4 py-2 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
+              <Badge variant="secondary" className="bg-card text-primary border-border text-base px-4 py-2 backdrop-blur-sm hover:bg-card/60 transition-all duration-300">
                 <Award className="h-5 w-5 ml-2" />
                 أقل من السوق بـ 5% على الأقل
               </Badge>
-              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-base px-4 py-2 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
+              <Badge variant="secondary" className="bg-card text-primary border-border text-base px-4 py-2 backdrop-blur-sm hover:bg-card/60 transition-all duration-300">
                 <Shield className="h-5 w-5 ml-2" />
                 ضمان الاسترداد
               </Badge>
-              <Badge variant="secondary" className="bg-black/40 text-[#00B488] border-[#008C6A]/30 text-base px-4 py-2 backdrop-blur-sm hover:bg-black/60 transition-all duration-300">
+              <Badge variant="secondary" className="bg-card text-primary border-border text-base px-4 py-2 backdrop-blur-sm hover:bg-card/60 transition-all duration-300">
                 <Star className="h-5 w-5 ml-2" />
                 دعم 24/7
               </Badge>
@@ -239,37 +239,37 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
           {/* Calculator Section */}
           <div className="lg:col-span-2 space-y-6">
             {/* Company Info */}
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
-                <Building2 className="h-6 w-6 text-teal-400" />
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                <Building2 className="h-6 w-6 text-primary" />
                 معلومات الشركة
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-gray-300">اسم الشركة *</Label>
-                  <Input value={companyName} onChange={e => setCompanyName(e.target.value)} placeholder="اسم شركتك" className="bg-black/30 border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-teal-400" />
+                  <Label className="text-foreground">اسم الشركة *</Label>
+                  <Input value={companyName} onChange={e => setCompanyName(e.target.value)} placeholder="اسم شركتك" className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary" />
                 </div>
                 <div>
-                  <Label className="text-gray-300">البريد الإلكتروني *</Label>
-                  <Input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} placeholder="email@company.com" className="bg-black/30 border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-teal-400" />
+                  <Label className="text-foreground">البريد الإلكتروني *</Label>
+                  <Input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} placeholder="email@company.com" className="bg-background border-border text-foreground placeholder:text-muted-foreground focus:border-primary" />
                 </div>
               </div>
             </Card>
 
             {/* Employee Count */}
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
-                <Users className="h-6 w-6 text-teal-400" />
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                <Users className="h-6 w-6 text-primary" />
                 عدد الموظفين: {employeeCount}
               </h3>
               <div className="space-y-4">
-                <Slider value={[employeeCount]} onValueChange={value => setEmployeeCount(Math.max(1, value[0]))} max={3000} min={1} step={1} className="w-full [&_[role=slider]]:bg-teal-400 [&_[role=slider]]:border-teal-400" />
-                <div className="flex justify-between text-sm text-gray-400">
+                <Slider value={[employeeCount]} onValueChange={value => setEmployeeCount(Math.max(1, value[0]))} max={3000} min={1} step={1} className="w-full [&_[role=slider]]:bg-primary [&_[role=slider]]:border-primary" />
+                <div className="flex justify-between text-sm text-muted-foreground">
                   <span>1 موظف</span>
                   <span>3000+ موظف</span>
                 </div>
                 <div className="flex justify-center">
-                  <Badge variant="outline" className="text-teal-400 border-teal-400/50 bg-teal-400/10">
+                  <Badge variant="outline" className="text-primary border-primary/50 bg-primary/10">
                     سعر الوحدة: {calculation.pricePerEmployee} ﷼/شهر
                   </Badge>
                 </div>
@@ -277,17 +277,17 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             </Card>
 
             {/* Billing Cycle */}
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h3 className="text-xl font-bold mb-4 text-white">دورة الفوترة</h3>
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h3 className="text-xl font-bold mb-4 text-foreground">دورة الفوترة</h3>
               <div className="grid grid-cols-2 gap-4">
-                <Button variant={billingCycle === 'monthly' ? "default" : "outline"} onClick={() => setBillingCycle('monthly')} className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-teal-600 hover:bg-teal-700 text-white' : 'bg-black/30 border-[#008C6A]/30 text-gray-300 hover:border-teal-400 hover:text-white'}`}>
+                <Button variant={billingCycle === 'monthly' ? "default" : "outline"} onClick={() => setBillingCycle('monthly')} className={`h-auto p-4 ${billingCycle === 'monthly' ? 'bg-primary text-primary-foreground hover:bg-accent' : 'bg-background border-border text-foreground hover:border-primary hover:text-foreground'}`}>
                   <div className="text-center">
                     <div className="font-medium">شهري</div>
                     <div className="text-xs opacity-75">دفع شهري</div>
                   </div>
                 </Button>
-                <Button variant={billingCycle === 'yearly' ? "default" : "outline"} onClick={() => setBillingCycle('yearly')} className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-teal-600 hover:bg-teal-700 text-white' : 'bg-black/30 border-[#008C6A]/30 text-gray-300 hover:border-teal-400 hover:text-white'}`}>
-                  <Badge className="absolute -top-2 -right-2 bg-orange-500 text-white">
+                <Button variant={billingCycle === 'yearly' ? "default" : "outline"} onClick={() => setBillingCycle('yearly')} className={`h-auto p-4 relative ${billingCycle === 'yearly' ? 'bg-primary text-primary-foreground hover:bg-accent' : 'bg-background border-border text-foreground hover:border-primary hover:text-foreground'}`}>
+                  <Badge className="absolute -top-2 -right-2 bg-warning text-warning-foreground">
                     وفر 15%
                   </Badge>
                   <div className="text-center">
@@ -299,25 +299,25 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = () => {
             </Card>
 
             {/* Additional Services */}
-            <Card className="p-6 backdrop-blur-xl bg-black/20 border border-[#008C6A]/20 shadow-2xl shadow-[#008C6A]/10">
-              <h3 className="text-xl font-bold mb-4 text-white">الخدمات الإضافية</h3>
+            <Card className="p-6 backdrop-blur-xl bg-card border border-border shadow-2xl">
+              <h3 className="text-xl font-bold mb-4 text-foreground">الخدمات الإضافية</h3>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 border border-[#008C6A]/30 rounded-lg bg-black/20">
+                <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-background">
                   <div className="flex-1">
-                    <div className="font-medium text-white">رسوم التأسيس</div>
-                    <div className="text-sm text-gray-400">إعداد كامل للنظام وتكوين الشركة</div>
-                    <div className="text-sm font-medium text-teal-400">
+                    <div className="font-medium text-foreground">رسوم التأسيس</div>
+                    <div className="text-sm text-muted-foreground">إعداد كامل للنظام وتكوين الشركة</div>
+                    <div className="text-sm font-medium text-primary">
                       {setupFee.toLocaleString()} ﷼ (مرة واحدة)
                     </div>
                   </div>
-                  <Checkbox checked={includeSetup} onCheckedChange={checked => setIncludeSetup(checked === true)} className="border-teal-400 data-[state=checked]:bg-teal-600" />
+                  <Checkbox checked={includeSetup} onCheckedChange={checked => setIncludeSetup(checked === true)} className="border-primary data-[state=checked]:bg-primary" />
                 </div>
                 
-                <div className="flex items-center justify-between p-4 border border-[#008C6A]/30 rounded-lg bg-black/20">
+                <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-background">
                   <div className="flex-1">
-                    <div className="font-medium text-white">الدعم الفني المتقدم</div>
-                    <div className="text-sm text-gray-400">دعم فني متقدم 24/7 مع مدير حساب مخصص</div>
-                    <div className="text-sm font-medium text-teal-400">
+                    <div className="font-medium text-foreground">الدعم الفني المتقدم</div>
+                    <div className="text-sm text-muted-foreground">دعم فني متقدم 24/7 مع مدير حساب مخصص</div>
+                    <div className="text-sm font-medium text-primary">
                       {billingCycle === 'yearly' ? `${supportFeeYearly.toLocaleString()} ﷼/سنوياً` : `${supportFeeMonthly.toLocaleString()} ﷼/شهرياً`}
                     </div>
                   </div>
