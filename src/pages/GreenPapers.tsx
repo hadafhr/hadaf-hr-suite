@@ -491,10 +491,10 @@ const GreenPapers: React.FC = () => {
         {/* Papers Grid */}
         <div className="relative">
           <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               {filteredPapers.length} ورقة متاحة
             </h2>
-            <p className="text-gray-300 text-lg">
+            <p className="text-muted-foreground text-lg">
               اختر الورقة التي تناسب احتياجاتك المهنية
             </p>
           </div>
