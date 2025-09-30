@@ -136,49 +136,68 @@ const CareersPage = () => {
       </header>
       
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-background via-card to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--accent))_0%,transparent_50%)] opacity-[0.15]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent))_0%,transparent_50%)] opacity-[0.1]"></div>
+      <section className="relative py-32 bg-gradient-to-br from-background via-card to-background overflow-hidden">
+        {/* Floating background elements */}
+        <div className="absolute top-10 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-2 bg-gradient-to-r from-transparent via-accent/30 to-transparent blur-sm"></div>
         
         <div className="container mx-auto px-6 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-            انضم إلى فريقنا في بُعد HR
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 rounded-full px-6 py-3 mb-8 backdrop-blur-sm">
+            <Users className="w-5 h-5 text-accent" />
+            <span className="text-sm font-semibold text-accent">انضم لأكثر من 500+ محترف</span>
+          </div>
+
+          {/* Main Title */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 text-foreground leading-tight max-w-4xl mx-auto">
+            انضم إلى فريقنا في 
+            <span className="block mt-2 bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent">
+              بُعد HR
+            </span>
           </h1>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-muted-foreground leading-relaxed">
+          
+          {/* Description */}
+          <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-muted-foreground leading-relaxed font-medium">
             كن جزءاً من رحلة تطوير أكثر منصات الموارد البشرية تقدماً في المملكة العربية السعودية
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
+          
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-6 items-center mb-16">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-accent text-primary-foreground px-8 py-4 text-lg font-semibold shadow-xl border border-border"
+              className="bg-primary hover:bg-accent text-primary-foreground px-10 py-6 text-xl font-bold shadow-2xl border-2 border-border hover:border-accent transition-all duration-300 hover:scale-105 min-w-[250px]"
               onClick={() => document.getElementById('jobs-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <Briefcase className="w-5 h-5 mr-2" />
+              <Briefcase className="w-6 h-6 mr-3" />
               عرض الوظائف الشاغرة
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-border hover:bg-accent/10 hover:border-accent px-8 py-4 text-lg backdrop-blur-sm bg-card"
+              className="border-2 border-border text-foreground hover:bg-accent/20 hover:border-accent px-10 py-6 text-xl font-bold backdrop-blur-sm bg-card transition-all duration-300 hover:scale-105 min-w-[250px]"
             >
-              <Heart className="w-5 h-5 mr-2" />
+              <Heart className="w-6 h-6 mr-3" />
               تعرف على ثقافتنا
             </Button>
           </div>
           
-          {/* إحصائيات سريعة في Hero */}
-          <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-1 text-accent">500+</div>
-              <div className="text-sm text-muted-foreground">موظف</div>
+          {/* Statistics Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-card to-background border border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
+              <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">500+</div>
+              <div className="text-lg text-muted-foreground font-semibold">موظف محترف</div>
+              <div className="text-sm text-muted-foreground mt-2">في جميع التخصصات</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-1 text-accent">95%</div>
-              <div className="text-sm text-muted-foreground">رضا</div>
+            <div className="bg-gradient-to-br from-card to-background border border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
+              <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">95%</div>
+              <div className="text-lg text-muted-foreground font-semibold">معدل الرضا</div>
+              <div className="text-sm text-muted-foreground mt-2">من موظفينا</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold mb-1 text-accent">24/7</div>
-              <div className="text-sm text-muted-foreground">دعم</div>
+            <div className="bg-gradient-to-br from-card to-background border border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
+              <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">24/7</div>
+              <div className="text-lg text-muted-foreground font-semibold">دعم مستمر</div>
+              <div className="text-sm text-muted-foreground mt-2">لجميع الموظفين</div>
             </div>
           </div>
         </div>
