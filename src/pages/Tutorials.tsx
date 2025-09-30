@@ -387,31 +387,31 @@ export const Tutorials: React.FC = () => {
       <div className="space-y-6">
         {/* إحصائيات الدرس */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <Card className="border-green-200 dark:border-green-800">
+          <Card className="border-border bg-card">
             <CardContent className="p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Star className="h-5 w-5 text-yellow-500" />
-                <span className="text-2xl font-bold text-green-600">{section.rating || 4.8}</span>
+                <Star className="h-5 w-5 text-accent" />
+                <span className="text-2xl font-bold text-accent">{section.rating || 4.8}</span>
               </div>
               <p className="text-sm text-muted-foreground">تقييم المتدربين</p>
             </CardContent>
           </Card>
           
-          <Card className="border-blue-200 dark:border-blue-800">
+          <Card className="border-border bg-card">
             <CardContent className="p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <CheckCircle className="h-5 w-5 text-blue-500" />
-                <span className="text-2xl font-bold text-blue-600">{section.completionRate || 95}%</span>
+                <CheckCircle className="h-5 w-5 text-accent" />
+                <span className="text-2xl font-bold text-accent">{section.completionRate || 95}%</span>
               </div>
               <p className="text-sm text-muted-foreground">معدل الإنجاز</p>
             </CardContent>
           </Card>
           
-          <Card className="border-purple-200 dark:border-purple-800">
+          <Card className="border-border bg-card">
             <CardContent className="p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Users className="h-5 w-5 text-purple-500" />
-                <span className="text-2xl font-bold text-purple-600">{section.totalLearners || 1250}</span>
+                <Users className="h-5 w-5 text-accent" />
+                <span className="text-2xl font-bold text-accent">{section.totalLearners || 1250}</span>
               </div>
               <p className="text-sm text-muted-foreground">إجمالي المتدربين</p>
             </CardContent>
@@ -505,7 +505,7 @@ export const Tutorials: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {section.features.map((feature: string, index: number) => (
                     <div key={index} className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                      <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
                       <span className="text-muted-foreground">{feature}</span>
                     </div>
                   ))}
@@ -519,15 +519,15 @@ export const Tutorials: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -535,10 +535,10 @@ export const Tutorials: React.FC = () => {
       </div>
       
       {/* Professional Interactive Header */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+      <header className="relative z-10 bg-card/50 backdrop-blur-xl border-b border-border shadow-2xl">
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-accent opacity-80"></div>
         </div>
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
@@ -557,15 +557,15 @@ export const Tutorials: React.FC = () => {
             {/* Center Section - Title & Icon */}
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <BookOpen className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+                <BookOpen className="h-8 w-8 text-accent animate-pulse" />
+                <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
               </div>
               
               <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                <h1 className="text-2xl font-bold text-foreground">
                   الدروس التعليمية
                 </h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
+                <p className="text-sm text-muted-foreground animate-fade-in">
                   دروس تفاعلية ومتقدمة
                 </p>
               </div>
@@ -574,45 +574,45 @@ export const Tutorials: React.FC = () => {
             {/* Right Section - Professional Controls Panel */}
             <div className="flex flex-col items-end space-y-4">
               {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+              <div className="bg-card/80 backdrop-blur-xl rounded-2xl border border-border shadow-xl p-4 min-w-[200px]">
                 {/* Status Indicator */}
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
+                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
                     حالة النظام
                   </span>
                   <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
-                    <span className="text-xs text-green-300 font-semibold">
+                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse shadow-lg shadow-accent/50"></div>
+                    <span className="text-xs text-accent font-semibold">
                       متاح
                     </span>
                   </div>
                 </div>
                 
                 {/* Divider */}
-                <div className="h-px bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent mb-3"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mb-3"></div>
                 
                 {/* Quick Stats */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-medium">
+                  <span className="text-xs text-muted-foreground font-medium">
                     الدروس المتاحة
                   </span>
-                  <span className="text-sm text-[#008C6A] font-bold">
+                  <span className="text-sm text-accent font-bold">
                     {filteredSections.length}
                   </span>
                 </div>
               </div>
               
               {/* Quick Stats Mini Panel */}
-              <div className="bg-gradient-to-r from-black/20 to-gray-900/30 backdrop-blur-lg rounded-xl border border-[#008C6A]/20 px-3 py-2 shadow-lg">
+              <div className="bg-card/50 backdrop-blur-lg rounded-xl border border-border px-3 py-2 shadow-lg">
                 <div className="flex items-center space-x-3 text-xs">
                   <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">{filteredSections.length} درس</span>
+                    <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
+                    <span className="text-muted-foreground">{filteredSections.length} درس</span>
                   </div>
-                  <div className="w-px h-3 bg-[#008C6A]/30"></div>
+                  <div className="w-px h-3 bg-border"></div>
                   <div className="flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-gray-400">محدّث</span>
+                    <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
+                    <span className="text-muted-foreground">محدّث</span>
                   </div>
                 </div>
               </div>
@@ -620,7 +620,7 @@ export const Tutorials: React.FC = () => {
           </div>
 
           {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#008C6A] to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent"></div>
         </div>
       </header>
 
@@ -638,14 +638,14 @@ export const Tutorials: React.FC = () => {
         </div>
         
         {/* Floating Elements for Professional Look */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
         
         {/* Enhanced Hero Section */}
         <div className="text-center mb-12 relative">
           {/* Floating background elements */}
-          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-[#008C6A]/30 to-transparent blur-sm"></div>
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-accent/30 to-transparent blur-sm"></div>
           
           <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <img 
@@ -656,12 +656,12 @@ export const Tutorials: React.FC = () => {
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           
-          <h2 className="text-5xl font-bold mb-8 text-white bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+          <h2 className="text-5xl font-bold mb-8 text-foreground leading-tight">
             مكتبة الدروس التعليمية التفاعلية
           </h2>
           
           <div className="relative max-w-3xl mx-auto">
-            <p className="text-gray-300 text-lg leading-relaxed bg-black/20 backdrop-blur-sm p-6 rounded-2xl border border-[#008C6A]/20 shadow-xl">
+            <p className="text-muted-foreground text-lg leading-relaxed bg-card/20 backdrop-blur-sm p-6 rounded-2xl border border-border shadow-xl">
               دروس تعليمية تفاعلية شاملة لتعلم استخدام جميع ميزات منصة بُعد للموارد البشرية
             </p>
           </div>
@@ -672,14 +672,14 @@ export const Tutorials: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
             {/* Professional Search Bar */}
             <div className="relative w-full max-w-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-accent/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative flex items-center">
-                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#008C6A] h-5 w-5 z-10" />
+                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-accent h-5 w-5 z-10" />
                 <Input
                   placeholder="ابحث في الدروس التعليمية..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pr-12 pl-6 h-14 bg-gradient-to-r from-gray-900/80 to-black/60 backdrop-blur-xl border border-[#008C6A]/30 rounded-2xl text-white placeholder-gray-400 focus:border-[#008C6A]/70 focus:ring-2 focus:ring-[#008C6A]/30 transition-all duration-300 shadow-xl hover:shadow-[#008C6A]/20"
+                  className="w-full pr-12 pl-6 h-14 bg-card/80 backdrop-blur-xl border border-border rounded-2xl text-foreground placeholder-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all duration-300 shadow-xl hover:shadow-accent/20"
                 />
               </div>
             </div>
@@ -689,7 +689,7 @@ export const Tutorials: React.FC = () => {
               <Button 
                 variant="outline" 
                 onClick={() => setSearchQuery('')}
-                className="bg-gradient-to-r from-gray-900/50 to-black/30 border border-[#008C6A]/30 text-white hover:bg-gradient-to-r hover:from-[#008C6A]/20 hover:to-[#00694F]/20 hover:border-[#008C6A]/70 transition-all duration-300 shadow-lg hover:shadow-[#008C6A]/25 px-6 h-12"
+                className="bg-card/50 border border-border text-foreground hover:bg-accent/20 hover:border-accent transition-all duration-300 shadow-lg hover:shadow-accent/25 px-6 h-12"
               >
                 <Search className="w-4 h-4 mr-2" />
                 مسح البحث
@@ -705,28 +705,28 @@ export const Tutorials: React.FC = () => {
             return (
               <div
                 key={section.id}
-                className="group relative overflow-hidden bg-gradient-to-br from-gray-900/50 to-black/70 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:shadow-[#008C6A]/25 transition-all duration-500 hover:scale-105 hover:border-[#008C6A]/60 cursor-pointer"
+                className="group relative overflow-hidden bg-card/50 backdrop-blur-xl rounded-3xl border border-border shadow-2xl hover:shadow-accent/25 transition-all duration-500 hover:scale-105 hover:border-accent cursor-pointer"
               >
                 {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A]/0 via-[#008C6A]/10 to-[#008C6A]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 {/* Content */}
                 <div className="relative p-8 space-y-6">
                   {/* Header with icon and badge */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="relative">
-                      <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A]/30 to-[#00694F]/30 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-[#008C6A]/40 group-hover:border-[#008C6A]/70 transition-all duration-300">
-                        <IconComponent className="w-8 h-8 text-[#008C6A] group-hover:text-white transition-colors duration-300" />
+                      <div className="w-16 h-16 bg-accent/30 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-accent/40 group-hover:border-accent transition-all duration-300">
+                        <IconComponent className="w-8 h-8 text-accent group-hover:text-foreground transition-colors duration-300" />
                       </div>
                       {/* Animated ring */}
-                      <div className="absolute inset-0 rounded-2xl bg-[#008C6A]/20 opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 rounded-2xl bg-accent/20 opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-300"></div>
                     </div>
                     
                     <div className="flex flex-col items-end space-y-2">
-                      <Badge className="bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 group-hover:bg-gradient-to-r group-hover:from-[#008C6A] group-hover:to-[#00694F] group-hover:text-white transition-all duration-300 text-xs font-semibold">
+                      <Badge className="bg-accent/20 text-accent border border-accent/40 group-hover:bg-accent group-hover:text-foreground transition-all duration-300 text-xs font-semibold">
                         {section.category}
                       </Badge>
-                      <div className="flex items-center gap-1 text-xs text-gray-400">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
                         <Clock className="h-3 w-3" />
                         {section.duration}
                       </div>
@@ -735,34 +735,34 @@ export const Tutorials: React.FC = () => {
                   
                   {/* Content */}
                   <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-white group-hover:text-[#008C6A] transition-colors duration-300 leading-tight">
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
                       {section.title}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                    <p className="text-muted-foreground text-sm leading-relaxed group-hover:text-muted-foreground/80 transition-colors duration-300">
                       {section.description}
                     </p>
                     
-                    <div className="flex items-center justify-between text-xs text-gray-400">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <Users className="h-3 w-3" />
                         {section.targetUsers}
                       </div>
                       <div className="flex items-center gap-1">
-                        <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                        <span className="text-sm font-semibold text-white">{section.rating}</span>
+                        <Star className="h-4 w-4 text-accent fill-current" />
+                        <span className="text-sm font-semibold text-foreground">{section.rating}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Progress Stats */}
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#008C6A]/20">
-                    <div className="text-center p-3 rounded-xl bg-gradient-to-br from-[#008C6A]/10 to-[#00694F]/10 border border-[#008C6A]/20">
-                      <div className="text-lg font-bold text-[#008C6A]">{section.completionRate}%</div>
-                      <div className="text-xs text-gray-400">معدل الإنجاز</div>
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                    <div className="text-center p-3 rounded-xl bg-accent/10 border border-accent/20">
+                      <div className="text-lg font-bold text-accent">{section.completionRate}%</div>
+                      <div className="text-xs text-muted-foreground">معدل الإنجاز</div>
                     </div>
-                    <div className="text-center p-3 rounded-xl bg-gradient-to-br from-[#008C6A]/10 to-[#00694F]/10 border border-[#008C6A]/20">
-                      <div className="text-lg font-bold text-[#008C6A]">{section.totalLearners}</div>
-                      <div className="text-xs text-gray-400">متدرب</div>
+                    <div className="text-center p-3 rounded-xl bg-accent/10 border border-accent/20">
+                      <div className="text-lg font-bold text-accent">{section.totalLearners}</div>
+                      <div className="text-xs text-muted-foreground">متدرب</div>
                     </div>
                   </div>
 
@@ -770,17 +770,17 @@ export const Tutorials: React.FC = () => {
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button 
-                        className="w-full bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 text-[#008C6A] border border-[#008C6A]/40 hover:bg-gradient-to-r hover:from-[#008C6A] hover:to-[#00694F] hover:text-white hover:border-[#008C6A] transition-all duration-300 font-semibold shadow-lg hover:shadow-[#008C6A]/25"
+                        className="w-full bg-accent/20 text-accent border border-accent/40 hover:bg-accent hover:text-foreground hover:border-accent transition-all duration-300 font-semibold shadow-lg hover:shadow-accent/25"
                         size="lg"
                       >
                         <Play className="w-4 h-4 mr-2" />
                         ابدأ الدرس
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black border border-[#008C6A]/30">
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-card border border-border">
                       <DialogHeader>
-                        <DialogTitle className="flex items-center gap-3 text-2xl text-white">
-                          <IconComponent className="h-8 w-8 text-[#008C6A]" />
+                        <DialogTitle className="flex items-center gap-3 text-2xl text-foreground">
+                          <IconComponent className="h-8 w-8 text-accent" />
                           {section.title}
                         </DialogTitle>
                       </DialogHeader>
@@ -796,68 +796,68 @@ export const Tutorials: React.FC = () => {
         {/* Admin Panel for Adding/Editing Tutorials */}
         <div className="mt-16 space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">إدارة الدروس</h2>
+            <h2 className="text-3xl font-bold text-foreground">إدارة الدروس</h2>
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300 px-6">
+                <Button className="bg-accent hover:bg-accent/80 text-foreground border-0 shadow-lg hover:shadow-accent/25 transition-all duration-300 px-6">
                   <Plus className="w-4 h-4 mr-2" />
                   إضافة درس جديد
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black border border-[#008C6A]/30">
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border">
                 <DialogHeader>
-                  <DialogTitle className="text-white text-xl">إضافة درس تعليمي جديد</DialogTitle>
+                  <DialogTitle className="text-foreground text-xl">إضافة درس تعليمي جديد</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-6 p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-300">عنوان الدرس</label>
+                      <label className="text-sm font-medium mb-2 block text-muted-foreground">عنوان الدرس</label>
                       <Input
                         value={newTutorial.title}
                         onChange={(e) => setNewTutorial({ ...newTutorial, title: e.target.value })}
                         placeholder="أدخل عنوان الدرس"
-                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                        className="bg-input border-border text-foreground"
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-300">التصنيف</label>
+                      <label className="text-sm font-medium mb-2 block text-muted-foreground">التصنيف</label>
                       <Input
                         value={newTutorial.category}
                         onChange={(e) => setNewTutorial({ ...newTutorial, category: e.target.value })}
                         placeholder="تصنيف الدرس"
-                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                        className="bg-input border-border text-foreground"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium mb-2 block text-gray-300">الوصف</label>
+                    <label className="text-sm font-medium mb-2 block text-muted-foreground">الوصف</label>
                     <Textarea
                       value={newTutorial.description}
                       onChange={(e) => setNewTutorial({ ...newTutorial, description: e.target.value })}
                       placeholder="وصف مختصر للدرس"
-                      className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      className="bg-input border-border text-foreground"
                       rows={3}
                     />
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-300">المستخدمون المستهدفون</label>
+                      <label className="text-sm font-medium mb-2 block text-muted-foreground">المستخدمون المستهدفون</label>
                       <Input
                         value={newTutorial.targetUsers}
                         onChange={(e) => setNewTutorial({ ...newTutorial, targetUsers: e.target.value })}
                         placeholder="مثال: جميع الموظفين"
-                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                        className="bg-input border-border text-foreground"
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-300">المدة المتوقعة</label>
+                      <label className="text-sm font-medium mb-2 block text-muted-foreground">المدة المتوقعة</label>
                       <Input
                         value={newTutorial.duration}
                         onChange={(e) => setNewTutorial({ ...newTutorial, duration: e.target.value })}
                         placeholder="مثال: 15 دقيقة"
-                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                        className="bg-input border-border text-foreground"
                       />
                     </div>
                   </div>
@@ -865,7 +865,7 @@ export const Tutorials: React.FC = () => {
                   <div className="flex gap-3">
                     <Button 
                       onClick={handleAddTutorial} 
-                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300"
+                      className="bg-accent hover:bg-accent/80 text-foreground border-0 shadow-lg hover:shadow-accent/25 transition-all duration-300"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       إضافة الدرس
@@ -873,7 +873,7 @@ export const Tutorials: React.FC = () => {
                     <Button 
                       variant="outline" 
                       onClick={() => setIsAddDialogOpen(false)}
-                      className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/10"
+                      className="border-border text-foreground hover:bg-accent/10"
                     >
                       إلغاء
                     </Button>
@@ -886,15 +886,15 @@ export const Tutorials: React.FC = () => {
           {/* Existing Tutorials Management */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tutorialSections.map((section) => (
-              <div key={section.id} className="bg-gradient-to-br from-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-6 hover:shadow-[#008C6A]/20 transition-all duration-300">
+              <div key={section.id} className="bg-card/60 backdrop-blur-xl rounded-2xl border border-border shadow-xl p-6 hover:shadow-accent/20 transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-white">{section.title}</h3>
+                  <h3 className="text-lg font-bold text-foreground">{section.title}</h3>
                   <div className="flex gap-2">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setEditingTutorial(section)}
-                      className="text-[#008C6A] hover:text-white hover:bg-[#008C6A]/20 p-2"
+                      className="text-accent hover:text-foreground hover:bg-accent/20 p-2"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -902,7 +902,7 @@ export const Tutorials: React.FC = () => {
                       variant="ghost"
                       size="sm"
                       onClick={() => handleDeleteTutorial(section.id)}
-                      className="text-red-400 hover:text-white hover:bg-red-500/20 p-2"
+                      className="text-destructive hover:text-destructive-foreground hover:bg-destructive/20 p-2"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -910,9 +910,9 @@ export const Tutorials: React.FC = () => {
                 </div>
                 
                 <div className="space-y-3">
-                  <p className="text-sm text-gray-400">{section.description}</p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <span className="bg-[#008C6A]/20 text-[#008C6A] px-2 py-1 rounded-lg">{section.category}</span>
+                  <p className="text-sm text-muted-foreground">{section.description}</p>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span className="bg-accent/20 text-accent px-2 py-1 rounded-lg">{section.category}</span>
                     <span className="flex items-center gap-1">
                       <Clock className="h-3 w-3" />
                       {section.duration}
@@ -920,16 +920,16 @@ export const Tutorials: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-4 text-xs">
                     <div className="flex items-center gap-1">
-                      <Star className="h-3 w-3 text-yellow-500" />
-                      <span className="text-white">{section.rating}</span>
+                      <Star className="h-3 w-3 text-accent" />
+                      <span className="text-foreground">{section.rating}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <CheckCircle className="h-3 w-3 text-green-500" />
-                      <span className="text-white">{section.completionRate}%</span>
+                      <CheckCircle className="h-3 w-3 text-accent" />
+                      <span className="text-foreground">{section.completionRate}%</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Users className="h-3 w-3 text-blue-500" />
-                      <span className="text-white">{section.totalLearners}</span>
+                      <Users className="h-3 w-3 text-accent" />
+                      <span className="text-foreground">{section.totalLearners}</span>
                     </div>
                   </div>
                 </div>
@@ -940,36 +940,36 @@ export const Tutorials: React.FC = () => {
           {/* Edit Tutorial Dialog */}
           {editingTutorial && (
             <Dialog open={!!editingTutorial} onOpenChange={() => setEditingTutorial(null)}>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black border border-[#008C6A]/30">
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-card border border-border">
                 <DialogHeader>
-                  <DialogTitle className="text-white text-xl">تحرير الدرس: {editingTutorial.title}</DialogTitle>
+                  <DialogTitle className="text-foreground text-xl">تحرير الدرس: {editingTutorial.title}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-6 p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-300">عنوان الدرس</label>
+                      <label className="text-sm font-medium mb-2 block text-muted-foreground">عنوان الدرس</label>
                       <Input
                         value={editingTutorial.title}
                         onChange={(e) => setEditingTutorial({ ...editingTutorial, title: e.target.value })}
-                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                        className="bg-input border-border text-foreground"
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block text-gray-300">التصنيف</label>
+                      <label className="text-sm font-medium mb-2 block text-muted-foreground">التصنيف</label>
                       <Input
                         value={editingTutorial.category}
                         onChange={(e) => setEditingTutorial({ ...editingTutorial, category: e.target.value })}
-                        className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                        className="bg-input border-border text-foreground"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium mb-2 block text-gray-300">الوصف</label>
+                    <label className="text-sm font-medium mb-2 block text-muted-foreground">الوصف</label>
                     <Textarea
                       value={editingTutorial.description}
                       onChange={(e) => setEditingTutorial({ ...editingTutorial, description: e.target.value })}
-                      className="bg-gray-800/50 border-[#008C6A]/30 text-white"
+                      className="bg-input border-border text-foreground"
                       rows={3}
                     />
                   </div>
@@ -977,7 +977,7 @@ export const Tutorials: React.FC = () => {
                   <div className="flex gap-3">
                     <Button 
                       onClick={() => handleUpdateTutorial(editingTutorial)} 
-                      className="bg-gradient-to-r from-[#008C6A] to-[#00694F] hover:from-[#00694F] hover:to-[#008C6A] text-white border-0 shadow-lg hover:shadow-[#008C6A]/25 transition-all duration-300"
+                      className="bg-accent hover:bg-accent/80 text-foreground border-0 shadow-lg hover:shadow-accent/25 transition-all duration-300"
                     >
                       <CheckCircle className="w-4 h-4 mr-2" />
                       حفظ التغييرات
@@ -985,7 +985,7 @@ export const Tutorials: React.FC = () => {
                     <Button 
                       variant="outline" 
                       onClick={() => setEditingTutorial(null)}
-                      className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/10"
+                      className="border-border text-foreground hover:bg-accent/10"
                     >
                       إلغاء
                     </Button>
