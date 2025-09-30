@@ -67,7 +67,7 @@ export const SubscriptionManagement: React.FC = () => {
               <img 
                 src={headerLogo} 
                 alt="Buod HR" 
-                className="h-16 w-auto object-contain filter brightness-110 transition-transform hover:scale-105" 
+                className="h-32 w-auto object-contain filter brightness-110 transition-transform hover:scale-105" 
               />
               <div className="hidden md:flex flex-col">
                 <h1 className="text-xl font-bold text-white">
