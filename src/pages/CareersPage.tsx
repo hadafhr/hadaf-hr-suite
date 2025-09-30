@@ -15,6 +15,7 @@ import { ApplicationTracking } from '@/components/careers/ApplicationTracking';
 import { SEOHead } from '@/components/careers/SEOHead';
 import CareersHeader from '@/components/careers/CareersHeader';
 import heroImage from '@/assets/team-collaboration.jpg';
+import calendarLogo from '@/assets/calendar-logo.png';
 
 const CareersPage = () => {
   const navigate = useNavigate();
@@ -161,10 +162,14 @@ const CareersPage = () => {
         <div className="absolute bottom-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
         
         <div className="container mx-auto px-6 text-center relative z-10">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 rounded-full px-6 py-3 mb-8 backdrop-blur-sm hover:bg-accent/15 transition-all duration-300 hover:scale-105 shadow-lg">
-            <Users className="w-5 h-5 text-accent" />
-            <span className="text-sm font-semibold text-accent">انضم لأكثر من 500+ محترف</span>
+          {/* Logo */}
+          <div className="relative inline-flex items-center justify-center mb-12 transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <img 
+              src={calendarLogo} 
+              alt="Buod HR Logo" 
+              className="h-72 w-72 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-2xl"></div>
           </div>
 
           {/* Main Title */}
