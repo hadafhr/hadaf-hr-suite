@@ -528,6 +528,38 @@ const BoudHRLandingPage: React.FC = () => {
                     }
                   </p>
                   
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-accent mb-2">
+                        <CountUpNumber target={70} duration={2} suffix="%" />
+                      </div>
+                      <p className="text-muted-foreground">
+                        {currentLanguage === 'ar' ? 'توفير في الوقت الإداري' : 'Admin Time Saved'}
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-accent mb-2">
+                        <CountUpNumber target={40} duration={2} suffix="%" />
+                      </div>
+                      <p className="text-muted-foreground">
+                        {currentLanguage === 'ar' ? 'تحسين رضا الموظفين' : 'Employee Satisfaction'}
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-accent mb-2">
+                        <CountUpNumber target={95} duration={2} suffix="%" />
+                      </div>
+                      <p className="text-muted-foreground">
+                        {currentLanguage === 'ar' ? 'دقة الرواتب' : 'Payroll Accuracy'}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Why BOUD Section */}
         <section className="relative py-20 bg-gradient-to-b from-background to-card">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
