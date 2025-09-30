@@ -10,7 +10,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { PatternBackground } from '@/components/PatternBackground';
 import ComprehensiveEmployeeManagement from '@/pages/ComprehensiveEmployeeManagement';
 import { User, LogOut, ChevronDown, Crown, Settings } from 'lucide-react';
-import boudLogo from '@/assets/boud-logo-white-beige.png';
 export const HRManagement: React.FC = () => {
   const navigate = useNavigate();
   const {
@@ -28,10 +27,18 @@ export const HRManagement: React.FC = () => {
   };
   return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Enhanced Animated Background Pattern */}
-      <div className="absolute inset-0 bg-background">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-background to-accent/10"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/15 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-accent/5 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-20">
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="dot" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#b1a086" stop-opacity="0.6"/><stop offset="100%" stop-color="#b1a086" stop-opacity="0"/></radialGradient></defs><circle cx="40" cy="40" r="2" fill="url(#dot)"/></svg>')}")`,
+          backgroundSize: '80px 80px'
+        }}></div>
+        </div>
+        {/* Floating orbs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-bounce"></div>
       </div>
       
       {/* Enhanced Header */}
@@ -41,25 +48,7 @@ export const HRManagement: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/15 to-accent/20 text-gradient"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-foreground/5 to-transparent"></div>
         </div>
-        <div className="flex items-center relative z-10">
-          <Button variant="ghost" onClick={() => navigate('/admin-dashboard')} className="flex items-center gap-2 text-foreground hover:bg-accent/30 hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 mr-4 bg-card/20 backdrop-blur-sm border border-border/20">
-            <ArrowLeft className="w-5 h-5" />
-            {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
-          </Button>
-          <div className="flex items-center space-x-3 space-x-reverse">
-            <div className="relative group">
-              <img src={boudLogo} alt="Boud HR Logo" className="h-16 w-auto" />
-            </div>
-            <div className="flex flex-col">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground via-muted-foreground to-accent/80 bg-clip-text text-transparent animate-fade-in">
-                {isArabic ? 'إدارة الموارد البشرية' : 'HR Management'}
-              </h1>
-              <p className="text-sm text-muted-foreground/80 animate-fade-in font-light">
-                {isArabic ? 'نظام إدارة الموارد البشرية المتكاملة والمتقدمة' : 'Advanced Integrated Human Resources Management System'}
-              </p>
-            </div>
-          </div>
-        </div>
+        
 
         <div className="flex items-center space-x-4 space-x-reverse relative z-10">
           <LanguageSwitcher />
