@@ -343,7 +343,7 @@ export const AdminDashboard: React.FC = () => {
                 <h2 className="text-3xl font-bold text-white mb-2 text-center">
                   {isArabic ? 'مرحباً بك مدير النظام' : 'Welcome, System Administrator'}
                 </h2>
-                <p className="text-muted-foreground text-lg">
+                <p className="text-muted-foreground text-lg text-center">
                   {isArabic ? 'لوحة التحكم الشاملة المدعومة بالذكاء الاصطناعي لإدارة منصة بُعد' : 'AI-Powered comprehensive control panel for managing BuAD platform'}
                 </p>
               </div>
