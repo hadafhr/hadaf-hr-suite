@@ -43,25 +43,25 @@ export const AdminDashboard: React.FC = () => {
     label: isArabic ? 'العملاء النشطون' : 'Active Clients',
     value: '156',
     icon: Building2,
-    color: 'text-blue-500',
+    color: 'text-accent',
     change: '+12%'
   }, {
     label: isArabic ? 'إجمالي المستخدمين' : 'Total Users',
     value: '12,847',
     icon: Users,
-    color: 'text-green-500',
+    color: 'text-success',
     change: '+8%'
   }, {
     label: isArabic ? 'الإيرادات الشهرية' : 'Monthly Revenue',
     value: '₺2.4M',
     icon: DollarSign,
-    color: 'text-purple-500',
+    color: 'text-accent',
     change: '+15%'
   }, {
     label: isArabic ? 'معدل التشغيل' : 'System Uptime',
     value: '99.9%',
     icon: Activity,
-    color: 'text-emerald-500',
+    color: 'text-success',
     change: 'Stable'
   }];
   const sidebarItems = [{
@@ -136,15 +136,15 @@ export const AdminDashboard: React.FC = () => {
   const subscriptionData = [{
     name: 'Basic',
     value: 45,
-    color: '#3b82f6'
+    color: 'hsl(var(--accent))'
   }, {
     name: 'Professional',
     value: 78,
-    color: '#10b981'
+    color: 'hsl(var(--success))'
   }, {
     name: 'Enterprise',
     value: 33,
-    color: '#f59e0b'
+    color: 'hsl(var(--warning))'
   }];
   const recentClients = [{
     name: 'شركة النور للتقنية',

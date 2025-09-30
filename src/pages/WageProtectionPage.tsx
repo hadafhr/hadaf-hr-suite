@@ -14,10 +14,10 @@ export const WageProtectionPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted/20" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Professional Interactive Header */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+      <header className="relative z-10 bg-gradient-to-r from-background via-card to-background backdrop-blur-xl border-b border-border shadow-2xl shadow-accent/20">
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-accent opacity-80"></div>
         </div>
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
@@ -34,15 +34,15 @@ export const WageProtectionPage: React.FC = () => {
             {/* Center Section - Title & Clock */}
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <Shield className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+                <Shield className="h-8 w-8 text-accent animate-pulse" />
+                <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
               </div>
               
               <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-foreground via-foreground/90 to-foreground bg-clip-text text-transparent">
                   {isArabic ? 'منصة حماية الأجور' : 'Wage Protection Platform'}
                 </h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
+                <p className="text-sm text-muted-foreground animate-fade-in">
                   {isArabic ? 'متوافقة 100% مع منصة مدد' : '100% Compliant with Mudad'}
                 </p>
               </div>
@@ -50,17 +50,17 @@ export const WageProtectionPage: React.FC = () => {
 
             {/* Language Toggle Button */}
             <div className="flex flex-col items-end space-y-4">
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4">
+              <div className="bg-gradient-to-r from-background/40 via-card/60 to-background/40 backdrop-blur-xl rounded-2xl border border-border shadow-xl shadow-accent/10 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-medium mr-4">
+                  <span className="text-xs text-muted-foreground font-medium mr-4">
                     {isArabic ? 'اللغة' : 'Language'}
                   </span>
                   
                   <button 
                     onClick={() => i18n.changeLanguage(isArabic ? 'en' : 'ar')}
-                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-[#008C6A]/20 to-[#00694F]/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-[#008C6A]/40 hover:border-[#008C6A]/70 transition-all duration-300"
+                    className="group relative flex items-center space-x-2 bg-gradient-to-r from-accent/20 to-accent/10 backdrop-blur-sm px-4 py-2 rounded-xl border border-accent/40 hover:border-accent/70 transition-all duration-300"
                   >
-                    <span className="text-sm text-white font-bold tracking-wider group-hover:text-[#008C6A] transition-colors duration-300">
+                    <span className="text-sm text-foreground font-bold tracking-wider group-hover:text-accent transition-colors duration-300">
                       {isArabic ? 'EN' : 'العربية'}
                     </span>
                   </button>
