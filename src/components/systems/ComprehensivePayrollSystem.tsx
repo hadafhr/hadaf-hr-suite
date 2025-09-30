@@ -389,39 +389,39 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-8 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 animate-fade-in">
+    <div className="flex items-center justify-between mb-12 p-8 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 animate-fade-in">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-border hover:bg-accent/5 hover:border-accent/30 hover:text-accent transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
+        <div className="h-8 w-px bg-border"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <DollarSign className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+          <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-foreground/20 to-transparent animate-pulse"></div>
+            <DollarSign className="h-8 w-8 text-foreground relative z-10 group-hover:scale-110 transition-transform" />
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-warning rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
+            <h1 className="text-3xl font-bold text-foreground">
               نظام الرواتب والأجور المتطور
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-muted-foreground text-lg">
               نظام شامل لإدارة ومعالجة رواتب الموظفين مع التحليل المتقدم
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+        <Badge variant="outline" className="border-accent/30 text-accent bg-accent/5 px-4 py-2 text-sm font-medium">
           <DollarSign className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsPayrollSheetOpen(true)}>
+        <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-foreground shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsPayrollSheetOpen(true)}>
           <Receipt className="h-4 w-4 ml-2" />
           كشف الرواتب
         </Button>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300" onClick={handleProcessPayroll}>
+        <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-foreground shadow-lg hover:shadow-xl transition-all duration-300" onClick={handleProcessPayroll}>
           <Calculator className="h-4 w-4 ml-2" />
           معالجة الرواتب
         </Button>
@@ -614,7 +614,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             </Card>
             <Card>
               <CardContent className="p-4 text-center">
-                <p className="text-2xl font-bold text-emerald-600">
+                <p className="text-2xl font-bold text-success">
                   {payrollEmployees.reduce((sum, emp) => sum + emp.net_salary, 0).toLocaleString()}
                 </p>
                 <p className="text-sm text-muted-foreground">صافي الرواتب</p>
@@ -848,13 +848,13 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   );
 
   return (
-    <div className="min-h-screen bg-gray-900/60 backdrop-blur-xl">
+    <div className="min-h-screen bg-card/60 backdrop-blur-xl">
       {renderHeader()}
       
       <div className="max-w-7xl mx-auto p-6 space-y-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
           <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-8 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg shadow-[#008C6A]/10 rounded-xl">
+            <TabsList className="grid w-full grid-cols-8 bg-card/60 backdrop-blur-xl border border-border/30 shadow-lg shadow-accent/10 rounded-xl">
               <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
               <TabsTrigger value="employee-records">سجلات الموظفين</TabsTrigger>
               <TabsTrigger value="salary-processing">معالجة الرواتب</TabsTrigger>
@@ -871,7 +871,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </TabsContent>
 
           <TabsContent value="employee-records">
-            <div className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
+            <div className="space-y-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">سجلات رواتب الموظفين</h2>
                 <Button onClick={() => setIsAddDialogOpen(true)}>
@@ -903,10 +903,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                     </Select>
                   </div>
                 </CardHeader>
-                <CardContent className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
+                <CardContent className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
                   <div className="grid gap-4">
                     {payrollEmployees.map((employee) => (
-                      <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                      <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                             <User className="h-6 w-6 text-primary" />
@@ -948,7 +948,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </TabsContent>
 
           <TabsContent value="salary-processing">
-            <div className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
+            <div className="space-y-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">معالجة الرواتب</h2>
                 <Button onClick={handleProcessPayroll}>
@@ -966,22 +966,22 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                         {run.period_name}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
+                    <CardContent className="space-y-4 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="text-center p-3 bg-blue-50 rounded-lg">
-                          <p className="text-2xl font-bold text-blue-600">{run.total_employees}</p>
+                        <div className="text-center p-3 bg-primary/10 rounded-lg">
+                          <p className="text-2xl font-bold text-primary">{run.total_employees}</p>
                           <p className="text-sm text-muted-foreground">عدد الموظفين</p>
                         </div>
-                        <div className="text-center p-3 bg-green-50 rounded-lg">
-                          <p className="text-2xl font-bold text-green-600">{run.total_gross.toLocaleString()}</p>
+                        <div className="text-center p-3 bg-success/10 rounded-lg">
+                          <p className="text-2xl font-bold text-success">{run.total_gross.toLocaleString()}</p>
                           <p className="text-sm text-muted-foreground">إجمالي الرواتب</p>
                         </div>
-                        <div className="text-center p-3 bg-red-50 rounded-lg">
-                          <p className="text-2xl font-bold text-red-600">{run.total_deductions.toLocaleString()}</p>
+                        <div className="text-center p-3 bg-destructive/10 rounded-lg">
+                          <p className="text-2xl font-bold text-destructive">{run.total_deductions.toLocaleString()}</p>
                           <p className="text-sm text-muted-foreground">إجمالي الخصومات</p>
                         </div>
-                        <div className="text-center p-3 bg-emerald-50 rounded-lg">
-                          <p className="text-2xl font-bold text-emerald-600">{run.total_net.toLocaleString()}</p>
+                        <div className="text-center p-3 bg-success/10 rounded-lg">
+                          <p className="text-2xl font-bold text-success">{run.total_net.toLocaleString()}</p>
                           <p className="text-sm text-muted-foreground">صافي الرواتب</p>
                         </div>
                       </div>
@@ -1037,7 +1037,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 {/* Deductions */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-red-600">
+                    <CardTitle className="flex items-center gap-2 text-destructive">
                       <AlertTriangle className="h-5 w-5" />
                       الخصومات
                     </CardTitle>
@@ -1048,13 +1048,13 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                       { employee: 'محمد خالد الخالدي', type: 'خصم غياب', amount: 200, frequency: 'لمرة واحدة' },
                       { employee: 'فاطمة أحمد السالم', type: 'خصم تأديبي', amount: 300, frequency: 'لمرة واحدة' }
                     ].map((deduction, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 border border-red-200 rounded-lg bg-red-50">
+                      <div key={index} className="flex items-center justify-between p-3 border border-destructive/20 rounded-lg bg-destructive/10">
                         <div>
                           <p className="font-medium">{deduction.type}</p>
                           <p className="text-sm text-muted-foreground">{deduction.employee}</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-bold text-red-600">{deduction.amount} ريال</p>
+                          <p className="font-bold text-destructive">{deduction.amount} ريال</p>
                           <p className="text-xs text-muted-foreground">{deduction.frequency}</p>
                         </div>
                       </div>
@@ -1065,7 +1065,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 {/* Benefits */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-green-600">
+                    <CardTitle className="flex items-center gap-2 text-success">
                       <Award className="h-5 w-5" />
                       المزايا والمكافآت
                     </CardTitle>
@@ -1076,13 +1076,13 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                       { employee: 'فاطمة أحمد السالم', type: 'عمولة مبيعات', amount: 800, frequency: 'شهري' },
                       { employee: 'محمد خالد الخالدي', type: 'بدل إضافي', amount: 400, frequency: 'شهري' }
                     ].map((benefit, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 border border-green-200 rounded-lg bg-green-50">
+                      <div key={index} className="flex items-center justify-between p-3 border border-success/20 rounded-lg bg-success/10">
                         <div>
                           <p className="font-medium">{benefit.type}</p>
                           <p className="text-sm text-muted-foreground">{benefit.employee}</p>
                         </div>
                         <div className="text-right">
-                          <p className="font-bold text-green-600">{benefit.amount} ريال</p>
+                          <p className="font-bold text-success">{benefit.amount} ريال</p>
                           <p className="text-xs text-muted-foreground">{benefit.frequency}</p>
                         </div>
                       </div>
@@ -1163,20 +1163,20 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <p className="text-2xl font-bold text-green-600">98%</p>
+                    <div className="text-center p-3 bg-success/10 rounded-lg">
+                      <p className="text-2xl font-bold text-success">98%</p>
                       <p className="text-sm text-muted-foreground">معدل الامتثال</p>
                     </div>
-                    <div className="text-center p-3 bg-blue-50 rounded-lg">
-                      <p className="text-2xl font-bold text-blue-600">156</p>
+                    <div className="text-center p-3 bg-primary/10 rounded-lg">
+                      <p className="text-2xl font-bold text-primary">156</p>
                       <p className="text-sm text-muted-foreground">ملفات مرفوعة</p>
                     </div>
-                    <div className="text-center p-3 bg-orange-50 rounded-lg">
-                      <p className="text-2xl font-bold text-orange-600">3</p>
+                    <div className="text-center p-3 bg-warning/10 rounded-lg">
+                      <p className="text-2xl font-bold text-warning">3</p>
                       <p className="text-sm text-muted-foreground">أخطاء معلقة</p>
                     </div>
-                    <div className="text-center p-3 bg-purple-50 rounded-lg">
-                      <p className="text-2xl font-bold text-purple-600">15</p>
+                    <div className="text-center p-3 bg-accent/10 rounded-lg">
+                      <p className="text-2xl font-bold text-accent">15</p>
                       <p className="text-sm text-muted-foreground">يوم متبقي</p>
                     </div>
                   </div>
