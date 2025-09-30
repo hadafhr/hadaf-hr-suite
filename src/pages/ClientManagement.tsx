@@ -62,14 +62,6 @@ export const ClientManagement: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"></div>
         </div>
         <div className="flex items-center relative z-10">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/admin-dashboard')}
-            className="flex items-center gap-2 text-white hover:bg-accent/30 hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 mr-4 bg-black/20 backdrop-blur-sm border border-border"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
-          </Button>
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="relative group">
               <img src={headerLogo} alt="Buod HR" className="h-32 w-32 object-contain filter brightness-110 transition-all duration-300 hover:scale-105" />
@@ -87,6 +79,14 @@ export const ClientManagement: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-4 space-x-reverse relative z-10">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/admin-dashboard')}
+            className="flex items-center gap-2 text-white hover:bg-accent/30 hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 bg-black/20 backdrop-blur-sm border border-border"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            {isArabic ? 'العودة للوحة التحكم' : 'Back to Dashboard'}
+          </Button>
           <LanguageSwitcher />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
