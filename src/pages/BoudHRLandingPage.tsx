@@ -133,11 +133,7 @@ const BoudHRLandingPage: React.FC = () => {
           <div className="flex items-center justify-between h-20">
             
             {/* Right Section (Arabic) / Left Section (English) - Logo & Brand */}
-            <div className={`flex items-center gap-4 ${currentLanguage === 'ar' ? 'order-1' : 'order-1'}`}>
-              <div className="hover:scale-105 transition-all duration-300 cursor-pointer">
-                <BoudLogo variant="full" size="header" className="h-10 w-auto filter brightness-200 contrast-125 hover:brightness-225 transition-all duration-300 drop-shadow-2xl" />
-              </div>
-              <div className="hidden lg:block h-8 w-px bg-gradient-to-b from-transparent via-border/50 to-transparent mx-2"></div>
+            <div className={`flex items-center ${currentLanguage === 'ar' ? 'order-1' : 'order-1'}`}>
               <img src={boudWhiteLogo} alt="شعار بُعد" className="hidden lg:block h-56 w-auto hover:scale-105 transition-transform duration-300" />
             </div>
 
