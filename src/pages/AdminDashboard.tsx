@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
+import headerLogo from '@/assets/header-logo.png';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
 import {
@@ -162,7 +163,11 @@ export const AdminDashboard: React.FC = () => {
             </Button>
             
             <div className="flex items-center space-x-3 space-x-reverse">
-              <BoudLogo variant="full" size="sm" />
+              <img 
+                src={headerLogo} 
+                alt="Buod HR" 
+                className="h-12 w-12 object-contain filter brightness-110 transition-all duration-300 hover:scale-105"
+              />
               <div className="hidden md:flex flex-col">
                 <h1 className="text-xl font-bold text-white">
                   {isArabic ? 'لوحة تحكم مدير النظام' : 'System Administrator'}
