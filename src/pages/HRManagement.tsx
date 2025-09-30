@@ -10,7 +10,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { PatternBackground } from '@/components/PatternBackground';
 import ComprehensiveEmployeeManagement from '@/pages/ComprehensiveEmployeeManagement';
 import { User, LogOut, ChevronDown, Crown, Settings } from 'lucide-react';
-import boudLogo from '@/assets/boud-logo-center.png';
+import boudLogo from '@/assets/boud-logo-large.png';
 export const HRManagement: React.FC = () => {
   const navigate = useNavigate();
   const {
@@ -54,7 +54,7 @@ export const HRManagement: React.FC = () => {
               <img 
                 src={boudLogo} 
                 alt="Boud HR" 
-                className="h-16 w-auto object-contain filter brightness-110 transition-transform hover:scale-105" 
+                className="h-40 w-auto object-contain filter brightness-110 transition-transform hover:scale-105"
               />
               <div className="hidden md:flex flex-col">
                 <h1 className="text-xl font-bold text-white">
