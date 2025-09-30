@@ -136,15 +136,33 @@ const CareersPage = () => {
       </header>
       
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-background via-card to-background overflow-hidden">
-        {/* Floating background elements */}
-        <div className="absolute top-10 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-2 bg-gradient-to-r from-transparent via-accent/30 to-transparent blur-sm"></div>
+      <section className="relative py-32 overflow-hidden">
+        {/* Professional Layered Background */}
+        <div className="absolute inset-0 bg-background"></div>
+        
+        {/* Gradient Overlays */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--accent)/0.15),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,hsl(var(--accent)/0.1),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.05),transparent_70%)]"></div>
+        
+        {/* Animated Floating Elements */}
+        <div className="absolute top-20 right-[10%] w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float opacity-60"></div>
+        <div className="absolute bottom-32 left-[15%] w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-float opacity-40" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 right-[20%] w-48 h-48 bg-accent/8 rounded-full blur-2xl animate-float opacity-50" style={{ animationDelay: '1s' }}></div>
+        
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `linear-gradient(hsl(var(--accent)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--accent)) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+        
+        {/* Accent Lines */}
+        <div className="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+        <div className="absolute bottom-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
         
         <div className="container mx-auto px-6 text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 rounded-full px-6 py-3 mb-8 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 rounded-full px-6 py-3 mb-8 backdrop-blur-sm hover:bg-accent/15 transition-all duration-300 hover:scale-105 shadow-lg">
             <Users className="w-5 h-5 text-accent" />
             <span className="text-sm font-semibold text-accent">انضم لأكثر من 500+ محترف</span>
           </div>
@@ -152,52 +170,67 @@ const CareersPage = () => {
           {/* Main Title */}
           <h1 className="text-5xl md:text-7xl font-bold mb-8 text-foreground leading-tight max-w-4xl mx-auto">
             انضم إلى فريقنا في 
-            <span className="block mt-2 bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent">
+            <span className="block mt-4 bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in">
               بُعد HR
             </span>
           </h1>
           
           {/* Description */}
-          <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-muted-foreground leading-relaxed font-medium">
-            كن جزءاً من رحلة تطوير أكثر منصات الموارد البشرية تقدماً في المملكة العربية السعودية
-          </p>
+          <div className="relative max-w-3xl mx-auto mb-12">
+            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-medium bg-card/30 backdrop-blur-sm p-6 rounded-2xl border border-border shadow-xl">
+              كن جزءاً من رحلة تطوير أكثر منصات الموارد البشرية تقدماً في المملكة العربية السعودية
+            </p>
+            <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 rounded-2xl blur opacity-50"></div>
+          </div>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-6 items-center mb-16">
+          <div className="flex flex-col sm:flex-row justify-center gap-6 items-center mb-20">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-accent text-primary-foreground px-10 py-6 text-xl font-bold shadow-2xl border-2 border-border hover:border-accent transition-all duration-300 hover:scale-105 min-w-[250px]"
+              className="bg-primary hover:bg-accent text-primary-foreground px-10 py-6 text-xl font-bold shadow-2xl border-2 border-border hover:border-accent transition-all duration-300 hover:scale-105 min-w-[250px] relative overflow-hidden group"
               onClick={() => document.getElementById('jobs-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <Briefcase className="w-6 h-6 mr-3" />
-              عرض الوظائف الشاغرة
+              <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+              <Briefcase className="w-6 h-6 mr-3 relative z-10" />
+              <span className="relative z-10">عرض الوظائف الشاغرة</span>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-border text-foreground hover:bg-accent/20 hover:border-accent px-10 py-6 text-xl font-bold backdrop-blur-sm bg-card transition-all duration-300 hover:scale-105 min-w-[250px]"
+              className="border-2 border-border text-foreground hover:bg-accent/20 hover:border-accent px-10 py-6 text-xl font-bold backdrop-blur-sm bg-card/50 transition-all duration-300 hover:scale-105 min-w-[250px]"
             >
               <Heart className="w-6 h-6 mr-3" />
               تعرف على ثقافتنا
             </Button>
           </div>
           
-          {/* Statistics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-card to-background border border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
-              <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">500+</div>
-              <div className="text-lg text-muted-foreground font-semibold">موظف محترف</div>
-              <div className="text-sm text-muted-foreground mt-2">في جميع التخصصات</div>
+          {/* Statistics Cards with Enhanced Design */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-gradient-to-br from-card to-background border-2 border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
+                <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">500+</div>
+                <div className="text-lg text-foreground font-semibold">موظف محترف</div>
+                <div className="text-sm text-muted-foreground mt-2">في جميع التخصصات</div>
+              </div>
             </div>
-            <div className="bg-gradient-to-br from-card to-background border border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
-              <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">95%</div>
-              <div className="text-lg text-muted-foreground font-semibold">معدل الرضا</div>
-              <div className="text-sm text-muted-foreground mt-2">من موظفينا</div>
+            
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-gradient-to-br from-card to-background border-2 border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
+                <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">95%</div>
+                <div className="text-lg text-foreground font-semibold">معدل الرضا</div>
+                <div className="text-sm text-muted-foreground mt-2">من موظفينا</div>
+              </div>
             </div>
-            <div className="bg-gradient-to-br from-card to-background border border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
-              <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">24/7</div>
-              <div className="text-lg text-muted-foreground font-semibold">دعم مستمر</div>
-              <div className="text-sm text-muted-foreground mt-2">لجميع الموظفين</div>
+            
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-accent/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="relative bg-gradient-to-br from-card to-background border-2 border-border rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:border-accent backdrop-blur-sm">
+                <div className="text-5xl font-bold mb-3 bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent">24/7</div>
+                <div className="text-lg text-foreground font-semibold">دعم مستمر</div>
+                <div className="text-sm text-muted-foreground mt-2">لجميع الموظفين</div>
+              </div>
             </div>
           </div>
         </div>
