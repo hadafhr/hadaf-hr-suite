@@ -10,6 +10,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { PatternBackground } from '@/components/PatternBackground';
 import ComprehensiveEmployeeManagement from '@/pages/ComprehensiveEmployeeManagement';
 import { User, LogOut, ChevronDown, Crown, Settings } from 'lucide-react';
+import boudLogo from '@/assets/boud-logo-center.png';
 export const HRManagement: React.FC = () => {
   const navigate = useNavigate();
   const {
@@ -84,6 +85,11 @@ export const HRManagement: React.FC = () => {
       {/* Enhanced Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300">
         <div className="max-w-7xl mx-auto">
+          {/* Logo Section */}
+          <div className="flex justify-center mb-8">
+            <img src={boudLogo} alt="Boud Logo" className="h-24 w-auto" />
+          </div>
+          
           <ComprehensiveEmployeeManagement />
         </div>
       </main>
