@@ -9,6 +9,7 @@ import { Building2, Users, DollarSign, Settings, Bell, Search, Plus, TrendingUp,
 import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import headerLogo from '@/assets/header-logo.png';
+import contentLogo from '@/assets/new-content-logo.png';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
@@ -332,7 +333,7 @@ export const AdminDashboard: React.FC = () => {
               {/* Content Logo */}
               <div className="flex justify-center mb-6">
                 <img 
-                  src={headerLogo} 
+                  src={contentLogo} 
                   alt="Buod HR" 
                   className="h-32 w-32 object-contain filter brightness-110 drop-shadow-2xl" 
                 />
