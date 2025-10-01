@@ -302,25 +302,25 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
   };
 
   const renderProfessionalHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="flex items-center justify-between mb-12 p-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent animate-fade-in transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2 text-white" />
+        <Button variant="outline" size="sm" onClick={onBack} className="bg-card text-foreground border-border hover:bg-accent/20 hover:border-accent hover:scale-105 transition-all duration-300">
+          <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-[#1A1A1A]"></div>
+        <div className="h-8 w-px bg-border"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-white to-gray-200 rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group cursor-pointer card-3d hover:shadow-glow"
+          <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-300"
                onClick={() => setActiveTab('dashboard')}>
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <Building className="h-8 w-8 text-black relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-foreground/20 to-transparent animate-pulse"></div>
+            <Building className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-foreground">
               نظام إدارة الأقسام المتطور
             </h1>
-            <p className="text-[#E0E0E0] text-lg">
+            <p className="text-muted-foreground text-lg">
               إدارة شاملة للهيكل التنظيمي والأقسام بتقنيات ذكية متطورة
             </p>
           </div>
@@ -328,37 +328,37 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
       </div>
       <div className="flex items-center gap-3">
         {/* Settings Button */}
-        <Button variant="outline" size="sm" onClick={handleSettings} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
-          <Settings className="h-4 w-4 ml-2 text-white" />
+        <Button variant="outline" size="sm" onClick={handleSettings} className="bg-card text-foreground border-border hover:bg-accent/20 hover:border-accent hover:scale-105 transition-all duration-300">
+          <Settings className="h-4 w-4 ml-2" />
           الإعدادات
         </Button>
         
         {/* Notifications Button */}
-        <Button variant="outline" size="sm" onClick={handleNotifications} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
-          <Bell className="h-4 w-4 ml-2 text-white" />
+        <Button variant="outline" size="sm" onClick={handleNotifications} className="bg-card text-foreground border-border hover:bg-accent/20 hover:border-accent hover:scale-105 transition-all duration-300">
+          <Bell className="h-4 w-4 ml-2" />
           الإشعارات
         </Button>
 
         {/* Print Button */}
-        <Button variant="outline" size="sm" onClick={handlePrint} className="workforce-button btn-3d bg-black text-white border-[#1A1A1A] hover:bg-[#1A1A1A] hover:border-[#E0E0E0] hover:scale-105 transition-all duration-300">
-          <FileText className="h-4 w-4 ml-2 text-white" />
+        <Button variant="outline" size="sm" onClick={handlePrint} className="bg-card text-foreground border-border hover:bg-accent/20 hover:border-accent hover:scale-105 transition-all duration-300">
+          <FileText className="h-4 w-4 ml-2" />
           طباعة
         </Button>
 
-        <Badge variant="outline" className="bg-black text-white border-[#1A1A1A] px-4 py-2 text-sm font-medium cursor-pointer card-3d hover:shadow-glow transition-all duration-300"
+        <Badge variant="outline" className="bg-card text-foreground border-border px-4 py-2 text-sm font-medium cursor-pointer hover:bg-accent/20 hover:border-accent transition-all duration-300"
                onClick={() => setActiveTab('reports')}>
-          <Building className="h-4 w-4 ml-2 text-white" />
+          <Building className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
         
-        <Button onClick={handleExport} className="workforce-button btn-3d bg-white text-black border-[#1A1A1A] hover:bg-[#E0E0E0] hover:scale-105 shadow-lg hover:shadow-xl transition-all duration-300">
-          <Download className="h-4 w-4 ml-2 text-black" />
+        <Button onClick={handleExport} className="bg-card text-foreground border-border hover:bg-accent/20 hover:scale-105 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Download className="h-4 w-4 ml-2" />
           تصدير التقارير
         </Button>
         
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="bg-primary text-primary-foreground hover:bg-accent shadow-lg hover:shadow-xl transition-all duration-300">
               <Plus className="h-4 w-4 ml-2" />
               قسم جديد
             </Button>
@@ -605,36 +605,41 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
   );
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic p-6" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="w-full h-full bg-repeat animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-          backgroundSize: '60px 60px'
-        }}></div>
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
         </div>
       </div>
       
       {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
       
-      <div className="max-w-7xl mx-auto space-y-6 relative z-10 bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 p-8">
+      <div className="relative z-10">
+      <div className="container mx-auto p-6">
+      <div className="max-w-7xl mx-auto space-y-6 relative z-10 bg-card/60 backdrop-blur-xl rounded-3xl border border-border shadow-2xl shadow-accent/10 hover:border-accent transition-all duration-300 p-8">
         {renderProfessionalHeader()}
         
-        <div className="bg-gray-900/60 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 p-6">
+        <div className="bg-card/60 backdrop-blur-xl rounded-2xl border border-border shadow-2xl shadow-accent/10 hover:border-accent transition-all duration-300 p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="border-b border-[#008C6A]/30">
-            <TabsList className="grid w-full grid-cols-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-lg shadow-[#008C6A]/10 rounded-xl">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="departments">الأقسام</TabsTrigger>
-              <TabsTrigger value="positions">المناصب</TabsTrigger>
-              <TabsTrigger value="structure">الهيكل التنظيمي</TabsTrigger>
-              <TabsTrigger value="reports">التقارير</TabsTrigger>
-              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+          <div className="border-b border-border">
+            <TabsList className="grid w-full grid-cols-6 bg-card/60 backdrop-blur-xl border border-border shadow-lg shadow-accent/10 rounded-xl">
+              <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="departments" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الأقسام</TabsTrigger>
+              <TabsTrigger value="positions" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">المناصب</TabsTrigger>
+              <TabsTrigger value="structure" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الهيكل التنظيمي</TabsTrigger>
+              <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">التقارير</TabsTrigger>
+              <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الإعدادات</TabsTrigger>
             </TabsList>
           </div>
 
@@ -1229,6 +1234,8 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
           </DialogContent>
         </Dialog>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   );
