@@ -3426,80 +3426,95 @@ const TeamWork: React.FC = () => {
         </div>
       </div>;
   }
-  return <div className="min-h-screen bg-white p-6" dir="rtl">
-      <div className="max-w-7xl mx-auto space-y-6">
+  return <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-accent/5 relative overflow-hidden" dir="rtl">
+      {/* Animated Background Patterns */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        
+        <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5" opacity="0.1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <div className="relative z-10">
         {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        <div className="flex justify-center pt-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
         </div>
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">نظام إدارة فريق العمل</h1>
-          <p className="text-gray-600">إدارة شاملة لفريق العمل والمهام</p>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة فريق العمل</h1>
+          <p className="text-muted-foreground">إدارة شاملة لفريق العمل والمهام</p>
         </div>
 
-        <div className="max-w-7xl mx-auto space-y-6">
-        {/* Enhanced Professional Header */}
-        
-
         {/* Main Content */}
-        <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 p-6 hover:border-[#008C6A]/50 transition-all duration-300">
+        <div className="container mx-auto p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
-              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto bg-card/50 backdrop-blur-xl border border-border">
+              <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20">
                 <Home className="w-4 h-4" />
-                {isRTL ? 'لوحة التحكم' : 'Dashboard'}
+                <span className="text-xs">{isRTL ? 'لوحة التحكم' : 'Dashboard'}</span>
               </TabsTrigger>
               
-              <TabsTrigger value="employees" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="employees" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20">
                 <Users className="w-4 h-4" />
-                {isRTL ? 'الموظفين' : 'Employees'}
+                <span className="text-xs">{isRTL ? 'الموظفين' : 'Employees'}</span>
               </TabsTrigger>
               
-              <TabsTrigger value="tasks" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="tasks" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20">
                 <Target className="w-4 h-4" />
-                {isRTL ? 'المهام' : 'Tasks'}
+                <span className="text-xs">{isRTL ? 'المهام' : 'Tasks'}</span>
               </TabsTrigger>
               
-              <TabsTrigger value="reports" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20">
                 <BarChart3 className="w-4 h-4" />
-                {isRTL ? 'التقارير' : 'Reports'}
+                <span className="text-xs">{isRTL ? 'التقارير' : 'Reports'}</span>
               </TabsTrigger>
               
-              <TabsTrigger value="settings" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+              <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20">
                 <Settings className="w-4 h-4" />
-                {isRTL ? 'الإعدادات' : 'Settings'}
+                <span className="text-xs">{isRTL ? 'الإعدادات' : 'Settings'}</span>
               </TabsTrigger>
             </TabsList>
 
-          <TabsContent value="dashboard" className="mt-0">
-            {renderDashboard()}
-          </TabsContent>
+            <TabsContent value="dashboard" className="mt-0">
+              {renderDashboard()}
+            </TabsContent>
 
-          <TabsContent value="employees" className="mt-0">
-            {renderEmployees()}
-          </TabsContent>
+            <TabsContent value="employees" className="mt-0">
+              {renderEmployees()}
+            </TabsContent>
 
-          <TabsContent value="tasks" className="mt-0">
-            {renderTasks()}
-          </TabsContent>
+            <TabsContent value="tasks" className="mt-0">
+              {renderTasks()}
+            </TabsContent>
 
-          <TabsContent value="reports" className="mt-0">
-            {renderReports()}
-          </TabsContent>
+            <TabsContent value="reports" className="mt-0">
+              {renderReports()}
+            </TabsContent>
 
-          <TabsContent value="settings" className="mt-0">
-            {renderSettings()}
-          </TabsContent>
-        </Tabs>
-      </div>
+            <TabsContent value="settings" className="mt-0">
+              {renderSettings()}
+            </TabsContent>
+          </Tabs>
 
-        {/* Dialogs */}
-        <AddEmployeeDialog />
-        <EditEmployeeDialog />
-        <ViewEmployeeDialog />
-        <AddTaskDialog />
+          {/* Dialogs */}
+          <AddEmployeeDialog />
+          <EditEmployeeDialog />
+          <ViewEmployeeDialog />
+          <AddTaskDialog />
         </div>
       </div>
     </div>;
