@@ -179,66 +179,21 @@ const DepartmentsManagement = ({ onBack }: DepartmentsManagementProps) => {
 
   return (
     <div className="min-h-screen bg-white" dir="rtl">
-      {/* خلفية احترافية متحركة بألوان الهوية البصرية */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/8 to-primary/3 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-primary/10 to-primary/5 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-muted/15 to-primary/3 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute top-20 right-1/4 w-32 h-32 bg-primary/5 rounded-full blur-xl animate-bounce-gentle"></div>
-        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-muted/20 rounded-full blur-lg animate-float"></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-primary/8 rounded-full blur-md animate-pulse"></div>
-      </div>
-
-      {/* المحتوى الرئيسي */}
-      <div className="relative z-10">
-        {/* Header بنفس تصميم ComprehensiveFieldTracking */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border/50">
-          <div className="absolute inset-0 bg-[url('/lovable-uploads/boud-pattern-bg.jpg')] opacity-5"></div>
-          <div className="relative p-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <Button
-                  variant="ghost" 
-                  size="sm"
-                  onClick={onBack}
-                  className="hover:bg-primary/10"
-                >
-                  <ArrowLeft className="h-4 w-4 ml-2" />
-                  العودة
-                </Button>
-                <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-                    <Building2 className="h-8 w-8 text-primary" />
-                  </div>
-                  <div>
-                    <h1 className="text-3xl font-bold text-foreground">
-                      إدارة الإدارات والوحدات
-                    </h1>
-                    <p className="text-muted-foreground text-lg mt-1">
-                      منظومة شاملة لإدارة الهيكل التنظيمي والإدارات مع تحليلات ذكية شاملة
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={() => setActiveTab('reports')}>
-                  <Download className="h-4 w-4 ml-2" />
-                  تصدير التقرير
-                </Button>
-                <Button variant="outline" size="sm">
-                  <FileText className="h-4 w-4 ml-2" />
-                  طباعة
-                </Button>
-                <Button size="sm">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة إدارة
-                </Button>
-              </div>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
         </div>
 
-        <div className="container mx-auto px-6 py-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">إدارة الإدارات والوحدات</h1>
+          <p className="text-gray-600">منظومة شاملة لإدارة الهيكل التنظيمي</p>
+        </div>
 
         {/* العنوان الرئيسي الاحترافي */}
         <div className="text-center mb-16 animate-fade-in">
@@ -501,7 +456,6 @@ const DepartmentsManagement = ({ onBack }: DepartmentsManagementProps) => {
               </div>
             </Tabs>
           </Card>
-        </div>
         </div>
       </div>
     </div>

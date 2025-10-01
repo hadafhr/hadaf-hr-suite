@@ -36,8 +36,17 @@ export const Payroll: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-6xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
+        </div>
+
         {/* Header */}
-        <div className="text-center">
+        <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-black mb-2">كشف الراتب</h1>
           <p className="text-gray-600">عرض تفاصيل الراتب والمستحقات الشهرية</p>
         </div>

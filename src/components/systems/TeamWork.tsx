@@ -3681,24 +3681,24 @@ const TeamWork: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic p-6" dir="rtl">
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="w-full h-full bg-repeat animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-          backgroundSize: '60px 60px'
-        }}></div>
+    <div className="min-h-screen bg-white p-6" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
         </div>
-      </div>
-      
-      {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
-      
-      <div className="max-w-7xl mx-auto space-y-6 relative z-10">
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">نظام إدارة فريق العمل</h1>
+          <p className="text-gray-600">إدارة شاملة لفريق العمل والمهام</p>
+        </div>
+
+        <div className="max-w-7xl mx-auto space-y-6">
         {/* Enhanced Professional Header */}
         <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
           <div className="flex items-center gap-6">
@@ -3813,6 +3813,7 @@ const TeamWork: React.FC = () => {
         <AddTaskDialog />
         </div>
       </div>
+    </div>
   );
 };
 

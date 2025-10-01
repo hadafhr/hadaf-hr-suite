@@ -50,12 +50,23 @@ export const LeaveRequest: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-6">
       <div className="max-w-6xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
+        </div>
+
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-black mb-2">طلبات الإجازات</h1>
-            <p className="text-gray-600">إدارة طلبات الإجازات ومتابعة حالتها</p>
-          </div>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">طلبات الإجازات</h1>
+          <p className="text-gray-600">إدارة طلبات الإجازات ومتابعة حالتها</p>
+        </div>
+
+        {/* Add Button */}
+        <div className="flex justify-center">
           <Button 
             onClick={() => setShowForm(!showForm)}
             className="bg-green-500 hover:bg-green-600"

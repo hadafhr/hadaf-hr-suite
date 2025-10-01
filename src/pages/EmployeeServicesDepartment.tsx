@@ -267,42 +267,20 @@ export default function EmployeeServicesDepartment() {
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent transition-all duration-300">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent/20 hover:border-accent transition-all duration-300 bg-background/20 backdrop-blur-sm">
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          رجوع
-        </Button>
-        <div className="h-8 w-px bg-border"></div>
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-2xl shadow-accent/30 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-transparent animate-pulse"></div>
-            <Users className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              نظام خدمات الموظفين المتطور
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              مركز شامل لجميع الخدمات والطلبات مع الذكاء الاصطناعي المتقدم
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img 
+          src="/src/assets/boud-logo-centered.png" 
+          alt="Boud Logo" 
+          className="h-32 w-auto object-contain"
+        />
       </div>
-      <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-accent text-accent bg-accent/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
-          <Users className="h-4 w-4 ml-2" />
-          نظام متقدم
-        </Badge>
-        <Button className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقارير
-        </Button>
-        <Button className="bg-secondary hover:bg-accent text-secondary-foreground shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsRequestDialogOpen(true)}>
-          <Plus className="h-4 w-4 ml-2" />
-          طلب جديد
-        </Button>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-black mb-2">نظام خدمات الموظفين</h1>
+        <p className="text-gray-600">مركز شامل لجميع الخدمات والطلبات</p>
       </div>
     </div>
   );

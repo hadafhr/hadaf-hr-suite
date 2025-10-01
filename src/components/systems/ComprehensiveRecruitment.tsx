@@ -582,10 +582,23 @@ export const ComprehensiveRecruitment: React.FC<ComprehensiveRecruitmentProps> =
   );
 
   return (
-    <div className="min-h-screen bg-background">
-      {renderHeader()}
-      
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
+    <div className="min-h-screen bg-white p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
+        </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">نظام التوظيف والتعيين</h1>
+          <p className="text-gray-600">إدارة عمليات التوظيف والمرشحين</p>
+        </div>
+        
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <div className="border-b border-border">
             <TabsList className="grid w-full grid-cols-6">
@@ -771,3 +784,5 @@ export const ComprehensiveRecruitment: React.FC<ComprehensiveRecruitmentProps> =
     </div>
   );
 };
+
+export default ComprehensiveRecruitment;
