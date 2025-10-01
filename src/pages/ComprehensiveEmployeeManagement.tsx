@@ -534,30 +534,30 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-card backdrop-blur-xl border border-border shadow-lg p-2 h-auto w-full rounded-xl">
-                    <TabsTrigger value="payroll" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الرواتب والأجور</span>
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsTrigger value="payroll" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <DollarSign className="h-4 w-4" />
+                      <span className="text-xs">الرواتب والأجور</span>
                     </TabsTrigger>
-                    <TabsTrigger value="wageprotection" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Banknote className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">حماية الأجور</span>
+                    <TabsTrigger value="wageprotection" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Banknote className="h-4 w-4" />
+                      <span className="text-xs">حماية الأجور</span>
                     </TabsTrigger>
-                    <TabsTrigger value="insurance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التأمين</span>
+                    <TabsTrigger value="insurance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Shield className="h-4 w-4" />
+                      <span className="text-xs">التأمين</span>
                     </TabsTrigger>
-                    <TabsTrigger value="expenses" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Receipt className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">المصروفات والنفقات</span>
+                    <TabsTrigger value="expenses" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Receipt className="h-4 w-4" />
+                      <span className="text-xs">المصروفات والنفقات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="benefits" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Gift className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">المكافآت والحوافز</span>
+                    <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Gift className="h-4 w-4" />
+                      <span className="text-xs">المكافآت والحوافز</span>
                     </TabsTrigger>
-                    <TabsTrigger value="budget-planning" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <DollarSign className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الميزانية والتخطيط المالي</span>
+                    <TabsTrigger value="budget-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <DollarSign className="h-4 w-4" />
+                      <span className="text-xs">الميزانية والتخطيط المالي</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -592,7 +592,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="development-performance">
             <div className="space-y-6">
-              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
+              <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
                     <BarChart3 className="h-8 w-8 text-primary-foreground" />
@@ -604,34 +604,34 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDevelopmentTab} onValueChange={handleDevelopmentTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 bg-transparent p-0 h-auto w-full">
-                    <TabsTrigger value="performance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Target className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">تقييم الأداء</span>
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsTrigger value="performance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Target className="h-4 w-4" />
+                      <span className="text-xs">تقييم الأداء</span>
                     </TabsTrigger>
-                    <TabsTrigger value="training" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <GraduationCap className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التدريب والتأهيل</span>
+                    <TabsTrigger value="training" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <GraduationCap className="h-4 w-4" />
+                      <span className="text-xs">التدريب والتأهيل</span>
                     </TabsTrigger>
-                    <TabsTrigger value="talents" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Star className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">إدارة المواهب</span>
+                    <TabsTrigger value="talents" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Star className="h-4 w-4" />
+                      <span className="text-xs">إدارة المواهب</span>
                     </TabsTrigger>
-                    <TabsTrigger value="quality-of-life" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">جودة الحياة</span>
+                    <TabsTrigger value="quality-of-life" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Heart className="h-4 w-4" />
+                      <span className="text-xs">جودة الحياة</span>
                     </TabsTrigger>
-                    <TabsTrigger value="skills-inventory" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Briefcase className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">مخزون المهارات</span>
+                    <TabsTrigger value="skills-inventory" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Briefcase className="h-4 w-4" />
+                      <span className="text-xs">مخزون المهارات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="meetings" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <CalendarClock className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الاجتماعات</span>
+                    <TabsTrigger value="meetings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <CalendarClock className="h-4 w-4" />
+                      <span className="text-xs">الاجتماعات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="organization" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Network className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التطوير المؤسسي</span>
+                    <TabsTrigger value="organization" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Network className="h-4 w-4" />
+                      <span className="text-xs">التطوير المؤسسي</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -663,7 +663,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="digital-transformation">
             <div className="space-y-6">
-              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6 animate-fade-in">
+              <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg animate-fade-in">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
                     <Brain className="h-8 w-8 text-primary-foreground" />
@@ -675,26 +675,26 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDigitalTransformationTab} onValueChange={handleDigitalTransformationTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 bg-transparent p-0 h-auto w-full">
-                    <TabsTrigger value="ai" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Bot className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الذكاء الاصطناعي</span>
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsTrigger value="ai" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Bot className="h-4 w-4" />
+                      <span className="text-xs">الذكاء الاصطناعي</span>
                     </TabsTrigger>
-                    <TabsTrigger value="reports" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <FileBarChart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التقارير الشاملة</span>
+                    <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <FileBarChart className="h-4 w-4" />
+                      <span className="text-xs">التقارير الشاملة</span>
                     </TabsTrigger>
-                    <TabsTrigger value="integration" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Plug className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التكامل والربط</span>
+                    <TabsTrigger value="integration" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Plug className="h-4 w-4" />
+                      <span className="text-xs">التكامل والربط</span>
                     </TabsTrigger>
-                    <TabsTrigger value="signature" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <PenTool className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التوقيع الإلكتروني</span>
+                    <TabsTrigger value="signature" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <PenTool className="h-4 w-4" />
+                      <span className="text-xs">التوقيع الإلكتروني</span>
                     </TabsTrigger>
-                    <TabsTrigger value="tracking" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <MapPin className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التتبع الميداني</span>
+                    <TabsTrigger value="tracking" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <MapPin className="h-4 w-4" />
+                      <span className="text-xs">التتبع الميداني</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -724,7 +724,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="governance-compliance">
             <div className="space-y-6">
-              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
+              <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
                     <Scale className="h-8 w-8 text-primary-foreground" />
@@ -736,22 +736,22 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeGovernanceTab} onValueChange={handleGovernanceTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-transparent p-0 h-auto w-full">
-                    <TabsTrigger value="legal" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Gavel className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الشؤون القانونية</span>
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsTrigger value="legal" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Gavel className="h-4 w-4" />
+                      <span className="text-xs">الشؤون القانونية</span>
                     </TabsTrigger>
-                    <TabsTrigger value="governance" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Shield className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الحوكمة والامتثال</span>
+                    <TabsTrigger value="governance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Shield className="h-4 w-4" />
+                      <span className="text-xs">الحوكمة والامتثال</span>
                     </TabsTrigger>
-                    <TabsTrigger value="occupational-safety" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <HardHat className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الصحة والسلامة المهنية</span>
+                    <TabsTrigger value="occupational-safety" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <HardHat className="h-4 w-4" />
+                      <span className="text-xs">الصحة والسلامة المهنية</span>
                     </TabsTrigger>
-                    <TabsTrigger value="admin-communications" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <FileText className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">المراسلات الإدارية</span>
+                    <TabsTrigger value="admin-communications" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <FileText className="h-4 w-4" />
+                      <span className="text-xs">المراسلات الإدارية</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -777,7 +777,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="corporate-relations">
             <div className="space-y-6">
-              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
+              <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
                     <MessageCircle className="h-8 w-8 text-primary-foreground" />
@@ -789,14 +789,14 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeCorporateRelationsTab} onValueChange={handleCorporateRelationsTabChange} className="space-y-6">
-                  <TabsList className="grid grid-cols-2 gap-2 bg-transparent p-0 h-auto w-full">
-                    <TabsTrigger value="internal-communication" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">التواصل الداخلي</span>
+                  <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsTrigger value="internal-communication" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Users2 className="h-4 w-4" />
+                      <span className="text-xs">التواصل الداخلي</span>
                     </TabsTrigger>
-                    <TabsTrigger value="social-services" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/20 border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                      <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                      <span className="text-center leading-tight">الخدمات الاجتماعية</span>
+                    <TabsTrigger value="social-services" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Heart className="h-4 w-4" />
+                      <span className="text-xs">الخدمات الاجتماعية</span>
                     </TabsTrigger>
                   </TabsList>
 
