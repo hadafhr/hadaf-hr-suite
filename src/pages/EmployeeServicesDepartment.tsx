@@ -279,8 +279,8 @@ export default function EmployeeServicesDepartment() {
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام خدمات الموظفين</h1>
-        <p style={{ color: '#e8e4e0' }}>مركز شامل لجميع الخدمات والطلبات</p>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام خدمات الموظفين</h1>
+        <p className="text-muted-foreground">مركز شامل لجميع الخدمات والطلبات</p>
       </div>
     </div>
   );
@@ -638,71 +638,71 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="profile">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">الملف الشخصي والبيانات</h2>
+              <h2 className="text-2xl font-bold text-foreground">الملف الشخصي والبيانات</h2>
               
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <User className="h-5 w-5" />
                       المعلومات الأساسية
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="text-center">
-                      <div className="w-20 h-20 bg-gray-700/50 backdrop-blur-sm rounded-full mx-auto mb-4 flex items-center justify-center">
-                        <User className="h-8 w-8 text-gray-300" />
+                      <div className="w-20 h-20 bg-muted/20 backdrop-blur-sm rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <User className="h-8 w-8 text-muted-foreground" />
                       </div>
-                      <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                      <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent/20 hover:border-accent">
                         <Upload className="h-4 w-4 ml-2" />
                         تغيير الصورة
                       </Button>
                     </div>
-                    <Separator className="bg-[#008C6A]/20" />
+                    <Separator className="bg-border" />
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-gray-300">الاسم الكامل</Label>
-                        <Input defaultValue="أحمد محمد الخالدي" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                        <Label className="text-foreground">الاسم الكامل</Label>
+                        <Input defaultValue="أحمد محمد الخالدي" className="bg-input border-border text-foreground" />
                       </div>
                       <div>
-                        <Label className="text-gray-300">رقم الهوية</Label>
-                        <Input defaultValue="1234567890" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                        <Label className="text-foreground">رقم الهوية</Label>
+                        <Input defaultValue="1234567890" className="bg-input border-border text-foreground" />
                       </div>
                       <div>
-                        <Label className="text-gray-300">تاريخ الميلاد</Label>
-                        <Input type="date" defaultValue="1990-01-15" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                        <Label className="text-foreground">تاريخ الميلاد</Label>
+                        <Input type="date" defaultValue="1990-01-15" className="bg-input border-border text-foreground" />
                       </div>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <Phone className="h-5 w-5" />
                       معلومات الاتصال
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label className="text-gray-300">رقم الهاتف</Label>
-                      <Input defaultValue="+966501234567" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                      <Label className="text-foreground">رقم الهاتف</Label>
+                      <Input defaultValue="+966501234567" className="bg-input border-border text-foreground" />
                     </div>
                     <div>
-                      <Label className="text-gray-300">البريد الإلكتروني</Label>
-                      <Input defaultValue="ahmed@company.com" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                      <Label className="text-foreground">البريد الإلكتروني</Label>
+                      <Input defaultValue="ahmed@company.com" className="bg-input border-border text-foreground" />
                     </div>
                     <div>
-                      <Label className="text-gray-300">العنوان</Label>
-                      <Textarea defaultValue="الرياض، المملكة العربية السعودية" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                      <Label className="text-foreground">العنوان</Label>
+                      <Textarea defaultValue="الرياض، المملكة العربية السعودية" className="bg-input border-border text-foreground" />
                     </div>
                     <div>
-                      <Label className="text-gray-300">الحالة الاجتماعية</Label>
+                      <Label className="text-foreground">الحالة الاجتماعية</Label>
                       <Select defaultValue="married">
-                        <SelectTrigger className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white">
+                        <SelectTrigger className="bg-input border-border text-foreground">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-gray-900/90 backdrop-blur-xl text-white border-[#008C6A]/30">
+                        <SelectContent className="bg-card border-border text-foreground">
                           <SelectItem value="single">أعزب</SelectItem>
                           <SelectItem value="married">متزوج</SelectItem>
                           <SelectItem value="divorced">مطلق</SelectItem>
@@ -713,27 +713,27 @@ export default function EmployeeServicesDepartment() {
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <Users className="h-5 w-5" />
                       جهات الاتصال الطارئة
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label className="text-gray-300">اسم جهة الاتصال</Label>
-                      <Input defaultValue="فاطمة أحمد الخالدي" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                      <Label className="text-foreground">اسم جهة الاتصال</Label>
+                      <Input defaultValue="فاطمة أحمد الخالدي" className="bg-input border-border text-foreground" />
                     </div>
                     <div>
-                      <Label className="text-gray-300">صلة القرابة</Label>
-                      <Input defaultValue="الزوجة" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                      <Label className="text-foreground">صلة القرابة</Label>
+                      <Input defaultValue="الزوجة" className="bg-input border-border text-foreground" />
                     </div>
                     <div>
-                      <Label className="text-gray-300">رقم الهاتف</Label>
-                      <Input defaultValue="+966507654321" className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70" />
+                      <Label className="text-foreground">رقم الهاتف</Label>
+                      <Input defaultValue="+966507654321" className="bg-input border-border text-foreground" />
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+                    <Button className="w-full bg-primary hover:bg-accent text-primary-foreground">
                       <Plus className="h-4 w-4 ml-2" />
                       إضافة جهة اتصال أخرى
                     </Button>
@@ -742,8 +742,8 @@ export default function EmployeeServicesDepartment() {
               </div>
               
               <div className="flex justify-end gap-2">
-                <Button variant="outline" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">إلغاء</Button>
-                <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">حفظ التغييرات</Button>
+                <Button variant="outline" className="border-border text-foreground hover:bg-accent/20">إلغاء</Button>
+                <Button className="bg-primary hover:bg-accent text-primary-foreground">حفظ التغييرات</Button>
               </div>
             </div>
           </TabsContent>
@@ -751,92 +751,92 @@ export default function EmployeeServicesDepartment() {
           <TabsContent value="documents">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">الوثائق والشهادات</h2>
-                <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+                <h2 className="text-2xl font-bold text-foreground">الوثائق والشهادات</h2>
+                <Button className="bg-primary hover:bg-accent text-primary-foreground">
                   <Upload className="h-4 w-4 ml-2" />
                   رفع وثيقة
                 </Button>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <FileText className="h-5 w-5" />
                       الشهادات الرسمية
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
-                        <span className="text-sm text-gray-300">شهادة راتب - يناير 2024</span>
-                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
+                      <div className="flex items-center justify-between p-2 border border-border rounded bg-background/50">
+                        <span className="text-sm text-muted-foreground">شهادة راتب - يناير 2024</span>
+                        <Button variant="ghost" size="sm" className="text-accent hover:bg-accent/20">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
-                        <span className="text-sm text-gray-300">شهادة خبرة</span>
-                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
+                      <div className="flex items-center justify-between p-2 border border-border rounded bg-background/50">
+                        <span className="text-sm text-muted-foreground">شهادة خبرة</span>
+                        <Button variant="ghost" size="sm" className="text-accent hover:bg-accent/20">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                      <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                         طلب شهادة جديدة
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <Shield className="h-5 w-5" />
                       الوثائق الشخصية
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
-                        <span className="text-sm text-gray-300">صورة الهوية الوطنية</span>
-                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
+                      <div className="flex items-center justify-between p-2 border border-border rounded bg-background/50">
+                        <span className="text-sm text-muted-foreground">صورة الهوية الوطنية</span>
+                        <Button variant="ghost" size="sm" className="text-accent hover:bg-accent/20">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
-                        <span className="text-sm text-gray-300">السيرة الذاتية</span>
-                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
+                      <div className="flex items-center justify-between p-2 border border-border rounded bg-background/50">
+                        <span className="text-sm text-muted-foreground">السيرة الذاتية</span>
+                        <Button variant="ghost" size="sm" className="text-accent hover:bg-accent/20">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                      <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                         رفع وثيقة جديدة
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
                       <CreditCard className="h-5 w-5" />
                       الوثائق المالية
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
-                        <span className="text-sm text-gray-300">معلومات الحساب البنكي</span>
-                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
+                      <div className="flex items-center justify-between p-2 border border-border rounded bg-background/50">
+                        <span className="text-sm text-muted-foreground">معلومات الحساب البنكي</span>
+                        <Button variant="ghost" size="sm" className="text-accent hover:bg-accent/20">
                           <Edit className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center justify-between p-2 border border-[#008C6A]/20 rounded bg-black/20 backdrop-blur-sm">
-                        <span className="text-sm text-gray-300">إقرار ضريبي</span>
-                        <Button variant="ghost" size="sm" className="text-[#008C6A] hover:bg-[#008C6A]/20">
+                      <div className="flex items-center justify-between p-2 border border-border rounded bg-background/50">
+                        <span className="text-sm text-muted-foreground">إقرار ضريبي</span>
+                        <Button variant="ghost" size="sm" className="text-accent hover:bg-accent/20">
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
-                      <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                      <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                         تحديث البيانات المالية
                       </Button>
                     </div>
@@ -848,94 +848,94 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="selfservice">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">الخدمة الذاتية</h2>
+              <h2 className="text-2xl font-bold text-foreground">الخدمة الذاتية</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <CreditCard className="h-8 w-8 text-blue-400" />
+                      <CreditCard className="h-8 w-8 text-accent" />
                       <div>
-                        <h3 className="font-semibold text-white">تحديث البيانات المصرفية</h3>
-                        <p className="text-sm text-gray-300">تغيير رقم الحساب أو الآيبان</p>
+                        <h3 className="font-semibold text-foreground">تحديث البيانات المصرفية</h3>
+                        <p className="text-sm text-muted-foreground">تغيير رقم الحساب أو الآيبان</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       تحديث الآن
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Home className="h-8 w-8 text-green-400" />
+                      <Home className="h-8 w-8 text-success" />
                       <div>
-                        <h3 className="font-semibold text-white">تحديث العنوان</h3>
-                        <p className="text-sm text-gray-300">تغيير عنوان السكن</p>
+                        <h3 className="font-semibold text-foreground">تحديث العنوان</h3>
+                        <p className="text-sm text-muted-foreground">تغيير عنوان السكن</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       تحديث العنوان
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <Users className="h-8 w-8 text-purple-400" />
+                      <Users className="h-8 w-8 text-accent" />
                       <div>
-                        <h3 className="font-semibold text-white">إدارة المعالين</h3>
-                        <p className="text-sm text-gray-300">إضافة أو تعديل بيانات المعالين</p>
+                        <h3 className="font-semibold text-foreground">إدارة المعالين</h3>
+                        <p className="text-sm text-muted-foreground">إضافة أو تعديل بيانات المعالين</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       إدارة المعالين
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <MessageSquare className="h-8 w-8 text-orange-400" />
+                      <MessageSquare className="h-8 w-8 text-warning" />
                       <div>
-                        <h3 className="font-semibold text-white">تقديم شكوى</h3>
-                        <p className="text-sm text-gray-300">إرسال شكوى أو اقتراح</p>
+                        <h3 className="font-semibold text-foreground">تقديم شكوى</h3>
+                        <p className="text-sm text-muted-foreground">إرسال شكوى أو اقتراح</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       تقديم شكوى
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <History className="h-8 w-8 text-red-400" />
+                      <History className="h-8 w-8 text-destructive" />
                       <div>
-                        <h3 className="font-semibold text-white">سجل الخدمات</h3>
-                        <p className="text-sm text-gray-300">مراجعة تاريخ الخدمات المستخدمة</p>
+                        <h3 className="font-semibold text-foreground">سجل الخدمات</h3>
+                        <p className="text-sm text-muted-foreground">مراجعة تاريخ الخدمات المستخدمة</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       عرض السجل
                     </Button>
                   </CardContent>
                 </Card>
                 
-                <Card className="cursor-pointer bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 hover:scale-105">
+                <Card className="cursor-pointer bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300 hover:scale-105">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
-                      <ThumbsUp className="h-8 w-8 text-indigo-400" />
+                      <ThumbsUp className="h-8 w-8 text-accent" />
                       <div>
-                        <h3 className="font-semibold text-white">تقييم الخدمات</h3>
-                        <p className="text-sm text-gray-300">تقييم جودة الخدمات المقدمة</p>
+                        <h3 className="font-semibold text-foreground">تقييم الخدمات</h3>
+                        <p className="text-sm text-muted-foreground">تقييم جودة الخدمات المقدمة</p>
                       </div>
                     </div>
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       تقييم الخدمات
                     </Button>
                   </CardContent>
@@ -946,15 +946,15 @@ export default function EmployeeServicesDepartment() {
 
           <TabsContent value="chat">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="lg:col-span-2 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+              <Card className="lg:col-span-2 bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-white">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
                     <MessageSquare className="h-5 w-5" />
                     الدردشة مع قسم الموارد البشرية
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-96 border border-[#008C6A]/20 rounded-lg p-4 mb-4 overflow-y-auto bg-black/30 backdrop-blur-sm">
+                  <div className="h-96 border border-border rounded-lg p-4 mb-4 overflow-y-auto bg-background/50">
                     <div className="space-y-4">
                       {chatMessages.map((message) => (
                         <div
@@ -964,8 +964,8 @@ export default function EmployeeServicesDepartment() {
                           <div
                             className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                               message.sender === 'user'
-                                ? 'bg-gradient-to-r from-[#008C6A] to-[#00694F] text-white'
-                                : 'bg-gray-800/60 backdrop-blur-sm border border-[#008C6A]/20 text-white'
+                                ? 'bg-primary text-primary-foreground'
+                                : 'bg-card border border-border text-foreground'
                             }`}
                           >
                             <p className="text-sm">{message.content}</p>
@@ -981,53 +981,53 @@ export default function EmployeeServicesDepartment() {
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                      className="bg-black/20 backdrop-blur-sm border-[#008C6A]/30 text-white placeholder:text-gray-400 focus:border-[#008C6A]/70"
+                      className="bg-input border-border text-foreground"
                     />
-                    <Button onClick={handleSendMessage} className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+                    <Button onClick={handleSendMessage} className="bg-primary hover:bg-accent text-primary-foreground">
                       <Send className="h-4 w-4" />
                     </Button>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+              <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-white">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
                     <Bot className="h-5 w-5" />
                     المساعد الذكي
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="p-4 bg-[#008C6A]/20 backdrop-blur-sm rounded-lg border border-[#008C6A]/30">
+                  <div className="p-4 bg-accent/20 rounded-lg border border-accent/50">
                     <div className="flex items-center gap-2 mb-2">
-                      <Bot className="h-4 w-4 text-[#008C6A]" />
-                      <span className="text-sm font-semibold text-white">مساعد HR الذكي</span>
+                      <Bot className="h-4 w-4 text-accent" />
+                      <span className="text-sm font-semibold text-foreground">مساعد HR الذكي</span>
                     </div>
-                    <p className="text-sm text-gray-300">
+                    <p className="text-sm text-muted-foreground">
                       متاح 24/7 للإجابة على استفساراتك حول نظام العمل السعودي
                     </p>
                   </div>
                   
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-sm text-white">أسئلة شائعة:</h4>
-                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <h4 className="font-semibold text-sm text-foreground">أسئلة شائعة:</h4>
+                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       <HelpCircle className="h-3 w-3 ml-2" />
                       كم عدد أيام الإجازة السنوية؟
                     </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       <HelpCircle className="h-3 w-3 ml-2" />
                       كيف أطلب شهادة راتب؟
                     </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" size="sm" className="w-full justify-start text-xs border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       <HelpCircle className="h-3 w-3 ml-2" />
                       ما هي مدة الإشعار لإنهاء العمل؟
                     </Button>
                   </div>
                   
-                  <Separator className="bg-[#008C6A]/20" />
+                  <Separator className="bg-border" />
                   
                   <div className="text-center">
-                    <Button variant="outline" className="w-full border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50">
+                    <Button variant="outline" className="w-full border-border text-foreground hover:bg-accent/20 hover:border-accent">
                       <Bot className="h-4 w-4 ml-2" />
                       بدء محادثة جديدة مع AI
                     </Button>
