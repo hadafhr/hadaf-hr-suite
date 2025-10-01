@@ -173,13 +173,22 @@
     background: #000000 !important;
   }
   
-  /* Ensure all containers use new color palette */
-  .min-h-screen, .container, .w-full {
-    background: #000000 !important;
+  /* Override ALL old color classes - STRICT ENFORCEMENT */
+  /* Remove all traces of old colors #008C6A, #009F87, #00694F, #3CB593 */
+  
+  *[class*="bg-gray-900"],
+  *[class*="from-green"],
+  *[class*="to-green"],
+  *[class*="via-green"],
+  *[class*="bg-green-"],
+  *[class*="text-green-"],
+  *[class*="border-green-"] {
+    background: #1a1a1a !important;
     color: #ffffff !important;
+    border-color: #cfcbcb !important;
   }
   
-  /* Override all old backgrounds */
+  /* Force new color palette on all elements */
   .bg-white {
     background: #ffffff !important;
     color: #000000 !important;
@@ -198,12 +207,71 @@
     color: #000000 !important;
   }
   
-  .text-gray-600, .text-muted-foreground {
+  .text-gray-600, .text-muted-foreground, .text-gray-300, .text-gray-400 {
     color: #e8e4e0 !important;
   }
   
-  .border-gray-200, .border {
+  .border-gray-200, .border, .border-gray-300 {
     border-color: #cfcbcb !important;
+  }
+  
+  /* Remove all old green color references */
+  .text-green-600, .text-green-500, .text-green-700,
+  .bg-green-600, .bg-green-500, .bg-green-700,
+  .border-green-600, .border-green-500, .border-green-700 {
+    color: #ffffff !important;
+    background: #b1a086 !important;
+    border-color: #cfcbcb !important;
+  }
+  
+  /* Remove all gradient with old colors */
+  *[class*="from-[#008C6A]"],
+  *[class*="to-[#008C6A]"],
+  *[class*="via-[#008C6A]"],
+  *[class*="from-[#009F87]"],
+  *[class*="to-[#009F87]"],
+  *[class*="from-[#00694F]"],
+  *[class*="to-[#00694F]"],
+  *[class*="from-[#3CB593]"],
+  *[class*="to-[#3CB593]"] {
+    background: #b1a086 !important;
+    color: #ffffff !important;
+  }
+  
+  /* Cards must use new palette */
+  .bg-gray-900\/60, 
+  *[class*="bg-gray-900"] {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+  }
+  
+  /* Buttons must use new palette */
+  button {
+    color: #ffffff !important;
+  }
+  
+  button[class*="bg-gradient"],
+  button[class*="from-green"],
+  button[class*="from-[#008C6A]"] {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #000000 !important;
+  }
+  
+  /* Secondary buttons */
+  button[class*="variant-outline"],
+  button[class*="border-[#008C6A]"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+  }
+  
+  /* Hover states */
+  button:hover,
+  *[class*="hover:bg-[#008C6A]"]:hover,
+  *[class*="hover:from-"]:hover {
+    background: #b1a086 !important;
+    color: #000000 !important;
   }
 }
 

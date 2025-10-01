@@ -3700,39 +3700,37 @@ const TeamWork: React.FC = () => {
 
         <div className="max-w-7xl mx-auto space-y-6">
         {/* Enhanced Professional Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+        <div className="flex items-center justify-between mb-12 p-6 rounded-3xl transition-all duration-300" style={{ background: '#1a1a1a', border: '1px solid #cfcbcb' }}>
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => {/* Add back functionality */}} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
+            <Button variant="outline" size="sm" onClick={() => {/* Add back functionality */}} className="transition-all duration-300" style={{ borderColor: '#cfcbcb', color: '#ffffff', background: '#000000' }}>
               <ArrowLeft className="h-4 w-4 ml-2" />
               {isRTL ? 'رجوع' : 'رجوع'}
             </Button>
-            <div className="h-8 w-px bg-[#008C6A]/30"></div>
+            <div className="h-8 w-px" style={{ background: '#cfcbcb' }}></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden group" style={{ background: '#b1a086' }}>
                 <Users className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold" style={{ color: '#ffffff' }}>
                   {isRTL ? 'نظام إدارة فريق العمل المتطور' : 'Advanced Workforce Management System'}
                 </h1>
-                <p className="text-gray-300 text-lg">
+                <p className="text-lg" style={{ color: '#e8e4e0' }}>
                   {isRTL ? 'إدارة شاملة للموظفين بتقنيات ذكية متطورة' : 'Comprehensive employee management with advanced smart technologies'}
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="px-4 py-2 text-sm font-medium" style={{ borderColor: '#cfcbcb', color: '#ffffff', background: '#1a1a1a' }}>
               <Users className="h-4 w-4 ml-2" />
               {isRTL ? 'نظام متقدم' : 'نظام متقدم'}
             </Badge>
-            <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+            <Button className="transition-all duration-300" style={{ background: '#000000', color: '#ffffff', border: '1px solid #000000' }}>
               <Download className="h-4 w-4 ml-2" />
               {isRTL ? 'تصدير التقارير' : 'تصدير التقارير'}
             </Button>
-            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="transition-all duration-300" style={{ background: '#ffffff', color: '#000000', border: '1px solid #000000' }}>
               <Share className="h-4 w-4 ml-2" />
               {isRTL ? 'مشاركة' : 'مشاركة'}
             </Button>
@@ -3740,12 +3738,13 @@ const TeamWork: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 p-6 hover:border-[#008C6A]/50 transition-all duration-300">
+        <div className="rounded-3xl p-6 transition-all duration-300" style={{ background: '#1a1a1a', border: '1px solid #cfcbcb' }}>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto rounded-xl" style={{ background: '#000000', border: '1px solid #cfcbcb' }}>
               <TabsTrigger 
                 value="dashboard" 
-                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
+                style={{ color: '#ffffff' }}
               >
                 <Home className="w-4 h-4" />
                 {isRTL ? 'لوحة التحكم' : 'Dashboard'}
@@ -3753,7 +3752,8 @@ const TeamWork: React.FC = () => {
               
               <TabsTrigger 
                 value="employees"
-                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
+                style={{ color: '#ffffff' }}
               >
                 <Users className="w-4 h-4" />
                 {isRTL ? 'الموظفين' : 'Employees'}
@@ -3761,7 +3761,8 @@ const TeamWork: React.FC = () => {
               
               <TabsTrigger 
                 value="tasks"
-                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
+                style={{ color: '#ffffff' }}
               >
                 <Target className="w-4 h-4" />
                 {isRTL ? 'المهام' : 'Tasks'}
@@ -3769,7 +3770,8 @@ const TeamWork: React.FC = () => {
               
               <TabsTrigger 
                 value="reports"
-                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
+                style={{ color: '#ffffff' }}
               >
                 <BarChart3 className="w-4 h-4" />
                 {isRTL ? 'التقارير' : 'Reports'}
@@ -3777,7 +3779,8 @@ const TeamWork: React.FC = () => {
               
               <TabsTrigger 
                 value="settings"
-                className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300"
+                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
+                style={{ color: '#ffffff' }}
               >
                 <Settings className="w-4 h-4" />
                 {isRTL ? 'الإعدادات' : 'Settings'}
