@@ -593,11 +593,11 @@ export const ComprehensiveRecruitment: React.FC<ComprehensiveRecruitmentProps> =
           />
         </div>
 
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">نظام التوظيف والتعيين</h1>
-          <p className="text-gray-600">إدارة عمليات التوظيف والمرشحين</p>
-        </div>
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام التوظيف والتعيين</h1>
+        <p style={{ color: '#e8e4e0' }}>إدارة عمليات التوظيف والمرشحين</p>
+      </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <div className="border-b border-border">

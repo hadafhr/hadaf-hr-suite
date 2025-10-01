@@ -273,6 +273,151 @@
     background: #b1a086 !important;
     color: #000000 !important;
   }
+  
+  /* Force new color palette on Tailwind utility classes */
+  .bg-card, .bg-card\/80, *[class*="bg-card"] {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+  }
+  
+  .bg-primary, *[class*="bg-primary"] {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+  
+  .bg-secondary, *[class*="bg-secondary"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  .bg-accent, *[class*="bg-accent"] {
+    background: #b1a086 !important;
+    color: #000000 !important;
+  }
+  
+  .bg-muted, *[class*="bg-muted"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  /* Text colors - strict enforcement */
+  .text-foreground, *[class*="text-foreground"] {
+    color: #ffffff !important;
+  }
+  
+  .text-primary-foreground, *[class*="text-primary-foreground"] {
+    color: #ffffff !important;
+  }
+  
+  .text-secondary-foreground, *[class*="text-secondary-foreground"] {
+    color: #000000 !important;
+  }
+  
+  .text-accent-foreground, *[class*="text-accent-foreground"] {
+    color: #000000 !important;
+  }
+  
+  /* Border colors - strict enforcement */
+  .border-border, *[class*="border-border"] {
+    border-color: #cfcbcb !important;
+  }
+  
+  .border-primary, *[class*="border-primary"] {
+    border-color: #000000 !important;
+  }
+  
+  .border-accent, *[class*="border-accent"] {
+    border-color: #b1a086 !important;
+  }
+  
+  .border-secondary, *[class*="border-secondary"] {
+    border-color: #cfcbcb !important;
+  }
+  
+  /* Gradients - force new palette */
+  *[class*="bg-gradient"],
+  *[class*="from-primary"],
+  *[class*="to-primary"],
+  *[class*="from-accent"],
+  *[class*="to-accent"] {
+    background: linear-gradient(135deg, #000000 0%, #b1a086 100%) !important;
+    color: #ffffff !important;
+  }
+  
+  /* Data state active - force new colors */
+  *[data-state="active"] {
+    background: #b1a086 !important;
+    color: #000000 !important;
+  }
+  
+  /* Remove all shadow with old colors */
+  *[class*="shadow-glow"],
+  *[class*="shadow-[#008C6A]"],
+  *[class*="shadow-primary"],
+  *[class*="shadow-accent"] {
+    box-shadow: 0 4px 12px rgba(177, 160, 134, 0.2) !important;
+  }
+  
+  /* Remove all old color hex codes completely */
+  *[style*="#008C6A"],
+  *[style*="#009F87"],
+  *[style*="#00694F"],
+  *[style*="#3CB593"],
+  *[style*="rgb(0, 140, 106)"],
+  *[style*="rgba(0, 140, 106"] {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    border-color: #cfcbcb !important;
+  }
+  
+  /* Force all blue/red/yellow/purple colors to new palette */
+  .text-blue-600, .text-blue-500, .text-blue-700,
+  .bg-blue-600, .bg-blue-500, .bg-blue-700,
+  .border-blue-600, .border-blue-500 {
+    color: #ffffff !important;
+    background: #1a1a1a !important;
+    border-color: #cfcbcb !important;
+  }
+  
+  .text-red-600, .text-red-500, .text-red-700,
+  .bg-red-600, .bg-red-500, .bg-red-700,
+  .border-red-600, .border-red-500 {
+    color: #ffffff !important;
+    background: #1a1a1a !important;
+    border-color: #cfcbcb !important;
+  }
+  
+  .text-yellow-600, .text-yellow-500, .text-yellow-700,
+  .bg-yellow-600, .bg-yellow-500, .bg-yellow-700,
+  .border-yellow-600, .border-yellow-500 {
+    color: #ffffff !important;
+    background: #1a1a1a !important;
+    border-color: #cfcbcb !important;
+  }
+  
+  .text-purple-600, .text-purple-500, .text-purple-700,
+  .bg-purple-600, .bg-purple-500, .bg-purple-700,
+  .border-purple-600, .border-purple-500 {
+    color: #ffffff !important;
+    background: #1a1a1a !important;
+    border-color: #cfcbcb !important;
+  }
+  
+  /* Override all gradient backgrounds */
+  *[class*="from-slate"],
+  *[class*="via-blue"],
+  *[class*="to-indigo"],
+  *[class*="from-blue"],
+  *[class*="to-blue"],
+  *[class*="from-red"],
+  *[class*="to-red"],
+  *[class*="from-yellow"],
+  *[class*="to-yellow"],
+  *[class*="from-purple"],
+  *[class*="to-purple"] {
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+    color: #ffffff !important;
+  }
 }
 
 @layer components {

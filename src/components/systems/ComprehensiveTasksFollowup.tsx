@@ -384,8 +384,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-black mb-2">المهام والمتابعة</h1>
-        <p className="text-gray-600">منظومة شاملة لإدارة المهام والمتابعة</p>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>المهام والمتابعة</h1>
+        <p style={{ color: '#e8e4e0' }}>منظومة شاملة لإدارة المهام والمتابعة</p>
       </div>
     </div>
   );
@@ -1318,35 +1318,33 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
       
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+        <div className="flex items-center justify-between mb-12 p-6 rounded-3xl transition-all duration-300" style={{ background: '#1a1a1a', border: '1px solid #cfcbcb' }}>
           <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
+            <Button variant="outline" size="sm" className="transition-all duration-300" style={{ borderColor: '#cfcbcb', color: '#ffffff', background: '#000000' }}>
               <ArrowLeft className="h-4 w-4 ml-2" />
               رجوع
             </Button>
-            <div className="h-8 w-px bg-[#008C6A]/30"></div>
+            <div className="h-8 w-px" style={{ background: '#cfcbcb' }}></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden group" style={{ background: '#b1a086' }}>
                 <CheckSquare className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold" style={{ color: '#ffffff' }}>
                   نظام إدارة المهام الشامل
                 </h1>
-                <p className="text-gray-300 text-lg">
+                <p className="text-lg" style={{ color: '#e8e4e0' }}>
                   نظام متطور لإدارة ومتابعة المهام والمشاريع مع التحليلات التنبؤية
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="px-4 py-2 text-sm font-medium" style={{ borderColor: '#cfcbcb', color: '#ffffff', background: '#1a1a1a' }}>
               <CheckSquare className="h-4 w-4 ml-2" />
               نظام متقدم
             </Badge>
-            <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
+            <Button className="transition-all duration-300" style={{ background: '#000000', color: '#ffffff' }}>
               <Download className="h-4 w-4 ml-2" />
               تصدير التقارير
             </Button>
@@ -1355,37 +1353,37 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
         
         {/* Tabs Navigation */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+          <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto rounded-xl" style={{ background: '#000000', border: '1px solid #cfcbcb' }}>
+            <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">لوحة التحكم</span>
             </TabsTrigger>
             
-            <TabsTrigger value="tasks" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="tasks" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <CheckSquare className="h-4 w-4" />
               <span className="hidden sm:inline">المهام</span>
             </TabsTrigger>
-            <TabsTrigger value="projects" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="projects" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <FolderOpen className="h-4 w-4" />
               <span className="hidden sm:inline">المشاريع</span>
             </TabsTrigger>
-            <TabsTrigger value="teams" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="teams" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <Users className="h-4 w-4" />
               <span className="hidden sm:inline">الفرق</span>
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="analytics" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <TrendingUp className="h-4 w-4" />
               <span className="hidden sm:inline">التحليلات</span>
             </TabsTrigger>
-            <TabsTrigger value="calendar" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="calendar" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <Calendar className="h-4 w-4" />
               <span className="hidden sm:inline">التقويم</span>
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="reports" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <FileText className="h-4 w-4" />
               <span className="hidden sm:inline">التقارير</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
+            <TabsTrigger value="settings" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]" style={{ color: '#ffffff' }}>
               <Settings className="h-4 w-4" />
               <span className="hidden sm:inline">الإعدادات</span>
             </TabsTrigger>
