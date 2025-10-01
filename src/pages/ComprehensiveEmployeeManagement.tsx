@@ -462,7 +462,7 @@ const ComprehensiveEmployeeManagement = () => {
                       <MessageSquare className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">الطلبات والإشعارات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="tasks" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-md bg-secondary text-secondary-foreground hover:bg-accent/50 border border-border hover:scale-105 hover:shadow-lg">
+                    <TabsTrigger value="tasks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                       <CheckSquare className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                       <span className="text-center leading-tight">المهام والمتابعة</span>
                     </TabsTrigger>
