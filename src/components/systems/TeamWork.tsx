@@ -13,14 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { BoudLogo } from '@/components/BoudLogo';
-import { 
-  Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save,
-  BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock,
-  FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin,
-  Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu,
-  FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages,
-  Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Share, ArrowLeft
-} from 'lucide-react';
+import { Users, Plus, Search, Filter, Edit, Trash2, Eye, Download, Upload, Printer, Save, BarChart3, PieChart, TrendingUp, Activity, CheckCircle, AlertCircle, Clock, FileText, Settings, Target, Star, Award, Building, Mail, Phone, MapPin, Calendar, MessageSquare, UserPlus, Briefcase, Globe, ChevronRight, Menu, FileSpreadsheet, Zap, Shield, Gauge, X, RefreshCw, Home, Languages, Heart, CreditCard, Clipboard, Database, UserCog, Bell, Lock, Share, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
@@ -90,7 +83,6 @@ interface Employee {
   createdAt: string;
   updatedAt: string;
 }
-
 interface DocumentInfo {
   id: string;
   name: string;
@@ -100,7 +92,6 @@ interface DocumentInfo {
   url: string;
   size?: string;
 }
-
 interface Task {
   id: string;
   title: string;
@@ -121,7 +112,6 @@ interface Task {
   attachments: DocumentInfo[];
   comments: TaskComment[];
 }
-
 interface TaskComment {
   id: string;
   authorId: string;
@@ -129,7 +119,6 @@ interface TaskComment {
   content: string;
   createdAt: string;
 }
-
 interface DashboardStats {
   totalEmployees: number;
   activeEmployees: number;
@@ -139,12 +128,19 @@ interface DashboardStats {
   resignations: number;
   contractsExpiring: number;
   averagePerformance: number;
-  departmentDistribution: { name: string; count: number; color: string }[];
-  monthlyHiring: { month: string; hires: number; terminations: number }[];
+  departmentDistribution: {
+    name: string;
+    count: number;
+    color: string;
+  }[];
+  monthlyHiring: {
+    month: string;
+    hires: number;
+    terminations: number;
+  }[];
   recentActivities: ActivityLog[];
   upcomingEvents: UpcomingEvent[];
 }
-
 interface ActivityLog {
   id: string;
   type: 'hire' | 'termination' | 'promotion' | 'transfer' | 'performance_review';
@@ -153,7 +149,6 @@ interface ActivityLog {
   employeeName: string;
   timestamp: string;
 }
-
 interface UpcomingEvent {
   id: string;
   type: 'contract_expiry' | 'probation_end' | 'performance_review' | 'birthday' | 'anniversary';
@@ -169,26 +164,29 @@ interface UpcomingEvent {
 // ================================
 
 const TeamWork: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    i18n
+  } = useTranslation();
   const isRTL = i18n.language === 'ar';
-  
+
   // ================================
   // STATE MANAGEMENT
   // ================================
-  
+
   // Core State
   const [activeTab, setActiveTab] = useState('dashboard');
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Search and Filter States
   const [searchTerm, setSearchTerm] = useState('');
   const [departmentFilter, setDepartmentFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [positionFilter, setPositionFilter] = useState('all');
   const [contractFilter, setContractFilter] = useState('all');
-  
+
   // Dialog States
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false);
   const [isEditEmployeeOpen, setIsEditEmployeeOpen] = useState(false);
@@ -197,16 +195,16 @@ const TeamWork: React.FC = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  
+
   // Form States
   const [employeeForm, setEmployeeForm] = useState<Partial<Employee>>({});
   const [taskForm, setTaskForm] = useState<Partial<Task>>({});
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-  
+
   // View States
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedEmployees, setSelectedEmployees] = useState<string[]>([]);
-  
+
   // Settings State
   const [systemSettings, setSystemSettings] = useState({
     allowBulkOperations: true,
@@ -214,7 +212,7 @@ const TeamWork: React.FC = () => {
     autoBackup: true,
     emailNotifications: true,
     mobileNotifications: true,
-    advancedReporting: true,
+    advancedReporting: true
   });
 
   // ================================
@@ -241,252 +239,285 @@ const TeamWork: React.FC = () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1200));
-      
-      const mockEmployees: Employee[] = [
-        {
+      const mockEmployees: Employee[] = [{
+        id: '1',
+        employeeNumber: 'BHR-001',
+        firstName: 'أحمد',
+        lastName: 'محمد العلي',
+        fullName: 'أحمد محمد العلي',
+        fullNameArabic: 'أحمد محمد العلي',
+        position: 'مدير تطوير البرمجيات',
+        department: 'تقنية المعلومات',
+        team: 'فريق التطوير الأساسي',
+        email: 'ahmed.ali@boudhr.com',
+        phone: '+966501234567',
+        nationality: 'سعودي',
+        nationalId: '1234567890',
+        birthDate: '1990-05-15',
+        hireDate: '2023-01-15',
+        contractStartDate: '2023-01-15',
+        contractEndDate: '2026-01-15',
+        contractType: 'permanent',
+        salary: 18000,
+        housingAllowance: 3000,
+        transportAllowance: 800,
+        otherAllowances: 1200,
+        totalSalary: 23000,
+        status: 'active',
+        performance: 95,
+        skills: ['React', 'Node.js', 'TypeScript', 'Leadership', 'Project Management'],
+        documents: [{
           id: '1',
-          employeeNumber: 'BHR-001',
-          firstName: 'أحمد',
-          lastName: 'محمد العلي',
-          fullName: 'أحمد محمد العلي',
-          fullNameArabic: 'أحمد محمد العلي',
-          position: 'مدير تطوير البرمجيات',
-          department: 'تقنية المعلومات',
-          team: 'فريق التطوير الأساسي',
-          email: 'ahmed.ali@boudhr.com',
-          phone: '+966501234567',
-          nationality: 'سعودي',
-          nationalId: '1234567890',
-          birthDate: '1990-05-15',
-          hireDate: '2023-01-15',
-          contractStartDate: '2023-01-15',
-          contractEndDate: '2026-01-15',
-          contractType: 'permanent',
-          salary: 18000,
-          housingAllowance: 3000,
-          transportAllowance: 800,
-          otherAllowances: 1200,
-          totalSalary: 23000,
-          status: 'active',
-          performance: 95,
-          skills: ['React', 'Node.js', 'TypeScript', 'Leadership', 'Project Management'],
-          documents: [
-            { id: '1', name: 'السيرة الذاتية', type: 'pdf', category: 'cv', uploadDate: '2023-01-10', url: '#', size: '2.3 MB' },
-            { id: '2', name: 'عقد العمل', type: 'pdf', category: 'contract', uploadDate: '2023-01-15', url: '#', size: '1.8 MB' },
-            { id: '3', name: 'صورة بطاقة الهوية', type: 'pdf', category: 'id', uploadDate: '2023-01-12', url: '#', size: '0.9 MB' }
-          ],
-          address: 'الرياض، المملكة العربية السعودية - حي النرجس',
-          emergencyContact: {
-            name: 'محمد العلي',
-            relationship: 'والد',
-            phone: '+966501234568',
-            email: 'mohammed.ali@gmail.com'
-          },
-          bankDetails: {
-            bankName: 'البنك الأهلي السعودي',
-            accountNumber: '123456789',
-            iban: 'SA1234567891234567890',
-            branch: 'فرع الرياض الرئيسي'
-          },
-          healthInfo: {
-            insuranceNumber: 'INS-123456',
-            insuranceProvider: 'شركة التأمين الطبي',
-            medicalConditions: [],
-            bloodType: 'O+'
-          },
-          lastAttendance: '2024-01-20 08:15',
-          completedTasks: 45,
-          ongoingTasks: 8,
-          annualLeaveBalance: 25,
-          sickLeaveBalance: 30,
-          emergencyLeaveBalance: 5,
-          createdAt: '2023-01-15T10:00:00Z',
-          updatedAt: '2024-01-20T14:30:00Z'
-        },
-        {
+          name: 'السيرة الذاتية',
+          type: 'pdf',
+          category: 'cv',
+          uploadDate: '2023-01-10',
+          url: '#',
+          size: '2.3 MB'
+        }, {
           id: '2',
-          employeeNumber: 'BHR-002',
-          firstName: 'فاطمة',
-          lastName: 'أحمد محمود',
-          fullName: 'فاطمة أحمد محمود',
-          fullNameArabic: 'فاطمة أحمد محمود',
-          position: 'مديرة التسويق الرقمي',
-          department: 'التسويق',
-          team: 'فريق التسويق الرقمي',
-          email: 'fatima.ahmed@boudhr.com',
-          phone: '+966507654321',
-          nationality: 'سعودية',
-          nationalId: '0987654321',
-          birthDate: '1988-08-22',
-          hireDate: '2022-08-20',
-          contractStartDate: '2022-08-20',
-          contractEndDate: '2025-08-20',
-          contractType: 'permanent',
-          salary: 16500,
-          housingAllowance: 2500,
-          transportAllowance: 600,
-          otherAllowances: 900,
-          totalSalary: 20500,
-          status: 'active',
-          performance: 92,
-          skills: ['Digital Marketing', 'SEO', 'Analytics', 'Content Strategy', 'Social Media'],
-          documents: [
-            { id: '4', name: 'السيرة الذاتية', type: 'pdf', category: 'cv', uploadDate: '2022-08-15', url: '#', size: '1.9 MB' },
-            { id: '5', name: 'الشهادات الأكاديمية', type: 'pdf', category: 'certificates', uploadDate: '2022-08-20', url: '#', size: '3.2 MB' }
-          ],
-          address: 'جدة، المملكة العربية السعودية - حي الروضة',
-          emergencyContact: {
-            name: 'أحمد محمود',
-            relationship: 'زوج',
-            phone: '+966507654322',
-            email: 'ahmed.mahmoud@gmail.com'
-          },
-          bankDetails: {
-            bankName: 'بنك الراجحي',
-            accountNumber: '987654321',
-            iban: 'SA0987654321098765432',
-            branch: 'فرع جدة - الروضة'
-          },
-          healthInfo: {
-            insuranceNumber: 'INS-789012',
-            insuranceProvider: 'شركة التأمين الطبي',
-            medicalConditions: [],
-            bloodType: 'A+'
-          },
-          lastAttendance: '2024-01-20 08:00',
-          completedTasks: 62,
-          ongoingTasks: 12,
-          annualLeaveBalance: 22,
-          sickLeaveBalance: 28,
-          emergencyLeaveBalance: 3,
-          createdAt: '2022-08-20T09:00:00Z',
-          updatedAt: '2024-01-20T16:45:00Z'
-        },
-        {
+          name: 'عقد العمل',
+          type: 'pdf',
+          category: 'contract',
+          uploadDate: '2023-01-15',
+          url: '#',
+          size: '1.8 MB'
+        }, {
           id: '3',
-          employeeNumber: 'BHR-003',
-          firstName: 'سارة',
-          lastName: 'خالد المطيري',
-          fullName: 'سارة خالد المطيري',
-          fullNameArabic: 'سارة خالد المطيري',
-          position: 'محاسبة أولى',
-          department: 'المالية',
-          team: 'فريق المحاسبة',
-          email: 'sara.almutairi@boudhr.com',
-          phone: '+966509876543',
-          nationality: 'سعودية',
-          nationalId: '1357924680',
-          birthDate: '1992-03-10',
-          hireDate: '2023-06-01',
-          contractStartDate: '2023-06-01',
-          contractType: 'trainee',
-          salary: 12000,
-          housingAllowance: 2000,
-          transportAllowance: 500,
-          otherAllowances: 500,
-          totalSalary: 15000,
-          status: 'probation',
-          performance: 88,
-          skills: ['Accounting', 'Excel', 'SAP', 'Financial Analysis'],
-          documents: [
-            { id: '6', name: 'السيرة الذاتية', type: 'pdf', category: 'cv', uploadDate: '2023-05-25', url: '#', size: '1.5 MB' },
-            { id: '7', name: 'عقد التجربة', type: 'pdf', category: 'contract', uploadDate: '2023-06-01', url: '#', size: '1.2 MB' }
-          ],
-          address: 'الدمام، المملكة العربية السعودية - حي الفيصلية',
-          emergencyContact: {
-            name: 'خالد المطيري',
-            relationship: 'والد',
-            phone: '+966509876544'
-          },
-          bankDetails: {
-            bankName: 'البنك السعودي للاستثمار',
-            accountNumber: '456789123',
-            iban: 'SA4567891234567891234'
-          },
-          healthInfo: {
-            insuranceNumber: 'INS-345678',
-            insuranceProvider: 'شركة التأمين الطبي',
-            bloodType: 'B+'
-          },
-          lastAttendance: '2024-01-20 08:30',
-          completedTasks: 23,
-          ongoingTasks: 5,
-          annualLeaveBalance: 30,
-          sickLeaveBalance: 30,
-          emergencyLeaveBalance: 5,
-          createdAt: '2023-06-01T08:00:00Z',
-          updatedAt: '2024-01-20T12:15:00Z'
-        }
-      ];
-
-      const mockTasks: Task[] = [
-        {
+          name: 'صورة بطاقة الهوية',
+          type: 'pdf',
+          category: 'id',
+          uploadDate: '2023-01-12',
+          url: '#',
+          size: '0.9 MB'
+        }],
+        address: 'الرياض، المملكة العربية السعودية - حي النرجس',
+        emergencyContact: {
+          name: 'محمد العلي',
+          relationship: 'والد',
+          phone: '+966501234568',
+          email: 'mohammed.ali@gmail.com'
+        },
+        bankDetails: {
+          bankName: 'البنك الأهلي السعودي',
+          accountNumber: '123456789',
+          iban: 'SA1234567891234567890',
+          branch: 'فرع الرياض الرئيسي'
+        },
+        healthInfo: {
+          insuranceNumber: 'INS-123456',
+          insuranceProvider: 'شركة التأمين الطبي',
+          medicalConditions: [],
+          bloodType: 'O+'
+        },
+        lastAttendance: '2024-01-20 08:15',
+        completedTasks: 45,
+        ongoingTasks: 8,
+        annualLeaveBalance: 25,
+        sickLeaveBalance: 30,
+        emergencyLeaveBalance: 5,
+        createdAt: '2023-01-15T10:00:00Z',
+        updatedAt: '2024-01-20T14:30:00Z'
+      }, {
+        id: '2',
+        employeeNumber: 'BHR-002',
+        firstName: 'فاطمة',
+        lastName: 'أحمد محمود',
+        fullName: 'فاطمة أحمد محمود',
+        fullNameArabic: 'فاطمة أحمد محمود',
+        position: 'مديرة التسويق الرقمي',
+        department: 'التسويق',
+        team: 'فريق التسويق الرقمي',
+        email: 'fatima.ahmed@boudhr.com',
+        phone: '+966507654321',
+        nationality: 'سعودية',
+        nationalId: '0987654321',
+        birthDate: '1988-08-22',
+        hireDate: '2022-08-20',
+        contractStartDate: '2022-08-20',
+        contractEndDate: '2025-08-20',
+        contractType: 'permanent',
+        salary: 16500,
+        housingAllowance: 2500,
+        transportAllowance: 600,
+        otherAllowances: 900,
+        totalSalary: 20500,
+        status: 'active',
+        performance: 92,
+        skills: ['Digital Marketing', 'SEO', 'Analytics', 'Content Strategy', 'Social Media'],
+        documents: [{
+          id: '4',
+          name: 'السيرة الذاتية',
+          type: 'pdf',
+          category: 'cv',
+          uploadDate: '2022-08-15',
+          url: '#',
+          size: '1.9 MB'
+        }, {
+          id: '5',
+          name: 'الشهادات الأكاديمية',
+          type: 'pdf',
+          category: 'certificates',
+          uploadDate: '2022-08-20',
+          url: '#',
+          size: '3.2 MB'
+        }],
+        address: 'جدة، المملكة العربية السعودية - حي الروضة',
+        emergencyContact: {
+          name: 'أحمد محمود',
+          relationship: 'زوج',
+          phone: '+966507654322',
+          email: 'ahmed.mahmoud@gmail.com'
+        },
+        bankDetails: {
+          bankName: 'بنك الراجحي',
+          accountNumber: '987654321',
+          iban: 'SA0987654321098765432',
+          branch: 'فرع جدة - الروضة'
+        },
+        healthInfo: {
+          insuranceNumber: 'INS-789012',
+          insuranceProvider: 'شركة التأمين الطبي',
+          medicalConditions: [],
+          bloodType: 'A+'
+        },
+        lastAttendance: '2024-01-20 08:00',
+        completedTasks: 62,
+        ongoingTasks: 12,
+        annualLeaveBalance: 22,
+        sickLeaveBalance: 28,
+        emergencyLeaveBalance: 3,
+        createdAt: '2022-08-20T09:00:00Z',
+        updatedAt: '2024-01-20T16:45:00Z'
+      }, {
+        id: '3',
+        employeeNumber: 'BHR-003',
+        firstName: 'سارة',
+        lastName: 'خالد المطيري',
+        fullName: 'سارة خالد المطيري',
+        fullNameArabic: 'سارة خالد المطيري',
+        position: 'محاسبة أولى',
+        department: 'المالية',
+        team: 'فريق المحاسبة',
+        email: 'sara.almutairi@boudhr.com',
+        phone: '+966509876543',
+        nationality: 'سعودية',
+        nationalId: '1357924680',
+        birthDate: '1992-03-10',
+        hireDate: '2023-06-01',
+        contractStartDate: '2023-06-01',
+        contractType: 'trainee',
+        salary: 12000,
+        housingAllowance: 2000,
+        transportAllowance: 500,
+        otherAllowances: 500,
+        totalSalary: 15000,
+        status: 'probation',
+        performance: 88,
+        skills: ['Accounting', 'Excel', 'SAP', 'Financial Analysis'],
+        documents: [{
+          id: '6',
+          name: 'السيرة الذاتية',
+          type: 'pdf',
+          category: 'cv',
+          uploadDate: '2023-05-25',
+          url: '#',
+          size: '1.5 MB'
+        }, {
+          id: '7',
+          name: 'عقد التجربة',
+          type: 'pdf',
+          category: 'contract',
+          uploadDate: '2023-06-01',
+          url: '#',
+          size: '1.2 MB'
+        }],
+        address: 'الدمام، المملكة العربية السعودية - حي الفيصلية',
+        emergencyContact: {
+          name: 'خالد المطيري',
+          relationship: 'والد',
+          phone: '+966509876544'
+        },
+        bankDetails: {
+          bankName: 'البنك السعودي للاستثمار',
+          accountNumber: '456789123',
+          iban: 'SA4567891234567891234'
+        },
+        healthInfo: {
+          insuranceNumber: 'INS-345678',
+          insuranceProvider: 'شركة التأمين الطبي',
+          bloodType: 'B+'
+        },
+        lastAttendance: '2024-01-20 08:30',
+        completedTasks: 23,
+        ongoingTasks: 5,
+        annualLeaveBalance: 30,
+        sickLeaveBalance: 30,
+        emergencyLeaveBalance: 5,
+        createdAt: '2023-06-01T08:00:00Z',
+        updatedAt: '2024-01-20T12:15:00Z'
+      }];
+      const mockTasks: Task[] = [{
+        id: '1',
+        title: 'تطوير نظام إدارة الموظفين الجديد',
+        description: 'تطوير نظام شامل لإدارة الموظفين مع واجهات حديثة وميزات متقدمة',
+        assignedTo: ['1'],
+        assignedTeam: 'فريق التطوير الأساسي',
+        priority: 'high',
+        status: 'inProgress',
+        dueDate: '2024-03-15',
+        startDate: '2024-01-05',
+        progress: 65,
+        createdBy: '1',
+        createdAt: '2024-01-05T09:00:00Z',
+        estimatedHours: 120,
+        actualHours: 78,
+        tags: ['تطوير', 'نظام', 'موارد بشرية', 'أولوية عالية'],
+        attachments: [],
+        comments: [{
           id: '1',
-          title: 'تطوير نظام إدارة الموظفين الجديد',
-          description: 'تطوير نظام شامل لإدارة الموظفين مع واجهات حديثة وميزات متقدمة',
-          assignedTo: ['1'],
-          assignedTeam: 'فريق التطوير الأساسي',
-          priority: 'high',
-          status: 'inProgress',
-          dueDate: '2024-03-15',
-          startDate: '2024-01-05',
-          progress: 65,
-          createdBy: '1',
-          createdAt: '2024-01-05T09:00:00Z',
-          estimatedHours: 120,
-          actualHours: 78,
-          tags: ['تطوير', 'نظام', 'موارد بشرية', 'أولوية عالية'],
-          attachments: [],
-          comments: [
-            {
-              id: '1',
-              authorId: '1',
-              authorName: 'أحمد محمد العلي',
-              content: 'تم إنجاز واجهة المستخدم الأساسية بنجاح',
-              createdAt: '2024-01-15T14:30:00Z'
-            }
-          ]
-        },
-        {
-          id: '2',
-          title: 'حملة التسويق الرقمي للربع الأول',
-          description: 'إطلاق حملة تسويقية شاملة عبر القنوات الرقمية لزيادة الوعي بالعلامة التجارية',
-          assignedTo: ['2'],
-          assignedTeam: 'فريق التسويق الرقمي',
-          priority: 'high',
-          status: 'inProgress',
-          dueDate: '2024-02-28',
-          startDate: '2024-01-10',
-          progress: 45,
-          createdBy: '2',
-          createdAt: '2024-01-10T10:00:00Z',
-          estimatedHours: 80,
-          actualHours: 36,
-          tags: ['تسويق', 'رقمي', 'حملة', 'علامة تجارية'],
-          attachments: [],
-          comments: []
-        },
-        {
-          id: '3',
-          title: 'مراجعة التقارير المالية الشهرية',
-          description: 'مراجعة وتدقيق جميع التقارير المالية لشهر يناير 2024',
-          assignedTo: ['3'],
-          assignedTeam: 'فريق المحاسبة',
-          priority: 'medium',
-          status: 'new',
-          dueDate: '2024-02-05',
-          startDate: '2024-02-01',
-          progress: 0,
-          createdBy: '1',
-          createdAt: '2024-01-25T11:00:00Z',
-          estimatedHours: 16,
-          actualHours: 0,
-          tags: ['محاسبة', 'تقارير', 'شهري', 'مراجعة'],
-          attachments: [],
-          comments: []
-        }
-      ];
-
+          authorId: '1',
+          authorName: 'أحمد محمد العلي',
+          content: 'تم إنجاز واجهة المستخدم الأساسية بنجاح',
+          createdAt: '2024-01-15T14:30:00Z'
+        }]
+      }, {
+        id: '2',
+        title: 'حملة التسويق الرقمي للربع الأول',
+        description: 'إطلاق حملة تسويقية شاملة عبر القنوات الرقمية لزيادة الوعي بالعلامة التجارية',
+        assignedTo: ['2'],
+        assignedTeam: 'فريق التسويق الرقمي',
+        priority: 'high',
+        status: 'inProgress',
+        dueDate: '2024-02-28',
+        startDate: '2024-01-10',
+        progress: 45,
+        createdBy: '2',
+        createdAt: '2024-01-10T10:00:00Z',
+        estimatedHours: 80,
+        actualHours: 36,
+        tags: ['تسويق', 'رقمي', 'حملة', 'علامة تجارية'],
+        attachments: [],
+        comments: []
+      }, {
+        id: '3',
+        title: 'مراجعة التقارير المالية الشهرية',
+        description: 'مراجعة وتدقيق جميع التقارير المالية لشهر يناير 2024',
+        assignedTo: ['3'],
+        assignedTeam: 'فريق المحاسبة',
+        priority: 'medium',
+        status: 'new',
+        dueDate: '2024-02-05',
+        startDate: '2024-02-01',
+        progress: 0,
+        createdBy: '1',
+        createdAt: '2024-01-25T11:00:00Z',
+        estimatedHours: 16,
+        actualHours: 0,
+        tags: ['محاسبة', 'تقارير', 'شهري', 'مراجعة'],
+        attachments: [],
+        comments: []
+      }];
       setEmployees(mockEmployees);
       setTasks(mockTasks);
     } catch (error) {
@@ -520,84 +551,98 @@ const TeamWork: React.FC = () => {
       thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
       return endDate <= thirtyDaysFromNow;
     }).length,
-    averagePerformance: employees.length > 0 ? 
-      Math.round(employees.reduce((acc, emp) => acc + emp.performance, 0) / employees.length) : 0,
-    departmentDistribution: [
-      { name: 'تقنية المعلومات', count: 12, color: 'hsl(var(--primary))' },
-      { name: 'التسويق', count: 8, color: 'hsl(var(--secondary))' },
-      { name: 'الموارد البشرية', count: 6, color: 'hsl(var(--accent))' },
-      { name: 'المالية', count: 4, color: 'hsl(var(--muted))' },
-      { name: 'المبيعات', count: 10, color: 'hsl(var(--success))' }
-    ],
-    monthlyHiring: [
-      { month: 'يناير', hires: 5, terminations: 1 },
-      { month: 'فبراير', hires: 3, terminations: 2 },
-      { month: 'مارس', hires: 7, terminations: 0 },
-      { month: 'أبريل', hires: 4, terminations: 1 },
-      { month: 'مايو', hires: 6, terminations: 1 },
-      { month: 'يونيو', hires: 2, terminations: 3 }
-    ],
-    recentActivities: [
-      {
-        id: '1',
-        type: 'hire',
-        description: 'تم تعيين موظف جديد في قسم تقنية المعلومات',
-        employeeId: '1',
-        employeeName: 'أحمد محمد العلي',
-        timestamp: '2024-01-20T10:30:00Z'
-      },
-      {
-        id: '2',
-        type: 'performance_review',
-        description: 'تم إجراء تقييم أداء ربع سنوي',
-        employeeId: '2',
-        employeeName: 'فاطمة أحمد محمود',
-        timestamp: '2024-01-19T14:15:00Z'
-      }
-    ],
-    upcomingEvents: [
-      {
-        id: '1',
-        type: 'contract_expiry',
-        title: 'انتهاء عقد عمل',
-        employeeId: '1',
-        employeeName: 'أحمد محمد العلي',
-        date: '2026-01-15',
-        daysRemaining: 730
-      },
-      {
-        id: '2',
-        type: 'probation_end',
-        title: 'انتهاء فترة التجربة',
-        employeeId: '3',
-        employeeName: 'سارة خالد المطيري',
-        date: '2024-03-01',
-        daysRemaining: 40
-      }
-    ]
+    averagePerformance: employees.length > 0 ? Math.round(employees.reduce((acc, emp) => acc + emp.performance, 0) / employees.length) : 0,
+    departmentDistribution: [{
+      name: 'تقنية المعلومات',
+      count: 12,
+      color: 'hsl(var(--primary))'
+    }, {
+      name: 'التسويق',
+      count: 8,
+      color: 'hsl(var(--secondary))'
+    }, {
+      name: 'الموارد البشرية',
+      count: 6,
+      color: 'hsl(var(--accent))'
+    }, {
+      name: 'المالية',
+      count: 4,
+      color: 'hsl(var(--muted))'
+    }, {
+      name: 'المبيعات',
+      count: 10,
+      color: 'hsl(var(--success))'
+    }],
+    monthlyHiring: [{
+      month: 'يناير',
+      hires: 5,
+      terminations: 1
+    }, {
+      month: 'فبراير',
+      hires: 3,
+      terminations: 2
+    }, {
+      month: 'مارس',
+      hires: 7,
+      terminations: 0
+    }, {
+      month: 'أبريل',
+      hires: 4,
+      terminations: 1
+    }, {
+      month: 'مايو',
+      hires: 6,
+      terminations: 1
+    }, {
+      month: 'يونيو',
+      hires: 2,
+      terminations: 3
+    }],
+    recentActivities: [{
+      id: '1',
+      type: 'hire',
+      description: 'تم تعيين موظف جديد في قسم تقنية المعلومات',
+      employeeId: '1',
+      employeeName: 'أحمد محمد العلي',
+      timestamp: '2024-01-20T10:30:00Z'
+    }, {
+      id: '2',
+      type: 'performance_review',
+      description: 'تم إجراء تقييم أداء ربع سنوي',
+      employeeId: '2',
+      employeeName: 'فاطمة أحمد محمود',
+      timestamp: '2024-01-19T14:15:00Z'
+    }],
+    upcomingEvents: [{
+      id: '1',
+      type: 'contract_expiry',
+      title: 'انتهاء عقد عمل',
+      employeeId: '1',
+      employeeName: 'أحمد محمد العلي',
+      date: '2026-01-15',
+      daysRemaining: 730
+    }, {
+      id: '2',
+      type: 'probation_end',
+      title: 'انتهاء فترة التجربة',
+      employeeId: '3',
+      employeeName: 'سارة خالد المطيري',
+      date: '2024-03-01',
+      daysRemaining: 40
+    }]
   };
 
   // Filter Functions
   const filteredEmployees = employees.filter(employee => {
-    const matchesSearch = employee.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employee.employeeNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employee.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employee.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employee.position.toLowerCase().includes(searchTerm.toLowerCase());
-    
+    const matchesSearch = employee.fullName.toLowerCase().includes(searchTerm.toLowerCase()) || employee.employeeNumber.toLowerCase().includes(searchTerm.toLowerCase()) || employee.email.toLowerCase().includes(searchTerm.toLowerCase()) || employee.department.toLowerCase().includes(searchTerm.toLowerCase()) || employee.position.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesDepartment = departmentFilter === 'all' || employee.department === departmentFilter;
     const matchesStatus = statusFilter === 'all' || employee.status === statusFilter;
     const matchesPosition = positionFilter === 'all' || employee.position === positionFilter;
     const matchesContract = contractFilter === 'all' || employee.contractType === contractFilter;
-
     return matchesSearch && matchesDepartment && matchesStatus && matchesPosition && matchesContract;
   });
-
   const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         task.assignedTeam.toLowerCase().includes(searchTerm.toLowerCase());
-    
+    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) || task.description.toLowerCase().includes(searchTerm.toLowerCase()) || task.assignedTeam.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
 
@@ -611,7 +656,6 @@ const TeamWork: React.FC = () => {
       toast.error(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
       return;
     }
-
     setIsLoading(true);
     try {
       const newEmployee: Employee = {
@@ -645,8 +689,16 @@ const TeamWork: React.FC = () => {
         avatar: employeeForm.avatar,
         documents: [],
         address: employeeForm.address || '',
-        emergencyContact: employeeForm.emergencyContact || { name: '', relationship: '', phone: '' },
-        bankDetails: employeeForm.bankDetails || { bankName: '', accountNumber: '', iban: '' },
+        emergencyContact: employeeForm.emergencyContact || {
+          name: '',
+          relationship: '',
+          phone: ''
+        },
+        bankDetails: employeeForm.bankDetails || {
+          bankName: '',
+          accountNumber: '',
+          iban: ''
+        },
         healthInfo: employeeForm.healthInfo || {},
         lastAttendance: '',
         completedTasks: 0,
@@ -657,7 +709,6 @@ const TeamWork: React.FC = () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
-
       setEmployees(prev => [...prev, newEmployee]);
       setEmployeeForm({});
       setUploadedFiles([]);
@@ -669,26 +720,20 @@ const TeamWork: React.FC = () => {
       setIsLoading(false);
     }
   }, [employeeForm, isRTL]);
-
   const handleEditEmployee = useCallback(async () => {
     if (!selectedEmployee || !employeeForm.firstName || !employeeForm.lastName) {
       toast.error(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
       return;
     }
-
     setIsLoading(true);
     try {
-      setEmployees(prev => prev.map(emp => 
-        emp.id === selectedEmployee.id 
-          ? { 
-              ...emp, 
-              ...employeeForm, 
-              fullName: `${employeeForm.firstName} ${employeeForm.lastName}`,
-              totalSalary: (employeeForm.salary || emp.salary) + (employeeForm.housingAllowance || emp.housingAllowance) + (employeeForm.transportAllowance || emp.transportAllowance) + (employeeForm.otherAllowances || emp.otherAllowances),
-              updatedAt: new Date().toISOString()
-            }
-          : emp
-      ));
+      setEmployees(prev => prev.map(emp => emp.id === selectedEmployee.id ? {
+        ...emp,
+        ...employeeForm,
+        fullName: `${employeeForm.firstName} ${employeeForm.lastName}`,
+        totalSalary: (employeeForm.salary || emp.salary) + (employeeForm.housingAllowance || emp.housingAllowance) + (employeeForm.transportAllowance || emp.transportAllowance) + (employeeForm.otherAllowances || emp.otherAllowances),
+        updatedAt: new Date().toISOString()
+      } : emp));
       setIsEditEmployeeOpen(false);
       setSelectedEmployee(null);
       setEmployeeForm({});
@@ -699,12 +744,10 @@ const TeamWork: React.FC = () => {
       setIsLoading(false);
     }
   }, [selectedEmployee, employeeForm, isRTL]);
-
   const handleDeleteEmployee = useCallback(async (employeeId: string) => {
     if (!confirm(isRTL ? 'هل أنت متأكد من حذف هذا الموظف؟ سيتم حذف جميع البيانات المرتبطة به.' : 'Are you sure you want to delete this employee? All related data will be removed.')) {
       return;
     }
-
     setIsLoading(true);
     try {
       setEmployees(prev => prev.filter(emp => emp.id !== employeeId));
@@ -723,7 +766,6 @@ const TeamWork: React.FC = () => {
       toast.error(isRTL ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields');
       return;
     }
-
     setIsLoading(true);
     try {
       const newTask: Task = {
@@ -737,7 +779,8 @@ const TeamWork: React.FC = () => {
         dueDate: taskForm.dueDate!,
         startDate: taskForm.startDate || new Date().toISOString().split('T')[0],
         progress: 0,
-        createdBy: '1', // Current user
+        createdBy: '1',
+        // Current user
         createdAt: new Date().toISOString(),
         estimatedHours: taskForm.estimatedHours || 0,
         actualHours: 0,
@@ -745,7 +788,6 @@ const TeamWork: React.FC = () => {
         attachments: [],
         comments: []
       };
-
       setTasks(prev => [...prev, newTask]);
       setTaskForm({});
       setIsAddTaskOpen(false);
@@ -760,32 +802,28 @@ const TeamWork: React.FC = () => {
   // File Operations
   const handleFileUpload = useCallback((files: FileList | null, category: string) => {
     if (!files) return;
-    
     const newFiles = Array.from(files);
     setUploadedFiles(prev => [...prev, ...newFiles]);
-    
     toast.success(isRTL ? `تم رفع ${newFiles.length} ملف بنجاح` : `${newFiles.length} files uploaded successfully`);
   }, [isRTL]);
 
   // Export Functions
   const exportToExcel = useCallback((data: Employee[]) => {
     toast.success(isRTL ? 'جاري تصدير البيانات إلى Excel...' : 'Exporting to Excel...');
-    
+
     // Simulate export process
     setTimeout(() => {
       toast.success(isRTL ? 'تم تصدير البيانات بنجاح' : 'Data exported successfully');
     }, 2000);
   }, [isRTL]);
-
   const exportToPDF = useCallback((data: Employee[]) => {
     toast.success(isRTL ? 'جاري تصدير البيانات إلى PDF...' : 'Exporting to PDF...');
-    
+
     // Simulate export process
     setTimeout(() => {
       toast.success(isRTL ? 'تم تصدير البيانات بنجاح' : 'Data exported successfully');
     }, 2000);
   }, [isRTL]);
-
   const printData = useCallback(() => {
     window.print();
   }, []);
@@ -796,7 +834,6 @@ const TeamWork: React.FC = () => {
       toast.error(isRTL ? 'يرجى اختيار موظف أو أكثر' : 'Please select one or more employees');
       return;
     }
-
     switch (action) {
       case 'export':
         const selectedEmployeeData = employees.filter(emp => selectedEmployees.includes(emp.id));
@@ -804,9 +841,10 @@ const TeamWork: React.FC = () => {
         break;
       case 'deactivate':
         if (confirm(isRTL ? 'هل أنت متأكد من إلغاء تفعيل الموظفين المحددين؟' : 'Are you sure you want to deactivate selected employees?')) {
-          setEmployees(prev => prev.map(emp => 
-            selectedEmployees.includes(emp.id) ? { ...emp, status: 'suspended' as const } : emp
-          ));
+          setEmployees(prev => prev.map(emp => selectedEmployees.includes(emp.id) ? {
+            ...emp,
+            status: 'suspended' as const
+          } : emp));
           toast.success(isRTL ? 'تم إلغاء تفعيل الموظفين المحددين' : 'Selected employees deactivated');
         }
         break;
@@ -817,7 +855,6 @@ const TeamWork: React.FC = () => {
         }
         break;
     }
-    
     setSelectedEmployees([]);
   }, [selectedEmployees, employees, isRTL, exportToExcel]);
 
@@ -827,135 +864,114 @@ const TeamWork: React.FC = () => {
 
   const getStatusBadge = (status: Employee['status']) => {
     const statusConfig = {
-      active: { 
-        label: isRTL ? 'نشط' : 'Active', 
-        className: 'bg-success text-success-foreground hover:bg-success/80' 
+      active: {
+        label: isRTL ? 'نشط' : 'Active',
+        className: 'bg-success text-success-foreground hover:bg-success/80'
       },
-      probation: { 
-        label: isRTL ? 'تحت التجربة' : 'Probation', 
-        className: 'bg-warning text-warning-foreground hover:bg-warning/80' 
+      probation: {
+        label: isRTL ? 'تحت التجربة' : 'Probation',
+        className: 'bg-warning text-warning-foreground hover:bg-warning/80'
       },
-      onLeave: { 
-        label: isRTL ? 'في إجازة' : 'On Leave', 
-        className: 'bg-muted text-muted-foreground hover:bg-muted/80' 
+      onLeave: {
+        label: isRTL ? 'في إجازة' : 'On Leave',
+        className: 'bg-muted text-muted-foreground hover:bg-muted/80'
       },
-      suspended: { 
-        label: isRTL ? 'موقوف' : 'Suspended', 
-        className: 'bg-destructive text-destructive-foreground hover:bg-destructive/80' 
+      suspended: {
+        label: isRTL ? 'موقوف' : 'Suspended',
+        className: 'bg-destructive text-destructive-foreground hover:bg-destructive/80'
       },
-      terminated: { 
-        label: isRTL ? 'منتهية الخدمة' : 'Terminated', 
-        className: 'bg-destructive text-destructive-foreground hover:bg-destructive/80' 
+      terminated: {
+        label: isRTL ? 'منتهية الخدمة' : 'Terminated',
+        className: 'bg-destructive text-destructive-foreground hover:bg-destructive/80'
       }
     };
-
     const config = statusConfig[status];
-    return (
-      <Badge className={cn("transition-colors duration-200", config.className)}>
+    return <Badge className={cn("transition-colors duration-200", config.className)}>
         {config.label}
-      </Badge>
-    );
+      </Badge>;
   };
-
   const getContractTypeBadge = (type: Employee['contractType']) => {
     const typeConfig = {
-      permanent: { 
-        label: isRTL ? 'دائم' : 'Permanent', 
-        className: 'bg-primary text-primary-foreground hover:bg-primary/80' 
+      permanent: {
+        label: isRTL ? 'دائم' : 'Permanent',
+        className: 'bg-primary text-primary-foreground hover:bg-primary/80'
       },
-      temporary: { 
-        label: isRTL ? 'مؤقت' : 'Temporary', 
-        className: 'bg-secondary text-secondary-foreground hover:bg-secondary/80' 
+      temporary: {
+        label: isRTL ? 'مؤقت' : 'Temporary',
+        className: 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
       },
-      trainee: { 
-        label: isRTL ? 'متدرب' : 'Trainee', 
-        className: 'bg-accent text-accent-foreground hover:bg-accent/80' 
+      trainee: {
+        label: isRTL ? 'متدرب' : 'Trainee',
+        className: 'bg-accent text-accent-foreground hover:bg-accent/80'
       }
     };
-
     const config = typeConfig[type];
-    return (
-      <Badge variant="outline" className={cn("transition-colors duration-200", config.className)}>
+    return <Badge variant="outline" className={cn("transition-colors duration-200", config.className)}>
         {config.label}
-      </Badge>
-    );
+      </Badge>;
   };
-
   const getPriorityBadge = (priority: Task['priority']) => {
     const priorityConfig = {
-      high: { 
-        label: isRTL ? 'عالية' : 'High', 
-        className: 'bg-destructive text-destructive-foreground' 
+      high: {
+        label: isRTL ? 'عالية' : 'High',
+        className: 'bg-destructive text-destructive-foreground'
       },
-      medium: { 
-        label: isRTL ? 'متوسطة' : 'Medium', 
-        className: 'bg-warning text-warning-foreground' 
+      medium: {
+        label: isRTL ? 'متوسطة' : 'Medium',
+        className: 'bg-warning text-warning-foreground'
       },
-      low: { 
-        label: isRTL ? 'منخفضة' : 'Low', 
-        className: 'bg-success text-success-foreground' 
+      low: {
+        label: isRTL ? 'منخفضة' : 'Low',
+        className: 'bg-success text-success-foreground'
       }
     };
-
     const config = priorityConfig[priority];
-    return (
-      <Badge className={cn("transition-colors duration-200", config.className)}>
+    return <Badge className={cn("transition-colors duration-200", config.className)}>
         {config.label}
-      </Badge>
-    );
+      </Badge>;
   };
-
   const getTaskStatusBadge = (status: Task['status']) => {
     const statusConfig = {
-      new: { 
-        label: isRTL ? 'جديدة' : 'New', 
-        className: 'bg-accent text-accent-foreground' 
+      new: {
+        label: isRTL ? 'جديدة' : 'New',
+        className: 'bg-accent text-accent-foreground'
       },
-      inProgress: { 
-        label: isRTL ? 'قيد التنفيذ' : 'In Progress', 
-        className: 'bg-warning text-warning-foreground' 
+      inProgress: {
+        label: isRTL ? 'قيد التنفيذ' : 'In Progress',
+        className: 'bg-warning text-warning-foreground'
       },
-      completed: { 
-        label: isRTL ? 'مكتملة' : 'Completed', 
-        className: 'bg-success text-success-foreground' 
+      completed: {
+        label: isRTL ? 'مكتملة' : 'Completed',
+        className: 'bg-success text-success-foreground'
       },
-      overdue: { 
-        label: isRTL ? 'متأخرة' : 'Overdue', 
-        className: 'bg-destructive text-destructive-foreground' 
+      overdue: {
+        label: isRTL ? 'متأخرة' : 'Overdue',
+        className: 'bg-destructive text-destructive-foreground'
       },
-      cancelled: { 
-        label: isRTL ? 'ملغية' : 'Cancelled', 
-        className: 'bg-muted text-muted-foreground' 
+      cancelled: {
+        label: isRTL ? 'ملغية' : 'Cancelled',
+        className: 'bg-muted text-muted-foreground'
       }
     };
-
     const config = statusConfig[status];
-    return (
-      <Badge className={cn("transition-colors duration-200", config.className)}>
+    return <Badge className={cn("transition-colors duration-200", config.className)}>
         {config.label}
-      </Badge>
-    );
+      </Badge>;
   };
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return isRTL 
-      ? date.toLocaleDateString('ar-SA', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        })
-      : date.toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        });
+    return isRTL ? date.toLocaleDateString('ar-SA', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }) : date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   };
-
   const formatCurrency = (amount: number) => {
-    return isRTL 
-      ? `${amount.toLocaleString()} ريال`
-      : `SAR ${amount.toLocaleString()}`;
+    return isRTL ? `${amount.toLocaleString()} ريال` : `SAR ${amount.toLocaleString()}`;
   };
 
   // ================================
@@ -963,8 +979,7 @@ const TeamWork: React.FC = () => {
   // ================================
 
   // Dashboard Tab
-  const renderDashboard = () => (
-    <div className="space-y-6 animate-in fade-in-50 duration-500">
+  const renderDashboard = () => <div className="space-y-6 animate-in fade-in-50 duration-500">
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-6 border-l-4 border-l-primary bg-gradient-to-br from-background to-muted/10 hover:shadow-medium transition-all duration-300">
@@ -1026,44 +1041,25 @@ const TeamWork: React.FC = () => {
         </CardHeader>
         <CardContent className="px-0 pb-0">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button 
-              onClick={() => setIsAddEmployeeOpen(true)}
-              className="h-20 flex-col gap-2 bg-gradient-to-br from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 transition-all duration-300 group"
-              disabled={isLoading}
-            >
+            <Button onClick={() => setIsAddEmployeeOpen(true)} className="h-20 flex-col gap-2 bg-gradient-to-br from-primary to-primary-glow hover:from-primary/90 hover:to-primary-glow/90 transition-all duration-300 group" disabled={isLoading}>
               <UserPlus className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'إضافة موظف' : 'Add Employee'}</span>
             </Button>
             
-            <Button 
-              onClick={() => setIsAddTaskOpen(true)}
-              variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-accent/10 transition-all duration-300 group"
-              disabled={isLoading}
-            >
+            <Button onClick={() => setIsAddTaskOpen(true)} variant="outline" className="h-20 flex-col gap-2 hover:bg-accent/10 transition-all duration-300 group" disabled={isLoading}>
               <Target className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'إضافة مهمة' : 'Add Task'}</span>
             </Button>
             
-            <Button 
-              onClick={() => {
-                exportToExcel(employees);
-                toast.success(isRTL ? 'جاري تصدير البيانات...' : 'Exporting data...');
-              }}
-              variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-success/10 transition-all duration-300 group"
-              disabled={isLoading}
-            >
+            <Button onClick={() => {
+            exportToExcel(employees);
+            toast.success(isRTL ? 'جاري تصدير البيانات...' : 'Exporting data...');
+          }} variant="outline" className="h-20 flex-col gap-2 hover:bg-success/10 transition-all duration-300 group" disabled={isLoading}>
               <FileSpreadsheet className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'تصدير البيانات' : 'Export Data'}</span>
             </Button>
             
-            <Button 
-              onClick={() => setIsSettingsOpen(true)}
-              variant="outline" 
-              className="h-20 flex-col gap-2 hover:bg-muted/50 transition-all duration-300 group"
-              disabled={isLoading}
-            >
+            <Button onClick={() => setIsSettingsOpen(true)} variant="outline" className="h-20 flex-col gap-2 hover:bg-muted/50 transition-all duration-300 group" disabled={isLoading}>
               <Settings className={`w-6 h-6 group-hover:scale-110 transition-transform duration-200 ${isLoading ? 'animate-pulse' : ''}`} />
               <span className="text-sm">{isRTL ? 'الإعدادات' : 'Settings'}</span>
             </Button>
@@ -1082,23 +1078,20 @@ const TeamWork: React.FC = () => {
           </CardHeader>
           <CardContent className="px-0 pb-0">
             <div className="space-y-4">
-              {dashboardStats.departmentDistribution.map((dept, index) => (
-                <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+              {dashboardStats.departmentDistribution.map((dept, index) => <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
                   <div className="flex items-center gap-3">
-                    <div 
-                      className="w-4 h-4 rounded-full" 
-                      style={{ backgroundColor: dept.color }}
-                    />
+                    <div className="w-4 h-4 rounded-full" style={{
+                  backgroundColor: dept.color
+                }} />
                     <span className="font-medium">{dept.name}</span>
                   </div>
                   <div className="text-right">
                     <div className="font-bold text-lg">{dept.count}</div>
                     <div className="text-sm text-muted-foreground">
-                      {Math.round((dept.count / dashboardStats.totalEmployees) * 100)}%
+                      {Math.round(dept.count / dashboardStats.totalEmployees * 100)}%
                     </div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -1113,16 +1106,14 @@ const TeamWork: React.FC = () => {
           </CardHeader>
           <CardContent className="px-0 pb-0">
             <div className="space-y-4">
-              {dashboardStats.recentActivities.map((activity) => (
-                <div key={activity.id} className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+              {dashboardStats.recentActivities.map(activity => <div key={activity.id} className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
                   <div className="w-2 h-2 rounded-full bg-primary mt-2" />
                   <div className="flex-1">
                     <p className="font-medium">{activity.description}</p>
                     <p className="text-sm text-muted-foreground">{activity.employeeName}</p>
                     <p className="text-xs text-muted-foreground">{formatDate(activity.timestamp)}</p>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -1138,8 +1129,7 @@ const TeamWork: React.FC = () => {
         </CardHeader>
         <CardContent className="px-0 pb-0">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {dashboardStats.upcomingEvents.map((event) => (
-              <div key={event.id} className="p-4 rounded-lg border border-border bg-card hover:shadow-soft transition-all duration-200">
+            {dashboardStats.upcomingEvents.map(event => <div key={event.id} className="p-4 rounded-lg border border-border bg-card hover:shadow-soft transition-all duration-200">
                 <div className="flex items-start justify-between">
                   <div>
                     <h4 className="font-medium">{event.title}</h4>
@@ -1150,17 +1140,14 @@ const TeamWork: React.FC = () => {
                     {event.daysRemaining} {isRTL ? 'يوم' : 'days'}
                   </Badge>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 
   // Employees Tab
-  const renderEmployees = () => (
-    <div className="space-y-6 animate-in fade-in-50 duration-500">
+  const renderEmployees = () => <div className="space-y-6 animate-in fade-in-50 duration-500">
       {/* Header with Actions */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
         <div>
@@ -1192,12 +1179,7 @@ const TeamWork: React.FC = () => {
           <div className="md:col-span-2">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder={isRTL ? 'البحث عن موظف...' : 'Search employees...'}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
+              <Input placeholder={isRTL ? 'البحث عن موظف...' : 'Search employees...'} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
             </div>
           </div>
           
@@ -1241,26 +1223,17 @@ const TeamWork: React.FC = () => {
           </Select>
 
           <div className="flex gap-2">
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('grid')}
-            >
+            <Button variant={viewMode === 'grid' ? 'default' : 'outline'} size="sm" onClick={() => setViewMode('grid')}>
               <Menu className="w-4 h-4" />
             </Button>
-            <Button
-              variant={viewMode === 'list' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('list')}
-            >
+            <Button variant={viewMode === 'list' ? 'default' : 'outline'} size="sm" onClick={() => setViewMode('list')}>
               <Users className="w-4 h-4" />
             </Button>
           </div>
         </div>
 
         {/* Bulk Actions */}
-        {selectedEmployees.length > 0 && (
-          <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+        {selectedEmployees.length > 0 && <div className="mt-4 p-4 bg-muted/50 rounded-lg">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 {isRTL ? `تم اختيار ${selectedEmployees.length} موظف` : `${selectedEmployees.length} employees selected`}
@@ -1280,15 +1253,12 @@ const TeamWork: React.FC = () => {
                 </Button>
               </div>
             </div>
-          </div>
-        )}
+          </div>}
       </Card>
 
       {/* Employees List */}
-      {viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEmployees.map((employee) => (
-            <Card key={employee.id} className="p-6 hover:shadow-medium transition-all duration-300 group border border-border hover:border-primary/20">
+      {viewMode === 'grid' ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEmployees.map(employee => <Card key={employee.id} className="p-6 hover:shadow-medium transition-all duration-300 group border border-border hover:border-primary/20">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <Avatar className="w-12 h-12 border-2 border-primary/10">
@@ -1305,18 +1275,13 @@ const TeamWork: React.FC = () => {
                   </div>
                 </div>
                 
-                <input
-                  type="checkbox"
-                  checked={selectedEmployees.includes(employee.id)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setSelectedEmployees(prev => [...prev, employee.id]);
-                    } else {
-                      setSelectedEmployees(prev => prev.filter(id => id !== employee.id));
-                    }
-                  }}
-                  className="rounded border-gray-300"
-                />
+                <input type="checkbox" checked={selectedEmployees.includes(employee.id)} onChange={e => {
+            if (e.target.checked) {
+              setSelectedEmployees(prev => [...prev, employee.id]);
+            } else {
+              setSelectedEmployees(prev => prev.filter(id => id !== employee.id));
+            }
+          }} className="rounded border-gray-300" />
               </div>
 
               <div className="space-y-3">
@@ -1350,64 +1315,42 @@ const TeamWork: React.FC = () => {
 
                 <div className="pt-4 border-t border-border">
                   <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        setSelectedEmployee(employee);
-                        setIsViewEmployeeOpen(true);
-                      }}
-                      className="flex-1"
-                    >
+                    <Button size="sm" variant="outline" onClick={() => {
+                setSelectedEmployee(employee);
+                setIsViewEmployeeOpen(true);
+              }} className="flex-1">
                       <Eye className="w-4 h-4 mr-1" />
                       {isRTL ? 'عرض' : 'View'}
                     </Button>
                     
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        setSelectedEmployee(employee);
-                        setEmployeeForm(employee);
-                        setIsEditEmployeeOpen(true);
-                      }}
-                      className="flex-1"
-                    >
+                    <Button size="sm" variant="outline" onClick={() => {
+                setSelectedEmployee(employee);
+                setEmployeeForm(employee);
+                setIsEditEmployeeOpen(true);
+              }} className="flex-1">
                       <Edit className="w-4 h-4 mr-1" />
                       {isRTL ? 'تعديل' : 'Edit'}
                     </Button>
                     
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => handleDeleteEmployee(employee.id)}
-                    >
+                    <Button size="sm" variant="destructive" onClick={() => handleDeleteEmployee(employee.id)}>
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
               </div>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
+            </Card>)}
+        </div> : <Card>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-12">
-                  <input
-                    type="checkbox"
-                    checked={selectedEmployees.length === filteredEmployees.length && filteredEmployees.length > 0}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedEmployees(filteredEmployees.map(emp => emp.id));
-                      } else {
-                        setSelectedEmployees([]);
-                      }
-                    }}
-                    className="rounded border-gray-300"
-                  />
+                  <input type="checkbox" checked={selectedEmployees.length === filteredEmployees.length && filteredEmployees.length > 0} onChange={e => {
+                if (e.target.checked) {
+                  setSelectedEmployees(filteredEmployees.map(emp => emp.id));
+                } else {
+                  setSelectedEmployees([]);
+                }
+              }} className="rounded border-gray-300" />
                 </TableHead>
                 <TableHead>{isRTL ? 'الموظف' : 'Employee'}</TableHead>
                 <TableHead>{isRTL ? 'الرقم الوظيفي' : 'Employee ID'}</TableHead>
@@ -1419,21 +1362,15 @@ const TeamWork: React.FC = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredEmployees.map((employee) => (
-                <TableRow key={employee.id} className="hover:bg-muted/50 transition-colors duration-200">
+              {filteredEmployees.map(employee => <TableRow key={employee.id} className="hover:bg-muted/50 transition-colors duration-200">
                   <TableCell>
-                    <input
-                      type="checkbox"
-                      checked={selectedEmployees.includes(employee.id)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedEmployees(prev => [...prev, employee.id]);
-                        } else {
-                          setSelectedEmployees(prev => prev.filter(id => id !== employee.id));
-                        }
-                      }}
-                      className="rounded border-gray-300"
-                    />
+                    <input type="checkbox" checked={selectedEmployees.includes(employee.id)} onChange={e => {
+                if (e.target.checked) {
+                  setSelectedEmployees(prev => [...prev, employee.id]);
+                } else {
+                  setSelectedEmployees(prev => prev.filter(id => id !== employee.id));
+                }
+              }} className="rounded border-gray-300" />
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -1461,61 +1398,42 @@ const TeamWork: React.FC = () => {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-1">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => {
-                          setSelectedEmployee(employee);
-                          setIsViewEmployeeOpen(true);
-                        }}
-                      >
+                      <Button size="sm" variant="ghost" onClick={() => {
+                  setSelectedEmployee(employee);
+                  setIsViewEmployeeOpen(true);
+                }}>
                         <Eye className="w-4 h-4" />
                       </Button>
                       
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => {
-                          setSelectedEmployee(employee);
-                          setEmployeeForm(employee);
-                          setIsEditEmployeeOpen(true);
-                        }}
-                      >
+                      <Button size="sm" variant="ghost" onClick={() => {
+                  setSelectedEmployee(employee);
+                  setEmployeeForm(employee);
+                  setIsEditEmployeeOpen(true);
+                }}>
                         <Edit className="w-4 h-4" />
                       </Button>
                       
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                        onClick={() => handleDeleteEmployee(employee.id)}
-                      >
+                      <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/10" onClick={() => handleDeleteEmployee(employee.id)}>
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </TableCell>
-                </TableRow>
-              ))}
+                </TableRow>)}
             </TableBody>
           </Table>
-        </Card>
-      )}
+        </Card>}
 
-      {filteredEmployees.length === 0 && (
-        <Card className="p-12 text-center">
+      {filteredEmployees.length === 0 && <Card className="p-12 text-center">
           <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold mb-2">{isRTL ? 'لا توجد نتائج' : 'No Results Found'}</h3>
           <p className="text-muted-foreground">
             {isRTL ? 'لم يتم العثور على موظفين يطابقون معايير البحث' : 'No employees match your search criteria'}
           </p>
-        </Card>
-      )}
-    </div>
-  );
+        </Card>}
+    </div>;
 
   // Tasks Tab
-  const renderTasks = () => (
-    <div className="space-y-6 animate-in fade-in-50 duration-500">
+  const renderTasks = () => <div className="space-y-6 animate-in fade-in-50 duration-500">
       {/* Header */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
         <div>
@@ -1579,8 +1497,7 @@ const TeamWork: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {filteredTasks.map((task) => (
-              <div key={task.id} className="p-4 border border-border rounded-lg hover:shadow-soft transition-all duration-200">
+            {filteredTasks.map(task => <div key={task.id} className="p-4 border border-border rounded-lg hover:shadow-soft transition-all duration-200">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1">
                     <h4 className="font-semibold text-lg mb-1">{task.title}</h4>
@@ -1609,41 +1526,27 @@ const TeamWork: React.FC = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => {
-                        setSelectedTask(task);
-                        toast.info(isRTL ? 'عرض تفاصيل المهمة...' : 'Showing task details...');
-                      }}
-                    >
+                    <Button size="sm" variant="outline" onClick={() => {
+                  setSelectedTask(task);
+                  toast.info(isRTL ? 'عرض تفاصيل المهمة...' : 'Showing task details...');
+                }}>
                       <Eye className="w-4 h-4" />
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => {
-                        setSelectedTask(task);
-                        setTaskForm(task);
-                        toast.info(isRTL ? 'تحرير المهمة...' : 'Editing task...');
-                      }}
-                    >
+                    <Button size="sm" variant="outline" onClick={() => {
+                  setSelectedTask(task);
+                  setTaskForm(task);
+                  toast.info(isRTL ? 'تحرير المهمة...' : 'Editing task...');
+                }}>
                       <Edit className="w-4 h-4" />
                     </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => {
-                        const updatedTasks = tasks.map(t => 
-                          t.id === task.id 
-                            ? { ...t, status: t.status === 'completed' ? 'inProgress' : 'completed' as Task['status'] }
-                            : t
-                        );
-                        setTasks(updatedTasks);
-                        toast.success(isRTL ? 'تم تحديث حالة المهمة' : 'Task status updated');
-                      }}
-                      className={task.status === 'completed' ? 'text-warning' : 'text-success'}
-                    >
+                    <Button size="sm" variant="outline" onClick={() => {
+                  const updatedTasks = tasks.map(t => t.id === task.id ? {
+                    ...t,
+                    status: t.status === 'completed' ? 'inProgress' : 'completed' as Task['status']
+                  } : t);
+                  setTasks(updatedTasks);
+                  toast.success(isRTL ? 'تم تحديث حالة المهمة' : 'Task status updated');
+                }} className={task.status === 'completed' ? 'text-warning' : 'text-success'}>
                       {task.status === 'completed' ? <RefreshCw className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
                     </Button>
                   </div>
@@ -1657,26 +1560,19 @@ const TeamWork: React.FC = () => {
                   <Progress value={task.progress} className="h-2" />
                 </div>
 
-                {task.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mt-3">
-                    {task.tags.map((tag, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                {task.tags.length > 0 && <div className="flex flex-wrap gap-1 mt-3">
+                    {task.tags.map((tag, index) => <Badge key={index} variant="secondary" className="text-xs">
                         {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                      </Badge>)}
+                  </div>}
+              </div>)}
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 
   // Reports Tab  
-  const renderReports = () => (
-    <div className="space-y-6 animate-in fade-in-50 duration-500">
+  const renderReports = () => <div className="space-y-6 animate-in fade-in-50 duration-500">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
         <div>
           <h2 className="text-2xl font-bold">{isRTL ? 'التقارير والإحصائيات' : 'Reports & Analytics'}</h2>
@@ -1699,37 +1595,25 @@ const TeamWork: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card 
-          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-primary/20"
-          onClick={() => toast.info(isRTL ? 'عرض تقرير الموظفين المفصل...' : 'Showing detailed employee report...')}
-        >
+        <Card className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-primary/20" onClick={() => toast.info(isRTL ? 'عرض تقرير الموظفين المفصل...' : 'Showing detailed employee report...')}>
           <Users className="w-8 h-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير الموظفين' : 'Employee Report'}</h3>
           <p className="text-2xl font-bold text-primary">{employees.length}</p>
           <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'إجمالي الموظفين' : 'Total Employees'}</p>
         </Card>
-        <Card 
-          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-success/20"
-          onClick={() => toast.info(isRTL ? 'عرض تقرير المهام المفصل...' : 'Showing detailed tasks report...')}
-        >
+        <Card className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-success/20" onClick={() => toast.info(isRTL ? 'عرض تقرير المهام المفصل...' : 'Showing detailed tasks report...')}>
           <Target className="w-8 h-8 text-success mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير المهام' : 'Tasks Report'}</h3>
           <p className="text-2xl font-bold text-success">{tasks.length}</p>
           <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'إجمالي المهام' : 'Total Tasks'}</p>
         </Card>
-        <Card 
-          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-warning/20"
-          onClick={() => toast.info(isRTL ? 'عرض تقرير الأداء المفصل...' : 'Showing detailed performance report...')}
-        >
+        <Card className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-warning/20" onClick={() => toast.info(isRTL ? 'عرض تقرير الأداء المفصل...' : 'Showing detailed performance report...')}>
           <TrendingUp className="w-8 h-8 text-warning mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير الأداء' : 'Performance Report'}</h3>
           <p className="text-2xl font-bold text-warning">{dashboardStats.averagePerformance}%</p>
           <p className="text-xs text-muted-foreground mt-1">{isRTL ? 'متوسط الأداء' : 'Average Performance'}</p>
         </Card>
-        <Card 
-          className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-accent/20"
-          onClick={() => toast.info(isRTL ? 'عرض تقرير الحضور المفصل...' : 'Showing detailed attendance report...')}
-        >
+        <Card className="p-6 text-center hover:shadow-medium transition-all duration-300 cursor-pointer group border border-border hover:border-accent/20" onClick={() => toast.info(isRTL ? 'عرض تقرير الحضور المفصل...' : 'Showing detailed attendance report...')}>
           <Calendar className="w-8 h-8 text-accent mx-auto mb-2 group-hover:scale-110 transition-transform duration-200" />
           <h3 className="font-semibold">{isRTL ? 'تقرير الحضور' : 'Attendance Report'}</h3>
           <p className="text-2xl font-bold text-accent">98%</p>
@@ -1748,8 +1632,7 @@ const TeamWork: React.FC = () => {
           </CardHeader>
           <CardContent className="px-0 pb-0">
             <div className="space-y-4">
-              {dashboardStats.monthlyHiring.map((month, index) => (
-                <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+              {dashboardStats.monthlyHiring.map((month, index) => <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
                   <span className="font-medium">{month.month}</span>
                   <div className="flex gap-4">
                     <div className="text-center">
@@ -1761,8 +1644,7 @@ const TeamWork: React.FC = () => {
                       <p className="text-xs text-muted-foreground">{isRTL ? 'انتهاء' : 'Terminated'}</p>
                     </div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -1776,24 +1658,30 @@ const TeamWork: React.FC = () => {
           </CardHeader>
           <CardContent className="px-0 pb-0">
             <div className="space-y-4">
-              {[
-                { type: 'permanent', count: employees.filter(e => e.contractType === 'permanent').length, color: 'bg-primary' },
-                { type: 'temporary', count: employees.filter(e => e.contractType === 'temporary').length, color: 'bg-secondary' },
-                { type: 'trainee', count: employees.filter(e => e.contractType === 'trainee').length, color: 'bg-accent' }
-              ].map((contract, index) => (
-                <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+              {[{
+              type: 'permanent',
+              count: employees.filter(e => e.contractType === 'permanent').length,
+              color: 'bg-primary'
+            }, {
+              type: 'temporary',
+              count: employees.filter(e => e.contractType === 'temporary').length,
+              color: 'bg-secondary'
+            }, {
+              type: 'trainee',
+              count: employees.filter(e => e.contractType === 'trainee').length,
+              color: 'bg-accent'
+            }].map((contract, index) => <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
                   <div className="flex items-center gap-3">
                     <div className={`w-4 h-4 rounded-full ${contract.color}`} />
-                    <span className="font-medium capitalize">{contract.type === 'permanent' ? (isRTL ? 'دائم' : 'Permanent') : contract.type === 'temporary' ? (isRTL ? 'مؤقت' : 'Temporary') : (isRTL ? 'متدرب' : 'Trainee')}</span>
+                    <span className="font-medium capitalize">{contract.type === 'permanent' ? isRTL ? 'دائم' : 'Permanent' : contract.type === 'temporary' ? isRTL ? 'مؤقت' : 'Temporary' : isRTL ? 'متدرب' : 'Trainee'}</span>
                   </div>
                   <div className="text-right">
                     <div className="font-bold text-lg">{contract.count}</div>
                     <div className="text-sm text-muted-foreground">
-                      {employees.length > 0 ? Math.round((contract.count / employees.length) * 100) : 0}%
+                      {employees.length > 0 ? Math.round(contract.count / employees.length * 100) : 0}%
                     </div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -1938,12 +1826,10 @@ const TeamWork: React.FC = () => {
           </div>
         </Card>
       </div>
-    </div>
-  );
+    </div>;
 
   // Settings Tab
-  const renderSettings = () => (
-    <div className="space-y-6 animate-in fade-in-50 duration-500">
+  const renderSettings = () => <div className="space-y-6 animate-in fade-in-50 duration-500">
       <div>
         <h2 className="text-2xl font-bold">{isRTL ? 'إعدادات النظام' : 'System Settings'}</h2>
         <p className="text-muted-foreground">{isRTL ? 'تخصيص وضبط إعدادات قسم فريق العمل' : 'Customize and configure team management settings'}</p>
@@ -1964,12 +1850,10 @@ const TeamWork: React.FC = () => {
                   <p className="font-medium">{isRTL ? 'السماح بالعمليات المجمعة' : 'Allow Bulk Operations'}</p>
                   <p className="text-sm text-muted-foreground">{isRTL ? 'تفعيل إمكانية التعديل على عدة موظفين معاً' : 'Enable bulk editing for multiple employees'}</p>
                 </div>
-                <Switch
-                  checked={systemSettings.allowBulkOperations}
-                  onCheckedChange={(checked) => 
-                    setSystemSettings(prev => ({ ...prev, allowBulkOperations: checked }))
-                  }
-                />
+                <Switch checked={systemSettings.allowBulkOperations} onCheckedChange={checked => setSystemSettings(prev => ({
+                ...prev,
+                allowBulkOperations: checked
+              }))} />
               </div>
 
               <div className="flex items-center justify-between">
@@ -1977,12 +1861,10 @@ const TeamWork: React.FC = () => {
                   <p className="font-medium">{isRTL ? 'اشتراط موافقة المدير' : 'Require Manager Approval'}</p>
                   <p className="text-sm text-muted-foreground">{isRTL ? 'اشتراط موافقة المدير المباشر للتغييرات' : 'Require direct manager approval for changes'}</p>
                 </div>
-                <Switch
-                  checked={systemSettings.requireManagerApproval}
-                  onCheckedChange={(checked) => 
-                    setSystemSettings(prev => ({ ...prev, requireManagerApproval: checked }))
-                  }
-                />
+                <Switch checked={systemSettings.requireManagerApproval} onCheckedChange={checked => setSystemSettings(prev => ({
+                ...prev,
+                requireManagerApproval: checked
+              }))} />
               </div>
 
               <div className="flex items-center justify-between">
@@ -1990,12 +1872,10 @@ const TeamWork: React.FC = () => {
                   <p className="font-medium">{isRTL ? 'النسخ الاحتياطي التلقائي' : 'Automatic Backup'}</p>
                   <p className="text-sm text-muted-foreground">{isRTL ? 'إنشاء نسخ احتياطية تلقائية للبيانات' : 'Create automatic data backups'}</p>
                 </div>
-                <Switch
-                  checked={systemSettings.autoBackup}
-                  onCheckedChange={(checked) => 
-                    setSystemSettings(prev => ({ ...prev, autoBackup: checked }))
-                  }
-                />
+                <Switch checked={systemSettings.autoBackup} onCheckedChange={checked => setSystemSettings(prev => ({
+                ...prev,
+                autoBackup: checked
+              }))} />
               </div>
             </div>
           </CardContent>
@@ -2015,12 +1895,10 @@ const TeamWork: React.FC = () => {
                   <p className="font-medium">{isRTL ? 'إشعارات البريد الإلكتروني' : 'Email Notifications'}</p>
                   <p className="text-sm text-muted-foreground">{isRTL ? 'إرسال إشعارات عبر البريد الإلكتروني' : 'Send notifications via email'}</p>
                 </div>
-                <Switch
-                  checked={systemSettings.emailNotifications}
-                  onCheckedChange={(checked) => 
-                    setSystemSettings(prev => ({ ...prev, emailNotifications: checked }))
-                  }
-                />
+                <Switch checked={systemSettings.emailNotifications} onCheckedChange={checked => setSystemSettings(prev => ({
+                ...prev,
+                emailNotifications: checked
+              }))} />
               </div>
 
               <div className="flex items-center justify-between">
@@ -2028,12 +1906,10 @@ const TeamWork: React.FC = () => {
                   <p className="font-medium">{isRTL ? 'إشعارات الجوال' : 'Mobile Notifications'}</p>
                   <p className="text-sm text-muted-foreground">{isRTL ? 'إرسال إشعارات على التطبيق المحمول' : 'Send push notifications to mobile app'}</p>
                 </div>
-                <Switch
-                  checked={systemSettings.mobileNotifications}
-                  onCheckedChange={(checked) => 
-                    setSystemSettings(prev => ({ ...prev, mobileNotifications: checked }))
-                  }
-                />
+                <Switch checked={systemSettings.mobileNotifications} onCheckedChange={checked => setSystemSettings(prev => ({
+                ...prev,
+                mobileNotifications: checked
+              }))} />
               </div>
 
               <div className="flex items-center justify-between">
@@ -2041,12 +1917,10 @@ const TeamWork: React.FC = () => {
                   <p className="font-medium">{isRTL ? 'التقارير المتقدمة' : 'Advanced Reporting'}</p>
                   <p className="text-sm text-muted-foreground">{isRTL ? 'تفعيل ميزات التقارير المتقدمة' : 'Enable advanced reporting features'}</p>
                 </div>
-                <Switch
-                  checked={systemSettings.advancedReporting}
-                  onCheckedChange={(checked) => 
-                    setSystemSettings(prev => ({ ...prev, advancedReporting: checked }))
-                  }
-                />
+                <Switch checked={systemSettings.advancedReporting} onCheckedChange={checked => setSystemSettings(prev => ({
+                ...prev,
+                advancedReporting: checked
+              }))} />
               </div>
             </div>
           </CardContent>
@@ -2061,66 +1935,45 @@ const TeamWork: React.FC = () => {
           </CardHeader>
           <CardContent className="px-0 pb-0">
             <div className="space-y-4">
-              <Button 
-                className="w-full" 
-                variant="outline"
-                onClick={() => {
-                  exportToExcel(employees);
-                  toast.success(isRTL ? 'جاري تصدير جميع البيانات...' : 'Exporting all data...');
-                }}
-              >
+              <Button className="w-full" variant="outline" onClick={() => {
+              exportToExcel(employees);
+              toast.success(isRTL ? 'جاري تصدير جميع البيانات...' : 'Exporting all data...');
+            }}>
                 <Download className="w-4 h-4 mr-2" />
                 {isRTL ? 'تصدير جميع البيانات' : 'Export All Data'}
               </Button>
               
-              <Button 
-                className="w-full" 
-                variant="outline"
-                onClick={() => {
-                  document.getElementById('import-file')?.click();
-                  toast.info(isRTL ? 'اختر ملف البيانات للاستيراد' : 'Select data file to import');
-                }}
-              >
+              <Button className="w-full" variant="outline" onClick={() => {
+              document.getElementById('import-file')?.click();
+              toast.info(isRTL ? 'اختر ملف البيانات للاستيراد' : 'Select data file to import');
+            }}>
                 <Upload className="w-4 h-4 mr-2" />
                 {isRTL ? 'استيراد البيانات' : 'Import Data'}
               </Button>
-              <input 
-                id="import-file" 
-                type="file" 
-                accept=".xlsx,.xls,.csv" 
-                style={{display: 'none'}} 
-                onChange={(e) => {
-                  if (e.target.files?.[0]) {
-                    toast.success(isRTL ? 'جاري استيراد البيانات...' : 'Importing data...');
-                  }
-                }}
-              />
+              <input id="import-file" type="file" accept=".xlsx,.xls,.csv" style={{
+              display: 'none'
+            }} onChange={e => {
+              if (e.target.files?.[0]) {
+                toast.success(isRTL ? 'جاري استيراد البيانات...' : 'Importing data...');
+              }
+            }} />
               
-              <Button 
-                className="w-full" 
-                variant="outline"
-                onClick={() => {
-                  setIsLoading(true);
-                  setTimeout(() => {
-                    setIsLoading(false);
-                    toast.success(isRTL ? 'تم مزامنة البيانات بنجاح' : 'Data synchronized successfully');
-                  }, 2000);
-                }}
-                disabled={isLoading}
-              >
+              <Button className="w-full" variant="outline" onClick={() => {
+              setIsLoading(true);
+              setTimeout(() => {
+                setIsLoading(false);
+                toast.success(isRTL ? 'تم مزامنة البيانات بنجاح' : 'Data synchronized successfully');
+              }, 2000);
+            }} disabled={isLoading}>
                 <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
                 {isRTL ? 'مزامنة البيانات' : 'Sync Data'}
               </Button>
               
-              <Button 
-                className="w-full" 
-                variant="destructive"
-                onClick={() => {
-                  if (confirm(isRTL ? 'هل أنت متأكد من مسح البيانات المؤقتة؟' : 'Are you sure you want to clear cache?')) {
-                    toast.success(isRTL ? 'تم مسح البيانات المؤقتة' : 'Cache cleared successfully');
-                  }
-                }}
-              >
+              <Button className="w-full" variant="destructive" onClick={() => {
+              if (confirm(isRTL ? 'هل أنت متأكد من مسح البيانات المؤقتة؟' : 'Are you sure you want to clear cache?')) {
+                toast.success(isRTL ? 'تم مسح البيانات المؤقتة' : 'Cache cleared successfully');
+              }
+            }}>
                 <Trash2 className="w-4 h-4 mr-2" />
                 {isRTL ? 'مسح البيانات المؤقتة' : 'Clear Cache'}
               </Button>
@@ -2139,7 +1992,7 @@ const TeamWork: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <Label className="text-sm font-medium">{isRTL ? 'اللغة الافتراضية' : 'Default Language'}</Label>
-                <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
+                <Select value={i18n.language} onValueChange={value => i18n.changeLanguage(value)}>
                   <SelectTrigger className="mt-2">
                     <SelectValue />
                   </SelectTrigger>
@@ -2188,46 +2041,38 @@ const TeamWork: React.FC = () => {
         </CardHeader>
         <CardContent className="px-0 pb-0">
           <div className="flex gap-4">
-            <Button 
-              onClick={() => {
-                toast.success(isRTL ? 'تم حفظ الإعدادات بنجاح' : 'Settings saved successfully');
-              }}
-              className="bg-gradient-to-r from-primary to-primary-glow"
-            >
+            <Button onClick={() => {
+            toast.success(isRTL ? 'تم حفظ الإعدادات بنجاح' : 'Settings saved successfully');
+          }} className="bg-gradient-to-r from-primary to-primary-glow">
               <Save className="w-4 h-4 mr-2" />
               {isRTL ? 'حفظ التغييرات' : 'Save Changes'}
             </Button>
             
-            <Button 
-              variant="outline"
-              onClick={() => {
-                setSystemSettings({
-                  allowBulkOperations: true,
-                  requireManagerApproval: true,
-                  autoBackup: true,
-                  emailNotifications: true,
-                  mobileNotifications: true,
-                  advancedReporting: true,
-                });
-                toast.success(isRTL ? 'تم استعادة الإعدادات الافتراضية' : 'Default settings restored');
-              }}
-            >
+            <Button variant="outline" onClick={() => {
+            setSystemSettings({
+              allowBulkOperations: true,
+              requireManagerApproval: true,
+              autoBackup: true,
+              emailNotifications: true,
+              mobileNotifications: true,
+              advancedReporting: true
+            });
+            toast.success(isRTL ? 'تم استعادة الإعدادات الافتراضية' : 'Default settings restored');
+          }}>
               <RefreshCw className="w-4 h-4 mr-2" />
               {isRTL ? 'استعادة الافتراضي' : 'Reset to Default'}
             </Button>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 
   // ================================
   // DIALOG COMPONENTS
   // ================================
 
   // Add Employee Dialog
-  const AddEmployeeDialog = () => (
-    <Dialog open={isAddEmployeeOpen} onOpenChange={setIsAddEmployeeOpen}>
+  const AddEmployeeDialog = () => <Dialog open={isAddEmployeeOpen} onOpenChange={setIsAddEmployeeOpen}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
@@ -2235,7 +2080,10 @@ const TeamWork: React.FC = () => {
           </DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={(e) => { e.preventDefault(); handleAddEmployee(); }} className="space-y-6">
+        <form onSubmit={e => {
+        e.preventDefault();
+        handleAddEmployee();
+      }} className="space-y-6">
           <Tabs defaultValue="basic" className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="basic">{isRTL ? 'البيانات الأساسية' : 'Basic Info'}</TabsTrigger>
@@ -2248,50 +2096,50 @@ const TeamWork: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label>{isRTL ? 'الاسم الأول' : 'First Name'} *</Label>
-                  <Input
-                    value={employeeForm.firstName || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, firstName: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.firstName || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  firstName: e.target.value
+                }))} required />
                 </div>
                 
                 <div>
                   <Label>{isRTL ? 'الاسم الأخير' : 'Last Name'} *</Label>
-                  <Input
-                    value={employeeForm.lastName || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, lastName: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.lastName || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  lastName: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الاسم الثلاثي بالعربية' : 'Full Arabic Name'}</Label>
-                  <Input
-                    value={employeeForm.fullNameArabic || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, fullNameArabic: e.target.value }))}
-                  />
+                  <Input value={employeeForm.fullNameArabic || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  fullNameArabic: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'رقم الهوية' : 'National ID'} *</Label>
-                  <Input
-                    value={employeeForm.nationalId || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, nationalId: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.nationalId || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  nationalId: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'رقم جواز السفر' : 'Passport Number'}</Label>
-                  <Input
-                    value={employeeForm.passportNumber || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, passportNumber: e.target.value }))}
-                  />
+                  <Input value={employeeForm.passportNumber || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  passportNumber: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الجنسية' : 'Nationality'}</Label>
-                  <Select value={employeeForm.nationality || ''} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, nationality: value }))}>
+                  <Select value={employeeForm.nationality || ''} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  nationality: value
+                }))}>
                     <SelectTrigger>
                       <SelectValue placeholder={isRTL ? 'اختر الجنسية' : 'Select nationality'} />
                     </SelectTrigger>
@@ -2308,16 +2156,18 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'تاريخ الميلاد' : 'Date of Birth'}</Label>
-                  <Input
-                    type="date"
-                    value={employeeForm.birthDate || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, birthDate: e.target.value }))}
-                  />
+                  <Input type="date" value={employeeForm.birthDate || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  birthDate: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الحالة الاجتماعية' : 'Marital Status'}</Label>
-                  <Select value={employeeForm.maritalStatus || ''} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, maritalStatus: value }))}>
+                  <Select value={employeeForm.maritalStatus || ''} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  maritalStatus: value
+                }))}>
                     <SelectTrigger>
                       <SelectValue placeholder={isRTL ? 'اختر الحالة' : 'Select status'} />
                     </SelectTrigger>
@@ -2332,29 +2182,26 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'البريد الإلكتروني' : 'Email'} *</Label>
-                  <Input
-                    type="email"
-                    value={employeeForm.email || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, email: e.target.value }))}
-                    required
-                  />
+                  <Input type="email" value={employeeForm.email || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  email: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'رقم الهاتف' : 'Phone Number'}</Label>
-                  <Input
-                    value={employeeForm.phone || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, phone: e.target.value }))}
-                  />
+                  <Input value={employeeForm.phone || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  phone: e.target.value
+                }))} />
                 </div>
 
                 <div className="md:col-span-2">
                   <Label>{isRTL ? 'العنوان' : 'Address'}</Label>
-                  <Textarea
-                    value={employeeForm.address || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, address: e.target.value }))}
-                    rows={3}
-                  />
+                  <Textarea value={employeeForm.address || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  address: e.target.value
+                }))} rows={3} />
                 </div>
               </div>
             </TabsContent>
@@ -2363,26 +2210,26 @@ const TeamWork: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label>{isRTL ? 'الرقم الوظيفي' : 'Employee Number'} *</Label>
-                  <Input
-                    value={employeeForm.employeeNumber || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, employeeNumber: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.employeeNumber || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  employeeNumber: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'تاريخ التعيين' : 'Hire Date'} *</Label>
-                  <Input
-                    type="date"
-                    value={employeeForm.hireDate || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, hireDate: e.target.value }))}
-                    required
-                  />
+                  <Input type="date" value={employeeForm.hireDate || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  hireDate: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الإدارة' : 'Department'} *</Label>
-                  <Select value={employeeForm.department || ''} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, department: value }))}>
+                  <Select value={employeeForm.department || ''} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  department: value
+                }))}>
                     <SelectTrigger>
                       <SelectValue placeholder={isRTL ? 'اختر الإدارة' : 'Select department'} />
                     </SelectTrigger>
@@ -2398,24 +2245,26 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'المنصب' : 'Position'} *</Label>
-                  <Input
-                    value={employeeForm.position || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, position: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.position || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  position: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الفريق' : 'Team'}</Label>
-                  <Input
-                    value={employeeForm.team || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, team: e.target.value }))}
-                  />
+                  <Input value={employeeForm.team || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  team: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'نوع العقد' : 'Contract Type'}</Label>
-                  <Select value={employeeForm.contractType || 'permanent'} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, contractType: value as any }))}>
+                  <Select value={employeeForm.contractType || 'permanent'} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  contractType: value as any
+                }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -2429,20 +2278,18 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'تاريخ بداية العقد' : 'Contract Start Date'}</Label>
-                  <Input
-                    type="date"
-                    value={employeeForm.contractStartDate || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, contractStartDate: e.target.value }))}
-                  />
+                  <Input type="date" value={employeeForm.contractStartDate || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  contractStartDate: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'تاريخ انتهاء العقد' : 'Contract End Date'}</Label>
-                  <Input
-                    type="date"
-                    value={employeeForm.contractEndDate || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, contractEndDate: e.target.value }))}
-                  />
+                  <Input type="date" value={employeeForm.contractEndDate || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  contractEndDate: e.target.value
+                }))} />
                 </div>
               </div>
             </TabsContent>
@@ -2451,47 +2298,34 @@ const TeamWork: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label>{isRTL ? 'الراتب الأساسي' : 'Basic Salary'} *</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.salary || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, salary: parseFloat(e.target.value) || 0 }))}
-                    required
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.salary || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  salary: parseFloat(e.target.value) || 0
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'بدل السكن' : 'Housing Allowance'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.housingAllowance || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, housingAllowance: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.housingAllowance || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  housingAllowance: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'بدل المواصلات' : 'Transport Allowance'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.transportAllowance || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, transportAllowance: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.transportAllowance || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  transportAllowance: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'بدلات أخرى' : 'Other Allowances'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.otherAllowances || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, otherAllowances: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.otherAllowances || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  otherAllowances: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div className="md:col-span-2">
@@ -2499,35 +2333,35 @@ const TeamWork: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <Label>{isRTL ? 'اسم البنك' : 'Bank Name'}</Label>
-                      <Input
-                        value={employeeForm.bankDetails?.bankName || ''}
-                        onChange={(e) => setEmployeeForm(prev => ({ 
-                          ...prev, 
-                          bankDetails: { ...prev.bankDetails, bankName: e.target.value } as any
-                        }))}
-                      />
+                      <Input value={employeeForm.bankDetails?.bankName || ''} onChange={e => setEmployeeForm(prev => ({
+                      ...prev,
+                      bankDetails: {
+                        ...prev.bankDetails,
+                        bankName: e.target.value
+                      } as any
+                    }))} />
                     </div>
 
                     <div>
                       <Label>{isRTL ? 'رقم الحساب' : 'Account Number'}</Label>
-                      <Input
-                        value={employeeForm.bankDetails?.accountNumber || ''}
-                        onChange={(e) => setEmployeeForm(prev => ({ 
-                          ...prev, 
-                          bankDetails: { ...prev.bankDetails, accountNumber: e.target.value } as any
-                        }))}
-                      />
+                      <Input value={employeeForm.bankDetails?.accountNumber || ''} onChange={e => setEmployeeForm(prev => ({
+                      ...prev,
+                      bankDetails: {
+                        ...prev.bankDetails,
+                        accountNumber: e.target.value
+                      } as any
+                    }))} />
                     </div>
 
                     <div>
                       <Label>{isRTL ? 'رقم الآيبان' : 'IBAN'}</Label>
-                      <Input
-                        value={employeeForm.bankDetails?.iban || ''}
-                        onChange={(e) => setEmployeeForm(prev => ({ 
-                          ...prev, 
-                          bankDetails: { ...prev.bankDetails, iban: e.target.value } as any
-                        }))}
-                      />
+                      <Input value={employeeForm.bankDetails?.iban || ''} onChange={e => setEmployeeForm(prev => ({
+                      ...prev,
+                      bankDetails: {
+                        ...prev.bankDetails,
+                        iban: e.target.value
+                      } as any
+                    }))} />
                     </div>
                   </div>
                 </div>
@@ -2537,35 +2371,35 @@ const TeamWork: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <Label>{isRTL ? 'الاسم' : 'Name'}</Label>
-                      <Input
-                        value={employeeForm.emergencyContact?.name || ''}
-                        onChange={(e) => setEmployeeForm(prev => ({ 
-                          ...prev, 
-                          emergencyContact: { ...prev.emergencyContact, name: e.target.value } as any
-                        }))}
-                      />
+                      <Input value={employeeForm.emergencyContact?.name || ''} onChange={e => setEmployeeForm(prev => ({
+                      ...prev,
+                      emergencyContact: {
+                        ...prev.emergencyContact,
+                        name: e.target.value
+                      } as any
+                    }))} />
                     </div>
 
                     <div>
                       <Label>{isRTL ? 'صلة القرابة' : 'Relationship'}</Label>
-                      <Input
-                        value={employeeForm.emergencyContact?.relationship || ''}
-                        onChange={(e) => setEmployeeForm(prev => ({ 
-                          ...prev, 
-                          emergencyContact: { ...prev.emergencyContact, relationship: e.target.value } as any
-                        }))}
-                      />
+                      <Input value={employeeForm.emergencyContact?.relationship || ''} onChange={e => setEmployeeForm(prev => ({
+                      ...prev,
+                      emergencyContact: {
+                        ...prev.emergencyContact,
+                        relationship: e.target.value
+                      } as any
+                    }))} />
                     </div>
 
                     <div>
                       <Label>{isRTL ? 'رقم الهاتف' : 'Phone'}</Label>
-                      <Input
-                        value={employeeForm.emergencyContact?.phone || ''}
-                        onChange={(e) => setEmployeeForm(prev => ({ 
-                          ...prev, 
-                          emergencyContact: { ...prev.emergencyContact, phone: e.target.value } as any
-                        }))}
-                      />
+                      <Input value={employeeForm.emergencyContact?.phone || ''} onChange={e => setEmployeeForm(prev => ({
+                      ...prev,
+                      emergencyContact: {
+                        ...prev.emergencyContact,
+                        phone: e.target.value
+                      } as any
+                    }))} />
                     </div>
                   </div>
                 </div>
@@ -2580,13 +2414,7 @@ const TeamWork: React.FC = () => {
                   <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                     <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground mb-2">{isRTL ? 'الصورة الشخصية' : 'Profile Picture'}</p>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleFileUpload(e.target.files, 'avatar')}
-                      className="hidden"
-                      id="avatar-upload"
-                    />
+                    <input type="file" accept="image/*" onChange={e => handleFileUpload(e.target.files, 'avatar')} className="hidden" id="avatar-upload" />
                     <Label htmlFor="avatar-upload" className="cursor-pointer">
                       <Button variant="outline" size="sm" asChild>
                         <span>{isRTL ? 'اختر ملف' : 'Choose File'}</span>
@@ -2597,13 +2425,7 @@ const TeamWork: React.FC = () => {
                   <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                     <FileText className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground mb-2">{isRTL ? 'السيرة الذاتية' : 'Resume/CV'}</p>
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      onChange={(e) => handleFileUpload(e.target.files, 'cv')}
-                      className="hidden"
-                      id="cv-upload"
-                    />
+                    <input type="file" accept=".pdf,.doc,.docx" onChange={e => handleFileUpload(e.target.files, 'cv')} className="hidden" id="cv-upload" />
                     <Label htmlFor="cv-upload" className="cursor-pointer">
                       <Button variant="outline" size="sm" asChild>
                         <span>{isRTL ? 'اختر ملف' : 'Choose File'}</span>
@@ -2614,13 +2436,7 @@ const TeamWork: React.FC = () => {
                   <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                     <FileText className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground mb-2">{isRTL ? 'صورة الهوية' : 'ID Copy'}</p>
-                    <input
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={(e) => handleFileUpload(e.target.files, 'id')}
-                      className="hidden"
-                      id="id-upload"
-                    />
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png" onChange={e => handleFileUpload(e.target.files, 'id')} className="hidden" id="id-upload" />
                     <Label htmlFor="id-upload" className="cursor-pointer">
                       <Button variant="outline" size="sm" asChild>
                         <span>{isRTL ? 'اختر ملف' : 'Choose File'}</span>
@@ -2631,13 +2447,7 @@ const TeamWork: React.FC = () => {
                   <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
                     <FileText className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground mb-2">{isRTL ? 'عقد العمل' : 'Contract'}</p>
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      onChange={(e) => handleFileUpload(e.target.files, 'contract')}
-                      className="hidden"
-                      id="contract-upload"
-                    />
+                    <input type="file" accept=".pdf,.doc,.docx" onChange={e => handleFileUpload(e.target.files, 'contract')} className="hidden" id="contract-upload" />
                     <Label htmlFor="contract-upload" className="cursor-pointer">
                       <Button variant="outline" size="sm" asChild>
                         <span>{isRTL ? 'اختر ملف' : 'Choose File'}</span>
@@ -2646,25 +2456,17 @@ const TeamWork: React.FC = () => {
                   </div>
                 </div>
 
-                {uploadedFiles.length > 0 && (
-                  <div className="mt-4">
+                {uploadedFiles.length > 0 && <div className="mt-4">
                     <h5 className="font-medium mb-2">{isRTL ? 'الملفات المرفوعة:' : 'Uploaded Files:'}</h5>
                     <div className="space-y-2">
-                      {uploadedFiles.map((file, index) => (
-                        <div key={index} className="flex items-center justify-between p-2 bg-muted rounded-lg">
+                      {uploadedFiles.map((file, index) => <div key={index} className="flex items-center justify-between p-2 bg-muted rounded-lg">
                           <span className="text-sm">{file.name}</span>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}
-                          >
+                          <Button size="sm" variant="ghost" onClick={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}>
                             <X className="w-4 h-4" />
                           </Button>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
-                  </div>
-                )}
+                  </div>}
               </div>
             </TabsContent>
           </Tabs>
@@ -2682,12 +2484,10 @@ const TeamWork: React.FC = () => {
           </div>
         </form>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 
   // Edit Employee Dialog
-  const EditEmployeeDialog = () => (
-    <Dialog open={isEditEmployeeOpen} onOpenChange={setIsEditEmployeeOpen}>
+  const EditEmployeeDialog = () => <Dialog open={isEditEmployeeOpen} onOpenChange={setIsEditEmployeeOpen}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
@@ -2695,7 +2495,10 @@ const TeamWork: React.FC = () => {
           </DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={(e) => { e.preventDefault(); handleEditEmployee(); }} className="space-y-6">
+        <form onSubmit={e => {
+        e.preventDefault();
+        handleEditEmployee();
+      }} className="space-y-6">
           <Tabs defaultValue="basic" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="basic">{isRTL ? 'البيانات الأساسية' : 'Basic Info'}</TabsTrigger>
@@ -2707,63 +2510,58 @@ const TeamWork: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label>{isRTL ? 'الاسم الأول' : 'First Name'} *</Label>
-                  <Input
-                    value={employeeForm.firstName || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, firstName: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.firstName || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  firstName: e.target.value
+                }))} required />
                 </div>
                 
                 <div>
                   <Label>{isRTL ? 'الاسم الأخير' : 'Last Name'} *</Label>
-                  <Input
-                    value={employeeForm.lastName || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, lastName: e.target.value }))}
-                    required
-                  />
+                  <Input value={employeeForm.lastName || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  lastName: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'البريد الإلكتروني' : 'Email'} *</Label>
-                  <Input
-                    type="email"
-                    value={employeeForm.email || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, email: e.target.value }))}
-                    required
-                  />
+                  <Input type="email" value={employeeForm.email || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  email: e.target.value
+                }))} required />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'رقم الهاتف' : 'Phone Number'}</Label>
-                  <Input
-                    value={employeeForm.phone || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, phone: e.target.value }))}
-                  />
+                  <Input value={employeeForm.phone || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  phone: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'رقم الهوية' : 'National ID'}</Label>
-                  <Input
-                    value={employeeForm.nationalId || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, nationalId: e.target.value }))}
-                  />
+                  <Input value={employeeForm.nationalId || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  nationalId: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الجنسية' : 'Nationality'}</Label>
-                  <Input
-                    value={employeeForm.nationality || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, nationality: e.target.value }))}
-                  />
+                  <Input value={employeeForm.nationality || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  nationality: e.target.value
+                }))} />
                 </div>
 
                 <div className="md:col-span-2">
                   <Label>{isRTL ? 'العنوان' : 'Address'}</Label>
-                  <Textarea
-                    value={employeeForm.address || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, address: e.target.value }))}
-                    rows={3}
-                  />
+                  <Textarea value={employeeForm.address || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  address: e.target.value
+                }))} rows={3} />
                 </div>
               </div>
             </TabsContent>
@@ -2772,7 +2570,10 @@ const TeamWork: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label>{isRTL ? 'الإدارة' : 'Department'}</Label>
-                  <Select value={employeeForm.department || ''} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, department: value }))}>
+                  <Select value={employeeForm.department || ''} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  department: value
+                }))}>
                     <SelectTrigger>
                       <SelectValue placeholder={isRTL ? 'اختر الإدارة' : 'Select department'} />
                     </SelectTrigger>
@@ -2788,23 +2589,26 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'المنصب' : 'Position'}</Label>
-                  <Input
-                    value={employeeForm.position || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, position: e.target.value }))}
-                  />
+                  <Input value={employeeForm.position || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  position: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الفريق' : 'Team'}</Label>
-                  <Input
-                    value={employeeForm.team || ''}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, team: e.target.value }))}
-                  />
+                  <Input value={employeeForm.team || ''} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  team: e.target.value
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'الحالة الوظيفية' : 'Employment Status'}</Label>
-                  <Select value={employeeForm.status || 'active'} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, status: value as any }))}>
+                  <Select value={employeeForm.status || 'active'} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  status: value as any
+                }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -2820,7 +2624,10 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'نوع العقد' : 'Contract Type'}</Label>
-                  <Select value={employeeForm.contractType || 'permanent'} onValueChange={(value) => setEmployeeForm(prev => ({ ...prev, contractType: value as any }))}>
+                  <Select value={employeeForm.contractType || 'permanent'} onValueChange={value => setEmployeeForm(prev => ({
+                  ...prev,
+                  contractType: value as any
+                }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -2834,13 +2641,10 @@ const TeamWork: React.FC = () => {
 
                 <div>
                   <Label>{isRTL ? 'تقييم الأداء' : 'Performance Rating'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    max="100"
-                    value={employeeForm.performance || 0}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, performance: parseInt(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" max="100" value={employeeForm.performance || 0} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  performance: parseInt(e.target.value) || 0
+                }))} />
                 </div>
               </div>
             </TabsContent>
@@ -2849,46 +2653,34 @@ const TeamWork: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label>{isRTL ? 'الراتب الأساسي' : 'Basic Salary'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.salary || 0}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, salary: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.salary || 0} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  salary: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'بدل السكن' : 'Housing Allowance'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.housingAllowance || 0}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, housingAllowance: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.housingAllowance || 0} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  housingAllowance: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'بدل المواصلات' : 'Transport Allowance'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.transportAllowance || 0}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, transportAllowance: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.transportAllowance || 0} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  transportAllowance: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div>
                   <Label>{isRTL ? 'بدلات أخرى' : 'Other Allowances'}</Label>
-                  <Input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={employeeForm.otherAllowances || 0}
-                    onChange={(e) => setEmployeeForm(prev => ({ ...prev, otherAllowances: parseFloat(e.target.value) || 0 }))}
-                  />
+                  <Input type="number" min="0" step="0.01" value={employeeForm.otherAllowances || 0} onChange={e => setEmployeeForm(prev => ({
+                  ...prev,
+                  otherAllowances: parseFloat(e.target.value) || 0
+                }))} />
                 </div>
 
                 <div className="md:col-span-2">
@@ -2896,12 +2688,7 @@ const TeamWork: React.FC = () => {
                     <p className="text-sm font-medium">
                       {isRTL ? 'إجمالي الراتب:' : 'Total Salary:'} {' '}
                       <span className="text-lg font-bold text-primary">
-                        {formatCurrency(
-                          (employeeForm.salary || 0) + 
-                          (employeeForm.housingAllowance || 0) + 
-                          (employeeForm.transportAllowance || 0) + 
-                          (employeeForm.otherAllowances || 0)
-                        )}
+                        {formatCurrency((employeeForm.salary || 0) + (employeeForm.housingAllowance || 0) + (employeeForm.transportAllowance || 0) + (employeeForm.otherAllowances || 0))}
                       </span>
                     </p>
                   </div>
@@ -2923,15 +2710,12 @@ const TeamWork: React.FC = () => {
           </div>
         </form>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 
   // View Employee Profile Dialog
   const ViewEmployeeDialog = () => {
     if (!selectedEmployee) return null;
-
-    return (
-      <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
+    return <Dialog open={isViewEmployeeOpen} onOpenChange={setIsViewEmployeeOpen}>
         <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold">
@@ -3182,11 +2966,9 @@ const TeamWork: React.FC = () => {
                     </CardHeader>
                     <CardContent className="px-0 pb-0">
                       <div className="flex flex-wrap gap-2">
-                        {selectedEmployee.skills.map((skill, index) => (
-                          <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
+                        {selectedEmployee.skills.map((skill, index) => <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
                             {skill}
-                          </Badge>
-                        ))}
+                          </Badge>)}
                       </div>
                     </CardContent>
                   </Card>
@@ -3254,12 +3036,10 @@ const TeamWork: React.FC = () => {
                           <p className="text-sm text-muted-foreground">{isRTL ? 'رقم الآيبان' : 'IBAN'}</p>
                           <p className="font-medium font-mono">{selectedEmployee.bankDetails.iban}</p>
                         </div>
-                        {selectedEmployee.bankDetails.branch && (
-                          <div>
+                        {selectedEmployee.bankDetails.branch && <div>
                             <p className="text-sm text-muted-foreground">{isRTL ? 'الفرع' : 'Branch'}</p>
                             <p className="font-medium">{selectedEmployee.bankDetails.branch}</p>
-                          </div>
-                        )}
+                          </div>}
                       </div>
                     </CardContent>
                   </Card>
@@ -3306,8 +3086,7 @@ const TeamWork: React.FC = () => {
                   </CardHeader>
                   <CardContent className="px-0 pb-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {selectedEmployee.documents.map((doc) => (
-                        <div key={doc.id} className="p-4 border border-border rounded-lg hover:shadow-soft transition-all duration-200">
+                      {selectedEmployee.documents.map(doc => <div key={doc.id} className="p-4 border border-border rounded-lg hover:shadow-soft transition-all duration-200">
                           <div className="flex items-start gap-3">
                             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                               <FileText className="w-5 h-5 text-primary" />
@@ -3317,11 +3096,9 @@ const TeamWork: React.FC = () => {
                               <p className="text-xs text-muted-foreground mb-2">
                                 {isRTL ? 'تاريخ الرفع:' : 'Uploaded:'} {formatDate(doc.uploadDate)}
                               </p>
-                              {doc.size && (
-                                <p className="text-xs text-muted-foreground mb-2">
+                              {doc.size && <p className="text-xs text-muted-foreground mb-2">
                                   {isRTL ? 'الحجم:' : 'Size:'} {doc.size}
-                                </p>
-                              )}
+                                </p>}
                               <Badge variant="outline" className="text-xs">
                                 {doc.type.toUpperCase()}
                               </Badge>
@@ -3337,19 +3114,16 @@ const TeamWork: React.FC = () => {
                               {isRTL ? 'تحميل' : 'Download'}
                             </Button>
                           </div>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                     
-                    {selectedEmployee.documents.length === 0 && (
-                      <div className="text-center py-8">
+                    {selectedEmployee.documents.length === 0 && <div className="text-center py-8">
                         <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                         <h3 className="text-lg font-semibold mb-2">{isRTL ? 'لا توجد مستندات' : 'No Documents'}</h3>
                         <p className="text-muted-foreground">
                           {isRTL ? 'لم يتم رفع أي مستندات لهذا الموظف' : 'No documents have been uploaded for this employee'}
                         </p>
-                      </div>
-                    )}
+                      </div>}
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -3412,19 +3186,8 @@ const TeamWork: React.FC = () => {
                       <div className="text-center">
                         <div className="relative w-32 h-32 mx-auto mb-4">
                           <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 36 36">
-                            <path
-                              d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831"
-                              fill="none"
-                              stroke="hsl(var(--muted))"
-                              strokeWidth="2"
-                            />
-                            <path
-                              d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831"
-                              fill="none"
-                              stroke="hsl(var(--primary))"
-                              strokeWidth="2"
-                              strokeDasharray={`${selectedEmployee.performance}, 100`}
-                            />
+                            <path d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="hsl(var(--muted))" strokeWidth="2" />
+                            <path d="M18 2.0845a 15.9155 15.9155 0 0 1 0 31.831a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeDasharray={`${selectedEmployee.performance}, 100`} />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
                             <span className="text-2xl font-bold">{selectedEmployee.performance}%</span>
@@ -3473,7 +3236,7 @@ const TeamWork: React.FC = () => {
                           <div>
                             <p className="font-medium">{isRTL ? 'تقييم ممتاز' : 'Excellent Rating'}</p>
                             <p className="text-sm text-muted-foreground">
-                              {selectedEmployee.performance >= 90 ? (isRTL ? 'نعم' : 'Yes') : (isRTL ? 'لا' : 'No')}
+                              {selectedEmployee.performance >= 90 ? isRTL ? 'نعم' : 'Yes' : isRTL ? 'لا' : 'No'}
                             </p>
                           </div>
                         </div>
@@ -3501,14 +3264,11 @@ const TeamWork: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-4 pt-6 border-t">
-              <Button 
-                onClick={() => {
-                  setEmployeeForm(selectedEmployee);
-                  setIsViewEmployeeOpen(false);
-                  setIsEditEmployeeOpen(true);
-                }}
-                className="bg-gradient-to-r from-primary to-primary-glow"
-              >
+              <Button onClick={() => {
+              setEmployeeForm(selectedEmployee);
+              setIsViewEmployeeOpen(false);
+              setIsEditEmployeeOpen(true);
+            }} className="bg-gradient-to-r from-primary to-primary-glow">
                 <Edit className="w-4 h-4 mr-2" />
                 {isRTL ? 'تعديل البيانات' : 'Edit Profile'}
               </Button>
@@ -3529,13 +3289,11 @@ const TeamWork: React.FC = () => {
             </div>
           </div>
         </DialogContent>
-      </Dialog>
-    );
+      </Dialog>;
   };
 
   // Add Task Dialog
-  const AddTaskDialog = () => (
-    <Dialog open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen}>
+  const AddTaskDialog = () => <Dialog open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
@@ -3543,48 +3301,50 @@ const TeamWork: React.FC = () => {
           </DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={(e) => { e.preventDefault(); handleAddTask(); }} className="space-y-4">
+        <form onSubmit={e => {
+        e.preventDefault();
+        handleAddTask();
+      }} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
               <Label>{isRTL ? 'عنوان المهمة' : 'Task Title'} *</Label>
-              <Input
-                value={taskForm.title || ''}
-                onChange={(e) => setTaskForm(prev => ({ ...prev, title: e.target.value }))}
-                required
-              />
+              <Input value={taskForm.title || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              title: e.target.value
+            }))} required />
             </div>
 
             <div className="md:col-span-2">
               <Label>{isRTL ? 'وصف المهمة' : 'Task Description'}</Label>
-              <Textarea
-                value={taskForm.description || ''}
-                onChange={(e) => setTaskForm(prev => ({ ...prev, description: e.target.value }))}
-                rows={3}
-              />
+              <Textarea value={taskForm.description || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              description: e.target.value
+            }))} rows={3} />
             </div>
 
             <div>
               <Label>{isRTL ? 'تكليف إلى' : 'Assign To'} *</Label>
-              <Select 
-                value={taskForm.assignedTo?.[0] || ''} 
-                onValueChange={(value) => setTaskForm(prev => ({ ...prev, assignedTo: [value] }))}
-              >
+              <Select value={taskForm.assignedTo?.[0] || ''} onValueChange={value => setTaskForm(prev => ({
+              ...prev,
+              assignedTo: [value]
+            }))}>
                 <SelectTrigger>
                   <SelectValue placeholder={isRTL ? 'اختر موظف' : 'Select employee'} />
                 </SelectTrigger>
                 <SelectContent>
-                  {employees.map((employee) => (
-                    <SelectItem key={employee.id} value={employee.id}>
+                  {employees.map(employee => <SelectItem key={employee.id} value={employee.id}>
                       {employee.fullName} - {employee.position}
-                    </SelectItem>
-                  ))}
+                    </SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
 
             <div>
               <Label>{isRTL ? 'الأولوية' : 'Priority'}</Label>
-              <Select value={taskForm.priority || 'medium'} onValueChange={(value) => setTaskForm(prev => ({ ...prev, priority: value as any }))}>
+              <Select value={taskForm.priority || 'medium'} onValueChange={value => setTaskForm(prev => ({
+              ...prev,
+              priority: value as any
+            }))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -3598,52 +3358,42 @@ const TeamWork: React.FC = () => {
 
             <div>
               <Label>{isRTL ? 'تاريخ البداية' : 'Start Date'}</Label>
-              <Input
-                type="date"
-                value={taskForm.startDate || ''}
-                onChange={(e) => setTaskForm(prev => ({ ...prev, startDate: e.target.value }))}
-              />
+              <Input type="date" value={taskForm.startDate || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              startDate: e.target.value
+            }))} />
             </div>
 
             <div>
               <Label>{isRTL ? 'تاريخ الاستحقاق' : 'Due Date'} *</Label>
-              <Input
-                type="date"
-                value={taskForm.dueDate || ''}
-                onChange={(e) => setTaskForm(prev => ({ ...prev, dueDate: e.target.value }))}
-                required
-              />
+              <Input type="date" value={taskForm.dueDate || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              dueDate: e.target.value
+            }))} required />
             </div>
 
             <div>
               <Label>{isRTL ? 'الساعات المقدرة' : 'Estimated Hours'}</Label>
-              <Input
-                type="number"
-                min="0"
-                step="0.5"
-                value={taskForm.estimatedHours || ''}
-                onChange={(e) => setTaskForm(prev => ({ ...prev, estimatedHours: parseFloat(e.target.value) || 0 }))}
-              />
+              <Input type="number" min="0" step="0.5" value={taskForm.estimatedHours || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              estimatedHours: parseFloat(e.target.value) || 0
+            }))} />
             </div>
 
             <div>
               <Label>{isRTL ? 'الفريق المسؤول' : 'Responsible Team'}</Label>
-              <Input
-                value={taskForm.assignedTeam || ''}
-                onChange={(e) => setTaskForm(prev => ({ ...prev, assignedTeam: e.target.value }))}
-              />
+              <Input value={taskForm.assignedTeam || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              assignedTeam: e.target.value
+            }))} />
             </div>
 
             <div className="md:col-span-2">
               <Label>{isRTL ? 'العلامات' : 'Tags'}</Label>
-              <Input
-                placeholder={isRTL ? 'أدخل العلامات مفصولة بفواصل' : 'Enter tags separated by commas'}
-                value={taskForm.tags?.join(', ') || ''}
-                onChange={(e) => setTaskForm(prev => ({ 
-                  ...prev, 
-                  tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0)
-                }))}
-              />
+              <Input placeholder={isRTL ? 'أدخل العلامات مفصولة بفواصل' : 'Enter tags separated by commas'} value={taskForm.tags?.join(', ') || ''} onChange={e => setTaskForm(prev => ({
+              ...prev,
+              tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0)
+            }))} />
             </div>
           </div>
 
@@ -3660,128 +3410,64 @@ const TeamWork: React.FC = () => {
           </div>
         </form>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 
   // ================================
   // MAIN RENDER
   // ================================
 
   if (isLoading && employees.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
+    return <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center space-y-4">
           <RefreshCw className="w-8 h-8 text-primary animate-spin mx-auto" />
           <p className="text-muted-foreground">
             {isRTL ? 'جاري تحميل بيانات فريق العمل...' : 'Loading team management data...'}
           </p>
         </div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }} dir="rtl">
+  return <div className="min-h-screen bg-white p-6" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <img 
-            src="/src/assets/boud-logo-centered.png" 
-            alt="Boud Logo" 
-            className="h-32 w-auto object-contain"
-          />
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
         </div>
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام إدارة فريق العمل</h1>
-          <p style={{ color: '#e8e4e0' }}>إدارة شاملة لفريق العمل والمهام</p>
+          <h1 className="text-3xl font-bold text-black mb-2">نظام إدارة فريق العمل</h1>
+          <p className="text-gray-600">إدارة شاملة لفريق العمل والمهام</p>
         </div>
 
         <div className="max-w-7xl mx-auto space-y-6">
         {/* Enhanced Professional Header */}
-        <div className="flex items-center justify-between mb-12 p-6 rounded-3xl transition-all duration-300" style={{ background: '#1a1a1a', border: '1px solid #cfcbcb' }}>
-          <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => {/* Add back functionality */}} className="transition-all duration-300" style={{ borderColor: '#cfcbcb', color: '#ffffff', background: '#000000' }}>
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              {isRTL ? 'رجوع' : 'رجوع'}
-            </Button>
-            <div className="h-8 w-px" style={{ background: '#cfcbcb' }}></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden group" style={{ background: '#b1a086' }}>
-                <Users className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold" style={{ color: '#ffffff' }}>
-                  {isRTL ? 'نظام إدارة فريق العمل المتطور' : 'Advanced Workforce Management System'}
-                </h1>
-                <p className="text-lg" style={{ color: '#e8e4e0' }}>
-                  {isRTL ? 'إدارة شاملة للموظفين بتقنيات ذكية متطورة' : 'Comprehensive employee management with advanced smart technologies'}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="px-4 py-2 text-sm font-medium" style={{ borderColor: '#cfcbcb', color: '#ffffff', background: '#1a1a1a' }}>
-              <Users className="h-4 w-4 ml-2" />
-              {isRTL ? 'نظام متقدم' : 'نظام متقدم'}
-            </Badge>
-            <Button className="transition-all duration-300" style={{ background: '#000000', color: '#ffffff', border: '1px solid #000000' }}>
-              <Download className="h-4 w-4 ml-2" />
-              {isRTL ? 'تصدير التقارير' : 'تصدير التقارير'}
-            </Button>
-            <Button className="transition-all duration-300" style={{ background: '#ffffff', color: '#000000', border: '1px solid #000000' }}>
-              <Share className="h-4 w-4 ml-2" />
-              {isRTL ? 'مشاركة' : 'مشاركة'}
-            </Button>
-          </div>
-        </div>
+        
 
         {/* Main Content */}
-        <div className="rounded-3xl p-6 transition-all duration-300" style={{ background: '#1a1a1a', border: '1px solid #cfcbcb' }}>
+        <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 p-6 hover:border-[#008C6A]/50 transition-all duration-300">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto rounded-xl" style={{ background: '#000000', border: '1px solid #cfcbcb' }}>
-              <TabsTrigger 
-                value="dashboard" 
-                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
-                style={{ color: '#ffffff' }}
-              >
+            <TabsList className="grid w-full grid-cols-5 mb-6 p-1 h-auto bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10">
+              <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Home className="w-4 h-4" />
                 {isRTL ? 'لوحة التحكم' : 'Dashboard'}
               </TabsTrigger>
               
-              <TabsTrigger 
-                value="employees"
-                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
-                style={{ color: '#ffffff' }}
-              >
+              <TabsTrigger value="employees" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Users className="w-4 h-4" />
                 {isRTL ? 'الموظفين' : 'Employees'}
               </TabsTrigger>
               
-              <TabsTrigger 
-                value="tasks"
-                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
-                style={{ color: '#ffffff' }}
-              >
+              <TabsTrigger value="tasks" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Target className="w-4 h-4" />
                 {isRTL ? 'المهام' : 'Tasks'}
               </TabsTrigger>
               
-              <TabsTrigger 
-                value="reports"
-                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
-                style={{ color: '#ffffff' }}
-              >
+              <TabsTrigger value="reports" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <BarChart3 className="w-4 h-4" />
                 {isRTL ? 'التقارير' : 'Reports'}
               </TabsTrigger>
               
-              <TabsTrigger 
-                value="settings"
-                className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-[#b1a086]"
-                style={{ color: '#ffffff' }}
-              >
+              <TabsTrigger value="settings" className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300">
                 <Settings className="w-4 h-4" />
                 {isRTL ? 'الإعدادات' : 'Settings'}
               </TabsTrigger>
@@ -3816,8 +3502,6 @@ const TeamWork: React.FC = () => {
         <AddTaskDialog />
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default TeamWork;
