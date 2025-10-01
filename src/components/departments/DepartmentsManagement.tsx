@@ -301,6 +301,25 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
     });
   };
 
+  const renderHeader = () => (
+    <div className="space-y-6 container mx-auto p-6">
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img 
+          src="/src/assets/boud-logo-centered.png" 
+          alt="Boud Logo" 
+          className="h-32 w-auto object-contain"
+        />
+      </div>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة الأقسام المتطور</h1>
+        <p className="text-muted-foreground">إدارة شاملة للهيكل التنظيمي والأقسام</p>
+      </div>
+    </div>
+  );
+
   const renderProfessionalHeader = () => (
     <div className="flex items-center justify-between mb-12 p-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border hover:border-accent animate-fade-in transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-6">
@@ -626,14 +645,11 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
       <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
       
       <div className="relative z-10">
+      {renderHeader()}
+      
       <div className="container mx-auto p-6">
-      <div className="max-w-7xl mx-auto space-y-6 relative z-10 bg-card/60 backdrop-blur-xl rounded-3xl border border-border shadow-2xl shadow-accent/10 hover:border-accent transition-all duration-300 p-8">
-        {renderProfessionalHeader()}
-        
-        <div className="bg-card/60 backdrop-blur-xl rounded-2xl border border-border shadow-2xl shadow-accent/10 hover:border-accent transition-all duration-300 p-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-6 bg-card/60 backdrop-blur-xl border border-border shadow-lg shadow-accent/10 rounded-xl">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
+          <TabsList className="grid w-full grid-cols-6 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
               <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
               <TabsTrigger value="departments" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الأقسام</TabsTrigger>
               <TabsTrigger value="positions" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">المناصب</TabsTrigger>
@@ -641,7 +657,6 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
               <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">التقارير</TabsTrigger>
               <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الإعدادات</TabsTrigger>
             </TabsList>
-          </div>
 
           <TabsContent value="dashboard">
             {renderAnalyticsDashboard()}
@@ -1233,8 +1248,6 @@ export const DepartmentsManagement: React.FC<DepartmentsManagementProps> = ({ on
             </div>
           </DialogContent>
         </Dialog>
-        </div>
-      </div>
       </div>
       </div>
     </div>
