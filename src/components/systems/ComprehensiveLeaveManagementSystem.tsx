@@ -358,42 +358,20 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-3xl animate-fade-in">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-border text-foreground hover:bg-accent/20 hover:border-accent transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          رجوع
-        </Button>
-        <div className="h-8 w-px bg-border"></div>
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-2xl shadow-accent/20 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-transparent animate-pulse"></div>
-            <Calendar className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              نظام إدارة الإجازات المتطور
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              منظومة شاملة لإدارة الإجازات والعطل مع التحليلات الذكية المتطورة
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6 container mx-auto p-6">
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img 
+          src="/src/assets/boud-logo-centered.png" 
+          alt="Boud Logo" 
+          className="h-32 w-auto object-contain"
+        />
       </div>
-      <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-accent text-accent bg-accent/10 px-4 py-2 text-sm font-medium">
-          <Calendar className="h-4 w-4 ml-2" />
-          نظام متقدم
-        </Badge>
-        <Button className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقارير
-        </Button>
-        <Button className="bg-primary hover:bg-accent text-primary-foreground shadow-2xl shadow-accent/20 hover:scale-105 transition-all duration-300">
-          <Plus className="h-4 w-4 ml-2" />
-          طلب إجازة جديد
-        </Button>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة الإجازات المتطور</h1>
+        <p className="text-muted-foreground">منظومة شاملة لإدارة الإجازات والعطل مع التحليلات الذكية</p>
       </div>
     </div>
   );
@@ -1152,7 +1130,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
   );
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
@@ -1175,19 +1153,38 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
       <div className="relative z-10">
         {renderHeader()}
         
-        <div className="max-w-7xl mx-auto p-6 space-y-6 backdrop-blur-xl bg-background/20 rounded-3xl border border-border shadow-2xl shadow-accent/10">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-6 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
-              <TabsTrigger value="dashboard" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="leave-types" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">أنواع الإجازات</TabsTrigger>
-              <TabsTrigger value="public-holidays" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">العطل الرسمية</TabsTrigger>
-              <TabsTrigger value="leave-requests" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">طلبات الإجازة</TabsTrigger>
-              <TabsTrigger value="leave-balances" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">أرصدة الإجازات</TabsTrigger>
-              <TabsTrigger value="reports" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">التقارير</TabsTrigger>
-              <TabsTrigger value="settings" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">الإعدادات</TabsTrigger>
+        <div className="container mx-auto p-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
+          <TabsList className="grid w-full grid-cols-7 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+              <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <BarChart3 className="h-4 w-4" />
+                <span className="text-xs">لوحة التحكم</span>
+              </TabsTrigger>
+              <TabsTrigger value="leave-types" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Calendar className="h-4 w-4" />
+                <span className="text-xs">أنواع الإجازات</span>
+              </TabsTrigger>
+              <TabsTrigger value="public-holidays" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <CalendarDays className="h-4 w-4" />
+                <span className="text-xs">العطل الرسمية</span>
+              </TabsTrigger>
+              <TabsTrigger value="leave-requests" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <FileText className="h-4 w-4" />
+                <span className="text-xs">طلبات الإجازة</span>
+              </TabsTrigger>
+              <TabsTrigger value="leave-balances" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Activity className="h-4 w-4" />
+                <span className="text-xs">أرصدة الإجازات</span>
+              </TabsTrigger>
+              <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <TrendingUp className="h-4 w-4" />
+                <span className="text-xs">التقارير</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Settings className="h-4 w-4" />
+                <span className="text-xs">الإعدادات</span>
+              </TabsTrigger>
             </TabsList>
-          </div>
 
           <TabsContent value="dashboard" className="space-y-6">
             {renderAnalyticsDashboard()}
@@ -1218,7 +1215,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+      </div>
     </div>
   );
 };
