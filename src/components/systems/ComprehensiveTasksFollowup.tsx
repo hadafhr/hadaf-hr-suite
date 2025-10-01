@@ -1308,13 +1308,13 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   );
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Animated background patterns */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-32 w-96 h-96 bg-gradient-to-r from-green-400/15 to-emerald-600/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-emerald-600/10 to-green-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-gradient-to-r from-green-500/20 to-emerald-400/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 right-32 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
       </div>
       
       <div className="relative z-10">
@@ -1326,8 +1326,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
             </Button>
             <div className="h-8 w-px bg-border"></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden group bg-accent">
-                <CheckSquare className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden group bg-primary">
+                <CheckSquare className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-foreground">
