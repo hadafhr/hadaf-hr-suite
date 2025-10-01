@@ -528,8 +528,8 @@ const ComprehensiveEmployeeManagement = () => {
                     <DollarSign className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground">إدارة التعويضات والمزايا</h2>
-                    <p className="text-muted-foreground">النظام المتكامل لإدارة الرواتب والأجور والمزايا المالية للموظفين</p>
+                    <h2 className="text-2xl font-bold text-foreground">نظام الحضور والانصراف الذكي</h2>
+                    <p className="text-muted-foreground">إدارة شاملة للحضور مع دعم GPS والبصمة والجدولة المتقدمة</p>
                   </div>
                 </div>
                 
