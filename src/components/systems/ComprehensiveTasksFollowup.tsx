@@ -268,18 +268,18 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   ];
 
   const departmentDistribution = [
-    { name: 'الموارد البشرية', value: 25, color: '#3b82f6' },
-    { name: 'المالية', value: 18, color: '#10b981' },
-    { name: 'العمليات', value: 32, color: '#f59e0b' },
-    { name: 'تقنية المعلومات', value: 22, color: '#8b5cf6' },
-    { name: 'التسويق', value: 15, color: '#ef4444' }
+    { name: 'الموارد البشرية', value: 25, color: 'hsl(var(--primary))' },
+    { name: 'المالية', value: 18, color: 'hsl(var(--success))' },
+    { name: 'العمليات', value: 32, color: 'hsl(var(--warning))' },
+    { name: 'تقنية المعلومات', value: 22, color: 'hsl(var(--accent))' },
+    { name: 'التسويق', value: 15, color: 'hsl(var(--destructive))' }
   ];
 
   const priorityDistribution = [
-    { name: 'عاجل', value: 12, color: '#dc2626' },
-    { name: 'عالي', value: 28, color: '#ea580c' },
-    { name: 'متوسط', value: 45, color: '#ca8a04' },
-    { name: 'منخفض', value: 27, color: '#16a34a' }
+    { name: 'عاجل', value: 12, color: 'hsl(var(--destructive))' },
+    { name: 'عالي', value: 28, color: 'hsl(var(--warning))' },
+    { name: 'متوسط', value: 45, color: 'hsl(var(--primary))' },
+    { name: 'منخفض', value: 27, color: 'hsl(var(--success))' }
   ];
 
   // Calculate statistics
@@ -322,21 +322,21 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'urgent': return 'bg-red-100 text-red-800 border-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'urgent': return 'bg-destructive/20 text-destructive border-destructive/50';
+      case 'high': return 'bg-warning/20 text-warning border-warning/50';
+      case 'medium': return 'bg-primary/20 text-primary border-primary/50';
+      case 'low': return 'bg-success/20 text-success border-success/50';
+      default: return 'bg-muted/20 text-muted-foreground border-muted/50';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800 border-green-200';
-      case 'in-progress': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'new': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'overdue': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'completed': return 'bg-success/20 text-success border-success/50';
+      case 'in-progress': return 'bg-primary/20 text-primary border-primary/50';
+      case 'new': return 'bg-muted/20 text-muted-foreground border-muted/50';
+      case 'overdue': return 'bg-destructive/20 text-destructive border-destructive/50';
+      default: return 'bg-muted/20 text-muted-foreground border-muted/50';
     }
   };
 
@@ -394,74 +394,74 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 border-l-4 border-l-emerald-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60">إجمالي المهام</p>
-                <p className="text-2xl font-bold text-emerald-400">{stats.totalTasks}</p>
+                <p className="text-sm text-muted-foreground">إجمالي المهام</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalTasks}</p>
               </div>
-              <CheckSquare className="h-8 w-8 text-emerald-500/60" />
+              <CheckSquare className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 border-l-4 border-l-blue-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60">مهام نشطة</p>
-                <p className="text-2xl font-bold text-blue-400">{stats.activeTasks}</p>
+                <p className="text-sm text-muted-foreground">مهام نشطة</p>
+                <p className="text-2xl font-bold text-primary">{stats.activeTasks}</p>
               </div>
-              <Activity className="h-8 w-8 text-blue-500/60" />
+              <Activity className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-green-500/25 transition-all duration-300 border-l-4 border-l-green-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60">مهام مكتملة</p>
-                <p className="text-2xl font-bold text-green-400">{stats.completedTasks}</p>
+                <p className="text-sm text-muted-foreground">مهام مكتملة</p>
+                <p className="text-2xl font-bold text-success">{stats.completedTasks}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-green-500/60" />
+              <CheckCircle2 className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-red-500/25 transition-all duration-300 border-l-4 border-l-red-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60">مهام متأخرة</p>
-                <p className="text-2xl font-bold text-red-400">{stats.overdueTasks}</p>
+                <p className="text-sm text-muted-foreground">مهام متأخرة</p>
+                <p className="text-2xl font-bold text-destructive">{stats.overdueTasks}</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-red-500/60" />
+              <AlertTriangle className="h-8 w-8 text-destructive/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 border-l-4 border-l-purple-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60">متوسط الإنجاز</p>
-                <p className="text-2xl font-bold text-purple-400">{stats.avgCompletionTime} أيام</p>
+                <p className="text-sm text-muted-foreground">متوسط الإنجاز</p>
+                <p className="text-2xl font-bold text-accent-foreground">{stats.avgCompletionTime} أيام</p>
               </div>
-              <Timer className="h-8 w-8 text-purple-500/60" />
+              <Timer className="h-8 w-8 text-accent/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-green-500/25 transition-all duration-300 border-l-4 border-l-green-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-white/60">معدل الإنجاز</p>
-                <p className="text-2xl font-bold text-green-400">{stats.completionRate}%</p>
+                <p className="text-sm text-muted-foreground">معدل الإنجاز</p>
+                <p className="text-2xl font-bold text-success">{stats.completionRate}%</p>
               </div>
-              <Target className="h-8 w-8 text-green-500/60" />
+              <Target className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
@@ -469,40 +469,40 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <BarChart3 className="h-5 w-5 text-emerald-400" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <BarChart3 className="h-5 w-5 text-primary" />
               أداء المهام الشهري
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="month" stroke="#9ca3af" />
-                <YAxis stroke="#9ca3af" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                <YAxis stroke="hsl(var(--muted-foreground))" />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'hsl(var(--card))', 
+                    border: '1px solid hsl(var(--border))',
                     borderRadius: '8px',
-                    color: '#fff'
+                    color: 'hsl(var(--foreground))'
                   }} 
                 />
-                <Area type="monotone" dataKey="completed" stackId="1" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="inProgress" stackId="2" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="new" stackId="3" stroke="#f59e0b" fill="#f59e0b" />
-                <Area type="monotone" dataKey="overdue" stackId="4" stroke="#ef4444" fill="#ef4444" />
+                <Area type="monotone" dataKey="completed" stackId="1" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
+                <Area type="monotone" dataKey="inProgress" stackId="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
+                <Area type="monotone" dataKey="new" stackId="3" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
+                <Area type="monotone" dataKey="overdue" stackId="4" stroke="hsl(var(--destructive))" fill="hsl(var(--destructive))" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <PieChart className="h-5 w-5 text-emerald-400" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <PieChart className="h-5 w-5 text-primary" />
               توزيع المهام حسب الأولوية
             </CardTitle>
           </CardHeader>
@@ -515,7 +515,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill="hsl(var(--primary))"
                   dataKey="value"
                 >
                   {priorityDistribution.map((entry, index) => (
@@ -530,39 +530,39 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       {/* AI Insights */}
-      <Card className="bg-black/40 backdrop-blur-md border border-emerald-500/30 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300">
+      <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Sparkles className="h-5 w-5 text-emerald-400" />
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <Sparkles className="h-5 w-5 text-primary" />
             رؤى الذكاء الاصطناعي للمهام والمتابعة
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-sm">
+            <div className="p-4 rounded-lg bg-success/10 border border-success/30">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <span className="text-sm font-semibold text-emerald-300">أداء ممتاز</span>
+                <CheckCircle2 className="h-4 w-4 text-success" />
+                <span className="text-sm font-semibold text-success">أداء ممتاز</span>
               </div>
-              <p className="text-sm text-white/70">
+              <p className="text-sm text-muted-foreground">
                 تحسن ملحوظ في معدل إنجاز المهام بنسبة 23% مقارنة بالشهر الماضي
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/30 backdrop-blur-sm">
+            <div className="p-4 rounded-lg bg-warning/10 border border-warning/30">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-400" />
-                <span className="text-sm font-semibold text-orange-300">تحذير</span>
+                <AlertTriangle className="h-4 w-4 text-warning" />
+                <span className="text-sm font-semibold text-warning">تحذير</span>
               </div>
-              <p className="text-sm text-white/70">
+              <p className="text-sm text-muted-foreground">
                 يُتوقع زيادة في المهام المتأخرة في قسم المالية خلال الأسبوع القادم
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/30 backdrop-blur-sm">
+            <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-400" />
-                <span className="text-sm font-semibold text-blue-300">توصية</span>
+                <TrendingUp className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">توصية</span>
               </div>
-              <p className="text-sm text-white/70">
+              <p className="text-sm text-muted-foreground">
                 يُنصح بإعادة توزيع المهام لتحسين التوازن في أعباء العمل
               </p>
             </div>
@@ -577,20 +577,20 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             placeholder="البحث في المهام..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pr-10 bg-black/40 border-white/10 text-white placeholder:text-white/50"
+            className="pr-10 bg-card border-border text-foreground"
           />
         </div>
         <div className="flex gap-2">
           <Select value={selectedFilter} onValueChange={setSelectedFilter}>
-            <SelectTrigger className="w-40 bg-black/40 border-white/10 text-white">
+            <SelectTrigger className="w-40 bg-card border-border text-foreground">
               <SelectValue placeholder="تصفية حسب" />
             </SelectTrigger>
-            <SelectContent className="bg-black/90 border-white/10">
+            <SelectContent>
               <SelectItem value="all">الكل</SelectItem>
               <SelectItem value="new">جديدة</SelectItem>
               <SelectItem value="in-progress">قيد التنفيذ</SelectItem>
@@ -598,7 +598,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               <SelectItem value="overdue">متأخرة</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" size="sm" className="border-white/20 bg-white/5 text-white hover:bg-white/10">
+          <Button variant="outline" size="sm">
             <Filter className="h-4 w-4 ml-2" />
             تصفية
           </Button>
@@ -608,21 +608,21 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       {/* Tasks Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {tasks.map((task) => (
-          <Card key={task.id} className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300">
+          <Card key={task.id} className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <CardTitle className="text-lg leading-6 text-white">{task.title}</CardTitle>
-                  <CardDescription className="mt-1 text-white/70">{task.description}</CardDescription>
+                  <CardTitle className="text-lg leading-6 text-foreground">{task.title}</CardTitle>
+                  <CardDescription className="mt-1 text-muted-foreground">{task.description}</CardDescription>
                 </div>
                 <div className="flex gap-1 ml-2">
-                  <Button variant="ghost" size="sm" onClick={() => setSelectedTask(task)} className="text-white/70 hover:text-white hover:bg-white/10">
+                  <Button variant="ghost" size="sm" onClick={() => setSelectedTask(task)}>
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
+                  <Button variant="ghost" size="sm">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" className="text-white/70 hover:text-white hover:bg-white/10">
+                  <Button variant="ghost" size="sm">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -630,13 +630,13 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-white/60">المسؤول:</span>
-                <span className="font-medium text-white">{task.assignee}</span>
+                <span className="text-muted-foreground">المسؤول:</span>
+                <span className="font-medium text-foreground">{task.assignee}</span>
               </div>
               
               <div className="flex items-center justify-between text-sm">
-                <span className="text-white/60">القسم:</span>
-                <span className="text-white">{task.department}</span>
+                <span className="text-muted-foreground">القسم:</span>
+                <span className="text-foreground">{task.department}</span>
               </div>
 
               <div className="flex items-center gap-2">
@@ -650,13 +650,13 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/60">التقدم</span>
-                  <span className="font-medium text-white">{task.progress}%</span>
+                  <span className="text-muted-foreground">التقدم</span>
+                  <span className="font-medium text-foreground">{task.progress}%</span>
                 </div>
                 <Progress value={task.progress} className="h-2" />
               </div>
 
-              <div className="flex items-center justify-between text-sm text-white/60">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
                   <span>{task.deadline}</span>
@@ -682,22 +682,22 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   const renderFollowupTracking = () => (
     <div className="space-y-6">
       {/* Timeline View */}
-      <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
+      <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Clock className="h-5 w-5 text-emerald-400" />
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <Clock className="h-5 w-5 text-primary" />
             الجدول الزمني للمهام
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {tasks.map((task, index) => (
-              <div key={task.id} className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+              <div key={task.id} className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border">
                 <div className="flex-shrink-0">
                   <div className={`w-3 h-3 rounded-full ${
-                    task.status === 'completed' ? 'bg-green-500' :
-                    task.status === 'overdue' ? 'bg-red-500' :
-                    task.status === 'in-progress' ? 'bg-blue-500' : 'bg-gray-400'
+                    task.status === 'completed' ? 'bg-success' :
+                    task.status === 'overdue' ? 'bg-destructive' :
+                    task.status === 'in-progress' ? 'bg-primary' : 'bg-muted'
                   }`} />
                 </div>
                 <div className="flex-1">
