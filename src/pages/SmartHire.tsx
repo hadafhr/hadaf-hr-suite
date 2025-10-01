@@ -261,182 +261,169 @@ const SmartHire: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden font-arabic p-6" dir="rtl">
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="w-full h-full bg-repeat animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-          backgroundSize: '60px 60px'
-        }}></div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-accent/5 relative overflow-hidden font-arabic p-6" dir="rtl">
+      {/* Animated Background Patterns */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        
+        <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5" opacity="0.1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
       </div>
       
-      {/* Floating Elements for Professional Look */}
-      <div className="absolute top-10 right-10 w-20 h-20 bg-[#008C6A]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-32 left-16 w-32 h-32 bg-[#008C6A]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-32 right-20 w-16 h-16 bg-[#008C6A]/15 rounded-full blur-lg animate-pulse delay-500"></div>
-      
       <div className="max-w-7xl mx-auto space-y-6 relative z-10">
-        {/* Enhanced Professional Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
-          <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-[#008C6A]/30 text-white hover:bg-[#008C6A]/20 hover:border-[#008C6A]/50 hover:text-[#008C6A] transition-all duration-300 bg-black/20 backdrop-blur-sm">
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              رجوع
-            </Button>
-            <div className="h-8 w-px bg-[#008C6A]/30"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#008C6A] to-[#00694F] rounded-3xl flex items-center justify-center shadow-2xl shadow-[#008C6A]/30 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <Bot className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#008C6A] rounded-full animate-pulse"></div>
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
-                  منصة التوظيف الذكي SmartHire
-                </h1>
-                <p className="text-gray-300 text-lg">
-                  منصة توظيف مؤتمتة مدعومة بالذكاء الاصطناعي لإدارة العملية التوظيف بكفاءة عالية
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-[#008C6A]/30 text-[#008C6A] bg-[#008C6A]/10 backdrop-blur-sm px-4 py-2 text-sm font-medium">
-              <Bot className="h-4 w-4 ml-2" />
-              نظام متقدم
-            </Badge>
-            <Dialog open={newJobDialog} onOpenChange={setNewJobDialog}>
-              <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] hover:from-[#00694F] hover:via-[#008C6A] hover:to-[#009F87] text-white shadow-2xl shadow-[#008C6A]/20 hover:scale-105 transition-all duration-300">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة وظيفة جديدة
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-2xl" dir="rtl">
-                <DialogHeader>
-                  <DialogTitle>إنشاء وظيفة جديدة</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="title">المسمى الوظيفي</Label>
-                      <Input
-                        id="title"
-                        value={jobForm.title}
-                        onChange={(e) => setJobForm(prev => ({ ...prev, title: e.target.value }))}
-                        placeholder="مثال: مطور Full Stack"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="department">القسم</Label>
-                      <Input
-                        id="department"
-                        value={jobForm.department}
-                        onChange={(e) => setJobForm(prev => ({ ...prev, department: e.target.value }))}
-                        placeholder="مثال: تقنية المعلومات"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="location">الموقع</Label>
-                      <Input
-                        id="location"
-                        value={jobForm.location}
-                        onChange={(e) => setJobForm(prev => ({ ...prev, location: e.target.value }))}
-                        placeholder="مثال: الرياض"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="type">نوع الوظيفة</Label>
-                      <Select value={jobForm.type} onValueChange={(value: any) => setJobForm(prev => ({ ...prev, type: value }))}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="full-time">دوام كامل</SelectItem>
-                          <SelectItem value="part-time">دوام جزئي</SelectItem>
-                          <SelectItem value="contract">تعاقد</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
+        {/* Logo */}
+        <div className="flex justify-center pt-6">
+          <img 
+            src="/src/assets/boud-logo-centered.png" 
+            alt="Boud Logo" 
+            className="h-32 w-auto object-contain"
+          />
+        </div>
 
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label htmlFor="description">الوصف الوظيفي</Label>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={generateJobDescription}
-                        disabled={!jobForm.title || isGeneratingDescription}
-                        className="flex items-center gap-2"
-                      >
-                        <Bot className="w-4 h-4" />
-                        {isGeneratingDescription ? 'جاري التوليد...' : 'توليد بالذكاء الاصطناعي'}
-                      </Button>
-                    </div>
-                    <Textarea
-                      id="description"
-                      value={jobForm.description}
-                      onChange={(e) => setJobForm(prev => ({ ...prev, description: e.target.value }))}
-                      placeholder="سيتم توليد الوصف تلقائياً..."
-                      rows={8}
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="requirements">المتطلبات (سطر لكل متطلب)</Label>
-                    <Textarea
-                      id="requirements"
-                      value={jobForm.requirements}
-                      onChange={(e) => setJobForm(prev => ({ ...prev, requirements: e.target.value }))}
-                      placeholder="React.js&#10;Node.js&#10;خبرة 3+ سنوات"
-                      rows={4}
-                    />
-                  </div>
-
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline" onClick={() => setNewJobDialog(false)}>
-                      إلغاء
-                    </Button>
-                    <Button onClick={handleCreateJob}>
-                      إنشاء الوظيفة
-                    </Button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">منصة التوظيف الذكي SmartHire</h1>
+          <p className="text-muted-foreground">منصة توظيف مؤتمتة مدعومة بالذكاء الاصطناعي لإدارة العملية التوظيف بكفاءة عالية</p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statsData.map((stat, index) => (
-            <Card key={index} className="p-6 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 hover:border-[#008C6A]/50 transition-all duration-300 rounded-2xl">
+            <Card key={index} className="p-6 bg-card backdrop-blur-xl border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-2xl">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-300 mb-1">
+                  <p className="text-sm font-medium text-muted-foreground mb-1">
                     {stat.title}
                   </p>
-                  <p className="text-3xl font-bold text-white">
+                  <p className="text-3xl font-bold text-foreground">
                     {stat.value}
                   </p>
-                  <p className="text-xs text-[#008C6A] mt-1">
+                  <p className="text-xs text-primary mt-1">
                     {stat.change}
                   </p>
                 </div>
-                <div className={`p-3 rounded-lg bg-[#008C6A]/20 border border-[#008C6A]/30 ${stat.color}`}>
+                <div className={`p-3 rounded-lg bg-primary/20 border border-primary/30 ${stat.color}`}>
                   <stat.icon className="w-6 h-6" />
                 </div>
               </div>
             </Card>
           ))}
+        </div>
+
+        {/* Action Button */}
+        <div className="flex justify-end mb-6">
+          <Dialog open={newJobDialog} onOpenChange={setNewJobDialog}>
+            <DialogTrigger asChild>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg">
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة وظيفة جديدة
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl" dir="rtl">
+              <DialogHeader>
+                <DialogTitle>إنشاء وظيفة جديدة</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="title">المسمى الوظيفي</Label>
+                    <Input
+                      id="title"
+                      value={jobForm.title}
+                      onChange={(e) => setJobForm(prev => ({ ...prev, title: e.target.value }))}
+                      placeholder="مثال: مطور Full Stack"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="department">القسم</Label>
+                    <Input
+                      id="department"
+                      value={jobForm.department}
+                      onChange={(e) => setJobForm(prev => ({ ...prev, department: e.target.value }))}
+                      placeholder="مثال: تقنية المعلومات"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="location">الموقع</Label>
+                    <Input
+                      id="location"
+                      value={jobForm.location}
+                      onChange={(e) => setJobForm(prev => ({ ...prev, location: e.target.value }))}
+                      placeholder="مثال: الرياض"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="type">نوع الوظيفة</Label>
+                    <Select value={jobForm.type} onValueChange={(value: any) => setJobForm(prev => ({ ...prev, type: value }))}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="full-time">دوام كامل</SelectItem>
+                        <SelectItem value="part-time">دوام جزئي</SelectItem>
+                        <SelectItem value="contract">تعاقد</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="description">الوصف الوظيفي</Label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={generateJobDescription}
+                      disabled={!jobForm.title || isGeneratingDescription}
+                      className="flex items-center gap-2"
+                    >
+                      <Bot className="w-4 h-4" />
+                      {isGeneratingDescription ? 'جاري التوليد...' : 'توليد بالذكاء الاصطناعي'}
+                    </Button>
+                  </div>
+                  <Textarea
+                    id="description"
+                    value={jobForm.description}
+                    onChange={(e) => setJobForm(prev => ({ ...prev, description: e.target.value }))}
+                    placeholder="سيتم توليد الوصف تلقائياً..."
+                    rows={8}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="requirements">المتطلبات (سطر لكل متطلب)</Label>
+                  <Textarea
+                    id="requirements"
+                    value={jobForm.requirements}
+                    onChange={(e) => setJobForm(prev => ({ ...prev, requirements: e.target.value }))}
+                    placeholder="React.js&#10;Node.js&#10;خبرة 3+ سنوات"
+                    rows={4}
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" onClick={() => setNewJobDialog(false)}>
+                    إلغاء
+                  </Button>
+                  <Button onClick={handleCreateJob}>
+                    إنشاء الوظيفة
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Main Content */}
