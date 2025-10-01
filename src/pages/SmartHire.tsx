@@ -467,10 +467,10 @@ const SmartHire: React.FC = () => {
           <TabsContent value="dashboard" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Recent Jobs */}
-              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+              <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold">الوظائف الحديثة</h3>
-                  <BriefcaseIcon className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold text-foreground">الوظائف الحديثة</h3>
+                  <BriefcaseIcon className="w-5 h-5 text-primary" />
                 </div>
                 <div className="space-y-3">
                   {jobs.slice(0, 3).map((job) => (
@@ -520,9 +520,9 @@ const SmartHire: React.FC = () => {
 
           {/* Jobs Tab */}
           <TabsContent value="jobs" className="space-y-6">
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">إدارة الوظائف</h3>
+                <h3 className="text-lg font-semibold text-foreground">إدارة الوظائف</h3>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Filter className="w-4 h-4 ml-2" />
@@ -576,9 +576,9 @@ const SmartHire: React.FC = () => {
 
           {/* Applicants Tab */}
           <TabsContent value="applicants" className="space-y-6">
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">إدارة المتقدمين</h3>
+                <h3 className="text-lg font-semibold text-foreground">إدارة المتقدمين</h3>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Filter className="w-4 h-4 ml-2" />
@@ -659,9 +659,9 @@ const SmartHire: React.FC = () => {
 
           {/* Messaging Tab */}
           <TabsContent value="messaging" className="space-y-6">
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">التواصل التلقائي</h3>
+                <h3 className="text-lg font-semibold text-foreground">التواصل التلقائي</h3>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Settings className="w-4 h-4 ml-2" />
@@ -679,9 +679,9 @@ const SmartHire: React.FC = () => {
 
           {/* Interviews Tab */}
           <TabsContent value="interviews" className="space-y-6">
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">جدولة المقابلات</h3>
+                <h3 className="text-lg font-semibold text-foreground">جدولة المقابلات</h3>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Calendar className="w-4 h-4 ml-2" />
@@ -699,9 +699,9 @@ const SmartHire: React.FC = () => {
 
           {/* Permissions Tab */}
           <TabsContent value="permissions" className="space-y-6">
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">إدارة الصلاحيات</h3>
+                <h3 className="text-lg font-semibold text-foreground">إدارة الصلاحيات</h3>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Shield className="w-4 h-4 ml-2" />
@@ -719,9 +719,9 @@ const SmartHire: React.FC = () => {
 
           {/* Application Form Tab */}
           <TabsContent value="application" className="space-y-6">
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">نموذج التقديم</h3>
+                <h3 className="text-lg font-semibold text-foreground">نموذج التقديم</h3>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Eye className="w-4 h-4 ml-2" />
@@ -740,8 +740,8 @@ const SmartHire: React.FC = () => {
           {/* Enhanced Analytics Tab */}
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
                   <TrendingUp className="w-5 h-5 text-green-600" />
                   أداء التوظيف
                 </h3>
@@ -765,8 +765,8 @@ const SmartHire: React.FC = () => {
                 </div>
               </Card>
 
-              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
                   <Bot className="w-5 h-5 text-blue-600" />
                   أداء الذكاء الاصطناعي
                 </h3>
@@ -790,8 +790,8 @@ const SmartHire: React.FC = () => {
                 </div>
               </Card>
 
-              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
                   <FileText className="w-5 h-5 text-orange-600" />
                   إحصائيات شاملة
                 </h3>
@@ -818,8 +818,8 @@ const SmartHire: React.FC = () => {
 
             {/* Additional Analytics Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4">اتجاهات التوظيف الشهرية</h3>
+              <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
+                <h3 className="text-lg font-semibold mb-4 text-foreground">اتجاهات التوظيف الشهرية</h3>
                 <div className="space-y-3">
                   {[
                     { month: 'يناير', applications: 45, hired: 8 },
@@ -840,8 +840,8 @@ const SmartHire: React.FC = () => {
                 </div>
               </Card>
 
-              <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-                <h3 className="text-lg font-semibold mb-4">أداء الأقسام</h3>
+              <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
+                <h3 className="text-lg font-semibold mb-4 text-foreground">أداء الأقسام</h3>
                 <div className="space-y-3">
                   {[
                     { department: 'تقنية المعلومات', openPositions: 8, hired: 5, efficiency: 92 },
@@ -866,8 +866,8 @@ const SmartHire: React.FC = () => {
             </div>
 
             {/* Export Options */}
-            <Card className="p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-0 shadow-lg">
-              <h3 className="text-lg font-semibold mb-4">تصدير التقارير</h3>
+            <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
+              <h3 className="text-lg font-semibold mb-4 text-foreground">تصدير التقارير</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Button variant="outline" className="h-20 flex-col gap-2">
                   <FileText className="w-6 h-6 text-blue-600" />
