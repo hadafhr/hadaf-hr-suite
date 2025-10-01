@@ -522,7 +522,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="compensation-benefits">
             <div className="space-y-6">
-              <div className="bg-card backdrop-blur-xl border border-border hover:border-primary shadow-2xl transition-all duration-300 rounded-3xl p-6">
+              <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
                     <DollarSign className="h-8 w-8 text-primary-foreground" />
