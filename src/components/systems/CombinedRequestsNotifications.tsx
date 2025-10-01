@@ -159,14 +159,14 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
   // Request Types
   const requestTypes = [
-    { id: 'salary_certificate', name: 'شهادة راتب', icon: <CreditCard className="h-4 w-4" />, color: '#009F87' },
-    { id: 'experience_letter', name: 'خطاب خبرة', icon: <Briefcase className="h-4 w-4" />, color: '#1e40af' },
-    { id: 'bank_letter', name: 'خطاب للبنك', icon: <Building2 className="h-4 w-4" />, color: '#059669' },
-    { id: 'financial_advance', name: 'سلفة مالية', icon: <DollarSign className="h-4 w-4" />, color: '#dc2626' },
-    { id: 'transfer_request', name: 'طلب نقل', icon: <User className="h-4 w-4" />, color: '#7c3aed' },
-    { id: 'training_certificate', name: 'شهادة تدريب', icon: <GraduationCap className="h-4 w-4" />, color: '#ea580c' },
-    { id: 'vacation_request', name: 'طلب إجازة', icon: <Calendar className="h-4 w-4" />, color: '#0891b2' },
-    { id: 'other', name: 'طلب آخر', icon: <FileText className="h-4 w-4" />, color: '#6b7280' }
+    { id: 'salary_certificate', name: 'شهادة راتب', icon: <CreditCard className="h-4 w-4" /> },
+    { id: 'experience_letter', name: 'خطاب خبرة', icon: <Briefcase className="h-4 w-4" /> },
+    { id: 'bank_letter', name: 'خطاب للبنك', icon: <Building2 className="h-4 w-4" /> },
+    { id: 'financial_advance', name: 'سلفة مالية', icon: <DollarSign className="h-4 w-4" /> },
+    { id: 'transfer_request', name: 'طلب نقل', icon: <User className="h-4 w-4" /> },
+    { id: 'training_certificate', name: 'شهادة تدريب', icon: <GraduationCap className="h-4 w-4" /> },
+    { id: 'vacation_request', name: 'طلب إجازة', icon: <Calendar className="h-4 w-4" /> },
+    { id: 'other', name: 'طلب آخر', icon: <FileText className="h-4 w-4" /> }
   ];
 
   // Analytics Data
@@ -266,12 +266,12 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      pending: { color: 'bg-yellow-100 text-yellow-800 border-yellow-200', label: 'معلق' },
-      approved: { color: 'bg-green-100 text-green-800 border-green-200', label: 'معتمد' },
-      rejected: { color: 'bg-red-100 text-red-800 border-red-200', label: 'مرفوض' },
-      submitted: { color: 'bg-blue-100 text-blue-800 border-blue-200', label: 'مرسل' },
-      under_review: { color: 'bg-purple-100 text-purple-800 border-purple-200', label: 'قيد المراجعة' },
-      completed: { color: 'bg-green-100 text-green-800 border-green-200', label: 'مكتمل' }
+      pending: { color: 'bg-warning/20 text-warning border-warning/50', label: 'معلق' },
+      approved: { color: 'bg-success/20 text-success border-success/50', label: 'معتمد' },
+      rejected: { color: 'bg-destructive/20 text-destructive border-destructive/50', label: 'مرفوض' },
+      submitted: { color: 'bg-primary/20 text-primary border-primary/50', label: 'مرسل' },
+      under_review: { color: 'bg-accent/20 text-accent-foreground border-accent', label: 'قيد المراجعة' },
+      completed: { color: 'bg-success/20 text-success border-success/50', label: 'مكتمل' }
     };
     
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;
@@ -280,10 +280,10 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
   const getPriorityBadge = (priority: string) => {
     const priorityConfig = {
-      urgent: { color: 'bg-red-100 text-red-800 border-red-200', label: 'عاجل' },
-      high: { color: 'bg-orange-100 text-orange-800 border-orange-200', label: 'هام' },
-      medium: { color: 'bg-blue-100 text-blue-800 border-blue-200', label: 'متوسط' },
-      low: { color: 'bg-gray-100 text-gray-800 border-gray-200', label: 'منخفض' }
+      urgent: { color: 'bg-destructive/20 text-destructive border-destructive/50', label: 'عاجل' },
+      high: { color: 'bg-warning/20 text-warning border-warning/50', label: 'هام' },
+      medium: { color: 'bg-primary/20 text-primary border-primary/50', label: 'متوسط' },
+      low: { color: 'bg-muted text-muted-foreground border-border', label: 'منخفض' }
     };
     
     const config = priorityConfig[priority as keyof typeof priorityConfig] || priorityConfig.medium;
@@ -298,7 +298,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
   const urgentCount = notifications.filter(n => n.priority === 'urgent' && !n.read).length;
 
   return (
-    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }} dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen p-6 bg-background text-foreground" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -311,50 +311,50 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام الطلبات والإشعارات</h1>
-          <p style={{ color: '#e8e4e0' }}>إدارة شاملة للطلبات والإشعارات</p>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام الطلبات والإشعارات</h1>
+          <p className="text-muted-foreground">إدارة شاملة للطلبات والإشعارات</p>
         </div>
 
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-          <Card className="border-l-4 border-l-green-500">
+          <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-[#008C6A] mb-2">{requests.filter(r => r.status === 'approved').length}</div>
-              <div className="text-sm text-gray-300">طلبات معتمدة</div>
+              <div className="text-3xl font-bold text-success mb-2">{requests.filter(r => r.status === 'approved').length}</div>
+              <div className="text-sm text-muted-foreground">طلبات معتمدة</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+          <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">{requests.filter(r => r.status === 'pending').length}</div>
-              <div className="text-sm text-gray-300">طلبات معلقة</div>
+              <div className="text-3xl font-bold text-warning mb-2">{requests.filter(r => r.status === 'pending').length}</div>
+              <div className="text-sm text-muted-foreground">طلبات معلقة</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+          <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-400 mb-2">{notifications.length}</div>
-              <div className="text-sm text-gray-300">إجمالي الإشعارات</div>
+              <div className="text-3xl font-bold text-primary mb-2">{notifications.length}</div>
+              <div className="text-sm text-muted-foreground">إجمالي الإشعارات</div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+          <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-red-400 mb-2">{unreadCount}</div>
-              <div className="text-sm text-gray-300">إشعارات غير مقروءة</div>
+              <div className="text-3xl font-bold text-destructive mb-2">{unreadCount}</div>
+              <div className="text-sm text-muted-foreground">إشعارات غير مقروءة</div>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content Tabs */}
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-2xl overflow-hidden">
+        <Card className="bg-card border-border rounded-2xl overflow-hidden">
           <Tabs value={activeSubTab} onValueChange={setActiveSubTab}>
-            <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/10 rounded-xl">
-              <TabsTrigger value="requests" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+            <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-muted border-border rounded-xl">
+              <TabsTrigger value="requests" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300 rounded-lg">
                 <FileText className="h-4 w-4 ml-2" />
                 إدارة الطلبات ({requests.length})
               </TabsTrigger>
-              <TabsTrigger value="notifications" className="text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#008C6A] data-[state=active]:via-[#009F87] data-[state=active]:to-[#00694F] data-[state=active]:text-white hover:bg-[#008C6A]/20 transition-all duration-300 rounded-lg">
+              <TabsTrigger value="notifications" className="text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-300 rounded-lg">
                 <Bell className="h-4 w-4 ml-2" />
                 مركز الإشعارات ({unreadCount})
               </TabsTrigger>
@@ -387,7 +387,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                   </Select>
                   <Dialog open={showNewRequestForm} onOpenChange={setShowNewRequestForm}>
                     <DialogTrigger asChild>
-                      <Button className="bg-[#009F87] hover:bg-[#008072]">
+                      <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                         <Plus className="h-4 w-4 ml-2" />
                         طلب جديد
                       </Button>
@@ -478,12 +478,11 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                   {requestTypes.map((type) => (
                     <div key={type.id} className="text-center group cursor-pointer" onClick={() => setRequestForm({...requestForm, type: type.id})}>
                       <div 
-                        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform text-white"
-                        style={{ backgroundColor: type.color }}
+                        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:scale-110 transition-transform bg-primary text-primary-foreground"
                       >
                         {type.icon}
                       </div>
-                      <p className="text-xs font-medium text-gray-700 group-hover:text-[#009F87] transition-colors">
+                      <p className="text-xs font-medium text-foreground group-hover:text-primary transition-colors">
                         {type.name}
                       </p>
                     </div>
@@ -502,30 +501,29 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                       filteredRequests.map((request) => {
                         const typeConfig = getRequestTypeConfig(request.type);
                         return (
-                          <Card key={request.id} className="border-r-4 hover:shadow-md transition-all" style={{ borderRightColor: typeConfig.color }}>
+                          <Card key={request.id} className="bg-card border-border hover:bg-accent/50 transition-all">
                             <CardContent className="p-4">
                               <div className="flex items-start gap-4">
                                 <div 
-                                  className="w-12 h-12 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                                  style={{ backgroundColor: typeConfig.color }}
+                                  className="w-12 h-12 rounded-full flex items-center justify-center bg-primary text-primary-foreground flex-shrink-0"
                                 >
                                   {typeConfig.icon}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-start justify-between gap-2 mb-2">
-                                    <h4 className="font-medium text-gray-900">{request.title}</h4>
+                                    <h4 className="font-medium text-foreground">{request.title}</h4>
                                     <div className="flex items-center gap-2 flex-shrink-0">
                                       {getStatusBadge(request.status)}
                                       {getPriorityBadge(request.priority)}
                                     </div>
                                   </div>
-                                  <p className="text-sm text-gray-600 mb-2">{request.description}</p>
-                                  <div className="flex items-center justify-between text-xs text-gray-500">
+                                  <p className="text-sm text-muted-foreground mb-2">{request.description}</p>
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground">
                                     <span>{request.employee_name} - {request.department}</span>
                                     <span>{request.created_at.toLocaleDateString('ar-SA')}</span>
                                   </div>
                                   {request.amount && (
-                                    <div className="mt-2 text-sm font-medium" style={{ color: typeConfig.color }}>
+                                    <div className="mt-2 text-sm font-medium text-primary">
                                       المبلغ: {request.amount.toLocaleString()} ريال
                                     </div>
                                   )}
@@ -543,20 +541,20 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
 
             {/* Notifications Tab */}
             <TabsContent value="notifications">
-              <CardContent className="p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+              <CardContent className="p-6 bg-card border-border rounded-3xl">
                 {/* Notification Controls */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
                     <div className="relative">
-                      <Bell className="h-6 w-6 text-[#009F87]" />
+                      <Bell className="h-6 w-6 text-primary" />
                       {unreadCount > 0 && (
-                        <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-red-500">
+                        <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-destructive text-destructive-foreground">
                           {unreadCount}
                         </Badge>
                       )}
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-[#009F87]">مركز الإشعارات</h3>
+                      <h3 className="text-lg font-semibold text-foreground">مركز الإشعارات</h3>
                       <p className="text-sm text-muted-foreground">
                         {unreadCount} إشعار غير مقروء
                         {urgentCount > 0 && ` • ${urgentCount} عاجل`}
@@ -589,16 +587,16 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                 </div>
 
                 {/* Integration Icons */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8 p-4 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-8 p-4 bg-card border-border rounded-3xl">
                   {[
-                    { icon: Users, label: 'فريق العمل', section: 'employees', color: '#009F87' },
-                    { icon: Clock, label: 'الحضور', section: 'attendance', color: '#1e40af' },
-                    { icon: Calendar, label: 'الإجازات', section: 'leaves', color: '#059669' },
-                    { icon: DollarSign, label: 'الرواتب', section: 'payroll', color: '#dc2626' },
-                    { icon: Target, label: 'الأداء', section: 'performance', color: '#7c3aed' },
-                    { icon: GraduationCap, label: 'التدريب', section: 'training', color: '#ea580c' },
-                    { icon: AlertTriangle, label: 'التأديب', section: 'disciplinary', color: '#ef4444' },
-                    { icon: Building, label: 'الإدارات', section: 'departments', color: '#0891b2' }
+                    { icon: Users, label: 'فريق العمل', section: 'employees' },
+                    { icon: Clock, label: 'الحضور', section: 'attendance' },
+                    { icon: Calendar, label: 'الإجازات', section: 'leaves' },
+                    { icon: DollarSign, label: 'الرواتب', section: 'payroll' },
+                    { icon: Target, label: 'الأداء', section: 'performance' },
+                    { icon: GraduationCap, label: 'التدريب', section: 'training' },
+                    { icon: AlertTriangle, label: 'التأديب', section: 'disciplinary' },
+                    { icon: Building, label: 'الإدارات', section: 'departments' }
                   ].map((item, index) => (
                     <div 
                       key={index} 
@@ -606,12 +604,11 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                       onClick={() => onNavigateToSection?.(item.section)}
                     >
                       <div 
-                        className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform text-white"
-                        style={{ backgroundColor: item.color }}
+                        className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 transition-transform bg-primary text-primary-foreground"
                       >
                         <item.icon className="h-6 w-6" />
                       </div>
-                      <p className="text-xs font-medium text-gray-700 group-hover:text-[#009F87] transition-colors">
+                      <p className="text-xs font-medium text-foreground group-hover:text-primary transition-colors">
                         {item.label}
                       </p>
                     </div>
@@ -630,27 +627,24 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                       filteredNotifications.map((notification) => (
                         <Card 
                           key={notification.id}
-                          className={`cursor-pointer transition-all hover:shadow-md border-r-4 ${
-                            notification.read ? 'border-r-gray-200 bg-gray-50' : 
-                            notification.priority === 'urgent' ? 'border-r-red-500 bg-red-50' :
-                            notification.priority === 'high' ? 'border-r-orange-500 bg-orange-50' :
-                            'border-r-blue-500 bg-blue-50'
+                          className={`cursor-pointer transition-all hover:bg-accent/50 bg-card border-border ${
+                            notification.read ? 'opacity-70' : ''
                           }`}
                           onClick={() => handleNotificationClick(notification)}
                         >
-                          <CardContent className="p-4 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+                          <CardContent className="p-4">
                             <div className="flex items-start gap-3">
                               <div className="flex items-center gap-2 mt-1">
                                 {notification.priority === 'urgent' ? 
-                                  <AlertTriangle className="h-4 w-4 text-red-600" /> :
-                                  notification.type === 'success' ? <CheckCircle className="h-4 w-4 text-green-600" /> :
-                                  notification.type === 'warning' ? <AlertTriangle className="h-4 w-4 text-orange-600" /> :
-                                  notification.type === 'error' ? <XCircle className="h-4 w-4 text-red-600" /> :
-                                  <Info className="h-4 w-4 text-blue-600" />}
+                                  <AlertTriangle className="h-4 w-4 text-destructive" /> :
+                                  notification.type === 'success' ? <CheckCircle className="h-4 w-4 text-success" /> :
+                                  notification.type === 'warning' ? <AlertTriangle className="h-4 w-4 text-warning" /> :
+                                  notification.type === 'error' ? <XCircle className="h-4 w-4 text-destructive" /> :
+                                  <Info className="h-4 w-4 text-primary" />}
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-start justify-between gap-2">
-                                  <h4 className={`font-medium ${!notification.read ? 'text-gray-900' : 'text-gray-600'}`}>
+                                  <h4 className={`font-medium ${!notification.read ? 'text-foreground' : 'text-muted-foreground'}`}>
                                     {notification.title}
                                   </h4>
                                   <div className="flex items-center gap-2 flex-shrink-0">
@@ -660,7 +654,7 @@ export const CombinedRequestsNotifications: React.FC<CombinedRequestsNotificatio
                                     </span>
                                   </div>
                                 </div>
-                                <p className={`text-sm mt-1 ${!notification.read ? 'text-gray-700' : 'text-gray-500'}`}>
+                                <p className={`text-sm mt-1 ${!notification.read ? 'text-foreground' : 'text-muted-foreground'}`}>
                                   {notification.message}
                                 </p>
                                 <div className="flex items-center justify-between mt-3">
