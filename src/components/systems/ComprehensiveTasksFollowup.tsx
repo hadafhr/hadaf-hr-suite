@@ -1308,84 +1308,87 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   );
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Animated background patterns */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-32 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
-        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
       </div>
       
+      {/* Floating Elements for Professional Look */}
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-12 p-6 rounded-3xl transition-all duration-300 bg-card border border-border">
-          <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" className="transition-all duration-300">
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              رجوع
-            </Button>
-            <div className="h-8 w-px bg-border"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden group bg-primary">
-                <CheckSquare className="h-8 w-8 text-primary-foreground relative z-10 group-hover:scale-110 transition-transform" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">
-                  نظام إدارة المهام الشامل
-                </h1>
-                <p className="text-lg text-muted-foreground">
-                  نظام متطور لإدارة ومتابعة المهام والمشاريع مع التحليلات التنبؤية
-                </p>
-              </div>
-            </div>
+        {/* Header with Logo */}
+        <div className="space-y-6 container mx-auto p-6">
+          {/* Logo */}
+          <div className="flex justify-center">
+            <img 
+              src="/src/assets/boud-logo-centered.png" 
+              alt="Boud Logo" 
+              className="h-32 w-auto object-contain"
+            />
           </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="px-4 py-2 text-sm font-medium">
-              <CheckSquare className="h-4 w-4 ml-2" />
-              نظام متقدم
-            </Badge>
-            <Button className="transition-all duration-300 bg-primary text-primary-foreground">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير التقارير
-            </Button>
+
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة المهام الشامل</h1>
+            <p className="text-muted-foreground">نظام متطور لإدارة ومتابعة المهام والمشاريع مع التحليلات التنبؤية</p>
           </div>
         </div>
         
+        <div className="container mx-auto p-6">
         {/* Tabs Navigation */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 lg:grid-cols-8 p-1 h-auto rounded-xl bg-primary border border-border">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
+          <TabsList className="grid w-full grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+            <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">لوحة التحكم</span>
+              <span className="text-xs">لوحة التحكم</span>
             </TabsTrigger>
             
-            <TabsTrigger value="tasks" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            <TabsTrigger value="tasks" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <CheckSquare className="h-4 w-4" />
-              <span className="hidden sm:inline">المهام</span>
+              <span className="text-xs">المهام</span>
             </TabsTrigger>
-            <TabsTrigger value="projects" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            
+            <TabsTrigger value="projects" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <FolderOpen className="h-4 w-4" />
-              <span className="hidden sm:inline">المشاريع</span>
+              <span className="text-xs">المشاريع</span>
             </TabsTrigger>
-            <TabsTrigger value="teams" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            
+            <TabsTrigger value="teams" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <Users className="h-4 w-4" />
-              <span className="hidden sm:inline">الفرق</span>
+              <span className="text-xs">الفرق</span>
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            
+            <TabsTrigger value="analytics" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <TrendingUp className="h-4 w-4" />
-              <span className="hidden sm:inline">التحليلات</span>
+              <span className="text-xs">التحليلات</span>
             </TabsTrigger>
-            <TabsTrigger value="calendar" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            
+            <TabsTrigger value="calendar" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <Calendar className="h-4 w-4" />
-              <span className="hidden sm:inline">التقويم</span>
+              <span className="text-xs">التقويم</span>
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            
+            <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <FileText className="h-4 w-4" />
-              <span className="hidden sm:inline">التقارير</span>
+              <span className="text-xs">التقارير</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2 p-3 transition-all duration-300 rounded-lg data-[state=active]:bg-accent text-foreground">
+            
+            <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
               <Settings className="h-4 w-4" />
-              <span className="hidden sm:inline">الإعدادات</span>
+              <span className="text-xs">الإعدادات</span>
             </TabsTrigger>
           </TabsList>
 
@@ -1421,6 +1424,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
             {renderSettings()}
           </TabsContent>
         </Tabs>
+      </div>
       </div>
 
       <AddTaskDialog />
