@@ -3681,7 +3681,7 @@ const TeamWork: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white p-6" dir="rtl">
+    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }} dir="rtl">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -3694,8 +3694,8 @@ const TeamWork: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">نظام إدارة فريق العمل</h1>
-          <p className="text-gray-600">إدارة شاملة لفريق العمل والمهام</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام إدارة فريق العمل</h1>
+          <p style={{ color: '#e8e4e0' }}>إدارة شاملة لفريق العمل والمهام</p>
         </div>
 
         <div className="max-w-7xl mx-auto space-y-6">

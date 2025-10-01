@@ -22,12 +22,12 @@ export const EmployeeProfile: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }}>
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-black mb-2">الملف الشخصي</h1>
-          <p className="text-gray-600">عرض وتحديث البيانات الشخصية</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>الملف الشخصي</h1>
+          <p style={{ color: '#e8e4e0' }}>عرض وتحديث البيانات الشخصية</p>
         </div>
 
         {/* Profile Card */}

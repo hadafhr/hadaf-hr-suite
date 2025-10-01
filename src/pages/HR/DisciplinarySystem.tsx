@@ -30,7 +30,7 @@ export const DisciplinarySystem: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }}>
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -39,12 +39,12 @@ export const DisciplinarySystem: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">نظام الإجراءات التأديبية الشامل</h1>
-          <p className="text-gray-600">إدارة متكاملة للإجراءات التأديبية والتحقيقات مع ربط بأنظمة الحضور والأداء</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام الإجراءات التأديبية الشامل</h1>
+          <p style={{ color: '#e8e4e0' }}>إدارة متكاملة للإجراءات التأديبية والتحقيقات مع ربط بأنظمة الحضور والأداء</p>
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
+        <div className="rounded-xl border p-6" style={{ background: '#1a1a1a', borderColor: '#cfcbcb' }}>
           <ComprehensiveDisciplinarySystem />
         </div>
       </div>

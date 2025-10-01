@@ -132,12 +132,12 @@ export const Attendance: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }}>
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-black mb-2">سجل الحضور والانصراف</h1>
-          <p className="text-gray-600">متابعة أوقات الحضور والانصراف اليومية</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>سجل الحضور والانصراف</h1>
+          <p style={{ color: '#e8e4e0' }}>متابعة أوقات الحضور والانصراف اليومية</p>
         </div>
 
         {/* Current Status */}

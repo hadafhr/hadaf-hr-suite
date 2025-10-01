@@ -279,8 +279,8 @@ export default function EmployeeServicesDepartment() {
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-black mb-2">نظام خدمات الموظفين</h1>
-        <p className="text-gray-600">مركز شامل لجميع الخدمات والطلبات</p>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام خدمات الموظفين</h1>
+        <p style={{ color: '#e8e4e0' }}>مركز شامل لجميع الخدمات والطلبات</p>
       </div>
     </div>
   );

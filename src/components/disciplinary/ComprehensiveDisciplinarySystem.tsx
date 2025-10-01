@@ -357,8 +357,8 @@ const ComprehensiveDisciplinarySystem = ({ onBack }: ComprehensiveDisciplinarySy
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-black mb-2">نظام الجزاءات والعقوبات</h1>
-        <p className="text-gray-600">منظومة شاملة لإدارة المخالفات والجزاءات</p>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام الجزاءات والعقوبات</h1>
+        <p style={{ color: '#e8e4e0' }}>منظومة شاملة لإدارة المخالفات والجزاءات</p>
       </div>
     </div>
   );

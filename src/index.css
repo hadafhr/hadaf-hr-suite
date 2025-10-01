@@ -162,21 +162,48 @@
   }
 
   body {
-    background: var(--color-black);
-    color: var(--color-white);
+    background: #000000 !important;
+    color: #ffffff !important;
     @apply font-sans antialiased;
     direction: rtl;
   }
   
-  /* Force dark theme application */
+  /* Force black background everywhere */
   html {
-    background: var(--color-black);
+    background: #000000 !important;
   }
   
-  /* Ensure all containers inherit dark theme */
+  /* Ensure all containers use new color palette */
   .min-h-screen, .container, .w-full {
-    background: var(--color-black);
-    color: var(--color-white);
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+  
+  /* Override all old backgrounds */
+  .bg-white {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  .bg-black, .bg-background {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+  
+  .text-white {
+    color: #ffffff !important;
+  }
+  
+  .text-black {
+    color: #000000 !important;
+  }
+  
+  .text-gray-600, .text-muted-foreground {
+    color: #e8e4e0 !important;
+  }
+  
+  .border-gray-200, .border {
+    border-color: #cfcbcb !important;
   }
 }
 

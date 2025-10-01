@@ -34,7 +34,7 @@ const payrollHistory = [
 
 export const Payroll: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }}>
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -47,8 +47,8 @@ export const Payroll: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">كشف الراتب</h1>
-          <p className="text-gray-600">عرض تفاصيل الراتب والمستحقات الشهرية</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>كشف الراتب</h1>
+          <p style={{ color: '#e8e4e0' }}>عرض تفاصيل الراتب والمستحقات الشهرية</p>
         </div>
 
         {/* Current Month Summary */}
