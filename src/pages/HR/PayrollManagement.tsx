@@ -30,93 +30,21 @@ export const PayrollManagement: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Enhanced Header */}
-        <SystemHeader
-          title="نظام إدارة كشوف المرتبات الشامل"
-          description="إدارة متكاملة لكشوف المرتبات والرواتب مع ربط بأنظمة الحضور والإجازات والمزايا"
-          icon={<DollarSign className="h-12 w-12 text-white" />}
-          showBackButton={false}
-        />
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
 
-        {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-white" />
-                <div>
-                  <p className="text-white/80 text-sm">إجمالي الموظفين</p>
-                  <p className="text-2xl font-bold">{overviewStats.totalEmployees}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-600 to-green-700 text-white shadow-xl border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-white" />
-                <div>
-                  <p className="text-white/80 text-sm">إجمالي المرتبات</p>
-                  <p className="text-xl font-bold">{(overviewStats.totalPayroll / 1000000).toFixed(1)}م</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-xl border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-white" />
-                <div>
-                  <p className="text-white/80 text-sm">مرتبات معالجة</p>
-                  <p className="text-2xl font-bold">{overviewStats.processedPayrolls}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white shadow-xl border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-white" />
-                <div>
-                  <p className="text-white/80 text-sm">مرتبات معلقة</p>
-                  <p className="text-2xl font-bold">{overviewStats.pendingPayrolls}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-xl border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Calculator className="w-5 h-5 text-white" />
-                <div>
-                  <p className="text-white/80 text-sm">متوسط الراتب</p>
-                  <p className="text-2xl font-bold">{overviewStats.averageSalary.toLocaleString()}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-red-500 to-red-600 text-white shadow-xl border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-white" />
-                <div>
-                  <p className="text-white/80 text-sm">إجمالي الخصومات</p>
-                  <p className="text-xl font-bold">{(overviewStats.totalDeductions / 1000).toFixed(0)}ك</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">نظام إدارة كشوف المرتبات الشامل</h1>
+          <p className="text-gray-600">إدارة متكاملة لكشوف المرتبات والرواتب مع ربط بأنظمة الحضور والإجازات والمزايا</p>
         </div>
 
         {/* Main Content */}
-        <div className="bg-white/90 backdrop-blur rounded-xl border border-primary/20 shadow-lg p-6">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-lg p-6">
           <ComprehensivePayrollSystem />
         </div>
       </div>

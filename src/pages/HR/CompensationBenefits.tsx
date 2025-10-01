@@ -36,95 +36,17 @@ export const CompensationBenefits: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Enhanced Header */}
-        <SystemHeader
-          title="نظام التعويضات والمزايا الشامل"
-          description="إدارة متكاملة للتعويضات والمزايا مع ربط بأنظمة الأداء والرواتب والحوافز"
-          icon={<Gift className="h-12 w-12 text-white" />}
-          showBackButton={false}
-          customButtons={
-            <Button className="bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm">
-              <Settings className="h-4 w-4 ml-2" />
-              إعدادات النظام
-            </Button>
-          }
-        />
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
 
-        {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-primary" />
-                <div>
-                  <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                  <p className="text-2xl font-bold">{overviewStats.totalEmployees}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-primary" />
-                <div>
-                  <p className="text-sm text-muted-foreground">متوسط الراتب</p>
-                  <p className="text-2xl font-bold">{overviewStats.averageSalary.toLocaleString()}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-green-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">علاوات معلقة</p>
-                  <p className="text-2xl font-bold">{overviewStats.pendingRaises}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-yellow-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">ترقيات معلقة</p>
-                  <p className="text-2xl font-bold">{overviewStats.pendingPromotions}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-blue-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">إجمالي الميزانية</p>
-                  <p className="text-xl font-bold">{(overviewStats.totalBudget / 1000000).toFixed(1)}م</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-purple-600" />
-                <div>
-                  <p className="text-sm text-muted-foreground">انتدابات نشطة</p>
-                  <p className="text-2xl font-bold">{overviewStats.activeAssignments}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-black mb-2">نظام التعويضات والمزايا الشامل</h1>
+          <p className="text-gray-600">إدارة متكاملة للتعويضات والمزايا مع ربط بأنظمة الأداء والرواتب والحوافز</p>
         </div>
 
         {/* Main Tabs */}
