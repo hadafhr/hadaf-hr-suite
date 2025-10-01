@@ -292,10 +292,10 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
   ];
 
   const leaveTypeDistribution = [
-    { name: 'إجازة سنوية', value: 65, color: '#3b82f6' },
-    { name: 'إجازة مرضية', value: 20, color: '#10b981' },
-    { name: 'إجازة طارئة', value: 10, color: '#f59e0b' },
-    { name: 'أنواع أخرى', value: 5, color: '#8b5cf6' }
+    { name: 'إجازة سنوية', value: 65, color: 'hsl(var(--primary))' },
+    { name: 'إجازة مرضية', value: 20, color: 'hsl(var(--success))' },
+    { name: 'إجازة طارئة', value: 10, color: 'hsl(var(--warning))' },
+    { name: 'أنواع أخرى', value: 5, color: 'hsl(var(--accent))' }
   ];
 
   // Calculate statistics
@@ -402,74 +402,74 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-[#008C6A]">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-300">إجمالي الطلبات</p>
-                <p className="text-2xl font-bold text-[#008C6A]">{stats.totalRequests}</p>
+                <p className="text-sm text-muted-foreground">إجمالي الطلبات</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalRequests}</p>
               </div>
-              <Calendar className="h-8 w-8 text-[#008C6A]/60" />
+              <Calendar className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-orange-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-300">طلبات معلقة</p>
-                <p className="text-2xl font-bold text-orange-400">{stats.pendingRequests}</p>
+                <p className="text-sm text-muted-foreground">طلبات معلقة</p>
+                <p className="text-2xl font-bold text-warning">{stats.pendingRequests}</p>
               </div>
-              <Clock className="h-8 w-8 text-orange-400/60" />
+              <Clock className="h-8 w-8 text-warning/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-emerald-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-300">طلبات موافق عليها</p>
-                <p className="text-2xl font-bold text-emerald-400">{stats.approvedRequests}</p>
+                <p className="text-sm text-muted-foreground">طلبات موافق عليها</p>
+                <p className="text-2xl font-bold text-success">{stats.approvedRequests}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-emerald-400/60" />
+              <CheckCircle2 className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-red-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-300">طلبات مرفوضة</p>
-                <p className="text-2xl font-bold text-red-400">{stats.rejectedRequests}</p>
+                <p className="text-sm text-muted-foreground">طلبات مرفوضة</p>
+                <p className="text-2xl font-bold text-destructive">{stats.rejectedRequests}</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-red-400/60" />
+              <AlertTriangle className="h-8 w-8 text-destructive/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-blue-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-300">العطل الرسمية</p>
-                <p className="text-2xl font-bold text-blue-400">{stats.totalHolidays}</p>
+                <p className="text-sm text-muted-foreground">العطل الرسمية</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalHolidays}</p>
               </div>
-              <CalendarDays className="h-8 w-8 text-blue-400/60" />
+              <CalendarDays className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-l-4 border-l-green-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-300">متوسط المعالجة</p>
-                <p className="text-2xl font-bold text-green-400">{stats.avgProcessingTime} يوم</p>
+                <p className="text-sm text-muted-foreground">متوسط المعالجة</p>
+                <p className="text-2xl font-bold text-success">{stats.avgProcessingTime} يوم</p>
               </div>
-              <Activity className="h-8 w-8 text-green-400/60" />
+              <Activity className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
@@ -499,10 +499,10 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
           </CardContent>
         </Card>
 
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <PieChart className="h-5 w-5 text-[#008C6A]" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <PieChart className="h-5 w-5 text-primary" />
               توزيع أنواع الإجازات
             </CardTitle>
           </CardHeader>
@@ -515,7 +515,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill="hsl(var(--primary))"
                   dataKey="value"
                 >
                   {leaveTypeDistribution.map((entry, index) => (
@@ -530,39 +530,39 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
       </div>
 
       {/* AI Insights */}
-      <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300 border-2">
+      <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Sparkles className="h-5 w-5 text-[#008C6A]" />
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <Sparkles className="h-5 w-5 text-primary" />
             رؤى الذكاء الاصطناعي لإدارة الإجازات
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-lg bg-emerald-900/30 border border-emerald-500/30 backdrop-blur-sm">
+            <div className="p-4 rounded-lg bg-success/10 border border-success/30">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <span className="text-sm font-semibold text-emerald-300">استخدام متوازن</span>
+                <CheckCircle2 className="h-4 w-4 text-success" />
+                <span className="text-sm font-semibold text-success">استخدام متوازن</span>
               </div>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-muted-foreground">
                 معدل استخدام الإجازات السنوية في المستوى المطلوب (68%)
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-orange-900/30 border border-orange-500/30 backdrop-blur-sm">
+            <div className="p-4 rounded-lg bg-warning/10 border border-warning/30">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-orange-400" />
-                <span className="text-sm font-semibold text-orange-300">تنبيه موسمي</span>
+                <AlertTriangle className="h-4 w-4 text-warning" />
+                <span className="text-sm font-semibold text-warning">تنبيه موسمي</span>
               </div>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-muted-foreground">
                 توقع زيادة طلبات الإجازات خلال عيد الفطر - يُنصح بالتخطيط المسبق
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-blue-900/30 border border-blue-500/30 backdrop-blur-sm">
+            <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-4 w-4 text-blue-400" />
-                <span className="text-sm font-semibold text-blue-300">تحسن الأداء</span>
+                <TrendingUp className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">تحسن الأداء</span>
               </div>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-muted-foreground">
                 تحسن سرعة معالجة طلبات الإجازات بنسبة 25% هذا الشهر
               </p>
             </div>
@@ -572,39 +572,39 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
 
       {/* Recent Activities & Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-gray-900/60 backdrop-blur-xl border border-[#008C6A]/30 hover:border-[#008C6A]/50 shadow-2xl shadow-[#008C6A]/10 transition-all duration-300">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-white">
-              <Activity className="h-5 w-5 text-[#008C6A]" />
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <Activity className="h-5 w-5 text-primary" />
               النشاطات الحديثة
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-[#008C6A]/20">
-                <div className="p-2 rounded-full bg-green-900/40 border border-green-500/30">
-                  <CheckCircle2 className="h-4 w-4 text-green-400" />
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border">
+                <div className="p-2 rounded-full bg-success/10 border border-success/30">
+                  <CheckCircle2 className="h-4 w-4 text-success" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-white">تمت الموافقة على طلب إجازة</p>
-                  <p className="text-xs text-gray-400">أحمد العلي - إجازة سنوية - منذ ساعة</p>
+                  <p className="text-sm font-medium text-foreground">تمت الموافقة على طلب إجازة</p>
+                  <p className="text-xs text-muted-foreground">أحمد العلي - إجازة سنوية - منذ ساعة</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-black/20 backdrop-blur-sm border border-[#008C6A]/20">
-                <div className="p-2 rounded-full bg-blue-900/40 border border-blue-500/30">
-                  <Plus className="h-4 w-4 text-blue-400" />
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border">
+                <div className="p-2 rounded-full bg-primary/10 border border-primary/30">
+                  <Plus className="h-4 w-4 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-white">طلب إجازة جديد</p>
-                  <p className="text-xs text-gray-400">سارة المطيري - إجازة مرضية - منذ ساعتين</p>
+                  <p className="text-sm font-medium text-foreground">طلب إجازة جديد</p>
+                  <p className="text-xs text-muted-foreground">سارة المطيري - إجازة مرضية - منذ ساعتين</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-yellow-100">
-                  <Clock className="h-4 w-4 text-yellow-600" />
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border">
+                <div className="p-2 rounded-full bg-warning/10 border border-warning/30">
+                  <Clock className="h-4 w-4 text-warning" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-medium">تذكير عطلة رسمية</p>
+                  <p className="text-sm font-medium text-foreground">تذكير عطلة رسمية</p>
                   <p className="text-xs text-muted-foreground">يوم التأسيس - 22 فبراير</p>
                 </div>
               </div>
@@ -751,54 +751,54 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
     <div className="space-y-6">
       {/* Holiday Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">إجمالي العطل</p>
-                <p className="text-2xl font-bold text-blue-600">{publicHolidays.length}</p>
+                <p className="text-2xl font-bold text-primary">{publicHolidays.length}</p>
               </div>
-              <CalendarDays className="h-8 w-8 text-blue-500/60" />
+              <CalendarDays className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">عطل ثابتة</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-success">
                   {publicHolidays.filter(h => h.type === 'fixed').length}
                 </p>
               </div>
-              <Calendar className="h-8 w-8 text-green-500/60" />
+              <Calendar className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">عطل هجرية</p>
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-2xl font-bold text-accent-foreground">
                   {publicHolidays.filter(h => h.type === 'islamic').length}
                 </p>
               </div>
-              <Crown className="h-8 w-8 text-purple-500/60" />
+              <Crown className="h-8 w-8 text-accent/60" />
             </div>
           </CardContent>
         </Card>
         
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">قريباً</p>
-                <p className="text-2xl font-bold text-orange-600">2</p>
+                <p className="text-2xl font-bold text-warning">2</p>
               </div>
-              <Bell className="h-8 w-8 text-orange-500/60" />
+              <Bell className="h-8 w-8 text-warning/60" />
             </div>
           </CardContent>
         </Card>
@@ -918,7 +918,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                   </Button>
                   {request.status === 'pending' && (
                     <>
-                      <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <Button size="sm" className="bg-success hover:bg-success/90 text-success-foreground">
                         <CheckCircle2 className="h-4 w-4" />
                       </Button>
                       <Button size="sm" variant="destructive">
