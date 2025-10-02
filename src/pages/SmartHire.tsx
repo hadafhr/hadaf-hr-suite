@@ -9,33 +9,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Plus, 
-  Users, 
-  BriefcaseIcon, 
-  Calendar,
-  FileText,
-  Send,
-  Star,
-  Clock,
-  CheckCircle,
-  XCircle,
-  Eye,
-  Bot,
-  BarChart3,
-  TrendingUp,
-  UserCheck,
-  MessageSquare,
-  Filter,
-  Shield,
-  Settings,
-  ArrowLeft
-} from 'lucide-react';
+import { Plus, Users, BriefcaseIcon, Calendar, FileText, Send, Star, Clock, CheckCircle, XCircle, Eye, Bot, BarChart3, TrendingUp, UserCheck, MessageSquare, Filter, Shield, Settings, ArrowLeft } from 'lucide-react';
 import { AutoMessaging } from '@/components/smartHire/AutoMessaging';
 import { InterviewScheduling } from '@/components/smartHire/InterviewScheduling';
 import { PermissionManagement } from '@/components/smartHire/PermissionManagement';
 import { ApplicationForm } from '@/components/smartHire/ApplicationForm';
-
 interface Job {
   id: string;
   title: string;
@@ -49,7 +27,6 @@ interface Job {
   description: string;
   requirements: string[];
 }
-
 interface Applicant {
   id: string;
   name: string;
@@ -68,7 +45,6 @@ interface Applicant {
     recommendation: 'strong' | 'good' | 'fair' | 'weak';
   };
 }
-
 const SmartHire: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = React.useState('dashboard');
@@ -77,72 +53,64 @@ const SmartHire: React.FC = () => {
   const [isGeneratingDescription, setIsGeneratingDescription] = React.useState(false);
 
   // Mock data
-  const [jobs, setJobs] = React.useState<Job[]>([
-    {
-      id: '1',
-      title: 'مطور Full Stack',
-      department: 'تقنية المعلومات',
-      location: 'الرياض',
-      type: 'full-time',
-      status: 'active',
-      applications: 45,
-      shortlisted: 8,
-      createdAt: '2024-01-15',
-      description: 'نبحث عن مطور Full Stack محترف للانضمام إلى فريقنا التقني.',
-      requirements: ['React.js', 'Node.js', 'TypeScript', 'خبرة 3+ سنوات']
-    },
-    {
-      id: '2',
-      title: 'محاسب أول',
-      department: 'المالية',
-      location: 'جدة',
-      type: 'full-time',
-      status: 'active',
-      applications: 23,
-      shortlisted: 5,
-      createdAt: '2024-01-10',
-      description: 'مطلوب محاسب خبرة للعمل في قسم المالية.',
-      requirements: ['CPA', 'خبرة 5+ سنوات', 'إتقان Excel']
+  const [jobs, setJobs] = React.useState<Job[]>([{
+    id: '1',
+    title: 'مطور Full Stack',
+    department: 'تقنية المعلومات',
+    location: 'الرياض',
+    type: 'full-time',
+    status: 'active',
+    applications: 45,
+    shortlisted: 8,
+    createdAt: '2024-01-15',
+    description: 'نبحث عن مطور Full Stack محترف للانضمام إلى فريقنا التقني.',
+    requirements: ['React.js', 'Node.js', 'TypeScript', 'خبرة 3+ سنوات']
+  }, {
+    id: '2',
+    title: 'محاسب أول',
+    department: 'المالية',
+    location: 'جدة',
+    type: 'full-time',
+    status: 'active',
+    applications: 23,
+    shortlisted: 5,
+    createdAt: '2024-01-10',
+    description: 'مطلوب محاسب خبرة للعمل في قسم المالية.',
+    requirements: ['CPA', 'خبرة 5+ سنوات', 'إتقان Excel']
+  }]);
+  const [applicants, setApplicants] = React.useState<Applicant[]>([{
+    id: '1',
+    name: 'أحمد محمد العتيبي',
+    email: 'ahmed.alotaibi@email.com',
+    phone: '+966501234567',
+    position: 'مطور Full Stack',
+    experience: '4 سنوات',
+    score: 92,
+    status: 'shortlisted',
+    appliedAt: '2024-01-20',
+    aiAnalysis: {
+      skillsMatch: 95,
+      experienceMatch: 90,
+      educationMatch: 88,
+      recommendation: 'strong'
     }
-  ]);
-
-  const [applicants, setApplicants] = React.useState<Applicant[]>([
-    {
-      id: '1',
-      name: 'أحمد محمد العتيبي',
-      email: 'ahmed.alotaibi@email.com',
-      phone: '+966501234567',
-      position: 'مطور Full Stack',
-      experience: '4 سنوات',
-      score: 92,
-      status: 'shortlisted',
-      appliedAt: '2024-01-20',
-      aiAnalysis: {
-        skillsMatch: 95,
-        experienceMatch: 90,
-        educationMatch: 88,
-        recommendation: 'strong'
-      }
-    },
-    {
-      id: '2',
-      name: 'فاطمة سالم القحطاني',
-      email: 'fatima.alqahtani@email.com',
-      phone: '+966507654321',
-      position: 'محاسب أول',
-      experience: '6 سنوات',
-      score: 88,
-      status: 'interviewed',
-      appliedAt: '2024-01-18',
-      aiAnalysis: {
-        skillsMatch: 85,
-        experienceMatch: 92,
-        educationMatch: 87,
-        recommendation: 'strong'
-      }
+  }, {
+    id: '2',
+    name: 'فاطمة سالم القحطاني',
+    email: 'fatima.alqahtani@email.com',
+    phone: '+966507654321',
+    position: 'محاسب أول',
+    experience: '6 سنوات',
+    score: 88,
+    status: 'interviewed',
+    appliedAt: '2024-01-18',
+    aiAnalysis: {
+      skillsMatch: 85,
+      experienceMatch: 92,
+      educationMatch: 87,
+      recommendation: 'strong'
     }
-  ]);
-
+  }]);
   const [jobForm, setJobForm] = React.useState({
     title: '',
     department: '',
@@ -151,10 +119,8 @@ const SmartHire: React.FC = () => {
     description: '',
     requirements: ''
   });
-
   const generateJobDescription = async () => {
     if (!jobForm.title) return;
-    
     setIsGeneratingDescription(true);
     // Simulate AI generation
     setTimeout(() => {
@@ -173,12 +139,13 @@ const SmartHire: React.FC = () => {
 • إتقان اللغة العربية والإنجليزية
 
 نوفر بيئة عمل محفزة وفرص نمو مهني ممتازة.`;
-
-      setJobForm(prev => ({ ...prev, description: generatedDescription }));
+      setJobForm(prev => ({
+        ...prev,
+        description: generatedDescription
+      }));
       setIsGeneratingDescription(false);
     }, 2000);
   };
-
   const handleCreateJob = () => {
     const newJob: Job = {
       id: Date.now().toString(),
@@ -193,7 +160,6 @@ const SmartHire: React.FC = () => {
       description: jobForm.description,
       requirements: jobForm.requirements.split('\n').filter(r => r.trim())
     };
-
     setJobs(prev => [newJob, ...prev]);
     setNewJobDialog(false);
     setJobForm({
@@ -205,63 +171,66 @@ const SmartHire: React.FC = () => {
       requirements: ''
     });
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500';
-      case 'paused': return 'bg-yellow-500';
-      case 'closed': return 'bg-red-500';
-      case 'shortlisted': return 'bg-blue-500';
-      case 'interviewed': return 'bg-purple-500';
-      case 'hired': return 'bg-green-600';
-      case 'rejected': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'active':
+        return 'bg-green-500';
+      case 'paused':
+        return 'bg-yellow-500';
+      case 'closed':
+        return 'bg-red-500';
+      case 'shortlisted':
+        return 'bg-blue-500';
+      case 'interviewed':
+        return 'bg-purple-500';
+      case 'hired':
+        return 'bg-green-600';
+      case 'rejected':
+        return 'bg-red-500';
+      default:
+        return 'bg-gray-500';
     }
   };
-
   const getRecommendationColor = (recommendation: string) => {
     switch (recommendation) {
-      case 'strong': return 'text-green-600 bg-green-50';
-      case 'good': return 'text-blue-600 bg-blue-50';
-      case 'fair': return 'text-yellow-600 bg-yellow-50';
-      case 'weak': return 'text-red-600 bg-red-50';
-      default: return 'text-gray-600 bg-gray-50';
+      case 'strong':
+        return 'text-green-600 bg-green-50';
+      case 'good':
+        return 'text-blue-600 bg-blue-50';
+      case 'fair':
+        return 'text-yellow-600 bg-yellow-50';
+      case 'weak':
+        return 'text-red-600 bg-red-50';
+      default:
+        return 'text-gray-600 bg-gray-50';
     }
   };
-
-  const statsData = [
-    {
-      title: 'الوظائف النشطة',
-      value: jobs.filter(j => j.status === 'active').length,
-      icon: BriefcaseIcon,
-      color: 'text-blue-600',
-      change: '+2 هذا الأسبوع'
-    },
-    {
-      title: 'إجمالي المتقدمين',
-      value: jobs.reduce((sum, job) => sum + job.applications, 0),
-      icon: Users,
-      color: 'text-green-600',
-      change: '+15 اليوم'
-    },
-    {
-      title: 'المرشحين المتقدمين',
-      value: applicants.filter(a => a.status === 'shortlisted').length,
-      icon: UserCheck,
-      color: 'text-purple-600',
-      change: '+3 هذا الأسبوع'
-    },
-    {
-      title: 'المقابلات المجدولة',
-      value: applicants.filter(a => a.status === 'interviewed').length,
-      icon: Calendar,
-      color: 'text-orange-600',
-      change: '5 هذا الأسبوع'
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-accent/5 relative overflow-hidden font-arabic p-6" dir="rtl">
+  const statsData = [{
+    title: 'الوظائف النشطة',
+    value: jobs.filter(j => j.status === 'active').length,
+    icon: BriefcaseIcon,
+    color: 'text-blue-600',
+    change: '+2 هذا الأسبوع'
+  }, {
+    title: 'إجمالي المتقدمين',
+    value: jobs.reduce((sum, job) => sum + job.applications, 0),
+    icon: Users,
+    color: 'text-green-600',
+    change: '+15 اليوم'
+  }, {
+    title: 'المرشحين المتقدمين',
+    value: applicants.filter(a => a.status === 'shortlisted').length,
+    icon: UserCheck,
+    color: 'text-purple-600',
+    change: '+3 هذا الأسبوع'
+  }, {
+    title: 'المقابلات المجدولة',
+    value: applicants.filter(a => a.status === 'interviewed').length,
+    icon: Calendar,
+    color: 'text-orange-600',
+    change: '5 هذا الأسبوع'
+  }];
+  return <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-accent/5 relative overflow-hidden font-arabic p-6" dir="rtl">
       {/* Animated Background Patterns */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -271,7 +240,7 @@ const SmartHire: React.FC = () => {
         <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5" opacity="0.1"/>
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5" opacity="0.1" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
@@ -281,23 +250,18 @@ const SmartHire: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6 relative z-10">
         {/* Logo */}
         <div className="flex justify-center pt-6">
-          <img 
-            src="/src/assets/boud-logo-centered.png" 
-            alt="Boud Logo" 
-            className="h-32 w-auto object-contain"
-          />
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
         </div>
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">منصة التوظيف الذكي SmartHire</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم التوظيف والتعيين</h1>
           <p className="text-muted-foreground">منصة توظيف مؤتمتة مدعومة بالذكاء الاصطناعي لإدارة العملية التوظيف بكفاءة عالية</p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {statsData.map((stat, index) => (
-            <Card key={index} className="p-6 bg-card backdrop-blur-xl border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-2xl">
+          {statsData.map((stat, index) => <Card key={index} className="p-6 bg-card backdrop-blur-xl border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-2xl">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground mb-1">
@@ -314,8 +278,7 @@ const SmartHire: React.FC = () => {
                   <stat.icon className="w-6 h-6" />
                 </div>
               </div>
-            </Card>
-          ))}
+            </Card>)}
         </div>
 
         {/* Action Button */}
@@ -335,37 +298,34 @@ const SmartHire: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="title">المسمى الوظيفي</Label>
-                    <Input
-                      id="title"
-                      value={jobForm.title}
-                      onChange={(e) => setJobForm(prev => ({ ...prev, title: e.target.value }))}
-                      placeholder="مثال: مطور Full Stack"
-                    />
+                    <Input id="title" value={jobForm.title} onChange={e => setJobForm(prev => ({
+                    ...prev,
+                    title: e.target.value
+                  }))} placeholder="مثال: مطور Full Stack" />
                   </div>
                   <div>
                     <Label htmlFor="department">القسم</Label>
-                    <Input
-                      id="department"
-                      value={jobForm.department}
-                      onChange={(e) => setJobForm(prev => ({ ...prev, department: e.target.value }))}
-                      placeholder="مثال: تقنية المعلومات"
-                    />
+                    <Input id="department" value={jobForm.department} onChange={e => setJobForm(prev => ({
+                    ...prev,
+                    department: e.target.value
+                  }))} placeholder="مثال: تقنية المعلومات" />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="location">الموقع</Label>
-                    <Input
-                      id="location"
-                      value={jobForm.location}
-                      onChange={(e) => setJobForm(prev => ({ ...prev, location: e.target.value }))}
-                      placeholder="مثال: الرياض"
-                    />
+                    <Input id="location" value={jobForm.location} onChange={e => setJobForm(prev => ({
+                    ...prev,
+                    location: e.target.value
+                  }))} placeholder="مثال: الرياض" />
                   </div>
                   <div>
                     <Label htmlFor="type">نوع الوظيفة</Label>
-                    <Select value={jobForm.type} onValueChange={(value: any) => setJobForm(prev => ({ ...prev, type: value }))}>
+                    <Select value={jobForm.type} onValueChange={(value: any) => setJobForm(prev => ({
+                    ...prev,
+                    type: value
+                  }))}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -381,36 +341,23 @@ const SmartHire: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <Label htmlFor="description">الوصف الوظيفي</Label>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={generateJobDescription}
-                      disabled={!jobForm.title || isGeneratingDescription}
-                      className="flex items-center gap-2"
-                    >
+                    <Button type="button" variant="outline" size="sm" onClick={generateJobDescription} disabled={!jobForm.title || isGeneratingDescription} className="flex items-center gap-2">
                       <Bot className="w-4 h-4" />
                       {isGeneratingDescription ? 'جاري التوليد...' : 'توليد بالذكاء الاصطناعي'}
                     </Button>
                   </div>
-                  <Textarea
-                    id="description"
-                    value={jobForm.description}
-                    onChange={(e) => setJobForm(prev => ({ ...prev, description: e.target.value }))}
-                    placeholder="سيتم توليد الوصف تلقائياً..."
-                    rows={8}
-                  />
+                  <Textarea id="description" value={jobForm.description} onChange={e => setJobForm(prev => ({
+                  ...prev,
+                  description: e.target.value
+                }))} placeholder="سيتم توليد الوصف تلقائياً..." rows={8} />
                 </div>
 
                 <div>
                   <Label htmlFor="requirements">المتطلبات (سطر لكل متطلب)</Label>
-                  <Textarea
-                    id="requirements"
-                    value={jobForm.requirements}
-                    onChange={(e) => setJobForm(prev => ({ ...prev, requirements: e.target.value }))}
-                    placeholder="React.js&#10;Node.js&#10;خبرة 3+ سنوات"
-                    rows={4}
-                  />
+                  <Textarea id="requirements" value={jobForm.requirements} onChange={e => setJobForm(prev => ({
+                  ...prev,
+                  requirements: e.target.value
+                }))} placeholder="React.js&#10;Node.js&#10;خبرة 3+ سنوات" rows={4} />
                 </div>
 
                 <div className="flex justify-end gap-2">
@@ -473,8 +420,7 @@ const SmartHire: React.FC = () => {
                   <BriefcaseIcon className="w-5 h-5 text-primary" />
                 </div>
                 <div className="space-y-3">
-                  {jobs.slice(0, 3).map((job) => (
-                    <div key={job.id} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                  {jobs.slice(0, 3).map(job => <div key={job.id} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
                       <div>
                         <p className="font-medium">{job.title}</p>
                         <p className="text-sm text-slate-600 dark:text-slate-400">{job.department}</p>
@@ -485,8 +431,7 @@ const SmartHire: React.FC = () => {
                         </Badge>
                         <span className="text-sm text-slate-600">{job.applications} متقدم</span>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </Card>
 
@@ -497,22 +442,18 @@ const SmartHire: React.FC = () => {
                   <Star className="w-5 h-5 text-yellow-600" />
                 </div>
                 <div className="space-y-3">
-                  {applicants.filter(a => a.score >= 85).slice(0, 3).map((applicant) => (
-                    <div key={applicant.id} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                  {applicants.filter(a => a.score >= 85).slice(0, 3).map(applicant => <div key={applicant.id} className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
                       <div>
                         <p className="font-medium">{applicant.name}</p>
                         <p className="text-sm text-slate-600 dark:text-slate-400">{applicant.position}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <Badge className={`${getRecommendationColor(applicant.aiAnalysis?.recommendation || 'fair')}`}>
-                          {applicant.aiAnalysis?.recommendation === 'strong' ? 'ممتاز' : 
-                           applicant.aiAnalysis?.recommendation === 'good' ? 'جيد' :
-                           applicant.aiAnalysis?.recommendation === 'fair' ? 'مقبول' : 'ضعيف'}
+                          {applicant.aiAnalysis?.recommendation === 'strong' ? 'ممتاز' : applicant.aiAnalysis?.recommendation === 'good' ? 'جيد' : applicant.aiAnalysis?.recommendation === 'fair' ? 'مقبول' : 'ضعيف'}
                         </Badge>
                         <span className="text-sm font-semibold text-green-600">{applicant.score}%</span>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </Card>
             </div>
@@ -532,8 +473,7 @@ const SmartHire: React.FC = () => {
               </div>
               
               <div className="space-y-4">
-                {jobs.map((job) => (
-                  <div key={job.id} className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow">
+                {jobs.map(job => <div key={job.id} className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
@@ -568,8 +508,7 @@ const SmartHire: React.FC = () => {
                         </Button>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </Card>
           </TabsContent>
@@ -592,26 +531,18 @@ const SmartHire: React.FC = () => {
               </div>
 
               <div className="space-y-4">
-                {applicants.map((applicant) => (
-                  <div key={applicant.id} className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow">
+                {applicants.map(applicant => <div key={applicant.id} className="p-4 border border-slate-200 dark:border-slate-700 rounded-lg hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <h4 className="text-lg font-semibold">{applicant.name}</h4>
                           <Badge className={`${getStatusColor(applicant.status)} text-white`}>
-                            {applicant.status === 'shortlisted' ? 'مرشح' : 
-                             applicant.status === 'interviewed' ? 'تمت المقابلة' :
-                             applicant.status === 'hired' ? 'تم التوظيف' :
-                             applicant.status === 'rejected' ? 'مرفوض' : 'جديد'}
+                            {applicant.status === 'shortlisted' ? 'مرشح' : applicant.status === 'interviewed' ? 'تمت المقابلة' : applicant.status === 'hired' ? 'تم التوظيف' : applicant.status === 'rejected' ? 'مرفوض' : 'جديد'}
                           </Badge>
-                          {applicant.aiAnalysis && (
-                            <Badge className={`${getRecommendationColor(applicant.aiAnalysis.recommendation)}`}>
+                          {applicant.aiAnalysis && <Badge className={`${getRecommendationColor(applicant.aiAnalysis.recommendation)}`}>
                               <Bot className="w-3 h-3 ml-1" />
-                              {applicant.aiAnalysis.recommendation === 'strong' ? 'ممتاز' : 
-                               applicant.aiAnalysis.recommendation === 'good' ? 'جيد' :
-                               applicant.aiAnalysis.recommendation === 'fair' ? 'مقبول' : 'ضعيف'}
-                            </Badge>
-                          )}
+                              {applicant.aiAnalysis.recommendation === 'strong' ? 'ممتاز' : applicant.aiAnalysis.recommendation === 'good' ? 'جيد' : applicant.aiAnalysis.recommendation === 'fair' ? 'مقبول' : 'ضعيف'}
+                            </Badge>}
                         </div>
                         
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-slate-600 dark:text-slate-400 mb-3">
@@ -621,8 +552,7 @@ const SmartHire: React.FC = () => {
                           <span>تاريخ التقديم: {applicant.appliedAt}</span>
                         </div>
 
-                        {applicant.aiAnalysis && (
-                          <div className="grid grid-cols-3 gap-4 mb-3">
+                        {applicant.aiAnalysis && <div className="grid grid-cols-3 gap-4 mb-3">
                             <div className="text-sm">
                               <span className="text-slate-600 dark:text-slate-400">تطابق المهارات: </span>
                               <span className="font-semibold text-green-600">{applicant.aiAnalysis.skillsMatch}%</span>
@@ -635,8 +565,7 @@ const SmartHire: React.FC = () => {
                               <span className="text-slate-600 dark:text-slate-400">النتيجة الإجمالية: </span>
                               <span className="font-semibold text-purple-600">{applicant.score}%</span>
                             </div>
-                          </div>
-                        )}
+                          </div>}
                       </div>
                       
                       <div className="flex gap-2">
@@ -651,8 +580,7 @@ const SmartHire: React.FC = () => {
                         </Button>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </Card>
           </TabsContent>
@@ -821,36 +749,69 @@ const SmartHire: React.FC = () => {
               <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-4 text-foreground">اتجاهات التوظيف الشهرية</h3>
                 <div className="space-y-3">
-                  {[
-                    { month: 'يناير', applications: 45, hired: 8 },
-                    { month: 'فبراير', applications: 52, hired: 12 },
-                    { month: 'مارس', applications: 38, hired: 7 },
-                    { month: 'أبريل', applications: 63, hired: 15 },
-                    { month: 'مايو', applications: 71, hired: 18 },
-                    { month: 'يونيو', applications: 58, hired: 11 }
-                  ].map((data, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 border-b">
+                  {[{
+                  month: 'يناير',
+                  applications: 45,
+                  hired: 8
+                }, {
+                  month: 'فبراير',
+                  applications: 52,
+                  hired: 12
+                }, {
+                  month: 'مارس',
+                  applications: 38,
+                  hired: 7
+                }, {
+                  month: 'أبريل',
+                  applications: 63,
+                  hired: 15
+                }, {
+                  month: 'مايو',
+                  applications: 71,
+                  hired: 18
+                }, {
+                  month: 'يونيو',
+                  applications: 58,
+                  hired: 11
+                }].map((data, index) => <div key={index} className="flex items-center justify-between p-2 border-b">
                       <span className="font-medium">{data.month}</span>
                       <div className="flex gap-4 text-sm">
                         <span className="text-blue-600">{data.applications} متقدم</span>
                         <span className="text-green-600">{data.hired} تم توظيفهم</span>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </Card>
 
               <Card className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-4 text-foreground">أداء الأقسام</h3>
                 <div className="space-y-3">
-                  {[
-                    { department: 'تقنية المعلومات', openPositions: 8, hired: 5, efficiency: 92 },
-                    { department: 'المبيعات', openPositions: 5, hired: 7, efficiency: 88 },
-                    { department: 'التسويق', openPositions: 3, hired: 2, efficiency: 85 },
-                    { department: 'المالية', openPositions: 2, hired: 3, efficiency: 95 },
-                    { department: 'الموارد البشرية', openPositions: 1, hired: 1, efficiency: 90 }
-                  ].map((dept, index) => (
-                    <div key={index} className="p-3 border rounded-lg">
+                  {[{
+                  department: 'تقنية المعلومات',
+                  openPositions: 8,
+                  hired: 5,
+                  efficiency: 92
+                }, {
+                  department: 'المبيعات',
+                  openPositions: 5,
+                  hired: 7,
+                  efficiency: 88
+                }, {
+                  department: 'التسويق',
+                  openPositions: 3,
+                  hired: 2,
+                  efficiency: 85
+                }, {
+                  department: 'المالية',
+                  openPositions: 2,
+                  hired: 3,
+                  efficiency: 95
+                }, {
+                  department: 'الموارد البشرية',
+                  openPositions: 1,
+                  hired: 1,
+                  efficiency: 90
+                }].map((dept, index) => <div key={index} className="p-3 border rounded-lg">
                       <div className="flex justify-between items-center mb-2">
                         <span className="font-medium">{dept.department}</span>
                         <Badge className="bg-green-100 text-green-800">{dept.efficiency}% كفاءة</Badge>
@@ -859,8 +820,7 @@ const SmartHire: React.FC = () => {
                         <span>{dept.openPositions} وظائف مفتوحة</span>
                         <span>{dept.hired} تم التوظيف</span>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </Card>
             </div>
@@ -886,8 +846,6 @@ const SmartHire: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default SmartHire;
