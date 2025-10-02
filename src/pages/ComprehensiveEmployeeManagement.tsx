@@ -386,14 +386,14 @@ const ComprehensiveEmployeeManagement = () => {
           <TabsContent value="employee-operations">
             <div className="space-y-6">
               <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border">
-                <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="flex items-center justify-center gap-2 mb-4">
                   <div className="text-center">
-                    <img src={boudLogo} alt="Boud Logo" className="h-48 w-auto mx-auto mb-4" />
+                    <img src={boudLogo} alt="Boud Logo" className="h-48 w-auto mx-auto mb-2" />
                     <div>
                       <h2 className="text-2xl font-bold text-foreground">مرحباً بك في</h2>
                       <h2 className="text-2xl font-bold text-foreground">إدارة شؤون الموظفين والعمليات</h2>
                     </div>
-                    <p className="text-muted-foreground">النظام المتكامل لإدارة جميع شؤون الموظفين والعمليات التشغيلية</p>
+                    <p className="text-muted-foreground mt-1">النظام المتكامل لإدارة جميع شؤون الموظفين والعمليات التشغيلية</p>
                   </div>
                 </div>
                 
