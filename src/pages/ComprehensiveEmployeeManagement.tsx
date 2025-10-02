@@ -58,9 +58,9 @@ type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-
 
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'departments';
 
-type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'budget-planning';
+type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits';
 
-type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'meetings' | 'organization';
+type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'meetings' | 'organization' | 'budget-planning';
 
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety' | 'admin-communications';
 
@@ -117,7 +117,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for compensation benefits
   const isValidCompensationTabType = (value: string): value is CompensationBenefitsTabType => {
-    const validTabs: CompensationBenefitsTabType[] = ['payroll', 'wageprotection', 'insurance', 'expenses', 'benefits', 'budget-planning'];
+    const validTabs: CompensationBenefitsTabType[] = ['payroll', 'wageprotection', 'insurance', 'expenses', 'benefits'];
     return validTabs.includes(value as CompensationBenefitsTabType);
   };
 
@@ -130,7 +130,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for development performance
   const isValidDevelopmentTabType = (value: string): value is DevelopmentPerformanceTabType => {
-    const validTabs: DevelopmentPerformanceTabType[] = ['performance', 'training', 'talents', 'quality-of-life', 'skills-inventory', 'meetings', 'organization'];
+    const validTabs: DevelopmentPerformanceTabType[] = ['performance', 'training', 'talents', 'quality-of-life', 'skills-inventory', 'meetings', 'organization', 'budget-planning'];
     return validTabs.includes(value as DevelopmentPerformanceTabType);
   };
 
@@ -555,10 +555,6 @@ const ComprehensiveEmployeeManagement = () => {
                       <Gift className="h-4 w-4" />
                       <span className="text-xs">المكافآت والحوافز</span>
                     </TabsTrigger>
-                    <TabsTrigger value="budget-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <DollarSign className="h-4 w-4" />
-                      <span className="text-xs">الميزانية والتخطيط المالي</span>
-                    </TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="payroll">
@@ -581,10 +577,6 @@ const ComprehensiveEmployeeManagement = () => {
                     <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
 
-                  <TabsContent value="budget-planning">
-                    <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
-                  </TabsContent>
-
                 </Tabs>
               </div>
             </div>
@@ -604,7 +596,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDevelopmentTab} onValueChange={handleDevelopmentTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="performance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Target className="h-4 w-4" />
                       <span className="text-xs">تقييم الأداء</span>
@@ -632,6 +624,10 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="organization" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Network className="h-4 w-4" />
                       <span className="text-xs">التطوير المؤسسي</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="budget-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <DollarSign className="h-4 w-4" />
+                      <span className="text-xs">الميزانية والتخطيط المالي</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -661,6 +657,10 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="organization">
                     <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="budget-planning">
+                    <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
                 </Tabs>
               </div>
