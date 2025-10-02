@@ -386,11 +386,11 @@ export const ComprehensiveLeaveSystem = ({ onBack }: ComprehensiveLeaveSystemPro
         
         <div className="p-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="requests">طلبات الإجازات</TabsTrigger>
-              <TabsTrigger value="balance">أرصدة الإجازات</TabsTrigger>
-              <TabsTrigger value="calendar">تقويم الإجازات</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-card backdrop-blur-xl border border-border shadow-2xl rounded-xl">
+              <TabsTrigger value="dashboard" className="text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/50 transition-all duration-300 rounded-lg">لوحة التحكم</TabsTrigger>
+              <TabsTrigger value="requests" className="text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/50 transition-all duration-300 rounded-lg">طلبات الإجازات</TabsTrigger>
+              <TabsTrigger value="balance" className="text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/50 transition-all duration-300 rounded-lg">أرصدة الإجازات</TabsTrigger>
+              <TabsTrigger value="calendar" className="text-foreground data-[state=active]:bg-accent data-[state=active]:text-accent-foreground hover:bg-accent/50 transition-all duration-300 rounded-lg">تقويم الإجازات</TabsTrigger>
             </TabsList>
 
             <TabsContent value="dashboard">
