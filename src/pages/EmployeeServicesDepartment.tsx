@@ -11,58 +11,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  User, 
-  Calendar, 
-  DollarSign, 
-  FileText, 
-  Clock,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Building2,
-  Shield,
-  Briefcase,
-  Award,
-  Target,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Sparkles,
-  Archive,
-  Edit,
-  Trash2,
-  Share,
-  Bell,
-  CreditCard,
-  UserCheck,
-  AlertCircle,
-  CheckCircle2,
-  AlertTriangle,
-  MessageSquare,
-  Bot,
-  Upload,
-  Phone,
-  Mail,
-  Settings,
-  Eye,
-  RefreshCw,
-  Send,
-  Paperclip,
-  History,
-  BookOpen,
-  HelpCircle,
-  Star,
-  ThumbsUp,
-  ArrowRight,
-  ArrowLeft,
-  Home,
-  Users
-} from 'lucide-react';
+import { User, Calendar, DollarSign, FileText, Clock, Download, Plus, Search, Filter, Building2, Shield, Briefcase, Award, Target, TrendingUp, BarChart3, PieChart, Activity, Sparkles, Archive, Edit, Trash2, Share, Bell, CreditCard, UserCheck, AlertCircle, CheckCircle2, AlertTriangle, MessageSquare, Bot, Upload, Phone, Mail, Settings, Eye, RefreshCw, Send, Paperclip, History, BookOpen, HelpCircle, Star, ThumbsUp, ArrowRight, ArrowLeft, Home, Users } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
-
 interface EmployeeRequest {
   id: string;
   type: 'vacation' | 'certificate' | 'loan' | 'advance' | 'other';
@@ -74,7 +24,6 @@ interface EmployeeRequest {
   amount?: number;
   referenceNumber: string;
 }
-
 interface EmployeeService {
   id: string;
   name: string;
@@ -86,116 +35,152 @@ interface EmployeeService {
   avgProcessingTime: string;
   icon: React.ReactNode;
 }
-
 export default function EmployeeServicesDepartment() {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatMessages, setChatMessages] = useState([
-    { id: 1, sender: 'ai', content: 'مرحباً! كيف يمكنني مساعدتك اليوم؟', timestamp: '10:30' },
-  ]);
+  const [chatMessages, setChatMessages] = useState([{
+    id: 1,
+    sender: 'ai',
+    content: 'مرحباً! كيف يمكنني مساعدتك اليوم؟',
+    timestamp: '10:30'
+  }]);
   const [newMessage, setNewMessage] = useState('');
 
   // Mock data for employee requests
-  const employeeRequests: EmployeeRequest[] = [
-    {
-      id: '1',
-      type: 'vacation',
-      title: 'طلب إجازة سنوية',
-      description: 'طلب إجازة سنوية لمدة 15 يوم',
-      status: 'pending',
-      submittedDate: '2024-01-20',
-      referenceNumber: 'REQ-2024-001'
-    },
-    {
-      id: '2',
-      type: 'certificate',
-      title: 'شهادة راتب',
-      description: 'طلب شهادة راتب للبنك',
-      status: 'approved',
-      submittedDate: '2024-01-18',
-      reviewedBy: 'أحمد محمد',
-      referenceNumber: 'REQ-2024-002'
-    },
-    {
-      id: '3',
-      type: 'advance',
-      title: 'سلفة شهرية',
-      description: 'طلب سلفة على الراتب',
-      status: 'in_review',
-      submittedDate: '2024-01-19',
-      amount: 5000,
-      referenceNumber: 'REQ-2024-003'
-    }
-  ];
-
-  const employeeServices: EmployeeService[] = [
-    {
-      id: '1',
-      name: 'طلبات الإجازات',
-      nameEn: 'Leave Requests',
-      category: 'requests',
-      description: 'تقديم ومتابعة طلبات الإجازات المختلفة',
-      usage: 156,
-      satisfaction: 4.8,
-      avgProcessingTime: '2 أيام',
-      icon: <Calendar className="h-6 w-6" />
-    },
-    {
-      id: '2',
-      name: 'الشهادات والخطابات',
-      nameEn: 'Certificates & Letters',
-      category: 'documents',
-      description: 'إصدار الشهادات والخطابات الرسمية',
-      usage: 89,
-      satisfaction: 4.9,
-      avgProcessingTime: '1 يوم',
-      icon: <FileText className="h-6 w-6" />
-    },
-    {
-      id: '3',
-      name: 'إدارة البيانات الشخصية',
-      nameEn: 'Profile Management',
-      category: 'profile',
-      description: 'تحديث وإدارة البيانات الشخصية',
-      usage: 234,
-      satisfaction: 4.7,
-      avgProcessingTime: 'فوري',
-      icon: <User className="h-6 w-6" />
-    },
-    {
-      id: '4',
-      name: 'الدردشة مع الموارد البشرية',
-      nameEn: 'HR Chat',
-      category: 'chat',
-      description: 'تواصل مباشر مع قسم الموارد البشرية',
-      usage: 78,
-      satisfaction: 4.6,
-      avgProcessingTime: '30 دقيقة',
-      icon: <MessageSquare className="h-6 w-6" />
-    }
-  ];
+  const employeeRequests: EmployeeRequest[] = [{
+    id: '1',
+    type: 'vacation',
+    title: 'طلب إجازة سنوية',
+    description: 'طلب إجازة سنوية لمدة 15 يوم',
+    status: 'pending',
+    submittedDate: '2024-01-20',
+    referenceNumber: 'REQ-2024-001'
+  }, {
+    id: '2',
+    type: 'certificate',
+    title: 'شهادة راتب',
+    description: 'طلب شهادة راتب للبنك',
+    status: 'approved',
+    submittedDate: '2024-01-18',
+    reviewedBy: 'أحمد محمد',
+    referenceNumber: 'REQ-2024-002'
+  }, {
+    id: '3',
+    type: 'advance',
+    title: 'سلفة شهرية',
+    description: 'طلب سلفة على الراتب',
+    status: 'in_review',
+    submittedDate: '2024-01-19',
+    amount: 5000,
+    referenceNumber: 'REQ-2024-003'
+  }];
+  const employeeServices: EmployeeService[] = [{
+    id: '1',
+    name: 'طلبات الإجازات',
+    nameEn: 'Leave Requests',
+    category: 'requests',
+    description: 'تقديم ومتابعة طلبات الإجازات المختلفة',
+    usage: 156,
+    satisfaction: 4.8,
+    avgProcessingTime: '2 أيام',
+    icon: <Calendar className="h-6 w-6" />
+  }, {
+    id: '2',
+    name: 'الشهادات والخطابات',
+    nameEn: 'Certificates & Letters',
+    category: 'documents',
+    description: 'إصدار الشهادات والخطابات الرسمية',
+    usage: 89,
+    satisfaction: 4.9,
+    avgProcessingTime: '1 يوم',
+    icon: <FileText className="h-6 w-6" />
+  }, {
+    id: '3',
+    name: 'إدارة البيانات الشخصية',
+    nameEn: 'Profile Management',
+    category: 'profile',
+    description: 'تحديث وإدارة البيانات الشخصية',
+    usage: 234,
+    satisfaction: 4.7,
+    avgProcessingTime: 'فوري',
+    icon: <User className="h-6 w-6" />
+  }, {
+    id: '4',
+    name: 'الدردشة مع الموارد البشرية',
+    nameEn: 'HR Chat',
+    category: 'chat',
+    description: 'تواصل مباشر مع قسم الموارد البشرية',
+    usage: 78,
+    satisfaction: 4.6,
+    avgProcessingTime: '30 دقيقة',
+    icon: <MessageSquare className="h-6 w-6" />
+  }];
 
   // Analytics data
-  const serviceUsageData = [
-    { month: 'يناير', requests: 145, certificates: 89, profile: 234, chat: 78 },
-    { month: 'فبراير', requests: 167, certificates: 92, profile: 245, chat: 85 },
-    { month: 'مارس', requests: 189, certificates: 108, profile: 267, chat: 91 },
-    { month: 'أبريل', requests: 178, certificates: 95, profile: 289, chat: 88 },
-    { month: 'مايو', requests: 201, certificates: 112, profile: 298, chat: 94 },
-    { month: 'يونيو', requests: 223, certificates: 125, profile: 312, chat: 102 }
-  ];
-
-  const requestTypeDistribution = [
-    { name: 'طلبات الإجازة', value: 35, color: 'hsl(var(--accent))' },
-    { name: 'الشهادات', value: 25, color: 'hsl(var(--success))' },
-    { name: 'السلف والمقدمات', value: 20, color: 'hsl(var(--warning))' },
-    { name: 'تحديث البيانات', value: 15, color: 'hsl(var(--primary))' },
-    { name: 'أخرى', value: 5, color: 'hsl(var(--destructive))' }
-  ];
+  const serviceUsageData = [{
+    month: 'يناير',
+    requests: 145,
+    certificates: 89,
+    profile: 234,
+    chat: 78
+  }, {
+    month: 'فبراير',
+    requests: 167,
+    certificates: 92,
+    profile: 245,
+    chat: 85
+  }, {
+    month: 'مارس',
+    requests: 189,
+    certificates: 108,
+    profile: 267,
+    chat: 91
+  }, {
+    month: 'أبريل',
+    requests: 178,
+    certificates: 95,
+    profile: 289,
+    chat: 88
+  }, {
+    month: 'مايو',
+    requests: 201,
+    certificates: 112,
+    profile: 298,
+    chat: 94
+  }, {
+    month: 'يونيو',
+    requests: 223,
+    certificates: 125,
+    profile: 312,
+    chat: 102
+  }];
+  const requestTypeDistribution = [{
+    name: 'طلبات الإجازة',
+    value: 35,
+    color: 'hsl(var(--accent))'
+  }, {
+    name: 'الشهادات',
+    value: 25,
+    color: 'hsl(var(--success))'
+  }, {
+    name: 'السلف والمقدمات',
+    value: 20,
+    color: 'hsl(var(--warning))'
+  }, {
+    name: 'تحديث البيانات',
+    value: 15,
+    color: 'hsl(var(--primary))'
+  }, {
+    name: 'أخرى',
+    value: 5,
+    color: 'hsl(var(--destructive))'
+  }];
 
   // Statistics
   const stats = {
@@ -206,16 +191,17 @@ export default function EmployeeServicesDepartment() {
     avgProcessingTime: '1.5 يوم',
     totalServices: employeeServices.length
   };
-
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       const userMessage = {
         id: chatMessages.length + 1,
         sender: 'user' as const,
         content: newMessage,
-        timestamp: new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })
+        timestamp: new Date().toLocaleTimeString('ar-SA', {
+          hour: '2-digit',
+          minute: '2-digit'
+        })
       };
-      
       setChatMessages([...chatMessages, userMessage]);
       setNewMessage('');
 
@@ -225,39 +211,45 @@ export default function EmployeeServicesDepartment() {
           id: chatMessages.length + 2,
           sender: 'ai' as const,
           content: 'شكراً لك على استفسارك. سأقوم بمراجعة طلبك والرد عليك في أقرب وقت ممكن.',
-          timestamp: new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })
+          timestamp: new Date().toLocaleTimeString('ar-SA', {
+            hour: '2-digit',
+            minute: '2-digit'
+          })
         };
         setChatMessages(prev => [...prev, aiResponse]);
       }, 1000);
     }
   };
-
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير خدمات الموظفين كملف PDF",
+      description: "تم تصدير تقرير خدمات الموظفين كملف PDF"
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-success/10 text-success border-success/30';
-      case 'pending': return 'bg-warning/10 text-warning border-warning/30';
-      case 'in_review': return 'bg-accent/10 text-accent border-accent/30';
-      case 'rejected': return 'bg-destructive/10 text-destructive border-destructive/30';
-      default: return 'bg-muted/10 text-muted-foreground border-muted/30';
+      case 'approved':
+        return 'bg-success/10 text-success border-success/30';
+      case 'pending':
+        return 'bg-warning/10 text-warning border-warning/30';
+      case 'in_review':
+        return 'bg-accent/10 text-accent border-accent/30';
+      case 'rejected':
+        return 'bg-destructive/10 text-destructive border-destructive/30';
+      default:
+        return 'bg-muted/10 text-muted-foreground border-muted/30';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'approved': 'موافق عليه',
       'pending': 'في الانتظار',
       'in_review': 'قيد المراجعة',
@@ -265,28 +257,19 @@ export default function EmployeeServicesDepartment() {
     };
     return statusMap[status] || status;
   };
-
-  const renderHeader = () => (
-    <div className="space-y-6">
+  const renderHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center">
-        <img 
-          src="/src/assets/boud-logo-centered.png" 
-          alt="Boud Logo" 
-          className="h-32 w-auto object-contain"
-        />
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام خدمات الموظفين</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم خدمات الموظفين</h1>
         <p className="text-muted-foreground">مركز شامل لجميع الخدمات والطلبات</p>
       </div>
-    </div>
-  );
-
-  const renderDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
@@ -397,18 +380,8 @@ export default function EmployeeServicesDepartment() {
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={requestTypeDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {requestTypeDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={requestTypeDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {requestTypeDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -427,8 +400,7 @@ export default function EmployeeServicesDepartment() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {employeeRequests.slice(0, 5).map((request) => (
-              <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/5 transition-colors">
+            {employeeRequests.slice(0, 5).map(request => <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/5 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="p-2 bg-accent/10 rounded-lg">
                     <FileText className="h-4 w-4 text-accent" />
@@ -444,8 +416,7 @@ export default function EmployeeServicesDepartment() {
                   </Badge>
                   <span className="text-sm text-muted-foreground">{request.submittedDate}</span>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </CardContent>
       </Card>
@@ -490,22 +461,16 @@ export default function EmployeeServicesDepartment() {
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+    </div>;
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -608,8 +573,7 @@ export default function EmployeeServicesDepartment() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {employeeRequests.map((request) => (
-                      <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background/20 backdrop-blur-sm">
+                    {employeeRequests.map(request => <div key={request.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background/20 backdrop-blur-sm">
                         <div className="flex items-center gap-4">
                           <div className="p-2 bg-accent/20 rounded-lg">
                             <FileText className="h-4 w-4 text-accent" />
@@ -628,8 +592,7 @@ export default function EmployeeServicesDepartment() {
                             <Eye className="h-4 w-4" />
                           </Button>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -956,33 +919,16 @@ export default function EmployeeServicesDepartment() {
                 <CardContent>
                   <div className="h-96 border border-border rounded-lg p-4 mb-4 overflow-y-auto bg-background/50">
                     <div className="space-y-4">
-                      {chatMessages.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                        >
-                          <div
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                              message.sender === 'user'
-                                ? 'bg-primary text-primary-foreground'
-                                : 'bg-card border border-border text-foreground'
-                            }`}
-                          >
+                      {chatMessages.map(message => <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                          <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.sender === 'user' ? 'bg-primary text-primary-foreground' : 'bg-card border border-border text-foreground'}`}>
                             <p className="text-sm">{message.content}</p>
                             <p className="text-xs opacity-70 mt-1">{message.timestamp}</p>
                           </div>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Input
-                      placeholder="اكتب رسالتك هنا..."
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                      className="bg-input border-border text-foreground"
-                    />
+                    <Input placeholder="اكتب رسالتك هنا..." value={newMessage} onChange={e => setNewMessage(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleSendMessage()} className="bg-input border-border text-foreground" />
                     <Button onClick={handleSendMessage} className="bg-primary hover:bg-accent text-primary-foreground">
                       <Send className="h-4 w-4" />
                     </Button>
@@ -1141,8 +1087,7 @@ export default function EmployeeServicesDepartment() {
                         </tr>
                       </thead>
                       <tbody>
-                        {employeeServices.map((service) => (
-                          <tr key={service.id} className="border-b border-border/50">
+                        {employeeServices.map(service => <tr key={service.id} className="border-b border-border/50">
                             <td className="p-2 text-foreground">{service.name}</td>
                             <td className="p-2 text-muted-foreground">{service.usage}</td>
                             <td className="p-2 text-muted-foreground">95%</td>
@@ -1153,8 +1098,7 @@ export default function EmployeeServicesDepartment() {
                                 <span className="text-muted-foreground">{service.satisfaction}</span>
                               </div>
                             </td>
-                          </tr>
-                        ))}
+                          </tr>)}
                       </tbody>
                     </table>
                   </div>
@@ -1173,8 +1117,7 @@ export default function EmployeeServicesDepartment() {
                     <CardTitle className="text-foreground">الخدمات المتاحة</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {employeeServices.map((service) => (
-                      <div key={service.id} className="flex items-center justify-between p-3 border border-border rounded-lg bg-background/50 hover:bg-accent/10 transition-all duration-300">
+                    {employeeServices.map(service => <div key={service.id} className="flex items-center justify-between p-3 border border-border rounded-lg bg-background/50 hover:bg-accent/10 transition-all duration-300">
                         <div className="flex items-center gap-3">
                           <span className="text-accent">{service.icon}</span>
                           <span className="text-foreground">{service.name}</span>
@@ -1182,8 +1125,7 @@ export default function EmployeeServicesDepartment() {
                         <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent/20 hover:border-accent">
                           <Settings className="h-4 w-4" />
                         </Button>
-                      </div>
-                    ))}
+                      </div>)}
                   </CardContent>
                 </Card>
                 
@@ -1299,7 +1241,7 @@ export default function EmployeeServicesDepartment() {
                   setIsRequestDialogOpen(false);
                   toast({
                     title: "تم إرسال الطلب",
-                    description: "سيتم مراجعة طلبك والرد عليك قريباً",
+                    description: "سيتم مراجعة طلبك والرد عليك قريباً"
                   });
                 }}>
                   إرسال الطلب
@@ -1310,6 +1252,5 @@ export default function EmployeeServicesDepartment() {
         </Dialog>
       </div>
     </div>
-  </div>
-  );
+  </div>;
 }
