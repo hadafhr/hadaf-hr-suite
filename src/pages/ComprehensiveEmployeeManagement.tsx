@@ -22,7 +22,7 @@ import { SmartAttendanceSystem } from '@/components/attendance/SmartAttendanceSy
 import { ComprehensiveLeaveManagementSystem } from '@/components/systems/ComprehensiveLeaveManagementSystem';
 import { ComprehensivePayrollSystem } from '@/components/systems/ComprehensivePayrollSystem';
 import { ComprehensiveIntegrationSystem } from '@/components/systems/ComprehensiveIntegrationSystem';
-import { OrganizationalDevelopment } from '@/components/systems/OrganizationalDevelopment';
+import { OrganizationalDevelopmentSmart } from '@/components/organizational-development/OrganizationalDevelopmentSmart';
 import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
@@ -590,9 +590,33 @@ const ComprehensiveEmployeeManagement = () => {
                     </TabsTrigger>
                   </TabsList>
 
+                  <TabsContent value="performance">
+                    <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="training">
+                    <ComprehensiveTraining onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="talents">
+                    <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="quality-of-life">
+                    <QualityOfLifeSystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="skills-inventory">
+                    <SkillsInventorySystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="meetings">
+                    <MeetingHub />
+                  </TabsContent>
+
+                  <TabsContent value="organization">
+                    <OrganizationalDevelopmentSmart />
+                  </TabsContent>
                 </Tabs>
               </div>
             </div>
@@ -768,7 +792,7 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="organization">
-            <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
+            <OrganizationalDevelopmentSmart />
           </TabsContent>
 
           <TabsContent value="performance">
