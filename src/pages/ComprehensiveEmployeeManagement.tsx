@@ -468,41 +468,68 @@ const ComprehensiveEmployeeManagement = () => {
           </TabsContent>
 
           <TabsContent value="compensation-benefits">
-            <div className="space-y-6">
-              <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-3xl flex items-center justify-center bg-accent">
-                    <DollarSign className="h-8 w-8 text-accent-foreground" />
+            <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+              {/* Animated Background Pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
+                <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                  <div 
+                    className="w-full h-full bg-repeat animate-pulse"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+                      backgroundSize: '60px 60px'
+                    }}
+                  ></div>
+                </div>
+              </div>
+              
+              {/* Floating Elements for Professional Look */}
+              <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+              <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
+              
+              <div className="relative z-10">
+                <div className="space-y-6 container mx-auto p-6">
+                  {/* Logo */}
+                  <div className="flex justify-center">
+                    <img 
+                      src="/src/assets/boud-logo-centered.png" 
+                      alt="Boud Logo" 
+                      className="h-32 w-auto object-contain"
+                    />
                   </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-foreground">إدارة التعويضات والمزايا</h2>
+
+                  {/* Header */}
+                  <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة التعويضات والمزايا</h1>
                     <p className="text-muted-foreground">إدارة شاملة للرواتب والتأمينات والمكافآت والحوافز</p>
                   </div>
                 </div>
-                
-                <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
-                    <TabsTrigger value="payroll" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <DollarSign className="h-4 w-4" />
-                      <span className="text-xs">الرواتب والأجور</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="wageprotection" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Shield className="h-4 w-4" />
-                      <span className="text-xs">حماية الأجور</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="insurance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Heart className="h-4 w-4" />
-                      <span className="text-xs">التأمين</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="expenses" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Receipt className="h-4 w-4" />
-                      <span className="text-xs">المصروفات والنفقات</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Gift className="h-4 w-4" />
-                      <span className="text-xs">المكافآت والحوافز</span>
-                    </TabsTrigger>
-                  </TabsList>
+
+                <div className="container mx-auto p-6">
+                  <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6 relative z-10">
+                    <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                      <TabsTrigger value="payroll" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <DollarSign className="h-4 w-4" />
+                        <span className="text-xs">الرواتب والأجور</span>
+                      </TabsTrigger>
+                      <TabsTrigger value="wageprotection" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Shield className="h-4 w-4" />
+                        <span className="text-xs">حماية الأجور</span>
+                      </TabsTrigger>
+                      <TabsTrigger value="insurance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Heart className="h-4 w-4" />
+                        <span className="text-xs">التأمين</span>
+                      </TabsTrigger>
+                      <TabsTrigger value="expenses" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Receipt className="h-4 w-4" />
+                        <span className="text-xs">المصروفات والنفقات</span>
+                      </TabsTrigger>
+                      <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Gift className="h-4 w-4" />
+                        <span className="text-xs">المكافآت والحوافز</span>
+                      </TabsTrigger>
+                    </TabsList>
 
                   <TabsContent value="payroll">
                     <ComprehensivePayrollSystem onBack={() => setActiveTab('dashboard')} />
@@ -527,6 +554,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </Tabs>
               </div>
             </div>
+          </div>
           </TabsContent>
 
           <TabsContent value="development-performance">
