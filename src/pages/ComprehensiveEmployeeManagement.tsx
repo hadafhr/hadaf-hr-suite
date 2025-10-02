@@ -256,7 +256,7 @@ const ComprehensiveEmployeeManagement = () => {
       <div className="absolute bottom-32 right-20 w-16 h-16 rounded-full blur-lg animate-pulse delay-500 bg-accent/15"></div>
 
       {/* المحتوى الرئيسي */}
-      <div className="relative z-10 container mx-auto px-8 py-8 rounded-3xl bg-card/80 backdrop-blur-xl">
+      <div className="relative z-10 container mx-auto px-8 py-8 rounded-2xl bg-card/30 backdrop-blur-sm">
         {/* الشريط العلوي الاحترافي */}
         <div className="flex items-center justify-between mb-12 p-6 rounded-3xl animate-fade-in bg-card backdrop-blur-xl border border-border">
           <div className="flex items-center gap-6">
