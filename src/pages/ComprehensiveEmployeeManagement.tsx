@@ -627,7 +627,7 @@ const ComprehensiveEmployeeManagement = () => {
                     </TabsTrigger>
                     <TabsTrigger value="budget-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <DollarSign className="h-4 w-4" />
-                      <span className="text-xs">الميزانية والتخطيط المالي</span>
+                      <span className="text-xs">الميزانية والتخطيط</span>
                     </TabsTrigger>
                   </TabsList>
 
