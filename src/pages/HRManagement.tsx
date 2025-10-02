@@ -128,7 +128,7 @@ export const HRManagement: React.FC = () => {
       </header>
 
       {/* Enhanced Main Content */}
-      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300">
+      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8 bg-background rounded-3xl shadow-2xl shadow-accent/10 transition-all duration-300">
         <div className="max-w-7xl mx-auto space-y-8">
           {/* Logo Section */}
           <div className="flex justify-center">
