@@ -320,11 +320,11 @@ export const PerformanceEvaluation: React.FC<PerformanceEvaluationProps> = ({ on
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="month" stroke="#9CA3AF" />
-                      <YAxis stroke="#9CA3AF" />
+                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                      <YAxis stroke="hsl(var(--muted-foreground))" />
                       <Tooltip 
-                        contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px' }}
-                        labelStyle={{ color: '#F3F4F6' }}
+                        contentStyle={{ backgroundColor: 'hsl(var(--card))', border: 'none', borderRadius: '8px' }}
+                        labelStyle={{ color: 'hsl(var(--card-foreground))' }}
                       />
                       <Area type="monotone" dataKey="performance" stroke="hsl(var(--primary))" fill="url(#colorPerformance)" />
                       <Area type="monotone" dataKey="target" stroke="hsl(var(--success))" fill="url(#colorTarget)" />

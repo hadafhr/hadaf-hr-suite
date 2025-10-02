@@ -191,8 +191,8 @@ const DepartmentsManagement = ({ onBack }: DepartmentsManagementProps) => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>إدارة الإدارات والوحدات</h1>
-          <p style={{ color: '#e8e4e0' }}>منظومة شاملة لإدارة الهيكل التنظيمي</p>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة الإدارات والوحدات</h1>
+          <p className="text-muted-foreground">منظومة شاملة لإدارة الهيكل التنظيمي</p>
         </div>
 
         {/* العنوان الرئيسي الاحترافي */}

@@ -33,7 +33,7 @@ export const RecruitmentManagement: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen p-6" style={{ background: '#000000', color: '#ffffff' }}>
+    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -42,12 +42,12 @@ export const RecruitmentManagement: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>نظام التوظيف الذكي الشامل</h1>
-          <p style={{ color: '#e8e4e0' }}>إدارة متكاملة للتوظيف والاستقطاب مع ربط بأنظمة تقييم المرشحين والمقابلات</p>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام التوظيف الذكي الشامل</h1>
+          <p className="text-muted-foreground">إدارة متكاملة للتوظيف والاستقطاب مع ربط بأنظمة تقييم المرشحين والمقابلات</p>
         </div>
 
         {/* Main Content */}
-        <div className="rounded-xl border p-6" style={{ background: '#1a1a1a', borderColor: '#cfcbcb' }}>
+        <div className="rounded-xl border border-border p-6 bg-card">
           <Tabs defaultValue="smarthire" className="w-full">
             <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
               <TabsTrigger value="smarthire" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">

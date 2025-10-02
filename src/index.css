@@ -46,12 +46,12 @@
     --accent: 36 24% 61%;
     --accent-foreground: 0 0% 0%;
     
-    /* Muted/Borders - الحدود #cfcbcb */
-    --muted: 0 3% 80%;
+    /* Muted Text - النصوص الثانوية #e8e4e0 */
+    --muted: 0 0% 10%;
     --muted-foreground: 30 17% 89%;
     
     /* Borders - الحدود #cfcbcb */
-    --border: 0 3% 80%;
+    --border: 0 4% 81%;
     --input: 0 0% 10%;
     --ring: 36 24% 61%;
     
@@ -87,7 +87,7 @@
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 100%;
     --secondary-foreground: 0 0% 0%;
-    --muted: 0 3% 80%;
+    --muted: 0 0% 10%;
     --muted-foreground: 30 17% 89%;
     --accent: 36 24% 61%;
     --accent-foreground: 0 0% 0%;
@@ -97,7 +97,7 @@
     --success-foreground: 0 0% 100%;
     --warning: 36 24% 61%;
     --warning-foreground: 0 0% 0%;
-    --border: 0 3% 80%;
+    --border: 0 4% 81%;
     --input: 0 0% 10%;
     --ring: 36 24% 61%;
     --sidebar-background: 0 0% 10%;
