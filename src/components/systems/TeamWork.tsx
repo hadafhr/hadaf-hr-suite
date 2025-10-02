@@ -3436,7 +3436,7 @@ const TeamWork: React.FC = () => {
         <svg className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5" opacity="0.1"/>
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5" opacity="0.1" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
@@ -3446,16 +3446,12 @@ const TeamWork: React.FC = () => {
       <div className="relative z-10">
         {/* Logo */}
         <div className="flex justify-center pt-6">
-          <img 
-            src="/src/assets/boud-logo-centered.png" 
-            alt="Boud Logo" 
-            className="h-32 w-auto object-contain"
-          />
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
         </div>
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة فريق العمل</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم فريق العمل</h1>
           <p className="text-muted-foreground">إدارة شاملة لفريق العمل والمهام</p>
         </div>
 
