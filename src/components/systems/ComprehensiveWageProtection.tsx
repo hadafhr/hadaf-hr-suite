@@ -263,7 +263,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="border-l-4 border-l-primary">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -275,7 +275,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-emerald-500">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-emerald-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -287,7 +287,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-red-500">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-red-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -299,7 +299,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-blue-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -311,7 +311,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -323,7 +323,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-orange-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -674,29 +674,55 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
   );
 
   return (
-    <div className="min-h-screen bg-background bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
-      {renderProfessionalHeader()}
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Animated background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent/50 to-primary"></div>
+      </div>
       
-      <div className="container mx-auto p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
-          <TabsList className="grid w-full grid-cols-5 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+      {/* Floating elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      
+      {/* Centered Logo */}
+      <div className="relative z-10 flex justify-center pt-12 mb-8">
+        <img 
+          src="/src/assets/boud-logo-centered.png" 
+          alt="Boud Logo" 
+          className="h-24 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+        />
+      </div>
+      
+      {/* Centered Header */}
+      <div className="relative z-10 text-center mb-12">
+        <h1 className="text-4xl font-bold text-foreground mb-2">
+          نظام حماية الأجور الذكي المتطور
+        </h1>
+        <p className="text-lg text-muted-foreground">
+          نظام متطور لحماية حقوق العمال وضمان الالتزام بقوانين العمل
+        </p>
+      </div>
+      
+      <div className="container mx-auto p-6 relative z-10">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all">
               <BarChart3 className="h-4 w-4" />
               لوحة المعلومات
             </TabsTrigger>
-            <TabsTrigger value="violations" className="flex items-center gap-2">
+            <TabsTrigger value="violations" className="flex items-center gap-2 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all">
               <AlertTriangle className="h-4 w-4" />
               الانتهاكات
             </TabsTrigger>
-            <TabsTrigger value="compliance" className="flex items-center gap-2">
+            <TabsTrigger value="compliance" className="flex items-center gap-2 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all">
               <Shield className="h-4 w-4" />
               الالتزام
             </TabsTrigger>
-            <TabsTrigger value="legal" className="flex items-center gap-2">
+            <TabsTrigger value="legal" className="flex items-center gap-2 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all">
               <Gavel className="h-4 w-4" />
               القضايا القانونية
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
+            <TabsTrigger value="reports" className="flex items-center gap-2 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all">
               <FileText className="h-4 w-4" />
               التقارير
             </TabsTrigger>
