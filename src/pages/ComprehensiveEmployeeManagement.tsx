@@ -441,7 +441,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeEmployeeOpsTab} onValueChange={handleEmployeeOpsTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 lg:grid-cols-9 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="attendance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Clock className="h-4 w-4" />
                       <span className="text-xs">الحضور والانصراف</span>
@@ -473,10 +473,6 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="recruitment" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <UserPlus className="h-4 w-4" />
                       <span className="text-xs">التوظيف والتعين</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="departments" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Building className="h-4 w-4" />
-                      <span className="text-xs">الإدارات والوحدات</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -510,10 +506,6 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="recruitment">
                     <SmartHire />
-                  </TabsContent>
-
-                  <TabsContent value="departments">
-                    <DepartmentsManagement onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
                 </Tabs>
               </div>
@@ -596,7 +588,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDevelopmentTab} onValueChange={handleDevelopmentTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 lg:grid-cols-9 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="performance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Target className="h-4 w-4" />
                       <span className="text-xs">تقييم الأداء</span>
@@ -628,6 +620,10 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="budget-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <DollarSign className="h-4 w-4" />
                       <span className="text-xs">الميزانية والتخطيط</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="departments" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Building className="h-4 w-4" />
+                      <span className="text-xs">الإدارات والوحدات</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -661,6 +657,10 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="budget-planning">
                     <BudgetFinancialPlanning onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="departments">
+                    <DepartmentsManagement onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
                 </Tabs>
               </div>
