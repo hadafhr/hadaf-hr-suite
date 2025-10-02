@@ -57,9 +57,9 @@ type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'departments';
 type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'budget-planning';
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'organization';
-type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety' | 'admin-communications';
+type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety';
 type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings';
-type CorporateRelationsTabType = 'internal-communication' | 'social-services';
+type CorporateRelationsTabType = 'internal-communication' | 'social-services' | 'admin-communications';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -135,7 +135,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for governance compliance
   const isValidGovernanceTabType = (value: string): value is GovernanceComplianceTabType => {
-    const validTabs: GovernanceComplianceTabType[] = ['legal', 'governance', 'occupational-safety', 'admin-communications'];
+    const validTabs: GovernanceComplianceTabType[] = ['legal', 'governance', 'occupational-safety'];
     return validTabs.includes(value as GovernanceComplianceTabType);
   };
 
@@ -161,7 +161,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for corporate relations
   const isValidCorporateRelationsTabType = (value: string): value is CorporateRelationsTabType => {
-    const validTabs: CorporateRelationsTabType[] = ['internal-communication', 'social-services'];
+    const validTabs: CorporateRelationsTabType[] = ['internal-communication', 'social-services', 'admin-communications'];
     return validTabs.includes(value as CorporateRelationsTabType);
   };
 
@@ -715,7 +715,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeGovernanceTab} onValueChange={handleGovernanceTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="legal" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Gavel className="h-4 w-4" />
                       <span className="text-xs">الشؤون القانونية</span>
@@ -727,10 +727,6 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="occupational-safety" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <HardHat className="h-4 w-4" />
                       <span className="text-xs">الصحة والسلامة المهنية</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="admin-communications" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <FileText className="h-4 w-4" />
-                      <span className="text-xs">المراسلات الإدارية</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -744,10 +740,6 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="occupational-safety">
                     
-                  </TabsContent>
-
-                  <TabsContent value="admin-communications">
-                    <AdministrativeCommunications onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
                 </Tabs>
               </div>
@@ -768,7 +760,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeCorporateRelationsTab} onValueChange={handleCorporateRelationsTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="internal-communication" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Users2 className="h-4 w-4" />
                       <span className="text-xs">التواصل الداخلي</span>
@@ -776,6 +768,10 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="social-services" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Heart className="h-4 w-4" />
                       <span className="text-xs">الخدمات الاجتماعية</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="admin-communications" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <FileText className="h-4 w-4" />
+                      <span className="text-xs">المراسلات الإدارية</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -785,6 +781,10 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="social-services">
                     <SocialServices />
+                  </TabsContent>
+
+                  <TabsContent value="admin-communications">
+                    <AdministrativeCommunications onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
                 </Tabs>
               </div>
