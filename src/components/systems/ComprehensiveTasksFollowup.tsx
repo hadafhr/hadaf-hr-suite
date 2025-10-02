@@ -10,63 +10,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  CheckSquare, 
-  Calendar,
-  Clock,
-  Users,
-  AlertTriangle,
-  CheckCircle2,
-  Download,
-  Upload,
-  Plus,
-  Search,
-  Filter,
-  Edit,
-  Trash2,
-  Eye,
-  FileText,
-  FolderOpen,
-  MessageSquare,
-  Bell,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Target,
-  Timer,
-  Award,
-  Sparkles,
-  User,
-  Building,
-  BookOpen,
-  Settings,
-  Share,
-  Paperclip,
-  Send,
-  Archive,
-  Flag,
-  RefreshCw,
-  Star,
-  Hash,
-  Zap,
-  Globe,
-  Shield,
-  UserCheck,
-  Phone,
-  Mail,
-  Database,
-  Server,
-  Info,
-  UserPlus
-} from 'lucide-react';
+import { ArrowLeft, CheckSquare, Calendar, Clock, Users, AlertTriangle, CheckCircle2, Download, Upload, Plus, Search, Filter, Edit, Trash2, Eye, FileText, FolderOpen, MessageSquare, Bell, TrendingUp, BarChart3, PieChart, Activity, Target, Timer, Award, Sparkles, User, Building, BookOpen, Settings, Share, Paperclip, Send, Archive, Flag, RefreshCw, Star, Hash, Zap, Globe, Shield, UserCheck, Phone, Mail, Database, Server, Info, UserPlus } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
-
 interface ComprehensiveTasksFollowupProps {
   onBack: () => void;
 }
-
 interface Task {
   id: string;
   title: string;
@@ -84,7 +32,6 @@ interface Task {
   attachments: number;
   comments: number;
 }
-
 interface TaskCategory {
   id: string;
   name: string;
@@ -96,7 +43,6 @@ interface TaskCategory {
   avgCompletionTime: number;
   description: string;
 }
-
 interface Collaboration {
   id: string;
   taskId: string;
@@ -105,9 +51,12 @@ interface Collaboration {
   timestamp: string;
   type: 'comment' | 'status_change' | 'assignment' | 'attachment';
 }
-
-export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -115,172 +64,208 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   // Mock data for demonstration
-  const tasks: Task[] = [
-    {
-      id: '1',
-      title: 'مراجعة ملفات الموظفين الجدد',
-      description: 'مراجعة وإعداد ملفات 15 موظف جديد للقسم التقني',
-      assignee: 'أحمد محمد الخالدي',
-      assigneeId: 'emp_001',
-      department: 'الموارد البشرية',
-      priority: 'high',
-      status: 'in-progress',
-      category: 'hr',
-      deadline: '2024-01-25',
-      createdAt: '2024-01-15',
-      progress: 65,
-      attachments: 3,
-      comments: 8
-    },
-    {
-      id: '2',
-      title: 'إعداد التقرير المالي الشهري',
-      description: 'تحضير التقرير المالي لشهر يناير 2024',
-      assignee: 'فاطمة سالم المطيري',
-      assigneeId: 'emp_002',
-      department: 'المالية',
-      priority: 'urgent',
-      status: 'overdue',
-      category: 'finance',
-      deadline: '2024-01-20',
-      createdAt: '2024-01-10',
-      progress: 80,
-      attachments: 5,
-      comments: 12
-    },
-    {
-      id: '3',
-      title: 'تحديث نظام إدارة المحتوى',
-      description: 'تحديث الموقع الإلكتروني وإضافة الميزات الجديدة',
-      assignee: 'محمد علي العبدالله',
-      assigneeId: 'emp_003',
-      department: 'تقنية المعلومات',
-      priority: 'medium',
-      status: 'new',
-      category: 'it',
-      deadline: '2024-02-01',
-      createdAt: '2024-01-18',
-      progress: 15,
-      attachments: 2,
-      comments: 4
-    },
-    {
-      id: '4',
-      title: 'حملة التسويق الرقمي',
-      description: 'إطلاق حملة تسويقية جديدة على وسائل التواصل الاجتماعي',
-      assignee: 'نورا أحمد السالم',
-      assigneeId: 'emp_004',
-      department: 'التسويق',
-      priority: 'medium',
-      status: 'completed',
-      category: 'marketing',
-      deadline: '2024-01-15',
-      createdAt: '2024-01-05',
-      completedAt: '2024-01-14',
-      progress: 100,
-      attachments: 7,
-      comments: 15
-    }
-  ];
-
-  const taskCategories: TaskCategory[] = [
-    {
-      id: '1',
-      name: 'الموارد البشرية',
-      nameEn: 'Human Resources',
-      head: 'أحمد محمد الخالدي',
-      tasks: 25,
-      completed: 18,
-      performance: 92,
-      avgCompletionTime: 3.5,
-      description: 'إدارة المهام المتعلقة بالموظفين والتوظيف'
-    },
-    {
-      id: '2',
-      name: 'المالية',
-      nameEn: 'Finance',
-      head: 'فاطمة سالم المطيري',
-      tasks: 18,
-      completed: 14,
-      performance: 88,
-      avgCompletionTime: 2.8,
-      description: 'مهام التقارير المالية والمحاسبة'
-    },
-    {
-      id: '3',
-      name: 'العمليات',
-      nameEn: 'Operations',
-      head: 'محمد علي العبدالله',
-      tasks: 32,
-      completed: 28,
-      performance: 95,
-      avgCompletionTime: 4.2,
-      description: 'مهام العمليات التشغيلية اليومية'
-    },
-    {
-      id: '4',
-      name: 'تقنية المعلومات',
-      nameEn: 'IT',
-      head: 'سارة أحمد المتعب',
-      tasks: 22,
-      completed: 19,
-      performance: 90,
-      avgCompletionTime: 5.1,
-      description: 'المهام التقنية وتطوير النظم'
-    }
-  ];
-
-  const collaborations: Collaboration[] = [
-    {
-      id: '1',
-      taskId: '1',
-      user: 'أحمد محمد الخالدي',
-      message: 'تم الانتهاء من مراجعة 10 ملفات من أصل 15',
-      timestamp: '2024-01-20 14:30',
-      type: 'comment'
-    },
-    {
-      id: '2',
-      taskId: '1',
-      user: 'النظام',
-      message: 'تم تغيير حالة المهمة إلى "قيد التنفيذ"',
-      timestamp: '2024-01-19 09:15',
-      type: 'status_change'
-    },
-    {
-      id: '3',
-      taskId: '2',
-      user: 'فاطمة سالم المطيري',
-      message: 'يحتاج التقرير لمراجعة إضافية من المدير المالي',
-      timestamp: '2024-01-21 11:45',
-      type: 'comment'
-    }
-  ];
+  const tasks: Task[] = [{
+    id: '1',
+    title: 'مراجعة ملفات الموظفين الجدد',
+    description: 'مراجعة وإعداد ملفات 15 موظف جديد للقسم التقني',
+    assignee: 'أحمد محمد الخالدي',
+    assigneeId: 'emp_001',
+    department: 'الموارد البشرية',
+    priority: 'high',
+    status: 'in-progress',
+    category: 'hr',
+    deadline: '2024-01-25',
+    createdAt: '2024-01-15',
+    progress: 65,
+    attachments: 3,
+    comments: 8
+  }, {
+    id: '2',
+    title: 'إعداد التقرير المالي الشهري',
+    description: 'تحضير التقرير المالي لشهر يناير 2024',
+    assignee: 'فاطمة سالم المطيري',
+    assigneeId: 'emp_002',
+    department: 'المالية',
+    priority: 'urgent',
+    status: 'overdue',
+    category: 'finance',
+    deadline: '2024-01-20',
+    createdAt: '2024-01-10',
+    progress: 80,
+    attachments: 5,
+    comments: 12
+  }, {
+    id: '3',
+    title: 'تحديث نظام إدارة المحتوى',
+    description: 'تحديث الموقع الإلكتروني وإضافة الميزات الجديدة',
+    assignee: 'محمد علي العبدالله',
+    assigneeId: 'emp_003',
+    department: 'تقنية المعلومات',
+    priority: 'medium',
+    status: 'new',
+    category: 'it',
+    deadline: '2024-02-01',
+    createdAt: '2024-01-18',
+    progress: 15,
+    attachments: 2,
+    comments: 4
+  }, {
+    id: '4',
+    title: 'حملة التسويق الرقمي',
+    description: 'إطلاق حملة تسويقية جديدة على وسائل التواصل الاجتماعي',
+    assignee: 'نورا أحمد السالم',
+    assigneeId: 'emp_004',
+    department: 'التسويق',
+    priority: 'medium',
+    status: 'completed',
+    category: 'marketing',
+    deadline: '2024-01-15',
+    createdAt: '2024-01-05',
+    completedAt: '2024-01-14',
+    progress: 100,
+    attachments: 7,
+    comments: 15
+  }];
+  const taskCategories: TaskCategory[] = [{
+    id: '1',
+    name: 'الموارد البشرية',
+    nameEn: 'Human Resources',
+    head: 'أحمد محمد الخالدي',
+    tasks: 25,
+    completed: 18,
+    performance: 92,
+    avgCompletionTime: 3.5,
+    description: 'إدارة المهام المتعلقة بالموظفين والتوظيف'
+  }, {
+    id: '2',
+    name: 'المالية',
+    nameEn: 'Finance',
+    head: 'فاطمة سالم المطيري',
+    tasks: 18,
+    completed: 14,
+    performance: 88,
+    avgCompletionTime: 2.8,
+    description: 'مهام التقارير المالية والمحاسبة'
+  }, {
+    id: '3',
+    name: 'العمليات',
+    nameEn: 'Operations',
+    head: 'محمد علي العبدالله',
+    tasks: 32,
+    completed: 28,
+    performance: 95,
+    avgCompletionTime: 4.2,
+    description: 'مهام العمليات التشغيلية اليومية'
+  }, {
+    id: '4',
+    name: 'تقنية المعلومات',
+    nameEn: 'IT',
+    head: 'سارة أحمد المتعب',
+    tasks: 22,
+    completed: 19,
+    performance: 90,
+    avgCompletionTime: 5.1,
+    description: 'المهام التقنية وتطوير النظم'
+  }];
+  const collaborations: Collaboration[] = [{
+    id: '1',
+    taskId: '1',
+    user: 'أحمد محمد الخالدي',
+    message: 'تم الانتهاء من مراجعة 10 ملفات من أصل 15',
+    timestamp: '2024-01-20 14:30',
+    type: 'comment'
+  }, {
+    id: '2',
+    taskId: '1',
+    user: 'النظام',
+    message: 'تم تغيير حالة المهمة إلى "قيد التنفيذ"',
+    timestamp: '2024-01-19 09:15',
+    type: 'status_change'
+  }, {
+    id: '3',
+    taskId: '2',
+    user: 'فاطمة سالم المطيري',
+    message: 'يحتاج التقرير لمراجعة إضافية من المدير المالي',
+    timestamp: '2024-01-21 11:45',
+    type: 'comment'
+  }];
 
   // Analytics data
-  const performanceData = [
-    { month: 'يناير', completed: 85, inProgress: 32, new: 15, overdue: 8 },
-    { month: 'فبراير', completed: 92, inProgress: 28, new: 18, overdue: 5 },
-    { month: 'مارس', completed: 78, inProgress: 35, new: 22, overdue: 12 },
-    { month: 'أبريل', completed: 95, inProgress: 25, new: 16, overdue: 4 },
-    { month: 'مايو', completed: 88, inProgress: 38, new: 24, overdue: 9 },
-    { month: 'يونيو', completed: 102, inProgress: 30, new: 20, overdue: 6 }
-  ];
-
-  const departmentDistribution = [
-    { name: 'الموارد البشرية', value: 25, color: 'hsl(var(--primary))' },
-    { name: 'المالية', value: 18, color: 'hsl(var(--success))' },
-    { name: 'العمليات', value: 32, color: 'hsl(var(--warning))' },
-    { name: 'تقنية المعلومات', value: 22, color: 'hsl(var(--accent))' },
-    { name: 'التسويق', value: 15, color: 'hsl(var(--destructive))' }
-  ];
-
-  const priorityDistribution = [
-    { name: 'عاجل', value: 12, color: 'hsl(var(--destructive))' },
-    { name: 'عالي', value: 28, color: 'hsl(var(--warning))' },
-    { name: 'متوسط', value: 45, color: 'hsl(var(--primary))' },
-    { name: 'منخفض', value: 27, color: 'hsl(var(--success))' }
-  ];
+  const performanceData = [{
+    month: 'يناير',
+    completed: 85,
+    inProgress: 32,
+    new: 15,
+    overdue: 8
+  }, {
+    month: 'فبراير',
+    completed: 92,
+    inProgress: 28,
+    new: 18,
+    overdue: 5
+  }, {
+    month: 'مارس',
+    completed: 78,
+    inProgress: 35,
+    new: 22,
+    overdue: 12
+  }, {
+    month: 'أبريل',
+    completed: 95,
+    inProgress: 25,
+    new: 16,
+    overdue: 4
+  }, {
+    month: 'مايو',
+    completed: 88,
+    inProgress: 38,
+    new: 24,
+    overdue: 9
+  }, {
+    month: 'يونيو',
+    completed: 102,
+    inProgress: 30,
+    new: 20,
+    overdue: 6
+  }];
+  const departmentDistribution = [{
+    name: 'الموارد البشرية',
+    value: 25,
+    color: 'hsl(var(--primary))'
+  }, {
+    name: 'المالية',
+    value: 18,
+    color: 'hsl(var(--success))'
+  }, {
+    name: 'العمليات',
+    value: 32,
+    color: 'hsl(var(--warning))'
+  }, {
+    name: 'تقنية المعلومات',
+    value: 22,
+    color: 'hsl(var(--accent))'
+  }, {
+    name: 'التسويق',
+    value: 15,
+    color: 'hsl(var(--destructive))'
+  }];
+  const priorityDistribution = [{
+    name: 'عاجل',
+    value: 12,
+    color: 'hsl(var(--destructive))'
+  }, {
+    name: 'عالي',
+    value: 28,
+    color: 'hsl(var(--warning))'
+  }, {
+    name: 'متوسط',
+    value: 45,
+    color: 'hsl(var(--primary))'
+  }, {
+    name: 'منخفض',
+    value: 27,
+    color: 'hsl(var(--success))'
+  }];
 
   // Calculate statistics
   const stats = {
@@ -289,59 +274,64 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     completedTasks: tasks.filter(t => t.status === 'completed').length,
     overdueTasks: tasks.filter(t => t.status === 'overdue').length,
     avgCompletionTime: 3.8,
-    completionRate: Math.round((tasks.filter(t => t.status === 'completed').length / tasks.length) * 100)
+    completionRate: Math.round(tasks.filter(t => t.status === 'completed').length / tasks.length * 100)
   };
-
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير المهام والمتابعة كملف PDF",
+      description: "تم تصدير تقرير المهام والمتابعة كملف PDF"
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const handleUpload = () => {
     toast({
       title: "تم الرفع بنجاح",
-      description: "تم رفع الملفات المرفقة",
+      description: "تم رفع الملفات المرفقة"
     });
   };
-
   const handleDownload = () => {
     toast({
       title: "جاري التحميل",
-      description: "يتم تحميل الملفات المرفقة",
+      description: "يتم تحميل الملفات المرفقة"
     });
   };
-
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'urgent': return 'bg-destructive/20 text-destructive border-destructive/50';
-      case 'high': return 'bg-warning/20 text-warning border-warning/50';
-      case 'medium': return 'bg-primary/20 text-primary border-primary/50';
-      case 'low': return 'bg-success/20 text-success border-success/50';
-      default: return 'bg-muted/20 text-muted-foreground border-muted/50';
+      case 'urgent':
+        return 'bg-destructive/20 text-destructive border-destructive/50';
+      case 'high':
+        return 'bg-warning/20 text-warning border-warning/50';
+      case 'medium':
+        return 'bg-primary/20 text-primary border-primary/50';
+      case 'low':
+        return 'bg-success/20 text-success border-success/50';
+      default:
+        return 'bg-muted/20 text-muted-foreground border-muted/50';
     }
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-success/20 text-success border-success/50';
-      case 'in-progress': return 'bg-primary/20 text-primary border-primary/50';
-      case 'new': return 'bg-muted/20 text-muted-foreground border-muted/50';
-      case 'overdue': return 'bg-destructive/20 text-destructive border-destructive/50';
-      default: return 'bg-muted/20 text-muted-foreground border-muted/50';
+      case 'completed':
+        return 'bg-success/20 text-success border-success/50';
+      case 'in-progress':
+        return 'bg-primary/20 text-primary border-primary/50';
+      case 'new':
+        return 'bg-muted/20 text-muted-foreground border-muted/50';
+      case 'overdue':
+        return 'bg-destructive/20 text-destructive border-destructive/50';
+      default:
+        return 'bg-muted/20 text-muted-foreground border-muted/50';
     }
   };
-
   const getPriorityText = (priority: string) => {
-    const priorityMap: { [key: string]: string } = {
+    const priorityMap: {
+      [key: string]: string;
+    } = {
       'urgent': 'عاجل',
       'high': 'عالي',
       'medium': 'متوسط',
@@ -349,9 +339,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     };
     return priorityMap[priority] || priority;
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'completed': 'مكتملة',
       'in-progress': 'قيد التنفيذ',
       'new': 'جديدة',
@@ -359,9 +350,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     };
     return statusMap[status] || status;
   };
-
   const getCategoryText = (category: string) => {
-    const categoryMap: { [key: string]: string } = {
+    const categoryMap: {
+      [key: string]: string;
+    } = {
       'hr': 'موارد بشرية',
       'finance': 'مالية',
       'operations': 'عمليات',
@@ -370,16 +362,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
     };
     return categoryMap[category] || category;
   };
-
-  const renderHeader = () => (
-    <div className="space-y-6">
+  const renderHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center">
-        <img 
-          src="/src/assets/boud-logo-centered.png" 
-          alt="Boud Logo" 
-          className="h-32 w-auto object-contain"
-        />
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
 
       {/* Header */}
@@ -387,11 +373,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
         <h1 className="text-3xl font-bold mb-2 text-foreground">المهام والمتابعة</h1>
         <p className="text-muted-foreground">منظومة شاملة لإدارة المهام والمتابعة</p>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
@@ -482,14 +465,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
                 <YAxis stroke="hsl(var(--muted-foreground))" />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'hsl(var(--card))', 
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px',
-                    color: 'hsl(var(--foreground))'
-                  }} 
-                />
+                <Tooltip contentStyle={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px',
+                color: 'hsl(var(--foreground))'
+              }} />
                 <Area type="monotone" dataKey="completed" stackId="1" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
                 <Area type="monotone" dataKey="inProgress" stackId="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
                 <Area type="monotone" dataKey="new" stackId="3" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
@@ -509,18 +490,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={priorityDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="hsl(var(--primary))"
-                  dataKey="value"
-                >
-                  {priorityDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={priorityDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="hsl(var(--primary))" dataKey="value">
+                  {priorityDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -569,21 +540,13 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderTaskManagement = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderTaskManagement = () => <div className="space-y-6">
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-          <Input
-            placeholder="البحث في المهام..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pr-10 bg-card border-border text-foreground"
-          />
+          <Input placeholder="البحث في المهام..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10 bg-card border-border text-foreground" />
         </div>
         <div className="flex gap-2">
           <Select value={selectedFilter} onValueChange={setSelectedFilter}>
@@ -607,8 +570,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
 
       {/* Tasks Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {tasks.map((task) => (
-          <Card key={task.id} className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
+        {tasks.map(task => <Card key={task.id} className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -673,14 +635,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderFollowupTracking = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderFollowupTracking = () => <div className="space-y-6">
       {/* Timeline View */}
       <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
         <CardHeader>
@@ -691,14 +649,9 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {tasks.map((task, index) => (
-              <div key={task.id} className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border">
+            {tasks.map((task, index) => <div key={task.id} className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border">
                 <div className="flex-shrink-0">
-                  <div className={`w-3 h-3 rounded-full ${
-                    task.status === 'completed' ? 'bg-success' :
-                    task.status === 'overdue' ? 'bg-destructive' :
-                    task.status === 'in-progress' ? 'bg-primary' : 'bg-muted'
-                  }`} />
+                  <div className={`w-3 h-3 rounded-full ${task.status === 'completed' ? 'bg-success' : task.status === 'overdue' ? 'bg-destructive' : task.status === 'in-progress' ? 'bg-primary' : 'bg-muted'}`} />
                 </div>
                 <div className="flex-1">
                   <h4 className="font-semibold text-white">{task.title}</h4>
@@ -710,8 +663,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                 <Badge className={getStatusColor(task.status)}>
                   {getStatusText(task.status)}
                 </Badge>
-              </div>
-            ))}
+              </div>)}
           </div>
         </CardContent>
       </Card>
@@ -767,32 +719,24 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {taskCategories.map((category) => (
-                <div key={category.id} className="space-y-2">
+              {taskCategories.map(category => <div key={category.id} className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-white">{category.name}</span>
                     <span className="text-sm text-white/60">
                       {category.completed}/{category.tasks}
                     </span>
                   </div>
-                  <Progress 
-                    value={(category.completed / category.tasks) * 100} 
-                    className="h-2" 
-                  />
+                  <Progress value={category.completed / category.tasks * 100} className="h-2" />
                   <div className="text-xs text-white/60">
                     معدل الأداء: {category.performance}%
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
-
-  const renderCollaboration = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderCollaboration = () => <div className="space-y-6">
       {/* Task Communication */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
@@ -804,8 +748,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardHeader>
           <CardContent>
             <div className="space-y-4 max-h-96 overflow-y-auto">
-              {collaborations.map((collab) => (
-                <div key={collab.id} className="p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+              {collaborations.map(collab => <div key={collab.id} className="p-3 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium text-sm text-white">{collab.user}</span>
                     <span className="text-xs text-white/60">{collab.timestamp}</span>
@@ -813,13 +756,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                   <p className="text-sm text-white/80">{collab.message}</p>
                   <div className="mt-2">
                     <Badge variant="outline" className="text-xs border-white/20 text-white/70">
-                      {collab.type === 'comment' ? 'تعليق' :
-                       collab.type === 'status_change' ? 'تغيير حالة' :
-                       collab.type === 'assignment' ? 'تكليف' : 'مرفق'}
+                      {collab.type === 'comment' ? 'تعليق' : collab.type === 'status_change' ? 'تغيير حالة' : collab.type === 'assignment' ? 'تكليف' : 'مرفق'}
                     </Badge>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
             <div className="mt-4 pt-4 border-t border-white/10">
               <div className="flex gap-2">
@@ -841,8 +781,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {taskCategories.map((category) => (
-                <div key={category.id} className="p-3 border border-white/10 rounded-lg bg-white/5 backdrop-blur-sm">
+              {taskCategories.map(category => <div key={category.id} className="p-3 border border-white/10 rounded-lg bg-white/5 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-medium text-white">{category.name}</h4>
@@ -858,8 +797,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                   <div className="mt-2">
                     <Progress value={category.performance} className="h-1" />
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -905,11 +843,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderReports = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderReports = () => <div className="space-y-6">
       {/* Report Types */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 cursor-pointer">
@@ -968,14 +903,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis dataKey="name" stroke="#9ca3af" />
                 <YAxis stroke="#9ca3af" />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: '#fff'
-                  }} 
-                />
+                <Tooltip contentStyle={{
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                color: '#fff'
+              }} />
                 <Bar dataKey="performance" fill="#10b981" />
               </BarChart>
             </ResponsiveContainer>
@@ -992,27 +925,15 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={departmentDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {departmentDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={departmentDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {departmentDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)', 
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: '#fff'
-                  }} 
-                />
+                <Tooltip contentStyle={{
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '8px',
+                color: '#fff'
+              }} />
               </RechartsPieChart>
             </ResponsiveContainer>
           </CardContent>
@@ -1045,11 +966,8 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderSettings = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderSettings = () => <div className="space-y-6">
       {/* Task Categories */}
       <Card className="bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
         <CardHeader>
@@ -1060,8 +978,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {taskCategories.map((category) => (
-              <div key={category.id} className="flex items-center justify-between p-4 border border-white/10 rounded-lg bg-white/5 backdrop-blur-sm">
+            {taskCategories.map(category => <div key={category.id} className="flex items-center justify-between p-4 border border-white/10 rounded-lg bg-white/5 backdrop-blur-sm">
                 <div className="flex-1">
                   <h4 className="font-semibold text-white">{category.name}</h4>
                   <p className="text-sm text-white/70">{category.description}</p>
@@ -1074,8 +991,7 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
-              </div>
-            ))}
+              </div>)}
             <Button variant="outline" className="w-full border-white/20 bg-white/5 text-white hover:bg-white/10">
               <Plus className="h-4 w-4 ml-2" />
               إضافة فئة جديدة
@@ -1201,12 +1117,10 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
         <Button variant="outline" className="border-white/20 bg-white/5 text-white hover:bg-white/10">إلغاء</Button>
         <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white">حفظ الإعدادات</Button>
       </div>
-    </div>
-  );
+    </div>;
 
   // Add Task Dialog
-  const AddTaskDialog = () => (
-    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+  const AddTaskDialog = () => <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
       <DialogContent className="max-w-2xl bg-black/95 backdrop-blur-md border border-white/10 text-white">
         <DialogHeader>
           <DialogTitle className="text-white">إضافة مهمة جديدة</DialogTitle>
@@ -1293,33 +1207,27 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
               إلغاء
             </Button>
             <Button onClick={() => {
-              setIsAddDialogOpen(false);
-              toast({
-                title: "تم إنشاء المهمة",
-                description: "تم إنشاء المهمة الجديدة بنجاح",
-              });
-            }} className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white">
+            setIsAddDialogOpen(false);
+            toast({
+              title: "تم إنشاء المهمة",
+              description: "تم إنشاء المهمة الجديدة بنجاح"
+            });
+          }} className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white">
               إنشاء المهمة
             </Button>
           </div>
         </div>
       </DialogContent>
-    </Dialog>
-  );
-
-  return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+    </Dialog>;
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -1333,16 +1241,12 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
         <div className="space-y-6 container mx-auto p-6">
           {/* Logo */}
           <div className="flex justify-center">
-            <img 
-              src="/src/assets/boud-logo-centered.png" 
-              alt="Boud Logo" 
-              className="h-32 w-auto object-contain"
-            />
+            <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
           </div>
 
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة المهام الشامل</h1>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">قسم المهام والمتابعة</h1>
             <p className="text-muted-foreground">نظام متطور لإدارة ومتابعة المهام والمشاريع مع التحليلات التنبؤية</p>
           </div>
         </div>
@@ -1428,6 +1332,5 @@ export const ComprehensiveTasksFollowup: React.FC<ComprehensiveTasksFollowupProp
       </div>
 
       <AddTaskDialog />
-    </div>
-  );
+    </div>;
 };
