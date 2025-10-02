@@ -635,21 +635,36 @@ const ComprehensiveEmployeeManagement = () => {
                     </TabsTrigger>
                   </TabsList>
 
+                  <TabsContent value="performance">
+                    <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="training">
+                    <ComprehensiveTraining onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="talents">
+                    <ComprehensiveTalentManagement onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
 
+                  <TabsContent value="quality-of-life">
+                    <QualityOfLifeSystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="skills-inventory">
+                    <SkillsInventorySystem onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="meetings">
+                    <MeetingHub />
+                  </TabsContent>
+
+                  <TabsContent value="organization">
+                    <OrganizationalDevelopment onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
                 </Tabs>
               </div>
             </div>
-          </TabsContent>
-
-
-          <TabsContent value="quality-of-life">
-            <QualityOfLifeSystem onBack={() => setActiveTab('dashboard')} />
-          </TabsContent>
-
-          <TabsContent value="skills-inventory">
-            <SkillsInventorySystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
 
