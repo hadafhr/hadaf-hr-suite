@@ -388,7 +388,7 @@ const ComprehensiveEmployeeManagement = () => {
               <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border">
                 <div className="flex items-center justify-center gap-4 mb-6">
                   <div className="text-center">
-                    <img src={boudLogo} alt="Boud Logo" className="h-20 w-auto mx-auto mb-4" />
+                    <img src={boudLogo} alt="Boud Logo" className="h-48 w-auto mx-auto mb-4" />
                     <div>
                       <h2 className="text-2xl font-bold text-foreground">مرحباً بك في</h2>
                       <h2 className="text-2xl font-bold text-foreground">إدارة شؤون الموظفين والعمليات</h2>
