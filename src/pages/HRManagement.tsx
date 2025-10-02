@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Building2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, Building2, Users, Briefcase, Calendar, FileText, TrendingUp } from 'lucide-react';
 import { BoudLogo } from '@/components/BoudLogo';
 import { LanguageSwitcher } from '@/components/shared/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
@@ -128,10 +129,80 @@ export const HRManagement: React.FC = () => {
 
       {/* Enhanced Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto space-y-8">
           {/* Logo Section */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center">
             <img src={boudLogo} alt="Boud Logo" className="h-24 w-auto" />
+          </div>
+          
+          {/* Quick Access Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card 
+              className="bg-card/80 backdrop-blur-sm border-border hover:border-accent/50 transition-all cursor-pointer group"
+              onClick={() => navigate('/recruitment-management')}
+            >
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-foreground group-hover:text-accent transition-colors">
+                  <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-all">
+                    <Briefcase className="h-6 w-6 text-accent" />
+                  </div>
+                  {isArabic ? 'إدارة التوظيف' : 'Recruitment'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  {isArabic ? 'نظام التوظيف الذكي وطلبات الاحتياج الوظيفي' : 'Smart hiring system and manpower requests'}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur-sm border-border hover:border-accent/50 transition-all cursor-pointer group">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-foreground group-hover:text-accent transition-colors">
+                  <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-all">
+                    <Calendar className="h-6 w-6 text-accent" />
+                  </div>
+                  {isArabic ? 'الحضور والانصراف' : 'Attendance'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  {isArabic ? 'إدارة حضور وانصراف الموظفين' : 'Employee attendance management'}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur-sm border-border hover:border-accent/50 transition-all cursor-pointer group">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-foreground group-hover:text-accent transition-colors">
+                  <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-all">
+                    <FileText className="h-6 w-6 text-accent" />
+                  </div>
+                  {isArabic ? 'الرواتب' : 'Payroll'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  {isArabic ? 'إدارة رواتب ومستحقات الموظفين' : 'Employee payroll management'}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur-sm border-border hover:border-accent/50 transition-all cursor-pointer group">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-foreground group-hover:text-accent transition-colors">
+                  <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-all">
+                    <TrendingUp className="h-6 w-6 text-accent" />
+                  </div>
+                  {isArabic ? 'تقييم الأداء' : 'Performance'}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  {isArabic ? 'تقييم ومتابعة أداء الموظفين' : 'Employee performance evaluation'}
+                </p>
+              </CardContent>
+            </Card>
           </div>
           
           <ComprehensiveEmployeeManagement />
