@@ -469,36 +469,36 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="compensation-benefits">
             <div className="space-y-6">
-              <div className="p-6 bg-white border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 rounded-xl">
+              <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <DollarSign className="h-7 w-7 text-blue-600" />
+                  <div className="w-16 h-16 rounded-3xl flex items-center justify-center bg-accent">
+                    <DollarSign className="h-8 w-8 text-accent-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900">إدارة التعويضات والمزايا</h2>
-                    <p className="text-gray-600">إدارة شاملة للرواتب والتأمينات والمكافآت والحوافز</p>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة التعويضات والمزايا</h2>
+                    <p className="text-muted-foreground">إدارة شاملة للرواتب والتأمينات والمكافآت والحوافز</p>
                   </div>
                 </div>
                 
                 <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-white border border-gray-200 shadow-sm rounded-lg">
-                    <TabsTrigger value="payroll" className="flex flex-col gap-1 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white hover:bg-gray-50 transition-all duration-300 rounded-lg">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsTrigger value="payroll" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <DollarSign className="h-4 w-4" />
                       <span className="text-xs">الرواتب والأجور</span>
                     </TabsTrigger>
-                    <TabsTrigger value="wageprotection" className="flex flex-col gap-1 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white hover:bg-gray-50 transition-all duration-300 rounded-lg">
+                    <TabsTrigger value="wageprotection" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Shield className="h-4 w-4" />
                       <span className="text-xs">حماية الأجور</span>
                     </TabsTrigger>
-                    <TabsTrigger value="insurance" className="flex flex-col gap-1 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white hover:bg-gray-50 transition-all duration-300 rounded-lg">
+                    <TabsTrigger value="insurance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Heart className="h-4 w-4" />
                       <span className="text-xs">التأمين</span>
                     </TabsTrigger>
-                    <TabsTrigger value="expenses" className="flex flex-col gap-1 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white hover:bg-gray-50 transition-all duration-300 rounded-lg">
+                    <TabsTrigger value="expenses" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Receipt className="h-4 w-4" />
                       <span className="text-xs">المصروفات والنفقات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 data-[state=active]:bg-blue-600 data-[state=active]:text-white hover:bg-gray-50 transition-all duration-300 rounded-lg">
+                    <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Gift className="h-4 w-4" />
                       <span className="text-xs">المكافآت والحوافز</span>
                     </TabsTrigger>
