@@ -240,19 +240,15 @@ export const SmartAttendanceSystem: React.FC = () => {
         </div>
       </div>;
   }
-  return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -266,16 +262,12 @@ export const SmartAttendanceSystem: React.FC = () => {
         <div className="space-y-6 container mx-auto p-6">
           {/* Logo */}
           <div className="flex justify-center">
-            <img 
-              src="/src/assets/boud-logo-centered.png" 
-              alt="Boud Logo" 
-              className="h-32 w-auto object-contain"
-            />
+            <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
           </div>
 
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2 text-foreground">نظام الحضور والانصراف الذكي</h1>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الحضور والانصراف </h1>
             <p className="text-muted-foreground">إدارة شاملة للحضور مع دعم GPS والبصمة والجدولة المتقدمة</p>
           </div>
         </div>
@@ -412,11 +404,11 @@ export const SmartAttendanceSystem: React.FC = () => {
                   <CardTitle className="text-foreground">سجل حضور اليوم</CardTitle>
                   <CardDescription className="text-muted-foreground">
                     {new Date().toLocaleDateString('ar-SA', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
@@ -500,6 +492,5 @@ export const SmartAttendanceSystem: React.FC = () => {
         </Tabs>
       </div>
       </div>
-    </div>
-  );
+    </div>;
 };
