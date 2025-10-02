@@ -371,7 +371,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </TabsTrigger>
                 <TabsTrigger value="digital-transformation" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                   <Brain className="h-4 w-4" />
-                  <span className="text-xs">إدارة التقنية والتحول الرقمي</span>
+                  <span className="text-xs">إدارة التحول الرقمي</span>
                 </TabsTrigger>
               </TabsList>
             </div>
