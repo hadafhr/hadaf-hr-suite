@@ -199,10 +199,6 @@ export const HRSystemManagement = () => {
                   <Users2 className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">فريق العمل</span>
                 </TabsTrigger>
-                <TabsTrigger value="departments" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
-                  <Building className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
-                  <span className="text-center leading-tight">الإدارات والوحدات</span>
-                </TabsTrigger>
                 <TabsTrigger value="quality-of-life" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                   <Heart className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">جودة الحياة</span>
@@ -334,10 +330,6 @@ export const HRSystemManagement = () => {
 
           <TabsContent value="teamwork">
             <TeamWork />
-          </TabsContent>
-
-          <TabsContent value="departments">
-            <DepartmentsManagement onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="quality-of-life">

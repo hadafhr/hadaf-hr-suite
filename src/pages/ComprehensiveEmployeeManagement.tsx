@@ -736,7 +736,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeGovernanceTab} onValueChange={handleGovernanceTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="legal" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Gavel className="h-4 w-4" />
                       <span className="text-xs">الشؤون القانونية</span>
@@ -748,6 +748,10 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="occupational-safety" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <HardHat className="h-4 w-4" />
                       <span className="text-xs">الصحة والسلامة المهنية</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="departments" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Building className="h-4 w-4" />
+                      <span className="text-xs">الإدارات والوحدات</span>
                     </TabsTrigger>
                     <TabsTrigger value="admin-communications" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <FileText className="h-4 w-4" />
@@ -765,6 +769,10 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="occupational-safety">
                     <OccupationalHealthSafety onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="departments">
+                    <DepartmentsManagement onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
 
                   <TabsContent value="admin-communications">
