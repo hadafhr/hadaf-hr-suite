@@ -359,7 +359,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </TabsTrigger>
                 <TabsTrigger value="development-performance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                   <BarChart3 className="h-4 w-4" />
-                  <span className="text-xs">إدارة التطوير والأداء المؤسسي</span>
+                  <span className="text-xs">إدارة التطوير والأداء</span>
                 </TabsTrigger>
                 <TabsTrigger value="governance-compliance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                   <Scale className="h-4 w-4" />
