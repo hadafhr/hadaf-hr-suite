@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { 
   ArrowLeft, 
@@ -37,7 +38,9 @@ import {
   User,
   Edit,
   Trash2,
-  Share
+  Share,
+  Activity,
+  Brain
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
 
@@ -433,80 +436,80 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="dashboard-card border-l-4 border-l-primary">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">إجمالي تكلفة الرواتب</p>
-                <p className="text-2xl font-bold text-primary">{stats.totalPayrollCost.toLocaleString()}</p>
-                <p className="text-xs text-muted-foreground">ريال سعودي</p>
+                <p className="text-sm font-medium text-blue-700">إجمالي تكلفة الرواتب</p>
+                <p className="text-2xl font-bold text-blue-900">{stats.totalPayrollCost.toLocaleString()}</p>
+                <p className="text-xs text-blue-600">ريال سعودي</p>
               </div>
-              <DollarSign className="h-8 w-8 text-primary/60" />
+              <DollarSign className="h-8 w-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card border-l-4 border-l-warning">
+        <Card className="bg-gradient-to-br from-purple-50 to-violet-100 border-purple-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">الرواتب المعالجة</p>
-                <p className="text-2xl font-bold text-warning">{stats.processedSalaries}</p>
-                <p className="text-xs text-muted-foreground">موظف</p>
+                <p className="text-sm font-medium text-purple-700">الرواتب المعالجة</p>
+                <p className="text-2xl font-bold text-purple-900">{stats.processedSalaries}</p>
+                <p className="text-xs text-purple-600">موظف</p>
               </div>
-              <Calculator className="h-8 w-8 text-warning/60" />
+              <Calculator className="h-8 w-8 text-purple-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card border-l-4 border-l-success">
+        <Card className="bg-gradient-to-br from-yellow-50 to-amber-100 border-yellow-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">موافقات معلقة</p>
-                <p className="text-2xl font-bold text-success">{stats.pendingApprovals}</p>
-                <p className="text-xs text-muted-foreground">طلب</p>
+                <p className="text-sm font-medium text-yellow-700">موافقات معلقة</p>
+                <p className="text-2xl font-bold text-yellow-900">{stats.pendingApprovals}</p>
+                <p className="text-xs text-yellow-600">طلب</p>
               </div>
-              <Clock className="h-8 w-8 text-success/60" />
+              <Clock className="h-8 w-8 text-yellow-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card border-l-4 border-l-primary">
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">مدفوعات متأخرة</p>
-                <p className="text-2xl font-bold text-primary">{stats.overduePayments}</p>
-                <p className="text-xs text-muted-foreground">دفعة</p>
+                <p className="text-sm font-medium text-red-700">مدفوعات متأخرة</p>
+                <p className="text-2xl font-bold text-red-900">{stats.overduePayments}</p>
+                <p className="text-xs text-red-600">دفعة</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-primary/60" />
+              <AlertTriangle className="h-8 w-8 text-red-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card border-l-4 border-l-primary">
+        <Card className="bg-gradient-to-br from-teal-50 to-cyan-100 border-teal-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">متوسط الراتب</p>
-                <p className="text-2xl font-bold text-primary">{stats.avgSalary.toLocaleString()}</p>
-                <p className="text-xs text-muted-foreground">ريال</p>
+                <p className="text-sm font-medium text-teal-700">متوسط الراتب</p>
+                <p className="text-2xl font-bold text-teal-900">{stats.avgSalary.toLocaleString()}</p>
+                <p className="text-xs text-teal-600">ريال</p>
               </div>
-              <Target className="h-8 w-8 text-primary/60" />
+              <Target className="h-8 w-8 text-teal-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card border-l-4 border-l-success">
+        <Card className="bg-gradient-to-br from-green-50 to-emerald-100 border-green-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                <p className="text-2xl font-bold text-success">{stats.totalEmployees}</p>
-                <p className="text-xs text-muted-foreground">موظف</p>
+                <p className="text-sm font-medium text-green-700">إجمالي الموظفين</p>
+                <p className="text-2xl font-bold text-green-900">{stats.totalEmployees}</p>
+                <p className="text-xs text-green-600">موظف</p>
               </div>
-              <Users className="h-8 w-8 text-success/60" />
+              <Users className="h-8 w-8 text-green-600" />
             </div>
           </CardContent>
         </Card>
@@ -514,10 +517,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="dashboard-card">
+        <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-foreground">
-              <BarChart3 className="h-5 w-5 text-primary" />
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-blue-600" />
               اتجاه الرواتب الشهرية
             </CardTitle>
           </CardHeader>
@@ -543,10 +546,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </CardContent>
         </Card>
 
-        <Card className="dashboard-card">
+        <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-foreground">
-              <PieChart className="h-5 w-5 text-primary" />
+            <CardTitle className="flex items-center gap-2">
+              <PieChart className="h-5 w-5 text-purple-600" />
               توزيع الرواتب حسب القسم
             </CardTitle>
           </CardHeader>
@@ -570,6 +573,60 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 <Tooltip />
               </RechartsPieChart>
             </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* مؤشرات الأداء */}
+      <div className="grid md:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-sm flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-green-600" />
+              نسبة استخدام الميزانية
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-green-600 mb-2">78%</div>
+            <Progress value={78} className="h-3 bg-green-100" />
+            <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <span>الميزانية المخصصة: 2M ر.س</span>
+              <span>متبقي: 440K ر.س</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-sm flex items-center gap-2">
+              <Activity className="h-4 w-4 text-blue-600" />
+              معدل النمو الشهري
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-blue-600 mb-2">+2.3%</div>
+            <Progress value={65} className="h-3 bg-blue-100" />
+            <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <span>مقارنة بالشهر الماضي</span>
+              <span>اتجاه إيجابي</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-sm flex items-center gap-2">
+              <Brain className="h-4 w-4 text-purple-600" />
+              مؤشر الذكاء الاصطناعي
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-purple-600 mb-2">94%</div>
+            <Progress value={94} className="h-3 bg-purple-100" />
+            <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <span>دقة التنبؤات</span>
+              <span>أداء ممتاز</span>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -848,7 +905,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   );
 
   return (
-    <div className="min-h-screen bg-card/60 backdrop-blur-xl">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       {renderHeader()}
       
       <div className="max-w-7xl mx-auto p-6 space-y-6">
