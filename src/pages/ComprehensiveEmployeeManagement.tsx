@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt } from 'lucide-react';
+import boudLogo from '@/assets/boud-logo-white-brown.png';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -387,6 +388,7 @@ const ComprehensiveEmployeeManagement = () => {
               <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border">
                 <div className="flex items-center justify-center gap-4 mb-6">
                   <div className="text-center">
+                    <img src={boudLogo} alt="Boud Logo" className="h-20 w-auto mx-auto mb-4" />
                     <div>
                       <h2 className="text-2xl font-bold text-foreground">مرحباً بك في</h2>
                       <h2 className="text-2xl font-bold text-foreground">إدارة شؤون الموظفين والعمليات</h2>
