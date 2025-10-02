@@ -495,7 +495,7 @@ const ComprehensiveEmployeeManagement = () => {
                   {/* Logo */}
                   <div className="flex justify-center">
                     <img 
-                      src="/src/assets/boud-logo-centered.png" 
+                      src="/src/assets/boud-logo-new.png" 
                       alt="Boud Logo" 
                       className="h-32 w-auto object-contain"
                     />
