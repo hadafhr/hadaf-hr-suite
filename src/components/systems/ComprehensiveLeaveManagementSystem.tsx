@@ -10,61 +10,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  Calendar, 
-  CalendarDays, 
-  FileText, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Building,
-  BookOpen,
-  Shield,
-  Briefcase,
-  Award,
-  Target,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Zap,
-  Globe,
-  Eye,
-  Settings,
-  Bell,
-  CreditCard,
-  UserCheck,
-  Sparkles,
-  Archive,
-  Edit,
-  Trash2,
-  Share,
-  Lock,
-  Unlock,
-  AlertCircle,
-  Info,
-  UserPlus,
-  Phone,
-  Mail,
-  Crown,
-  Users2,
-  Database,
-  RefreshCw,
-  Server,
-  Users,
-  Upload
-} from 'lucide-react';
+import { ArrowLeft, Calendar, CalendarDays, FileText, AlertTriangle, CheckCircle2, Clock, Download, Plus, Search, Filter, Building, BookOpen, Shield, Briefcase, Award, Target, TrendingUp, BarChart3, PieChart, Activity, Zap, Globe, Eye, Settings, Bell, CreditCard, UserCheck, Sparkles, Archive, Edit, Trash2, Share, Lock, Unlock, AlertCircle, Info, UserPlus, Phone, Mail, Crown, Users2, Database, RefreshCw, Server, Users, Upload } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
-
 interface ComprehensiveLeaveManagementSystemProps {
   onBack: () => void;
 }
-
 interface LeaveRequest {
   id: string;
   employeeName: string;
@@ -80,7 +30,6 @@ interface LeaveRequest {
   managerComments?: string;
   hrComments?: string;
 }
-
 interface LeaveType {
   id: string;
   name: string;
@@ -91,7 +40,6 @@ interface LeaveType {
   requiresDocuments: boolean;
   description: string;
 }
-
 interface PublicHoliday {
   id: string;
   name: string;
@@ -101,7 +49,6 @@ interface PublicHoliday {
   description: string;
   isOfficial: boolean;
 }
-
 interface LeaveBalance {
   employeeId: string;
   employeeName: string;
@@ -123,7 +70,6 @@ interface LeaveBalance {
     remaining: number;
   };
 }
-
 interface LeaveMetric {
   id: string;
   metric: string;
@@ -134,169 +80,185 @@ interface LeaveMetric {
   trend: 'up' | 'down' | 'stable';
   lastUpdated: string;
 }
-
-export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveManagementSystemProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveManagementSystemProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Mock data for demonstration
-  const leaveRequests: LeaveRequest[] = [
-    {
-      id: '1',
-      employeeName: 'أحمد محمد العلي',
-      employeeId: 'EMP001',
-      leaveType: 'إجازة سنوية',
-      startDate: '2024-02-15',
-      endDate: '2024-02-25',
-      totalDays: 10,
-      reason: 'سفر عائلي للخارج',
-      status: 'pending',
-      appliedDate: '2024-01-15'
+  const leaveRequests: LeaveRequest[] = [{
+    id: '1',
+    employeeName: 'أحمد محمد العلي',
+    employeeId: 'EMP001',
+    leaveType: 'إجازة سنوية',
+    startDate: '2024-02-15',
+    endDate: '2024-02-25',
+    totalDays: 10,
+    reason: 'سفر عائلي للخارج',
+    status: 'pending',
+    appliedDate: '2024-01-15'
+  }, {
+    id: '2',
+    employeeName: 'سارة أحمد المطيري',
+    employeeId: 'EMP002',
+    leaveType: 'إجازة مرضية',
+    startDate: '2024-01-20',
+    endDate: '2024-01-23',
+    totalDays: 3,
+    reason: 'حالة مرضية طارئة',
+    status: 'approved',
+    appliedDate: '2024-01-18',
+    documents: ['medical-report.pdf']
+  }];
+  const leaveTypes: LeaveType[] = [{
+    id: '1',
+    name: 'الإجازة السنوية',
+    nameEn: 'Annual Leave',
+    category: 'annual',
+    maxDays: 21,
+    isPaid: true,
+    requiresDocuments: false,
+    description: 'الإجازة السنوية المستحقة للموظف'
+  }, {
+    id: '2',
+    name: 'الإجازة المرضية',
+    nameEn: 'Sick Leave',
+    category: 'sick',
+    maxDays: 30,
+    isPaid: true,
+    requiresDocuments: true,
+    description: 'إجازة مرضية بتقرير طبي'
+  }, {
+    id: '3',
+    name: 'إجازة الوضع',
+    nameEn: 'Maternity Leave',
+    category: 'maternity',
+    maxDays: 70,
+    isPaid: true,
+    requiresDocuments: true,
+    description: 'إجازة الوضع للموظفات'
+  }];
+  const publicHolidays: PublicHoliday[] = [{
+    id: '1',
+    name: 'يوم التأسيس',
+    nameEn: 'Founding Day',
+    date: '2024-02-22',
+    type: 'fixed',
+    description: 'يوم تأسيس الدولة السعودية',
+    isOfficial: true
+  }, {
+    id: '2',
+    name: 'اليوم الوطني',
+    nameEn: 'National Day',
+    date: '2024-09-23',
+    type: 'fixed',
+    description: 'اليوم الوطني للمملكة العربية السعودية',
+    isOfficial: true
+  }, {
+    id: '3',
+    name: 'عيد الفطر',
+    nameEn: 'Eid Al-Fitr',
+    date: '2024-04-10',
+    type: 'islamic',
+    description: 'عيد الفطر المبارك',
+    isOfficial: true
+  }];
+  const leaveBalances: LeaveBalance[] = [{
+    employeeId: 'EMP001',
+    employeeName: 'أحمد محمد العلي',
+    department: 'تقنية المعلومات',
+    annualLeave: {
+      entitled: 21,
+      used: 8,
+      remaining: 13,
+      carryOver: 0
     },
-    {
-      id: '2',
-      employeeName: 'سارة أحمد المطيري',
-      employeeId: 'EMP002',
-      leaveType: 'إجازة مرضية',
-      startDate: '2024-01-20',
-      endDate: '2024-01-23',
-      totalDays: 3,
-      reason: 'حالة مرضية طارئة',
-      status: 'approved',
-      appliedDate: '2024-01-18',
-      documents: ['medical-report.pdf']
+    sickLeave: {
+      entitled: 30,
+      used: 2,
+      remaining: 28
+    },
+    emergencyLeave: {
+      entitled: 5,
+      used: 0,
+      remaining: 5
     }
-  ];
-
-  const leaveTypes: LeaveType[] = [
-    {
-      id: '1',
-      name: 'الإجازة السنوية',
-      nameEn: 'Annual Leave',
-      category: 'annual',
-      maxDays: 21,
-      isPaid: true,
-      requiresDocuments: false,
-      description: 'الإجازة السنوية المستحقة للموظف'
-    },
-    {
-      id: '2',
-      name: 'الإجازة المرضية',
-      nameEn: 'Sick Leave',
-      category: 'sick',
-      maxDays: 30,
-      isPaid: true,
-      requiresDocuments: true,
-      description: 'إجازة مرضية بتقرير طبي'
-    },
-    {
-      id: '3',
-      name: 'إجازة الوضع',
-      nameEn: 'Maternity Leave',
-      category: 'maternity',
-      maxDays: 70,
-      isPaid: true,
-      requiresDocuments: true,
-      description: 'إجازة الوضع للموظفات'
-    }
-  ];
-
-  const publicHolidays: PublicHoliday[] = [
-    {
-      id: '1',
-      name: 'يوم التأسيس',
-      nameEn: 'Founding Day',
-      date: '2024-02-22',
-      type: 'fixed',
-      description: 'يوم تأسيس الدولة السعودية',
-      isOfficial: true
-    },
-    {
-      id: '2',
-      name: 'اليوم الوطني',
-      nameEn: 'National Day',
-      date: '2024-09-23',
-      type: 'fixed',
-      description: 'اليوم الوطني للمملكة العربية السعودية',
-      isOfficial: true
-    },
-    {
-      id: '3',
-      name: 'عيد الفطر',
-      nameEn: 'Eid Al-Fitr',
-      date: '2024-04-10',
-      type: 'islamic',
-      description: 'عيد الفطر المبارك',
-      isOfficial: true
-    }
-  ];
-
-  const leaveBalances: LeaveBalance[] = [
-    {
-      employeeId: 'EMP001',
-      employeeName: 'أحمد محمد العلي',
-      department: 'تقنية المعلومات',
-      annualLeave: {
-        entitled: 21,
-        used: 8,
-        remaining: 13,
-        carryOver: 0
-      },
-      sickLeave: {
-        entitled: 30,
-        used: 2,
-        remaining: 28
-      },
-      emergencyLeave: {
-        entitled: 5,
-        used: 0,
-        remaining: 5
-      }
-    }
-  ];
-
-  const leaveMetrics: LeaveMetric[] = [
-    {
-      id: '1',
-      metric: 'معدل استخدام الإجازات',
-      category: 'Utilization',
-      status: 'Good',
-      value: 68,
-      target: 70,
-      trend: 'up',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '2',
-      metric: 'سرعة الموافقة',
-      category: 'Requests',
-      status: 'Excellent',
-      value: 2,
-      target: 3,
-      trend: 'down',
-      lastUpdated: '2024-01-15'
-    }
-  ];
+  }];
+  const leaveMetrics: LeaveMetric[] = [{
+    id: '1',
+    metric: 'معدل استخدام الإجازات',
+    category: 'Utilization',
+    status: 'Good',
+    value: 68,
+    target: 70,
+    trend: 'up',
+    lastUpdated: '2024-01-15'
+  }, {
+    id: '2',
+    metric: 'سرعة الموافقة',
+    category: 'Requests',
+    status: 'Excellent',
+    value: 2,
+    target: 3,
+    trend: 'down',
+    lastUpdated: '2024-01-15'
+  }];
 
   // Analytics data
-  const leaveData = [
-    { month: 'يناير', annual: 45, sick: 12, emergency: 3 },
-    { month: 'فبراير', annual: 52, sick: 8, emergency: 5 },
-    { month: 'مارس', annual: 38, sick: 15, emergency: 2 },
-    { month: 'أبريل', annual: 65, sick: 10, emergency: 4 },
-    { month: 'مايو', annual: 48, sick: 7, emergency: 6 },
-    { month: 'يونيو', annual: 72, sick: 14, emergency: 8 }
-  ];
-
-  const leaveTypeDistribution = [
-    { name: 'إجازة سنوية', value: 65, color: 'hsl(var(--primary))' },
-    { name: 'إجازة مرضية', value: 20, color: 'hsl(var(--success))' },
-    { name: 'إجازة طارئة', value: 10, color: 'hsl(var(--warning))' },
-    { name: 'أنواع أخرى', value: 5, color: 'hsl(var(--accent))' }
-  ];
+  const leaveData = [{
+    month: 'يناير',
+    annual: 45,
+    sick: 12,
+    emergency: 3
+  }, {
+    month: 'فبراير',
+    annual: 52,
+    sick: 8,
+    emergency: 5
+  }, {
+    month: 'مارس',
+    annual: 38,
+    sick: 15,
+    emergency: 2
+  }, {
+    month: 'أبريل',
+    annual: 65,
+    sick: 10,
+    emergency: 4
+  }, {
+    month: 'مايو',
+    annual: 48,
+    sick: 7,
+    emergency: 6
+  }, {
+    month: 'يونيو',
+    annual: 72,
+    sick: 14,
+    emergency: 8
+  }];
+  const leaveTypeDistribution = [{
+    name: 'إجازة سنوية',
+    value: 65,
+    color: 'hsl(var(--primary))'
+  }, {
+    name: 'إجازة مرضية',
+    value: 20,
+    color: 'hsl(var(--success))'
+  }, {
+    name: 'إجازة طارئة',
+    value: 10,
+    color: 'hsl(var(--warning))'
+  }, {
+    name: 'أنواع أخرى',
+    value: 5,
+    color: 'hsl(var(--accent))'
+  }];
 
   // Calculate statistics
   const stats = {
@@ -307,33 +269,36 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
     totalHolidays: publicHolidays.length,
     avgProcessingTime: 2.5
   };
-
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير إدارة الإجازات كملف PDF",
+      description: "تم تصدير تقرير إدارة الإجازات كملف PDF"
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-success/10 text-success border-success/30';
-      case 'pending': return 'bg-warning/10 text-warning border-warning/30';
-      case 'rejected': return 'bg-destructive/10 text-destructive border-destructive/30';
-      case 'cancelled': return 'bg-muted/10 text-muted-foreground border-muted/30';
-      default: return 'bg-muted/10 text-muted-foreground border-muted/30';
+      case 'approved':
+        return 'bg-success/10 text-success border-success/30';
+      case 'pending':
+        return 'bg-warning/10 text-warning border-warning/30';
+      case 'rejected':
+        return 'bg-destructive/10 text-destructive border-destructive/30';
+      case 'cancelled':
+        return 'bg-muted/10 text-muted-foreground border-muted/30';
+      default:
+        return 'bg-muted/10 text-muted-foreground border-muted/30';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'approved': 'موافق عليها',
       'pending': 'قيد المراجعة',
       'rejected': 'مرفوضة',
@@ -341,9 +306,10 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
     };
     return statusMap[status] || status;
   };
-
   const getCategoryText = (category: string) => {
-    const categoryMap: { [key: string]: string } = {
+    const categoryMap: {
+      [key: string]: string;
+    } = {
       'annual': 'سنوية',
       'sick': 'مرضية',
       'maternity': 'وضع',
@@ -356,28 +322,19 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
     };
     return categoryMap[category] || category;
   };
-
-  const renderHeader = () => (
-    <div className="space-y-6 container mx-auto p-6">
+  const renderHeader = () => <div className="space-y-6 container mx-auto p-6">
       {/* Logo */}
       <div className="flex justify-center">
-        <img 
-          src="/src/assets/boud-logo-centered.png" 
-          alt="Boud Logo" 
-          className="h-32 w-auto object-contain"
-        />
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة الإجازات المتطور</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الإجازات </h1>
         <p className="text-muted-foreground">منظومة شاملة لإدارة الإجازات والعطل مع التحليلات الذكية</p>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
@@ -487,18 +444,8 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={leaveTypeDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="hsl(var(--primary))"
-                  dataKey="value"
-                >
-                  {leaveTypeDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={leaveTypeDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="hsl(var(--primary))" dataKey="value">
+                  {leaveTypeDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -619,11 +566,8 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
-
-  const renderLeaveTypes = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderLeaveTypes = () => <div className="space-y-6">
       {/* Add Leave Type Button */}
       <Card>
         <CardContent className="p-4">
@@ -665,9 +609,12 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                     <Input id="max-days" type="number" placeholder="عدد الأيام" />
                   </div>
                   <Button onClick={() => {
-                    toast({ title: "تم إضافة نوع الإجازة", description: "تم إنشاء نوع إجازة جديد بنجاح" });
-                    setIsAddDialogOpen(false);
-                  }}>
+                  toast({
+                    title: "تم إضافة نوع الإجازة",
+                    description: "تم إنشاء نوع إجازة جديد بنجاح"
+                  });
+                  setIsAddDialogOpen(false);
+                }}>
                     إضافة نوع الإجازة
                   </Button>
                 </div>
@@ -679,8 +626,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
 
       {/* Leave Types Grid */}
       <div className="grid gap-4">
-        {leaveTypes.map((leaveType) => (
-          <Card key={leaveType.id}>
+        {leaveTypes.map(leaveType => <Card key={leaveType.id}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -719,14 +665,10 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderPublicHolidays = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderPublicHolidays = () => <div className="space-y-6">
       {/* Holiday Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
@@ -784,8 +726,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
 
       {/* Holidays List */}
       <div className="grid gap-4">
-        {publicHolidays.map((holiday) => (
-          <Card key={holiday.id}>
+        {publicHolidays.map(holiday => <Card key={holiday.id}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -796,9 +737,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                   <Badge variant={holiday.type === 'fixed' ? 'default' : 'secondary'}>
                     {holiday.type === 'fixed' ? 'ميلادي' : 'هجري'}
                   </Badge>
-                  {holiday.isOfficial && (
-                    <Badge variant="outline">رسمي</Badge>
-                  )}
+                  {holiday.isOfficial && <Badge variant="outline">رسمي</Badge>}
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
@@ -820,26 +759,17 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderLeaveRequests = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderLeaveRequests = () => <div className="space-y-6">
       {/* Search and Filter */}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
-                placeholder="البحث في طلبات الإجازة..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10"
-              />
+              <Input placeholder="البحث في طلبات الإجازة..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10" />
             </div>
             <Select value={selectedFilter} onValueChange={setSelectedFilter}>
               <SelectTrigger className="w-full md:w-[180px]">
@@ -862,8 +792,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
 
       {/* Requests List */}
       <div className="grid gap-4">
-        {leaveRequests.map((request) => (
-          <Card key={request.id}>
+        {leaveRequests.map(request => <Card key={request.id}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -894,16 +823,14 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                     <Eye className="h-4 w-4 ml-2" />
                     عرض
                   </Button>
-                  {request.status === 'pending' && (
-                    <>
+                  {request.status === 'pending' && <>
                       <Button size="sm" className="bg-success hover:bg-success/90 text-success-foreground">
                         <CheckCircle2 className="h-4 w-4" />
                       </Button>
                       <Button size="sm" variant="destructive">
                         <AlertTriangle className="h-4 w-4" />
                       </Button>
-                    </>
-                  )}
+                    </>}
                 </div>
               </div>
               <div className="mt-4 pt-4 border-t">
@@ -911,32 +838,23 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                   <span className="text-muted-foreground">السبب: </span>
                   {request.reason}
                 </p>
-                {request.documents && request.documents.length > 0 && (
-                  <div className="mt-2">
+                {request.documents && request.documents.length > 0 && <div className="mt-2">
                     <p className="text-sm text-muted-foreground">المستندات المرفقة:</p>
                     <div className="flex gap-2 mt-1">
-                      {request.documents.map((doc, index) => (
-                        <Badge key={index} variant="outline">
+                      {request.documents.map((doc, index) => <Badge key={index} variant="outline">
                           <FileText className="h-3 w-3 ml-1" />
                           {doc}
-                        </Badge>
-                      ))}
+                        </Badge>)}
                     </div>
-                  </div>
-                )}
+                  </div>}
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderLeaveBalances = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderLeaveBalances = () => <div className="space-y-6">
       <div className="grid gap-4">
-        {leaveBalances.map((balance) => (
-          <Card key={balance.employeeId}>
+        {leaveBalances.map(balance => <Card key={balance.employeeId}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -958,10 +876,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                       <span>المستحق: {balance.annualLeave.entitled}</span>
                       <span>المستخدم: {balance.annualLeave.used}</span>
                     </div>
-                    <Progress 
-                      value={(balance.annualLeave.used / balance.annualLeave.entitled) * 100} 
-                      className="h-2"
-                    />
+                    <Progress value={balance.annualLeave.used / balance.annualLeave.entitled * 100} className="h-2" />
                     <p className="text-sm text-muted-foreground">
                       المتبقي: {balance.annualLeave.remaining} يوم
                     </p>
@@ -976,10 +891,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                       <span>المستحق: {balance.sickLeave.entitled}</span>
                       <span>المستخدم: {balance.sickLeave.used}</span>
                     </div>
-                    <Progress 
-                      value={(balance.sickLeave.used / balance.sickLeave.entitled) * 100} 
-                      className="h-2"
-                    />
+                    <Progress value={balance.sickLeave.used / balance.sickLeave.entitled * 100} className="h-2" />
                     <p className="text-sm text-muted-foreground">
                       المتبقي: {balance.sickLeave.remaining} يوم
                     </p>
@@ -994,10 +906,7 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                       <span>المستحق: {balance.emergencyLeave.entitled}</span>
                       <span>المستخدم: {balance.emergencyLeave.used}</span>
                     </div>
-                    <Progress 
-                      value={(balance.emergencyLeave.used / balance.emergencyLeave.entitled) * 100} 
-                      className="h-2"
-                    />
+                    <Progress value={balance.emergencyLeave.used / balance.emergencyLeave.entitled * 100} className="h-2" />
                     <p className="text-sm text-muted-foreground">
                       المتبقي: {balance.emergencyLeave.remaining} يوم
                     </p>
@@ -1005,14 +914,10 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderReports = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderReports = () => <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Button variant="outline" className="h-32 flex-col gap-4">
           <BarChart3 className="h-8 w-8" />
@@ -1073,11 +978,8 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
           طباعة التقارير
         </Button>
       </div>
-    </div>
-  );
-
-  const renderSettings = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderSettings = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>إعدادات إدارة الإجازات</CardTitle>
@@ -1126,22 +1028,16 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
           </Button>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+    </div>;
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -1216,6 +1112,5 @@ export const ComprehensiveLeaveManagementSystem: React.FC<ComprehensiveLeaveMana
         </Tabs>
       </div>
       </div>
-    </div>
-  );
+    </div>;
 };
