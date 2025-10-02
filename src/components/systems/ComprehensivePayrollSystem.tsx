@@ -392,36 +392,30 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-8 p-6 bg-white rounded-xl shadow-md border border-gray-200">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="hover:bg-gray-50">
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          رجوع
-        </Button>
-        <div className="h-8 w-px bg-gray-200"></div>
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
-            <DollarSign className="h-7 w-7 text-blue-600" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              نظام الرواتب والأجور المتطور
-            </h1>
-            <p className="text-gray-600 text-base">
-              نظام شامل لإدارة ومعالجة رواتب الموظفين مع التحليل المتقدم
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img 
+          src="/src/assets/boud-logo-centered.png" 
+          alt="Boud Logo" 
+          className="h-32 w-auto object-contain"
+        />
       </div>
-      <div className="flex items-center gap-3">
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setIsPayrollSheetOpen(true)}>
-          <Receipt className="h-4 w-4 ml-2" />
-          كشف الرواتب
-        </Button>
-        <Button className="bg-green-600 hover:bg-green-700 text-white" onClick={handleProcessPayroll}>
-          <Calculator className="h-4 w-4 ml-2" />
-          معالجة الرواتب
-        </Button>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام الرواتب والأجور المتطور</h1>
+        <p className="text-muted-foreground">نظام شامل لإدارة ومعالجة رواتب الموظفين مع التحليل المتقدم</p>
+        <div className="flex justify-center gap-3 mt-4">
+          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => setIsPayrollSheetOpen(true)}>
+            <Receipt className="h-4 w-4 ml-2" />
+            كشف الرواتب
+          </Button>
+          <Button variant="outline" onClick={onBack}>
+            <ArrowLeft className="h-4 w-4 ml-2" />
+            رجوع
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -430,80 +424,80 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-blue-700">إجمالي تكلفة الرواتب</p>
-                <p className="text-2xl font-bold text-blue-900">{stats.totalPayrollCost.toLocaleString()}</p>
-                <p className="text-xs text-blue-600">ريال سعودي</p>
+                <p className="text-sm text-muted-foreground">إجمالي تكلفة الرواتب</p>
+                <p className="text-2xl font-bold text-primary">{stats.totalPayrollCost.toLocaleString()}</p>
+                <p className="text-xs text-muted-foreground">ريال سعودي</p>
               </div>
-              <DollarSign className="h-8 w-8 text-blue-600" />
+              <DollarSign className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-purple-50 to-violet-100 border-purple-200">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-warning">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-purple-700">الرواتب المعالجة</p>
-                <p className="text-2xl font-bold text-purple-900">{stats.processedSalaries}</p>
-                <p className="text-xs text-purple-600">موظف</p>
+                <p className="text-sm text-muted-foreground">الرواتب المعالجة</p>
+                <p className="text-2xl font-bold text-warning">{stats.processedSalaries}</p>
+                <p className="text-xs text-muted-foreground">موظف</p>
               </div>
-              <Calculator className="h-8 w-8 text-purple-600" />
+              <Calculator className="h-8 w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-yellow-50 to-amber-100 border-yellow-200">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-yellow-700">موافقات معلقة</p>
-                <p className="text-2xl font-bold text-yellow-900">{stats.pendingApprovals}</p>
-                <p className="text-xs text-yellow-600">طلب</p>
+                <p className="text-sm text-muted-foreground">موافقات معلقة</p>
+                <p className="text-2xl font-bold text-success">{stats.pendingApprovals}</p>
+                <p className="text-xs text-muted-foreground">طلب</p>
               </div>
-              <Clock className="h-8 w-8 text-yellow-600" />
+              <Clock className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-destructive">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-red-700">مدفوعات متأخرة</p>
-                <p className="text-2xl font-bold text-red-900">{stats.overduePayments}</p>
-                <p className="text-xs text-red-600">دفعة</p>
+                <p className="text-sm text-muted-foreground">مدفوعات متأخرة</p>
+                <p className="text-2xl font-bold text-destructive">{stats.overduePayments}</p>
+                <p className="text-xs text-muted-foreground">دفعة</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-red-600" />
+              <AlertTriangle className="h-8 w-8 text-destructive" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-teal-50 to-cyan-100 border-teal-200">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-teal-700">متوسط الراتب</p>
-                <p className="text-2xl font-bold text-teal-900">{stats.avgSalary.toLocaleString()}</p>
-                <p className="text-xs text-teal-600">ريال</p>
+                <p className="text-sm text-muted-foreground">متوسط الراتب</p>
+                <p className="text-2xl font-bold text-primary">{stats.avgSalary.toLocaleString()}</p>
+                <p className="text-xs text-muted-foreground">ريال</p>
               </div>
-              <Target className="h-8 w-8 text-teal-600" />
+              <Target className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-green-50 to-emerald-100 border-green-200">
+        <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-green-700">إجمالي الموظفين</p>
-                <p className="text-2xl font-bold text-green-900">{stats.totalEmployees}</p>
-                <p className="text-xs text-green-600">موظف</p>
+                <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
+                <p className="text-2xl font-bold text-success">{stats.totalEmployees}</p>
+                <p className="text-xs text-muted-foreground">موظف</p>
               </div>
-              <Users className="h-8 w-8 text-green-600" />
+              <Users className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
@@ -899,21 +893,66 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="p-6">
-        {renderHeader()}
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10">
+          <div 
+            className="w-full h-full bg-repeat animate-pulse"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundSize: '60px 60px'
+            }}
+          ></div>
+        </div>
+      </div>
       
-        <div className="max-w-7xl mx-auto space-y-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full grid-cols-8 bg-white border border-gray-200 shadow-sm rounded-lg">
-              <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-              <TabsTrigger value="employee-records">سجلات الموظفين</TabsTrigger>
-              <TabsTrigger value="salary-processing">معالجة الرواتب</TabsTrigger>
-              <TabsTrigger value="deductions-benefits">الخصومات والمزايا</TabsTrigger>
-              <TabsTrigger value="payslips">قسائم الرواتب</TabsTrigger>
-              <TabsTrigger value="compliance-wps">الامتثال و WPS</TabsTrigger>
-              <TabsTrigger value="reports">التقارير</TabsTrigger>
-              <TabsTrigger value="settings">الإعدادات</TabsTrigger>
+      {/* Floating Elements for Professional Look */}
+      <div className="absolute top-10 right-10 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-32 left-16 w-32 h-32 bg-accent/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-32 right-20 w-16 h-16 bg-accent/15 rounded-full blur-lg animate-pulse delay-500"></div>
+      
+      <div className="relative z-10">
+        <div className="space-y-6 container mx-auto p-6">
+          {renderHeader()}
+        </div>
+
+        <div className="container mx-auto p-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
+            <TabsList className="grid w-full grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+              <TabsTrigger value="dashboard" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <BarChart3 className="h-4 w-4" />
+                <span className="text-xs">لوحة التحكم</span>
+              </TabsTrigger>
+              <TabsTrigger value="employee-records" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Users className="h-4 w-4" />
+                <span className="text-xs">سجلات الموظفين</span>
+              </TabsTrigger>
+              <TabsTrigger value="salary-processing" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Calculator className="h-4 w-4" />
+                <span className="text-xs">معالجة الرواتب</span>
+              </TabsTrigger>
+              <TabsTrigger value="deductions-benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <AlertTriangle className="h-4 w-4" />
+                <span className="text-xs">الخصومات والمزايا</span>
+              </TabsTrigger>
+              <TabsTrigger value="payslips" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Receipt className="h-4 w-4" />
+                <span className="text-xs">قسائم الرواتب</span>
+              </TabsTrigger>
+              <TabsTrigger value="compliance-wps" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Shield className="h-4 w-4" />
+                <span className="text-xs">الامتثال و WPS</span>
+              </TabsTrigger>
+              <TabsTrigger value="reports" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <FileText className="h-4 w-4" />
+                <span className="text-xs">التقارير</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                <Settings className="h-4 w-4" />
+                <span className="text-xs">الإعدادات</span>
+              </TabsTrigger>
             </TabsList>
 
           <TabsContent value="dashboard">
