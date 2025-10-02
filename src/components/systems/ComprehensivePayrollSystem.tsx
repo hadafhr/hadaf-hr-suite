@@ -392,39 +392,33 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-8 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 animate-fade-in">
+    <div className="flex items-center justify-between mb-8 p-6 bg-white rounded-xl shadow-md border border-gray-200">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-border hover:bg-accent/5 hover:border-accent/30 hover:text-accent transition-all duration-300">
+        <Button variant="outline" size="sm" onClick={onBack} className="hover:bg-gray-50">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
-        <div className="h-8 w-px bg-border"></div>
+        <div className="h-8 w-px bg-gray-200"></div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-foreground/20 to-transparent animate-pulse"></div>
-            <DollarSign className="h-8 w-8 text-foreground relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-warning rounded-full animate-pulse"></div>
+          <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
+            <DollarSign className="h-7 w-7 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="text-2xl font-bold text-gray-900">
               نظام الرواتب والأجور المتطور
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-gray-600 text-base">
               نظام شامل لإدارة ومعالجة رواتب الموظفين مع التحليل المتقدم
             </p>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-accent/30 text-accent bg-accent/5 px-4 py-2 text-sm font-medium">
-          <DollarSign className="h-4 w-4 ml-2" />
-          نظام متقدم
-        </Badge>
-        <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-foreground shadow-lg hover:shadow-xl transition-all duration-300" onClick={() => setIsPayrollSheetOpen(true)}>
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setIsPayrollSheetOpen(true)}>
           <Receipt className="h-4 w-4 ml-2" />
           كشف الرواتب
         </Button>
-        <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-foreground shadow-lg hover:shadow-xl transition-all duration-300" onClick={handleProcessPayroll}>
+        <Button className="bg-green-600 hover:bg-green-700 text-white" onClick={handleProcessPayroll}>
           <Calculator className="h-4 w-4 ml-2" />
           معالجة الرواتب
         </Button>
@@ -905,13 +899,13 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      {renderHeader()}
+    <div className="min-h-screen bg-gray-50">
+      <div className="p-6">
+        {renderHeader()}
       
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
-          <div className="border-b border-border">
-            <TabsList className="grid w-full grid-cols-8 bg-card/60 backdrop-blur-xl border border-border/30 shadow-lg shadow-accent/10 rounded-xl">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full grid-cols-8 bg-white border border-gray-200 shadow-sm rounded-lg">
               <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
               <TabsTrigger value="employee-records">سجلات الموظفين</TabsTrigger>
               <TabsTrigger value="salary-processing">معالجة الرواتب</TabsTrigger>
@@ -921,7 +915,6 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
               <TabsTrigger value="reports">التقارير</TabsTrigger>
               <TabsTrigger value="settings">الإعدادات</TabsTrigger>
             </TabsList>
-          </div>
 
           <TabsContent value="dashboard">
             {renderAnalyticsDashboard()}
@@ -1527,6 +1520,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </div>
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 };
