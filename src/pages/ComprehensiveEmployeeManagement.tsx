@@ -385,7 +385,7 @@ const ComprehensiveEmployeeManagement = () => {
 
           <TabsContent value="employee-operations">
             <div className="space-y-6">
-              <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border">
+              <div className="rounded-3xl p-6 transition-all duration-300 bg-card border border-border/20">
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <div className="text-center">
                     <img src={boudLogo} alt="Boud Logo" className="h-48 w-auto mx-auto mb-2" />
