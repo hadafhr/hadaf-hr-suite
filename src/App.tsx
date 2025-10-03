@@ -107,6 +107,8 @@ import { SystemMonitoring } from './pages/SystemMonitoring';
 import { AdminAnalytics } from './pages/AdminAnalytics';
 import { SystemDevelopment } from './pages/SystemDevelopment';
 import { SecuritySettings } from './pages/SecuritySettings';
+import { PermissionsManagement } from './pages/PermissionsManagement';
+import { TechnicalSupport } from './pages/TechnicalSupport';
 import InteractiveTour from './pages/InteractiveTour';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import GreenPapers from './pages/GreenPapers';
@@ -199,6 +201,8 @@ const App = () => {
               <Route path="/admin-analytics" element={<AdminAnalytics />} />
               <Route path="/system-development" element={<SystemDevelopment />} />
               <Route path="/security-settings" element={<SecuritySettings />} />
+              <Route path="/permissions-management" element={<PermissionsManagement />} />
+              <Route path="/technical-support" element={<TechnicalSupport />} />
               <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
               {/* Legacy Login Routes */}
               <Route path="/login" element={<Login />} />

@@ -73,13 +73,13 @@ export const AdminDashboard: React.FC = () => {
     icon: Building2,
     route: '/clients-subscriptions'
   }, {
-    label: isArabic ? 'مراقبة النظام' : 'System Monitoring',
-    icon: Monitor,
-    route: '/system-monitoring'
-  }, {
     label: isArabic ? 'إدارة النظام' : 'HR Management',
     icon: Users,
     route: '/hr-management'
+  }, {
+    label: isArabic ? 'مراقبة النظام' : 'System Monitoring',
+    icon: Monitor,
+    route: '/system-monitoring'
   }, {
     label: isArabic ? 'التقارير والتحليلات' : 'Reports & Analytics',
     icon: BarChart3,
@@ -92,6 +92,14 @@ export const AdminDashboard: React.FC = () => {
     label: isArabic ? 'إعدادات الأمان' : 'Security Settings',
     icon: Shield,
     route: '/security-settings'
+  }, {
+    label: isArabic ? 'إدارة الصلاحيات' : 'Permissions Management',
+    icon: Shield,
+    route: '/permissions-management'
+  }, {
+    label: isArabic ? 'الدعم الفني' : 'Technical Support',
+    icon: Server,
+    route: '/technical-support'
   }];
 
   // Mock data for charts
