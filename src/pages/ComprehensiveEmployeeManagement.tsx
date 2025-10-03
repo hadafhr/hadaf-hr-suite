@@ -351,12 +351,12 @@ const ComprehensiveEmployeeManagement = () => {
                   الإعدادات العامة
                 </Button>
                  
-                <Button variant="ghost" size="sm" className="h-8 px-3 text-xs transition-all duration-300 hover:bg-accent hover:text-accent-foreground border border-border hover:border-accent rounded-lg">
+                <Button variant="ghost" size="sm" className="h-8 px-3 text-xs transition-all duration-300 hover:bg-accent hover:text-accent-foreground rounded-lg">
                   <Download className="h-3 w-3 ml-1" />
                   حفظ التخطيط
                 </Button>
                 
-                <Button variant="ghost" size="sm" className="h-8 px-3 text-xs transition-all duration-300 hover:bg-accent hover:text-accent-foreground border border-border hover:border-accent rounded-lg">
+                <Button variant="ghost" size="sm" className="h-8 px-3 text-xs transition-all duration-300 hover:bg-accent hover:text-accent-foreground rounded-lg">
                   <Settings className="h-3 w-3 ml-1" />
                   تخصيص
                 </Button>
