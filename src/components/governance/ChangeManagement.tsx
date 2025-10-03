@@ -343,67 +343,434 @@ export const ChangeManagement: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="planning">
-          <Card className="border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="h-5 w-5" />
-                التخطيط للتغيير
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground text-center py-12">
-                قسم التخطيط للتغيير قيد التطوير...
-              </p>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            <Card className="border-border/50 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-5 w-5 text-primary" />
+                  التخطيط الاستراتيجي للتغيير
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* نموذج تقييم الاستعداد للتغيير */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Card className="border-border/50">
+                    <CardContent className="p-4 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                          <Target className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-foreground">تقييم الاستعداد</h3>
+                          <p className="text-xs text-muted-foreground">تقييم جاهزية المؤسسة للتغيير</p>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>الاستعداد التنظيمي</span>
+                          <span className="font-bold">78%</span>
+                        </div>
+                        <div className="w-full h-2 bg-muted rounded-full">
+                          <div className="h-full bg-blue-600 rounded-full" style={{ width: '78%' }} />
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm" className="w-full">إجراء تقييم جديد</Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-border/50">
+                    <CardContent className="p-4 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
+                          <Users className="h-5 w-5 text-green-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-foreground">تحليل أصحاب المصلحة</h3>
+                          <p className="text-xs text-muted-foreground">تحديد وتصنيف الأطراف المعنية</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-center">
+                        <div className="bg-muted/50 p-2 rounded-lg">
+                          <p className="text-2xl font-bold text-foreground">24</p>
+                          <p className="text-xs text-muted-foreground">أطراف معنية</p>
+                        </div>
+                        <div className="bg-muted/50 p-2 rounded-lg">
+                          <p className="text-2xl font-bold text-green-600">18</p>
+                          <p className="text-xs text-muted-foreground">داعمين</p>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm" className="w-full">إدارة الأطراف</Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* خارطة طريق التغيير */}
+                <Card className="border-border/50">
+                  <CardHeader>
+                    <CardTitle className="text-base">خارطة طريق التغيير</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {[
+                        { phase: 'التحليل والتقييم', status: 'completed', duration: '4 أسابيع' },
+                        { phase: 'التصميم والتخطيط', status: 'in_progress', duration: '6 أسابيع' },
+                        { phase: 'التنفيذ التجريبي', status: 'pending', duration: '8 أسابيع' },
+                        { phase: 'التطبيق الشامل', status: 'pending', duration: '12 أسبوع' }
+                      ].map((phase, index) => (
+                        <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            phase.status === 'completed' ? 'bg-green-500/20 text-green-600' :
+                            phase.status === 'in_progress' ? 'bg-blue-500/20 text-blue-600' :
+                            'bg-muted text-muted-foreground'
+                          }`}>
+                            {index + 1}
+                          </div>
+                          <div className="flex-1">
+                            <p className="font-medium text-foreground">{phase.phase}</p>
+                            <p className="text-xs text-muted-foreground">{phase.duration}</p>
+                          </div>
+                          <Badge className={
+                            phase.status === 'completed' ? 'bg-green-500/10 text-green-600 border-green-500/20' :
+                            phase.status === 'in_progress' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' :
+                            'bg-muted text-muted-foreground'
+                          }>
+                            {phase.status === 'completed' ? 'مكتمل' : 
+                             phase.status === 'in_progress' ? 'جاري' : 'قادم'}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="implementation">
-          <Card className="border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Zap className="h-5 w-5" />
-                تنفيذ التغيير
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground text-center py-12">
-                قسم تنفيذ التغيير قيد التطوير...
-              </p>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            <div className="grid md:grid-cols-3 gap-4">
+              <Card className="border-border/50 bg-gradient-to-br from-blue-500/10 to-transparent">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Zap className="h-8 w-8 text-blue-600" />
+                    <Badge className="bg-blue-500/20 text-blue-600 border-blue-500/30">نشط</Badge>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-foreground">8</p>
+                    <p className="text-sm text-muted-foreground">مشاريع قيد التنفيذ</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">عرض التفاصيل</Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50 bg-gradient-to-br from-orange-500/10 to-transparent">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <AlertTriangle className="h-8 w-8 text-orange-600" />
+                    <Badge className="bg-orange-500/20 text-orange-600 border-orange-500/30">تحذير</Badge>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-foreground">3</p>
+                    <p className="text-sm text-muted-foreground">مشاريع بها تأخير</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">معالجة التأخيرات</Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50 bg-gradient-to-br from-green-500/10 to-transparent">
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <CheckCircle className="h-8 w-8 text-green-600" />
+                    <Badge className="bg-green-500/20 text-green-600 border-green-500/30">مكتمل</Badge>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-foreground">15</p>
+                    <p className="text-sm text-muted-foreground">مشروع تم إنجازه</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">سجل الإنجازات</Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* قائمة المهام النشطة */}
+            <Card className="border-border/50">
+              <CardHeader>
+                <CardTitle className="text-base">المهام التنفيذية النشطة</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { task: 'تدريب الموظفين على النظام الجديد', owner: 'إدارة التدريب', deadline: '2024-12-15', progress: 75, priority: 'high' },
+                    { task: 'ترحيل البيانات إلى النظام الجديد', owner: 'تقنية المعلومات', deadline: '2024-12-20', progress: 45, priority: 'high' },
+                    { task: 'إعداد دليل المستخدم', owner: 'الجودة', deadline: '2024-12-10', progress: 90, priority: 'medium' },
+                    { task: 'اختبار الأداء', owner: 'ضمان الجودة', deadline: '2024-12-08', progress: 60, priority: 'medium' }
+                  ].map((task, index) => (
+                    <div key={index} className="p-4 bg-card border border-border/50 rounded-lg space-y-3 hover:border-primary/50 transition-all">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-foreground">{task.task}</h4>
+                          <div className="flex items-center gap-3 mt-2 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Users className="h-3 w-3" />
+                              {task.owner}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {task.deadline}
+                            </span>
+                          </div>
+                        </div>
+                        <Badge className={task.priority === 'high' ? 'bg-red-500/10 text-red-600 border-red-500/20' : 'bg-orange-500/10 text-orange-600 border-orange-500/20'}>
+                          {task.priority === 'high' ? 'عاجل' : 'متوسط'}
+                        </Badge>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">التقدم</span>
+                          <span className="font-bold text-foreground">{task.progress}%</span>
+                        </div>
+                        <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all" style={{ width: `${task.progress}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="monitoring">
-          <Card className="border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5" />
-                مراقبة التقدم
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground text-center py-12">
-                قسم مراقبة التقدم قيد التطوير...
-              </p>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            {/* مؤشرات الأداء الرئيسية */}
+            <div className="grid md:grid-cols-4 gap-4">
+              <Card className="border-border/50">
+                <CardContent className="p-4 text-center space-y-2">
+                  <TrendingUp className="h-8 w-8 text-green-600 mx-auto" />
+                  <p className="text-3xl font-bold text-foreground">92%</p>
+                  <p className="text-sm text-muted-foreground">معدل الإنجاز الكلي</p>
+                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20">
+                    +5% عن الشهر السابق
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardContent className="p-4 text-center space-y-2">
+                  <Users className="h-8 w-8 text-blue-600 mx-auto" />
+                  <p className="text-3xl font-bold text-foreground">85%</p>
+                  <p className="text-sm text-muted-foreground">مستوى المشاركة</p>
+                  <Badge className="bg-blue-500/10 text-blue-600 border-blue-500/20">
+                    ممتاز
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardContent className="p-4 text-center space-y-2">
+                  <Target className="h-8 w-8 text-orange-600 mx-auto" />
+                  <p className="text-3xl font-bold text-foreground">7/10</p>
+                  <p className="text-sm text-muted-foreground">الأهداف المحققة</p>
+                  <Badge className="bg-orange-500/10 text-orange-600 border-orange-500/20">
+                    70%
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardContent className="p-4 text-center space-y-2">
+                  <Clock className="h-8 w-8 text-purple-600 mx-auto" />
+                  <p className="text-3xl font-bold text-foreground">12</p>
+                  <p className="text-sm text-muted-foreground">أيام متبقية</p>
+                  <Badge className="bg-purple-500/10 text-purple-600 border-purple-500/20">
+                    المرحلة الحالية
+                  </Badge>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* لوحة المراقبة التفصيلية */}
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4" />
+                    أداء المبادرات
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      { name: 'التحول الرقمي', value: 85, color: 'bg-blue-600' },
+                      { name: 'إعادة الهيكلة', value: 65, color: 'bg-green-600' },
+                      { name: 'ثقافة الأداء', value: 95, color: 'bg-purple-600' },
+                      { name: 'الابتكار', value: 45, color: 'bg-orange-600' }
+                    ].map((item, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-foreground font-medium">{item.name}</span>
+                          <span className="text-muted-foreground">{item.value}%</span>
+                        </div>
+                        <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
+                          <div className={`h-full ${item.color} transition-all`} style={{ width: `${item.value}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4" />
+                    المخاطر والتحديات
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {[
+                      { risk: 'مقاومة التغيير', level: 'high', impact: 'عالي', status: 'active' },
+                      { risk: 'نقص الموارد', level: 'medium', impact: 'متوسط', status: 'monitoring' },
+                      { risk: 'التأخير في الجدول الزمني', level: 'medium', impact: 'متوسط', status: 'mitigated' },
+                      { risk: 'قلة التدريب', level: 'low', impact: 'منخفض', status: 'resolved' }
+                    ].map((risk, index) => (
+                      <div key={index} className="p-3 bg-muted/30 rounded-lg flex items-center justify-between">
+                        <div className="flex-1">
+                          <p className="font-medium text-foreground text-sm">{risk.risk}</p>
+                          <p className="text-xs text-muted-foreground">التأثير: {risk.impact}</p>
+                        </div>
+                        <Badge className={
+                          risk.level === 'high' ? 'bg-red-500/10 text-red-600 border-red-500/20' :
+                          risk.level === 'medium' ? 'bg-orange-500/10 text-orange-600 border-orange-500/20' :
+                          'bg-green-500/10 text-green-600 border-green-500/20'
+                        }>
+                          {risk.level === 'high' ? 'عالي' : risk.level === 'medium' ? 'متوسط' : 'منخفض'}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="reports">
-          <Card className="border-border/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
-                تقارير إدارة التغيير
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground text-center py-12">
-                قسم التقارير قيد التطوير...
-              </p>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            {/* أنواع التقارير */}
+            <div className="grid md:grid-cols-3 gap-4">
+              <Card className="border-border/50 hover:border-primary/50 transition-all cursor-pointer group">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-blue-500/20 transition-all">
+                    <FileText className="h-8 w-8 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">تقرير التقدم الشهري</h3>
+                    <p className="text-sm text-muted-foreground">نظرة شاملة على التقدم المحرز</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Download className="h-4 w-4 ml-2" />
+                    تحميل التقرير
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50 hover:border-primary/50 transition-all cursor-pointer group">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-green-500/20 transition-all">
+                    <BarChart3 className="h-8 w-8 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">تقرير الأداء</h3>
+                    <p className="text-sm text-muted-foreground">مؤشرات الأداء الرئيسية</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Download className="h-4 w-4 ml-2" />
+                    تحميل التقرير
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50 hover:border-primary/50 transition-all cursor-pointer group">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-purple-500/20 transition-all">
+                    <Users className="h-8 w-8 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground mb-2">تقرير المشاركة</h3>
+                    <p className="text-sm text-muted-foreground">مستويات مشاركة الموظفين</p>
+                  </div>
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Download className="h-4 w-4 ml-2" />
+                    تحميل التقرير
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* التقارير الأخيرة */}
+            <Card className="border-border/50">
+              <CardHeader>
+                <CardTitle className="text-base">التقارير المنشورة مؤخراً</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { title: 'تقرير ربع سنوي - Q4 2024', date: '2024-12-01', type: 'quarterly', size: '2.4 MB', downloads: 45 },
+                    { title: 'تحليل المخاطر - نوفمبر 2024', date: '2024-11-30', type: 'risk', size: '1.8 MB', downloads: 32 },
+                    { title: 'تقرير الإنجازات - نوفمبر 2024', date: '2024-11-28', type: 'achievement', size: '3.1 MB', downloads: 67 },
+                    { title: 'تقييم رضا الموظفين', date: '2024-11-25', type: 'survey', size: '1.2 MB', downloads: 89 }
+                  ].map((report, index) => (
+                    <div key={index} className="p-4 bg-card border border-border/50 rounded-lg flex items-center justify-between hover:border-primary/50 transition-all">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <FileText className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-foreground">{report.title}</h4>
+                          <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {report.date}
+                            </span>
+                            <span>{report.size}</span>
+                            <span className="flex items-center gap-1">
+                              <Download className="h-3 w-3" />
+                              {report.downloads} تحميل
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <Button size="sm" variant="outline">
+                        <Download className="h-4 w-4 ml-2" />
+                        تحميل
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* إنشاء تقرير مخصص */}
+            <Card className="border-border/50 border-dashed">
+              <CardContent className="p-8 text-center space-y-4">
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto">
+                  <Plus className="h-8 w-8 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-foreground mb-2">إنشاء تقرير مخصص</h3>
+                  <p className="text-sm text-muted-foreground">قم بإنشاء تقرير مخصص حسب احتياجاتك</p>
+                </div>
+                <Button className="bg-primary hover:bg-primary/90">
+                  <Plus className="h-4 w-4 ml-2" />
+                  إنشاء تقرير جديد
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
