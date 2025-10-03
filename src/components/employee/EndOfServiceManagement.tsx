@@ -164,7 +164,7 @@ export function EndOfServiceManagement() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-center mb-4">
             <img 
-              src="/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png" 
+              src="/images/logo-new.png" 
               alt="Logo" 
               className="h-16 w-auto"
             />
