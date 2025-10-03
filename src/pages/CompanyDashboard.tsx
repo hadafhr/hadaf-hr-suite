@@ -35,7 +35,7 @@ export const CompanyDashboard: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   // Mock data for company overview
