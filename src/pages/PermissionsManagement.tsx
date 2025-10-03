@@ -4,6 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Shield,
   Users,
@@ -17,16 +22,26 @@ import {
   CheckCircle,
   XCircle,
   Settings,
-  Key
+  Key,
+  ArrowRight
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { SystemHeader } from '@/components/shared/SystemHeader';
 import { ReportsSection } from '@/components/shared/ReportsSection';
 import { AIAssistant } from '@/components/shared/AIAssistant';
+import { toast } from 'sonner';
 
 export const PermissionsManagement: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('roles');
+  const [isAddRoleDialogOpen, setIsAddRoleDialogOpen] = useState(false);
+  const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
+  const [isEditRoleDialogOpen, setIsEditRoleDialogOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<any>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Mock data for roles
   const roles = [
@@ -108,6 +123,38 @@ export const PermissionsManagement: React.FC = () => {
     { id: 8, name: 'الدعم الفني', category: 'دعم', icon: Users }
   ];
 
+  const handleAddRole = () => {
+    toast.success(isArabic ? 'تم إضافة الدور بنجاح' : 'Role added successfully');
+    setIsAddRoleDialogOpen(false);
+  };
+
+  const handleEditRole = (role: any) => {
+    setSelectedRole(role);
+    setIsEditRoleDialogOpen(true);
+  };
+
+  const handleUpdateRole = () => {
+    toast.success(isArabic ? 'تم تحديث الدور بنجاح' : 'Role updated successfully');
+    setIsEditRoleDialogOpen(false);
+  };
+
+  const handleToggleRole = (role: any) => {
+    toast.success(
+      role.isActive 
+        ? (isArabic ? 'تم تعطيل الدور' : 'Role disabled')
+        : (isArabic ? 'تم تفعيل الدور' : 'Role enabled')
+    );
+  };
+
+  const handleDeleteRole = (role: any) => {
+    toast.success(isArabic ? 'تم حذف الدور' : 'Role deleted');
+  };
+
+  const handleAddUser = () => {
+    toast.success(isArabic ? 'تم إضافة المستخدم بنجاح' : 'User added successfully');
+    setIsAddUserDialogOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white p-6 relative overflow-hidden" dir="rtl">
       {/* Background Pattern */}
@@ -116,21 +163,15 @@ export const PermissionsManagement: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto space-y-8">
-        {/* Page Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-white">
-              {isArabic ? 'إدارة الصلاحيات' : 'Permissions Management'}
-            </h1>
-            <p className="text-muted-foreground mt-2">
-              {isArabic ? 'إدارة الأدوار والصلاحيات للمستخدمين' : 'Manage roles and permissions for users'}
-            </p>
-          </div>
-          <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-black">
-            <UserPlus className="h-4 w-4 mr-2" />
-            {isArabic ? 'إضافة دور جديد' : 'Add New Role'}
-          </Button>
-        </div>
+        {/* System Header */}
+        <SystemHeader
+          title={isArabic ? 'إدارة الصلاحيات' : 'Permissions Management'}
+          description={isArabic ? 'إدارة الأدوار والصلاحيات للمستخدمين' : 'Manage roles and permissions for users'}
+          icon={<Shield className="h-8 w-8" />}
+          showBackButton={true}
+          showDashboardButton={true}
+          onBack={() => navigate('/admin')}
+        />
 
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -168,14 +209,61 @@ export const PermissionsManagement: React.FC = () => {
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder={isArabic ? 'البحث عن دور...' : 'Search roles...'}
                         className="pl-10 w-64 border-border bg-black/20 text-white"
                       />
                     </div>
-                    <Button variant="outline" size="sm" className="border-border text-white hover:bg-accent/20">
-                      <Filter className="h-4 w-4 mr-2" />
-                      {isArabic ? 'تصفية' : 'Filter'}
-                    </Button>
+                    <Dialog open={isAddRoleDialogOpen} onOpenChange={setIsAddRoleDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-black">
+                          <UserPlus className="h-4 w-4 mr-2" />
+                          {isArabic ? 'إضافة دور جديد' : 'Add New Role'}
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-black/95 border-border text-white">
+                        <DialogHeader>
+                          <DialogTitle>{isArabic ? 'إضافة دور جديد' : 'Add New Role'}</DialogTitle>
+                          <DialogDescription className="text-muted-foreground">
+                            {isArabic ? 'قم بإنشاء دور جديد وتحديد الصلاحيات' : 'Create a new role and assign permissions'}
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label>{isArabic ? 'اسم الدور (عربي)' : 'Role Name (Arabic)'}</Label>
+                            <Input className="bg-black/20 border-border text-white" />
+                          </div>
+                          <div>
+                            <Label>{isArabic ? 'اسم الدور (إنجليزي)' : 'Role Name (English)'}</Label>
+                            <Input className="bg-black/20 border-border text-white" />
+                          </div>
+                          <div>
+                            <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                            <Textarea className="bg-black/20 border-border text-white" />
+                          </div>
+                          <div>
+                            <Label>{isArabic ? 'الصلاحيات' : 'Permissions'}</Label>
+                            <div className="space-y-2 mt-2">
+                              {availablePermissions.slice(0, 4).map((perm) => (
+                                <div key={perm.id} className="flex items-center space-x-2 space-x-reverse">
+                                  <Checkbox id={`perm-${perm.id}`} />
+                                  <label htmlFor={`perm-${perm.id}`} className="text-sm">{perm.name}</label>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button variant="outline" onClick={() => setIsAddRoleDialogOpen(false)} className="border-border text-white">
+                            {isArabic ? 'إلغاء' : 'Cancel'}
+                          </Button>
+                          <Button onClick={handleAddRole} className="bg-gradient-to-r from-accent to-accent text-black">
+                            {isArabic ? 'حفظ' : 'Save'}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               </CardHeader>
@@ -211,22 +299,42 @@ export const PermissionsManagement: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex items-center space-x-2 space-x-reverse">
-                      <Button variant="outline" size="sm" className="border-border text-white hover:bg-accent/20">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="border-border text-white hover:bg-accent/20"
+                        onClick={() => handleEditRole(role)}
+                      >
                         <Edit className="h-4 w-4 mr-2" />
                         {isArabic ? 'تعديل' : 'Edit'}
                       </Button>
                       {role.isActive ? (
-                        <Button variant="outline" size="sm" className="border-border text-warning hover:bg-warning/20">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-border text-warning hover:bg-warning/20"
+                          onClick={() => handleToggleRole(role)}
+                        >
                           <Lock className="h-4 w-4 mr-2" />
                           {isArabic ? 'تعطيل' : 'Disable'}
                         </Button>
                       ) : (
-                        <Button variant="outline" size="sm" className="border-border text-success hover:bg-success/20">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="border-border text-success hover:bg-success/20"
+                          onClick={() => handleToggleRole(role)}
+                        >
                           <Unlock className="h-4 w-4 mr-2" />
                           {isArabic ? 'تفعيل' : 'Enable'}
                         </Button>
                       )}
-                      <Button variant="outline" size="sm" className="border-border text-destructive hover:bg-destructive/20">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="border-border text-destructive hover:bg-destructive/20"
+                        onClick={() => handleDeleteRole(role)}
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -242,10 +350,55 @@ export const PermissionsManagement: React.FC = () => {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-white">{isArabic ? 'المستخدمين' : 'Users'}</CardTitle>
-                  <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-black">
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    {isArabic ? 'إضافة مستخدم' : 'Add User'}
-                  </Button>
+                  <Dialog open={isAddUserDialogOpen} onOpenChange={setIsAddUserDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-gradient-to-r from-accent to-accent hover:from-accent/90 hover:to-accent/90 text-black">
+                        <UserPlus className="h-4 w-4 mr-2" />
+                        {isArabic ? 'إضافة مستخدم' : 'Add User'}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-black/95 border-border text-white">
+                      <DialogHeader>
+                        <DialogTitle>{isArabic ? 'إضافة مستخدم جديد' : 'Add New User'}</DialogTitle>
+                        <DialogDescription className="text-muted-foreground">
+                          {isArabic ? 'قم بإضافة مستخدم جديد وتعيين الدور' : 'Add a new user and assign role'}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div>
+                          <Label>{isArabic ? 'الاسم الكامل' : 'Full Name'}</Label>
+                          <Input className="bg-black/20 border-border text-white" />
+                        </div>
+                        <div>
+                          <Label>{isArabic ? 'البريد الإلكتروني' : 'Email'}</Label>
+                          <Input type="email" className="bg-black/20 border-border text-white" />
+                        </div>
+                        <div>
+                          <Label>{isArabic ? 'الدور' : 'Role'}</Label>
+                          <Select>
+                            <SelectTrigger className="bg-black/20 border-border text-white">
+                              <SelectValue placeholder={isArabic ? 'اختر الدور' : 'Select role'} />
+                            </SelectTrigger>
+                            <SelectContent className="bg-black/95 border-border text-white">
+                              {roles.map((role) => (
+                                <SelectItem key={role.id} value={role.id.toString()}>
+                                  {isArabic ? role.name : role.nameEn}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsAddUserDialogOpen(false)} className="border-border text-white">
+                          {isArabic ? 'إلغاء' : 'Cancel'}
+                        </Button>
+                        <Button onClick={handleAddUser} className="bg-gradient-to-r from-accent to-accent text-black">
+                          {isArabic ? 'حفظ' : 'Save'}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -336,6 +489,53 @@ export const PermissionsManagement: React.FC = () => {
           />
         </div>
       </div>
+
+      {/* Edit Role Dialog */}
+      <Dialog open={isEditRoleDialogOpen} onOpenChange={setIsEditRoleDialogOpen}>
+        <DialogContent className="bg-black/95 border-border text-white">
+          <DialogHeader>
+            <DialogTitle>{isArabic ? 'تعديل الدور' : 'Edit Role'}</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              {isArabic ? 'قم بتعديل معلومات الدور وصلاحياته' : 'Edit role information and permissions'}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedRole && (
+            <div className="space-y-4">
+              <div>
+                <Label>{isArabic ? 'اسم الدور (عربي)' : 'Role Name (Arabic)'}</Label>
+                <Input defaultValue={selectedRole.name} className="bg-black/20 border-border text-white" />
+              </div>
+              <div>
+                <Label>{isArabic ? 'اسم الدور (إنجليزي)' : 'Role Name (English)'}</Label>
+                <Input defaultValue={selectedRole.nameEn} className="bg-black/20 border-border text-white" />
+              </div>
+              <div>
+                <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                <Textarea defaultValue={selectedRole.description} className="bg-black/20 border-border text-white" />
+              </div>
+              <div>
+                <Label>{isArabic ? 'الصلاحيات' : 'Permissions'}</Label>
+                <div className="space-y-2 mt-2">
+                  {availablePermissions.slice(0, 4).map((perm) => (
+                    <div key={perm.id} className="flex items-center space-x-2 space-x-reverse">
+                      <Checkbox id={`edit-perm-${perm.id}`} defaultChecked={selectedRole.permissions.includes(perm.name)} />
+                      <label htmlFor={`edit-perm-${perm.id}`} className="text-sm">{perm.name}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsEditRoleDialogOpen(false)} className="border-border text-white">
+              {isArabic ? 'إلغاء' : 'Cancel'}
+            </Button>
+            <Button onClick={handleUpdateRole} className="bg-gradient-to-r from-accent to-accent text-black">
+              {isArabic ? 'حفظ التغييرات' : 'Save Changes'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
