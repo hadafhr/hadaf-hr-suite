@@ -338,7 +338,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
               </div>
               
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 rounded-lg p-1 bg-black border border-border">
                 {/* Dashboard Tab - Moved to top */}
                 <Button variant={activeTab === 'dashboard' ? "default" : "ghost"} size="sm" className={`h-8 px-3 text-xs transition-all duration-300 ${activeTab === 'dashboard' ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "hover:bg-accent hover:text-accent-foreground"}`} onClick={() => setActiveTab('dashboard')}>
                   <BarChart3 className="h-3 w-3 ml-1" />
