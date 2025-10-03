@@ -682,6 +682,18 @@ const ComprehensiveEmployeeManagement = () => {
                   <TabsContent value="organization">
                     <OrganizationalDevelopmentSmart />
                   </TabsContent>
+
+                  <TabsContent value="smart-learning">
+                    <SmartLearningAI />
+                  </TabsContent>
+
+                  <TabsContent value="internal-mobility">
+                    <InternalMobilityCareerPaths />
+                  </TabsContent>
+
+                  <TabsContent value="succession-planning">
+                    <SuccessionPlanning />
+                  </TabsContent>
                 </Tabs>
               </div>
             </div>
