@@ -101,13 +101,6 @@ export const HRManagement: React.FC = () => {
                   align="end" 
                   className="w-48 bg-black/95 backdrop-blur-xl border-border shadow-2xl"
                 >
-                  <DropdownMenuItem 
-                    onClick={() => navigate('/company-dashboard')}
-                    className="hover:bg-accent/20 cursor-pointer"
-                  >
-                    <Building2 className="h-4 w-4 mr-2" />
-                    {isArabic ? 'لوحة تحكم المنشأة' : 'Company Dashboard'}
-                  </DropdownMenuItem>
                   <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
                     <Settings className="h-4 w-4 mr-2" />
                     {isArabic ? 'إعدادات النظام' : 'System Settings'}
