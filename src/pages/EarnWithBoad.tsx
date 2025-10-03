@@ -303,9 +303,13 @@ export const EarnWithBoad: React.FC = () => {
           {/* Floating background elements */}
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-96 h-2 bg-gradient-to-r from-transparent via-accent/30 to-transparent blur-sm"></div>
           
-          <div className="relative inline-flex items-center justify-center w-40 h-40 rounded-full mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
-            <Gift className="h-20 w-20 text-accent group-hover:text-foreground transition-colors duration-300 z-10 relative drop-shadow-2xl" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="relative inline-flex items-center justify-center mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <img 
+              src={buodLogo} 
+              alt="Buod HR Logo" 
+              className="h-64 w-64 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110 object-contain filter brightness-200 contrast-125"
+            />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           
           <h2 className="text-5xl font-bold mb-8 text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent leading-tight">
