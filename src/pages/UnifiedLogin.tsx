@@ -150,13 +150,6 @@ export const UnifiedLogin: React.FC = () => {
         </div>
       </header>
 
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full mix-blend-multiply animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/10 rounded-full mix-blend-multiply animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-accent/10 rounded-full mix-blend-multiply animate-blob animation-delay-4000"></div>
-      </div>
-
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md relative z-10">
