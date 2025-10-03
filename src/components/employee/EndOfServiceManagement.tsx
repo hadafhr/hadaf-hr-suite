@@ -415,12 +415,12 @@ export function EndOfServiceManagement() {
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
-                        <div className={`p-3 rounded-xl ${typeConfig?.color || 'bg-gray-500 text-white'}`}>
+                        <div className={`p-3 rounded-xl ${typeConfig?.color || 'bg-muted text-foreground'}`}>
                           <TypeIcon className="h-6 w-6" />
                         </div>
                         <div>
-                          <h3 className="font-bold text-lg text-black">{record.employee_name}</h3>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
+                          <h3 className="font-bold text-lg text-foreground">{record.employee_name}</h3>
+                          <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <User className="h-3 w-3" />
                               {record.employee_id}
@@ -446,28 +446,28 @@ export function EndOfServiceManagement() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                       <div className="space-y-1">
-                        <p className="text-xs text-gray-600">تاريخ الالتحاق</p>
-                        <p className="font-medium flex items-center gap-1 text-black">
+                        <p className="text-xs text-muted-foreground">تاريخ الالتحاق</p>
+                        <p className="font-medium flex items-center gap-1 text-foreground">
                           <Calendar className="h-3 w-3" />
                           {new Date(record.hire_date).toLocaleDateString('ar-SA')}
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs text-gray-600">تاريخ الإنهاء</p>
-                        <p className="font-medium flex items-center gap-1 text-black">
+                        <p className="text-xs text-muted-foreground">تاريخ الإنهاء</p>
+                        <p className="font-medium flex items-center gap-1 text-foreground">
                           <Calendar className="h-3 w-3" />
                           {new Date(record.termination_date).toLocaleDateString('ar-SA')}
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs text-gray-600">سنوات الخدمة</p>
-                        <p className="font-medium flex items-center gap-1 text-black">
+                        <p className="text-xs text-muted-foreground">سنوات الخدمة</p>
+                        <p className="font-medium flex items-center gap-1 text-foreground">
                           <Clock className="h-3 w-3" />
                           {record.years_of_service} سنة
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs text-gray-600">المستحقات الكلية</p>
+                        <p className="text-xs text-muted-foreground">المستحقات الكلية</p>
                         <p className="font-bold text-green-600 flex items-center gap-1">
                           <DollarSign className="h-3 w-3" />
                           {record.net_amount.toLocaleString()} ريال
@@ -480,16 +480,16 @@ export function EndOfServiceManagement() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-6 text-sm">
                           <div>
-                            <span className="text-gray-600">مكافأة نهاية الخدمة: </span>
-                            <span className="font-bold text-black">{record.eos_amount.toLocaleString()} ريال</span>
+                            <span className="text-muted-foreground">مكافأة نهاية الخدمة: </span>
+                            <span className="font-bold text-foreground">{record.eos_amount.toLocaleString()} ريال</span>
                           </div>
                           <div>
-                            <span className="text-gray-600">رصيد إجازات: </span>
-                            <span className="font-bold text-black">{record.vacation_balance} يوم</span>
+                            <span className="text-muted-foreground">رصيد إجازات: </span>
+                            <span className="font-bold text-foreground">{record.vacation_balance} يوم</span>
                           </div>
                           <div>
-                            <span className="text-gray-600">قيمة الإجازات: </span>
-                            <span className="font-bold text-black">{record.vacation_amount.toLocaleString()} ريال</span>
+                            <span className="text-muted-foreground">قيمة الإجازات: </span>
+                            <span className="font-bold text-foreground">{record.vacation_amount.toLocaleString()} ريال</span>
                           </div>
                         </div>
                         <Button 
@@ -604,7 +604,7 @@ export function EndOfServiceManagement() {
                           </span>
                           <span className="font-bold text-foreground">{counts[index]} ({percentages[index]}%)</span>
                         </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
                           <div 
                             className={`h-full ${type.color}`}
                             style={{ width: `${percentages[index]}%` }}
@@ -669,7 +669,7 @@ export function EndOfServiceManagement() {
                       <div key={month} className="flex items-center justify-between">
                         <span className="text-sm text-foreground">{month} 2024</span>
                         <div className="flex items-center gap-2">
-                          <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
                             <div 
                               className="h-full bg-primary"
                               style={{ width: `${(counts[index] / 12) * 100}%` }}
