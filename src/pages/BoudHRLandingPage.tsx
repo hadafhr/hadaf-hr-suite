@@ -293,28 +293,28 @@ const BoudHRLandingPage: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-3xl"></div>
                 </div>
 
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-relaxed max-w-6xl mx-auto">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-relaxed max-w-6xl mx-auto py-8">
                   {currentLanguage === 'ar' ? (
-                    <div className="space-y-6">
-                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl">
+                    <div className="space-y-8">
+                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl py-2">
                         كل منشأة تبدأ بحلم…
                       </span>
-                      <span className="block bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
+                      <span className="block bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl py-2">
                         لكن إدارة الموظفين
                       </span>
-                      <span className="block text-foreground/80 text-3xl md:text-4xl lg:text-5xl">
+                      <span className="block text-foreground/80 text-3xl md:text-4xl lg:text-5xl py-2">
                         قد تتحول إلى عبء يستهلك وقتك وجهدك
                       </span>
                     </div>
                   ) : (
-                    <div className="space-y-6">
-                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl">
+                    <div className="space-y-8">
+                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl py-2">
                         Every business starts with a dream…
                       </span>
-                      <span className="block bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
+                      <span className="block bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl py-2">
                         but managing people
                       </span>
-                      <span className="block text-foreground/80 text-3xl md:text-4xl lg:text-5xl">
+                      <span className="block text-foreground/80 text-3xl md:text-4xl lg:text-5xl py-2">
                         can become a burden that drains your time and energy
                       </span>
                     </div>
