@@ -284,7 +284,6 @@ const ComprehensiveEmployeeManagement = () => {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden bg-accent">
                 <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-accent/10 to-transparent"></div>
-                <img src={hrManagementLogo} alt="HR Management Logo" className="h-10 w-10 relative z-10 object-contain mix-blend-multiply" />
                 <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full animate-pulse bg-accent"></div>
               </div>
               <div>
