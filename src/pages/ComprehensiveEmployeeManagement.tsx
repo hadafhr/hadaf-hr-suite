@@ -346,7 +346,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </Button>
                 
                 {/* General Settings Tab */}
-                <Button variant={activeTab === 'settings' ? "default" : "ghost"} size="sm" className={`h-8 px-3 text-xs transition-all duration-300 ${activeTab === 'settings' ? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90" : "hover:bg-accent hover:text-accent-foreground"}`} onClick={() => setActiveTab('settings')}>
+                <Button variant={activeTab === 'settings' ? "default" : "ghost"} size="sm" className={`h-8 px-3 text-xs transition-all duration-300 ${activeTab === 'settings' ? "bg-black text-white shadow-md hover:bg-black/90" : "hover:bg-accent hover:text-accent-foreground"}`} onClick={() => setActiveTab('settings')}>
                   <Settings className="h-3 w-3 ml-1" />
                   الإعدادات العامة
                 </Button>
