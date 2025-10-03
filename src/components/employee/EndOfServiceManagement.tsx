@@ -311,77 +311,51 @@ export function EndOfServiceManagement() {
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              إجمالي الحالات
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-3xl font-bold text-primary">{stats.total}</div>
-                <p className="text-xs text-muted-foreground mt-1">جميع حالات إنهاء الخدمة</p>
+                <p className="text-sm text-muted-foreground">إجمالي الحالات</p>
+                <p className="text-2xl font-bold text-primary">{stats.total}</p>
               </div>
-              <LogOut className="h-12 w-12 text-primary/60" />
+              <LogOut className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              قيد المراجعة
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-3xl font-bold text-warning">{stats.pending}</div>
-                <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  تحتاج إلى إجراء
-                </p>
+                <p className="text-sm text-muted-foreground">قيد المراجعة</p>
+                <p className="text-2xl font-bold text-warning">{stats.pending}</p>
               </div>
-              <AlertCircle className="h-12 w-12 text-warning/60" />
+              <Clock className="h-8 w-8 text-warning/60" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              المكتملة
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-3xl font-bold text-success">{stats.completed}</div>
-                <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                  <CheckCircle className="h-3 w-3" />
-                  تم الإنجاز
-                </p>
+                <p className="text-sm text-muted-foreground">المكتملة</p>
+                <p className="text-2xl font-bold text-success">{stats.completed}</p>
               </div>
-              <FileCheck className="h-12 w-12 text-success/60" />
+              <CheckCircle className="h-8 w-8 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              إجمالي المستحقات
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-primary">{(stats.totalAmount / 1000).toFixed(0)}K</div>
-                <p className="text-xs text-muted-foreground mt-1">ريال سعودي</p>
+                <p className="text-sm text-muted-foreground">إجمالي المستحقات</p>
+                <p className="text-2xl font-bold text-primary">{(stats.totalAmount / 1000).toFixed(0)}K ريال</p>
               </div>
-              <DollarSign className="h-12 w-12 text-primary/60" />
+              <DollarSign className="h-8 w-8 text-primary/60" />
             </div>
           </CardContent>
         </Card>
