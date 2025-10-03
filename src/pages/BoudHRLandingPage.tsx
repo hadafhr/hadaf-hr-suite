@@ -304,7 +304,7 @@ const BoudHRLandingPage: React.FC = () => {
                       </span>
                       <span className="relative block group cursor-default">
                         <span className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-700"></span>
-                        <span className="relative block text-4xl md:text-5xl lg:text-6xl leading-relaxed font-bold bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.01] transform">
+                        <span className="relative block text-2xl md:text-3xl lg:text-4xl leading-relaxed font-bold bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.01] transform">
                           قد تتحول إلى عبء يستهلك وقتك وجهدك
                         </span>
                       </span>
@@ -319,7 +319,7 @@ const BoudHRLandingPage: React.FC = () => {
                       </span>
                       <span className="relative block group cursor-default">
                         <span className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-700"></span>
-                        <span className="relative block text-4xl md:text-5xl lg:text-6xl leading-relaxed font-bold bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.01] transform">
+                        <span className="relative block text-2xl md:text-3xl lg:text-4xl leading-relaxed font-bold bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.01] transform">
                           can become a burden that drains your time and energy
                         </span>
                       </span>
