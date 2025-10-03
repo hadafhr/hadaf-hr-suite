@@ -28,6 +28,8 @@ import { ComprehensiveGovernanceCompliance } from '@/components/systems/Comprehe
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
 import { ChangeManagement } from '@/components/governance/ChangeManagement';
+import { PoliciesProcedures } from '@/components/governance/PoliciesProcedures';
+import { InternalAudit } from '@/components/governance/InternalAudit';
 import { ComprehensiveSmartEvaluation } from '@/components/systems/ComprehensiveSmartEvaluation';
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
 import SmartHire from '@/pages/SmartHire';
@@ -833,19 +835,11 @@ const ComprehensiveEmployeeManagement = () => {
                   </TabsContent>
 
                   <TabsContent value="policies-procedures">
-                    <Card className="border-border/50">
-                      <CardContent className="p-12">
-                        <p className="text-muted-foreground text-center">قسم السياسات والإجراءات قيد التطوير...</p>
-                      </CardContent>
-                    </Card>
+                    <PoliciesProcedures />
                   </TabsContent>
 
                   <TabsContent value="internal-audit">
-                    <Card className="border-border/50">
-                      <CardContent className="p-12">
-                        <p className="text-muted-foreground text-center">قسم التدقيق الداخلي قيد التطوير...</p>
-                      </CardContent>
-                    </Card>
+                    <InternalAudit />
                   </TabsContent>
 
                   <TabsContent value="change-management">
