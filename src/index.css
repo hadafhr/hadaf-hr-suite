@@ -11,34 +11,28 @@
   :root {
     /* ================================================
        لوحة الألوان الصارمة - STRICT COLOR PALETTE
-       التطبيق الإلزامي - MANDATORY APPLICATION
        ================================================ */
     
-    /* Official Color Variables - HEX Format */
+    /* Official Color Variables */
     --color-black: #000000;
     --color-white: #ffffff;
     --color-gray-light: #e8e4e0;
     --color-gray-border: #cfcbcb;
     --color-card-dark: #1a1a1a;
-    --color-card-light: #ffffff;
     --color-hover: #b1a086;
     
-    /* ================================================
-       HSL Values for Tailwind - جميع الألوان بنظام HSL
-       تحويل الألوان من HEX إلى HSL للتوافق مع Tailwind
-       ================================================ */
+    /* HSL Values for Tailwind - جميع الألوان بنظام HSL */
     
     /* Main Background - الخلفية الأساسية #000000 */
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
     
-    /* Cards - البطاقات #ffffff و #1a1a1a */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --card-dark: 0 0% 10%;
+    /* Cards - البطاقات #1a1a1a */
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
     
     /* Primary Buttons - الأزرار الأساسية #000000 */
     --primary: 0 0% 0%;
@@ -53,87 +47,67 @@
     --accent-foreground: 0 0% 0%;
     
     /* Muted Text - النصوص الثانوية #e8e4e0 */
-    --muted: 0 0% 95%;
+    --muted: 0 0% 10%;
     --muted-foreground: 30 17% 89%;
     
     /* Borders - الحدود #cfcbcb */
     --border: 0 4% 81%;
-    --input: 0 0% 100%;
-    --input-foreground: 0 0% 0%;
-    --ring: 0 0% 0%;
+    --input: 0 0% 10%;
+    --ring: 36 24% 61%;
     
-    /* Status Colors - الألوان الحالية فقط */
-    --success: 0 0% 0%;
+    /* Status Colors */
+    --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
-    --warning: 0 0% 0%;
-    --warning-foreground: 0 0% 100%;
-    --destructive: 0 0% 0%;
+    --warning: 36 24% 61%;
+    --warning-foreground: 0 0% 0%;
+    --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
 
     --radius: 12px;
 
-    /* Sidebar - استخدام نفس النظام */
-    --sidebar-background: 0 0% 0%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
     --sidebar-primary-foreground: 0 0% 0%;
     --sidebar-accent: 36 24% 61%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 4% 81%;
-    --sidebar-ring: 0 0% 0%;
-    
-    /* Shadows - ظلال بسيطة */
-    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.16);
-    --shadow-glow: 0 0 24px rgba(177, 160, 134, 0.2);
-    
-    /* Gradients - تدرجات بسيطة */
-    --gradient-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    --gradient-hero: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
-    --gradient-card: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-    --gradient-success: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 3% 80%;
+    --sidebar-ring: 36 24% 61%;
   }
 
   .dark {
-    /* Dark mode uses same colors */
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --card-dark: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
     --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 100%;
     --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 95%;
+    --muted: 0 0% 10%;
     --muted-foreground: 30 17% 89%;
     --accent: 36 24% 61%;
     --accent-foreground: 0 0% 0%;
-    --destructive: 0 0% 0%;
+    --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
-    --success: 0 0% 0%;
+    --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
-    --warning: 0 0% 0%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 36 24% 61%;
+    --warning-foreground: 0 0% 0%;
     --border: 0 4% 81%;
-    --input: 0 0% 100%;
-    --input-foreground: 0 0% 0%;
-    --ring: 0 0% 0%;
-    --sidebar-background: 0 0% 0%;
+    --input: 0 0% 10%;
+    --ring: 36 24% 61%;
+    --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
     --sidebar-primary-foreground: 0 0% 0%;
     --sidebar-accent: 36 24% 61%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 4% 81%;
-    --sidebar-ring: 0 0% 0%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 3% 80%;
+    --sidebar-ring: 36 24% 61%;
   }
 }
 
