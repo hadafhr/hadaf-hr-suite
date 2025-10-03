@@ -158,21 +158,30 @@ export function EndOfServiceManagement() {
   };
 
   return (
-    <div className="space-y-6 p-6 bg-gradient-to-br from-background via-accent/5 to-background" dir="rtl">
+    <div className="workforce-container p-6 space-y-6 min-h-screen" dir="rtl">
+      {/* Logo */}
+      <div className="flex justify-center mb-8">
+        <img 
+          src="/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png" 
+          alt="Logo" 
+          className="h-16 w-auto"
+        />
+      </div>
+
       {/* Header with Title */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-            <LogOut className="h-8 w-8 text-primary" />
+          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+            <LogOut className="h-8 w-8 text-white" />
             إدارة الاستقالات وإنهاء الخدمة
           </h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-gray-300 mt-1">
             إدارة شاملة لجميع حالات إنهاء الخدمة ومستحقات الموظفين
           </p>
         </div>
         <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
           <DialogTrigger asChild>
-            <Button size="lg" className="gap-2">
+            <Button size="lg" className="workforce-button-primary btn-3d gap-2">
               <Plus className="h-5 w-5" />
               إضافة طلب جديد
             </Button>
@@ -312,67 +321,52 @@ export function EndOfServiceManagement() {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">إجمالي الحالات</p>
-                <p className="text-2xl font-bold text-primary">{stats.total}</p>
-              </div>
-              <LogOut className="h-8 w-8 text-primary/60" />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="workforce-card p-4 text-center">
+          <LogOut className="w-8 h-8 text-black mx-auto mb-2" />
+          <h3 className="text-lg font-semibold text-black">إجمالي الحالات</h3>
+          <p className="text-2xl font-bold text-black">{stats.total}</p>
+        </div>
 
-        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">قيد المراجعة</p>
-                <p className="text-2xl font-bold text-warning">{stats.pending}</p>
-              </div>
-              <Clock className="h-8 w-8 text-warning/60" />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="workforce-card p-4 text-center">
+          <Clock className="w-8 h-8 text-black mx-auto mb-2" />
+          <h3 className="text-lg font-semibold text-black">قيد المراجعة</h3>
+          <p className="text-2xl font-bold text-black">{stats.pending}</p>
+        </div>
 
-        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">المكتملة</p>
-                <p className="text-2xl font-bold text-success">{stats.completed}</p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-success/60" />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="workforce-card p-4 text-center">
+          <CheckCircle className="w-8 h-8 text-black mx-auto mb-2" />
+          <h3 className="text-lg font-semibold text-black">المكتملة</h3>
+          <p className="text-2xl font-bold text-black">{stats.completed}</p>
+        </div>
 
-        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">إجمالي المستحقات</p>
-                <p className="text-2xl font-bold text-primary">{(stats.totalAmount / 1000).toFixed(0)}K ريال</p>
-              </div>
-              <DollarSign className="h-8 w-8 text-primary/60" />
-            </div>
-          </CardContent>
-        </Card>
+        <div className="workforce-card p-4 text-center">
+          <DollarSign className="w-8 h-8 text-black mx-auto mb-2" />
+          <h3 className="text-lg font-semibold text-black">إجمالي المستحقات</h3>
+          <p className="text-2xl font-bold text-black">{(stats.totalAmount / 1000).toFixed(0)}K ریال</p>
+        </div>
       </div>
 
       {/* Main Content Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto">
-          <TabsTrigger value="overview" className="gap-2">
+        <TabsList className="grid w-full grid-cols-3 bg-black border border-gray-800 p-1 rounded-lg">
+          <TabsTrigger 
+            value="overview" 
+            className="workforce-button data-[state=active]:bg-white data-[state=active]:text-black text-white border-none gap-2"
+          >
             <FileText className="h-4 w-4" />
             نظرة عامة
           </TabsTrigger>
-          <TabsTrigger value="calculator" className="gap-2">
+          <TabsTrigger 
+            value="calculator" 
+            className="workforce-button data-[state=active]:bg-white data-[state=active]:text-black text-white border-none gap-2"
+          >
             <Calculator className="h-4 w-4" />
             حاسبة المستحقات
           </TabsTrigger>
-          <TabsTrigger value="reports" className="gap-2">
+          <TabsTrigger 
+            value="reports" 
+            className="workforce-button data-[state=active]:bg-white data-[state=active]:text-black text-white border-none gap-2"
+          >
             <TrendingUp className="h-4 w-4" />
             التقارير
           </TabsTrigger>
@@ -380,8 +374,8 @@ export function EndOfServiceManagement() {
 
         <TabsContent value="overview" className="space-y-6">
           {/* Search and Filter */}
-          <Card>
-            <CardContent className="pt-6">
+          <div className="workforce-card p-6">
+            <div className="pt-0">
               <div className="flex gap-4">
                 <div className="flex-1">
                   <div className="relative">
@@ -405,13 +399,13 @@ export function EndOfServiceManagement() {
                     ))}
                   </SelectContent>
                 </Select>
-                <Button variant="outline" className="gap-2">
+                <Button className="workforce-button btn-3d gap-2">
                   <Download className="h-4 w-4" />
                   تصدير
                 </Button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Records List */}
           <div className="grid gap-4">
@@ -420,16 +414,16 @@ export function EndOfServiceManagement() {
               const TypeIcon = typeConfig?.icon || User;
               
               return (
-                <Card key={record.id} className="hover:shadow-lg transition-all">
-                  <CardContent className="p-6">
+                <div key={record.id} className="workforce-card p-6">
+                  <div>
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
                         <div className={`p-3 rounded-xl ${typeConfig?.color || 'bg-gray-500 text-white'}`}>
                           <TypeIcon className="h-6 w-6" />
                         </div>
                         <div>
-                          <h3 className="font-bold text-lg text-foreground">{record.employee_name}</h3>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                          <h3 className="font-bold text-lg text-black">{record.employee_name}</h3>
+                          <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
                             <span className="flex items-center gap-1">
                               <User className="h-3 w-3" />
                               {record.employee_id}
@@ -455,28 +449,28 @@ export function EndOfServiceManagement() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                       <div className="space-y-1">
-                        <p className="text-xs text-muted-foreground">تاريخ الالتحاق</p>
-                        <p className="font-medium flex items-center gap-1">
+                        <p className="text-xs text-gray-600">تاريخ الالتحاق</p>
+                        <p className="font-medium flex items-center gap-1 text-black">
                           <Calendar className="h-3 w-3" />
                           {new Date(record.hire_date).toLocaleDateString('ar-SA')}
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs text-muted-foreground">تاريخ الإنهاء</p>
-                        <p className="font-medium flex items-center gap-1">
+                        <p className="text-xs text-gray-600">تاريخ الإنهاء</p>
+                        <p className="font-medium flex items-center gap-1 text-black">
                           <Calendar className="h-3 w-3" />
                           {new Date(record.termination_date).toLocaleDateString('ar-SA')}
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs text-muted-foreground">سنوات الخدمة</p>
-                        <p className="font-medium flex items-center gap-1">
+                        <p className="text-xs text-gray-600">سنوات الخدمة</p>
+                        <p className="font-medium flex items-center gap-1 text-black">
                           <Clock className="h-3 w-3" />
                           {record.years_of_service} سنة
                         </p>
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs text-muted-foreground">المستحقات الكلية</p>
+                        <p className="text-xs text-gray-600">المستحقات الكلية</p>
                         <p className="font-bold text-green-600 flex items-center gap-1">
                           <DollarSign className="h-3 w-3" />
                           {record.net_amount.toLocaleString()} ريال
@@ -489,23 +483,22 @@ export function EndOfServiceManagement() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-6 text-sm">
                         <div>
-                          <span className="text-muted-foreground">مكافأة نهاية الخدمة: </span>
-                          <span className="font-bold">{record.eos_amount.toLocaleString()} ريال</span>
+                          <span className="text-gray-600">مكافأة نهاية الخدمة: </span>
+                          <span className="font-bold text-black">{record.eos_amount.toLocaleString()} ريال</span>
                         </div>
                         <div>
-                          <span className="text-muted-foreground">رصيد إجازات: </span>
-                          <span className="font-bold">{record.vacation_balance} يوم</span>
+                          <span className="text-gray-600">رصيد إجازات: </span>
+                          <span className="font-bold text-black">{record.vacation_balance} يوم</span>
                         </div>
                         <div>
-                          <span className="text-muted-foreground">قيمة الإجازات: </span>
-                          <span className="font-bold">{record.vacation_amount.toLocaleString()} ريال</span>
+                          <span className="text-gray-600">قيمة الإجازات: </span>
+                          <span className="font-bold text-black">{record.vacation_amount.toLocaleString()} ريال</span>
                         </div>
                       </div>
                       <Button 
-                        variant="outline" 
                         size="sm"
                         onClick={() => handleViewDetails(record)}
-                        className="gap-2"
+                        className="workforce-button btn-3d gap-2"
                       >
                         <Eye className="h-4 w-4" />
                         التفاصيل
@@ -513,29 +506,27 @@ export function EndOfServiceManagement() {
                     </div>
 
                     {record.reason && (
-                      <div className="mt-4 p-3 bg-accent/10 rounded-lg">
-                        <p className="text-sm text-muted-foreground flex items-start gap-2">
+                      <div className="mt-4 p-3 bg-gray-100 rounded-lg">
+                        <p className="text-sm text-gray-600 flex items-start gap-2">
                           <FileText className="h-4 w-4 mt-0.5" />
                           <span><strong>السبب:</strong> {record.reason}</span>
                         </p>
                       </div>
                     )}
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               );
             })}
           </div>
         </TabsContent>
 
         <TabsContent value="calculator" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calculator className="h-6 w-6 text-primary" />
-                حاسبة مستحقات نهاية الخدمة
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
+          <div className="workforce-card p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <Calculator className="h-6 w-6 text-black" />
+              <h2 className="text-2xl font-bold text-black">حاسبة مستحقات نهاية الخدمة</h2>
+            </div>
+            <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label>سنوات الخدمة</Label>
@@ -564,45 +555,43 @@ export function EndOfServiceManagement() {
                 </div>
               </div>
 
-              <Button className="w-full gap-2" size="lg">
+              <Button className="workforce-button-primary btn-3d w-full gap-2" size="lg">
                 <Calculator className="h-5 w-5" />
                 احسب المستحقات
               </Button>
 
               <Separator />
 
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-6 rounded-xl space-y-4">
-                <h3 className="font-bold text-lg mb-4">نتيجة الحساب</h3>
+              <div className="bg-gray-100 p-6 rounded-xl space-y-4">
+                <h3 className="font-bold text-lg mb-4 text-black">نتيجة الحساب</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-background p-4 rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-1">مكافأة نهاية الخدمة</p>
-                    <p className="text-2xl font-bold text-primary">52,500 ريال</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">مكافأة نهاية الخدمة</p>
+                    <p className="text-2xl font-bold text-black">52,500 ريال</p>
                   </div>
-                  <div className="bg-background p-4 rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-1">قيمة رصيد الإجازات</p>
-                    <p className="text-2xl font-bold text-primary">7,500 ريال</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">قيمة رصيد الإجازات</p>
+                    <p className="text-2xl font-bold text-black">7,500 ريال</p>
                   </div>
-                  <div className="bg-background p-4 rounded-lg">
-                    <p className="text-sm text-muted-foreground mb-1">خصومات (إن وجدت)</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">خصومات (إن وجدت)</p>
                     <p className="text-2xl font-bold text-red-600">0 ريال</p>
                   </div>
-                  <div className="bg-primary text-primary-foreground p-4 rounded-lg">
+                  <div className="bg-black text-white p-4 rounded-lg">
                     <p className="text-sm opacity-90 mb-1">إجمالي المستحقات</p>
                     <p className="text-3xl font-bold">60,000 ريال</p>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </TabsContent>
 
         <TabsContent value="reports" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>توزيع أنواع إنهاء الخدمة</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="workforce-card p-6">
+              <h2 className="text-xl font-bold text-black mb-4">توزيع أنواع إنهاء الخدمة</h2>
+              <div>
                 <div className="space-y-4">
                   {terminationTypes.map((type, index) => {
                     const counts = [45, 28, 15, 12];
@@ -610,13 +599,13 @@ export function EndOfServiceManagement() {
                     return (
                       <div key={type.id} className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="flex items-center gap-2">
+                          <span className="flex items-center gap-2 text-black">
                             <type.icon className="h-4 w-4" />
                             {type.name}
                           </span>
-                          <span className="font-bold">{counts[index]} ({percentages[index]}%)</span>
+                          <span className="font-bold text-black">{counts[index]} ({percentages[index]}%)</span>
                         </div>
-                        <div className="h-2 bg-secondary rounded-full overflow-hidden">
+                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div 
                             className={`h-full ${type.color}`}
                             style={{ width: `${percentages[index]}%` }}
@@ -626,81 +615,75 @@ export function EndOfServiceManagement() {
                     );
                   })}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>متوسط سنوات الخدمة</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="workforce-card p-6">
+              <h2 className="text-xl font-bold text-black mb-4">متوسط سنوات الخدمة</h2>
+              <div>
                 <div className="text-center py-8">
-                  <div className="text-6xl font-bold text-primary mb-2">8.5</div>
-                  <p className="text-muted-foreground">سنة</p>
+                  <div className="text-6xl font-bold text-black mb-2">8.5</div>
+                  <p className="text-gray-600">سنة</p>
                   <Separator className="my-6" />
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-muted-foreground">الحد الأدنى</p>
-                      <p className="font-bold text-lg">0.5 سنة</p>
+                      <p className="text-gray-600">الحد الأدنى</p>
+                      <p className="font-bold text-lg text-black">0.5 سنة</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">الحد الأقصى</p>
-                      <p className="font-bold text-lg">28 سنة</p>
+                      <p className="text-gray-600">الحد الأقصى</p>
+                      <p className="font-bold text-lg text-black">28 سنة</p>
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>متوسط المستحقات</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="workforce-card p-6">
+              <h2 className="text-xl font-bold text-black mb-4">متوسط المستحقات</h2>
+              <div>
                 <div className="text-center py-8">
                   <div className="text-5xl font-bold text-green-600 mb-2">18,269</div>
-                  <p className="text-muted-foreground">ريال سعودي</p>
+                  <p className="text-gray-600">ريال سعودي</p>
                   <Separator className="my-6" />
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">أقل مبلغ:</span>
-                      <span className="font-bold">2,500 ريال</span>
+                      <span className="text-gray-600">أقل مبلغ:</span>
+                      <span className="font-bold text-black">2,500 ريال</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">أعلى مبلغ:</span>
-                      <span className="font-bold">408,000 ريال</span>
+                      <span className="text-gray-600">أعلى مبلغ:</span>
+                      <span className="font-bold text-black">408,000 ريال</span>
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>الحالات الشهرية</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="workforce-card p-6">
+              <h2 className="text-xl font-bold text-black mb-4">الحالات الشهرية</h2>
+              <div>
                 <div className="space-y-3">
                   {['يناير', 'فبراير', 'مارس', 'أبريل'].map((month, index) => {
                     const counts = [8, 12, 7, 10];
                     return (
                       <div key={month} className="flex items-center justify-between">
-                        <span className="text-sm">{month} 2024</span>
+                        <span className="text-sm text-black">{month} 2024</span>
                         <div className="flex items-center gap-2">
-                          <div className="w-24 h-2 bg-secondary rounded-full overflow-hidden">
+                          <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-primary"
+                              className="h-full bg-black"
                               style={{ width: `${(counts[index] / 12) * 100}%` }}
                             />
                           </div>
-                          <span className="font-bold text-sm w-8">{counts[index]}</span>
+                          <span className="font-bold text-sm w-8 text-black">{counts[index]}</span>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
