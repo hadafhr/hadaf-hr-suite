@@ -293,37 +293,31 @@ const BoudHRLandingPage: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-3xl"></div>
                 </div>
 
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight max-w-6xl mx-auto space-y-6">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-relaxed max-w-6xl mx-auto">
                   {currentLanguage === 'ar' ? (
-                    <>
-                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl mb-6">
+                    <div className="space-y-6">
+                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl">
                         كل منشأة تبدأ بحلم…
                       </span>
-                      <span className="block bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in text-3xl md:text-4xl lg:text-5xl mb-8">
+                      <span className="block bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
                         لكن إدارة الموظفين
                       </span>
-                      <span className="relative block group cursor-default mt-8">
-                        <span className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-700"></span>
-                        <span className="relative block text-3xl md:text-4xl lg:text-5xl leading-relaxed font-bold bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.01] transform">
-                          قد تتحول إلى عبء يستهلك وقتك وجهدك
-                        </span>
+                      <span className="block text-foreground/80 text-3xl md:text-4xl lg:text-5xl">
+                        قد تتحول إلى عبء يستهلك وقتك وجهدك
                       </span>
-                    </>
+                    </div>
                   ) : (
-                    <>
-                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl mb-6">
+                    <div className="space-y-6">
+                      <span className="block text-foreground text-4xl md:text-5xl lg:text-6xl">
                         Every business starts with a dream…
                       </span>
-                      <span className="block bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in text-3xl md:text-4xl lg:text-5xl mb-8">
+                      <span className="block bg-gradient-to-r from-accent to-foreground bg-clip-text text-transparent text-4xl md:text-5xl lg:text-6xl">
                         but managing people
                       </span>
-                      <span className="relative block group cursor-default mt-8">
-                        <span className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-700"></span>
-                        <span className="relative block text-3xl md:text-4xl lg:text-5xl leading-relaxed font-bold bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.01] transform">
-                          can become a burden that drains your time and energy
-                        </span>
+                      <span className="block text-foreground/80 text-3xl md:text-4xl lg:text-5xl">
+                        can become a burden that drains your time and energy
                       </span>
-                    </>
+                    </div>
                   )}
                 </h1>
 
