@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane } from 'lucide-react';
 import boudLogo from '@/assets/boud-logo-white-brown.png';
 
 // Import components
@@ -34,6 +34,8 @@ import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ExpensesManagement } from '@/components/systems/ExpensesManagement';
 import { AdvancedExpensesManagement } from '@/components/systems/AdvancedExpensesManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
+import { WorkforcePlanningBudget } from '@/components/compensation/WorkforcePlanningBudget';
+import { TravelExpensesManagement } from '@/components/compensation/TravelExpensesManagement';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
@@ -520,7 +522,7 @@ const ComprehensiveEmployeeManagement = () => {
 
                 <div className="container mx-auto p-6">
                   <Tabs value={activeCompensationTab} onValueChange={handleCompensationTabChange} className="space-y-6 relative z-10">
-                    <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                    <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-7 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                       <TabsTrigger value="payroll" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                         <DollarSign className="h-4 w-4" />
                         <span className="text-xs">الرواتب والأجور</span>
@@ -533,13 +535,21 @@ const ComprehensiveEmployeeManagement = () => {
                         <Heart className="h-4 w-4" />
                         <span className="text-xs">التأمين</span>
                       </TabsTrigger>
+                      <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Gift className="h-4 w-4" />
+                        <span className="text-xs">المكافآت والحوافز</span>
+                      </TabsTrigger>
                       <TabsTrigger value="expenses" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                         <Receipt className="h-4 w-4" />
                         <span className="text-xs">المصروفات والنفقات</span>
                       </TabsTrigger>
-                      <TabsTrigger value="benefits" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                        <Gift className="h-4 w-4" />
-                        <span className="text-xs">المكافآت والحوافز</span>
+                      <TabsTrigger value="workforce-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Target className="h-4 w-4" />
+                        <span className="text-xs">تخطيط القوى العاملة</span>
+                      </TabsTrigger>
+                      <TabsTrigger value="travel-expenses" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                        <Plane className="h-4 w-4" />
+                        <span className="text-xs">السفر والمصروفات</span>
                       </TabsTrigger>
                     </TabsList>
 
@@ -555,12 +565,20 @@ const ComprehensiveEmployeeManagement = () => {
                     <InsuranceManagement onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
 
+                  <TabsContent value="benefits">
+                    <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
                   <TabsContent value="expenses">
                     <AdvancedExpensesManagement onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
 
-                  <TabsContent value="benefits">
-                    <ComprehensiveRewardsIncentives onBack={() => setActiveTab('dashboard')} />
+                  <TabsContent value="workforce-planning">
+                    <WorkforcePlanningBudget />
+                  </TabsContent>
+
+                  <TabsContent value="travel-expenses">
+                    <TravelExpensesManagement />
                   </TabsContent>
 
                 </Tabs>
