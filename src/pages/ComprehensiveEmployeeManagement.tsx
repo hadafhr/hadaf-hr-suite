@@ -44,6 +44,7 @@ import { InternalMobilityCareerPaths } from '@/components/development/InternalMo
 import { SuccessionPlanning } from '@/components/development/SuccessionPlanning';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
+import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { DiversityInclusion } from '@/components/corporate/DiversityInclusion';
 import { SustainabilityCSR } from '@/components/corporate/SustainabilityCSR';
 import { DigitalHealthIntegration } from '@/components/corporate/DigitalHealthIntegration';
