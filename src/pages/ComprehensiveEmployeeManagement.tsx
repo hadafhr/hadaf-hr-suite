@@ -59,7 +59,7 @@ import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlannin
 import { EndOfServiceManagement } from '@/components/employee/EndOfServiceManagement';
 type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'digital-transformation' | 'corporate-relations' | 'field-tracking' | 'occupational-health-safety';
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'end-of-service';
-type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits';
+type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'workforce-planning' | 'travel-expenses';
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization';
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety';
 type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings';
@@ -113,7 +113,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for compensation benefits
   const isValidCompensationTabType = (value: string): value is CompensationBenefitsTabType => {
-    const validTabs: CompensationBenefitsTabType[] = ['payroll', 'wageprotection', 'insurance', 'expenses', 'benefits'];
+    const validTabs: CompensationBenefitsTabType[] = ['payroll', 'wageprotection', 'insurance', 'expenses', 'benefits', 'workforce-planning', 'travel-expenses'];
     return validTabs.includes(value as CompensationBenefitsTabType);
   };
 
