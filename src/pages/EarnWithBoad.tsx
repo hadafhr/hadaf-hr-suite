@@ -23,6 +23,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import buodLogo from '@/assets/buod-logo-white.png';
+import earnLogo from '@/assets/earn-with-buod-logo.png';
 
 export const EarnWithBoad: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -305,8 +306,8 @@ export const EarnWithBoad: React.FC = () => {
           
           <div className="relative inline-flex items-center justify-center mb-8 transition-all duration-300 hover:scale-105 group cursor-pointer">
             <img 
-              src={buodLogo} 
-              alt="Buod HR Logo" 
+              src={earnLogo} 
+              alt="Earn with Buod Logo" 
               className="h-64 w-64 z-10 relative drop-shadow-2xl transition-all duration-300 group-hover:scale-110 object-contain filter brightness-200 contrast-125"
             />
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
