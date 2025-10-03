@@ -158,7 +158,7 @@ export function EndOfServiceManagement() {
   };
 
   return (
-    <div className="space-y-6 p-6" dir="rtl">
+    <div className="space-y-6 p-6 bg-gradient-to-br from-background via-accent/5 to-background" dir="rtl">
       {/* Header with Title */}
       <div className="flex items-center justify-between">
         <div>
@@ -312,7 +312,7 @@ export function EndOfServiceManagement() {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               إجمالي الحالات
@@ -321,15 +321,15 @@ export function EndOfServiceManagement() {
           <CardContent>
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-3xl font-bold text-foreground">{stats.total}</div>
+                <div className="text-3xl font-bold text-primary">{stats.total}</div>
                 <p className="text-xs text-muted-foreground mt-1">جميع حالات إنهاء الخدمة</p>
               </div>
-              <LogOut className="h-12 w-12 text-blue-500/20" />
+              <LogOut className="h-12 w-12 text-primary/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-yellow-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               قيد المراجعة
@@ -338,18 +338,18 @@ export function EndOfServiceManagement() {
           <CardContent>
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-3xl font-bold text-foreground">{stats.pending}</div>
+                <div className="text-3xl font-bold text-warning">{stats.pending}</div>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                   <Clock className="h-3 w-3" />
                   تحتاج إلى إجراء
                 </p>
               </div>
-              <AlertCircle className="h-12 w-12 text-yellow-500/20" />
+              <AlertCircle className="h-12 w-12 text-warning/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               المكتملة
@@ -358,18 +358,18 @@ export function EndOfServiceManagement() {
           <CardContent>
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-3xl font-bold text-foreground">{stats.completed}</div>
+                <div className="text-3xl font-bold text-success">{stats.completed}</div>
                 <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                   <CheckCircle className="h-3 w-3" />
                   تم الإنجاز
                 </p>
               </div>
-              <FileCheck className="h-12 w-12 text-green-500/20" />
+              <FileCheck className="h-12 w-12 text-success/60" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="bg-card border-border hover:bg-accent/50 transition-all duration-300">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               إجمالي المستحقات
@@ -378,10 +378,10 @@ export function EndOfServiceManagement() {
           <CardContent>
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-foreground">{(stats.totalAmount / 1000).toFixed(0)}K</div>
+                <div className="text-2xl font-bold text-primary">{(stats.totalAmount / 1000).toFixed(0)}K</div>
                 <p className="text-xs text-muted-foreground mt-1">ريال سعودي</p>
               </div>
-              <DollarSign className="h-12 w-12 text-purple-500/20" />
+              <DollarSign className="h-12 w-12 text-primary/60" />
             </div>
           </CardContent>
         </Card>
