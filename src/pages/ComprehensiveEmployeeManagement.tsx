@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight, CheckCircle } from 'lucide-react';
 import boudLogo from '@/assets/boud-logo-white-brown.png';
 
 // Import components
@@ -815,7 +815,7 @@ const ComprehensiveEmployeeManagement = () => {
                       <span className="text-xs">السياسات والإجراءات</span>
                     </TabsTrigger>
                     <TabsTrigger value="internal-audit" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <CheckSquare className="h-4 w-4" />
+                      <CheckCircle className="h-4 w-4" />
                       <span className="text-xs">التدقيق الداخلي</span>
                     </TabsTrigger>
                     <TabsTrigger value="change-management" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
