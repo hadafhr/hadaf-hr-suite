@@ -151,7 +151,7 @@ const BoudHRLandingPage: React.FC = () => {
                     {currentLanguage === 'ar' ? 'الدروس التعليمية' : 'Tutorials'}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/green-papers')} className="text-foreground hover:bg-accent/20 hover:text-accent transition-all duration-300">
-                    {currentLanguage === 'ar' ? 'الأوراق الخضراء' : 'White Papers'}
+                    {currentLanguage === 'ar' ? 'الأوراق البيضاء' : 'White Papers'}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/job-descriptions')} className="text-foreground hover:bg-accent/20 hover:text-accent transition-all duration-300">
                     {currentLanguage === 'ar' ? 'الأوصاف الوظيفية' : 'Job Descriptions'}
