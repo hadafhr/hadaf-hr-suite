@@ -27,6 +27,7 @@ import { OrganizationalDevelopmentSmart } from '@/components/organizational-deve
 import { ComprehensiveGovernanceCompliance } from '@/components/systems/ComprehensiveGovernanceCompliance';
 import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveWageProtection';
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
+import { ChangeManagement } from '@/components/governance/ChangeManagement';
 import { ComprehensiveSmartEvaluation } from '@/components/systems/ComprehensiveSmartEvaluation';
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
 import SmartHire from '@/pages/SmartHire';
@@ -64,7 +65,7 @@ type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'end-of-service';
 type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'workforce-planning' | 'travel-expenses';
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization' | 'smart-learning' | 'internal-mobility' | 'succession-planning';
-type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety';
+type GovernanceComplianceTabType = 'legal' | 'governance' | 'policies-procedures' | 'internal-audit' | 'change-management';
 type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings';
 type CorporateRelationsTabType = 'internal-communication' | 'social-services' | 'admin-communications';
 const ComprehensiveEmployeeManagement = () => {
@@ -142,7 +143,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for governance compliance
   const isValidGovernanceTabType = (value: string): value is GovernanceComplianceTabType => {
-    const validTabs: GovernanceComplianceTabType[] = ['legal', 'governance', 'occupational-safety'];
+    const validTabs: GovernanceComplianceTabType[] = ['legal', 'governance', 'policies-procedures', 'internal-audit', 'change-management'];
     return validTabs.includes(value as GovernanceComplianceTabType);
   };
 
@@ -800,7 +801,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeGovernanceTab} onValueChange={handleGovernanceTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="legal" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Gavel className="h-4 w-4" />
                       <span className="text-xs">الشؤون القانونية</span>
@@ -809,9 +810,17 @@ const ComprehensiveEmployeeManagement = () => {
                       <Shield className="h-4 w-4" />
                       <span className="text-xs">الحوكمة والامتثال</span>
                     </TabsTrigger>
-                    <TabsTrigger value="occupational-safety" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <HardHat className="h-4 w-4" />
-                      <span className="text-xs">الصحة والسلامة المهنية</span>
+                    <TabsTrigger value="policies-procedures" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <FileText className="h-4 w-4" />
+                      <span className="text-xs">السياسات والإجراءات</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="internal-audit" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <CheckSquare className="h-4 w-4" />
+                      <span className="text-xs">التدقيق الداخلي</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="change-management" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <RefreshCw className="h-4 w-4" />
+                      <span className="text-xs">إدارة التغيير</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -823,8 +832,24 @@ const ComprehensiveEmployeeManagement = () => {
                     <ComprehensiveGovernanceCompliance onBack={() => setActiveTab('dashboard')} />
                   </TabsContent>
 
-                  <TabsContent value="occupational-safety">
-                    
+                  <TabsContent value="policies-procedures">
+                    <Card className="border-border/50">
+                      <CardContent className="p-12">
+                        <p className="text-muted-foreground text-center">قسم السياسات والإجراءات قيد التطوير...</p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  <TabsContent value="internal-audit">
+                    <Card className="border-border/50">
+                      <CardContent className="p-12">
+                        <p className="text-muted-foreground text-center">قسم التدقيق الداخلي قيد التطوير...</p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  <TabsContent value="change-management">
+                    <ChangeManagement />
                   </TabsContent>
                 </Tabs>
               </div>
