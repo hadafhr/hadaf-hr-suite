@@ -302,8 +302,11 @@ const BoudHRLandingPage: React.FC = () => {
                       <span className="block bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in mb-4">
                         لكن إدارة الموظفين
                       </span>
-                      <span className="block text-foreground/90 text-4xl md:text-5xl lg:text-6xl leading-relaxed">
-                        قد تتحول إلى عبء يستهلك وقتك وجهدك
+                      <span className="relative block group cursor-default">
+                        <span className="absolute inset-0 bg-gradient-to-r from-destructive/20 via-orange-500/20 to-yellow-500/20 blur-3xl opacity-50 group-hover:opacity-75 transition-all duration-700 animate-pulse-slow"></span>
+                        <span className="relative block text-4xl md:text-5xl lg:text-6xl leading-relaxed font-bold bg-gradient-to-br from-destructive via-orange-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(239,68,68,0.3)] group-hover:drop-shadow-[0_6px_20px_rgba(239,68,68,0.5)] transition-all duration-500 group-hover:scale-[1.02] transform animate-fade-in">
+                          قد تتحول إلى عبء يستهلك وقتك وجهدك
+                        </span>
                       </span>
                     </>
                   ) : (
@@ -314,8 +317,11 @@ const BoudHRLandingPage: React.FC = () => {
                       <span className="block bg-gradient-to-r from-accent via-accent to-foreground bg-clip-text text-transparent animate-fade-in mb-4">
                         but managing people
                       </span>
-                      <span className="block text-foreground/90 text-4xl md:text-5xl lg:text-6xl leading-relaxed">
-                        can become a burden that drains your time and energy
+                      <span className="relative block group cursor-default">
+                        <span className="absolute inset-0 bg-gradient-to-r from-destructive/20 via-orange-500/20 to-yellow-500/20 blur-3xl opacity-50 group-hover:opacity-75 transition-all duration-700 animate-pulse-slow"></span>
+                        <span className="relative block text-4xl md:text-5xl lg:text-6xl leading-relaxed font-bold bg-gradient-to-br from-destructive via-orange-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-[0_4px_12px_rgba(239,68,68,0.3)] group-hover:drop-shadow-[0_6px_20px_rgba(239,68,68,0.5)] transition-all duration-500 group-hover:scale-[1.02] transform animate-fade-in">
+                          can become a burden that drains your time and energy
+                        </span>
                       </span>
                     </>
                   )}
