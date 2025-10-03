@@ -9,6 +9,8 @@ import { PromotionManager } from '@/components/compensation/PromotionManager';
 import { RewardsManager } from '@/components/compensation/RewardsManager';
 import { AssignmentAllowances } from '@/components/compensation/AssignmentAllowances';
 import { CompensationDashboard } from '@/components/compensation/CompensationDashboard';
+import { WorkforcePlanningBudget } from '@/components/compensation/WorkforcePlanningBudget';
+import { TravelExpensesManagement } from '@/components/compensation/TravelExpensesManagement';
 import { SystemHeader } from '@/components/shared/SystemHeader';
 import { 
   DollarSign, 
@@ -19,7 +21,9 @@ import {
   BarChart3,
   Settings,
   FileText,
-  Gift
+  Gift,
+  Plane,
+  Target
 } from 'lucide-react';
 
 export const CompensationBenefits: React.FC = () => {
@@ -51,13 +55,39 @@ export const CompensationBenefits: React.FC = () => {
 
         {/* Main Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="dashboard">لوحة التحكم</TabsTrigger>
-            <TabsTrigger value="salary-scale">سلم الرواتب</TabsTrigger>
-            <TabsTrigger value="raises">العلاوات السنوية</TabsTrigger>
-            <TabsTrigger value="promotions">الترقيات</TabsTrigger>
-            <TabsTrigger value="rewards">المكافآت</TabsTrigger>
-            <TabsTrigger value="assignments">بدل الانتداب</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 gap-1">
+            <TabsTrigger value="dashboard" className="text-xs lg:text-sm">
+              <BarChart3 className="w-4 h-4 ml-1" />
+              لوحة التحكم
+            </TabsTrigger>
+            <TabsTrigger value="salary-scale" className="text-xs lg:text-sm">
+              <DollarSign className="w-4 h-4 ml-1" />
+              سلم الرواتب
+            </TabsTrigger>
+            <TabsTrigger value="raises" className="text-xs lg:text-sm">
+              <TrendingUp className="w-4 h-4 ml-1" />
+              العلاوات السنوية
+            </TabsTrigger>
+            <TabsTrigger value="promotions" className="text-xs lg:text-sm">
+              <Award className="w-4 h-4 ml-1" />
+              الترقيات
+            </TabsTrigger>
+            <TabsTrigger value="rewards" className="text-xs lg:text-sm">
+              <Gift className="w-4 h-4 ml-1" />
+              المكافآت
+            </TabsTrigger>
+            <TabsTrigger value="assignments" className="text-xs lg:text-sm">
+              <MapPin className="w-4 h-4 ml-1" />
+              بدل الانتداب
+            </TabsTrigger>
+            <TabsTrigger value="workforce-planning" className="text-xs lg:text-sm">
+              <Target className="w-4 h-4 ml-1" />
+              تخطيط القوى العاملة
+            </TabsTrigger>
+            <TabsTrigger value="travel-expenses" className="text-xs lg:text-sm">
+              <Plane className="w-4 h-4 ml-1" />
+              السفر والمصروفات
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard" className="mt-6">
@@ -82,6 +112,14 @@ export const CompensationBenefits: React.FC = () => {
 
           <TabsContent value="assignments" className="mt-6">
             <AssignmentAllowances />
+          </TabsContent>
+
+          <TabsContent value="workforce-planning" className="mt-6">
+            <WorkforcePlanningBudget />
+          </TabsContent>
+
+          <TabsContent value="travel-expenses" className="mt-6">
+            <TravelExpensesManagement />
           </TabsContent>
         </Tabs>
       </div>
