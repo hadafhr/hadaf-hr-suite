@@ -284,7 +284,7 @@ const BoudHRLandingPage: React.FC = () => {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <div className="relative inline-flex items-center justify-center mb-12 transition-all duration-300 hover:scale-105 group cursor-pointer">
+                <div className="relative inline-flex items-center justify-center mb-6 transition-all duration-300 hover:scale-105 group cursor-pointer">
                   <img 
                     src={heroLogo} 
                     alt="Buod HR Logo" 
