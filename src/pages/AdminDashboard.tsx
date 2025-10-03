@@ -34,7 +34,7 @@ export const AdminDashboard: React.FC = () => {
   const isArabic = i18n.language === 'ar';
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   // Mock super admin data

@@ -61,7 +61,7 @@ export const PermissionsManagement: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   // Mock data for roles

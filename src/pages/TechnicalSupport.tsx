@@ -63,7 +63,7 @@ export const TechnicalSupport: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   // Mock data for tickets

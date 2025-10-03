@@ -25,7 +25,7 @@ export const HRManagement: React.FC = () => {
   const isArabic = i18n.language === 'ar';
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
   return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Enhanced Animated Background Pattern */}

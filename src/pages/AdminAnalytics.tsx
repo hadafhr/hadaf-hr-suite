@@ -43,7 +43,7 @@ export const AdminAnalytics: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   // Mock analytics data

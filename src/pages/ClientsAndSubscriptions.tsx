@@ -31,7 +31,7 @@ export const ClientsAndSubscriptions: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   return (

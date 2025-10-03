@@ -15,7 +15,6 @@ import BoudHRAssistant from "@/components/BoudHRAssistant";
 import { Login } from "@/pages/Login";
 import { BusinessLogin } from "@/pages/BusinessLogin";
 import { IndividualLogin } from "@/pages/IndividualLogin";
-import { UnifiedLogin } from "@/pages/UnifiedLogin";
 import { AdminDashboard } from "@/pages/AdminDashboard";
 import { SuperAdminDashboard } from "@/pages/SuperAdminDashboard";
 import { CompanyDashboard } from "@/pages/CompanyDashboard";
@@ -191,8 +190,7 @@ const App = () => {
             <Route path="/job-descriptions" element={<JobDescriptionsIndex />} />
             <Route path="/job-descriptions/:jobId" element={<JobDescriptionDetail />} />
             <Route path="/old-home" element={<LandingPage />} />
-              {/* Unified Login System */}
-              <Route path="/unified-login" element={<UnifiedLogin />} />
+              {/* Admin System */}
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/company-dashboard" element={<CompanyDashboard />} />
               <Route path="/hr-management" element={<HRManagement />} />

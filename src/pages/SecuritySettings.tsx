@@ -43,7 +43,7 @@ export const SecuritySettings: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    navigate('/unified-login');
+    navigate('/admin-login');
   };
 
   const securityMetrics = [
