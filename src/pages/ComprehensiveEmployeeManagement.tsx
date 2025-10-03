@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight, CheckCircle, Leaf, Activity, Smartphone } from 'lucide-react';
 import boudLogo from '@/assets/boud-logo-white-brown.png';
+import hrManagementLogo from '@/assets/hr-management-logo.png';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -283,7 +284,7 @@ const ComprehensiveEmployeeManagement = () => {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden bg-accent">
                 <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-accent/10 to-transparent"></div>
-                <Users className="h-8 w-8 relative z-10 text-accent-foreground" />
+                <img src={hrManagementLogo} alt="HR Management Logo" className="h-10 w-10 relative z-10 object-contain" />
                 <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full animate-pulse bg-accent"></div>
               </div>
               <div>
