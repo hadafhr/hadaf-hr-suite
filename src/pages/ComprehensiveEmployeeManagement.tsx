@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut } from 'lucide-react';
 import boudLogo from '@/assets/boud-logo-white-brown.png';
 
 // Import components
@@ -54,8 +54,9 @@ import { OccupationalHealthSafety } from '@/components/systems/OccupationalHealt
 import TeamWork from '@/components/systems/TeamWork';
 import EmployeeServicesDepartment from '@/pages/EmployeeServicesDepartment';
 import BudgetFinancialPlanning from '@/components/systems/BudgetFinancialPlanning';
+import { EndOfServiceManagement } from '@/components/employee/EndOfServiceManagement';
 type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'digital-transformation' | 'corporate-relations' | 'field-tracking' | 'occupational-health-safety';
-type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment';
+type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'end-of-service';
 type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits';
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization';
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'occupational-safety';
@@ -97,7 +98,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for employee operations
   const isValidEmployeeOpsTabType = (value: string): value is EmployeeOperationsTabType => {
-    const validTabs: EmployeeOperationsTabType[] = ['attendance', 'employee-services', 'leaves', 'disciplinary', 'requests', 'tasks', 'teamwork', 'recruitment'];
+    const validTabs: EmployeeOperationsTabType[] = ['attendance', 'employee-services', 'leaves', 'disciplinary', 'requests', 'tasks', 'teamwork', 'recruitment', 'end-of-service'];
     return validTabs.includes(value as EmployeeOperationsTabType);
   };
 
@@ -398,38 +399,42 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeEmployeeOpsTab} onValueChange={handleEmployeeOpsTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-8 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 lg:grid-cols-9 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="attendance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Clock className="h-4 w-4" />
                       <span className="text-xs">الحضور والانصراف</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="employee-services" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <User className="h-4 w-4" />
-                      <span className="text-xs">خدمات الموظفين</span>
                     </TabsTrigger>
                     <TabsTrigger value="leaves" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Calendar className="h-4 w-4" />
                       <span className="text-xs">الإجازات</span>
                     </TabsTrigger>
                     <TabsTrigger value="disciplinary" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <AlertTriangle className="h-4 w-4" />
+                      <Gavel className="h-4 w-4" />
                       <span className="text-xs">الجزاءات والعقوبات</span>
                     </TabsTrigger>
-                    <TabsTrigger value="requests" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <MessageSquare className="h-4 w-4" />
-                      <span className="text-xs">الطلبات والإشعارات</span>
+                    <TabsTrigger value="employee-services" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <User className="h-4 w-4" />
+                      <span className="text-xs">خدمات الموظفين</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="recruitment" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <UserPlus className="h-4 w-4" />
+                      <span className="text-xs">التوظيف والتعيين</span>
                     </TabsTrigger>
                     <TabsTrigger value="tasks" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <CheckSquare className="h-4 w-4" />
                       <span className="text-xs">المهام والمتابعة</span>
                     </TabsTrigger>
+                    <TabsTrigger value="requests" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <MessageSquare className="h-4 w-4" />
+                      <span className="text-xs">الطلبات والإشعارات</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="end-of-service" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <LogOut className="h-4 w-4" />
+                      <span className="text-xs">الاستقالات وإنهاء الخدمة</span>
+                    </TabsTrigger>
                     <TabsTrigger value="teamwork" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Users2 className="h-4 w-4" />
                       <span className="text-xs">فريق العمل</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="recruitment" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <UserPlus className="h-4 w-4" />
-                      <span className="text-xs">التوظيف والتعين</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -463,6 +468,10 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="recruitment">
                     <SmartHire />
+                  </TabsContent>
+
+                  <TabsContent value="end-of-service">
+                    <EndOfServiceManagement />
                   </TabsContent>
                 </Tabs>
               </div>
