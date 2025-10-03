@@ -313,7 +313,7 @@ const ComprehensiveEmployeeManagement = () => {
             {/* Control Icons for Tab Organization */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 rounded-lg p-1 bg-secondary border border-border">
+                <div className="flex items-center gap-1 rounded-lg p-1 bg-black border border-border">
                   <Button variant="ghost" size="sm" className="h-8 w-8 p-0 transition-colors hover:bg-accent hover:text-accent-foreground" title="ترتيب الأيقونات" onClick={() => handleTabReorder('settings')}>
                     <Settings className="h-4 w-4" />
                   </Button>
