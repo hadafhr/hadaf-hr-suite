@@ -83,22 +83,22 @@ export const EarnWithBoad: React.FC = () => {
     {
       employees: '1-50',
       reward: '5,000',
-      color: 'bg-[#008C6A]'
+      color: 'bg-accent'
     },
     {
       employees: '51-100',
       reward: '8,000',
-      color: 'bg-[#009F87]'
+      color: 'bg-accent/90'
     },
     {
       employees: '101-200',
       reward: '12,000',
-      color: 'bg-[#00B89E]'
+      color: 'bg-accent/80'
     },
     {
       employees: '200+',
       reward: '15,000',
-      color: 'bg-[#00694F]'
+      color: 'bg-accent/70'
     }
   ];
 
@@ -558,15 +558,15 @@ export const EarnWithBoad: React.FC = () => {
         </Card>
 
         {/* Terms Section */}
-        <div className="mt-8 p-6 bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/30 rounded-lg backdrop-blur-sm max-w-6xl mx-auto">
+        <div className="mt-8 p-6 bg-muted/20 border border-border rounded-lg backdrop-blur-sm max-w-6xl mx-auto">
           <div className="flex items-start">
-            <AlertCircle className="h-6 w-6 text-amber-400 mt-0.5 ml-3 animate-pulse" />
+            <AlertCircle className="h-6 w-6 text-accent mt-0.5 ml-3 animate-pulse" />
             <div>
-              <h4 className="font-semibold text-amber-300 mb-2 flex items-center gap-2">
+              <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                 <span className="text-2xl">⚖️</span>
                 {isArabic ? 'شروط وأحكام البرنامج' : 'Program Terms & Conditions'}
               </h4>
-              <ul className="text-amber-200 text-sm space-y-2 text-right leading-relaxed">
+              <ul className="text-muted-foreground text-sm space-y-2 text-right leading-relaxed">
                 <li>• يتم صرف المكافأة فقط عند اشتراك الشركة المرشحة واستخدامها الفعلي للنظام لمدة 30 يوم على الأقل</li>
                 <li>• المكافأة تُحدد حسب عدد الموظفين المسجلين فعلياً في النظام</li>
                 <li>• لا يحق الحصول على مكافأة إضافية لنفس الشركة إذا كانت مشتركة مسبقاً</li>
