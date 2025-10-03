@@ -158,39 +158,35 @@ export function EndOfServiceManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
       {/* Header */}
-      <div className="bg-card border-b border-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-center mb-4">
+      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-16 items-center px-6">
+          <div className="flex items-center gap-4">
             <img 
               src="/images/logo-new.png" 
               alt="Logo" 
-              className="h-16 w-auto"
+              className="h-12 w-auto"
             />
+            <div className="flex items-center gap-2">
+              <LogOut className="h-6 w-6 text-primary" />
+              <h1 className="text-xl font-semibold">إدارة الاستقالات وإنهاء الخدمة</h1>
+              <Badge className="bg-green-100 text-green-800">نظام العمل السعودي</Badge>
+            </div>
           </div>
-          <div className="text-center">
-            <h1 className="text-xl font-semibold text-foreground flex items-center justify-center gap-2">
-              <LogOut className="h-6 w-6" />
-              إدارة الاستقالات وإنهاء الخدمة
-            </h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              إدارة شاملة لجميع حالات إنهاء الخدمة ومستحقات الموظفين
-            </p>
-          </div>
-        </div>
-      </div>
+          <div className="mr-auto flex items-center gap-2">
+            <Button variant="outline" size="sm">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقرير
+            </Button>
 
-      <div className="container mx-auto px-4 py-6 space-y-6">
-        {/* Add New Request Button */}
-        <div className="flex justify-end">
-          <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
-            <DialogTrigger asChild>
-              <Button size="lg" className="gap-2">
-                <Plus className="h-5 w-5" />
-                إضافة طلب جديد
-              </Button>
-            </DialogTrigger>
+            <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
+              <DialogTrigger asChild>
+                <Button size="sm">
+                  <Plus className="h-4 w-4 ml-2" />
+                  إضافة طلب جديد
+                </Button>
+              </DialogTrigger>
           <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" dir="rtl">
             <DialogHeader>
               <DialogTitle className="text-xl">طلب إنهاء خدمة موظف</DialogTitle>
@@ -322,10 +318,13 @@ export function EndOfServiceManagement() {
             </div>
           </DialogContent>
         </Dialog>
+          </div>
+        </div>
       </div>
 
+      <div className="p-6">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card className="border-0 shadow-sm">
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-foreground">{stats.total}</div>
@@ -371,7 +370,7 @@ export function EndOfServiceManagement() {
 
           <TabsContent value="overview" className="space-y-6">
             {/* Search and Filter */}
-            <Card className="border-0 shadow-sm">
+            <Card>
               <CardContent className="p-6">
                 <div className="flex gap-4">
                 <div className="flex-1">
@@ -411,7 +410,7 @@ export function EndOfServiceManagement() {
                 const TypeIcon = typeConfig?.icon || User;
                 
                 return (
-                  <Card key={record.id} className="border-0 shadow-sm">
+                  <Card key={record.id} className="hover:shadow-md transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
@@ -518,7 +517,7 @@ export function EndOfServiceManagement() {
           </TabsContent>
 
         <TabsContent value="calculator" className="space-y-6">
-          <Card className="border-0 shadow-sm">
+          <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-6">
                 <Calculator className="h-6 w-6 text-primary" />
@@ -588,7 +587,7 @@ export function EndOfServiceManagement() {
 
         <TabsContent value="reports" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="border-0 shadow-sm">
+            <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold text-foreground mb-4">توزيع أنواع إنهاء الخدمة</h2>
                 <div className="space-y-4">
@@ -617,7 +616,7 @@ export function EndOfServiceManagement() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-sm">
+            <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold text-foreground mb-4">متوسط سنوات الخدمة</h2>
                 <div className="text-center py-8">
@@ -638,7 +637,7 @@ export function EndOfServiceManagement() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-sm">
+            <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold text-foreground mb-4">متوسط المستحقات</h2>
                 <div className="text-center py-8">
@@ -659,7 +658,7 @@ export function EndOfServiceManagement() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-sm">
+            <Card>
               <CardContent className="p-6">
                 <h2 className="text-xl font-bold text-foreground mb-4">الحالات الشهرية</h2>
                 <div className="space-y-3">
@@ -686,6 +685,7 @@ export function EndOfServiceManagement() {
           </div>
         </TabsContent>
         </Tabs>
+      </div>
 
         {/* Details Dialog */}
       <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
@@ -799,7 +799,6 @@ export function EndOfServiceManagement() {
           )}
         </DialogContent>
       </Dialog>
-      </div>
     </div>
   );
 }
