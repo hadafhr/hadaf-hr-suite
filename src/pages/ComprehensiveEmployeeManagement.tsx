@@ -48,6 +48,9 @@ import { InternalCommunication } from '@/components/systems/InternalCommunicatio
 import { DiversityInclusion } from '@/components/corporate/DiversityInclusion';
 import { SustainabilityCSR } from '@/components/corporate/SustainabilityCSR';
 import { DigitalHealthIntegration } from '@/components/corporate/DigitalHealthIntegration';
+import { MobileExperience } from '@/components/digital/MobileExperience';
+import { HSEWorkplaceSafety } from '@/components/digital/HSEWorkplaceSafety';
+import { ProjectManagement } from '@/components/digital/ProjectManagement';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
 import { OccupationalSafety } from '@/components/systems/OccupationalSafety';
 import SocialServices from '@/components/systems/SocialServices';
@@ -71,7 +74,7 @@ type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' |
 type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'workforce-planning' | 'travel-expenses';
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization' | 'smart-learning' | 'internal-mobility' | 'succession-planning';
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'policies-procedures' | 'internal-audit' | 'change-management';
-type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings';
+type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings' | 'mobile-experience' | 'hse-safety' | 'project-management';
 type CorporateRelationsTabType = 'internal-communication' | 'social-services' | 'admin-communications' | 'occupational-safety' | 'diversity-inclusion' | 'sustainability-csr' | 'digital-health';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
@@ -161,7 +164,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for digital transformation
   const isValidDigitalTransformationTabType = (value: string): value is DigitalTransformationTabType => {
-    const validTabs: DigitalTransformationTabType[] = ['ai', 'reports', 'integration', 'signature', 'tracking', 'meetings'];
+    const validTabs: DigitalTransformationTabType[] = ['ai', 'reports', 'integration', 'signature', 'tracking', 'meetings', 'mobile-experience', 'hse-safety', 'project-management'];
     return validTabs.includes(value as DigitalTransformationTabType);
   };
 
@@ -737,7 +740,7 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDigitalTransformationTab} onValueChange={handleDigitalTransformationTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-9 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="ai" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Bot className="h-4 w-4" />
                       <span className="text-xs">الذكاء الاصطناعي</span>
@@ -761,6 +764,18 @@ const ComprehensiveEmployeeManagement = () => {
                     <TabsTrigger value="meetings" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <CalendarClock className="h-4 w-4" />
                       <span className="text-xs">الاجتماعات</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="mobile-experience" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Smartphone className="h-4 w-4" />
+                      <span className="text-xs">تطبيقات الجوال</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="hse-safety" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Shield className="h-4 w-4" />
+                      <span className="text-xs">الصحة والسلامة</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="project-management" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Briefcase className="h-4 w-4" />
+                      <span className="text-xs">إدارة المشاريع</span>
                     </TabsTrigger>
                   </TabsList>
 
