@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight, CheckCircle } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight, CheckCircle, Leaf, Activity } from 'lucide-react';
 import boudLogo from '@/assets/boud-logo-white-brown.png';
 
 // Import components
@@ -44,7 +44,9 @@ import { InternalMobilityCareerPaths } from '@/components/development/InternalMo
 import { SuccessionPlanning } from '@/components/development/SuccessionPlanning';
 import { QualityOfLifeSystem } from '@/components/systems/QualityOfLifeSystem';
 import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySystem';
-import { InternalCommunication } from '@/components/systems/InternalCommunication';
+import { DiversityInclusion } from '@/components/corporate/DiversityInclusion';
+import { SustainabilityCSR } from '@/components/corporate/SustainabilityCSR';
+import { DigitalHealthIntegration } from '@/components/corporate/DigitalHealthIntegration';
 import { AdministrativeCommunications } from '@/components/systems/AdministrativeCommunications';
 import { OccupationalSafety } from '@/components/systems/OccupationalSafety';
 import SocialServices from '@/components/systems/SocialServices';
@@ -69,7 +71,7 @@ type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 
 type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization' | 'smart-learning' | 'internal-mobility' | 'succession-planning';
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'policies-procedures' | 'internal-audit' | 'change-management';
 type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings';
-type CorporateRelationsTabType = 'internal-communication' | 'social-services' | 'admin-communications';
+type CorporateRelationsTabType = 'internal-communication' | 'social-services' | 'admin-communications' | 'occupational-safety' | 'diversity-inclusion' | 'sustainability-csr' | 'digital-health';
 const ComprehensiveEmployeeManagement = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -171,7 +173,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for corporate relations
   const isValidCorporateRelationsTabType = (value: string): value is CorporateRelationsTabType => {
-    const validTabs: CorporateRelationsTabType[] = ['internal-communication', 'social-services', 'admin-communications'];
+    const validTabs: CorporateRelationsTabType[] = ['internal-communication', 'social-services', 'admin-communications', 'occupational-safety', 'diversity-inclusion', 'sustainability-csr', 'digital-health'];
     return validTabs.includes(value as CorporateRelationsTabType);
   };
 
@@ -864,18 +866,34 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeCorporateRelationsTab} onValueChange={handleCorporateRelationsTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
                     <TabsTrigger value="internal-communication" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Users2 className="h-4 w-4" />
                       <span className="text-xs">التواصل الداخلي</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="admin-communications" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <FileText className="h-4 w-4" />
+                      <span className="text-xs">المراسلات الإدارية</span>
                     </TabsTrigger>
                     <TabsTrigger value="social-services" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Heart className="h-4 w-4" />
                       <span className="text-xs">الخدمات الاجتماعية</span>
                     </TabsTrigger>
-                    <TabsTrigger value="admin-communications" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <FileText className="h-4 w-4" />
-                      <span className="text-xs">المراسلات الإدارية</span>
+                    <TabsTrigger value="occupational-safety" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <HardHat className="h-4 w-4" />
+                      <span className="text-xs">السلامة المهنية</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="diversity-inclusion" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Users className="h-4 w-4" />
+                      <span className="text-xs">التنوع والشمول</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="sustainability-csr" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Leaf className="h-4 w-4" />
+                      <span className="text-xs">الاستدامة CSR</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="digital-health" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Activity className="h-4 w-4" />
+                      <span className="text-xs">الصحة الرقمية</span>
                     </TabsTrigger>
                   </TabsList>
 
@@ -889,6 +907,22 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="admin-communications">
                     <AdministrativeCommunications onBack={() => setActiveTab('dashboard')} />
+                  </TabsContent>
+
+                  <TabsContent value="occupational-safety">
+                    <OccupationalSafety />
+                  </TabsContent>
+
+                  <TabsContent value="diversity-inclusion">
+                    <DiversityInclusion />
+                  </TabsContent>
+
+                  <TabsContent value="sustainability-csr">
+                    <SustainabilityCSR />
+                  </TabsContent>
+
+                  <TabsContent value="digital-health">
+                    <DigitalHealthIntegration />
                   </TabsContent>
                 </Tabs>
               </div>
