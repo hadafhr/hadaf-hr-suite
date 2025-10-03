@@ -16,8 +16,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { PatternBackground } from '@/components/PatternBackground';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { SystemMonitoring } from '@/components/admin/SystemMonitoring';
-import { ClientManagement } from '@/components/admin/ClientManagement';
-import { SubscriptionManagement } from '@/components/admin/SubscriptionManagement';
+import { ClientsAndSubscriptions } from '@/components/admin/ClientsAndSubscriptions';
 import { HRManagementSystem } from '@/components/admin/HRManagementSystem';
 import { AIInsightsDashboard } from '@/components/admin/AIInsightsDashboard';
 import { SystemAnalytics } from '@/components/admin/SystemAnalytics';
@@ -70,17 +69,13 @@ export const AdminDashboard: React.FC = () => {
     route: '/admin-dashboard',
     active: true
   }, {
-    label: isArabic ? 'إدارة العملاء' : 'Client Management',
+    label: isArabic ? 'العملاء والاشتراكات' : 'Clients & Subscriptions',
     icon: Building2,
-    route: '/client-management'
+    route: '/clients-subscriptions'
   }, {
     label: isArabic ? 'مراقبة النظام' : 'System Monitoring',
     icon: Monitor,
     route: '/system-monitoring'
-  }, {
-    label: isArabic ? 'إدارة الاشتراكات' : 'Subscription Management',
-    icon: Crown,
-    route: '/subscription-management'
   }, {
     label: isArabic ? 'إدارة النظام' : 'HR Management',
     icon: Users,

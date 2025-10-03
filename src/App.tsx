@@ -102,9 +102,8 @@ import VacationBalanceCalculatorPage from './pages/VacationBalanceCalculatorPage
 import HousingAllowanceCalculatorPage from './pages/HousingAllowanceCalculatorPage';
 import SalaryBenchmarkingPage from './pages/SalaryBenchmarkingPage';
 import { HRManagement } from './pages/HRManagement';
-import { ClientManagement } from './pages/ClientManagement';
+import { ClientsAndSubscriptions } from './pages/ClientsAndSubscriptions';
 import { SystemMonitoring } from './pages/SystemMonitoring';
-import { SubscriptionManagement } from './pages/SubscriptionManagement';
 import { AdminAnalytics } from './pages/AdminAnalytics';
 import { SystemDevelopment } from './pages/SystemDevelopment';
 import { SecuritySettings } from './pages/SecuritySettings';
@@ -195,9 +194,8 @@ const App = () => {
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/company-dashboard" element={<CompanyDashboard />} />
               <Route path="/hr-management" element={<HRManagement />} />
-              <Route path="/client-management" element={<ClientManagement />} />
+              <Route path="/clients-subscriptions" element={<ClientsAndSubscriptions />} />
               <Route path="/system-monitoring" element={<SystemMonitoring />} />
-              <Route path="/subscription-management" element={<SubscriptionManagement />} />
               <Route path="/admin-analytics" element={<AdminAnalytics />} />
               <Route path="/system-development" element={<SystemDevelopment />} />
               <Route path="/security-settings" element={<SecuritySettings />} />
