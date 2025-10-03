@@ -158,34 +158,39 @@ export function EndOfServiceManagement() {
   };
 
   return (
-    <div className="workforce-container p-6 space-y-6 min-h-screen" dir="rtl">
-      {/* Logo */}
-      <div className="flex justify-center mb-8">
-        <img 
-          src="/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png" 
-          alt="Logo" 
-          className="h-16 w-auto"
-        />
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="bg-card border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-center mb-4">
+            <img 
+              src="/lovable-uploads/061e5b1e-3dae-47c5-a4bb-7cf75ff2ee1d.png" 
+              alt="Logo" 
+              className="h-16 w-auto"
+            />
+          </div>
+          <div className="text-center">
+            <h1 className="text-xl font-semibold text-foreground flex items-center justify-center gap-2">
+              <LogOut className="h-6 w-6" />
+              إدارة الاستقالات وإنهاء الخدمة
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              إدارة شاملة لجميع حالات إنهاء الخدمة ومستحقات الموظفين
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Header with Title */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-            <LogOut className="h-8 w-8 text-white" />
-            إدارة الاستقالات وإنهاء الخدمة
-          </h1>
-          <p className="text-gray-300 mt-1">
-            إدارة شاملة لجميع حالات إنهاء الخدمة ومستحقات الموظفين
-          </p>
-        </div>
-        <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
-          <DialogTrigger asChild>
-            <Button size="lg" className="workforce-button-primary btn-3d gap-2">
-              <Plus className="h-5 w-5" />
-              إضافة طلب جديد
-            </Button>
-          </DialogTrigger>
+      <div className="container mx-auto px-4 py-6 space-y-6">
+        {/* Add New Request Button */}
+        <div className="flex justify-end">
+          <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="gap-2">
+                <Plus className="h-5 w-5" />
+                إضافة طلب جديد
+              </Button>
+            </DialogTrigger>
           <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" dir="rtl">
             <DialogHeader>
               <DialogTitle className="text-xl">طلب إنهاء خدمة موظف</DialogTitle>
@@ -319,64 +324,56 @@ export function EndOfServiceManagement() {
         </Dialog>
       </div>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="workforce-card p-4 text-center">
-          <LogOut className="w-8 h-8 text-black mx-auto mb-2" />
-          <h3 className="text-lg font-semibold text-black">إجمالي الحالات</h3>
-          <p className="text-2xl font-bold text-black">{stats.total}</p>
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-foreground">{stats.total}</div>
+              <div className="text-sm text-muted-foreground">إجمالي الحالات</div>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-yellow-600">{stats.pending}</div>
+              <div className="text-sm text-muted-foreground">قيد المراجعة</div>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-green-600">{stats.completed}</div>
+              <div className="text-sm text-muted-foreground">المكتملة</div>
+            </CardContent>
+          </Card>
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-blue-600">{(stats.totalAmount / 1000).toFixed(0)}K ریال</div>
+              <div className="text-sm text-muted-foreground">إجمالي المستحقات</div>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="workforce-card p-4 text-center">
-          <Clock className="w-8 h-8 text-black mx-auto mb-2" />
-          <h3 className="text-lg font-semibold text-black">قيد المراجعة</h3>
-          <p className="text-2xl font-bold text-black">{stats.pending}</p>
-        </div>
+        {/* Main Content Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="overview" className="gap-2">
+              <FileText className="h-4 w-4" />
+              نظرة عامة
+            </TabsTrigger>
+            <TabsTrigger value="calculator" className="gap-2">
+              <Calculator className="h-4 w-4" />
+              حاسبة المستحقات
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="gap-2">
+              <TrendingUp className="h-4 w-4" />
+              التقارير
+            </TabsTrigger>
+          </TabsList>
 
-        <div className="workforce-card p-4 text-center">
-          <CheckCircle className="w-8 h-8 text-black mx-auto mb-2" />
-          <h3 className="text-lg font-semibold text-black">المكتملة</h3>
-          <p className="text-2xl font-bold text-black">{stats.completed}</p>
-        </div>
-
-        <div className="workforce-card p-4 text-center">
-          <DollarSign className="w-8 h-8 text-black mx-auto mb-2" />
-          <h3 className="text-lg font-semibold text-black">إجمالي المستحقات</h3>
-          <p className="text-2xl font-bold text-black">{(stats.totalAmount / 1000).toFixed(0)}K ریال</p>
-        </div>
-      </div>
-
-      {/* Main Content Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 bg-black border border-gray-800 p-1 rounded-lg">
-          <TabsTrigger 
-            value="overview" 
-            className="workforce-button data-[state=active]:bg-white data-[state=active]:text-black text-white border-none gap-2"
-          >
-            <FileText className="h-4 w-4" />
-            نظرة عامة
-          </TabsTrigger>
-          <TabsTrigger 
-            value="calculator" 
-            className="workforce-button data-[state=active]:bg-white data-[state=active]:text-black text-white border-none gap-2"
-          >
-            <Calculator className="h-4 w-4" />
-            حاسبة المستحقات
-          </TabsTrigger>
-          <TabsTrigger 
-            value="reports" 
-            className="workforce-button data-[state=active]:bg-white data-[state=active]:text-black text-white border-none gap-2"
-          >
-            <TrendingUp className="h-4 w-4" />
-            التقارير
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="space-y-6">
-          {/* Search and Filter */}
-          <div className="workforce-card p-6">
-            <div className="pt-0">
-              <div className="flex gap-4">
+          <TabsContent value="overview" className="space-y-6">
+            {/* Search and Filter */}
+            <Card className="border-0 shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex gap-4">
                 <div className="flex-1">
                   <div className="relative">
                     <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -399,24 +396,24 @@ export function EndOfServiceManagement() {
                     ))}
                   </SelectContent>
                 </Select>
-                <Button className="workforce-button btn-3d gap-2">
-                  <Download className="h-4 w-4" />
-                  تصدير
-                </Button>
-              </div>
-            </div>
-          </div>
+                  <Button className="gap-2">
+                    <Download className="h-4 w-4" />
+                    تصدير
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
-          {/* Records List */}
-          <div className="grid gap-4">
-            {mockRecords.map((record) => {
-              const typeConfig = terminationTypes.find(t => t.id === record.termination_type);
-              const TypeIcon = typeConfig?.icon || User;
-              
-              return (
-                <div key={record.id} className="workforce-card p-6">
-                  <div>
-                    <div className="flex items-start justify-between mb-4">
+            {/* Records List */}
+            <div className="space-y-4">
+              {mockRecords.map((record) => {
+                const typeConfig = terminationTypes.find(t => t.id === record.termination_type);
+                const TypeIcon = typeConfig?.icon || User;
+                
+                return (
+                  <Card key={record.id} className="border-0 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
                         <div className={`p-3 rounded-xl ${typeConfig?.color || 'bg-gray-500 text-white'}`}>
                           <TypeIcon className="h-6 w-6" />
@@ -480,53 +477,54 @@ export function EndOfServiceManagement() {
 
                     <Separator className="my-4" />
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-6 text-sm">
-                        <div>
-                          <span className="text-gray-600">مكافأة نهاية الخدمة: </span>
-                          <span className="font-bold text-black">{record.eos_amount.toLocaleString()} ريال</span>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-6 text-sm">
+                          <div>
+                            <span className="text-gray-600">مكافأة نهاية الخدمة: </span>
+                            <span className="font-bold text-black">{record.eos_amount.toLocaleString()} ريال</span>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">رصيد إجازات: </span>
+                            <span className="font-bold text-black">{record.vacation_balance} يوم</span>
+                          </div>
+                          <div>
+                            <span className="text-gray-600">قيمة الإجازات: </span>
+                            <span className="font-bold text-black">{record.vacation_amount.toLocaleString()} ريال</span>
+                          </div>
                         </div>
-                        <div>
-                          <span className="text-gray-600">رصيد إجازات: </span>
-                          <span className="font-bold text-black">{record.vacation_balance} يوم</span>
-                        </div>
-                        <div>
-                          <span className="text-gray-600">قيمة الإجازات: </span>
-                          <span className="font-bold text-black">{record.vacation_amount.toLocaleString()} ريال</span>
-                        </div>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleViewDetails(record)}
+                          className="gap-2"
+                        >
+                          <Eye className="h-4 w-4" />
+                          التفاصيل
+                        </Button>
                       </div>
-                      <Button 
-                        size="sm"
-                        onClick={() => handleViewDetails(record)}
-                        className="workforce-button btn-3d gap-2"
-                      >
-                        <Eye className="h-4 w-4" />
-                        التفاصيل
-                      </Button>
-                    </div>
 
-                    {record.reason && (
-                      <div className="mt-4 p-3 bg-gray-100 rounded-lg">
-                        <p className="text-sm text-gray-600 flex items-start gap-2">
-                          <FileText className="h-4 w-4 mt-0.5" />
-                          <span><strong>السبب:</strong> {record.reason}</span>
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </TabsContent>
+                      {record.reason && (
+                        <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                          <p className="text-sm text-muted-foreground flex items-start gap-2">
+                            <FileText className="h-4 w-4 mt-0.5" />
+                            <span><strong>السبب:</strong> {record.reason}</span>
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </TabsContent>
 
         <TabsContent value="calculator" className="space-y-6">
-          <div className="workforce-card p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <Calculator className="h-6 w-6 text-black" />
-              <h2 className="text-2xl font-bold text-black">حاسبة مستحقات نهاية الخدمة</h2>
-            </div>
-            <div className="space-y-6">
+          <Card className="border-0 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <Calculator className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-bold text-foreground">حاسبة مستحقات نهاية الخدمة</h2>
+              </div>
+              <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label>سنوات الخدمة</Label>
@@ -555,43 +553,44 @@ export function EndOfServiceManagement() {
                 </div>
               </div>
 
-              <Button className="workforce-button-primary btn-3d w-full gap-2" size="lg">
+              <Button className="w-full gap-2" size="lg">
                 <Calculator className="h-5 w-5" />
                 احسب المستحقات
               </Button>
 
               <Separator />
 
-              <div className="bg-gray-100 p-6 rounded-xl space-y-4">
-                <h3 className="font-bold text-lg mb-4 text-black">نتيجة الحساب</h3>
+              <div className="bg-gray-50 p-6 rounded-xl space-y-4">
+                <h3 className="font-bold text-lg mb-4 text-foreground">نتيجة الحساب</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-1">مكافأة نهاية الخدمة</p>
-                    <p className="text-2xl font-bold text-black">52,500 ريال</p>
+                  <div className="bg-card p-4 rounded-lg border border-border">
+                    <p className="text-sm text-muted-foreground mb-1">مكافأة نهاية الخدمة</p>
+                    <p className="text-2xl font-bold text-foreground">52,500 ريال</p>
                   </div>
-                  <div className="bg-white p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-1">قيمة رصيد الإجازات</p>
-                    <p className="text-2xl font-bold text-black">7,500 ريال</p>
+                  <div className="bg-card p-4 rounded-lg border border-border">
+                    <p className="text-sm text-muted-foreground mb-1">قيمة رصيد الإجازات</p>
+                    <p className="text-2xl font-bold text-foreground">7,500 ريال</p>
                   </div>
-                  <div className="bg-white p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-1">خصومات (إن وجدت)</p>
+                  <div className="bg-card p-4 rounded-lg border border-border">
+                    <p className="text-sm text-muted-foreground mb-1">خصومات (إن وجدت)</p>
                     <p className="text-2xl font-bold text-red-600">0 ريال</p>
                   </div>
-                  <div className="bg-black text-white p-4 rounded-lg">
+                  <div className="bg-primary text-primary-foreground p-4 rounded-lg">
                     <p className="text-sm opacity-90 mb-1">إجمالي المستحقات</p>
                     <p className="text-3xl font-bold">60,000 ريال</p>
                   </div>
                 </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="reports" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="workforce-card p-6">
-              <h2 className="text-xl font-bold text-black mb-4">توزيع أنواع إنهاء الخدمة</h2>
-              <div>
+            <Card className="border-0 shadow-sm">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-bold text-foreground mb-4">توزيع أنواع إنهاء الخدمة</h2>
                 <div className="space-y-4">
                   {terminationTypes.map((type, index) => {
                     const counts = [45, 28, 15, 12];
@@ -599,11 +598,11 @@ export function EndOfServiceManagement() {
                     return (
                       <div key={type.id} className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="flex items-center gap-2 text-black">
+                          <span className="flex items-center gap-2 text-foreground">
                             <type.icon className="h-4 w-4" />
                             {type.name}
                           </span>
-                          <span className="font-bold text-black">{counts[index]} ({percentages[index]}%)</span>
+                          <span className="font-bold text-foreground">{counts[index]} ({percentages[index]}%)</span>
                         </div>
                         <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div 
@@ -615,80 +614,80 @@ export function EndOfServiceManagement() {
                     );
                   })}
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
-            <div className="workforce-card p-6">
-              <h2 className="text-xl font-bold text-black mb-4">متوسط سنوات الخدمة</h2>
-              <div>
+            <Card className="border-0 shadow-sm">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-bold text-foreground mb-4">متوسط سنوات الخدمة</h2>
                 <div className="text-center py-8">
-                  <div className="text-6xl font-bold text-black mb-2">8.5</div>
-                  <p className="text-gray-600">سنة</p>
+                  <div className="text-6xl font-bold text-foreground mb-2">8.5</div>
+                  <p className="text-muted-foreground">سنة</p>
                   <Separator className="my-6" />
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="text-gray-600">الحد الأدنى</p>
-                      <p className="font-bold text-lg text-black">0.5 سنة</p>
+                      <p className="text-muted-foreground">الحد الأدنى</p>
+                      <p className="font-bold text-lg text-foreground">0.5 سنة</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">الحد الأقصى</p>
-                      <p className="font-bold text-lg text-black">28 سنة</p>
+                      <p className="text-muted-foreground">الحد الأقصى</p>
+                      <p className="font-bold text-lg text-foreground">28 سنة</p>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
-            <div className="workforce-card p-6">
-              <h2 className="text-xl font-bold text-black mb-4">متوسط المستحقات</h2>
-              <div>
+            <Card className="border-0 shadow-sm">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-bold text-foreground mb-4">متوسط المستحقات</h2>
                 <div className="text-center py-8">
                   <div className="text-5xl font-bold text-green-600 mb-2">18,269</div>
-                  <p className="text-gray-600">ريال سعودي</p>
+                  <p className="text-muted-foreground">ريال سعودي</p>
                   <Separator className="my-6" />
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">أقل مبلغ:</span>
-                      <span className="font-bold text-black">2,500 ريال</span>
+                      <span className="text-muted-foreground">أقل مبلغ:</span>
+                      <span className="font-bold text-foreground">2,500 ريال</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">أعلى مبلغ:</span>
-                      <span className="font-bold text-black">408,000 ريال</span>
+                      <span className="text-muted-foreground">أعلى مبلغ:</span>
+                      <span className="font-bold text-foreground">408,000 ريال</span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
-            <div className="workforce-card p-6">
-              <h2 className="text-xl font-bold text-black mb-4">الحالات الشهرية</h2>
-              <div>
+            <Card className="border-0 shadow-sm">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-bold text-foreground mb-4">الحالات الشهرية</h2>
                 <div className="space-y-3">
                   {['يناير', 'فبراير', 'مارس', 'أبريل'].map((month, index) => {
                     const counts = [8, 12, 7, 10];
                     return (
                       <div key={month} className="flex items-center justify-between">
-                        <span className="text-sm text-black">{month} 2024</span>
+                        <span className="text-sm text-foreground">{month} 2024</span>
                         <div className="flex items-center gap-2">
                           <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-black"
+                              className="h-full bg-primary"
                               style={{ width: `${(counts[index] / 12) * 100}%` }}
                             />
                           </div>
-                          <span className="font-bold text-sm w-8 text-black">{counts[index]}</span>
+                          <span className="font-bold text-sm w-8 text-foreground">{counts[index]}</span>
                         </div>
                       </div>
                     );
                   })}
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
-      </Tabs>
+        </Tabs>
 
-      {/* Details Dialog */}
+        {/* Details Dialog */}
       <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" dir="rtl">
           {selectedRecord && (
@@ -800,6 +799,7 @@ export function EndOfServiceManagement() {
           )}
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 }
