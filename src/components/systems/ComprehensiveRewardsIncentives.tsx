@@ -307,19 +307,21 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto p-6">
-        {/* Enhanced Header */}
-        <SystemHeader
-          onBack={onBack}
-          title="نظام إدارة المكافآت والحوافز الذكي"
-          description="نظام ذكي متطور لإدارة المكافآت والحوافز مع نظام النقاط والتكامل مع المتاجر الخارجية"
-          icon={<Gift className="h-12 w-12 text-white" />}
-          onCalculateEligibility={() => {
-            calculateAllEligibility();
-          }}
-          showBackButton={true}
-        />
+    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة المكافآت والحوافز الذكي</h1>
+          <p className="text-muted-foreground">نظام ذكي متطور لإدارة المكافآت والحوافز مع نظام النقاط والتكامل مع المتاجر الخارجية</p>
+        </div>
+
+        {/* Main Content */}
+        <div className="rounded-xl border border-border p-6 bg-card">
 
         {/* AI-Powered Analytics Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
@@ -1653,6 +1655,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
             </div>
           </TabsContent>
         </Tabs>
+        </div>
       </div>
     </div>
   );
