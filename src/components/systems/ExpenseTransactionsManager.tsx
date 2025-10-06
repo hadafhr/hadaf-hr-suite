@@ -125,9 +125,9 @@ export const ExpenseTransactionsManager: React.FC<ExpenseTransactionsManagerProp
 
   const getReceiptStatusBadge = (status: string) => {
     const statusConfig = {
-      'uploaded': { color: 'bg-green-500/20 text-green-300 border-green-500/30', text: isRTL ? 'تم الرفع' : 'Uploaded', icon: CheckCircle },
-      'missing': { color: 'bg-red-500/20 text-red-300 border-red-500/30', text: isRTL ? 'مفقود' : 'Missing', icon: XCircle },
-      'pending': { color: 'bg-orange-500/20 text-orange-300 border-orange-500/30', text: isRTL ? 'في الانتظار' : 'Pending', icon: Clock }
+      'uploaded': { color: 'bg-success/20 text-success-foreground border-success/30', text: isRTL ? 'تم الرفع' : 'Uploaded', icon: CheckCircle },
+      'missing': { color: 'bg-destructive/20 text-destructive-foreground border-destructive/30', text: isRTL ? 'مفقود' : 'Missing', icon: XCircle },
+      'pending': { color: 'bg-warning/20 text-warning-foreground border-warning/30', text: isRTL ? 'في الانتظار' : 'Pending', icon: Clock }
     };
     
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;
@@ -143,10 +143,10 @@ export const ExpenseTransactionsManager: React.FC<ExpenseTransactionsManagerProp
 
   const getPolicyStatusBadge = (status: string) => {
     const statusConfig = {
-      'approved': { color: 'bg-green-500/20 text-green-300 border-green-500/30', text: isRTL ? 'معتمد' : 'Approved', icon: CheckCircle },
-      'violation': { color: 'bg-red-500/20 text-red-300 border-red-500/30', text: isRTL ? 'مخالفة' : 'Violation', icon: XCircle },
-      'review': { color: 'bg-purple-500/20 text-purple-300 border-purple-500/30', text: isRTL ? 'مراجعة' : 'Review', icon: Eye },
-      'exceeds_limit': { color: 'bg-orange-500/20 text-orange-300 border-orange-500/30', text: isRTL ? 'تجاوز حد' : 'Exceeds Limit', icon: AlertTriangle }
+      'approved': { color: 'bg-success/20 text-success-foreground border-success/30', text: isRTL ? 'معتمد' : 'Approved', icon: CheckCircle },
+      'violation': { color: 'bg-destructive/20 text-destructive-foreground border-destructive/30', text: isRTL ? 'مخالفة' : 'Violation', icon: XCircle },
+      'review': { color: 'bg-accent/20 text-accent-foreground border-accent/30', text: isRTL ? 'مراجعة' : 'Review', icon: Eye },
+      'exceeds_limit': { color: 'bg-warning/20 text-warning-foreground border-warning/30', text: isRTL ? 'تجاوز حد' : 'Exceeds Limit', icon: AlertTriangle }
     };
     
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.approved;
@@ -226,9 +226,152 @@ export const ExpenseTransactionsManager: React.FC<ExpenseTransactionsManagerProp
         <CardHeader>
           <CardTitle className="text-foreground flex items-center gap-2">
             <Receipt className="h-5 w-5 text-primary" />
-...
+            {isRTL ? 'قائمة المعاملات' : 'Transactions List'}
+            <Badge className="bg-primary/20 text-primary ml-2">
+              {filteredTransactions.length}
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {filteredTransactions.map((transaction) => (
+              <Dialog key={transaction.id}>
+                <DialogTrigger className="w-full">
+                  <div className="flex items-center justify-between p-4 bg-background rounded-xl border border-border hover:border-accent transition-all duration-300 cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                        <Receipt className="h-6 w-6 text-primary" />
+                      </div>
+                      <div className="text-left">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-semibold text-foreground">{transaction.id}</h4>
+                          <Badge className="bg-card text-muted-foreground text-xs">
+                            {transaction.cardNumber}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-foreground">{transaction.employee}</p>
+                        <p className="text-sm text-muted-foreground">{transaction.merchant}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {transaction.date} - {transaction.time}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="text-right">
+                      <p className="font-bold text-foreground text-lg mb-2">
+                        {transaction.amount.toLocaleString()} {transaction.currency}
+                      </p>
+                      <div className="flex flex-col gap-1">
+                        {getReceiptStatusBadge(transaction.receiptStatus)}
+                        {getPolicyStatusBadge(transaction.policyStatus)}
+                      </div>
+                    </div>
+                  </div>
+                </DialogTrigger>
+                
                 <DialogContent className="bg-card border-border text-foreground max-w-2xl">
-...
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <Receipt className="h-5 w-5 text-primary" />
+                      {isRTL ? 'تفاصيل المعاملة' : 'Transaction Details'} - {transaction.id}
+                    </DialogTitle>
+                  </DialogHeader>
+                  
+                  <div className="space-y-6">
+                    {/* Basic Info */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'الموظف' : 'Employee'}
+                        </label>
+                        <p className="text-foreground font-medium">{transaction.employee}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'رقم البطاقة' : 'Card Number'}
+                        </label>
+                        <p className="text-foreground font-medium">{transaction.cardNumber}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Transaction Details */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'التاجر' : 'Merchant'}
+                        </label>
+                        <p className="text-foreground">{transaction.merchant}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'رمز التصنيف (MCC)' : 'MCC Code'}
+                        </label>
+                        <p className="text-foreground">{transaction.mcc}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Amount & VAT */}
+                    <div className="grid grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'المبلغ' : 'Amount'}
+                        </label>
+                        <p className="text-foreground font-bold text-lg">
+                          {transaction.amount.toLocaleString()} {transaction.currency}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'ضريبة القيمة المضافة' : 'VAT'}
+                        </label>
+                        <p className="text-foreground">{transaction.vat.toLocaleString()} {transaction.currency}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'الفئة' : 'Category'}
+                        </label>
+                        <p className="text-foreground">{transaction.category}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Location & Time */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'الموقع' : 'Location'}
+                        </label>
+                        <p className="text-foreground flex items-center gap-1">
+                          <MapPin className="h-4 w-4 text-muted-foreground" />
+                          {transaction.location}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'التاريخ والوقت' : 'Date & Time'}
+                        </label>
+                        <p className="text-foreground flex items-center gap-1">
+                          <Calendar className="h-4 w-4 text-muted-foreground" />
+                          {transaction.date} - {transaction.time}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Status */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'حالة الإيصال' : 'Receipt Status'}
+                        </label>
+                        {getReceiptStatusBadge(transaction.receiptStatus)}
+                      </div>
+                      <div>
+                        <label className="text-sm text-muted-foreground mb-1 block">
+                          {isRTL ? 'حالة السياسة' : 'Policy Status'}
+                        </label>
+                        {getPolicyStatusBadge(transaction.policyStatus)}
+                      </div>
+                    </div>
+                    
                     {/* Actions */}
                     <div className="flex gap-3 pt-4 border-t border-border">
                       <Button className="flex-1">
@@ -248,8 +391,8 @@ export const ExpenseTransactionsManager: React.FC<ExpenseTransactionsManagerProp
           
           {filteredTransactions.length === 0 && (
             <div className="text-center py-16">
-              <Receipt className="h-16 w-16 mx-auto mb-4 opacity-30 text-gray-400" />
-              <p className="text-gray-400">
+              <Receipt className="h-16 w-16 mx-auto mb-4 opacity-30 text-muted-foreground" />
+              <p className="text-muted-foreground">
                 {isRTL ? 'لا توجد معاملات مطابقة للفلاتر المحددة' : 'No transactions match the selected filters'}
               </p>
             </div>
