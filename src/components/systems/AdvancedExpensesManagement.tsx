@@ -68,45 +68,38 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
   };
 
   return (
-    <div className={`min-h-screen bg-[#1C1C1C] text-white ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Header Section */}
-      <div className="relative bg-gradient-to-r from-background via-card to-background backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/20 border border-border hover:border-accent/70 transition-all duration-300 p-6">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-10 rounded-3xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-accent opacity-80"></div>
-        </div>
-        <div className="flex items-center justify-between mb-6 relative z-10">
-          <div className="flex items-center gap-4">
+    <div className={`min-h-screen p-6 bg-background text-foreground ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-4 mb-4">
             <Button 
               variant="outline" 
               size="sm" 
               onClick={onBack} 
-              className="border-[#3A3A3A] text-white hover:bg-[#003366] hover:border-[#003366] transition-all duration-300"
+              className="absolute top-6 left-6"
             >
               <ArrowLeft className={`h-4 w-4 ${isRTL ? 'rotate-180 ml-2' : 'mr-2'}`} />
               {isRTL ? 'رجوع' : 'Back'}
             </Button>
             
-            <div className="w-16 h-16 bg-gradient-to-br from-[#003366] to-[#004488] rounded-2xl flex items-center justify-center shadow-lg">
-              <Receipt className="h-8 w-8 text-white" />
-            </div>
-            
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                {isRTL ? 'المصروفات والنفقات المتطورة' : 'Advanced Expenses Management'}
-              </h1>
-              <p className="text-gray-300 text-lg">
-                {isRTL ? 'نظام شامل لإدارة بطاقات المصروفات والتكامل المصرفي' : 'Comprehensive system for expense cards and banking integration'}
-              </p>
+            <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-lg">
+              <Receipt className="h-8 w-8 text-primary-foreground" />
             </div>
           </div>
+          
+          <h1 className="text-3xl font-bold mb-2 text-foreground">
+            {isRTL ? 'المصروفات والنفقات المتطورة' : 'Advanced Expenses Management'}
+          </h1>
+          <p className="text-muted-foreground">
+            {isRTL ? 'نظام شامل لإدارة بطاقات المصروفات والتكامل المصرفي' : 'Comprehensive system for expense cards and banking integration'}
+          </p>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-3 mt-6">
             <Button
               size="sm"
               variant="outline"
               onClick={toggleLanguage}
-              className="border-[#3A3A3A] text-white hover:bg-[#003366] hover:border-[#003366]"
             >
               <Languages className="h-4 w-4 mr-2" />
               {isRTL ? 'EN' : 'العربية'}
@@ -114,37 +107,29 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             
             <Button 
               size="sm" 
-              variant="outline" 
-              className="border-[#3A3A3A] text-white hover:bg-[#003366] hover:border-[#003366]"
+              variant="outline"
             >
               <Download className="h-4 w-4 mr-2" />
               {isRTL ? 'تصدير' : 'Export'}
             </Button>
             
             <Button 
-              size="sm" 
-              className="bg-[#003366] text-white hover:bg-[#004488] transition-all duration-300 shadow-lg"
+              size="sm"
             >
               <PlusCircle className="h-4 w-4 mr-2" />
               {isRTL ? 'طلب جديد' : 'New Request'}
             </Button>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="relative bg-gradient-to-r from-background via-card to-background backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/20 border border-border hover:border-accent/70 transition-all duration-300 p-6">
-        {/* Animated background pattern */}
-        <div className="absolute inset-0 opacity-10 rounded-3xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-accent opacity-80"></div>
-        </div>
-        <div className="relative z-10">
+        {/* Main Content */}
+        <div className="rounded-xl border border-border p-6 bg-card">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
           {/* Main Navigation Tabs */}
-          <TabsList className="grid grid-cols-6 gap-2 bg-gray-900/60 backdrop-blur-xl p-2 rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 h-auto w-full">
+          <TabsList className="grid grid-cols-6 gap-2 bg-muted/60 backdrop-blur-xl p-2 rounded-3xl shadow-2xl border border-border h-auto w-full">
             <TabsTrigger 
               value="dashboard" 
-              className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
             >
               <BarChart3 className="h-5 w-5" />
               <span className="text-sm font-medium">{isRTL ? 'لوحة التحكم' : 'Dashboard'}</span>
@@ -152,7 +137,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             
             <TabsTrigger 
               value="requests" 
-              className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
             >
               <FileText className="h-5 w-5" />
               <span className="text-sm font-medium">{isRTL ? 'طلبات المصروفات' : 'Expense Requests'}</span>
@@ -160,7 +145,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             
             <TabsTrigger 
               value="cards" 
-              className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
             >
               <CreditCard className="h-5 w-5" />
               <span className="text-sm font-medium">{isRTL ? 'بطاقات المصروفات' : 'Expense Cards'}</span>
@@ -168,7 +153,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             
             <TabsTrigger 
               value="transactions" 
-              className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
             >
               <Receipt className="h-5 w-5" />
               <span className="text-sm font-medium">{isRTL ? 'المعاملات' : 'Transactions'}</span>
@@ -176,7 +161,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             
             <TabsTrigger 
               value="reports" 
-              className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
             >
               <TrendingUp className="h-5 w-5" />
               <span className="text-sm font-medium">{isRTL ? 'التقارير والتحليلات' : 'Reports & Analytics'}</span>
@@ -184,7 +169,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             
             <TabsTrigger 
               value="settings" 
-              className="flex flex-col items-center gap-2 p-4 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
             >
               <Settings className="h-5 w-5" />
               <span className="text-sm font-medium">{isRTL ? 'الإعدادات والسياسات' : 'Settings & Policies'}</span>
@@ -195,69 +180,69 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
           <TabsContent value="dashboard" className="space-y-8">
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#003366] transition-all duration-300">
+              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm mb-2">
+                      <p className="text-muted-foreground text-sm mb-2">
                         {isRTL ? 'إجمالي الشهر' : 'Monthly Total'}
                       </p>
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-3xl font-bold text-foreground">
                         ₩{kpiData.monthlyTotal.toLocaleString()}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-[#003366]/20 rounded-xl flex items-center justify-center">
-                      <DollarSign className="h-6 w-6 text-[#003366]" />
+                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                      <DollarSign className="h-6 w-6 text-primary" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#2ECC71] transition-all duration-300">
+              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm mb-2">
+                      <p className="text-muted-foreground text-sm mb-2">
                         {isRTL ? 'إجمالي السنة' : 'Yearly Total'}
                       </p>
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-3xl font-bold text-foreground">
                         ₩{kpiData.yearlyTotal.toLocaleString()}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-[#2ECC71]/20 rounded-xl flex items-center justify-center">
-                      <TrendingUp className="h-6 w-6 text-[#2ECC71]" />
+                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                      <TrendingUp className="h-6 w-6 text-primary" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#F39C12] transition-all duration-300">
+              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm mb-2">
+                      <p className="text-muted-foreground text-sm mb-2">
                         {isRTL ? 'طلبات قيد الاعتماد' : 'Pending Approvals'}
                       </p>
-                      <p className="text-3xl font-bold text-white">{kpiData.pendingRequests}</p>
+                      <p className="text-3xl font-bold text-foreground">{kpiData.pendingRequests}</p>
                     </div>
-                    <div className="w-12 h-12 bg-[#F39C12]/20 rounded-xl flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-[#F39C12]" />
+                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                      <Clock className="h-6 w-6 text-primary" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#003366] transition-all duration-300">
+              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm mb-2">
+                      <p className="text-muted-foreground text-sm mb-2">
                         {isRTL ? 'بطاقات مفعّلة' : 'Active Cards'}
                       </p>
-                      <p className="text-3xl font-bold text-white">{kpiData.activeCards}</p>
+                      <p className="text-3xl font-bold text-foreground">{kpiData.activeCards}</p>
                     </div>
-                    <div className="w-12 h-12 bg-[#003366]/20 rounded-xl flex items-center justify-center">
-                      <CreditCard className="h-6 w-6 text-[#003366]" />
+                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                      <CreditCard className="h-6 w-6 text-primary" />
                     </div>
                   </div>
                 </CardContent>
@@ -266,15 +251,15 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
 
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+              <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-[#003366]" />
+                  <CardTitle className="text-foreground flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-primary" />
                     {isRTL ? 'الإنفاق حسب الفئة' : 'Spending by Category'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-400">
+                  <div className="h-64 flex items-center justify-center text-muted-foreground">
                     <div className="text-center">
                       <BarChart3 className="h-16 w-16 mx-auto mb-4 opacity-30" />
                       <p>{isRTL ? 'الرسم البياني سيتم عرضه هنا' : 'Chart will be displayed here'}</p>
@@ -283,15 +268,15 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
                 </CardContent>
               </Card>
 
-              <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+              <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center gap-2">
-                    <Building className="h-5 w-5 text-[#003366]" />
+                  <CardTitle className="text-foreground flex items-center gap-2">
+                    <Building className="h-5 w-5 text-primary" />
                     {isRTL ? 'الإنفاق حسب الأقسام' : 'Spending by Departments'}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center text-gray-400">
+                  <div className="h-64 flex items-center justify-center text-muted-foreground">
                     <div className="text-center">
                       <Building className="h-16 w-16 mx-auto mb-4 opacity-30" />
                       <p>{isRTL ? 'الرسم البياني سيتم عرضه هنا' : 'Chart will be displayed here'}</p>
@@ -302,32 +287,32 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             </div>
 
             {/* Recent Transactions */}
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+            <Card className="bg-card border-border">
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Receipt className="h-5 w-5 text-[#003366]" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <Receipt className="h-5 w-5 text-primary" />
                   {isRTL ? 'أحدث المعاملات' : 'Recent Transactions'}
                 </CardTitle>
-                <Button variant="outline" size="sm" className="border-[#3A3A3A] text-white hover:bg-[#003366]">
+                <Button variant="outline" size="sm">
                   {isRTL ? 'عرض الكل' : 'View All'}
                 </Button>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {recentTransactions.map((transaction) => (
-                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-[#1C1C1C] rounded-xl border border-[#3A3A3A] hover:border-[#003366] transition-all duration-300">
+                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-xl border border-border hover:border-primary/50 transition-all duration-300">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#003366]/20 rounded-xl flex items-center justify-center">
-                          <Receipt className="h-6 w-6 text-[#003366]" />
+                        <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                          <Receipt className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-white">{transaction.employee}</h4>
-                          <p className="text-sm text-gray-400">{transaction.merchant}</p>
-                          <p className="text-xs text-gray-500">{transaction.date}</p>
+                          <h4 className="font-semibold text-foreground">{transaction.employee}</h4>
+                          <p className="text-sm text-muted-foreground">{transaction.merchant}</p>
+                          <p className="text-xs text-muted-foreground">{transaction.date}</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-white text-lg">₩{transaction.amount}</p>
+                        <p className="font-bold text-foreground text-lg">₩{transaction.amount}</p>
                         {getStatusBadge(transaction.status)}
                       </div>
                     </div>
@@ -340,15 +325,15 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
           {/* Expense Cards Tab */}
           <TabsContent value="cards" className="space-y-8">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-foreground">
                 {isRTL ? 'بطاقات المصروفات' : 'Expense Cards'}
               </h2>
               <div className="flex gap-3">
                 <Input 
                   placeholder={isRTL ? 'البحث بالموظف أو القسم...' : 'Search by employee or department...'}
-                  className="bg-[#2A2A2A] border-[#3A3A3A] text-white w-80"
+                  className="bg-background border-border text-foreground w-80"
                 />
-                <Button className="bg-[#003366] text-white hover:bg-[#004488]">
+                <Button>
                   <PlusCircle className="h-4 w-4 mr-2" />
                   {isRTL ? 'إصدار بطاقة جديدة' : 'Issue New Card'}
                 </Button>
@@ -357,34 +342,34 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {expenseCards.map((card) => (
-                <Card key={card.id} className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#003366] transition-all duration-300">
+                <Card key={card.id} className="bg-card border-border hover:border-primary/50 transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-white">{card.employee}</h3>
+                        <h3 className="font-semibold text-foreground">{card.employee}</h3>
                         {getStatusBadge(card.status)}
                       </div>
                       
                       <div className="space-y-2">
                         <div className="flex justify-between">
-                          <span className="text-gray-400">{isRTL ? 'الرصيد الحالي:' : 'Current Balance:'}</span>
-                          <span className="font-bold text-white">₩{card.balance.toLocaleString()}</span>
+                          <span className="text-muted-foreground">{isRTL ? 'الرصيد الحالي:' : 'Current Balance:'}</span>
+                          <span className="font-bold text-foreground">₩{card.balance.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-400">{isRTL ? 'الحد اليومي:' : 'Daily Limit:'}</span>
-                          <span className="text-gray-300">₩{card.dailyLimit.toLocaleString()}</span>
+                          <span className="text-muted-foreground">{isRTL ? 'الحد اليومي:' : 'Daily Limit:'}</span>
+                          <span className="text-foreground">₩{card.dailyLimit.toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-400">{isRTL ? 'الحد الشهري:' : 'Monthly Limit:'}</span>
-                          <span className="text-gray-300">₩{card.monthlyLimit.toLocaleString()}</span>
+                          <span className="text-muted-foreground">{isRTL ? 'الحد الشهري:' : 'Monthly Limit:'}</span>
+                          <span className="text-foreground">₩{card.monthlyLimit.toLocaleString()}</span>
                         </div>
                       </div>
 
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#003366] flex-1">
+                        <Button size="sm" variant="outline" className="flex-1">
                           {isRTL ? 'إعادة تعبئة' : 'Refill'}
                         </Button>
-                        <Button size="sm" variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#F39C12] flex-1">
+                        <Button size="sm" variant="outline" className="flex-1">
                           {card.status === 'active' ? (isRTL ? 'إيقاف مؤقت' : 'Suspend') : (isRTL ? 'تفعيل' : 'Activate')}
                         </Button>
                       </div>
