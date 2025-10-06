@@ -269,32 +269,39 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
         </div>
 
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
           <div className="flex items-center gap-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-              <Shield className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-              <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                نظام إدارة التأمين والتأمينات الشامل
-              </h1>
-              <p className="text-muted-foreground text-lg">
-                إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية
-              </p>
+            <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              رجوع
+            </Button>
+            <div className="h-8 w-px bg-gray-300"></div>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                <Shield className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-black">
+                  نظام إدارة التأمين والتأمينات الشامل
+                </h1>
+                <p className="text-gray-600 text-lg">
+                  إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية
+                </p>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-accent/30 text-accent-foreground bg-accent/5 px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
               <Heart className="h-4 w-4 ml-2" />
               نظام متقدم
             </Badge>
-            <Button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
               <Download className="h-4 w-4 ml-2" />
               تصدير التقارير
             </Button>
-            <Button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
               <Plus className="h-4 w-4 ml-2" />
               إضافة جديد
             </Button>
@@ -307,74 +314,66 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
         {/* Main Analytics Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
           {/* Key Metrics Cards */}
-          <Card className="bg-gradient-to-br from-primary to-accent text-white shadow-xl border-0">
+          <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-primary">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">{isRTL ? 'إجمالي المؤمن عليهم' : 'Total Insured'}</p>
-                  <p className="text-3xl font-bold">245</p>
-                  <p className="text-white/70 text-xs mt-1">
+                  <p className="text-sm text-muted-foreground">{isRTL ? 'إجمالي المؤمن عليهم' : 'Total Insured'}</p>
+                  <p className="text-2xl font-bold text-primary">245</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     <TrendingUp className="h-3 w-3 inline ml-1" />
                     {isRTL ? '+5% من الشهر الماضي' : '+5% from last month'}
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
-                  <Users className="h-8 w-8" />
-                </div>
+                <Users className="h-8 w-8 text-primary/60" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-accent to-primary text-white shadow-xl border-0">
+          <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-blue-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">{isRTL ? 'المطالبات النشطة' : 'Active Claims'}</p>
-                  <p className="text-3xl font-bold">{claims.length}</p>
-                  <p className="text-white/70 text-xs mt-1">
+                  <p className="text-sm text-muted-foreground">{isRTL ? 'المطالبات النشطة' : 'Active Claims'}</p>
+                  <p className="text-2xl font-bold text-blue-600">{claims.length}</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     <Activity className="h-3 w-3 inline ml-1" />
                     {isRTL ? 'معدل الموافقة 92%' : '92% approval rate'}
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
-                  <FileText className="h-8 w-8" />
-                </div>
+                <FileText className="h-8 w-8 text-blue-500/60" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-accent to-accent text-white shadow-xl border-0">
+          <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-purple-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">{isRTL ? 'الأقساط الشهرية' : 'Monthly Premiums'}</p>
-                  <p className="text-3xl font-bold">205,000</p>
-                  <p className="text-white/70 text-xs mt-1">
+                  <p className="text-sm text-muted-foreground">{isRTL ? 'الأقساط الشهرية' : 'Monthly Premiums'}</p>
+                  <p className="text-2xl font-bold text-purple-600">205,000</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     <DollarSign className="h-3 w-3 inline ml-1" />
                     {isRTL ? 'ريال سعودي' : 'SAR'}
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
-                  <CreditCard className="h-8 w-8" />
-                </div>
+                <CreditCard className="h-8 w-8 text-purple-500/60" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-warning to-accent text-white shadow-xl border-0">
+          <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-orange-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">{isRTL ? 'التأمينات الاجتماعية' : 'GOSI Contributions'}</p>
-                  <p className="text-3xl font-bold">490,000</p>
-                  <p className="text-white/70 text-xs mt-1">
+                  <p className="text-sm text-muted-foreground">{isRTL ? 'التأمينات الاجتماعية' : 'GOSI Contributions'}</p>
+                  <p className="text-2xl font-bold text-orange-600">490,000</p>
+                  <p className="text-xs text-muted-foreground mt-1">
                     <Building className="h-3 w-3 inline ml-1" />
                     {isRTL ? 'شهر أغسطس' : 'August'}
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
-                  <Shield className="h-8 w-8" />
-                </div>
+                <Shield className="h-8 w-8 text-orange-500/60" />
               </div>
             </CardContent>
           </Card>
