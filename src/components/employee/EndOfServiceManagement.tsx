@@ -322,7 +322,7 @@ export function EndOfServiceManagement() {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="rounded-xl border border-border p-6 bg-card">
         {/* Statistics Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card className="border-0 shadow-sm">
