@@ -521,7 +521,7 @@ const ComprehensiveEmployeeManagement = () => {
                   <div className="text-center mb-8">
                     <p className="text-sm text-muted-foreground mb-2">مرحباً بك في</p>
                     <h1 className="text-3xl font-bold mb-2 text-foreground">قسم النفقات والمصروفات </h1>
-                    <p className="text-muted-foreground">إدارة شاملة للرواتب والتأمينات والمكافآت والحوافز</p>
+                    <p className="text-muted-foreground">نظام شامل لإدارة بطاقات المصروفات والتكامل المصرفي</p>
                   </div>
                 </div>
 
