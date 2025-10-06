@@ -70,8 +70,12 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
   return (
     <div className={`min-h-screen bg-[#1C1C1C] text-white ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       {/* Header Section */}
-      <div className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-6">
-        <div className="flex items-center justify-between mb-6">
+      <div className="relative bg-gradient-to-r from-background via-card to-background backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/20 border border-border hover:border-accent/70 transition-all duration-300 p-6">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10 rounded-3xl overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-accent opacity-80"></div>
+        </div>
+        <div className="flex items-center justify-between mb-6 relative z-10">
           <div className="flex items-center gap-4">
             <Button 
               variant="outline" 
