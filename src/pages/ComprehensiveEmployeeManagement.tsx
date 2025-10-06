@@ -498,13 +498,10 @@ const ComprehensiveEmployeeManagement = () => {
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
                 <div className="absolute top-0 left-0 w-full h-full opacity-10">
-                  <div 
-                    className="w-full h-full bg-repeat animate-pulse"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-                      backgroundSize: '60px 60px'
-                    }}
-                  ></div>
+                  <div className="w-full h-full bg-repeat animate-pulse" style={{
+                    backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+                    backgroundSize: '60px 60px'
+                  }}></div>
                 </div>
               </div>
               
@@ -517,17 +514,13 @@ const ComprehensiveEmployeeManagement = () => {
                 <div className="space-y-6 container mx-auto p-6">
                   {/* Logo */}
                   <div className="flex justify-center">
-                    <img 
-                      src="/src/assets/boud-logo-new.png" 
-                      alt="Boud Logo" 
-                      className="h-32 w-auto object-contain"
-                    />
+                    <img src="/src/assets/boud-logo-new.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
                   </div>
 
                   {/* Header */}
                   <div className="text-center mb-8">
                     <p className="text-sm text-muted-foreground mb-2">مرحباً بك في</p>
-                    <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة التعويضات والمزايا</h1>
+                    <h1 className="text-3xl font-bold mb-2 text-foreground">قسم النفقات والمصروفات </h1>
                     <p className="text-muted-foreground">إدارة شاملة للرواتب والتأمينات والمكافآت والحوافز</p>
                   </div>
                 </div>
