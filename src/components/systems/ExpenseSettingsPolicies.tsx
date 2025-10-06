@@ -178,10 +178,10 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
 
   const getPolicyTypeBadge = (type: string) => {
     const typeConfig = {
-      'limit': { color: 'bg-blue-500/20 text-blue-300 border-blue-500/30', text: isRTL ? 'حدود' : 'Limits', icon: DollarSign },
-      'mcc': { color: 'bg-purple-500/20 text-purple-300 border-purple-500/30', text: isRTL ? 'رمز التصنيف' : 'MCC', icon: CreditCard },
-      'location': { color: 'bg-green-500/20 text-green-300 border-green-500/30', text: isRTL ? 'موقع' : 'Location', icon: MapPin },
-      'time': { color: 'bg-orange-500/20 text-orange-300 border-orange-500/30', text: isRTL ? 'وقت' : 'Time', icon: Clock }
+      'limit': { color: 'bg-accent/20 text-accent-foreground border-accent/30', text: isRTL ? 'حدود' : 'Limits', icon: DollarSign },
+      'mcc': { color: 'bg-accent/20 text-accent-foreground border-accent/30', text: isRTL ? 'رمز التصنيف' : 'MCC', icon: CreditCard },
+      'location': { color: 'bg-success/20 text-success-foreground border-success/30', text: isRTL ? 'موقع' : 'Location', icon: MapPin },
+      'time': { color: 'bg-warning/20 text-warning-foreground border-warning/30', text: isRTL ? 'وقت' : 'Time', icon: Clock }
     };
     
     const config = typeConfig[type as keyof typeof typeConfig] || typeConfig.limit;
@@ -198,20 +198,20 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           {isRTL ? 'الإعدادات والسياسات' : 'Settings & Policies'}
         </h2>
-        <Button className="bg-[#003366] text-white hover:bg-[#004488]">
+        <Button>
           <Save className="h-4 w-4 mr-2" />
           {isRTL ? 'حفظ جميع التغييرات' : 'Save All Changes'}
         </Button>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid grid-cols-4 gap-2 bg-[#2A2A2A] p-2 rounded-2xl border border-[#3A3A3A] h-auto w-full">
+        <TabsList className="grid grid-cols-4 gap-2 bg-card p-2 rounded-2xl border border-border h-auto w-full">
           <TabsTrigger 
             value="general" 
-            className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+            className="flex items-center gap-2 p-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
           >
             <Settings className="h-4 w-4" />
             <span className="text-sm font-medium">{isRTL ? 'عام' : 'General'}</span>
@@ -219,7 +219,7 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
           
           <TabsTrigger 
             value="roles" 
-            className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+            className="flex items-center gap-2 p-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
           >
             <Users className="h-4 w-4" />
             <span className="text-sm font-medium">{isRTL ? 'الأدوار' : 'Roles'}</span>
@@ -227,7 +227,7 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
           
           <TabsTrigger 
             value="policies" 
-            className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+            className="flex items-center gap-2 p-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
           >
             <Shield className="h-4 w-4" />
             <span className="text-sm font-medium">{isRTL ? 'السياسات' : 'Policies'}</span>
@@ -235,7 +235,7 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
           
           <TabsTrigger 
             value="integrations" 
-            className="flex items-center gap-2 p-3 text-white data-[state=active]:bg-[#003366] data-[state=active]:text-white hover:bg-[#003366]/50 transition-all duration-300 rounded-xl"
+            className="flex items-center gap-2 p-3 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300 rounded-xl"
           >
             <Key className="h-4 w-4" />
             <span className="text-sm font-medium">{isRTL ? 'التكاملات' : 'Integrations'}</span>
@@ -245,114 +245,114 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
         {/* General Settings */}
         <TabsContent value="general" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <DollarSign className="h-5 w-5 text-[#003366]" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <DollarSign className="h-5 w-5 text-primary" />
                   {isRTL ? 'الحدود الافتراضية' : 'Default Limits'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-gray-300">{isRTL ? 'الحد اليومي الافتراضي (ريال)' : 'Default Daily Limit (SAR)'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'الحد اليومي الافتراضي (ريال)' : 'Default Daily Limit (SAR)'}</Label>
                   <Input 
                     type="number"
                     defaultValue="1000"
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white mt-1"
+                    className="bg-background border-border text-foreground mt-1"
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-300">{isRTL ? 'الحد الشهري الافتراضي (ريال)' : 'Default Monthly Limit (SAR)'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'الحد الشهري الافتراضي (ريال)' : 'Default Monthly Limit (SAR)'}</Label>
                   <Input 
                     type="number"
                     defaultValue="5000"
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white mt-1"
+                    className="bg-background border-border text-foreground mt-1"
                   />
                 </div>
                 <div>
-                  <Label className="text-gray-300">{isRTL ? 'الحد الأقصى للمعاملة الواحدة (ريال)' : 'Max Transaction Amount (SAR)'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'الحد الأقصى للمعاملة الواحدة (ريال)' : 'Max Transaction Amount (SAR)'}</Label>
                   <Input 
                     type="number"
                     defaultValue="2000"
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white mt-1"
+                    className="bg-background border-border text-foreground mt-1"
                   />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-[#003366]" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-primary" />
                   {isRTL ? 'سياسات الإيصالات' : 'Receipt Policies'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-gray-300">{isRTL ? 'مهلة رفع الإيصال (أيام)' : 'Receipt Upload Deadline (Days)'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'مهلة رفع الإيصال (أيام)' : 'Receipt Upload Deadline (Days)'}</Label>
                   <Input 
                     type="number"
                     defaultValue="7"
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white mt-1"
+                    className="bg-background border-border text-foreground mt-1"
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'تعليق تلقائي عند التأخر' : 'Auto-suspend on delay'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'تعليق تلقائي عند التأخر' : 'Auto-suspend on delay'}</Label>
                   <Switch defaultChecked />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'إشعار تذكير يومي' : 'Daily reminder notification'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'إشعار تذكير يومي' : 'Daily reminder notification'}</Label>
                   <Switch defaultChecked />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Globe className="h-5 w-5 text-[#003366]" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-primary" />
                   {isRTL ? 'سياسة المعاملات الخارجية' : 'Foreign Transaction Policy'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'السماح بالمعاملات الخارجية' : 'Allow foreign transactions'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'السماح بالمعاملات الخارجية' : 'Allow foreign transactions'}</Label>
                   <Switch />
                 </div>
                 <div>
-                  <Label className="text-gray-300">{isRTL ? 'هامش تحويل العملة (%)' : 'Currency conversion margin (%)'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'هامش تحويل العملة (%)' : 'Currency conversion margin (%)'}</Label>
                   <Input 
                     type="number"
                     defaultValue="2.5"
                     step="0.1"
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white mt-1"
+                    className="bg-background border-border text-foreground mt-1"
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'اعتماد إضافي للمعاملات الخارجية' : 'Additional approval for foreign transactions'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'اعتماد إضافي للمعاملات الخارجية' : 'Additional approval for foreign transactions'}</Label>
                   <Switch defaultChecked />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-[#F39C12]" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5 text-warning" />
                   {isRTL ? 'إعدادات التنبيهات' : 'Alert Settings'}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'تنبيه عند اقتراب الحد (80%)' : 'Alert near limit (80%)'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'تنبيه عند اقتراب الحد (80%)' : 'Alert near limit (80%)'}</Label>
                   <Switch defaultChecked />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'تنبيه عند تجاوز السياسة' : 'Alert on policy violation'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'تنبيه عند تجاوز السياسة' : 'Alert on policy violation'}</Label>
                   <Switch defaultChecked />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'تنبيه عند انخفاض الرصيد' : 'Alert on low balance'}</Label>
+                  <Label className="text-muted-foreground">{isRTL ? 'تنبيه عند انخفاض الرصيد' : 'Alert on low balance'}</Label>
                   <Switch defaultChecked />
                 </div>
               </CardContent>
@@ -362,13 +362,13 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
 
         {/* Roles & Permissions */}
         <TabsContent value="roles" className="space-y-6">
-          <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white flex items-center gap-2">
-                <Users className="h-5 w-5 text-[#003366]" />
+              <CardTitle className="text-foreground flex items-center gap-2">
+                <Users className="h-5 w-5 text-primary" />
                 {isRTL ? 'الأدوار والصلاحيات' : 'Roles & Permissions'}
               </CardTitle>
-              <Button size="sm" className="bg-[#003366] text-white hover:bg-[#004488]">
+              <Button size="sm">
                 <PlusCircle className="h-4 w-4 mr-2" />
                 {isRTL ? 'إضافة دور جديد' : 'Add New Role'}
               </Button>
@@ -376,14 +376,14 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
             <CardContent>
               <div className="space-y-4">
                 {roles.map((role) => (
-                  <div key={role.id} className="p-4 bg-[#1C1C1C] rounded-xl border border-[#3A3A3A]">
+                  <div key={role.id} className="p-4 bg-background rounded-xl border border-border">
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-semibold text-white text-lg">{role.name}</h4>
+                      <h4 className="font-semibold text-foreground text-lg">{role.name}</h4>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#003366]">
+                        <Button size="sm" variant="outline">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline" className="border-[#3A3A3A] text-white hover:bg-red-600">
+                        <Button size="sm" variant="outline">
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -391,28 +391,25 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
                       <div>
-                        <Label className="text-xs text-gray-400">{isRTL ? 'الحد اليومي' : 'Daily Limit'}</Label>
-                        <p className="text-white">{role.dailyLimit === 0 ? (isRTL ? 'غير محدود' : 'Unlimited') : `${role.dailyLimit.toLocaleString()} SAR`}</p>
+                        <Label className="text-xs text-muted-foreground">{isRTL ? 'الحد اليومي' : 'Daily Limit'}</Label>
+                        <p className="text-foreground">{role.dailyLimit === 0 ? (isRTL ? 'غير محدود' : 'Unlimited') : `${role.dailyLimit.toLocaleString()} SAR`}</p>
                       </div>
                       <div>
-                        <Label className="text-xs text-gray-400">{isRTL ? 'الحد الشهري' : 'Monthly Limit'}</Label>
-                        <p className="text-white">{role.monthlyLimit === 0 ? (isRTL ? 'غير محدود' : 'Unlimited') : `${role.monthlyLimit.toLocaleString()} SAR`}</p>
+                        <Label className="text-xs text-muted-foreground">{isRTL ? 'الحد الشهري' : 'Monthly Limit'}</Label>
+                        <p className="text-foreground">{role.monthlyLimit === 0 ? (isRTL ? 'غير محدود' : 'Unlimited') : `${role.monthlyLimit.toLocaleString()} SAR`}</p>
                       </div>
                       <div>
-                        <Label className="text-xs text-gray-400">{isRTL ? 'الحد الأقصى للمعاملة' : 'Max Transaction'}</Label>
-                        <p className="text-white">{role.maxTransaction === 0 ? (isRTL ? 'غير محدود' : 'Unlimited') : `${role.maxTransaction.toLocaleString()} SAR`}</p>
+                        <Label className="text-xs text-muted-foreground">{isRTL ? 'الحد الأقصى للمعاملة' : 'Max Transaction'}</Label>
+                        <p className="text-foreground">{role.maxTransaction === 0 ? (isRTL ? 'غير محدود' : 'Unlimited') : `${role.maxTransaction.toLocaleString()} SAR`}</p>
                       </div>
                     </div>
                     
-                    <div>
-                      <Label className="text-xs text-gray-400 mb-2 block">{isRTL ? 'الصلاحيات' : 'Permissions'}</Label>
-                      <div className="flex flex-wrap gap-2">
-                        {role.permissions.map((permission, index) => (
-                          <Badge key={index} className="bg-[#003366]/20 text-[#003366] border-[#003366]/30">
-                            {permission.replace(/_/g, ' ')}
-                          </Badge>
-                        ))}
-                      </div>
+                    <div className="flex flex-wrap gap-2">
+                      {role.permissions.map((permission, idx) => (
+                        <Badge key={idx} variant="outline" className="bg-muted text-muted-foreground">
+                          {permission.replace(/_/g, ' ')}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -421,15 +418,15 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
           </Card>
         </TabsContent>
 
-        {/* Policies */}
+        {/* Policies Tab */}
         <TabsContent value="policies" className="space-y-6">
-          <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-white flex items-center gap-2">
-                <Shield className="h-5 w-5 text-[#003366]" />
-                {isRTL ? 'السياسات النشطة' : 'Active Policies'}
+              <CardTitle className="text-foreground flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary" />
+                {isRTL ? 'السياسات المالية' : 'Financial Policies'}
               </CardTitle>
-              <Button size="sm" className="bg-[#003366] text-white hover:bg-[#004488]">
+              <Button size="sm">
                 <PlusCircle className="h-4 w-4 mr-2" />
                 {isRTL ? 'إضافة سياسة جديدة' : 'Add New Policy'}
               </Button>
@@ -437,36 +434,30 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
             <CardContent>
               <div className="space-y-4">
                 {policies.map((policy) => (
-                  <div key={policy.id} className="p-4 bg-[#1C1C1C] rounded-xl border border-[#3A3A3A]">
+                  <div key={policy.id} className="p-4 bg-background rounded-xl border border-border">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        {getPolicyTypeBadge(policy.type)}
-                        <div>
-                          <h4 className="font-semibold text-white">{policy.name}</h4>
-                          <p className="text-sm text-gray-400">{policy.description}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-4">
-                        <div className="text-right">
-                          <p className="font-bold text-white">{policy.value}</p>
-                          <Badge className={policy.isActive ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}>
-                            {policy.isActive ? (isRTL ? 'نشط' : 'Active') : (isRTL ? 'معطل' : 'Inactive')}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h4 className="font-semibold text-foreground">{policy.name}</h4>
+                          {getPolicyTypeBadge(policy.type)}
+                          <Badge variant={policy.isActive ? "default" : "secondary"} className={policy.isActive ? "bg-success text-success-foreground" : ""}>
+                            {policy.isActive ? (isRTL ? 'مفعلة' : 'Active') : (isRTL ? 'معطلة' : 'Inactive')}
                           </Badge>
                         </div>
-                        
-                        <div className="flex gap-2">
-                          <Switch 
-                            checked={policy.isActive}
-                            onCheckedChange={() => togglePolicyStatus(policy.id)}
-                          />
-                          <Button size="sm" variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#003366]">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button size="sm" variant="outline" className="border-[#3A3A3A] text-white hover:bg-red-600">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
+                        <p className="text-muted-foreground text-sm mb-1">{policy.description}</p>
+                        <p className="text-foreground font-medium">{isRTL ? 'القيمة:' : 'Value:'} {policy.value}</p>
+                      </div>
+                      <div className="flex gap-2 ml-4">
+                        <Switch 
+                          checked={policy.isActive}
+                          onCheckedChange={() => togglePolicyStatus(policy.id)}
+                        />
+                        <Button size="sm" variant="outline">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -476,164 +467,56 @@ export const ExpenseSettingsPolicies: React.FC<ExpenseSettingsPoliciesProps> = (
           </Card>
         </TabsContent>
 
-        {/* Integrations */}
+        {/* Integrations Tab */}
         <TabsContent value="integrations" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-[#F39C12]" />
-                  {isRTL ? 'تكامل Zapier' : 'Zapier Integration'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label className="text-gray-300 mb-2 block">
-                    {isRTL ? 'رابط Zapier Webhook' : 'Zapier Webhook URL'}
-                  </Label>
-                  <Input
-                    type="url"
-                    value={zapierWebhook}
-                    onChange={(e) => setZapierWebhook(e.target.value)}
-                    placeholder={isRTL ? 'https://hooks.zapier.com/hooks/catch/...' : 'https://hooks.zapier.com/hooks/catch/...'}
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white"
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <Button 
-                    onClick={handleZapierTest}
-                    disabled={isLoading}
-                    className="bg-[#F39C12] text-white hover:bg-[#E67E22] flex-1"
-                  >
-                    <Zap className="h-4 w-4 mr-2" />
-                    {isLoading ? (isRTL ? 'جاري الاختبار...' : 'Testing...') : (isRTL ? 'اختبار الاتصال' : 'Test Connection')}
-                  </Button>
-                  <Button variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#003366]">
-                    <Save className="h-4 w-4 mr-2" />
-                    {isRTL ? 'حفظ' : 'Save'}
-                  </Button>
-                </div>
-                <p className="text-xs text-gray-400">
-                  {isRTL ? 'سيتم إرسال تنبيهات المصروفات والموافقات عبر Zapier' : 'Expense alerts and approvals will be sent via Zapier'}
-                </p>
-              </CardContent>
-            </Card>
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <CardTitle className="text-foreground flex items-center gap-2">
+                <Zap className="h-5 w-5 text-primary" />
+                {isRTL ? 'تكامل Zapier' : 'Zapier Integration'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label className="text-muted-foreground">{isRTL ? 'رابط Webhook' : 'Webhook URL'}</Label>
+                <Input
+                  value={zapierWebhook}
+                  onChange={(e) => setZapierWebhook(e.target.value)}
+                  placeholder="https://hooks.zapier.com/hooks/catch/..."
+                  className="bg-background border-border text-foreground mt-1"
+                />
+              </div>
+              <Button onClick={handleZapierTest} disabled={isLoading}>
+                <Zap className="h-4 w-4 mr-2" />
+                {isLoading ? (isRTL ? 'جاري الاختبار...' : 'Testing...') : (isRTL ? 'اختبار الاتصال' : 'Test Connection')}
+              </Button>
+            </CardContent>
+          </Card>
 
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <CreditCard className="h-5 w-5 text-[#003366]" />
-                  {isRTL ? 'تكامل البنك' : 'Banking Integration'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label className="text-gray-300 mb-2 block">
-                    {isRTL ? 'مفتاح API البنك' : 'Bank API Key'}
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      type="password"
-                      value={bankApiKey}
-                      onChange={(e) => setBankApiKey(e.target.value)}
-                      placeholder={isRTL ? 'أدخل مفتاح API المشفر' : 'Enter encrypted API key'}
-                      className="bg-[#1C1C1C] border-[#3A3A3A] text-white pr-10"
-                    />
-                    <Lock className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  </div>
-                </div>
-                <div>
-                  <Label className="text-gray-300 mb-2 block">
-                    {isRTL ? 'سر HMAC للويبهوك' : 'Webhook HMAC Secret'}
-                  </Label>
-                  <Input
-                    type="password"
-                    placeholder={isRTL ? 'سر HMAC للتحقق من الأمان' : 'HMAC secret for security verification'}
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white"
-                  />
-                </div>
-                <Button className="bg-[#003366] text-white hover:bg-[#004488] w-full">
-                  <Save className="h-4 w-4 mr-2" />
-                  {isRTL ? 'حفظ الإعدادات الآمنة' : 'Save Secure Settings'}
-                </Button>
-                <p className="text-xs text-gray-400">
-                  {isRTL ? 'جميع مفاتيح API مشفرة ومحمية' : 'All API keys are encrypted and protected'}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Users className="h-5 w-5 text-[#2ECC71]" />
-                  {isRTL ? 'تكامل الرواتب/ERP' : 'Payroll/ERP Integration'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label className="text-gray-300 mb-2 block">
-                    {isRTL ? 'رابط نقطة الواجهة' : 'API Endpoint'}
-                  </Label>
-                  <Input
-                    type="url"
-                    placeholder={isRTL ? 'https://api.yourpayroll.com/expenses' : 'https://api.yourpayroll.com/expenses'}
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white"
-                  />
-                </div>
-                <div>
-                  <Label className="text-gray-300 mb-2 block">
-                    {isRTL ? 'خرائط حسابات (COA)' : 'Chart of Accounts (COA)'}
-                  </Label>
-                  <Textarea
-                    placeholder={isRTL ? 'تعيين فئات المصروفات لحسابات المحاسبة...' : 'Map expense categories to accounting accounts...'}
-                    className="bg-[#1C1C1C] border-[#3A3A3A] text-white"
-                    rows={3}
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label className="text-gray-300">{isRTL ? 'مزامنة تلقائية يومية' : 'Daily auto-sync'}</Label>
-                  <Switch defaultChecked />
-                </div>
-                <Button className="bg-[#2ECC71] text-white hover:bg-[#27AE60] w-full">
-                  <Save className="h-4 w-4 mr-2" />
-                  {isRTL ? 'تكوين التكامل' : 'Configure Integration'}
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Key className="h-5 w-5 text-[#E74C3C]" />
-                  {isRTL ? 'أمان النظام' : 'System Security'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-[#1C1C1C] rounded-lg">
-                    <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
-                    <p className="text-xs text-gray-300">{isRTL ? 'تشفير SSL' : 'SSL Encryption'}</p>
-                  </div>
-                  <div className="text-center p-3 bg-[#1C1C1C] rounded-lg">
-                    <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
-                    <p className="text-xs text-gray-300">{isRTL ? 'مصادقة ثنائية' : '2FA Authentication'}</p>
-                  </div>
-                  <div className="text-center p-3 bg-[#1C1C1C] rounded-lg">
-                    <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
-                    <p className="text-xs text-gray-300">{isRTL ? 'تدقيق السجلات' : 'Audit Logs'}</p>
-                  </div>
-                  <div className="text-center p-3 bg-[#1C1C1C] rounded-lg">
-                    <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
-                    <p className="text-xs text-gray-300">{isRTL ? 'نسخ احتياطية' : 'Backups'}</p>
-                  </div>
-                </div>
-                <Button variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#E74C3C] w-full">
-                  <Shield className="h-4 w-4 mr-2" />
-                  {isRTL ? 'مسح أمني شامل' : 'Run Security Scan'}
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <CardTitle className="text-foreground flex items-center gap-2">
+                <Key className="h-5 w-5 text-primary" />
+                {isRTL ? 'تكامل البنك' : 'Bank Integration'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label className="text-muted-foreground">{isRTL ? 'مفتاح API البنك' : 'Bank API Key'}</Label>
+                <Input
+                  type="password"
+                  value={bankApiKey}
+                  onChange={(e) => setBankApiKey(e.target.value)}
+                  placeholder="••••••••••••••••"
+                  className="bg-background border-border text-foreground mt-1"
+                />
+              </div>
+              <Button>
+                <Lock className="h-4 w-4 mr-2" />
+                {isRTL ? 'حفظ المفتاح' : 'Save Key'}
+              </Button>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

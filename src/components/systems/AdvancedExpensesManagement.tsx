@@ -54,13 +54,13 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      'pending_receipt': { color: 'bg-orange-500/20 text-orange-300 border-orange-500/30', text: 'بانتظار إيصال' },
-      'approved': { color: 'bg-green-500/20 text-green-300 border-green-500/30', text: 'معتمد' },
-      'receipt_uploaded': { color: 'bg-blue-500/20 text-blue-300 border-blue-500/30', text: 'تم رفع الإيصال' },
-      'policy_check': { color: 'bg-purple-500/20 text-purple-300 border-purple-500/30', text: 'مراجعة السياسات' },
-      'rejected': { color: 'bg-red-500/20 text-red-300 border-red-500/30', text: 'مرفوض' },
-      'active': { color: 'bg-green-500/20 text-green-300 border-green-500/30', text: 'مفعلة' },
-      'suspended': { color: 'bg-red-500/20 text-red-300 border-red-500/30', text: 'معلقة' }
+      'pending_receipt': { color: 'bg-warning/20 text-warning-foreground border-warning/30', text: 'بانتظار إيصال' },
+      'approved': { color: 'bg-success/20 text-success-foreground border-success/30', text: 'معتمد' },
+      'receipt_uploaded': { color: 'bg-accent/20 text-accent-foreground border-accent/30', text: 'تم رفع الإيصال' },
+      'policy_check': { color: 'bg-accent/20 text-accent-foreground border-accent/30', text: 'مراجعة السياسات' },
+      'rejected': { color: 'bg-destructive/20 text-destructive-foreground border-destructive/30', text: 'مرفوض' },
+      'active': { color: 'bg-success/20 text-success-foreground border-success/30', text: 'مفعلة' },
+      'suspended': { color: 'bg-destructive/20 text-destructive-foreground border-destructive/30', text: 'معلقة' }
     };
     
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending_receipt;
@@ -300,7 +300,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
               <CardContent>
                 <div className="space-y-4">
                   {recentTransactions.map((transaction) => (
-                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-xl border border-border hover:border-primary/50 transition-all duration-300">
+                    <div key={transaction.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-xl border border-border hover:border-accent transition-all duration-300">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
                           <Receipt className="h-6 w-6 text-primary" />
@@ -342,7 +342,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {expenseCards.map((card) => (
-                <Card key={card.id} className="bg-card border-border hover:border-primary/50 transition-all duration-300">
+                <Card key={card.id} className="bg-card border-border hover:border-accent transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">

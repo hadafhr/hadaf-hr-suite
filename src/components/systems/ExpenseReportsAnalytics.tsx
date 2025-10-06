@@ -52,35 +52,33 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
 
   const exportReport = (format: string) => {
     console.log(`Exporting report in ${format} format`);
-    // Handle export functionality
   };
 
   const refreshData = () => {
     console.log('Refreshing analytics data...');
-    // Handle data refresh
   };
 
   return (
     <div className="space-y-8">
       {/* Filters Section */}
-      <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <Filter className="h-5 w-5 text-[#003366]" />
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <Filter className="h-5 w-5 text-primary" />
             {isRTL ? 'فلاتر التقارير' : 'Report Filters'}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-muted-foreground mb-2">
                 {isRTL ? 'نوع التقرير' : 'Report Type'}
               </label>
               <Select value={reportType} onValueChange={setReportType}>
-                <SelectTrigger className="bg-[#1C1C1C] border-[#3A3A3A] text-white">
+                <SelectTrigger className="bg-background border-border text-foreground">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A] text-white">
+                <SelectContent className="bg-card border-border">
                   <SelectItem value="spending-trends">{isRTL ? 'اتجاهات الإنفاق' : 'Spending Trends'}</SelectItem>
                   <SelectItem value="department-analysis">{isRTL ? 'تحليل الأقسام' : 'Department Analysis'}</SelectItem>
                   <SelectItem value="compliance-report">{isRTL ? 'تقرير الالتزام' : 'Compliance Report'}</SelectItem>
@@ -90,14 +88,14 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-muted-foreground mb-2">
                 {isRTL ? 'القسم' : 'Department'}
               </label>
               <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                <SelectTrigger className="bg-[#1C1C1C] border-[#3A3A3A] text-white">
+                <SelectTrigger className="bg-background border-border text-foreground">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A] text-white">
+                <SelectContent className="bg-card border-border">
                   <SelectItem value="all">{isRTL ? 'جميع الأقسام' : 'All Departments'}</SelectItem>
                   <SelectItem value="sales">{isRTL ? 'المبيعات' : 'Sales'}</SelectItem>
                   <SelectItem value="marketing">{isRTL ? 'التسويق' : 'Marketing'}</SelectItem>
@@ -108,14 +106,14 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-muted-foreground mb-2">
                 {isRTL ? 'فئة المصروف' : 'Expense Category'}
               </label>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="bg-[#1C1C1C] border-[#3A3A3A] text-white">
+                <SelectTrigger className="bg-background border-border text-foreground">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A] text-white">
+                <SelectContent className="bg-card border-border">
                   <SelectItem value="all">{isRTL ? 'جميع الفئات' : 'All Categories'}</SelectItem>
                   <SelectItem value="travel">{isRTL ? 'سفر عمل' : 'Business Travel'}</SelectItem>
                   <SelectItem value="fuel">{isRTL ? 'وقود ومواصلات' : 'Fuel & Transport'}</SelectItem>
@@ -126,14 +124,14 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-muted-foreground mb-2">
                 {isRTL ? 'المشروع' : 'Project'}
               </label>
               <Select value={selectedProject} onValueChange={setSelectedProject}>
-                <SelectTrigger className="bg-[#1C1C1C] border-[#3A3A3A] text-white">
+                <SelectTrigger className="bg-background border-border text-foreground">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A] text-white">
+                <SelectContent className="bg-card border-border">
                   <SelectItem value="all">{isRTL ? 'جميع المشاريع' : 'All Projects'}</SelectItem>
                   <SelectItem value="project-a">{isRTL ? 'مشروع أ' : 'Project A'}</SelectItem>
                   <SelectItem value="project-b">{isRTL ? 'مشروع ب' : 'Project B'}</SelectItem>
@@ -145,12 +143,12 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
 
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-muted-foreground mb-2">
                 {isRTL ? 'الفترة الزمنية' : 'Date Range'}
               </label>
               <Input 
                 type="date"
-                className="bg-[#1C1C1C] border-[#3A3A3A] text-white"
+                className="bg-background border-border text-foreground"
               />
             </div>
 
@@ -158,7 +156,7 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
               <Button 
                 onClick={refreshData}
                 variant="outline" 
-                className="border-[#3A3A3A] text-white hover:bg-[#003366] h-10"
+                className="h-10"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 {isRTL ? 'تحديث' : 'Refresh'}
@@ -167,7 +165,7 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
               <Button 
                 onClick={() => exportReport('pdf')}
                 variant="outline" 
-                className="border-[#3A3A3A] text-white hover:bg-[#003366] h-10"
+                className="h-10"
               >
                 <Download className="h-4 w-4 mr-2" />
                 PDF
@@ -175,7 +173,7 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
               
               <Button 
                 onClick={() => exportReport('excel')}
-                className="bg-[#003366] text-white hover:bg-[#004488] h-10"
+                className="h-10"
               >
                 <Download className="h-4 w-4 mr-2" />
                 Excel
@@ -187,76 +185,76 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#003366] transition-all">
+        <Card className="bg-card border-border hover:border-accent transition-all">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">{isRTL ? 'إجمالي الإنفاق' : 'Total Spending'}</p>
-                <p className="text-2xl font-bold text-white">₩{analyticsData.totalSpending.toLocaleString()}</p>
-                <p className="text-green-400 text-sm flex items-center gap-1 mt-1">
+                <p className="text-muted-foreground text-sm">{isRTL ? 'إجمالي الإنفاق' : 'Total Spending'}</p>
+                <p className="text-2xl font-bold text-foreground">₩{analyticsData.totalSpending.toLocaleString()}</p>
+                <p className="text-success text-sm flex items-center gap-1 mt-1">
                   <TrendingUp className="h-3 w-3" />
                   +{analyticsData.monthlyChange}%
                 </p>
               </div>
-              <DollarSign className="h-8 w-8 text-[#003366]" />
+              <DollarSign className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#2ECC71] transition-all">
+        <Card className="bg-card border-border hover:border-accent transition-all">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">{isRTL ? 'معدل الالتزام' : 'Compliance Rate'}</p>
-                <p className="text-2xl font-bold text-white">{analyticsData.complianceRate}%</p>
-                <Badge className="bg-green-500/20 text-green-300 border-green-500/30 mt-1">
+                <p className="text-muted-foreground text-sm">{isRTL ? 'معدل الالتزام' : 'Compliance Rate'}</p>
+                <p className="text-2xl font-bold text-foreground">{analyticsData.complianceRate}%</p>
+                <Badge className="bg-success/20 text-success-foreground border-success/30 mt-1">
                   {isRTL ? 'جيد' : 'Good'}
                 </Badge>
               </div>
-              <CheckCircle className="h-8 w-8 text-[#2ECC71]" />
+              <CheckCircle className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#F39C12] transition-all">
+        <Card className="bg-card border-border hover:border-accent transition-all">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">{isRTL ? 'رفع الإيصالات' : 'Receipts Uploaded'}</p>
-                <p className="text-2xl font-bold text-white">{analyticsData.receiptsUploaded}%</p>
-                <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-500/30 mt-1">
+                <p className="text-muted-foreground text-sm">{isRTL ? 'رفع الإيصالات' : 'Receipts Uploaded'}</p>
+                <p className="text-2xl font-bold text-foreground">{analyticsData.receiptsUploaded}%</p>
+                <Badge className="bg-warning/20 text-warning-foreground border-warning/30 mt-1">
                   {isRTL ? 'يحتاج تحسين' : 'Needs Improvement'}
                 </Badge>
               </div>
-              <FileBarChart className="h-8 w-8 text-[#F39C12]" />
+              <FileBarChart className="h-8 w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#003366] transition-all">
+        <Card className="bg-card border-border hover:border-accent transition-all">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">{isRTL ? 'متوسط المعاملة' : 'Avg Transaction'}</p>
-                <p className="text-2xl font-bold text-white">₩{analyticsData.averageTransactionAmount}</p>
-                <p className="text-gray-400 text-sm mt-1">{isRTL ? 'لكل معاملة' : 'per transaction'}</p>
+                <p className="text-muted-foreground text-sm">{isRTL ? 'متوسط المعاملة' : 'Avg Transaction'}</p>
+                <p className="text-2xl font-bold text-foreground">₩{analyticsData.averageTransactionAmount}</p>
+                <p className="text-muted-foreground text-sm mt-1">{isRTL ? 'لكل معاملة' : 'per transaction'}</p>
               </div>
-              <CreditCard className="h-8 w-8 text-[#003366]" />
+              <CreditCard className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A] hover:border-[#E74C3C] transition-all">
+        <Card className="bg-card border-border hover:border-accent transition-all">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">{isRTL ? 'تجاوزات السياسة' : 'Policy Violations'}</p>
-                <p className="text-2xl font-bold text-white">23</p>
-                <Badge className="bg-red-500/20 text-red-300 border-red-500/30 mt-1">
+                <p className="text-muted-foreground text-sm">{isRTL ? 'تجاوزات السياسة' : 'Policy Violations'}</p>
+                <p className="text-2xl font-bold text-foreground">23</p>
+                <Badge className="bg-destructive/20 text-destructive-foreground border-destructive/30 mt-1">
                   {isRTL ? 'يتطلب انتباه' : 'Needs Attention'}
                 </Badge>
               </div>
-              <AlertCircle className="h-8 w-8 text-[#E74C3C]" />
+              <AlertCircle className="h-8 w-8 text-destructive" />
             </div>
           </CardContent>
         </Card>
@@ -265,10 +263,10 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Department Spending */}
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+        <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <Building className="h-5 w-5 text-[#003366]" />
+            <CardTitle className="text-foreground flex items-center gap-2">
+              <Building className="h-5 w-5 text-primary" />
               {isRTL ? 'الإنفاق حسب الأقسام' : 'Spending by Department'}
             </CardTitle>
           </CardHeader>
@@ -277,15 +275,15 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
               {analyticsData.departmentSpending.map((dept, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-white font-medium">{dept.department}</span>
+                    <span className="text-foreground font-medium">{dept.department}</span>
                     <div className="text-right">
-                      <span className="text-white font-bold">₩{dept.amount.toLocaleString()}</span>
-                      <span className="text-gray-400 text-sm ml-2">{dept.percentage}%</span>
+                      <span className="text-foreground font-bold">₩{dept.amount.toLocaleString()}</span>
+                      <span className="text-muted-foreground text-sm ml-2">{dept.percentage}%</span>
                     </div>
                   </div>
-                  <div className="w-full bg-[#1C1C1C] rounded-full h-3">
+                  <div className="w-full bg-background rounded-full h-3">
                     <div 
-                      className="bg-gradient-to-r from-[#003366] to-[#004488] h-3 rounded-full transition-all duration-500"
+                      className="bg-gradient-to-r from-primary to-accent h-3 rounded-full transition-all duration-500"
                       style={{ width: `${dept.percentage}%` }}
                     />
                   </div>
@@ -296,24 +294,24 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
         </Card>
 
         {/* Top Merchants */}
-        <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+        <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <PieChart className="h-5 w-5 text-[#003366]" />
+            <CardTitle className="text-foreground flex items-center gap-2">
+              <PieChart className="h-5 w-5 text-primary" />
               {isRTL ? 'أعلى المتاجر' : 'Top Merchants'}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {analyticsData.topMerchants.map((merchant, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-[#1C1C1C] rounded-lg border border-[#3A3A3A]">
+                <div key={index} className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
                   <div>
-                    <h4 className="text-white font-medium">{merchant.name}</h4>
-                    <p className="text-gray-400 text-sm">{merchant.transactions} {isRTL ? 'معاملة' : 'transactions'}</p>
+                    <h4 className="text-foreground font-medium">{merchant.name}</h4>
+                    <p className="text-muted-foreground text-sm">{merchant.transactions} {isRTL ? 'معاملة' : 'transactions'}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-white font-bold">₩{merchant.amount.toLocaleString()}</p>
-                    <Badge className="bg-[#003366]/20 text-[#003366] border-[#003366]/30">
+                    <p className="text-foreground font-bold">₩{merchant.amount.toLocaleString()}</p>
+                    <Badge className="bg-primary/20 text-primary border-primary/30">
                       #{index + 1}
                     </Badge>
                   </div>
@@ -325,27 +323,27 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
       </div>
 
       {/* Category Breakdown */}
-      <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <BarChart3 className="h-5 w-5 text-[#003366]" />
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-primary" />
             {isRTL ? 'توزيع الإنفاق حسب الفئة' : 'Spending Breakdown by Category'}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {analyticsData.categoryBreakdown.map((category, index) => (
-              <div key={index} className="bg-[#1C1C1C] p-4 rounded-xl border border-[#3A3A3A]">
+              <div key={index} className="bg-background p-4 rounded-xl border border-border">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-white font-medium">{category.category}</h4>
-                  <Badge className="bg-[#003366]/20 text-[#003366] border-[#003366]/30">
+                  <h4 className="text-foreground font-medium">{category.category}</h4>
+                  <Badge className="bg-primary/20 text-primary border-primary/30">
                     {category.percentage}%
                   </Badge>
                 </div>
-                <p className="text-2xl font-bold text-white mb-2">₩{category.amount.toLocaleString()}</p>
-                <div className="w-full bg-[#2A2A2A] rounded-full h-2">
+                <p className="text-2xl font-bold text-foreground mb-2">₩{category.amount.toLocaleString()}</p>
+                <div className="w-full bg-card rounded-full h-2">
                   <div 
-                    className="bg-gradient-to-r from-[#003366] to-[#004488] h-2 rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-500"
                     style={{ width: `${category.percentage}%` }}
                   />
                 </div>
@@ -356,10 +354,10 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
       </Card>
 
       {/* Power BI Integration Section */}
-      <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <ExternalLink className="h-5 w-5 text-[#003366]" />
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <ExternalLink className="h-5 w-5 text-primary" />
             {isRTL ? 'تقارير Power BI المتقدمة' : 'Advanced Power BI Reports'}
           </CardTitle>
         </CardHeader>
@@ -367,26 +365,26 @@ export const ExpenseReportsAnalytics: React.FC<ExpenseReportsAnalyticsProps> = (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Button 
               variant="outline" 
-              className="border-[#3A3A3A] text-white hover:bg-[#003366] h-20 flex-col"
+              className="h-20 flex-col"
             >
               <FileBarChart className="h-8 w-8 mb-2" />
-              {isRTL ? 'تقرير الاتجاهات الشامل' : 'Comprehensive Trends Report'}
+              <span>{isRTL ? 'تقرير التكاليف السنوي' : 'Annual Cost Report'}</span>
             </Button>
             
             <Button 
               variant="outline" 
-              className="border-[#3A3A3A] text-white hover:bg-[#003366] h-20 flex-col"
+              className="h-20 flex-col"
             >
-              <PieChart className="h-8 w-8 mb-2" />
-              {isRTL ? 'تحليل الالتزام المتقدم' : 'Advanced Compliance Analysis'}
+              <Users className="h-8 w-8 mb-2" />
+              <span>{isRTL ? 'تقرير الموظفين' : 'Employee Report'}</span>
             </Button>
             
             <Button 
               variant="outline" 
-              className="border-[#3A3A3A] text-white hover:bg-[#003366] h-20 flex-col"
+              className="h-20 flex-col"
             >
-              <BarChart3 className="h-8 w-8 mb-2" />
-              {isRTL ? 'مراقبة الأداء الفوري' : 'Real-time Performance Monitor'}
+              <TrendingUp className="h-8 w-8 mb-2" />
+              <span>{isRTL ? 'اتجاهات الإنفاق' : 'Spending Trends'}</span>
             </Button>
           </div>
         </CardContent>
