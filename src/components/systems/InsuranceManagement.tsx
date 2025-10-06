@@ -269,9 +269,36 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
         </div>
 
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة التأمين والتأمينات الشامل</h1>
-          <p className="text-muted-foreground">إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية</p>
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+              <Shield className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">
+                نظام إدارة التأمين والتأمينات الشامل
+              </h1>
+              <p className="text-muted-foreground text-lg">
+                إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="border-accent/30 text-accent-foreground bg-accent/5 px-4 py-2 text-sm font-medium">
+              <Heart className="h-4 w-4 ml-2" />
+              نظام متقدم
+            </Badge>
+            <Button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير التقارير
+            </Button>
+            <Button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300">
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة جديد
+            </Button>
+          </div>
         </div>
 
         {/* Main Content */}
