@@ -180,69 +180,69 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
           <TabsContent value="dashboard" className="space-y-8">
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
+              <Card className="bg-gradient-to-br from-[#009F87] to-[#008072] text-white shadow-xl border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-2">
+                      <p className="text-white/80 text-sm mb-1">
                         {isRTL ? 'إجمالي الشهر' : 'Monthly Total'}
                       </p>
-                      <p className="text-3xl font-bold text-foreground">
+                      <p className="text-3xl font-bold">
                         ₩{kpiData.monthlyTotal.toLocaleString()}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                      <DollarSign className="h-6 w-6 text-primary" />
+                    <div className="p-3 bg-white/20 rounded-full">
+                      <DollarSign className="h-8 w-8" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
+              <Card className="bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-xl border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-2">
+                      <p className="text-white/80 text-sm mb-1">
                         {isRTL ? 'إجمالي السنة' : 'Yearly Total'}
                       </p>
-                      <p className="text-3xl font-bold text-foreground">
+                      <p className="text-3xl font-bold">
                         ₩{kpiData.yearlyTotal.toLocaleString()}
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                      <TrendingUp className="h-6 w-6 text-primary" />
+                    <div className="p-3 bg-white/20 rounded-full">
+                      <TrendingUp className="h-8 w-8" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
+              <Card className="bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-xl border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-2">
+                      <p className="text-white/80 text-sm mb-1">
                         {isRTL ? 'طلبات قيد الاعتماد' : 'Pending Approvals'}
                       </p>
-                      <p className="text-3xl font-bold text-foreground">{kpiData.pendingRequests}</p>
+                      <p className="text-3xl font-bold">{kpiData.pendingRequests}</p>
                     </div>
-                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-primary" />
+                    <div className="p-3 bg-white/20 rounded-full">
+                      <Clock className="h-8 w-8" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300">
+              <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-xl border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-2">
+                      <p className="text-white/80 text-sm mb-1">
                         {isRTL ? 'بطاقات مفعّلة' : 'Active Cards'}
                       </p>
-                      <p className="text-3xl font-bold text-foreground">{kpiData.activeCards}</p>
+                      <p className="text-3xl font-bold">{kpiData.activeCards}</p>
                     </div>
-                    <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                      <CreditCard className="h-6 w-6 text-primary" />
+                    <div className="p-3 bg-white/20 rounded-full">
+                      <CreditCard className="h-8 w-8" />
                     </div>
                   </div>
                 </CardContent>
