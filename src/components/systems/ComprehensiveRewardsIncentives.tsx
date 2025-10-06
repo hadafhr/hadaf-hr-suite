@@ -418,7 +418,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
         </div>
 
         {/* Enhanced Main Tabs Navigation */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-8 mb-8 h-12 bg-white/50 backdrop-blur-sm border shadow-sm">
             <TabsTrigger value="dashboard" className="flex items-center gap-2 text-sm font-medium">
               <BarChart3 className="h-4 w-4" />
