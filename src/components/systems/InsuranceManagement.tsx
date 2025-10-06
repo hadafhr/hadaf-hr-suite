@@ -261,59 +261,21 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto rounded-xl border border-border p-6 bg-card">
-        {/* Enhanced Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
-          <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              {isRTL ? 'رجوع' : 'رجوع'}
-            </Button>
-            <div className="h-8 w-px bg-gray-300"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
-                  <Shield className="h-8 w-8" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-black">
-                  {isRTL ? 'نظام إدارة التأمين والتأمينات الشامل' : 'نظام إدارة التأمين والتأمينات الشامل'}
-                </h1>
-                <p className="text-gray-600 text-lg">
-                  {isRTL ? 'إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية' : 'إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية'}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
-              <Shield className="h-4 w-4 ml-2" />
-              نظام متقدم
-            </Badge>
-            <Button 
-              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Upload className="h-4 w-4 ml-2" />
-              {isRTL ? 'مزامنة GOSI' : 'مزامنة GOSI'}
-            </Button>
-            <Button 
-              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Download className="h-4 w-4 ml-2" />
-              {isRTL ? 'تصدير Excel' : 'تصدير Excel'}
-            </Button>
-            <Button 
-              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <FileText className="h-4 w-4 ml-2" />
-              {isRTL ? 'تقرير PDF' : 'تقرير PDF'}
-            </Button>
-          </div>
+    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
         </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة التأمين والتأمينات الشامل</h1>
+          <p className="text-muted-foreground">إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية</p>
+        </div>
+
+        {/* Main Content */}
+        <div className="rounded-xl border border-border p-6 bg-card">
 
         {/* Main Analytics Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
@@ -926,6 +888,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
             </div>
           </TabsContent>
         </Tabs>
+        </div>
       </div>
     </div>
   );
