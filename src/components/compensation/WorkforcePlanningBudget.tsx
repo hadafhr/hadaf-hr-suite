@@ -142,11 +142,11 @@ export const WorkforcePlanningBudget: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'on-track':
-        return <Badge className="bg-green-100 text-green-800">في المسار</Badge>;
+        return <Badge className="bg-success/20 text-success border-success/30">في المسار</Badge>;
       case 'over-budget':
-        return <Badge className="bg-red-100 text-red-800">تجاوز الميزانية</Badge>;
+        return <Badge className="bg-destructive/20 text-destructive border-destructive/30">تجاوز الميزانية</Badge>;
       case 'under-budget':
-        return <Badge className="bg-blue-100 text-blue-800">أقل من الميزانية</Badge>;
+        return <Badge className="bg-accent/20 text-accent-foreground border-accent/30">أقل من الميزانية</Badge>;
       default:
         return <Badge>غير محدد</Badge>;
     }
@@ -155,11 +155,11 @@ export const WorkforcePlanningBudget: React.FC = () => {
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'up':
-        return <TrendingUp className="w-4 h-4 text-red-600" />;
+        return <TrendingUp className="w-4 h-4 text-destructive" />;
       case 'down':
-        return <TrendingDown className="w-4 h-4 text-green-600" />;
+        return <TrendingDown className="w-4 h-4 text-success" />;
       default:
-        return <div className="w-4 h-4 border-t-2 border-gray-400" />;
+        return <div className="w-4 h-4 border-t-2 border-muted-foreground" />;
     }
   };
 
@@ -167,12 +167,12 @@ export const WorkforcePlanningBudget: React.FC = () => {
     <div className="space-y-6" dir="rtl">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold">تخطيط القوى العاملة والتوافق مع الميزانية</h2>
-          <p className="text-muted-foreground mt-1">
-            إدارة متكاملة لتخطيط الموارد البشرية والميزانيات ومراقبة التكاليف
-          </p>
-        </div>
+      <div>
+        <h2 className="text-2xl font-bold text-foreground">تخطيط القوى العاملة والتوافق مع الميزانية</h2>
+        <p className="text-muted-foreground mt-1">
+          إدارة متكاملة لتخطيط الموارد البشرية والميزانيات ومراقبة التكاليف
+        </p>
+      </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm">
             <Download className="w-4 h-4 ml-2" />
@@ -187,16 +187,16 @@ export const WorkforcePlanningBudget: React.FC = () => {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">إجمالي الميزانية</p>
-                <p className="text-2xl font-bold">{(budgetData.totalBudget / 1000000).toFixed(1)}م</p>
+                <p className="text-2xl font-bold text-foreground">{(budgetData.totalBudget / 1000000).toFixed(1)}م</p>
                 <p className="text-xs text-muted-foreground mt-1">ريال سعودي</p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <DollarSign className="w-6 h-6 text-blue-600" />
+              <div className="p-3 bg-accent/20 rounded-lg">
+                <DollarSign className="w-6 h-6 text-accent-foreground" />
               </div>
             </div>
             <Progress value={budgetData.budgetUtilization} className="mt-3 h-1.5" />
@@ -206,49 +206,49 @@ export const WorkforcePlanningBudget: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">إجمالي الموظفين</p>
-                <p className="text-2xl font-bold">{workforceMetrics.totalHeadcount}</p>
-                <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
+                <p className="text-2xl font-bold text-foreground">{workforceMetrics.totalHeadcount}</p>
+                <p className="text-xs text-success mt-1 flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" />
                   +{workforceMetrics.projectedHeadcount - workforceMetrics.totalHeadcount} متوقع
                 </p>
               </div>
-              <div className="p-3 bg-green-100 rounded-lg">
-                <Users className="w-6 h-6 text-green-600" />
+              <div className="p-3 bg-success/20 rounded-lg">
+                <Users className="w-6 h-6 text-success" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">دقة التوقعات</p>
-                <p className="text-2xl font-bold">{budgetData.forecastAccuracy}%</p>
+                <p className="text-2xl font-bold text-foreground">{budgetData.forecastAccuracy}%</p>
                 <p className="text-xs text-muted-foreground mt-1">معدل الدقة</p>
               </div>
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <Target className="w-6 h-6 text-purple-600" />
+              <div className="p-3 bg-accent/20 rounded-lg">
+                <Target className="w-6 h-6 text-accent-foreground" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">الوفورات المحققة</p>
-                <p className="text-2xl font-bold">{(budgetData.savingsAchieved / 1000).toFixed(0)}ك</p>
-                <p className="text-xs text-green-600 mt-1">ريال سعودي</p>
+                <p className="text-2xl font-bold text-foreground">{(budgetData.savingsAchieved / 1000).toFixed(0)}ك</p>
+                <p className="text-xs text-success mt-1">ريال سعودي</p>
               </div>
-              <div className="p-3 bg-green-100 rounded-lg">
-                <CheckCircle className="w-6 h-6 text-green-600" />
+              <div className="p-3 bg-success/20 rounded-lg">
+                <CheckCircle className="w-6 h-6 text-success" />
               </div>
             </div>
           </CardContent>
@@ -268,10 +268,10 @@ export const WorkforcePlanningBudget: React.FC = () => {
         <TabsContent value="overview" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Budget Status */}
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5" />
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <BarChart3 className="w-5 h-5 text-primary" />
                   حالة الميزانية
                 </CardTitle>
               </CardHeader>
@@ -279,26 +279,26 @@ export const WorkforcePlanningBudget: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">الميزانية المعتمدة</span>
-                    <span className="font-medium">{(budgetData.totalBudget / 1000000).toFixed(2)}م ريال</span>
+                    <span className="font-medium text-foreground">{(budgetData.totalBudget / 1000000).toFixed(2)}م ريال</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">المخصص</span>
-                    <span className="font-medium text-blue-600">{(budgetData.allocatedBudget / 1000000).toFixed(2)}م ريال</span>
+                    <span className="font-medium text-accent-foreground">{(budgetData.allocatedBudget / 1000000).toFixed(2)}م ريال</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">المستخدم</span>
-                    <span className="font-medium text-purple-600">{(budgetData.usedBudget / 1000000).toFixed(2)}م ريال</span>
+                    <span className="font-medium text-accent-foreground">{(budgetData.usedBudget / 1000000).toFixed(2)}م ريال</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">المتبقي</span>
-                    <span className="font-medium text-green-600">{(budgetData.remainingBudget / 1000000).toFixed(2)}م ريال</span>
+                    <span className="font-medium text-success">{(budgetData.remainingBudget / 1000000).toFixed(2)}م ريال</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t">
+                <div className="pt-4 border-t border-border">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-medium">نسبة الاستخدام</span>
-                    <Badge variant="outline">{budgetData.budgetUtilization}%</Badge>
+                    <span className="text-sm font-medium text-foreground">نسبة الاستخدام</span>
+                    <Badge variant="outline" className="border-border">{budgetData.budgetUtilization}%</Badge>
                   </div>
                   <Progress value={budgetData.budgetUtilization} className="h-3" />
                 </div>
@@ -306,10 +306,10 @@ export const WorkforcePlanningBudget: React.FC = () => {
             </Card>
 
             {/* Workforce Metrics */}
-            <Card>
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <Users className="w-5 h-5 text-primary" />
                   مؤشرات القوى العاملة
                 </CardTitle>
               </CardHeader>
@@ -317,34 +317,34 @@ export const WorkforcePlanningBudget: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">العدد الحالي</p>
-                    <p className="text-2xl font-bold">{workforceMetrics.totalHeadcount}</p>
+                    <p className="text-2xl font-bold text-foreground">{workforceMetrics.totalHeadcount}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">المتوقع</p>
-                    <p className="text-2xl font-bold text-green-600">{workforceMetrics.projectedHeadcount}</p>
+                    <p className="text-2xl font-bold text-success">{workforceMetrics.projectedHeadcount}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">الوظائف الشاغرة</p>
-                    <p className="text-xl font-bold">{workforceMetrics.vacantPositions}</p>
+                    <p className="text-xl font-bold text-foreground">{workforceMetrics.vacantPositions}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">التعيينات المخططة</p>
-                    <p className="text-xl font-bold">{workforceMetrics.planedHires}</p>
+                    <p className="text-xl font-bold text-foreground">{workforceMetrics.planedHires}</p>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t space-y-2">
+                <div className="pt-4 border-t border-border space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground">متوسط الراتب</span>
-                    <span className="font-medium">{workforceMetrics.avgSalary.toLocaleString()} ريال</span>
+                    <span className="font-medium text-foreground">{workforceMetrics.avgSalary.toLocaleString()} ريال</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground">معدل الدوران</span>
-                    <span className="font-medium">{workforceMetrics.turnoverRate}%</span>
+                    <span className="font-medium text-foreground">{workforceMetrics.turnoverRate}%</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground">تكلفة التوظيف</span>
-                    <span className="font-medium">{workforceMetrics.costPerHire.toLocaleString()} ريال</span>
+                    <span className="font-medium text-foreground">{workforceMetrics.costPerHire.toLocaleString()} ريال</span>
                   </div>
                 </div>
               </CardContent>
@@ -352,40 +352,40 @@ export const WorkforcePlanningBudget: React.FC = () => {
           </div>
 
           {/* Alerts */}
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-yellow-600" />
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <AlertTriangle className="w-5 h-5 text-warning" />
                 التنبيهات والتوصيات
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="flex items-start gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <AlertTriangle className="w-5 h-5 text-red-600 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-destructive/10 border border-destructive/30 rounded-lg">
+                  <AlertTriangle className="w-5 h-5 text-destructive mt-0.5" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-red-900">تجاوز ميزانية قسم التسويق</p>
-                    <p className="text-xs text-red-700 mt-1">القسم تجاوز الميزانية المخصصة بنسبة 6%، يرجى المراجعة</p>
+                    <p className="text-sm font-medium text-foreground">تجاوز ميزانية قسم التسويق</p>
+                    <p className="text-xs text-muted-foreground mt-1">القسم تجاوز الميزانية المخصصة بنسبة 6%، يرجى المراجعة</p>
                   </div>
-                  <Badge className="bg-red-600 text-white">عالي</Badge>
+                  <Badge className="bg-destructive text-destructive-foreground">عالي</Badge>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-warning/10 border border-warning/30 rounded-lg">
+                  <AlertTriangle className="w-5 h-5 text-warning mt-0.5" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-yellow-900">12 وظيفة شاغرة منذ أكثر من 60 يوم</p>
-                    <p className="text-xs text-yellow-700 mt-1">يجب تسريع عملية التوظيف لتجنب تأثر الإنتاجية</p>
+                    <p className="text-sm font-medium text-foreground">12 وظيفة شاغرة منذ أكثر من 60 يوم</p>
+                    <p className="text-xs text-muted-foreground mt-1">يجب تسريع عملية التوظيف لتجنب تأثر الإنتاجية</p>
                   </div>
-                  <Badge className="bg-yellow-600 text-white">متوسط</Badge>
+                  <Badge className="bg-warning text-warning-foreground">متوسط</Badge>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-success/10 border border-success/30 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-success mt-0.5" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-green-900">وفورات ممتازة في قسم الموارد البشرية</p>
-                    <p className="text-xs text-green-700 mt-1">القسم حقق وفورات بنسبة 17% من الميزانية المخصصة</p>
+                    <p className="text-sm font-medium text-foreground">وفورات ممتازة في قسم الموارد البشرية</p>
+                    <p className="text-xs text-muted-foreground mt-1">القسم حقق وفورات بنسبة 17% من الميزانية المخصصة</p>
                   </div>
-                  <Badge className="bg-green-600 text-white">إيجابي</Badge>
+                  <Badge className="bg-success text-success-foreground">إيجابي</Badge>
                 </div>
               </div>
             </CardContent>
@@ -394,10 +394,10 @@ export const WorkforcePlanningBudget: React.FC = () => {
 
         {/* Departments Tab */}
         <TabsContent value="departments" className="space-y-6">
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader>
               <div className="flex justify-between items-center">
-                <CardTitle>ميزانيات الأقسام</CardTitle>
+                <CardTitle className="text-foreground">ميزانيات الأقسام</CardTitle>
                 <div className="flex gap-2">
                   <div className="relative">
                     <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -405,14 +405,14 @@ export const WorkforcePlanningBudget: React.FC = () => {
                       placeholder="بحث في الأقسام..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10 w-64"
+                      className="pr-10 w-64 bg-background border-border text-foreground"
                     />
                   </div>
                   <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                    <SelectTrigger className="w-40">
+                    <SelectTrigger className="w-40 bg-background border-border">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-card border-border">
                       <SelectItem value="all">كل الأقسام</SelectItem>
                       <SelectItem value="on-track">في المسار</SelectItem>
                       <SelectItem value="over-budget">تجاوز الميزانية</SelectItem>
@@ -425,11 +425,11 @@ export const WorkforcePlanningBudget: React.FC = () => {
             <CardContent>
               <div className="space-y-4">
                 {departmentBudgets.map((dept) => (
-                  <Card key={dept.id} className="border">
+                  <Card key={dept.id} className="border-border bg-background">
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h4 className="font-medium text-lg">{dept.name}</h4>
+                          <h4 className="font-medium text-lg text-foreground">{dept.name}</h4>
                           <p className="text-sm text-muted-foreground">
                             {dept.headcount} موظف حالياً • {dept.projected} متوقع
                           </p>
@@ -440,19 +440,19 @@ export const WorkforcePlanningBudget: React.FC = () => {
                       <div className="grid grid-cols-4 gap-4 mb-3">
                         <div>
                           <p className="text-xs text-muted-foreground">الميزانية</p>
-                          <p className="font-medium">{(dept.budget / 1000000).toFixed(2)}م</p>
+                          <p className="font-medium text-foreground">{(dept.budget / 1000000).toFixed(2)}م</p>
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">المخصص</p>
-                          <p className="font-medium text-blue-600">{(dept.allocated / 1000000).toFixed(2)}م</p>
+                          <p className="font-medium text-accent-foreground">{(dept.allocated / 1000000).toFixed(2)}م</p>
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">المستخدم</p>
-                          <p className="font-medium text-purple-600">{(dept.spent / 1000000).toFixed(2)}م</p>
+                          <p className="font-medium text-accent-foreground">{(dept.spent / 1000000).toFixed(2)}م</p>
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">الاستخدام</p>
-                          <p className={`font-medium ${dept.utilization > 100 ? 'text-red-600' : dept.utilization > 90 ? 'text-yellow-600' : 'text-green-600'}`}>
+                          <p className={`font-medium ${dept.utilization > 100 ? 'text-destructive' : dept.utilization > 90 ? 'text-warning' : 'text-success'}`}>
                             {dept.utilization}%
                           </p>
                         </div>
@@ -469,21 +469,21 @@ export const WorkforcePlanningBudget: React.FC = () => {
 
         {/* Hiring Plan Tab */}
         <TabsContent value="hiring" className="space-y-6">
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Calendar className="w-5 h-5 text-primary" />
                 خطة التوظيف السنوية
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {hiringPlan.map((plan, index) => (
-                  <Card key={index} className="border">
+                  <Card key={index} className="border-border bg-background">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <h4 className="font-medium">{plan.quarter}</h4>
+                          <h4 className="font-medium text-foreground">{plan.quarter}</h4>
                           <p className="text-sm text-muted-foreground">
                             التوظيف الفعلي: {plan.actual} من {plan.planned}
                           </p>
@@ -496,11 +496,11 @@ export const WorkforcePlanningBudget: React.FC = () => {
                       <div className="grid grid-cols-2 gap-4 mb-3">
                         <div>
                           <p className="text-xs text-muted-foreground">الميزانية المخططة</p>
-                          <p className="font-medium">{plan.budget.toLocaleString()} ريال</p>
+                          <p className="font-medium text-foreground">{plan.budget.toLocaleString()} ريال</p>
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">المصروف الفعلي</p>
-                          <p className="font-medium text-purple-600">{plan.spent.toLocaleString()} ريال</p>
+                          <p className="font-medium text-accent-foreground">{plan.spent.toLocaleString()} ريال</p>
                         </div>
                       </div>
 
@@ -513,12 +513,12 @@ export const WorkforcePlanningBudget: React.FC = () => {
                 ))}
               </div>
 
-              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="mt-6 p-4 bg-accent/10 border border-accent/30 rounded-lg">
                 <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-accent-foreground mt-0.5" />
                   <div>
-                    <p className="font-medium text-blue-900">إجمالي خطة التوظيف 2024</p>
-                    <p className="text-sm text-blue-700 mt-1">
+                    <p className="font-medium text-foreground">إجمالي خطة التوظيف 2024</p>
+                    <p className="text-sm text-muted-foreground mt-1">
                       45 موظف مخطط • 17 تم توظيفهم • ميزانية 540,000 ريال • مصروف 204,000 ريال
                     </p>
                   </div>
@@ -530,10 +530,10 @@ export const WorkforcePlanningBudget: React.FC = () => {
 
         {/* Cost Analysis Tab */}
         <TabsContent value="analysis" className="space-y-6">
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PieChart className="w-5 h-5" />
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <PieChart className="w-5 h-5 text-primary" />
                 تحليل هيكل التكاليف
               </CardTitle>
             </CardHeader>
@@ -543,11 +543,11 @@ export const WorkforcePlanningBudget: React.FC = () => {
                   <div key={index} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-medium">{cost.category}</span>
+                        <span className="font-medium text-foreground">{cost.category}</span>
                         {getTrendIcon(cost.trend)}
                       </div>
                       <div className="text-left">
-                        <p className="font-medium">{cost.amount.toLocaleString()} ريال</p>
+                        <p className="font-medium text-foreground">{cost.amount.toLocaleString()} ريال</p>
                         <p className="text-xs text-muted-foreground">{cost.percentage}%</p>
                       </div>
                     </div>
@@ -556,22 +556,22 @@ export const WorkforcePlanningBudget: React.FC = () => {
                 ))}
               </div>
 
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <div className="mt-6 p-4 bg-muted rounded-lg">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <p className="text-2xl font-bold text-purple-600">
+                    <p className="text-2xl font-bold text-accent-foreground">
                       {costAnalysis.reduce((sum, c) => sum + c.amount, 0).toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">إجمالي التكاليف</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-2xl font-bold text-success">
                       {(budgetData.totalBudget - budgetData.usedBudget).toLocaleString()}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">المتبقي</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-blue-600">
+                    <p className="text-2xl font-bold text-accent-foreground">
                       {budgetData.forecastAccuracy}%
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">دقة التوقعات</p>
@@ -581,16 +581,16 @@ export const WorkforcePlanningBudget: React.FC = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader>
-              <CardTitle>التوصيات والإجراءات</CardTitle>
+              <CardTitle className="text-foreground">التوصيات والإجراءات</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="flex items-start gap-3 p-3 border rounded-lg">
-                  <Target className="w-5 h-5 text-blue-600 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 border border-border rounded-lg bg-background">
+                  <Target className="w-5 h-5 text-accent-foreground mt-0.5" />
                   <div className="flex-1">
-                    <p className="font-medium">تحسين دقة التوقعات</p>
+                    <p className="font-medium text-foreground">تحسين دقة التوقعات</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       استخدام البيانات التاريخية لتحسين دقة توقعات الميزانية بنسبة 5%
                     </p>
@@ -598,10 +598,10 @@ export const WorkforcePlanningBudget: React.FC = () => {
                   <Button size="sm" variant="outline">تطبيق</Button>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 border rounded-lg">
-                  <Users className="w-5 h-5 text-green-600 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 border border-border rounded-lg bg-background">
+                  <Users className="w-5 h-5 text-success mt-0.5" />
                   <div className="flex-1">
-                    <p className="font-medium">تحسين عملية التوظيف</p>
+                    <p className="font-medium text-foreground">تحسين عملية التوظيف</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       تقليل متوسط فترة التوظيف من 45 إلى 30 يوم لتوفير التكاليف
                     </p>
@@ -609,10 +609,10 @@ export const WorkforcePlanningBudget: React.FC = () => {
                   <Button size="sm" variant="outline">تطبيق</Button>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 border rounded-lg">
-                  <DollarSign className="w-5 h-5 text-purple-600 mt-0.5" />
+                <div className="flex items-start gap-3 p-3 border border-border rounded-lg bg-background">
+                  <DollarSign className="w-5 h-5 text-accent-foreground mt-0.5" />
                   <div className="flex-1">
-                    <p className="font-medium">إعادة توزيع الميزانية</p>
+                    <p className="font-medium text-foreground">إعادة توزيع الميزانية</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       نقل 200,000 ريال من الأقسام الأقل استخداماً إلى الأقسام الأكثر احتياجاً
                     </p>
