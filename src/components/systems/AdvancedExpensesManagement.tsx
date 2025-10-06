@@ -133,7 +133,12 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
       </div>
 
       {/* Main Content */}
-      <div className="rounded-xl border border-border p-6 bg-card">
+      <div className="relative bg-gradient-to-r from-background via-card to-background backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/20 border border-border hover:border-accent/70 transition-all duration-300 p-6">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10 rounded-3xl overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/80 to-accent opacity-80"></div>
+        </div>
+        <div className="relative z-10">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
           {/* Main Navigation Tabs */}
           <TabsList className="grid grid-cols-6 gap-2 bg-gray-900/60 backdrop-blur-xl p-2 rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 h-auto w-full">
@@ -406,6 +411,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
             <ExpenseSettingsPolicies isRTL={isRTL} />
           </TabsContent>
         </Tabs>
+        </div>
       </div>
     </div>
   );
