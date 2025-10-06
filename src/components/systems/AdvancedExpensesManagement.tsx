@@ -129,7 +129,7 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
       </div>
 
       {/* Main Content */}
-      <div className="p-8 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+      <div className="rounded-xl border border-border p-6 bg-card">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
           {/* Main Navigation Tabs */}
           <TabsList className="grid grid-cols-6 gap-2 bg-gray-900/60 backdrop-blur-xl p-2 rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 h-auto w-full">
