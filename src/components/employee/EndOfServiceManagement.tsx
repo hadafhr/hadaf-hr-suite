@@ -158,35 +158,33 @@ export function EndOfServiceManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      {/* Header */}
-      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex h-16 items-center px-6">
-          <div className="flex items-center gap-4">
-            <img 
-              src="/images/logo-new.png" 
-              alt="Logo" 
-              className="h-12 w-auto"
-            />
-            <div className="flex items-center gap-2">
-              <LogOut className="h-6 w-6 text-primary" />
-              <h1 className="text-xl font-semibold">إدارة الاستقالات وإنهاء الخدمة</h1>
-              <Badge className="bg-green-100 text-green-800">نظام العمل السعودي</Badge>
-            </div>
-          </div>
-          <div className="mr-auto flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير التقرير
-            </Button>
+    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
 
-            <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
-              <DialogTrigger asChild>
-                <Button size="sm">
-                  <Plus className="h-4 w-4 ml-2" />
-                  إضافة طلب جديد
-                </Button>
-              </DialogTrigger>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة الاستقالات وإنهاء الخدمة</h1>
+          <p className="text-muted-foreground">إدارة شاملة لجميع حالات إنهاء الخدمة ومستحقات الموظفين</p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-end items-center gap-2 mb-4">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4 ml-2" />
+            تصدير التقرير
+          </Button>
+
+          <Dialog open={showEOSDialog} onOpenChange={setShowEOSDialog}>
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة طلب جديد
+              </Button>
+            </DialogTrigger>
           <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" dir="rtl">
             <DialogHeader>
               <DialogTitle className="text-xl">طلب إنهاء خدمة موظف</DialogTitle>
@@ -318,9 +316,7 @@ export function EndOfServiceManagement() {
             </div>
           </DialogContent>
         </Dialog>
-          </div>
         </div>
-      </div>
 
       <div className="rounded-xl border border-border p-6 bg-card">
         {/* Statistics Cards */}
@@ -687,7 +683,7 @@ export function EndOfServiceManagement() {
         </Tabs>
       </div>
 
-        {/* Details Dialog */}
+      {/* Details Dialog */}
       <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" dir="rtl">
           {selectedRecord && (
@@ -799,6 +795,7 @@ export function EndOfServiceManagement() {
           )}
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 }
