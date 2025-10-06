@@ -175,46 +175,46 @@ export const ExpenseTransactionsManager: React.FC<ExpenseTransactionsManagerProp
     <div className="space-y-6">
       {/* Header and Filters */}
       <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-foreground">
           {isRTL ? 'إدارة المعاملات' : 'Transaction Management'}
         </h2>
         
         <div className="flex flex-wrap gap-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder={isRTL ? 'البحث في المعاملات...' : 'Search transactions...'}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#2A2A2A] border-[#3A3A3A] text-white pl-10 w-64"
+              className="bg-card border-border text-foreground pl-10 w-64"
             />
           </div>
           
           <Select value={filterEmployee} onValueChange={setFilterEmployee}>
-            <SelectTrigger className="bg-[#2A2A2A] border-[#3A3A3A] text-white w-48">
+            <SelectTrigger className="bg-card border-border text-foreground w-48">
               <SelectValue placeholder={isRTL ? 'فلترة بالموظف' : 'Filter by Employee'} />
             </SelectTrigger>
-            <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <SelectItem value="all" className="text-white">{isRTL ? 'جميع الموظفين' : 'All Employees'}</SelectItem>
-              <SelectItem value="أحمد محمد السالم" className="text-white">أحمد محمد السالم</SelectItem>
-              <SelectItem value="فاطمة عبدالله النمر" className="text-white">فاطمة عبدالله النمر</SelectItem>
-              <SelectItem value="خالد حسن العتيبي" className="text-white">خالد حسن العتيبي</SelectItem>
+            <SelectContent className="bg-card border-border">
+              <SelectItem value="all">{isRTL ? 'جميع الموظفين' : 'All Employees'}</SelectItem>
+              <SelectItem value="أحمد محمد السالم">أحمد محمد السالم</SelectItem>
+              <SelectItem value="فاطمة عبدالله النمر">فاطمة عبدالله النمر</SelectItem>
+              <SelectItem value="خالد حسن العتيبي">خالد حسن العتيبي</SelectItem>
             </SelectContent>
           </Select>
           
           <Select value={filterStatus} onValueChange={setFilterStatus}>
-            <SelectTrigger className="bg-[#2A2A2A] border-[#3A3A3A] text-white w-48">
+            <SelectTrigger className="bg-card border-border text-foreground w-48">
               <SelectValue placeholder={isRTL ? 'فلترة بالحالة' : 'Filter by Status'} />
             </SelectTrigger>
-            <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A]">
-              <SelectItem value="all" className="text-white">{isRTL ? 'جميع الحالات' : 'All Statuses'}</SelectItem>
-              <SelectItem value="uploaded" className="text-white">{isRTL ? 'تم رفع الإيصال' : 'Receipt Uploaded'}</SelectItem>
-              <SelectItem value="missing" className="text-white">{isRTL ? 'إيصال مفقود' : 'Receipt Missing'}</SelectItem>
-              <SelectItem value="pending" className="text-white">{isRTL ? 'في الانتظار' : 'Pending'}</SelectItem>
+            <SelectContent className="bg-card border-border">
+              <SelectItem value="all">{isRTL ? 'جميع الحالات' : 'All Statuses'}</SelectItem>
+              <SelectItem value="uploaded">{isRTL ? 'تم رفع الإيصال' : 'Receipt Uploaded'}</SelectItem>
+              <SelectItem value="missing">{isRTL ? 'إيصال مفقود' : 'Receipt Missing'}</SelectItem>
+              <SelectItem value="pending">{isRTL ? 'في الانتظار' : 'Pending'}</SelectItem>
             </SelectContent>
           </Select>
           
-          <Button variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#003366]">
+          <Button variant="outline">
             <Download className="h-4 w-4 mr-2" />
             {isRTL ? 'تصدير' : 'Export'}
           </Button>
@@ -222,163 +222,20 @@ export const ExpenseTransactionsManager: React.FC<ExpenseTransactionsManagerProp
       </div>
 
       {/* Transactions Table */}
-      <Card className="bg-[#2A2A2A] border-[#3A3A3A]">
+      <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="text-white flex items-center gap-2">
-            <Receipt className="h-5 w-5 text-[#003366]" />
-            {isRTL ? 'قائمة المعاملات' : 'Transactions List'}
-            <Badge className="bg-[#003366]/20 text-[#003366] ml-2">
-              {filteredTransactions.length}
-            </Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {filteredTransactions.map((transaction) => (
-              <Dialog key={transaction.id}>
-                <DialogTrigger className="w-full">
-                  <div className="flex items-center justify-between p-4 bg-[#1C1C1C] rounded-xl border border-[#3A3A3A] hover:border-[#003366] transition-all duration-300 cursor-pointer">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-[#003366]/20 rounded-xl flex items-center justify-center">
-                        <Receipt className="h-6 w-6 text-[#003366]" />
-                      </div>
-                      <div className="text-left">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h4 className="font-semibold text-white">{transaction.id}</h4>
-                          <Badge className="bg-[#2A2A2A] text-gray-300 text-xs">
-                            {transaction.cardNumber}
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-gray-300">{transaction.employee}</p>
-                        <p className="text-sm text-gray-400">{transaction.merchant}</p>
-                        <p className="text-xs text-gray-500">
-                          {transaction.date} - {transaction.time}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="text-right">
-                      <p className="font-bold text-white text-lg mb-2">
-                        {transaction.amount.toLocaleString()} {transaction.currency}
-                      </p>
-                      <div className="flex flex-col gap-1">
-                        {getReceiptStatusBadge(transaction.receiptStatus)}
-                        {getPolicyStatusBadge(transaction.policyStatus)}
-                      </div>
-                    </div>
-                  </div>
-                </DialogTrigger>
-                
-                <DialogContent className="bg-[#2A2A2A] border-[#3A3A3A] text-white max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
-                      <Receipt className="h-5 w-5 text-[#003366]" />
-                      {isRTL ? 'تفاصيل المعاملة' : 'Transaction Details'} - {transaction.id}
-                    </DialogTitle>
-                  </DialogHeader>
-                  
-                  <div className="space-y-6">
-                    {/* Basic Info */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'الموظف' : 'Employee'}
-                        </label>
-                        <p className="text-white font-medium">{transaction.employee}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'رقم البطاقة' : 'Card Number'}
-                        </label>
-                        <p className="text-white font-medium">{transaction.cardNumber}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Transaction Details */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'التاجر' : 'Merchant'}
-                        </label>
-                        <p className="text-white">{transaction.merchant}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'رمز التصنيف (MCC)' : 'MCC Code'}
-                        </label>
-                        <p className="text-white">{transaction.mcc}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Amount & VAT */}
-                    <div className="grid grid-cols-3 gap-4">
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'المبلغ' : 'Amount'}
-                        </label>
-                        <p className="text-white font-bold text-lg">
-                          {transaction.amount.toLocaleString()} {transaction.currency}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'ضريبة القيمة المضافة' : 'VAT'}
-                        </label>
-                        <p className="text-white">{transaction.vat.toLocaleString()} {transaction.currency}</p>
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'الفئة' : 'Category'}
-                        </label>
-                        <p className="text-white">{transaction.category}</p>
-                      </div>
-                    </div>
-                    
-                    {/* Location & Time */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'الموقع' : 'Location'}
-                        </label>
-                        <p className="text-white flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-gray-400" />
-                          {transaction.location}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'التاريخ والوقت' : 'Date & Time'}
-                        </label>
-                        <p className="text-white flex items-center gap-1">
-                          <Calendar className="h-4 w-4 text-gray-400" />
-                          {transaction.date} - {transaction.time}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Status */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'حالة الإيصال' : 'Receipt Status'}
-                        </label>
-                        {getReceiptStatusBadge(transaction.receiptStatus)}
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-400 mb-1 block">
-                          {isRTL ? 'حالة السياسة' : 'Policy Status'}
-                        </label>
-                        {getPolicyStatusBadge(transaction.policyStatus)}
-                      </div>
-                    </div>
-                    
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <Receipt className="h-5 w-5 text-primary" />
+...
+                <DialogContent className="bg-card border-border text-foreground max-w-2xl">
+...
                     {/* Actions */}
-                    <div className="flex gap-3 pt-4 border-t border-[#3A3A3A]">
-                      <Button className="bg-[#003366] text-white hover:bg-[#004488] flex-1">
+                    <div className="flex gap-3 pt-4 border-t border-border">
+                      <Button className="flex-1">
                         <FileText className="h-4 w-4 mr-2" />
                         {isRTL ? 'رفع/استبدال إيصال' : 'Upload/Replace Receipt'}
                       </Button>
-                      <Button variant="outline" className="border-[#3A3A3A] text-white hover:bg-[#003366] flex-1">
+                      <Button variant="outline" className="flex-1">
                         <Eye className="h-4 w-4 mr-2" />
                         {isRTL ? 'عرض سجل الأحداث' : 'View Event Log'}
                       </Button>
