@@ -642,19 +642,19 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      'active': 'bg-green-500/20 text-green-700 border-green-200',
-      'completed': 'bg-blue-500/20 text-blue-700 border-blue-200',
-      'upcoming': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
-      'enrolled': 'bg-blue-500/20 text-blue-700 border-blue-200',
-      'in_progress': 'bg-orange-500/20 text-orange-700 border-orange-200',
-      'dropped': 'bg-red-500/20 text-red-700 border-red-200',
-      'expired': 'bg-gray-500/20 text-gray-700 border-gray-200',
-      'revoked': 'bg-red-500/20 text-red-700 border-red-200',
-      'inactive': 'bg-gray-500/20 text-gray-700 border-gray-200'
+      'active': 'bg-success/20 text-success border-success',
+      'completed': 'bg-accent/20 text-accent border-accent',
+      'upcoming': 'bg-warning/20 text-warning border-warning',
+      'enrolled': 'bg-accent/20 text-accent border-accent',
+      'in_progress': 'bg-warning/20 text-warning border-warning',
+      'dropped': 'bg-destructive/20 text-destructive border-destructive',
+      'expired': 'bg-muted/20 text-muted-foreground border-border',
+      'revoked': 'bg-destructive/20 text-destructive border-destructive',
+      'inactive': 'bg-muted/20 text-muted-foreground border-border'
     };
     
     return (
-      <Badge variant="outline" className={statusConfig[status as keyof typeof statusConfig] || 'bg-gray-500/20 text-gray-700'}>
+      <Badge variant="outline" className={statusConfig[status as keyof typeof statusConfig] || 'bg-muted/20 text-muted-foreground'}>
         {status}
       </Badge>
     );
@@ -662,9 +662,9 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
 
   const getLevelBadge = (level: string) => {
     const levelConfig = {
-      'beginner': 'bg-green-500/20 text-green-700 border-green-200',
-      'intermediate': 'bg-yellow-500/20 text-yellow-700 border-yellow-200',
-      'advanced': 'bg-red-500/20 text-red-700 border-red-200'
+      'beginner': 'bg-success/20 text-success border-success',
+      'intermediate': 'bg-warning/20 text-warning border-warning',
+      'advanced': 'bg-destructive/20 text-destructive border-destructive'
     };
     
     return (
@@ -678,57 +678,57 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+        className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-accent fill-current' : 'text-muted'}`}
       />
     ));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-6" dir="rtl">
+    <div className="min-h-screen bg-background p-6" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Enhanced Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+        <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in">
           <div className="flex items-center gap-6">
             {onBack && (
-              <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
+              <Button variant="outline" size="sm" onClick={onBack} className="border-border hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-300">
                 <ArrowLeft className="h-4 w-4 ml-2" />
                 رجوع
               </Button>
             )}
-            <div className="h-8 w-px bg-gray-300"></div>
+            <div className="h-8 w-px bg-border"></div>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-                <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
+              <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-foreground/20 to-transparent animate-pulse"></div>
+                <div className="relative z-10 group-hover:scale-110 transition-transform text-primary-foreground">
                   <BookOpen className="h-12 w-12" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-black">
+                <h1 className="text-3xl font-bold text-foreground">
                   نظام التدريب والتطوير الشامل
                 </h1>
-                <p className="text-gray-600 text-lg">
+                <p className="text-muted-foreground text-lg">
                   منظومة متكاملة لإدارة التدريب وتطوير المهارات مع شهادات معتمدة
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
+            <Badge variant="outline" className="border-border text-foreground bg-card px-4 py-2 text-sm font-medium">
               <BookOpen className="h-4 w-4 ml-2" />
               نظام متقدم
             </Badge>
             <Button 
               onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
-              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-primary hover:bg-accent text-primary-foreground hover:text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Bot className="h-4 w-4 ml-2" />
               مساعد ذكي
             </Button>
             <Button 
               onClick={() => setShowAddCourse(true)}
-              className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-primary hover:bg-accent text-primary-foreground hover:text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Plus className="h-4 w-4 ml-2" />
               دورة جديدة
@@ -738,91 +738,91 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
 
         {/* Advanced Statistics Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-          <Card className="bg-gradient-to-br from-primary to-primary/90 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-card border-l-4 border-l-primary text-foreground shadow-2xl backdrop-blur-xl hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <BookOpen className="w-8 h-8 text-white" />
+                <div className="p-3 bg-primary/20 rounded-xl">
+                  <BookOpen className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">إجمالي الدورات</p>
+                  <p className="text-muted-foreground text-sm mb-1">إجمالي الدورات</p>
                   <p className="text-3xl font-bold">{courses.length}</p>
-                  <p className="text-white/70 text-xs mt-1">دورة متاحة</p>
+                  <p className="text-muted-foreground text-xs mt-1">دورة متاحة</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-card border-l-4 border-l-success text-foreground shadow-2xl backdrop-blur-xl hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Users className="w-8 h-8 text-white" />
+                <div className="p-3 bg-success/20 rounded-xl">
+                  <Users className="w-8 h-8 text-success" />
                 </div>
                 <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">المتدربين النشطين</p>
+                  <p className="text-muted-foreground text-sm mb-1">المتدربين النشطين</p>
                   <p className="text-3xl font-bold">{courses.reduce((sum, c) => sum + c.enrolled, 0)}</p>
-                  <p className="text-white/70 text-xs mt-1">متدرب مسجل</p>
+                  <p className="text-muted-foreground text-xs mt-1">متدرب مسجل</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-card border-l-4 border-l-accent text-foreground shadow-2xl backdrop-blur-xl hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Award className="w-8 h-8 text-white" />
+                <div className="p-3 bg-accent/20 rounded-xl">
+                  <Award className="w-8 h-8 text-accent" />
                 </div>
                 <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">شهادات مكتملة</p>
+                  <p className="text-muted-foreground text-sm mb-1">شهادات مكتملة</p>
                   <p className="text-3xl font-bold">{certificates.length}</p>
-                  <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
+                  <p className="text-muted-foreground text-xs mt-1">هذا الشهر</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-card border-l-4 border-l-primary text-foreground shadow-2xl backdrop-blur-xl hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <Clock className="w-8 h-8 text-white" />
+                <div className="p-3 bg-primary/20 rounded-xl">
+                  <Clock className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">ساعات التدريب</p>
+                  <p className="text-muted-foreground text-sm mb-1">ساعات التدريب</p>
                   <p className="text-3xl font-bold">240</p>
-                  <p className="text-white/70 text-xs mt-1">هذا الشهر</p>
+                  <p className="text-muted-foreground text-xs mt-1">هذا الشهر</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-card border-l-4 border-l-accent text-foreground shadow-2xl backdrop-blur-xl hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <User className="w-8 h-8 text-white" />
+                <div className="p-3 bg-accent/20 rounded-xl">
+                  <User className="w-8 h-8 text-accent" />
                 </div>
                 <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">المدربين</p>
+                  <p className="text-muted-foreground text-sm mb-1">المدربين</p>
                   <p className="text-3xl font-bold">{instructors.length}</p>
-                  <p className="text-white/70 text-xs mt-1">مدرب معتمد</p>
+                  <p className="text-muted-foreground text-xs mt-1">مدرب معتمد</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-xl border-0 hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-card border-l-4 border-l-success text-foreground shadow-2xl backdrop-blur-xl hover:shadow-glow transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
-                <div className="p-3 bg-white/20 rounded-xl">
-                  <CheckCircle className="w-8 h-8 text-white" />
+                <div className="p-3 bg-success/20 rounded-xl">
+                  <CheckCircle className="w-8 h-8 text-success" />
                 </div>
                 <div className="text-right">
-                  <p className="text-white/80 text-sm mb-1">معدل النجاح</p>
+                  <p className="text-muted-foreground text-sm mb-1">معدل النجاح</p>
                   <p className="text-3xl font-bold">92%</p>
-                  <p className="text-white/70 text-xs mt-1">معدل الإنجاز</p>
+                  <p className="text-muted-foreground text-xs mt-1">معدل الإنجاز</p>
                 </div>
               </div>
             </CardContent>
@@ -830,9 +830,9 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
         </div>
 
         {/* System Overview */}
-        <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-primary/20 shadow-lg">
+        <Card className="bg-card border-border shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl text-primary flex items-center gap-3">
+            <CardTitle className="text-2xl text-foreground flex items-center gap-3">
               <PieChart className="w-7 h-7" />
               نظرة عامة على النظام
             </CardTitle>
@@ -840,24 +840,24 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
               {[
-                { icon: BookOpen, label: 'المناهج', color: 'text-blue-600', bg: 'bg-blue-100' },
-                { icon: Users, label: 'المتدربين', color: 'text-green-600', bg: 'bg-green-100' },
-                { icon: Award, label: 'الشهادات', color: 'text-purple-600', bg: 'bg-purple-100' },
-                { icon: Calendar, label: 'الجدولة', color: 'text-yellow-600', bg: 'bg-yellow-100' },
-                { icon: User, label: 'المدربين', color: 'text-indigo-600', bg: 'bg-indigo-100' },
-                { icon: Video, label: 'البث المباشر', color: 'text-red-600', bg: 'bg-red-100' },
-                { icon: Globe, label: 'التدريب الرقمي', color: 'text-emerald-600', bg: 'bg-emerald-100' },
-                { icon: BarChart3, label: 'التقييم', color: 'text-orange-600', bg: 'bg-orange-100' }
+                { icon: BookOpen, label: 'المناهج', color: 'text-primary', bg: 'bg-primary/10' },
+                { icon: Users, label: 'المتدربين', color: 'text-success', bg: 'bg-success/10' },
+                { icon: Award, label: 'الشهادات', color: 'text-accent', bg: 'bg-accent/10' },
+                { icon: Calendar, label: 'الجدولة', color: 'text-warning', bg: 'bg-warning/10' },
+                { icon: User, label: 'المدربين', color: 'text-primary', bg: 'bg-primary/10' },
+                { icon: Video, label: 'البث المباشر', color: 'text-destructive', bg: 'bg-destructive/10' },
+                { icon: Globe, label: 'التدريب الرقمي', color: 'text-success', bg: 'bg-success/10' },
+                { icon: BarChart3, label: 'التقييم', color: 'text-accent', bg: 'bg-accent/10' }
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex flex-col items-center p-4 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group border border-gray-100 hover:border-primary/30"
+                  className="flex flex-col items-center p-4 rounded-xl bg-card shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group border border-border hover:border-primary"
                   onClick={() => handleSystemAction(item.label)}
                 >
                   <div className={`p-3 rounded-xl ${item.bg} group-hover:scale-110 transition-transform duration-300`}>
                     <item.icon className={`w-6 h-6 ${item.color}`} />
                   </div>
-                  <span className="text-sm font-medium mt-2 text-center text-gray-700 group-hover:text-primary transition-colors">
+                  <span className="text-sm font-medium mt-2 text-center text-foreground group-hover:text-primary transition-colors">
                     {item.label}
                   </span>
                 </div>
@@ -867,47 +867,47 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
         </Card>
 
         {/* Advanced Navigation Tabs */}
-        <Card className="bg-white/90 backdrop-blur shadow-xl border-0">
+        <Card className="bg-card backdrop-blur shadow-xl border-0">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-6 bg-gradient-to-r from-primary/10 to-primary/5 p-2 rounded-none h-auto border-b">
+              <TabsList className="grid w-full grid-cols-6 bg-primary/10 p-2 rounded-none h-auto border-b border-border">
                 <TabsTrigger 
                   value="dashboard" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl transition-all"
                 >
                   <BarChart3 className="w-5 h-5" />
                   <span className="font-medium">لوحة التحكم</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="courses" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl transition-all"
                 >
                   <BookOpen className="w-5 h-5" />
                   <span className="font-medium">الدورات</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="enrollments" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl transition-all"
                 >
                   <Users className="w-5 h-5" />
                   <span className="font-medium">التسجيلات</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="certificates" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl transition-all"
                 >
                   <Award className="w-5 h-5" />
                   <span className="font-medium">الشهادات</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="instructors" 
-                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
+                  className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-xl transition-all"
                 >
                   <User className="w-5 h-5" />
                   <span className="font-medium">المدربين</span>
                 </TabsTrigger>
                 <TabsTrigger 
-                  value="reports" 
+                  value="reports"
                   className="flex items-center gap-2 py-4 px-6 data-[state=active]:bg-primary data-[state=active]:text-white rounded-xl transition-all"
                 >
                   <FileText className="w-5 h-5" />
@@ -1097,7 +1097,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                               {getLevelBadge(course.level)}
                               {getStatusBadge(course.status)}
                             </div>
-                            <p className="text-gray-600">{course.description}</p>
+                            <p className="text-muted-foreground">{course.description}</p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                               <span><strong>المدرب:</strong> {course.instructor}</span>
                               <span><strong>المدة:</strong> {course.duration}</span>
@@ -1105,11 +1105,11 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                               <span><strong>التكلفة:</strong> {course.price} ريال</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm text-gray-600">التقييم:</span>
+                              <span className="text-sm text-muted-foreground">التقييم:</span>
                               <div className="flex gap-1">
                                 {course.rating && renderStars(course.rating)}
                               </div>
-                              <span className="text-sm text-gray-600">({course.rating})</span>
+                              <span className="text-sm text-muted-foreground">({course.rating})</span>
                             </div>
                           </div>
                           <div className="flex gap-2 items-center">
@@ -1117,7 +1117,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                               size="sm" 
                               variant="default" 
                               onClick={() => setActiveTab(`live-${course.id}`)}
-                              className="gap-2 bg-red-500 hover:bg-red-600 text-white"
+                              className="gap-2 bg-destructive hover:bg-destructive/90 text-destructive-foreground"
                             >
                               <Video className="w-4 h-4" />
                               البث المباشر
@@ -1172,7 +1172,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                       </Button>
                       <div>
                         <h3 className="text-xl font-bold">{course.title}</h3>
-                        <p className="text-gray-600">بث مباشر مع {course.instructor}</p>
+                        <p className="text-muted-foreground">بث مباشر مع {course.instructor}</p>
                       </div>
                     </div>
                     
@@ -1192,7 +1192,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                   <h3 className="text-2xl font-bold">تسجيلات المتدربين</h3>
                   <div className="flex gap-2">
                     <div className="relative">
-                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="البحث في التسجيلات..."
                         className="pr-10 w-64"
@@ -1215,7 +1215,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                               <h4 className="font-bold text-lg">{enrollment.employeeName}</h4>
                               {getStatusBadge(enrollment.status)}
                             </div>
-                            <p className="text-gray-600"><strong>الدورة:</strong> {enrollment.courseTitle}</p>
+                            <p className="text-muted-foreground"><strong>الدورة:</strong> {enrollment.courseTitle}</p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                               <span><strong>رقم الموظف:</strong> {enrollment.employeeId}</span>
                               <span><strong>القسم:</strong> {enrollment.department}</span>
@@ -1230,17 +1230,17 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                                   <span>التقدم</span>
                                   <span>{enrollment.progress}%</span>
                                 </div>
-                                <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div className="w-full bg-border rounded-full h-2">
                                   <div 
-                                    className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                                    className="bg-accent h-2 rounded-full transition-all duration-300" 
                                     style={{ width: `${enrollment.progress}%` }}
                                   ></div>
                                 </div>
                               </div>
                               {enrollment.grade && (
                                 <div className="text-center">
-                                  <span className="text-2xl font-bold text-green-600">{enrollment.grade}%</span>
-                                  <p className="text-xs text-gray-500">الدرجة</p>
+                                  <span className="text-2xl font-bold text-success">{enrollment.grade}%</span>
+                                  <p className="text-xs text-muted-foreground">الدرجة</p>
                                 </div>
                               )}
                             </div>
@@ -1287,7 +1287,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                   <h3 className="text-2xl font-bold">إدارة الشهادات</h3>
                   <div className="flex gap-2">
                     <div className="relative">
-                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="البحث في الشهادات..."
                         className="pr-10 w-64"
@@ -1307,7 +1307,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                         <div className="flex justify-between items-start">
                           <div className="space-y-3 flex-1">
                             <div className="flex items-center gap-3">
-                              <Award className="w-6 h-6 text-yellow-500" />
+                              <Award className="w-6 h-6 text-accent" />
                               <h4 className="font-bold text-lg">{certificate.employeeName}</h4>
                               {getStatusBadge(certificate.status)}
                             </div>
@@ -1324,7 +1324,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                             <div className="flex items-center gap-4">
                               <div className="flex items-center gap-2">
                                 <span className="text-sm font-medium">الدرجة النهائية:</span>
-                                <Badge variant="outline" className="bg-green-100 text-green-700 border-green-300">
+                                <Badge variant="outline" className="bg-success/20 text-success border-success">
                                   {certificate.grade}%
                                 </Badge>
                               </div>
@@ -1375,7 +1375,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                   <h3 className="text-2xl font-bold">إدارة المدربين</h3>
                   <div className="flex gap-2">
                     <div className="relative">
-                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input
                         placeholder="البحث في المدربين..."
                         className="pr-10 w-64"
@@ -1395,7 +1395,7 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
                         <div className="flex justify-between items-start">
                           <div className="space-y-3 flex-1">
                             <div className="flex items-center gap-3">
-                              <User className="w-6 h-6 text-blue-500" />
+                              <User className="w-6 h-6 text-primary" />
                               <h4 className="font-bold text-lg">{instructor.name}</h4>
                               {getStatusBadge(instructor.status)}
                             </div>
