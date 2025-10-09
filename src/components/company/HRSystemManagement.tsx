@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, FileText } from 'lucide-react';
 
 // Import components
 import { ComprehensiveDashboard } from '@/components/dashboard/ComprehensiveDashboard';
@@ -27,6 +27,7 @@ import { ComprehensiveWageProtection } from '@/components/systems/ComprehensiveW
 import { ComprehensiveLegalAffairs } from '@/components/systems/ComprehensiveLegalAffairs';
 import { ComprehensiveSmartEvaluation } from '@/components/systems/ComprehensiveSmartEvaluation';
 import { ComprehensiveTraining } from '@/components/systems/ComprehensiveTraining';
+import { TrainingDisclosureSystem } from '@/components/systems/TrainingDisclosureSystem';
 import SmartHire from '@/pages/SmartHire';
 import { InsuranceManagement } from '@/components/systems/InsuranceManagement';
 import { ComprehensiveRewardsIncentives } from '@/components/systems/ComprehensiveRewardsIncentives';
@@ -271,6 +272,10 @@ export const HRSystemManagement = () => {
                   <GraduationCap className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">التدريب والتأهيل</span>
                 </TabsTrigger>
+                <TabsTrigger value="training-disclosure" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
+                  <FileText className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-center leading-tight">الإفصاح التدريبي</span>
+                </TabsTrigger>
                 <TabsTrigger value="talents" className="group flex flex-col items-center justify-center gap-1 px-2 py-3 rounded-lg font-medium text-xs transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md bg-card text-card-foreground hover:bg-accent hover:text-accent-foreground border border-border data-[state=active]:border-primary hover:scale-105 hover:shadow-lg">
                   <Star className="h-4 w-4 flex-shrink-0 transition-transform group-hover:scale-110" />
                   <span className="text-center leading-tight">إدارة المواهب</span>
@@ -402,6 +407,10 @@ export const HRSystemManagement = () => {
 
           <TabsContent value="training">
             <ComprehensiveTraining onBack={() => setActiveTab('dashboard')} />
+          </TabsContent>
+
+          <TabsContent value="training-disclosure">
+            <TrainingDisclosureSystem onBack={() => setActiveTab('dashboard')} />
           </TabsContent>
 
           <TabsContent value="talents">

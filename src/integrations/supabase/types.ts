@@ -11528,6 +11528,459 @@ export type Database = {
         }
         Relationships: []
       }
+      training_categories: {
+        Row: {
+          category_name_ar: string
+          category_name_en: string
+          created_at: string | null
+          description_ar: string | null
+          description_en: string | null
+          id: string
+          is_active: boolean | null
+          sort_order: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          category_name_ar: string
+          category_name_en: string
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          is_active?: boolean | null
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          category_name_ar?: string
+          category_name_en?: string
+          created_at?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          id?: string
+          is_active?: boolean | null
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      training_disclosure_notifications: {
+        Row: {
+          action_required: boolean | null
+          action_url: string | null
+          company_id: string | null
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message_ar: string
+          message_en: string | null
+          notification_type: string
+          priority: string | null
+          read_at: string | null
+          related_program_id: string | null
+          related_report_id: string | null
+          title_ar: string
+          title_en: string | null
+        }
+        Insert: {
+          action_required?: boolean | null
+          action_url?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message_ar: string
+          message_en?: string | null
+          notification_type: string
+          priority?: string | null
+          read_at?: string | null
+          related_program_id?: string | null
+          related_report_id?: string | null
+          title_ar: string
+          title_en?: string | null
+        }
+        Update: {
+          action_required?: boolean | null
+          action_url?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message_ar?: string
+          message_en?: string | null
+          notification_type?: string
+          priority?: string | null
+          read_at?: string | null
+          related_program_id?: string | null
+          related_report_id?: string | null
+          title_ar?: string
+          title_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_disclosure_notifications_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_disclosure_notifications_related_program_id_fkey"
+            columns: ["related_program_id"]
+            isOneToOne: false
+            referencedRelation: "training_programs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_disclosure_notifications_related_report_id_fkey"
+            columns: ["related_report_id"]
+            isOneToOne: false
+            referencedRelation: "training_disclosure_reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_disclosure_reports: {
+        Row: {
+          average_hours_per_employee: number | null
+          company_id: string | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          non_saudi_trainees: number | null
+          notes: string | null
+          qiwa_reference_number: string | null
+          report_data: Json | null
+          report_number: string
+          report_year: number
+          saudi_trainees: number | null
+          submitted_at: string | null
+          submitted_to_qiwa: boolean | null
+          total_programs: number | null
+          total_trainees: number | null
+          total_training_cost: number | null
+          total_training_hours: number | null
+          training_budget_percentage: number | null
+          updated_at: string | null
+          validated_at: string | null
+          validated_by: string | null
+          validation_status: string | null
+        }
+        Insert: {
+          average_hours_per_employee?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          non_saudi_trainees?: number | null
+          notes?: string | null
+          qiwa_reference_number?: string | null
+          report_data?: Json | null
+          report_number: string
+          report_year: number
+          saudi_trainees?: number | null
+          submitted_at?: string | null
+          submitted_to_qiwa?: boolean | null
+          total_programs?: number | null
+          total_trainees?: number | null
+          total_training_cost?: number | null
+          total_training_hours?: number | null
+          training_budget_percentage?: number | null
+          updated_at?: string | null
+          validated_at?: string | null
+          validated_by?: string | null
+          validation_status?: string | null
+        }
+        Update: {
+          average_hours_per_employee?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          non_saudi_trainees?: number | null
+          notes?: string | null
+          qiwa_reference_number?: string | null
+          report_data?: Json | null
+          report_number?: string
+          report_year?: number
+          saudi_trainees?: number | null
+          submitted_at?: string | null
+          submitted_to_qiwa?: boolean | null
+          total_programs?: number | null
+          total_trainees?: number | null
+          total_training_cost?: number | null
+          total_training_hours?: number | null
+          training_budget_percentage?: number | null
+          updated_at?: string | null
+          validated_at?: string | null
+          validated_by?: string | null
+          validation_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_disclosure_reports_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_program_trainees: {
+        Row: {
+          attendance_percentage: number | null
+          certificate_issued_date: string | null
+          certificate_number: string | null
+          completion_date: string | null
+          created_at: string | null
+          employee_id: string | null
+          enrollment_date: string | null
+          feedback: string | null
+          final_grade: number | null
+          id: string
+          passed: boolean | null
+          program_id: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          attendance_percentage?: number | null
+          certificate_issued_date?: string | null
+          certificate_number?: string | null
+          completion_date?: string | null
+          created_at?: string | null
+          employee_id?: string | null
+          enrollment_date?: string | null
+          feedback?: string | null
+          final_grade?: number | null
+          id?: string
+          passed?: boolean | null
+          program_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          attendance_percentage?: number | null
+          certificate_issued_date?: string | null
+          certificate_number?: string | null
+          completion_date?: string | null
+          created_at?: string | null
+          employee_id?: string | null
+          enrollment_date?: string | null
+          feedback?: string | null
+          final_grade?: number | null
+          id?: string
+          passed?: boolean | null
+          program_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_program_trainees_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "boud_employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_program_trainees_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "training_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_programs: {
+        Row: {
+          attachments: Json | null
+          budget_item: string | null
+          category_id: string | null
+          certificates_issued: number | null
+          company_id: string | null
+          completion_rate: number | null
+          cost_per_trainee: number | null
+          created_at: string | null
+          created_by: string | null
+          description_ar: string | null
+          description_en: string | null
+          duration_days: number | null
+          duration_hours: number
+          end_date: string
+          evaluation_results: Json | null
+          id: string
+          location: string | null
+          max_trainees: number | null
+          non_saudi_trainees_count: number | null
+          objectives: Json | null
+          program_name_ar: string
+          program_name_en: string | null
+          program_number: string
+          provider_id: string | null
+          saudi_trainees_count: number | null
+          start_date: string
+          status: string | null
+          total_cost: number
+          total_trainees: number | null
+          training_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          attachments?: Json | null
+          budget_item?: string | null
+          category_id?: string | null
+          certificates_issued?: number | null
+          company_id?: string | null
+          completion_rate?: number | null
+          cost_per_trainee?: number | null
+          created_at?: string | null
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          duration_days?: number | null
+          duration_hours: number
+          end_date: string
+          evaluation_results?: Json | null
+          id?: string
+          location?: string | null
+          max_trainees?: number | null
+          non_saudi_trainees_count?: number | null
+          objectives?: Json | null
+          program_name_ar: string
+          program_name_en?: string | null
+          program_number: string
+          provider_id?: string | null
+          saudi_trainees_count?: number | null
+          start_date: string
+          status?: string | null
+          total_cost?: number
+          total_trainees?: number | null
+          training_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          attachments?: Json | null
+          budget_item?: string | null
+          category_id?: string | null
+          certificates_issued?: number | null
+          company_id?: string | null
+          completion_rate?: number | null
+          cost_per_trainee?: number | null
+          created_at?: string | null
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          duration_days?: number | null
+          duration_hours?: number
+          end_date?: string
+          evaluation_results?: Json | null
+          id?: string
+          location?: string | null
+          max_trainees?: number | null
+          non_saudi_trainees_count?: number | null
+          objectives?: Json | null
+          program_name_ar?: string
+          program_name_en?: string | null
+          program_number?: string
+          provider_id?: string | null
+          saudi_trainees_count?: number | null
+          start_date?: string
+          status?: string | null
+          total_cost?: number
+          total_trainees?: number | null
+          training_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_programs_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "training_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_programs_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_programs_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "training_providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_providers: {
+        Row: {
+          company_id: string | null
+          contact_person: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          is_active: boolean | null
+          is_certified: boolean | null
+          license_expiry_date: string | null
+          license_number: string
+          phone: string | null
+          provider_name_ar: string
+          provider_name_en: string | null
+          rating: number | null
+          total_programs: number | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          contact_person?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_certified?: boolean | null
+          license_expiry_date?: string | null
+          license_number: string
+          phone?: string | null
+          provider_name_ar: string
+          provider_name_en?: string | null
+          rating?: number | null
+          total_programs?: number | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          contact_person?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_certified?: boolean | null
+          license_expiry_date?: string | null
+          license_number?: string
+          phone?: string | null
+          provider_name_ar?: string
+          provider_name_en?: string | null
+          rating?: number | null
+          total_programs?: number | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_providers_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "boud_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transactions: {
         Row: {
           account_id: string
@@ -12492,6 +12945,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      generate_disclosure_report_number: {
+        Args: { p_year: number }
+        Returns: string
+      }
       generate_patient_id: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -12505,6 +12962,10 @@ export type Database = {
         Returns: string
       }
       generate_temp_password: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_training_program_number: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
