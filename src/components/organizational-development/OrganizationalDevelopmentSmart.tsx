@@ -23,7 +23,8 @@ import {
   FileDown,
   Languages,
   Zap,
-  Package
+  Package,
+  Phone
 } from 'lucide-react';
 import { ImpactMeasurementDashboard } from './smart/ImpactMeasurementDashboard';
 import { HappinessIndexIntegration } from './smart/HappinessIndexIntegration';
@@ -35,6 +36,7 @@ import { ChangeManagement } from './smart/ChangeManagement';
 import { GovernanceCompliance } from './smart/GovernanceCompliance';
 import { MaturityAssessment } from './smart/MaturityAssessment';
 import { InstantReports } from './smart/InstantReports';
+import { CallCenterManagement } from '../call-center/CallCenterManagement';
 
 // Import hero image
 import odSmartImage from '@/assets/od-smart.jpg';
@@ -122,6 +124,7 @@ export const OrganizationalDevelopmentSmart = () => {
     { id: 'governance', label: isRTL ? 'الحوكمة' : 'Governance', icon: Settings },
     { id: 'maturity', label: isRTL ? 'قياس النضج' : 'Maturity Assessment', icon: Users },
     { id: 'integration', label: isRTL ? 'تكامل البوابة' : 'Portal Integration', icon: Users },
+    { id: 'callcenter', label: isRTL ? 'الكول سنتر' : 'Call Center', icon: Phone },
     { id: 'reports', label: isRTL ? 'التقارير الذكية' : 'Smart Reports', icon: FileText },
   ];
 
@@ -207,7 +210,7 @@ export const OrganizationalDevelopmentSmart = () => {
 
           <CardContent>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10 mb-8 bg-muted/50">
+              <TabsList className="grid w-full grid-cols-6 lg:grid-cols-11 mb-8 bg-muted/50">
                 {tabs.map((tab) => (
                   <TabsTrigger 
                     key={tab.id} 
@@ -254,6 +257,10 @@ export const OrganizationalDevelopmentSmart = () => {
 
               <TabsContent value="integration" className="mt-0">
                 <SelfServiceIntegration />
+              </TabsContent>
+
+              <TabsContent value="callcenter" className="mt-0">
+                <CallCenterManagement />
               </TabsContent>
 
               <TabsContent value="reports" className="mt-0">
