@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight, CheckCircle, Leaf, Activity, Smartphone } from 'lucide-react';
+import { Users, UserPlus, AlertTriangle, Calendar, Clock, DollarSign, Building, BarChart3, ArrowLeft, ArrowUp, ArrowDown, RefreshCw, Download, Settings, Plug, Network, Shield, Banknote, Scale, Target, GraduationCap, FileBarChart, CalendarClock, Gift, PenTool, CheckSquare, Bot, User, Star, MessageSquare, MapPin, Heart, Briefcase, MessageCircle, Users2, HardHat, Zap, Brain, Sparkles, GripVertical, Gavel, FileText, Receipt, LogOut, Plane, Crown, ArrowRight, CheckCircle, Leaf, Activity, Smartphone, Phone } from 'lucide-react';
 import boudLogo from '@/assets/boud-logo-white-brown.png';
 import hrManagementLogo from '@/assets/hr-management-logo.png';
 
@@ -48,6 +48,7 @@ import { SkillsInventorySystem } from '@/components/systems/SkillsInventorySyste
 import { InternalCommunication } from '@/components/systems/InternalCommunication';
 import { DiversityInclusion } from '@/components/corporate/DiversityInclusion';
 import { SustainabilityCSR } from '@/components/corporate/SustainabilityCSR';
+import { CallCenterManagement } from '@/components/call-center/CallCenterManagement';
 import { DigitalHealthIntegration } from '@/components/corporate/DigitalHealthIntegration';
 import { MobileExperience } from '@/components/digital/MobileExperience';
 import { HSEWorkplaceSafety } from '@/components/digital/HSEWorkplaceSafety';
@@ -659,6 +660,10 @@ const ComprehensiveEmployeeManagement = () => {
                       <Crown className="h-4 w-4" />
                       <span className="text-xs">تخطيط التعاقب</span>
                     </TabsTrigger>
+                    <TabsTrigger value="call-center" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
+                      <Phone className="h-4 w-4" />
+                      <span className="text-xs">الكول سنتر</span>
+                    </TabsTrigger>
                     </TabsList>
                   </div>
 
@@ -704,6 +709,10 @@ const ComprehensiveEmployeeManagement = () => {
 
                   <TabsContent value="succession-planning">
                     <SuccessionPlanning />
+                  </TabsContent>
+
+                  <TabsContent value="call-center">
+                    <CallCenterManagement />
                   </TabsContent>
                 </Tabs>
               </div>
