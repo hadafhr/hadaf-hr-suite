@@ -74,7 +74,7 @@ import { EndOfServiceManagement } from '@/components/employee/EndOfServiceManage
 type TabType = 'dashboard' | 'settings' | 'employee-operations' | 'compensation-benefits' | 'development-performance' | 'governance-compliance' | 'digital-transformation' | 'corporate-relations' | 'field-tracking' | 'occupational-health-safety';
 type EmployeeOperationsTabType = 'attendance' | 'employee-services' | 'leaves' | 'disciplinary' | 'requests' | 'tasks' | 'teamwork' | 'recruitment' | 'end-of-service';
 type CompensationBenefitsTabType = 'payroll' | 'wageprotection' | 'insurance' | 'expenses' | 'benefits' | 'workforce-planning' | 'travel-expenses';
-type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization' | 'smart-learning' | 'internal-mobility' | 'succession-planning';
+type DevelopmentPerformanceTabType = 'performance' | 'training' | 'talents' | 'quality-of-life' | 'skills-inventory' | 'departments' | 'budget-planning' | 'organization' | 'smart-learning' | 'internal-mobility' | 'succession-planning' | 'call-center';
 type GovernanceComplianceTabType = 'legal' | 'governance' | 'policies-procedures' | 'internal-audit' | 'change-management';
 type DigitalTransformationTabType = 'ai' | 'reports' | 'integration' | 'signature' | 'tracking' | 'meetings' | 'mobile-experience' | 'hse-safety' | 'project-management';
 type CorporateRelationsTabType = 'internal-communication' | 'social-services' | 'admin-communications' | 'occupational-safety' | 'diversity-inclusion' | 'sustainability-csr' | 'digital-health';
@@ -140,7 +140,7 @@ const ComprehensiveEmployeeManagement = () => {
 
   // Type guard function for development performance
   const isValidDevelopmentTabType = (value: string): value is DevelopmentPerformanceTabType => {
-    const validTabs: DevelopmentPerformanceTabType[] = ['performance', 'training', 'talents', 'quality-of-life', 'skills-inventory', 'departments', 'budget-planning', 'organization', 'smart-learning', 'internal-mobility', 'succession-planning'];
+    const validTabs: DevelopmentPerformanceTabType[] = ['performance', 'training', 'talents', 'quality-of-life', 'skills-inventory', 'departments', 'budget-planning', 'organization', 'smart-learning', 'internal-mobility', 'succession-planning', 'call-center'];
     return validTabs.includes(value as DevelopmentPerformanceTabType);
   };
 
