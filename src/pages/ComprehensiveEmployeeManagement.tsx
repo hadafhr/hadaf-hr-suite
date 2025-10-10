@@ -613,7 +613,8 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDevelopmentTab} onValueChange={handleDevelopmentTabChange} className="space-y-6">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-11 h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl">
+                  <div className="overflow-x-auto">
+                    <TabsList className="inline-flex w-full min-w-max h-auto p-1 bg-card/60 backdrop-blur-xl border border-border shadow-2xl shadow-accent/10 rounded-xl gap-2">
                     <TabsTrigger value="performance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
                       <Target className="h-4 w-4" />
                       <span className="text-xs">تقييم الأداء</span>
@@ -658,7 +659,8 @@ const ComprehensiveEmployeeManagement = () => {
                       <Crown className="h-4 w-4" />
                       <span className="text-xs">تخطيط التعاقب</span>
                     </TabsTrigger>
-                  </TabsList>
+                    </TabsList>
+                  </div>
 
                   <TabsContent value="performance">
                     <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
