@@ -184,21 +184,15 @@ export const InternalMobilityCareerPaths: React.FC = () => {
 
   return (
     <div className="space-y-6" dir="rtl">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+      </div>
+
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <TrendingUp className="w-7 h-7 text-blue-600" />
-            التنقل الداخلي والمسارات الوظيفية
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            تمكين الموظفين من النمو والتطور داخل المؤسسة
-          </p>
-        </div>
-        <Button>
-          <Briefcase className="w-4 h-4 ml-2" />
-          نشر فرصة داخلية
-        </Button>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">التنقل الداخلي والمسارات الوظيفية</h1>
+        <p className="text-muted-foreground">تمكين الموظفين من النمو والتطور داخل المؤسسة</p>
       </div>
 
       {/* Statistics */}
