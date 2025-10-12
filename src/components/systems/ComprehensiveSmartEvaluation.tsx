@@ -346,19 +346,19 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   }, []);
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-primary/10 to-blue-50 rounded-3xl border border-primary/20">
+    <div className="flex items-center justify-between mb-8 p-6 bg-[#1a1a1a] rounded-3xl border border-[#cfcbcb]">
       <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-primary/30 hover:bg-primary/5">
+        <Button variant="outline" size="sm" onClick={onBack} className="border-[#cfcbcb] hover:bg-[#b1a086]">
           <ArrowLeft className="h-4 w-4 ml-2" />
           رجوع
         </Button>
         <div className="flex items-center gap-4">
           <BoudLogo size="lg" />
           <div>
-            <h1 className="text-3xl font-bold text-primary">
+            <h1 className="text-3xl font-bold text-foreground">
               نظام تقييم الأداء المتكامل
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-muted-foreground text-lg">
               إدارة شاملة للمؤشرات والتقييمات المتعددة مع القرارات التلقائية
             </p>
           </div>
@@ -413,12 +413,12 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
         {['KPI', 'KRI', 'KSI', 'KQI', 'KVI', 'KCI'].map((type) => {
           const typeIndicators = indicators.filter(ind => ind.type === type);
           const typeColors = {
-            KPI: 'from-blue-500 to-blue-600',
-            KRI: 'from-red-500 to-red-600',
-            KSI: 'from-green-500 to-green-600',
-            KQI: 'from-purple-500 to-purple-600',
-            KVI: 'from-yellow-500 to-yellow-600',
-            KCI: 'from-indigo-500 to-indigo-600'
+            KPI: 'bg-[#000000] text-[#ffffff]',
+            KRI: 'bg-[#1a1a1a] text-[#ffffff]',
+            KSI: 'bg-[#000000] text-[#ffffff]',
+            KQI: 'bg-[#1a1a1a] text-[#ffffff]',
+            KVI: 'bg-[#000000] text-[#ffffff]',
+            KCI: 'bg-[#1a1a1a] text-[#ffffff]'
           };
           
           const typeNames = {
@@ -432,7 +432,7 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
 
           return (
             <Card key={type} className="overflow-hidden">
-              <CardHeader className={`bg-gradient-to-r ${typeColors[type]} text-white`}>
+              <CardHeader className={`${typeColors[type]} border-b border-[#cfcbcb]`}>
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Gauge className="h-5 w-5" />
@@ -447,20 +447,20 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                 {typeIndicators.length > 0 ? (
                   <div className="overflow-x-auto">
                     <table className="w-full">
-                      <thead className="bg-gray-50">
+                      <thead className="bg-[#1a1a1a] border-b border-[#cfcbcb]">
                         <tr>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الرمز</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">اسم المؤشر</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الهدف</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الفعلي</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">النسبة</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">الوزن</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">النتيجة</th>
-                          <th className="p-3 text-right text-sm font-semibold text-gray-900">النظام المرتبط</th>
-                          <th className="p-3 text-center text-sm font-semibold text-gray-900">إجراءات</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">الرمز</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">اسم المؤشر</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">الهدف</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">الفعلي</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">النسبة</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">الوزن</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">النتيجة</th>
+                          <th className="p-3 text-right text-sm font-semibold text-foreground">النظام المرتبط</th>
+                          <th className="p-3 text-center text-sm font-semibold text-foreground">إجراءات</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-200">
+                      <tbody className="divide-y divide-border">
                         {typeIndicators.map((indicator) => {
                           const percentage = (indicator.actualValue / indicator.targetValue) * 100;
                           const isGood = percentage >= 90;
@@ -468,29 +468,23 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                           const isDanger = percentage < 70;
                           
                           return (
-                            <tr key={indicator.id} className="hover:bg-gray-50">
-                              <td className="p-3 text-sm font-medium text-gray-900">{indicator.code}</td>
-                              <td className="p-3 text-sm text-gray-900">{indicator.name}</td>
-                              <td className="p-3 text-sm text-gray-900">{indicator.targetValue}</td>
-                              <td className="p-3 text-sm text-gray-900">{indicator.actualValue}</td>
+                            <tr key={indicator.id} className="hover:bg-[#1a1a1a]">
+                              <td className="p-3 text-sm font-medium text-foreground">{indicator.code}</td>
+                              <td className="p-3 text-sm text-foreground">{indicator.name}</td>
+                              <td className="p-3 text-sm text-foreground">{indicator.targetValue}</td>
+                              <td className="p-3 text-sm text-foreground">{indicator.actualValue}</td>
                               <td className="p-3">
                                 <div className="flex items-center gap-2">
                                   <Progress 
                                     value={Math.min(percentage, 100)} 
-                                    className={`w-20 h-2 ${
-                                      isGood ? 'bg-green-100' : 
-                                      isWarning ? 'bg-yellow-100' : 'bg-red-100'
-                                    }`}
+                                    className="w-20 h-2"
                                   />
-                                  <span className={`text-sm font-medium ${
-                                    isGood ? 'text-green-600' : 
-                                    isWarning ? 'text-yellow-600' : 'text-red-600'
-                                  }`}>
+                                  <span className="text-sm font-medium text-foreground">
                                     {percentage.toFixed(1)}%
                                   </span>
                                 </div>
                               </td>
-                              <td className="p-3 text-sm text-gray-900">{indicator.weight}%</td>
+                              <td className="p-3 text-sm text-foreground">{indicator.weight}%</td>
                               <td className="p-3">
                                 <Badge 
                                   variant={isGood ? "default" : isWarning ? "secondary" : "destructive"}
@@ -500,8 +494,8 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                               </td>
                               <td className="p-3">
                                 <div className="flex items-center gap-2">
-                                  <Database className="h-4 w-4 text-gray-400" />
-                                  <span className="text-sm text-gray-600">{indicator.linkedSystem}</span>
+                                  <Database className="h-4 w-4 text-muted-foreground" />
+                                  <span className="text-sm text-muted-foreground">{indicator.linkedSystem}</span>
                                   {indicator.autoCalculation && (
                                     <Badge variant="outline" className="text-xs">تلقائي</Badge>
                                   )}
@@ -817,14 +811,14 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <PenTool className="h-4 w-4 text-blue-500" />
+                    <PenTool className="h-4 w-4 text-foreground" />
                     التقييم الذاتي
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{evaluation.selfScore}</div>
-                    <div className="text-sm text-gray-500">من 100</div>
+                    <div className="text-2xl font-bold text-foreground">{evaluation.selfScore}</div>
+                    <div className="text-sm text-muted-foreground">من 100</div>
                     <Progress value={evaluation.selfScore} className="mt-2" />
                   </div>
                 </CardContent>
@@ -834,16 +828,16 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-green-500" />
+                    <Shield className="h-4 w-4 text-foreground" />
                     تقييم المدير
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">
+                    <div className="text-2xl font-bold text-foreground">
                       {evaluation.managerScore || '-'}
                     </div>
-                    <div className="text-sm text-gray-500">من 100</div>
+                    <div className="text-sm text-muted-foreground">من 100</div>
                     <Progress value={evaluation.managerScore || 0} className="mt-2" />
                   </div>
                 </CardContent>
@@ -853,16 +847,16 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Award className="h-4 w-4 text-purple-500" />
+                    <Award className="h-4 w-4 text-foreground" />
                     مراجعة HR
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-foreground">
                       {evaluation.hrScore || '-'}
                     </div>
-                    <div className="text-sm text-gray-500">من 100</div>
+                    <div className="text-sm text-muted-foreground">من 100</div>
                     <Progress value={evaluation.hrScore || 0} className="mt-2" />
                   </div>
                 </CardContent>
@@ -872,16 +866,16 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Target className="h-4 w-4 text-orange-500" />
+                    <Target className="h-4 w-4 text-foreground" />
                     النتيجة النهائية
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">
+                    <div className="text-2xl font-bold text-foreground">
                       {evaluation.finalScore || '-'}
                     </div>
-                    <div className="text-sm text-gray-500">من 100</div>
+                    <div className="text-sm text-muted-foreground">من 100</div>
                     <Progress value={evaluation.finalScore || 0} className="mt-2" />
                   </div>
                 </CardContent>
@@ -996,13 +990,13 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="border-green-200 bg-green-50">
+            <Card className="border-[#cfcbcb] bg-[#1a1a1a]">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="h-5 w-5 text-green-600" />
-                  <span className="font-semibold text-green-800">≥ 90 نقطة</span>
+                  <TrendingUp className="h-5 w-5 text-foreground" />
+                  <span className="font-semibold text-foreground">≥ 90 نقطة</span>
                 </div>
-                <div className="space-y-1 text-sm text-green-700">
+                <div className="space-y-1 text-sm text-muted-foreground">
                   <p>• ترقية تلقائية</p>
                   <p>• علاوة سنوية 10%</p>
                   <p>• تضاف في الرواتب</p>
@@ -1010,13 +1004,13 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               </CardContent>
             </Card>
 
-            <Card className="border-blue-200 bg-blue-50">
+            <Card className="border-[#cfcbcb] bg-[#1a1a1a]">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Award className="h-5 w-5 text-blue-600" />
-                  <span className="font-semibold text-blue-800">75-89 نقطة</span>
+                  <Award className="h-5 w-5 text-foreground" />
+                  <span className="font-semibold text-foreground">75-89 نقطة</span>
                 </div>
-                <div className="space-y-1 text-sm text-blue-700">
+                <div className="space-y-1 text-sm text-muted-foreground">
                   <p>• مكافأة تلقائية</p>
                   <p>• علاوة سنوية 5%</p>
                   <p>• تضاف في الرواتب</p>
@@ -1024,13 +1018,13 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
               </CardContent>
             </Card>
 
-            <Card className="border-red-200 bg-red-50">
+            <Card className="border-[#cfcbcb] bg-[#1a1a1a]">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <AlertTriangle className="h-5 w-5 text-red-600" />
-                  <span className="font-semibold text-red-800">≤ 60 نقطة</span>
+                  <AlertTriangle className="h-5 w-5 text-destructive" />
+                  <span className="font-semibold text-foreground">≤ 60 نقطة</span>
                 </div>
-                <div className="space-y-1 text-sm text-red-700">
+                <div className="space-y-1 text-sm text-muted-foreground">
                   <p>• إنذار تلقائي</p>
                   <p>• تجميد العلاوة</p>
                   <p>• خطة تطوير إلزامية</p>
@@ -1060,14 +1054,14 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                          {decision.type === 'promotion' ? <TrendingUp className="h-6 w-6 text-green-600" /> :
-                           decision.type === 'bonus' ? <Award className="h-6 w-6 text-blue-600" /> :
-                           <AlertTriangle className="h-6 w-6 text-red-600" />}
+                        <div className="w-12 h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center border border-[#cfcbcb]">
+                          {decision.type === 'promotion' ? <TrendingUp className="h-6 w-6 text-foreground" /> :
+                           decision.type === 'bonus' ? <Award className="h-6 w-6 text-foreground" /> :
+                           <AlertTriangle className="h-6 w-6 text-destructive-foreground" />}
                         </div>
                         <div>
-                          <h3 className="font-semibold">{evaluation?.employeeName}</h3>
-                          <p className="text-sm text-gray-600">
+                          <h3 className="font-semibold text-foreground">{evaluation?.employeeName}</h3>
+                          <p className="text-sm text-muted-foreground">
                             {decision.type === 'promotion' ? 'ترقية تلقائية' :
                              decision.type === 'bonus' ? `مكافأة ${decision.amount} ريال` :
                              decision.type === 'warning' ? 'إنذار تأديبي' : 'تجميد الراتب'}
@@ -1080,7 +1074,6 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                       <div className="flex gap-2">
                         <Button 
                           size="sm" 
-                          className="bg-green-600 hover:bg-green-700"
                           onClick={() => {
                             toast({
                               title: "تم اعتماد القرار",
@@ -1147,36 +1140,36 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* توقيع الموظف */}
-                    <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        <PenTool className="h-5 w-5 text-blue-600" />
+                    <div className="flex items-center gap-3 p-3 border border-[#cfcbcb] rounded-lg">
+                      <div className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center">
+                        <PenTool className="h-5 w-5 text-foreground" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium">توقيع الموظف</div>
+                        <div className="font-medium text-foreground">توقيع الموظف</div>
                         <div className="flex items-center gap-2 mt-1">
-                          <CheckCircle2 className="h-4 w-4 text-green-500" />
-                          <span className="text-sm text-green-600">تم التوقيع</span>
+                          <CheckCircle2 className="h-4 w-4 text-success" />
+                          <span className="text-sm text-success-foreground">تم التوقيع</span>
                         </div>
                       </div>
                     </div>
 
                     {/* توقيع المدير */}
                     <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                        <Shield className="h-5 w-5 text-green-600" />
+                      <div className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center border border-[#cfcbcb]">
+                        <Shield className="h-5 w-5 text-foreground" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium">توقيع المدير</div>
+                        <div className="font-medium text-foreground">توقيع المدير</div>
                         <div className="flex items-center gap-2 mt-1">
                           {evaluation.status === 'completed' ? (
                             <>
-                              <CheckCircle2 className="h-4 w-4 text-green-500" />
-                              <span className="text-sm text-green-600">تم التوقيع</span>
+                              <CheckCircle2 className="h-4 w-4 text-success" />
+                              <span className="text-sm text-success-foreground">تم التوقيع</span>
                             </>
                           ) : (
                             <>
-                              <Clock className="h-4 w-4 text-orange-500" />
-                              <span className="text-sm text-orange-600">في انتظار التوقيع</span>
+                              <Clock className="h-4 w-4 text-warning" />
+                              <span className="text-sm text-warning-foreground">في انتظار التوقيع</span>
                             </>
                           )}
                         </div>
@@ -1184,22 +1177,22 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                     </div>
 
                     {/* توقيع HR */}
-                    <div className="flex items-center gap-3 p-3 border rounded-lg">
-                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                        <Award className="h-5 w-5 text-purple-600" />
+                    <div className="flex items-center gap-3 p-3 border border-[#cfcbcb] rounded-lg">
+                      <div className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center border border-[#cfcbcb]">
+                        <Award className="h-5 w-5 text-foreground" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium">توقيع HR</div>
+                        <div className="font-medium text-foreground">توقيع HR</div>
                         <div className="flex items-center gap-2 mt-1">
                           {evaluation.status === 'approved' ? (
                             <>
-                              <CheckCircle2 className="h-4 w-4 text-green-500" />
-                              <span className="text-sm text-green-600">تم التوقيع</span>
+                              <CheckCircle2 className="h-4 w-4 text-success" />
+                              <span className="text-sm text-success-foreground">تم التوقيع</span>
                             </>
                           ) : (
                             <>
-                              <Clock className="h-4 w-4 text-orange-500" />
-                              <span className="text-sm text-orange-600">في انتظار التوقيع</span>
+                              <Clock className="h-4 w-4 text-warning" />
+                              <span className="text-sm text-warning-foreground">في انتظار التوقيع</span>
                             </>
                           )}
                         </div>
@@ -1400,19 +1393,19 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-green-600">28</div>
-            <div className="text-sm text-gray-600">موظف متميز</div>
+            <div className="text-sm text-muted-foreground">موظف متميز</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-blue-600">145</div>
-            <div className="text-sm text-gray-600">تقييم مكتمل</div>
+            <div className="text-2xl font-bold text-foreground">145</div>
+            <div className="text-sm text-muted-foreground">تقييم مكتمل</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-orange-600">33</div>
-            <div className="text-sm text-gray-600">تقييم معلق</div>
+            <div className="text-2xl font-bold text-foreground">33</div>
+            <div className="text-sm text-muted-foreground">تقييم معلق</div>
           </CardContent>
         </Card>
       </div>
@@ -1510,31 +1503,31 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-3 gap-4">
-                    <div className="text-center p-4 bg-blue-50 rounded">
-                      <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-center p-4 bg-[#1a1a1a] rounded border border-[#cfcbcb]">
+                      <div className="text-2xl font-bold text-foreground">
                         {selectedIndicator.targetValue}
                       </div>
-                      <div className="text-sm text-blue-800">القيمة المستهدفة</div>
+                      <div className="text-sm text-muted-foreground">القيمة المستهدفة</div>
                     </div>
-                    <div className="text-center p-4 bg-green-50 rounded">
-                      <div className="text-2xl font-bold text-green-600">
+                    <div className="text-center p-4 bg-[#1a1a1a] rounded border border-[#cfcbcb]">
+                      <div className="text-2xl font-bold text-foreground">
                         {selectedIndicator.actualValue}
                       </div>
-                      <div className="text-sm text-green-800">القيمة الفعلية</div>
+                      <div className="text-sm text-muted-foreground">القيمة الفعلية</div>
                     </div>
-                    <div className="text-center p-4 bg-orange-50 rounded">
-                      <div className="text-2xl font-bold text-orange-600">
+                    <div className="text-center p-4 bg-[#1a1a1a] rounded border border-[#cfcbcb]">
+                      <div className="text-2xl font-bold text-foreground">
                         {selectedIndicator.calculatedScore}
                       </div>
-                      <div className="text-sm text-orange-800">النتيجة المحسوبة</div>
+                      <div className="text-sm text-muted-foreground">النتيجة المحسوبة</div>
                     </div>
                   </div>
                   
                   {/* شريط التقدم */}
                   <div className="mt-4">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium">نسبة الإنجاز</span>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm font-medium text-foreground">نسبة الإنجاز</span>
+                      <span className="text-sm text-muted-foreground">
                         {((selectedIndicator.actualValue / selectedIndicator.targetValue) * 100).toFixed(1)}%
                       </span>
                     </div>
@@ -1554,17 +1547,17 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label className="text-sm font-medium text-gray-700">النظام المرتبط</Label>
-                      <div className="flex items-center gap-2 p-2 bg-gray-50 rounded border">
-                        <Database className="h-4 w-4 text-gray-500" />
+                      <Label className="text-sm font-medium text-foreground">النظام المرتبط</Label>
+                      <div className="flex items-center gap-2 p-2 bg-[#1a1a1a] rounded border border-[#cfcbcb]">
+                        <Database className="h-4 w-4 text-muted-foreground" />
                         {selectedIndicator.linkedSystem}
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-sm font-medium text-gray-700">الحساب التلقائي</Label>
-                      <div className="p-2 bg-gray-50 rounded border">
+                      <Label className="text-sm font-medium text-foreground">الحساب التلقائي</Label>
+                      <div className="p-2 bg-[#1a1a1a] rounded border border-[#cfcbcb]">
                         {selectedIndicator.autoCalculation ? (
-                          <Badge variant="default" className="bg-green-500">
+                          <Badge variant="default">
                             <CheckCircle2 className="h-3 w-3 ml-1" />
                             مفعل
                           </Badge>
