@@ -261,115 +261,16 @@ export const SkillsInventorySystem: React.FC<SkillsInventorySystemProps> = ({ on
   };
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          رجوع
-        </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <Brain className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-black">
-              نظام مخزون المهارات المتطور
-            </h1>
-            <p className="text-gray-600 text-lg">
-              منظومة شاملة لإدارة وتتبع مهارات الموظفين مع تحليل الفجوات والتوصيات
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
-      <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
-          <Brain className="h-4 w-4 ml-2" />
-          نظام متقدم
-        </Badge>
-        <Button onClick={handleExport} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقارير
-        </Button>
-        <Dialog open={isAddSkillOpen} onOpenChange={setIsAddSkillOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-              <Plus className="h-4 w-4 ml-2" />
-              مهارة جديدة
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle>إضافة مهارة جديدة</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <Label>اسم المهارة *</Label>
-                <Input
-                  value={newSkillForm.name}
-                  onChange={(e) => setNewSkillForm(prev => ({...prev, name: e.target.value}))}
-                  placeholder="مثال: البرمجة والتطوير"
-                />
-              </div>
-              <div>
-                <Label>فئة المهارة *</Label>
-                <Select value={newSkillForm.category} onValueChange={(value) => setNewSkillForm(prev => ({...prev, category: value}))}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="اختر الفئة" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="تقنية">تقنية</SelectItem>
-                    <SelectItem value="إدارية">إدارية</SelectItem>
-                    <SelectItem value="تسويق">تسويق</SelectItem>
-                    <SelectItem value="مالية">مالية</SelectItem>
-                    <SelectItem value="موارد بشرية">موارد بشرية</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>الوصف</Label>
-                <Textarea
-                  value={newSkillForm.description}
-                  onChange={(e) => setNewSkillForm(prev => ({...prev, description: e.target.value}))}
-                  placeholder="وصف تفصيلي للمهارة..."
-                />
-              </div>
-              <div>
-                <Label>المستوى المطلوب</Label>
-                <Select value={newSkillForm.level} onValueChange={(value) => setNewSkillForm(prev => ({...prev, level: value}))}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="المستوى" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="مبتدئ">مبتدئ</SelectItem>
-                    <SelectItem value="متوسط">متوسط</SelectItem>
-                    <SelectItem value="متقدم">متقدم</SelectItem>
-                    <SelectItem value="خبير">خبير</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>الأولوية</Label>
-                <Select value={newSkillForm.priority} onValueChange={(value) => setNewSkillForm(prev => ({...prev, priority: value}))}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="مستوى الأولوية" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="منخفضة">منخفضة</SelectItem>
-                    <SelectItem value="متوسطة">متوسطة</SelectItem>
-                    <SelectItem value="عالية">عالية</SelectItem>
-                    <SelectItem value="حرجة">حرجة</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <Button onClick={handleAddSkill} className="w-full">
-                إضافة المهارة
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام مخزون المهارات المتطور</h1>
+        <p className="text-muted-foreground">منظومة شاملة لإدارة وتتبع مهارات الموظفين مع تحليل الفجوات والتوصيات</p>
       </div>
     </div>
   );
