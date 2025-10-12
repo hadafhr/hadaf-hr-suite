@@ -605,7 +605,7 @@ const ComprehensiveEmployeeManagement = () => {
               <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg">
                 <div className="flex flex-col items-center justify-center text-center gap-4 mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground">إدارة التطوير والأداء المؤسسي</h2>
+                    <h2 className="text-2xl font-bold text-foreground">إدارة التطوير والأداء</h2>
                     <p className="text-muted-foreground">النظام المتكامل لتطوير الأداء وإدارة المواهب والتدريب المؤسسي</p>
                   </div>
                 </div>
