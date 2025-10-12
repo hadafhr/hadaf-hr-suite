@@ -86,31 +86,19 @@ export const CallCenterManagement = () => {
 
   return (
     <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+      </div>
+
       {/* Header Section */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-            <Phone className="w-6 h-6 text-primary-foreground" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">
-              {isRTL ? 'قسم الكول سنتر وإدارة مراكز الاتصال' : 'Call Center & Contact Center Management'}
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              {isRTL ? 'إدارة شاملة لمراكز الاتصال وتحليل الأداء المباشر' : 'Comprehensive call center management with real-time analytics'}
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => handleExport('Excel')}>
-            <Download className="w-4 h-4 mr-2" />
-            Excel
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => handleExport('PDF')}>
-            <FileText className="w-4 h-4 mr-2" />
-            PDF
-          </Button>
-        </div>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">
+          {isRTL ? 'قسم الكول سنتر وإدارة مراكز الاتصال' : 'Call Center & Contact Center Management'}
+        </h1>
+        <p className="text-muted-foreground">
+          {isRTL ? 'إدارة شاملة لمراكز الاتصال وتحليل الأداء المباشر' : 'Comprehensive call center management with real-time analytics'}
+        </p>
       </div>
 
       {/* KPIs Grid */}
