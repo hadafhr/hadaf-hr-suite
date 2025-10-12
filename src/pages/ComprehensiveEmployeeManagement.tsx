@@ -607,6 +607,7 @@ const ComprehensiveEmployeeManagement = () => {
                 <div className="flex flex-col items-center justify-center text-center gap-4 mb-6">
                   <img src={developmentLogo} alt="شعار التطوير والأداء" className="h-24 w-auto object-contain" />
                   <div>
+                    <p className="text-lg text-muted-foreground mb-2">مرحباً بكم</p>
                     <h2 className="text-2xl font-bold text-foreground">إدارة التطوير والأداء</h2>
                     <p className="text-muted-foreground">النظام المتكامل لتطوير الأداء وإدارة المواهب والتدريب المؤسسي</p>
                   </div>
