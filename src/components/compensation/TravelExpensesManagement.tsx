@@ -194,13 +194,21 @@ export const TravelExpensesManagement: React.FC = () => {
   return (
     <div className="space-y-6" dir="rtl">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold">إدارة السفر والمصروفات</h2>
-          <p className="text-muted-foreground mt-1">
-            إدارة شاملة لطلبات السفر والمصروفات المتعلقة بها
-          </p>
+      <div className="space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
         </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة السفر والمصروفات</h1>
+          <p className="text-muted-foreground">إدارة شاملة لطلبات السفر والمصروفات المتعلقة بها</p>
+        </div>
+      </div>
+      
+      {/* Action Button */}
+      <div className="flex justify-center">
         <Dialog open={showNewRequestDialog} onOpenChange={setShowNewRequestDialog}>
           <DialogTrigger asChild>
             <Button>
