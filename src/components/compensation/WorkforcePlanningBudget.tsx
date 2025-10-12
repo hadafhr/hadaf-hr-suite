@@ -166,35 +166,16 @@ export const WorkforcePlanningBudget: React.FC = () => {
   return (
     <div className="space-y-6" dir="rtl">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-6">
-          <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <BarChart3 className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              تخطيط القوى العاملة والتوافق مع الميزانية
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              إدارة متكاملة لتخطيط الموارد البشرية والميزانيات ومراقبة التكاليف
-            </p>
-          </div>
+      <div className="space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
         </div>
-        <div className="flex items-center gap-3">
-          <Badge variant="outline" className="border-accent/30 text-accent-foreground bg-accent/5 px-4 py-2 text-sm font-medium">
-            <Target className="h-4 w-4 ml-2" />
-            نظام متقدم
-          </Badge>
-          <Button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            <Download className="h-4 w-4 ml-2" />
-            تصدير التقرير
-          </Button>
-          <Button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-300">
-            <RefreshCw className="h-4 w-4 ml-2" />
-            تحديث البيانات
-          </Button>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">تخطيط القوى العاملة والتوافق مع الميزانية</h1>
+          <p className="text-muted-foreground">إدارة متكاملة لتخطيط الموارد البشرية والميزانيات ومراقبة التكاليف</p>
         </div>
       </div>
 
