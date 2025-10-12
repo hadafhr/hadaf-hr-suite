@@ -686,54 +686,15 @@ export const ComprehensiveTraining: React.FC<ComprehensiveTrainingProps> = ({ on
   return (
     <div className="min-h-screen bg-background p-6" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-8">
-        {/* Enhanced Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg border border-border animate-fade-in">
-          <div className="flex items-center gap-6">
-            {onBack && (
-              <Button variant="outline" size="sm" onClick={onBack} className="border-border hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-300">
-                <ArrowLeft className="h-4 w-4 ml-2" />
-                رجوع
-              </Button>
-            )}
-            <div className="h-8 w-px bg-border"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-primary rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-foreground/20 to-transparent animate-pulse"></div>
-                <div className="relative z-10 group-hover:scale-110 transition-transform text-primary-foreground">
-                  <BookOpen className="h-12 w-12" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">
-                  نظام التدريب والتطوير الشامل
-                </h1>
-                <p className="text-muted-foreground text-lg">
-                  منظومة متكاملة لإدارة التدريب وتطوير المهارات مع شهادات معتمدة
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-border text-foreground bg-card px-4 py-2 text-sm font-medium">
-              <BookOpen className="h-4 w-4 ml-2" />
-              نظام متقدم
-            </Badge>
-            <Button 
-              onClick={() => handleSystemAction('مساعد الذكاء الاصطناعي')}
-              className="bg-primary hover:bg-accent text-primary-foreground hover:text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Bot className="h-4 w-4 ml-2" />
-              مساعد ذكي
-            </Button>
-            <Button 
-              onClick={() => setShowAddCourse(true)}
-              className="bg-primary hover:bg-accent text-primary-foreground hover:text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Plus className="h-4 w-4 ml-2" />
-              دورة جديدة
-            </Button>
-          </div>
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام التدريب والتطوير الشامل</h1>
+          <p className="text-muted-foreground">منظومة متكاملة لإدارة التدريب وتطوير المهارات مع شهادات معتمدة</p>
         </div>
 
         {/* Advanced Statistics Dashboard */}
