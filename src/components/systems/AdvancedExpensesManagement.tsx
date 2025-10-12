@@ -83,8 +83,8 @@ export const AdvancedExpensesManagement: React.FC<AdvancedExpensesManagementProp
               {isRTL ? 'رجوع' : 'Back'}
             </Button>
             
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center shadow-lg">
-              <Receipt className="h-8 w-8 text-primary-foreground" />
+            <div className="flex justify-center">
+              <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-16 w-auto object-contain" />
             </div>
           </div>
           
