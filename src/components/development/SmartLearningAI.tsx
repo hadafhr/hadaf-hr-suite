@@ -194,21 +194,15 @@ export const SmartLearningAI: React.FC = () => {
 
   return (
     <div className="space-y-6" dir="rtl">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+      </div>
+
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Brain className="w-7 h-7 text-purple-600" />
-            التعلم الذكي والتدريب بالذكاء الاصطناعي
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            منصة تعلم ذكية مدعومة بالذكاء الاصطناعي لتطوير مهارات الموظفين
-          </p>
-        </div>
-        <Button className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4" />
-          إنشاء دورة بالذكاء الاصطناعي
-        </Button>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">التعلم الذكي والتدريب بالذكاء الاصطناعي</h1>
+        <p className="text-muted-foreground">منصة تعلم ذكية مدعومة بالذكاء الاصطناعي لتطوير مهارات الموظفين</p>
       </div>
 
       {/* Statistics */}
