@@ -614,58 +614,56 @@ const ComprehensiveEmployeeManagement = () => {
                 </div>
                 
                 <Tabs value={activeDevelopmentTab} onValueChange={handleDevelopmentTabChange} className="space-y-6">
-                  <div className="overflow-x-auto scrollbar-hide">
-                    <TabsList className="inline-flex w-full min-w-max h-auto p-1 bg-[#1a1a1a] border border-[#cfcbcb] rounded-xl gap-2">
-                    <TabsTrigger value="performance" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Target className="h-4 w-4" />
-                      <span className="text-xs">تقييم الأداء</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="training" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <GraduationCap className="h-4 w-4" />
-                      <span className="text-xs">التدريب والتأهيل</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="talents" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Star className="h-4 w-4" />
-                      <span className="text-xs">إدارة المواهب</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="quality-of-life" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Heart className="h-4 w-4" />
-                      <span className="text-xs">جودة الحياة</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="skills-inventory" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Briefcase className="h-4 w-4" />
-                      <span className="text-xs">مخزون المهارات</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="organization" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Network className="h-4 w-4" />
-                      <span className="text-xs">التطوير المؤسسي</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="budget-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <DollarSign className="h-4 w-4" />
-                      <span className="text-xs">الميزانية والتخطيط</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="departments" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Building className="h-4 w-4" />
-                      <span className="text-xs">الإدارات والوحدات</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="smart-learning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Brain className="h-4 w-4" />
-                      <span className="text-xs">التعلم الذكي</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="internal-mobility" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <ArrowRight className="h-4 w-4" />
-                      <span className="text-xs">التنقل الداخلي</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="succession-planning" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Crown className="h-4 w-4" />
-                      <span className="text-xs">تخطيط التعاقب</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="call-center" className="flex flex-col gap-1 py-3 text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-accent/20 transition-all duration-300 rounded-lg">
-                      <Phone className="h-4 w-4" />
-                      <span className="text-xs">الكول سنتر</span>
-                    </TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-6 lg:grid-cols-12 mb-6 bg-[#1a1a1a] border border-[#cfcbcb]">
+                      <TabsTrigger value="performance" className="flex items-center gap-2">
+                        <Target className="h-4 w-4" />
+                        تقييم الأداء
+                      </TabsTrigger>
+                      <TabsTrigger value="training" className="flex items-center gap-2">
+                        <GraduationCap className="h-4 w-4" />
+                        التدريب والتأهيل
+                      </TabsTrigger>
+                      <TabsTrigger value="talents" className="flex items-center gap-2">
+                        <Star className="h-4 w-4" />
+                        إدارة المواهب
+                      </TabsTrigger>
+                      <TabsTrigger value="quality-of-life" className="flex items-center gap-2">
+                        <Heart className="h-4 w-4" />
+                        جودة الحياة
+                      </TabsTrigger>
+                      <TabsTrigger value="skills-inventory" className="flex items-center gap-2">
+                        <Briefcase className="h-4 w-4" />
+                        مخزون المهارات
+                      </TabsTrigger>
+                      <TabsTrigger value="organization" className="flex items-center gap-2">
+                        <Network className="h-4 w-4" />
+                        التطوير المؤسسي
+                      </TabsTrigger>
+                      <TabsTrigger value="budget-planning" className="flex items-center gap-2">
+                        <DollarSign className="h-4 w-4" />
+                        الميزانية والتخطيط
+                      </TabsTrigger>
+                      <TabsTrigger value="departments" className="flex items-center gap-2">
+                        <Building className="h-4 w-4" />
+                        الإدارات والوحدات
+                      </TabsTrigger>
+                      <TabsTrigger value="smart-learning" className="flex items-center gap-2">
+                        <Brain className="h-4 w-4" />
+                        التعلم الذكي
+                      </TabsTrigger>
+                      <TabsTrigger value="internal-mobility" className="flex items-center gap-2">
+                        <ArrowRight className="h-4 w-4" />
+                        التنقل الداخلي
+                      </TabsTrigger>
+                      <TabsTrigger value="succession-planning" className="flex items-center gap-2">
+                        <Crown className="h-4 w-4" />
+                        تخطيط التعاقب
+                      </TabsTrigger>
+                      <TabsTrigger value="call-center" className="flex items-center gap-2">
+                        <Phone className="h-4 w-4" />
+                        الكول سنتر
+                      </TabsTrigger>
                     </TabsList>
-                  </div>
 
                   <TabsContent value="performance">
                     <ComprehensiveSmartEvaluation onBack={() => setActiveTab('dashboard')} />
