@@ -131,59 +131,22 @@ export const OrganizationalDevelopmentSmart = () => {
   return (
     <div className="min-h-screen bg-background p-6 animate-fade-in" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Hero Section */}
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 p-8">
-          <div className="relative z-10 flex items-center gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-4 mb-4">
-                <Button variant="outline" size="sm" onClick={handleBack} className="hover-scale">
-                  <ArrowLeft className="h-4 w-4" />
-                  {isRTL ? 'رجوع' : 'Back'}
-                </Button>
-                <Button variant="outline" size="sm" onClick={toggleLanguage} className="hover-scale">
-                  <Languages className="h-4 w-4 mr-2" />
-                  {isRTL ? 'EN' : 'عربي'}
-                </Button>
-              </div>
-              
-              <h1 className="text-4xl font-bold text-gradient mb-4">
-                <Brain className="inline h-8 w-8 mr-3 text-primary" />
-                {isRTL ? 'التطوير المؤسسي الذكي' : 'Smart Organizational Development'}
-              </h1>
-              <p className="text-lg text-muted-foreground mb-6">
-                {isRTL 
-                  ? 'منظومة تطوير متطورة تستخدم الذكاء الاصطناعي لقياس الأثر وتحليل السعادة الوظيفية'
-                  : 'Advanced AI-powered development system for impact measurement and workplace happiness analysis'
-                }
-              </p>
-              
-              <div className="flex flex-wrap gap-3">
-                {globalActions.map((action) => (
-                  <Button
-                    key={action.id}
-                    variant={action.variant}
-                    size="sm"
-                    onClick={() => handleGlobalAction(action.id)}
-                    className="hover-scale"
-                  >
-                    <action.icon className="h-4 w-4 mr-2" />
-                    {action.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-            
-            <div className="hidden lg:block">
-              <div className="w-96 h-48 bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg shadow-lg hover-scale flex items-center justify-center">
-                <div className="text-center">
-                  <Brain className="h-16 w-16 text-primary mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">
-                    {isRTL ? 'التطوير المؤسسي الذكي' : 'Smart OD System'}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">
+            {isRTL ? 'نظام التطوير المؤسسي الذكي الشامل' : 'Smart Organizational Development System'}
+          </h1>
+          <p className="text-muted-foreground">
+            {isRTL 
+              ? 'منظومة تطوير متطورة تستخدم الذكاء الاصطناعي لقياس الأثر وتحليل السعادة الوظيفية'
+              : 'Advanced AI-powered development system for impact measurement and workplace happiness analysis'
+            }
+          </p>
         </div>
 
         {/* Smart Organizational Development Content */}
