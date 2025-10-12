@@ -346,29 +346,16 @@ export const ComprehensiveSmartEvaluation: React.FC<ComprehensiveSmartEvaluation
   }, []);
 
   const renderHeader = () => (
-    <div className="flex items-center justify-between mb-8 p-6 bg-[#1a1a1a] rounded-3xl border border-[#cfcbcb]">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-[#cfcbcb] hover:bg-[#b1a086]">
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          رجوع
-        </Button>
-        <div className="flex items-center gap-4">
-          <BoudLogo size="lg" />
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              نظام تقييم الأداء المتكامل
-            </h1>
-            <p className="text-muted-foreground text-lg">
-              إدارة شاملة للمؤشرات والتقييمات المتعددة مع القرارات التلقائية
-            </p>
-          </div>
-        </div>
+    <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
-      <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 px-4 py-2">
-          <Brain className="h-4 w-4 ml-2" />
-          نظام ذكي متكامل
-        </Badge>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام تقييم الأداء المتكامل</h1>
+        <p className="text-muted-foreground">إدارة شاملة للمؤشرات والتقييمات المتعددة مع القرارات التلقائية</p>
       </div>
     </div>
   );
