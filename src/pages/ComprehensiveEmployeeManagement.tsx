@@ -736,7 +736,7 @@ const ComprehensiveEmployeeManagement = () => {
                     <Brain className="h-8 w-8 text-primary-foreground" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground">إدارة التقنية والتحول الرقمي</h2>
+                    <h2 className="text-2xl font-bold text-foreground">قسم التحول الرقمي</h2>
                     <p className="text-muted-foreground">النظام المتقدم لإدارة التقنيات الرقمية والذكاء الاصطناعي والتكامل</p>
                   </div>
                 </div>
