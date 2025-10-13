@@ -11,21 +11,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Progress } from '@/components/ui/progress';
-import { 
-  ArrowLeft, Shield, Heart, Users, FileText, Calendar, DollarSign, 
-  Eye, Save, Download, Share, Settings, BarChart, Clock, Search, Plus, User,
-  AlertTriangle, CheckCircle, Building, Phone, Mail, Globe, CreditCard,
-  TrendingUp, Activity, Bell, Zap, Target, Briefcase, Star, Award,
-  PieChart, LineChart, Filter, RefreshCw, Upload, Edit, Trash2
-} from 'lucide-react';
+import { ArrowLeft, Shield, Heart, Users, FileText, Calendar, DollarSign, Eye, Save, Download, Share, Settings, BarChart, Clock, Search, Plus, User, AlertTriangle, CheckCircle, Building, Phone, Mail, Globe, CreditCard, TrendingUp, Activity, Bell, Zap, Target, Briefcase, Star, Award, PieChart, LineChart, Filter, RefreshCw, Upload, Edit, Trash2 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-
 interface InsuranceManagementProps {
   onBack: () => void;
 }
-
 interface InsuranceProvider {
   id: string;
   provider_name: string;
@@ -37,7 +29,6 @@ interface InsuranceProvider {
   service_areas: string[];
   is_active: boolean;
 }
-
 interface InsurancePolicy {
   id: string;
   policy_number: string;
@@ -50,7 +41,6 @@ interface InsurancePolicy {
   status: string;
   provider_id: string;
 }
-
 interface InsuranceClaim {
   id: string;
   claim_number: string;
@@ -63,7 +53,6 @@ interface InsuranceClaim {
   treatment_type: string;
   diagnosis: string;
 }
-
 interface GosiIntegration {
   id: string;
   employee_id: string;
@@ -75,10 +64,16 @@ interface GosiIntegration {
   total_months_contributed: number;
   status: string;
 }
-
-export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
-  const { toast } = useToast();
+export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({
+  onBack
+}) => {
+  const {
+    t,
+    i18n
+  } = useTranslation();
+  const {
+    toast
+  } = useToast();
   const isRTL = i18n.language === 'ar';
 
   // State management
@@ -104,7 +99,6 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
     contact_phone: '',
     service_areas: [] as string[]
   });
-
   const [newPolicy, setNewPolicy] = useState({
     policy_name: '',
     insurance_type: 'health',
@@ -114,7 +108,6 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
     premium_amount: 0,
     provider_id: ''
   });
-
   const [newClaim, setNewClaim] = useState({
     claim_type: '',
     incident_date: '',
@@ -127,60 +120,60 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
   // Fetch data functions
   const fetchProviders = async () => {
     try {
-      const { data, error } = await supabase
-        .from('insurance_providers')
-        .select('*')
-        .order('created_at', { ascending: false });
-
+      const {
+        data,
+        error
+      } = await supabase.from('insurance_providers').select('*').order('created_at', {
+        ascending: false
+      });
       if (error) throw error;
       setProviders(data || []);
     } catch (error) {
       console.error('Error fetching providers:', error);
     }
   };
-
   const fetchPolicies = async () => {
     try {
-      const { data, error } = await supabase
-        .from('insurance_policies')
-        .select('*')
-        .order('created_at', { ascending: false });
-
+      const {
+        data,
+        error
+      } = await supabase.from('insurance_policies').select('*').order('created_at', {
+        ascending: false
+      });
       if (error) throw error;
       setPolicies(data || []);
     } catch (error) {
       console.error('Error fetching policies:', error);
     }
   };
-
   const fetchClaims = async () => {
     try {
-      const { data, error } = await supabase
-        .from('insurance_claims')
-        .select('*')
-        .order('created_at', { ascending: false });
-
+      const {
+        data,
+        error
+      } = await supabase.from('insurance_claims').select('*').order('created_at', {
+        ascending: false
+      });
       if (error) throw error;
       setClaims(data || []);
     } catch (error) {
       console.error('Error fetching claims:', error);
     }
   };
-
   const fetchGosiData = async () => {
     try {
-      const { data, error } = await supabase
-        .from('gosi_integration')
-        .select('*')
-        .order('created_at', { ascending: false });
-
+      const {
+        data,
+        error
+      } = await supabase.from('gosi_integration').select('*').order('created_at', {
+        ascending: false
+      });
       if (error) throw error;
       setGosiData(data || []);
     } catch (error) {
       console.error('Error fetching GOSI data:', error);
     }
   };
-
   useEffect(() => {
     fetchProviders();
     fetchPolicies();
@@ -189,44 +182,94 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
   }, []);
 
   // Analytics data
-  const insuranceAnalytics = [
-    { month: 'يناير', healthClaims: 25, gosiContributions: 450000, premiums: 180000 },
-    { month: 'فبراير', healthClaims: 32, gosiContributions: 465000, premiums: 185000 },
-    { month: 'مارس', healthClaims: 28, gosiContributions: 470000, premiums: 190000 },
-    { month: 'أبريل', healthClaims: 35, gosiContributions: 480000, premiums: 195000 },
-    { month: 'مايو', healthClaims: 22, gosiContributions: 485000, premiums: 200000 },
-    { month: 'يونيو', healthClaims: 18, gosiContributions: 490000, premiums: 205000 }
-  ];
-
-  const insuranceMetrics = [
-    { category: 'إجمالي المؤمن عليهم', count: 245, percentage: 100, color: '#009F87' },
-    { category: 'المطالبات المعتمدة', count: 189, percentage: 92, color: '#10b981' },
-    { category: 'التأمينات الاجتماعية', count: 245, percentage: 100, color: '#1e40af' },
-    { category: 'التأمين الصحي', count: 238, percentage: 97, color: '#8b5cf6' }
-  ];
-
-  const claimTypes = [
-    { type: 'علاج طبي', value: claims.filter(c => c.claim_type === 'علاج طبي').length, count: claims.filter(c => c.claim_type === 'علاج طبي').length },
-    { type: 'أدوية', value: claims.filter(c => c.claim_type === 'أدوية').length, count: claims.filter(c => c.claim_type === 'أدوية').length },
-    { type: 'طوارئ', value: claims.filter(c => c.claim_type === 'طوارئ').length, count: claims.filter(c => c.claim_type === 'طوارئ').length }
-  ];
-
+  const insuranceAnalytics = [{
+    month: 'يناير',
+    healthClaims: 25,
+    gosiContributions: 450000,
+    premiums: 180000
+  }, {
+    month: 'فبراير',
+    healthClaims: 32,
+    gosiContributions: 465000,
+    premiums: 185000
+  }, {
+    month: 'مارس',
+    healthClaims: 28,
+    gosiContributions: 470000,
+    premiums: 190000
+  }, {
+    month: 'أبريل',
+    healthClaims: 35,
+    gosiContributions: 480000,
+    premiums: 195000
+  }, {
+    month: 'مايو',
+    healthClaims: 22,
+    gosiContributions: 485000,
+    premiums: 200000
+  }, {
+    month: 'يونيو',
+    healthClaims: 18,
+    gosiContributions: 490000,
+    premiums: 205000
+  }];
+  const insuranceMetrics = [{
+    category: 'إجمالي المؤمن عليهم',
+    count: 245,
+    percentage: 100,
+    color: '#009F87'
+  }, {
+    category: 'المطالبات المعتمدة',
+    count: 189,
+    percentage: 92,
+    color: '#10b981'
+  }, {
+    category: 'التأمينات الاجتماعية',
+    count: 245,
+    percentage: 100,
+    color: '#1e40af'
+  }, {
+    category: 'التأمين الصحي',
+    count: 238,
+    percentage: 97,
+    color: '#8b5cf6'
+  }];
+  const claimTypes = [{
+    type: 'علاج طبي',
+    value: claims.filter(c => c.claim_type === 'علاج طبي').length,
+    count: claims.filter(c => c.claim_type === 'علاج طبي').length
+  }, {
+    type: 'أدوية',
+    value: claims.filter(c => c.claim_type === 'أدوية').length,
+    count: claims.filter(c => c.claim_type === 'أدوية').length
+  }, {
+    type: 'طوارئ',
+    value: claims.filter(c => c.claim_type === 'طوارئ').length,
+    count: claims.filter(c => c.claim_type === 'طوارئ').length
+  }];
   const BOUD_COLORS = ['#009F87', '#1e40af', '#f59e0b', '#10b981', '#8b5cf6'];
-
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-success/20 text-success border-success/30';
-      case 'pending': return 'bg-warning/20 text-warning border-warning/30';
-      case 'approved': return 'bg-accent/20 text-accent-foreground border-accent/30';
-      case 'rejected': return 'bg-destructive/20 text-destructive border-destructive/30';
-      case 'paid': return 'bg-success/20 text-success border-success/30';
-      case 'expired': return 'bg-muted text-muted-foreground border-border';
-      default: return 'bg-muted text-muted-foreground border-border';
+      case 'active':
+        return 'bg-success/20 text-success border-success/30';
+      case 'pending':
+        return 'bg-warning/20 text-warning border-warning/30';
+      case 'approved':
+        return 'bg-accent/20 text-accent-foreground border-accent/30';
+      case 'rejected':
+        return 'bg-destructive/20 text-destructive border-destructive/30';
+      case 'paid':
+        return 'bg-success/20 text-success border-success/30';
+      case 'expired':
+        return 'bg-muted text-muted-foreground border-border';
+      default:
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'active': isRTL ? 'نشط' : 'Active',
       'pending': isRTL ? 'معلق' : 'Pending',
       'approved': isRTL ? 'معتمد' : 'Approved',
@@ -237,9 +280,10 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
     };
     return statusMap[status] || status;
   };
-
   const getInsuranceTypeText = (type: string) => {
-    const typeMap: { [key: string]: string } = {
+    const typeMap: {
+      [key: string]: string;
+    } = {
       'health': isRTL ? 'تأمين صحي' : 'Health Insurance',
       'social': isRTL ? 'تأمينات اجتماعية' : 'Social Insurance',
       'life': isRTL ? 'تأمين الحياة' : 'Life Insurance',
@@ -249,9 +293,10 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
     };
     return typeMap[type] || type;
   };
-
   const getCoverageLevelText = (level: string) => {
-    const levelMap: { [key: string]: string } = {
+    const levelMap: {
+      [key: string]: string;
+    } = {
       'basic': isRTL ? 'أساسي' : 'Basic',
       'standard': isRTL ? 'قياسي' : 'Standard',
       'premium': isRTL ? 'مميز' : 'Premium',
@@ -259,9 +304,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
     };
     return levelMap[level] || level;
   };
-
-  return (
-    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
+  return <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -272,7 +315,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
         <div className="space-y-6">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة التأمين والتأمينات الشامل</h1>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">قسم إدارة التأمين والتأمينات </h1>
             <p className="text-muted-foreground">إدارة متكاملة للتأمين الصحي والتأمينات الاجتماعية مع التكامل مع المنصات الحكومية</p>
           </div>
         </div>
@@ -397,14 +440,12 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                         <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
                         <XAxis dataKey="month" stroke="#64748b" fontSize={12} />
                         <YAxis stroke="#64748b" fontSize={12} />
-                        <Tooltip 
-                          contentStyle={{ 
-                            backgroundColor: '#ffffff', 
-                            border: '1px solid #009F87',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                          }}
-                        />
+                        <Tooltip contentStyle={{
+                          backgroundColor: '#ffffff',
+                          border: '1px solid #009F87',
+                          borderRadius: '8px',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                        }} />
                         <Area type="monotone" dataKey="healthClaims" stackId="1" stroke="#009F87" fill="#009F87" fillOpacity={0.6} />
                         <Area type="monotone" dataKey="premiums" stackId="2" stroke="#1e40af" fill="#1e40af" fillOpacity={0.6} />
                       </AreaChart>
@@ -425,36 +466,23 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                   <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <RechartsPieChart>
-                        <Pie
-                          data={claimTypes}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={120}
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {claimTypes.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />
-                          ))}
+                        <Pie data={claimTypes} cx="50%" cy="50%" innerRadius={60} outerRadius={120} paddingAngle={5} dataKey="value">
+                          {claimTypes.map((entry, index) => <Cell key={`cell-${index}`} fill={BOUD_COLORS[index % BOUD_COLORS.length]} />)}
                         </Pie>
                         <Tooltip />
                       </RechartsPieChart>
                     </ResponsiveContainer>
                   </div>
                   <div className="mt-4">
-                    {claimTypes.map((type, index) => (
-                      <div key={type.type} className="flex items-center justify-between py-2">
+                    {claimTypes.map((type, index) => <div key={type.type} className="flex items-center justify-between py-2">
                         <div className="flex items-center gap-2">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: BOUD_COLORS[index % BOUD_COLORS.length] }}
-                          ></div>
+                          <div className="w-3 h-3 rounded-full" style={{
+                          backgroundColor: BOUD_COLORS[index % BOUD_COLORS.length]
+                        }}></div>
                           <span className="text-sm">{type.type}</span>
                         </div>
                         <span className="text-sm font-semibold">{type.count}</span>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -462,8 +490,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
 
             {/* Performance Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {insuranceMetrics.map((metric, index) => (
-                <Card key={metric.category} className="bg-card backdrop-blur shadow-lg border-border">
+              {insuranceMetrics.map((metric, index) => <Card key={metric.category} className="bg-card backdrop-blur shadow-lg border-border">
                   <CardContent className="p-6 bg-muted/60 backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-accent animate-fade-in transition-all duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-sm font-medium text-muted-foreground">{metric.category}</h3>
@@ -482,8 +509,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                       <Progress value={metric.percentage} className="h-2" />
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </TabsContent>
 
@@ -514,8 +540,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {policies.map((policy) => (
-                      <TableRow key={policy.id}>
+                    {policies.map(policy => <TableRow key={policy.id}>
                         <TableCell className="font-medium">{policy.policy_number}</TableCell>
                         <TableCell>{policy.policy_name}</TableCell>
                         <TableCell>{getInsuranceTypeText(policy.insurance_type)}</TableCell>
@@ -536,8 +561,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                             </Button>
                           </div>
                         </TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -614,8 +638,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {gosiData.map((gosi) => (
-                      <TableRow key={gosi.id}>
+                    {gosiData.map(gosi => <TableRow key={gosi.id}>
                         <TableCell className="font-medium">{gosi.gosi_number}</TableCell>
                         <TableCell>{gosi.salary_subject_to_gosi?.toLocaleString()} {isRTL ? 'ريال' : 'SAR'}</TableCell>
                         <TableCell>{gosi.monthly_employee_contribution?.toLocaleString()} {isRTL ? 'ريال' : 'SAR'}</TableCell>
@@ -626,8 +649,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                             {getStatusText(gosi.status)}
                           </Badge>
                         </TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -661,8 +683,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {claims.map((claim) => (
-                      <TableRow key={claim.id}>
+                    {claims.map(claim => <TableRow key={claim.id}>
                         <TableCell className="font-medium">{claim.claim_number}</TableCell>
                         <TableCell>{claim.claim_type}</TableCell>
                         <TableCell>{claim.incident_date}</TableCell>
@@ -683,8 +704,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                             </Button>
                           </div>
                         </TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -704,8 +724,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {providers.map((provider) => (
-                <Card key={provider.id} className="bg-card backdrop-blur shadow-lg border-border hover:shadow-xl transition-shadow">
+              {providers.map(provider => <Card key={provider.id} className="bg-card backdrop-blur shadow-lg border-border hover:shadow-xl transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -720,7 +739,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                         </div>
                       </div>
                       <Badge className={provider.is_active ? 'bg-success/20 text-success border-success/30' : 'bg-destructive/20 text-destructive border-destructive/30'}>
-                        {provider.is_active ? (isRTL ? 'نشط' : 'Active') : (isRTL ? 'غير نشط' : 'Inactive')}
+                        {provider.is_active ? isRTL ? 'نشط' : 'Active' : isRTL ? 'غير نشط' : 'Inactive'}
                       </Badge>
                     </div>
                     
@@ -754,8 +773,7 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                       </Button>
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </TabsContent>
 
@@ -793,14 +811,12 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
                         <CartesianGrid strokeDasharray="3 3" stroke="#e0e7ff" />
                         <XAxis dataKey="month" stroke="#64748b" fontSize={12} />
                         <YAxis stroke="#64748b" fontSize={12} />
-                        <Tooltip 
-                          contentStyle={{ 
-                            backgroundColor: '#ffffff', 
-                            border: '1px solid #009F87',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                          }}
-                        />
+                        <Tooltip contentStyle={{
+                          backgroundColor: '#ffffff',
+                          border: '1px solid #009F87',
+                          borderRadius: '8px',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                        }} />
                         <Bar dataKey="healthClaims" fill="#009F87" />
                       </RechartsBarChart>
                     </ResponsiveContainer>
@@ -885,6 +901,5 @@ export const InsuranceManagement: React.FC<InsuranceManagementProps> = ({ onBack
         </Tabs>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
