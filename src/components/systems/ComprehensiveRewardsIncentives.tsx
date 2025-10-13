@@ -11,27 +11,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Progress } from '@/components/ui/progress';
-import { 
-  ArrowLeft, Award, Gift, Users, FileText, Calendar, DollarSign, 
-  Eye, Save, Download, Share, Settings, BarChart, Clock, Search, Plus, User,
-  AlertTriangle, CheckCircle, Building, Phone, Mail, Globe, CreditCard,
-  TrendingUp, Activity, Bell, Zap, Target, Briefcase, Star, 
-  PieChart, LineChart, Filter, RefreshCw, Upload, Edit, Trash2, Check,
-  X, Calculator, Percent, Crown, Trophy, Medal, Coins, Heart, Flame,
-  ChevronRight, Calendar as CalendarIcon, FileBarChart, Send, UserCheck,
-  Brain, Sparkles, BarChart3, Lightbulb, Gauge, Layers, Shield,
-  Smartphone, Calendar as CalendarDays, MapPin, Clock4, Users2, BookOpen
-} from 'lucide-react';
+import { ArrowLeft, Award, Gift, Users, FileText, Calendar, DollarSign, Eye, Save, Download, Share, Settings, BarChart, Clock, Search, Plus, User, AlertTriangle, CheckCircle, Building, Phone, Mail, Globe, CreditCard, TrendingUp, Activity, Bell, Zap, Target, Briefcase, Star, PieChart, LineChart, Filter, RefreshCw, Upload, Edit, Trash2, Check, X, Calculator, Percent, Crown, Trophy, Medal, Coins, Heart, Flame, ChevronRight, Calendar as CalendarIcon, FileBarChart, Send, UserCheck, Brain, Sparkles, BarChart3, Lightbulb, Gauge, Layers, Shield, Smartphone, Calendar as CalendarDays, MapPin, Clock4, Users2, BookOpen } from 'lucide-react';
 import { SystemHeader } from '@/components/shared/SystemHeader';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, RadialBarChart, RadialBar } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useEligibilityCalculation } from '@/hooks/useEligibilityCalculation';
-
 interface ComprehensiveRewardsIncentivesProps {
   onBack: () => void;
 }
-
 interface SmartReward {
   id: string;
   employee_id: string;
@@ -53,7 +41,6 @@ interface SmartReward {
   performance_period_start: string;
   performance_period_end: string;
 }
-
 interface AIRecommendation {
   employee_id: string;
   employee_name: string;
@@ -63,17 +50,23 @@ interface AIRecommendation {
   reasoning: string;
   confidence_score: number;
 }
-
-export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncentivesProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
-  const { toast } = useToast();
+export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncentivesProps> = ({
+  onBack
+}) => {
+  const {
+    t,
+    i18n
+  } = useTranslation();
+  const {
+    toast
+  } = useToast();
   const isRTL = i18n.language === 'ar';
-  const { 
-    isCalculating, 
-    eligibilityResults, 
-    calculateAllEligibility, 
-    calculateAttendanceEligibility, 
-    calculatePerformanceEligibility 
+  const {
+    isCalculating,
+    eligibilityResults,
+    calculateAllEligibility,
+    calculateAttendanceEligibility,
+    calculatePerformanceEligibility
   } = useEligibilityCalculation();
 
   // State management
@@ -97,128 +90,183 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
     performance_period_start: '',
     performance_period_end: ''
   });
-
   const [analysisType, setAnalysisType] = useState('eligibility');
   const [aiAnalysis, setAIAnalysis] = useState<string>('');
 
   // Mock data for demonstration
   useEffect(() => {
-    const mockSmartRewards: SmartReward[] = [
-      {
-        id: '1',
-        employee_id: 'emp_1',
-        employee_name: 'أحمد محمد العلي',
-        department: 'تقنية المعلومات',
-        position: 'مطور برمجيات أول',
-        reward_type: 'performance_bonus',
-        amount: 8000,
-        status: 'approved',
-        reason: 'تفوق في مشروع تطوير النظام الجديد',
-        ai_score: 92,
-        eligibility_factors: {
-          performance: 95,
-          attendance: 88,
-          projects: 94,
-          behavior: 90
-        },
-        created_at: '2024-01-15T10:30:00Z',
-        performance_period_start: '2024-01-01',
-        performance_period_end: '2024-01-31'
+    const mockSmartRewards: SmartReward[] = [{
+      id: '1',
+      employee_id: 'emp_1',
+      employee_name: 'أحمد محمد العلي',
+      department: 'تقنية المعلومات',
+      position: 'مطور برمجيات أول',
+      reward_type: 'performance_bonus',
+      amount: 8000,
+      status: 'approved',
+      reason: 'تفوق في مشروع تطوير النظام الجديد',
+      ai_score: 92,
+      eligibility_factors: {
+        performance: 95,
+        attendance: 88,
+        projects: 94,
+        behavior: 90
       },
-      {
-        id: '2',
-        employee_id: 'emp_2',
-        employee_name: 'فاطمة أحمد السالم',
-        department: 'المبيعات',
-        position: 'مديرة مبيعات',
-        reward_type: 'achievement_bonus',
-        amount: 6500,
-        status: 'pending',
-        reason: 'تحقيق 120% من أهداف المبيعات',
-        ai_score: 88,
-        eligibility_factors: {
-          performance: 92,
-          attendance: 95,
-          projects: 85,
-          behavior: 88
-        },
-        created_at: '2024-01-20T14:15:00Z',
-        performance_period_start: '2024-01-01',
-        performance_period_end: '2024-01-31'
+      created_at: '2024-01-15T10:30:00Z',
+      performance_period_start: '2024-01-01',
+      performance_period_end: '2024-01-31'
+    }, {
+      id: '2',
+      employee_id: 'emp_2',
+      employee_name: 'فاطمة أحمد السالم',
+      department: 'المبيعات',
+      position: 'مديرة مبيعات',
+      reward_type: 'achievement_bonus',
+      amount: 6500,
+      status: 'pending',
+      reason: 'تحقيق 120% من أهداف المبيعات',
+      ai_score: 88,
+      eligibility_factors: {
+        performance: 92,
+        attendance: 95,
+        projects: 85,
+        behavior: 88
       },
-      {
-        id: '3',
-        employee_id: 'emp_3',
-        employee_name: 'خالد عبدالله المطيري',
-        department: 'التسويق',
-        position: 'أخصائي تسويق رقمي',
-        reward_type: 'innovation_bonus',
-        amount: 4500,
-        status: 'paid',
-        reason: 'ابتكار استراتيجية تسويقية جديدة',
-        ai_score: 85,
-        eligibility_factors: {
-          performance: 88,
-          attendance: 92,
-          projects: 80,
-          behavior: 85
-        },
-        created_at: '2024-01-10T09:45:00Z',
-        performance_period_start: '2023-12-01',
-        performance_period_end: '2023-12-31'
-      }
-    ];
-
-    const mockAIRecommendations: AIRecommendation[] = [
-      {
-        employee_id: 'emp_4',
-        employee_name: 'سارة محمد الأحمد',
-        recommendation_type: 'quarterly_excellence',
-        priority: 'high',
-        suggested_amount: 7500,
-        reasoning: 'تفوق مستمر في الأداء مع حضور مثالي ومساهمة فعالة في المشاريع',
-        confidence_score: 94
+      created_at: '2024-01-20T14:15:00Z',
+      performance_period_start: '2024-01-01',
+      performance_period_end: '2024-01-31'
+    }, {
+      id: '3',
+      employee_id: 'emp_3',
+      employee_name: 'خالد عبدالله المطيري',
+      department: 'التسويق',
+      position: 'أخصائي تسويق رقمي',
+      reward_type: 'innovation_bonus',
+      amount: 4500,
+      status: 'paid',
+      reason: 'ابتكار استراتيجية تسويقية جديدة',
+      ai_score: 85,
+      eligibility_factors: {
+        performance: 88,
+        attendance: 92,
+        projects: 80,
+        behavior: 85
       },
-      {
-        employee_id: 'emp_5',
-        employee_name: 'عمر سعد البراك',
-        recommendation_type: 'team_leadership',
-        priority: 'medium',
-        suggested_amount: 5000,
-        reasoning: 'قيادة فريق بنجاح وتحقيق أهداف المشروع في الوقت المحدد',
-        confidence_score: 87
-      }
-    ];
-
+      created_at: '2024-01-10T09:45:00Z',
+      performance_period_start: '2023-12-01',
+      performance_period_end: '2023-12-31'
+    }];
+    const mockAIRecommendations: AIRecommendation[] = [{
+      employee_id: 'emp_4',
+      employee_name: 'سارة محمد الأحمد',
+      recommendation_type: 'quarterly_excellence',
+      priority: 'high',
+      suggested_amount: 7500,
+      reasoning: 'تفوق مستمر في الأداء مع حضور مثالي ومساهمة فعالة في المشاريع',
+      confidence_score: 94
+    }, {
+      employee_id: 'emp_5',
+      employee_name: 'عمر سعد البراك',
+      recommendation_type: 'team_leadership',
+      priority: 'medium',
+      suggested_amount: 5000,
+      reasoning: 'قيادة فريق بنجاح وتحقيق أهداف المشروع في الوقت المحدد',
+      confidence_score: 87
+    }];
     setSmartRewards(mockSmartRewards);
     setAIRecommendations(mockAIRecommendations);
   }, []);
 
   // Analytics data
-  const rewardsAnalytics = [
-    { month: 'يناير', totalRewards: 145000, performance: 95000, achievement: 30000, innovation: 20000 },
-    { month: 'فبراير', totalRewards: 132000, performance: 85000, achievement: 27000, innovation: 20000 },
-    { month: 'مارس', totalRewards: 158000, performance: 108000, achievement: 32000, innovation: 18000 },
-    { month: 'أبريل', totalRewards: 142000, performance: 92000, achievement: 30000, innovation: 20000 },
-    { month: 'مايو', totalRewards: 165000, performance: 115000, achievement: 35000, innovation: 15000 },
-    { month: 'يونيو', totalRewards: 178000, performance: 125000, achievement: 38000, innovation: 15000 }
-  ];
-
-  const performanceMetrics = [
-    { name: 'الأداء العام', value: 88, target: 85, color: '#009F87' },
-    { name: 'الحضور والانتظام', value: 92, target: 90, color: '#1e40af' },
-    { name: 'إنجاز المشاريع', value: 85, target: 80, color: '#f59e0b' },
-    { name: 'السلوك المهني', value: 90, target: 85, color: '#10b981' }
-  ];
-
-  const departmentRewards = [
-    { department: 'تقنية المعلومات', rewards: 28, amount: 420000, avgReward: 15000, efficiency: 94 },
-    { department: 'المبيعات', rewards: 22, amount: 330000, avgReward: 15000, efficiency: 88 },
-    { department: 'التسويق', rewards: 18, amount: 270000, avgReward: 15000, efficiency: 85 },
-    { department: 'المالية', rewards: 15, amount: 225000, avgReward: 15000, efficiency: 90 },
-    { department: 'الموارد البشرية', rewards: 12, amount: 180000, avgReward: 15000, efficiency: 87 }
-  ];
-
+  const rewardsAnalytics = [{
+    month: 'يناير',
+    totalRewards: 145000,
+    performance: 95000,
+    achievement: 30000,
+    innovation: 20000
+  }, {
+    month: 'فبراير',
+    totalRewards: 132000,
+    performance: 85000,
+    achievement: 27000,
+    innovation: 20000
+  }, {
+    month: 'مارس',
+    totalRewards: 158000,
+    performance: 108000,
+    achievement: 32000,
+    innovation: 18000
+  }, {
+    month: 'أبريل',
+    totalRewards: 142000,
+    performance: 92000,
+    achievement: 30000,
+    innovation: 20000
+  }, {
+    month: 'مايو',
+    totalRewards: 165000,
+    performance: 115000,
+    achievement: 35000,
+    innovation: 15000
+  }, {
+    month: 'يونيو',
+    totalRewards: 178000,
+    performance: 125000,
+    achievement: 38000,
+    innovation: 15000
+  }];
+  const performanceMetrics = [{
+    name: 'الأداء العام',
+    value: 88,
+    target: 85,
+    color: '#009F87'
+  }, {
+    name: 'الحضور والانتظام',
+    value: 92,
+    target: 90,
+    color: '#1e40af'
+  }, {
+    name: 'إنجاز المشاريع',
+    value: 85,
+    target: 80,
+    color: '#f59e0b'
+  }, {
+    name: 'السلوك المهني',
+    value: 90,
+    target: 85,
+    color: '#10b981'
+  }];
+  const departmentRewards = [{
+    department: 'تقنية المعلومات',
+    rewards: 28,
+    amount: 420000,
+    avgReward: 15000,
+    efficiency: 94
+  }, {
+    department: 'المبيعات',
+    rewards: 22,
+    amount: 330000,
+    avgReward: 15000,
+    efficiency: 88
+  }, {
+    department: 'التسويق',
+    rewards: 18,
+    amount: 270000,
+    avgReward: 15000,
+    efficiency: 85
+  }, {
+    department: 'المالية',
+    rewards: 15,
+    amount: 225000,
+    avgReward: 15000,
+    efficiency: 90
+  }, {
+    department: 'الموارد البشرية',
+    rewards: 12,
+    amount: 180000,
+    avgReward: 15000,
+    efficiency: 87
+  }];
   const BOUD_COLORS = ['#009F87', '#1e40af', '#f59e0b', '#10b981', '#8b5cf6'];
 
   // AI Analysis function
@@ -231,27 +279,25 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
       });
       return;
     }
-
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('comprehensive-rewards-ai', {
+      const {
+        data,
+        error
+      } = await supabase.functions.invoke('comprehensive-rewards-ai', {
         body: {
           employeeId,
           analysisType: type,
           timeframe: '90_days'
         }
       });
-
       if (error) throw error;
-
       setAIAnalysis(data.analysis);
       setAIAnalysisDialog(true);
-      
       toast({
         title: 'تم إجراء التحليل بنجاح',
         description: 'تم إنشاء تحليل ذكي للمكافآت'
       });
-
     } catch (error) {
       console.error('Error running AI analysis:', error);
       toast({
@@ -263,19 +309,24 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
       setIsLoading(false);
     }
   };
-
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
-      case 'approved': return 'bg-green-100 text-green-800 border-green-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'paid': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'rejected': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'approved':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'paid':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'rejected':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'approved': 'معتمد',
       'pending': 'معلق',
       'paid': 'مدفوع',
@@ -283,9 +334,10 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
     };
     return statusMap[status] || status;
   };
-
   const getRewardTypeText = (type: string) => {
-    const typeMap: { [key: string]: string } = {
+    const typeMap: {
+      [key: string]: string;
+    } = {
       'performance_bonus': 'مكافأة أداء',
       'achievement_bonus': 'مكافأة إنجاز',
       'innovation_bonus': 'مكافأة ابتكار',
@@ -296,18 +348,19 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
     };
     return typeMap[type] || type;
   };
-
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'text-red-600 bg-red-50 border-red-200';
-      case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'low': return 'text-green-600 bg-green-50 border-green-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'high':
+        return 'text-red-600 bg-red-50 border-red-200';
+      case 'medium':
+        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'low':
+        return 'text-green-600 bg-green-50 border-green-200';
+      default:
+        return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };
-
-  return (
-    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
+  return <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -316,7 +369,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة المكافآت والحوافز الذكي</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم المكافآت والحوافز </h1>
           <p className="text-muted-foreground">نظام ذكي متطور لإدارة المكافآت والحوافز مع نظام النقاط والتكامل مع المتاجر الخارجية</p>
         </div>
 
@@ -469,38 +522,25 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={rewardsAnalytics}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                      <XAxis 
-                        dataKey="month" 
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fontSize: 12, fill: '#64748b' }}
-                      />
-                      <YAxis 
-                        axisLine={false}
-                        tickLine={false}
-                        tick={{ fontSize: 12, fill: '#64748b' }}
-                        tickFormatter={(value) => `${value.toLocaleString()}`}
-                      />
-                      <Tooltip 
-                        contentStyle={{
-                          backgroundColor: '#white',
-                          border: '1px solid #e2e8f0',
-                          borderRadius: '8px',
-                          boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
-                        }}
-                        formatter={(value: any, name: any) => [`${value.toLocaleString()} ريال`, name]}
-                      />
-                      <Area 
-                        type="monotone" 
-                        dataKey="totalRewards" 
-                        stroke="#009F87" 
-                        fill="url(#colorTotalRewards)" 
-                        strokeWidth={2}
-                      />
+                      <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
+                        fontSize: 12,
+                        fill: '#64748b'
+                      }} />
+                      <YAxis axisLine={false} tickLine={false} tick={{
+                        fontSize: 12,
+                        fill: '#64748b'
+                      }} tickFormatter={value => `${value.toLocaleString()}`} />
+                      <Tooltip contentStyle={{
+                        backgroundColor: '#white',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                      }} formatter={(value: any, name: any) => [`${value.toLocaleString()} ريال`, name]} />
+                      <Area type="monotone" dataKey="totalRewards" stroke="#009F87" fill="url(#colorTotalRewards)" strokeWidth={2} />
                       <defs>
                         <linearGradient id="colorTotalRewards" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#009F87" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="#009F87" stopOpacity={0.05}/>
+                          <stop offset="5%" stopColor="#009F87" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="#009F87" stopOpacity={0.05} />
                         </linearGradient>
                       </defs>
                     </AreaChart>
@@ -517,20 +557,33 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {[
-                    { name: 'أحمد محمد العلي', points: 2850, department: 'تقنية المعلومات', rank: 1 },
-                    { name: 'فاطمة أحمد السالم', points: 2640, department: 'المبيعات', rank: 2 },
-                    { name: 'خالد عبدالله المطيري', points: 2420, department: 'التسويق', rank: 3 },
-                    { name: 'سارة محمد الأحمد', points: 2180, department: 'الموارد البشرية', rank: 4 },
-                    { name: 'عمر سعد البراك', points: 1950, department: 'المالية', rank: 5 }
-                  ].map((employee, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-white/60 rounded-lg">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                        employee.rank === 1 ? 'bg-yellow-500 text-white' :
-                        employee.rank === 2 ? 'bg-gray-400 text-white' :
-                        employee.rank === 3 ? 'bg-amber-600 text-white' :
-                        'bg-blue-100 text-blue-700'
-                      }`}>
+                  {[{
+                    name: 'أحمد محمد العلي',
+                    points: 2850,
+                    department: 'تقنية المعلومات',
+                    rank: 1
+                  }, {
+                    name: 'فاطمة أحمد السالم',
+                    points: 2640,
+                    department: 'المبيعات',
+                    rank: 2
+                  }, {
+                    name: 'خالد عبدالله المطيري',
+                    points: 2420,
+                    department: 'التسويق',
+                    rank: 3
+                  }, {
+                    name: 'سارة محمد الأحمد',
+                    points: 2180,
+                    department: 'الموارد البشرية',
+                    rank: 4
+                  }, {
+                    name: 'عمر سعد البراك',
+                    points: 1950,
+                    department: 'المالية',
+                    rank: 5
+                  }].map((employee, index) => <div key={index} className="flex items-center gap-3 p-3 bg-white/60 rounded-lg">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${employee.rank === 1 ? 'bg-yellow-500 text-white' : employee.rank === 2 ? 'bg-gray-400 text-white' : employee.rank === 3 ? 'bg-amber-600 text-white' : 'bg-blue-100 text-blue-700'}`}>
                         {employee.rank}
                       </div>
                       <div className="flex-1">
@@ -541,15 +594,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                         <p className="font-bold text-lg text-primary">{employee.points.toLocaleString()}</p>
                         <p className="text-xs text-gray-500">نقطة</p>
                       </div>
-                      {employee.rank <= 3 && (
-                        <Crown className={`h-4 w-4 ${
-                          employee.rank === 1 ? 'text-yellow-500' :
-                          employee.rank === 2 ? 'text-gray-400' :
-                          'text-amber-600'
-                        }`} />
-                      )}
-                    </div>
-                  ))}
+                      {employee.rank <= 3 && <Crown className={`h-4 w-4 ${employee.rank === 1 ? 'text-yellow-500' : employee.rank === 2 ? 'text-gray-400' : 'text-amber-600'}`} />}
+                    </div>)}
                 </CardContent>
               </Card>
             </div>
@@ -638,57 +684,49 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
             {/* Reward Types Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  title: 'مكافآت الأداء',
-                  description: 'مكافآت مبنية على تقييم الأداء السنوي',
-                  icon: <Target className="h-6 w-6" />,
-                  color: 'from-blue-500 to-blue-600',
-                  count: 45,
-                  amount: '225,000 ريال'
-                },
-                {
-                  title: 'مكافآت الانضباط',
-                  description: 'مكافآت للحضور والانتظام المثالي',
-                  icon: <Clock4 className="h-6 w-6" />,
-                  color: 'from-green-500 to-green-600',
-                  count: 28,
-                  amount: '84,000 ريال'
-                },
-                {
-                  title: 'مكافآت المبيعات',
-                  description: 'عمولات وحوافز تحقيق أهداف المبيعات',
-                  icon: <TrendingUp className="h-6 w-6" />,
-                  color: 'from-purple-500 to-purple-600',
-                  count: 32,
-                  amount: '160,000 ريال'
-                },
-                {
-                  title: 'مكافآت الابتكار',
-                  description: 'تقدير الأفكار والحلول الإبداعية',
-                  icon: <Lightbulb className="h-6 w-6" />,
-                  color: 'from-orange-500 to-orange-600',
-                  count: 15,
-                  amount: '75,000 ريال'
-                },
-                {
-                  title: 'المكافآت الفورية',
-                  description: 'مكافآت سريعة للإنجازات المميزة',
-                  icon: <Zap className="h-6 w-6" />,
-                  color: 'from-red-500 to-red-600',
-                  count: 22,
-                  amount: '55,000 ريال'
-                },
-                {
-                  title: 'الحوافز غير المالية',
-                  description: 'شهادات تقدير وقسائم ومزايا أخرى',
-                  icon: <Heart className="h-6 w-6" />,
-                  color: 'from-pink-500 to-pink-600',
-                  count: 67,
-                  amount: 'غير مالية'
-                }
-              ].map((type, index) => (
-                <Card key={index} className={`border-0 shadow-lg bg-gradient-to-br ${type.color} text-white cursor-pointer hover:shadow-xl transition-shadow`}>
+              {[{
+                title: 'مكافآت الأداء',
+                description: 'مكافآت مبنية على تقييم الأداء السنوي',
+                icon: <Target className="h-6 w-6" />,
+                color: 'from-blue-500 to-blue-600',
+                count: 45,
+                amount: '225,000 ريال'
+              }, {
+                title: 'مكافآت الانضباط',
+                description: 'مكافآت للحضور والانتظام المثالي',
+                icon: <Clock4 className="h-6 w-6" />,
+                color: 'from-green-500 to-green-600',
+                count: 28,
+                amount: '84,000 ريال'
+              }, {
+                title: 'مكافآت المبيعات',
+                description: 'عمولات وحوافز تحقيق أهداف المبيعات',
+                icon: <TrendingUp className="h-6 w-6" />,
+                color: 'from-purple-500 to-purple-600',
+                count: 32,
+                amount: '160,000 ريال'
+              }, {
+                title: 'مكافآت الابتكار',
+                description: 'تقدير الأفكار والحلول الإبداعية',
+                icon: <Lightbulb className="h-6 w-6" />,
+                color: 'from-orange-500 to-orange-600',
+                count: 15,
+                amount: '75,000 ريال'
+              }, {
+                title: 'المكافآت الفورية',
+                description: 'مكافآت سريعة للإنجازات المميزة',
+                icon: <Zap className="h-6 w-6" />,
+                color: 'from-red-500 to-red-600',
+                count: 22,
+                amount: '55,000 ريال'
+              }, {
+                title: 'الحوافز غير المالية',
+                description: 'شهادات تقدير وقسائم ومزايا أخرى',
+                icon: <Heart className="h-6 w-6" />,
+                color: 'from-pink-500 to-pink-600',
+                count: 67,
+                amount: 'غير مالية'
+              }].map((type, index) => <Card key={index} className={`border-0 shadow-lg bg-gradient-to-br ${type.color} text-white cursor-pointer hover:shadow-xl transition-shadow`}>
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
@@ -705,8 +743,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       <ChevronRight className="h-5 w-5" />
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </TabsContent>
 
@@ -790,15 +827,31 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { action: 'الحضور في الوقت المحدد', points: 10, icon: <Clock4 className="h-4 w-4 text-green-500" /> },
-                    { action: 'تحقيق KPI شهري', points: 100, icon: <Target className="h-4 w-4 text-blue-500" /> },
-                    { action: 'إنجاز مشروع قبل الموعد', points: 200, icon: <CheckCircle className="h-4 w-4 text-purple-500" /> },
-                    { action: 'المشاركة بأفكار تطويرية', points: 50, icon: <Lightbulb className="h-4 w-4 text-orange-500" /> },
-                    { action: 'مساعدة الزملاء', points: 25, icon: <Heart className="h-4 w-4 text-pink-500" /> },
-                    { action: 'التدريب والتطوير', points: 75, icon: <BookOpen className="h-4 w-4 text-indigo-500" /> }
-                  ].map((rule, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  {[{
+                    action: 'الحضور في الوقت المحدد',
+                    points: 10,
+                    icon: <Clock4 className="h-4 w-4 text-green-500" />
+                  }, {
+                    action: 'تحقيق KPI شهري',
+                    points: 100,
+                    icon: <Target className="h-4 w-4 text-blue-500" />
+                  }, {
+                    action: 'إنجاز مشروع قبل الموعد',
+                    points: 200,
+                    icon: <CheckCircle className="h-4 w-4 text-purple-500" />
+                  }, {
+                    action: 'المشاركة بأفكار تطويرية',
+                    points: 50,
+                    icon: <Lightbulb className="h-4 w-4 text-orange-500" />
+                  }, {
+                    action: 'مساعدة الزملاء',
+                    points: 25,
+                    icon: <Heart className="h-4 w-4 text-pink-500" />
+                  }, {
+                    action: 'التدريب والتطوير',
+                    points: 75,
+                    icon: <BookOpen className="h-4 w-4 text-indigo-500" />
+                  }].map((rule, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center gap-3">
                         {rule.icon}
                         <span className="font-medium">{rule.action}</span>
@@ -806,8 +859,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       <Badge className="bg-primary/10 text-primary border-primary/20">
                         +{rule.points} نقطة
                       </Badge>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
 
@@ -820,20 +872,38 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { department: 'تقنية المعلومات', points: 4250, employees: 28, avgPoints: 152, rank: 1 },
-                    { department: 'المبيعات', points: 3890, employees: 22, avgPoints: 177, rank: 2 },
-                    { department: 'التسويق', points: 3640, employees: 18, avgPoints: 202, rank: 3 },
-                    { department: 'الموارد البشرية', points: 2980, employees: 15, avgPoints: 199, rank: 4 },
-                    { department: 'المالية', points: 2750, employees: 12, avgPoints: 229, rank: 5 }
-                  ].map((dept, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                        dept.rank === 1 ? 'bg-yellow-500 text-white' :
-                        dept.rank === 2 ? 'bg-gray-400 text-white' :
-                        dept.rank === 3 ? 'bg-amber-600 text-white' :
-                        'bg-blue-100 text-blue-700'
-                      }`}>
+                  {[{
+                    department: 'تقنية المعلومات',
+                    points: 4250,
+                    employees: 28,
+                    avgPoints: 152,
+                    rank: 1
+                  }, {
+                    department: 'المبيعات',
+                    points: 3890,
+                    employees: 22,
+                    avgPoints: 177,
+                    rank: 2
+                  }, {
+                    department: 'التسويق',
+                    points: 3640,
+                    employees: 18,
+                    avgPoints: 202,
+                    rank: 3
+                  }, {
+                    department: 'الموارد البشرية',
+                    points: 2980,
+                    employees: 15,
+                    avgPoints: 199,
+                    rank: 4
+                  }, {
+                    department: 'المالية',
+                    points: 2750,
+                    employees: 12,
+                    avgPoints: 229,
+                    rank: 5
+                  }].map((dept, index) => <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${dept.rank === 1 ? 'bg-yellow-500 text-white' : dept.rank === 2 ? 'bg-gray-400 text-white' : dept.rank === 3 ? 'bg-amber-600 text-white' : 'bg-blue-100 text-blue-700'}`}>
                         {dept.rank}
                       </div>
                       <div className="flex-1">
@@ -844,8 +914,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                         <p className="font-bold text-primary">{dept.points.toLocaleString()}</p>
                         <p className="text-xs text-gray-500">نقطة</p>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
             </div>
@@ -880,25 +949,54 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-                  {[
-                    { name: 'Amazon', logo: '🛒', status: 'active', conversion: '1 نقطة = 0.1 ريال' },
-                    { name: 'Noon', logo: '🌙', status: 'active', conversion: '1 نقطة = 0.08 ريال' },
-                    { name: 'Jarir', logo: '📚', status: 'active', conversion: '1 نقطة = 0.12 ريال' },
-                    { name: 'STC Pay', logo: '💳', status: 'active', conversion: '1 نقطة = 0.1 ريال' },
-                    { name: 'Extra', logo: '🛍️', status: 'pending', conversion: 'قريباً' },
-                    { name: 'Carrefour', logo: '🛒', status: 'active', conversion: '1 نقطة = 0.09 ريال' },
-                    { name: 'IKEA', logo: '🏠', status: 'pending', conversion: 'قريباً' },
-                    { name: 'H&M', logo: '👕', status: 'active', conversion: '1 نقطة = 0.11 ريال' }
-                  ].map((store, index) => (
-                    <Card key={index} className={`text-center p-4 ${store.status === 'active' ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-200'} cursor-pointer hover:shadow-md transition-shadow`}>
+                  {[{
+                    name: 'Amazon',
+                    logo: '🛒',
+                    status: 'active',
+                    conversion: '1 نقطة = 0.1 ريال'
+                  }, {
+                    name: 'Noon',
+                    logo: '🌙',
+                    status: 'active',
+                    conversion: '1 نقطة = 0.08 ريال'
+                  }, {
+                    name: 'Jarir',
+                    logo: '📚',
+                    status: 'active',
+                    conversion: '1 نقطة = 0.12 ريال'
+                  }, {
+                    name: 'STC Pay',
+                    logo: '💳',
+                    status: 'active',
+                    conversion: '1 نقطة = 0.1 ريال'
+                  }, {
+                    name: 'Extra',
+                    logo: '🛍️',
+                    status: 'pending',
+                    conversion: 'قريباً'
+                  }, {
+                    name: 'Carrefour',
+                    logo: '🛒',
+                    status: 'active',
+                    conversion: '1 نقطة = 0.09 ريال'
+                  }, {
+                    name: 'IKEA',
+                    logo: '🏠',
+                    status: 'pending',
+                    conversion: 'قريباً'
+                  }, {
+                    name: 'H&M',
+                    logo: '👕',
+                    status: 'active',
+                    conversion: '1 نقطة = 0.11 ريال'
+                  }].map((store, index) => <Card key={index} className={`text-center p-4 ${store.status === 'active' ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-200'} cursor-pointer hover:shadow-md transition-shadow`}>
                       <div className="text-3xl mb-2">{store.logo}</div>
                       <h4 className="font-semibold text-sm mb-1">{store.name}</h4>
                       <Badge variant={store.status === 'active' ? 'default' : 'secondary'} className="text-xs mb-2">
                         {store.status === 'active' ? 'نشط' : 'قريباً'}
                       </Badge>
                       <p className="text-xs text-gray-600">{store.conversion}</p>
-                    </Card>
-                  ))}
+                    </Card>)}
                 </div>
               </CardContent>
             </Card>
@@ -914,14 +1012,27 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { item: 'إجازة إضافية يوم واحد', points: 500, icon: <CalendarDays className="h-4 w-4 text-blue-500" /> },
-                    { item: 'قسيمة طعام 50 ريال', points: 250, icon: <Gift className="h-4 w-4 text-orange-500" /> },
-                    { item: 'بطاقة شكر رسمية', points: 100, icon: <Star className="h-4 w-4 text-yellow-500" /> },
-                    { item: 'موقف سيارة مميز لشهر', points: 300, icon: <MapPin className="h-4 w-4 text-purple-500" /> },
-                    { item: 'تدريب مجاني', points: 800, icon: <BookOpen className="h-4 w-4 text-green-500" /> }
-                  ].map((reward, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                  {[{
+                    item: 'إجازة إضافية يوم واحد',
+                    points: 500,
+                    icon: <CalendarDays className="h-4 w-4 text-blue-500" />
+                  }, {
+                    item: 'قسيمة طعام 50 ريال',
+                    points: 250,
+                    icon: <Gift className="h-4 w-4 text-orange-500" />
+                  }, {
+                    item: 'بطاقة شكر رسمية',
+                    points: 100,
+                    icon: <Star className="h-4 w-4 text-yellow-500" />
+                  }, {
+                    item: 'موقف سيارة مميز لشهر',
+                    points: 300,
+                    icon: <MapPin className="h-4 w-4 text-purple-500" />
+                  }, {
+                    item: 'تدريب مجاني',
+                    points: 800,
+                    icon: <BookOpen className="h-4 w-4 text-green-500" />
+                  }].map((reward, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
                       <div className="flex items-center gap-3">
                         {reward.icon}
                         <span className="font-medium text-sm">{reward.item}</span>
@@ -929,8 +1040,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       <Badge className="bg-green-100 text-green-800 border-green-200">
                         {reward.points} نقطة
                       </Badge>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
 
@@ -943,14 +1053,27 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { item: 'قسيمة Amazon 100 ريال', points: 1000, category: 'قسيمة رقمية' },
-                    { item: 'سماعات لاسلكية', points: 800, category: 'إلكترونيات' },
-                    { item: 'كتب متنوعة', points: 300, category: 'كتب ومراجع' },
-                    { item: 'اكسسوارات مكتبية', points: 200, category: 'مكتب ومنزل' },
-                    { item: 'ملابس رياضية', points: 600, category: 'رياضة وترفيه' }
-                  ].map((product, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors cursor-pointer">
+                  {[{
+                    item: 'قسيمة Amazon 100 ريال',
+                    points: 1000,
+                    category: 'قسيمة رقمية'
+                  }, {
+                    item: 'سماعات لاسلكية',
+                    points: 800,
+                    category: 'إلكترونيات'
+                  }, {
+                    item: 'كتب متنوعة',
+                    points: 300,
+                    category: 'كتب ومراجع'
+                  }, {
+                    item: 'اكسسوارات مكتبية',
+                    points: 200,
+                    category: 'مكتب ومنزل'
+                  }, {
+                    item: 'ملابس رياضية',
+                    points: 600,
+                    category: 'رياضة وترفيه'
+                  }].map((product, index) => <div key={index} className="flex items-center justify-between p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors cursor-pointer">
                       <div>
                         <p className="font-medium text-sm">{product.item}</p>
                         <p className="text-xs text-gray-600">{product.category}</p>
@@ -958,8 +1081,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       <Badge className="bg-orange-100 text-orange-800 border-orange-200">
                         {product.points} نقطة
                       </Badge>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
 
@@ -972,14 +1094,27 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { item: 'قسائم STC Pay', exchanges: 156, trend: '+23%' },
-                    { item: 'إجازات إضافية', exchanges: 142, trend: '+18%' },
-                    { item: 'قسائم Noon', exchanges: 98, trend: '+12%' },
-                    { item: 'كتب من Jarir', exchanges: 67, trend: '+8%' },
-                    { item: 'منتجات Amazon', exchanges: 45, trend: '+5%' }
-                  ].map((popular, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                  {[{
+                    item: 'قسائم STC Pay',
+                    exchanges: 156,
+                    trend: '+23%'
+                  }, {
+                    item: 'إجازات إضافية',
+                    exchanges: 142,
+                    trend: '+18%'
+                  }, {
+                    item: 'قسائم Noon',
+                    exchanges: 98,
+                    trend: '+12%'
+                  }, {
+                    item: 'كتب من Jarir',
+                    exchanges: 67,
+                    trend: '+8%'
+                  }, {
+                    item: 'منتجات Amazon',
+                    exchanges: 45,
+                    trend: '+5%'
+                  }].map((popular, index) => <div key={index} className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                       <div>
                         <p className="font-medium text-sm">{popular.item}</p>
                         <p className="text-xs text-gray-600">{popular.exchanges} استبدال</p>
@@ -987,8 +1122,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       <Badge className="bg-purple-100 text-purple-800 border-purple-200">
                         {popular.trend}
                       </Badge>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
             </div>
@@ -1077,14 +1211,42 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[
-                      { name: 'برنامج التميز الشهري', type: 'شهري', budget: 500000, spent: 320000, beneficiaries: 45, status: 'active' },
-                      { name: 'حوافز المبيعات الربعية', type: 'ربع سنوي', budget: 800000, spent: 560000, beneficiaries: 22, status: 'active' },
-                      { name: 'مكافآت الابتكار السنوية', type: 'سنوي', budget: 300000, spent: 125000, beneficiaries: 15, status: 'active' },
-                      { name: 'برنامج الحضور المثالي', type: 'شهري', budget: 200000, spent: 180000, beneficiaries: 89, status: 'ending' },
-                      { name: 'مكافآت إنجاز المشاريع', type: 'حسب المشروع', budget: 600000, spent: 240000, beneficiaries: 34, status: 'active' }
-                    ].map((program, index) => (
-                      <TableRow key={index}>
+                    {[{
+                      name: 'برنامج التميز الشهري',
+                      type: 'شهري',
+                      budget: 500000,
+                      spent: 320000,
+                      beneficiaries: 45,
+                      status: 'active'
+                    }, {
+                      name: 'حوافز المبيعات الربعية',
+                      type: 'ربع سنوي',
+                      budget: 800000,
+                      spent: 560000,
+                      beneficiaries: 22,
+                      status: 'active'
+                    }, {
+                      name: 'مكافآت الابتكار السنوية',
+                      type: 'سنوي',
+                      budget: 300000,
+                      spent: 125000,
+                      beneficiaries: 15,
+                      status: 'active'
+                    }, {
+                      name: 'برنامج الحضور المثالي',
+                      type: 'شهري',
+                      budget: 200000,
+                      spent: 180000,
+                      beneficiaries: 89,
+                      status: 'ending'
+                    }, {
+                      name: 'مكافآت إنجاز المشاريع',
+                      type: 'حسب المشروع',
+                      budget: 600000,
+                      spent: 240000,
+                      beneficiaries: 34,
+                      status: 'active'
+                    }].map((program, index) => <TableRow key={index}>
                         <TableCell className="font-medium">{program.name}</TableCell>
                         <TableCell className="text-center">
                           <Badge variant="outline">{program.type}</Badge>
@@ -1095,9 +1257,9 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                         <TableCell className="text-center">
                           <div className="flex flex-col items-center gap-1">
                             <span className="text-sm font-medium">{program.spent.toLocaleString()} ريال</span>
-                            <Progress value={(program.spent / program.budget) * 100} className="w-16 h-1" />
+                            <Progress value={program.spent / program.budget * 100} className="w-16 h-1" />
                             <span className="text-xs text-gray-500">
-                              {Math.round((program.spent / program.budget) * 100)}%
+                              {Math.round(program.spent / program.budget * 100)}%
                             </span>
                           </div>
                         </TableCell>
@@ -1124,8 +1286,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                             </Button>
                           </div>
                         </TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -1223,14 +1384,42 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[
-                      { employee: 'أحمد محمد العلي', type: 'مكافأة أداء', amount: 8000, date: '2024-02-01', status: 'linked', payrollPeriod: 'فبراير 2024' },
-                      { employee: 'فاطمة أحمد السالم', type: 'مكافأة مبيعات', amount: 6500, date: '2024-02-01', status: 'pending', payrollPeriod: '' },
-                      { employee: 'خالد عبدالله المطيري', type: 'مكافأة ابتكار', amount: 4500, date: '2024-01-25', status: 'paid', payrollPeriod: 'يناير 2024' },
-                      { employee: 'سارة محمد الأحمد', type: 'مكافأة حضور', amount: 2000, date: '2024-02-01', status: 'linked', payrollPeriod: 'فبراير 2024' },
-                      { employee: 'عمر سعد البراك', type: 'مكافأة قيادة', amount: 5000, date: '2024-01-30', status: 'review', payrollPeriod: '' }
-                    ].map((disbursement, index) => (
-                      <TableRow key={index}>
+                    {[{
+                      employee: 'أحمد محمد العلي',
+                      type: 'مكافأة أداء',
+                      amount: 8000,
+                      date: '2024-02-01',
+                      status: 'linked',
+                      payrollPeriod: 'فبراير 2024'
+                    }, {
+                      employee: 'فاطمة أحمد السالم',
+                      type: 'مكافأة مبيعات',
+                      amount: 6500,
+                      date: '2024-02-01',
+                      status: 'pending',
+                      payrollPeriod: ''
+                    }, {
+                      employee: 'خالد عبدالله المطيري',
+                      type: 'مكافأة ابتكار',
+                      amount: 4500,
+                      date: '2024-01-25',
+                      status: 'paid',
+                      payrollPeriod: 'يناير 2024'
+                    }, {
+                      employee: 'سارة محمد الأحمد',
+                      type: 'مكافأة حضور',
+                      amount: 2000,
+                      date: '2024-02-01',
+                      status: 'linked',
+                      payrollPeriod: 'فبراير 2024'
+                    }, {
+                      employee: 'عمر سعد البراك',
+                      type: 'مكافأة قيادة',
+                      amount: 5000,
+                      date: '2024-01-30',
+                      status: 'review',
+                      payrollPeriod: ''
+                    }].map((disbursement, index) => <TableRow key={index}>
                         <TableCell className="font-medium">{disbursement.employee}</TableCell>
                         <TableCell className="text-center">
                           <Badge variant="outline">{disbursement.type}</Badge>
@@ -1240,34 +1429,23 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                         </TableCell>
                         <TableCell className="text-center">{disbursement.date}</TableCell>
                         <TableCell className="text-center">
-                          <Badge variant={
-                            disbursement.status === 'linked' ? 'default' :
-                            disbursement.status === 'paid' ? 'secondary' :
-                            disbursement.status === 'pending' ? 'outline' : 'destructive'
-                          }>
-                            {disbursement.status === 'linked' ? 'مربوط بالراتب' :
-                             disbursement.status === 'paid' ? 'تم الدفع' :
-                             disbursement.status === 'pending' ? 'معلق' : 'قيد المراجعة'}
+                          <Badge variant={disbursement.status === 'linked' ? 'default' : disbursement.status === 'paid' ? 'secondary' : disbursement.status === 'pending' ? 'outline' : 'destructive'}>
+                            {disbursement.status === 'linked' ? 'مربوط بالراتب' : disbursement.status === 'paid' ? 'تم الدفع' : disbursement.status === 'pending' ? 'معلق' : 'قيد المراجعة'}
                           </Badge>
-                          {disbursement.payrollPeriod && (
-                            <p className="text-xs text-gray-500 mt-1">{disbursement.payrollPeriod}</p>
-                          )}
+                          {disbursement.payrollPeriod && <p className="text-xs text-gray-500 mt-1">{disbursement.payrollPeriod}</p>}
                         </TableCell>
                         <TableCell className="text-center">
                           <div className="flex gap-1 justify-center">
-                            {disbursement.status === 'pending' && (
-                              <Button size="sm" variant="outline">
+                            {disbursement.status === 'pending' && <Button size="sm" variant="outline">
                                 <Send className="h-3 w-3 ml-1" />
                                 ربط
-                              </Button>
-                            )}
+                              </Button>}
                             <Button size="sm" variant="outline">
                               <Eye className="h-3 w-3" />
                             </Button>
                           </div>
                         </TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -1357,20 +1535,30 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
                     <RechartsPieChart>
-                      <Pie
-                        data={[
-                          { name: 'مكافآت الأداء', value: 45, fill: '#10B981' },
-                          { name: 'مكافآت المبيعات', value: 25, fill: '#3B82F6' },
-                          { name: 'مكافآت الابتكار', value: 15, fill: '#8B5CF6' },
-                          { name: 'مكافآت الحضور', value: 10, fill: '#F59E0B' },
-                          { name: 'أخرى', value: 5, fill: '#EF4444' }
-                        ]}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={100}
-                        dataKey="value"
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                      />
+                      <Pie data={[{
+                        name: 'مكافآت الأداء',
+                        value: 45,
+                        fill: '#10B981'
+                      }, {
+                        name: 'مكافآت المبيعات',
+                        value: 25,
+                        fill: '#3B82F6'
+                      }, {
+                        name: 'مكافآت الابتكار',
+                        value: 15,
+                        fill: '#8B5CF6'
+                      }, {
+                        name: 'مكافآت الحضور',
+                        value: 10,
+                        fill: '#F59E0B'
+                      }, {
+                        name: 'أخرى',
+                        value: 5,
+                        fill: '#EF4444'
+                      }]} cx="50%" cy="50%" outerRadius={100} dataKey="value" label={({
+                        name,
+                        percent
+                      }) => `${name} ${(percent * 100).toFixed(0)}%`} />
                       <Tooltip />
                     </RechartsPieChart>
                   </ResponsiveContainer>
@@ -1383,14 +1571,27 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {[
-                      { language: 'العربية', percentage: 65, count: '1,245 مكافأة' },
-                      { language: 'الإنجليزية', percentage: 25, count: '480 مكافأة' },
-                      { language: 'الهندية', percentage: 5, count: '96 مكافأة' },
-                      { language: 'الأوردو', percentage: 3, count: '58 مكافأة' },
-                      { language: 'الفلبينية', percentage: 2, count: '38 مكافأة' }
-                    ].map((lang, index) => (
-                      <div key={index} className="space-y-2">
+                    {[{
+                      language: 'العربية',
+                      percentage: 65,
+                      count: '1,245 مكافأة'
+                    }, {
+                      language: 'الإنجليزية',
+                      percentage: 25,
+                      count: '480 مكافأة'
+                    }, {
+                      language: 'الهندية',
+                      percentage: 5,
+                      count: '96 مكافأة'
+                    }, {
+                      language: 'الأوردو',
+                      percentage: 3,
+                      count: '58 مكافأة'
+                    }, {
+                      language: 'الفلبينية',
+                      percentage: 2,
+                      count: '38 مكافأة'
+                    }].map((lang, index) => <div key={index} className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="font-medium">{lang.language}</span>
                           <div className="text-right">
@@ -1399,8 +1600,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                           </div>
                         </div>
                         <Progress value={lang.percentage} className="h-2" />
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -1424,14 +1624,42 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[
-                      { department: 'تقنية المعلومات', employees: 28, rewards: 45, points: 4250, engagement: 94, improvement: '+18%' },
-                      { department: 'المبيعات', employees: 22, rewards: 38, points: 3890, engagement: 89, improvement: '+25%' },
-                      { department: 'التسويق', employees: 18, rewards: 28, points: 3640, engagement: 85, improvement: '+15%' },
-                      { department: 'الموارد البشرية', employees: 15, rewards: 22, points: 2980, engagement: 88, improvement: '+12%' },
-                      { department: 'المالية', employees: 12, rewards: 18, points: 2750, engagement: 91, improvement: '+20%' }
-                    ].map((dept, index) => (
-                      <TableRow key={index}>
+                    {[{
+                      department: 'تقنية المعلومات',
+                      employees: 28,
+                      rewards: 45,
+                      points: 4250,
+                      engagement: 94,
+                      improvement: '+18%'
+                    }, {
+                      department: 'المبيعات',
+                      employees: 22,
+                      rewards: 38,
+                      points: 3890,
+                      engagement: 89,
+                      improvement: '+25%'
+                    }, {
+                      department: 'التسويق',
+                      employees: 18,
+                      rewards: 28,
+                      points: 3640,
+                      engagement: 85,
+                      improvement: '+15%'
+                    }, {
+                      department: 'الموارد البشرية',
+                      employees: 15,
+                      rewards: 22,
+                      points: 2980,
+                      engagement: 88,
+                      improvement: '+12%'
+                    }, {
+                      department: 'المالية',
+                      employees: 12,
+                      rewards: 18,
+                      points: 2750,
+                      engagement: 91,
+                      improvement: '+20%'
+                    }].map((dept, index) => <TableRow key={index}>
                         <TableCell className="font-medium">{dept.department}</TableCell>
                         <TableCell className="text-center">{dept.employees}</TableCell>
                         <TableCell className="text-center">
@@ -1453,8 +1681,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                             {dept.improvement}
                           </Badge>
                         </TableCell>
-                      </TableRow>
-                    ))}
+                      </TableRow>)}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -1629,13 +1856,23 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { store: 'Amazon', status: 'connected', lastSync: '2024-01-15 10:30' },
-                    { store: 'Noon', status: 'connected', lastSync: '2024-01-15 09:15' },
-                    { store: 'Jarir', status: 'connected', lastSync: '2024-01-15 08:45' },
-                    { store: 'STC Pay', status: 'error', lastSync: '2024-01-14 16:20' }
-                  ].map((api, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  {[{
+                    store: 'Amazon',
+                    status: 'connected',
+                    lastSync: '2024-01-15 10:30'
+                  }, {
+                    store: 'Noon',
+                    status: 'connected',
+                    lastSync: '2024-01-15 09:15'
+                  }, {
+                    store: 'Jarir',
+                    status: 'connected',
+                    lastSync: '2024-01-15 08:45'
+                  }, {
+                    store: 'STC Pay',
+                    status: 'error',
+                    lastSync: '2024-01-14 16:20'
+                  }].map((api, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div>
                         <p className="font-medium">{api.store}</p>
                         <p className="text-sm text-gray-600">آخر مزامنة: {api.lastSync}</p>
@@ -1648,8 +1885,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                           <RefreshCw className="h-3 w-3" />
                         </Button>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
             </div>
@@ -1657,6 +1893,5 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
         </Tabs>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
