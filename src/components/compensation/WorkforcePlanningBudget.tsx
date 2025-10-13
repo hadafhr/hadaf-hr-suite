@@ -7,26 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Users, 
-  TrendingUp, 
-  TrendingDown,
-  DollarSign, 
-  Target,
-  AlertTriangle,
-  CheckCircle,
-  BarChart3,
-  Calendar,
-  FileText,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  RefreshCw,
-  PieChart,
-  Settings
-} from 'lucide-react';
-
+import { Users, TrendingUp, TrendingDown, DollarSign, Target, AlertTriangle, CheckCircle, BarChart3, Calendar, FileText, Download, Plus, Search, Filter, RefreshCw, PieChart, Settings } from 'lucide-react';
 export const WorkforcePlanningBudget: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,7 +24,6 @@ export const WorkforcePlanningBudget: React.FC = () => {
     savingsAchieved: 320000,
     overBudgetItems: 3
   };
-
   const workforceMetrics = {
     totalHeadcount: 248,
     projectedHeadcount: 275,
@@ -54,91 +34,118 @@ export const WorkforcePlanningBudget: React.FC = () => {
     timeToFill: 45,
     costPerHire: 12000
   };
-
-  const departmentBudgets = [
-    { 
-      id: 1, 
-      name: 'التكنولوجيا', 
-      budget: 4500000, 
-      allocated: 4200000, 
-      spent: 3800000, 
-      headcount: 62,
-      projected: 68,
-      utilization: 90,
-      status: 'on-track'
-    },
-    { 
-      id: 2, 
-      name: 'المبيعات', 
-      budget: 3800000, 
-      allocated: 3500000, 
-      spent: 3200000, 
-      headcount: 48,
-      projected: 52,
-      utilization: 91,
-      status: 'on-track'
-    },
-    { 
-      id: 3, 
-      name: 'الموارد البشرية', 
-      budget: 2200000, 
-      allocated: 2000000, 
-      spent: 1650000, 
-      headcount: 28,
-      projected: 30,
-      utilization: 83,
-      status: 'under-budget'
-    },
-    { 
-      id: 4, 
-      name: 'التسويق', 
-      budget: 1800000, 
-      allocated: 1700000, 
-      spent: 1800000, 
-      headcount: 32,
-      projected: 35,
-      utilization: 106,
-      status: 'over-budget'
-    },
-    { 
-      id: 5, 
-      name: 'المالية', 
-      budget: 1500000, 
-      allocated: 1400000, 
-      spent: 1200000, 
-      headcount: 22,
-      projected: 24,
-      utilization: 86,
-      status: 'on-track'
-    },
-    { 
-      id: 6, 
-      name: 'العمليات', 
-      budget: 1200000, 
-      allocated: 1100000, 
-      spent: 950000, 
-      headcount: 18,
-      projected: 20,
-      utilization: 86,
-      status: 'on-track'
-    }
-  ];
-
-  const hiringPlan = [
-    { quarter: 'Q1 2024', planned: 8, actual: 7, budget: 96000, spent: 84000 },
-    { quarter: 'Q2 2024', planned: 12, actual: 10, budget: 144000, spent: 120000 },
-    { quarter: 'Q3 2024', planned: 10, actual: 0, budget: 120000, spent: 0 },
-    { quarter: 'Q4 2024', planned: 15, actual: 0, budget: 180000, spent: 0 }
-  ];
-
-  const costAnalysis = [
-    { category: 'الرواتب الأساسية', amount: 8200000, percentage: 80.4, trend: 'stable' },
-    { category: 'البدلات والمزايا', amount: 1200000, percentage: 11.8, trend: 'up' },
-    { category: 'المكافآت', amount: 450000, percentage: 4.4, trend: 'down' },
-    { category: 'التأمينات', amount: 250000, percentage: 2.5, trend: 'stable' },
-    { category: 'التدريب والتطوير', amount: 100000, percentage: 0.9, trend: 'up' }
-  ];
-
+  const departmentBudgets = [{
+    id: 1,
+    name: 'التكنولوجيا',
+    budget: 4500000,
+    allocated: 4200000,
+    spent: 3800000,
+    headcount: 62,
+    projected: 68,
+    utilization: 90,
+    status: 'on-track'
+  }, {
+    id: 2,
+    name: 'المبيعات',
+    budget: 3800000,
+    allocated: 3500000,
+    spent: 3200000,
+    headcount: 48,
+    projected: 52,
+    utilization: 91,
+    status: 'on-track'
+  }, {
+    id: 3,
+    name: 'الموارد البشرية',
+    budget: 2200000,
+    allocated: 2000000,
+    spent: 1650000,
+    headcount: 28,
+    projected: 30,
+    utilization: 83,
+    status: 'under-budget'
+  }, {
+    id: 4,
+    name: 'التسويق',
+    budget: 1800000,
+    allocated: 1700000,
+    spent: 1800000,
+    headcount: 32,
+    projected: 35,
+    utilization: 106,
+    status: 'over-budget'
+  }, {
+    id: 5,
+    name: 'المالية',
+    budget: 1500000,
+    allocated: 1400000,
+    spent: 1200000,
+    headcount: 22,
+    projected: 24,
+    utilization: 86,
+    status: 'on-track'
+  }, {
+    id: 6,
+    name: 'العمليات',
+    budget: 1200000,
+    allocated: 1100000,
+    spent: 950000,
+    headcount: 18,
+    projected: 20,
+    utilization: 86,
+    status: 'on-track'
+  }];
+  const hiringPlan = [{
+    quarter: 'Q1 2024',
+    planned: 8,
+    actual: 7,
+    budget: 96000,
+    spent: 84000
+  }, {
+    quarter: 'Q2 2024',
+    planned: 12,
+    actual: 10,
+    budget: 144000,
+    spent: 120000
+  }, {
+    quarter: 'Q3 2024',
+    planned: 10,
+    actual: 0,
+    budget: 120000,
+    spent: 0
+  }, {
+    quarter: 'Q4 2024',
+    planned: 15,
+    actual: 0,
+    budget: 180000,
+    spent: 0
+  }];
+  const costAnalysis = [{
+    category: 'الرواتب الأساسية',
+    amount: 8200000,
+    percentage: 80.4,
+    trend: 'stable'
+  }, {
+    category: 'البدلات والمزايا',
+    amount: 1200000,
+    percentage: 11.8,
+    trend: 'up'
+  }, {
+    category: 'المكافآت',
+    amount: 450000,
+    percentage: 4.4,
+    trend: 'down'
+  }, {
+    category: 'التأمينات',
+    amount: 250000,
+    percentage: 2.5,
+    trend: 'stable'
+  }, {
+    category: 'التدريب والتطوير',
+    amount: 100000,
+    percentage: 0.9,
+    trend: 'up'
+  }];
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'on-track':
@@ -151,7 +158,6 @@ export const WorkforcePlanningBudget: React.FC = () => {
         return <Badge>غير محدد</Badge>;
     }
   };
-
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'up':
@@ -162,9 +168,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
         return <div className="w-4 h-4 border-t-2 border-muted-foreground" />;
     }
   };
-
-  return (
-    <div className="space-y-6" dir="rtl">
+  return <div className="space-y-6" dir="rtl">
       {/* Header */}
       <div className="space-y-6">
         {/* Logo */}
@@ -174,7 +178,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">تخطيط القوى العاملة والتوافق مع الميزانية</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم التخطيط للقوى العاملة</h1>
           <p className="text-muted-foreground">إدارة متكاملة لتخطيط الموارد البشرية والميزانيات ومراقبة التكاليف</p>
         </div>
       </div>
@@ -395,12 +399,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
                 <div className="flex gap-2">
                   <div className="relative">
                     <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      placeholder="بحث في الأقسام..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10 w-64 bg-background border-border text-foreground"
-                    />
+                    <Input placeholder="بحث في الأقسام..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10 w-64 bg-background border-border text-foreground" />
                   </div>
                   <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
                     <SelectTrigger className="w-40 bg-background border-border">
@@ -418,8 +417,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {departmentBudgets.map((dept) => (
-                  <Card key={dept.id} className="border-border bg-background">
+                {departmentBudgets.map(dept => <Card key={dept.id} className="border-border bg-background">
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div>
@@ -454,8 +452,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
 
                       <Progress value={dept.utilization} className="h-2" />
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
             </CardContent>
           </Card>
@@ -472,8 +469,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {hiringPlan.map((plan, index) => (
-                  <Card key={index} className="border-border bg-background">
+                {hiringPlan.map((plan, index) => <Card key={index} className="border-border bg-background">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-3">
                         <div>
@@ -498,13 +494,12 @@ export const WorkforcePlanningBudget: React.FC = () => {
                         </div>
                       </div>
 
-                      <Progress value={(plan.actual / plan.planned) * 100} className="h-2" />
+                      <Progress value={plan.actual / plan.planned * 100} className="h-2" />
                       <p className="text-xs text-muted-foreground mt-2">
-                        {Math.round((plan.actual / plan.planned) * 100)}% من الخطة
+                        {Math.round(plan.actual / plan.planned * 100)}% من الخطة
                       </p>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
 
               <div className="mt-6 p-4 bg-accent/10 border border-accent/30 rounded-lg">
@@ -533,8 +528,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {costAnalysis.map((cost, index) => (
-                  <div key={index} className="space-y-2">
+                {costAnalysis.map((cost, index) => <div key={index} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="font-medium text-foreground">{cost.category}</span>
@@ -546,8 +540,7 @@ export const WorkforcePlanningBudget: React.FC = () => {
                       </div>
                     </div>
                     <Progress value={cost.percentage} className="h-2" />
-                  </div>
-                ))}
+                  </div>)}
               </div>
 
               <div className="mt-6 p-4 bg-muted rounded-lg">
@@ -618,6 +611,5 @@ export const WorkforcePlanningBudget: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>;
 };
