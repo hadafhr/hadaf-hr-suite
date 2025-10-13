@@ -10,32 +10,30 @@ import { MeetingsTab } from '@/components/meeting-hub/MeetingsTab';
 import { DocumentsTab } from '@/components/meeting-hub/DocumentsTab';
 import { TasksTab } from '@/components/meeting-hub/TasksTab';
 import { AnalyticsTab } from '@/components/meeting-hub/AnalyticsTab';
-
 interface MeetingHubProps {
   onBack?: () => void;
 }
-
-export default function MeetingHub({ onBack }: MeetingHubProps = {}) {
+export default function MeetingHub({
+  onBack
+}: MeetingHubProps = {}) {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
-
   const handleJoinMeeting = (meetingId: string) => {
     toast({
       title: "انضمام للاجتماع",
-      description: `تم الانضمام لاجتماع ${meetingId} بنجاح`,
+      description: `تم الانضمام لاجتماع ${meetingId} بنجاح`
     });
   };
-
   const handleStartNewMeeting = () => {
     toast({
       title: "بدء اجتماع جديد",
-      description: "تم إنشاء اجتماع جديد بنجاح",
+      description: "تم إنشاء اجتماع جديد بنجاح"
     });
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 p-6" dir="rtl">
+  return <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 p-6" dir="rtl">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20">
@@ -50,7 +48,7 @@ export default function MeetingHub({ onBack }: MeetingHubProps = {}) {
                 <Video className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">نظام الاجتماعات الذكي المتطور</h1>
+                <h1 className="text-3xl font-bold text-foreground">قسم الإجتماعات</h1>
                 <p className="text-muted-foreground text-lg">منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال المتقدم</p>
               </div>
             </div>
@@ -89,10 +87,7 @@ export default function MeetingHub({ onBack }: MeetingHubProps = {}) {
           </TabsList>
 
           <TabsContent value="dashboard">
-            <DashboardTab 
-              onJoinMeeting={handleJoinMeeting} 
-              onStartNewMeeting={handleStartNewMeeting}
-            />
+            <DashboardTab onJoinMeeting={handleJoinMeeting} onStartNewMeeting={handleStartNewMeeting} />
           </TabsContent>
 
           <TabsContent value="meetings">
@@ -112,6 +107,5 @@ export default function MeetingHub({ onBack }: MeetingHubProps = {}) {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 }
