@@ -10,268 +10,282 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, MessageSquare, Users, TrendingUp, Download, Plus, Search, Filter, Calendar, Building, Award, Target,
-  BarChart3, PieChart, Activity, Zap, Eye, Settings, Bell, UserCheck, Sparkles, Archive, Edit, Trash2,
-  Share, Lock, Unlock, AlertCircle, Info, UserPlus, Phone, Mail, Users2, Database, RefreshCw,
-  Server, FileText, BookOpen, GraduationCap, Star, CheckCircle2, AlertTriangle, Clock, Upload, Camera,
-  User, Briefcase, MapPin, Calendar as CalendarIcon, ThumbsUp, Percent, TrendingDown,
-  Code, Heart, Lightbulb, Shield, Zap as ZapIcon, Cpu, Palette, Globe, BarChart, Route,
-  GitBranch, Layers, Network, Compass, Map, ArrowUp, ArrowRight, ChevronRight, Trophy, Medal,
-  Video, Monitor,
-  Crosshair, Focus, Radar, Telescope, Binoculars, Gem, Diamond, Rocket, PlayCircle, Save,
-  Megaphone, Newspaper, Send, Calendar as CalendarIcon2, Vote, MessageCircle, Paperclip,
-  Image, Mic, CheckCircle, XCircle, ClockIcon, Bookmark, Tag, Hash
-} from 'lucide-react';
+import { ArrowLeft, MessageSquare, Users, TrendingUp, Download, Plus, Search, Filter, Calendar, Building, Award, Target, BarChart3, PieChart, Activity, Zap, Eye, Settings, Bell, UserCheck, Sparkles, Archive, Edit, Trash2, Share, Lock, Unlock, AlertCircle, Info, UserPlus, Phone, Mail, Users2, Database, RefreshCw, Server, FileText, BookOpen, GraduationCap, Star, CheckCircle2, AlertTriangle, Clock, Upload, Camera, User, Briefcase, MapPin, Calendar as CalendarIcon, ThumbsUp, Percent, TrendingDown, Code, Heart, Lightbulb, Shield, Zap as ZapIcon, Cpu, Palette, Globe, BarChart, Route, GitBranch, Layers, Network, Compass, Map, ArrowUp, ArrowRight, ChevronRight, Trophy, Medal, Video, Monitor, Crosshair, Focus, Radar, Telescope, Binoculars, Gem, Diamond, Rocket, PlayCircle, Save, Megaphone, Newspaper, Send, Calendar as CalendarIcon2, Vote, MessageCircle, Paperclip, Image, Mic, CheckCircle, XCircle, ClockIcon, Bookmark, Tag, Hash } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, LineChart, Line } from 'recharts';
-
 interface InternalCommunicationProps {
   onBack: () => void;
 }
-
-export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const InternalCommunication: React.FC<InternalCommunicationProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
-
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير التواصل الداخلي كملف PDF",
+      description: "تم تصدير تقرير التواصل الداخلي كملف PDF"
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "تم الإرسال للطباعة",
-      description: "تم إرسال التقرير للطباعة بنجاح",
+      description: "تم إرسال التقرير للطباعة بنجاح"
     });
   };
-
   const handleSave = () => {
     toast({
       title: "تم الحفظ بنجاح",
-      description: "تم حفظ البيانات بنجاح",
+      description: "تم حفظ البيانات بنجاح"
     });
   };
-
   const handleUpload = () => {
     toast({
       title: "تم الرفع بنجاح",
-      description: "تم رفع الملفات بنجاح",
+      description: "تم رفع الملفات بنجاح"
     });
   };
-
   const handleDownload = () => {
     toast({
       title: "تم التحميل بنجاح",
-      description: "تم تحميل الملفات بنجاح",
+      description: "تم تحميل الملفات بنجاح"
     });
   };
-
   const handleSendMessage = () => {
     toast({
       title: "تم الإرسال بنجاح",
-      description: "تم إرسال الرسالة بنجاح",
+      description: "تم إرسال الرسالة بنجاح"
     });
   };
 
   // Mock data
-  const dashboardKPIs = [
-    { title: "الإعلانات النشطة", value: "24", change: "+5%", icon: Megaphone, color: "text-primary" },
-    { title: "معدل القراءة", value: "87%", change: "+12%", icon: Eye, color: "text-success" },
-    { title: "الاستطلاعات الجارية", value: "8", change: "+2", icon: Vote, color: "text-warning" },
-    { title: "الرسائل المرسلة", value: "1,247", change: "+18%", icon: Send, color: "text-info" },
-  ];
-
-  const announcements = [
-    { 
-      id: 1, 
-      title: "تحديث سياسة العمل من المنزل", 
-      content: "نود إعلامكم بتحديث سياسة العمل من المنزل للعام الجديد...", 
-      author: "إدارة الموارد البشرية", 
-      date: "2024-01-15", 
-      readCount: 156, 
-      totalEmployees: 200,
-      priority: "عالي",
-      department: "جميع الأقسام"
-    },
-    { 
-      id: 2, 
-      title: "برنامج التدريب الصيفي", 
-      content: "سيتم إطلاق برنامج التدريب الصيفي للموظفين الجدد...", 
-      author: "قسم التطوير", 
-      date: "2024-01-10", 
-      readCount: 98, 
-      totalEmployees: 200,
-      priority: "متوسط",
-      department: "التطوير"
-    },
-    { 
-      id: 3, 
-      title: "اجتماع الفريق الشهري", 
-      content: "يسرنا دعوتكم لحضور اجتماع الفريق الشهري...", 
-      author: "الإدارة العليا", 
-      date: "2024-01-08", 
-      readCount: 143, 
-      totalEmployees: 200,
-      priority: "منخفض",
-      department: "جميع الأقسام"
-    },
-  ];
-
-  const messages = [
-    {
-      id: 1,
-      sender: "أحمد محمد",
-      receiver: "فاطمة علي",
-      subject: "تحديث المشروع",
-      content: "السلام عليكم، أريد مناقشة آخر التحديثات على المشروع...",
-      timestamp: "منذ 5 دقائق",
-      status: "غير مقروء",
-      hasAttachment: true
-    },
-    {
-      id: 2,
-      sender: "سارة أحمد",
-      receiver: "محمد خالد",
-      subject: "موعد الاجتماع",
-      content: "مرحباً، هل يمكننا تأجيل اجتماع الغد إلى الأسبوع القادم؟",
-      timestamp: "منذ 15 دقيقة",
-      status: "مقروء",
-      hasAttachment: false
-    },
-    {
-      id: 3,
-      sender: "نورا عبدالله",
-      receiver: "فريق المبيعات",
-      subject: "تقرير المبيعات الشهري",
-      content: "إليكم تقرير المبيعات لهذا الشهر مع التحليلات...",
-      timestamp: "منذ ساعة",
-      status: "مقروء",
-      hasAttachment: true
-    },
-  ];
-
-  const events = [
-    {
-      id: 1,
-      title: "ورشة عمل الابتكار",
-      description: "ورشة عمل تفاعلية حول الابتكار في مكان العمل",
-      date: "2024-01-25",
-      time: "10:00 ص",
-      location: "قاعة المؤتمرات الرئيسية",
-      attendees: 45,
-      maxAttendees: 50,
-      status: "مؤكد"
-    },
-    {
-      id: 2,
-      title: "احتفالية إنجازات العام",
-      description: "حفل سنوي لتكريم الموظفين المتميزين",
-      date: "2024-02-01",
-      time: "6:00 م",
-      location: "فندق الريتز كارلتون",
-      attendees: 180,
-      maxAttendees: 200,
-      status: "مؤكد"
-    },
-    {
-      id: 3,
-      title: "دورة تدريبية - إدارة الوقت",
-      description: "دورة متخصصة في تقنيات إدارة الوقت والإنتاجية",
-      date: "2024-01-30",
-      time: "2:00 م",
-      location: "قاعة التدريب A",
-      attendees: 28,
-      maxAttendees: 30,
-      status: "في الانتظار"
-    },
-  ];
-
-  const surveys = [
-    {
-      id: 1,
-      title: "استطلاع رضا الموظفين 2024",
-      description: "استطلاع شامل لقياس مستوى رضا الموظفين",
-      responses: 145,
-      targetResponses: 200,
-      endDate: "2024-01-31",
-      status: "نشط",
-      avgRating: 4.2
-    },
-    {
-      id: 2,
-      title: "تقييم بيئة العمل",
-      description: "استطلاع حول جودة بيئة العمل والمرافق",
-      responses: 89,
-      targetResponses: 150,
-      endDate: "2024-02-05",
-      status: "نشط",
-      avgRating: 3.8
-    },
-    {
-      id: 3,
-      title: "اقتراحات التطوير",
-      description: "جمع اقتراحات الموظفين لتطوير العمليات",
-      responses: 67,
-      targetResponses: 100,
-      endDate: "2024-01-28",
-      status: "مكتمل",
-      avgRating: 4.5
-    },
-  ];
-
-  const newsletters = [
-    {
-      id: 1,
-      title: "نشرة الشركة - يناير 2024",
-      type: "PDF",
-      size: "2.3 MB",
-      views: 234,
-      downloads: 156,
-      publishDate: "2024-01-01"
-    },
-    {
-      id: 2,
-      title: "تحديثات السياسات الجديدة",
-      type: "Video",
-      size: "45.2 MB",
-      views: 189,
-      downloads: 0,
-      publishDate: "2024-01-05"
-    },
-    {
-      id: 3,
-      title: "إنجازات الربع الأخير",
-      type: "Presentation",
-      size: "8.7 MB",
-      views: 167,
-      downloads: 89,
-      publishDate: "2024-01-10"
-    },
-  ];
-
-  const communicationChartData = [
-    { name: 'يناير', announcements: 12, messages: 456, surveys: 3, events: 5 },
-    { name: 'فبراير', announcements: 15, messages: 523, surveys: 4, events: 7 },
-    { name: 'مارس', announcements: 18, messages: 612, surveys: 2, events: 6 },
-    { name: 'أبريل', announcements: 14, messages: 578, surveys: 5, events: 8 },
-    { name: 'مايو', announcements: 20, messages: 689, surveys: 3, events: 9 },
-    { name: 'يونيو', announcements: 24, messages: 734, surveys: 6, events: 11 },
-  ];
-
-  const engagementData = [
-    { name: 'قراءة الإعلانات', value: 87, color: '#22c55e' },
-    { name: 'المشاركة في الاستطلاع', value: 73, color: '#3b82f6' },
-    { name: 'حضور الفعاليات', value: 65, color: '#f59e0b' },
-    { name: 'التفاعل مع المحتوى', value: 58, color: '#ef4444' },
-  ];
-
-  const renderHeader = () => (
-    <div className="space-y-6">
+  const dashboardKPIs = [{
+    title: "الإعلانات النشطة",
+    value: "24",
+    change: "+5%",
+    icon: Megaphone,
+    color: "text-primary"
+  }, {
+    title: "معدل القراءة",
+    value: "87%",
+    change: "+12%",
+    icon: Eye,
+    color: "text-success"
+  }, {
+    title: "الاستطلاعات الجارية",
+    value: "8",
+    change: "+2",
+    icon: Vote,
+    color: "text-warning"
+  }, {
+    title: "الرسائل المرسلة",
+    value: "1,247",
+    change: "+18%",
+    icon: Send,
+    color: "text-info"
+  }];
+  const announcements = [{
+    id: 1,
+    title: "تحديث سياسة العمل من المنزل",
+    content: "نود إعلامكم بتحديث سياسة العمل من المنزل للعام الجديد...",
+    author: "إدارة الموارد البشرية",
+    date: "2024-01-15",
+    readCount: 156,
+    totalEmployees: 200,
+    priority: "عالي",
+    department: "جميع الأقسام"
+  }, {
+    id: 2,
+    title: "برنامج التدريب الصيفي",
+    content: "سيتم إطلاق برنامج التدريب الصيفي للموظفين الجدد...",
+    author: "قسم التطوير",
+    date: "2024-01-10",
+    readCount: 98,
+    totalEmployees: 200,
+    priority: "متوسط",
+    department: "التطوير"
+  }, {
+    id: 3,
+    title: "اجتماع الفريق الشهري",
+    content: "يسرنا دعوتكم لحضور اجتماع الفريق الشهري...",
+    author: "الإدارة العليا",
+    date: "2024-01-08",
+    readCount: 143,
+    totalEmployees: 200,
+    priority: "منخفض",
+    department: "جميع الأقسام"
+  }];
+  const messages = [{
+    id: 1,
+    sender: "أحمد محمد",
+    receiver: "فاطمة علي",
+    subject: "تحديث المشروع",
+    content: "السلام عليكم، أريد مناقشة آخر التحديثات على المشروع...",
+    timestamp: "منذ 5 دقائق",
+    status: "غير مقروء",
+    hasAttachment: true
+  }, {
+    id: 2,
+    sender: "سارة أحمد",
+    receiver: "محمد خالد",
+    subject: "موعد الاجتماع",
+    content: "مرحباً، هل يمكننا تأجيل اجتماع الغد إلى الأسبوع القادم؟",
+    timestamp: "منذ 15 دقيقة",
+    status: "مقروء",
+    hasAttachment: false
+  }, {
+    id: 3,
+    sender: "نورا عبدالله",
+    receiver: "فريق المبيعات",
+    subject: "تقرير المبيعات الشهري",
+    content: "إليكم تقرير المبيعات لهذا الشهر مع التحليلات...",
+    timestamp: "منذ ساعة",
+    status: "مقروء",
+    hasAttachment: true
+  }];
+  const events = [{
+    id: 1,
+    title: "ورشة عمل الابتكار",
+    description: "ورشة عمل تفاعلية حول الابتكار في مكان العمل",
+    date: "2024-01-25",
+    time: "10:00 ص",
+    location: "قاعة المؤتمرات الرئيسية",
+    attendees: 45,
+    maxAttendees: 50,
+    status: "مؤكد"
+  }, {
+    id: 2,
+    title: "احتفالية إنجازات العام",
+    description: "حفل سنوي لتكريم الموظفين المتميزين",
+    date: "2024-02-01",
+    time: "6:00 م",
+    location: "فندق الريتز كارلتون",
+    attendees: 180,
+    maxAttendees: 200,
+    status: "مؤكد"
+  }, {
+    id: 3,
+    title: "دورة تدريبية - إدارة الوقت",
+    description: "دورة متخصصة في تقنيات إدارة الوقت والإنتاجية",
+    date: "2024-01-30",
+    time: "2:00 م",
+    location: "قاعة التدريب A",
+    attendees: 28,
+    maxAttendees: 30,
+    status: "في الانتظار"
+  }];
+  const surveys = [{
+    id: 1,
+    title: "استطلاع رضا الموظفين 2024",
+    description: "استطلاع شامل لقياس مستوى رضا الموظفين",
+    responses: 145,
+    targetResponses: 200,
+    endDate: "2024-01-31",
+    status: "نشط",
+    avgRating: 4.2
+  }, {
+    id: 2,
+    title: "تقييم بيئة العمل",
+    description: "استطلاع حول جودة بيئة العمل والمرافق",
+    responses: 89,
+    targetResponses: 150,
+    endDate: "2024-02-05",
+    status: "نشط",
+    avgRating: 3.8
+  }, {
+    id: 3,
+    title: "اقتراحات التطوير",
+    description: "جمع اقتراحات الموظفين لتطوير العمليات",
+    responses: 67,
+    targetResponses: 100,
+    endDate: "2024-01-28",
+    status: "مكتمل",
+    avgRating: 4.5
+  }];
+  const newsletters = [{
+    id: 1,
+    title: "نشرة الشركة - يناير 2024",
+    type: "PDF",
+    size: "2.3 MB",
+    views: 234,
+    downloads: 156,
+    publishDate: "2024-01-01"
+  }, {
+    id: 2,
+    title: "تحديثات السياسات الجديدة",
+    type: "Video",
+    size: "45.2 MB",
+    views: 189,
+    downloads: 0,
+    publishDate: "2024-01-05"
+  }, {
+    id: 3,
+    title: "إنجازات الربع الأخير",
+    type: "Presentation",
+    size: "8.7 MB",
+    views: 167,
+    downloads: 89,
+    publishDate: "2024-01-10"
+  }];
+  const communicationChartData = [{
+    name: 'يناير',
+    announcements: 12,
+    messages: 456,
+    surveys: 3,
+    events: 5
+  }, {
+    name: 'فبراير',
+    announcements: 15,
+    messages: 523,
+    surveys: 4,
+    events: 7
+  }, {
+    name: 'مارس',
+    announcements: 18,
+    messages: 612,
+    surveys: 2,
+    events: 6
+  }, {
+    name: 'أبريل',
+    announcements: 14,
+    messages: 578,
+    surveys: 5,
+    events: 8
+  }, {
+    name: 'مايو',
+    announcements: 20,
+    messages: 689,
+    surveys: 3,
+    events: 9
+  }, {
+    name: 'يونيو',
+    announcements: 24,
+    messages: 734,
+    surveys: 6,
+    events: 11
+  }];
+  const engagementData = [{
+    name: 'قراءة الإعلانات',
+    value: 87,
+    color: '#22c55e'
+  }, {
+    name: 'المشاركة في الاستطلاع',
+    value: 73,
+    color: '#3b82f6'
+  }, {
+    name: 'حضور الفعاليات',
+    value: 65,
+    color: '#f59e0b'
+  }, {
+    name: 'التفاعل مع المحتوى',
+    value: 58,
+    color: '#ef4444'
+  }];
+  const renderHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
@@ -279,18 +293,14 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام التواصل الداخلي المتطور</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم التواصل الداخلي </h1>
         <p className="text-muted-foreground">منظومة شاملة للتواصل الداخلي والإعلانات مع إدارة المحتوى والرسائل</p>
       </div>
-    </div>
-  );
-
-  const renderDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderDashboard = () => <div className="space-y-6">
       {/* KPIs Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {dashboardKPIs.map((kpi, index) => (
-          <Card key={index} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
+        {dashboardKPIs.map((kpi, index) => <Card key={index} className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -307,8 +317,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
 
       {/* Charts Row */}
@@ -346,18 +355,8 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={engagementData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={120}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {engagementData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={engagementData} cx="50%" cy="50%" innerRadius={60} outerRadius={120} paddingAngle={5} dataKey="value">
+                  {engagementData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -400,11 +399,8 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
-
-  const renderAnnouncements = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnnouncements = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-foreground">الإعلانات والأخبار</h2>
         <div className="flex gap-2">
@@ -440,8 +436,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       </div>
 
       <div className="grid gap-4">
-        {announcements.map((announcement) => (
-          <Card key={announcement.id} className="hover:shadow-lg transition-all duration-300">
+        {announcements.map(announcement => <Card key={announcement.id} className="hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -471,10 +466,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 <div className="flex flex-col items-end gap-3">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-primary">
-                      {Math.round((announcement.readCount / announcement.totalEmployees) * 100)}%
+                      {Math.round(announcement.readCount / announcement.totalEmployees * 100)}%
                     </div>
                     <div className="text-xs text-muted-foreground">معدل القراءة</div>
-                    <Progress value={(announcement.readCount / announcement.totalEmployees) * 100} className="w-20 mt-1" />
+                    <Progress value={announcement.readCount / announcement.totalEmployees * 100} className="w-20 mt-1" />
                   </div>
                   <div className="flex gap-2">
                     <Button variant="ghost" size="sm">
@@ -496,14 +491,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderMessaging = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderMessaging = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-foreground">الرسائل الداخلية</h2>
         <div className="flex gap-2">
@@ -539,8 +530,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       </div>
 
       <div className="grid gap-4">
-        {messages.map((message) => (
-          <Card key={message.id} className="hover:shadow-lg transition-all duration-300">
+        {messages.map(message => <Card key={message.id} className="hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
@@ -553,12 +543,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                       <Badge variant={message.status === 'غير مقروء' ? 'destructive' : 'secondary'}>
                         {message.status}
                       </Badge>
-                      {message.hasAttachment && (
-                        <Badge variant="outline">
+                      {message.hasAttachment && <Badge variant="outline">
                           <Paperclip className="h-3 w-3 ml-1" />
                           مرفق
-                        </Badge>
-                      )}
+                        </Badge>}
                     </div>
                     <p className="text-sm text-muted-foreground mb-2">{message.content}</p>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
@@ -587,14 +575,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderNewsletters = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderNewsletters = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-foreground">النشرات والمحتوى التوعوي</h2>
         <div className="flex gap-2">
@@ -630,8 +614,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {newsletters.map((newsletter) => (
-          <Card key={newsletter.id} className="hover:shadow-lg transition-all duration-300">
+        {newsletters.map(newsletter => <Card key={newsletter.id} className="hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-4">
                 {newsletter.type === 'PDF' && <FileText className="h-8 w-8 text-red-500" />}
@@ -678,14 +661,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 </Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderEvents = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderEvents = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-foreground">الفعاليات والأنشطة</h2>
         <div className="flex gap-2">
@@ -721,8 +700,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       </div>
 
       <div className="grid gap-4">
-        {events.map((event) => (
-          <Card key={event.id} className="hover:shadow-lg transition-all duration-300">
+        {events.map(event => <Card key={event.id} className="hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
@@ -755,7 +733,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                       {event.attendees}/{event.maxAttendees}
                     </div>
                     <div className="text-xs text-muted-foreground">المشاركون</div>
-                    <Progress value={(event.attendees / event.maxAttendees) * 100} className="w-20 mt-1" />
+                    <Progress value={event.attendees / event.maxAttendees * 100} className="w-20 mt-1" />
                   </div>
                   <div className="flex gap-2">
                     <Button variant="ghost" size="sm">
@@ -777,14 +755,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderSurveys = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderSurveys = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-foreground">الاستطلاعات والملاحظات</h2>
         <div className="flex gap-2">
@@ -820,8 +794,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       </div>
 
       <div className="grid gap-4">
-        {surveys.map((survey) => (
-          <Card key={survey.id} className="hover:shadow-lg transition-all duration-300">
+        {surveys.map(survey => <Card key={survey.id} className="hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
@@ -855,10 +828,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 <div className="flex flex-col items-end gap-3">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-primary">
-                      {Math.round((survey.responses / survey.targetResponses) * 100)}%
+                      {Math.round(survey.responses / survey.targetResponses * 100)}%
                     </div>
                     <div className="text-xs text-muted-foreground">معدل الاستجابة</div>
-                    <Progress value={(survey.responses / survey.targetResponses) * 100} className="w-20 mt-1" />
+                    <Progress value={survey.responses / survey.targetResponses * 100} className="w-20 mt-1" />
                   </div>
                   <div className="flex gap-2">
                     <Button variant="ghost" size="sm">
@@ -880,14 +853,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderSettings = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderSettings = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-foreground">إعدادات التواصل الداخلي</h2>
         <div className="flex gap-2">
@@ -930,20 +899,22 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
             <CardDescription>تحديد من يمكنه نشر الإعلانات وإنشاء الاستطلاعات</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {[
-              { role: "مدير الموارد البشرية", permissions: ["إعلانات", "استطلاعات", "فعاليات", "رسائل"] },
-              { role: "مدير الأقسام", permissions: ["إعلانات القسم", "رسائل"] },
-              { role: "الموظف", permissions: ["رسائل", "استطلاعات"] },
-            ].map((permission, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+            {[{
+            role: "مدير الموارد البشرية",
+            permissions: ["إعلانات", "استطلاعات", "فعاليات", "رسائل"]
+          }, {
+            role: "مدير الأقسام",
+            permissions: ["إعلانات القسم", "رسائل"]
+          }, {
+            role: "الموظف",
+            permissions: ["رسائل", "استطلاعات"]
+          }].map((permission, index) => <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                 <span className="font-medium">{permission.role}</span>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
-                    {permission.permissions.map((perm, idx) => (
-                      <Badge key={idx} variant="outline" className="text-xs">
+                    {permission.permissions.map((perm, idx) => <Badge key={idx} variant="outline" className="text-xs">
                         {perm}
-                      </Badge>
-                    ))}
+                      </Badge>)}
                   </div>
                   <Button variant="ghost" size="sm">
                     <Edit className="h-4 w-4" />
@@ -952,8 +923,7 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </CardContent>
         </Card>
 
@@ -1048,12 +1018,10 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>;
 
   // Add Dialog
-  const renderAddDialog = () => (
-    <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
+  const renderAddDialog = () => <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>إضافة عنصر جديد</DialogTitle>
@@ -1117,20 +1085,17 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
               إلغاء
             </Button>
             <Button onClick={() => {
-              handleSave();
-              setShowAddDialog(false);
-            }}>
+            handleSave();
+            setShowAddDialog(false);
+          }}>
               <Plus className="h-4 w-4 ml-2" />
               إضافة
             </Button>
           </div>
         </div>
       </DialogContent>
-    </Dialog>
-  );
-
-  return (
-    <div className="min-h-screen bg-background bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+    </Dialog>;
+  return <div className="min-h-screen bg-background bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
       {renderHeader()}
       <div className="container mx-auto px-6 py-8 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -1176,6 +1141,5 @@ export const InternalCommunication: React.FC<InternalCommunicationProps> = ({ on
       </div>
 
       {renderAddDialog()}
-    </div>
-  );
+    </div>;
 };
