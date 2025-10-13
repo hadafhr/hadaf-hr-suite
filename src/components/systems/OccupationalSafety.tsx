@@ -417,131 +417,16 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
 
   // Header component
   const renderHeader = () => (
-    <div className="relative overflow-hidden bg-gradient-to-br from-background via-muted/50 to-background border-b border-border/40">
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, hsl(var(--primary)) 0%, transparent 50%),
-                           radial-gradient(circle at 80% 20%, hsl(var(--primary)) 0%, transparent 50%),
-                           radial-gradient(circle at 40% 80%, hsl(var(--primary)) 0%, transparent 50%)`,
-          backgroundSize: '500px 500px, 400px 400px, 300px 300px',
-          animation: 'float 20s ease-in-out infinite'
-        }} />
+    <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
-      
-      <div className="relative px-6 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            {onBack && (
-              <Button variant="ghost" onClick={onBack} className="hover:bg-muted/50 transition-colors">
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-            )}
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-xl">
-                <Shield className="h-8 w-8 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">الصحة والسلامة المهنية</h1>
-                <p className="text-muted-foreground mt-1">إدارة شاملة للسلامة والصحة المهنية في مكان العمل</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Button variant="outline" onClick={handleExportExcel} className="hover:bg-muted/50 transition-colors">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير Excel
-            </Button>
-            <Button variant="outline" onClick={handleExportPDF} className="hover:bg-muted/50 transition-colors">
-              <FileText className="h-4 w-4 ml-2" />
-              تصدير PDF  
-            </Button>
-            <Button variant="outline" onClick={handlePrint} className="hover:bg-muted/50 transition-colors">
-              <Printer className="h-4 w-4 ml-2" />
-              طباعة
-            </Button>
-            <Button onClick={handleAddIncident} className="bg-primary hover:bg-primary/90 text-primary-foreground transition-colors">
-              <Plus className="h-4 w-4 ml-2" />
-              إضافة حادث
-            </Button>
-          </div>
-        </div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">الحوادث هذا الشهر</p>
-                  <p className="text-3xl font-bold text-foreground">4</p>
-                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
-                    <TrendingDown className="h-3 w-3" />
-                    -20% من الشهر الماضي
-                  </p>
-                </div>
-                <div className="p-3 bg-red-100 rounded-full">
-                  <AlertTriangle className="h-6 w-6 text-red-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">الأيام بدون حوادث</p>
-                  <p className="text-3xl font-bold text-foreground">127</p>
-                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
-                    <ArrowUp className="h-3 w-3" />
-                    هدف: 200 يوم
-                  </p>
-                </div>
-                <div className="p-3 bg-green-100 rounded-full">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">الفحوصات المجدولة</p>
-                  <p className="text-3xl font-bold text-foreground">12</p>
-                  <p className="text-xs text-orange-600 flex items-center gap-1 mt-1">
-                    <Clock className="h-3 w-3" />
-                    3 متأخرة
-                  </p>
-                </div>
-                <div className="p-3 bg-blue-100 rounded-full">
-                  <Stethoscope className="h-6 w-6 text-blue-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">نسبة التدريب</p>
-                  <p className="text-3xl font-bold text-foreground">89%</p>
-                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
-                    <TrendingUp className="h-3 w-3" />
-                    +5% من الشهر الماضي
-                  </p>
-                </div>
-                <div className="p-3 bg-purple-100 rounded-full">
-                  <BookOpen className="h-6 w-6 text-purple-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">الصحة والسلامة المهنية</h1>
+        <p className="text-muted-foreground">إدارة شاملة للسلامة والصحة المهنية في مكان العمل</p>
       </div>
     </div>
   );
