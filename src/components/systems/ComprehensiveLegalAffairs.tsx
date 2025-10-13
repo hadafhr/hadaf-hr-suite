@@ -11,54 +11,12 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { SystemHeader } from '@/components/shared/SystemHeader';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  Gavel, 
-  Scale, 
-  FileText, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Users,
-  Building,
-  BookOpen,
-  Shield,
-  Briefcase,
-  Award,
-  Target,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Zap,
-  Globe,
-  Eye,
-  Settings,
-  Bell,
-  CreditCard,
-  UserCheck,
-  Sparkles,
-  Archive,
-  Edit,
-  Trash2,
-  Share,
-  Lock,
-  Unlock,
-  AlertCircle,
-  Info
-} from 'lucide-react';
+import { ArrowLeft, Gavel, Scale, FileText, AlertTriangle, CheckCircle2, Clock, Download, Plus, Search, Filter, Calendar, Users, Building, BookOpen, Shield, Briefcase, Award, Target, TrendingUp, BarChart3, PieChart, Activity, Zap, Globe, Eye, Settings, Bell, CreditCard, UserCheck, Sparkles, Archive, Edit, Trash2, Share, Lock, Unlock, AlertCircle, Info } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie } from 'recharts';
-
 interface ComprehensiveLegalAffairsProps {
   onBack: () => void;
 }
-
 interface LegalCase {
   id: string;
   caseNumber: string;
@@ -74,7 +32,6 @@ interface LegalCase {
   amount?: number;
   documents: number;
 }
-
 interface Contract {
   id: string;
   contractNumber: string;
@@ -89,7 +46,6 @@ interface Contract {
   renewalDate?: string;
   description: string;
 }
-
 interface ComplianceItem {
   id: string;
   regulation: string;
@@ -101,7 +57,6 @@ interface ComplianceItem {
   riskLevel: 'Low' | 'Medium' | 'High' | 'Critical';
   actions: string[];
 }
-
 interface LegalDocument {
   id: string;
   title: string;
@@ -113,152 +68,193 @@ interface LegalDocument {
   status: 'Active' | 'Draft' | 'Archived';
   downloadCount: number;
 }
-
-export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
-  const { toast } = useToast();
+export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps> = ({
+  onBack
+}) => {
+  const {
+    t,
+    i18n
+  } = useTranslation();
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Mock data for demonstration
-  const legalCases: LegalCase[] = [
-    {
-      id: '1',
-      caseNumber: 'LC-2024-001',
-      title: 'نزاع عمالي - إنهاء خدمة',
-      type: 'Employment',
-      status: 'In Progress',
-      priority: 'High',
-      assignedLawyer: 'أحمد الجبيري',
-      client: 'شركة النور للتجارة',
-      startDate: '2024-01-15',
-      expectedResolution: '2024-03-15',
-      description: 'قضية إنهاء خدمة موظف والمطالبة بالتعويضات',
-      amount: 45000,
-      documents: 8
-    },
-    {
-      id: '2',
-      caseNumber: 'LC-2024-002',
-      title: 'مراجعة عقد شراكة',
-      type: 'Contract',
-      status: 'Open',
-      priority: 'Medium',
-      assignedLawyer: 'فاطمة الخالدي',
-      client: 'مؤسسة التقنية المتقدمة',
-      startDate: '2024-02-01',
-      expectedResolution: '2024-02-28',
-      description: 'مراجعة وتعديل شروط عقد الشراكة الاستراتيجية',
-      documents: 5
-    }
-  ];
-
-  const contracts: Contract[] = [
-    {
-      id: '1',
-      contractNumber: 'CT-2024-001',
-      title: 'عقد توريد أجهزة كمبيوتر',
-      type: 'Supply',
-      status: 'Active',
-      party1: 'شركة بود',
-      party2: 'مؤسسة التقنية المتقدمة',
-      startDate: '2024-01-01',
-      endDate: '2024-12-31',
-      value: 250000,
-      renewalDate: '2024-11-01',
-      description: 'عقد توريد أجهزة الكمبيوتر والمعدات التقنية'
-    },
-    {
-      id: '2',
-      contractNumber: 'CT-2024-002',
-      title: 'عقد استشارات قانونية',
-      type: 'Service',
-      status: 'Under Review',
-      party1: 'شركة بود',
-      party2: 'مكتب الجبيري للمحاماة',
-      startDate: '2024-03-01',
-      endDate: '2025-02-28',
-      value: 120000,
-      description: 'عقد تقديم الاستشارات القانونية والدعم القانوني'
-    }
-  ];
-
-  const complianceItems: ComplianceItem[] = [
-    {
-      id: '1',
-      regulation: 'نظام العمل السعودي',
-      category: 'Labor Law',
-      status: 'Compliant',
-      lastReviewDate: '2024-01-15',
-      nextReviewDate: '2024-04-15',
-      assignedTo: 'إدارة الموارد البشرية',
-      riskLevel: 'Low',
-      actions: ['مراجعة العقود', 'تحديث السياسات']
-    },
-    {
-      id: '2',
-      regulation: 'نظام حماية البيانات',
-      category: 'Data Protection',
-      status: 'At Risk',
-      lastReviewDate: '2023-11-20',
-      nextReviewDate: '2024-02-20',
-      assignedTo: 'إدارة تقنية المعلومات',
-      riskLevel: 'Medium',
-      actions: ['تحديث سياسة الخصوصية', 'تدريب الموظفين']
-    }
-  ];
-
-  const legalDocuments: LegalDocument[] = [
-    {
-      id: '1',
-      title: 'سياسة الموارد البشرية',
-      type: 'Policy',
-      category: 'HR',
-      version: '2.1',
-      lastUpdated: '2024-01-10',
-      author: 'أحمد الجبيري',
-      status: 'Active',
-      downloadCount: 156
-    },
-    {
-      id: '2',
-      title: 'نموذج عقد العمل',
-      type: 'Template',
-      category: 'Employment',
-      version: '3.0',
-      lastUpdated: '2024-01-20',
-      author: 'فاطمة الخالدي',
-      status: 'Active',
-      downloadCount: 89
-    }
-  ];
-
-  const performanceData = [
-    { month: 'يناير', cases: 12, resolved: 8, contracts: 15, compliance: 95 },
-    { month: 'فبراير', cases: 15, resolved: 12, contracts: 18, compliance: 97 },
-    { month: 'مارس', cases: 10, resolved: 9, contracts: 12, compliance: 92 },
-    { month: 'أبريل', cases: 18, resolved: 14, contracts: 20, compliance: 98 },
-    { month: 'مايو', cases: 14, resolved: 11, contracts: 16, compliance: 94 },
-    { month: 'يونيو', cases: 16, resolved: 15, contracts: 22, compliance: 99 }
-  ];
-
-  const caseTypeDistribution = [
-    { name: 'قضايا عمالية', value: 35, color: '#3b82f6' },
-    { name: 'عقود', value: 28, color: '#10b981' },
-    { name: 'امتثال', value: 20, color: '#f59e0b' },
-    { name: 'ملكية فكرية', value: 10, color: '#ef4444' },
-    { name: 'أخرى', value: 7, color: '#8b5cf6' }
-  ];
-
-  const complianceStatus = [
-    { status: 'ملتزم', count: 45, percentage: 78 },
-    { status: 'في خطر', count: 8, percentage: 14 },
-    { status: 'غير ملتزم', count: 3, percentage: 5 },
-    { status: 'قيد المراجعة', count: 2, percentage: 3 }
-  ];
-
+  const legalCases: LegalCase[] = [{
+    id: '1',
+    caseNumber: 'LC-2024-001',
+    title: 'نزاع عمالي - إنهاء خدمة',
+    type: 'Employment',
+    status: 'In Progress',
+    priority: 'High',
+    assignedLawyer: 'أحمد الجبيري',
+    client: 'شركة النور للتجارة',
+    startDate: '2024-01-15',
+    expectedResolution: '2024-03-15',
+    description: 'قضية إنهاء خدمة موظف والمطالبة بالتعويضات',
+    amount: 45000,
+    documents: 8
+  }, {
+    id: '2',
+    caseNumber: 'LC-2024-002',
+    title: 'مراجعة عقد شراكة',
+    type: 'Contract',
+    status: 'Open',
+    priority: 'Medium',
+    assignedLawyer: 'فاطمة الخالدي',
+    client: 'مؤسسة التقنية المتقدمة',
+    startDate: '2024-02-01',
+    expectedResolution: '2024-02-28',
+    description: 'مراجعة وتعديل شروط عقد الشراكة الاستراتيجية',
+    documents: 5
+  }];
+  const contracts: Contract[] = [{
+    id: '1',
+    contractNumber: 'CT-2024-001',
+    title: 'عقد توريد أجهزة كمبيوتر',
+    type: 'Supply',
+    status: 'Active',
+    party1: 'شركة بود',
+    party2: 'مؤسسة التقنية المتقدمة',
+    startDate: '2024-01-01',
+    endDate: '2024-12-31',
+    value: 250000,
+    renewalDate: '2024-11-01',
+    description: 'عقد توريد أجهزة الكمبيوتر والمعدات التقنية'
+  }, {
+    id: '2',
+    contractNumber: 'CT-2024-002',
+    title: 'عقد استشارات قانونية',
+    type: 'Service',
+    status: 'Under Review',
+    party1: 'شركة بود',
+    party2: 'مكتب الجبيري للمحاماة',
+    startDate: '2024-03-01',
+    endDate: '2025-02-28',
+    value: 120000,
+    description: 'عقد تقديم الاستشارات القانونية والدعم القانوني'
+  }];
+  const complianceItems: ComplianceItem[] = [{
+    id: '1',
+    regulation: 'نظام العمل السعودي',
+    category: 'Labor Law',
+    status: 'Compliant',
+    lastReviewDate: '2024-01-15',
+    nextReviewDate: '2024-04-15',
+    assignedTo: 'إدارة الموارد البشرية',
+    riskLevel: 'Low',
+    actions: ['مراجعة العقود', 'تحديث السياسات']
+  }, {
+    id: '2',
+    regulation: 'نظام حماية البيانات',
+    category: 'Data Protection',
+    status: 'At Risk',
+    lastReviewDate: '2023-11-20',
+    nextReviewDate: '2024-02-20',
+    assignedTo: 'إدارة تقنية المعلومات',
+    riskLevel: 'Medium',
+    actions: ['تحديث سياسة الخصوصية', 'تدريب الموظفين']
+  }];
+  const legalDocuments: LegalDocument[] = [{
+    id: '1',
+    title: 'سياسة الموارد البشرية',
+    type: 'Policy',
+    category: 'HR',
+    version: '2.1',
+    lastUpdated: '2024-01-10',
+    author: 'أحمد الجبيري',
+    status: 'Active',
+    downloadCount: 156
+  }, {
+    id: '2',
+    title: 'نموذج عقد العمل',
+    type: 'Template',
+    category: 'Employment',
+    version: '3.0',
+    lastUpdated: '2024-01-20',
+    author: 'فاطمة الخالدي',
+    status: 'Active',
+    downloadCount: 89
+  }];
+  const performanceData = [{
+    month: 'يناير',
+    cases: 12,
+    resolved: 8,
+    contracts: 15,
+    compliance: 95
+  }, {
+    month: 'فبراير',
+    cases: 15,
+    resolved: 12,
+    contracts: 18,
+    compliance: 97
+  }, {
+    month: 'مارس',
+    cases: 10,
+    resolved: 9,
+    contracts: 12,
+    compliance: 92
+  }, {
+    month: 'أبريل',
+    cases: 18,
+    resolved: 14,
+    contracts: 20,
+    compliance: 98
+  }, {
+    month: 'مايو',
+    cases: 14,
+    resolved: 11,
+    contracts: 16,
+    compliance: 94
+  }, {
+    month: 'يونيو',
+    cases: 16,
+    resolved: 15,
+    contracts: 22,
+    compliance: 99
+  }];
+  const caseTypeDistribution = [{
+    name: 'قضايا عمالية',
+    value: 35,
+    color: '#3b82f6'
+  }, {
+    name: 'عقود',
+    value: 28,
+    color: '#10b981'
+  }, {
+    name: 'امتثال',
+    value: 20,
+    color: '#f59e0b'
+  }, {
+    name: 'ملكية فكرية',
+    value: 10,
+    color: '#ef4444'
+  }, {
+    name: 'أخرى',
+    value: 7,
+    color: '#8b5cf6'
+  }];
+  const complianceStatus = [{
+    status: 'ملتزم',
+    count: 45,
+    percentage: 78
+  }, {
+    status: 'في خطر',
+    count: 8,
+    percentage: 14
+  }, {
+    status: 'غير ملتزم',
+    count: 3,
+    percentage: 5
+  }, {
+    status: 'قيد المراجعة',
+    count: 2,
+    percentage: 3
+  }];
   const getDashboardStats = () => {
     return {
       totalCases: legalCases.length,
@@ -269,14 +265,12 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
       documentsCount: legalDocuments.length
     };
   };
-
   const stats = getDashboardStats();
-
   const getStatusBadge = (status: string) => {
     const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
       'Open': 'destructive',
       'In Progress': 'secondary',
-      'Pending': 'outline', 
+      'Pending': 'outline',
       'Closed': 'default',
       'Appealed': 'destructive',
       'Draft': 'outline',
@@ -291,7 +285,6 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
     };
     return <Badge variant={variants[status] || 'default'}>{status}</Badge>;
   };
-
   const getPriorityBadge = (priority: string) => {
     const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
       'Low': 'outline',
@@ -301,23 +294,19 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
     };
     return <Badge variant={variants[priority] || 'default'}>{priority}</Badge>;
   };
-
   const handleExport = () => {
     toast({
       title: "تصدير البيانات",
-      description: "جاري تصدير البيانات إلى ملف Excel...",
+      description: "جاري تصدير البيانات إلى ملف Excel..."
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "طباعة التقرير",
-      description: "جاري إعداد التقرير للطباعة...",
+      description: "جاري إعداد التقرير للطباعة..."
     });
   };
-
-  const renderProfessionalHeader = () => (
-    <div className="space-y-6">
+  const renderProfessionalHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
@@ -325,14 +314,11 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام الشؤون القانونية المتطور</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الشؤون القانونية </h1>
         <p className="text-muted-foreground">نظام متطور لإدارة القضايا القانونية والعقود وضمان الامتثال</p>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
@@ -442,18 +428,8 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={caseTypeDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {caseTypeDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={caseTypeDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {caseTypeDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -502,11 +478,8 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderSystemOverview = () => (
-    <Card>
+    </div>;
+  const renderSystemOverview = () => <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Scale className="h-5 w-5" />
@@ -559,21 +532,13 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
-
-  const renderLegalCases = () => (
-    <div className="space-y-6">
+    </Card>;
+  const renderLegalCases = () => <div className="space-y-6">
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-          <Input
-            placeholder="البحث في القضايا..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pr-10"
-          />
+          <Input placeholder="البحث في القضايا..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10" />
         </div>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[200px]">
@@ -594,8 +559,7 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
 
       {/* Cases List */}
       <div className="grid gap-4">
-        {legalCases.map((legalCase) => (
-          <Card key={legalCase.id} className="hover:shadow-md transition-shadow">
+        {legalCases.map(legalCase => <Card key={legalCase.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -632,12 +596,10 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  {legalCase.amount && (
-                    <>
+                  {legalCase.amount && <>
                       <CreditCard className="h-4 w-4" />
                       <span>{legalCase.amount.toLocaleString()} ريال</span>
-                    </>
-                  )}
+                    </>}
                   <FileText className="h-4 w-4" />
                   <span>{legalCase.documents} مستند</span>
                 </div>
@@ -657,14 +619,10 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderContracts = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderContracts = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">إدارة العقود</h3>
         <Button>
@@ -674,8 +632,7 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
       </div>
 
       <div className="grid gap-6">
-        {contracts.map((contract) => (
-          <Card key={contract.id}>
+        {contracts.map(contract => <Card key={contract.id}>
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -713,12 +670,10 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
                   <Label className="text-xs text-muted-foreground">تاريخ الانتهاء</Label>
                   <p className="font-medium">{contract.endDate}</p>
                 </div>
-                {contract.renewalDate && (
-                  <div>
+                {contract.renewalDate && <div>
                     <Label className="text-xs text-muted-foreground">تاريخ التجديد</Label>
                     <p className="font-medium">{contract.renewalDate}</p>
-                  </div>
-                )}
+                  </div>}
               </div>
 
               <p className="text-sm text-muted-foreground mb-4">{contract.description}</p>
@@ -729,14 +684,10 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
                 <Button size="sm">تجديد</Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderCompliance = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderCompliance = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">مراقبة الامتثال</h3>
         <Button>
@@ -746,8 +697,7 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
       </div>
 
       <div className="grid gap-6">
-        {complianceItems.map((item) => (
-          <Card key={item.id}>
+        {complianceItems.map(item => <Card key={item.id}>
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -778,11 +728,9 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
               <div>
                 <Label className="text-xs text-muted-foreground">الإجراءات المطلوبة</Label>
                 <div className="flex flex-wrap gap-1 mt-1">
-                  {item.actions.map((action, index) => (
-                    <Badge key={index} variant="outline" className="text-xs">
+                  {item.actions.map((action, index) => <Badge key={index} variant="outline" className="text-xs">
                       {action}
-                    </Badge>
-                  ))}
+                    </Badge>)}
                 </div>
               </div>
 
@@ -792,14 +740,10 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
                 <Button size="sm">إجراء</Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderDocuments = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderDocuments = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">المكتبة القانونية</h3>
         <Button>
@@ -809,8 +753,7 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {legalDocuments.map((doc) => (
-          <Card key={doc.id} className="hover:shadow-md transition-shadow">
+        {legalDocuments.map(doc => <Card key={doc.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -850,14 +793,10 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
                 </Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    </div>;
+  return <div className="min-h-screen bg-background" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       {renderProfessionalHeader()}
       
       <div className="container mx-auto p-6">
@@ -935,6 +874,5 @@ export const ComprehensiveLegalAffairs: React.FC<ComprehensiveLegalAffairsProps>
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
