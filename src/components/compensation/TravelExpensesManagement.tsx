@@ -8,34 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { 
-  Plane, 
-  Hotel,
-  Car,
-  Receipt,
-  DollarSign,
-  Calendar,
-  MapPin,
-  Upload,
-  Download,
-  CheckCircle,
-  Clock,
-  XCircle,
-  TrendingUp,
-  Users,
-  Search,
-  Filter,
-  Plus,
-  Eye,
-  Edit,
-  FileText,
-  AlertCircle,
-  BarChart3,
-  CreditCard,
-  Briefcase,
-  Globe
-} from 'lucide-react';
-
+import { Plane, Hotel, Car, Receipt, DollarSign, Calendar, MapPin, Upload, Download, CheckCircle, Clock, XCircle, TrendingUp, Users, Search, Filter, Plus, Eye, Edit, FileText, AlertCircle, BarChart3, CreditCard, Briefcase, Globe } from 'lucide-react';
 export const TravelExpensesManagement: React.FC = () => {
   const [activeTab, setActiveTab] = useState('requests');
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,120 +25,125 @@ export const TravelExpensesManagement: React.FC = () => {
     usedBudget: 285000,
     utilizationRate: 81
   };
-
-  const travelRequests = [
-    {
-      id: 1,
-      requestNumber: 'TR-2024-001',
-      employee: 'أحمد محمد علي',
-      department: 'المبيعات',
-      destination: 'دبي، الإمارات',
-      purpose: 'اجتماع عملاء',
-      startDate: '2024-02-15',
-      endDate: '2024-02-18',
-      duration: 3,
-      estimatedCost: 8500,
-      actualCost: 8200,
-      status: 'approved',
-      expenses: {
-        flights: 3500,
-        hotel: 3200,
-        transportation: 800,
-        meals: 700
-      }
-    },
-    {
-      id: 2,
-      requestNumber: 'TR-2024-002',
-      employee: 'فاطمة سالم',
-      department: 'التسويق',
-      destination: 'القاهرة، مصر',
-      purpose: 'معرض تجاري',
-      startDate: '2024-02-20',
-      endDate: '2024-02-23',
-      duration: 3,
-      estimatedCost: 7200,
-      actualCost: null,
-      status: 'pending',
-      expenses: {
-        flights: 2800,
-        hotel: 2900,
-        transportation: 800,
-        meals: 700
-      }
-    },
-    {
-      id: 3,
-      requestNumber: 'TR-2024-003',
-      employee: 'خالد أحمد',
-      department: 'التكنولوجيا',
-      destination: 'الرياض',
-      purpose: 'دورة تدريبية',
-      startDate: '2024-02-10',
-      endDate: '2024-02-12',
-      duration: 2,
-      estimatedCost: 5500,
-      actualCost: 5300,
-      status: 'completed',
-      expenses: {
-        flights: 2200,
-        hotel: 2000,
-        transportation: 600,
-        meals: 500
-      }
-    },
-    {
-      id: 4,
-      requestNumber: 'TR-2024-004',
-      employee: 'سارة عبدالله',
-      department: 'الموارد البشرية',
-      destination: 'جدة',
-      purpose: 'مؤتمر HR',
-      startDate: '2024-02-25',
-      endDate: '2024-02-26',
-      duration: 1,
-      estimatedCost: 4200,
-      actualCost: null,
-      status: 'rejected',
-      expenses: {
-        flights: 1800,
-        hotel: 1500,
-        transportation: 500,
-        meals: 400
-      }
+  const travelRequests = [{
+    id: 1,
+    requestNumber: 'TR-2024-001',
+    employee: 'أحمد محمد علي',
+    department: 'المبيعات',
+    destination: 'دبي، الإمارات',
+    purpose: 'اجتماع عملاء',
+    startDate: '2024-02-15',
+    endDate: '2024-02-18',
+    duration: 3,
+    estimatedCost: 8500,
+    actualCost: 8200,
+    status: 'approved',
+    expenses: {
+      flights: 3500,
+      hotel: 3200,
+      transportation: 800,
+      meals: 700
     }
-  ];
-
-  const expenseCategories = [
-    { name: 'تذاكر الطيران', amount: 125000, percentage: 44, icon: Plane, color: 'blue' },
-    { name: 'الإقامة', amount: 98000, percentage: 34, icon: Hotel, color: 'green' },
-    { name: 'المواصلات', amount: 38000, percentage: 13, icon: Car, color: 'purple' },
-    { name: 'الوجبات', amount: 24000, percentage: 9, icon: Receipt, color: 'orange' }
-  ];
-
-  const travelPolicies = [
-    {
-      category: 'الطيران',
-      rule: 'درجة الاقتصاد للرحلات أقل من 6 ساعات',
-      limit: 'حد أقصى 4000 ريال للتذكرة'
-    },
-    {
-      category: 'الإقامة',
-      rule: 'فنادق 4 نجوم كحد أقصى',
-      limit: 'حد أقصى 800 ريال لليلة'
-    },
-    {
-      category: 'المواصلات',
-      rule: 'سيارة اقتصادية أو تطبيقات النقل',
-      limit: 'حد أقصى 300 ريال يومياً'
-    },
-    {
-      category: 'الوجبات',
-      rule: 'بدل يومي ثابت',
-      limit: '200 ريال يومياً'
+  }, {
+    id: 2,
+    requestNumber: 'TR-2024-002',
+    employee: 'فاطمة سالم',
+    department: 'التسويق',
+    destination: 'القاهرة، مصر',
+    purpose: 'معرض تجاري',
+    startDate: '2024-02-20',
+    endDate: '2024-02-23',
+    duration: 3,
+    estimatedCost: 7200,
+    actualCost: null,
+    status: 'pending',
+    expenses: {
+      flights: 2800,
+      hotel: 2900,
+      transportation: 800,
+      meals: 700
     }
-  ];
-
+  }, {
+    id: 3,
+    requestNumber: 'TR-2024-003',
+    employee: 'خالد أحمد',
+    department: 'التكنولوجيا',
+    destination: 'الرياض',
+    purpose: 'دورة تدريبية',
+    startDate: '2024-02-10',
+    endDate: '2024-02-12',
+    duration: 2,
+    estimatedCost: 5500,
+    actualCost: 5300,
+    status: 'completed',
+    expenses: {
+      flights: 2200,
+      hotel: 2000,
+      transportation: 600,
+      meals: 500
+    }
+  }, {
+    id: 4,
+    requestNumber: 'TR-2024-004',
+    employee: 'سارة عبدالله',
+    department: 'الموارد البشرية',
+    destination: 'جدة',
+    purpose: 'مؤتمر HR',
+    startDate: '2024-02-25',
+    endDate: '2024-02-26',
+    duration: 1,
+    estimatedCost: 4200,
+    actualCost: null,
+    status: 'rejected',
+    expenses: {
+      flights: 1800,
+      hotel: 1500,
+      transportation: 500,
+      meals: 400
+    }
+  }];
+  const expenseCategories = [{
+    name: 'تذاكر الطيران',
+    amount: 125000,
+    percentage: 44,
+    icon: Plane,
+    color: 'blue'
+  }, {
+    name: 'الإقامة',
+    amount: 98000,
+    percentage: 34,
+    icon: Hotel,
+    color: 'green'
+  }, {
+    name: 'المواصلات',
+    amount: 38000,
+    percentage: 13,
+    icon: Car,
+    color: 'purple'
+  }, {
+    name: 'الوجبات',
+    amount: 24000,
+    percentage: 9,
+    icon: Receipt,
+    color: 'orange'
+  }];
+  const travelPolicies = [{
+    category: 'الطيران',
+    rule: 'درجة الاقتصاد للرحلات أقل من 6 ساعات',
+    limit: 'حد أقصى 4000 ريال للتذكرة'
+  }, {
+    category: 'الإقامة',
+    rule: 'فنادق 4 نجوم كحد أقصى',
+    limit: 'حد أقصى 800 ريال لليلة'
+  }, {
+    category: 'المواصلات',
+    rule: 'سيارة اقتصادية أو تطبيقات النقل',
+    limit: 'حد أقصى 300 ريال يومياً'
+  }, {
+    category: 'الوجبات',
+    rule: 'بدل يومي ثابت',
+    limit: '200 ريال يومياً'
+  }];
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
@@ -180,9 +158,10 @@ export const TravelExpensesManagement: React.FC = () => {
         return <Badge>غير محدد</Badge>;
     }
   };
-
   const getIconColor = (color: string) => {
-    const colors: { [key: string]: string } = {
+    const colors: {
+      [key: string]: string;
+    } = {
       blue: 'text-blue-600 bg-blue-100',
       green: 'text-green-600 bg-green-100',
       purple: 'text-purple-600 bg-purple-100',
@@ -190,9 +169,7 @@ export const TravelExpensesManagement: React.FC = () => {
     };
     return colors[color] || 'text-gray-600 bg-gray-100';
   };
-
-  return (
-    <div className="space-y-6" dir="rtl">
+  return <div className="space-y-6" dir="rtl">
       {/* Header */}
       <div className="space-y-6">
         {/* Logo */}
@@ -202,7 +179,7 @@ export const TravelExpensesManagement: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة السفر والمصروفات</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم السفر والمصروفات</h1>
           <p className="text-muted-foreground">إدارة شاملة لطلبات السفر والمصروفات المتعلقة بها</p>
         </div>
       </div>
@@ -399,10 +376,9 @@ export const TravelExpensesManagement: React.FC = () => {
                 </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
-                <div 
-                  className={`h-3 rounded-full ${stats.utilizationRate > 90 ? 'bg-red-600' : stats.utilizationRate > 75 ? 'bg-yellow-600' : 'bg-green-600'}`}
-                  style={{ width: `${stats.utilizationRate}%` }}
-                />
+                <div className={`h-3 rounded-full ${stats.utilizationRate > 90 ? 'bg-red-600' : stats.utilizationRate > 75 ? 'bg-yellow-600' : 'bg-green-600'}`} style={{
+                width: `${stats.utilizationRate}%`
+              }} />
               </div>
             </div>
           </div>
@@ -427,12 +403,7 @@ export const TravelExpensesManagement: React.FC = () => {
                 <div className="flex gap-2">
                   <div className="relative">
                     <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      placeholder="بحث في الطلبات..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10 w-64"
-                    />
+                    <Input placeholder="بحث في الطلبات..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10 w-64" />
                   </div>
                   <Select value={filterStatus} onValueChange={setFilterStatus}>
                     <SelectTrigger className="w-40">
@@ -454,8 +425,7 @@ export const TravelExpensesManagement: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {travelRequests.map((request) => (
-                  <Card key={request.id} className="border">
+                {travelRequests.map(request => <Card key={request.id} className="border">
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -504,8 +474,7 @@ export const TravelExpensesManagement: React.FC = () => {
                           <Eye className="w-4 h-4 ml-1" />
                           عرض التفاصيل
                         </Button>
-                        {request.status === 'pending' && (
-                          <>
+                        {request.status === 'pending' && <>
                             <Button size="sm" variant="outline" className="text-green-600">
                               <CheckCircle className="w-4 h-4 ml-1" />
                               موافقة
@@ -514,18 +483,14 @@ export const TravelExpensesManagement: React.FC = () => {
                               <XCircle className="w-4 h-4 ml-1" />
                               رفض
                             </Button>
-                          </>
-                        )}
-                        {request.status === 'approved' && (
-                          <Button size="sm" variant="outline">
+                          </>}
+                        {request.status === 'approved' && <Button size="sm" variant="outline">
                             <Upload className="w-4 h-4 ml-1" />
                             رفع المصروفات
-                          </Button>
-                        )}
+                          </Button>}
                       </div>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
             </CardContent>
           </Card>
@@ -543,9 +508,8 @@ export const TravelExpensesManagement: React.FC = () => {
             <CardContent>
               <div className="space-y-4">
                 {expenseCategories.map((category, index) => {
-                  const Icon = category.icon;
-                  return (
-                    <div key={index} className="space-y-2">
+                const Icon = category.icon;
+                return <div key={index} className="space-y-2">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded-lg ${getIconColor(category.color)}`}>
@@ -562,14 +526,12 @@ export const TravelExpensesManagement: React.FC = () => {
                         </div>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div 
-                          className={`h-2 rounded-full ${category.color === 'blue' ? 'bg-blue-600' : category.color === 'green' ? 'bg-green-600' : category.color === 'purple' ? 'bg-purple-600' : 'bg-orange-600'}`}
-                          style={{ width: `${category.percentage}%` }}
-                        />
+                        <div className={`h-2 rounded-full ${category.color === 'blue' ? 'bg-blue-600' : category.color === 'green' ? 'bg-green-600' : category.color === 'purple' ? 'bg-purple-600' : 'bg-orange-600'}`} style={{
+                      width: `${category.percentage}%`
+                    }} />
                       </div>
-                    </div>
-                  );
-                })}
+                    </div>;
+              })}
               </div>
 
               <div className="mt-6 p-4 bg-gray-50 rounded-lg">
@@ -595,8 +557,7 @@ export const TravelExpensesManagement: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {travelPolicies.map((policy, index) => (
-                  <Card key={index} className="border">
+                {travelPolicies.map((policy, index) => <Card key={index} className="border">
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -617,8 +578,7 @@ export const TravelExpensesManagement: React.FC = () => {
                         </Button>
                       </div>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
 
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -679,13 +639,23 @@ export const TravelExpensesManagement: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {[
-                    { city: 'دبي، الإمارات', trips: 12, cost: 102000 },
-                    { city: 'الرياض، السعودية', trips: 10, cost: 55000 },
-                    { city: 'القاهرة، مصر', trips: 8, cost: 57600 },
-                    { city: 'البحرين', trips: 6, cost: 42000 }
-                  ].map((dest, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                  {[{
+                  city: 'دبي، الإمارات',
+                  trips: 12,
+                  cost: 102000
+                }, {
+                  city: 'الرياض، السعودية',
+                  trips: 10,
+                  cost: 55000
+                }, {
+                  city: 'القاهرة، مصر',
+                  trips: 8,
+                  cost: 57600
+                }, {
+                  city: 'البحرين',
+                  trips: 6,
+                  cost: 42000
+                }].map((dest, index) => <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                       <div className="flex items-center gap-3">
                         <Globe className="w-5 h-5 text-muted-foreground" />
                         <div>
@@ -694,8 +664,7 @@ export const TravelExpensesManagement: React.FC = () => {
                         </div>
                       </div>
                       <p className="text-sm font-medium">{(dest.cost / 1000).toFixed(0)}ك ريال</p>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -736,6 +705,5 @@ export const TravelExpensesManagement: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>;
 };
