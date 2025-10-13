@@ -10,24 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  ArrowLeft, FileText, Send, Plus, Settings, BarChart3, Eye, Edit, Trash2, 
-  Download, Upload, Printer, Search, Filter, Calendar, Clock, Bell,
-  User, Briefcase, MapPin, Calendar as CalendarIcon, ThumbsUp, Percent, TrendingDown,
-  Code, Heart, Lightbulb, Shield, Zap as ZapIcon, Cpu, Palette, Globe, BarChart, Route,
-  GitBranch, Layers, Network, Compass, Map, ArrowUp, ArrowRight, ChevronRight, Trophy, Medal,
-  Crosshair, Focus, Radar, Telescope, Binoculars, Gem, Diamond, Rocket, PlayCircle, Save,
-  AlertTriangle, Activity, Stethoscope, HardHat, BookOpen, ClipboardList, FileCheck,
-  UserCheck, UserX, CheckCircle, XCircle, AlertCircle, Timer, Target,
-  TrendingUp, Zap, FileImage, Camera, Mic, Video, Image, Paperclip, Flag, Users
-} from 'lucide-react';
+import { ArrowLeft, FileText, Send, Plus, Settings, BarChart3, Eye, Edit, Trash2, Download, Upload, Printer, Search, Filter, Calendar, Clock, Bell, User, Briefcase, MapPin, Calendar as CalendarIcon, ThumbsUp, Percent, TrendingDown, Code, Heart, Lightbulb, Shield, Zap as ZapIcon, Cpu, Palette, Globe, BarChart, Route, GitBranch, Layers, Network, Compass, Map, ArrowUp, ArrowRight, ChevronRight, Trophy, Medal, Crosshair, Focus, Radar, Telescope, Binoculars, Gem, Diamond, Rocket, PlayCircle, Save, AlertTriangle, Activity, Stethoscope, HardHat, BookOpen, ClipboardList, FileCheck, UserCheck, UserX, CheckCircle, XCircle, AlertCircle, Timer, Target, TrendingUp, Zap, FileImage, Camera, Mic, Video, Image, Paperclip, Flag, Users } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart as RechartsBarChart, Bar, LineChart, Line } from 'recharts';
 import { toast } from "sonner";
-
 interface OccupationalSafetyProps {
   onBack?: () => void;
 }
-
 interface SafetyIncident {
   id: string;
   type: 'injury' | 'near_miss' | 'property_damage' | 'environmental';
@@ -44,7 +32,6 @@ interface SafetyIncident {
   attachments: number;
   daysLost?: number;
 }
-
 interface MedicalExam {
   id: string;
   employeeName: string;
@@ -58,7 +45,6 @@ interface MedicalExam {
   nextExamDate?: string;
   medicalOfficer?: string;
 }
-
 interface SafetyPolicy {
   id: string;
   title: string;
@@ -72,7 +58,6 @@ interface SafetyPolicy {
   fileUrl?: string;
   description: string;
 }
-
 interface RiskAssessment {
   id: string;
   hazardTitle: string;
@@ -88,7 +73,6 @@ interface RiskAssessment {
   status: 'identified' | 'assessing' | 'controlling' | 'monitored';
   lastReviewed: string;
 }
-
 interface SafetyTraining {
   id: string;
   title: string;
@@ -102,8 +86,9 @@ interface SafetyTraining {
   nextScheduled?: string;
   trainer?: string;
 }
-
-export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }) => {
+export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({
+  onBack
+}) => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
@@ -114,253 +99,312 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
   // Mock data for incidents
-  const incidents: SafetyIncident[] = [
-    {
-      id: "1",
-      type: "injury",
-      title: "إصابة في اليد أثناء التشغيل",
-      description: "إصابة طفيفة في اليد اليسرى للعامل أثناء تشغيل المعدة",
-      location: "ورشة الإنتاج - الخط الثاني",
-      reportedBy: "أحمد محمد",
-      reportedDate: "2024-01-15",
-      incidentDate: "2024-01-15",
-      severity: "medium",
-      status: "investigating",
-      investigator: "مدير السلامة",
-      attachments: 3,
-      daysLost: 0
-    },
-    {
-      id: "2",
-      type: "near_miss",
-      title: "كاد أن يحدث سقوط من الارتفاع",
-      description: "عامل كاد أن يسقط من السقالة بسبب عدم ربط حزام الأمان",
-      location: "موقع البناء - الطابق الثالث",
-      reportedBy: "سارة أحمد",
-      reportedDate: "2024-01-14",
-      incidentDate: "2024-01-14",
-      severity: "high",
-      status: "resolved",
-      attachments: 1,
-      daysLost: 0
-    },
-    {
-      id: "3",
-      type: "property_damage",
-      title: "تلف في المعدة",
-      description: "تلف في معدة الرفع بسبب التحميل الزائد",
-      location: "المستودع الرئيسي",
-      reportedBy: "محمد علي",
-      reportedDate: "2024-01-13",
-      incidentDate: "2024-01-13",
-      severity: "medium",
-      status: "closed",
-      attachments: 2,
-      daysLost: 0
-    }
-  ];
+  const incidents: SafetyIncident[] = [{
+    id: "1",
+    type: "injury",
+    title: "إصابة في اليد أثناء التشغيل",
+    description: "إصابة طفيفة في اليد اليسرى للعامل أثناء تشغيل المعدة",
+    location: "ورشة الإنتاج - الخط الثاني",
+    reportedBy: "أحمد محمد",
+    reportedDate: "2024-01-15",
+    incidentDate: "2024-01-15",
+    severity: "medium",
+    status: "investigating",
+    investigator: "مدير السلامة",
+    attachments: 3,
+    daysLost: 0
+  }, {
+    id: "2",
+    type: "near_miss",
+    title: "كاد أن يحدث سقوط من الارتفاع",
+    description: "عامل كاد أن يسقط من السقالة بسبب عدم ربط حزام الأمان",
+    location: "موقع البناء - الطابق الثالث",
+    reportedBy: "سارة أحمد",
+    reportedDate: "2024-01-14",
+    incidentDate: "2024-01-14",
+    severity: "high",
+    status: "resolved",
+    attachments: 1,
+    daysLost: 0
+  }, {
+    id: "3",
+    type: "property_damage",
+    title: "تلف في المعدة",
+    description: "تلف في معدة الرفع بسبب التحميل الزائد",
+    location: "المستودع الرئيسي",
+    reportedBy: "محمد علي",
+    reportedDate: "2024-01-13",
+    incidentDate: "2024-01-13",
+    severity: "medium",
+    status: "closed",
+    attachments: 2,
+    daysLost: 0
+  }];
 
   // Mock data for medical exams
-  const medicalExams: MedicalExam[] = [
-    {
-      id: "1",
-      employeeName: "أحمد محمد علي",
-      employeeId: "EMP001",
-      examType: "periodic",
-      scheduledDate: "2024-01-20",
-      status: "scheduled",
-      nextExamDate: "2025-01-20",
-      medicalOfficer: "د. فاطمة أحمد"
-    },
-    {
-      id: "2",
-      employeeName: "سارة محمد",
-      employeeId: "EMP002",
-      examType: "pre_employment",
-      scheduledDate: "2024-01-10",
-      completedDate: "2024-01-10",
-      status: "completed",
-      results: "fit",
-      medicalOfficer: "د. محمد سالم"
-    },
-    {
-      id: "3",
-      employeeName: "محمد علي",
-      employeeId: "EMP003",
-      examType: "periodic",
-      scheduledDate: "2024-01-05",
-      status: "overdue",
-      nextExamDate: "2024-02-05",
-      medicalOfficer: "د. فاطمة أحمد"
-    }
-  ];
+  const medicalExams: MedicalExam[] = [{
+    id: "1",
+    employeeName: "أحمد محمد علي",
+    employeeId: "EMP001",
+    examType: "periodic",
+    scheduledDate: "2024-01-20",
+    status: "scheduled",
+    nextExamDate: "2025-01-20",
+    medicalOfficer: "د. فاطمة أحمد"
+  }, {
+    id: "2",
+    employeeName: "سارة محمد",
+    employeeId: "EMP002",
+    examType: "pre_employment",
+    scheduledDate: "2024-01-10",
+    completedDate: "2024-01-10",
+    status: "completed",
+    results: "fit",
+    medicalOfficer: "د. محمد سالم"
+  }, {
+    id: "3",
+    employeeName: "محمد علي",
+    employeeId: "EMP003",
+    examType: "periodic",
+    scheduledDate: "2024-01-05",
+    status: "overdue",
+    nextExamDate: "2024-02-05",
+    medicalOfficer: "د. فاطمة أحمد"
+  }];
 
   // Mock data for policies
-  const policies: SafetyPolicy[] = [
-    {
-      id: "1",
-      title: "دليل السلامة العامة",
-      category: "عام",
-      version: "2.1",
-      publishedDate: "2024-01-01",
-      lastUpdated: "2024-01-10",
-      status: "published",
-      acknowledgments: 45,
-      totalEmployees: 50,
-      description: "الدليل الشامل لقواعد السلامة في مكان العمل"
-    },
-    {
-      id: "2",
-      title: "إجراءات الطوارئ",
-      category: "طوارئ",
-      version: "1.5",
-      publishedDate: "2023-12-15",
-      lastUpdated: "2024-01-05",
-      status: "published",
-      acknowledgments: 48,
-      totalEmployees: 50,
-      description: "خطة الاستجابة للطوارئ والإخلاء"
-    }
-  ];
+  const policies: SafetyPolicy[] = [{
+    id: "1",
+    title: "دليل السلامة العامة",
+    category: "عام",
+    version: "2.1",
+    publishedDate: "2024-01-01",
+    lastUpdated: "2024-01-10",
+    status: "published",
+    acknowledgments: 45,
+    totalEmployees: 50,
+    description: "الدليل الشامل لقواعد السلامة في مكان العمل"
+  }, {
+    id: "2",
+    title: "إجراءات الطوارئ",
+    category: "طوارئ",
+    version: "1.5",
+    publishedDate: "2023-12-15",
+    lastUpdated: "2024-01-05",
+    status: "published",
+    acknowledgments: 48,
+    totalEmployees: 50,
+    description: "خطة الاستجابة للطوارئ والإخلاء"
+  }];
 
   // Mock data for risk assessments
-  const riskAssessments: RiskAssessment[] = [
-    {
-      id: "1",
-      hazardTitle: "مخاطر الكهرباء",
-      location: "ورشة الكهرباء",
-      category: "كهربائي",
-      riskLevel: "high",
-      probability: 3,
-      severity: 4,
-      riskScore: 12,
-      controlMeasures: ["فحص دوري للمعدات", "تدريب العمال", "استخدام معدات الوقاية"],
-      assignedTo: "مدير الصيانة",
-      targetDate: "2024-02-01",
-      status: "controlling",
-      lastReviewed: "2024-01-10"
-    },
-    {
-      id: "2",
-      hazardTitle: "مخاطر الحريق",
-      location: "المستودع",
-      category: "حريق",
-      riskLevel: "medium",
-      probability: 2,
-      severity: 4,
-      riskScore: 8,
-      controlMeasures: ["أجهزة الإنذار", "طفايات الحريق", "تدريب الإخلاء"],
-      assignedTo: "ضابط السلامة",
-      targetDate: "2024-01-30",
-      status: "monitored",
-      lastReviewed: "2024-01-12"
-    }
-  ];
+  const riskAssessments: RiskAssessment[] = [{
+    id: "1",
+    hazardTitle: "مخاطر الكهرباء",
+    location: "ورشة الكهرباء",
+    category: "كهربائي",
+    riskLevel: "high",
+    probability: 3,
+    severity: 4,
+    riskScore: 12,
+    controlMeasures: ["فحص دوري للمعدات", "تدريب العمال", "استخدام معدات الوقاية"],
+    assignedTo: "مدير الصيانة",
+    targetDate: "2024-02-01",
+    status: "controlling",
+    lastReviewed: "2024-01-10"
+  }, {
+    id: "2",
+    hazardTitle: "مخاطر الحريق",
+    location: "المستودع",
+    category: "حريق",
+    riskLevel: "medium",
+    probability: 2,
+    severity: 4,
+    riskScore: 8,
+    controlMeasures: ["أجهزة الإنذار", "طفايات الحريق", "تدريب الإخلاء"],
+    assignedTo: "ضابط السلامة",
+    targetDate: "2024-01-30",
+    status: "monitored",
+    lastReviewed: "2024-01-12"
+  }];
 
   // Mock data for training
-  const trainingPrograms: SafetyTraining[] = [
-    {
-      id: "1",
-      title: "السلامة العامة في مكان العمل",
-      category: "عام",
-      duration: 4,
-      mandatory: true,
-      validityPeriod: 12,
-      completedCount: 42,
-      totalAssigned: 50,
-      completionRate: 84,
-      nextScheduled: "2024-02-01",
-      trainer: "د. أحمد محمد"
-    },
-    {
-      id: "2",
-      title: "إجراءات الطوارئ والإخلاء",
-      category: "طوارئ",
-      duration: 2,
-      mandatory: true,
-      validityPeriod: 6,
-      completedCount: 38,
-      totalAssigned: 50,
-      completionRate: 76,
-      nextScheduled: "2024-01-25",
-      trainer: "سارة أحمد"
-    }
-  ];
+  const trainingPrograms: SafetyTraining[] = [{
+    id: "1",
+    title: "السلامة العامة في مكان العمل",
+    category: "عام",
+    duration: 4,
+    mandatory: true,
+    validityPeriod: 12,
+    completedCount: 42,
+    totalAssigned: 50,
+    completionRate: 84,
+    nextScheduled: "2024-02-01",
+    trainer: "د. أحمد محمد"
+  }, {
+    id: "2",
+    title: "إجراءات الطوارئ والإخلاء",
+    category: "طوارئ",
+    duration: 2,
+    mandatory: true,
+    validityPeriod: 6,
+    completedCount: 38,
+    totalAssigned: 50,
+    completionRate: 76,
+    nextScheduled: "2024-01-25",
+    trainer: "سارة أحمد"
+  }];
 
   // Dashboard metrics data
-  const dashboardMetrics = [
-    { name: 'يناير', incidents: 5, nearMiss: 8, training: 92, compliance: 85 },
-    { name: 'فبراير', incidents: 3, nearMiss: 12, training: 88, compliance: 90 },
-    { name: 'مارس', incidents: 7, nearMiss: 6, training: 95, compliance: 88 },
-    { name: 'أبريل', incidents: 2, nearMiss: 10, training: 90, compliance: 92 },
-    { name: 'مايو', incidents: 4, nearMiss: 9, training: 93, compliance: 89 },
-    { name: 'يونيو', incidents: 1, nearMiss: 15, training: 96, compliance: 95 }
-  ];
-
-  const incidentTypes = [
-    { name: 'إصابات', value: 35, color: '#ef4444' },
-    { name: 'كاد أن يحدث', value: 45, color: '#f59e0b' },
-    { name: 'أضرار الممتلكات', value: 15, color: '#3b82f6' },
-    { name: 'بيئية', value: 5, color: '#10b981' }
-  ];
+  const dashboardMetrics = [{
+    name: 'يناير',
+    incidents: 5,
+    nearMiss: 8,
+    training: 92,
+    compliance: 85
+  }, {
+    name: 'فبراير',
+    incidents: 3,
+    nearMiss: 12,
+    training: 88,
+    compliance: 90
+  }, {
+    name: 'مارس',
+    incidents: 7,
+    nearMiss: 6,
+    training: 95,
+    compliance: 88
+  }, {
+    name: 'أبريل',
+    incidents: 2,
+    nearMiss: 10,
+    training: 90,
+    compliance: 92
+  }, {
+    name: 'مايو',
+    incidents: 4,
+    nearMiss: 9,
+    training: 93,
+    compliance: 89
+  }, {
+    name: 'يونيو',
+    incidents: 1,
+    nearMiss: 15,
+    training: 96,
+    compliance: 95
+  }];
+  const incidentTypes = [{
+    name: 'إصابات',
+    value: 35,
+    color: '#ef4444'
+  }, {
+    name: 'كاد أن يحدث',
+    value: 45,
+    color: '#f59e0b'
+  }, {
+    name: 'أضرار الممتلكات',
+    value: 15,
+    color: '#3b82f6'
+  }, {
+    name: 'بيئية',
+    value: 5,
+    color: '#10b981'
+  }];
 
   // Helper functions
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'low':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'high':
+        return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'critical':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getSeverityText = (severity: string) => {
     switch (severity) {
-      case 'low': return 'منخفض';
-      case 'medium': return 'متوسط';
-      case 'high': return 'عالي';
-      case 'critical': return 'حرج';
-      default: return severity;
+      case 'low':
+        return 'منخفض';
+      case 'medium':
+        return 'متوسط';
+      case 'high':
+        return 'عالي';
+      case 'critical':
+        return 'حرج';
+      default:
+        return severity;
     }
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'scheduled': case 'reported': case 'identified': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'investigating': case 'assessing': case 'controlling': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'completed': case 'resolved': case 'monitored': return 'bg-green-100 text-green-800 border-green-200';
-      case 'overdue': return 'bg-red-100 text-red-800 border-red-200';
-      case 'closed': case 'cancelled': return 'bg-gray-100 text-gray-800 border-gray-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'scheduled':
+      case 'reported':
+      case 'identified':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'investigating':
+      case 'assessing':
+      case 'controlling':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'completed':
+      case 'resolved':
+      case 'monitored':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'overdue':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'closed':
+      case 'cancelled':
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getStatusText = (status: string, context?: string) => {
     switch (status) {
-      case 'scheduled': return 'مجدولة';
-      case 'completed': return 'مكتملة';
-      case 'overdue': return 'متأخرة';
-      case 'cancelled': return 'ملغية';
-      case 'reported': return 'مبلغ عنها';
-      case 'investigating': return 'قيد التحقيق';
-      case 'resolved': return 'محلولة';
-      case 'closed': return 'مغلقة';
-      case 'identified': return 'محددة';
-      case 'assessing': return 'قيد التقييم';
-      case 'controlling': return 'قيد السيطرة';
-      case 'monitored': return 'مراقبة';
-      default: return status;
+      case 'scheduled':
+        return 'مجدولة';
+      case 'completed':
+        return 'مكتملة';
+      case 'overdue':
+        return 'متأخرة';
+      case 'cancelled':
+        return 'ملغية';
+      case 'reported':
+        return 'مبلغ عنها';
+      case 'investigating':
+        return 'قيد التحقيق';
+      case 'resolved':
+        return 'محلولة';
+      case 'closed':
+        return 'مغلقة';
+      case 'identified':
+        return 'محددة';
+      case 'assessing':
+        return 'قيد التقييم';
+      case 'controlling':
+        return 'قيد السيطرة';
+      case 'monitored':
+        return 'مراقبة';
+      default:
+        return status;
     }
   };
-
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'injury': return <AlertTriangle className="h-4 w-4 text-red-600" />;
-      case 'near_miss': return <AlertCircle className="h-4 w-4 text-orange-600" />;
-      case 'property_damage': return <Shield className="h-4 w-4 text-blue-600" />;
-      case 'environmental': return <Globe className="h-4 w-4 text-green-600" />;
-      default: return <FileText className="h-4 w-4" />;
+      case 'injury':
+        return <AlertTriangle className="h-4 w-4 text-red-600" />;
+      case 'near_miss':
+        return <AlertCircle className="h-4 w-4 text-orange-600" />;
+      case 'property_damage':
+        return <Shield className="h-4 w-4 text-blue-600" />;
+      case 'environmental':
+        return <Globe className="h-4 w-4 text-green-600" />;
+      default:
+        return <FileText className="h-4 w-4" />;
     }
   };
 
@@ -368,56 +412,44 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
   const handleExportExcel = () => {
     toast.success("تم تصدير البيانات إلى Excel بنجاح");
   };
-
   const handleExportPDF = () => {
     toast.success("تم تصدير التقرير إلى PDF بنجاح");
   };
-
   const handlePrint = () => {
     toast.success("تم إرسال الصفحة للطباعة");
   };
-
   const handleAddIncident = () => {
     setIsAddIncidentOpen(true);
   };
-
   const handleAddExam = () => {
     setIsAddExamOpen(true);
   };
-
   const handleAddPolicy = () => {
     setIsAddPolicyOpen(true);
   };
-
   const handleAddRisk = () => {
     setIsAddRiskOpen(true);
   };
-
   const handleEdit = (item: any) => {
     setSelectedItem(item);
     toast.info("فتح للتعديل");
   };
-
   const handleDelete = (id: string) => {
     toast.success("تم الحذف بنجاح");
   };
-
   const handleView = (item: any) => {
     setSelectedItem(item);
     toast.info("فتح للمعاينة");
   };
-
   const handleUpload = () => {
     toast.success("تم رفع المستند بنجاح");
   };
-
   const handleDownload = (item: any) => {
     toast.success(`تم تحميل: ${item.title || item.name}`);
   };
 
   // Header component
-  const renderHeader = () => (
-    <div className="space-y-6">
+  const renderHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
@@ -425,15 +457,13 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">الصحة والسلامة المهنية</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الصحة والسلامة المهنية</h1>
         <p className="text-muted-foreground">إدارة شاملة للسلامة والصحة المهنية في مكان العمل</p>
       </div>
-    </div>
-  );
+    </div>;
 
   // Dashboard content
-  const renderDashboard = () => (
-    <div className="space-y-6">
+  const renderDashboard = () => <div className="space-y-6">
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="hover:shadow-md transition-shadow">
@@ -448,15 +478,17 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={dashboardMetrics}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                  <XAxis dataKey="name" tick={{ fontSize: 12 }} axisLine={false} />
-                  <YAxis tick={{ fontSize: 12 }} axisLine={false} />
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }}
-                  />
+                  <XAxis dataKey="name" tick={{
+                  fontSize: 12
+                }} axisLine={false} />
+                  <YAxis tick={{
+                  fontSize: 12
+                }} axisLine={false} />
+                  <Tooltip contentStyle={{
+                  backgroundColor: 'hsl(var(--background))',
+                  border: '1px solid hsl(var(--border))',
+                  borderRadius: '8px'
+                }} />
                   <Area type="monotone" dataKey="incidents" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.8} name="الحوادث" />
                   <Area type="monotone" dataKey="nearMiss" stackId="1" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.8} name="كاد أن يحدث" />
                   <Area type="monotone" dataKey="training" stackId="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.8} name="التدريب %" />
@@ -477,26 +509,14 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <RechartsPieChart>
-                  <Pie
-                    data={incidentTypes}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    innerRadius={40}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {incidentTypes.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
+                  <Pie data={incidentTypes} cx="50%" cy="50%" outerRadius={100} innerRadius={40} paddingAngle={5} dataKey="value">
+                    {incidentTypes.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                   </Pie>
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }}
-                  />
+                  <Tooltip contentStyle={{
+                  backgroundColor: 'hsl(var(--background))',
+                  border: '1px solid hsl(var(--border))',
+                  borderRadius: '8px'
+                }} />
                 </RechartsPieChart>
               </ResponsiveContainer>
             </div>
@@ -551,8 +571,7 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {incidents.slice(0, 4).map((incident) => (
-                <div key={incident.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+              {incidents.slice(0, 4).map(incident => <div key={incident.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition-colors">
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-muted rounded-full">
                       {getTypeIcon(incident.type)}
@@ -568,30 +587,22 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                     </Badge>
                     <p className="text-xs text-muted-foreground mt-1">{incident.incidentDate}</p>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>;
 
   // Incidents tab
-  const renderIncidents = () => (
-    <div className="space-y-6">
+  const renderIncidents = () => <div className="space-y-6">
       <Card>
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                <Input
-                  placeholder="البحث في الحوادث..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pr-10"
-                />
+                <Input placeholder="البحث في الحوادث..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10" />
               </div>
             </div>
             <Select value={filterType} onValueChange={setFilterType}>
@@ -615,8 +626,7 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
       </Card>
 
       <div className="grid grid-cols-1 gap-4">
-        {incidents.map((incident) => (
-          <Card key={incident.id} className="hover:shadow-md transition-shadow">
+        {incidents.map(incident => <Card key={incident.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4 flex-1">
@@ -636,15 +646,11 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                       <p><strong>المبلغ:</strong> {incident.reportedBy}</p>
                       <p><strong>تاريخ الحادث:</strong> {incident.incidentDate}</p>
                       <p><strong>المحقق:</strong> {incident.investigator || "غير محدد"}</p>
-                      {incident.attachments > 0 && (
-                        <p className="flex items-center gap-1">
+                      {incident.attachments > 0 && <p className="flex items-center gap-1">
                           <Paperclip className="h-3 w-3" />
                           {incident.attachments} مرفق
-                        </p>
-                      )}
-                      {incident.daysLost !== undefined && (
-                        <p><strong>أيام الغياب:</strong> {incident.daysLost}</p>
-                      )}
+                        </p>}
+                      {incident.daysLost !== undefined && <p><strong>أيام الغياب:</strong> {incident.daysLost}</p>}
                     </div>
                     <Badge className={getStatusColor(incident.status)}>
                       {getStatusText(incident.status)}
@@ -665,15 +671,12 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
+    </div>;
 
   // Medical Exams tab
-  const renderMedicalExams = () => (
-    <div className="space-y-6">
+  const renderMedicalExams = () => <div className="space-y-6">
       <Card>
         <CardContent className="p-6">
           <div className="flex justify-between items-center">
@@ -687,8 +690,7 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
       </Card>
 
       <div className="grid grid-cols-1 gap-4">
-        {medicalExams.map((exam) => (
-          <Card key={exam.id} className="hover:shadow-md transition-shadow">
+        {medicalExams.map(exam => <Card key={exam.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4 flex-1">
@@ -703,15 +705,9 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground mb-3">
                       <p><strong>نوع الفحص:</strong> {exam.examType === 'periodic' ? 'دوري' : exam.examType === 'pre_employment' ? 'قبل التوظيف' : 'أخرى'}</p>
                       <p><strong>التاريخ المجدول:</strong> {exam.scheduledDate}</p>
-                      {exam.completedDate && (
-                        <p><strong>تاريخ الإنجاز:</strong> {exam.completedDate}</p>
-                      )}
-                      {exam.results && (
-                        <p><strong>النتيجة:</strong> {exam.results === 'fit' ? 'لائق' : exam.results === 'fit_with_restrictions' ? 'لائق مع قيود' : 'غير لائق'}</p>
-                      )}
-                      {exam.nextExamDate && (
-                        <p><strong>الفحص القادم:</strong> {exam.nextExamDate}</p>
-                      )}
+                      {exam.completedDate && <p><strong>تاريخ الإنجاز:</strong> {exam.completedDate}</p>}
+                      {exam.results && <p><strong>النتيجة:</strong> {exam.results === 'fit' ? 'لائق' : exam.results === 'fit_with_restrictions' ? 'لائق مع قيود' : 'غير لائق'}</p>}
+                      {exam.nextExamDate && <p><strong>الفحص القادم:</strong> {exam.nextExamDate}</p>}
                       <p><strong>الطبيب:</strong> {exam.medicalOfficer}</p>
                     </div>
                     <Badge className={getStatusColor(exam.status)}>
@@ -733,15 +729,12 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
+    </div>;
 
   // Policies tab
-  const renderPolicies = () => (
-    <div className="space-y-6">
+  const renderPolicies = () => <div className="space-y-6">
       <Card>
         <CardContent className="p-6">
           <div className="flex justify-between items-center">
@@ -761,8 +754,7 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {policies.map((policy) => (
-          <Card key={policy.id} className="hover:shadow-md transition-shadow">
+        {policies.map(policy => <Card key={policy.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -794,9 +786,9 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
               <div className="mt-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-muted-foreground">معدل الإقرار</span>
-                  <span className="text-sm font-medium">{Math.round((policy.acknowledgments / policy.totalEmployees) * 100)}%</span>
+                  <span className="text-sm font-medium">{Math.round(policy.acknowledgments / policy.totalEmployees * 100)}%</span>
                 </div>
-                <Progress value={(policy.acknowledgments / policy.totalEmployees) * 100} className="h-2" />
+                <Progress value={policy.acknowledgments / policy.totalEmployees * 100} className="h-2" />
               </div>
 
               <div className="flex items-center justify-between mt-4">
@@ -814,15 +806,12 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 </Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
+    </div>;
 
   // Risk Management tab
-  const renderRiskManagement = () => (
-    <div className="space-y-6">
+  const renderRiskManagement = () => <div className="space-y-6">
       <Card>
         <CardContent className="p-6">
           <div className="flex justify-between items-center">
@@ -836,8 +825,7 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
       </Card>
 
       <div className="grid grid-cols-1 gap-4">
-        {riskAssessments.map((risk) => (
-          <Card key={risk.id} className="hover:shadow-md transition-shadow">
+        {riskAssessments.map(risk => <Card key={risk.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4 flex-1">
@@ -865,17 +853,13 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                     <div className="mb-3">
                       <p className="text-sm font-medium mb-1">إجراءات السيطرة:</p>
                       <ul className="text-sm text-muted-foreground">
-                        {risk.controlMeasures.slice(0, 2).map((measure, index) => (
-                          <li key={index} className="flex items-center gap-1">
+                        {risk.controlMeasures.slice(0, 2).map((measure, index) => <li key={index} className="flex items-center gap-1">
                             <CheckCircle className="h-3 w-3 text-green-600" />
                             {measure}
-                          </li>
-                        ))}
-                        {risk.controlMeasures.length > 2 && (
-                          <li className="text-xs text-muted-foreground mt-1">
+                          </li>)}
+                        {risk.controlMeasures.length > 2 && <li className="text-xs text-muted-foreground mt-1">
                             +{risk.controlMeasures.length - 2} إجراءات أخرى
-                          </li>
-                        )}
+                          </li>}
                       </ul>
                     </div>
                     
@@ -898,15 +882,12 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
+    </div>;
 
   // Training tab
-  const renderTraining = () => (
-    <div className="space-y-6">
+  const renderTraining = () => <div className="space-y-6">
       <Card>
         <CardContent className="p-6">
           <div className="flex justify-between items-center">
@@ -920,8 +901,7 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {trainingPrograms.map((training) => (
-          <Card key={training.id} className="hover:shadow-md transition-shadow">
+        {trainingPrograms.map(training => <Card key={training.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -979,15 +959,12 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 </Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
+    </div>;
 
   // Reports tab
-  const renderReports = () => (
-    <div className="space-y-6">
+  const renderReports = () => <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={handleExportPDF}>
           <CardContent className="p-6 text-center">
@@ -1061,12 +1038,10 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>;
 
   // Settings tab
-  const renderSettings = () => (
-    <div className="space-y-6">
+  const renderSettings = () => <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -1204,11 +1179,8 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background">
+    </div>;
+  return <div className="min-h-screen bg-background">
       {renderHeader()}
       
       <div className="container mx-auto p-6">
@@ -1342,9 +1314,9 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 إلغاء
               </Button>
               <Button onClick={() => {
-                setIsAddIncidentOpen(false);
-                toast.success("تم تسجيل الحادث بنجاح");
-              }}>
+              setIsAddIncidentOpen(false);
+              toast.success("تم تسجيل الحادث بنجاح");
+            }}>
                 حفظ الحادث
               </Button>
             </div>
@@ -1412,15 +1384,14 @@ export const OccupationalSafety: React.FC<OccupationalSafetyProps> = ({ onBack }
                 إلغاء
               </Button>
               <Button onClick={() => {
-                setIsAddExamOpen(false);
-                toast.success("تم جدولة الفحص بنجاح");
-              }}>
+              setIsAddExamOpen(false);
+              toast.success("تم جدولة الفحص بنجاح");
+            }}>
                 حفظ الجدولة
               </Button>
             </div>
           </div>
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 };
