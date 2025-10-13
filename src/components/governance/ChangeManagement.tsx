@@ -3,65 +3,45 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  RefreshCw, 
-  TrendingUp, 
-  Users, 
-  Target, 
-  AlertTriangle,
-  CheckCircle,
-  Clock,
-  FileText,
-  BarChart3,
-  Zap,
-  ArrowRight,
-  Plus,
-  Filter,
-  Download
-} from 'lucide-react';
-
+import { RefreshCw, TrendingUp, Users, Target, AlertTriangle, CheckCircle, Clock, FileText, BarChart3, Zap, ArrowRight, Plus, Filter, Download } from 'lucide-react';
 export const ChangeManagement: React.FC = () => {
   const [activeTab, setActiveTab] = useState('initiatives');
 
   // بيانات تجريبية لمبادرات التغيير
-  const changeInitiatives = [
-    {
-      id: 1,
-      title: 'تحويل رقمي للموارد البشرية',
-      description: 'أتمتة العمليات الإدارية وتطبيق الأنظمة الذكية',
-      status: 'in_progress',
-      progress: 65,
-      priority: 'high',
-      startDate: '2024-01-15',
-      targetDate: '2024-06-30',
-      owner: 'إدارة تقنية المعلومات',
-      impactLevel: 'strategic'
-    },
-    {
-      id: 2,
-      title: 'إعادة هيكلة تنظيمية',
-      description: 'تطوير الهيكل التنظيمي لتحسين الكفاءة',
-      status: 'planning',
-      progress: 25,
-      priority: 'high',
-      startDate: '2024-02-01',
-      targetDate: '2024-08-31',
-      owner: 'الإدارة التنفيذية',
-      impactLevel: 'transformational'
-    },
-    {
-      id: 3,
-      title: 'تطوير ثقافة الأداء',
-      description: 'برنامج شامل لتعزيز ثقافة الأداء العالي',
-      status: 'completed',
-      progress: 100,
-      priority: 'medium',
-      startDate: '2023-09-01',
-      targetDate: '2024-01-31',
-      owner: 'إدارة الموارد البشرية',
-      impactLevel: 'operational'
-    }
-  ];
+  const changeInitiatives = [{
+    id: 1,
+    title: 'تحويل رقمي للموارد البشرية',
+    description: 'أتمتة العمليات الإدارية وتطبيق الأنظمة الذكية',
+    status: 'in_progress',
+    progress: 65,
+    priority: 'high',
+    startDate: '2024-01-15',
+    targetDate: '2024-06-30',
+    owner: 'إدارة تقنية المعلومات',
+    impactLevel: 'strategic'
+  }, {
+    id: 2,
+    title: 'إعادة هيكلة تنظيمية',
+    description: 'تطوير الهيكل التنظيمي لتحسين الكفاءة',
+    status: 'planning',
+    progress: 25,
+    priority: 'high',
+    startDate: '2024-02-01',
+    targetDate: '2024-08-31',
+    owner: 'الإدارة التنفيذية',
+    impactLevel: 'transformational'
+  }, {
+    id: 3,
+    title: 'تطوير ثقافة الأداء',
+    description: 'برنامج شامل لتعزيز ثقافة الأداء العالي',
+    status: 'completed',
+    progress: 100,
+    priority: 'medium',
+    startDate: '2023-09-01',
+    targetDate: '2024-01-31',
+    owner: 'إدارة الموارد البشرية',
+    impactLevel: 'operational'
+  }];
 
   // إحصائيات إدارة التغيير
   const stats = {
@@ -72,47 +52,59 @@ export const ChangeManagement: React.FC = () => {
     averageSuccessRate: 82,
     stakeholderEngagement: 78
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-500/10 text-green-600 border-green-500/20';
-      case 'in_progress': return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
-      case 'planning': return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20';
-      case 'on_hold': return 'bg-gray-500/10 text-gray-600 border-gray-500/20';
-      default: return 'bg-muted text-muted-foreground';
+      case 'completed':
+        return 'bg-green-500/10 text-green-600 border-green-500/20';
+      case 'in_progress':
+        return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
+      case 'planning':
+        return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20';
+      case 'on_hold':
+        return 'bg-gray-500/10 text-gray-600 border-gray-500/20';
+      default:
+        return 'bg-muted text-muted-foreground';
     }
   };
-
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-500/10 text-red-600 border-red-500/20';
-      case 'medium': return 'bg-orange-500/10 text-orange-600 border-orange-500/20';
-      case 'low': return 'bg-green-500/10 text-green-600 border-green-500/20';
-      default: return 'bg-muted text-muted-foreground';
+      case 'high':
+        return 'bg-red-500/10 text-red-600 border-red-500/20';
+      case 'medium':
+        return 'bg-orange-500/10 text-orange-600 border-orange-500/20';
+      case 'low':
+        return 'bg-green-500/10 text-green-600 border-green-500/20';
+      default:
+        return 'bg-muted text-muted-foreground';
     }
   };
-
   const getImpactLabel = (level: string) => {
     switch (level) {
-      case 'transformational': return 'تحويلي';
-      case 'strategic': return 'استراتيجي';
-      case 'operational': return 'تشغيلي';
-      default: return level;
+      case 'transformational':
+        return 'تحويلي';
+      case 'strategic':
+        return 'استراتيجي';
+      case 'operational':
+        return 'تشغيلي';
+      default:
+        return level;
     }
   };
-
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'completed': return 'مكتمل';
-      case 'in_progress': return 'قيد التنفيذ';
-      case 'planning': return 'قيد التخطيط';
-      case 'on_hold': return 'متوقف مؤقتاً';
-      default: return status;
+      case 'completed':
+        return 'مكتمل';
+      case 'in_progress':
+        return 'قيد التنفيذ';
+      case 'planning':
+        return 'قيد التخطيط';
+      case 'on_hold':
+        return 'متوقف مؤقتاً';
+      default:
+        return status;
     }
   };
-
-  return (
-    <div className="space-y-6 p-6" dir="rtl">
+  return <div className="space-y-6 p-6" dir="rtl">
       {/* العنوان والإحصائيات */}
       <div className="space-y-4">
         {/* Logo */}
@@ -122,7 +114,7 @@ export const ChangeManagement: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة التغيير</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم إدارة التغيير</h1>
           <p className="text-muted-foreground">نظام متقدم لإدارة وتتبع مبادرات التغيير المؤسسي</p>
         </div>
 
@@ -241,8 +233,7 @@ export const ChangeManagement: React.FC = () => {
 
         <TabsContent value="initiatives" className="space-y-4">
           <div className="grid gap-4">
-            {changeInitiatives.map((initiative) => (
-              <Card key={initiative.id} className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all">
+            {changeInitiatives.map(initiative => <Card key={initiative.id} className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all">
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     {/* رأس البطاقة */}
@@ -268,10 +259,9 @@ export const ChangeManagement: React.FC = () => {
                         <span className="font-bold text-foreground">{initiative.progress}%</span>
                       </div>
                       <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all duration-500"
-                          style={{ width: `${initiative.progress}%` }}
-                        />
+                        <div className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all duration-500" style={{
+                      width: `${initiative.progress}%`
+                    }} />
                       </div>
                     </div>
 
@@ -324,8 +314,7 @@ export const ChangeManagement: React.FC = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </TabsContent>
 
@@ -358,7 +347,9 @@ export const ChangeManagement: React.FC = () => {
                           <span className="font-bold">78%</span>
                         </div>
                         <div className="w-full h-2 bg-muted rounded-full">
-                          <div className="h-full bg-blue-600 rounded-full" style={{ width: '78%' }} />
+                          <div className="h-full bg-blue-600 rounded-full" style={{
+                          width: '78%'
+                        }} />
                         </div>
                       </div>
                       <Button variant="outline" size="sm" className="w-full">إجراء تقييم جديد</Button>
@@ -398,34 +389,34 @@ export const ChangeManagement: React.FC = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {[
-                        { phase: 'التحليل والتقييم', status: 'completed', duration: '4 أسابيع' },
-                        { phase: 'التصميم والتخطيط', status: 'in_progress', duration: '6 أسابيع' },
-                        { phase: 'التنفيذ التجريبي', status: 'pending', duration: '8 أسابيع' },
-                        { phase: 'التطبيق الشامل', status: 'pending', duration: '12 أسبوع' }
-                      ].map((phase, index) => (
-                        <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                            phase.status === 'completed' ? 'bg-green-500/20 text-green-600' :
-                            phase.status === 'in_progress' ? 'bg-blue-500/20 text-blue-600' :
-                            'bg-muted text-muted-foreground'
-                          }`}>
+                      {[{
+                      phase: 'التحليل والتقييم',
+                      status: 'completed',
+                      duration: '4 أسابيع'
+                    }, {
+                      phase: 'التصميم والتخطيط',
+                      status: 'in_progress',
+                      duration: '6 أسابيع'
+                    }, {
+                      phase: 'التنفيذ التجريبي',
+                      status: 'pending',
+                      duration: '8 أسابيع'
+                    }, {
+                      phase: 'التطبيق الشامل',
+                      status: 'pending',
+                      duration: '12 أسبوع'
+                    }].map((phase, index) => <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${phase.status === 'completed' ? 'bg-green-500/20 text-green-600' : phase.status === 'in_progress' ? 'bg-blue-500/20 text-blue-600' : 'bg-muted text-muted-foreground'}`}>
                             {index + 1}
                           </div>
                           <div className="flex-1">
                             <p className="font-medium text-foreground">{phase.phase}</p>
                             <p className="text-xs text-muted-foreground">{phase.duration}</p>
                           </div>
-                          <Badge className={
-                            phase.status === 'completed' ? 'bg-green-500/10 text-green-600 border-green-500/20' :
-                            phase.status === 'in_progress' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' :
-                            'bg-muted text-muted-foreground'
-                          }>
-                            {phase.status === 'completed' ? 'مكتمل' : 
-                             phase.status === 'in_progress' ? 'جاري' : 'قادم'}
+                          <Badge className={phase.status === 'completed' ? 'bg-green-500/10 text-green-600 border-green-500/20' : phase.status === 'in_progress' ? 'bg-blue-500/10 text-blue-600 border-blue-500/20' : 'bg-muted text-muted-foreground'}>
+                            {phase.status === 'completed' ? 'مكتمل' : phase.status === 'in_progress' ? 'جاري' : 'قادم'}
                           </Badge>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </CardContent>
                 </Card>
@@ -487,13 +478,31 @@ export const ChangeManagement: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {[
-                    { task: 'تدريب الموظفين على النظام الجديد', owner: 'إدارة التدريب', deadline: '2024-12-15', progress: 75, priority: 'high' },
-                    { task: 'ترحيل البيانات إلى النظام الجديد', owner: 'تقنية المعلومات', deadline: '2024-12-20', progress: 45, priority: 'high' },
-                    { task: 'إعداد دليل المستخدم', owner: 'الجودة', deadline: '2024-12-10', progress: 90, priority: 'medium' },
-                    { task: 'اختبار الأداء', owner: 'ضمان الجودة', deadline: '2024-12-08', progress: 60, priority: 'medium' }
-                  ].map((task, index) => (
-                    <div key={index} className="p-4 bg-card border border-border/50 rounded-lg space-y-3 hover:border-primary/50 transition-all">
+                  {[{
+                  task: 'تدريب الموظفين على النظام الجديد',
+                  owner: 'إدارة التدريب',
+                  deadline: '2024-12-15',
+                  progress: 75,
+                  priority: 'high'
+                }, {
+                  task: 'ترحيل البيانات إلى النظام الجديد',
+                  owner: 'تقنية المعلومات',
+                  deadline: '2024-12-20',
+                  progress: 45,
+                  priority: 'high'
+                }, {
+                  task: 'إعداد دليل المستخدم',
+                  owner: 'الجودة',
+                  deadline: '2024-12-10',
+                  progress: 90,
+                  priority: 'medium'
+                }, {
+                  task: 'اختبار الأداء',
+                  owner: 'ضمان الجودة',
+                  deadline: '2024-12-08',
+                  progress: 60,
+                  priority: 'medium'
+                }].map((task, index) => <div key={index} className="p-4 bg-card border border-border/50 rounded-lg space-y-3 hover:border-primary/50 transition-all">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium text-foreground">{task.task}</h4>
@@ -518,11 +527,12 @@ export const ChangeManagement: React.FC = () => {
                           <span className="font-bold text-foreground">{task.progress}%</span>
                         </div>
                         <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                          <div className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all" style={{ width: `${task.progress}%` }} />
+                          <div className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all" style={{
+                        width: `${task.progress}%`
+                      }} />
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -589,22 +599,33 @@ export const ChangeManagement: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {[
-                      { name: 'التحول الرقمي', value: 85, color: 'bg-blue-600' },
-                      { name: 'إعادة الهيكلة', value: 65, color: 'bg-green-600' },
-                      { name: 'ثقافة الأداء', value: 95, color: 'bg-purple-600' },
-                      { name: 'الابتكار', value: 45, color: 'bg-orange-600' }
-                    ].map((item, index) => (
-                      <div key={index} className="space-y-2">
+                    {[{
+                    name: 'التحول الرقمي',
+                    value: 85,
+                    color: 'bg-blue-600'
+                  }, {
+                    name: 'إعادة الهيكلة',
+                    value: 65,
+                    color: 'bg-green-600'
+                  }, {
+                    name: 'ثقافة الأداء',
+                    value: 95,
+                    color: 'bg-purple-600'
+                  }, {
+                    name: 'الابتكار',
+                    value: 45,
+                    color: 'bg-orange-600'
+                  }].map((item, index) => <div key={index} className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-foreground font-medium">{item.name}</span>
                           <span className="text-muted-foreground">{item.value}%</span>
                         </div>
                         <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
-                          <div className={`h-full ${item.color} transition-all`} style={{ width: `${item.value}%` }} />
+                          <div className={`h-full ${item.color} transition-all`} style={{
+                        width: `${item.value}%`
+                      }} />
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -618,26 +639,35 @@ export const ChangeManagement: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {[
-                      { risk: 'مقاومة التغيير', level: 'high', impact: 'عالي', status: 'active' },
-                      { risk: 'نقص الموارد', level: 'medium', impact: 'متوسط', status: 'monitoring' },
-                      { risk: 'التأخير في الجدول الزمني', level: 'medium', impact: 'متوسط', status: 'mitigated' },
-                      { risk: 'قلة التدريب', level: 'low', impact: 'منخفض', status: 'resolved' }
-                    ].map((risk, index) => (
-                      <div key={index} className="p-3 bg-muted/30 rounded-lg flex items-center justify-between">
+                    {[{
+                    risk: 'مقاومة التغيير',
+                    level: 'high',
+                    impact: 'عالي',
+                    status: 'active'
+                  }, {
+                    risk: 'نقص الموارد',
+                    level: 'medium',
+                    impact: 'متوسط',
+                    status: 'monitoring'
+                  }, {
+                    risk: 'التأخير في الجدول الزمني',
+                    level: 'medium',
+                    impact: 'متوسط',
+                    status: 'mitigated'
+                  }, {
+                    risk: 'قلة التدريب',
+                    level: 'low',
+                    impact: 'منخفض',
+                    status: 'resolved'
+                  }].map((risk, index) => <div key={index} className="p-3 bg-muted/30 rounded-lg flex items-center justify-between">
                         <div className="flex-1">
                           <p className="font-medium text-foreground text-sm">{risk.risk}</p>
                           <p className="text-xs text-muted-foreground">التأثير: {risk.impact}</p>
                         </div>
-                        <Badge className={
-                          risk.level === 'high' ? 'bg-red-500/10 text-red-600 border-red-500/20' :
-                          risk.level === 'medium' ? 'bg-orange-500/10 text-orange-600 border-orange-500/20' :
-                          'bg-green-500/10 text-green-600 border-green-500/20'
-                        }>
+                        <Badge className={risk.level === 'high' ? 'bg-red-500/10 text-red-600 border-red-500/20' : risk.level === 'medium' ? 'bg-orange-500/10 text-orange-600 border-orange-500/20' : 'bg-green-500/10 text-green-600 border-green-500/20'}>
                           {risk.level === 'high' ? 'عالي' : risk.level === 'medium' ? 'متوسط' : 'منخفض'}
                         </Badge>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -705,13 +735,31 @@ export const ChangeManagement: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {[
-                    { title: 'تقرير ربع سنوي - Q4 2024', date: '2024-12-01', type: 'quarterly', size: '2.4 MB', downloads: 45 },
-                    { title: 'تحليل المخاطر - نوفمبر 2024', date: '2024-11-30', type: 'risk', size: '1.8 MB', downloads: 32 },
-                    { title: 'تقرير الإنجازات - نوفمبر 2024', date: '2024-11-28', type: 'achievement', size: '3.1 MB', downloads: 67 },
-                    { title: 'تقييم رضا الموظفين', date: '2024-11-25', type: 'survey', size: '1.2 MB', downloads: 89 }
-                  ].map((report, index) => (
-                    <div key={index} className="p-4 bg-card border border-border/50 rounded-lg flex items-center justify-between hover:border-primary/50 transition-all">
+                  {[{
+                  title: 'تقرير ربع سنوي - Q4 2024',
+                  date: '2024-12-01',
+                  type: 'quarterly',
+                  size: '2.4 MB',
+                  downloads: 45
+                }, {
+                  title: 'تحليل المخاطر - نوفمبر 2024',
+                  date: '2024-11-30',
+                  type: 'risk',
+                  size: '1.8 MB',
+                  downloads: 32
+                }, {
+                  title: 'تقرير الإنجازات - نوفمبر 2024',
+                  date: '2024-11-28',
+                  type: 'achievement',
+                  size: '3.1 MB',
+                  downloads: 67
+                }, {
+                  title: 'تقييم رضا الموظفين',
+                  date: '2024-11-25',
+                  type: 'survey',
+                  size: '1.2 MB',
+                  downloads: 89
+                }].map((report, index) => <div key={index} className="p-4 bg-card border border-border/50 rounded-lg flex items-center justify-between hover:border-primary/50 transition-all">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                           <FileText className="h-6 w-6 text-primary" />
@@ -735,8 +783,7 @@ export const ChangeManagement: React.FC = () => {
                         <Download className="h-4 w-4 ml-2" />
                         تحميل
                       </Button>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -760,6 +807,5 @@ export const ChangeManagement: React.FC = () => {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>;
 };
