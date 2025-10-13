@@ -3,113 +3,86 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  FileText, 
-  FolderOpen, 
-  CheckCircle, 
-  Clock, 
-  AlertTriangle,
-  Plus,
-  Download,
-  Eye,
-  Edit,
-  Users,
-  Calendar,
-  Filter,
-  Search,
-  BookOpen,
-  Shield,
-  Target
-} from 'lucide-react';
-
+import { FileText, FolderOpen, CheckCircle, Clock, AlertTriangle, Plus, Download, Eye, Edit, Users, Calendar, Filter, Search, BookOpen, Shield, Target } from 'lucide-react';
 export const PoliciesProcedures: React.FC = () => {
   const [activeTab, setActiveTab] = useState('policies');
 
   // بيانات تجريبية للسياسات
-  const policies = [
-    {
-      id: 1,
-      code: 'POL-HR-001',
-      title: 'سياسة الموارد البشرية',
-      category: 'HR',
-      version: '2.1',
-      status: 'active',
-      approvalDate: '2024-01-15',
-      reviewDate: '2024-12-31',
-      owner: 'إدارة الموارد البشرية',
-      compliance: 95
-    },
-    {
-      id: 2,
-      code: 'POL-IT-002',
-      title: 'سياسة أمن المعلومات',
-      category: 'IT',
-      version: '1.5',
-      status: 'active',
-      approvalDate: '2024-02-01',
-      reviewDate: '2024-11-30',
-      owner: 'إدارة تقنية المعلومات',
-      compliance: 88
-    },
-    {
-      id: 3,
-      code: 'POL-FIN-003',
-      title: 'سياسة الصرف والمشتريات',
-      category: 'Finance',
-      version: '3.0',
-      status: 'under_review',
-      approvalDate: '2023-12-01',
-      reviewDate: '2024-12-15',
-      owner: 'الإدارة المالية',
-      compliance: 92
-    },
-    {
-      id: 4,
-      code: 'POL-QM-004',
-      title: 'سياسة الجودة',
-      category: 'Quality',
-      version: '1.8',
-      status: 'active',
-      approvalDate: '2024-03-10',
-      reviewDate: '2025-03-10',
-      owner: 'إدارة الجودة',
-      compliance: 97
-    }
-  ];
+  const policies = [{
+    id: 1,
+    code: 'POL-HR-001',
+    title: 'سياسة الموارد البشرية',
+    category: 'HR',
+    version: '2.1',
+    status: 'active',
+    approvalDate: '2024-01-15',
+    reviewDate: '2024-12-31',
+    owner: 'إدارة الموارد البشرية',
+    compliance: 95
+  }, {
+    id: 2,
+    code: 'POL-IT-002',
+    title: 'سياسة أمن المعلومات',
+    category: 'IT',
+    version: '1.5',
+    status: 'active',
+    approvalDate: '2024-02-01',
+    reviewDate: '2024-11-30',
+    owner: 'إدارة تقنية المعلومات',
+    compliance: 88
+  }, {
+    id: 3,
+    code: 'POL-FIN-003',
+    title: 'سياسة الصرف والمشتريات',
+    category: 'Finance',
+    version: '3.0',
+    status: 'under_review',
+    approvalDate: '2023-12-01',
+    reviewDate: '2024-12-15',
+    owner: 'الإدارة المالية',
+    compliance: 92
+  }, {
+    id: 4,
+    code: 'POL-QM-004',
+    title: 'سياسة الجودة',
+    category: 'Quality',
+    version: '1.8',
+    status: 'active',
+    approvalDate: '2024-03-10',
+    reviewDate: '2025-03-10',
+    owner: 'إدارة الجودة',
+    compliance: 97
+  }];
 
   // بيانات تجريبية للإجراءات
-  const procedures = [
-    {
-      id: 1,
-      code: 'PROC-001',
-      title: 'إجراءات التوظيف والاستقطاب',
-      category: 'HR',
-      steps: 8,
-      avgDuration: '14 يوم',
-      status: 'active',
-      lastUpdated: '2024-11-20'
-    },
-    {
-      id: 2,
-      code: 'PROC-002',
-      title: 'إجراءات صرف المستحقات',
-      category: 'Finance',
-      steps: 6,
-      avgDuration: '3 أيام',
-      status: 'active',
-      lastUpdated: '2024-11-15'
-    },
-    {
-      id: 3,
-      code: 'PROC-003',
-      title: 'إجراءات طلب الإجازات',
-      category: 'HR',
-      steps: 4,
-      avgDuration: '1 يوم',
-      status: 'active',
-      lastUpdated: '2024-11-25'
-    }
-  ];
+  const procedures = [{
+    id: 1,
+    code: 'PROC-001',
+    title: 'إجراءات التوظيف والاستقطاب',
+    category: 'HR',
+    steps: 8,
+    avgDuration: '14 يوم',
+    status: 'active',
+    lastUpdated: '2024-11-20'
+  }, {
+    id: 2,
+    code: 'PROC-002',
+    title: 'إجراءات صرف المستحقات',
+    category: 'Finance',
+    steps: 6,
+    avgDuration: '3 أيام',
+    status: 'active',
+    lastUpdated: '2024-11-15'
+  }, {
+    id: 3,
+    code: 'PROC-003',
+    title: 'إجراءات طلب الإجازات',
+    category: 'HR',
+    steps: 4,
+    avgDuration: '1 يوم',
+    status: 'active',
+    lastUpdated: '2024-11-25'
+  }];
 
   // إحصائيات
   const stats = {
@@ -120,29 +93,35 @@ export const PoliciesProcedures: React.FC = () => {
     totalProcedures: 42,
     avgCompliance: 93
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500/10 text-green-600 border-green-500/20';
-      case 'under_review': return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20';
-      case 'expired': return 'bg-red-500/10 text-red-600 border-red-500/20';
-      case 'draft': return 'bg-gray-500/10 text-gray-600 border-gray-500/20';
-      default: return 'bg-muted text-muted-foreground';
+      case 'active':
+        return 'bg-green-500/10 text-green-600 border-green-500/20';
+      case 'under_review':
+        return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20';
+      case 'expired':
+        return 'bg-red-500/10 text-red-600 border-red-500/20';
+      case 'draft':
+        return 'bg-gray-500/10 text-gray-600 border-gray-500/20';
+      default:
+        return 'bg-muted text-muted-foreground';
     }
   };
-
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'HR': return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
-      case 'IT': return 'bg-purple-500/10 text-purple-600 border-purple-500/20';
-      case 'Finance': return 'bg-green-500/10 text-green-600 border-green-500/20';
-      case 'Quality': return 'bg-orange-500/10 text-orange-600 border-orange-500/20';
-      default: return 'bg-muted text-muted-foreground';
+      case 'HR':
+        return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
+      case 'IT':
+        return 'bg-purple-500/10 text-purple-600 border-purple-500/20';
+      case 'Finance':
+        return 'bg-green-500/10 text-green-600 border-green-500/20';
+      case 'Quality':
+        return 'bg-orange-500/10 text-orange-600 border-orange-500/20';
+      default:
+        return 'bg-muted text-muted-foreground';
     }
   };
-
-  return (
-    <div className="space-y-6 p-6" dir="rtl">
+  return <div className="space-y-6 p-6" dir="rtl">
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
@@ -150,7 +129,7 @@ export const PoliciesProcedures: React.FC = () => {
 
       {/* العنوان */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">السياسات والإجراءات</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم السياسات والإجراءات</h1>
         <p className="text-muted-foreground">نظام شامل لإدارة السياسات والإجراءات المؤسسية</p>
       </div>
 
@@ -271,19 +250,14 @@ export const PoliciesProcedures: React.FC = () => {
             <CardContent className="p-4">
               <div className="relative">
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="البحث في السياسات..."
-                  className="w-full pr-10 pl-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
+                <input type="text" placeholder="البحث في السياسات..." className="w-full pr-10 pl-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" />
               </div>
             </CardContent>
           </Card>
 
           {/* قائمة السياسات */}
           <div className="grid gap-4">
-            {policies.map((policy) => (
-              <Card key={policy.id} className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all">
+            {policies.map(policy => <Card key={policy.id} className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all">
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     <div className="flex items-start justify-between">
@@ -296,9 +270,7 @@ export const PoliciesProcedures: React.FC = () => {
                             {policy.category}
                           </Badge>
                           <Badge className={getStatusColor(policy.status)}>
-                            {policy.status === 'active' ? 'نشط' : 
-                             policy.status === 'under_review' ? 'قيد المراجعة' : 
-                             policy.status === 'expired' ? 'منتهي' : 'مسودة'}
+                            {policy.status === 'active' ? 'نشط' : policy.status === 'under_review' ? 'قيد المراجعة' : policy.status === 'expired' ? 'منتهي' : 'مسودة'}
                           </Badge>
                         </div>
                         <h3 className="text-lg font-bold text-foreground mb-2">{policy.title}</h3>
@@ -319,10 +291,9 @@ export const PoliciesProcedures: React.FC = () => {
                         <span className="font-bold text-foreground">{policy.compliance}%</span>
                       </div>
                       <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all"
-                          style={{ width: `${policy.compliance}%` }}
-                        />
+                        <div className="h-full bg-gradient-to-r from-primary to-primary-glow transition-all" style={{
+                      width: `${policy.compliance}%`
+                    }} />
                       </div>
                     </div>
 
@@ -348,15 +319,13 @@ export const PoliciesProcedures: React.FC = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </TabsContent>
 
         <TabsContent value="procedures" className="space-y-4">
           <div className="grid gap-4">
-            {procedures.map((proc) => (
-              <Card key={proc.id} className="border-border/50 hover:border-primary/50 transition-all">
+            {procedures.map(proc => <Card key={proc.id} className="border-border/50 hover:border-primary/50 transition-all">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
@@ -393,8 +362,7 @@ export const PoliciesProcedures: React.FC = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </TabsContent>
 
@@ -433,6 +401,5 @@ export const PoliciesProcedures: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
-  );
+    </div>;
 };
