@@ -9,15 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  LogOut, Plus, Calendar, CreditCard, FileText, 
-  Calculator, CheckCircle, AlertCircle, User, TrendingUp, 
-  TrendingDown, DollarSign, Clock, Search, Filter, Download,
-  Eye, Edit, Trash2, UserX, FileCheck, Award, Briefcase,
-  Building, Phone, Mail, MapPin, History, AlertTriangle
-} from 'lucide-react';
+import { LogOut, Plus, Calendar, CreditCard, FileText, Calculator, CheckCircle, AlertCircle, User, TrendingUp, TrendingDown, DollarSign, Clock, Search, Filter, Download, Eye, Edit, Trash2, UserX, FileCheck, Award, Briefcase, Building, Phone, Mail, MapPin, History, AlertTriangle } from 'lucide-react';
 import { useEmployeeServices } from '@/hooks/useEmployeeServices';
-
 export function EndOfServiceManagement() {
   const [showEOSDialog, setShowEOSDialog] = useState(false);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
@@ -34,15 +27,31 @@ export function EndOfServiceManagement() {
     years_of_service: 0,
     last_salary: 0
   });
-
-  const { endOfServiceRecords, loading } = useEmployeeServices();
-
-  const terminationTypes = [
-    { id: 'resignation', name: 'استقالة', color: 'bg-blue-500 text-white', icon: UserX },
-    { id: 'termination', name: 'فصل', color: 'bg-red-500 text-white', icon: AlertTriangle },
-    { id: 'contract_end', name: 'انتهاء عقد', color: 'bg-yellow-500 text-white', icon: FileCheck },
-    { id: 'retirement', name: 'تقاعد', color: 'bg-green-500 text-white', icon: Award }
-  ];
+  const {
+    endOfServiceRecords,
+    loading
+  } = useEmployeeServices();
+  const terminationTypes = [{
+    id: 'resignation',
+    name: 'استقالة',
+    color: 'bg-blue-500 text-white',
+    icon: UserX
+  }, {
+    id: 'termination',
+    name: 'فصل',
+    color: 'bg-red-500 text-white',
+    icon: AlertTriangle
+  }, {
+    id: 'contract_end',
+    name: 'انتهاء عقد',
+    color: 'bg-yellow-500 text-white',
+    icon: FileCheck
+  }, {
+    id: 'retirement',
+    name: 'تقاعد',
+    color: 'bg-green-500 text-white',
+    icon: Award
+  }];
 
   // Mock statistics
   const stats = {
@@ -55,110 +64,109 @@ export function EndOfServiceManagement() {
   };
 
   // Mock data for demonstration
-  const mockRecords = [
-    {
-      id: '1',
-      employee_id: 'EMP001',
-      employee_name: 'أحمد محمد العلي',
-      department: 'تقنية المعلومات',
-      position: 'مطور برمجيات',
-      termination_type: 'resignation',
-      termination_date: '2024-12-31',
-      hire_date: '2019-01-15',
-      years_of_service: 5.8,
-      last_salary: 15000,
-      eos_amount: 52500,
-      vacation_balance: 15,
-      vacation_amount: 7500,
-      net_amount: 60000,
-      status: 'pending',
-      reason: 'فرصة عمل أفضل',
-      notice_period_days: 30,
-      last_working_day: '2024-12-31',
-      created_at: '2024-11-15'
-    },
-    {
-      id: '2',
-      employee_id: 'EMP045',
-      employee_name: 'فاطمة سالم الغامدي',
-      department: 'الموارد البشرية',
-      position: 'أخصائي موارد بشرية',
-      termination_type: 'contract_end',
-      termination_date: '2024-11-30',
-      hire_date: '2021-12-01',
-      years_of_service: 3.0,
-      last_salary: 12000,
-      eos_amount: 18000,
-      vacation_balance: 10,
-      vacation_amount: 4000,
-      net_amount: 22000,
-      status: 'approved',
-      reason: 'انتهاء مدة العقد',
-      notice_period_days: 30,
-      last_working_day: '2024-11-30',
-      created_at: '2024-10-28'
-    },
-    {
-      id: '3',
-      employee_id: 'EMP089',
-      employee_name: 'خالد عبدالله الشهري',
-      department: 'المالية',
-      position: 'محاسب أول',
-      termination_type: 'retirement',
-      termination_date: '2024-10-15',
-      hire_date: '2000-03-01',
-      years_of_service: 24.5,
-      last_salary: 18000,
-      eos_amount: 396000,
-      vacation_balance: 20,
-      vacation_amount: 12000,
-      net_amount: 408000,
-      status: 'completed',
-      reason: 'بلوغ سن التقاعد',
-      notice_period_days: 60,
-      last_working_day: '2024-10-15',
-      created_at: '2024-08-10'
-    }
-  ];
-
+  const mockRecords = [{
+    id: '1',
+    employee_id: 'EMP001',
+    employee_name: 'أحمد محمد العلي',
+    department: 'تقنية المعلومات',
+    position: 'مطور برمجيات',
+    termination_type: 'resignation',
+    termination_date: '2024-12-31',
+    hire_date: '2019-01-15',
+    years_of_service: 5.8,
+    last_salary: 15000,
+    eos_amount: 52500,
+    vacation_balance: 15,
+    vacation_amount: 7500,
+    net_amount: 60000,
+    status: 'pending',
+    reason: 'فرصة عمل أفضل',
+    notice_period_days: 30,
+    last_working_day: '2024-12-31',
+    created_at: '2024-11-15'
+  }, {
+    id: '2',
+    employee_id: 'EMP045',
+    employee_name: 'فاطمة سالم الغامدي',
+    department: 'الموارد البشرية',
+    position: 'أخصائي موارد بشرية',
+    termination_type: 'contract_end',
+    termination_date: '2024-11-30',
+    hire_date: '2021-12-01',
+    years_of_service: 3.0,
+    last_salary: 12000,
+    eos_amount: 18000,
+    vacation_balance: 10,
+    vacation_amount: 4000,
+    net_amount: 22000,
+    status: 'approved',
+    reason: 'انتهاء مدة العقد',
+    notice_period_days: 30,
+    last_working_day: '2024-11-30',
+    created_at: '2024-10-28'
+  }, {
+    id: '3',
+    employee_id: 'EMP089',
+    employee_name: 'خالد عبدالله الشهري',
+    department: 'المالية',
+    position: 'محاسب أول',
+    termination_type: 'retirement',
+    termination_date: '2024-10-15',
+    hire_date: '2000-03-01',
+    years_of_service: 24.5,
+    last_salary: 18000,
+    eos_amount: 396000,
+    vacation_balance: 20,
+    vacation_amount: 12000,
+    net_amount: 408000,
+    status: 'completed',
+    reason: 'بلوغ سن التقاعد',
+    notice_period_days: 60,
+    last_working_day: '2024-10-15',
+    created_at: '2024-08-10'
+  }];
   const calculateEOSBenefits = (yearsOfService: number, lastSalary: number) => {
     let eosAmount = 0;
-    
     if (yearsOfService >= 1) {
       const firstFiveYears = Math.min(yearsOfService, 5);
       eosAmount += firstFiveYears * (lastSalary * 0.5);
-      
       if (yearsOfService > 5) {
         const remainingYears = yearsOfService - 5;
         eosAmount += remainingYears * lastSalary;
       }
     }
-    
     return eosAmount;
   };
-
   const calculateVacationAmount = (vacationDays: number, dailySalary: number) => {
     return vacationDays * dailySalary;
   };
-
   const getStatusBadge = (status: string) => {
     const statusConfig: any = {
-      pending: { label: 'قيد المراجعة', color: 'bg-yellow-500 text-white' },
-      approved: { label: 'معتمد', color: 'bg-blue-500 text-white' },
-      completed: { label: 'مكتمل', color: 'bg-green-500 text-white' },
-      rejected: { label: 'مرفوض', color: 'bg-red-500 text-white' }
+      pending: {
+        label: 'قيد المراجعة',
+        color: 'bg-yellow-500 text-white'
+      },
+      approved: {
+        label: 'معتمد',
+        color: 'bg-blue-500 text-white'
+      },
+      completed: {
+        label: 'مكتمل',
+        color: 'bg-green-500 text-white'
+      },
+      rejected: {
+        label: 'مرفوض',
+        color: 'bg-red-500 text-white'
+      }
     };
     const config = statusConfig[status] || statusConfig.pending;
     return <Badge className={config.color}>{config.label}</Badge>;
   };
-
   const handleViewDetails = (record: any) => {
     setSelectedRecord(record);
     setShowDetailsDialog(true);
   };
-
-  return (
-    <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
+  return <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -167,7 +175,7 @@ export function EndOfServiceManagement() {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة الاستقالات وإنهاء الخدمة</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم إنهاء الخدمات</h1>
           <p className="text-muted-foreground">إدارة شاملة لجميع حالات إنهاء الخدمة ومستحقات الموظفين</p>
         </div>
 
@@ -193,30 +201,27 @@ export function EndOfServiceManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>الرقم الوظيفي</Label>
-                  <Input 
-                    value={eosForm.employee_id}
-                    onChange={(e) => setEosForm({...eosForm, employee_id: e.target.value})}
-                    placeholder="أدخل الرقم الوظيفي"
-                  />
+                  <Input value={eosForm.employee_id} onChange={e => setEosForm({
+                    ...eosForm,
+                    employee_id: e.target.value
+                  })} placeholder="أدخل الرقم الوظيفي" />
                 </div>
                 <div className="space-y-2">
                   <Label>نوع إنهاء الخدمة</Label>
-                  <Select 
-                    value={eosForm.termination_type} 
-                    onValueChange={(value) => setEosForm({...eosForm, termination_type: value})}
-                  >
+                  <Select value={eosForm.termination_type} onValueChange={value => setEosForm({
+                    ...eosForm,
+                    termination_type: value
+                  })}>
                     <SelectTrigger>
                       <SelectValue placeholder="اختر نوع الإنهاء" />
                     </SelectTrigger>
                     <SelectContent>
-                      {terminationTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id}>
+                      {terminationTypes.map(type => <SelectItem key={type.id} value={type.id}>
                           <div className="flex items-center gap-2">
                             <type.icon className="h-4 w-4" />
                             {type.name}
                           </div>
-                        </SelectItem>
-                      ))}
+                        </SelectItem>)}
                     </SelectContent>
                   </Select>
                 </div>
@@ -225,50 +230,43 @@ export function EndOfServiceManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>تاريخ إنهاء الخدمة</Label>
-                  <Input 
-                    type="date"
-                    value={eosForm.termination_date}
-                    onChange={(e) => setEosForm({...eosForm, termination_date: e.target.value})}
-                  />
+                  <Input type="date" value={eosForm.termination_date} onChange={e => setEosForm({
+                    ...eosForm,
+                    termination_date: e.target.value
+                  })} />
                 </div>
                 <div className="space-y-2">
                   <Label>فترة الإشعار (بالأيام)</Label>
-                  <Input 
-                    type="number"
-                    value={eosForm.notice_period_days}
-                    onChange={(e) => setEosForm({...eosForm, notice_period_days: parseInt(e.target.value)})}
-                  />
+                  <Input type="number" value={eosForm.notice_period_days} onChange={e => setEosForm({
+                    ...eosForm,
+                    notice_period_days: parseInt(e.target.value)
+                  })} />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>سنوات الخدمة</Label>
-                  <Input 
-                    type="number"
-                    step="0.1"
-                    value={eosForm.years_of_service}
-                    onChange={(e) => setEosForm({...eosForm, years_of_service: parseFloat(e.target.value)})}
-                  />
+                  <Input type="number" step="0.1" value={eosForm.years_of_service} onChange={e => setEosForm({
+                    ...eosForm,
+                    years_of_service: parseFloat(e.target.value)
+                  })} />
                 </div>
                 <div className="space-y-2">
                   <Label>آخر راتب (ريال)</Label>
-                  <Input 
-                    type="number"
-                    value={eosForm.last_salary}
-                    onChange={(e) => setEosForm({...eosForm, last_salary: parseFloat(e.target.value)})}
-                  />
+                  <Input type="number" value={eosForm.last_salary} onChange={e => setEosForm({
+                    ...eosForm,
+                    last_salary: parseFloat(e.target.value)
+                  })} />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label>سبب إنهاء الخدمة</Label>
-                <Textarea 
-                  value={eosForm.reason}
-                  onChange={(e) => setEosForm({...eosForm, reason: e.target.value})}
-                  placeholder="اذكر سبب إنهاء الخدمة بالتفصيل..."
-                  rows={4}
-                />
+                <Textarea value={eosForm.reason} onChange={e => setEosForm({
+                  ...eosForm,
+                  reason: e.target.value
+                })} placeholder="اذكر سبب إنهاء الخدمة بالتفصيل..." rows={4} />
               </div>
 
               <Separator />
@@ -372,12 +370,7 @@ export function EndOfServiceManagement() {
                 <div className="flex-1">
                   <div className="relative">
                     <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                    <Input
-                      placeholder="البحث برقم الموظف أو الاسم..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pr-10"
-                    />
+                    <Input placeholder="البحث برقم الموظف أو الاسم..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10" />
                   </div>
                 </div>
                 <Select value={filterType} onValueChange={setFilterType}>
@@ -386,9 +379,7 @@ export function EndOfServiceManagement() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">جميع الأنواع</SelectItem>
-                    {terminationTypes.map((type) => (
-                      <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>
-                    ))}
+                    {terminationTypes.map(type => <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>)}
                   </SelectContent>
                 </Select>
                   <Button className="gap-2">
@@ -401,12 +392,10 @@ export function EndOfServiceManagement() {
 
             {/* Records List */}
             <div className="space-y-4">
-              {mockRecords.map((record) => {
+              {mockRecords.map(record => {
                 const typeConfig = terminationTypes.find(t => t.id === record.termination_type);
                 const TypeIcon = typeConfig?.icon || User;
-                
-                return (
-                  <Card key={record.id} className="hover:shadow-md transition-shadow">
+                return <Card key={record.id} className="hover:shadow-md transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start gap-4">
@@ -487,27 +476,20 @@ export function EndOfServiceManagement() {
                             <span className="font-bold text-foreground">{record.vacation_amount.toLocaleString()} ريال</span>
                           </div>
                         </div>
-                        <Button 
-                          size="sm"
-                          onClick={() => handleViewDetails(record)}
-                          className="gap-2"
-                        >
+                        <Button size="sm" onClick={() => handleViewDetails(record)} className="gap-2">
                           <Eye className="h-4 w-4" />
                           التفاصيل
                         </Button>
                       </div>
 
-                      {record.reason && (
-                        <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                      {record.reason && <div className="mt-4 p-3 bg-gray-50 rounded-lg">
                           <p className="text-sm text-muted-foreground flex items-start gap-2">
                             <FileText className="h-4 w-4 mt-0.5" />
                             <span><strong>السبب:</strong> {record.reason}</span>
                           </p>
-                        </div>
-                      )}
+                        </div>}
                     </CardContent>
-                  </Card>
-                );
+                  </Card>;
               })}
             </div>
           </TabsContent>
@@ -540,9 +522,7 @@ export function EndOfServiceManagement() {
                       <SelectValue placeholder="اختر النوع" />
                     </SelectTrigger>
                     <SelectContent>
-                      {terminationTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>
-                      ))}
+                      {terminationTypes.map(type => <SelectItem key={type.id} value={type.id}>{type.name}</SelectItem>)}
                     </SelectContent>
                   </Select>
                 </div>
@@ -588,10 +568,9 @@ export function EndOfServiceManagement() {
                 <h2 className="text-xl font-bold text-foreground mb-4">توزيع أنواع إنهاء الخدمة</h2>
                 <div className="space-y-4">
                   {terminationTypes.map((type, index) => {
-                    const counts = [45, 28, 15, 12];
-                    const percentages = [38, 24, 13, 10];
-                    return (
-                      <div key={type.id} className="space-y-2">
+                      const counts = [45, 28, 15, 12];
+                      const percentages = [38, 24, 13, 10];
+                      return <div key={type.id} className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
                           <span className="flex items-center gap-2 text-foreground">
                             <type.icon className="h-4 w-4" />
@@ -600,14 +579,12 @@ export function EndOfServiceManagement() {
                           <span className="font-bold text-foreground">{counts[index]} ({percentages[index]}%)</span>
                         </div>
                         <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full ${type.color}`}
-                            style={{ width: `${percentages[index]}%` }}
-                          />
+                          <div className={`h-full ${type.color}`} style={{
+                            width: `${percentages[index]}%`
+                          }} />
                         </div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                    })}
                 </div>
               </CardContent>
             </Card>
@@ -659,22 +636,19 @@ export function EndOfServiceManagement() {
                 <h2 className="text-xl font-bold text-foreground mb-4">الحالات الشهرية</h2>
                 <div className="space-y-3">
                   {['يناير', 'فبراير', 'مارس', 'أبريل'].map((month, index) => {
-                    const counts = [8, 12, 7, 10];
-                    return (
-                      <div key={month} className="flex items-center justify-between">
+                      const counts = [8, 12, 7, 10];
+                      return <div key={month} className="flex items-center justify-between">
                         <span className="text-sm text-foreground">{month} 2024</span>
                         <div className="flex items-center gap-2">
                           <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-primary"
-                              style={{ width: `${(counts[index] / 12) * 100}%` }}
-                            />
+                            <div className="h-full bg-primary" style={{
+                              width: `${counts[index] / 12 * 100}%`
+                            }} />
                           </div>
                           <span className="font-bold text-sm w-8 text-foreground">{counts[index]}</span>
                         </div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                    })}
                 </div>
               </CardContent>
             </Card>
@@ -686,8 +660,7 @@ export function EndOfServiceManagement() {
       {/* Details Dialog */}
       <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" dir="rtl">
-          {selectedRecord && (
-            <>
+          {selectedRecord && <>
               <DialogHeader>
                 <DialogTitle className="text-2xl">تفاصيل إنهاء الخدمة</DialogTitle>
               </DialogHeader>
@@ -791,11 +764,9 @@ export function EndOfServiceManagement() {
                   </Button>
                 </div>
               </div>
-            </>
-          )}
+            </>}
         </DialogContent>
       </Dialog>
       </div>
-    </div>
-  );
+    </div>;
 }
