@@ -10,61 +10,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  Network, 
-  Building2, 
-  FileText, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Building,
-  BookOpen,
-  Shield,
-  Briefcase,
-  Award,
-  Target,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Zap,
-  Globe,
-  Eye,
-  Settings,
-  Bell,
-  CreditCard,
-  UserCheck,
-  Sparkles,
-  Archive,
-  Edit,
-  Trash2,
-  Share,
-  Lock,
-  Unlock,
-  AlertCircle,
-  Info,
-  UserPlus,
-  Phone,
-  Mail,
-  Crown,
-  Users2,
-  Database,
-  RefreshCw,
-  Server,
-  Users
-} from 'lucide-react';
+import { ArrowLeft, Network, Building2, FileText, AlertTriangle, CheckCircle2, Clock, Download, Plus, Search, Filter, Calendar, Building, BookOpen, Shield, Briefcase, Award, Target, TrendingUp, BarChart3, PieChart, Activity, Zap, Globe, Eye, Settings, Bell, CreditCard, UserCheck, Sparkles, Archive, Edit, Trash2, Share, Lock, Unlock, AlertCircle, Info, UserPlus, Phone, Mail, Crown, Users2, Database, RefreshCw, Server, Users } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
-
 interface ComprehensiveIntegrationSystemProps {
   onBack: () => void;
 }
-
 interface IntegrationPlatform {
   id: string;
   name: string;
@@ -77,7 +27,6 @@ interface IntegrationPlatform {
   successRate: number;
   dailyOperations: number;
 }
-
 interface PlatformCategory {
   id: string;
   name: string;
@@ -87,7 +36,6 @@ interface PlatformCategory {
   performance: number;
   description: string;
 }
-
 interface IntegrationMetric {
   id: string;
   metric: string;
@@ -98,14 +46,17 @@ interface IntegrationMetric {
   trend: 'up' | 'down' | 'stable';
   lastUpdated: string;
 }
-
-export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSystemProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSystemProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  
+
   // Enhanced state management
   const [hrSystems, setHrSystems] = useState([]);
   const [financialSystems, setFinancialSystems] = useState([]);
@@ -125,218 +76,216 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
   });
 
   // Mock data for demonstration - Enhanced with more comprehensive data
-  const integrationPlatforms: IntegrationPlatform[] = [
-    {
-      id: '1',
-      name: 'مؤسسة التأمينات الاجتماعية',
-      nameEn: 'GOSI',
-      category: 'government',
-      status: 'connected',
-      description: 'التسجيل التلقائي للموظفين ومزامنة الرواتب',
-      lastSync: '2024-01-20 09:30',
-      syncFrequency: 'شهريًا',
-      successRate: 98,
-      dailyOperations: 156
-    },
-    {
-      id: '2',
-      name: 'منصة مدد',
-      nameEn: 'Mudad',
-      category: 'government',
-      status: 'connected',
-      description: 'حماية الأجور ورفع ملفات الرواتب',
-      lastSync: '2024-01-19 14:15',
-      syncFrequency: 'شهريًا',
-      successRate: 100,
-      dailyOperations: 89
-    },
-    {
-      id: '3',
-      name: 'نظام ساب SAP',
-      nameEn: 'SAP System',
-      category: 'financial',
-      status: 'syncing',
-      description: 'تكامل مع نظام الموارد البشرية والمالية',
-      lastSync: '2024-01-18 10:45',
-      syncFrequency: 'يوميًا',
-      successRate: 95,
-      dailyOperations: 234
-    },
-    {
-      id: '4',
-      name: 'بوابة أبشر',
-      nameEn: 'Absher Portal',
-      category: 'government',
-      status: 'connected',
-      description: 'خدمات الهوية الرقمية والتوثيق الإلكتروني',
-      lastSync: '2024-01-20 08:15',
-      syncFrequency: 'أسبوعيًا',
-      successRate: 99,
-      dailyOperations: 78
-    }
-  ];
+  const integrationPlatforms: IntegrationPlatform[] = [{
+    id: '1',
+    name: 'مؤسسة التأمينات الاجتماعية',
+    nameEn: 'GOSI',
+    category: 'government',
+    status: 'connected',
+    description: 'التسجيل التلقائي للموظفين ومزامنة الرواتب',
+    lastSync: '2024-01-20 09:30',
+    syncFrequency: 'شهريًا',
+    successRate: 98,
+    dailyOperations: 156
+  }, {
+    id: '2',
+    name: 'منصة مدد',
+    nameEn: 'Mudad',
+    category: 'government',
+    status: 'connected',
+    description: 'حماية الأجور ورفع ملفات الرواتب',
+    lastSync: '2024-01-19 14:15',
+    syncFrequency: 'شهريًا',
+    successRate: 100,
+    dailyOperations: 89
+  }, {
+    id: '3',
+    name: 'نظام ساب SAP',
+    nameEn: 'SAP System',
+    category: 'financial',
+    status: 'syncing',
+    description: 'تكامل مع نظام الموارد البشرية والمالية',
+    lastSync: '2024-01-18 10:45',
+    syncFrequency: 'يوميًا',
+    successRate: 95,
+    dailyOperations: 234
+  }, {
+    id: '4',
+    name: 'بوابة أبشر',
+    nameEn: 'Absher Portal',
+    category: 'government',
+    status: 'connected',
+    description: 'خدمات الهوية الرقمية والتوثيق الإلكتروني',
+    lastSync: '2024-01-20 08:15',
+    syncFrequency: 'أسبوعيًا',
+    successRate: 99,
+    dailyOperations: 78
+  }];
 
   // Initialize default data for all sections
   React.useEffect(() => {
     // HR Systems default data
-    setHrSystems([
-      {
-        id: 'hr1',
-        name: 'منصة قوى (QIWA)',
-        status: 'connected',
-        lastSync: 'اليوم 09:30 ص',
-        contracts: 156,
-        successRate: 98,
-        pending: 12,
-        updates: 3
-      },
-      {
-        id: 'hr2',
-        name: 'منصة مدد (MUDAD)',
-        status: 'connected',
-        lastSync: 'أمس 14:15',
-        contracts: 89,
-        successRate: 100,
-        pending: 0,
-        updates: 1
-      },
-      {
-        id: 'hr3',
-        name: 'مؤسسة التأمينات الاجتماعية (GOSI)',
-        status: 'syncing',
-        lastSync: 'منذ ساعتين',
-        contracts: 234,
-        successRate: 95,
-        pending: 5,
-        updates: 2
-      },
-      {
-        id: 'hr4',
-        name: 'منصة طاقات (TAM)',
-        status: 'connected',
-        lastSync: 'اليوم 08:15 ص',
-        contracts: 78,
-        successRate: 99,
-        pending: 1,
-        updates: 0
-      }
-    ]);
+    setHrSystems([{
+      id: 'hr1',
+      name: 'منصة قوى (QIWA)',
+      status: 'connected',
+      lastSync: 'اليوم 09:30 ص',
+      contracts: 156,
+      successRate: 98,
+      pending: 12,
+      updates: 3
+    }, {
+      id: 'hr2',
+      name: 'منصة مدد (MUDAD)',
+      status: 'connected',
+      lastSync: 'أمس 14:15',
+      contracts: 89,
+      successRate: 100,
+      pending: 0,
+      updates: 1
+    }, {
+      id: 'hr3',
+      name: 'مؤسسة التأمينات الاجتماعية (GOSI)',
+      status: 'syncing',
+      lastSync: 'منذ ساعتين',
+      contracts: 234,
+      successRate: 95,
+      pending: 5,
+      updates: 2
+    }, {
+      id: 'hr4',
+      name: 'منصة طاقات (TAM)',
+      status: 'connected',
+      lastSync: 'اليوم 08:15 ص',
+      contracts: 78,
+      successRate: 99,
+      pending: 1,
+      updates: 0
+    }]);
 
     // Financial Systems default data
-    setFinancialSystems([
-      {
-        id: 'fin1',
-        name: 'نظام ساب (SAP)',
-        status: 'connected',
-        lastSync: 'اليوم 10:45 ص',
-        transactions: 1247,
-        successRate: 97,
-        pending: 15,
-        errors: 2
-      },
-      {
-        id: 'fin2',
-        name: 'البنك الأهلي التجاري',
-        status: 'connected',
-        type: 'banking',
-        description: 'تحويلات الرواتب التلقائية'
-      },
-      {
-        id: 'fin3',
-        name: 'بنك الرياض',
-        status: 'connected',
-        type: 'banking',
-        description: 'خدمات التحويل والدفع'
-      },
-      {
-        id: 'fin4',
-        name: 'أنظمة المحاسبة',
-        status: 'connected',
-        lastSync: 'منذ ساعة',
-        entries: 456,
-        accuracy: 99,
-        reports: 23,
-        conflicts: 0
-      }
-    ]);
+    setFinancialSystems([{
+      id: 'fin1',
+      name: 'نظام ساب (SAP)',
+      status: 'connected',
+      lastSync: 'اليوم 10:45 ص',
+      transactions: 1247,
+      successRate: 97,
+      pending: 15,
+      errors: 2
+    }, {
+      id: 'fin2',
+      name: 'البنك الأهلي التجاري',
+      status: 'connected',
+      type: 'banking',
+      description: 'تحويلات الرواتب التلقائية'
+    }, {
+      id: 'fin3',
+      name: 'بنك الرياض',
+      status: 'connected',
+      type: 'banking',
+      description: 'خدمات التحويل والدفع'
+    }, {
+      id: 'fin4',
+      name: 'أنظمة المحاسبة',
+      status: 'connected',
+      lastSync: 'منذ ساعة',
+      entries: 456,
+      accuracy: 99,
+      reports: 23,
+      conflicts: 0
+    }]);
 
     // External Services default data
-    setExternalServices([
-      {
-        id: 'ext1',
-        name: 'شركات التأمين الطبي (تأمينى)',
-        status: 'connected',
-        lastSync: 'اليوم 11:20 ص',
-        insured: 234,
-        approvalRate: 88,
-        newRequests: 12,
-        pendingClaims: 3
-      },
-      {
-        id: 'ext2',
-        name: 'أنظمة إدارة المركبات',
-        status: 'connected',
-        lastSync: 'منذ 30 دقيقة',
-        vehicles: 45,
-        trackingRate: 92,
-        todayTrips: 156,
-        alerts: 2
-      },
-      {
-        id: 'ext3',
-        name: 'بوابة أبشر',
-        status: 'connected',
-        type: 'government',
-        description: 'خدمات الهوية الرقمية'
-      },
-      {
-        id: 'ext4',
-        name: 'منصة مقيم',
-        status: 'connected',
-        type: 'government',
-        description: 'خدمات الإقامة والعمالة'
-      },
-      {
-        id: 'ext5',
-        name: 'منصة بلدي',
-        status: 'setup',
-        type: 'government',
-        description: 'خدمات الرخص التجارية'
-      }
-    ]);
+    setExternalServices([{
+      id: 'ext1',
+      name: 'شركات التأمين الطبي (تأمينى)',
+      status: 'connected',
+      lastSync: 'اليوم 11:20 ص',
+      insured: 234,
+      approvalRate: 88,
+      newRequests: 12,
+      pendingClaims: 3
+    }, {
+      id: 'ext2',
+      name: 'أنظمة إدارة المركبات',
+      status: 'connected',
+      lastSync: 'منذ 30 دقيقة',
+      vehicles: 45,
+      trackingRate: 92,
+      todayTrips: 156,
+      alerts: 2
+    }, {
+      id: 'ext3',
+      name: 'بوابة أبشر',
+      status: 'connected',
+      type: 'government',
+      description: 'خدمات الهوية الرقمية'
+    }, {
+      id: 'ext4',
+      name: 'منصة مقيم',
+      status: 'connected',
+      type: 'government',
+      description: 'خدمات الإقامة والعمالة'
+    }, {
+      id: 'ext5',
+      name: 'منصة بلدي',
+      status: 'setup',
+      type: 'government',
+      description: 'خدمات الرخص التجارية'
+    }]);
 
     // Custom APIs default data
-    setCustomApis([
-      {
-        id: 'api1',
-        name: 'نظام CRM الداخلي',
-        url: 'https://api.company-crm.com/v1',
-        authMethod: 'OAuth 2.0',
-        status: 'connected'
-      },
-      {
-        id: 'api2',
-        name: 'نظام إدارة المشاريع',
-        url: 'https://api.project-mgmt.com/v2',
-        authMethod: 'API Key',
-        status: 'connected'
-      },
-      {
-        id: 'api3',
-        name: 'خدمة الرسائل الإلكترونية',
-        url: 'https://api.email-service.com/v1',
-        authMethod: 'Bearer Token',
-        status: 'error'
-      }
-    ]);
+    setCustomApis([{
+      id: 'api1',
+      name: 'نظام CRM الداخلي',
+      url: 'https://api.company-crm.com/v1',
+      authMethod: 'OAuth 2.0',
+      status: 'connected'
+    }, {
+      id: 'api2',
+      name: 'نظام إدارة المشاريع',
+      url: 'https://api.project-mgmt.com/v2',
+      authMethod: 'API Key',
+      status: 'connected'
+    }, {
+      id: 'api3',
+      name: 'خدمة الرسائل الإلكترونية',
+      url: 'https://api.email-service.com/v1',
+      authMethod: 'Bearer Token',
+      status: 'error'
+    }]);
 
     // API Logs default data
-    setApiLogs([
-      { id: 1, method: 'GET', endpoint: '/api/employees', system: 'نظام CRM الداخلي', status: 200, time: 'منذ دقيقتين' },
-      { id: 2, method: 'POST', endpoint: '/api/projects', system: 'نظام إدارة المشاريع', status: 201, time: 'منذ 5 دقائق' },
-      { id: 3, method: 'POST', endpoint: '/api/send-email', system: 'خدمة الرسائل الإلكترونية', status: 500, time: 'منذ 10 دقائق' },
-      { id: 4, method: 'GET', endpoint: '/api/sync-status', system: 'نظام CRM الداخلي', status: 200, time: 'منذ 15 دقيقة' }
-    ]);
+    setApiLogs([{
+      id: 1,
+      method: 'GET',
+      endpoint: '/api/employees',
+      system: 'نظام CRM الداخلي',
+      status: 200,
+      time: 'منذ دقيقتين'
+    }, {
+      id: 2,
+      method: 'POST',
+      endpoint: '/api/projects',
+      system: 'نظام إدارة المشاريع',
+      status: 201,
+      time: 'منذ 5 دقائق'
+    }, {
+      id: 3,
+      method: 'POST',
+      endpoint: '/api/send-email',
+      system: 'خدمة الرسائل الإلكترونية',
+      status: 500,
+      time: 'منذ 10 دقائق'
+    }, {
+      id: 4,
+      method: 'GET',
+      endpoint: '/api/sync-status',
+      system: 'نظام CRM الداخلي',
+      status: 200,
+      time: 'منذ 15 دقيقة'
+    }]);
   }, []);
 
   // CRUD Functions
@@ -349,7 +298,6 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       });
       return;
     }
-
     const newItem = {
       ...newIntegration,
       id: Date.now().toString(),
@@ -371,7 +319,6 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
         setCustomApis(prev => [...prev, newItem]);
         break;
     }
-
     setNewIntegration({
       name: '',
       nameEn: '',
@@ -382,43 +329,38 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       description: ''
     });
     setIsAddDialogOpen(false);
-
     toast({
       title: "تم بنجاح",
       description: "تم إضافة التكامل الجديد بنجاح"
     });
   };
-
   const handleEditIntegration = (item, type) => {
-    setEditingItem({ ...item, type });
+    setEditingItem({
+      ...item,
+      type
+    });
     setIsEditDialogOpen(true);
   };
-
   const handleUpdateIntegration = () => {
     if (!editingItem) return;
-
     const updateFn = {
       hr: setHrSystems,
       financial: setFinancialSystems,
       external: setExternalServices,
       api: setCustomApis
     }[editingItem.type];
-
     if (updateFn) {
-      updateFn(prev => prev.map(item => 
-        item.id === editingItem.id ? { ...editingItem } : item
-      ));
+      updateFn(prev => prev.map(item => item.id === editingItem.id ? {
+        ...editingItem
+      } : item));
     }
-
     setIsEditDialogOpen(false);
     setEditingItem(null);
-
     toast({
       title: "تم التحديث",
       description: "تم تحديث التكامل بنجاح"
     });
   };
-
   const handleDeleteIntegration = (id, type) => {
     const updateFn = {
       hr: setHrSystems,
@@ -426,7 +368,6 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       external: setExternalServices,
       api: setCustomApis
     }[type];
-
     if (updateFn) {
       updateFn(prev => prev.filter(item => item.id !== id));
       toast({
@@ -435,7 +376,6 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       });
     }
   };
-
   const handleSync = (id, type) => {
     const updateFn = {
       hr: setHrSystems,
@@ -443,17 +383,20 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       external: setExternalServices,
       api: setCustomApis
     }[type];
-
     if (updateFn) {
-      updateFn(prev => prev.map(item => 
-        item.id === id ? { ...item, status: 'syncing', lastSync: 'الآن' } : item
-      ));
+      updateFn(prev => prev.map(item => item.id === id ? {
+        ...item,
+        status: 'syncing',
+        lastSync: 'الآن'
+      } : item));
 
       // Simulate sync completion after 2 seconds
       setTimeout(() => {
-        updateFn(prev => prev.map(item => 
-          item.id === id ? { ...item, status: 'connected', lastSync: new Date().toLocaleString('ar-SA') } : item
-        ));
+        updateFn(prev => prev.map(item => item.id === id ? {
+          ...item,
+          status: 'connected',
+          lastSync: new Date().toLocaleString('ar-SA')
+        } : item));
         toast({
           title: "تمت المزامنة",
           description: "تم إجراء المزامنة بنجاح"
@@ -461,87 +404,113 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
       }, 2000);
     }
   };
-
-  const platformCategories: PlatformCategory[] = [
-    {
-      id: '1',
-      name: 'المنصات الحكومية',
-      head: 'محمد أحمد الخالدي',
-      platforms: 5,
-      connections: 4,
-      performance: 92,
-      description: 'ربط مع الجهات الحكومية والمنصات الرسمية'
-    },
-    {
-      id: '2',
-      name: 'الأنظمة المالية',
-      head: 'نورا أحمد السالم',
-      platforms: 3,
-      connections: 2,
-      performance: 95,
-      description: 'تكامل مع الأنظمة المالية والمحاسبية'
-    },
-    {
-      id: '3',
-      name: 'شركات التأمين',
-      head: 'فاطمة محمد العبدالله',
-      platforms: 2,
-      connections: 1,
-      performance: 88,
-      description: 'ربط مع شركات التأمين الطبي والاجتماعي'
-    }
-  ];
-
-  const integrationMetrics: IntegrationMetric[] = [
-    {
-      id: '1',
-      metric: 'معدل نجاح التكامل',
-      category: 'Performance',
-      status: 'Excellent',
-      value: 97,
-      target: 95,
-      trend: 'up',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '2',
-      metric: 'معدل المزامنة',
-      category: 'Sync',
-      status: 'Good',
-      value: 94,
-      target: 95,
-      trend: 'stable',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '3',
-      metric: 'عدد المنصات المتصلة',
-      category: 'Platforms',
-      status: 'Excellent',
-      value: 10,
-      target: 8,
-      trend: 'up',
-      lastUpdated: '2024-01-15'
-    }
-  ];
+  const platformCategories: PlatformCategory[] = [{
+    id: '1',
+    name: 'المنصات الحكومية',
+    head: 'محمد أحمد الخالدي',
+    platforms: 5,
+    connections: 4,
+    performance: 92,
+    description: 'ربط مع الجهات الحكومية والمنصات الرسمية'
+  }, {
+    id: '2',
+    name: 'الأنظمة المالية',
+    head: 'نورا أحمد السالم',
+    platforms: 3,
+    connections: 2,
+    performance: 95,
+    description: 'تكامل مع الأنظمة المالية والمحاسبية'
+  }, {
+    id: '3',
+    name: 'شركات التأمين',
+    head: 'فاطمة محمد العبدالله',
+    platforms: 2,
+    connections: 1,
+    performance: 88,
+    description: 'ربط مع شركات التأمين الطبي والاجتماعي'
+  }];
+  const integrationMetrics: IntegrationMetric[] = [{
+    id: '1',
+    metric: 'معدل نجاح التكامل',
+    category: 'Performance',
+    status: 'Excellent',
+    value: 97,
+    target: 95,
+    trend: 'up',
+    lastUpdated: '2024-01-15'
+  }, {
+    id: '2',
+    metric: 'معدل المزامنة',
+    category: 'Sync',
+    status: 'Good',
+    value: 94,
+    target: 95,
+    trend: 'stable',
+    lastUpdated: '2024-01-15'
+  }, {
+    id: '3',
+    metric: 'عدد المنصات المتصلة',
+    category: 'Platforms',
+    status: 'Excellent',
+    value: 10,
+    target: 8,
+    trend: 'up',
+    lastUpdated: '2024-01-15'
+  }];
 
   // Analytics data
-  const performanceData = [
-    { month: 'يناير', performance: 85, sync: 92, platforms: 15 },
-    { month: 'فبراير', performance: 87, sync: 94, platforms: 18 },
-    { month: 'مارس', performance: 89, sync: 96, platforms: 20 },
-    { month: 'أبريل', performance: 88, sync: 93, platforms: 17 },
-    { month: 'مايو', performance: 91, sync: 95, platforms: 22 },
-    { month: 'يونيو', performance: 93, sync: 97, platforms: 25 }
-  ];
-
-  const departmentDistribution = [
-    { name: 'المنصات الحكومية', value: 35, color: '#3b82f6' },
-    { name: 'الأنظمة المالية', value: 20, color: '#10b981' },
-    { name: 'شركات التأمين', value: 15, color: '#f59e0b' },
-    { name: 'المنصات التكميلية', value: 18, color: '#8b5cf6' },
-    { name: 'أنظمة أخرى', value: 12, color: '#ef4444' }
-  ];
+  const performanceData = [{
+    month: 'يناير',
+    performance: 85,
+    sync: 92,
+    platforms: 15
+  }, {
+    month: 'فبراير',
+    performance: 87,
+    sync: 94,
+    platforms: 18
+  }, {
+    month: 'مارس',
+    performance: 89,
+    sync: 96,
+    platforms: 20
+  }, {
+    month: 'أبريل',
+    performance: 88,
+    sync: 93,
+    platforms: 17
+  }, {
+    month: 'مايو',
+    performance: 91,
+    sync: 95,
+    platforms: 22
+  }, {
+    month: 'يونيو',
+    performance: 93,
+    sync: 97,
+    platforms: 25
+  }];
+  const departmentDistribution = [{
+    name: 'المنصات الحكومية',
+    value: 35,
+    color: '#3b82f6'
+  }, {
+    name: 'الأنظمة المالية',
+    value: 20,
+    color: '#10b981'
+  }, {
+    name: 'شركات التأمين',
+    value: 15,
+    color: '#f59e0b'
+  }, {
+    name: 'المنصات التكميلية',
+    value: 18,
+    color: '#8b5cf6'
+  }, {
+    name: 'أنظمة أخرى',
+    value: 12,
+    color: '#ef4444'
+  }];
 
   // Calculate statistics
   const stats = {
@@ -552,33 +521,36 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
     avgSync: 94,
     avgOperations: 1247
   };
-
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير التكامل والربط كملف PDF",
+      description: "تم تصدير تقرير التكامل والربط كملف PDF"
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'connected': return 'bg-green-100 text-green-800 border-green-200';
-      case 'syncing': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'disconnected': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'error': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'connected':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'syncing':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'disconnected':
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'error':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'connected': 'متصل',
       'syncing': 'يتم المزامنة',
       'disconnected': 'غير متصل',
@@ -586,9 +558,10 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
     };
     return statusMap[status] || status;
   };
-
   const getCategoryText = (category: string) => {
-    const categoryMap: { [key: string]: string } = {
+    const categoryMap: {
+      [key: string]: string;
+    } = {
       'government': 'حكومية',
       'financial': 'مالية',
       'insurance': 'تأمين',
@@ -596,9 +569,7 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
     };
     return categoryMap[category] || category;
   };
-
-  const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
+  const renderHeader = () => <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
       <div className="flex items-center gap-6">
         <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
@@ -612,9 +583,7 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
             <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-black">
-              نظام التكامل والربط المتطور
-            </h1>
+            <h1 className="text-3xl font-bold text-black">قسم التكامل والربط </h1>
             <p className="text-gray-600 text-lg">
               منظومة شاملة لربط وتكامل الأنظمة مع المنصات الحكومية والخارجية
             </p>
@@ -635,11 +604,8 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
           تكامل جديد
         </Button>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
@@ -749,18 +715,8 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={departmentDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {departmentDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={departmentDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {departmentDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -881,11 +837,8 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background">
+    </div>;
+  return <div className="min-h-screen bg-background">
       {renderHeader()}
       
       <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -1813,15 +1766,17 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
             <div className="space-y-4">
               <div>
                 <Label>اسم النظام</Label>
-                <Input 
-                  value={newIntegration.name}
-                  onChange={(e) => setNewIntegration({...newIntegration, name: e.target.value})}
-                  placeholder="اسم النظام"
-                />
+                <Input value={newIntegration.name} onChange={e => setNewIntegration({
+                ...newIntegration,
+                name: e.target.value
+              })} placeholder="اسم النظام" />
               </div>
               <div>
                 <Label>النوع</Label>
-                <Select value={newIntegration.type} onValueChange={(value) => setNewIntegration({...newIntegration, type: value})}>
+                <Select value={newIntegration.type} onValueChange={value => setNewIntegration({
+                ...newIntegration,
+                type: value
+              })}>
                   <SelectTrigger>
                     <SelectValue placeholder="اختر النوع" />
                   </SelectTrigger>
@@ -1833,19 +1788,20 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
                   </SelectContent>
                 </Select>
               </div>
-              {newIntegration.type === 'api' && (
-                <>
+              {newIntegration.type === 'api' && <>
                   <div>
                     <Label>رابط API</Label>
-                    <Input 
-                      value={newIntegration.url}
-                      onChange={(e) => setNewIntegration({...newIntegration, url: e.target.value})}
-                      placeholder="https://api.example.com"
-                    />
+                    <Input value={newIntegration.url} onChange={e => setNewIntegration({
+                  ...newIntegration,
+                  url: e.target.value
+                })} placeholder="https://api.example.com" />
                   </div>
                   <div>
                     <Label>طريقة المصادقة</Label>
-                    <Select value={newIntegration.authMethod} onValueChange={(value) => setNewIntegration({...newIntegration, authMethod: value})}>
+                    <Select value={newIntegration.authMethod} onValueChange={value => setNewIntegration({
+                  ...newIntegration,
+                  authMethod: value
+                })}>
                       <SelectTrigger>
                         <SelectValue placeholder="اختر طريقة المصادقة" />
                       </SelectTrigger>
@@ -1857,15 +1813,13 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
                       </SelectContent>
                     </Select>
                   </div>
-                </>
-              )}
+                </>}
               <div>
                 <Label>الوصف</Label>
-                <Textarea 
-                  value={newIntegration.description}
-                  onChange={(e) => setNewIntegration({...newIntegration, description: e.target.value})}
-                  placeholder="وصف النظام..."
-                />
+                <Textarea value={newIntegration.description} onChange={e => setNewIntegration({
+                ...newIntegration,
+                description: e.target.value
+              })} placeholder="وصف النظام..." />
               </div>
               <div className="flex gap-2 pt-4">
                 <Button onClick={handleAddIntegration} className="flex-1">
@@ -1885,27 +1839,27 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
             <DialogHeader>
               <DialogTitle>تحرير التكامل</DialogTitle>
             </DialogHeader>
-            {editingItem && (
-              <div className="space-y-4">
+            {editingItem && <div className="space-y-4">
                 <div>
                   <Label>اسم النظام</Label>
-                  <Input 
-                    value={editingItem.name}
-                    onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
-                  />
+                  <Input value={editingItem.name} onChange={e => setEditingItem({
+                ...editingItem,
+                name: e.target.value
+              })} />
                 </div>
-                {editingItem.url && (
-                  <div>
+                {editingItem.url && <div>
                     <Label>رابط API</Label>
-                    <Input 
-                      value={editingItem.url}
-                      onChange={(e) => setEditingItem({...editingItem, url: e.target.value})}
-                    />
-                  </div>
-                )}
+                    <Input value={editingItem.url} onChange={e => setEditingItem({
+                ...editingItem,
+                url: e.target.value
+              })} />
+                  </div>}
                 <div>
                   <Label>الحالة</Label>
-                  <Select value={editingItem.status} onValueChange={(value) => setEditingItem({...editingItem, status: value})}>
+                  <Select value={editingItem.status} onValueChange={value => setEditingItem({
+                ...editingItem,
+                status: value
+              })}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -1925,11 +1879,9 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
                     إلغاء
                   </Button>
                 </div>
-              </div>
-            )}
+              </div>}
           </DialogContent>
         </Dialog>
       </div>
-    </div>
-  );
+    </div>;
 };
