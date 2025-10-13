@@ -5,106 +5,153 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { 
-  ArrowLeft, Scale, AlertTriangle, CheckCircle, FileCheck, Gavel, Users, FileText, 
-  Eye, Save, Download, Share, Settings, Bot, Brain, Zap, TrendingUp, Shield,
-  Bell, Calendar, Target, Lightbulb, BarChart3, PieChart, Activity, Clock, CheckCircle2
-} from 'lucide-react';
+import { ArrowLeft, Scale, AlertTriangle, CheckCircle, FileCheck, Gavel, Users, FileText, Eye, Save, Download, Share, Settings, Bot, Brain, Zap, TrendingUp, Shield, Bell, Calendar, Target, Lightbulb, BarChart3, PieChart, Activity, Clock, CheckCircle2 } from 'lucide-react';
 import { RiskManagement } from './RiskManagement';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, LineChart, Line, BarChart, Bar } from 'recharts';
 import { useToast } from '@/hooks/use-toast';
-
 interface ComprehensiveGovernanceComplianceProps {
   onBack: () => void;
-  onCalculateEligibility?: () => void;  
+  onCalculateEligibility?: () => void;
   onExportExcel?: () => void;
   onExportPDF?: () => void;
 }
-
-export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernanceComplianceProps> = ({ 
-  onBack, 
+export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernanceComplianceProps> = ({
+  onBack,
   onCalculateEligibility,
   onExportExcel,
-  onExportPDF 
+  onExportPDF
 }) => {
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    i18n
+  } = useTranslation();
   const isRTL = i18n.language === 'ar';
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [aiInsights, setAiInsights] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
   // Enhanced compliance data with AI predictions
-  const complianceData = [
-    { month: 'يناير', compliance: 95, violations: 5, predicted: 97, risk_score: 15 },
-    { month: 'فبراير', compliance: 97, violations: 3, predicted: 98, risk_score: 12 },
-    { month: 'مارس', compliance: 94, violations: 6, predicted: 96, risk_score: 18 },
-    { month: 'أبريل', compliance: 98, violations: 2, predicted: 99, risk_score: 8 },
-    { month: 'مايو', compliance: 96, violations: 4, predicted: 98, risk_score: 14 },
-    { month: 'يونيو', compliance: 99, violations: 1, predicted: 99, risk_score: 5 }
-  ];
-
-  const governanceMetrics = [
-    { category: 'الامتثال الكامل', count: 340, percentage: 92, color: 'hsl(var(--success))', trend: '+5%' },
-    { category: 'تحت المراجعة', count: 28, percentage: 7.5, color: 'hsl(var(--warning))', trend: '-2%' },
-    { category: 'مخالفات قيد المعالجة', count: 8, percentage: 2, color: 'hsl(var(--destructive))', trend: '-8%' },
-    { category: 'تدقيقات مكتملة', count: 95, percentage: 98, color: 'hsl(var(--primary))', trend: '+12%' }
-  ];
-
-  const riskAssessment = [
-    { level: 'مخاطر منخفضة', value: 70, count: 280, color: 'hsl(var(--success))' },
-    { level: 'مخاطر متوسطة', value: 25, count: 100, color: 'hsl(var(--warning))' },
-    { level: 'مخاطر عالية', value: 5, count: 20, color: 'hsl(var(--destructive))' }
-  ];
-
-  const aiRecommendations = [
-    {
-      id: 1,
-      priority: 'عالية',
-      title: 'تحديث سياسة الأمان السيبراني',
-      description: 'يوصي الذكاء الاصطناعي بتحديث سياسات الأمان بناءً على التهديدات الحديثة',
-      impact: 'عالي',
-      confidence: 95,
-      category: 'security'
-    },
-    {
-      id: 2,
-      priority: 'متوسطة',
-      title: 'مراجعة إجراءات الخصوصية',
-      description: 'تحليل شامل لإجراءات حماية البيانات الشخصية وفقاً للوائح الجديدة',
-      impact: 'متوسط',
-      confidence: 87,
-      category: 'privacy'
-    },
-    {
-      id: 3,
-      priority: 'منخفضة',
-      title: 'تحسين عمليات التوثيق',
-      description: 'اقتراحات لتطوير نظام التوثيق والأرشفة الرقمية',
-      impact: 'منخفض',
-      confidence: 92,
-      category: 'documentation'
-    }
-  ];
-
-  const complianceAlerts = [
-    {
-      id: 1,
-      type: 'warning',
-      title: 'انتهاء صلاحية ترخيص قريب',
-      description: 'ترخيص العمل التجاري سينتهي خلال 30 يوم',
-      date: '2024-09-15',
-      priority: 'عالية'
-    },
-    {
-      id: 2,
-      type: 'info',
-      title: 'تحديث في اللوائح',
-      description: 'صدرت لوائح جديدة في قانون العمل السعودي',
-      date: '2024-08-25',
-      priority: 'متوسطة'
-    }
-  ];
+  const complianceData = [{
+    month: 'يناير',
+    compliance: 95,
+    violations: 5,
+    predicted: 97,
+    risk_score: 15
+  }, {
+    month: 'فبراير',
+    compliance: 97,
+    violations: 3,
+    predicted: 98,
+    risk_score: 12
+  }, {
+    month: 'مارس',
+    compliance: 94,
+    violations: 6,
+    predicted: 96,
+    risk_score: 18
+  }, {
+    month: 'أبريل',
+    compliance: 98,
+    violations: 2,
+    predicted: 99,
+    risk_score: 8
+  }, {
+    month: 'مايو',
+    compliance: 96,
+    violations: 4,
+    predicted: 98,
+    risk_score: 14
+  }, {
+    month: 'يونيو',
+    compliance: 99,
+    violations: 1,
+    predicted: 99,
+    risk_score: 5
+  }];
+  const governanceMetrics = [{
+    category: 'الامتثال الكامل',
+    count: 340,
+    percentage: 92,
+    color: 'hsl(var(--success))',
+    trend: '+5%'
+  }, {
+    category: 'تحت المراجعة',
+    count: 28,
+    percentage: 7.5,
+    color: 'hsl(var(--warning))',
+    trend: '-2%'
+  }, {
+    category: 'مخالفات قيد المعالجة',
+    count: 8,
+    percentage: 2,
+    color: 'hsl(var(--destructive))',
+    trend: '-8%'
+  }, {
+    category: 'تدقيقات مكتملة',
+    count: 95,
+    percentage: 98,
+    color: 'hsl(var(--primary))',
+    trend: '+12%'
+  }];
+  const riskAssessment = [{
+    level: 'مخاطر منخفضة',
+    value: 70,
+    count: 280,
+    color: 'hsl(var(--success))'
+  }, {
+    level: 'مخاطر متوسطة',
+    value: 25,
+    count: 100,
+    color: 'hsl(var(--warning))'
+  }, {
+    level: 'مخاطر عالية',
+    value: 5,
+    count: 20,
+    color: 'hsl(var(--destructive))'
+  }];
+  const aiRecommendations = [{
+    id: 1,
+    priority: 'عالية',
+    title: 'تحديث سياسة الأمان السيبراني',
+    description: 'يوصي الذكاء الاصطناعي بتحديث سياسات الأمان بناءً على التهديدات الحديثة',
+    impact: 'عالي',
+    confidence: 95,
+    category: 'security'
+  }, {
+    id: 2,
+    priority: 'متوسطة',
+    title: 'مراجعة إجراءات الخصوصية',
+    description: 'تحليل شامل لإجراءات حماية البيانات الشخصية وفقاً للوائح الجديدة',
+    impact: 'متوسط',
+    confidence: 87,
+    category: 'privacy'
+  }, {
+    id: 3,
+    priority: 'منخفضة',
+    title: 'تحسين عمليات التوثيق',
+    description: 'اقتراحات لتطوير نظام التوثيق والأرشفة الرقمية',
+    impact: 'منخفض',
+    confidence: 92,
+    category: 'documentation'
+  }];
+  const complianceAlerts = [{
+    id: 1,
+    type: 'warning',
+    title: 'انتهاء صلاحية ترخيص قريب',
+    description: 'ترخيص العمل التجاري سينتهي خلال 30 يوم',
+    date: '2024-09-15',
+    priority: 'عالية'
+  }, {
+    id: 2,
+    type: 'info',
+    title: 'تحديث في اللوائح',
+    description: 'صدرت لوائح جديدة في قانون العمل السعودي',
+    date: '2024-08-25',
+    priority: 'متوسطة'
+  }];
 
   // Simulate AI analysis
   const performAIAnalysis = async () => {
@@ -112,69 +159,58 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
       setAiInsights({
         overallScore: 94,
         riskLevel: 'منخفضة',
         recommendations: aiRecommendations.length,
         predictedCompliance: 98,
-        keyFindings: [
-          'معدل الامتثال محسّن بنسبة 5% هذا الشهر',
-          'انخفاض المخالفات بنسبة 8% مقارنة بالشهر الماضي',
-          'توقع وصول معدل الامتثال إلى 99% الشهر القادم'
-        ]
+        keyFindings: ['معدل الامتثال محسّن بنسبة 5% هذا الشهر', 'انخفاض المخالفات بنسبة 8% مقارنة بالشهر الماضي', 'توقع وصول معدل الامتثال إلى 99% الشهر القادم']
       });
-
       toast({
         title: "تم إكمال التحليل بالذكاء الاصطناعي",
-        description: "تم تحليل بيانات الحوكمة والامتثال بنجاح",
+        description: "تم تحليل بيانات الحوكمة والامتثال بنجاح"
       });
     } catch (error) {
       toast({
         title: "خطأ في التحليل",
         description: "حدث خطأ أثناء تحليل البيانات",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setLoading(false);
     }
   };
-
   const handleCalculateEligibility = () => {
     if (onCalculateEligibility) {
       onCalculateEligibility();
     } else {
       toast({
         title: "حساب الامتثال",
-        description: "جاري تقييم مستوى الامتثال الذكي...",
+        description: "جاري تقييم مستوى الامتثال الذكي..."
       });
     }
   };
-
   const handleExportExcel = () => {
     if (onExportExcel) {
       onExportExcel();
     } else {
       toast({
         title: "تصدير Excel",
-        description: "جاري تحضير تقرير Excel الشامل...",
+        description: "جاري تحضير تقرير Excel الشامل..."
       });
     }
   };
-
   const handleExportPDF = () => {
     if (onExportPDF) {
       onExportPDF();
     } else {
       toast({
         title: "تصدير PDF",
-        description: "جاري إنشاء تقرير PDF مفصل...",
+        description: "جاري إنشاء تقرير PDF مفصل..."
       });
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Logo */}
         <div className="flex justify-center mb-6">
@@ -183,7 +219,7 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">نظام الحوكمة والامتثال المتطور</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الحوكمة والامتثال </h1>
           <p className="text-muted-foreground">منظومة شاملة لإدارة الحوكمة المؤسسية وضمان الامتثال للقوانين</p>
         </div>
 
@@ -329,18 +365,8 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                   <CardContent>
                     <ResponsiveContainer width="100%" height={300}>
                       <RechartsPieChart>
-                        <Pie
-                          data={riskAssessment}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={false}
-                          outerRadius={80}
-                          fill="#8884d8"
-                          dataKey="value"
-                        >
-                          {riskAssessment.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
+                        <Pie data={riskAssessment} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                          {riskAssessment.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                         </Pie>
                         <Tooltip />
                       </RechartsPieChart>
@@ -476,21 +502,24 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                         <AreaChart data={complianceData}>
                           <defs>
                             <linearGradient id="colorCompliance" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8} />
+                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1} />
                             </linearGradient>
                             <linearGradient id="colorPredicted" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--secondary))" stopOpacity={0.8}/>
-                              <stop offset="95%" stopColor="hsl(var(--secondary))" stopOpacity={0.1}/>
+                              <stop offset="5%" stopColor="hsl(var(--secondary))" stopOpacity={0.8} />
+                              <stop offset="95%" stopColor="hsl(var(--secondary))" stopOpacity={0.1} />
                             </linearGradient>
                           </defs>
                           <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                           <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
                           <YAxis stroke="hsl(var(--muted-foreground))" />
-                          <Tooltip 
-                            contentStyle={{ backgroundColor: 'hsl(var(--card))', border: 'none', borderRadius: '8px' }}
-                            labelStyle={{ color: 'hsl(var(--card-foreground))' }}
-                          />
+                          <Tooltip contentStyle={{
+                            backgroundColor: 'hsl(var(--card))',
+                            border: 'none',
+                            borderRadius: '8px'
+                          }} labelStyle={{
+                            color: 'hsl(var(--card-foreground))'
+                          }} />
                           <Area type="monotone" dataKey="compliance" stroke="hsl(var(--primary))" fill="url(#colorCompliance)" />
                           <Area type="monotone" dataKey="predicted" stroke="hsl(var(--secondary))" fill="url(#colorPredicted)" strokeDasharray="5 5" />
                         </AreaChart>
@@ -512,18 +541,20 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                       <Settings className="h-5 w-5 text-gray-400" />
                     </div>
                     <div className="space-y-4">
-                      {governanceMetrics.map((metric, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: `${metric.color}15` }}>
+                      {governanceMetrics.map((metric, index) => <div key={index} className="flex items-center justify-between p-3 rounded-lg" style={{
+                        backgroundColor: `${metric.color}15`
+                      }}>
                           <div>
                             <p className="font-semibold text-gray-800">{metric.category}</p>
                             <p className="text-sm text-gray-600">{metric.count} {isRTL ? 'عنصر' : 'items'}</p>
                           </div>
                           <div className="text-right">
-                            <p className="text-2xl font-bold" style={{ color: metric.color }}>{metric.percentage}%</p>
+                            <p className="text-2xl font-bold" style={{
+                            color: metric.color
+                          }}>{metric.percentage}%</p>
                             <Badge variant="secondary" className="text-xs">{metric.trend}</Badge>
                           </div>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </CardContent>
                 </Card>
@@ -536,32 +567,22 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                     </h3>
                     <ResponsiveContainer width="100%" height={200}>
                       <RechartsPieChart>
-                        <Pie
-                          data={riskAssessment}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={40}
-                          outerRadius={80}
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {riskAssessment.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
+                        <Pie data={riskAssessment} cx="50%" cy="50%" innerRadius={40} outerRadius={80} paddingAngle={5} dataKey="value">
+                          {riskAssessment.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                         </Pie>
                         <Tooltip />
                       </RechartsPieChart>
                     </ResponsiveContainer>
                     <div className="mt-4 space-y-2">
-                      {riskAssessment.map((item, index) => (
-                        <div key={index} className="flex items-center justify-between text-sm">
+                      {riskAssessment.map((item, index) => <div key={index} className="flex items-center justify-between text-sm">
                           <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
+                            <div className="w-3 h-3 rounded-full" style={{
+                            backgroundColor: item.color
+                          }}></div>
                             <span>{item.level}</span>
                           </div>
                           <span className="font-semibold">{item.count}</span>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </CardContent>
                 </Card>
@@ -584,36 +605,23 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                   </div>
 
                   <div className="space-y-4">
-                    <Button
-                      onClick={performAIAnalysis}
-                      disabled={loading}
-                      className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30"
-                      size="lg"
-                    >
-                      {loading ? (
-                        <>
+                    <Button onClick={performAIAnalysis} disabled={loading} className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30" size="lg">
+                      {loading ? <>
                           <div className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full mr-2"></div>
                           {isRTL ? 'جاري التحليل...' : 'Analyzing...'}
-                        </>
-                      ) : (
-                        <>
+                        </> : <>
                           <Zap className="h-5 w-5 mr-2" />
                           {isRTL ? 'بدء التحليل الذكي' : 'Start AI Analysis'}
-                        </>
-                      )}
+                        </>}
                     </Button>
 
-                    {aiInsights && (
-                      <div className="space-y-3 mt-6">
+                    {aiInsights && <div className="space-y-3 mt-6">
                         <h3 className="font-bold text-lg">{isRTL ? 'النتائج الرئيسية:' : 'Key Findings:'}</h3>
-                        {aiInsights.keyFindings?.map((finding: string, index: number) => (
-                          <div key={index} className="flex items-start gap-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+                        {aiInsights.keyFindings?.map((finding: string, index: number) => <div key={index} className="flex items-start gap-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
                             <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
                             <span className="text-sm">{finding}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                          </div>)}
+                      </div>}
                   </div>
                 </CardContent>
               </Card>
@@ -627,14 +635,10 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {aiRecommendations.map((rec) => (
-                    <div key={rec.id} className="p-4 rounded-lg border bg-gradient-to-r from-gray-50 to-white">
+                  {aiRecommendations.map(rec => <div key={rec.id} className="p-4 rounded-lg border bg-gradient-to-r from-gray-50 to-white">
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <Badge 
-                            variant={rec.priority === 'عالية' ? 'destructive' : rec.priority === 'متوسطة' ? 'default' : 'secondary'}
-                            className="mb-2"
-                          >
+                          <Badge variant={rec.priority === 'عالية' ? 'destructive' : rec.priority === 'متوسطة' ? 'default' : 'secondary'} className="mb-2">
                             {rec.priority}
                           </Badge>
                           <h4 className="font-bold text-gray-800">{rec.title}</h4>
@@ -648,8 +652,7 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                         <Badge variant="outline">{isRTL ? 'التأثير:' : 'Impact:'} {rec.impact}</Badge>
                         <Progress value={rec.confidence} className="flex-1 h-2" />
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
             </div>
@@ -667,10 +670,7 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {complianceAlerts.map((alert) => (
-                    <div key={alert.id} className={`p-4 rounded-lg border-l-4 ${
-                      alert.type === 'warning' ? 'border-warning bg-warning/5' : 'border-primary bg-primary/5'
-                    }`}>
+                  {complianceAlerts.map(alert => <div key={alert.id} className={`p-4 rounded-lg border-l-4 ${alert.type === 'warning' ? 'border-warning bg-warning/5' : 'border-primary bg-primary/5'}`}>
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="font-bold text-gray-800">{alert.title}</h4>
                         <Badge variant={alert.priority === 'عالية' ? 'destructive' : 'secondary'}>
@@ -682,8 +682,7 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                         <Calendar className="h-4 w-4" />
                         {alert.date}
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </CardContent>
               </Card>
 
@@ -695,19 +694,8 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
                 <CardContent className="text-center">
                   <div className="relative w-32 h-32 mx-auto mb-4">
                     <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 36 36">
-                      <path
-                        d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                        fill="none"
-                        stroke="hsl(var(--muted))"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831"
-                        fill="none"
-                        stroke="hsl(var(--primary))"
-                        strokeWidth="2"
-                        strokeDasharray="94, 100"
-                      />
+                      <path d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831" fill="none" stroke="hsl(var(--muted))" strokeWidth="2" />
+                      <path d="m18,2.0845 a 15.9155,15.9155 0 0,1 0,31.831 a 15.9155,15.9155 0 0,1 0,-31.831" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeDasharray="94, 100" />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-2xl font-bold text-primary">94%</span>
@@ -748,6 +736,5 @@ export const ComprehensiveGovernanceCompliance: React.FC<ComprehensiveGovernance
           </Tabs>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
