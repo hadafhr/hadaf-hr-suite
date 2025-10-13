@@ -12,56 +12,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  MessageSquare, 
-  Mail, 
-  Send, 
-  FileText, 
-  Archive, 
-  BarChart3, 
-  Settings,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Building,
-  Eye,
-  Edit,
-  Trash2,
-  Save,
-  Upload,
-  Printer,
-  Bell,
-  Clock,
-  AlertTriangle,
-  CheckCircle2,
-  User,
-  Users,
-  Paperclip,
-  Signature,
-  Target,
-  TrendingUp,
-  Activity,
-  Zap,
-  Globe,
-  Sparkles,
-  Crown,
-  Tag,
-  FileCheck,
-  MailOpen,
-  Network,
-  Building2,
-  Award,
-  PieChart
-} from 'lucide-react';
+import { ArrowLeft, MessageSquare, Mail, Send, FileText, Archive, BarChart3, Settings, Download, Plus, Search, Filter, Calendar, Building, Eye, Edit, Trash2, Save, Upload, Printer, Bell, Clock, AlertTriangle, CheckCircle2, User, Users, Paperclip, Signature, Target, TrendingUp, Activity, Zap, Globe, Sparkles, Crown, Tag, FileCheck, MailOpen, Network, Building2, Award, PieChart } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
-
 interface AdministrativeCommunicationsProps {
   onBack: () => void;
 }
-
 interface Correspondence {
   id: string;
   transactionNumber: string;
@@ -82,7 +37,6 @@ interface Correspondence {
   category?: 'Legal' | 'HR' | 'Finance' | 'General';
   responseTime?: number;
 }
-
 interface InternalMemo {
   id: string;
   transactionNumber: string;
@@ -97,7 +51,6 @@ interface InternalMemo {
   content?: string;
   aiSummary?: string;
 }
-
 interface CommunicationMetric {
   id: string;
   metric: string;
@@ -108,9 +61,12 @@ interface CommunicationMetric {
   trend: 'up' | 'down' | 'stable';
   lastUpdated: string;
 }
-
-export const AdministrativeCommunications: React.FC<AdministrativeCommunicationsProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const AdministrativeCommunications: React.FC<AdministrativeCommunicationsProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -126,168 +82,190 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
   };
 
   // Mock data for demonstration
-  const incomingCorrespondence: Correspondence[] = [
-    {
-      id: '1',
-      transactionNumber: 'IN-2024-0001',
-      date: '2024-01-15',
-      sender: 'وزارة الموارد البشرية والتنمية الاجتماعية',
-      subject: 'تحديث اللوائح التنظيمية للعمل وفقاً للتعديلات الجديدة',
-      priority: 'عالية',
-      status: 'جديد',
-      assignedTo: 'أحمد محمد الخالدي',
-      department: 'الموارد البشرية',
-      attachments: 2,
-      dueDate: '2024-01-25',
-      content: 'يسرنا إعلامكم بالتحديثات الجديدة على اللوائح التنظيمية...',
-      aiSummary: 'تحديث اللوائح - مطلوب تطبيق التعديلات خلال 10 أيام',
-      category: 'HR',
-      responseTime: 3.2
-    },
-    {
-      id: '2',
-      transactionNumber: 'IN-2024-0002',
-      date: '2024-01-18',
-      sender: 'الهيئة العامة للتأمينات الاجتماعية',
-      subject: 'طلب تحديث بيانات الموظفين المؤمن عليهم',
-      priority: 'متوسطة',
-      status: 'قيد المراجعة',
-      assignedTo: 'سارة أحمد المطيري',
-      department: 'المالية',
-      attachments: 1,
-      dueDate: '2024-02-01',
-      category: 'Finance',
-      responseTime: 2.1
-    },
-    {
-      id: '3',
-      transactionNumber: 'IN-2024-0003',
-      date: '2024-01-20',
-      sender: 'المحكمة العمالية',
-      subject: 'استدعاء قضية عمالية رقم 2024/45',
-      priority: 'عالية',
-      status: 'معلق',
-      assignedTo: 'محمد سعد القحطاني',
-      department: 'الشئون القانونية',
-      attachments: 3,
-      dueDate: '2024-01-28',
-      category: 'Legal',
-      responseTime: 1.5
-    }
-  ];
-
-  const outgoingCorrespondence: Correspondence[] = [
-    {
-      id: '1',
-      transactionNumber: 'OUT-2024-0001',
-      date: '2024-01-16',
-      recipient: 'غرفة التجارة والصناعة بالرياض',
-      subject: 'طلب شهادة عضوية مؤسسة تجارية',
-      priority: 'متوسطة',
-      status: 'معتمد',
-      department: 'الإدارة العامة',
-      attachments: 3,
-      approvedBy: 'المدير العام',
-      sentDate: '2024-01-16',
-      category: 'General',
-      responseTime: 1.2
-    },
-    {
-      id: '2',
-      transactionNumber: 'OUT-2024-0002',
-      date: '2024-01-19',
-      recipient: 'وزارة التجارة والاستثمار',
-      subject: 'إشعار تغيير عنوان المؤسسة الرئيسي',
-      priority: 'عالية',
-      status: 'مرسل',
-      department: 'الشئون القانونية',
-      attachments: 2,
-      approvedBy: 'المدير التنفيذي',
-      sentDate: '2024-01-19',
-      category: 'Legal',
-      responseTime: 0.8
-    }
-  ];
-
-  const internalMemos: InternalMemo[] = [
-    {
-      id: '1',
-      transactionNumber: 'MEMO-2024-0001',
-      date: '2024-01-17',
-      title: 'تحديث سياسة الإجازات للعام 2024',
-      department: 'جميع الأقسام',
-      status: 'نشط',
-      readBy: 45,
-      totalEmployees: 60,
-      priority: 'عالية',
-      author: 'إدارة الموارد البشرية',
-      content: 'نود إعلامكم بالتحديثات الجديدة على سياسة الإجازات...',
-      aiSummary: 'تحديث سياسة الإجازات - تطبيق فوري - معدل قراءة 75%'
-    },
-    {
-      id: '2',
-      transactionNumber: 'MEMO-2024-0002',
-      date: '2024-01-20',
-      title: 'إجراءات السلامة المهنية الجديدة',
-      department: 'الإنتاج والعمليات',
-      status: 'مراجعة',
-      readBy: 28,
-      totalEmployees: 35,
-      priority: 'عالية',
-      author: 'قسم السلامة المهنية',
-      aiSummary: 'إجراءات السلامة الجديدة - تدريب مطلوب - معدل قراءة 80%'
-    }
-  ];
-
-  const communicationMetrics: CommunicationMetric[] = [
-    {
-      id: '1',
-      metric: 'معدل الاستجابة في الوقت',
-      category: 'Response',
-      status: 'Excellent',
-      value: 96,
-      target: 95,
-      trend: 'up',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '2',
-      metric: 'متوسط وقت الاستجابة',
-      category: 'Response',
-      status: 'Good',
-      value: 2.3,
-      target: 2.0,
-      trend: 'stable',
-      lastUpdated: '2024-01-15'
-    },
-    {
-      id: '3',
-      metric: 'معدل معالجة المراسلات',
-      category: 'Incoming',
-      status: 'Excellent',
-      value: 94,
-      target: 90,
-      trend: 'up',
-      lastUpdated: '2024-01-15'
-    }
-  ];
+  const incomingCorrespondence: Correspondence[] = [{
+    id: '1',
+    transactionNumber: 'IN-2024-0001',
+    date: '2024-01-15',
+    sender: 'وزارة الموارد البشرية والتنمية الاجتماعية',
+    subject: 'تحديث اللوائح التنظيمية للعمل وفقاً للتعديلات الجديدة',
+    priority: 'عالية',
+    status: 'جديد',
+    assignedTo: 'أحمد محمد الخالدي',
+    department: 'الموارد البشرية',
+    attachments: 2,
+    dueDate: '2024-01-25',
+    content: 'يسرنا إعلامكم بالتحديثات الجديدة على اللوائح التنظيمية...',
+    aiSummary: 'تحديث اللوائح - مطلوب تطبيق التعديلات خلال 10 أيام',
+    category: 'HR',
+    responseTime: 3.2
+  }, {
+    id: '2',
+    transactionNumber: 'IN-2024-0002',
+    date: '2024-01-18',
+    sender: 'الهيئة العامة للتأمينات الاجتماعية',
+    subject: 'طلب تحديث بيانات الموظفين المؤمن عليهم',
+    priority: 'متوسطة',
+    status: 'قيد المراجعة',
+    assignedTo: 'سارة أحمد المطيري',
+    department: 'المالية',
+    attachments: 1,
+    dueDate: '2024-02-01',
+    category: 'Finance',
+    responseTime: 2.1
+  }, {
+    id: '3',
+    transactionNumber: 'IN-2024-0003',
+    date: '2024-01-20',
+    sender: 'المحكمة العمالية',
+    subject: 'استدعاء قضية عمالية رقم 2024/45',
+    priority: 'عالية',
+    status: 'معلق',
+    assignedTo: 'محمد سعد القحطاني',
+    department: 'الشئون القانونية',
+    attachments: 3,
+    dueDate: '2024-01-28',
+    category: 'Legal',
+    responseTime: 1.5
+  }];
+  const outgoingCorrespondence: Correspondence[] = [{
+    id: '1',
+    transactionNumber: 'OUT-2024-0001',
+    date: '2024-01-16',
+    recipient: 'غرفة التجارة والصناعة بالرياض',
+    subject: 'طلب شهادة عضوية مؤسسة تجارية',
+    priority: 'متوسطة',
+    status: 'معتمد',
+    department: 'الإدارة العامة',
+    attachments: 3,
+    approvedBy: 'المدير العام',
+    sentDate: '2024-01-16',
+    category: 'General',
+    responseTime: 1.2
+  }, {
+    id: '2',
+    transactionNumber: 'OUT-2024-0002',
+    date: '2024-01-19',
+    recipient: 'وزارة التجارة والاستثمار',
+    subject: 'إشعار تغيير عنوان المؤسسة الرئيسي',
+    priority: 'عالية',
+    status: 'مرسل',
+    department: 'الشئون القانونية',
+    attachments: 2,
+    approvedBy: 'المدير التنفيذي',
+    sentDate: '2024-01-19',
+    category: 'Legal',
+    responseTime: 0.8
+  }];
+  const internalMemos: InternalMemo[] = [{
+    id: '1',
+    transactionNumber: 'MEMO-2024-0001',
+    date: '2024-01-17',
+    title: 'تحديث سياسة الإجازات للعام 2024',
+    department: 'جميع الأقسام',
+    status: 'نشط',
+    readBy: 45,
+    totalEmployees: 60,
+    priority: 'عالية',
+    author: 'إدارة الموارد البشرية',
+    content: 'نود إعلامكم بالتحديثات الجديدة على سياسة الإجازات...',
+    aiSummary: 'تحديث سياسة الإجازات - تطبيق فوري - معدل قراءة 75%'
+  }, {
+    id: '2',
+    transactionNumber: 'MEMO-2024-0002',
+    date: '2024-01-20',
+    title: 'إجراءات السلامة المهنية الجديدة',
+    department: 'الإنتاج والعمليات',
+    status: 'مراجعة',
+    readBy: 28,
+    totalEmployees: 35,
+    priority: 'عالية',
+    author: 'قسم السلامة المهنية',
+    aiSummary: 'إجراءات السلامة الجديدة - تدريب مطلوب - معدل قراءة 80%'
+  }];
+  const communicationMetrics: CommunicationMetric[] = [{
+    id: '1',
+    metric: 'معدل الاستجابة في الوقت',
+    category: 'Response',
+    status: 'Excellent',
+    value: 96,
+    target: 95,
+    trend: 'up',
+    lastUpdated: '2024-01-15'
+  }, {
+    id: '2',
+    metric: 'متوسط وقت الاستجابة',
+    category: 'Response',
+    status: 'Good',
+    value: 2.3,
+    target: 2.0,
+    trend: 'stable',
+    lastUpdated: '2024-01-15'
+  }, {
+    id: '3',
+    metric: 'معدل معالجة المراسلات',
+    category: 'Incoming',
+    status: 'Excellent',
+    value: 94,
+    target: 90,
+    trend: 'up',
+    lastUpdated: '2024-01-15'
+  }];
 
   // Analytics data
-  const correspondenceData = [
-    { month: 'يناير', incoming: 45, outgoing: 32, memos: 18, response: 2.1 },
-    { month: 'فبراير', incoming: 52, outgoing: 38, memos: 22, response: 1.9 },
-    { month: 'مارس', incoming: 48, outgoing: 41, memos: 25, response: 2.3 },
-    { month: 'أبريل', incoming: 56, outgoing: 35, memos: 20, response: 2.0 },
-    { month: 'مايو', incoming: 61, outgoing: 45, memos: 28, response: 1.8 },
-    { month: 'يونيو', incoming: 58, outgoing: 42, memos: 31, response: 2.1 }
-  ];
-
-  const categoryDistribution = [
-    { name: 'قانونية', value: 35, color: '#3b82f6' },
-    { name: 'مالية', value: 25, color: '#10b981' },
-    { name: 'موارد بشرية', value: 30, color: '#f59e0b' },
-    { name: 'عامة', value: 10, color: '#8b5cf6' }
-  ];
+  const correspondenceData = [{
+    month: 'يناير',
+    incoming: 45,
+    outgoing: 32,
+    memos: 18,
+    response: 2.1
+  }, {
+    month: 'فبراير',
+    incoming: 52,
+    outgoing: 38,
+    memos: 22,
+    response: 1.9
+  }, {
+    month: 'مارس',
+    incoming: 48,
+    outgoing: 41,
+    memos: 25,
+    response: 2.3
+  }, {
+    month: 'أبريل',
+    incoming: 56,
+    outgoing: 35,
+    memos: 20,
+    response: 2.0
+  }, {
+    month: 'مايو',
+    incoming: 61,
+    outgoing: 45,
+    memos: 28,
+    response: 1.8
+  }, {
+    month: 'يونيو',
+    incoming: 58,
+    outgoing: 42,
+    memos: 31,
+    response: 2.1
+  }];
+  const categoryDistribution = [{
+    name: 'قانونية',
+    value: 35,
+    color: '#3b82f6'
+  }, {
+    name: 'مالية',
+    value: 25,
+    color: '#10b981'
+  }, {
+    name: 'موارد بشرية',
+    value: 30,
+    color: '#f59e0b'
+  }, {
+    name: 'عامة',
+    value: 10,
+    color: '#8b5cf6'
+  }];
 
   // Calculate statistics
   const stats = {
@@ -298,66 +276,69 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
     avgResponseTime: 2.3,
     satisfactionRate: 94
   };
-
   const handleSave = (type: string) => {
     toast({
       title: "تم الحفظ بنجاح",
-      description: `تم حفظ ${type} بنجاح مع رقم المعاملة الجديد`,
+      description: `تم حفظ ${type} بنجاح مع رقم المعاملة الجديد`
     });
   };
-
   const handleExport = (format: 'pdf' | 'excel') => {
     toast({
       title: "تم التصدير بنجاح",
-      description: `تم تصدير تقرير الاتصالات الإدارية بصيغة ${format.toUpperCase()}`,
+      description: `تم تصدير تقرير الاتصالات الإدارية بصيغة ${format.toUpperCase()}`
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const handleUpload = () => {
     fileInputRef.current?.click();
   };
-
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       toast({
         title: "تم رفع الملف بنجاح",
-        description: `تم رفع ${file.name} بنجاح`,
+        description: `تم رفع ${file.name} بنجاح`
       });
     }
   };
-
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'جديد': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'قيد المراجعة': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'معتمد': return 'bg-green-100 text-green-800 border-green-200';
-      case 'مرسل': return 'bg-green-100 text-green-800 border-green-200';
-      case 'معلق': return 'bg-red-100 text-red-800 border-red-200';
-      case 'نشط': return 'bg-green-100 text-green-800 border-green-200';
-      case 'مراجعة': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'جديد':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'قيد المراجعة':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'معتمد':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'مرسل':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'معلق':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'نشط':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'مراجعة':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'عالية': return 'bg-red-100 text-red-800 border-red-200';
-      case 'متوسطة': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'منخفضة': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'عالية':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'متوسطة':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'منخفضة':
+        return 'bg-green-100 text-green-800 border-green-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
-  const renderHeader = () => (
-    <div className="space-y-6">
+  const renderHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center mb-6">
         <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
@@ -365,14 +346,11 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام المراسلات الإدارية المتطور</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الاتصالات الإدراية</h1>
         <p className="text-muted-foreground">منظومة شاملة لإدارة المراسلات والمذكرات مع أدوات الذكاء الاصطناعي</p>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
@@ -482,18 +460,8 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={categoryDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {categoryDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={categoryDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {categoryDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -544,12 +512,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
           <div className="mt-6">
             <h4 className="font-medium mb-3">البحث الذكي</h4>
             <div className="flex gap-2">
-              <Input 
-                placeholder="مثال: أظهر جميع المراسلات من وزارة العمل في 2024 مرتبة حسب رقم المعاملة" 
-                className="flex-1" 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+              <Input placeholder="مثال: أظهر جميع المراسلات من وزارة العمل في 2024 مرتبة حسب رقم المعاملة" className="flex-1" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
               <Button>
                 <Search className="w-4 h-4 mr-2" />
                 بحث ذكي
@@ -622,11 +585,8 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderIncomingCorrespondence = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderIncomingCorrespondence = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -636,12 +596,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
             </CardTitle>
             <div className="flex flex-wrap gap-2">
               <div className="flex gap-2">
-                <Input 
-                  placeholder="البحث في المراسلات..." 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-64"
-                />
+                <Input placeholder="البحث في المراسلات..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-64" />
                 <Select value={selectedFilter} onValueChange={setSelectedFilter}>
                   <SelectTrigger className="w-40">
                     <SelectValue />
@@ -679,8 +634,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {incomingCorrespondence.map((item) => (
-                  <TableRow key={item.id}>
+                {incomingCorrespondence.map(item => <TableRow key={item.id}>
                     <TableCell>
                       <span className="font-mono text-sm font-semibold text-primary">
                         {item.transactionNumber}
@@ -696,12 +650,10 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                       <div className="truncate" title={item.subject}>
                         {item.subject}
                       </div>
-                      {item.aiSummary && (
-                        <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                      {item.aiSummary && <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                           <Sparkles className="h-3 w-3" />
                           {item.aiSummary}
-                        </div>
-                      )}
+                        </div>}
                     </TableCell>
                     <TableCell>
                       <Badge className={getPriorityColor(item.priority)}>
@@ -734,18 +686,14 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                         </Button>
                       </div>
                     </TableCell>
-                  </TableRow>
-                ))}
+                  </TableRow>)}
               </TableBody>
             </Table>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderOutgoingCorrespondence = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderOutgoingCorrespondence = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -755,12 +703,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
             </CardTitle>
             <div className="flex flex-wrap gap-2">
               <div className="flex gap-2">
-                <Input 
-                  placeholder="البحث في المراسلات..." 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-64"
-                />
+                <Input placeholder="البحث في المراسلات..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-64" />
                 <Select value={selectedFilter} onValueChange={setSelectedFilter}>
                   <SelectTrigger className="w-40">
                     <SelectValue />
@@ -799,8 +742,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {outgoingCorrespondence.map((item) => (
-                  <TableRow key={item.id}>
+                {outgoingCorrespondence.map(item => <TableRow key={item.id}>
                     <TableCell>
                       <span className="font-mono text-sm font-semibold text-primary">
                         {item.transactionNumber}
@@ -852,18 +794,14 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                         </Button>
                       </div>
                     </TableCell>
-                  </TableRow>
-                ))}
+                  </TableRow>)}
               </TableBody>
             </Table>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderInternalMemos = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderInternalMemos = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -873,12 +811,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
             </CardTitle>
             <div className="flex flex-wrap gap-2">
               <div className="flex gap-2">
-                <Input 
-                  placeholder="البحث في المذكرات..." 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-64"
-                />
+                <Input placeholder="البحث في المذكرات..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-64" />
                 <Select value={selectedFilter} onValueChange={setSelectedFilter}>
                   <SelectTrigger className="w-40">
                     <SelectValue />
@@ -900,8 +833,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {internalMemos.map((memo) => (
-              <Card key={memo.id} className="border-l-4 border-l-blue-500">
+            {internalMemos.map(memo => <Card key={memo.id} className="border-l-4 border-l-blue-500">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -917,12 +849,10 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                       <div className="text-sm text-muted-foreground space-y-1">
                         <p>رقم المعاملة: <span className="font-mono font-semibold text-primary">{memo.transactionNumber}</span></p>
                         <p>التاريخ: {memo.date} | القسم: {memo.department} | الكاتب: {memo.author}</p>
-                        {memo.aiSummary && (
-                          <div className="flex items-center gap-1 text-blue-600">
+                        {memo.aiSummary && <div className="flex items-center gap-1 text-blue-600">
                             <Sparkles className="h-3 w-3" />
                             <span>{memo.aiSummary}</span>
-                          </div>
-                        )}
+                          </div>}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -944,29 +874,22 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                         <span className="text-muted-foreground">معدل القراءة: </span>
                         <span className="font-semibold">{memo.readBy}/{memo.totalEmployees}</span>
                       </div>
-                      <Progress 
-                        value={(memo.readBy / memo.totalEmployees) * 100} 
-                        className="w-32"
-                      />
+                      <Progress value={memo.readBy / memo.totalEmployees * 100} className="w-32" />
                     </div>
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">
-                        {Math.round((memo.readBy / memo.totalEmployees) * 100)}% مقروءة
+                        {Math.round(memo.readBy / memo.totalEmployees * 100)}% مقروءة
                       </span>
                     </div>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderArchiving = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderArchiving = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -981,12 +904,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
           <div className="space-y-6">
             {/* Search Interface */}
             <div className="flex gap-4">
-              <Input 
-                placeholder="البحث بالكلمات المفتاحية، المرسل، الموضوع، رقم المعاملة، أو التاريخ..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1"
-              />
+              <Input placeholder="البحث بالكلمات المفتاحية، المرسل، الموضوع، رقم المعاملة، أو التاريخ..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="flex-1" />
               <Select>
                 <SelectTrigger className="w-48">
                   <SelectValue placeholder="نوع المراسلة" />
@@ -1052,8 +970,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
             {/* Archived Items */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">المراسلات المؤرشفة مؤخراً</h3>
-              {[...incomingCorrespondence, ...outgoingCorrespondence].map((item) => (
-                <Card key={item.id} className="hover:shadow-md transition-shadow">
+              {[...incomingCorrespondence, ...outgoingCorrespondence].map(item => <Card key={item.id} className="hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
@@ -1064,24 +981,18 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                           <Badge variant="outline">
                             {item.sender ? 'واردة' : 'صادرة'}
                           </Badge>
-                          {item.category && (
-                            <Badge variant="secondary">
-                              {item.category === 'Legal' ? 'قانونية' : 
-                               item.category === 'HR' ? 'موارد بشرية' :
-                               item.category === 'Finance' ? 'مالية' : 'عامة'}
-                            </Badge>
-                          )}
+                          {item.category && <Badge variant="secondary">
+                              {item.category === 'Legal' ? 'قانونية' : item.category === 'HR' ? 'موارد بشرية' : item.category === 'Finance' ? 'مالية' : 'عامة'}
+                            </Badge>}
                         </div>
                         <h4 className="font-medium mb-1">{item.subject}</h4>
                         <p className="text-sm text-muted-foreground">
                           {item.sender || item.recipient} • {item.date} • {item.department}
                         </p>
-                        {item.aiSummary && (
-                          <div className="text-xs text-blue-600 mt-1 flex items-center gap-1">
+                        {item.aiSummary && <div className="text-xs text-blue-600 mt-1 flex items-center gap-1">
                             <Sparkles className="h-3 w-3" />
                             {item.aiSummary}
-                          </div>
-                        )}
+                          </div>}
                       </div>
                       <div className="flex items-center gap-2">
                         <Button size="sm" variant="ghost">
@@ -1093,17 +1004,13 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                       </div>
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderReports = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderReports = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -1257,33 +1164,28 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {internalMemos.map((memo) => (
-                    <div key={memo.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  {internalMemos.map(memo => <div key={memo.id} className="flex items-center justify-between p-3 border rounded-lg">
                       <div>
                         <p className="font-medium">{memo.title}</p>
                         <p className="text-sm text-muted-foreground">{memo.department}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-semibold">
-                          {Math.round((memo.readBy / memo.totalEmployees) * 100)}%
+                          {Math.round(memo.readBy / memo.totalEmployees * 100)}%
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {memo.readBy}/{memo.totalEmployees}
                         </p>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderSettings = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderSettings = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -1368,15 +1270,31 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[
-                    { name: 'خطاب رسمي عام', category: 'عام', usage: 45 },
-                    { name: 'طلب معلومات', category: 'استعلامات', usage: 32 },
-                    { name: 'إشعار قانوني', category: 'قانوني', usage: 28 },
-                    { name: 'تقرير دوري', category: 'تقارير', usage: 19 },
-                    { name: 'مذكرة داخلية', category: 'داخلي', usage: 67 },
-                    { name: 'شكوى رسمية', category: 'شكاوى', usage: 15 }
-                  ].map((template, index) => (
-                    <Card key={index} className="hover:shadow-md transition-shadow">
+                  {[{
+                  name: 'خطاب رسمي عام',
+                  category: 'عام',
+                  usage: 45
+                }, {
+                  name: 'طلب معلومات',
+                  category: 'استعلامات',
+                  usage: 32
+                }, {
+                  name: 'إشعار قانوني',
+                  category: 'قانوني',
+                  usage: 28
+                }, {
+                  name: 'تقرير دوري',
+                  category: 'تقارير',
+                  usage: 19
+                }, {
+                  name: 'مذكرة داخلية',
+                  category: 'داخلي',
+                  usage: 67
+                }, {
+                  name: 'شكوى رسمية',
+                  category: 'شكاوى',
+                  usage: 15
+                }].map((template, index) => <Card key={index} className="hover:shadow-md transition-shadow">
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between mb-3">
                           <div>
@@ -1396,8 +1314,7 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                           </Button>
                         </div>
                       </CardContent>
-                    </Card>
-                  ))}
+                    </Card>)}
                 </div>
               </div>
             </TabsContent>
@@ -1413,24 +1330,19 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                 </div>
 
                 <div className="space-y-4">
-                  {[
-                    { 
-                      name: 'موافقة المراسلات الصادرة العادية', 
-                      steps: ['الموظف المختص', 'مدير القسم', 'الإرسال'],
-                      duration: '2-3 أيام'
-                    },
-                    { 
-                      name: 'موافقة المراسلات الصادرة الهامة', 
-                      steps: ['الموظف المختص', 'مدير القسم', 'المدير العام', 'الإرسال'],
-                      duration: '3-5 أيام'
-                    },
-                    { 
-                      name: 'موافقة المذكرات الداخلية', 
-                      steps: ['كاتب المذكرة', 'مدير القسم', 'النشر'],
-                      duration: '1-2 أيام'
-                    }
-                  ].map((workflow, index) => (
-                    <Card key={index}>
+                  {[{
+                  name: 'موافقة المراسلات الصادرة العادية',
+                  steps: ['الموظف المختص', 'مدير القسم', 'الإرسال'],
+                  duration: '2-3 أيام'
+                }, {
+                  name: 'موافقة المراسلات الصادرة الهامة',
+                  steps: ['الموظف المختص', 'مدير القسم', 'المدير العام', 'الإرسال'],
+                  duration: '3-5 أيام'
+                }, {
+                  name: 'موافقة المذكرات الداخلية',
+                  steps: ['كاتب المذكرة', 'مدير القسم', 'النشر'],
+                  duration: '1-2 أيام'
+                }].map((workflow, index) => <Card key={index}>
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between mb-3">
                           <div>
@@ -1451,20 +1363,15 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
                           </div>
                         </div>
                         <div className="flex items-center gap-2 overflow-x-auto">
-                          {workflow.steps.map((step, stepIndex) => (
-                            <React.Fragment key={stepIndex}>
+                          {workflow.steps.map((step, stepIndex) => <React.Fragment key={stepIndex}>
                               <Badge variant="outline" className="whitespace-nowrap">
                                 {step}
                               </Badge>
-                              {stepIndex < workflow.steps.length - 1 && (
-                                <ArrowLeft className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                              )}
-                            </React.Fragment>
-                          ))}
+                              {stepIndex < workflow.steps.length - 1 && <ArrowLeft className="h-4 w-4 text-muted-foreground flex-shrink-0" />}
+                            </React.Fragment>)}
                         </div>
                       </CardContent>
-                    </Card>
-                  ))}
+                    </Card>)}
                 </div>
               </div>
             </TabsContent>
@@ -1526,11 +1433,8 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
           </Tabs>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background">
+    </div>;
+  return <div className="min-h-screen bg-background">
       {renderHeader()}
       
       <div className="container mx-auto p-6">
@@ -1575,13 +1479,6 @@ export const AdministrativeCommunications: React.FC<AdministrativeCommunications
         </Tabs>
       </div>
 
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileUpload}
-        className="hidden"
-        multiple
-      />
-    </div>
-  );
+      <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" multiple />
+    </div>;
 };
