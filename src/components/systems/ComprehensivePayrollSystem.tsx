@@ -10,44 +10,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  DollarSign, 
-  Calculator, 
-  FileText, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Building,
-  Shield,
-  Award,
-  Target,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Eye,
-  Settings,
-  CreditCard,
-  Users,
-  Receipt,
-  User,
-  Edit,
-  Trash2,
-  Share,
-  Activity,
-  Brain
-} from 'lucide-react';
+import { ArrowLeft, DollarSign, Calculator, FileText, AlertTriangle, CheckCircle2, Clock, Download, Plus, Search, Filter, Calendar, Building, Shield, Award, Target, TrendingUp, BarChart3, PieChart, Eye, Settings, CreditCard, Users, Receipt, User, Edit, Trash2, Share, Activity, Brain } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie } from 'recharts';
-
 interface ComprehensivePayrollSystemProps {
   onBack: () => void;
 }
-
 interface PayrollEmployee {
   id: string;
   name: string;
@@ -63,7 +30,6 @@ interface PayrollEmployee {
   status: 'processed' | 'pending' | 'approved' | 'rejected';
   last_processed: string;
 }
-
 interface PayrollRun {
   id: string;
   period_name: string;
@@ -77,9 +43,12 @@ interface PayrollRun {
   processed_by: string;
   created_date: string;
 }
-
-export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -115,143 +84,164 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
   });
 
   // Enhanced mock data with more employees
-  const payrollEmployees: PayrollEmployee[] = [
-    {
-      id: '1',
-      name: 'أحمد محمد العلي',
-      employee_id: 'EMP001',
-      department: 'تقنية المعلومات',
-      position: 'مطور برمجيات أول',
-      basic_salary: 12000,
-      housing_allowance: 2000,
-      transport_allowance: 800,
-      other_allowances: 500,
-      total_deductions: 1200,
-      net_salary: 14100,
-      status: 'processed',
-      last_processed: '2024-01-15'
-    },
-    {
-      id: '2',
-      name: 'فاطمة أحمد السالم',
-      employee_id: 'EMP002',
-      department: 'الموارد البشرية',
-      position: 'أخصائي موارد بشرية',
-      basic_salary: 9500,
-      housing_allowance: 1500,
-      transport_allowance: 600,
-      other_allowances: 300,
-      total_deductions: 950,
-      net_salary: 10950,
-      status: 'pending',
-      last_processed: '2024-01-10'
-    },
-    {
-      id: '3',
-      name: 'محمد خالد الخالدي',
-      employee_id: 'EMP003',
-      department: 'المالية',
-      position: 'محاسب أول',
-      basic_salary: 11000,
-      housing_allowance: 1800,
-      transport_allowance: 700,
-      other_allowances: 400,
-      total_deductions: 1100,
-      net_salary: 12800,
-      status: 'approved',
-      last_processed: '2024-01-12'
-    },
-    {
-      id: '4',
-      name: 'سارة علي الزهراني',
-      employee_id: 'EMP004',
-      department: 'التسويق',
-      position: 'مدير تسويق',
-      basic_salary: 15000,
-      housing_allowance: 2500,
-      transport_allowance: 1000,
-      other_allowances: 800,
-      total_deductions: 1500,
-      net_salary: 17800,
-      status: 'processed',
-      last_processed: '2024-01-15'
-    },
-    {
-      id: '5',
-      name: 'عبدالله محمد القحطاني',
-      employee_id: 'EMP005',
-      department: 'المبيعات',
-      position: 'مندوب مبيعات أول',
-      basic_salary: 8500,
-      housing_allowance: 1200,
-      transport_allowance: 800,
-      other_allowances: 1500,
-      total_deductions: 850,
-      net_salary: 11150,
-      status: 'processed',
-      last_processed: '2024-01-15'
-    },
-    {
-      id: '6',
-      name: 'نورا أحمد الغامدي',
-      employee_id: 'EMP006',
-      department: 'خدمة العملاء',
-      position: 'أخصائي خدمة عملاء',
-      basic_salary: 7000,
-      housing_allowance: 1000,
-      transport_allowance: 500,
-      other_allowances: 200,
-      total_deductions: 700,
-      net_salary: 8000,
-      status: 'pending',
-      last_processed: '2024-01-10'
-    }
-  ];
-
-  const payrollRuns: PayrollRun[] = [
-    {
-      id: '1',
-      period_name: 'يناير 2024',
-      start_date: '2024-01-01',
-      end_date: '2024-01-31',
-      total_employees: 156,
-      total_gross: 1890000,
-      total_deductions: 189000,
-      total_net: 1701000,
-      status: 'completed',
-      processed_by: 'نورا أحمد السالم',
-      created_date: '2024-01-15'
-    },
-    {
-      id: '2',
-      period_name: 'فبراير 2024',
-      start_date: '2024-02-01',
-      end_date: '2024-02-28',
-      total_employees: 158,
-      total_gross: 1920000,
-      total_deductions: 192000,
-      total_net: 1728000,
-      status: 'processing',
-      processed_by: 'محمد أحمد الخالدي',
-      created_date: '2024-02-15'
-    }
-  ];
+  const payrollEmployees: PayrollEmployee[] = [{
+    id: '1',
+    name: 'أحمد محمد العلي',
+    employee_id: 'EMP001',
+    department: 'تقنية المعلومات',
+    position: 'مطور برمجيات أول',
+    basic_salary: 12000,
+    housing_allowance: 2000,
+    transport_allowance: 800,
+    other_allowances: 500,
+    total_deductions: 1200,
+    net_salary: 14100,
+    status: 'processed',
+    last_processed: '2024-01-15'
+  }, {
+    id: '2',
+    name: 'فاطمة أحمد السالم',
+    employee_id: 'EMP002',
+    department: 'الموارد البشرية',
+    position: 'أخصائي موارد بشرية',
+    basic_salary: 9500,
+    housing_allowance: 1500,
+    transport_allowance: 600,
+    other_allowances: 300,
+    total_deductions: 950,
+    net_salary: 10950,
+    status: 'pending',
+    last_processed: '2024-01-10'
+  }, {
+    id: '3',
+    name: 'محمد خالد الخالدي',
+    employee_id: 'EMP003',
+    department: 'المالية',
+    position: 'محاسب أول',
+    basic_salary: 11000,
+    housing_allowance: 1800,
+    transport_allowance: 700,
+    other_allowances: 400,
+    total_deductions: 1100,
+    net_salary: 12800,
+    status: 'approved',
+    last_processed: '2024-01-12'
+  }, {
+    id: '4',
+    name: 'سارة علي الزهراني',
+    employee_id: 'EMP004',
+    department: 'التسويق',
+    position: 'مدير تسويق',
+    basic_salary: 15000,
+    housing_allowance: 2500,
+    transport_allowance: 1000,
+    other_allowances: 800,
+    total_deductions: 1500,
+    net_salary: 17800,
+    status: 'processed',
+    last_processed: '2024-01-15'
+  }, {
+    id: '5',
+    name: 'عبدالله محمد القحطاني',
+    employee_id: 'EMP005',
+    department: 'المبيعات',
+    position: 'مندوب مبيعات أول',
+    basic_salary: 8500,
+    housing_allowance: 1200,
+    transport_allowance: 800,
+    other_allowances: 1500,
+    total_deductions: 850,
+    net_salary: 11150,
+    status: 'processed',
+    last_processed: '2024-01-15'
+  }, {
+    id: '6',
+    name: 'نورا أحمد الغامدي',
+    employee_id: 'EMP006',
+    department: 'خدمة العملاء',
+    position: 'أخصائي خدمة عملاء',
+    basic_salary: 7000,
+    housing_allowance: 1000,
+    transport_allowance: 500,
+    other_allowances: 200,
+    total_deductions: 700,
+    net_salary: 8000,
+    status: 'pending',
+    last_processed: '2024-01-10'
+  }];
+  const payrollRuns: PayrollRun[] = [{
+    id: '1',
+    period_name: 'يناير 2024',
+    start_date: '2024-01-01',
+    end_date: '2024-01-31',
+    total_employees: 156,
+    total_gross: 1890000,
+    total_deductions: 189000,
+    total_net: 1701000,
+    status: 'completed',
+    processed_by: 'نورا أحمد السالم',
+    created_date: '2024-01-15'
+  }, {
+    id: '2',
+    period_name: 'فبراير 2024',
+    start_date: '2024-02-01',
+    end_date: '2024-02-28',
+    total_employees: 158,
+    total_gross: 1920000,
+    total_deductions: 192000,
+    total_net: 1728000,
+    status: 'processing',
+    processed_by: 'محمد أحمد الخالدي',
+    created_date: '2024-02-15'
+  }];
 
   // Analytics data
-  const salaryTrendData = [
-    { month: 'يناير', total: 1890000, basic: 1400000, allowances: 490000, deductions: 189000 },
-    { month: 'فبراير', total: 1920000, basic: 1420000, allowances: 500000, deductions: 192000 },
-    { month: 'مارس', total: 1950000, basic: 1450000, allowances: 500000, deductions: 195000 },
-    { month: 'أبريل', total: 1980000, basic: 1470000, allowances: 510000, deductions: 198000 }
-  ];
-
-  const departmentSalaryDistribution = [
-    { name: 'تقنية المعلومات', value: 35, color: 'hsl(var(--primary))' },
-    { name: 'الموارد البشرية', value: 20, color: 'hsl(var(--primary-glow))' },
-    { name: 'المالية والمحاسبة', value: 18, color: 'hsl(var(--warning))' },
-    { name: 'المبيعات والتسويق', value: 15, color: 'hsl(var(--success))' },
-    { name: 'أقسام أخرى', value: 12, color: 'hsl(var(--muted-foreground))' }
-  ];
+  const salaryTrendData = [{
+    month: 'يناير',
+    total: 1890000,
+    basic: 1400000,
+    allowances: 490000,
+    deductions: 189000
+  }, {
+    month: 'فبراير',
+    total: 1920000,
+    basic: 1420000,
+    allowances: 500000,
+    deductions: 192000
+  }, {
+    month: 'مارس',
+    total: 1950000,
+    basic: 1450000,
+    allowances: 500000,
+    deductions: 195000
+  }, {
+    month: 'أبريل',
+    total: 1980000,
+    basic: 1470000,
+    allowances: 510000,
+    deductions: 198000
+  }];
+  const departmentSalaryDistribution = [{
+    name: 'تقنية المعلومات',
+    value: 35,
+    color: 'hsl(var(--primary))'
+  }, {
+    name: 'الموارد البشرية',
+    value: 20,
+    color: 'hsl(var(--primary-glow))'
+  }, {
+    name: 'المالية والمحاسبة',
+    value: 18,
+    color: 'hsl(var(--warning))'
+  }, {
+    name: 'المبيعات والتسويق',
+    value: 15,
+    color: 'hsl(var(--success))'
+  }, {
+    name: 'أقسام أخرى',
+    value: 12,
+    color: 'hsl(var(--muted-foreground))'
+  }];
 
   // Statistics calculations
   const stats = {
@@ -262,51 +252,52 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     avgSalary: Math.round(payrollEmployees.reduce((sum, emp) => sum + emp.net_salary, 0) / payrollEmployees.length),
     totalEmployees: payrollEmployees.length
   };
-
   const handleExport = (type: string) => {
     toast({
       title: "تم التصدير بنجاح",
-      description: `تم تصدير تقرير ${type} كملف PDF`,
+      description: `تم تصدير تقرير ${type} كملف PDF`
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const handleProcessPayroll = () => {
     toast({
       title: "بدء معالجة الرواتب",
-      description: "تم بدء معالجة رواتب الشهر الحالي بنجاح",
+      description: "تم بدء معالجة رواتب الشهر الحالي بنجاح"
     });
   };
-
   const handleGeneratePayslips = () => {
     toast({
       title: "إنشاء قسائم الراتب",
-      description: "تم إنشاء قسائم الراتب لجميع الموظفين بنجاح",
+      description: "تم إنشاء قسائم الراتب لجميع الموظفين بنجاح"
     });
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'processed':
       case 'completed':
-      case 'approved': return 'bg-success/10 text-success border-success/20';
+      case 'approved':
+        return 'bg-success/10 text-success border-success/20';
       case 'processing':
-      case 'pending': return 'bg-warning/10 text-warning border-warning/20';
-      case 'draft': return 'bg-muted text-muted-foreground border-border';
+      case 'pending':
+        return 'bg-warning/10 text-warning border-warning/20';
+      case 'draft':
+        return 'bg-muted text-muted-foreground border-border';
       case 'rejected':
-      case 'cancelled': return 'bg-destructive/10 text-destructive border-destructive/20';
-      default: return 'bg-muted text-muted-foreground border-border';
+      case 'cancelled':
+        return 'bg-destructive/10 text-destructive border-destructive/20';
+      default:
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'processed': 'تم المعالجة',
       'pending': 'في الانتظار',
       'approved': 'معتمد',
@@ -318,12 +309,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
     };
     return statusMap[status] || status;
   };
-
   const openEmployeeProfile = (employee: PayrollEmployee) => {
     setSelectedEmployee(employee);
     setIsEmployeeProfileOpen(true);
   };
-
   const handleAddEmployee = () => {
     const employee: PayrollEmployee = {
       id: Date.now().toString(),
@@ -340,12 +329,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       status: 'pending',
       last_processed: new Date().toISOString().split('T')[0]
     };
-    
     toast({
       title: "تم إضافة الموظف",
-      description: `تم إضافة ${employee.name} بنجاح`,
+      description: `تم إضافة ${employee.name} بنجاح`
     });
-    
     setIsAddDialogOpen(false);
     setNewEmployee({
       name: '',
@@ -358,13 +345,11 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       other_allowances: 0
     });
   };
-
   const handleAddDeduction = () => {
     toast({
       title: "تم إضافة الخصم",
-      description: `تم إضافة خصم ${newDeduction.type} بقيمة ${newDeduction.amount} ريال`,
+      description: `تم إضافة خصم ${newDeduction.type} بقيمة ${newDeduction.amount} ريال`
     });
-    
     setIsAddDeductionOpen(false);
     setNewDeduction({
       type: '',
@@ -374,13 +359,11 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       frequency: 'monthly'
     });
   };
-
   const handleAddBenefit = () => {
     toast({
       title: "تم إضافة المزية",
-      description: `تم إضافة مزية ${newBenefit.type} بقيمة ${newBenefit.amount} ريال`,
+      description: `تم إضافة مزية ${newBenefit.type} بقيمة ${newBenefit.amount} ريال`
     });
-    
     setIsAddBenefitOpen(false);
     setNewBenefit({
       type: '',
@@ -390,21 +373,15 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
       frequency: 'monthly'
     });
   };
-
-  const renderHeader = () => (
-    <div className="space-y-6">
+  const renderHeader = () => <div className="space-y-6">
       {/* Logo */}
       <div className="flex justify-center">
-        <img 
-          src="/src/assets/boud-logo-centered.png" 
-          alt="Boud Logo" 
-          className="h-32 w-auto object-contain"
-        />
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
 
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">نظام الرواتب والأجور المتطور</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الرواتب والأجور </h1>
         <p className="text-muted-foreground">نظام شامل لإدارة ومعالجة رواتب الموظفين مع التحليل المتقدم</p>
         <div className="flex justify-center gap-3 mt-4">
           <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => setIsPayrollSheetOpen(true)}>
@@ -417,11 +394,8 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </Button>
         </div>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-primary">
@@ -518,14 +492,11 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis dataKey="month" stroke="hsl(var(--foreground))" />
                 <YAxis stroke="hsl(var(--foreground))" />
-                <Tooltip 
-                  formatter={(value) => [`${Number(value).toLocaleString()} ريال`, '']}
-                  contentStyle={{
-                    backgroundColor: 'hsl(var(--card))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
-                  }}
-                />
+                <Tooltip formatter={value => [`${Number(value).toLocaleString()} ريال`, '']} contentStyle={{
+                backgroundColor: 'hsl(var(--card))',
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px'
+              }} />
                 <Area type="monotone" dataKey="total" stackId="1" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
                 <Area type="monotone" dataKey="basic" stackId="2" stroke="hsl(var(--success))" fill="hsl(var(--success))" />
                 <Area type="monotone" dataKey="allowances" stackId="3" stroke="hsl(var(--warning))" fill="hsl(var(--warning))" />
@@ -544,19 +515,11 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={departmentSalaryDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {departmentSalaryDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={departmentSalaryDistribution} cx="50%" cy="50%" labelLine={false} label={({
+                name,
+                percent
+              }) => `${name} ${(percent * 100).toFixed(0)}%`} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {departmentSalaryDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -618,12 +581,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>;
 
   // Comprehensive Payroll Sheet Dialog
-  const renderPayrollSheet = () => (
-    <Dialog open={isPayrollSheetOpen} onOpenChange={setIsPayrollSheetOpen}>
+  const renderPayrollSheet = () => <Dialog open={isPayrollSheetOpen} onOpenChange={setIsPayrollSheetOpen}>
       <DialogContent className="max-w-7xl max-h-[90vh] overflow-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
@@ -705,12 +666,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                   </thead>
                   <tbody>
                     {payrollEmployees.map((employee, index) => {
-                      const grossSalary = employee.basic_salary + employee.housing_allowance + employee.transport_allowance + employee.other_allowances;
-                      const gosiDeduction = Math.round(grossSalary * 0.10);
-                      const otherDeductions = employee.total_deductions - gosiDeduction;
-                      
-                      return (
-                        <tr key={employee.id} className={index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
+                    const grossSalary = employee.basic_salary + employee.housing_allowance + employee.transport_allowance + employee.other_allowances;
+                    const gosiDeduction = Math.round(grossSalary * 0.10);
+                    const otherDeductions = employee.total_deductions - gosiDeduction;
+                    return <tr key={employee.id} className={index % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
                           <td className="border border-border p-2">{employee.employee_id}</td>
                           <td className="border border-border p-2 font-medium">{employee.name}</td>
                           <td className="border border-border p-2">{employee.department}</td>
@@ -729,9 +688,8 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                               {getStatusText(employee.status)}
                             </Badge>
                           </td>
-                        </tr>
-                      );
-                    })}
+                        </tr>;
+                  })}
                   </tbody>
                   <tfoot>
                     <tr className="bg-primary/10 font-bold">
@@ -772,12 +730,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </Card>
         </div>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 
   // Add Employee Dialog
-  const renderAddEmployeeDialog = () => (
-    <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+  const renderAddEmployeeDialog = () => <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>إضافة موظف جديد</DialogTitle>
@@ -787,28 +743,27 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">اسم الموظف</Label>
-              <Input
-                id="name"
-                value={newEmployee.name}
-                onChange={(e) => setNewEmployee({ ...newEmployee, name: e.target.value })}
-                placeholder="أدخل اسم الموظف"
-              />
+              <Input id="name" value={newEmployee.name} onChange={e => setNewEmployee({
+              ...newEmployee,
+              name: e.target.value
+            })} placeholder="أدخل اسم الموظف" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="employee_id">الرقم الوظيفي</Label>
-              <Input
-                id="employee_id"
-                value={newEmployee.employee_id}
-                onChange={(e) => setNewEmployee({ ...newEmployee, employee_id: e.target.value })}
-                placeholder="EMP001"
-              />
+              <Input id="employee_id" value={newEmployee.employee_id} onChange={e => setNewEmployee({
+              ...newEmployee,
+              employee_id: e.target.value
+            })} placeholder="EMP001" />
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="department">القسم</Label>
-              <Select value={newEmployee.department} onValueChange={(value) => setNewEmployee({ ...newEmployee, department: value })}>
+              <Select value={newEmployee.department} onValueChange={value => setNewEmployee({
+              ...newEmployee,
+              department: value
+            })}>
                 <SelectTrigger>
                   <SelectValue placeholder="اختر القسم" />
                 </SelectTrigger>
@@ -824,58 +779,44 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             </div>
             <div className="space-y-2">
               <Label htmlFor="position">المنصب</Label>
-              <Input
-                id="position"
-                value={newEmployee.position}
-                onChange={(e) => setNewEmployee({ ...newEmployee, position: e.target.value })}
-                placeholder="أدخل المنصب الوظيفي"
-              />
+              <Input id="position" value={newEmployee.position} onChange={e => setNewEmployee({
+              ...newEmployee,
+              position: e.target.value
+            })} placeholder="أدخل المنصب الوظيفي" />
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="basic_salary">الراتب الأساسي</Label>
-              <Input
-                id="basic_salary"
-                type="number"
-                value={newEmployee.basic_salary}
-                onChange={(e) => setNewEmployee({ ...newEmployee, basic_salary: Number(e.target.value) })}
-                placeholder="0"
-              />
+              <Input id="basic_salary" type="number" value={newEmployee.basic_salary} onChange={e => setNewEmployee({
+              ...newEmployee,
+              basic_salary: Number(e.target.value)
+            })} placeholder="0" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="housing_allowance">بدل السكن</Label>
-              <Input
-                id="housing_allowance"
-                type="number"
-                value={newEmployee.housing_allowance}
-                onChange={(e) => setNewEmployee({ ...newEmployee, housing_allowance: Number(e.target.value) })}
-                placeholder="0"
-              />
+              <Input id="housing_allowance" type="number" value={newEmployee.housing_allowance} onChange={e => setNewEmployee({
+              ...newEmployee,
+              housing_allowance: Number(e.target.value)
+            })} placeholder="0" />
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="transport_allowance">بدل النقل</Label>
-              <Input
-                id="transport_allowance"
-                type="number"
-                value={newEmployee.transport_allowance}
-                onChange={(e) => setNewEmployee({ ...newEmployee, transport_allowance: Number(e.target.value) })}
-                placeholder="0"
-              />
+              <Input id="transport_allowance" type="number" value={newEmployee.transport_allowance} onChange={e => setNewEmployee({
+              ...newEmployee,
+              transport_allowance: Number(e.target.value)
+            })} placeholder="0" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="other_allowances">بدلات أخرى</Label>
-              <Input
-                id="other_allowances"
-                type="number"
-                value={newEmployee.other_allowances}
-                onChange={(e) => setNewEmployee({ ...newEmployee, other_allowances: Number(e.target.value) })}
-                placeholder="0"
-              />
+              <Input id="other_allowances" type="number" value={newEmployee.other_allowances} onChange={e => setNewEmployee({
+              ...newEmployee,
+              other_allowances: Number(e.target.value)
+            })} placeholder="0" />
             </div>
           </div>
           
@@ -889,22 +830,16 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
           </div>
         </div>
       </DialogContent>
-    </Dialog>
-  );
-
-  return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
+    </Dialog>;
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div 
-            className="w-full h-full bg-repeat animate-pulse"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
-              backgroundSize: '60px 60px'
-            }}
-          ></div>
+          <div className="w-full h-full bg-repeat animate-pulse" style={{
+          backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#b1a086" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+          backgroundSize: '60px 60px'
+        }}></div>
         </div>
       </div>
       
@@ -973,12 +908,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 <CardHeader>
                   <CardTitle>قائمة الموظفين</CardTitle>
                   <div className="flex gap-4 mt-4">
-                    <Input
-                      placeholder="البحث في الموظفين..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="max-w-sm"
-                    />
+                    <Input placeholder="البحث في الموظفين..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="max-w-sm" />
                     <Select value={selectedFilter} onValueChange={setSelectedFilter}>
                       <SelectTrigger className="max-w-xs">
                         <SelectValue placeholder="تصفية حسب الحالة" />
@@ -994,8 +924,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 </CardHeader>
                 <CardContent className="bg-card/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-accent/10 border border-border/30 hover:border-accent/50 transition-all duration-300 p-8">
                   <div className="grid gap-4">
-                    {payrollEmployees.map((employee) => (
-                      <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+                    {payrollEmployees.map(employee => <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                             <User className="h-6 w-6 text-primary" />
@@ -1014,11 +943,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                           </Badge>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => openEmployeeProfile(employee)}
-                          >
+                          <Button variant="outline" size="sm" onClick={() => openEmployeeProfile(employee)}>
                             <Eye className="h-4 w-4" />
                           </Button>
                           <Button variant="outline" size="sm">
@@ -1028,8 +953,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                             <Download className="h-4 w-4" />
                           </Button>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -1047,8 +971,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
               </div>
 
               <div className="grid gap-6">
-                {payrollRuns.map((run) => (
-                  <Card key={run.id}>
+                {payrollRuns.map(run => <Card key={run.id}>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Calendar className="h-5 w-5" />
@@ -1100,8 +1023,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                         </div>
                       </div>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
             </div>
           </TabsContent>
@@ -1132,12 +1054,22 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {[
-                      { employee: 'أحمد محمد العلي', type: 'خصم قرض', amount: 500, frequency: 'شهري' },
-                      { employee: 'محمد خالد الخالدي', type: 'خصم غياب', amount: 200, frequency: 'لمرة واحدة' },
-                      { employee: 'فاطمة أحمد السالم', type: 'خصم تأديبي', amount: 300, frequency: 'لمرة واحدة' }
-                    ].map((deduction, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 border border-destructive/20 rounded-lg bg-destructive/10">
+                    {[{
+                      employee: 'أحمد محمد العلي',
+                      type: 'خصم قرض',
+                      amount: 500,
+                      frequency: 'شهري'
+                    }, {
+                      employee: 'محمد خالد الخالدي',
+                      type: 'خصم غياب',
+                      amount: 200,
+                      frequency: 'لمرة واحدة'
+                    }, {
+                      employee: 'فاطمة أحمد السالم',
+                      type: 'خصم تأديبي',
+                      amount: 300,
+                      frequency: 'لمرة واحدة'
+                    }].map((deduction, index) => <div key={index} className="flex items-center justify-between p-3 border border-destructive/20 rounded-lg bg-destructive/10">
                         <div>
                           <p className="font-medium">{deduction.type}</p>
                           <p className="text-sm text-muted-foreground">{deduction.employee}</p>
@@ -1146,8 +1078,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                           <p className="font-bold text-destructive">{deduction.amount} ريال</p>
                           <p className="text-xs text-muted-foreground">{deduction.frequency}</p>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </CardContent>
                 </Card>
 
@@ -1160,12 +1091,22 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {[
-                      { employee: 'أحمد محمد العلي', type: 'مكافأة أداء', amount: 1000, frequency: 'ربع سنوي' },
-                      { employee: 'فاطمة أحمد السالم', type: 'عمولة مبيعات', amount: 800, frequency: 'شهري' },
-                      { employee: 'محمد خالد الخالدي', type: 'بدل إضافي', amount: 400, frequency: 'شهري' }
-                    ].map((benefit, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 border border-success/20 rounded-lg bg-success/10">
+                    {[{
+                      employee: 'أحمد محمد العلي',
+                      type: 'مكافأة أداء',
+                      amount: 1000,
+                      frequency: 'ربع سنوي'
+                    }, {
+                      employee: 'فاطمة أحمد السالم',
+                      type: 'عمولة مبيعات',
+                      amount: 800,
+                      frequency: 'شهري'
+                    }, {
+                      employee: 'محمد خالد الخالدي',
+                      type: 'بدل إضافي',
+                      amount: 400,
+                      frequency: 'شهري'
+                    }].map((benefit, index) => <div key={index} className="flex items-center justify-between p-3 border border-success/20 rounded-lg bg-success/10">
                         <div>
                           <p className="font-medium">{benefit.type}</p>
                           <p className="text-sm text-muted-foreground">{benefit.employee}</p>
@@ -1174,8 +1115,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                           <p className="font-bold text-success">{benefit.amount} ريال</p>
                           <p className="text-xs text-muted-foreground">{benefit.frequency}</p>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </CardContent>
                 </Card>
               </div>
@@ -1198,8 +1138,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-4">
-                    {payrollEmployees.map((employee) => (
-                      <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    {payrollEmployees.map(employee => <div key={employee.id} className="flex items-center justify-between p-4 border rounded-lg">
                         <div className="flex items-center gap-4">
                           <div className="p-2 rounded-full bg-primary/10">
                             <Receipt className="h-5 w-5 text-primary" />
@@ -1225,8 +1164,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                             <Share className="h-4 w-4" />
                           </Button>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -1279,15 +1217,31 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
               <h2 className="text-2xl font-bold">تقارير الرواتب</h2>
               
               <div className="grid gap-6 md:grid-cols-3">
-                {[
-                  { title: 'سجل الرواتب', icon: FileText, desc: 'تقرير شامل بجميع بيانات رواتب الموظفين' },
-                  { title: 'التكلفة حسب القسم', icon: BarChart3, desc: 'تحليل توزيع تكاليف الرواتب على الأقسام' },
-                  { title: 'تقرير الإضافي', icon: Clock, desc: 'تفاصيل ساعات العمل الإضافية والمكافآت' },
-                  { title: 'الاتجاهات التاريخية', icon: TrendingUp, desc: 'تحليل اتجاهات الرواتب عبر الفترات الزمنية' },
-                  { title: 'تقرير الامتثال', icon: Shield, desc: 'حالة الامتثال للوائح والأنظمة' },
-                  { title: 'الخصومات والمزايا', icon: AlertTriangle, desc: 'تقرير مفصل بالخصومات والمزايا' }
-                ].map((report) => (
-                  <Card key={report.title} className="cursor-pointer hover:shadow-lg transition-shadow">
+                {[{
+                  title: 'سجل الرواتب',
+                  icon: FileText,
+                  desc: 'تقرير شامل بجميع بيانات رواتب الموظفين'
+                }, {
+                  title: 'التكلفة حسب القسم',
+                  icon: BarChart3,
+                  desc: 'تحليل توزيع تكاليف الرواتب على الأقسام'
+                }, {
+                  title: 'تقرير الإضافي',
+                  icon: Clock,
+                  desc: 'تفاصيل ساعات العمل الإضافية والمكافآت'
+                }, {
+                  title: 'الاتجاهات التاريخية',
+                  icon: TrendingUp,
+                  desc: 'تحليل اتجاهات الرواتب عبر الفترات الزمنية'
+                }, {
+                  title: 'تقرير الامتثال',
+                  icon: Shield,
+                  desc: 'حالة الامتثال للوائح والأنظمة'
+                }, {
+                  title: 'الخصومات والمزايا',
+                  icon: AlertTriangle,
+                  desc: 'تقرير مفصل بالخصومات والمزايا'
+                }].map(report => <Card key={report.title} className="cursor-pointer hover:shadow-lg transition-shadow">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <report.icon className="h-5 w-5" />
@@ -1301,8 +1255,7 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
                         تحميل التقرير
                       </Button>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
             </div>
           </TabsContent>
@@ -1392,7 +1345,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="deduction_type">نوع الخصم</Label>
-                <Select value={newDeduction.type} onValueChange={(value) => setNewDeduction({ ...newDeduction, type: value })}>
+                <Select value={newDeduction.type} onValueChange={value => setNewDeduction({
+                  ...newDeduction,
+                  type: value
+                })}>
                   <SelectTrigger>
                     <SelectValue placeholder="اختر نوع الخصم" />
                   </SelectTrigger>
@@ -1407,16 +1363,17 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
               </div>
               <div className="space-y-2">
                 <Label htmlFor="deduction_employee">الموظف</Label>
-                <Select value={newDeduction.employee_id} onValueChange={(value) => setNewDeduction({ ...newDeduction, employee_id: value })}>
+                <Select value={newDeduction.employee_id} onValueChange={value => setNewDeduction({
+                  ...newDeduction,
+                  employee_id: value
+                })}>
                   <SelectTrigger>
                     <SelectValue placeholder="اختر الموظف" />
                   </SelectTrigger>
                   <SelectContent>
-                    {payrollEmployees.map((employee) => (
-                      <SelectItem key={employee.id} value={employee.id}>
+                    {payrollEmployees.map(employee => <SelectItem key={employee.id} value={employee.id}>
                         {employee.name} - {employee.employee_id}
-                      </SelectItem>
-                    ))}
+                      </SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
@@ -1425,17 +1382,17 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="deduction_amount">المبلغ</Label>
-                <Input
-                  id="deduction_amount"
-                  type="number"
-                  value={newDeduction.amount}
-                  onChange={(e) => setNewDeduction({ ...newDeduction, amount: Number(e.target.value) })}
-                  placeholder="0"
-                />
+                <Input id="deduction_amount" type="number" value={newDeduction.amount} onChange={e => setNewDeduction({
+                  ...newDeduction,
+                  amount: Number(e.target.value)
+                })} placeholder="0" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="deduction_frequency">التكرار</Label>
-                <Select value={newDeduction.frequency} onValueChange={(value) => setNewDeduction({ ...newDeduction, frequency: value })}>
+                <Select value={newDeduction.frequency} onValueChange={value => setNewDeduction({
+                  ...newDeduction,
+                  frequency: value
+                })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -1450,12 +1407,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             
             <div className="space-y-2">
               <Label htmlFor="deduction_description">الوصف</Label>
-              <Textarea
-                id="deduction_description"
-                value={newDeduction.description}
-                onChange={(e) => setNewDeduction({ ...newDeduction, description: e.target.value })}
-                placeholder="أدخل وصف الخصم"
-              />
+              <Textarea id="deduction_description" value={newDeduction.description} onChange={e => setNewDeduction({
+                ...newDeduction,
+                description: e.target.value
+              })} placeholder="أدخل وصف الخصم" />
             </div>
             
             <div className="flex gap-2 justify-end">
@@ -1481,7 +1436,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="benefit_type">نوع المزية</Label>
-                <Select value={newBenefit.type} onValueChange={(value) => setNewBenefit({ ...newBenefit, type: value })}>
+                <Select value={newBenefit.type} onValueChange={value => setNewBenefit({
+                  ...newBenefit,
+                  type: value
+                })}>
                   <SelectTrigger>
                     <SelectValue placeholder="اختر نوع المزية" />
                   </SelectTrigger>
@@ -1496,16 +1454,17 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
               </div>
               <div className="space-y-2">
                 <Label htmlFor="benefit_employee">الموظف</Label>
-                <Select value={newBenefit.employee_id} onValueChange={(value) => setNewBenefit({ ...newBenefit, employee_id: value })}>
+                <Select value={newBenefit.employee_id} onValueChange={value => setNewBenefit({
+                  ...newBenefit,
+                  employee_id: value
+                })}>
                   <SelectTrigger>
                     <SelectValue placeholder="اختر الموظف" />
                   </SelectTrigger>
                   <SelectContent>
-                    {payrollEmployees.map((employee) => (
-                      <SelectItem key={employee.id} value={employee.id}>
+                    {payrollEmployees.map(employee => <SelectItem key={employee.id} value={employee.id}>
                         {employee.name} - {employee.employee_id}
-                      </SelectItem>
-                    ))}
+                      </SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
@@ -1514,17 +1473,17 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="benefit_amount">المبلغ</Label>
-                <Input
-                  id="benefit_amount"
-                  type="number"
-                  value={newBenefit.amount}
-                  onChange={(e) => setNewBenefit({ ...newBenefit, amount: Number(e.target.value) })}
-                  placeholder="0"
-                />
+                <Input id="benefit_amount" type="number" value={newBenefit.amount} onChange={e => setNewBenefit({
+                  ...newBenefit,
+                  amount: Number(e.target.value)
+                })} placeholder="0" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="benefit_frequency">التكرار</Label>
-                <Select value={newBenefit.frequency} onValueChange={(value) => setNewBenefit({ ...newBenefit, frequency: value })}>
+                <Select value={newBenefit.frequency} onValueChange={value => setNewBenefit({
+                  ...newBenefit,
+                  frequency: value
+                })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -1540,12 +1499,10 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
             
             <div className="space-y-2">
               <Label htmlFor="benefit_description">الوصف</Label>
-              <Textarea
-                id="benefit_description"
-                value={newBenefit.description}
-                onChange={(e) => setNewBenefit({ ...newBenefit, description: e.target.value })}
-                placeholder="أدخل وصف المزية"
-              />
+              <Textarea id="benefit_description" value={newBenefit.description} onChange={e => setNewBenefit({
+                ...newBenefit,
+                description: e.target.value
+              })} placeholder="أدخل وصف المزية" />
             </div>
             
             <div className="flex gap-2 justify-end">
@@ -1560,6 +1517,5 @@ export const ComprehensivePayrollSystem: React.FC<ComprehensivePayrollSystemProp
         </DialogContent>
       </Dialog>
       </div>
-    </div>
-  );
+    </div>;
 };
