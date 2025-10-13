@@ -892,14 +892,15 @@ const ComprehensiveEmployeeManagement = () => {
           <TabsContent value="corporate-relations">
             <div className="space-y-6">
               <div className="p-6 bg-card backdrop-blur-sm border border-border shadow-lg hover:border-primary transition-all duration-300 rounded-lg">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-glow rounded-3xl flex items-center justify-center shadow-glow">
-                    <MessageCircle className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-foreground">إدارة العلاقات والتواصل المؤسسي</h2>
-                    <p className="text-muted-foreground">نظام شامل لإدارة العلاقات الداخلية والتواصل المؤسسي والخدمات الاجتماعية</p>
-                  </div>
+                {/* Logo */}
+                <div className="flex justify-center mb-6">
+                  <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+                </div>
+
+                {/* Header */}
+                <div className="text-center mb-8">
+                  <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة العلاقات والتواصل المؤسسي</h1>
+                  <p className="text-muted-foreground">نظام شامل لإدارة العلاقات الداخلية والتواصل المؤسسي والخدمات الاجتماعية</p>
                 </div>
                 
                 <Tabs value={activeCorporateRelationsTab} onValueChange={handleCorporateRelationsTabChange} className="space-y-6">
