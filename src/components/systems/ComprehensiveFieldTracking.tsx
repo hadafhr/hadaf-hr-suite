@@ -10,62 +10,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  ArrowLeft, 
-  MapPin, 
-  Navigation, 
-  FileText, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Building,
-  BookOpen,
-  Shield,
-  Briefcase,
-  Award,
-  Target,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Zap,
-  Globe,
-  Eye,
-  Settings,
-  Bell,
-  CreditCard,
-  UserCheck,
-  Sparkles,
-  Archive,
-  Edit,
-  Trash2,
-  Share,
-  Lock,
-  Unlock,
-  AlertCircle,
-  Info,
-  UserPlus,
-  Phone,
-  Mail,
-  Crown,
-  Users2,
-  Database,
-  RefreshCw,
-  Server,
-  Users,
-  Route
-} from 'lucide-react';
+import { ArrowLeft, MapPin, Navigation, FileText, AlertTriangle, CheckCircle2, Clock, Download, Plus, Search, Filter, Calendar, Building, BookOpen, Shield, Briefcase, Award, Target, TrendingUp, BarChart3, PieChart, Activity, Zap, Globe, Eye, Settings, Bell, CreditCard, UserCheck, Sparkles, Archive, Edit, Trash2, Share, Lock, Unlock, AlertCircle, Info, UserPlus, Phone, Mail, Crown, Users2, Database, RefreshCw, Server, Users, Route } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Pie, BarChart, Bar } from 'recharts';
-
 interface ComprehensiveFieldTrackingProps {
   onBack: () => void;
 }
-
 interface FieldEmployee {
   id: string;
   name: string;
@@ -85,7 +34,6 @@ interface FieldEmployee {
   totalTasks: number;
   incidents: number;
 }
-
 interface FieldTask {
   id: string;
   title: string;
@@ -102,7 +50,6 @@ interface FieldTask {
   completedAt?: string;
   evidence?: string[];
 }
-
 interface FieldIncident {
   id: string;
   title: string;
@@ -119,7 +66,6 @@ interface FieldIncident {
   reportedAt: string;
   evidence?: string[];
 }
-
 interface AttendanceRecord {
   id: string;
   employeeId: string;
@@ -146,7 +92,6 @@ interface AttendanceRecord {
   overtime: number;
   status: 'present' | 'late' | 'absent' | 'partial';
 }
-
 interface TrackingMetric {
   id: string;
   metric: string;
@@ -157,145 +102,170 @@ interface TrackingMetric {
   trend: 'up' | 'down' | 'stable';
   lastUpdated: string;
 }
-
-export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProps> = ({ onBack }) => {
-  const { toast } = useToast();
+export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProps> = ({
+  onBack
+}) => {
+  const {
+    toast
+  } = useToast();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Mock data for demonstration
-  const fieldEmployees: FieldEmployee[] = [
-    {
-      id: '1',
-      name: 'أحمد محمد العلي',
-      nameEn: 'Ahmed Mohammed Ali',
-      department: 'المبيعات الميدانية',
-      position: 'مندوب مبيعات',
-      status: 'active',
-      currentLocation: {
-        lat: 24.7136,
-        lng: 46.6753,
-        address: 'الرياض - حي الملز',
-        timestamp: '2024-01-15 14:30:00'
-      },
-      lastCheckIn: '08:00',
-      workingHours: 6.5,
-      tasksCompleted: 8,
-      totalTasks: 12,
-      incidents: 0
+  const fieldEmployees: FieldEmployee[] = [{
+    id: '1',
+    name: 'أحمد محمد العلي',
+    nameEn: 'Ahmed Mohammed Ali',
+    department: 'المبيعات الميدانية',
+    position: 'مندوب مبيعات',
+    status: 'active',
+    currentLocation: {
+      lat: 24.7136,
+      lng: 46.6753,
+      address: 'الرياض - حي الملز',
+      timestamp: '2024-01-15 14:30:00'
     },
-    {
-      id: '2',
-      name: 'سارة أحمد المطيري',
-      nameEn: 'Sara Ahmed Al-Mutairi',
-      department: 'خدمة العملاء',
-      position: 'أخصائي خدمة عملاء ميداني',
-      status: 'on-break',
-      currentLocation: {
-        lat: 24.6877,
-        lng: 46.7219,
-        address: 'الرياض - حي النخيل',
-        timestamp: '2024-01-15 14:15:00'
-      },
-      lastCheckIn: '09:00',
-      workingHours: 4.2,
-      tasksCompleted: 5,
-      totalTasks: 8,
-      incidents: 1
-    }
-  ];
-
-  const fieldTasks: FieldTask[] = [
-    {
-      id: '1',
-      title: 'زيارة عميل في حي الملز',
-      description: 'متابعة طلب عميل جديد وتوقيع العقد',
-      assignedTo: 'أحمد محمد العلي',
-      location: {
-        lat: 24.7136,
-        lng: 46.6753,
-        address: 'الرياض - حي الملز'
-      },
-      priority: 'high',
-      status: 'in-progress',
-      dueDate: '2024-01-15 16:00:00'
+    lastCheckIn: '08:00',
+    workingHours: 6.5,
+    tasksCompleted: 8,
+    totalTasks: 12,
+    incidents: 0
+  }, {
+    id: '2',
+    name: 'سارة أحمد المطيري',
+    nameEn: 'Sara Ahmed Al-Mutairi',
+    department: 'خدمة العملاء',
+    position: 'أخصائي خدمة عملاء ميداني',
+    status: 'on-break',
+    currentLocation: {
+      lat: 24.6877,
+      lng: 46.7219,
+      address: 'الرياض - حي النخيل',
+      timestamp: '2024-01-15 14:15:00'
     },
-    {
-      id: '2',
-      title: 'صيانة معدات في موقع العمل',
-      description: 'فحص وصيانة المعدات في الموقع',
-      assignedTo: 'سارة أحمد المطيري',
-      location: {
-        lat: 24.6877,
-        lng: 46.7219,
-        address: 'الرياض - حي النخيل'
-      },
-      priority: 'medium',
-      status: 'pending',
-      dueDate: '2024-01-15 17:00:00'
-    }
-  ];
-
-  const fieldIncidents: FieldIncident[] = [
-    {
-      id: '1',
-      title: 'تأخير في الوصول للموقع',
-      type: 'delay',
-      description: 'تأخر الموظف في الوصول بسبب حركة المرور الكثيفة',
-      reportedBy: 'سارة أحمد المطيري',
-      location: {
-        lat: 24.6877,
-        lng: 46.7219,
-        address: 'الرياض - حي النخيل'
-      },
-      severity: 'low',
-      status: 'investigating',
-      reportedAt: '2024-01-15 10:30:00'
-    }
-  ];
-
-  const trackingMetrics: TrackingMetric[] = [
-    {
-      id: '1',
-      metric: 'معدل إنجاز المهام',
-      category: 'Performance',
-      status: 'Excellent',
-      value: 94,
-      target: 90,
-      trend: 'up',
-      lastUpdated: '2024-01-15'
+    lastCheckIn: '09:00',
+    workingHours: 4.2,
+    tasksCompleted: 5,
+    totalTasks: 8,
+    incidents: 1
+  }];
+  const fieldTasks: FieldTask[] = [{
+    id: '1',
+    title: 'زيارة عميل في حي الملز',
+    description: 'متابعة طلب عميل جديد وتوقيع العقد',
+    assignedTo: 'أحمد محمد العلي',
+    location: {
+      lat: 24.7136,
+      lng: 46.6753,
+      address: 'الرياض - حي الملز'
     },
-    {
-      id: '2',
-      metric: 'دقة الحضور الجغرافي',
-      category: 'Attendance',
-      status: 'Good',
-      value: 88,
-      target: 90,
-      trend: 'stable',
-      lastUpdated: '2024-01-15'
-    }
-  ];
+    priority: 'high',
+    status: 'in-progress',
+    dueDate: '2024-01-15 16:00:00'
+  }, {
+    id: '2',
+    title: 'صيانة معدات في موقع العمل',
+    description: 'فحص وصيانة المعدات في الموقع',
+    assignedTo: 'سارة أحمد المطيري',
+    location: {
+      lat: 24.6877,
+      lng: 46.7219,
+      address: 'الرياض - حي النخيل'
+    },
+    priority: 'medium',
+    status: 'pending',
+    dueDate: '2024-01-15 17:00:00'
+  }];
+  const fieldIncidents: FieldIncident[] = [{
+    id: '1',
+    title: 'تأخير في الوصول للموقع',
+    type: 'delay',
+    description: 'تأخر الموظف في الوصول بسبب حركة المرور الكثيفة',
+    reportedBy: 'سارة أحمد المطيري',
+    location: {
+      lat: 24.6877,
+      lng: 46.7219,
+      address: 'الرياض - حي النخيل'
+    },
+    severity: 'low',
+    status: 'investigating',
+    reportedAt: '2024-01-15 10:30:00'
+  }];
+  const trackingMetrics: TrackingMetric[] = [{
+    id: '1',
+    metric: 'معدل إنجاز المهام',
+    category: 'Performance',
+    status: 'Excellent',
+    value: 94,
+    target: 90,
+    trend: 'up',
+    lastUpdated: '2024-01-15'
+  }, {
+    id: '2',
+    metric: 'دقة الحضور الجغرافي',
+    category: 'Attendance',
+    status: 'Good',
+    value: 88,
+    target: 90,
+    trend: 'stable',
+    lastUpdated: '2024-01-15'
+  }];
 
   // Analytics data
-  const trackingData = [
-    { month: 'يناير', tasks: 85, attendance: 92, incidents: 3 },
-    { month: 'فبراير', tasks: 87, attendance: 94, incidents: 2 },
-    { month: 'مارس', tasks: 89, attendance: 96, incidents: 1 },
-    { month: 'أبريل', tasks: 88, attendance: 93, incidents: 4 },
-    { month: 'مايو', tasks: 91, attendance: 95, incidents: 2 },
-    { month: 'يونيو', tasks: 93, attendance: 97, incidents: 1 }
-  ];
-
-  const departmentDistribution = [
-    { name: 'المبيعات الميدانية', value: 35, color: '#3b82f6' },
-    { name: 'خدمة العملاء', value: 25, color: '#10b981' },
-    { name: 'الصيانة الميدانية', value: 20, color: '#f59e0b' },
-    { name: 'التسليم والشحن', value: 15, color: '#8b5cf6' },
-    { name: 'أقسام أخرى', value: 5, color: '#ef4444' }
-  ];
+  const trackingData = [{
+    month: 'يناير',
+    tasks: 85,
+    attendance: 92,
+    incidents: 3
+  }, {
+    month: 'فبراير',
+    tasks: 87,
+    attendance: 94,
+    incidents: 2
+  }, {
+    month: 'مارس',
+    tasks: 89,
+    attendance: 96,
+    incidents: 1
+  }, {
+    month: 'أبريل',
+    tasks: 88,
+    attendance: 93,
+    incidents: 4
+  }, {
+    month: 'مايو',
+    tasks: 91,
+    attendance: 95,
+    incidents: 2
+  }, {
+    month: 'يونيو',
+    tasks: 93,
+    attendance: 97,
+    incidents: 1
+  }];
+  const departmentDistribution = [{
+    name: 'المبيعات الميدانية',
+    value: 35,
+    color: '#3b82f6'
+  }, {
+    name: 'خدمة العملاء',
+    value: 25,
+    color: '#10b981'
+  }, {
+    name: 'الصيانة الميدانية',
+    value: 20,
+    color: '#f59e0b'
+  }, {
+    name: 'التسليم والشحن',
+    value: 15,
+    color: '#8b5cf6'
+  }, {
+    name: 'أقسام أخرى',
+    value: 5,
+    color: '#ef4444'
+  }];
 
   // Calculate statistics
   const stats = {
@@ -306,33 +276,36 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
     totalIncidents: fieldIncidents.length,
     averageResponse: 95
   };
-
   const handleExport = () => {
     toast({
       title: "تم التصدير بنجاح",
-      description: "تم تصدير تقرير التتبع الميداني كملف PDF",
+      description: "تم تصدير تقرير التتبع الميداني كملف PDF"
     });
   };
-
   const handlePrint = () => {
     toast({
       title: "جاري الطباعة",
-      description: "يتم تحضير التقرير للطباعة",
+      description: "يتم تحضير التقرير للطباعة"
     });
   };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-200';
-      case 'on-break': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'inactive': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'offline': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'active':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'on-break':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'inactive':
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'offline':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getStatusText = (status: string) => {
-    const statusMap: { [key: string]: string } = {
+    const statusMap: {
+      [key: string]: string;
+    } = {
       'active': 'نشط',
       'on-break': 'في استراحة',
       'inactive': 'غير نشط',
@@ -340,28 +313,33 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
     };
     return statusMap[status] || status;
   };
-
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 border-red-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'high':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low':
+        return 'bg-green-100 text-green-800 border-green-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'critical':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'high':
+        return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low':
+        return 'bg-green-100 text-green-800 border-green-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
-  const renderHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-black rounded-3xl border border-gray-700 animate-fade-in card-3d hover:shadow-glow transition-all duration-300">
+  const renderHeader = () => <div className="flex items-center justify-between mb-12 p-6 bg-black rounded-3xl border border-gray-700 animate-fade-in card-3d hover:shadow-glow transition-all duration-300">
       <div className="flex items-center gap-6">
         <Button variant="outline" size="sm" onClick={onBack} className="workforce-button btn-3d text-white border-gray-700 hover:bg-gray-900 hover:border-gray-600 hover:text-white transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2 text-white" />
@@ -377,9 +355,7 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
             <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">
-              التتبع الميداني الشامل
-            </h1>
+            <h1 className="text-3xl font-bold text-white">قسم التتبع الميداني</h1>
             <p className="text-gray-300 text-lg">
               منظومة شاملة لتتبع وإدارة الموظفين الميدانيين في الوقت الفعلي مع تحليلات ذكية شاملة
             </p>
@@ -391,32 +367,21 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           <MapPin className="h-4 w-4 ml-2" />
           نظام متقدم
         </Badge>
-        <Button 
-          onClick={handleExport}
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-        >
+        <Button onClick={handleExport} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
           <Download className="h-4 w-4 ml-2" />
           تصدير التقرير
         </Button>
-        <Button 
-          onClick={handlePrint}
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-        >
+        <Button onClick={handlePrint} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
           <FileText className="h-4 w-4 ml-2" />
           طباعة
         </Button>
-        <Button 
-          className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300"
-        >
+        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
           <Plus className="h-4 w-4 ml-2" />
           إضافة مهمة
         </Button>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="border-l-4 border-l-primary">
@@ -526,18 +491,8 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={departmentDistribution}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {departmentDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={departmentDistribution} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {departmentDistribution.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -658,23 +613,15 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
-
-  const renderEmployeeTracking = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderEmployeeTracking = () => <div className="space-y-6">
       {/* Search and Filter */}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
-                placeholder="البحث عن موظف..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-10"
-              />
+              <Input placeholder="البحث عن موظف..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10" />
             </div>
             <Select value={selectedFilter} onValueChange={setSelectedFilter}>
               <SelectTrigger className="w-full md:w-[180px]">
@@ -697,8 +644,7 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
 
       {/* Employee List */}
       <div className="grid gap-4">
-        {fieldEmployees.map((employee) => (
-          <Card key={employee.id}>
+        {fieldEmployees.map(employee => <Card key={employee.id}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -749,14 +695,10 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderLiveTracking = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderLiveTracking = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -777,11 +719,8 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderTasksAssignments = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderTasksAssignments = () => <div className="space-y-6">
       {/* Add Task Button */}
       <Card>
         <CardContent className="p-4">
@@ -814,18 +753,19 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
                         <SelectValue placeholder="اختر موظف" />
                       </SelectTrigger>
                       <SelectContent>
-                        {fieldEmployees.map(employee => (
-                          <SelectItem key={employee.id} value={employee.id}>
+                        {fieldEmployees.map(employee => <SelectItem key={employee.id} value={employee.id}>
                             {employee.name}
-                          </SelectItem>
-                        ))}
+                          </SelectItem>)}
                       </SelectContent>
                     </Select>
                   </div>
                   <Button onClick={() => {
-                    toast({ title: "تم إضافة المهمة", description: "تم إنشاء مهمة جديدة بنجاح" });
-                    setIsAddDialogOpen(false);
-                  }}>
+                  toast({
+                    title: "تم إضافة المهمة",
+                    description: "تم إنشاء مهمة جديدة بنجاح"
+                  });
+                  setIsAddDialogOpen(false);
+                }}>
                     إضافة المهمة
                   </Button>
                 </div>
@@ -837,8 +777,7 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
 
       {/* Tasks List */}
       <div className="grid gap-4">
-        {fieldTasks.map((task) => (
-          <Card key={task.id}>
+        {fieldTasks.map(task => <Card key={task.id}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -850,9 +789,7 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
                     {task.priority === 'high' ? 'عالية' : task.priority === 'medium' ? 'متوسطة' : 'منخفضة'}
                   </Badge>
                   <Badge className={getStatusColor(task.status)}>
-                    {task.status === 'pending' ? 'معلقة' : 
-                     task.status === 'in-progress' ? 'قيد التنفيذ' : 
-                     task.status === 'completed' ? 'مكتملة' : 'متأخرة'}
+                    {task.status === 'pending' ? 'معلقة' : task.status === 'in-progress' ? 'قيد التنفيذ' : task.status === 'completed' ? 'مكتملة' : 'متأخرة'}
                   </Badge>
                 </div>
               </div>
@@ -879,14 +816,10 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderAttendanceField = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAttendanceField = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>الحضور والانصراف الجغرافي</CardTitle>
@@ -950,11 +883,8 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderIncidentReporting = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderIncidentReporting = () => <div className="space-y-6">
       {/* Incident Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="border-l-4 border-l-red-500">
@@ -1008,8 +938,7 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
 
       {/* Incidents List */}
       <div className="grid gap-4">
-        {fieldIncidents.map((incident) => (
-          <Card key={incident.id}>
+        {fieldIncidents.map(incident => <Card key={incident.id}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -1018,9 +947,7 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge className={getSeverityColor(incident.severity)}>
-                    {incident.severity === 'critical' ? 'حرج' : 
-                     incident.severity === 'high' ? 'عالي' : 
-                     incident.severity === 'medium' ? 'متوسط' : 'منخفض'}
+                    {incident.severity === 'critical' ? 'حرج' : incident.severity === 'high' ? 'عالي' : incident.severity === 'medium' ? 'متوسط' : 'منخفض'}
                   </Badge>
                 </div>
               </div>
@@ -1045,14 +972,10 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
                 </div>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderReports = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderReports = () => <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Button variant="outline" className="h-32 flex-col gap-4">
           <BarChart3 className="h-8 w-8" />
@@ -1078,11 +1001,8 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           </div>
         </Button>
       </div>
-    </div>
-  );
-
-  const renderSettings = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderSettings = () => <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle>إعدادات التتبع الميداني</CardTitle>
@@ -1104,11 +1024,8 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           </Button>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background">
+    </div>;
+  return <div className="min-h-screen bg-background">
       {renderHeader()}
       
       <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -1154,6 +1071,5 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
