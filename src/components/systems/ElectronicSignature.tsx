@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, PenTool, FileText, CheckCircle, Clock, Users, Upload, Search, Plus } from 'lucide-react';
-
 interface SignatureRequest {
   id: string;
   documentTitle: string;
@@ -18,7 +17,6 @@ interface SignatureRequest {
   signedDate?: string;
   priority: 'عالي' | 'متوسط' | 'منخفض';
 }
-
 interface SignatureTemplate {
   id: string;
   title: string;
@@ -28,85 +26,74 @@ interface SignatureTemplate {
   usage: number;
   status: 'نشط' | 'مؤرشف';
 }
-
 interface ElectronicSignatureProps {
   onBack: () => void;
 }
-
-export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack }) => {
+export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({
+  onBack
+}) => {
   const [activeView, setActiveView] = useState<'requests' | 'templates' | 'documents'>('requests');
   const [searchTerm, setSearchTerm] = useState('');
-  
-  const signatureRequests: SignatureRequest[] = [
-    {
-      id: 'SIG001',
-      documentTitle: 'عقد عمل - أحمد محمد العلي',
-      documentType: 'عقد عمل',
-      requesterName: 'فاطمة أحمد - موارد بشرية',
-      signerName: 'أحمد محمد العلي',
-      signerEmail: 'ahmed.ali@company.com',
-      status: 'موقع',
-      createdDate: '2024-03-15',
-      expiryDate: '2024-03-22',
-      signedDate: '2024-03-18',
-      priority: 'عالي'
-    },
-    {
-      id: 'SIG002',
-      documentTitle: 'اتفاقية سرية المعلومات',
-      documentType: 'اتفاقية',
-      requesterName: 'محمد السالم - إدارة',
-      signerName: 'سارة عبدالله النصر',
-      signerEmail: 'sarah.nasr@company.com',
-      status: 'في الانتظار',
-      createdDate: '2024-03-20',
-      expiryDate: '2024-03-27',
-      priority: 'متوسط'
-    },
-    {
-      id: 'SIG003',
-      documentTitle: 'إقرار استلام معدات العمل',
-      documentType: 'إقرار',
-      requesterName: 'خالد الأحمد - تقنية المعلومات',
-      signerName: 'عبدالرحمن يوسف',
-      signerEmail: 'abdulrahman@company.com',
-      status: 'مرسل',
-      createdDate: '2024-03-22',
-      expiryDate: '2024-03-29',
-      priority: 'منخفض'
-    }
-  ];
-
-  const signatureTemplates: SignatureTemplate[] = [
-    {
-      id: 'TEMP001',
-      title: 'قالب عقد العمل الأساسي',
-      type: 'عقد عمل',
-      description: 'قالب عقد العمل للموظفين الجدد',
-      fields: 12,
-      usage: 45,
-      status: 'نشط'
-    },
-    {
-      id: 'TEMP002',
-      title: 'اتفاقية السرية',
-      type: 'اتفاقية',
-      description: 'اتفاقية حماية المعلومات السرية',
-      fields: 8,
-      usage: 32,
-      status: 'نشط'
-    },
-    {
-      id: 'TEMP003',
-      title: 'إقرار استلام المعدات',
-      type: 'إقرار',
-      description: 'إقرار باستلام معدات العمل',
-      fields: 6,
-      usage: 28,
-      status: 'نشط'
-    }
-  ];
-
+  const signatureRequests: SignatureRequest[] = [{
+    id: 'SIG001',
+    documentTitle: 'عقد عمل - أحمد محمد العلي',
+    documentType: 'عقد عمل',
+    requesterName: 'فاطمة أحمد - موارد بشرية',
+    signerName: 'أحمد محمد العلي',
+    signerEmail: 'ahmed.ali@company.com',
+    status: 'موقع',
+    createdDate: '2024-03-15',
+    expiryDate: '2024-03-22',
+    signedDate: '2024-03-18',
+    priority: 'عالي'
+  }, {
+    id: 'SIG002',
+    documentTitle: 'اتفاقية سرية المعلومات',
+    documentType: 'اتفاقية',
+    requesterName: 'محمد السالم - إدارة',
+    signerName: 'سارة عبدالله النصر',
+    signerEmail: 'sarah.nasr@company.com',
+    status: 'في الانتظار',
+    createdDate: '2024-03-20',
+    expiryDate: '2024-03-27',
+    priority: 'متوسط'
+  }, {
+    id: 'SIG003',
+    documentTitle: 'إقرار استلام معدات العمل',
+    documentType: 'إقرار',
+    requesterName: 'خالد الأحمد - تقنية المعلومات',
+    signerName: 'عبدالرحمن يوسف',
+    signerEmail: 'abdulrahman@company.com',
+    status: 'مرسل',
+    createdDate: '2024-03-22',
+    expiryDate: '2024-03-29',
+    priority: 'منخفض'
+  }];
+  const signatureTemplates: SignatureTemplate[] = [{
+    id: 'TEMP001',
+    title: 'قالب عقد العمل الأساسي',
+    type: 'عقد عمل',
+    description: 'قالب عقد العمل للموظفين الجدد',
+    fields: 12,
+    usage: 45,
+    status: 'نشط'
+  }, {
+    id: 'TEMP002',
+    title: 'اتفاقية السرية',
+    type: 'اتفاقية',
+    description: 'اتفاقية حماية المعلومات السرية',
+    fields: 8,
+    usage: 32,
+    status: 'نشط'
+  }, {
+    id: 'TEMP003',
+    title: 'إقرار استلام المعدات',
+    type: 'إقرار',
+    description: 'إقرار باستلام معدات العمل',
+    fields: 6,
+    usage: 28,
+    status: 'نشط'
+  }];
   const getStatusBadge = (status: string) => {
     const config = {
       'مرسل': 'bg-blue-100 text-blue-800 border-blue-200',
@@ -119,7 +106,6 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
     };
     return config[status as keyof typeof config] || 'bg-gray-100 text-gray-800';
   };
-
   const getPriorityBadge = (priority: string) => {
     const config = {
       'عالي': 'bg-red-100 text-red-800 border-red-200',
@@ -128,7 +114,6 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
     };
     return config[priority as keyof typeof config] || 'bg-gray-100 text-gray-800';
   };
-
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'موقع':
@@ -141,13 +126,10 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
         return <PenTool className="h-4 w-4 text-gray-600" />;
     }
   };
-
   const pendingRequests = signatureRequests.filter(r => r.status === 'في الانتظار' || r.status === 'مرسل').length;
   const signedRequests = signatureRequests.filter(r => r.status === 'موقع').length;
   const activeTemplates = signatureTemplates.filter(t => t.status === 'نشط').length;
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
+  return <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100" dir="rtl">
       <div className="max-w-7xl mx-auto p-6">
         {/* Header - Matching AI System Design */}
         <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
@@ -164,9 +146,7 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
                 <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-black">
-                  نظام التوقيع الإلكتروني المتطور
-                </h1>
+                <h1 className="text-3xl font-bold text-black">قسم التوقيع الإلكتروني </h1>
                 <p className="text-gray-600 text-lg">
                   منظومة ذكية شاملة لإدارة التوقيعات الإلكترونية والمستندات
                 </p>
@@ -271,26 +251,45 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
           <CardContent className="p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">منظومة التوقيع الإلكتروني المتكاملة</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {[
-                { icon: PenTool, label: "التوقيع الإلكتروني", color: "text-blue-600", count: signatureRequests.length },
-                { icon: FileText, label: "إدارة المستندات", color: "text-green-600", count: activeTemplates },
-                { icon: CheckCircle, label: "التحقق الآمن", color: "text-purple-600", count: 0 },
-                { icon: Clock, label: "المتابعة الآلية", color: "text-orange-600", count: pendingRequests },
-                { icon: Upload, label: "رفع المستندات", color: "text-teal-600", count: 0 },
-                { icon: Search, label: "البحث والأرشفة", color: "text-red-600", count: 0 }
-              ].map((item, index) => (
-                <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+              {[{
+              icon: PenTool,
+              label: "التوقيع الإلكتروني",
+              color: "text-blue-600",
+              count: signatureRequests.length
+            }, {
+              icon: FileText,
+              label: "إدارة المستندات",
+              color: "text-green-600",
+              count: activeTemplates
+            }, {
+              icon: CheckCircle,
+              label: "التحقق الآمن",
+              color: "text-purple-600",
+              count: 0
+            }, {
+              icon: Clock,
+              label: "المتابعة الآلية",
+              color: "text-orange-600",
+              count: pendingRequests
+            }, {
+              icon: Upload,
+              label: "رفع المستندات",
+              color: "text-teal-600",
+              count: 0
+            }, {
+              icon: Search,
+              label: "البحث والأرشفة",
+              color: "text-red-600",
+              count: 0
+            }].map((item, index) => <div key={index} className="text-center p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
                   <div className={`mx-auto w-12 h-12 ${item.color} mb-3 p-2 rounded-full bg-gray-50 group-hover:bg-gray-100 transition-colors flex items-center justify-center relative`}>
                     <item.icon className="w-6 h-6" />
-                    {item.count > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {item.count > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                         {item.count}
-                      </span>
-                    )}
+                      </span>}
                   </div>
                   <div className="text-sm font-medium text-gray-700">{item.label}</div>
-                </div>
-              ))}
+                </div>)}
             </div>
             
             <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
@@ -314,27 +313,15 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
       <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
         <CardContent className="p-4">
           <div className="flex gap-2">
-            <Button
-              variant={activeView === 'requests' ? 'default' : 'outline'}
-              onClick={() => setActiveView('requests')}
-              className={activeView === 'requests' ? 'bg-[#009F87] hover:bg-[#008072]' : ''}
-            >
+            <Button variant={activeView === 'requests' ? 'default' : 'outline'} onClick={() => setActiveView('requests')} className={activeView === 'requests' ? 'bg-[#009F87] hover:bg-[#008072]' : ''}>
               <PenTool className="h-4 w-4 ml-2" />
               طلبات التوقيع
             </Button>
-            <Button
-              variant={activeView === 'templates' ? 'default' : 'outline'}
-              onClick={() => setActiveView('templates')}
-              className={activeView === 'templates' ? 'bg-[#009F87] hover:bg-[#008072]' : ''}
-            >
+            <Button variant={activeView === 'templates' ? 'default' : 'outline'} onClick={() => setActiveView('templates')} className={activeView === 'templates' ? 'bg-[#009F87] hover:bg-[#008072]' : ''}>
               <FileText className="h-4 w-4 ml-2" />
               القوالب
             </Button>
-            <Button
-              variant={activeView === 'documents' ? 'default' : 'outline'}
-              onClick={() => setActiveView('documents')}
-              className={activeView === 'documents' ? 'bg-[#009F87] hover:bg-[#008072]' : ''}
-            >
+            <Button variant={activeView === 'documents' ? 'default' : 'outline'} onClick={() => setActiveView('documents')} className={activeView === 'documents' ? 'bg-[#009F87] hover:bg-[#008072]' : ''}>
               <Upload className="h-4 w-4 ml-2" />
               إدارة المستندات
             </Button>
@@ -347,21 +334,14 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
         <CardContent className="p-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder={`البحث في ${activeView === 'requests' ? 'طلبات التوقيع' : activeView === 'templates' ? 'القوالب' : 'المستندات'}...`}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+            <Input placeholder={`البحث في ${activeView === 'requests' ? 'طلبات التوقيع' : activeView === 'templates' ? 'القوالب' : 'المستندات'}...`} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
           </div>
         </CardContent>
       </Card>
 
       {/* Signature Requests View */}
-      {activeView === 'requests' && (
-        <div className="space-y-4">
-          {signatureRequests.map((request) => (
-            <Card key={request.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
+      {activeView === 'requests' && <div className="space-y-4">
+          {signatureRequests.map(request => <Card key={request.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-start gap-3">
@@ -406,38 +386,30 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
                     <div className="font-semibold text-orange-700">{request.expiryDate}</div>
                   </div>
                   
-                  {request.signedDate && (
-                    <div className="bg-green-50 p-3 rounded-lg text-center">
+                  {request.signedDate && <div className="bg-green-50 p-3 rounded-lg text-center">
                       <div className="font-medium text-green-900 mb-1">تاريخ التوقيع</div>
                       <div className="font-semibold text-green-700">{request.signedDate}</div>
-                    </div>
-                  )}
+                    </div>}
                 </div>
 
                 <div className="flex gap-2 mt-4">
                   <Button variant="outline" size="sm">
                     عرض المستند
                   </Button>
-                  {request.status === 'في الانتظار' && (
-                    <Button variant="outline" size="sm" className="text-blue-600 hover:bg-blue-50">
+                  {request.status === 'في الانتظار' && <Button variant="outline" size="sm" className="text-blue-600 hover:bg-blue-50">
                       إرسال تذكير
-                    </Button>
-                  )}
+                    </Button>}
                   <Button variant="outline" size="sm" className="text-gray-600 hover:bg-gray-50">
                     تحميل نسخة
                   </Button>
                 </div>
               </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+            </Card>)}
+        </div>}
 
       {/* Templates View */}
-      {activeView === 'templates' && (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {signatureTemplates.map((template) => (
-            <Card key={template.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
+      {activeView === 'templates' && <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {signatureTemplates.map(template => <Card key={template.id} className="bg-white/80 backdrop-blur border-[#009F87]/20 hover:shadow-lg transition-all">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -479,14 +451,11 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
                   </Button>
                 </div>
               </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+            </Card>)}
+        </div>}
 
       {/* Documents Management View */}
-      {activeView === 'documents' && (
-        <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
+      {activeView === 'documents' && <Card className="bg-white/80 backdrop-blur border-[#009F87]/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-[#009F87]">
               <Upload className="h-6 w-6" />
@@ -512,9 +481,7 @@ export const ElectronicSignature: React.FC<ElectronicSignatureProps> = ({ onBack
               </div>
             </div>
           </CardContent>
-        </Card>
-      )}
+        </Card>}
       </div>
-    </div>
-  );
+    </div>;
 };
