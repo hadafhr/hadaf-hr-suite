@@ -10,46 +10,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { SystemHeader } from '@/components/shared/SystemHeader';
-import { 
-  ArrowLeft, 
-  Shield, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Users, 
-  DollarSign, 
-  FileText,
-  Download,
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Clock,
-  TrendingUp,
-  BarChart3,
-  PieChart,
-  Activity,
-  Zap,
-  Globe,
-  Eye,
-  Settings,
-  Bell,
-  BookOpen,
-  Gavel,
-  UserCheck,
-  CreditCard,
-  Building,
-  Briefcase,
-  Award,
-  Target,
-  Sparkles
-} from 'lucide-react';
+import { ArrowLeft, Shield, AlertTriangle, CheckCircle2, Users, DollarSign, FileText, Download, Plus, Search, Filter, Calendar, Clock, TrendingUp, BarChart3, PieChart, Activity, Zap, Globe, Eye, Settings, Bell, BookOpen, Gavel, UserCheck, CreditCard, Building, Briefcase, Award, Target, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart as RechartsPieChart, Cell, BarChart, Bar, Pie } from 'recharts';
-
 interface ComprehensiveWageProtectionProps {
   onBack: () => void;
 }
-
 interface WageViolation {
   id: string;
   companyName: string;
@@ -61,7 +27,6 @@ interface WageViolation {
   severity: 'Low' | 'Medium' | 'High' | 'Critical';
   description: string;
 }
-
 interface ComplianceReport {
   id: string;
   companyName: string;
@@ -72,7 +37,6 @@ interface ComplianceReport {
   status: 'Compliant' | 'At Risk' | 'Non-Compliant';
   nextAuditDate: string;
 }
-
 interface LegalCase {
   id: string;
   caseNumber: string;
@@ -84,100 +48,141 @@ interface LegalCase {
   status: 'Filed' | 'In Progress' | 'Settled' | 'Dismissed';
   expectedResolution: string;
 }
-
-export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionProps> = ({ onBack }) => {
-  const { t, i18n } = useTranslation();
+export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionProps> = ({
+  onBack
+}) => {
+  const {
+    t,
+    i18n
+  } = useTranslation();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   // Mock data for demonstration
-  const wageViolations: WageViolation[] = [
-    {
-      id: '1',
-      companyName: 'شركة النور للتجارة',
-      employeeName: 'أحمد محمد السالم',
-      violationType: 'Late Payment',
-      amount: 4500,
-      reportDate: '2024-01-15',
-      status: 'Investigating',
-      severity: 'High',
-      description: 'تأخير في دفع الراتب لمدة 15 يوم'
-    },
-    {
-      id: '2',
-      companyName: 'مؤسسة البناء الحديث',
-      employeeName: 'فاطمة الخالدي',
-      violationType: 'Underpayment',
-      amount: 2800,
-      reportDate: '2024-01-20',
-      status: 'Open',
-      severity: 'Medium',
-      description: 'نقص في المبلغ المدفوع مقارنة بالعقد'
-    }
-  ];
-
-  const complianceReports: ComplianceReport[] = [
-    {
-      id: '1',
-      companyName: 'شركة النور للتجارة',
-      complianceScore: 65,
-      lastAuditDate: '2023-12-15',
-      violations: 3,
-      employeeCount: 45,
-      status: 'At Risk',
-      nextAuditDate: '2024-03-15'
-    },
-    {
-      id: '2',
-      companyName: 'مؤسسة التقنية المتقدمة',
-      complianceScore: 95,
-      lastAuditDate: '2024-01-10',
-      violations: 0,
-      employeeCount: 120,
-      status: 'Compliant',
-      nextAuditDate: '2024-07-10'
-    }
-  ];
-
-  const legalCases: LegalCase[] = [
-    {
-      id: '1',
-      caseNumber: 'WP-2024-001',
-      plaintiff: 'أحمد محمد السالم',
-      defendant: 'شركة النور للتجارة',
-      caseType: 'Wage Dispute',
-      amount: 15000,
-      filingDate: '2024-01-25',
-      status: 'In Progress',
-      expectedResolution: '2024-04-15'
-    }
-  ];
-
-  const performanceData = [
-    { month: 'يناير', protected: 98, violations: 15, resolved: 92, claims: 8 },
-    { month: 'فبراير', protected: 99, violations: 12, resolved: 95, claims: 6 },
-    { month: 'مارس', protected: 97, violations: 18, resolved: 88, claims: 12 },
-    { month: 'أبريل', protected: 100, violations: 8, resolved: 100, claims: 4 },
-    { month: 'مايو', protected: 96, violations: 22, resolved: 86, claims: 15 },
-    { month: 'يونيو', protected: 99, violations: 10, resolved: 98, claims: 5 }
-  ];
-
-  const violationTypes = [
-    { name: 'تأخير الرواتب', value: 45, color: '#ef4444' },
-    { name: 'نقص المبالغ', value: 30, color: '#f59e0b' },
-    { name: 'انتهاكات الإضافي', value: 15, color: '#8b5cf6' },
-    { name: 'انتهاكات المزايا', value: 10, color: '#06b6d4' }
-  ];
-
-  const complianceScores = [
-    { company: 'شركة أ', score: 95, category: 'ممتاز' },
-    { company: 'شركة ب', score: 85, category: 'جيد' },
-    { company: 'شركة ج', score: 65, category: 'مقبول' },
-    { company: 'شركة د', score: 45, category: 'ضعيف' }
-  ];
-
+  const wageViolations: WageViolation[] = [{
+    id: '1',
+    companyName: 'شركة النور للتجارة',
+    employeeName: 'أحمد محمد السالم',
+    violationType: 'Late Payment',
+    amount: 4500,
+    reportDate: '2024-01-15',
+    status: 'Investigating',
+    severity: 'High',
+    description: 'تأخير في دفع الراتب لمدة 15 يوم'
+  }, {
+    id: '2',
+    companyName: 'مؤسسة البناء الحديث',
+    employeeName: 'فاطمة الخالدي',
+    violationType: 'Underpayment',
+    amount: 2800,
+    reportDate: '2024-01-20',
+    status: 'Open',
+    severity: 'Medium',
+    description: 'نقص في المبلغ المدفوع مقارنة بالعقد'
+  }];
+  const complianceReports: ComplianceReport[] = [{
+    id: '1',
+    companyName: 'شركة النور للتجارة',
+    complianceScore: 65,
+    lastAuditDate: '2023-12-15',
+    violations: 3,
+    employeeCount: 45,
+    status: 'At Risk',
+    nextAuditDate: '2024-03-15'
+  }, {
+    id: '2',
+    companyName: 'مؤسسة التقنية المتقدمة',
+    complianceScore: 95,
+    lastAuditDate: '2024-01-10',
+    violations: 0,
+    employeeCount: 120,
+    status: 'Compliant',
+    nextAuditDate: '2024-07-10'
+  }];
+  const legalCases: LegalCase[] = [{
+    id: '1',
+    caseNumber: 'WP-2024-001',
+    plaintiff: 'أحمد محمد السالم',
+    defendant: 'شركة النور للتجارة',
+    caseType: 'Wage Dispute',
+    amount: 15000,
+    filingDate: '2024-01-25',
+    status: 'In Progress',
+    expectedResolution: '2024-04-15'
+  }];
+  const performanceData = [{
+    month: 'يناير',
+    protected: 98,
+    violations: 15,
+    resolved: 92,
+    claims: 8
+  }, {
+    month: 'فبراير',
+    protected: 99,
+    violations: 12,
+    resolved: 95,
+    claims: 6
+  }, {
+    month: 'مارس',
+    protected: 97,
+    violations: 18,
+    resolved: 88,
+    claims: 12
+  }, {
+    month: 'أبريل',
+    protected: 100,
+    violations: 8,
+    resolved: 100,
+    claims: 4
+  }, {
+    month: 'مايو',
+    protected: 96,
+    violations: 22,
+    resolved: 86,
+    claims: 15
+  }, {
+    month: 'يونيو',
+    protected: 99,
+    violations: 10,
+    resolved: 98,
+    claims: 5
+  }];
+  const violationTypes = [{
+    name: 'تأخير الرواتب',
+    value: 45,
+    color: '#ef4444'
+  }, {
+    name: 'نقص المبالغ',
+    value: 30,
+    color: '#f59e0b'
+  }, {
+    name: 'انتهاكات الإضافي',
+    value: 15,
+    color: '#8b5cf6'
+  }, {
+    name: 'انتهاكات المزايا',
+    value: 10,
+    color: '#06b6d4'
+  }];
+  const complianceScores = [{
+    company: 'شركة أ',
+    score: 95,
+    category: 'ممتاز'
+  }, {
+    company: 'شركة ب',
+    score: 85,
+    category: 'جيد'
+  }, {
+    company: 'شركة ج',
+    score: 65,
+    category: 'مقبول'
+  }, {
+    company: 'شركة د',
+    score: 45,
+    category: 'ضعيف'
+  }];
   const getDashboardStats = () => {
     return {
       totalEmployees: 12450,
@@ -188,9 +193,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
       avgResolutionTime: 14
     };
   };
-
   const stats = getDashboardStats();
-
   const getStatusBadge = (status: string) => {
     const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
       'Open': 'destructive',
@@ -207,7 +210,6 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
     };
     return <Badge variant={variants[status] || 'default'}>{status}</Badge>;
   };
-
   const getSeverityBadge = (severity: string) => {
     const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
       'Low': 'outline',
@@ -217,9 +219,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
     };
     return <Badge variant={variants[severity] || 'default'}>{severity}</Badge>;
   };
-
-  const renderProfessionalHeader = () => (
-    <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
+  const renderProfessionalHeader = () => <div className="flex items-center justify-between mb-12 p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
       <div className="flex items-center gap-6">
         <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
           <ArrowLeft className="h-4 w-4 ml-2" />
@@ -256,11 +256,8 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           إبلاغ عن انتهاك
         </Button>
       </div>
-    </div>
-  );
-
-  const renderAnalyticsDashboard = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderAnalyticsDashboard = () => <div className="space-y-6">
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <Card className="bg-card backdrop-blur-xl border border-border hover:border-accent shadow-2xl transition-all duration-300 hover:scale-105 border-l-4 border-l-primary">
@@ -370,18 +367,8 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <Pie
-                  data={violationTypes}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {violationTypes.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
+                <Pie data={violationTypes} cx="50%" cy="50%" labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                  {violationTypes.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                 </Pie>
                 <Tooltip />
               </RechartsPieChart>
@@ -430,11 +417,8 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
-
-  const renderSystemOverview = () => (
-    <Card>
+    </div>;
+  const renderSystemOverview = () => <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Shield className="h-5 w-5" />
@@ -487,21 +471,13 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
-
-  const renderViolations = () => (
-    <div className="space-y-6">
+    </Card>;
+  const renderViolations = () => <div className="space-y-6">
       {/* Search and Filter */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-          <Input
-            placeholder="البحث في الانتهاكات..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pr-10"
-          />
+          <Input placeholder="البحث في الانتهاكات..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pr-10" />
         </div>
         <Select value={selectedFilter} onValueChange={setSelectedFilter}>
           <SelectTrigger className="w-[200px]">
@@ -522,8 +498,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
 
       {/* Violations List */}
       <div className="grid gap-4">
-        {wageViolations.map((violation) => (
-          <Card key={violation.id} className="hover:shadow-md transition-shadow">
+        {wageViolations.map(violation => <Card key={violation.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -558,14 +533,10 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
                 <Button size="sm">إجراء قانوني</Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderCompliance = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderCompliance = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">تقارير الالتزام</h3>
         <Button>
@@ -575,8 +546,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
       </div>
 
       <div className="grid gap-6">
-        {complianceReports.map((report) => (
-          <Card key={report.id}>
+        {complianceReports.map(report => <Card key={report.id}>
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -614,14 +584,10 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
                 <Button size="sm">إجراءات تصحيحية</Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  const renderLegalCases = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderLegalCases = () => <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">القضايا القانونية</h3>
         <Button>
@@ -631,8 +597,7 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
       </div>
 
       <div className="grid gap-6">
-        {legalCases.map((legalCase) => (
-          <Card key={legalCase.id}>
+        {legalCases.map(legalCase => <Card key={legalCase.id}>
             <CardContent className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -667,14 +632,10 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
                 <Button size="sm">متابعة القضية</Button>
               </div>
             </CardContent>
-          </Card>
-        ))}
+          </Card>)}
       </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+    </div>;
+  return <div className="min-h-screen bg-background text-foreground relative overflow-hidden font-arabic" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Animated background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent/50 to-primary"></div>
@@ -686,18 +647,12 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
       
       {/* Centered Logo */}
       <div className="relative z-10 flex justify-center pt-12 mb-8">
-        <img 
-          src="/src/assets/boud-logo-centered.png" 
-          alt="Boud Logo" 
-          className="h-24 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
-        />
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-24 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300" />
       </div>
       
       {/* Centered Header */}
       <div className="relative z-10 text-center mb-12">
-        <h1 className="text-4xl font-bold text-foreground mb-2">
-          نظام حماية الأجور الذكي المتطور
-        </h1>
+        <h1 className="text-4xl font-bold text-foreground mb-2">قسم حماية الأجور </h1>
         <p className="text-lg text-muted-foreground">
           نظام متطور لحماية حقوق العمال وضمان الالتزام بقوانين العمل
         </p>
@@ -770,6 +725,5 @@ export const ComprehensiveWageProtection: React.FC<ComprehensiveWageProtectionPr
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
