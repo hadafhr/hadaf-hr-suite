@@ -569,40 +569,16 @@ export const ComprehensiveIntegrationSystem: React.FC<ComprehensiveIntegrationSy
     };
     return categoryMap[category] || category;
   };
-  const renderHeader = () => <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20 animate-fade-in">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="border-gray-300 hover:bg-[#3CB593]/5 hover:border-[#3CB593]/30 hover:text-[#3CB593] transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2" />
-          رجوع
-        </Button>
-        <div className="h-8 w-px bg-gray-300"></div>
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <Network className="h-8 w-8 text-white relative z-10 group-hover:scale-110 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-black">قسم التكامل والربط </h1>
-            <p className="text-gray-600 text-lg">
-              منظومة شاملة لربط وتكامل الأنظمة مع المنصات الحكومية والخارجية
-            </p>
-          </div>
-        </div>
+  const renderHeader = () => <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
-      <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
-          <Network className="h-4 w-4 ml-2" />
-          نظام متقدم
-        </Badge>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقارير
-        </Button>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Plus className="h-4 w-4 ml-2" />
-          تكامل جديد
-        </Button>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم التكامل والربط</h1>
+        <p className="text-muted-foreground">منظومة شاملة لربط وتكامل الأنظمة مع المنصات الحكومية والخارجية</p>
       </div>
     </div>;
   const renderAnalyticsDashboard = () => <div className="space-y-6">
