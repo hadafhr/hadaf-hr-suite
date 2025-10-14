@@ -339,46 +339,16 @@ export const ComprehensiveFieldTracking: React.FC<ComprehensiveFieldTrackingProp
         return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-  const renderHeader = () => <div className="flex items-center justify-between mb-12 p-6 bg-black rounded-3xl border border-gray-700 animate-fade-in card-3d hover:shadow-glow transition-all duration-300">
-      <div className="flex items-center gap-6">
-        <Button variant="outline" size="sm" onClick={onBack} className="workforce-button btn-3d text-white border-gray-700 hover:bg-gray-900 hover:border-gray-600 hover:text-white transition-all duration-300">
-          <ArrowLeft className="h-4 w-4 ml-2 text-white" />
-          رجوع
-        </Button>
-        <div className="h-8 w-px bg-gray-600"></div>
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#3CB593] to-[#2da574] rounded-3xl flex items-center justify-center shadow-lg relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
-            <div className="relative z-10 group-hover:scale-110 transition-transform text-white">
-              <MapPin className="h-8 w-8" />
-            </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-yellow-400 rounded-full animate-pulse"></div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-white">قسم التتبع الميداني</h1>
-            <p className="text-gray-300 text-lg">
-              منظومة شاملة لتتبع وإدارة الموظفين الميدانيين في الوقت الفعلي مع تحليلات ذكية شاملة
-            </p>
-          </div>
-        </div>
+  const renderHeader = () => <div className="space-y-6">
+      {/* Logo */}
+      <div className="flex justify-center mb-6">
+        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
       </div>
-      <div className="flex items-center gap-3">
-        <Badge variant="outline" className="border-[#3CB593]/30 text-[#3CB593] bg-[#3CB593]/5 px-4 py-2 text-sm font-medium">
-          <MapPin className="h-4 w-4 ml-2" />
-          نظام متقدم
-        </Badge>
-        <Button onClick={handleExport} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Download className="h-4 w-4 ml-2" />
-          تصدير التقرير
-        </Button>
-        <Button onClick={handlePrint} className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <FileText className="h-4 w-4 ml-2" />
-          طباعة
-        </Button>
-        <Button className="bg-gradient-to-r from-[#3CB593] to-[#2da574] hover:from-[#2da574] hover:to-[#3CB593] text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Plus className="h-4 w-4 ml-2" />
-          إضافة مهمة
-        </Button>
+
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">قسم التتبع الميداني</h1>
+        <p className="text-muted-foreground">منظومة شاملة لتتبع وإدارة الموظفين الميدانيين في الوقت الفعلي مع تحليلات ذكية شاملة</p>
       </div>
     </div>;
   const renderAnalyticsDashboard = () => <div className="space-y-6">
