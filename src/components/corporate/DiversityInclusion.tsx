@@ -69,28 +69,15 @@ export const DiversityInclusion: React.FC = () => {
   return (
     <div className="space-y-6 p-6" dir="rtl">
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-3xl font-bold text-foreground flex items-center gap-3">
-              <Heart className="h-8 w-8 text-primary" />
-              التنوع والشمول
-            </h2>
-            <p className="text-muted-foreground mt-2">نظام شامل لتعزيز ثقافة التنوع والشمول في بيئة العمل</p>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 ml-2" />
-              تصفية
-            </Button>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير
-            </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary/90">
-              <Plus className="h-4 w-4 ml-2" />
-              برنامج جديد
-            </Button>
-          </div>
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">التنوع والشمول</h1>
+          <p className="text-muted-foreground">نظام شامل لتعزيز ثقافة التنوع والشمول في بيئة العمل</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
