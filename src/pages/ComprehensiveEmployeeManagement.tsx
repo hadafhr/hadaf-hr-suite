@@ -276,35 +276,16 @@ const ComprehensiveEmployeeManagement = () => {
       {/* المحتوى الرئيسي */}
       <div className="relative z-10 container mx-auto px-8 py-8 rounded-2xl bg-card/30 backdrop-blur-sm">
         {/* الشريط العلوي الاحترافي */}
-        <div className="flex items-center justify-between mb-12 p-6 rounded-3xl animate-fade-in bg-card backdrop-blur-xl border border-border">
-          <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="transition-all duration-300 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 border-border">
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              رجوع
-            </Button>
-            <div className="h-8 w-px bg-border/30"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-3xl flex items-center justify-center relative overflow-hidden bg-accent">
-                <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-accent/10 to-transparent"></div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full animate-pulse bg-accent"></div>
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">نظام إدارة الموارد البشرية المتكامل</h1>
-                <p className="text-lg text-muted-foreground">
-                  النظام الشامل والمتقدم لإدارة الموظفين والفرق
-                </p>
-              </div>
-            </div>
+        <div className="space-y-6 mb-12">
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
           </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-border bg-card">
-              <Sparkles className="h-4 w-4 ml-2" />
-              نظام متطور
-            </Badge>
-            <Button size="sm" className="transition-all duration-300 px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90">
-              <Download className="h-4 w-4 ml-2" />
-              تصدير
-            </Button>
+
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-2 text-foreground">نظام إدارة الموارد البشرية المتكامل</h1>
+            <p className="text-muted-foreground">النظام الشامل والمتقدم لإدارة الموظفين والفرق</p>
           </div>
         </div>
 
