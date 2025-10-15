@@ -35,30 +35,15 @@ export default function MeetingHub({
   };
   return <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 p-6" dir="rtl">
       <div className="max-w-7xl mx-auto">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
+        </div>
+
         {/* Header */}
-        <div className="flex items-center justify-between mb-12 p-6 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-gray-200/20">
-          <div className="flex items-center gap-6">
-            <Button variant="outline" size="sm" onClick={onBack ? onBack : () => navigate('/')} className="border-gray-300 hover:bg-primary/5">
-              <ArrowLeft className="h-4 w-4 ml-2" />
-              رجوع
-            </Button>
-            <div className="h-8 w-px bg-gray-300"></div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-3xl flex items-center justify-center shadow-lg">
-                <Video className="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">قسم الإجتماعات</h1>
-                <p className="text-muted-foreground text-lg">منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال المتقدم</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button className="bg-gradient-to-r from-primary to-primary/80" onClick={handleStartNewMeeting}>
-              <Video className="h-4 w-4 ml-2" />
-              بدء اجتماع جديد
-            </Button>
-          </div>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">قسم الإجتماعات</h1>
+          <p className="text-muted-foreground">منصة متكاملة لإدارة اجتماعات الشركة والتعاون الفعال المتقدم</p>
         </div>
 
         {/* Main Content */}
