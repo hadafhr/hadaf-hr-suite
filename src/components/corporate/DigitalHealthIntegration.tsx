@@ -66,18 +66,30 @@ export const DigitalHealthIntegration: React.FC = () => {
 
   return (
     <div className="space-y-6 p-6" dir="rtl">
-      {/* Logo */}
-      <div className="flex justify-center mb-6 pt-6">
-        <img src="/src/assets/boud-logo-centered.png" alt="Boud Logo" className="h-32 w-auto object-contain" />
-      </div>
-
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">التكامل مع تقنيات الصحة الرقمية</h1>
-        <p className="text-muted-foreground">نظام شامل للربط مع منصات الصحة الرقمية وأجهزة المراقبة الصحية</p>
-      </div>
-
       <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-foreground flex items-center gap-3">
+              <Activity className="h-8 w-8 text-primary" />
+              التكامل مع تقنيات الصحة الرقمية
+            </h2>
+            <p className="text-muted-foreground mt-2">نظام شامل للربط مع منصات الصحة الرقمية وأجهزة المراقبة الصحية</p>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm">
+              <Filter className="h-4 w-4 ml-2" />
+              تصفية
+            </Button>
+            <Button variant="outline" size="sm">
+              <Download className="h-4 w-4 ml-2" />
+              تصدير
+            </Button>
+            <Button size="sm" className="bg-primary hover:bg-primary/90">
+              <Plus className="h-4 w-4 ml-2" />
+              إضافة تكامل
+            </Button>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
           <Card className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all">
