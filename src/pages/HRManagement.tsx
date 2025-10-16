@@ -43,91 +43,20 @@ export const HRManagement: React.FC = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-bounce"></div>
       </div>
       
-      {/* Professional Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-black/95 backdrop-blur-xl shadow-xl">
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 pointer-events-none"></div>
-        
-        <div className="container mx-auto px-6 h-20">
-          <div className="flex items-center justify-between h-full relative z-10">
-            {/* Right Section - Logo & Title */}
-            <div className="flex items-center gap-6">
-              <img 
-                src={boudLogo} 
-                alt="Boud HR" 
-                className="h-40 w-auto object-contain filter brightness-110 transition-transform hover:scale-105"
-              />
-              <div className="hidden md:flex flex-col">
-                <h1 className="text-xl font-bold text-white">
-                  {isArabic ? 'إدارة الموارد البشرية' : 'HR Management'}
-                </h1>
-                <p className="text-xs text-muted-foreground">
-                  {isArabic ? 'إدارة شاملة للموظفين والموارد البشرية' : 'Comprehensive Employee & HR Management'}
-                </p>
-              </div>
-            </div>
+      {/* Logo */}
+      <div className="flex justify-center mb-6 pt-6">
+        <img src={boudLogo} alt="Boud Logo" className="h-32 w-auto object-contain" />
+      </div>
 
-            {/* Left Section - Actions */}
-            <div className="flex items-center gap-3">
-              {/* Back Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate('/company-dashboard')}
-                className="hidden sm:flex items-center gap-2 border-border hover:bg-accent/20 hover:border-accent/50 transition-all"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden lg:inline">{isArabic ? 'لوحة التحكم' : 'Dashboard'}</span>
-              </Button>
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة الموارد البشرية</h1>
+        <p className="text-muted-foreground">إدارة شاملة للموظفين والموارد البشرية</p>
+      </div>
 
-              {/* Language Switcher */}
-              <LanguageSwitcher />
-
-              {/* Profile Menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    className="flex items-center gap-2 hover:bg-accent/20 transition-all"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center shadow-lg">
-                      <Crown className="h-4 w-4 text-black" />
-                    </div>
-                    <ChevronDown className="h-3 w-3 hidden sm:block" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end" 
-                  className="w-48 bg-black/95 backdrop-blur-xl border-border shadow-2xl"
-                >
-                  <DropdownMenuItem className="hover:bg-accent/20 cursor-pointer">
-                    <Settings className="h-4 w-4 mr-2" />
-                    {isArabic ? 'إعدادات النظام' : 'System Settings'}
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-border" />
-                  <DropdownMenuItem 
-                    onClick={handleLogout} 
-                    className="hover:bg-destructive/20 text-destructive cursor-pointer"
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    {isArabic ? 'تسجيل الخروج' : 'Logout'}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Enhanced Main Content */}
-      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8 bg-background rounded-3xl shadow-2xl shadow-accent/10 transition-all duration-300">
+      {/* Main Content */}
+      <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8">
         <div className="max-w-7xl mx-auto space-y-8">
-          {/* Logo Section */}
-          <div className="flex justify-center">
-            <img src={boudLogo} alt="Boud Logo" className="h-24 w-auto" />
-          </div>
-          
           <ComprehensiveEmployeeManagement />
         </div>
       </main>
