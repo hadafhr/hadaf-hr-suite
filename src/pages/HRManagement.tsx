@@ -42,17 +42,61 @@ export const HRManagement: React.FC = () => {
         <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/15 rounded-full blur-3xl animate-bounce"></div>
       </div>
-      
-      {/* Logo */}
-      <div className="flex justify-center mb-6 pt-6">
-        <img src={boudLogo} alt="Boud Logo" className="h-32 w-auto object-contain" />
-      </div>
 
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">إدارة الموارد البشرية</h1>
-        <p className="text-muted-foreground">إدارة شاملة للموظفين والموارد البشرية</p>
-      </div>
+      <header className="relative z-20 flex items-center justify-between px-8 py-6 backdrop-blur-sm bg-accent/10 border-b border-accent/20">
+        {/* Left: Logo and Title */}
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <div className="bg-gradient-to-br from-accent to-accent/70 p-3 rounded-xl shadow-lg">
+              <Users className="h-8 w-8 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">إدارة الموارد البشرية</h1>
+              <p className="text-sm text-muted-foreground">إدارة شاملة للموظفين والموارد البشرية</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Actions and User Profile */}
+        <div className="flex items-center gap-4">
+          <Button variant="outline" onClick={() => navigate('/admin')} className="gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            {isArabic ? 'العودة' : 'Back'}
+          </Button>
+
+          <LanguageSwitcher />
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="gap-2 relative">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent/70 flex items-center justify-center">
+                    <User className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="text-sm font-medium">{user?.email || 'المستخدم'}</span>
+                  <ChevronDown className="h-4 w-4 opacity-50" />
+                </div>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem>
+                <User className="ml-2 h-4 w-4" />
+                <span>{isArabic ? 'الملف الشخصي' : 'Profile'}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Settings className="ml-2 h-4 w-4" />
+                <span>{isArabic ? 'الإعدادات' : 'Settings'}</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                <LogOut className="ml-2 h-4 w-4" />
+                <span>{isArabic ? 'تسجيل الخروج' : 'Logout'}</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </header>
 
       {/* Main Content */}
       <main className="relative z-10 flex-1 overflow-x-hidden overflow-y-auto p-8">
