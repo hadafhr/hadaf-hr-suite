@@ -74,8 +74,8 @@ const SocialServices = () => {
       </div>
 
       {/* Main Content */}
-      <div className="p-6 bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300">
-        <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+      <div className="p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-accent animate-fade-in transition-all duration-300">
+        <Card className="border-0 shadow-xl bg-secondary backdrop-blur-sm">
           <CardHeader className="pb-6">
             <div className="flex items-center justify-between">
               <CardTitle className="text-xl font-semibold text-foreground">
@@ -91,8 +91,8 @@ const SocialServices = () => {
           </CardHeader>
           
           <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 p-8">
-              <TabsList className="grid w-full grid-cols-7 mb-8 bg-muted/50 p-1 rounded-xl">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-accent animate-fade-in transition-all duration-300 p-8">
+              <TabsList className="grid w-full grid-cols-7 mb-8 bg-muted p-1 rounded-xl">
                 {tabs.map(tab => {
                 const Icon = tab.icon;
                 return <TabsTrigger key={tab.id} value={tab.id} className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-3 rounded-lg transition-all duration-300 hover:bg-primary/10 data-[state=active]:bg-primary data-[state=active]:text-white">

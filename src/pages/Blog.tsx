@@ -24,15 +24,15 @@ export const Blog = () => {
   });
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden" dir="rtl">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#008C6A]/20 via-transparent to-[#008C6A]/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-transparent to-accent/10"></div>
         <div className="absolute top-0 left-0 w-full h-full opacity-10">
           <div 
             className="w-full h-full bg-repeat animate-pulse"
             style={{
-              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="#008C6A" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
+              backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="currentColor" fill-opacity="0.3"><circle cx="30" cy="30" r="2"/></g></g></svg>')}")`,
               backgroundSize: '60px 60px'
             }}
           ></div>
@@ -40,10 +40,10 @@ export const Blog = () => {
       </div>
       
       {/* Professional Interactive Header */}
-      <header className="relative z-10 bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-xl border-b border-[#008C6A]/30 shadow-2xl shadow-[#008C6A]/20">
+      <header className="relative z-10 bg-card backdrop-blur-xl border-b border-border shadow-2xl">
         {/* Animated background pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#008C6A] via-[#009F87] to-[#00694F] opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/70 to-accent/50 opacity-80"></div>
         </div>
         
         <div className="w-full px-4 sm:px-6 lg:px-8 relative">
@@ -61,16 +61,16 @@ export const Blog = () => {
 
             {/* Center Section - Title & Icon */}
             <div className="flex items-center space-x-4">
-              <div className="relative">
-                <BookOpen className="h-8 w-8 text-[#008C6A] animate-pulse" />
-                <div className="absolute -inset-1 bg-[#008C6A]/20 rounded-full blur animate-ping"></div>
+            <div className="relative">
+                <BookOpen className="h-8 w-8 text-accent animate-pulse" />
+                <div className="absolute -inset-1 bg-accent/20 rounded-full blur animate-ping"></div>
               </div>
               
               <div className="flex flex-col text-center">
-                <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">
+                <h1 className="text-2xl font-bold text-foreground bg-gradient-to-r from-foreground via-muted-foreground to-foreground bg-clip-text text-transparent">
                   مدونة بُعد
                 </h1>
-                <p className="text-sm text-gray-400 animate-fade-in">
+                <p className="text-sm text-muted-foreground animate-fade-in">
                   مقالات احترافية ومتخصصة
                 </p>
               </div>
@@ -79,7 +79,7 @@ export const Blog = () => {
             {/* Right Section - Professional Controls Panel */}
             <div className="flex flex-col items-end space-y-4">
               {/* Status Panel */}
-              <div className="bg-gradient-to-r from-black/40 via-gray-900/60 to-black/40 backdrop-blur-xl rounded-2xl border border-[#008C6A]/30 shadow-xl shadow-[#008C6A]/10 p-4 min-w-[200px]">
+              <div className="bg-card backdrop-blur-xl rounded-2xl border border-border shadow-xl p-4 min-w-[200px]">
                 {/* Status Indicator */}
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">
