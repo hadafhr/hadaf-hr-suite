@@ -510,37 +510,37 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           {/* Enhanced Dashboard Tab */}
           <TabsContent value="dashboard" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Enhanced Performance Overview Chart */}
-              <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+          {/* Enhanced Performance Overview Chart */}
+              <Card className="border border-border shadow-medium bg-card">
                 <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-800">
-                    <LineChart className="h-5 w-5 text-primary" />
+                  <CardTitle className="flex items-center gap-2 text-lg font-bold text-foreground">
+                    <LineChart className="h-5 w-5 text-accent" />
                     تطور المكافآت والنقاط الشهرية
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={rewardsAnalytics}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{
                         fontSize: 12,
-                        fill: '#64748b'
+                        fill: 'hsl(var(--muted-foreground))'
                       }} />
                       <YAxis axisLine={false} tickLine={false} tick={{
                         fontSize: 12,
-                        fill: '#64748b'
+                        fill: 'hsl(var(--muted-foreground))'
                       }} tickFormatter={value => `${value.toLocaleString()}`} />
                       <Tooltip contentStyle={{
-                        backgroundColor: '#white',
-                        border: '1px solid #e2e8f0',
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
                         borderRadius: '8px',
                         boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
                       }} formatter={(value: any, name: any) => [`${value.toLocaleString()} ريال`, name]} />
-                      <Area type="monotone" dataKey="totalRewards" stroke="#009F87" fill="url(#colorTotalRewards)" strokeWidth={2} />
+                      <Area type="monotone" dataKey="totalRewards" stroke="hsl(var(--accent))" fill="url(#colorTotalRewards)" strokeWidth={2} />
                       <defs>
                         <linearGradient id="colorTotalRewards" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#009F87" stopOpacity={0.3} />
-                          <stop offset="95%" stopColor="#009F87" stopOpacity={0.05} />
+                          <stop offset="5%" stopColor="hsl(var(--accent))" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="hsl(var(--accent))" stopOpacity={0.05} />
                         </linearGradient>
                       </defs>
                     </AreaChart>
@@ -549,10 +549,10 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               </Card>
 
               {/* Gamification Leaderboard */}
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-amber-50 to-yellow-100">
+              <Card className="border border-border shadow-medium bg-card">
                 <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-800">
-                    <Trophy className="h-5 w-5 text-yellow-600" />
+                  <CardTitle className="flex items-center gap-2 text-lg font-bold text-foreground">
+                    <Trophy className="h-5 w-5 text-accent" />
                     لوحة الشرف - أعلى الموظفين نقاطاً
                   </CardTitle>
                 </CardHeader>
@@ -582,19 +582,19 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     points: 1950,
                     department: 'المالية',
                     rank: 5
-                  }].map((employee, index) => <div key={index} className="flex items-center gap-3 p-3 bg-white/60 rounded-lg">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${employee.rank === 1 ? 'bg-yellow-500 text-white' : employee.rank === 2 ? 'bg-gray-400 text-white' : employee.rank === 3 ? 'bg-amber-600 text-white' : 'bg-blue-100 text-blue-700'}`}>
+                  }].map((employee, index) => <div key={index} className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${employee.rank === 1 ? 'bg-warning text-foreground' : employee.rank === 2 ? 'bg-muted-foreground text-foreground' : employee.rank === 3 ? 'bg-accent text-foreground' : 'bg-muted text-foreground'}`}>
                         {employee.rank}
                       </div>
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-800">{employee.name}</p>
-                        <p className="text-xs text-gray-600">{employee.department}</p>
+                        <p className="font-semibold text-foreground">{employee.name}</p>
+                        <p className="text-xs text-muted-foreground">{employee.department}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-lg text-primary">{employee.points.toLocaleString()}</p>
-                        <p className="text-xs text-gray-500">نقطة</p>
+                        <p className="font-bold text-lg text-accent">{employee.points.toLocaleString()}</p>
+                        <p className="text-xs text-muted-foreground">نقطة</p>
                       </div>
-                      {employee.rank <= 3 && <Crown className={`h-4 w-4 ${employee.rank === 1 ? 'text-yellow-500' : employee.rank === 2 ? 'text-gray-400' : 'text-amber-600'}`} />}
+                      {employee.rank <= 3 && <Crown className={`h-4 w-4 ${employee.rank === 1 ? 'text-warning' : employee.rank === 2 ? 'text-muted-foreground' : 'text-accent'}`} />}
                     </div>)}
                 </CardContent>
               </Card>
@@ -602,67 +602,67 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
             {/* Enhanced Statistics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-0 shadow-xl">
+              <Card className="bg-success text-foreground border border-border shadow-medium">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-green-100 text-sm">المكافآت المصروفة</p>
+                      <p className="text-muted-foreground text-sm">المكافآت المصروفة</p>
                       <p className="text-2xl font-bold">142</p>
-                      <p className="text-green-200 text-xs mt-1">هذا الشهر</p>
+                      <p className="text-muted-foreground text-xs mt-1">هذا الشهر</p>
                     </div>
-                    <Gift className="h-8 w-8 text-green-200" />
+                    <Gift className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
+              <Card className="bg-card text-foreground border border-border shadow-medium">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-100 text-sm">النقاط الموزعة</p>
+                      <p className="text-muted-foreground text-sm">النقاط الموزعة</p>
                       <p className="text-2xl font-bold">28,450</p>
-                      <p className="text-blue-200 text-xs mt-1">نقطة ولاء</p>
+                      <p className="text-muted-foreground text-xs mt-1">نقطة ولاء</p>
                     </div>
-                    <Coins className="h-8 w-8 text-blue-200" />
+                    <Coins className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-yellow-500 to-amber-600 text-white border-0 shadow-xl">
+              <Card className="bg-warning text-foreground border border-border shadow-medium">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-yellow-100 text-sm">أعلى الموظفين</p>
+                      <p className="text-muted-foreground text-sm">أعلى الموظفين</p>
                       <p className="text-xl font-bold">أحمد العلي</p>
-                      <p className="text-yellow-200 text-xs mt-1">2,850 نقطة</p>
+                      <p className="text-muted-foreground text-xs mt-1">2,850 نقطة</p>
                     </div>
-                    <Medal className="h-8 w-8 text-yellow-200" />
+                    <Medal className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white border-0 shadow-xl">
+              <Card className="bg-card text-foreground border border-border shadow-medium">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-100 text-sm">التكلفة الشهرية</p>
+                      <p className="text-muted-foreground text-sm">التكلفة الشهرية</p>
                       <p className="text-2xl font-bold">185K</p>
-                      <p className="text-purple-200 text-xs mt-1">ريال سعودي</p>
+                      <p className="text-muted-foreground text-xs mt-1">ريال سعودي</p>
                     </div>
-                    <DollarSign className="h-8 w-8 text-purple-200" />
+                    <DollarSign className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-red-500 to-red-600 text-white border-0 shadow-xl">
+              <Card className="bg-destructive text-foreground border border-border shadow-medium">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-red-100 text-sm">المتاجر المتكاملة</p>
+                      <p className="text-muted-foreground text-sm">المتاجر المتكاملة</p>
                       <p className="text-2xl font-bold">8</p>
-                      <p className="text-red-200 text-xs mt-1">متجر خارجي</p>
+                      <p className="text-muted-foreground text-xs mt-1">متجر خارجي</p>
                     </div>
-                    <Smartphone className="h-8 w-8 text-red-200" />
+                    <Smartphone className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
@@ -673,8 +673,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           <TabsContent value="rewards-types" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">أنواع المكافآت والحوافز</h3>
-                <p className="text-gray-600">إدارة شاملة لجميع أنواع المكافآت المالية وغير المالية</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">أنواع المكافآت والحوافز</h3>
+                <p className="text-muted-foreground">إدارة شاملة لجميع أنواع المكافآت المالية وغير المالية</p>
               </div>
               <Button onClick={() => setNewRewardDialog(true)}>
                 <Plus className="h-4 w-4 ml-2" />
@@ -688,56 +688,56 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                 title: 'مكافآت الأداء',
                 description: 'مكافآت مبنية على تقييم الأداء السنوي',
                 icon: <Target className="h-6 w-6" />,
-                color: 'from-blue-500 to-blue-600',
+                color: 'bg-card border-accent',
                 count: 45,
                 amount: '225,000 ريال'
               }, {
                 title: 'مكافآت الانضباط',
                 description: 'مكافآت للحضور والانتظام المثالي',
                 icon: <Clock4 className="h-6 w-6" />,
-                color: 'from-green-500 to-green-600',
+                color: 'bg-success border-success',
                 count: 28,
                 amount: '84,000 ريال'
               }, {
                 title: 'مكافآت المبيعات',
                 description: 'عمولات وحوافز تحقيق أهداف المبيعات',
                 icon: <TrendingUp className="h-6 w-6" />,
-                color: 'from-purple-500 to-purple-600',
+                color: 'bg-card border-accent',
                 count: 32,
                 amount: '160,000 ريال'
               }, {
                 title: 'مكافآت الابتكار',
                 description: 'تقدير الأفكار والحلول الإبداعية',
                 icon: <Lightbulb className="h-6 w-6" />,
-                color: 'from-orange-500 to-orange-600',
+                color: 'bg-warning border-warning',
                 count: 15,
                 amount: '75,000 ريال'
               }, {
                 title: 'المكافآت الفورية',
                 description: 'مكافآت سريعة للإنجازات المميزة',
                 icon: <Zap className="h-6 w-6" />,
-                color: 'from-red-500 to-red-600',
+                color: 'bg-destructive border-destructive',
                 count: 22,
                 amount: '55,000 ريال'
               }, {
                 title: 'الحوافز غير المالية',
                 description: 'شهادات تقدير وقسائم ومزايا أخرى',
                 icon: <Heart className="h-6 w-6" />,
-                color: 'from-pink-500 to-pink-600',
+                color: 'bg-accent border-accent',
                 count: 67,
                 amount: 'غير مالية'
-              }].map((type, index) => <Card key={index} className={`border-0 shadow-lg bg-gradient-to-br ${type.color} text-white cursor-pointer hover:shadow-xl transition-shadow`}>
+              }].map((type, index) => <Card key={index} className={`border shadow-medium ${type.color} text-foreground cursor-pointer hover:shadow-strong transition-shadow`}>
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+                      <div className="p-3 bg-muted rounded-xl">
                         {type.icon}
                       </div>
-                      <Badge className="bg-white/20 text-white border-white/30">
+                      <Badge className="bg-muted text-foreground border-border">
                         {type.count} مكافأة
                       </Badge>
                     </div>
                     <h4 className="text-xl font-bold mb-2">{type.title}</h4>
-                    <p className="text-white/90 text-sm mb-4">{type.description}</p>
+                    <p className="text-muted-foreground text-sm mb-4">{type.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-lg font-semibold">{type.amount}</span>
                       <ChevronRight className="h-5 w-5" />
@@ -751,8 +751,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           <TabsContent value="loyalty-points" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">نظام نقاط الولاء (Gamification)</h3>
-                <p className="text-gray-600">نظام تفاعلي لتحفيز الموظفين من خلال النقاط والإنجازات</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">نظام نقاط الولاء (Gamification)</h3>
+                <p className="text-muted-foreground">نظام تفاعلي لتحفيز الموظفين من خلال النقاط والإنجازات</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline">
@@ -768,48 +768,48 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
             {/* Points Overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-yellow-400 to-orange-500 text-white">
+              <Card className="bg-warning text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Coins className="h-8 w-8" />
+                    <Coins className="h-8 w-8 text-accent" />
                     <div>
-                      <p className="text-yellow-100 text-sm">إجمالي النقاط</p>
+                      <p className="text-muted-foreground text-sm">إجمالي النقاط</p>
                       <p className="text-2xl font-bold">156,420</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-green-400 to-green-600 text-white">
+              <Card className="bg-success text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Users2 className="h-8 w-8" />
+                    <Users2 className="h-8 w-8 text-accent" />
                     <div>
-                      <p className="text-green-100 text-sm">الموظفون النشطون</p>
+                      <p className="text-muted-foreground text-sm">الموظفون النشطون</p>
                       <p className="text-2xl font-bold">248</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              <Card className="bg-card text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Trophy className="h-8 w-8" />
+                    <Trophy className="h-8 w-8 text-accent" />
                     <div>
-                      <p className="text-blue-100 text-sm">متوسط النقاط</p>
+                      <p className="text-muted-foreground text-sm">متوسط النقاط</p>
                       <p className="text-2xl font-bold">630</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              <Card className="bg-accent text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Flame className="h-8 w-8" />
+                    <Flame className="h-8 w-8 text-warning" />
                     <div>
-                      <p className="text-purple-100 text-sm">أعلى المحققين</p>
+                      <p className="text-muted-foreground text-sm">أعلى المحققين</p>
                       <p className="text-xl font-bold">أحمد العلي</p>
                     </div>
                   </div>
@@ -822,7 +822,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Target className="h-5 w-5 text-primary" />
+                    <Target className="h-5 w-5 text-accent" />
                     قواعد كسب النقاط
                   </CardTitle>
                 </CardHeader>
@@ -830,33 +830,33 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   {[{
                     action: 'الحضور في الوقت المحدد',
                     points: 10,
-                    icon: <Clock4 className="h-4 w-4 text-green-500" />
+                    icon: <Clock4 className="h-4 w-4 text-success" />
                   }, {
                     action: 'تحقيق KPI شهري',
                     points: 100,
-                    icon: <Target className="h-4 w-4 text-blue-500" />
+                    icon: <Target className="h-4 w-4 text-accent" />
                   }, {
                     action: 'إنجاز مشروع قبل الموعد',
                     points: 200,
-                    icon: <CheckCircle className="h-4 w-4 text-purple-500" />
+                    icon: <CheckCircle className="h-4 w-4 text-accent" />
                   }, {
                     action: 'المشاركة بأفكار تطويرية',
                     points: 50,
-                    icon: <Lightbulb className="h-4 w-4 text-orange-500" />
+                    icon: <Lightbulb className="h-4 w-4 text-warning" />
                   }, {
                     action: 'مساعدة الزملاء',
                     points: 25,
-                    icon: <Heart className="h-4 w-4 text-pink-500" />
+                    icon: <Heart className="h-4 w-4 text-accent" />
                   }, {
                     action: 'التدريب والتطوير',
                     points: 75,
-                    icon: <BookOpen className="h-4 w-4 text-indigo-500" />
-                  }].map((rule, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    icon: <BookOpen className="h-4 w-4 text-accent" />
+                  }].map((rule, index) => <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                       <div className="flex items-center gap-3">
                         {rule.icon}
-                        <span className="font-medium">{rule.action}</span>
+                        <span className="font-medium text-foreground">{rule.action}</span>
                       </div>
-                      <Badge className="bg-primary/10 text-primary border-primary/20">
+                      <Badge className="bg-accent/10 text-accent border-accent/20">
                         +{rule.points} نقطة
                       </Badge>
                     </div>)}
@@ -867,7 +867,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Building className="h-5 w-5 text-primary" />
+                    <Building className="h-5 w-5 text-accent" />
                     منافسة الأقسام
                   </CardTitle>
                 </CardHeader>
@@ -902,17 +902,17 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     employees: 12,
                     avgPoints: 229,
                     rank: 5
-                  }].map((dept, index) => <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${dept.rank === 1 ? 'bg-yellow-500 text-white' : dept.rank === 2 ? 'bg-gray-400 text-white' : dept.rank === 3 ? 'bg-amber-600 text-white' : 'bg-blue-100 text-blue-700'}`}>
+                  }].map((dept, index) => <div key={index} className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${dept.rank === 1 ? 'bg-warning text-foreground' : dept.rank === 2 ? 'bg-muted-foreground text-foreground' : dept.rank === 3 ? 'bg-accent text-foreground' : 'bg-muted text-foreground'}`}>
                         {dept.rank}
                       </div>
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-800">{dept.department}</p>
-                        <p className="text-xs text-gray-600">{dept.employees} موظف • متوسط {dept.avgPoints} نقطة</p>
+                        <p className="font-semibold text-foreground">{dept.department}</p>
+                        <p className="text-xs text-muted-foreground">{dept.employees} موظف • متوسط {dept.avgPoints} نقطة</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-primary">{dept.points.toLocaleString()}</p>
-                        <p className="text-xs text-gray-500">نقطة</p>
+                        <p className="font-bold text-accent">{dept.points.toLocaleString()}</p>
+                        <p className="text-xs text-muted-foreground">نقطة</p>
                       </div>
                     </div>)}
                 </CardContent>
@@ -924,8 +924,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           <TabsContent value="points-store" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">متجر النقاط والتكامل مع المتاجر الخارجية</h3>
-                <p className="text-gray-600">استبدال النقاط بمكافآت داخلية أو قسائم من متاجر خارجية</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">متجر النقاط والتكامل مع المتاجر الخارجية</h3>
+                <p className="text-muted-foreground">استبدال النقاط بمكافآت داخلية أو قسائم من متاجر خارجية</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline">
@@ -940,10 +940,10 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
             </div>
 
             {/* External Stores Integration */}
-            <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 border-blue-200">
+            <Card className="bg-card border border-border">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-800">
-                  <Globe className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <Globe className="h-5 w-5 text-accent" />
                   المتاجر الخارجية المتكاملة
                 </CardTitle>
               </CardHeader>
@@ -989,13 +989,13 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     logo: '👕',
                     status: 'active',
                     conversion: '1 نقطة = 0.11 ريال'
-                  }].map((store, index) => <Card key={index} className={`text-center p-4 ${store.status === 'active' ? 'bg-white border-green-200' : 'bg-gray-50 border-gray-200'} cursor-pointer hover:shadow-md transition-shadow`}>
+                  }].map((store, index) => <Card key={index} className={`text-center p-4 ${store.status === 'active' ? 'bg-secondary border-success' : 'bg-muted border-border'} cursor-pointer hover:shadow-md transition-shadow`}>
                       <div className="text-3xl mb-2">{store.logo}</div>
-                      <h4 className="font-semibold text-sm mb-1">{store.name}</h4>
+                      <h4 className="font-semibold text-sm mb-1 text-foreground">{store.name}</h4>
                       <Badge variant={store.status === 'active' ? 'default' : 'secondary'} className="text-xs mb-2">
                         {store.status === 'active' ? 'نشط' : 'قريباً'}
                       </Badge>
-                      <p className="text-xs text-gray-600">{store.conversion}</p>
+                      <p className="text-xs text-muted-foreground">{store.conversion}</p>
                     </Card>)}
                 </div>
               </CardContent>
@@ -1007,7 +1007,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Building className="h-5 w-5 text-green-600" />
+                    <Building className="h-5 w-5 text-success" />
                     المكافآت الداخلية
                   </CardTitle>
                 </CardHeader>
@@ -1015,29 +1015,29 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                   {[{
                     item: 'إجازة إضافية يوم واحد',
                     points: 500,
-                    icon: <CalendarDays className="h-4 w-4 text-blue-500" />
+                    icon: <CalendarDays className="h-4 w-4 text-accent" />
                   }, {
                     item: 'قسيمة طعام 50 ريال',
                     points: 250,
-                    icon: <Gift className="h-4 w-4 text-orange-500" />
+                    icon: <Gift className="h-4 w-4 text-warning" />
                   }, {
                     item: 'بطاقة شكر رسمية',
                     points: 100,
-                    icon: <Star className="h-4 w-4 text-yellow-500" />
+                    icon: <Star className="h-4 w-4 text-warning" />
                   }, {
                     item: 'موقف سيارة مميز لشهر',
                     points: 300,
-                    icon: <MapPin className="h-4 w-4 text-purple-500" />
+                    icon: <MapPin className="h-4 w-4 text-accent" />
                   }, {
                     item: 'تدريب مجاني',
                     points: 800,
-                    icon: <BookOpen className="h-4 w-4 text-green-500" />
-                  }].map((reward, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    icon: <BookOpen className="h-4 w-4 text-success" />
+                  }].map((reward, index) => <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-card transition-colors cursor-pointer">
                       <div className="flex items-center gap-3">
                         {reward.icon}
-                        <span className="font-medium text-sm">{reward.item}</span>
+                        <span className="font-medium text-sm text-foreground">{reward.item}</span>
                       </div>
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                      <Badge className="bg-success/10 text-success border-success/20">
                         {reward.points} نقطة
                       </Badge>
                     </div>)}
@@ -1073,12 +1073,12 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     item: 'ملابس رياضية',
                     points: 600,
                     category: 'رياضة وترفيه'
-                  }].map((product, index) => <div key={index} className="flex items-center justify-between p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors cursor-pointer">
+                  }].map((product, index) => <div key={index} className="flex items-center justify-between p-3 bg-warning/10 rounded-lg hover:bg-warning/20 transition-colors cursor-pointer">
                       <div>
-                        <p className="font-medium text-sm">{product.item}</p>
-                        <p className="text-xs text-gray-600">{product.category}</p>
+                        <p className="font-medium text-sm text-foreground">{product.item}</p>
+                        <p className="text-xs text-muted-foreground">{product.category}</p>
                       </div>
-                      <Badge className="bg-orange-100 text-orange-800 border-orange-200">
+                      <Badge className="bg-warning/20 text-warning border-warning/30">
                         {product.points} نقطة
                       </Badge>
                     </div>)}
@@ -1089,7 +1089,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-purple-600" />
+                    <TrendingUp className="h-5 w-5 text-accent" />
                     الأكثر استبدالاً
                   </CardTitle>
                 </CardHeader>
@@ -1114,12 +1114,12 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     item: 'منتجات Amazon',
                     exchanges: 45,
                     trend: '+5%'
-                  }].map((popular, index) => <div key={index} className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                  }].map((popular, index) => <div key={index} className="flex items-center justify-between p-3 bg-accent/10 rounded-lg">
                       <div>
-                        <p className="font-medium text-sm">{popular.item}</p>
-                        <p className="text-xs text-gray-600">{popular.exchanges} استبدال</p>
+                        <p className="font-medium text-sm text-foreground">{popular.item}</p>
+                        <p className="text-xs text-muted-foreground">{popular.exchanges} استبدال</p>
                       </div>
-                      <Badge className="bg-purple-100 text-purple-800 border-purple-200">
+                      <Badge className="bg-accent/20 text-accent border-accent/30">
                         {popular.trend}
                       </Badge>
                     </div>)}
@@ -1132,8 +1132,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           <TabsContent value="programs" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">إدارة برامج المكافآت والحوافز</h3>
-                <p className="text-gray-600">إنشاء وإدارة البرامج التحفيزية مع تحديد الميزانية والمعايير</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">إدارة برامج المكافآت والحوافز</h3>
+                <p className="text-muted-foreground">إنشاء وإدارة البرامج التحفيزية مع تحديد الميزانية والمعايير</p>
               </div>
               <Button>
                 <Plus className="h-4 w-4 ml-2" />
@@ -1143,48 +1143,48 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
             {/* Programs Overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-emerald-500 to-green-600 text-white">
+              <Card className="bg-success text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Layers className="h-8 w-8" />
+                    <Layers className="h-8 w-8 text-accent" />
                     <div>
-                      <p className="text-emerald-100 text-sm">البرامج النشطة</p>
+                      <p className="text-muted-foreground text-sm">البرامج النشطة</p>
                       <p className="text-2xl font-bold">12</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+              <Card className="bg-card text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <DollarSign className="h-8 w-8" />
+                    <DollarSign className="h-8 w-8 text-accent" />
                     <div>
-                      <p className="text-blue-100 text-sm">إجمالي الميزانية</p>
+                      <p className="text-muted-foreground text-sm">إجمالي الميزانية</p>
                       <p className="text-2xl font-bold">2.5M</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-orange-500 to-red-500 text-white">
+              <Card className="bg-warning text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Activity className="h-8 w-8" />
+                    <Activity className="h-8 w-8 text-accent" />
                     <div>
-                      <p className="text-orange-100 text-sm">المصروف الحالي</p>
+                      <p className="text-muted-foreground text-sm">المصروف الحالي</p>
                       <p className="text-2xl font-bold">1.2M</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+              <Card className="bg-accent text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
-                    <Users className="h-8 w-8" />
+                    <Users className="h-8 w-8 text-warning" />
                     <div>
-                      <p className="text-purple-100 text-sm">المستفيدون</p>
+                      <p className="text-muted-foreground text-sm">المستفيدون</p>
                       <p className="text-2xl font-bold">248</p>
                     </div>
                   </div>
@@ -1424,7 +1424,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                         <TableCell className="text-center">
                           <Badge variant="outline">{disbursement.type}</Badge>
                         </TableCell>
-                        <TableCell className="text-center font-semibold text-green-600">
+                        <TableCell className="text-center font-semibold text-success">
                           {disbursement.amount.toLocaleString()} ريال
                         </TableCell>
                         <TableCell className="text-center">{disbursement.date}</TableCell>
@@ -1432,7 +1432,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                           <Badge variant={disbursement.status === 'linked' ? 'default' : disbursement.status === 'paid' ? 'secondary' : disbursement.status === 'pending' ? 'outline' : 'destructive'}>
                             {disbursement.status === 'linked' ? 'مربوط بالراتب' : disbursement.status === 'paid' ? 'تم الدفع' : disbursement.status === 'pending' ? 'معلق' : 'قيد المراجعة'}
                           </Badge>
-                          {disbursement.payrollPeriod && <p className="text-xs text-gray-500 mt-1">{disbursement.payrollPeriod}</p>}
+                          {disbursement.payrollPeriod && <p className="text-xs text-muted-foreground mt-1">{disbursement.payrollPeriod}</p>}
                         </TableCell>
                         <TableCell className="text-center">
                           <div className="flex gap-1 justify-center">
@@ -1456,8 +1456,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           <TabsContent value="analytics" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">التقارير والتحليلات الذكية</h3>
-                <p className="text-gray-600">تحليلات شاملة لأداء نظام المكافآت والحوافز</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">التقارير والتحليلات الذكية</h3>
+                <p className="text-muted-foreground">تحليلات شاملة لأداء نظام المكافآت والحوافز</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline">
@@ -1473,54 +1473,54 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
             {/* Analytics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-emerald-500 to-green-600 text-white">
+              <Card className="bg-success text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-green-100 text-sm">إجمالي المكافآت</p>
+                      <p className="text-muted-foreground text-sm">إجمالي المكافآت</p>
                       <p className="text-2xl font-bold">2,450,000</p>
-                      <p className="text-green-200 text-xs">ريال سعودي</p>
+                      <p className="text-muted-foreground text-xs">ريال سعودي</p>
                     </div>
-                    <Gift className="h-8 w-8 text-green-200" />
+                    <Gift className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+              <Card className="bg-card text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-100 text-sm">النقاط الموزعة</p>
+                      <p className="text-muted-foreground text-sm">النقاط الموزعة</p>
                       <p className="text-2xl font-bold">156,420</p>
-                      <p className="text-blue-200 text-xs">نقطة ولاء</p>
+                      <p className="text-muted-foreground text-xs">نقطة ولاء</p>
                     </div>
-                    <Coins className="h-8 w-8 text-blue-200" />
+                    <Coins className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+              <Card className="bg-accent text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-100 text-sm">أكثر المتاجر</p>
+                      <p className="text-muted-foreground text-sm">أكثر المتاجر</p>
                       <p className="text-xl font-bold">Amazon</p>
-                      <p className="text-purple-200 text-xs">45% من الاستبدال</p>
+                      <p className="text-muted-foreground text-xs">45% من الاستبدال</p>
                     </div>
-                    <Smartphone className="h-8 w-8 text-purple-200" />
+                    <Smartphone className="h-8 w-8 text-warning" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-orange-500 to-red-500 text-white">
+              <Card className="bg-warning text-foreground border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-orange-100 text-sm">تأثير على الولاء</p>
+                      <p className="text-muted-foreground text-sm">تأثير على الولاء</p>
                       <p className="text-2xl font-bold">+32%</p>
-                      <p className="text-orange-200 text-xs">تحسن الأداء</p>
+                      <p className="text-muted-foreground text-xs">تحسن الأداء</p>
                     </div>
-                    <Heart className="h-8 w-8 text-orange-200" />
+                    <Heart className="h-8 w-8 text-accent" />
                   </div>
                 </CardContent>
               </Card>
@@ -1538,23 +1538,23 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       <Pie data={[{
                         name: 'مكافآت الأداء',
                         value: 45,
-                        fill: '#10B981'
+                        fill: 'hsl(var(--success))'
                       }, {
                         name: 'مكافآت المبيعات',
                         value: 25,
-                        fill: '#3B82F6'
+                        fill: 'hsl(var(--accent))'
                       }, {
                         name: 'مكافآت الابتكار',
                         value: 15,
-                        fill: '#8B5CF6'
+                        fill: 'hsl(var(--card))'
                       }, {
                         name: 'مكافآت الحضور',
                         value: 10,
-                        fill: '#F59E0B'
+                        fill: 'hsl(var(--warning))'
                       }, {
                         name: 'أخرى',
                         value: 5,
-                        fill: '#EF4444'
+                        fill: 'hsl(var(--destructive))'
                       }]} cx="50%" cy="50%" outerRadius={100} dataKey="value" label={({
                         name,
                         percent
@@ -1593,14 +1593,14 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                       count: '38 مكافأة'
                     }].map((lang, index) => <div key={index} className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="font-medium">{lang.language}</span>
-                          <div className="text-right">
-                            <span className="text-sm font-semibold">{lang.percentage}%</span>
-                            <p className="text-xs text-gray-500">{lang.count}</p>
+                            <span className="font-medium text-foreground">{lang.language}</span>
+                            <div className="text-right">
+                              <span className="text-sm font-semibold text-foreground">{lang.percentage}%</span>
+                              <p className="text-xs text-muted-foreground">{lang.count}</p>
+                            </div>
                           </div>
-                        </div>
-                        <Progress value={lang.percentage} className="h-2" />
-                      </div>)}
+                          <Progress value={lang.percentage} className="h-2" />
+                        </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -1663,11 +1663,11 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                         <TableCell className="font-medium">{dept.department}</TableCell>
                         <TableCell className="text-center">{dept.employees}</TableCell>
                         <TableCell className="text-center">
-                          <Badge className="bg-green-100 text-green-800">
+                          <Badge className="bg-success/10 text-success border-success/20">
                             {dept.rewards}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-center font-semibold text-primary">
+                        <TableCell className="text-center font-semibold text-accent">
                           {dept.points.toLocaleString()}
                         </TableCell>
                         <TableCell className="text-center">
@@ -1677,7 +1677,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                           </div>
                         </TableCell>
                         <TableCell className="text-center">
-                          <Badge className="bg-blue-100 text-blue-800">
+                          <Badge className="bg-accent/10 text-accent border-accent/20">
                             {dept.improvement}
                           </Badge>
                         </TableCell>
@@ -1692,8 +1692,8 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
           <TabsContent value="settings" className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">إعدادات النظام والتكامل</h3>
-                <p className="text-gray-600">إدارة إعدادات النظام والتكامل مع الأنظمة الأخرى</p>
+                <h3 className="text-2xl font-bold text-foreground mb-2">إعدادات النظام والتكامل</h3>
+                <p className="text-muted-foreground">إدارة إعدادات النظام والتكامل مع الأنظمة الأخرى</p>
               </div>
               <Button>
                 <Save className="h-4 w-4 ml-2" />
@@ -1706,7 +1706,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Settings className="h-5 w-5 text-primary" />
+                    <Settings className="h-5 w-5 text-accent" />
                     الإعدادات العامة
                   </CardTitle>
                 </CardHeader>
@@ -1758,41 +1758,41 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Layers className="h-5 w-5 text-primary" />
+                    <Layers className="h-5 w-5 text-accent" />
                     إعدادات التكامل
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-success/10 rounded-lg">
                     <div>
-                      <p className="font-medium">نظام تقييم الأداء</p>
-                      <p className="text-sm text-gray-600">ربط تلقائي مع النتائج</p>
+                      <p className="font-medium text-foreground">نظام تقييم الأداء</p>
+                      <p className="text-sm text-muted-foreground">ربط تلقائي مع النتائج</p>
                     </div>
-                    <Badge className="bg-green-100 text-green-800">متصل</Badge>
+                    <Badge className="bg-success/20 text-success border-success/30">متصل</Badge>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-success/10 rounded-lg">
                     <div>
-                      <p className="font-medium">نظام الحضور والانصراف</p>
-                      <p className="text-sm text-gray-600">نقاط للمواظبة</p>
+                      <p className="font-medium text-foreground">نظام الحضور والانصراف</p>
+                      <p className="text-sm text-muted-foreground">نقاط للمواظبة</p>
                     </div>
-                    <Badge className="bg-green-100 text-green-800">متصل</Badge>
+                    <Badge className="bg-success/20 text-success border-success/30">متصل</Badge>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-success/10 rounded-lg">
                     <div>
-                      <p className="font-medium">نظام الرواتب</p>
-                      <p className="text-sm text-gray-600">إضافة مباشرة للكشف</p>
+                      <p className="font-medium text-foreground">نظام الرواتب</p>
+                      <p className="text-sm text-muted-foreground">إضافة مباشرة للكشف</p>
                     </div>
-                    <Badge className="bg-green-100 text-green-800">متصل</Badge>
+                    <Badge className="bg-success/20 text-success border-success/30">متصل</Badge>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-warning/10 rounded-lg">
                     <div>
-                      <p className="font-medium">التواصل الداخلي</p>
-                      <p className="text-sm text-gray-600">إشعارات الحوافز</p>
+                      <p className="font-medium text-foreground">التواصل الداخلي</p>
+                      <p className="text-sm text-muted-foreground">إشعارات الحوافز</p>
                     </div>
-                    <Badge className="bg-yellow-100 text-yellow-800">قيد الإعداد</Badge>
+                    <Badge className="bg-warning/20 text-warning border-warning/30">قيد الإعداد</Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -1801,7 +1801,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Brain className="h-5 w-5 text-primary" />
+                    <Brain className="h-5 w-5 text-accent" />
                     إعدادات الذكاء الاصطناعي
                   </CardTitle>
                 </CardHeader>
@@ -1822,10 +1822,10 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
                   <div className="space-y-2">
                     <Label>عتبة الثقة للتوصيات</Label>
-                    <div className="px-3 py-2 bg-gray-50 rounded">
+                    <div className="px-3 py-2 bg-muted rounded">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm">85%</span>
-                        <span className="text-sm text-gray-500">دقة عالية</span>
+                        <span className="text-sm text-foreground">85%</span>
+                        <span className="text-sm text-muted-foreground">دقة عالية</span>
                       </div>
                       <Progress value={85} className="h-2" />
                     </div>
@@ -1851,7 +1851,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Globe className="h-5 w-5 text-primary" />
+                    <Globe className="h-5 w-5 text-accent" />
                     APIs المتاجر الخارجية
                   </CardTitle>
                 </CardHeader>
@@ -1872,10 +1872,10 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
                     store: 'STC Pay',
                     status: 'error',
                     lastSync: '2024-01-14 16:20'
-                  }].map((api, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  }].map((api, index) => <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                       <div>
-                        <p className="font-medium">{api.store}</p>
-                        <p className="text-sm text-gray-600">آخر مزامنة: {api.lastSync}</p>
+                        <p className="font-medium text-foreground">{api.store}</p>
+                        <p className="text-sm text-muted-foreground">آخر مزامنة: {api.lastSync}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <Badge variant={api.status === 'connected' ? 'default' : 'destructive'}>
