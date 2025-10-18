@@ -219,22 +219,22 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
     name: 'الأداء العام',
     value: 88,
     target: 85,
-    color: '#009F87'
+    color: 'hsl(var(--accent))'
   }, {
     name: 'الحضور والانتظام',
     value: 92,
     target: 90,
-    color: '#1e40af'
+    color: 'hsl(var(--foreground))'
   }, {
     name: 'إنجاز المشاريع',
     value: 85,
     target: 80,
-    color: '#f59e0b'
+    color: 'hsl(var(--muted-foreground))'
   }, {
     name: 'السلوك المهني',
     value: 90,
     target: 85,
-    color: '#10b981'
+    color: 'hsl(var(--primary-glow))'
   }];
   const departmentRewards = [{
     department: 'تقنية المعلومات',
@@ -267,7 +267,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
     avgReward: 15000,
     efficiency: 87
   }];
-  const BOUD_COLORS = ['#009F87', '#1e40af', '#f59e0b', '#10b981', '#8b5cf6'];
+  const BOUD_COLORS = ['hsl(var(--accent))', 'hsl(var(--foreground))', 'hsl(var(--muted-foreground))', 'hsl(var(--primary-glow))', 'hsl(var(--secondary))'];
 
   // AI Analysis function
   const runAIAnalysis = async (employeeId: string, type: string) => {
@@ -312,15 +312,15 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
       case 'approved':
-        return 'bg-green-100 text-green-800 border-green-200';
+        return 'bg-success/10 text-success border-success/20';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return 'bg-warning/10 text-warning border-warning/20';
       case 'paid':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-accent/10 text-accent border-accent/20';
       case 'rejected':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-destructive/10 text-destructive border-destructive/20';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
   const getStatusText = (status: string) => {
@@ -351,13 +351,13 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'high':
-        return 'text-red-600 bg-red-50 border-red-200';
+        return 'text-destructive bg-destructive/10 border-destructive/20';
       case 'medium':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+        return 'text-warning bg-warning/10 border-warning/20';
       case 'low':
-        return 'text-green-600 bg-green-50 border-green-200';
+        return 'text-success bg-success/10 border-success/20';
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+        return 'text-muted-foreground bg-muted border-border';
     }
   };
   return <div className="min-h-screen p-6 bg-background text-foreground" dir="rtl">
@@ -379,90 +379,90 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
         {/* AI-Powered Analytics Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
           {/* Enhanced Metrics Cards with AI Insights */}
-          <Card className="bg-gradient-to-br from-primary to-primary-glow text-white shadow-xl border-0">
+          <Card className="bg-gradient-primary text-primary-foreground shadow-glow border-0">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">المكافآت الذكية</p>
+                  <p className="text-muted-foreground text-sm mb-1">المكافآت الذكية</p>
                   <p className="text-3xl font-bold">{smartRewards.length}</p>
-                  <p className="text-green-200 text-xs mt-1">
+                  <p className="text-accent text-xs mt-1">
                     <TrendingUp className="h-3 w-3 inline ml-1" />
                     +18% بالذكاء الاصطناعي
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
+                <div className="p-3 bg-accent/20 rounded-full">
                   <Brain className="h-8 w-8" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-xl border-0">
+          <Card className="bg-card text-card-foreground shadow-medium border border-border">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">توصيات AI</p>
+                  <p className="text-muted-foreground text-sm mb-1">توصيات AI</p>
                   <p className="text-3xl font-bold">{aiRecommendations.length}</p>
-                  <p className="text-blue-200 text-xs mt-1">
+                  <p className="text-accent text-xs mt-1">
                     <Lightbulb className="h-3 w-3 inline ml-1" />
                     جاهزة للمراجعة
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
+                <div className="p-3 bg-accent/20 rounded-full">
                   <Sparkles className="h-8 w-8" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-purple-600 to-purple-700 text-white shadow-xl border-0">
+          <Card className="bg-card text-card-foreground shadow-medium border border-border">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">دقة النظام</p>
+                  <p className="text-muted-foreground text-sm mb-1">دقة النظام</p>
                   <p className="text-3xl font-bold">94%</p>
-                  <p className="text-purple-200 text-xs mt-1">
+                  <p className="text-accent text-xs mt-1">
                     <Target className="h-3 w-3 inline ml-1" />
                     معدل الدقة
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
+                <div className="p-3 bg-accent/20 rounded-full">
                   <Gauge className="h-8 w-8" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-xl border-0">
+          <Card className="bg-card text-card-foreground shadow-medium border border-border">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">الأداء العام</p>
+                  <p className="text-muted-foreground text-sm mb-1">الأداء العام</p>
                   <p className="text-3xl font-bold">88%</p>
-                  <p className="text-orange-200 text-xs mt-1">
+                  <p className="text-accent text-xs mt-1">
                     <BarChart3 className="h-3 w-3 inline ml-1" />
                     متوسط الفريق
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
+                <div className="p-3 bg-accent/20 rounded-full">
                   <Users className="h-8 w-8" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white shadow-xl border-0">
+          <Card className="bg-card text-card-foreground shadow-medium border border-border">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/80 text-sm mb-1">التوفير بـ AI</p>
+                  <p className="text-muted-foreground text-sm mb-1">التوفير بـ AI</p>
                   <p className="text-3xl font-bold">32%</p>
-                  <p className="text-green-200 text-xs mt-1">
+                  <p className="text-accent text-xs mt-1">
                     <Shield className="h-3 w-3 inline ml-1" />
                     كفاءة التوزيع
                   </p>
                 </div>
-                <div className="p-3 bg-white/20 rounded-full">
+                <div className="p-3 bg-accent/20 rounded-full">
                   <Activity className="h-8 w-8" />
                 </div>
               </div>
@@ -472,7 +472,7 @@ export const ComprehensiveRewardsIncentives: React.FC<ComprehensiveRewardsIncent
 
         {/* Enhanced Main Tabs Navigation */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 mb-8 h-12 bg-white/50 backdrop-blur-sm border shadow-sm">
+          <TabsList className="grid w-full grid-cols-8 mb-8 h-12 bg-card backdrop-blur-sm border border-border shadow-sm">
             <TabsTrigger value="dashboard" className="flex items-center gap-2 text-sm font-medium">
               <BarChart3 className="h-4 w-4" />
               لوحة القيادة
