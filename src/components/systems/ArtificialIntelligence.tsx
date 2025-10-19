@@ -104,50 +104,50 @@ const ArtificialIntelligence = ({
   const aiMetrics = [{
     name: 'Smart Predictions',
     value: 356,
-    color: 'hsl(var(--primary))'
+    color: '#ffffff'
   }, {
     name: 'Generated Insights',
     value: 267,
-    color: 'hsl(var(--chart-2))'
+    color: '#b1a086'
   }, {
     name: 'Active Recommendations',
     value: 189,
-    color: 'hsl(var(--chart-3))'
+    color: '#e8e4e0'
   }, {
     name: 'Trained Models',
     value: 45,
-    color: 'hsl(var(--chart-4))'
+    color: '#cfcbcb'
   }];
   const aiFeatures = [{
     icon: Brain,
     label: isRTL ? 'النماذج الذكية' : 'Smart Models',
     count: 8,
-    color: 'bg-gradient-to-r from-blue-500 to-purple-600'
+    color: 'bg-[#1a1a1a] border-2 border-[#cfcbcb]'
   }, {
     icon: Bot,
     label: isRTL ? 'المساعد الذكي' : 'AI Assistant',
     count: 5,
-    color: 'bg-gradient-to-r from-green-500 to-teal-600'
+    color: 'bg-[#1a1a1a] border-2 border-[#cfcbcb]'
   }, {
     icon: BarChart3,
     label: isRTL ? 'التحليلات المتقدمة' : 'Advanced Analytics',
     count: 12,
-    color: 'bg-gradient-to-r from-orange-500 to-red-600'
+    color: 'bg-[#1a1a1a] border-2 border-[#cfcbcb]'
   }, {
     icon: Lightbulb,
     label: isRTL ? 'الرؤى الذكية' : 'Smart Insights',
     count: 267,
-    color: 'bg-gradient-to-r from-yellow-500 to-orange-600'
+    color: 'bg-[#1a1a1a] border-2 border-[#cfcbcb]'
   }, {
     icon: TrendingUp,
     label: isRTL ? 'التنبؤ بالاتجاهات' : 'Trend Prediction',
     count: 15,
-    color: 'bg-gradient-to-r from-indigo-500 to-blue-600'
+    color: 'bg-[#1a1a1a] border-2 border-[#cfcbcb]'
   }, {
     icon: Zap,
     label: isRTL ? 'الأتمتة الذكية' : 'Smart Automation',
     count: 23,
-    color: 'bg-gradient-to-r from-purple-500 to-pink-600'
+    color: 'bg-[#1a1a1a] border-2 border-[#cfcbcb]'
   }];
   return <div className={`min-h-screen bg-background ${isRTL ? 'font-cairo' : 'font-inter'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto p-6 bg-card backdrop-blur-xl rounded-3xl shadow-2xl border border-border hover:border-accent animate-fade-in transition-all duration-300">
@@ -170,8 +170,8 @@ const ArtificialIntelligence = ({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Main Performance Chart */}
           <div className="lg:col-span-2">
-            <Card className="bg-gradient-to-br from-white to-blue-50 shadow-xl border-0 overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+            <Card className="bg-[#1a1a1a] shadow-xl border border-[#cfcbcb] overflow-hidden">
+              <CardHeader className="bg-[#000000] text-[#ffffff] border-b border-[#cfcbcb]">
                 <CardTitle className="flex items-center gap-3">
                   <Activity className="h-6 w-6" />
                   {isRTL ? 'أداء الذكاء الاصطناعي المباشر' : 'Live AI Performance'}
@@ -182,25 +182,26 @@ const ArtificialIntelligence = ({
                   <AreaChart data={aiPerformanceData}>
                     <defs>
                       <linearGradient id="colorPredictions" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1} />
+                        <stop offset="5%" stopColor="#ffffff" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#ffffff" stopOpacity={0.1} />
                       </linearGradient>
                       <linearGradient id="colorInsights" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="hsl(var(--chart-2))" stopOpacity={0.1} />
+                        <stop offset="5%" stopColor="#b1a086" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#b1a086" stopOpacity={0.1} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                    <XAxis dataKey="month" stroke="#64748b" />
-                    <YAxis stroke="#64748b" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#cfcbcb" />
+                    <XAxis dataKey="month" stroke="#e8e4e0" />
+                    <YAxis stroke="#e8e4e0" />
                     <Tooltip contentStyle={{
-                    backgroundColor: 'white',
-                    border: '1px solid #e2e8f0',
+                    backgroundColor: '#1a1a1a',
+                    border: '1px solid #cfcbcb',
                     borderRadius: '12px',
-                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)',
+                    color: '#ffffff'
                   }} />
-                    <Area type="monotone" dataKey="predictions" stroke="hsl(var(--primary))" fill="url(#colorPredictions)" strokeWidth={3} />
-                    <Area type="monotone" dataKey="insights" stroke="hsl(var(--chart-2))" fill="url(#colorInsights)" strokeWidth={3} />
+                    <Area type="monotone" dataKey="predictions" stroke="#ffffff" fill="url(#colorPredictions)" strokeWidth={3} />
+                    <Area type="monotone" dataKey="insights" stroke="#b1a086" fill="url(#colorInsights)" strokeWidth={3} />
                   </AreaChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -208,8 +209,8 @@ const ArtificialIntelligence = ({
           </div>
 
           {/* AI Metrics Pie Chart */}
-          <Card className="bg-gradient-to-br from-white to-indigo-50 shadow-xl border-0">
-            <CardHeader className="bg-gray-900/60 backdrop-blur-xl rounded-3xl shadow-2xl shadow-[#008C6A]/10 border border-[#008C6A]/30 hover:border-[#008C6A]/50 animate-fade-in transition-all duration-300 text-white">
+          <Card className="bg-[#1a1a1a] shadow-xl border border-[#cfcbcb]">
+            <CardHeader className="bg-[#000000] text-[#ffffff] border-b border-[#cfcbcb]">
               <CardTitle className="flex items-center gap-3">
                 <Sparkles className="h-6 w-6" />
                 {isRTL ? 'مؤشرات الذكاء الاصطناعي' : 'AI Metrics'}
@@ -228,9 +229,9 @@ const ArtificialIntelligence = ({
                 </PieChart>
               </ResponsiveContainer>
               <div className="mt-4 space-y-2">
-                {aiMetrics.map((metric, idx) => <div key={idx} className="flex items-center justify-between text-sm">
+                {aiMetrics.map((metric, idx) => <div key={idx} className="flex items-center justify-between text-sm text-[#ffffff]">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full" style={{
+                      <div className="w-3 h-3 rounded-full border border-[#cfcbcb]" style={{
                     backgroundColor: metric.color
                   }}></div>
                       <span>{metric.name}</span>
@@ -245,7 +246,7 @@ const ArtificialIntelligence = ({
         {/* AI Features Grid */}
         <div className="mb-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-slate-800 to-slate-900 text-white px-8 py-3 rounded-2xl shadow-lg">
+            <div className="inline-flex items-center gap-3 bg-[#000000] text-[#ffffff] border border-[#cfcbcb] px-8 py-3 rounded-2xl shadow-lg">
               <Brain className="h-6 w-6" />
               <span className="font-bold text-lg">{isRTL ? 'المحرك الذكي المتقدم' : 'Advanced AI Engine'}</span>
             </div>
@@ -253,14 +254,14 @@ const ArtificialIntelligence = ({
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {aiFeatures.map((feature, index) => <div key={index} className="group cursor-pointer">
-                <div className={`${feature.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300 relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <feature.icon className="h-10 w-10 text-white relative z-10" />
-                  {feature.count > 0 && <div className="absolute -top-2 -right-2 bg-white text-gray-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow-lg">
+                <div className={`${feature.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:border-[#b1a086] transition-all duration-300 relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-[#b1a086]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <feature.icon className="h-10 w-10 text-[#ffffff] relative z-10" />
+                  {feature.count > 0 && <div className="absolute -top-2 -right-2 bg-[#ffffff] text-[#000000] border border-[#cfcbcb] rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow-lg">
                       {feature.count}
                     </div>}
                 </div>
-                <p className="text-center font-medium text-gray-700 group-hover:text-primary transition-colors duration-300">
+                <p className="text-center font-medium text-[#ffffff] group-hover:text-[#b1a086] transition-colors duration-300">
                   {feature.label}
                 </p>
               </div>)}
@@ -268,20 +269,20 @@ const ArtificialIntelligence = ({
         </div>
 
         {/* Main Tabs Content */}
-        <Card className="shadow-2xl border-0 overflow-hidden bg-gradient-to-br from-white to-slate-50">
+        <Card className="shadow-2xl border border-[#cfcbcb] overflow-hidden bg-[#1a1a1a]">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               {/* Advanced Tab Navigation */}
-              <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 p-6">
+              <div className="bg-[#000000] border-b border-[#cfcbcb] p-6">
                 <TabsList className="bg-transparent border-none p-0 h-auto space-x-2 w-full justify-start overflow-x-auto">
-                  {tabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex-shrink-0 bg-white/10 border border-white/20 text-white hover:bg-white/20 data-[state=active]:bg-primary data-[state=active]:text-white transition-all duration-300 rounded-xl px-6 py-3 text-sm font-medium backdrop-blur-sm">
+                  {tabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex-shrink-0 bg-[#1a1a1a] border border-[#cfcbcb] text-[#ffffff] hover:bg-[#b1a086] hover:text-[#000000] data-[state=active]:bg-[#ffffff] data-[state=active]:text-[#000000] data-[state=active]:border-[#000000] transition-all duration-300 rounded-xl px-6 py-3 text-sm font-medium">
                       <div className="flex items-center gap-3">
-                        <div className="p-1.5 bg-white/10 rounded-lg">
+                        <div className="p-1.5 bg-[#000000]/20 rounded-lg border border-[#cfcbcb]/20">
                           <tab.icon className="h-4 w-4" />
                         </div>
                         <div className="text-left">
                           <div className="font-semibold">{tab.label}</div>
-                          <div className="text-xs text-white/70">{tab.description}</div>
+                          <div className="text-xs text-[#e8e4e0]">{tab.description}</div>
                         </div>
                       </div>
                     </TabsTrigger>)}
